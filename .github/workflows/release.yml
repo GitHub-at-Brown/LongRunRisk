@@ -1,401 +1,175 @@
 name: Release
-
-on:
+on: 
   workflow_dispatch:
-
-env:
-  GITHUB_TOKEN:                ${{ secrets.GITHUB_TOKEN }}
-  RESOURCE_PUBLISHER_TOKEN:    ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
-  RESOURCE_SYSTEM_BASE:        ${{ secrets.RESOURCE_SYSTEM_BASE }}
-  TEST_CLOUD_ACCOUNT_PASSWORD: ${{ secrets.TEST_CLOUD_ACCOUNT_PASSWORD }}
-  TEST_CLOUD_ACCOUNT_USER:     ${{ secrets.TEST_CLOUD_ACCOUNT_USER }}
-  TEST_PUBLISHER_ID:           ${{ secrets.TEST_PUBLISHER_ID }}
-  WOLFRAM_SYSTEM_ID:           Linux-x86-64
+  push: 
+    branches:  [main]
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+env: 
+  RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
   WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
-
-jobs:
-  Check:
+  WLPR_PACLET_SITE: https://resources.wolframcloud.com/PacletRepository/pacletsite
+jobs: 
+  Check: 
     name: Check
     runs-on: ubuntu-latest
-    container:
-      image: wolframresearch/wolframengine:latest
+    container: 
+      image: wolframresearch/wolframengine:13.0.1
       options: --user root
-    timeout-minutes: 10
-
-    steps:
-      - name: Checkout files
-        uses: actions/checkout@v3
-
-      - name: Build paclet MX
-        run: bash Scripts/RunScript.sh BuildPacletMX.wls
-
-      - name: Check paclet
-        run: bash Scripts/RunScript.sh CheckPaclet.wls
-      
-      - name: Upload stack data
-        if: always() && env.PACLET_STACK_HISTORY
-        uses: actions/upload-artifact@v3
-        with:
-          name: check-paclet-stacks-${{ env.WOLFRAM_SYSTEM_ID }}
-          path: ${{ env.PACLET_STACK_HISTORY }}
-          if-no-files-found: error
-      
-      - name: Upload workflow values
-        if: always() && env.PACLET_WORKFLOW_VALUES
-        uses: actions/upload-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: ${{ env.PACLET_WORKFLOW_VALUES }}
-          retention-days: 1
-          if-no-files-found: error
-
-  Build:
-    name: Build
-    runs-on: ubuntu-latest
-    container:
-      image: wolframresearch/wolframengine:latest
-      options: --user root
-    timeout-minutes: 10
-
-    steps:
-      - name: Checkout files
-        uses: actions/checkout@v3
-
-      - name: Build paclet MX
-        run: bash Scripts/RunScript.sh BuildPacletMX.wls
-
-      - name: Build paclet
-        run: bash Scripts/RunScript.sh BuildPaclet.wls
-      
-      - name: Upload stack data
-        if: always() && env.PACLET_STACK_HISTORY
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-paclet-stacks
-          path: ${{ env.PACLET_STACK_HISTORY }}
-          if-no-files-found: error
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: PacletBuildArtifact
-          path: ${{ env.PACLET_BUILD_DIR }}
-          if-no-files-found: error
-      
-      - name: Upload workflow values
-        if: always() && env.PACLET_WORKFLOW_VALUES
-        uses: actions/upload-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: ${{ env.PACLET_WORKFLOW_VALUES }}
-          retention-days: 1
-          if-no-files-found: error
-
-  Test-Linux: 
-    name: Test-Linux
-    needs: [Build]
+    env: 
+      WOLFRAM_SYSTEM_ID: Linux-x86-64
+    timeout-minutes: 360
+    steps: 
+    - name: Checkout
+      id: checkout-code-step
+      uses: actions/checkout@v3
+    - name: Check
+      id: check-paclet-step
+      uses: WolframResearch/check-paclet@v1.10.2
+      with: 
+        target: Submit
+        paclet_cicd_version: 0.34.0
+        definition_notebook: ./ResourceDefinition.nb
+        resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
+    - name: UploadWorkflowValues
+      id: upload-workflow-values-step
+      if: always() && env.PACLET_WORKFLOW_VALUES
+      uses: actions/upload-artifact@v3
+      with: 
+        name: paclet-workflow-values
+        path: ${{ env.PACLET_WORKFLOW_VALUES }}
+        if-no-files-found: ignore
+  Test: 
+    name: Test
     runs-on: ubuntu-latest
     container: 
-      image: wolframresearch/wolframengine:latest
+      image: wolframresearch/wolframengine:13.0.1
       options: --user root
-    timeout-minutes: 10
-
-    steps: 
-      - name: Checkout
-        id: checkout-code-step
-        uses: actions/checkout@v3
-
-      - name: Download workflow values
-        uses: actions/download-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: .paclet-workflow-values
-
-      - name: Download MX build
-        id: download-mx-artifacts-step
-        uses: actions/download-artifact@v3
-        with: 
-          name: PacletBuildArtifact
-          path: MXBuild
-
-      - name: Test paclet
-        run: bash Scripts/RunScript.sh TestPaclet.wls
-      
-      - name: Upload stack data
-        if: always() && env.PACLET_STACK_HISTORY
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-paclet-stacks-${{ env.WOLFRAM_SYSTEM_ID }}
-          path: ${{ env.PACLET_STACK_HISTORY }}
-          if-no-files-found: error
-      
-      - name: Upload workflow values
-        if: always() && env.PACLET_WORKFLOW_VALUES
-        uses: actions/upload-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: ${{ env.PACLET_WORKFLOW_VALUES }}
-          retention-days: 1
-          if-no-files-found: error
-
-  Test-MacOSX: 
-    name: Test-MacOSX
-    needs: [Build]
-    runs-on: macos-latest
     env: 
-      WOLFRAM_SYSTEM_ID: MacOSX-x86-64
-      WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
-      WOLFRAMENGINE_CACHE_KEY: WolframEngine-A
-      WOLFRAMENGINE_INSTALLATION_DIRECTORY: "/Applications/Wolfram Engine.app"
-    timeout-minutes: 20
-
+      WOLFRAM_SYSTEM_ID: Linux-x86-64
+    timeout-minutes: 360
     steps: 
-      - name: Checkout
-        id: checkout-code-step
-        uses: actions/checkout@v3
-
-      - name: Download workflow values
-        uses: actions/download-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: .paclet-workflow-values
-
-      - name: RestoreCachedWolframEngine
-        id: cache-restore-step
-        uses: actions/cache@v3
-        with: 
-          path: ${{ env.WOLFRAMENGINE_INSTALLATION_DIRECTORY }}
-          key: wolframengine-${{ env.WOLFRAM_SYSTEM_ID }}-${{ env.WOLFRAMENGINE_CACHE_KEY }}
-
-      - name: InstallWolframEngine
-        if: steps.cache-restore-step.outputs.cache-hit != 'true'
-        run: |
-          echo 'Installing Wolfram Engine...'
-          brew install --cask wolfram-engine
-          echo 'Installed Wolfram Engine.'
-
-      - name: Download MX build
-        id: download-mx-artifacts-step
-        uses: actions/download-artifact@v3
-        with: 
-          name: PacletBuildArtifact
-          path: MXBuild
-      
-      - name: Test paclet
-        run: |
-          export PATH="${{ env.WOLFRAMENGINE_EXECUTABLES_DIRECTORY }}:$PATH"
-          wolframscript -debug -verbose -script Scripts/TestPaclet.wls
-        env: 
-          WOLFRAMENGINE_EXECUTABLES_DIRECTORY: "${{ env.WOLFRAMENGINE_INSTALLATION_DIRECTORY }}/Contents/Resources/Wolfram Player.app/Contents/MacOS"
-          WOLFRAMSCRIPT_KERNELPATH: "${{ env.WOLFRAMENGINE_INSTALLATION_DIRECTORY }}/Contents/MacOS/WolframKernel"
-
-      - name: Upload stack data
-        if: always() && env.PACLET_STACK_HISTORY
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-paclet-stacks-${{ env.WOLFRAM_SYSTEM_ID }}
-          path: ${{ env.PACLET_STACK_HISTORY }}
-          if-no-files-found: error
-      
-      - name: Upload workflow values
-        if: always() && env.PACLET_WORKFLOW_VALUES
-        uses: actions/upload-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: ${{ env.PACLET_WORKFLOW_VALUES }}
-          retention-days: 1
-          if-no-files-found: error
-
-
-  Test-Windows: 
-    name: Test-Windows
-    needs: [Build]
-    runs-on: windows-latest
-    env: 
-      WOLFRAM_SYSTEM_ID: Windows-x86-64
-      WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
-      WOLFRAMENGINE_INSTALL_MSI_DOWNLOAD_URL: https://files.wolframcdn.com/packages/winget/13.0.0.0/WolframEngine_13.0.0_WIN.msi
-      WOLFRAMENGINE_CACHE_KEY: WolframEngine-A
-    timeout-minutes: 20
-
-    steps: 
-      - name: Checkout
-        id: checkout-code-step
-        uses: actions/checkout@v3
-
-      - name: Download workflow values
-        uses: actions/download-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: .paclet-workflow-values
-
-      - name: RestoreCachedWolframEngine
-        id: cache-restore-step
-        uses: actions/cache@v3
-        env: 
-          WOLFRAMENGINE_INSTALLATION_DIRECTORY: '${{ runner.temp }}\WolframEngine'
-        with: 
-          path: ${{ env.WOLFRAMENGINE_INSTALLATION_DIRECTORY }}
-          key: wolframengine-${{ env.WOLFRAM_SYSTEM_ID }}-${{ env.WOLFRAMENGINE_CACHE_KEY }}
-
-      - name: InstallWolframEngine
-        if: steps.cache-restore-step.outputs.cache-hit != 'true'
-        env: 
-          WOLFRAMENGINE_INSTALLATION_DIRECTORY: '${{ runner.temp }}\WolframEngine'
-          WOLFRAMENGINE_INSTALL_MSI_PATH: '${{ runner.temp }}\WolframEngine-Install.msi'
-          WOLFRAMENGINE_INSTALL_LOG_PATH: '${{ runner.temp }}\WolframEngine-Install.log'
-        run: |
-          echo 'Downloading Wolfram Engine installer...'
-          $msiFile = '${{ env.WOLFRAMENGINE_INSTALL_MSI_PATH }}'
-          $logFile = '${{ env.WOLFRAMENGINE_INSTALL_LOG_PATH }}'
-          Import-Module BitsTransfer
-          Start-BitsTransfer '${{ env.WOLFRAMENGINE_INSTALL_MSI_DOWNLOAD_URL }}' $msiFile
-          echo 'Downloaded Wolfram Engine installer.'
-          $DataStamp = get-date -Format yyyyMMddTHHmmss
-          $MSIArguments = @(
-              "/i"
-              ('"{0}"' -f $msiFile)
-              'INSTALLLOCATION="${{ env.WOLFRAMENGINE_INSTALLATION_DIRECTORY }}"'
-              "/qn"
-              "/norestart"
-              "/L*v"
-              $logFile
-          )
-          echo 'Installing Wolfram Engine...'
-          Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
-          echo 'Installed Wolfram Engine.'
-          Set-Alias -Name wolframscript -Value wolfram
-
-      - name: Download MX build
-        id: download-mx-artifacts-step
-        uses: actions/download-artifact@v3
-        with: 
-          name: PacletBuildArtifact
-          path: MXBuild
-
-      - name: Test paclet
-        run: |
-          $env:Path += ';${{ env.WOLFRAMENGINE_INSTALLATION_DIRECTORY }}\'
-          wolfram -script Scripts/TestPaclet.wls
-        env: 
-          WOLFRAMENGINE_INSTALLATION_DIRECTORY: '${{ runner.temp }}\WolframEngine'
-          WOLFRAMINIT: "-pwfile !cloudlm.wolfram.com -entitlement ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}"
-      
-      - name: Upload stack data
-        if: always() && env.PACLET_STACK_HISTORY
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-paclet-stacks-${{ env.WOLFRAM_SYSTEM_ID }}
-          path: ${{ env.PACLET_STACK_HISTORY }}
-          if-no-files-found: error
-
-      - name: Upload workflow values
-        if: always() && env.PACLET_WORKFLOW_VALUES
-        uses: actions/upload-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: ${{ env.PACLET_WORKFLOW_VALUES }}
-          retention-days: 1
-          if-no-files-found: error
-
-  Release:
+    - name: Checkout
+      id: checkout-code-step
+      uses: actions/checkout@v3
+    - name: Test
+      id: test-paclet-step
+      uses: WolframResearch/test-paclet@v1.10.2
+      with: 
+        target: Submit
+        paclet_cicd_version: 0.34.0
+        definition_notebook: ./ResourceDefinition.nb
+        resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
+    - name: UploadWorkflowValues
+      id: upload-workflow-values-step
+      if: always() && env.PACLET_WORKFLOW_VALUES
+      uses: actions/upload-artifact@v3
+      with: 
+        name: paclet-workflow-values
+        path: ${{ env.PACLET_WORKFLOW_VALUES }}
+        if-no-files-found: ignore
+  Release: 
     name: Release
-    needs: [Check, Build, Test-Linux, Test-MacOSX, Test-Windows]
+    needs:  [Build]
     runs-on: ubuntu-latest
-    container:
-      image: wolframresearch/wolframengine:latest
+    container: 
+      image: wolframresearch/wolframengine:13.0.1
       options: --user root
-
-    timeout-minutes: 20
-    steps:
-      - name: Checkout files
-        uses: actions/checkout@v3
-
-      - name: Download workflow values
-        uses: actions/download-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: .paclet-workflow-values
-
-      - name: Download MX build
-        id: download-mx-artifacts-step
-        uses: actions/download-artifact@v3
-        with: 
-          name: PacletBuildArtifact
-          path: Release
-
-      - name: Set release parameters
-        run: bash Scripts/RunScript.sh SetReleaseParameters.wls
-      
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.PACLET_RELEASE_TAG }}
-          release_name: Release ${{ env.PACLET_RELEASE_TAG }}
-          draft: false
-          prerelease: false
-
-      - name: Upload release asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ env.PACLET_PATH }}
-          asset_name: ${{ env.PACLET_FILE }}
-          asset_content_type: application/zip
-
-      - name: Upload workflow values
-        if: always() && env.PACLET_WORKFLOW_VALUES
-        uses: actions/upload-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: ${{ env.PACLET_WORKFLOW_VALUES }}
-          retention-days: 1
-          if-no-files-found: error
-
-  Submit:
-    name: Submit
-    needs: [Check, Test-Linux, Test-MacOSX, Test-Windows]
+    env: 
+      WOLFRAM_SYSTEM_ID: Linux-x86-64
+    timeout-minutes: 360
+    steps: 
+    - name: Checkout
+      id: checkout-code-step
+      uses: actions/checkout@v3
+    - name: DownloadWorkflowValues
+      id: download-workflow-values-step
+      uses: actions/download-artifact@v3
+      with: 
+        name: paclet-workflow-values
+        path: .paclet-workflow-values
+    - name: Build
+      id: build-paclet-step
+      uses: WolframResearch/build-paclet@v1.10.2
+      with: 
+        target: Submit
+        paclet_cicd_version: 0.34.0
+        definition_notebook: ./ResourceDefinition.nb
+        resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
+    - name: UploadArtifact
+      id: upload-build-artifacts-step
+      uses: actions/upload-artifact@v3
+      with: 
+        path: ${{ env.PACLET_BUILD_DIR }}
+        if-no-files-found: ignore
+    - name: CreateRelease
+      id: create-release-step
+      uses: actions/create-release@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with: 
+        tag_name: ${{ env.PACLET_RELEASE_TAG }}
+        release_name: Release ${{ env.PACLET_RELEASE_TAG }}
+        draft: false
+        prerelease: false
+    - name: UploadRelease
+      id: upload-release-asset-step
+      uses: actions/upload-release-asset@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with: 
+        upload_url: ${{ steps.create-release-step.outputs.upload_url }}
+        asset_path: ${{ env.PACLET_PATH }}
+        asset_name: ${{ env.PACLET_FILE }}
+        asset_content_type: application/zip
+    - name: UploadWorkflowValues
+      id: upload-workflow-values-step
+      if: always() && env.PACLET_WORKFLOW_VALUES
+      uses: actions/upload-artifact@v3
+      with: 
+        name: paclet-workflow-values
+        path: ${{ env.PACLET_WORKFLOW_VALUES }}
+        if-no-files-found: ignore
+  Build: 
+    name: Build
+    needs:  [Check, Test]
     runs-on: ubuntu-latest
-    container:
-      image: wolframresearch/wolframengine:latest
+    container: 
+      image: wolframresearch/wolframengine:13.0.1
       options: --user root
-
-    timeout-minutes: 20
-    steps:
-      - name: Checkout files
-        uses: actions/checkout@v3
-
-      - name: Download workflow values
-        uses: actions/download-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: .paclet-workflow-values
-        
-      - name: Build paclet MX
-        run: bash Scripts/RunScript.sh BuildPacletMX.wls
-
-      - name: Submit paclet
-        run: bash Scripts/RunScript.sh SubmitPaclet.wls
-
-      - name: Upload stack data
-        if: always() && env.PACLET_STACK_HISTORY
-        uses: actions/upload-artifact@v3
-        with:
-          name: submit-paclet-stacks
-          path: ${{ env.PACLET_STACK_HISTORY }}
-          if-no-files-found: error
-
-      - name: Upload workflow values
-        if: always() && env.PACLET_WORKFLOW_VALUES
-        uses: actions/upload-artifact@v3
-        with:
-          name: paclet-workflow-values
-          path: ${{ env.PACLET_WORKFLOW_VALUES }}
-          retention-days: 1
-          if-no-files-found: error
+    env: 
+      WOLFRAM_SYSTEM_ID: Linux-x86-64
+    timeout-minutes: 360
+    steps: 
+    - name: Checkout
+      id: checkout-code-step
+      uses: actions/checkout@v3
+    - name: DownloadWorkflowValues
+      id: download-workflow-values-step
+      uses: actions/download-artifact@v3
+      with: 
+        name: paclet-workflow-values
+        path: .paclet-workflow-values
+    - name: Build
+      id: build-paclet-step
+      uses: WolframResearch/build-paclet@v1.10.2
+      with: 
+        target: Submit
+        paclet_cicd_version: 0.34.0
+        definition_notebook: ./ResourceDefinition.nb
+        resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
+    - name: UploadArtifact
+      id: upload-build-artifacts-step
+      uses: actions/upload-artifact@v3
+      with: 
+        path: ${{ env.PACLET_BUILD_DIR }}
+        if-no-files-found: ignore
+    - name: UploadWorkflowValues
+      id: upload-workflow-values-step
+      if: always() && env.PACLET_WORKFLOW_VALUES
+      uses: actions/upload-artifact@v3
+      with: 
+        name: paclet-workflow-values
+        path: ${{ env.PACLET_WORKFLOW_VALUES }}
+        if-no-files-found: ignore
