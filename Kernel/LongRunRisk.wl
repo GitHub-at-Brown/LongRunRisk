@@ -7,28 +7,38 @@
 BeginPackage["FernandoDuarte`LongRunRisk`"];
 
 
-(* ::Text:: *)
-(*Declare your public symbols here:*)
+(* ::Section:: *)
+(*Public symbols*)
 
 
-SayHello;
+(* ::Subsubsection:: *)
+(*Load subcontexts*)
+
+
+With[ { mainContext = "FernandoDuarte`LongRunRisk`" },       
+        Needs[ mainContext <> "timeAggregation`" -> None ];
+] 
+
+
+(* ::Subsubsection:: *)
+(*Introduce public symbols*)
+
+
+wcAGeq::usage = "Computes approximation of time-aggregated wealth-consumption ratio. Consumption growth approximated around `mu0` with default value 0.0015.";
+
+
+(* ::Section:: *)
+(*Private context*)
 
 
 Begin["`Private`"];
 
 
+(* define aliases to reference implementation *)
+wcAGeq = FernandoDuarte`LongRunRisk`timeAggregation`Private`wcAGeq
+
+
 (* ::Section:: *)
-(*Definitions*)
-
-
-(* ::Text:: *)
-(*Define your public and private symbols here:*)
-
-
-SayHello[name_? StringQ] := "Hello " <> name <> "!";
-
-
-(* ::Section::Closed:: *)
 (*Package Footer*)
 
 

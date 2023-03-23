@@ -4,6 +4,8 @@ Cell[CellGroupData[{
 Cell["FernandoDuarte/LongRunRisk", "Title",
  Deletable->False,
  TaggingRules->{},
+ CellChangeTimes->{{3.888543033231236*^9, 3.888543033478718*^9}, {
+  3.8885481064103928`*^9, 3.888548111172896*^9}},
  CellTags->{"Name", "TemplateCell", "Title"},
  CellID->552830689,ExpressionUUID->"896f7415-457a-421a-ab5e-977423d20287"],
 
@@ -36,7 +38,7 @@ Cell["", "FileManagerTopSpacer",
  CellGroupingRules->{"SectionGrouping", 99},
  TaggingRules->{},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->947429766,ExpressionUUID->"2d73f86a-4ac5-46f8-a2a7-f366da3d1ea8"],
+ CellID->947429766,ExpressionUUID->"615b9804-196e-4c44-8d69-dd30c0a6dccc"],
 
 Cell[TextData[Cell[BoxData[
  InterpretationBox[
@@ -63,7 +65,7 @@ Cell[TextData[Cell[BoxData[
     NotebookDirectory[], "Documentation"}],
   BoxID -> "FileTreePath",
   BaseStyle->{
-   "Text"}]],ExpressionUUID->"4d99daff-e313-4370-8d77-58e461218efb"]], \
+   "Text"}]],ExpressionUUID->"a6d394f2-76f3-41c6-b1b9-9a6b628d80c4"]], \
 "FileManagerDirectory",
  CellMargins->{{Inherited, Inherited}, {Inherited, Inherited}},
  CellGroupingRules->{"SectionGrouping", 100},
@@ -74,7 +76,31 @@ Cell[TextData[Cell[BoxData[
       TemplateBox[{}, "FileManagerDocumentationIconTemplate"]], Background -> 
      None], Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->2008318304,ExpressionUUID->"a7e16e4c-734b-4ab9-981d-4c6fa15522a0"],
+ CellID->2008318304,ExpressionUUID->"3359b156-e474-4461-9644-1db5c245b866"],
+
+Cell[BoxData[
+ InterpretationBox[
+  TagBox[
+   TemplateBox[{"\"githubCI.nb\"", 
+     FileNameJoin[{
+       NotebookDirectory[], "githubCI.nb"}]},
+    "FileManagerFileOpenerTemplate"],
+   Annotation[#, 
+    DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[0]]& ],
+  FileNameJoin[{
+    NotebookDirectory[], "githubCI.nb"}],
+  BoxID -> "FileTreePath",
+  BaseStyle->{"Text"}]], "FileManagerFile",
+ CellMargins->{{Inherited, Inherited}, {Inherited, Inherited}},
+ CellGroupingRules->{"SectionGrouping", 100},
+ TaggingRules->{},
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{}, "FileManagerNBIconTemplate"]], Background -> None], 
+    Inherited}, {Inherited, Inherited}},
+ CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
+ CellID->1612494714,ExpressionUUID->"8d7884fa-1a7e-4149-bf1f-b66fd84f9cc7"],
 
 Cell[CellGroupData[{
 
@@ -102,7 +128,7 @@ Cell[TextData[Cell[BoxData[
     NotebookDirectory[], "Kernel"}],
   BoxID -> "FileTreePath",
   BaseStyle->{
-   "Text"}]],ExpressionUUID->"68d183f7-9810-4112-93bb-5b2289914291"]], \
+   "Text"}]],ExpressionUUID->"5c67b0e7-b9d2-4037-a64a-7f3ddce53c0c"]], \
 "FileManagerDirectory",
  CellMargins->{{Inherited, Inherited}, {Inherited, Inherited}},
  CellGroupingRules->{"SectionGrouping", 100},
@@ -113,7 +139,7 @@ Cell[TextData[Cell[BoxData[
       TemplateBox[{}, "FileManagerKernelIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1805255429,ExpressionUUID->"9df43b77-c80d-49dd-879b-1960038f8e52"],
+ CellID->1805255429,ExpressionUUID->"bcb93ddd-bc5b-4485-8830-239674e9dc6e"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -137,8 +163,56 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1279030387,ExpressionUUID->"0741e9b4-4def-4634-85de-3ffa71519678"]
-}, Closed]],
+ CellID->1279030387,ExpressionUUID->"e0c74ced-ae84-4fc3-8524-05f434cbe450"],
+
+Cell[BoxData[
+ InterpretationBox[
+  TagBox[
+   TemplateBox[{"\"secondOrderApprox.wl\"", 
+     FileNameJoin[{
+       NotebookDirectory[], "Kernel", "secondOrderApprox.wl"}]},
+    "FileManagerFileOpenerTemplate"],
+   Annotation[#, 
+    DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[1]]& ],
+  FileNameJoin[{
+    NotebookDirectory[], "Kernel", "secondOrderApprox.wl"}],
+  BoxID -> "FileTreePath",
+  BaseStyle->{"Text"}]], "FileManagerFile",
+ CellMargins->{{23 + Inherited, Inherited}, {Inherited, Inherited}},
+ CellGroupingRules->{"SectionGrouping", 110},
+ TaggingRules->{},
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
+    Inherited}, {Inherited, Inherited}},
+ CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
+ CellID->2102516705,ExpressionUUID->"d33c215f-cc3c-4e5e-b5d8-4ecebfe31192"],
+
+Cell[BoxData[
+ InterpretationBox[
+  TagBox[
+   TemplateBox[{"\"timeAggregation.m\"", 
+     FileNameJoin[{
+       NotebookDirectory[], "Kernel", "timeAggregation.m"}]},
+    "FileManagerFileOpenerTemplate"],
+   Annotation[#, 
+    DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[1]]& ],
+  FileNameJoin[{
+    NotebookDirectory[], "Kernel", "timeAggregation.m"}],
+  BoxID -> "FileTreePath",
+  BaseStyle->{"Text"}]], "FileManagerFile",
+ CellMargins->{{23 + Inherited, Inherited}, {Inherited, Inherited}},
+ CellGroupingRules->{"SectionGrouping", 110},
+ TaggingRules->{},
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
+    Inherited}, {Inherited, Inherited}},
+ CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
+ CellID->154849550,ExpressionUUID->"d69f15f3-8c11-4e8d-a73d-bfe796f4316e"]
+}, Open  ]],
 
 Cell[BoxData[
  InterpretationBox[
@@ -162,7 +236,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->352407839,ExpressionUUID->"5fda5d59-41db-4fcb-a9ba-de94a281266d"],
+ CellID->352407839,ExpressionUUID->"9165dd9d-2dc2-4cfa-bae2-1a076a773449"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -186,7 +260,31 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerPacletInfoIconTemplate"]], Background -> 
      None], Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->158651647,ExpressionUUID->"eccdbc45-19e2-441a-bc39-203b7a1d4832"],
+ CellID->158651647,ExpressionUUID->"72f13d84-46bb-40e9-b28a-1bd0a8b6a99d"],
+
+Cell[BoxData[
+ InterpretationBox[
+  TagBox[
+   TemplateBox[{"\"README.md\"", 
+     FileNameJoin[{
+       NotebookDirectory[], "README.md"}]},
+    "FileManagerFileOpenerTemplate"],
+   Annotation[#, 
+    DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[0]]& ],
+  FileNameJoin[{
+    NotebookDirectory[], "README.md"}],
+  BoxID -> "FileTreePath",
+  BaseStyle->{"Text"}]], "FileManagerFile",
+ CellMargins->{{Inherited, Inherited}, {Inherited, Inherited}},
+ CellGroupingRules->{"SectionGrouping", 100},
+ TaggingRules->{},
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{}, "FileManagerTXTIconTemplate"]], Background -> None], 
+    Inherited}, {Inherited, Inherited}},
+ CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
+ CellID->1953690333,ExpressionUUID->"6f7ca8a9-a7af-42f6-adbb-3a8997225f6e"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -210,13 +308,13 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerNBIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1431025202,ExpressionUUID->"69f2115d-69fd-4d9a-acb3-a510a139447d"],
+ CellID->1431025202,ExpressionUUID->"6a94aa68-49f9-415f-9a0f-3dc71af18014"],
 
 Cell["", "FileManagerBottomSpacer",
  CellGroupingRules->{"SectionGrouping", 100},
  TaggingRules->{},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1571207261,ExpressionUUID->"00834bf1-3618-4178-ba6c-103c838ba451"]
+ CellID->1571207261,ExpressionUUID->"4c519acc-e893-4750-8ded-650243a1c6e2"]
 }, Open  ]]
 }, Open  ]],
 
@@ -582,6 +680,8 @@ Cell[BoxData[
   ";"}]], "Input", "Excluded",
  TaggingRules->{},
  InitializationCell->True,
+ CellChangeTimes->{{3.888542895943027*^9, 3.88854289623175*^9}, {
+  3.888548145493849*^9, 3.888548155741708*^9}},
  CellID->172764492,ExpressionUUID->"7ab386b0-4ff4-47a6-8a89-17cebcd71a7a"]
 }, Open  ]],
 
@@ -3470,7 +3570,7 @@ publicly credited with contributing this paclet.", "MoreInfoText"],
  
  CellID->57534933,ExpressionUUID->"a5323128-8217-449e-83b0-5c0dfe0b0482"],
 
-Cell["Fernando Duarte", "Text",
+Cell["Fernando Duarte <duarte@alum.mit.edu>", "Text",
  TaggingRules->{},
  CellID->104631039,ExpressionUUID->"45ba31af-9dbf-4b21-918b-2d805a00ef24"]
 }, Open  ]],
@@ -3507,16 +3607,9 @@ GitHub), you can provide the URL here.", "MoreInfoText"], Background ->
   "Source Control Repository", "SourceControlURL", "TemplateCellGroup"},
  CellID->221376991,ExpressionUUID->"1b84e138-8f9b-476c-85c0-c2be8fb0a12c"],
 
-Cell["https://github.com/UserName/MyPaclet", "Text",
+Cell["https://github.com/GitHub-at-Brown/LongRunRisk", "Text",
  TaggingRules->{},
- CellEventActions->{Inherited, {"KeyDown", "\t"} :> Replace[SelectionMove[
-       SelectedNotebook[], After, Cell]; NotebookFind[
-       SelectedNotebook[], "TabNext", Next, CellTags, AutoScroll -> True, 
-       WrapAround -> True], Blank[NotebookSelection] :> SelectionMove[
-       SelectedNotebook[], All, CellContents, AutoScroll -> True]], 
-   PassEventsDown -> False, PassEventsUp -> False},
- CellTags->{"DefaultContent", "TabNext"},
- CellID->75689085,ExpressionUUID->"f5c9b581-5b0d-4d22-9ba5-d8da49d2b7ac"]
+ CellID->860587570,ExpressionUUID->"3e570dde-bc21-4b22-bf16-473c49a05faa"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -4442,6 +4535,7 @@ Cell[BoxData[
          StyleBox[
           TemplateBox[{
             CheckboxBox["Scheduled", {False, "Scheduled"}], "\" \"", 
+            
             TemplateBox[{"\"Scheduled\"", "\"Scheduled task\""}, 
              "PrettyTooltipTemplate"]},
            "RowDefault"],
@@ -5298,8 +5392,7 @@ the following:\n\[FilledSmallSquare] Executes Shell or RUN commands\n\
                    FrameMargins -> 20, FrameStyle -> GrayLevel[0.9], 
                    RoundingRadius -> 5, ImageSize -> {
                     Scaled[0.65], Automatic}]], "MoreInfoText", Deletable -> 
-                 True, 
-                 CellTags -> {
+                 True, CellTags -> {
                   "SectionMoreInfoDisclosuresLocalSystemInteractions"}, 
                  CellMargins -> {{66, 66}, {15, 15}}], 
                 HoldComplete[
@@ -5462,7 +5555,7 @@ Cell["Additional information about limitations, issues, etc.", "Text",
 }, Open  ]]
 },
 WindowSize->{1091, Automatic},
-WindowMargins->{{Automatic, 295}, {Automatic, 57}},
+WindowMargins->{{Automatic, 383}, {Automatic, 75}},
 WindowTitle->"LongRunRisk | Definition Notebook",
 DockedCells->{
   Cell[
@@ -5478,7 +5571,843 @@ DockedCells->{
    CellFrameMargins -> {{0, 0}, {2, 2}}, CellFrame -> {{0, 0}, {1, 0}}, 
    CacheGraphics -> False, CellOpen -> Dynamic[
      CurrentValue[
-      EvaluationNotebook[], {TaggingRules, "ToolsOpen"}, True]]]},
+      EvaluationNotebook[], {TaggingRules, "ToolsOpen"}, True]]], 
+  Cell[
+   BoxData[
+    StyleBox[
+     TagBox[
+      GridBox[{{
+         OverlayBox[{
+           StyleBox[
+            TagBox[
+             DynamicModuleBox[{Typeset`var$$ = False}, 
+              InterpretationBox[
+               StyleBox[
+                PaneSelectorBox[{False -> GridBox[{{
+                    OpenerBox[
+                    Dynamic[Typeset`var$$], Appearance -> Automatic, Enabled -> 
+                    Automatic, AutoAction -> False, ContinuousAction -> 
+                    False], 
+                    StyleBox[
+                    DynamicBox[
+                    ToBoxes[
+                    DateString[
+                    TimeZoneConvert[
+                    DateObject[
+                    3.888548413149539`16.34236249953167*^9, TimeZone -> 0]], {
+                    "MonthName", " ", "DayShort", ", ", "Year", " ", 
+                    "Hour12Short", ":", "Minute", " ", "AMPMLowerCase"}], 
+                    StandardForm], SingleEvaluation -> True, Evaluator -> 
+                    "System"], FontSlant -> Italic, FontColor -> 
+                    GrayLevel[0.5], FontSize -> 0.9 Inherited, StripOnInput -> 
+                    False]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                    AutoDelete -> False, 
+                    GridBoxBackground -> {"Columns" -> {{Automatic}}}, 
+                    GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{0.5}}}, 
+                    BaselinePosition -> {1, 1}], True -> GridBox[{{
+                    OpenerBox[
+                    Dynamic[Typeset`var$$], Appearance -> Automatic, Enabled -> 
+                    Automatic, AutoAction -> False, ContinuousAction -> 
+                    False], 
+                    StyleBox[
+                    DynamicBox[
+                    ToBoxes[
+                    DateString[
+                    TimeZoneConvert[
+                    DateObject[
+                    3.888548413149539`16.34236249953167*^9, TimeZone -> 0]], {
+                    "MonthName", " ", "DayShort", ", ", "Year", " ", 
+                    "Hour12Short", ":", "Minute", " ", "AMPMLowerCase"}], 
+                    StandardForm], SingleEvaluation -> True, Evaluator -> 
+                    "System"], FontSlant -> Italic, FontColor -> 
+                    GrayLevel[0.5], FontSize -> 0.9 Inherited, StripOnInput -> 
+                    False]}, {"", 
+                    PaneBox["\"\"", ImageMargins -> 0]}}, 
+                    GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> 
+                    False, GridBoxBackground -> {"Columns" -> {{Automatic}}}, 
+                    GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{0.5}}}, 
+                    BaselinePosition -> {1, 1}]}, 
+                 Dynamic[Typeset`var$$], Alignment -> Automatic, ImageSize -> 
+                 Automatic, ImageMargins -> 0, BaseStyle -> {}, 
+                 DefaultBaseStyle -> "OpenerView", BaselinePosition -> 
+                 Baseline], Deployed -> False, StripOnInput -> False], 
+               OpenerView[{
+                 Style[
+                  Dynamic[
+                   DateString[
+                    TimeZoneConvert[
+                    DateObject[
+                    3.888548413149539`16.34236249953167*^9, TimeZone -> 0]], {
+                    "MonthName", " ", "DayShort", ", ", "Year", " ", 
+                    "Hour12Short", ":", "Minute", " ", "AMPMLowerCase"}], 
+                   SingleEvaluation -> True, Evaluator -> "System"], 
+                  FontSlant -> Italic, FontColor -> GrayLevel[0.5], FontSize -> 
+                  0.9 Inherited], ""}, False]], DynamicModuleValues -> 
+              Automatic], Setting[#, {0}]& ], ShowContents -> False, 
+            StripOnInput -> False], 
+           StyleBox[
+            DynamicBox[
+             ToBoxes[
+              DateString[
+               TimeZoneConvert[
+                DateObject[
+                3.888548413149539`16.34236249953167*^9, TimeZone -> 0]], {
+               "MonthName", " ", "DayShort", ", ", "Year", " ", "Hour12Short",
+                 ":", "Minute", " ", "AMPMLowerCase"}], StandardForm], 
+             SingleEvaluation -> True, Evaluator -> "System"], FontSlant -> 
+            Italic, FontColor -> GrayLevel[0.5], FontSize -> 0.9 Inherited, 
+            StripOnInput -> False]}, Alignment -> {Right, Baseline}], 
+         "\"   \"", 
+         ItemBox[
+          StyleBox[
+          "\"Found 10 potential issues\"", LineBreakWithin -> Automatic, 
+           LineIndent -> 0, StripOnInput -> False], ItemSize -> Fit, 
+          StripOnInput -> False], 
+         StyleBox[
+          ActionMenuBox[
+           TemplateBox[{
+             TemplateBox[{
+               TagBox[
+                GridBox[{{
+                   TemplateBox[{
+                    TemplateBox[{
+                    PaneBox[
+                    TemplateBox[{
+                    RGBColor[1., 0.4627450980392157, 0.]}, "HintPodIconHint"],
+                     ImageSize -> {12, 12}, ImageSizeAction -> "ShrinkToFit", 
+                    BaselinePosition -> Scaled[0.1]], 
+                    TemplateBox[{1}, "Spacer1"], 
+                    StyleBox[
+                    "10", FontSize -> 14, FontWeight -> Plain, FontColor -> 
+                    GrayLevel[0.25], FontFamily -> "Source Sans Pro", 
+                    StripOnInput -> False]}, "RowDefault"], 
+                    "\"Potential issues found\""}, "PrettyTooltipTemplate"]}},
+                  AutoDelete -> False, 
+                 GridBoxItemSize -> {
+                  "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+                "Grid"], 
+               GraphicsBox[{
+                 GrayLevel[0.4], 
+                 AbsoluteThickness[2], 
+                 CapForm["Round"], 
+                 LineBox[{{-1, 0}, {0, -1}, {1, 0}}]}, {
+                ImageSize -> {13, 9}, BaselinePosition -> Scaled[0.2], 
+                 ImagePadding -> {{3, 3}, {3, 3}}, AspectRatio -> Full}]}, 
+              "RowDefault"], ImageSize -> {Automatic, 19}, BaselinePosition -> 
+             Baseline, Background -> GrayLevel[1], FrameStyle -> Dynamic[
+               If[
+                CurrentValue["MouseOver"], 
+                Hue[0.55, 0.82, 0.87], 
+                GrayLevel[0.8]]], FrameMargins -> {{4, 4}, {1, 1}}, 
+             Alignment -> {Center, Baseline}}, "Highlighted"], {TemplateBox[{
+               PaneBox[
+                TemplateBox[{
+                  RGBColor[1., 0.4627450980392157, 0.]}, "HintPodIconHint"], 
+                ImageSize -> {10, 10}, ImageSizeAction -> "ShrinkToFit", 
+                BaselinePosition -> Scaled[0.1]], "\" \"", 
+               TemplateBox[{"\"The same symbol occurs on LHS and RHS of \"", 
+                 StyleBox[
+                 "Rule", "Program", FontWeight -> Medium, 
+                  ShowStringCharacters -> True, StripOnInput -> False], 
+                 "\".\\!\\(\\*StyleBox[\\\"\\\\\\\" (L52,C70) \\\\\\\"\\\", \
+Rule[FontOpacity, 0.65`], Rule[FontSize, Times[0.9`, Inherited]], \
+Rule[PrivateFontOptions, List[Rule[\\\"OperatorSubstitution\\\", False]]], \
+Rule[StripOnInput, False]]\\)\""}, "RowDefault"]}, "RowDefault"] :> 
+            DefinitionNotebookClient`WithCurrentNotebook[
+              EvaluationNotebook[], 
+              DefinitionNotebookClient`LoadDefinitionNotebook[
+               "Paclet", DefinitionNotebookClient`$CurrentNotebook]; 
+              DefinitionNotebookClient`PackageScope`setHint[
+               "Warning", "Paclet", DefinitionNotebookClient`$CurrentNotebook,
+                 "e4ff651c-6383-4cf4-a697-550026d56492", 2102516705, 
+                "CodeInspectionFileIssue/PatternRule", <|
+                "AdditionalSources" -> {{{52, 93}, {52, 94}}, {{52, 104}, {52,
+                   105}}, {{52, 118}, {52, 119}}}, "File" -> 
+                 "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                 Automatic, "SourceLineStart" -> 52, "SourceColumnStart" -> 
+                 70, "SourceLineEnd" -> 52, "SourceColumnEnd" -> 71, 
+                 "Message" -> 
+                 "The same symbol occurs on LHS and RHS of \
+``Rule``.\!\(\*StyleBox[\"\\\" (L52,C70) \\\"\", Rule[FontOpacity, 0.65`], \
+Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, False]]\)", 
+                 "SourceInformation" -> 
+                 CodeInspector`InspectionObject[
+                  "PatternRule", 
+                   "The same symbol occurs on LHS and RHS of ``Rule``.", 
+                   "Error", <|
+                   CodeParser`Source -> {{52, 70}, {52, 71}}, 
+                    "AdditionalSources" -> {{{52, 93}, {52, 94}}, {{52, 
+                    104}, {52, 105}}, {{52, 118}, {52, 119}}}, 
+                    ConfidenceLevel -> 0.7, CodeParser`CodeActions -> {}, 
+                    "File" -> 
+                    "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                    Automatic|>], "Hash" -> 5650981146353296297, "Position" -> 
+                 "\!\(\*StyleBox[\"\\\" (L52,C70) \\\"\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, \
+False]]\)"|>]; DefinitionNotebookClient`PackageScope`seekAfter[2102516705]; 
+              Null], TemplateBox[{
+               PaneBox[
+                TemplateBox[{
+                  RGBColor[1., 0.4627450980392157, 0.]}, "HintPodIconHint"], 
+                ImageSize -> {10, 10}, ImageSizeAction -> "ShrinkToFit", 
+                BaselinePosition -> Scaled[0.1]], "\" \"", 
+               TemplateBox[{"\"The same symbol occurs on LHS and RHS of \"", 
+                 StyleBox[
+                 "Rule", "Program", FontWeight -> Medium, 
+                  ShowStringCharacters -> True, StripOnInput -> False], 
+                 "\".\\!\\(\\*StyleBox[\\\"\\\\\\\" (L54,C71) \\\\\\\"\\\", \
+Rule[FontOpacity, 0.65`], Rule[FontSize, Times[0.9`, Inherited]], \
+Rule[PrivateFontOptions, List[Rule[\\\"OperatorSubstitution\\\", False]]], \
+Rule[StripOnInput, False]]\\)\""}, "RowDefault"]}, "RowDefault"] :> 
+            DefinitionNotebookClient`WithCurrentNotebook[
+              EvaluationNotebook[], 
+              DefinitionNotebookClient`LoadDefinitionNotebook[
+               "Paclet", DefinitionNotebookClient`$CurrentNotebook]; 
+              DefinitionNotebookClient`PackageScope`setHint[
+               "Warning", "Paclet", DefinitionNotebookClient`$CurrentNotebook,
+                 "baa0ebf3-3235-4ff4-9d7f-769d4e2d36d6", 2102516705, 
+                "CodeInspectionFileIssue/PatternRule", <|
+                "AdditionalSources" -> {{{54, 94}, {54, 95}}, {{54, 105}, {54,
+                   106}}, {{54, 119}, {54, 120}}}, "File" -> 
+                 "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                 Automatic, "SourceLineStart" -> 54, "SourceColumnStart" -> 
+                 71, "SourceLineEnd" -> 54, "SourceColumnEnd" -> 72, 
+                 "Message" -> 
+                 "The same symbol occurs on LHS and RHS of \
+``Rule``.\!\(\*StyleBox[\"\\\" (L54,C71) \\\"\", Rule[FontOpacity, 0.65`], \
+Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, False]]\)", 
+                 "SourceInformation" -> 
+                 CodeInspector`InspectionObject[
+                  "PatternRule", 
+                   "The same symbol occurs on LHS and RHS of ``Rule``.", 
+                   "Error", <|
+                   CodeParser`Source -> {{54, 71}, {54, 72}}, 
+                    "AdditionalSources" -> {{{54, 94}, {54, 95}}, {{54, 
+                    105}, {54, 106}}, {{54, 119}, {54, 120}}}, 
+                    ConfidenceLevel -> 0.7, CodeParser`CodeActions -> {}, 
+                    "File" -> 
+                    "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                    Automatic|>], "Hash" -> 5650981146353296297, "Position" -> 
+                 "\!\(\*StyleBox[\"\\\" (L54,C71) \\\"\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, \
+False]]\)"|>]; DefinitionNotebookClient`PackageScope`seekAfter[2102516705]; 
+              Null], TemplateBox[{
+               PaneBox[
+                TemplateBox[{
+                  RGBColor[1., 0.4627450980392157, 0.]}, "HintPodIconHint"], 
+                ImageSize -> {10, 10}, ImageSizeAction -> "ShrinkToFit", 
+                BaselinePosition -> Scaled[0.1]], "\" \"", 
+               TemplateBox[{"\"Parameter \"", 
+                 StyleBox[
+                 "ind1", "Program", FontWeight -> Medium, 
+                  ShowStringCharacters -> True, StripOnInput -> False], 
+                 "\" does not have proper form.\\!\\(\\*StyleBox[\\\"\\\\\\\" \
+(L80,C132) \\\\\\\"\\\", Rule[FontOpacity, 0.65`], Rule[FontSize, Times[0.9`, \
+Inherited]], Rule[PrivateFontOptions, List[Rule[\\\"OperatorSubstitution\\\", \
+False]]], Rule[StripOnInput, False]]\\)\""}, "RowDefault"]}, "RowDefault"] :> 
+            DefinitionNotebookClient`WithCurrentNotebook[
+              EvaluationNotebook[], 
+              DefinitionNotebookClient`LoadDefinitionNotebook[
+               "Paclet", DefinitionNotebookClient`$CurrentNotebook]; 
+              DefinitionNotebookClient`PackageScope`setHint[
+               "Warning", "Paclet", DefinitionNotebookClient`$CurrentNotebook,
+                 "e097514b-cabe-408d-a788-fbabab48e22b", 2102516705, 
+                "CodeInspectionFileIssue/Arguments/With", <|
+                "Argument" -> "With", "File" -> 
+                 "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                 Automatic, "SourceLineStart" -> 80, "SourceColumnStart" -> 
+                 132, "SourceLineEnd" -> 80, "SourceColumnEnd" -> 136, 
+                 "Message" -> 
+                 "Parameter ``ind1`` does not have proper \
+form.\!\(\*StyleBox[\"\\\" (L80,C132) \\\"\", Rule[FontOpacity, 0.65`], \
+Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, False]]\)", 
+                 "SourceInformation" -> 
+                 CodeInspector`InspectionObject[
+                  "Arguments", 
+                   "Parameter ``ind1`` does not have proper form.", "Error", <|
+                   CodeParser`Source -> {{80, 132}, {80, 136}}, 
+                    ConfidenceLevel -> 0.85, "Argument" -> "With", "File" -> 
+                    "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                    Automatic|>], "Hash" -> 5650981146353296297, "Position" -> 
+                 "\!\(\*StyleBox[\"\\\" (L80,C132) \\\"\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, \
+False]]\)"|>]; DefinitionNotebookClient`PackageScope`seekAfter[2102516705]; 
+              Null], TemplateBox[{
+               PaneBox[
+                TemplateBox[{
+                  RGBColor[1., 0.4627450980392157, 0.]}, "HintPodIconHint"], 
+                ImageSize -> {10, 10}, ImageSizeAction -> "ShrinkToFit", 
+                BaselinePosition -> Scaled[0.1]], "\" \"", 
+               TemplateBox[{"\"Parameter \"", 
+                 StyleBox[
+                 "ind2", "Program", FontWeight -> Medium, 
+                  ShowStringCharacters -> True, StripOnInput -> False], 
+                 "\" does not have proper form.\\!\\(\\*StyleBox[\\\"\\\\\\\" \
+(L80,C137) \\\\\\\"\\\", Rule[FontOpacity, 0.65`], Rule[FontSize, Times[0.9`, \
+Inherited]], Rule[PrivateFontOptions, List[Rule[\\\"OperatorSubstitution\\\", \
+False]]], Rule[StripOnInput, False]]\\)\""}, "RowDefault"]}, "RowDefault"] :> 
+            DefinitionNotebookClient`WithCurrentNotebook[
+              EvaluationNotebook[], 
+              DefinitionNotebookClient`LoadDefinitionNotebook[
+               "Paclet", DefinitionNotebookClient`$CurrentNotebook]; 
+              DefinitionNotebookClient`PackageScope`setHint[
+               "Warning", "Paclet", DefinitionNotebookClient`$CurrentNotebook,
+                 "3edabe2d-c863-4cbd-a2bf-c8842958108b", 2102516705, 
+                "CodeInspectionFileIssue/Arguments/With", <|
+                "Argument" -> "With", "File" -> 
+                 "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                 Automatic, "SourceLineStart" -> 80, "SourceColumnStart" -> 
+                 137, "SourceLineEnd" -> 80, "SourceColumnEnd" -> 141, 
+                 "Message" -> 
+                 "Parameter ``ind2`` does not have proper \
+form.\!\(\*StyleBox[\"\\\" (L80,C137) \\\"\", Rule[FontOpacity, 0.65`], \
+Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, False]]\)", 
+                 "SourceInformation" -> 
+                 CodeInspector`InspectionObject[
+                  "Arguments", 
+                   "Parameter ``ind2`` does not have proper form.", "Error", <|
+                   CodeParser`Source -> {{80, 137}, {80, 141}}, 
+                    ConfidenceLevel -> 0.85, "Argument" -> "With", "File" -> 
+                    "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                    Automatic|>], "Hash" -> 5650981146353296297, "Position" -> 
+                 "\!\(\*StyleBox[\"\\\" (L80,C137) \\\"\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, \
+False]]\)"|>]; DefinitionNotebookClient`PackageScope`seekAfter[2102516705]; 
+              Null], TemplateBox[{
+               PaneBox[
+                TemplateBox[{
+                  RGBColor[1., 0.4627450980392157, 0.]}, "HintPodIconHint"], 
+                ImageSize -> {10, 10}, ImageSizeAction -> "ShrinkToFit", 
+                BaselinePosition -> Scaled[0.1]], "\" \"", 
+               TemplateBox[{"\"Suspicious implicit \"", 
+                 StyleBox[
+                 "Times", "Program", FontWeight -> Medium, 
+                  ShowStringCharacters -> True, StripOnInput -> False], 
+                 "\" looks like a traditional function \
+call.\\!\\(\\*StyleBox[\\\"\\\\\\\" (L52,C88) \\\\\\\"\\\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\\\"OperatorSubstitution\\\", False]]], Rule[StripOnInput, \
+False]]\\)\""}, "RowDefault"]}, "RowDefault"] :> 
+            DefinitionNotebookClient`WithCurrentNotebook[
+              EvaluationNotebook[], 
+              DefinitionNotebookClient`LoadDefinitionNotebook[
+               "Paclet", DefinitionNotebookClient`$CurrentNotebook]; 
+              DefinitionNotebookClient`PackageScope`setHint[
+               "Warning", "Paclet", DefinitionNotebookClient`$CurrentNotebook,
+                 "0aa1b2c0-54be-4c23-9d8a-813250e59a05", 2102516705, 
+                "CodeInspectionFileIssue/ImplicitTimesPseudoCall", <|
+                "File" -> 
+                 "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                 Automatic, "SourceLineStart" -> 52, "SourceColumnStart" -> 
+                 88, "SourceLineEnd" -> 52, "SourceColumnEnd" -> 88, 
+                 "Message" -> 
+                 "Suspicious implicit ``Times`` looks like a traditional \
+function call.\!\(\*StyleBox[\"\\\" (L52,C88) \\\"\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, False]]\)", 
+                 "SourceInformation" -> 
+                 CodeInspector`InspectionObject[
+                  "ImplicitTimesPseudoCall", 
+                   "Suspicious implicit ``Times`` looks like a traditional \
+function call.", "Error", <|
+                   CodeParser`Source -> {{52, 88}, {52, 88}}, ConfidenceLevel -> 
+                    0.1, CodeParser`CodeActions -> {
+                    CodeParser`CodeAction[
+                    "Insert ``*``", CodeParser`InsertNode, <|
+                    CodeParser`Source -> {{52, 88}, {52, 88}}, 
+                    "InsertionNode" -> 
+                    CodeParser`LeafNode[Token`Star, "*", <||>]|>], 
+                    CodeParser`CodeAction[
+                    "Replace with ``[]``", CodeParser`ReplaceNode, <|
+                    CodeParser`Source -> {{52, 87}, {52, 111}}, 
+                    "ReplacementNode" -> CodeParser`CallNode[{
+                    CodeParser`LeafNode[
+                    Symbol, "s", <|
+                    CodeParser`Source -> {{52, 87}, {52, 88}}|>]}, 
+                    CodeParser`GroupNode[CodeParser`GroupSquare, {
+                    CodeParser`LeafNode[Token`OpenSquare, "[", <||>], 
+                    CodeParser`InfixNode[Plus, {
+                    CodeParser`CallNode[
+                    CodeParser`LeafNode[
+                    Symbol, "v", <|
+                    CodeParser`Source -> {{52, 89}, {52, 90}}|>], 
+                    CodeParser`GroupNode[CodeParser`GroupSquare, {
+                    CodeParser`LeafNode[
+                    Token`OpenSquare, "[", <|
+                    CodeParser`Source -> {{52, 90}, {52, 91}}|>], 
+                    CodeParser`InfixNode[CodeParser`Comma, {
+                    CodeParser`InfixNode[Plus, {
+                    CodeParser`LeafNode[
+                    Symbol, "t", <|CodeParser`Source -> {{52, 91}, {52, 
+                    92}}|>], 
+                    CodeParser`LeafNode[
+                    Token`Plus, "+", <|CodeParser`Source -> {{52, 92}, {52, 
+                    93}}|>], 
+                    CodeParser`LeafNode[
+                    Symbol, "i", <|CodeParser`Source -> {{52, 93}, {52, 
+                    94}}|>]}, <|CodeParser`Source -> {{52, 91}, {52, 94}}|>], 
+                    
+                    CodeParser`LeafNode[
+                    Token`Comma, ",", <|
+                    CodeParser`Source -> {{52, 94}, {52, 95}}|>], 
+                    CodeParser`LeafNode[
+                    Symbol, "k", <|CodeParser`Source -> {{52, 95}, {52, 
+                    96}}|>]}, <|CodeParser`Source -> {{52, 91}, {52, 96}}|>], 
+                    
+                    CodeParser`LeafNode[
+                    Token`CloseSquare, "]", <|
+                    CodeParser`Source -> {{52, 96}, {52, 97}}|>]}, <|
+                    CodeParser`Source -> {{52, 90}, {52, 97}}|>], <|
+                    CodeParser`Source -> {{52, 89}, {52, 97}}|>], 
+                    CodeParser`LeafNode[
+                    Token`Minus, "-", <|
+                    CodeParser`Source -> {{52, 97}, {52, 98}}|>], 
+                    CodeParser`CallNode[
+                    CodeParser`LeafNode[
+                    Symbol, "v0", <|
+                    CodeParser`Source -> {{52, 98}, {52, 100}}|>], 
+                    CodeParser`GroupNode[CodeParser`GroupSquare, {
+                    CodeParser`LeafNode[
+                    Token`OpenSquare, "[", <|
+                    CodeParser`Source -> {{52, 100}, {52, 101}}|>], 
+                    CodeParser`InfixNode[CodeParser`Comma, {
+                    CodeParser`LeafNode[
+                    Symbol, "t", <|CodeParser`Source -> {{52, 101}, {52, 
+                    102}}|>], 
+                    CodeParser`LeafNode[
+                    Token`Comma, ",", <|
+                    CodeParser`Source -> {{52, 102}, {52, 103}}|>], 
+                    CodeParser`PrefixNode[Minus, {
+                    CodeParser`LeafNode[
+                    Token`Minus, "-", <|
+                    CodeParser`Source -> {{52, 103}, {52, 104}}|>], 
+                    CodeParser`LeafNode[
+                    Symbol, "i", <|CodeParser`Source -> {{52, 104}, {52, 
+                    105}}|>]}, <|CodeParser`Source -> {{52, 103}, {52, 
+                    105}}|>], 
+                    CodeParser`LeafNode[
+                    Token`Comma, ",", <|
+                    CodeParser`Source -> {{52, 105}, {52, 106}}|>], 
+                    CodeParser`LeafNode[
+                    Symbol, "h", <|CodeParser`Source -> {{52, 106}, {52, 
+                    107}}|>], 
+                    CodeParser`LeafNode[
+                    Token`Comma, ",", <|
+                    CodeParser`Source -> {{52, 107}, {52, 108}}|>], 
+                    CodeParser`LeafNode[
+                    Symbol, "k", <|CodeParser`Source -> {{52, 108}, {52, 
+                    109}}|>]}, <|CodeParser`Source -> {{52, 101}, {52, 
+                    109}}|>], 
+                    CodeParser`LeafNode[
+                    Token`CloseSquare, "]", <|
+                    CodeParser`Source -> {{52, 109}, {52, 110}}|>]}, <|
+                    CodeParser`Source -> {{52, 100}, {52, 110}}|>], <|
+                    CodeParser`Source -> {{52, 98}, {52, 110}}|>]}, <|
+                    CodeParser`Source -> {{52, 89}, {52, 110}}|>], 
+                    CodeParser`LeafNode[
+                    Token`CloseSquare, "]", <||>]}, <||>], <||>]|>]}, "File" -> 
+                    "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                    Automatic|>], "Hash" -> 5650981146353296297, "Position" -> 
+                 "\!\(\*StyleBox[\"\\\" (L52,C88) \\\"\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, \
+False]]\)"|>]; DefinitionNotebookClient`PackageScope`seekAfter[2102516705]; 
+              Null], TemplateBox[{
+               PaneBox[
+                TemplateBox[{
+                  RGBColor[1., 0.4627450980392157, 0.]}, "HintPodIconHint"], 
+                ImageSize -> {10, 10}, ImageSizeAction -> "ShrinkToFit", 
+                BaselinePosition -> Scaled[0.1]], "\" \"", 
+               TemplateBox[{"\"Suspicious implicit \"", 
+                 StyleBox[
+                 "Times", "Program", FontWeight -> Medium, 
+                  ShowStringCharacters -> True, StripOnInput -> False], 
+                 "\" looks like a traditional function \
+call.\\!\\(\\*StyleBox[\\\"\\\\\\\" (L54,C89) \\\\\\\"\\\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\\\"OperatorSubstitution\\\", False]]], Rule[StripOnInput, \
+False]]\\)\""}, "RowDefault"]}, "RowDefault"] :> 
+            DefinitionNotebookClient`WithCurrentNotebook[
+              EvaluationNotebook[], 
+              DefinitionNotebookClient`LoadDefinitionNotebook[
+               "Paclet", DefinitionNotebookClient`$CurrentNotebook]; 
+              DefinitionNotebookClient`PackageScope`setHint[
+               "Warning", "Paclet", DefinitionNotebookClient`$CurrentNotebook,
+                 "5082f829-ca86-44b8-932f-d7ecd6db682a", 2102516705, 
+                "CodeInspectionFileIssue/ImplicitTimesPseudoCall", <|
+                "File" -> 
+                 "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                 Automatic, "SourceLineStart" -> 54, "SourceColumnStart" -> 
+                 89, "SourceLineEnd" -> 54, "SourceColumnEnd" -> 89, 
+                 "Message" -> 
+                 "Suspicious implicit ``Times`` looks like a traditional \
+function call.\!\(\*StyleBox[\"\\\" (L54,C89) \\\"\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, False]]\)", 
+                 "SourceInformation" -> 
+                 CodeInspector`InspectionObject[
+                  "ImplicitTimesPseudoCall", 
+                   "Suspicious implicit ``Times`` looks like a traditional \
+function call.", "Error", <|
+                   CodeParser`Source -> {{54, 89}, {54, 89}}, ConfidenceLevel -> 
+                    0.1, CodeParser`CodeActions -> {
+                    CodeParser`CodeAction[
+                    "Insert ``*``", CodeParser`InsertNode, <|
+                    CodeParser`Source -> {{54, 89}, {54, 89}}, 
+                    "InsertionNode" -> 
+                    CodeParser`LeafNode[Token`Star, "*", <||>]|>], 
+                    CodeParser`CodeAction[
+                    "Replace with ``[]``", CodeParser`ReplaceNode, <|
+                    CodeParser`Source -> {{54, 88}, {54, 112}}, 
+                    "ReplacementNode" -> CodeParser`CallNode[{
+                    CodeParser`LeafNode[
+                    Symbol, "s", <|
+                    CodeParser`Source -> {{54, 88}, {54, 89}}|>]}, 
+                    CodeParser`GroupNode[CodeParser`GroupSquare, {
+                    CodeParser`LeafNode[Token`OpenSquare, "[", <||>], 
+                    CodeParser`InfixNode[Plus, {
+                    CodeParser`CallNode[
+                    CodeParser`LeafNode[
+                    Symbol, "v", <|
+                    CodeParser`Source -> {{54, 90}, {54, 91}}|>], 
+                    CodeParser`GroupNode[CodeParser`GroupSquare, {
+                    CodeParser`LeafNode[
+                    Token`OpenSquare, "[", <|
+                    CodeParser`Source -> {{54, 91}, {54, 92}}|>], 
+                    CodeParser`InfixNode[CodeParser`Comma, {
+                    CodeParser`InfixNode[Plus, {
+                    CodeParser`LeafNode[
+                    Symbol, "t", <|CodeParser`Source -> {{54, 92}, {54, 
+                    93}}|>], 
+                    CodeParser`LeafNode[
+                    Token`Plus, "+", <|CodeParser`Source -> {{54, 93}, {54, 
+                    94}}|>], 
+                    CodeParser`LeafNode[
+                    Symbol, "i", <|CodeParser`Source -> {{54, 94}, {54, 
+                    95}}|>]}, <|CodeParser`Source -> {{54, 92}, {54, 95}}|>], 
+                    
+                    CodeParser`LeafNode[
+                    Token`Comma, ",", <|
+                    CodeParser`Source -> {{54, 95}, {54, 96}}|>], 
+                    CodeParser`LeafNode[
+                    Symbol, "k", <|CodeParser`Source -> {{54, 96}, {54, 
+                    97}}|>]}, <|CodeParser`Source -> {{54, 92}, {54, 97}}|>], 
+                    
+                    CodeParser`LeafNode[
+                    Token`CloseSquare, "]", <|
+                    CodeParser`Source -> {{54, 97}, {54, 98}}|>]}, <|
+                    CodeParser`Source -> {{54, 91}, {54, 98}}|>], <|
+                    CodeParser`Source -> {{54, 90}, {54, 98}}|>], 
+                    CodeParser`LeafNode[
+                    Token`Minus, "-", <|
+                    CodeParser`Source -> {{54, 98}, {54, 99}}|>], 
+                    CodeParser`CallNode[
+                    CodeParser`LeafNode[
+                    Symbol, "v0", <|
+                    CodeParser`Source -> {{54, 99}, {54, 101}}|>], 
+                    CodeParser`GroupNode[CodeParser`GroupSquare, {
+                    CodeParser`LeafNode[
+                    Token`OpenSquare, "[", <|
+                    CodeParser`Source -> {{54, 101}, {54, 102}}|>], 
+                    CodeParser`InfixNode[CodeParser`Comma, {
+                    CodeParser`LeafNode[
+                    Symbol, "t", <|CodeParser`Source -> {{54, 102}, {54, 
+                    103}}|>], 
+                    CodeParser`LeafNode[
+                    Token`Comma, ",", <|
+                    CodeParser`Source -> {{54, 103}, {54, 104}}|>], 
+                    CodeParser`PrefixNode[Minus, {
+                    CodeParser`LeafNode[
+                    Token`Minus, "-", <|
+                    CodeParser`Source -> {{54, 104}, {54, 105}}|>], 
+                    CodeParser`LeafNode[
+                    Symbol, "i", <|CodeParser`Source -> {{54, 105}, {54, 
+                    106}}|>]}, <|CodeParser`Source -> {{54, 104}, {54, 
+                    106}}|>], 
+                    CodeParser`LeafNode[
+                    Token`Comma, ",", <|
+                    CodeParser`Source -> {{54, 106}, {54, 107}}|>], 
+                    CodeParser`LeafNode[
+                    Symbol, "h", <|CodeParser`Source -> {{54, 107}, {54, 
+                    108}}|>], 
+                    CodeParser`LeafNode[
+                    Token`Comma, ",", <|
+                    CodeParser`Source -> {{54, 108}, {54, 109}}|>], 
+                    CodeParser`LeafNode[
+                    Symbol, "k", <|CodeParser`Source -> {{54, 109}, {54, 
+                    110}}|>]}, <|CodeParser`Source -> {{54, 102}, {54, 
+                    110}}|>], 
+                    CodeParser`LeafNode[
+                    Token`CloseSquare, "]", <|
+                    CodeParser`Source -> {{54, 110}, {54, 111}}|>]}, <|
+                    CodeParser`Source -> {{54, 101}, {54, 111}}|>], <|
+                    CodeParser`Source -> {{54, 99}, {54, 111}}|>]}, <|
+                    CodeParser`Source -> {{54, 90}, {54, 111}}|>], 
+                    CodeParser`LeafNode[
+                    Token`CloseSquare, "]", <||>]}, <||>], <||>]|>]}, "File" -> 
+                    "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                    Automatic|>], "Hash" -> 5650981146353296297, "Position" -> 
+                 "\!\(\*StyleBox[\"\\\" (L54,C89) \\\"\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, \
+False]]\)"|>]; DefinitionNotebookClient`PackageScope`seekAfter[2102516705]; 
+              Null], TemplateBox[{
+               PaneBox[
+                TemplateBox[{
+                  RGBColor[1., 0.4627450980392157, 0.]}, "HintPodIconHint"], 
+                ImageSize -> {10, 10}, ImageSizeAction -> "ShrinkToFit", 
+                BaselinePosition -> Scaled[0.1]], "\" \"", 
+               TemplateBox[{"\"Unexpected \"", 
+                 StyleBox[
+                 "System`", "Program", FontWeight -> Medium, 
+                  ShowStringCharacters -> True, StripOnInput -> False], 
+                 "\" symbol as pattern: N\\!\\(\\*StyleBox[\\\"\\\\\\\" \
+(L59,C31) \\\\\\\"\\\", Rule[FontOpacity, 0.65`], Rule[FontSize, Times[0.9`, \
+Inherited]], Rule[PrivateFontOptions, List[Rule[\\\"OperatorSubstitution\\\", \
+False]]], Rule[StripOnInput, False]]\\)\""}, "RowDefault"]}, "RowDefault"] :> 
+            DefinitionNotebookClient`WithCurrentNotebook[
+              EvaluationNotebook[], 
+              DefinitionNotebookClient`LoadDefinitionNotebook[
+               "Paclet", DefinitionNotebookClient`$CurrentNotebook]; 
+              DefinitionNotebookClient`PackageScope`setHint[
+               "Warning", "Paclet", DefinitionNotebookClient`$CurrentNotebook,
+                 "129ca60f-c934-4acc-a856-4a098b5aa274", 2102516705, 
+                "CodeInspectionFileIssue/SystemPattern", <|
+                "File" -> 
+                 "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                 Automatic, "SourceLineStart" -> 59, "SourceColumnStart" -> 
+                 31, "SourceLineEnd" -> 59, "SourceColumnEnd" -> 32, 
+                 "Message" -> 
+                 "Unexpected **System`** symbol as pattern: \
+N\!\(\*StyleBox[\"\\\" (L59,C31) \\\"\", Rule[FontOpacity, 0.65`], \
+Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, False]]\)", 
+                 "SourceInformation" -> 
+                 CodeInspector`InspectionObject[
+                  "SystemPattern", 
+                   "Unexpected **System`** symbol as pattern: N", "Error", <|
+                   CodeParser`Source -> {{59, 31}, {59, 32}}, ConfidenceLevel -> 
+                    0.95, "File" -> 
+                    "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                    Automatic|>], "Hash" -> 5650981146353296297, "Position" -> 
+                 "\!\(\*StyleBox[\"\\\" (L59,C31) \\\"\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, \
+False]]\)"|>]; DefinitionNotebookClient`PackageScope`seekAfter[2102516705]; 
+              Null], TemplateBox[{
+               PaneBox[
+                TemplateBox[{
+                  RGBColor[1., 0.4627450980392157, 0.]}, "HintPodIconHint"], 
+                ImageSize -> {10, 10}, ImageSizeAction -> "ShrinkToFit", 
+                BaselinePosition -> Scaled[0.1]], "\" \"", 
+               TemplateBox[{"\"Unexpected \"", 
+                 StyleBox[
+                 "System`", "Program", FontWeight -> Medium, 
+                  ShowStringCharacters -> True, StripOnInput -> False], 
+                 "\" symbol as pattern: N\\!\\(\\*StyleBox[\\\"\\\\\\\" \
+(L60,C31) \\\\\\\"\\\", Rule[FontOpacity, 0.65`], Rule[FontSize, Times[0.9`, \
+Inherited]], Rule[PrivateFontOptions, List[Rule[\\\"OperatorSubstitution\\\", \
+False]]], Rule[StripOnInput, False]]\\)\""}, "RowDefault"]}, "RowDefault"] :> 
+            DefinitionNotebookClient`WithCurrentNotebook[
+              EvaluationNotebook[], 
+              DefinitionNotebookClient`LoadDefinitionNotebook[
+               "Paclet", DefinitionNotebookClient`$CurrentNotebook]; 
+              DefinitionNotebookClient`PackageScope`setHint[
+               "Warning", "Paclet", DefinitionNotebookClient`$CurrentNotebook,
+                 "64601c5c-9541-4c97-a34d-9b9712a924dc", 2102516705, 
+                "CodeInspectionFileIssue/SystemPattern", <|
+                "File" -> 
+                 "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                 Automatic, "SourceLineStart" -> 60, "SourceColumnStart" -> 
+                 31, "SourceLineEnd" -> 60, "SourceColumnEnd" -> 32, 
+                 "Message" -> 
+                 "Unexpected **System`** symbol as pattern: \
+N\!\(\*StyleBox[\"\\\" (L60,C31) \\\"\", Rule[FontOpacity, 0.65`], \
+Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, False]]\)", 
+                 "SourceInformation" -> 
+                 CodeInspector`InspectionObject[
+                  "SystemPattern", 
+                   "Unexpected **System`** symbol as pattern: N", "Error", <|
+                   CodeParser`Source -> {{60, 31}, {60, 32}}, ConfidenceLevel -> 
+                    0.95, "File" -> 
+                    "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                    Automatic|>], "Hash" -> 5650981146353296297, "Position" -> 
+                 "\!\(\*StyleBox[\"\\\" (L60,C31) \\\"\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, \
+False]]\)"|>]; DefinitionNotebookClient`PackageScope`seekAfter[2102516705]; 
+              Null], TemplateBox[{
+               PaneBox[
+                TemplateBox[{
+                  RGBColor[1., 0.4627450980392157, 0.]}, "HintPodIconHint"], 
+                ImageSize -> {10, 10}, ImageSizeAction -> "ShrinkToFit", 
+                BaselinePosition -> Scaled[0.1]], "\" \"", 
+               TemplateBox[{"\"Unexpected \"", 
+                 StyleBox[
+                 "System`", "Program", FontWeight -> Medium, 
+                  ShowStringCharacters -> True, StripOnInput -> False], 
+                 "\" symbol as pattern: N\\!\\(\\*StyleBox[\\\"\\\\\\\" \
+(L65,C28) \\\\\\\"\\\", Rule[FontOpacity, 0.65`], Rule[FontSize, Times[0.9`, \
+Inherited]], Rule[PrivateFontOptions, List[Rule[\\\"OperatorSubstitution\\\", \
+False]]], Rule[StripOnInput, False]]\\)\""}, "RowDefault"]}, "RowDefault"] :> 
+            DefinitionNotebookClient`WithCurrentNotebook[
+              EvaluationNotebook[], 
+              DefinitionNotebookClient`LoadDefinitionNotebook[
+               "Paclet", DefinitionNotebookClient`$CurrentNotebook]; 
+              DefinitionNotebookClient`PackageScope`setHint[
+               "Warning", "Paclet", DefinitionNotebookClient`$CurrentNotebook,
+                 "192892e2-7ee3-4694-a379-5ae2c3fa942a", 2102516705, 
+                "CodeInspectionFileIssue/SystemPattern", <|
+                "File" -> 
+                 "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                 Automatic, "SourceLineStart" -> 65, "SourceColumnStart" -> 
+                 28, "SourceLineEnd" -> 65, "SourceColumnEnd" -> 29, 
+                 "Message" -> 
+                 "Unexpected **System`** symbol as pattern: \
+N\!\(\*StyleBox[\"\\\" (L65,C28) \\\"\", Rule[FontOpacity, 0.65`], \
+Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, False]]\)", 
+                 "SourceInformation" -> 
+                 CodeInspector`InspectionObject[
+                  "SystemPattern", 
+                   "Unexpected **System`** symbol as pattern: N", "Error", <|
+                   CodeParser`Source -> {{65, 28}, {65, 29}}, ConfidenceLevel -> 
+                    0.95, "File" -> 
+                    "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/secondOrderApprox.wl", "Editor" -> 
+                    Automatic|>], "Hash" -> 5650981146353296297, "Position" -> 
+                 "\!\(\*StyleBox[\"\\\" (L65,C28) \\\"\", Rule[FontOpacity, \
+0.65`], Rule[FontSize, Times[0.9`, Inherited]], Rule[PrivateFontOptions, \
+List[Rule[\"OperatorSubstitution\", False]]], Rule[StripOnInput, \
+False]]\)"|>]; DefinitionNotebookClient`PackageScope`seekAfter[2102516705]; 
+              Null], TemplateBox[{
+               PaneBox[
+                TemplateBox[{
+                  RGBColor[1., 0.4627450980392157, 0.]}, "HintPodIconHint"], 
+                ImageSize -> {10, 10}, ImageSizeAction -> "ShrinkToFit", 
+                BaselinePosition -> Scaled[0.1]], "\" \"", 
+               "\"The paclet creator and the resource creator are expected to \
+match\""}, "RowDefault"] :> DefinitionNotebookClient`WithCurrentNotebook[
+              EvaluationNotebook[], 
+              DefinitionNotebookClient`LoadDefinitionNotebook[
+               "Paclet", DefinitionNotebookClient`$CurrentNotebook]; 
+              DefinitionNotebookClient`PackageScope`setHint[
+               "Warning", "Paclet", DefinitionNotebookClient`$CurrentNotebook,
+                 "fc34d067-af8b-479b-8bc0-df01b7228e6d", 104631039, 
+                "PacletCreatorMismatch", <|
+                "PacletCreator" -> "Fernando Duarte <duarte@alum.mit.edu>", 
+                 "ResourceCreator" -> "Fernando Duarte", "PacletDirectory" -> 
+                 File["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk"]|>]; 
+              DefinitionNotebookClient`PackageScope`seekAfter[104631039]; 
+              Null]}, Appearance -> None], "BoxID" -> "WarningCountButton", 
+          StripOnInput -> False], 
+         TagBox[
+          ButtonBox[
+           TagBox[
+            PaneSelectorBox[{False -> GraphicsBox[{
+                 GrayLevel[
+                  NCache[
+                   Rational[64, 85], 0.7529411764705882]], 
+                 
+                 PolygonBox[{{-0.282842712474619, -0.42426406871192845`}, \
+{-0.42426406871192845`, -0.282842712474619}, {0.282842712474619, 
+                  0.42426406871192845`}, {0.42426406871192845`, 
+                  0.282842712474619}}], 
+                 
+                 PolygonBox[{{0.42426406871192845`, -0.282842712474619}, {
+                  0.282842712474619, -0.42426406871192845`}, \
+{-0.42426406871192845`, 0.282842712474619}, {-0.282842712474619, 
+                  0.42426406871192845`}}]}, ImageSize -> 18, PlotRangePadding -> 
+                0, PlotRange -> 0.7, Background -> None], True -> GraphicsBox[{
+                 GrayLevel[
+                  NCache[
+                   Rational[128, 255], 0.5019607843137255]], 
+                 
+                 PolygonBox[{{-0.282842712474619, -0.42426406871192845`}, \
+{-0.42426406871192845`, -0.282842712474619}, {0.282842712474619, 
+                  0.42426406871192845`}, {0.42426406871192845`, 
+                  0.282842712474619}}], 
+                 
+                 PolygonBox[{{0.42426406871192845`, -0.282842712474619}, {
+                  0.282842712474619, -0.42426406871192845`}, \
+{-0.42426406871192845`, 0.282842712474619}, {-0.282842712474619, 
+                  0.42426406871192845`}}]}, ImageSize -> 18, PlotRangePadding -> 
+                0, PlotRange -> 0.7, Background -> None]}, 
+             Dynamic[
+              CurrentValue["MouseOver"]], ImageSize -> Automatic, 
+             FrameMargins -> 0], 
+            MouseAppearanceTag["LinkHand"]], ButtonFunction :> 
+           With[{DefinitionNotebookClient`Stripes`PackagePrivate`nbo$ = 
+              EvaluationNotebook[]}, 
+             CurrentValue[
+              DefinitionNotebookClient`Stripes`PackagePrivate`nbo$, 
+               DockedCells] = If[
+               TrueQ[
+                MemberQ[
+                 CurrentValue["ModifierKeys"], "Control"]], 
+               DeleteCases[
+                Flatten[{
+                  CurrentValue[
+                  DefinitionNotebookClient`Stripes`PackagePrivate`nbo$, 
+                   DockedCells]}], 
+                Cell[
+                 Blank[], "StripeCell", 
+                 BlankNullSequence[]]], 
+               DeleteCases[
+                Flatten[{
+                  CurrentValue[
+                  DefinitionNotebookClient`Stripes`PackagePrivate`nbo$, 
+                   DockedCells]}], 
+                Condition[
+                 Pattern[DefinitionNotebookClient`Stripes`PackagePrivate`c$, 
+                  Blank[Cell]], 
+                 Not[
+                  FreeQ[
+                  DefinitionNotebookClient`Stripes`PackagePrivate`c$, 
+                   "8d8baf44-53cb-4c29-8fbb-7b5642fcb40e"]]]]]], Appearance -> 
+           None, BoxID -> "8d8baf44-53cb-4c29-8fbb-7b5642fcb40e", Evaluator -> 
+           Automatic, Method -> "Preemptive"], 
+          MouseAppearanceTag["LinkHand"]]}}, 
+       GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}, 
+       AutoDelete -> False, 
+       GridBoxItemSize -> {
+        "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"], 
+     "Text", FontSize -> 12, FontColor -> GrayLevel[0.25], StripOnInput -> 
+     False]], "StripeCell", CellFrameMargins -> {{20, 5}, {2, 2}}, 
+   CellFrame -> {{0, 0}, {1, 0}}, CellFrameColor -> GrayLevel[0.75]]},
 TaggingRules->{
  "ResourceType" -> "Paclet", "ResourceCreateNotebook" -> True, 
   "TemplateVersion" -> "2022.09.16", "CreationTimestamp" -> 
@@ -5520,27 +6449,7 @@ Fu6DuJJG2H9mK2QZ3X1Y8rjKVdsLU11Qbnfn/Mae/TiO1RZHs2bny+6Vwq5Sfi8TnHKi+1+K4NOh"]\
     "Paclet", "PacletName" -> "PacletResource", "SourceID" -> 
     "92ce7a395baccd06b35bc67811577346991d7e35"}, "ToolsOpen" -> True, 
   "StatusMessage" -> "", "SubmissionReviewData" -> {"Review" -> False}, 
-  "AutoUpdate" -> True, 
-  "PacletBuildData" -> {
-   "LastBuiltArchive" -> 
-    "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/build/FernandoDuarte__LongRunRisk-1.0.0.\
-paclet", "FileHashes" -> 
-    ByteArray[{56, 67, 58, 120, 156, 115, 100, 215, 13, 86, 115, 201, 79, 46, 
-      205, 77, 205, 43, 73, 44, 201, 204, 207, 211, 119, 205, 75, 207, 201, 
-      44, 206, 208, 247, 204, 75, 73, 173, 208, 47, 78, 77, 7, 73, 21, 199, 
-      27, 58, 50, 233, 6, 179, 5, 231, 151, 22, 37, 167, 22, 179, 248, 229, 
-      231, 165, 2, 185, 33, 137, 69, 233, 169, 37, 62, 61, 115, 101, 230, 87, 
-      158, 62, 19, 171, 27, 172, 65, 140, 89, 122, 233, 169, 121, 120, 76, 
-      235, 140, 123, 120, 182, 122, 246, 83, 69, 221, 96, 109, 236, 166, 5, 
-      23, 164, 230, 228, 144, 224, 60, 86, 67, 163, 79, 21, 252, 19, 25, 116, 
-      131, 117, 137, 54, 144, 104, 55, 138, 122, 167, 22, 229, 165, 230, 232, 
-      251, 228, 231, 165, 7, 149, 230, 5, 101, 22, 103, 235, 149, 231, 32, 
-      105, 245, 49, 61, 169, 201, 243, 227, 67, 187, 22, 66, 55, 66, 132, 55, 
-      32, 49, 57, 39, 181, 196, 51, 47, 45, 31, 77, 215, 135, 230, 213, 214, 
-      58, 211, 3, 101, 16, 186, 16, 34, 130, 16, 93, 190, 137, 121, 153, 105, 
-      169, 197, 37, 168, 58, 209, 157, 122, 238, 164, 215, 195, 134, 154, 55, 
-      154, 0, 180, 171, 179, 230}]}, "TryRealOnly" -> False},
+  "AutoUpdate" -> True, "TryRealOnly" -> False},
 CreateCellID->True,
 DynamicEvaluationTimeout->60,
 FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
@@ -5865,6 +6774,7 @@ VX/aMEEQzrerjFhhelYAzofFB3r8AgApYdcE
                     15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
                     17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
                     12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
                     FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
                      0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
                     0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
@@ -8250,16 +9160,17 @@ dUs5PEh+6Sx+hd/B9HrmkqVGkvD4AQCmgKFd
          StyleBox[{
            
            FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 
-             1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0},
-              {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 
-             2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {
-             0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{5., 
-             12.}, {5., 11.}, {2., 11.}, {2., 12.}}, {{2., 10.}, {2., 9.}, {
-             5., 9.}, {5., 10.}}, {{2., 14.}, {2., 13.}, {5., 13.}, {5., 
-             14.}}, {{2., 8.}, {2., 7.}, {5., 7.}, {5., 8.}}, {{2., 6.}, {2., 
-             5.}, {5., 5.}, {5., 6.}}, {{5., 18.}, {2., 18.}, {2., 17.}, {5., 
-             17.}, {5., 18.}}, {{5., 4.}, {2., 4.}, {2., 3.}, {5., 3.}, {5., 
-             4.}}, {{2., 16.}, {2., 15.}, {5., 15.}, {5., 16.}}}]}, 
+             1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+             0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{
+             0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+             0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+             0}}}, {{{5., 12.}, {5., 11.}, {2., 11.}, {2., 12.}}, {{2., 
+             10.}, {2., 9.}, {5., 9.}, {5., 10.}}, {{2., 14.}, {2., 13.}, {5.,
+              13.}, {5., 14.}}, {{2., 8.}, {2., 7.}, {5., 7.}, {5., 8.}}, {{
+             2., 6.}, {2., 5.}, {5., 5.}, {5., 6.}}, {{5., 18.}, {2., 18.}, {
+             2., 17.}, {5., 17.}, {5., 18.}}, {{5., 4.}, {2., 4.}, {2., 3.}, {
+             5., 3.}, {5., 4.}}, {{2., 16.}, {2., 15.}, {5., 15.}, {5., 
+             16.}}}]}, 
           FaceForm[
            RGBColor[0.86667, 0.066667, 0.]]], 
          StyleBox[{
@@ -8371,7 +9282,6 @@ Mn8D1T+bLHr4qqKuQ8bv8LBZfwwdhGSmFwY76zqghzcABAZ3MA==
           FaceForm[
            GrayLevel[1.]]], 
          StyleBox[{
-           
            FilledCurveBox[{{{0, 2, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3,
               3}, {0, 1, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {0, 
              1, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {0,
@@ -11097,8 +12007,7 @@ FpG1n6WfSeLb27c2Volz+/dhBxtxrIPL2Ar/oQtZg16JsQ879Gyxx3vEuygx
              0, 0, 255}}, {{255, 255, 255, 255}, {0, 0, 0, 255}, {255, 255, 
              255, 255}}}], "Byte", ColorSpace -> "RGB", 
             ImageResolution -> {72, 72}, Interleaving -> True], "Pressed" -> 
-          Image[
-           RawArray["UnsignedInteger8",{{{255, 255, 255, 255}, {0, 0, 0, 
+          Image[RawArray["UnsignedInteger8",{{{255, 255, 255, 255}, {0, 0, 0, 
              255}, {255, 255, 255, 255}}, {{0, 0, 0, 255}, {0, 0, 0, 0}, {0, 
              0, 0, 255}}, {{255, 255, 255, 255}, {0, 0, 0, 255}, {255, 255, 
              255, 255}}}], "Byte", ColorSpace -> "RGB", 
@@ -12398,7 +13307,6 @@ RefreshNotebookPacletFiles[RSNB`nbo, RSNB`cell]]]],
                     If[
                     And[RSNB`nbDir =!= RSNB`oldDir, 
                     MemberQ[$Packages, "PacletResource`DefinitionNotebook`"]], 
-                    
                     With[{RSNB`nb$ = EvaluationNotebook[], 
                     RSNB`$cp$ = $ContextPath}, 
                     Quiet[
@@ -12498,6 +13406,7 @@ directory.\""}, "PacletDirectoryChooserErrorTemplate"]], "AttachedMessage"],
                     Quiet[
                     
                     Block[{$ContextPath = RSNB`$cp$, 
+                    
                     ResourceSystemClient`$\
 AsyncronousResourceInformationUpdates = False, 
                     DefinitionNotebookClient`$ButtonCodeID = None}, 
@@ -13424,7 +14333,8 @@ GRPf1sw3cDj8VSOm/5G9w5vAHXKt3IZQ/0HDoQHBFwFFwBcEHxR9zQlGcP3o
              Appearance -> Automatic, Evaluator -> Automatic]}}, 
           GridBoxAlignment -> {
            "Columns" -> {{Automatic}}, "Rows" -> {{Center}}}, AutoDelete -> 
-          False, GridBoxItemSize -> {
+          False, 
+          GridBoxItemSize -> {
            "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
           GridBoxSpacings -> {
            "ColumnsIndexed" -> {2 -> 0.2}, "Rows" -> {{Automatic}}}, 
@@ -13433,10 +14343,9 @@ GRPf1sw3cDj8VSOm/5G9w5vAHXKt3IZQ/0HDoQHBFwFFwBcEHxR9zQlGcP3o
           Scaled[1], Automatic}, StripOnInput -> False]& )}], 
    Cell[
     StyleData["AttachedMessage"], Deletable -> True, 
-    CellMargins -> {{60, 40}, {15, 5}}]}, 
-  WindowMargins -> {{556, Automatic}, {0, Automatic}}, Visible -> False, 
-  FrontEndVersion -> "13.2 for Mac OS X ARM (64-bit) (January 30, 2023)", 
-  StyleDefinitions -> "PrivateStylesheetFormatting.nb"],
+    CellMargins -> {{60, 40}, {15, 5}}]}, Visible -> False, FrontEndVersion -> 
+  "13.2 for Mac OS X ARM (64-bit) (January 30, 2023)", StyleDefinitions -> 
+  "PrivateStylesheetFormatting.nb"],
 ExpressionUUID->"0a1ab5c1-5444-420f-8694-b33ff00d563b"
 ]
 
