@@ -2,7 +2,7 @@ name: Release
 on:
   workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: [main]
 env:
   RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
   WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
