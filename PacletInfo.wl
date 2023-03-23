@@ -1,7 +1,9 @@
+(* ::Package:: *)
+
 PacletObject[
   <|
     "Name" -> "FernandoDuarte/LongRunRisk",
-    "Description" -> "Solves long-run risk models",
+    "Description" -> "Tools to solve and analyze long-run risk models",
     "Creator" -> "Fernando Duarte",
     "Version" -> "1.0.0",
     "WolframVersion" -> "13.2+",
