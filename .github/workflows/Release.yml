@@ -83,7 +83,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: paclet-workflow-values
-          path: .paclet-workflow-values
+          path: ${{ env.PACLET_WORKFLOW_VALUES }}
       - name: Build
         id: build-paclet-step
         uses: WolframResearch/build-paclet@v1.10.2
