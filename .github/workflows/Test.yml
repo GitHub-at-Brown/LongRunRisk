@@ -1,4 +1,4 @@
-name: Check
+name: Test
 on: 
   workflow_dispatch:
   push: 
@@ -10,8 +10,8 @@ env:
   WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
   WLPR_PACLET_SITE: https://resources.wolframcloud.com/PacletRepository/pacletsite
 jobs: 
-  Check: 
-    name: Check
+  Test: 
+    name: Test
     runs-on: ubuntu-latest
     container: 
       image: wolframresearch/wolframengine:13.0.1
@@ -22,9 +22,9 @@ jobs:
     - name: Checkout
       id: checkout-code-step
       uses: actions/checkout@v3
-    - name: Check
-      id: check-paclet-step
-      uses: WolframResearch/check-paclet@v1.10.2
+    - name: Test
+      id: test-paclet-step
+      uses: WolframResearch/test-paclet@v1.10.2
       with: 
         target: Submit
         paclet_cicd_version: 0.33.3
