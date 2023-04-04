@@ -18,6 +18,7 @@ $pacletBaseDir=DirectoryName[NotebookDirectory[],1];
 PacletInstall[FileNameJoin[{$pacletBaseDir,"Resources","MaTeX-1.7.9.paclet"}],KeepExistingVersion->True, ForceVersionInstall->True];
 PacletInstall[FileNameJoin[{$pacletBaseDir,"Resources","PacletizedResourceFunctions.paclet"}],KeepExistingVersion->True, ForceVersionInstall->True];
 (*automatically use MaTeX instead of built-in LaTeX in inline/displayed formula cells*)
+matex["Location"]
 Get[FileNameJoin[{$UserBasePacletsDirectory,"Repository","MaTeX-1.7.9","MaTeX.m"}]]
 $useMaTeXMag=1;
 $useMaTeXBaselineShift=0;
@@ -36,6 +37,10 @@ preambleTeX={
 "\\usepackage{color}",
 "\\usepackage{microtype}"
 };
+
+p=PacletFind["MaTeX"]
+Echo[#["Location"]&/@p]
+Print[#["Location"]&/@p]
 
 
 <<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;

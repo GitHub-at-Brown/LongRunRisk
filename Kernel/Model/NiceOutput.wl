@@ -353,7 +353,8 @@ modelFormattingTemplate[
 	{
 		parametersLocal=stripContext[parameters],
 		mudLocal=stripContext[mud],
-		formatLocal=Function[x,formatNumFun[
+		formatLocal=Function[x,
+			formatNumFun[
 			Flatten[{stripContext[x]/.stripContext[parameters]}][[1]]
 			]],
 		numStocks
