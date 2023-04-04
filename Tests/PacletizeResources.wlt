@@ -2,35 +2,53 @@ BeginTestSection["PacletizeResources"]
 
 
 VerificationTest[
-	SameQ[PacletFind @ "MaTeX*", {}]
+	Quiet[
+		pacletBaseDir = DirectoryName[NotebookDirectory[], 1];
+		PacletDirectoryLoad @ pacletBaseDir;
+		Needs @ "FernandoDuarte`LongRunRisk`";
+		out = SameQ[PacletFind @ "MaTeX*", {}];
+	];
+	out
 	,
 	False
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230404-T57LFK"
+	TestID->"PacletizeResources_20230404-4Z5J55"
 ]
 
 
 VerificationTest[
-	MemberQ[$ContextPath, "MaTeX`"]
+	Quiet[
+		pacletBaseDir = DirectoryName[NotebookDirectory[], 1];
+		PacletDirectoryLoad @ pacletBaseDir;
+		Needs @ "FernandoDuarte`LongRunRisk`";
+		out = MemberQ[$ContextPath, "MaTeX`"];
+	];
+	out
 	,
 	True
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230404-3KGR8U"
+	TestID->"PacletizeResources_20230404-F162K4"
 ]
 
 
 VerificationTest[
-	MemberQ[$Packages, "MaTeX`"]
+	Quiet[
+		pacletBaseDir = DirectoryName[NotebookDirectory[], 1];
+		PacletDirectoryLoad @ pacletBaseDir;
+		Needs @ "FernandoDuarte`LongRunRisk`";
+		out = MemberQ[$Packages, "MaTeX`"];
+	];
+	out
 	,
 	True
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230404-3B4DKH"
+	TestID->"PacletizeResources_20230404-I89ETN"
 ]
 
 

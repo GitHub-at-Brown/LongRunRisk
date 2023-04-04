@@ -10,41 +10,87 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     50352,        967]
-NotebookOptionsPosition[     49428,        942]
-NotebookOutlinePosition[     49829,        958]
-CellTagsIndexPosition[     49786,        955]
+NotebookDataLength[     17330,        394]
+NotebookOptionsPosition[     15870,        360]
+NotebookOutlinePosition[     16271,        376]
+CellTagsIndexPosition[     16228,        373]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
 
 Cell[CellGroupData[{
-Cell[BoxData[
+Cell[BoxData[{
  RowBox[{"testFileNames", " ", "=", " ", 
   RowBox[{"FileNames", "[", 
    RowBox[{"FileNameJoin", "[", 
     RowBox[{"{", 
      RowBox[{
       RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<*.wlt\>\""}], "}"}], 
-    "]"}], "]"}]}]], "Input",
+    "]"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"pacletBaseDir", "=", 
+     RowBox[{"DirectoryName", "[", 
+      RowBox[{
+       RowBox[{"NotebookDirectory", "[", "]"}], ",", "2"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"PacletDirectoryLoad", "[", "pacletBaseDir", "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}]}], 
+   "*)"}]}]}], "Input",
  CellChangeTimes->{{3.8894111683493032`*^9, 3.8894112087815933`*^9}, {
-  3.889411242053163*^9, 3.88941126569147*^9}},
- CellLabel->"In[26]:=",ExpressionUUID->"b9f2d453-3e98-41bc-b67a-28793e860800"],
+  3.889411242053163*^9, 3.88941126569147*^9}, {3.889603572176957*^9, 
+  3.88960360623313*^9}, {3.88960408745549*^9, 
+  3.889604092938833*^9}},ExpressionUUID->"b9f2d453-3e98-41bc-b67a-\
+28793e860800"],
 
 Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{"\<\"/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddOne.wlt\"\>", 
-   ",", "\<\"/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddTwo.wlt\"\>", 
-   ",", "\<\"/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Arithmetic.wlt\"\>", 
-   ",", "\<\"/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>"}], 
+ RowBox[{"{", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>", 
   "}"}]], "Output",
- CellChangeTimes->{3.889411266636239*^9},
- CellLabel->"Out[26]=",ExpressionUUID->"aabc0661-0058-4aa3-ae12-c5eaac45df4e"]
+ CellChangeTimes->{
+  3.889411266636239*^9, 3.889591230784251*^9, {3.88960338975949*^9, 
+   3.889603406915032*^9}, 3.8896035744959507`*^9, 3.8896036066923656`*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"d83f4764-75a8-4ca4-9d34-27723feb3207"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.889603543947055*^9, 3.889603578142519*^9}, 
+   3.889604086134962*^9},ExpressionUUID->"59e79243-e98f-4598-abd5-\
+c21f3a6cccca"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "parameters", "shdw", 
+   "\"Symbol \\!\\(\\*RowBox[{\\\"\\\\\\\"parameters\\\\\\\"\\\"}]\\) appears \
+in multiple contexts \\!\\(\\*RowBox[{\\\"{\\\", \
+RowBox[{\\\"\\\\\\\"FernandoDuarte`LongRunRisk`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"FernandoDuarte`LongRunRisk`Model`Catalog`\\\\\\\"\\\"}], \
+\\\"}\\\"}]\\); definitions in context \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"FernandoDuarte`LongRunRisk`\\\\\\\"\\\"}]\\) may \
+shadow or be shadowed by other definitions.\"", 2, 15, 4, 
+   28952183744943873422, "Local", "FernandoDuarte`LongRunRisk`parameters"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellChangeTimes->{3.8896035267066927`*^9, 3.889603608683156*^9},
+ CellLabel->
+  "During evaluation of \
+In[15]:=",ExpressionUUID->"758be7e7-6d59-45cc-b208-415d19e2a00f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Table", "iterb", 
+   "\"Iterator \\!\\(\\*RowBox[{\\\"{\\\", RowBox[{\\\"i\\\", \\\",\\\", \
+\\\"1\\\", \\\",\\\", \\\"numStocks\\\"}], \\\"}\\\"}]\\) does not have \
+appropriate bounds.\"", 2, 15, 5, 28952183744943873422, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.8896035267066927`*^9, 3.889603608817007*^9},
+ CellLabel->
+  "During evaluation of \
+In[15]:=",ExpressionUUID->"7b8e0cdf-c872-4844-a024-265e31d07f8e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -54,7 +100,7 @@ Cell[BoxData[
   RowBox[{"TestReport", "[", "testFileNames", "]"}]}]], "Input",
  CellChangeTimes->{{3.889411155314384*^9, 3.8894111646376877`*^9}, {
   3.889411308437488*^9, 3.889411311891931*^9}},
- CellLabel->"In[28]:=",ExpressionUUID->"8a9c9e85-8cbf-4e1c-870c-0a5ec229dd8b"],
+ CellLabel->"In[16]:=",ExpressionUUID->"8a9c9e85-8cbf-4e1c-870c-0a5ec229dd8b"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -102,7 +148,8 @@ Cell[BoxData[
                RowBox[{
                  TagBox["\"Title: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
-                 TagBox["\"Test Report: AddOne.wlt\"", "SummaryItem"]}], 
+                 TagBox[
+                 "\"Test Report: PacletizeResources.wlt\"", "SummaryItem"]}], 
                "\[SpanFromLeft]"}, {
                RowBox[{
                  TagBox["\"Success rate: \"", "SummaryItemAnnotation"], 
@@ -115,7 +162,7 @@ Cell[BoxData[
                RowBox[{
                  TagBox["\"Tests run: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
-                 TagBox["21", "SummaryItem"]}]}}, 
+                 TagBox["3", "SummaryItem"]}]}}, 
              GridBoxAlignment -> {
               "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
              False, GridBoxItemSize -> {
@@ -166,7 +213,8 @@ Cell[BoxData[
                RowBox[{
                  TagBox["\"Title: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
-                 TagBox["\"Test Report: AddOne.wlt\"", "SummaryItem"]}], 
+                 TagBox[
+                 "\"Test Report: PacletizeResources.wlt\"", "SummaryItem"]}], 
                "\[SpanFromLeft]"}, {
                RowBox[{
                  TagBox["\"Success rate: \"", "SummaryItemAnnotation"], 
@@ -179,11 +227,11 @@ Cell[BoxData[
                RowBox[{
                  TagBox["\"Tests run: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
-                 TagBox["21", "SummaryItem"]}]}, {
+                 TagBox["3", "SummaryItem"]}]}, {
                RowBox[{
                  TagBox["\"Succeeded: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
-                 TagBox["21", "SummaryItem"]}], "\[SpanFromLeft]"}, {
+                 TagBox["3", "SummaryItem"]}], "\[SpanFromLeft]"}, {
                RowBox[{
                  TagBox["\"Failed: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
@@ -208,7 +256,7 @@ Cell[BoxData[
                  TagBox[
                   
                   TemplateBox[{
-                   "0.032747`", "\"s\"", "seconds", "\"Seconds\""}, 
+                   "0.002518`", "\"s\"", "seconds", "\"Seconds\""}, 
                    "Quantity", SyntaxForm -> Mod], "SummaryItem"]}], 
                "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
@@ -228,650 +276,12 @@ Cell[BoxData[
      "SummaryPanel"],
     DynamicModuleValues:>{}], "]"}],
   TestReportObject[<|
-   "Title" -> "Test Report: AddOne.wlt", "Aborted" -> False, 
+   "Title" -> "Test Report: PacletizeResources.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     867922599362156486 -> 
+     7994132988750978367 -> 
       TestResultObject[<|
-        "TestKey" -> 867922599362156486, "TestID" -> "AddOne-PacletDirectory",
-          "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddOne.wlt", "SameTest" -> MatchQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> 
-         HoldForm[$CellContext`$pacletDir = DirectoryName[$TestFileName, 2]], 
-         "ExpectedOutput" -> HoldForm[
-           PatternTest[
-            Blank[], DirectoryQ]], "ActualOutput" -> 
-         HoldForm[
-          "/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/"],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.88941131464402*^9, "AbsoluteTimeUsed" -> 
-         0.00006`1.9286662482156351, "CPUTimeUsed" -> 0.00006099999999875649, 
-         "MemoryUsed" -> 2896|>], 7390593611655977457 -> 
-      TestResultObject[<|
-        "TestKey" -> 7390593611655977457, "TestID" -> 
-         "AddOne-PacletDirectoryLoad", "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddOne.wlt", "SameTest" -> MatchQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           PacletDirectoryLoad[$CellContext`$pacletDir]], "ExpectedOutput" -> 
-         HoldForm[{
-            BlankNullSequence[], 
-            "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/", 
-            BlankNullSequence[]}], "ActualOutput" -> 
-         HoldForm[{
-           "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/"}], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.889411314644409*^9, 
-         "AbsoluteTimeUsed" -> 0.000072`2.0078474942632623, "CPUTimeUsed" -> 
-         0.00007300000000043383, "MemoryUsed" -> 1440|>], 5963827458714861548 -> 
-      TestResultObject[<|
-        "TestKey" -> 5963827458714861548, "TestID" -> "AddOne-Needs", 
-         "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddOne.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           Needs["FernandoDuarte`LongRunRisk`"]], "ExpectedOutput" -> 
-         HoldForm[Null], "ActualOutput" -> HoldForm[Null], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.889411314644648*^9, "AbsoluteTimeUsed" -> 
-         0.000025`1.5484550065040295, "CPUTimeUsed" -> 
-         0.000025000000000829914`, "MemoryUsed" -> 3360|>], 
-      2463926606518296395 -> 
-      TestResultObject[<|
-        "TestKey" -> 2463926606518296395, "TestID" -> "AddOne-Context", 
-         "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddOne.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           Context[FernandoDuarte`LongRunRisk`AddOne]], "ExpectedOutput" -> 
-         HoldForm["FernandoDuarte`LongRunRisk`"], "ActualOutput" -> 
-         HoldForm["FernandoDuarte`LongRunRisk`"], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.889411314644832*^9, "AbsoluteTimeUsed" -> 
-         0.000019`1.429268598784821, "CPUTimeUsed" -> 
-         0.000019999999999242846`, "MemoryUsed" -> 2712|>], 
-      4035607487628928594 -> 
-      TestResultObject[<|
-        "TestKey" -> 4035607487628928594, "TestID" -> "AddOne-1", 
-         "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddOne.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           FernandoDuarte`LongRunRisk`AddOne[1]], "ExpectedOutput" -> 
-         HoldForm[2], "ActualOutput" -> HoldForm[2], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8894113146450033`*^9, "AbsoluteTimeUsed" -> 
-         0.00002`1.4515449934959728, "CPUTimeUsed" -> 0.00002200000000129876, 
-         "MemoryUsed" -> 2712|>], 5059613870000672084 -> 
-      TestResultObject[<|
-        "TestKey" -> 5059613870000672084, "TestID" -> "AddOne-2", 
-         "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddOne.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           FernandoDuarte`LongRunRisk`AddOne[2]], "ExpectedOutput" -> 
-         HoldForm[3], "ActualOutput" -> HoldForm[3], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8894113146451674`*^9, "AbsoluteTimeUsed" -> 
-         0.000018`1.4057875029352978, "CPUTimeUsed" -> 
-         0.000017000000003264404`, "MemoryUsed" -> 2712|>], 
-      5037335732685997977 -> 
-      TestResultObject[<|
-        "TestKey" -> 5037335732685997977, "TestID" -> 
-         "AddTwo-PacletDirectory", "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddTwo.wlt", "SameTest" -> MatchQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> 
-         HoldForm[$CellContext`$pacletDir = DirectoryName[$TestFileName, 2]], 
-         "ExpectedOutput" -> HoldForm[
-           PatternTest[
-            Blank[], DirectoryQ]], "ActualOutput" -> 
-         HoldForm[
-          "/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/"],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.889411314656348*^9, "AbsoluteTimeUsed" -> 
-         0.000044`1.793967674318179, "CPUTimeUsed" -> 0.00004300000000156956, 
-         "MemoryUsed" -> 2896|>], 8969113545831017991 -> 
-      TestResultObject[<|
-        "TestKey" -> 8969113545831017991, "TestID" -> 
-         "AddTwo-PacletDirectoryLoad", "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddTwo.wlt", "SameTest" -> MatchQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           PacletDirectoryLoad[$CellContext`$pacletDir]], "ExpectedOutput" -> 
-         HoldForm[{
-            BlankNullSequence[], 
-            "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/", 
-            BlankNullSequence[]}], "ActualOutput" -> 
-         HoldForm[{
-           "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/"}], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.8894113146566343`*^9, 
-         "AbsoluteTimeUsed" -> 0.0000490000000000001`1.8407110778605058, 
-         "CPUTimeUsed" -> 0.00004900000000063187, "MemoryUsed" -> 1440|>], 
-      4480271824984596602 -> 
-      TestResultObject[<|
-        "TestKey" -> 4480271824984596602, "TestID" -> "AddTwo-Needs", 
-         "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddTwo.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           Needs["FernandoDuarte`LongRunRisk`"]], "ExpectedOutput" -> 
-         HoldForm[Null], "ActualOutput" -> HoldForm[Null], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.889411314656837*^9, "AbsoluteTimeUsed" -> 
-         0.000022`1.4929376786541988, "CPUTimeUsed" -> 0.000022999999998774, 
-         "MemoryUsed" -> 3360|>], 3984242457382023250 -> 
-      TestResultObject[<|
-        "TestKey" -> 3984242457382023250, "TestID" -> "AddTwo-Context", 
-         "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddTwo.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           Context[FernandoDuarte`LongRunRisk`AddTwo]], "ExpectedOutput" -> 
-         HoldForm["FernandoDuarte`LongRunRisk`"], "ActualOutput" -> 
-         HoldForm["FernandoDuarte`LongRunRisk`"], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.889411314657012*^9, "AbsoluteTimeUsed" -> 
-         0.000018`1.4057875029352978, "CPUTimeUsed" -> 
-         0.000017999999997186933`, "MemoryUsed" -> 2712|>], 
-      6866124104764110852 -> 
-      TestResultObject[<|
-        "TestKey" -> 6866124104764110852, "TestID" -> "AddTwo-1", 
-         "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddTwo.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           FernandoDuarte`LongRunRisk`AddTwo[1]], "ExpectedOutput" -> 
-         HoldForm[3], "ActualOutput" -> HoldForm[3], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8894113146571794`*^9, "AbsoluteTimeUsed" -> 
-         0.000018`1.4057875029352978, "CPUTimeUsed" -> 
-         0.000019000000001767603`, "MemoryUsed" -> 2712|>], 
-      2130724596799953913 -> 
-      TestResultObject[<|
-        "TestKey" -> 2130724596799953913, "TestID" -> "AddTwo-2", 
-         "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/AddTwo.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           FernandoDuarte`LongRunRisk`AddTwo[2]], "ExpectedOutput" -> 
-         HoldForm[4], "ActualOutput" -> HoldForm[4], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8894113146573343`*^9, "AbsoluteTimeUsed" -> 
-         0.000016`1.3546349804879154, "CPUTimeUsed" -> 0.00001699999999971169,
-          "MemoryUsed" -> 2712|>], 4915692458790667238 -> 
-      TestResultObject[<|
-        "TestKey" -> 4915692458790667238, "TestID" -> 
-         "Arithmetic-Initialization", "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Arithmetic.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           Needs["FernandoDuarte`LongRunRisk`"]], "ExpectedOutput" -> 
-         HoldForm[Null], "ActualOutput" -> HoldForm[Null], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8894113146680794`*^9, "AbsoluteTimeUsed" -> 
-         0.000038`1.730298594448804, "CPUTimeUsed" -> 0.00003799999999998249, 
-         "MemoryUsed" -> 3360|>], 6072667642671226479 -> 
-      TestResultObject[<|
-        "TestKey" -> 6072667642671226479, "TestID" -> "NaturalNumbers", 
-         "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Arithmetic.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           $CellContext`naturalNumber[5]], "ExpectedOutput" -> HoldForm[5], 
-         "ActualOutput" -> HoldForm[5], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.889411314668546*^9, 
-         "AbsoluteTimeUsed" -> 0.000024`1.5307262395435983, "CPUTimeUsed" -> 
-         0.0000249999999972772, "MemoryUsed" -> 2776|>], 1913457010014931465 -> 
-      TestResultObject[<|
-        "TestKey" -> 1913457010014931465, "TestID" -> "Addition", 
-         "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Arithmetic.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           $CellContext`plus[3, 4]], "ExpectedOutput" -> HoldForm[7], 
-         "ActualOutput" -> HoldForm[7], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.8894113146687193`*^9, 
-         "AbsoluteTimeUsed" -> 0.00002`1.4515449934959728, "CPUTimeUsed" -> 
-         0.000021000000000270802`, "MemoryUsed" -> 2712|>], 
-      2521327823524600712 -> 
-      TestResultObject[<|
-        "TestKey" -> 2521327823524600712, "TestID" -> "Multiplication", 
-         "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Arithmetic.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           $CellContext`times[3, 4]], "ExpectedOutput" -> HoldForm[12], 
-         "ActualOutput" -> HoldForm[12], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.889411314668885*^9, 
-         "AbsoluteTimeUsed" -> 0.000048`1.831756235207579, "CPUTimeUsed" -> 
-         0.000047999999999603915`, "MemoryUsed" -> 1440|>], 
-      6507281559244155433 -> 
-      TestResultObject[<|
-        "TestKey" -> 6507281559244155433, "TestID" -> 
-         "PacletizeResources_20230402-XJX9SJ", "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           Information["MaTeX", LongForm -> False]], "ExpectedOutput" -> 
-         HoldForm[
-           
-           InformationData[<|
-            "ObjectType" -> "Symbol", "Usage" -> 
-             "MaTeX[\"texcode\"] compiles texcode using LaTeX and returns the \
-result as Mathematica graphics.  texcode must be valid inline math-mode LaTeX \
-code.\nMaTeX[expression] converts expression to LaTeX using TeXForm, then \
-compiles it and returns the result.\nMaTeX[{expr1, expr2, \[Ellipsis]}] \
-processes all expressions while running LaTeX only once.  A list of results \
-is returned.", "Documentation" -> <|"Local" -> "paclet:MaTeX/ref/MaTeX"|>, 
-             "OwnValues" -> None, "UpValues" -> None, "DownValues" -> 
-             Information`InformationValueForm[
-              DownValues, MaTeX`MaTeX, {MaTeX`MaTeX[
-                  Pattern[MaTeX`Private`tex, {
-                    BlankSequence[String]}], 
-                  Pattern[MaTeX`Private`opt, 
-                   OptionsPattern[]]] :> 
-                Module[{
-                  MaTeX`Private`basepreamble, MaTeX`Private`preamble, 
-                   MaTeX`Private`mag, MaTeX`Private`results, 
-                   MaTeX`Private`trimmedTeX}, If[
-                    Not[MaTeX`Private`$configOK], MaTeX`Private`checkConfig[]; 
-                    Return[$Failed]]; 
-                  MaTeX`Private`preamble = OptionValue["Preamble"]; 
-                  If[MaTeX`Private`preamble === None, 
-                    MaTeX`Private`preamble = {}]; If[
-                    Not[
-                    VectorQ[MaTeX`Private`preamble, StringQ]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], "Preamble" -> 
-                    MaTeX`Private`preamble]; Return[$Failed]]; 
-                  MaTeX`Private`basepreamble = OptionValue["BasePreamble"]; 
-                  If[MaTeX`Private`basepreamble === None, 
-                    MaTeX`Private`basepreamble = {}]; If[
-                    Not[
-                    VectorQ[MaTeX`Private`basepreamble, StringQ]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], "BasePreamble" -> 
-                    MaTeX`Private`basepreamble]; Return[$Failed]]; 
-                  MaTeX`Private`preamble = 
-                   Join[MaTeX`Private`basepreamble, MaTeX`Private`preamble]; 
-                  If[
-                    Not[
-                    BooleanQ[
-                    OptionValue["DisplayStyle"]]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], "DisplayStyle" -> 
-                    OptionValue["DisplayStyle"]]; Return[$Failed]]; If[
-                    Not[
-                    BooleanQ[
-                    OptionValue[ContentPadding]]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], ContentPadding -> 
-                    OptionValue[ContentPadding]]; Return[$Failed]]; If[
-                    Not[
-                    And[
-                    NumericQ[
-                    OptionValue[FontSize]], 
-                    TrueQ[
-                    Positive[
-                    OptionValue[FontSize]]]]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], FontSize -> 
-                    OptionValue[FontSize]]; Return[$Failed]]; If[
-                    Not[
-                    MatchQ[
-                    OptionValue[LineSpacing], 
-                    Condition[{
-                    Pattern[MaTeX`Private`mult, 
-                    Blank[]], 
-                    Pattern[MaTeX`Private`add, 
-                    Blank[]]}, 
-                    And[
-                    NumericQ[MaTeX`Private`mult], 
-                    TrueQ[
-                    NonNegative[MaTeX`Private`mult]], 
-                    NumericQ[MaTeX`Private`add]]]]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], LineSpacing -> 
-                    OptionValue[LineSpacing]]; Return[$Failed]]; 
-                  MaTeX`Private`mag = OptionValue[Magnification]; If[
-                    Not[
-                    And[
-                    NumericQ[MaTeX`Private`mag], 
-                    TrueQ[
-                    Positive[MaTeX`Private`mag]]]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], Magnification -> 
-                    MaTeX`Private`mag]; Return[$Failed]]; 
-                  MaTeX`Private`trimmedTeX = StringTrim[MaTeX`Private`tex, 
-                    Repeated["\n"]]; 
-                  Map[MaTeX`Private`checkForCommonErrors, 
-                    MaTeX`Private`trimmedTeX]; 
-                  MaTeX`Private`results = 
-                   MaTeX`Private`iMaTeX[
-                    MaTeX`Private`trimmedTeX, MaTeX`Private`preamble, 
-                    OptionValue["DisplayStyle"], 
-                    OptionValue[FontSize], 
-                    OptionValue[ContentPadding], 
-                    OptionValue[LineSpacing], 
-                    OptionValue["LogFileFunction"], 
-                    OptionValue["TeXFileFunction"]]; If[
-                    Or[MaTeX`Private`results === $Failed, 
-                    TrueQ[MaTeX`Private`mag == 1]], MaTeX`Private`results, 
-                    Map[
-                    Show[#, ImageSize -> 
-                    N[MaTeX`Private`mag] 
-                    MaTeX`Private`extractOption[#, ImageSize]]& , 
-                    MaTeX`Private`results]]], MaTeX`MaTeX[{}, 
-                  Pattern[MaTeX`Private`opt, 
-                   OptionsPattern[]]] :> {}, MaTeX`MaTeX[
-                  Pattern[MaTeX`Private`tex, 
-                   Blank[List]], 
-                  Pattern[MaTeX`Private`opt, 
-                   OptionsPattern[]]] :> MaTeX`MaTeX[
-                  Map[MaTeX`Developer`Texify, MaTeX`Private`tex], 
-                  MaTeX`Private`opt], MaTeX`MaTeX[
-                  Pattern[MaTeX`Private`tex, 
-                   Blank[]], 
-                  Pattern[MaTeX`Private`opt, 
-                   OptionsPattern[]]] :> 
-                With[{MaTeX`Private`result = 
-                   MaTeX`MaTeX[{MaTeX`Private`tex}, MaTeX`Private`opt]}, 
-                  If[MaTeX`Private`result === $Failed, $Failed, 
-                   First[MaTeX`Private`result]]]}], "SubValues" -> None, 
-             "DefaultValues" -> 
-             Information`InformationValueForm[
-              DefaultValues, MaTeX`MaTeX, {
-               SyntaxInformation[MaTeX`MaTeX] -> {"ArgumentsPattern" -> {
-                    Blank[], 
-                    OptionsPattern[]}}}], "NValues" -> None, "FormatValues" -> 
-             None, "Options" -> {
-              "BasePreamble" -> {
-                "\\usepackage{lmodern,exscale}", 
-                 "\\usepackage{amsmath,amssymb}"}, "Preamble" -> {}, 
-               "DisplayStyle" -> True, ContentPadding -> True, 
-               LineSpacing -> {1.2, 0}, FontSize -> 12, Magnification -> 1, 
-               "LogFileFunction" -> None, "TeXFileFunction" -> None}, 
-             "Attributes" -> {}, "FullName" -> "MaTeX`MaTeX"|>, False]], 
-         "ActualOutput" -> HoldForm[
-           
-           InformationData[<|
-            "ObjectType" -> "Symbol", "Usage" -> 
-             "MaTeX[\"texcode\"] compiles texcode using LaTeX and returns the \
-result as Mathematica graphics.  texcode must be valid inline math-mode LaTeX \
-code.\nMaTeX[expression] converts expression to LaTeX using TeXForm, then \
-compiles it and returns the result.\nMaTeX[{expr1, expr2, \[Ellipsis]}] \
-processes all expressions while running LaTeX only once.  A list of results \
-is returned.", "Documentation" -> <|"Local" -> "paclet:MaTeX/ref/MaTeX"|>, 
-             "OwnValues" -> None, "UpValues" -> None, "DownValues" -> 
-             Information`InformationValueForm[
-              DownValues, MaTeX`MaTeX, {MaTeX`MaTeX[
-                  Pattern[MaTeX`Private`tex, {
-                    BlankSequence[String]}], 
-                  Pattern[MaTeX`Private`opt, 
-                   OptionsPattern[]]] :> 
-                Module[{
-                  MaTeX`Private`basepreamble, MaTeX`Private`preamble, 
-                   MaTeX`Private`mag, MaTeX`Private`results, 
-                   MaTeX`Private`trimmedTeX}, If[
-                    Not[MaTeX`Private`$configOK], MaTeX`Private`checkConfig[]; 
-                    Return[$Failed]]; 
-                  MaTeX`Private`preamble = OptionValue["Preamble"]; 
-                  If[MaTeX`Private`preamble === None, 
-                    MaTeX`Private`preamble = {}]; If[
-                    Not[
-                    VectorQ[MaTeX`Private`preamble, StringQ]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], "Preamble" -> 
-                    MaTeX`Private`preamble]; Return[$Failed]]; 
-                  MaTeX`Private`basepreamble = OptionValue["BasePreamble"]; 
-                  If[MaTeX`Private`basepreamble === None, 
-                    MaTeX`Private`basepreamble = {}]; If[
-                    Not[
-                    VectorQ[MaTeX`Private`basepreamble, StringQ]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], "BasePreamble" -> 
-                    MaTeX`Private`basepreamble]; Return[$Failed]]; 
-                  MaTeX`Private`preamble = 
-                   Join[MaTeX`Private`basepreamble, MaTeX`Private`preamble]; 
-                  If[
-                    Not[
-                    BooleanQ[
-                    OptionValue["DisplayStyle"]]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], "DisplayStyle" -> 
-                    OptionValue["DisplayStyle"]]; Return[$Failed]]; If[
-                    Not[
-                    BooleanQ[
-                    OptionValue[ContentPadding]]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], ContentPadding -> 
-                    OptionValue[ContentPadding]]; Return[$Failed]]; If[
-                    Not[
-                    And[
-                    NumericQ[
-                    OptionValue[FontSize]], 
-                    TrueQ[
-                    Positive[
-                    OptionValue[FontSize]]]]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], FontSize -> 
-                    OptionValue[FontSize]]; Return[$Failed]]; If[
-                    Not[
-                    MatchQ[
-                    OptionValue[LineSpacing], 
-                    Condition[{
-                    Pattern[MaTeX`Private`mult, 
-                    Blank[]], 
-                    Pattern[MaTeX`Private`add, 
-                    Blank[]]}, 
-                    And[
-                    NumericQ[MaTeX`Private`mult], 
-                    TrueQ[
-                    NonNegative[MaTeX`Private`mult]], 
-                    NumericQ[MaTeX`Private`add]]]]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], LineSpacing -> 
-                    OptionValue[LineSpacing]]; Return[$Failed]]; 
-                  MaTeX`Private`mag = OptionValue[Magnification]; If[
-                    Not[
-                    And[
-                    NumericQ[MaTeX`Private`mag], 
-                    TrueQ[
-                    Positive[MaTeX`Private`mag]]]], Message[
-                    MessageName[MaTeX`MaTeX, "invopt"], Magnification -> 
-                    MaTeX`Private`mag]; Return[$Failed]]; 
-                  MaTeX`Private`trimmedTeX = StringTrim[MaTeX`Private`tex, 
-                    Repeated["\n"]]; 
-                  Map[MaTeX`Private`checkForCommonErrors, 
-                    MaTeX`Private`trimmedTeX]; 
-                  MaTeX`Private`results = 
-                   MaTeX`Private`iMaTeX[
-                    MaTeX`Private`trimmedTeX, MaTeX`Private`preamble, 
-                    OptionValue["DisplayStyle"], 
-                    OptionValue[FontSize], 
-                    OptionValue[ContentPadding], 
-                    OptionValue[LineSpacing], 
-                    OptionValue["LogFileFunction"], 
-                    OptionValue["TeXFileFunction"]]; If[
-                    Or[MaTeX`Private`results === $Failed, 
-                    TrueQ[MaTeX`Private`mag == 1]], MaTeX`Private`results, 
-                    Map[
-                    Show[#, ImageSize -> 
-                    N[MaTeX`Private`mag] 
-                    MaTeX`Private`extractOption[#, ImageSize]]& , 
-                    MaTeX`Private`results]]], MaTeX`MaTeX[{}, 
-                  Pattern[MaTeX`Private`opt, 
-                   OptionsPattern[]]] :> {}, MaTeX`MaTeX[
-                  Pattern[MaTeX`Private`tex, 
-                   Blank[List]], 
-                  Pattern[MaTeX`Private`opt, 
-                   OptionsPattern[]]] :> MaTeX`MaTeX[
-                  Map[MaTeX`Developer`Texify, MaTeX`Private`tex], 
-                  MaTeX`Private`opt], MaTeX`MaTeX[
-                  Pattern[MaTeX`Private`tex, 
-                   Blank[]], 
-                  Pattern[MaTeX`Private`opt, 
-                   OptionsPattern[]]] :> 
-                With[{MaTeX`Private`result = 
-                   MaTeX`MaTeX[{MaTeX`Private`tex}, MaTeX`Private`opt]}, 
-                  If[MaTeX`Private`result === $Failed, $Failed, 
-                   First[MaTeX`Private`result]]]}], "SubValues" -> None, 
-             "DefaultValues" -> 
-             Information`InformationValueForm[
-              DefaultValues, MaTeX`MaTeX, {
-               SyntaxInformation[MaTeX`MaTeX] -> {"ArgumentsPattern" -> {
-                    Blank[], 
-                    OptionsPattern[]}}}], "NValues" -> None, "FormatValues" -> 
-             None, "Options" -> {
-              "BasePreamble" -> {
-                "\\usepackage{lmodern,exscale}", 
-                 "\\usepackage{amsmath,amssymb}"}, "Preamble" -> {}, 
-               "DisplayStyle" -> True, ContentPadding -> True, 
-               LineSpacing -> {1.2, 0}, FontSize -> 12, Magnification -> 1, 
-               "LogFileFunction" -> None, "TeXFileFunction" -> None}, 
-             "Attributes" -> {}, "FullName" -> "MaTeX`MaTeX"|>, False]], 
-         "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8894113146790123`*^9, "AbsoluteTimeUsed" -> 
-         0.030475`4.6344587121224095, "CPUTimeUsed" -> 0.030342999999998455`, 
-         "MemoryUsed" -> 4248|>], 6599770979186589665 -> 
-      TestResultObject[<|
-        "TestKey" -> 6599770979186589665, "TestID" -> 
-         "PacletizeResources_20230402-JS6LCB", "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           MaTeX`MaTeX["x^2"]], "ExpectedOutput" -> HoldForm[
-           Graphics[{
-             Thickness[0.07473841554559042], 
-             Style[{
-               
-               FilledCurve[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 
-                3, 3}, {0, 1, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
-                3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1,
-                 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {0, 1, 
-                0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1,
-                 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}}}, CompressedData["
-1:eJxdlH9IU1EUx+dmmKjT+dzae05ybqL2g0wNzKId/5DQTCUFfxGWtJlIGBiY
-MSMlEzEKKsSJZf4gFVYqYaSUGNEvUAsNDYUU9I+WGhkp/l67976dkQcuj8+9
-7557zvece7X5xWeMMolE4uYYmY4hdYzB2oHKmFkBAsruXRl214CTMxbHlurj
-NTCTkBff0CNAZLTDSjQQ9kdvayh08cKtS7VRGzzy3v7HA8ZfPFQFe4QOxYj/
-f+IhhqyPBUI68VuhZv6b90BOaJZm5JUShohZlXDS+q5dUs8h0++CApmjcSrA
-PL06GT2vQn7qf0Be8F29Y90Zh4LF9Uxg/lcVcJPMfw2CNyTfVo7Nh4ewfHID
-4KLJYXU6sBBbU8La4vzg0VY9XCN+96uRy0ReFZn+b+FxvZ6yAMrbST/dM/RA
-ZIjmeJg73zwec0iPetD8GnXIv1u6gofDXVxA4wmBl+lxWfYCHl4XmxctxhCm
-KycgU10rAnewBqYigqx2mQ6Z+u9w8Y2NuMsjHXqmQ6wAD6qrcsY0oSKrkYOJ
-jilK5LtZtalu3Rxkeaqqo7vEeOM5pssxHat/hD9E7uvkvriHgne8PKm+UI77
-afzPvZEnfKZUxhUp8kyK7dxW04ah9O2LBMuWFtn3bNp0VKmLM8n5eVowEp1M
-m4bOFdvVIdCC+Uflel3fFnJs/sETu8CO/PDj/baiJ3YD7ZsLWmibbJ89LJMA
-Pa9cCxJiIGP11OnZ/Wj1xPqyfLyRabmz/ZBpvT74Qc3xxH5Tiw7ZTszXxXRf
-TQjr4+t+4Mx3eWCpt2Dcl9XrW7DYT96iroHs/Agv1j/JaqDpm3bjfWHxyJA1
-Paom6YwUOZfcP7MEuTepO7ZxbdNA+/yUCryIf5ubeF9VYCufLfpslcIdUnc/
-NTKte7OL/5K463iWp8GN5RkmiOdvG5zM4l5HHt14P/Eoe1lkHtn5XvzP4vuQ
-vG2gefYFYL2cnDaXOHpkzAM5lTDnBeFEvxoVnKbsI+qgFvWVox6svxW4n/Zr
-CYdMdUhTIzvfT/bOCLDzff0H/muFeg==
-                "]], 
-               
-               FilledCurve[{{{0, 2, 0}, {1, 3, 3}, {1, 3, 3}, {0, 1, 0}, {0, 
-                1, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
-                3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {0,
-                 1, 0}, {1, 3, 3}, {0, 1, 0}, {0, 1, 0}}}, CompressedData["
-1:eJxTTMoPSmVmYGBgBGI9IGYC4jmLlHf+Oa7mcOqw09pMO3WHhJAg9QWeCP6L
-LO1v023VHDaoPmme91bNYUp7a9RlGTUHU5u9QdMU1RxeFW8V/f1a1SEj/0Pr
-ySuqDqI9Xq9YYPQWVYg581TgfLB5sQj+TBDoVITz1wrp8KWvU3Yw0FopfGGJ
-ugMDCHxQdjAD2fdQ3aHm04aA7FkqDmB3p2s4bNLLW8x4R8XhUYT49osLNBxS
-Yu+4Md9Qdaj9bVVwrkPTAea/ehA/QwvOB5tzSxvOl1n+wkNvv66DzLw4zdMG
-qhBzfug5iFROKjlrogznK197FMzgowjnV9//ccuYW8Ghhdd//ZRWXTh/A8hd
-MjpwPjh8QrQh/l2pANFvoe3QbeO5K+0Rgu++5uhyBgtFOD89DQi2KUL0lyD4
-TxIXXjPh14Hz/7x9fcDysY6D84RmobRXCnD+DJB9OxF8cHgaKDq8AMUbt57D
-ym8vK844KDn8+Vb6YE6hHsR+DmU4X2LqFc6MJhU4H+xPV1VoOOnC+bDwhPFN
-jEFAC5peVCDp4J8GJPxslBz+gswTVIfyFSDxx6AKDy9IOlKB89+A3HsawU8D
-AxWHgFvSNYlBanA+enoGAPMMPec=
-                "]]}, 
-              Thickness[0.07473841554559042]]}, {
-            ImageSize -> {13.376866749688668`, 16.368856787048568`}, 
-             BaselinePosition -> Scaled[0.3237956353650342], 
-             ImageSize -> {14., 17.}, PlotRange -> {{0., 13.38}, {0., 16.37}},
-              AspectRatio -> Automatic}]], "ActualOutput" -> HoldForm[
-           Graphics[{
-             Thickness[0.07473841554559042], 
-             Style[{
-               FilledCurve[CompressedData["
-1:eJxTTMoPymNmYGBgBGI5IIaxWZDYzCSwGaB8BjL0DhR7oNwMAEUOAp8=
-                "], CompressedData["
-1:eJxdlH9IU1EUx+dmmKjT+dzae05ybqL2g0wNzKId/5DQTCUFfxGWtJlIGBiY
-MSMlEzEKKsSJZf4gFVYqYaSUGNEvUAsNDYUU9I+WGhkp/l67976dkQcuj8+9
-7557zvece7X5xWeMMolE4uYYmY4hdYzB2oHKmFkBAsruXRl214CTMxbHlurj
-NTCTkBff0CNAZLTDSjQQ9kdvayh08cKtS7VRGzzy3v7HA8ZfPFQFe4QOxYj/
-f+IhhqyPBUI68VuhZv6b90BOaJZm5JUShohZlXDS+q5dUs8h0++CApmjcSrA
-PL06GT2vQn7qf0Be8F29Y90Zh4LF9Uxg/lcVcJPMfw2CNyTfVo7Nh4ewfHID
-4KLJYXU6sBBbU8La4vzg0VY9XCN+96uRy0ReFZn+b+FxvZ6yAMrbST/dM/RA
-ZIjmeJg73zwec0iPetD8GnXIv1u6gofDXVxA4wmBl+lxWfYCHl4XmxctxhCm
-KycgU10rAnewBqYigqx2mQ6Z+u9w8Y2NuMsjHXqmQ6wAD6qrcsY0oSKrkYOJ
-jilK5LtZtalu3Rxkeaqqo7vEeOM5pssxHat/hD9E7uvkvriHgne8PKm+UI77
-afzPvZEnfKZUxhUp8kyK7dxW04ah9O2LBMuWFtn3bNp0VKmLM8n5eVowEp1M
-m4bOFdvVIdCC+Uflel3fFnJs/sETu8CO/PDj/baiJ3YD7ZsLWmibbJ89LJMA
-Pa9cCxJiIGP11OnZ/Wj1xPqyfLyRabmz/ZBpvT74Qc3xxH5Tiw7ZTszXxXRf
-TQjr4+t+4Mx3eWCpt2Dcl9XrW7DYT96iroHs/Agv1j/JaqDpm3bjfWHxyJA1
-Paom6YwUOZfcP7MEuTepO7ZxbdNA+/yUCryIf5ubeF9VYCufLfpslcIdUnc/
-NTKte7OL/5K463iWp8GN5RkmiOdvG5zM4l5HHt14P/Eoe1lkHtn5XvzP4vuQ
-vG2gefYFYL2cnDaXOHpkzAM5lTDnBeFEvxoVnKbsI+qgFvWVox6svxW4n/Zr
-CYdMdUhTIzvfT/bOCLDzff0H/muFeg==
-                "]], 
-               
-               FilledCurve[{{{0, 2, 0}, {1, 3, 3}, {1, 3, 3}, {0, 1, 0}, {0, 
-                1, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
-                3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {0,
-                 1, 0}, {1, 3, 3}, {0, 1, 0}, {0, 1, 0}}}, CompressedData["
-1:eJxTTMoPSmVmYGBgBGI9IGYC4jmLlHf+Oa7mcOqw09pMO3WHhJAg9QWeCP6L
-LO1v023VHDaoPmme91bNYUp7a9RlGTUHU5u9QdMU1RxeFW8V/f1a1SEj/0Pr
-ySuqDqI9Xq9YYPQWVYg581TgfLB5sQj+TBDoVITz1wrp8KWvU3Yw0FopfGGJ
-ugMDCHxQdjAD2fdQ3aHm04aA7FkqDmB3p2s4bNLLW8x4R8XhUYT49osLNBxS
-Yu+4Md9Qdaj9bVVwrkPTAea/ehA/QwvOB5tzSxvOl1n+wkNvv66DzLw4zdMG
-qhBzfug5iFROKjlrogznK197FMzgowjnV9//ccuYW8Ghhdd//ZRWXTh/A8hd
-MjpwPjh8QrQh/l2pANFvoe3QbeO5K+0Rgu++5uhyBgtFOD89DQi2KUL0lyD4
-TxIXXjPh14Hz/7x9fcDysY6D84RmobRXCnD+DJB9OxF8cHgaKDq8AMUbt57D
-ym8vK844KDn8+Vb6YE6hHsR+DmU4X2LqFc6MJhU4H+xPV1VoOOnC+bDwhPFN
-jEFAC5peVCDp4J8GJPxslBz+gswTVIfyFSDxx6AKDy9IOlKB89+A3HsawU8D
-AxWHgFvSNYlBanA+enoGAPMMPec=
-                "]]}, 
-              Thickness[0.07473841554559042]]}, {
-            ImageSize -> {13.376866749688668`, 16.368856787048568`}, 
-             BaselinePosition -> Scaled[0.3237956353650342], 
-             ImageSize -> {14., 17.}, PlotRange -> {{0., 13.38}, {0., 16.37}},
-              AspectRatio -> Automatic}]], "ExpectedMessages" -> HoldForm[{}],
-          "ActualMessages" -> {}, "AbsoluteTime" -> 3.8894113147101674`*^9, 
-         "AbsoluteTimeUsed" -> 0.000186`2.420027942049906, "CPUTimeUsed" -> 
-         0.00018599999999935335`, "MemoryUsed" -> 1888|>], 978210093607222649 -> 
-      TestResultObject[<|
-        "TestKey" -> 978210093607222649, "TestID" -> 
-         "PacletizeResources_20230402-DN2754", "TestFileName" -> 
+        "TestKey" -> 7994132988750978367, "TestID" -> 
+         "PacletizeResources_20230404-T57LFK", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", "SameTest" -> 
          SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
@@ -880,12 +290,12 @@ AxWHgFvSNYlBanA+enoGAPMMPec=
          HoldForm[PacletFind["MaTeX*"] === {}], "ExpectedOutput" -> 
          HoldForm[False], "ActualOutput" -> HoldForm[False], 
          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8894113147105503`*^9, "AbsoluteTimeUsed" -> 
-         0.001513`3.330353925855179, "CPUTimeUsed" -> 0.001480000000000814, 
-         "MemoryUsed" -> 1640|>], 39534615292788590 -> 
+         "AbsoluteTime" -> 3.889603612903731*^9, "AbsoluteTimeUsed" -> 
+         0.002419`3.534150866193871, "CPUTimeUsed" -> 0.0024180000000013635`, 
+         "MemoryUsed" -> 1704|>], 698183580261743974 -> 
       TestResultObject[<|
-        "TestKey" -> 39534615292788590, "TestID" -> 
-         "PacletizeResources_20230402-2PQII2", "TestFileName" -> 
+        "TestKey" -> 698183580261743974, "TestID" -> 
+         "PacletizeResources_20230404-3KGR8U", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", "SameTest" -> 
          SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
@@ -894,13 +304,13 @@ AxWHgFvSNYlBanA+enoGAPMMPec=
            MemberQ[$ContextPath, "MaTeX`"]], "ExpectedOutput" -> 
          HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.889411314712293*^9, "AbsoluteTimeUsed" -> 
-         0.000024`1.5307262395435977, "CPUTimeUsed" -> 
-         0.000023999999999801958`, "MemoryUsed" -> 2928|>], 
-      8992521929843262973 -> 
+         3.889603612906736*^9, "AbsoluteTimeUsed" -> 
+         0.000063`1.9498555472855732, "CPUTimeUsed" -> 
+         0.000058999999999365116`, "MemoryUsed" -> 2928|>], 
+      6352086610595911500 -> 
       TestResultObject[<|
-        "TestKey" -> 8992521929843262973, "TestID" -> 
-         "PacletizeResources_20230402-VN8KXR", "TestFileName" -> 
+        "TestKey" -> 6352086610595911500, "TestID" -> 
+         "PacletizeResources_20230404-3B4DKH", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", "SameTest" -> 
          SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
@@ -908,24 +318,20 @@ AxWHgFvSNYlBanA+enoGAPMMPec=
          "Outcome" -> "Success", "Input" -> HoldForm[
            MemberQ[$Packages, "MaTeX`"]], "ExpectedOutput" -> HoldForm[True], 
          "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> HoldForm[{}],
-          "ActualMessages" -> {}, "AbsoluteTime" -> 3.8894113147125*^9, 
-         "AbsoluteTimeUsed" -> 0.000038`1.7302985944487996, "CPUTimeUsed" -> 
-         0.00003200000000092018, "MemoryUsed" -> 2856|>]|>, 
-    "TestsSucceededKeys" -> {867922599362156486, 7390593611655977457, 
-     5963827458714861548, 2463926606518296395, 4035607487628928594, 
-     5059613870000672084, 5037335732685997977, 8969113545831017991, 
-     4480271824984596602, 3984242457382023250, 6866124104764110852, 
-     2130724596799953913, 4915692458790667238, 6072667642671226479, 
-     1913457010014931465, 2521327823524600712, 6507281559244155433, 
-     6599770979186589665, 978210093607222649, 39534615292788590, 
-     8992521929843262973}, "TestsFailedWrongResultsKeys" -> {}, 
+          "ActualMessages" -> {}, "AbsoluteTime" -> 3.8896036129071145`*^9, 
+         "AbsoluteTimeUsed" -> 0.000036`1.7068174985992768, "CPUTimeUsed" -> 
+         0.000035999999999702936`, "MemoryUsed" -> 2856|>]|>, 
+    "TestsSucceededKeys" -> {7994132988750978367, 698183580261743974, 
+     6352086610595911500}, "TestsFailedWrongResultsKeys" -> {}, 
     "TestsFailedWithMessagesKeys" -> {}, "TestsFailedWithErrorsKeys" -> {}|>],
   
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellChangeTimes->{3.889411272571615*^9, 3.889411314722249*^9},
- CellLabel->"Out[28]=",ExpressionUUID->"82632198-bedb-439c-bf77-273c38954e22"]
+ CellChangeTimes->{
+  3.889411272571615*^9, 3.889411314722249*^9, 3.8895912309120703`*^9, {
+   3.889603389890293*^9, 3.889603407177972*^9}, 3.88960361291724*^9},
+ CellLabel->"Out[16]=",ExpressionUUID->"d2dd86df-b666-4e9a-9ec9-48ea379a7f8c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -933,11 +339,23 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"tr", "[", "\"\<AllTestsSucceeded\>\"", "]"}]], "Input",
  CellChangeTimes->{{3.889411317363955*^9, 3.889411321392969*^9}},
- CellLabel->"In[30]:=",ExpressionUUID->"9a3a05de-ce05-44a7-8c05-bd799aa203c3"],
+ CellLabel->"In[4]:=",ExpressionUUID->"9a3a05de-ce05-44a7-8c05-bd799aa203c3"],
 
-Cell[BoxData["True"], "Output",
- CellChangeTimes->{{3.8894113180649137`*^9, 3.889411321925411*^9}},
- CellLabel->"Out[30]=",ExpressionUUID->"5235215d-77a1-4f07-8148-42fa2cdd1286"]
+Cell[BoxData["False"], "Output",
+ CellChangeTimes->{{3.8894113180649137`*^9, 3.889411321925411*^9}, 
+   3.889591230920117*^9, {3.8896033899052*^9, 3.889603415224492*^9}},
+ CellLabel->"Out[4]=",ExpressionUUID->"f75a2c79-2798-4fa5-875c-7aca7c979067"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{3.88960346927818*^9},
+ NumberMarks->False,ExpressionUUID->"55ac2d16-073e-45f8-89af-cecafede62e3"],
+
+Cell[BoxData["False"], "Output",
+ CellChangeTimes->{3.889603466344118*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"c3aae43e-6084-4e66-9a91-5dca36a1b141"]
 }, Open  ]]
 },
 WindowSize->{808, 843},
@@ -958,16 +376,25 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 455, 10, 30, "Input",ExpressionUUID->"b9f2d453-3e98-41bc-b67a-28793e860800"],
-Cell[1038, 34, 601, 12, 119, "Output",ExpressionUUID->"aabc0661-0058-4aa3-ae12-c5eaac45df4e"]
+Cell[580, 22, 969, 24, 94, "Input",ExpressionUUID->"b9f2d453-3e98-41bc-b67a-28793e860800"],
+Cell[1552, 48, 397, 7, 56, "Output",ExpressionUUID->"d83f4764-75a8-4ca4-9d34-27723feb3207"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1676, 51, 295, 5, 30, "Input",ExpressionUUID->"8a9c9e85-8cbf-4e1c-870c-0a5ec229dd8b"],
-Cell[1974, 58, 46996, 869, 61, "Output",ExpressionUUID->"82632198-bedb-439c-bf77-273c38954e22"]
+Cell[1986, 60, 175, 3, 30, "Input",ExpressionUUID->"59e79243-e98f-4598-abd5-c21f3a6cccca"],
+Cell[2164, 65, 798, 15, 64, "Message",ExpressionUUID->"758be7e7-6d59-45cc-b208-415d19e2a00f"],
+Cell[2965, 82, 476, 10, 28, "Message",ExpressionUUID->"7b8e0cdf-c872-4844-a024-265e31d07f8e"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[49007, 932, 224, 3, 30, "Input",ExpressionUUID->"9a3a05de-ce05-44a7-8c05-bd799aa203c3"],
-Cell[49234, 937, 178, 2, 34, "Output",ExpressionUUID->"5235215d-77a1-4f07-8148-42fa2cdd1286"]
+Cell[3478, 97, 295, 5, 30, "Input",ExpressionUUID->"8a9c9e85-8cbf-4e1c-870c-0a5ec229dd8b"],
+Cell[3776, 104, 11232, 229, 61, "Output",ExpressionUUID->"d2dd86df-b666-4e9a-9ec9-48ea379a7f8c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15045, 338, 223, 3, 30, "Input",ExpressionUUID->"9a3a05de-ce05-44a7-8c05-bd799aa203c3"],
+Cell[15271, 343, 248, 3, 34, "Output",ExpressionUUID->"f75a2c79-2798-4fa5-875c-7aca7c979067"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15556, 351, 143, 2, 30, "Input",ExpressionUUID->"55ac2d16-073e-45f8-89af-cecafede62e3"],
+Cell[15702, 355, 152, 2, 34, "Output",ExpressionUUID->"c3aae43e-6084-4e66-9a91-5dca36a1b141"]
 }, Open  ]]
 }
 ]

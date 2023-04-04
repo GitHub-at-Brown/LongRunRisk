@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      9502,        248]
-NotebookOptionsPosition[      7708,        208]
-NotebookOutlinePosition[      8139,        225]
-CellTagsIndexPosition[      8096,        222]
+NotebookDataLength[     36489,        772]
+NotebookOptionsPosition[     34103,        726]
+NotebookOutlinePosition[     34532,        743]
+CellTagsIndexPosition[     34489,        740]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -30,33 +30,36 @@ Cell[BoxData[{
         RowBox[{"NotebookFileName", "[", "]"}], "]"}], "<>", 
        "\"\<.wlt\>\""}]}], "}"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"pacletBaseDir", "=", 
-   RowBox[{"DirectoryName", "[", 
-    RowBox[{"testFileName", ",", "2"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"PacletDirectoryLoad", "[", "pacletBaseDir", "]"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{"If", "[", 
-  RowBox[{
+  RowBox[{"If", "[", 
    RowBox[{
-    RowBox[{"FileNames", "[", "testFileName", "]"}], "===", 
-    RowBox[{"{", "}"}]}], ",", "Nothing", ",", 
-   RowBox[{"DeleteFile", "[", "testFileName", "]"}]}], "]"}]}], "Input",
+    RowBox[{
+     RowBox[{"FileNames", "[", "testFileName", "]"}], "===", 
+     RowBox[{"{", "}"}]}], ",", "Nothing", ",", 
+    RowBox[{"DeleteFile", "[", "testFileName", "]"}]}], "]"}], 
+  ";"}]}], "Input",
  CellChangeTimes->{{3.8890661685133457`*^9, 3.889066220685074*^9}, {
   3.8890662555512333`*^9, 3.889066299901951*^9}, {3.889066581166473*^9, 
   3.8890665847967653`*^9}, {3.889066731765956*^9, 3.889066745674687*^9}, {
   3.8891795894875402`*^9, 3.889179639846863*^9}, {3.88949718319951*^9, 
-  3.88949718335884*^9}},
- CellLabel->"In[13]:=",ExpressionUUID->"946b8633-fd90-4e81-9c93-3393a5b979a7"],
+  3.88949718335884*^9}, {3.88960383353964*^9, 3.889603886709545*^9}, {
+  3.8896040400474997`*^9, 3.8896040445089283`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"946b8633-fd90-4e81-9c93-3393a5b979a7"],
 
 Cell[BoxData[
- RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}]], "Input",\
-
+ RowBox[{"(*", 
+  RowBox[{"pacletBaseDir", "=", 
+   RowBox[{
+    RowBox[{"DirectoryName", "[", 
+     RowBox[{"testFileName", ",", "2"}], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"PacletDirectoryLoad", "[", "pacletBaseDir", "]"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}]}]}], 
+  "*)"}]], "Input",
  CellChangeTimes->{
   3.889409345068622*^9, {3.889410685915352*^9, 3.889410694111726*^9}, 
    3.889410749018811*^9, {3.8895837721304083`*^9, 3.889583783747244*^9}, 
-   3.889601982725108*^9},
- CellLabel->"In[17]:=",ExpressionUUID->"87ca1f13-71d1-46f4-a04b-2f198dab5b0f"],
+   3.889601982725108*^9, {3.889604047423745*^9, 3.889604050416202*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"87ca1f13-71d1-46f4-a04b-2f198dab5b0f"],
 
 Cell[BoxData[
  RowBox[{
@@ -70,7 +73,7 @@ Cell[BoxData[
   ";"}]], "Input",
  CellChangeTimes->{{3.8891816370931664`*^9, 3.889181674069879*^9}, 
    3.889602038889742*^9},
- CellLabel->"In[6]:=",ExpressionUUID->"4fc1c255-2696-4f4f-908f-d0d10be16045"],
+ CellLabel->"In[4]:=",ExpressionUUID->"4fc1c255-2696-4f4f-908f-d0d10be16045"],
 
 Cell[BoxData[
  RowBox[{
@@ -83,7 +86,7 @@ Cell[BoxData[
      RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "*)"}], "]"}], 
   ";"}]], "Input",
  CellChangeTimes->{3.889181681549673*^9, 3.889602036890492*^9},
- CellLabel->"In[7]:=",ExpressionUUID->"93330032-af30-4213-a880-c69a16798f73"],
+ CellLabel->"In[5]:=",ExpressionUUID->"93330032-af30-4213-a880-c69a16798f73"],
 
 Cell[CellGroupData[{
 
@@ -92,32 +95,277 @@ Cell[BoxData[
   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
    RowBox[{
-    RowBox[{"PacletFind", "[", "\"\<MaTeX*\>\"", "]"}], "===", 
-    RowBox[{"{", "}"}]}], "\[IndentingNewLine]", ",", 
+    RowBox[{"Quiet", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"pacletBaseDir", "=", 
+       RowBox[{"DirectoryName", "[", 
+        RowBox[{
+         RowBox[{"NotebookDirectory", "[", "]"}], ",", "1"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"PacletDirectoryLoad", "@", "pacletBaseDir"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Needs", "@", "\"\<FernandoDuarte`LongRunRisk`\>\""}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"out", "=", 
+       RowBox[{"SameQ", "[", 
+        RowBox[{
+         RowBox[{"PacletFind", "@", "\"\<MaTeX*\>\""}], ",", 
+         RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", "]"}], 
+    ";", "\[IndentingNewLine]", "out"}], "\[IndentingNewLine]", ",", 
    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.889266391235121*^9, 3.88926639884129*^9}, 
    3.8892664924940042`*^9, {3.889410803479529*^9, 3.889410830230055*^9}, {
-   3.889410867401338*^9, 3.889410874392214*^9}, 
-   3.889602343800599*^9},ExpressionUUID->"782376cb-6c6d-48d4-a1c7-\
+   3.889410867401338*^9, 3.889410874392214*^9}, 3.889602343800599*^9, 
+   3.889603651370504*^9, {3.889603782861642*^9, 3.889603792570941*^9}, {
+   3.889603976851059*^9, 3.889603992084402*^9}, {3.8896044983210087`*^9, 
+   3.889604518097693*^9}},ExpressionUUID->"782376cb-6c6d-48d4-a1c7-\
 153c92066845"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "MaTeX", "shdw", 
+   "\"Symbol \\!\\(\\*RowBox[{\\\"\\\\\\\"MaTeX\\\\\\\"\\\"}]\\) appears in \
+multiple contexts \\!\\(\\*RowBox[{\\\"{\\\", \
+RowBox[{\\\"\\\\\\\"MaTeX`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"Global`\\\\\\\"\\\"}], \\\"}\\\"}]\\); definitions in context \\!\
+\\(\\*RowBox[{\\\"\\\\\\\"MaTeX`\\\\\\\"\\\"}]\\) may shadow or be shadowed \
+by other definitions.\"", 2, 6, 1, 28952188135863002559, "Local", 
+   "MaTeX`MaTeX"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellChangeTimes->{3.889604078032899*^9},
+ CellLabel->
+  "During evaluation of \
+In[6]:=",ExpressionUUID->"edfaff00-3fa9-43e4-bf2d-0340caddae6d"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "parameters", "shdw", 
+   "\"Symbol \\!\\(\\*RowBox[{\\\"\\\\\\\"parameters\\\\\\\"\\\"}]\\) appears \
+in multiple contexts \\!\\(\\*RowBox[{\\\"{\\\", \
+RowBox[{\\\"\\\\\\\"FernandoDuarte`LongRunRisk`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"FernandoDuarte`LongRunRisk`Model`Catalog`\\\\\\\"\\\"}], \
+\\\"}\\\"}]\\); definitions in context \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"FernandoDuarte`LongRunRisk`\\\\\\\"\\\"}]\\) may \
+shadow or be shadowed by other definitions.\"", 2, 6, 2, 28952188135863002559,
+    "Local", "FernandoDuarte`LongRunRisk`parameters"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellChangeTimes->{3.889604078126935*^9},
+ CellLabel->
+  "During evaluation of \
+In[6]:=",ExpressionUUID->"c14d0aa4-da54-4e62-bb12-f44cdaa81338"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Table", "iterb", 
+   "\"Iterator \\!\\(\\*RowBox[{\\\"{\\\", RowBox[{\\\"i\\\", \\\",\\\", \
+\\\"1\\\", \\\",\\\", \\\"numStocks\\\"}], \\\"}\\\"}]\\) does not have \
+appropriate bounds.\"", 2, 6, 3, 28952188135863002559, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.8896040782658997`*^9},
+ CellLabel->
+  "During evaluation of \
+In[6]:=",ExpressionUUID->"999e506b-567b-472c-82ea-17242458eb73"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"PacletizeResources_20230404-5TFNTZ\"\>"}],
-  SequenceForm["Adding test: ", "PacletizeResources_20230404-5TFNTZ"],
+   "\[InvisibleSpace]", "\<\"PacletizeResources_20230404-7XU6AS\"\>"}],
+  SequenceForm["Adding test: ", "PacletizeResources_20230404-7XU6AS"],
   Editable->False]], "Print",
- CellChangeTimes->{3.889602215512867*^9},
- CellLabel->"",ExpressionUUID->"b9fa4ba6-263a-4ca8-8653-85a2107515db"],
+ CellChangeTimes->{3.889602215512867*^9, 3.8896040783081427`*^9},
+ CellLabel->
+  "During evaluation of \
+In[6]:=",ExpressionUUID->"e68daa78-d3c3-4659-9157-d7f12f42993e"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>"], "Print",\
 
- CellChangeTimes->{3.889602215517335*^9},
- CellLabel->"",ExpressionUUID->"b3508353-e397-4f93-92f3-f95ff1512c71"]
-}, Open  ]]
+ CellChangeTimes->{3.889602215512867*^9, 3.889604078323963*^9},
+ CellLabel->
+  "During evaluation of \
+In[6]:=",ExpressionUUID->"824a4851-0b6a-48a5-9605-0162769854d1"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "pacletBaseDir = DirectoryName[NotebookDirectory[], 1];\n\t\
+PacletDirectoryLoad @ pacletBaseDir;\n\tNeeds @ \"FernandoDuarte`LongRunRisk`\
+\";\n\tSameQ[PacletFind @ \"MaTeX*\", {}]", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = False, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tpacletBaseDir = DirectoryName[NotebookDirectory[], \
+1];\n\tPacletDirectoryLoad @ pacletBaseDir;\n\tNeeds @ \
+\"FernandoDuarte`LongRunRisk`\";\n\tSameQ[PacletFind @ \"MaTeX*\", {}]\n\t,\n\
+\tFalse\n\t,\n\t{HoldForm[Message[MaTeX::shdw, HoldForm[\"MaTeX\"], \
+HoldForm[{\"MaTeX`\", \"Global`\"}], \n   HoldForm[\"MaTeX`\"]]], \
+HoldForm[Message[parameters::shdw, HoldForm[\"parameters\"], \n   \
+HoldForm[{\"FernandoDuarte`LongRunRisk`\", \n     \
+\"FernandoDuarte`LongRunRisk`Model`Catalog`\"}], \n   \
+HoldForm[\"FernandoDuarte`LongRunRisk`\"]]], \n \
+HoldForm[Message[Table::iterb, \n   \
+HoldForm[{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i, 1, \n     \
+FernandoDuarte`LongRunRisk`Private`numStocks}]]]}\n\t,\n\t\
+TestID->\"PacletizeResources_20230404-7XU6AS\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$ = True, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> False, "Success" -> False, "FailureType" -> "MessageFailure", 
+   "OutputLog" -> {}, "Messages" -> {
+     MessageName[MaTeX`MaTeX, "shdw"], 
+     MessageName[FernandoDuarte`LongRunRisk`parameters, "shdw"], 
+     MessageName[Table, "iterb"]}, 
+   "MessagesText" -> {
+    "MaTeX::shdw : Symbol MaTeX appears in multiple contexts {MaTeX`, \
+Global`}; definitions in context MaTeX` may shadow or be shadowed by other \
+definitions.", 
+     "parameters::shdw : Symbol parameters appears in multiple contexts \
+{FernandoDuarte`LongRunRisk`, FernandoDuarte`LongRunRisk`Model`Catalog`}; \
+definitions in context FernandoDuarte`LongRunRisk` may shadow or be shadowed \
+by other definitions.", 
+     "Table::iterb : Iterator {i, 1, numStocks} does not have appropriate \
+bounds."}, "MessagesExpressions" -> {
+     Hold[
+      Message[
+       MessageName[MaTeX`MaTeX, "shdw"], 
+       HoldForm["MaTeX"], 
+       HoldForm[{"MaTeX`", "Global`"}], 
+       HoldForm["MaTeX`"]]], 
+     Hold[
+      Message[
+       MessageName[FernandoDuarte`LongRunRisk`parameters, "shdw"], 
+       HoldForm["parameters"], 
+       HoldForm[{
+        "FernandoDuarte`LongRunRisk`", 
+         "FernandoDuarte`LongRunRisk`Model`Catalog`"}], 
+       HoldForm["FernandoDuarte`LongRunRisk`"]]], 
+     Hold[
+      Message[
+       MessageName[Table, "iterb"], 
+       HoldForm[{
+        FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i, 1, 
+         FernandoDuarte`LongRunRisk`Private`numStocks}]]]}, "Timing" -> 0.903,
+    "AbsoluteTiming" -> 0.677, "InputString" :> ToString[
+     Unevaluated[$CellContext`pacletBaseDir = DirectoryName[
+         NotebookDirectory[], 1]; 
+      PacletDirectoryLoad[$CellContext`pacletBaseDir]; 
+      Needs["FernandoDuarte`LongRunRisk`"]; PacletFind["MaTeX*"] === {}], 
+     InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {
+   Hold[
+    Message[
+     MessageName[MaTeX`MaTeX, "shdw"], 
+     HoldForm["MaTeX"], 
+     HoldForm[{"MaTeX`", "Global`"}], 
+     HoldForm["MaTeX`"]]], 
+   Hold[
+    Message[
+     MessageName[FernandoDuarte`LongRunRisk`parameters, "shdw"], 
+     HoldForm["parameters"], 
+     HoldForm[{
+      "FernandoDuarte`LongRunRisk`", 
+       "FernandoDuarte`LongRunRisk`Model`Catalog`"}], 
+     HoldForm["FernandoDuarte`LongRunRisk`"]]], 
+   Hold[
+    Message[
+     MessageName[Table, "iterb"], 
+     HoldForm[{
+      FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i, 1, 
+       FernandoDuarte`LongRunRisk`Private`numStocks}]]]}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = 
+  "{HoldForm[Message[MaTeX::shdw, HoldForm[\"MaTeX\"], HoldForm[{\"MaTeX`\", \
+\"Global`\"}], \n   HoldForm[\"MaTeX`\"]]], \
+HoldForm[Message[parameters::shdw, HoldForm[\"parameters\"], \n   \
+HoldForm[{\"FernandoDuarte`LongRunRisk`\", \n     \
+\"FernandoDuarte`LongRunRisk`Model`Catalog`\"}], \n   \
+HoldForm[\"FernandoDuarte`LongRunRisk`\"]]], \n \
+HoldForm[Message[Table::iterb, \n   \
+HoldForm[{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i, 1, \n     \
+FernandoDuarte`LongRunRisk`Private`numStocks}]]]}", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"PacletizeResources\"]\n\n\nVerificationTest[\n\t\
+pacletBaseDir = DirectoryName[NotebookDirectory[], 1];\n\tPacletDirectoryLoad \
+@ pacletBaseDir;\n\tNeeds @ \"FernandoDuarte`LongRunRisk`\";\n\t\
+SameQ[PacletFind @ \"MaTeX*\", {}]\n\t,\n\tFalse\n\t,\n\t\
+{HoldForm[Message[MaTeX::shdw, HoldForm[\"MaTeX\"], HoldForm[{\"MaTeX`\", \
+\"Global`\"}], \n   HoldForm[\"MaTeX`\"]]], \
+HoldForm[Message[parameters::shdw, HoldForm[\"parameters\"], \n   \
+HoldForm[{\"FernandoDuarte`LongRunRisk`\", \n     \
+\"FernandoDuarte`LongRunRisk`Model`Catalog`\"}], \n   \
+HoldForm[\"FernandoDuarte`LongRunRisk`\"]]], \n \
+HoldForm[Message[Table::iterb, \n   \
+HoldForm[{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i, 1, \n     \
+FernandoDuarte`LongRunRisk`Private`numStocks}]]]}\n\t,\n\t\
+TestID->\"PacletizeResources_20230404-7XU6AS\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", 
+           "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt"]; 
+        SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.889604078337455*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"8ecabd07-1888-4e4d-912b-c634e5800a07"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -126,14 +374,30 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
-   RowBox[{"MemberQ", "[", 
-    RowBox[{"$ContextPath", ",", "\"\<MaTeX`\>\""}], "]"}], 
+   RowBox[{
+    RowBox[{"Quiet", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"pacletBaseDir", "=", 
+       RowBox[{"DirectoryName", "[", 
+        RowBox[{
+         RowBox[{"NotebookDirectory", "[", "]"}], ",", "1"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"PacletDirectoryLoad", "@", "pacletBaseDir"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Needs", "@", "\"\<FernandoDuarte`LongRunRisk`\>\""}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"out", "=", 
+       RowBox[{"MemberQ", "[", 
+        RowBox[{"$ContextPath", ",", "\"\<MaTeX`\>\""}], "]"}]}], ";"}], 
+     "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", "out"}], 
    "\[IndentingNewLine]", ",", 
    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.889265295681075*^9, 3.889265298849951*^9}, {
    3.8892653856978407`*^9, 3.889265387958386*^9}, {3.889410886478643*^9, 
    3.889410901807474*^9}, {3.889410965702775*^9, 3.889410989510982*^9}, 
-   3.889602314078582*^9},ExpressionUUID->"4e6c1198-8c08-4bc2-ac95-\
+   3.889602314078582*^9, {3.889604061288991*^9, 3.8896040617342663`*^9}, {
+   3.889604531176115*^9, 
+   3.8896045519142714`*^9}},ExpressionUUID->"4e6c1198-8c08-4bc2-ac95-\
 6b61b86e0db0"],
 
 Cell[CellGroupData[{
@@ -141,18 +405,135 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"PacletizeResources_20230404-R555OE\"\>"}],
-  SequenceForm["Adding test: ", "PacletizeResources_20230404-R555OE"],
+   "\[InvisibleSpace]", "\<\"PacletizeResources_20230404-9MB6RL\"\>"}],
+  SequenceForm["Adding test: ", "PacletizeResources_20230404-9MB6RL"],
   Editable->False]], "Print",
- CellChangeTimes->{3.8896022556657267`*^9},
- CellLabel->"",ExpressionUUID->"3a71b294-125d-4233-be93-35bb8fac11f1"],
+ CellChangeTimes->{3.8896022556657267`*^9, 3.8896040785128098`*^9},
+ CellLabel->
+  "During evaluation of \
+In[7]:=",ExpressionUUID->"e4f605d3-b431-4462-8ec5-26e2ab5d09dd"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>"], "Print",\
 
- CellChangeTimes->{3.889602255671924*^9},
- CellLabel->"",ExpressionUUID->"66f2e2f1-04aa-4d72-bc76-d4a85b3276f1"]
-}, Open  ]]
+ CellChangeTimes->{3.8896022556657267`*^9, 3.889604078514834*^9},
+ CellLabel->
+  "During evaluation of \
+In[7]:=",ExpressionUUID->"851fb52c-22ba-45bb-bad7-79dc21a87a39"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "pacletBaseDir = DirectoryName[NotebookDirectory[], 1];\n\t\
+PacletDirectoryLoad @ pacletBaseDir;\n\tNeeds @ \"FernandoDuarte`LongRunRisk`\
+\";\n\tMemberQ[$ContextPath, \"MaTeX`\"]", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tpacletBaseDir = DirectoryName[NotebookDirectory[], \
+1];\n\tPacletDirectoryLoad @ pacletBaseDir;\n\tNeeds @ \
+\"FernandoDuarte`LongRunRisk`\";\n\tMemberQ[$ContextPath, \"MaTeX`\"]\n\t,\n\t\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"PacletizeResources_20230404-9MB6RL\"\n]\n\n\
+", FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> True, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 0., "AbsoluteTiming" -> 0.017, 
+   "InputString" :> ToString[
+     Unevaluated[$CellContext`pacletBaseDir = DirectoryName[
+         NotebookDirectory[], 1]; 
+      PacletDirectoryLoad[$CellContext`pacletBaseDir]; 
+      Needs["FernandoDuarte`LongRunRisk`"]; MemberQ[$ContextPath, "MaTeX`"]], 
+     InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"PacletizeResources\"]\n\n\nVerificationTest[\n\t\
+pacletBaseDir = DirectoryName[NotebookDirectory[], 1];\n\tPacletDirectoryLoad \
+@ pacletBaseDir;\n\tNeeds @ \"FernandoDuarte`LongRunRisk`\";\n\t\
+SameQ[PacletFind @ \"MaTeX*\", {}]\n\t,\n\tFalse\n\t,\n\t\
+{HoldForm[Message[MaTeX::shdw, HoldForm[\"MaTeX\"], HoldForm[{\"MaTeX`\", \
+\"Global`\"}], \n   HoldForm[\"MaTeX`\"]]], \
+HoldForm[Message[parameters::shdw, HoldForm[\"parameters\"], \n   \
+HoldForm[{\"FernandoDuarte`LongRunRisk`\", \n     \
+\"FernandoDuarte`LongRunRisk`Model`Catalog`\"}], \n   \
+HoldForm[\"FernandoDuarte`LongRunRisk`\"]]], \n \
+HoldForm[Message[Table::iterb, \n   \
+HoldForm[{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i, 1, \n     \
+FernandoDuarte`LongRunRisk`Private`numStocks}]]]}\n\t,\n\t\
+TestID->\"PacletizeResources_20230404-7XU6AS\"\n]\n\n\nVerificationTest[\n\t\
+pacletBaseDir = DirectoryName[NotebookDirectory[], 1];\n\tPacletDirectoryLoad \
+@ pacletBaseDir;\n\tNeeds @ \"FernandoDuarte`LongRunRisk`\";\n\t\
+MemberQ[$ContextPath, \"MaTeX`\"]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"PacletizeResources_20230404-9MB6RL\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", 
+           "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt"]; 
+        SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.889604078521324*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"3e736d8e-46e0-4e51-a807-bf4a67ae8b8a"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -161,12 +542,28 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
-   RowBox[{"MemberQ", "[", 
-    RowBox[{"$Packages", ",", "\"\<MaTeX`\>\""}], "]"}], 
+   RowBox[{
+    RowBox[{"Quiet", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"pacletBaseDir", "=", 
+       RowBox[{"DirectoryName", "[", 
+        RowBox[{
+         RowBox[{"NotebookDirectory", "[", "]"}], ",", "1"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"PacletDirectoryLoad", "@", "pacletBaseDir"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Needs", "@", "\"\<FernandoDuarte`LongRunRisk`\>\""}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"out", "=", 
+       RowBox[{"MemberQ", "[", 
+        RowBox[{"$Packages", ",", "\"\<MaTeX`\>\""}], "]"}]}], ";"}], 
+     "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", "out"}], 
    "\[IndentingNewLine]", ",", 
    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.889410930509644*^9, 3.889410980768763*^9}, 
-   3.889602318034584*^9},ExpressionUUID->"d8b0c331-ff7b-4487-be3d-\
+   3.889602318034584*^9, {3.889604064671085*^9, 3.889604065134213*^9}, {
+   3.889604535189972*^9, 
+   3.889604554482472*^9}},ExpressionUUID->"d8b0c331-ff7b-4487-be3d-\
 f2174c0ca210"],
 
 Cell[CellGroupData[{
@@ -174,18 +571,139 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"PacletizeResources_20230404-VG9JMX\"\>"}],
-  SequenceForm["Adding test: ", "PacletizeResources_20230404-VG9JMX"],
+   "\[InvisibleSpace]", "\<\"PacletizeResources_20230404-OR0F7V\"\>"}],
+  SequenceForm["Adding test: ", "PacletizeResources_20230404-OR0F7V"],
   Editable->False]], "Print",
- CellChangeTimes->{3.889602112792412*^9},
- CellLabel->"",ExpressionUUID->"2f80a07d-4408-4d8a-953c-b1d508ef33e8"],
+ CellChangeTimes->{3.889602112792412*^9, 3.889604078568994*^9},
+ CellLabel->
+  "During evaluation of \
+In[8]:=",ExpressionUUID->"d0e62e42-9ad4-4f29-8c3c-b45d5145eacc"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>"], "Print",\
 
- CellChangeTimes->{3.889602112796383*^9},
- CellLabel->"",ExpressionUUID->"5f1df868-59b0-4b23-8494-a195ad7637bf"]
-}, Open  ]]
+ CellChangeTimes->{3.889602112792412*^9, 3.889604078570541*^9},
+ CellLabel->
+  "During evaluation of \
+In[8]:=",ExpressionUUID->"38205e8a-687d-496a-8737-e8eaa0f6dfbf"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "pacletBaseDir = DirectoryName[NotebookDirectory[], 1];\n\t\
+PacletDirectoryLoad @ pacletBaseDir;\n\tNeeds @ \"FernandoDuarte`LongRunRisk`\
+\";\n\tMemberQ[$Packages, \"MaTeX`\"]", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tpacletBaseDir = DirectoryName[NotebookDirectory[], \
+1];\n\tPacletDirectoryLoad @ pacletBaseDir;\n\tNeeds @ \
+\"FernandoDuarte`LongRunRisk`\";\n\tMemberQ[$Packages, \"MaTeX`\"]\n\t,\n\t\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"PacletizeResources_20230404-OR0F7V\"\n]\n\n\
+", FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> True, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 0., "AbsoluteTiming" -> 0.011, 
+   "InputString" :> ToString[
+     Unevaluated[$CellContext`pacletBaseDir = DirectoryName[
+         NotebookDirectory[], 1]; 
+      PacletDirectoryLoad[$CellContext`pacletBaseDir]; 
+      Needs["FernandoDuarte`LongRunRisk`"]; MemberQ[$Packages, "MaTeX`"]], 
+     InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"PacletizeResources\"]\n\n\nVerificationTest[\n\t\
+pacletBaseDir = DirectoryName[NotebookDirectory[], 1];\n\tPacletDirectoryLoad \
+@ pacletBaseDir;\n\tNeeds @ \"FernandoDuarte`LongRunRisk`\";\n\t\
+SameQ[PacletFind @ \"MaTeX*\", {}]\n\t,\n\tFalse\n\t,\n\t\
+{HoldForm[Message[MaTeX::shdw, HoldForm[\"MaTeX\"], HoldForm[{\"MaTeX`\", \
+\"Global`\"}], \n   HoldForm[\"MaTeX`\"]]], \
+HoldForm[Message[parameters::shdw, HoldForm[\"parameters\"], \n   \
+HoldForm[{\"FernandoDuarte`LongRunRisk`\", \n     \
+\"FernandoDuarte`LongRunRisk`Model`Catalog`\"}], \n   \
+HoldForm[\"FernandoDuarte`LongRunRisk`\"]]], \n \
+HoldForm[Message[Table::iterb, \n   \
+HoldForm[{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i, 1, \n     \
+FernandoDuarte`LongRunRisk`Private`numStocks}]]]}\n\t,\n\t\
+TestID->\"PacletizeResources_20230404-7XU6AS\"\n]\n\n\nVerificationTest[\n\t\
+pacletBaseDir = DirectoryName[NotebookDirectory[], 1];\n\tPacletDirectoryLoad \
+@ pacletBaseDir;\n\tNeeds @ \"FernandoDuarte`LongRunRisk`\";\n\t\
+MemberQ[$ContextPath, \"MaTeX`\"]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"PacletizeResources_20230404-9MB6RL\"\n]\n\n\nVerificationTest[\n\t\
+pacletBaseDir = DirectoryName[NotebookDirectory[], 1];\n\tPacletDirectoryLoad \
+@ pacletBaseDir;\n\tNeeds @ \"FernandoDuarte`LongRunRisk`\";\n\t\
+MemberQ[$Packages, \"MaTeX`\"]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"PacletizeResources_20230404-OR0F7V\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", 
+           "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt"]; 
+        SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.889604078576681*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"1ae9d81b-25c4-4022-b9ae-79bfc30e5a64"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -204,10 +722,10 @@ Cell[BoxData[
       "]"}]}]}], "\[IndentingNewLine]", "*)"}]}]], "Input",
  CellChangeTimes->{{3.889409754611332*^9, 3.889409754615909*^9}, {
   3.8894106504357557`*^9, 3.889410663925764*^9}},
- CellLabel->"In[11]:=",ExpressionUUID->"6edec598-960e-4fcc-97fb-b64fb1ade862"]
+ CellLabel->"In[9]:=",ExpressionUUID->"6edec598-960e-4fcc-97fb-b64fb1ade862"]
 },
-WindowSize->{1920, 1062},
-WindowMargins->{{-1919, Automatic}, {Automatic, 0}},
+WindowSize->{1694, 910},
+WindowMargins->{{52, Automatic}, {-11, Automatic}},
 Magnification:>1.25 Inherited,
 FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
 StyleDefinitions->"Default.nb",
@@ -224,32 +742,38 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 1244, 29, 116, "Input",ExpressionUUID->"946b8633-fd90-4e81-9c93-3393a5b979a7"],
-Cell[1805, 51, 364, 7, 37, "Input",ExpressionUUID->"87ca1f13-71d1-46f4-a04b-2f198dab5b0f"],
-Cell[2172, 60, 524, 12, 90, "Input",ExpressionUUID->"4fc1c255-2696-4f4f-908f-d0d10be16045"],
-Cell[2699, 74, 514, 11, 90, "Input",ExpressionUUID->"93330032-af30-4213-a880-c69a16798f73"],
+Cell[558, 20, 1104, 25, 64, "Input",ExpressionUUID->"946b8633-fd90-4e81-9c93-3393a5b979a7"],
+Cell[1665, 47, 686, 14, 90, "Input",ExpressionUUID->"87ca1f13-71d1-46f4-a04b-2f198dab5b0f"],
+Cell[2354, 63, 524, 12, 90, "Input",ExpressionUUID->"4fc1c255-2696-4f4f-908f-d0d10be16045"],
+Cell[2881, 77, 514, 11, 90, "Input",ExpressionUUID->"93330032-af30-4213-a880-c69a16798f73"],
 Cell[CellGroupData[{
-Cell[3238, 89, 632, 12, 90, "Input",ExpressionUUID->"782376cb-6c6d-48d4-a1c7-153c92066845"],
+Cell[3420, 92, 1432, 29, 246, "Input",ExpressionUUID->"782376cb-6c6d-48d4-a1c7-153c92066845"],
+Cell[4855, 123, 658, 14, 35, "Message",ExpressionUUID->"edfaff00-3fa9-43e4-bf2d-0340caddae6d"],
+Cell[5516, 139, 772, 15, 57, "Message",ExpressionUUID->"c14d0aa4-da54-4e62-bb12-f44cdaa81338"],
+Cell[6291, 156, 452, 10, 35, "Message",ExpressionUUID->"999e506b-567b-472c-82ea-17242458eb73"],
 Cell[CellGroupData[{
-Cell[3895, 105, 355, 7, 29, "Print",ExpressionUUID->"b9fa4ba6-263a-4ca8-8653-85a2107515db"],
-Cell[4253, 114, 243, 4, 29, "Print",ExpressionUUID->"b3508353-e397-4f93-92f3-f95ff1512c71"]
-}, Open  ]]
+Cell[6768, 170, 412, 9, 29, "Print",ExpressionUUID->"e68daa78-d3c3-4659-9157-d7f12f42993e"],
+Cell[7183, 181, 298, 6, 29, "Print",ExpressionUUID->"824a4851-0b6a-48a5-9605-0162769854d1"]
+}, Open  ]],
+Cell[7496, 190, 8964, 177, 42, "Output",ExpressionUUID->"8ecabd07-1888-4e4d-912b-c634e5800a07"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4545, 124, 647, 12, 90, "Input",ExpressionUUID->"4e6c1198-8c08-4bc2-ac95-6b61b86e0db0"],
+Cell[16497, 372, 1345, 28, 246, "Input",ExpressionUUID->"4e6c1198-8c08-4bc2-ac95-6b61b86e0db0"],
 Cell[CellGroupData[{
-Cell[5217, 140, 357, 7, 29, "Print",ExpressionUUID->"3a71b294-125d-4233-be93-35bb8fac11f1"],
-Cell[5577, 149, 243, 4, 29, "Print",ExpressionUUID->"66f2e2f1-04aa-4d72-bc76-d4a85b3276f1"]
-}, Open  ]]
+Cell[17867, 404, 414, 9, 29, "Print",ExpressionUUID->"e4f605d3-b431-4462-8ec5-26e2ab5d09dd"],
+Cell[18284, 415, 300, 6, 29, "Print",ExpressionUUID->"851fb52c-22ba-45bb-bad7-79dc21a87a39"]
+}, Open  ]],
+Cell[18599, 424, 6271, 111, 42, "Output",ExpressionUUID->"3e736d8e-46e0-4e51-a807-bf4a67ae8b8a"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5869, 159, 496, 10, 90, "Input",ExpressionUUID->"d8b0c331-ff7b-4487-be3d-f2174c0ca210"],
+Cell[24907, 540, 1190, 26, 246, "Input",ExpressionUUID->"d8b0c331-ff7b-4487-be3d-f2174c0ca210"],
 Cell[CellGroupData[{
-Cell[6390, 173, 355, 7, 29, "Print",ExpressionUUID->"2f80a07d-4408-4d8a-953c-b1d508ef33e8"],
-Cell[6748, 182, 243, 4, 29, "Print",ExpressionUUID->"5f1df868-59b0-4b23-8494-a195ad7637bf"]
-}, Open  ]]
+Cell[26122, 570, 410, 9, 29, "Print",ExpressionUUID->"d0e62e42-9ad4-4f29-8c3c-b45d5145eacc"],
+Cell[26535, 581, 298, 6, 29, "Print",ExpressionUUID->"38205e8a-687d-496a-8737-e8eaa0f6dfbf"]
 }, Open  ]],
-Cell[7018, 190, 686, 16, 145, "Input",ExpressionUUID->"6edec598-960e-4fcc-97fb-b64fb1ade862"]
+Cell[26848, 590, 6551, 115, 42, "Output",ExpressionUUID->"1ae9d81b-25c4-4022-b9ae-79bfc30e5a64"]
+}, Open  ]],
+Cell[33414, 708, 685, 16, 145, "Input",ExpressionUUID->"6edec598-960e-4fcc-97fb-b64fb1ade862"]
 }
 ]
 *)
