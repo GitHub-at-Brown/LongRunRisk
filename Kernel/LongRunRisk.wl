@@ -15,11 +15,17 @@ $pacletBaseDir=DirectoryName[NotebookDirectory[],1];
 
 
 (*install local version of external packages*)
-PacletInstall[FileNameJoin[{$pacletBaseDir,"Resources","MaTeX-1.7.9.paclet"}],KeepExistingVersion->True, ForceVersionInstall->True];
-PacletInstall[FileNameJoin[{$pacletBaseDir,"Resources","PacletizedResourceFunctions.paclet"}],KeepExistingVersion->True, ForceVersionInstall->True];
+pacletResourceFuns=PacletInstall[FileNameJoin[{$pacletBaseDir,"Resources","PacletizedResourceFunctions.paclet"}],KeepExistingVersion->True, ForceVersionInstall->True];
+
+pacletMaTeX=PacletInstall[FileNameJoin[{$pacletBaseDir,"Resources","MaTeX-1.7.9.paclet"}],KeepExistingVersion->True, ForceVersionInstall->True];
+
+
+Get[FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]
+(*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
+
+
 (*automatically use MaTeX instead of built-in LaTeX in inline/displayed formula cells*)
-matex["Location"]
-Get[FileNameJoin[{$UserBasePacletsDirectory,"Repository","MaTeX-1.7.9","MaTeX.m"}]]
+
 $useMaTeXMag=1;
 $useMaTeXBaselineShift=0;
 $useMaTeXMag=1.44; (*x^2 and x have the~same size in a Text cell*)
@@ -37,10 +43,6 @@ preambleTeX={
 "\\usepackage{color}",
 "\\usepackage{microtype}"
 };
-
-p=PacletFind["MaTeX"]
-Echo[#["Location"]&/@p]
-Print[#["Location"]&/@p]
 
 
 <<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
