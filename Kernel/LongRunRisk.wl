@@ -41,6 +41,7 @@ preambleTeX={
 <<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
 <<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
 <<FernandoDuarte`LongRunRisk`Model`Catalog`;
+<<FernandoDuarte`LongRunRisk`Model`NiceOutput`;
 
 (*<<FernandoDuarte`LongRunRisk`ComputationalEngine`;*)
 (*<<FernandoDuarte`LongRunRisk`TimeAggregation`; *)

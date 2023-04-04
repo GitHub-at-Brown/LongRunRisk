@@ -17,9 +17,7 @@ models = <|
 		name -> "Original long-run risk model",
 		shortname -> "BY",
 		bibRef -> "BY2004",
-		desc -> "Long-run risk model with stochastic \
-			volatility in the original 2004 paper by \
-			Bansal and Yaron",
+		desc -> "Long-run risk model with stochastic volatility in the original 2004 paper by Bansal and Yaron",
 		stateVars -> {x[t], sx[t]},
 		parameters -> {
 			(*"Preferences"*)
@@ -207,26 +205,327 @@ models = <|
 	,
 	(*************************************************************************************************)
 		
-	BKYinf -> <|name -> "Similar to Bansal-Kiku-Yaron but with inflation",
-		 shortname -> "BKYinf", bibRef -> "None", desc -> "Inflation is persistent and predicts consumption growth (without time-variation, without NRC)",
-		 stateVars -> {x[t], sx[t], (pi[t] - mup)}, parameters -> {delta -> 0.998,
-		 psi -> 0.108086466108274, gamma -> (1 - gamma) / (1 - 1 / psi), theta
-		 -> -0.0319364382914013, taugd[1] -> 0, rhox -> 0.95, rhoxpbar -> 0, 
-		phix -> -0.0100455931054077, phixc -> 0, mup -> 0.0028955730909963, rhoppbar
-		 -> 0, rhop -> 0.985, phip -> -0.00043247571691955, xip -> 0, phipc ->
-		 0, phipcx -> 0, phipx -> 0, phipp -> 0, phipxp -> 0, mupbar -> 0, rhopbar
-		 -> 0, rhopbarx -> 0, phipbarc -> 0, phipbarcx -> 0, phipbarx -> 0, phipbarp
-		 -> 0, phipbarxb -> 0, phipbarpb -> 0, phipbarxp -> 0, muc -> 0.00157399080415904,
-		 rhocx -> 1, rhocp -> -0.292835401816459, phics -> 0, phicx -> 1, phicc
-		 -> 0, phicpp -> 0, phicpc -> 0, phic -> 0, phicsp -> 0, xic -> 0, phicp
-		 -> -0.00822757941067304, Esg -> 0, rhog -> 0, phig -> 0, Esx -> 7.83587415060296
-		 * 10 ^ -23, vx -> 0.979, phisxs -> 0.00530944692661557, Esc -> 0, vc
-		 -> 0, phiscv -> 0, Esp -> 0, vp -> 0, vpp -> 0, vppbar -> 0, phispw 
-		-> 0, mud[1] -> 0.00107967475744456, rhodx[1] -> 7.44835878922388, rhodp[
-		1] -> 0.0347877157464962, phidxd[1] -> -0.794376370651053, phids[1] ->
-		 0, phidxc[1] -> 1. * 10 ^ -8, phidpp[1] -> 0, phidpc[1] -> 0, phidpd[
-		1] -> 0, phidcc[1] -> 0, phidcd[1] -> 0, phidsp[1] -> 0, xid[1] -> 0,
-		 phidp[1] -> 0.0375725143683261, phidc[1] -> 0}|>
+BKYinf ->
+	<|
+		name
+		->
+		"Similar to Bansal-Kiku-Yaron but with inflation"
+		,
+		shortname
+		->
+		"BKYinf"
+		,
+		bibRef
+		->
+		"None"
+		,
+		desc
+		->
+		"Inflation is persistent and predicts consumption growth (without time-variation, without NRC)"
+			
+		,
+		stateVars
+		->
+		{
+			x[t]
+			,
+			sx[t]
+			,
+			(
+				pi[t]
+				-
+				mup
+			)
+		}
+		,
+		parameters
+		->
+		{
+			delta
+			->
+			0.998
+			,
+			psi
+			->
+			0.108086466108274
+			,
+			 gamma ->1-theta+theta/psi
+			 ,
+			  theta -> -0.0319364382914013
+			,
+			taugd[1]
+			->
+			0
+			,
+			rhox
+			->
+			0.95
+			,
+			rhoxpbar
+			->
+			0
+			,
+			phix
+			->
+			-0.0100455931054077
+			,
+			phixc
+			->
+			0
+			,
+			mup
+			->
+			0.0028955730909963
+			,
+			rhoppbar
+			->
+			0
+			,
+			rhop
+			->
+			0.985
+			,
+			phip
+			->
+			-0.00043247571691955
+			,
+			xip
+			->
+			0
+			,
+			phipc
+			->
+			0
+			,
+			phipcx
+			->
+			0
+			,
+			phipx
+			->
+			0
+			,
+			phipp
+			->
+			0
+			,
+			phipxp
+			->
+			0
+			,
+			mupbar
+			->
+			0
+			,
+			rhopbar
+			->
+			0
+			,
+			rhopbarx
+			->
+			0
+			,
+			phipbarc
+			->
+			0
+			,
+			phipbarcx
+			->
+			0
+			,
+			phipbarx
+			->
+			0
+			,
+			phipbarp
+			->
+			0
+			,
+			phipbarxb
+			->
+			0
+			,
+			phipbarpb
+			->
+			0
+			,
+			phipbarxp
+			->
+			0
+			,
+			muc
+			->
+			0.00157399080415904
+			,
+			rhocx
+			->
+			1
+			,
+			rhocp
+			->
+			-0.292835401816459
+			,
+			phics
+			->
+			0
+			,
+			phicx
+			->
+			1
+			,
+			phicc
+			->
+			0
+			,
+			phicpp
+			->
+			0
+			,
+			phicpc
+			->
+			0
+			,
+			phic
+			->
+			0
+			,
+			phicsp
+			->
+			0
+			,
+			xic
+			->
+			0
+			,
+			phicp
+			->
+			-0.00822757941067304
+			,
+			Esg
+			->
+			0
+			,
+			rhog
+			->
+			0
+			,
+			phig
+			->
+			0
+			,
+			Esx
+			->
+			7.83587415060296
+			*
+			10
+			^
+			-23
+			,
+			vx
+			->
+			0.979
+			,
+			phisxs
+			->
+			0.00530944692661557
+			,
+			Esc
+			->
+			0
+			,
+			vc
+			->
+			0
+			,
+			phiscv
+			->
+			0
+			,
+			Esp
+			->
+			0
+			,
+			vp
+			->
+			0
+			,
+			vpp
+			->
+			0
+			,
+			vppbar
+			->
+			0
+			,
+			phispw
+			->
+			0
+			,
+			mud[1]
+			->
+			0.00107967475744456
+			,
+			rhodx[1]
+			->
+			7.44835878922388
+			,
+			rhodp[1]
+			->
+			0.0347877157464962
+			,
+			phidxd[1]
+			->
+			-0.794376370651053
+			,
+			phids[1]
+			->
+			0
+			,
+			phidxc[1]
+			->
+			1.
+			*
+			10
+			^
+			-8
+			,
+			phidpp[1]
+			->
+			0
+			,
+			phidpc[1]
+			->
+			0
+			,
+			phidpd[1]
+			->
+			0
+			,
+			phidcc[1]
+			->
+			0
+			,
+			phidcd[1]
+			->
+			0
+			,
+			phidsp[1]
+			->
+			0
+			,
+			xid[1]
+			->
+			0
+			,
+			phidp[1]
+			->
+			0.0375725143683261
+			,
+			phidc[1]
+			->
+			0
+		}
+	|>
 	,
 	(*************************************************************************************************)
 		
