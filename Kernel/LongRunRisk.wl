@@ -19,7 +19,7 @@ Get[FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]
 (*<<TeXUtilities`;*)
 
 
-(*automatically use MaTeX instead of built-in LaTeX in inline/displayed formula cells*)
+(*(*automatically use MaTeX instead of built-in LaTeX in inline/displayed formula cells*)
 
 $useMaTeXMag=1;
 $useMaTeXBaselineShift=0;
@@ -40,7 +40,7 @@ preambleTeX={
 "\\usepackage{color}",
 "\\usepackage{microtype}"
 };
-
+*)
 
 
 BeginPackage["FernandoDuarte`LongRunRisk`"]
