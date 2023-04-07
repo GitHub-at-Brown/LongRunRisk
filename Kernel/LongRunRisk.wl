@@ -1,27 +1,14 @@
 (* ::Package:: *)
 
-(*install local version of external packages*)
+(*(*install local version of external packages*)
 UsingFrontEnd[
 	$pacletBaseDir=DirectoryName[NotebookDirectory[],1];
 	pacletResourceFuns=PacletInstall[FileNameJoin[{$pacletBaseDir,"Resources","PacletizedResourceFunctions.paclet"}],KeepExistingVersion->True, ForceVersionInstall->True];
 	pacletMaTeX=PacletInstall[FileNameJoin[{$pacletBaseDir,"Resources","MaTeX-1.7.9.paclet"}],KeepExistingVersion->True, ForceVersionInstall->True];
 ]
-
-
 Get[FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]
 (*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
-
-
-(*ToMatlab: general tools to write to Matlab*)
-(*<<ToMatlab`;*)
- (*toMatlabTools: tools to write to Matlab specific to this project*)
-(*<<toMatlabTools`;*)
-(*TeXUtilities: convert Mathematica expressions into LaTeX*)
-(*install with Get["https://raw.githubusercontent.com/jkuczm/MathematicaTeXUtilities/master/BootstrapInstall.m"]*)
-(*<<TeXUtilities`;*)
-
-
-(*(*automatically use MaTeX instead of built-in LaTeX in inline/displayed formula cells*)
+(*automatically use MaTeX instead of built-in LaTeX in inline/displayed formula cells*)
 UsingFrontEnd[
 	$useMaTeXMag=1;
 	$useMaTeXBaselineShift=0;
@@ -43,6 +30,15 @@ UsingFrontEnd[
 	"\\usepackage{microtype}"
 	};
 ]*)
+
+
+(*ToMatlab: general tools to write to Matlab*)
+(*<<ToMatlab`;*)
+ (*toMatlabTools: tools to write to Matlab specific to this project*)
+(*<<toMatlabTools`;*)
+(*TeXUtilities: convert Mathematica expressions into LaTeX*)
+(*install with Get["https://raw.githubusercontent.com/jkuczm/MathematicaTeXUtilities/master/BootstrapInstall.m"]*)
+(*<<TeXUtilities`;*)
 
 
 BeginPackage["FernandoDuarte`LongRunRisk`"]
