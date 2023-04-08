@@ -228,12 +228,20 @@ modelAssumptions =
 	
 (* distribution of exogenous shocks *)
 (*for a normal distribution, we only need rules for how to compute expectations of products of shocks*)
-rulesE[t_]:=
+rulesE[t_]:=With[
+	{
+		formals={\[FormalX],\[FormalC],\[FormalP],\[FormalB],\[FormalG],\[FormalS],\[FormalV],\[FormalW]}
+	},
 	{
 		eps[\[FormalC]][t]*eps[\[FormalD]][t,i_]:>taugd[i],
-		eps[_][t,___]:>0,
-		eps[_][t,___]^p_Integer:>Expectation[y^p,y\[Distributed]NormalDistribution[0,1]]
+		eps[var_][t]/;MemberQ[formals,var]:>0,
+		eps[\[FormalD]][t,i_]:>0,
+		eps[var_][t]^p_Integer/;MemberQ[formals,var]:>Expectation[y^p,y\[Distributed]NormalDistribution[0,1]],
+		eps[\[FormalD]][t,i_]^p_Integer:>Expectation[y^p,y\[Distributed]NormalDistribution[0,1]]
 	}
+]
+
+
 End[] (*"`Private`"*)
 
 
