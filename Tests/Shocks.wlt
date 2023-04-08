@@ -1,4 +1,4 @@
-BeginTestSection["ExogenousEq"]
+BeginTestSection["Shocks"]
 
 
 VerificationTest[
@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20230408-543OW2"
+	TestID->"Shocks_20230408-D4M5XD"
 ]
 
 
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20230408-XPAQDE"
+	TestID->"Shocks_20230408-WQOJ7P"
 ]
 
 

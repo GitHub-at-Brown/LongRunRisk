@@ -1,5 +1,42 @@
 (* ::Package:: *)
 
+BeginPackage["FernandoDuarte`LongRunRisk`"]
+
+
+<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
+<<FernandoDuarte`LongRunRisk`Model`Shocks`;
+<<FernandoDuarte`LongRunRisk`Model`Parameters`;
+
+
+(*<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;*)
+(*<<FernandoDuarte`LongRunRisk`Model`Catalog`;*)
+(*<<FernandoDuarte`LongRunRisk`ComputationalEngine`;*)
+(*<<FernandoDuarte`LongRunRisk`Model`NiceOutput`; *)
+main::usage=""
+
+(*re-exported symbols*)
+(*info*)
+
+
+Begin["`Private`"]
+
+
+main=1;
+
+(*re-export info from FernandoDuarte`LongRunRisk`Model`NiceOutput` *)
+(*info = (ResourceFunction["NeedsDefinitions"]["FernandoDuarte`LongRunRisk`Model`NiceOutput`"]; 
+FernandoDuarte`LongRunRisk`Model`NiceOutput`info);
+
+info::usage = (ResourceFunction["NeedsDefinitions"]["FernandoDuarte`LongRunRisk`Model`NiceOutput`"]; 
+Information[FernandoDuarte`LongRunRisk`Model`NiceOutput`info,"Usage"]);*)
+
+
+End[](*"`Private`"*)
+
+
+EndPackage[]
+
+
 (*(*install local version of external packages*)
 UsingFrontEnd[
 	$pacletBaseDir=DirectoryName[NotebookDirectory[],1];
@@ -30,60 +67,3 @@ UsingFrontEnd[
 	"\\usepackage{microtype}"
 	};
 ]*)
-
-
-(*ToMatlab: general tools to write to Matlab*)
-(*<<ToMatlab`;*)
- (*toMatlabTools: tools to write to Matlab specific to this project*)
-(*<<toMatlabTools`;*)
-(*TeXUtilities: convert Mathematica expressions into LaTeX*)
-(*install with Get["https://raw.githubusercontent.com/jkuczm/MathematicaTeXUtilities/master/BootstrapInstall.m"]*)
-(*<<TeXUtilities`;*)
-
-
-BeginPackage["FernandoDuarte`LongRunRisk`"]
-
-ClearAll[LongRunRisk];
-LongRunRisk::usage="LongRunRisk is a manager head for the LongRunRisk package";
-
-EndPackage[]
-
-
- BeginPackage["FernandoDuarte`LongRunRisk`Loader`"]
-(*<<FernandoDuarte`LongRunRisk`AddOne`;
-<<FernandoDuarte`LongRunRisk`AddTwo`;*)
-(*<<FernandoDuarte`LongRunRisk`Subpackage`AddThree`; (*if you want AddThree for user*)
-*)
-
-<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
-(*<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
-<<FernandoDuarte`LongRunRisk`Model`Catalog`;*)
-(*<<FernandoDuarte`LongRunRisk`ComputationalEngine`;*)
-(*<<FernandoDuarte`LongRunRisk`TimeAggregation`; *)
-
-
-
-Begin["`Private`"]
-
-
-(*<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
-<<FernandoDuarte`LongRunRisk`Model`Catalog`;
-<<FernandoDuarte`LongRunRisk`Model`NiceOutput`;
-*)
-(*Get["FernandoDuarte`LongRunRisk`Model`Catalog`"]
-Get["FernandoDuarte`LongRunRisk`Model`NiceOutput`"]
-
-Catalog=FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`Catalog;
-*)
-
-(*
-Catalog[]:=
-Catalog[_models]:= 
-Catalog[m_model]/;MemberQ[Keys[models,m]] := m*)
-
-
-
-End[](*"`Private`"*)
-
-
-EndPackage[]
