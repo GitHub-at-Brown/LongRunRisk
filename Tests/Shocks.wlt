@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230408-D4M5XD"
+	TestID->"Shocks_20230408-MP1CVI"
 ]
 
 
@@ -19,7 +19,29 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230408-WQOJ7P"
+	TestID->"Shocks_20230408-FLXFBF"
+]
+
+
+VerificationTest[
+	Needs @ "FernandoDuarte`LongRunRisk`Model`Shocks`"
+	,
+	Null
+	,
+	{}
+	,
+	TestID->"Shocks_20230408-HYKY80"
+]
+
+
+VerificationTest[
+	!SameQ[Names @ "*rulesE", {}]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"Shocks_20230408-N8UB94"
 ]
 
 
