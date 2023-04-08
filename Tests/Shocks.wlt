@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230408-MP1CVI"
+	TestID->"Shocks_20230408-HZVDSJ"
 ]
 
 
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230408-FLXFBF"
+	TestID->"Shocks_20230408-13T9UE"
 ]
 
 
@@ -30,7 +30,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230408-HYKY80"
+	TestID->"Shocks_20230408-XY6M7D"
 ]
 
 
@@ -41,7 +41,28 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230408-N8UB94"
+	TestID->"Shocks_20230408-99ZLDU"
+]
+
+
+VerificationTest[
+	{
+		Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][t] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
+			{f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+		],
+		Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][t, ii] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
+			{ii, {1, i, j}}
+		]
+	}
+	,
+	{
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0}
+	}
+	,
+	{}
+	,
+	TestID->"Shocks_20230408-RK8BEP"
 ]
 
 
