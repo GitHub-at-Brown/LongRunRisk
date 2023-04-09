@@ -6,22 +6,31 @@ BeginPackage["FernandoDuarte`LongRunRisk`"]
 <<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
 <<FernandoDuarte`LongRunRisk`Model`Shocks`;
 <<FernandoDuarte`LongRunRisk`Model`Parameters`;
-
-
-(*<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;*)
+<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
 (*<<FernandoDuarte`LongRunRisk`Model`Catalog`;*)
+(*<<FernandoDuarte`LongRunRisk`Model`NiceOutput`;*)
+
+
 (*<<FernandoDuarte`LongRunRisk`ComputationalEngine`;*)
 (*<<FernandoDuarte`LongRunRisk`Model`NiceOutput`; *)
 main::usage=""
 
 (*re-exported symbols*)
-(*info*)
+(*models
+info*)
 
 
 Begin["`Private`"]
 
 
 main=1;
+
+(*re-export models from FernandoDuarte`LongRunRisk`Model`Catalog` *)
+(*models = (ResourceFunction["NeedsDefinitions"]["FernandoDuarte`LongRunRisk`Model`Catalog`"]; 
+FernandoDuarte`LongRunRisk`Model`Catalog`models);
+
+models::usage = (ResourceFunction["NeedsDefinitions"]["FernandoDuarte`LongRunRisk`Model`Catalog`"]; 
+Information[FernandoDuarte`LongRunRisk`Model`Catalog`models,"Usage"]);*)
 
 (*re-export info from FernandoDuarte`LongRunRisk`Model`NiceOutput` *)
 (*info = (ResourceFunction["NeedsDefinitions"]["FernandoDuarte`LongRunRisk`Model`NiceOutput`"]; 

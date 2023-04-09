@@ -6,20 +6,24 @@
 
 BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"]
 
-models::usage= "Association with the definition and properties of models";
+
+models::usage= "Association with the definition and properties of models.";
 
 
+Begin["`Private`"]
 
-models = <|
-	BY -> <|
-		name -> "Original long-run risk model",
-		shortname -> "BY",
-		bibRef -> "BY2004",
-		desc -> "Long-run risk model with stochastic
+
+(* ::Input::Initialization:: *)
+modelsLocal = <|
+	"BY" -> <|
+		"name" -> "Original long-run risk model",
+		"shortname" -> "BY",
+		"bibRef" -> "BY2004",
+		"desc" -> "Long-run risk model with stochastic				
 			volatility in the original 2004 paper by
-			Bansal and Yaron",
-		stateVars -> {x[t],sx[t]},
-		parameters -> {
+							Bansal and Yaron",
+		"stateVars" -> {x[t],sx[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.998,
 				psi -> 1.5,
@@ -72,7 +76,7 @@ models = <|
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0078,
 				vx -> 0.987,
-				phisxs -> 2.3000000000000004*^-6,
+				phisxs -> 2.3*^-6,
 			(*"Stochastic volatility of consumption growth"*)
 			Esc -> 0,
 				vc -> 0,
@@ -102,19 +106,17 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	BYlowPers -> <|
-		name -> "Original long-run risk model but with
-			low persistence",
-		shortname -> "BYlowPers",
-		bibRef -> "None",
-		desc -> "Long-run risk and stochastic volatility
-			persistance reduced to rhox=vx=0.5",
-		stateVars -> {x[t],sx[t]},
-		parameters -> {
+	|>,
+(**********************************************************)
+	"BYlowPers" -> <|
+		"name" -> "Original long-run risk model but with			
+				low persistence",
+		"shortname" -> "BYlowPers",
+		"bibRef" -> "None",
+		"desc" -> "Long-run risk and stochastic volatility	
+						persistance reduced to rhox=vx=0.5",
+		"stateVars" -> {x[t],sx[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.998,
 				psi -> 1.5,
@@ -167,7 +169,7 @@ models = <|
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0078,
 				vx -> 0.5,
-				phisxs -> 2.3000000000000004*^-6,
+				phisxs -> 2.3*^-6,
 			(*"Stochastic volatility of consumption growth"*)
 			Esc -> 0,
 				vc -> 0,
@@ -197,19 +199,17 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	BYverylowPers -> <|
-		name -> "Original long-run risk model but with
-			very low persistence",
-		shortname -> "BYverylowPers",
-		bibRef -> "None",
-		desc -> "Long-run risk and stochastic volatility
-			persistance reduced to rhox=vx=0.1",
-		stateVars -> {x[t],sx[t]},
-		parameters -> {
+	|>,
+(**********************************************************)
+	"BYverylowPers" -> <|
+		"name" -> "Original long-run risk model but with			
+				very low persistence",
+		"shortname" -> "BYverylowPers",
+		"bibRef" -> "None",
+		"desc" -> "Long-run risk and stochastic volatility	
+						persistance reduced to rhox=vx=0.1",
+		"stateVars" -> {x[t],sx[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.998,
 				psi -> 1.5,
@@ -262,7 +262,7 @@ models = <|
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0078,
 				vx -> 0.1,
-				phisxs -> 2.3000000000000004*^-6,
+				phisxs -> 2.3*^-6,
 			(*"Stochastic volatility of consumption growth"*)
 			Esc -> 0,
 				vc -> 0,
@@ -292,19 +292,17 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	BKY -> <|
-		name -> "New calibration of long-run risk model",
-		shortname -> "BKY",
-		bibRef -> "BKY2012",
-		desc -> "Long-run risk model with a new
-			calibration that matches moments better
-			than the original 2004 calibration",
-		stateVars -> {x[t],sx[t]},
-		parameters -> {
+	|>,
+(**********************************************************)
+	"BKY" -> <|
+		"name" -> "New calibration of long-run risk model",
+		"shortname" -> "BKY",
+		"bibRef" -> "BKY2012",
+		"desc" -> "Long-run risk model with a new				
+			calibration that matches moments better	
+						than the original 2004 calibration",
+		"stateVars" -> {x[t],sx[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9989,
 				psi -> 1.5,
@@ -387,19 +385,17 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	BKYlowPers -> <|
-		name -> "Long-run risk model of Bansal, Kiku and
-			Yaron but with low persistence",
-		shortname -> "BKYlowPers",
-		bibRef -> "None",
-		desc -> "Long-run risk and stochastic volatility
-			persistance reduced to rhox=vx=0.5",
-		stateVars -> {x[t],sx[t]},
-		parameters -> {
+	|>,
+(**********************************************************)
+	"BKYlowPers" -> <|
+		"name" -> "Long-run risk model of Bansal, Kiku and	
+						Yaron but with low persistence",
+		"shortname" -> "BKYlowPers",
+		"bibRef" -> "None",
+		"desc" -> "Long-run risk and stochastic volatility	
+						persistance reduced to rhox=vx=0.5",
+		"stateVars" -> {x[t],sx[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9989,
 				psi -> 1.5,
@@ -482,19 +478,17 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	BKYverylowPers -> <|
-		name -> "Long-run risk model of Bansal, Kiku and
-			Yaron but with very low persistence",
-		shortname -> "BKYverylowPers",
-		bibRef -> "None",
-		desc -> "Long-run risk and stochastic volatility
-			persistance reduced to rhox=vx=0.1",
-		stateVars -> {x[t],sx[t]},
-		parameters -> {
+	|>,
+(**********************************************************)
+	"BKYverylowPers" -> <|
+		"name" -> "Long-run risk model of Bansal, Kiku and	
+						Yaron but with very low persistence",
+		"shortname" -> "BKYverylowPers",
+		"bibRef" -> "None",
+		"desc" -> "Long-run risk and stochastic volatility	
+						persistance reduced to rhox=vx=0.1",
+		"stateVars" -> {x[t],sx[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9989,
 				psi -> 1.5,
@@ -577,20 +571,18 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	BKYinf -> <|
-		name -> "Similar to Bansal-Kiku-Yaron but with
-			inflation",
-		shortname -> "BKYinf",
-		bibRef -> "None",
-		desc -> "Inflation is persistent and predicts
-			consumption growth (without
+	|>,
+(**********************************************************)
+	"BKYinf" -> <|
+		"name" -> "Similar to Bansal-Kiku-Yaron but with			
+				inflation",
+		"shortname" -> "BKYinf",
+		"bibRef" -> "None",
+		"desc" -> "Inflation is persistent and predicts				
+			consumption growth (without				
 			time-variation, without NRC)",
-		stateVars -> {x[t],sx[t],-mup+pi[t]},
-		parameters -> {
+		"stateVars" -> {x[t],sx[t],-mup+pi[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.998,
 				psi -> 0.108086466108274,
@@ -673,20 +665,18 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	NRC -> <|
-		name -> "Model with a nominal real covariance
+	|>,
+(**********************************************************)
+	"NRC" -> <|
+		"name" -> "Model with a nominal real covariance				
 			(NRC)",
-		shortname -> "NRC",
-		bibRef -> "BDRS2020",
-		desc -> "Model without long-run risk. Inflation
-			shocks predict consumption growth with
-			time-varying sign given by the NRC",
-		stateVars -> {-mup+pi[t],sg[-1+t] Subscript[\[CurlyEpsilon], p][t],Subscript[\[CurlyEpsilon], p][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2},
-		parameters -> {
+		"shortname" -> "NRC",
+		"bibRef" -> "BDRS2020",
+		"desc" -> "Model without long-run risk. Inflation		
+					shocks predict consumption growth with
+							time-varying sign given by the NRC",
+		"stateVars" -> {-mup+pi[t],sg[-1+t] Subscript[\[CurlyEpsilon], p][t],Subscript[\[CurlyEpsilon], p][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.99,
 				psi -> 2,
@@ -803,19 +793,17 @@ models = <|
 					phidpd[3] -> 0,
 					taugd[3] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	NRCLLR -> <|
-		name -> "Same as NRC model but with long-run risk",
-		shortname -> "NRCLLR",
-		bibRef -> "None",
-		desc -> "Long-run risk added with same
-			qualitative properties as in
+	|>,
+(**********************************************************)
+	"NRCLLR" -> <|
+		"name" -> "Same as NRC model but with long-run risk",
+		"shortname" -> "NRCLLR",
+		"bibRef" -> "None",
+		"desc" -> "Long-run risk added with same				
+			qualitative properties as in				
 			Bansal-Yaron (but different parameters)",
-		stateVars -> {-mup+pi[t],sg[-1+t] Subscript[\[CurlyEpsilon], p][t],Subscript[\[CurlyEpsilon], p][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2,x[t],sx[t]},
-		parameters -> {
+		"stateVars" -> {-mup+pi[t],sg[-1+t] Subscript[\[CurlyEpsilon], p][t],Subscript[\[CurlyEpsilon], p][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2,x[t],sx[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.99,
 				psi -> 2,
@@ -932,20 +920,18 @@ models = <|
 					phidpd[3] -> 0,
 					taugd[3] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	WCratio -> <|
-		name -> "Long Run Risk, the Wealth-Consumption
-			Ratio, and the Temporal Pricing of Risk",
-		shortname -> "WCratio",
-		bibRef -> "KLNV2010",
-		desc -> "Long-run risk model with long-run risk
-			in expected inflation and no real
+	|>,
+(**********************************************************)
+	"WCratio" -> <|
+		"name" -> "Long Run Risk, the Wealth-Consumption			
+				Ratio, and the Temporal Pricing of Risk",
+		"shortname" -> "WCratio",
+		"bibRef" -> "KLNV2010",
+		"desc" -> "Long-run risk model with long-run risk		
+					in expected inflation and no real				
 			effects of inflation",
-		stateVars -> {x[t],sc[t],sx[t],-mupbar+pibar[t]},
-		parameters -> {
+		"stateVars" -> {x[t],sc[t],sx[t],-mupbar+pibar[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9987,
 				psi -> 1.5,
@@ -1002,7 +988,7 @@ models = <|
 			(*"Stochastic volatility of consumption growth"*)
 			Esc -> 0.004,
 				vc -> 0.85,
-				phiscv -> 1.1499999999999998*^-6,
+				phiscv -> 1.1499999999999996*^-6,
 			(*"Stochastic volatility of inflation"*)
 			Esp -> 0,
 				vp -> 0,
@@ -1028,19 +1014,17 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0.1
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	WCratioInf -> <|
-		name -> "Same as WCratio model but with real
+	|>,
+(**********************************************************)
+	"WCratioInf" -> <|
+		"name" -> "Same as WCratio model but with real				
 			effects of inflation",
-		shortname -> "WCratioInf",
-		bibRef -> "None",
-		desc -> "Inflation predicts consumption growth
-			(without time-variation, without NRC)",
-		stateVars -> {x[t],sc[t],sx[t],-mupbar+pibar[t],-mup+pi[t]},
-		parameters -> {
+		"shortname" -> "WCratioInf",
+		"bibRef" -> "None",
+		"desc" -> "Inflation predicts consumption growth			
+				(without time-variation, without NRC)",
+		"stateVars" -> {x[t],sc[t],sx[t],-mupbar+pibar[t],-mup+pi[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9987,
 				psi -> 1.5,
@@ -1097,7 +1081,7 @@ models = <|
 			(*"Stochastic volatility of consumption growth"*)
 			Esc -> 0.004,
 				vc -> 0.85,
-				phiscv -> 1.1499999999999998*^-6,
+				phiscv -> 1.1499999999999996*^-6,
 			(*"Stochastic volatility of inflation"*)
 			Esp -> 0,
 				vp -> 0,
@@ -1123,21 +1107,19 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0.1
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	infStochVol -> <|
-		name -> "Similar to Bansal, Kiku and Yaron but
-			adding inflation that has stochastic
-			volatility",
-		shortname -> "infStochVol",
-		bibRef -> "None",
-		desc -> "Volatility of inflation is different
-			from volatility of long-run risk and
+	|>,
+(**********************************************************)
+	"infStochVol" -> <|
+		"name" -> "Similar to Bansal, Kiku and Yaron but			
+				adding inflation that has stochastic			
+				volatility",
+		"shortname" -> "infStochVol",
+		"bibRef" -> "None",
+		"desc" -> "Volatility of inflation is different				
+			from volatility of long-run risk and				
 			depends on inflation levels",
-		stateVars -> {x[t],sx[t],-mup+pi[t],Null},
-		parameters -> {
+		"stateVars" -> {x[t],sx[t],-mup+pi[t],Null},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9989,
 				psi -> 1.5,
@@ -1220,20 +1202,18 @@ models = <|
 					phidpd[1] -> 0.002,
 					taugd[1] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	hassel -> <|
-		name -> "Hasseltoft's Stocks, Bonds, and Long-Run
-			Consumption Risks",
-		shortname -> "hassel",
-		bibRef -> "Ha2012",
-		desc -> "Expected inflation has no real effects
-			but its shock is correlated with
+	|>,
+(**********************************************************)
+	"hassel" -> <|
+		"name" -> "Hasseltoft's Stocks, Bonds, and Long-Run
+							Consumption Risks",
+		"shortname" -> "hassel",
+		"bibRef" -> "Ha2012",
+		"desc" -> "Expected inflation has no real effects		
+					but its shock is correlated with				
 			long-run risk shocks",
-		stateVars -> {x[t],sx[t],-mupbar+pibar[t]},
-		parameters -> {
+		"stateVars" -> {x[t],sx[t],-mupbar+pibar[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9992,
 				psi -> 2.51,
@@ -1316,20 +1296,18 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	hasselNRC -> <|
-		name -> "Similar to model hassel but with an NRC
-			added",
-		shortname -> "hasselNRC",
-		bibRef -> "None",
-		desc -> "NRC modeled as in model NRC (inflation
-			shocks predict consumption in
+	|>,
+(**********************************************************)
+	"hasselNRC" -> <|
+		"name" -> "Similar to model hassel but with an NRC	
+						added",
+		"shortname" -> "hasselNRC",
+		"bibRef" -> "None",
+		"desc" -> "NRC modeled as in model NRC (inflation		
+					shocks predict consumption in				
 			time-varying way)",
-		stateVars -> {x[t],sx[t],-mupbar+pibar[t],sg[-1+t] Subscript[\[CurlyEpsilon], p][t],Subscript[\[CurlyEpsilon], p][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2},
-		parameters -> {
+		"stateVars" -> {x[t],sx[t],-mupbar+pibar[t],sg[-1+t] Subscript[\[CurlyEpsilon], p][t],Subscript[\[CurlyEpsilon], p][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9995,
 				psi -> 1.1,
@@ -1412,21 +1390,19 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
-	|>
-	,
-	(*************************************************************************************************)
-
-	BS -> <|
-		name -> "A Long-Run Risks Explanation of
-			Predictability Puzzles in Bond and
+	|>,
+(**********************************************************)
+	"BS" -> <|
+		"name" -> "A Long-Run Risks Explanation of				
+			Predictability Puzzles in Bond and				
 			Currency Markets",
-		shortname -> "BS",
-		bibRef -> "BSh2012",
-		desc -> "Long-run risk depends on expected
-			inflation, expected inflation is
+		"shortname" -> "BS",
+		"bibRef" -> "BSh2012",
+		"desc" -> "Long-run risk depends on expected				
+			inflation, expected inflation is				
 			persistent",
-		stateVars -> {x[t],-mupbar+pibar[t],sx[t],sp[t]},
-		parameters -> {
+		"stateVars" -> {x[t],-mupbar+pibar[t],sx[t],sp[t]},
+		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.994,
 				psi -> 1.81,
@@ -1510,53 +1486,15 @@ models = <|
 					taugd[1] -> 0
 		}
 	|>
-
-	(*************************************************************************************************)
 |>;(*end models*) 
 
 
 
-Begin["`Private`"]
+SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
+models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];
 
-
-(*add number of stocks as a new key-value pair in each model*)
-
-models = Append[
-	#,
-	numStocks -> Count[#[parameters], mud[_Integer], Infinity]
-]& /@ models;
-
-(*find parameters that are zero or one in parameters*)
-
-models = Append[
-	#,
-	assignParam -> Select[#[parameters], #[[2]] == 0 || #[[2]] == 1&]
-]& /@ models;
-
-(*find parameters of stocks that are zero for all stocks and add to models*)
-
-models = Append[
-		#,
-		stockZeroParam -> DeleteDuplicates[Cases[#[parameters], Rule[z_[i_], 0] :> {z, i}, Infinity]]
-]& /@ models;
-
-models = Append[#,
-	assignParamStocks -> DeleteDuplicates[
-		Table[
-			If[And @@ Table[
-				MemberQ[#[stockZeroParam], {#[stockZeroParam][[q, 1]], j}],
-				{j, 1, #[numStocks]}
-			],
-			#[stockZeroParam][[q, 1]][i_] -> 0], 
-			{q, 1, Length[#[stockZeroParam]]}
-		]
-	 ]
-]& /@ models;
-
-models = KeyDrop[#, stockZeroParam]& /@ models;
 
 (*find non-zero exogenous variables and add list to model*)
-
 modelExogenousVars[m_] := Module[
 	{exogenousEq, keepPos},
 	exogenousEq = Join[
@@ -1572,12 +1510,11 @@ modelExogenousVars[m_] := Module[
 		Position[exogenousEq, 0]
 	]; 
 	Append[Extract[exogenousVars, keepPos],"ddeq"]
-]
+];
 
-models = Append[#, exogenous -> modelExogenousVars[#]]& /@ models;
+
 
 (*create model equations and add to models*)
-
 makeModelEq[m_] := Module[
 	{evars, lhs, rhs}
 	,
@@ -1608,10 +1545,71 @@ makeModelEq[m_] := Module[
 			FrameStyle -> Directive[Thin]]
 		},
 	True]
+];
+
+
+
+(*adds useful key-value pairs to models*)
+fillModel[m_]:=Module[{models=m},
+
+	(*add number of stocks as a new key-value pair in each model*)
+	models = Append[
+		#,
+		numStocks -> Count[#[parameters], mud[_Integer], Infinity]
+	]& /@ models;
+	
+	(*find parameters that are zero or one in parameters*)
+	models = Append[
+		#,
+		assignParam -> Select[#[parameters], #[[2]] == 0 || #[[2]] == 1&]
+	]& /@ models;
+	
+	(*find parameters of stocks that are zero for all stocks and add to models*)
+	models = Append[
+			#,
+			stockZeroParam -> DeleteDuplicates[Cases[#[parameters], Rule[z_[i_], 0] :> {z, i}, Infinity]]
+	]& /@ models;
+	
+	models = Append[#,
+		assignParamStocks -> DeleteDuplicates[
+			Table[
+				If[And @@ Table[
+					MemberQ[#[stockZeroParam], {#[stockZeroParam][[q, 1]], j}],
+					{j, 1, #[numStocks]}
+				],
+				#[stockZeroParam][[q, 1]][i_] -> 0], 
+				{q, 1, Length[#[stockZeroParam]]}
+			]
+		 ]
+	]& /@ models;
+	
+	models = KeyDrop[#, stockZeroParam]& /@ models;
+	models = Append[#, exogenous -> modelExogenousVars[#]]& /@ models;
+	models = Append[#, modelEq -> makeModelEq[#]]& /@ models;
 ]
 
-models = Append[#, modelEq -> makeModelEq[#]]& /@ models;
+
+Catalog[]=Column[info[models[#]]&/@Keys[models]];
+
+
+(*check model is in models*)
+Catalog/:Conditions[Catalog,model_]:= Module[
+	{
+		mCatalogContext=ToExpression["FernandoDuarte`LongRunRisk`Model`Catalog`Private`"<>ToString[model]]
+	},
+	MemberQ[Keys[models],mCatalogContext]
+]
+
+
+Catalog[model_]:=Module[
+{
+	m=model
+},
+models[m]
+](*/;Conditions[Catalog,model]*)
 
 
 End[] (*"`Private`"*)
+
+
 EndPackage[]

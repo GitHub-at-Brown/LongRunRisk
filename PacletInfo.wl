@@ -16,9 +16,6 @@ PacletObject[
         "Root" -> "Kernel",
         "Context" -> {"FernandoDuarte`LongRunRisk`"},
         "Symbols" -> {
-          "FernandoDuarte`LongRunRisk`AddOne",
-          "FernandoDuarte`LongRunRisk`AddTwo",
-          "FernandoDuarte`LongRunRisk`FernandoDuarte`LongRunRisk`Subpackage`AddThree`AddThree"
         }
       },
       {
