@@ -13,6 +13,10 @@ models::usage= "Association with the definition and properties of models.";
 Begin["`Private`"]
 
 
+SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
+models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];
+
+
 (* ::Input::Initialization:: *)
 modelsLocal = <|
 	"BY" -> <|
@@ -1488,125 +1492,6 @@ modelsLocal = <|
 	|>
 |>;(*end models*) 
 
-
-
-SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
-models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];
-
-
-(*find non-zero exogenous variables and add list to model*)
-modelExogenousVars[m_] := Module[
-	{exogenousEq, keepPos},
-	exogenousEq = Join[
-		Map[
-			ToExpression[#][t]&,
-			Cases[exogenousVars, Except["ddeq"]]
-		]
-	] /. m[assignParam];
-	keepPos = Complement[
-		Thread[
-			{Range @ Length @ exogenousEq}
-		],
-		Position[exogenousEq, 0]
-	]; 
-	Append[Extract[exogenousVars, keepPos],"ddeq"]
-];
-
-
-
-(*create model equations and add to models*)
-makeModelEq[m_] := Module[
-	{evars, lhs, rhs}
-	,
-	(*exogenous variables*)
-	evars = m[exogenous];
-	   (*left-hand side and right-hand side for the equations of the exogenous variables of model m*)
-	lhs = Join[
-		Map[
-			StringReplace[#, "eq" -> ""][t]&, 
-			Cases[evars, Except["ddeq"]]
-		],
-		Table[dd[t, i], {i, 1, m[numStocks]}]
-	];
-	rhs = Join[
-		Map[
-			ToExpression[#][t]&,
-			Cases[evars, Except["ddeq"]]
-		],
-		Table[ddeq[t, i], {i, 1, m[numStocks]}]
-	] /. m[assignParam] /. m[assignParamStocks];
-	OpenerView[
-		{
-			"Equations", 
-			Grid[Thread[{Thread[lhs == rhs]}],
-			Alignment -> Left,
-			ItemSize -> {Automatic, 2},
-			Frame -> {False, All}, 
-			FrameStyle -> Directive[Thin]]
-		},
-	True]
-];
-
-
-
-(*adds useful key-value pairs to models*)
-fillModel[m_]:=Module[{models=m},
-
-	(*add number of stocks as a new key-value pair in each model*)
-	models = Append[
-		#,
-		numStocks -> Count[#[parameters], mud[_Integer], Infinity]
-	]& /@ models;
-	
-	(*find parameters that are zero or one in parameters*)
-	models = Append[
-		#,
-		assignParam -> Select[#[parameters], #[[2]] == 0 || #[[2]] == 1&]
-	]& /@ models;
-	
-	(*find parameters of stocks that are zero for all stocks and add to models*)
-	models = Append[
-			#,
-			stockZeroParam -> DeleteDuplicates[Cases[#[parameters], Rule[z_[i_], 0] :> {z, i}, Infinity]]
-	]& /@ models;
-	
-	models = Append[#,
-		assignParamStocks -> DeleteDuplicates[
-			Table[
-				If[And @@ Table[
-					MemberQ[#[stockZeroParam], {#[stockZeroParam][[q, 1]], j}],
-					{j, 1, #[numStocks]}
-				],
-				#[stockZeroParam][[q, 1]][i_] -> 0], 
-				{q, 1, Length[#[stockZeroParam]]}
-			]
-		 ]
-	]& /@ models;
-	
-	models = KeyDrop[#, stockZeroParam]& /@ models;
-	models = Append[#, exogenous -> modelExogenousVars[#]]& /@ models;
-	models = Append[#, modelEq -> makeModelEq[#]]& /@ models;
-]
-
-
-Catalog[]=Column[info[models[#]]&/@Keys[models]];
-
-
-(*check model is in models*)
-Catalog/:Conditions[Catalog,model_]:= Module[
-	{
-		mCatalogContext=ToExpression["FernandoDuarte`LongRunRisk`Model`Catalog`Private`"<>ToString[model]]
-	},
-	MemberQ[Keys[models],mCatalogContext]
-]
-
-
-Catalog[model_]:=Module[
-{
-	m=model
-},
-models[m]
-](*/;Conditions[Catalog,model]*)
 
 
 End[] (*"`Private`"*)

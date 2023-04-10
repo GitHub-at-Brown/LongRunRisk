@@ -1,21 +1,33 @@
 (* ::Package:: *)
 
-(* ::InheritFromParent:: *)
-(**)
+(* ::Section:: *)
+(*Begin package*)
 
 
 BeginPackage["FernandoDuarte`LongRunRisk`Model`NiceOutput`"]
 
-(*
-<<FernandoDuarte`LongRunRisk`Subpackage`specifications`; (*to use AddThree inside this file*)
-<<FernandoDuarte`LongRunRisk`Subpackage`ToMatlab`; (*to use AddThree inside this file*)
-<<FernandoDuarte`LongRunRisk`Subpackage`toMatlabTools`; (*to use AddThree inside this file*)
-<<FernandoDuarte`LongRunRisk`Subpackage`MaTeX`; (*to use AddThree inside this file*)
-*)
 
-(*<<"ToMatlab`";
-<<"toMatlabTools`";
-<<"MaTeX`";*)
+(* ::Subsection:: *)
+(*Public symbols*)
+
+
+modelToTeX
+TeXToModel
+
+allParamTable
+paramTable
+info
+fillModels
+modelExogenousVarsEq
+
+modelFormattingTemplate
+
+formatModels
+
+
+(* ::Subsubsection::Closed:: *)
+(*Usage*)
+
 
 modelToTeX::usage = "Association between the Mathematica variables that represent parameters of the model and their L AT EX representation";
 TeXToModel::usage = "Association of LATEX strings for parameters of the model and the name of the corresponding Mathematica variable";
@@ -24,7 +36,7 @@ allParamTable::usage = "allParamTable[m]";
 paramTable::usage = "paramTable[m]";
 info::usage = "info[m]";
 
-modelFormattingTemplate::usage = "modelFormattingTemplate[model] Re-writes model as a Cell object with nice formatting. 
+modelFormattingTemplate::usage = "modelFormattingTemplate[model] Re-writes model as a Cell object with nice formatting.
 	To automatically write the output of modelFormattingTemplate[model] into a cell that can be copied and pasted,
 	run 
 		nb=CreateNotebook[];
@@ -34,311 +46,225 @@ modelFormattingTemplate::usage = "modelFormattingTemplate[model] Re-writes model
 		NotebookWrite[nb,modelFormattingTemplate[models[#]]]&/@Keys[models];
 "
 
+formatModels::usage = "formatModels[models] Re-writes an association of models as a Cell object with nice formatting
+	that can be directly pasted into a notebook. \n
+	To automatically write the output of formatModels[models] into a cell in a new notebook that can be copied and pasted,
+	run 
+		nb=CreateNotebook[];\[IndentingNewLine]		content=formatModels[models];\[IndentingNewLine]		NotebookWrite[nb,content];\[IndentingNewLine]\[IndentingNewLine]		SelectionMove[nb,All,Notebook];\[IndentingNewLine]		FrontEndTokenExecute[nb,\"ClearCellOptions\"];
+	The last two lines clear all cell formatting (needed to make the cell executable for some reason).
+"
+
+
+(* ::Section:: *)
+(*Code*)
 
 
 Begin["`Private`"]
 
 
-(* mapping between parameter names in Mathematica and their latex representation *)
-modelToTeX=<|
-	(*"Preferences"*)
-	"delta"->"\\delta",
-		"psi"->"\\psi",
-		"gamma"->"\\gamma",
-		"theta"->"\\theta" .
-	(*"Long-run risk"*)
-	"rhox"->"\\rho_{x}",
-		"rhoxpbar"->"\\rho_{x,\\overline{\\pi}}",
-		"phix"->"\\phi_{x}",
-		"phixc"->"\\phi_{x,c}",
-	(*"Inflation"*)
-	"mup"->"\\mu_{\\pi}",
-		"rhoppbar"->"\\rho_{\\pi,\\overline{\\pi}}",
-		"rhop"->"\\rho_{\\pi}",
-		"phip"->"\\phi_{\\pi}",
-		"xip"->"\\xi_{\\pi}",
-		"phipc"->"\\phi_{\\pi,c}",
-		"phipx"->"\\phi_{\\pi,x}",
-		"phipcx"->"\\phi_{\\pi,cx}",
-		"phipp"->"\\phi_{\\pi,p}",
-		"phipxp"->"\\phi_{\\pi,xp}",
-	(*"Expected inflation"*)
-	"mupbar"->"\\mu_{\\overline{\\pi}}",
-		"rhopbar"->"\\rho_{\\overline{\\pi}}",
-		"rhopbarx"->"\\rho_{\\overline{\\pi},x}",
-		"phipbarp"->"\\phi_{\\overline{\\pi},\\pi}",
-		"phipbarc"->"\\phi_{\\overline{\\pi},c}",
-		"phipbarx"->"\\phi_{\\overline{\\pi},x}",
-		"phipbarcx"->"\\phi_{\\overline{\\pi},cx}",
-		"phipbarpb"->"\\phi_{\\overline{\\pi},pb}",
-		"phipbarxb"->"\\phi_{\\overline{\\pi},xb}",
-		"phipbarxp"->"\\phi_{\\overline{\\pi},xp}",
-	(*"Real consumption growth"*)
-	"muc"->"\\mu_{c}",
-		"rhocx"->"\\rho_{c,x}",
-		"rhocp"->"\\rho_{c,\\pi}",
-		"phic"->"\\phi_{c}",
-		"phicp"->"\\phi_{c,\\pi}",
-		"phicsp"->"\\phi_{c,s \\pi}",
-		"xic"->"\\xi_{c}",
-		"phics"->"\\phi_{c,s}",
-		"phicx"->"\\phi_{c,x}",
-		"phicc"->"\\phi_{c,c}",
-		"phicpc"->"\\phi_{c,pc}",
-		"phicpp"->"\\phi_{c,pp}",
-	(*"Nominal-real covariance (NRC)"*)
-	"Esg"->"\\bar{\\sigma}_{g}",
-		"rhog"->"\\rho_{g}",
-		"phig"->"\\phi_{g}",
-	(*"Stochastic volatility of long-run risk"*)
-	"Esx"->"\\bar{\\sigma}_{x}",
-		"vx"->"v_{x}",
-		"phisxs"->"\\phi_{s,xs}",
-	(*"Stochastic volatility of consumption growth"*)
-	"Esc"->"\\bar{\\sigma}_{c}",
-		"vc"->"v_{c}",
-		"phiscv"->"\\phi_{s,cv}",
-	(*"Stochastic volatility of inflation"*)
-	"Esp"->"\\bar{\\sigma}_{p}",
-		"vp"->"v_{p}",
-		"vpp"->"v_{\\pi}",
-		"vppbar"->"v_{\\bar{\\pi}}",
-		"phispw"->"\\phi_{s,pw}",
-	(*"Real dividend growth"*)
-	"mud[i]"->"\\mu_{d}^{(i)}",
-		"rhodx[i]"->"\\rho_{d,x}^{(i)}",
-		"rhodp[i]"->"\\rho_{d,\\pi}^{(i)}",		
-		"phidc[i]"->"\\phi_{d,c}^{(i)}",
-		"phidp[i]"->"\\phi_{d,\\pi}^{(i)}",
-		"phidsp[i]"->"\\phi_{d,s\\pi}^{(i)}",
-		"xid[i]"->"\\xi_{d}^{(i)}",
-		"phids[i]"->"\\phi_{d,s}^{(i)}",
-		"phidxc[i]"->"\\phi_{d,xc}^{(i)}",
-		"phidcc[i]"->"\\phi_{d,cc}^{(i)}",
-		"phidpc[i]"->"\\phi_{d,pc}^{(i)}",
-		"phidpp[i]"->"\\phi_{d,pp}^{(i)}",
-		"phidxd[i]"->"\\phi_{d,xd}^{(i)}",
-		"phidcd[i]"->"\\phi_{d,cd}^{(i)}",
-		"phidpd[i]"->"\\phi_{d,pd}^{(i)}",
-		"taugd[1]"->"\\tau_{gd}^{(i)}"
-|>;
-
-TeXToModel=Association@Reverse[Normal[modelToTeX],{2}];
+(* ::Subsection:: *)
+(*Load packages*)
 
 
+(*<<FernandoDuarte`LongRunRisk`Model`Parameters`;*)
+(*<<FernandoDuarte`LongRunRisk`Model`Shocks`;*)
+(*<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;*)
+(*<<FernandoDuarte`LongRunRisk`Model`Catalog`;*)
 
 
-(* split into stock parameters and non-stock parameters *)
-modelToTeXStocks=Association@Thread[
-	Select[
-		Keys[modelToTeX],
-		StringMatchQ[___~~"[i]"]
-	]
-	(*thread*)->
-	(
-		Select[
-			Keys[modelToTeX],
-			StringMatchQ[___~~"[i]"]
-		]/.modelToTeX
-	)
-];
-modelToTeXNoStocks=Complement[modelToTeX,modelToTeXStocks];
+(* ::Subsection::Closed:: *)
+(*Helper functions*)
 
 
-(* replace i by 1, 2, ..., numStocks *)
-iToNum[s_String] :=
-	StringReplace[
-		s, 
-		{
-			"[i]" -> "[" <> IntegerString[i] <> "]",
-			"{(i)}" -> "{(" <> IntegerString[i] <> ")}"
-		}
-	]
-
-iToNum[s_String, numStocks_Integer] :=
-	Table[iToNum[s], {i, 1, numStocks}]
-
-iToNum[s:s1_String -> s2_String, numStocks_Integer:1] :=
-	Table[iToNum[s1] -> iToNum[s2], {i, 1, numStocks}]
-
-iToNum[s : <|(_String -> _String)..|>, numStocks_Integer:1] :=
-	Map[iToNum[#, numStocks]&, (Normal @ s)]
+(*resource functions*)
 
 
-(* tables to display model properties *)
-allParamTable[m_]:=OpenerView[
+(*coloring of formal symbols*)
+MakeBoxes[\[FormalX],_]:=TagBox["x",\[FormalX]&,AutoDelete->True,BaseStyle->{FontColor->RGBColor[.6,.4,.2],ShowSyntaxStyles->False}]
+MakeBoxes[\[FormalY],_]:=TagBox["y",\[FormalY]&,AutoDelete->True,BaseStyle->{FontColor->RGBColor[.6,.4,.2],ShowSyntaxStyles->False}]
+(*restore formal symbols coloring to previous state*)
+FormatValues@MakeBoxes={};
+
+
+(* ::Subsubsection::Closed:: *)
+(*Usage*)
+
+
+MakeBoxes::usage="MakeBoxes[] ."<>"\n"<>
+				"MakeBoxes[] .";
+
+
+(* ::Subsection:: *)
+(*fillModel*)
+
+
+(*adds useful key-value pairs to models*)
+SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
+
+fillModels[m_]:=Module[
 	{
-	"All parameters",
-		Grid[
-			Transpose@{
-				Join[
-					{"Mathematica"},
-					Keys[modelToTeX]
-				],
-				Join[
-					{"LaTeX"},
-					Values[modelToTeX]
-				],
-				Join[
-					{"Symbol"},
-					MaTeX[Values[modelToTeX],FontSize->16]
-				],
-				Join[
-					{"Fixed value"},
-					Map[
-						If[
-							MemberQ[Keys[m[assignParam]],#]
-							,#,
-							"No"
-						]&,
-						ToExpression/@Keys[modelToTeX]
-					]
-				],
-				Join[
-					{"Initial value"},
-					Map[
-						If[
-							NumberQ[#],
-							"-",
-							If[
-								MatchQ[#,_[i]],
-								Table[#,{i,1,m[numStocks]}],
-								#
-							]/.m[parameters] 
-						]&,
-						ToExpression/@Keys[modelToTeX]
-					]
-				],
-				Join[
-					{"Matlab"},
-					Join[
-						paramToMatlab/@(ToExpression/@Keys[modelToTeXNoStocks]),
-						Apply[
-							paramToMatlab[ToExpression[#]]&,
-							iToNum[modelToTeXStocks,m[numStocks]],
-							{2}
-						]
-					]
-				]
-			},
-			Alignment->Left,
-			Spacings->{2,1},
-			Frame->All,
-			Background->{
-				{},
-				(*row 1*){LightGray}
-			},
-			ItemStyle->{
-				{},
-				(*row 1*){"Text"}
-			}
-		]
-	}
-]
-
-paramTable[m_]:=Module[
-	{
-		keysNoStocks,
-		mtomNoStocks,
-		keysStocks,
-		mtomStocks,
-		mtom
-	},
-	keysNoStocks=Complement[Keys[modelToTeXNoStocks],ToString/@(m[assignParam][[;;,1]])];
-	mtomNoStocks=Association@Thread[keysNoStocks->(keysNoStocks/.modelToTeXNoStocks)];
-	keysStocks=Complement[Keys[modelToTeXStocks],ToString/@(m[assignParamStocks][[;;,1]]/.Verbatim[i_]:>i)];
-	mtomStocks=Association@Thread[keysStocks->(keysStocks/.modelToTeXStocks)];
-	mtom=Join[mtomNoStocks,mtomStocks];
+		models=m,
+		exoVarsNoStocks,
+		exoNoStocks,
+		exoString,
+		exoExprPrivate,
+		exoExpr,
+		exoVarString,
+		exoVar,
+		exoVarExpr,
+		
+		indicesKeep,
+		exoStateVars,
+		exoKeep,
+		exoEq,
+		exoEqN,
 	
-	Transpose@{
-		Join[
-			{"Mathematica"},
-			Keys[mtom]
-		],
-		Join[
-			{"LaTeX"},
-			Values[mtom]
-		],
-		Join[
-			{"Symbol"},
-			MaTeX[Values[mtom],FontSize->16]
-		],
-		Join[
-			{"Initial value"},
-			Map[
-				If[
-					NumberQ[#],
-					"-",
-					If[
-						MatchQ[#,_[i]],
-						Table[#,{i,1,m[numStocks]}],
-						#
-					]/.m[parameters] 
-				]&,
-				ToExpression/@Keys[mtom]
-			]
-		],
-		Join[
-			{"Matlab"},
-			Join[
-				paramToMatlab/@(ToExpression/@Keys[mtomNoStocks]),
-				Apply[
-					paramToMatlab[ToExpression[#]]&,
-					iToNum[mtomStocks,m[numStocks]],
-					{2}
-				]
-			]
-		]
-	}
-]
-
-info[m_]:=OpenerView[
-	{
-		m[shortname],
-		Grid[
-			Join[
-				{{"Model: "<>m[name],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
-				{{TextGrid[{{TextCell["Reference: ","Text",FontFamily->"Times"],"\\textcite{"<>m[bibRef]<>"}"(*MaTeX["\\text{\\textcite{"<>m[bibRef]<>"}}","Preamble"->preambleTeX,"DisplayStyle"->True,FontSize->14]*)}}],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
-				{{"Description: "<>m[desc],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
-				{{m[modelEq],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
-				paramTable[m],
-				{{allParamTable[m],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}}
-			],
-			Alignment->Left,
-			Spacings->{2,1},
-			Frame->All,
-			Background->{
-				{None,None},
-				{
-					(*row 1*)White,
-					(*row 2*)White,
-					(*row 3*)White,
-					(*row 4*)White,
-					(*row 5*)LightGray
-				}
-			},
-			ItemStyle->{
-				{},
-				{
-					(*row 1*)Directive[{"Text",Black,Bold,FontFamily->"Times"}],
-					(*row 2*)"Text",
-					(*row 3*)"Text",
-					(*row 4*)"Text",
-					(*row 5*)"Text"
-				}
-			}
-		]
+		exoStocks,
+		exoStocksString,
+		exoExprStocksPrivate,
+		exoExprStocks,
+		exoEqStocks,
+		exoEqStocksN,
+		
+		exoEqAll,
+		exoEqAllN,
+		
+		exoNiceOutput,
+		exoNiceOutputN,
+		i
 	},
-	False(*OpenerView closed*)
-]
+
+	(*add number of stocks as a new key-value pair in each model*)
+	models = Append[
+		#,
+		"numStocks" -> Count[#["parameters"], mud[_Integer], Infinity]
+	]& /@ models;
+	
+	(*find parameters that are zero or one in parameters and add to models*)
+	models = Append[
+		#,
+		"assignParam" -> Select[#["parameters"], #[[2]] == 0 || #[[2]] == 1&]
+	]& /@ models;
+	
+	(*find parameters of stocks that are zero for all stocks and add to models*)
+	models = Append[
+			#,
+			"stockZeroParam" -> DeleteDuplicates[Cases[#["parameters"], Rule[z_[i_], 0] :> {z, i}, Infinity]]
+	]& /@ models;
+	
+	models = Append[#,
+		"assignParamStocks" -> DeleteDuplicates[
+			Table[
+				If[And @@ Table[
+					MemberQ[#["stockZeroParam"], {#["stockZeroParam"][[q, 1]], j}],
+					{j, 1, #["numStocks"]}
+				],
+				#["stockZeroParam"][[q, 1]][SetSymbolsContext[i_]] -> 0], 
+				{q, 1, Length[#["stockZeroParam"]]}
+			]
+		 ]
+	]& /@ models;
+	
+	models = KeyDrop[#, "stockZeroParam"]& /@ models;
+	
+	(*add list of exogenous variables and equations to models*)
+	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"->None];
+	exoNoStocks=FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVarsNoStocks;
+	exoString=("FernandoDuarte`LongRunRisk`Model`ExogenousEq`"<>#<>"[t]")&/@exoNoStocks;
+	exoExprPrivate=ToExpression/@exoString;
+	exoExpr := Block[{$ContextPath = {}}, SetSymbolsContext[exoExprPrivate]];
+	(*exoExpr2 = Block[{$ContextPath = {}}, SetSymbolsContext[exoExprPrivate]];*)
+	
+	exoVarString=(StringDrop[#,-2]<>"[t]")&/@exoNoStocks;
+	exoVar=ToExpression/@exoVarString;
+	exoVarExpr=Thread[exoVar==exoExpr];
+	
+	indicesKeep=(Complement[
+			Thread[{Range @ Length @ exoExpr}],Position[exoExpr//.#["assignParam"],0]])&/@models;
+	exoStateVars=("exogenousVars"->Append[Extract[exoNoStocks, #],"ddeq"])&/@indicesKeep;
+	
+	exoKeep=Extract[exoVarExpr, #]&/@indicesKeep;
+	exoEq=(exoKeep[#["shortname"]]//.#["assignParam"])& /@ models;
+	exoEqN=(exoKeep[#["shortname"]]//.#["parameters"])& /@ models;
+
+	exoStocks=FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVarsStocks;
+	exoStocksString=("dd[t,i]==FernandoDuarte`LongRunRisk`Model`ExogenousEq`"<>#<>"[t,i]")&/@exoStocks;
+	exoExprStocksPrivate=ToExpression/@exoStocksString;
+	exoExprStocks := Block[{$ContextPath = {}}, SetSymbolsContext[exoExprStocksPrivate]];
+	exoEqStocks=(Flatten@Table[exoExprStocks//.(#["assignParam"]),{i,1,#["numStocks"]}] &/@models);
+	exoEqStocksN=(Flatten@Table[exoExprStocks//.(#["parameters"]),{i,1,#["numStocks"]}] &/@models);
+	
+	exoEqAll=(Join[exoEq[#["shortname"]],exoEqStocks[#["shortname"]]]&)/@ models;
+	exoEqAllN=(Join[exoEqN[#["shortname"]],exoEqStocksN[#["shortname"]]]&)/@ models;
+	
+	exoNiceOutput=OpenerView[
+			{
+				"Equations", 
+				Grid[Thread[{exoEqAll[#["shortname"]]}],
+				Alignment -> Left,
+				ItemSize -> {Automatic, 2},
+				Frame -> {False, All}, 
+				FrameStyle -> Directive[Thin]]
+			},
+		True]&/@ models;
+	exoNiceOutputN=OpenerView[
+			{
+				"Equations", 
+				Grid[Thread[{exoEqAllN[#["shortname"]]}],
+				Alignment -> Left,
+				ItemSize -> {Automatic, 2},
+				Frame -> {False, All}, 
+				FrameStyle -> Directive[Thin]]
+			},
+		True]&/@ models;
+
+	models=(Append[#,exoStateVars[#["shortname"]] ]&) /@models;
+	models=(Append[#, "exogenousEq"->exoEqAll[#["shortname"]] ]&) /@models;
+	models=(Append[#, "exogenousEqNumeric"->exoEqAllN[#["shortname"]] ]&) /@models;
+	models=(Append[#, "exogenousEqTable"->exoNiceOutput[#["shortname"]] ]&) /@models;
+	models=(Append[#, "exogenousEqTableNumeric"->exoNiceOutputN[#["shortname"]] ]&) /@models
+
+];
 
 
-stringFormattingTemplate[str_String,lineLength_Number:40]:=StringReplace[InsertLinebreaks[StringDelete[str,"\n"],lineLength],"\n"->"\n\t\t\t"];
-numberFormattingTemplate[num_,opts:OptionsPattern[]]:=ToString[num,InputForm,FilterRules[{opts},Options[ToString]],NumberMarks->False];
+(* ::Subsection::Closed:: *)
+(*formatModels*)
 
-stripContext[x:(_Rule|{_Rule..})]:= Module[{v,i,n}, Cases[x,Rule[(v_Symbol[i_Integer]|v_Symbol),n_]:>Rule[If[i===Sequence,SymbolName[v],SymbolName[v][i]],n],{0,Infinity}]]
-stripContext[x_]:= Module[{v,i,n}, Cases[x,(v_Symbol[i_Integer]|v_Symbol):>If[i===Sequence,SymbolName[v],SymbolName[v][i]],{0,Infinity}]]
-stripContext[x_?AtomQ]:=stripContext[{x}][[1]]
+
+formatModels[m_Association/; MemberQ[Values[m], _Association]]:=
+	Module[
+		{
+			modelsMerged,
+			notebookContent
+		},
+		
+		modelsMerged=Append[
+			modelFormattingTemplate[m[#],True]&/@Most[Keys[m]],
+			modelFormattingTemplate[m[Last[Keys[m]]],False]
+		]/.Cell[BoxData[contents__],style_]:>contents;
+	
+		notebookContent=BoxData[
+			RowBox[{
+				RowBox[{
+					"models", " ", "=", " ",
+					RowBox[{
+						"<|", "\n", "\t", RowBox[modelsMerged], "|>"
+					}],
+					";"
+				}],
+				RowBox[{"(*", RowBox[{"end", " ", "models"}], "*)"}],
+				" ", "\n"
+			}]
+			]
+	];
+
+
+(* ::Subsubsection::Closed:: *)
+(*modelFormattingTemplate*)
+
+
+modelFormattingTemplate[model_Association, Optional[separate_?BooleanQ,False]]:= (modelFormattingTemplate[##,separate]&) @@ KeyTake[model,{"name","shortname","bibRef","desc","stateVars","parameters"}]
+
 
 modelFormattingTemplate[
 	name_String,
@@ -347,6 +273,7 @@ modelFormattingTemplate[
 	desc_String,
 	stateVars_List,
 	parameters:{_Rule..},
+	Optional[separate_?BooleanQ,False],
 	formatStringFun_Function:stringFormattingTemplate,
 	formatNumFun_Function:numberFormattingTemplate
 ]:=Module[
@@ -363,34 +290,33 @@ modelFormattingTemplate[
 	Cell[
 		BoxData[
 			RowBox[{
-				"\t",
 				RowBox[{
-					shortname," ","->"," ",
+					"\"\<"<>shortname<>"\>\""," ","->"," ",
 					RowBox[{
 						"<|","\n","\t\t",
 						RowBox[{
-						RowBox[{"name"," ","->"," ","\"\<"<>
+						RowBox[{"\"\<name\>\""," ","->"," ","\"\<"<>
 						formatStringFun[name]<>
 						"\>\""}],",","\n","\t\t",
 						
-						RowBox[{"shortname"," ","->"," ","\"\<"<>
+						RowBox[{"\"\<shortname\>\""," ","->"," ","\"\<"<>
 						shortname<>
 						"\>\""}],",","\n","\t\t",
 						
-						RowBox[{"bibRef"," ","->"," ","\"\<"<>
+						RowBox[{"\"\<bibRef\>\""," ","->"," ","\"\<"<>
 						formatStringFun[bibRef]<>
 						"\>\""}],",","\n","\t\t",
 						
-						RowBox[{"desc"," ","->"," ","\"\<"<>
+						RowBox[{"\"\<desc\>\""," ","->"," ","\"\<"<>
 						formatStringFun[desc]<>
 						"\>\""}],",","\n","\t\t",
 						
-						RowBox[{"stateVars"," ","->"," ",
+						RowBox[{"\"\<stateVars\>\""," ","->"," ",
 						ToBoxes[stateVars,StandardForm]
 						}],",","\n","\t\t",
 						
 						RowBox[{
-							"parameters"," ","->"," ",
+							"\"\<parameters\>\""," ","->"," ",
 							RowBox[{
 								"{","\n","\t\t\t",
 								RowBox[{"(*","\"\<Preferences\>\"","*)"}],"\n",
@@ -492,21 +418,411 @@ modelFormattingTemplate[
 								"\n","\t\t","}"}](*close parameters List*)
 							}](*close parameters RowBox*)
 						}],(*close name RowBox*)
-					"\n","\t","|>","\n"}](*close association*)
-				}](*close association name*)
+					"\n","\t","|>"}](*close association*)
+				}],(*close association name*)
+				If[separate, ",", ""], "\n", If[separate, separator[], ""], If[separate, "\n\t", ""](*separator between models*)
 			}](*close first RowBox*)
 		],(*close BoxData*)
 	"Input"](*close cell*)
 ](*close With*)
 
-modelFormattingTemplate[model_Association]:= With[
+
+(* ::Subsubsection::Closed:: *)
+(*stringFormattingTemplate*)
+
+
+stringFormattingTemplate[str_String,lineLength_Number:40]:=StringReplace[InsertLinebreaks[StringDelete[str,"\n"],lineLength],"\n"->"\n\t\t\t"];
+
+
+(* ::Subsubsection::Closed:: *)
+(*numberFormattingTemplate*)
+
+
+numberFormattingTemplate[num_,opts:OptionsPattern[]]:=ToString[num,InputForm,FilterRules[{opts},Options[ToString]],NumberMarks->False];
+
+
+(* ::Subsubsection::Closed:: *)
+(*stripContext*)
+
+
+stripContext[x:(_Rule|{_Rule..})]:= Module[{v,i,n}, Cases[x,Rule[(v_Symbol[i_Integer]|v_Symbol),n_]:>Rule[If[i===Sequence,SymbolName[v],SymbolName[v][i]],n],{0,Infinity}]]
+stripContext[x_]:= Module[{v,i,n}, Cases[x,(v_Symbol[i_Integer]|v_Symbol):>If[i===Sequence,SymbolName[v],SymbolName[v][i]],{0,Infinity}]]
+stripContext[x_?AtomQ]:=stripContext[{x}][[1]]
+
+
+(* ::Subsubsection::Closed:: *)
+(*separator*)
+
+
+separator[lineLength_Number:60] := RowBox[{"(*", StringRepeat["*",lineLength-4]<>"*)"}];
+
+
+(* ::Subsection::Closed:: *)
+(*info*)
+
+
+(*infoLocal[m_]:= {xeq[t],x,rhox,m};
+info[m_]:= ResourceFunction["SetSymbolsContext"][Evaluate@infoLocal[m]];*)
+
+
+info[m_]:=OpenerView[
 	{
-		keysLocal=stripContext/@{name,shortname,bibRef,desc,stateVars,parameters},
-		modelLocal=Thread[(stripContext/@Keys[model])->Values[model]]
+		m["shortname"],
+		Grid[
+			Join[
+				{{"Model: "<>m["name"],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
+				{{TextGrid[{{TextCell["Reference: ","Text",FontFamily->"Times"],"\\textcite{"<>m["bibRef"]<>"}"(*MaTeX["\\text{\\textcite{"<>m["bibRef"]<>"}}","Preamble"->preambleTeX,"DisplayStyle"->True,FontSize->14]*)}}],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
+				{{"Description: "<>m["desc"],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
+				{{m["exogenousEq"],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
+				paramTable[m],
+				{{allParamTable[m],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}}
+			],
+			Alignment->Left,
+			Spacings->{2,1},
+			Frame->All,
+			Background->{
+				{None,None},
+				{
+					(*row 1*)White,
+					(*row 2*)White,
+					(*row 3*)White,
+					(*row 4*)White,
+					(*row 5*)LightGray
+				}
+			},
+			ItemStyle->{
+				{},
+				{
+					(*row 1*)Directive[{"Text",Black,Bold,FontFamily->"Times"}],
+					(*row 2*)"Text",
+					(*row 3*)"Text",
+					(*row 4*)"Text",
+					(*row 5*)"Text"
+				}
+			}
+		]
 	},
-	(modelFormattingTemplate[##]&) @@ KeyTake[modelLocal,keysLocal]
+	False(*OpenerView closed*)
 ]
 
 
-End[]
-EndPackage[]
+(* ::Subsubsection::Closed:: *)
+(*paramTable*)
+
+
+paramTable[m_]:=Module[
+	{
+		keysNoStocks,
+		mtomNoStocks,
+		keysStocks,
+		mtomStocks,
+		mtom
+	},
+	keysNoStocks=Complement[Keys[modelToTeXNoStocks],ToString/@(m["assignParam"][[;;,1]])];
+	mtomNoStocks=Association@Thread[keysNoStocks->(keysNoStocks/.modelToTeXNoStocks)];
+	keysStocks=Complement[Keys[modelToTeXStocks],ToString/@(m["assignParamStocks"][[;;,1]]/.Verbatim[i_]:>i)];
+	mtomStocks=Association@Thread[keysStocks->(keysStocks/.modelToTeXStocks)];
+	mtom=Join[mtomNoStocks,mtomStocks];
+	
+	Transpose@{
+		Join[
+			{"Mathematica"},
+			Keys[mtom]
+		],
+		Join[
+			{"LaTeX"},
+			Values[mtom]
+		],
+		Join[
+			{"Symbol"},
+			MaTeX[Values[mtom],FontSize->16]
+		],
+		Join[
+			{"Initial value"},
+			Map[
+				If[
+					NumberQ[#],
+					"-",
+					If[
+						MatchQ[#,_[i]],
+						Table[#,{i,1,m["numStocks"]}],
+						#
+					]/.m["parameters"] 
+				]&,
+				ToExpression/@Keys[mtom]
+			]
+		],
+		Join[
+			{"Matlab"},
+			Join[
+				paramToMatlab/@(ToExpression/@Keys[mtomNoStocks]),
+				Apply[
+					paramToMatlab[ToExpression[#]]&,
+					iToNum[mtomStocks,m["numStocks"]],
+					{2}
+				]
+			]
+		]
+	}
+]
+
+
+(* ::Subsubsection::Closed:: *)
+(*allParamTable*)
+
+
+(* tables to display model properties *)
+allParamTable[m_]:=OpenerView[
+	{
+	"All parameters",
+		Grid[
+			Transpose@{
+				Join[
+					{"Mathematica"},
+					Keys[modelToTeX]
+				],
+				Join[
+					{"LaTeX"},
+					Values[modelToTeX]
+				],
+				Join[
+					{"Symbol"},
+					MaTeX[Values[modelToTeX],FontSize->16]
+				],
+				Join[
+					{"Fixed value"},
+					Map[
+						If[
+							MemberQ[Keys[m["assignParam"]],#]
+							,#,
+							"No"
+						]&,
+						ToExpression/@Keys[modelToTeX]
+					]
+				],
+				Join[
+					{"Initial value"},
+					Map[
+						If[
+							NumberQ[#],
+							"-",
+							If[
+								MatchQ[#,_[i]],
+								Table[#,{i,1,m["numStocks"]}],
+								#
+							]/.m["parameters"] 
+						]&,
+						ToExpression/@Keys[modelToTeX]
+					]
+				],
+				Join[
+					{"Matlab"},
+					Join[
+						paramToMatlab/@(ToExpression/@Keys[modelToTeXNoStocks]),
+						Apply[
+							paramToMatlab[ToExpression[#]]&,
+							iToNum[modelToTeXStocks,m["numStocks"]],
+							{2}
+						]
+					]
+				]
+			},
+			Alignment->Left,
+			Spacings->{2,1},
+			Frame->All,
+			Background->{
+				{},
+				(*row 1*){LightGray}
+			},
+			ItemStyle->{
+				{},
+				(*row 1*){"Text"}
+			}
+		]
+	}
+]
+
+
+(* ::Subsubsection::Closed:: *)
+(*iToNum*)
+
+
+(* replace i by 1, 2, ..., numStocks *)
+iToNum[s_String] :=
+	StringReplace[
+		s, 
+		{
+			"[i]" -> "[" <> IntegerString[i] <> "]",
+			"{(i)}" -> "{(" <> IntegerString[i] <> ")}"
+		}
+	]
+
+iToNum[s_String, numStocks_Integer] :=
+	Table[iToNum[s], {i, 1, numStocks}]
+
+iToNum[s:s1_String -> s2_String, numStocks_Integer:1] :=
+	Table[iToNum[s1] -> iToNum[s2], {i, 1, numStocks}]
+
+iToNum[s : <|(_String -> _String)..|>, numStocks_Integer:1] :=
+	Map[iToNum[#, numStocks]&, (Normal @ s)]
+
+
+(* ::Subsection::Closed:: *)
+(*Catalog*)
+
+
+(*Catalog=Column[info[models[#]]&/@Keys[models]];
+Catalog=models;*)
+
+
+(*Catalog[]=Column[info[models[#]]&/@Keys[models]];*)
+
+
+(*(*check model is in models*)
+Catalog/:Conditions[Catalog,model_]:= Module[
+	{
+		mCatalogContext=ToExpression["FernandoDuarte`LongRunRisk`Model`Catalog`Private`"<>ToString[model]]
+	},
+	MemberQ[Keys[models],mCatalogContext]
+]*)
+
+
+(*Catalog[model_]:=Module[
+{
+	m=model
+},
+models[m]
+](*/;Conditions[Catalog,model]*)*)
+
+
+(* ::Subsection::Closed:: *)
+(*modelToTeX*)
+
+
+(* mapping between parameter names in Mathematica and their latex representation *)
+modelToTeX=<|
+	(*"Preferences"*)
+	"delta"->"\\delta",
+		"psi"->"\\psi",
+		"gamma"->"\\gamma",
+		"theta"->"\\theta" .
+	(*"Long-run risk"*)
+	"rhox"->"\\rho_{x}",
+		"rhoxpbar"->"\\rho_{x,\\overline{\\pi}}",
+		"phix"->"\\phi_{x}",
+		"phixc"->"\\phi_{x,c}",
+	(*"Inflation"*)
+	"mup"->"\\mu_{\\pi}",
+		"rhoppbar"->"\\rho_{\\pi,\\overline{\\pi}}",
+		"rhop"->"\\rho_{\\pi}",
+		"phip"->"\\phi_{\\pi}",
+		"xip"->"\\xi_{\\pi}",
+		"phipc"->"\\phi_{\\pi,c}",
+		"phipx"->"\\phi_{\\pi,x}",
+		"phipcx"->"\\phi_{\\pi,cx}",
+		"phipp"->"\\phi_{\\pi,p}",
+		"phipxp"->"\\phi_{\\pi,xp}",
+	(*"Expected inflation"*)
+	"mupbar"->"\\mu_{\\overline{\\pi}}",
+		"rhopbar"->"\\rho_{\\overline{\\pi}}",
+		"rhopbarx"->"\\rho_{\\overline{\\pi},x}",
+		"phipbarp"->"\\phi_{\\overline{\\pi},\\pi}",
+		"phipbarc"->"\\phi_{\\overline{\\pi},c}",
+		"phipbarx"->"\\phi_{\\overline{\\pi},x}",
+		"phipbarcx"->"\\phi_{\\overline{\\pi},cx}",
+		"phipbarpb"->"\\phi_{\\overline{\\pi},pb}",
+		"phipbarxb"->"\\phi_{\\overline{\\pi},xb}",
+		"phipbarxp"->"\\phi_{\\overline{\\pi},xp}",
+	(*"Real consumption growth"*)
+	"muc"->"\\mu_{c}",
+		"rhocx"->"\\rho_{c,x}",
+		"rhocp"->"\\rho_{c,\\pi}",
+		"phic"->"\\phi_{c}",
+		"phicp"->"\\phi_{c,\\pi}",
+		"phicsp"->"\\phi_{c,s \\pi}",
+		"xic"->"\\xi_{c}",
+		"phics"->"\\phi_{c,s}",
+		"phicx"->"\\phi_{c,x}",
+		"phicc"->"\\phi_{c,c}",
+		"phicpc"->"\\phi_{c,pc}",
+		"phicpp"->"\\phi_{c,pp}",
+	(*"Nominal-real covariance (NRC)"*)
+	"Esg"->"\\bar{\\sigma}_{g}",
+		"rhog"->"\\rho_{g}",
+		"phig"->"\\phi_{g}",
+	(*"Stochastic volatility of long-run risk"*)
+	"Esx"->"\\bar{\\sigma}_{x}",
+		"vx"->"v_{x}",
+		"phisxs"->"\\phi_{s,xs}",
+	(*"Stochastic volatility of consumption growth"*)
+	"Esc"->"\\bar{\\sigma}_{c}",
+		"vc"->"v_{c}",
+		"phiscv"->"\\phi_{s,cv}",
+	(*"Stochastic volatility of inflation"*)
+	"Esp"->"\\bar{\\sigma}_{p}",
+		"vp"->"v_{p}",
+		"vpp"->"v_{\\pi}",
+		"vppbar"->"v_{\\bar{\\pi}}",
+		"phispw"->"\\phi_{s,pw}",
+	(*"Real dividend growth"*)
+	"mud[i]"->"\\mu_{d}^{(i)}",
+		"rhodx[i]"->"\\rho_{d,x}^{(i)}",
+		"rhodp[i]"->"\\rho_{d,\\pi}^{(i)}",		
+		"phidc[i]"->"\\phi_{d,c}^{(i)}",
+		"phidp[i]"->"\\phi_{d,\\pi}^{(i)}",
+		"phidsp[i]"->"\\phi_{d,s\\pi}^{(i)}",
+		"xid[i]"->"\\xi_{d}^{(i)}",
+		"phids[i]"->"\\phi_{d,s}^{(i)}",
+		"phidxc[i]"->"\\phi_{d,xc}^{(i)}",
+		"phidcc[i]"->"\\phi_{d,cc}^{(i)}",
+		"phidpc[i]"->"\\phi_{d,pc}^{(i)}",
+		"phidpp[i]"->"\\phi_{d,pp}^{(i)}",
+		"phidxd[i]"->"\\phi_{d,xd}^{(i)}",
+		"phidcd[i]"->"\\phi_{d,cd}^{(i)}",
+		"phidpd[i]"->"\\phi_{d,pd}^{(i)}",
+		"taugd[1]"->"\\tau_{gd}^{(i)}"
+|>;
+
+
+(* ::Subsubsection::Closed:: *)
+(*TeXToModel*)
+
+
+TeXToModel=Association@Reverse[Normal[modelToTeX],{2}];
+
+
+(* ::Subsubsection::Closed:: *)
+(*modelToTeXStocks*)
+
+
+(* split into stock parameters and non-stock parameters *)
+modelToTeXStocks=Association@Thread[
+	Select[
+		Keys[modelToTeX],
+		StringMatchQ[___~~"[i]"]
+	]
+	(*thread*)->
+	(
+		Select[
+			Keys[modelToTeX],
+			StringMatchQ[___~~"[i]"]
+		]/.modelToTeX
+	)
+];
+
+
+(* ::Subsubsection::Closed:: *)
+(*modelToTeXNoStocks*)
+
+
+modelToTeXNoStocks=Complement[modelToTeX,modelToTeXStocks];
+
+
+(* ::Section::Closed:: *)
+(*End package*)
+
+
+End[]; (*"`Private`"*)
+
+
+EndPackage[];

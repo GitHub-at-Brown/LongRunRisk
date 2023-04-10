@@ -10,10 +10,11 @@ rulesE::usage = "rulesE[t]"
 eps::usage = ""
 
 
+(*globals to share across packages*)
+$shocks=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
+
+
 Begin["`Private`"]
-
-
-<<FernandoDuarte`LongRunRisk`Model`Parameters`;
 
 
 (*

@@ -85,6 +85,10 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 	taugd::usage = ""
 
 
+(*globals to share across packages*)
+$parameters=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
+
+
 Begin["`Private`"]
 
 

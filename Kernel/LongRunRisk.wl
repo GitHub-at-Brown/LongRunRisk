@@ -3,11 +3,12 @@
 BeginPackage["FernandoDuarte`LongRunRisk`"]
 
 
-<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
-<<FernandoDuarte`LongRunRisk`Model`Shocks`;
 <<FernandoDuarte`LongRunRisk`Model`Parameters`;
+<<FernandoDuarte`LongRunRisk`Model`Shocks`;
+<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
+<<FernandoDuarte`LongRunRisk`Model`Catalog`;
 <<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
-(*<<FernandoDuarte`LongRunRisk`Model`Catalog`;*)
+
 (*<<FernandoDuarte`LongRunRisk`Model`NiceOutput`;*)
 
 
@@ -18,6 +19,7 @@ main::usage=""
 (*re-exported symbols*)
 (*models
 info*)
+Catalog
 
 
 Begin["`Private`"]
@@ -25,12 +27,15 @@ Begin["`Private`"]
 
 main=1;
 
-(*re-export models from FernandoDuarte`LongRunRisk`Model`Catalog` *)
-(*models = (ResourceFunction["NeedsDefinitions"]["FernandoDuarte`LongRunRisk`Model`Catalog`"]; 
-FernandoDuarte`LongRunRisk`Model`Catalog`models);
+NeedsDefinitions=ResourceFunction["NeedsDefinitions"];
+SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
 
-models::usage = (ResourceFunction["NeedsDefinitions"]["FernandoDuarte`LongRunRisk`Model`Catalog`"]; 
-Information[FernandoDuarte`LongRunRisk`Model`Catalog`models,"Usage"]);*)
+(*re-export models from FernandoDuarte`LongRunRisk`Model`Catalog` *)
+NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+(*models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];*)
+Catalog := FernandoDuarte`LongRunRisk`Model`Catalog`models;
+
+Catalog::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];
 
 (*re-export info from FernandoDuarte`LongRunRisk`Model`NiceOutput` *)
 (*info = (ResourceFunction["NeedsDefinitions"]["FernandoDuarte`LongRunRisk`Model`NiceOutput`"]; 
