@@ -10,14 +10,20 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    135425,       2758]
-NotebookOptionsPosition[     86984,       1873]
-NotebookOutlinePosition[    133350,       2728]
-CellTagsIndexPosition[    133307,       2725]
+NotebookDataLength[    128315,       2548]
+NotebookOptionsPosition[     75464,       1577]
+NotebookOutlinePosition[    121826,       2432]
+CellTagsIndexPosition[    121783,       2429]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.889964198656839*^9, 3.889964203363894*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"2d530782-807c-4677-ac15-0a1524d3eb66"],
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{"testFileName", "=", 
@@ -36,712 +42,100 @@ Cell[BoxData[{
      RowBox[{"FileNames", "[", "testFileName", "]"}], "===", 
      RowBox[{"{", "}"}]}], ",", "Nothing", ",", 
     RowBox[{"DeleteFile", "[", "testFileName", "]"}]}], "]"}], 
-  ";"}]}], "Input",
- CellChangeTimes->{{3.8890661685133457`*^9, 3.889066220685074*^9}, {
-   3.8890662555512333`*^9, 3.889066299901951*^9}, {3.889066581166473*^9, 
-   3.8890665847967653`*^9}, {3.889066731765956*^9, 3.889066745674687*^9}, {
-   3.889431410824514*^9, 3.88943144002302*^9}, 3.889502968269744*^9},
- CellLabel->"In[1]:=",ExpressionUUID->"946b8633-fd90-4e81-9c93-3393a5b979a7"],
-
-Cell[BoxData[{
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"pacletDir", "=", 
    RowBox[{"DirectoryName", "[", 
     RowBox[{"testFileName", ",", "2"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"PacletDirectoryLoad", "[", "pacletDir", "]"}], ";"}]}], "Input",
- CellChangeTimes->{{3.88906761833503*^9, 3.8890676243126307`*^9}, {
-   3.889067742143757*^9, 3.889067744399685*^9}, {3.889107439654277*^9, 
-   3.889107463569742*^9}, 3.889431432947994*^9},
- CellLabel->"In[3]:=",ExpressionUUID->"51d6328f-d8cd-48b3-bef0-42a0f01b0d77"],
-
-Cell[BoxData[{
- RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", 
-  "]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"(*", 
-   RowBox[{"<<", "FernandoDuarte`LongRunRisk`"}], "*)"}]}]}], "Input",
- CellChangeTimes->{{3.889431746063068*^9, 3.889431752653256*^9}, {
-  3.889498746279821*^9, 3.88949874835758*^9}},
- CellLabel->"In[5]:=",ExpressionUUID->"8ca679c3-2d1e-4627-911a-271e99f7202f"],
+ CellChangeTimes->{{3.8890661685133457`*^9, 3.889066220685074*^9}, {
+   3.8890662555512333`*^9, 3.889066299901951*^9}, {3.889066581166473*^9, 
+   3.8890665847967653`*^9}, {3.889066731765956*^9, 3.889066745674687*^9}, {
+   3.889431410824514*^9, 3.88943144002302*^9}, 3.889502968269744*^9, {
+   3.889998928469849*^9, 3.889998928670561*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"0360f784-d335-43f3-8e4d-2bba830763e2"],
 
 Cell[CellGroupData[{
 
-Cell[BoxData[
- RowBox[{"models", "[", "BKYinf", "]"}]], "Input",
- CellChangeTimes->{{3.889584415197834*^9, 3.8895844290018673`*^9}},
- CellLabel->"In[6]:=",ExpressionUUID->"260a597d-edf2-4bfb-974c-7ffbfab67b25"],
-
-Cell[BoxData[
- RowBox[{"\[LeftAssociation]", 
-  RowBox[{
-   RowBox[{
-   "name", "\[Rule]", "\<\"Similar to Bansal-Kiku-Yaron but with \
-inflation\"\>"}], ",", 
-   RowBox[{"shortname", "\[Rule]", "\<\"BKYinf\"\>"}], ",", 
-   RowBox[{"bibRef", "\[Rule]", "\<\"None\"\>"}], ",", 
-   RowBox[{
-   "desc", "\[Rule]", "\<\"Inflation is persistent and predicts consumption \
-growth (without time-variation, without NRC)\"\>"}], ",", 
-   RowBox[{"stateVars", "\[Rule]", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"x", "[", "t", "]"}], ",", 
-      RowBox[{"sx", "[", "t", "]"}], ",", 
-      RowBox[{
-       RowBox[{"-", "mup"}], "+", 
-       RowBox[{"pi", "[", "t", "]"}]}]}], "}"}]}], ",", 
-   RowBox[{"parameters", "\[Rule]", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"delta", "\[Rule]", "0.998`"}], ",", 
-      RowBox[{"psi", "\[Rule]", "0.108086466108274`"}], ",", 
-      RowBox[{"gamma", "\[Rule]", 
-       RowBox[{"1", "-", "theta", "+", 
-        FractionBox["theta", "psi"]}]}], ",", 
-      RowBox[{"theta", "\[Rule]", 
-       RowBox[{"-", "0.0319364382914013`"}]}], ",", 
-      RowBox[{
-       RowBox[{"taugd", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{"rhox", "\[Rule]", "0.95`"}], ",", 
-      RowBox[{"rhoxpbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"phix", "\[Rule]", 
-       RowBox[{"-", "0.0100455931054077`"}]}], ",", 
-      RowBox[{"phixc", "\[Rule]", "0"}], ",", 
-      RowBox[{"mup", "\[Rule]", "0.0028955730909963`"}], ",", 
-      RowBox[{"rhoppbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhop", "\[Rule]", "0.985`"}], ",", 
-      RowBox[{"phip", "\[Rule]", 
-       RowBox[{"-", "0.00043247571691955`"}]}], ",", 
-      RowBox[{"xip", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipcx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipp", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipxp", "\[Rule]", "0"}], ",", 
-      RowBox[{"mupbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhopbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhopbarx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarcx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarp", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarxb", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarpb", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarxp", "\[Rule]", "0"}], ",", 
-      RowBox[{"muc", "\[Rule]", "0.00157399080415904`"}], ",", 
-      RowBox[{"rhocx", "\[Rule]", "1"}], ",", 
-      RowBox[{"rhocp", "\[Rule]", 
-       RowBox[{"-", "0.292835401816459`"}]}], ",", 
-      RowBox[{"phics", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicx", "\[Rule]", "1"}], ",", 
-      RowBox[{"phicc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicpp", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicpc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phic", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicsp", "\[Rule]", "0"}], ",", 
-      RowBox[{"xic", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicp", "\[Rule]", 
-       RowBox[{"-", "0.00822757941067304`"}]}], ",", 
-      RowBox[{"Esg", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhog", "\[Rule]", "0"}], ",", 
-      RowBox[{"phig", "\[Rule]", "0"}], ",", 
-      RowBox[{"Esx", "\[Rule]", "7.83587415060296`*^-23"}], ",", 
-      RowBox[{"vx", "\[Rule]", "0.979`"}], ",", 
-      RowBox[{"phisxs", "\[Rule]", "0.00530944692661557`"}], ",", 
-      RowBox[{"Esc", "\[Rule]", "0"}], ",", 
-      RowBox[{"vc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phiscv", "\[Rule]", "0"}], ",", 
-      RowBox[{"Esp", "\[Rule]", "0"}], ",", 
-      RowBox[{"vp", "\[Rule]", "0"}], ",", 
-      RowBox[{"vpp", "\[Rule]", "0"}], ",", 
-      RowBox[{"vppbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"phispw", "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"mud", "[", "1", "]"}], "\[Rule]", "0.00107967475744456`"}], 
-      ",", 
-      RowBox[{
-       RowBox[{"rhodx", "[", "1", "]"}], "\[Rule]", "7.44835878922388`"}], 
-      ",", 
-      RowBox[{
-       RowBox[{"rhodp", "[", "1", "]"}], "\[Rule]", "0.0347877157464962`"}], 
-      ",", 
-      RowBox[{
-       RowBox[{"phidxd", "[", "1", "]"}], "\[Rule]", 
-       RowBox[{"-", "0.794376370651053`"}]}], ",", 
-      RowBox[{
-       RowBox[{"phids", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidxc", "[", "1", "]"}], "\[Rule]", "1.`*^-8"}], ",", 
-      RowBox[{
-       RowBox[{"phidpp", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidpc", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidpd", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidcc", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidcd", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidsp", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"xid", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidp", "[", "1", "]"}], "\[Rule]", "0.0375725143683261`"}], 
-      ",", 
-      RowBox[{
-       RowBox[{"phidc", "[", "1", "]"}], "\[Rule]", "0"}]}], "}"}]}], ",", 
-   RowBox[{
-   "FernandoDuarte`LongRunRisk`Model`Catalog`Private`numStocks", "\[Rule]", 
-    "1"}], ",", 
-   RowBox[{
-   "FernandoDuarte`LongRunRisk`Model`Catalog`Private`assignParam", "\[Rule]", 
-    
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"taugd", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{"rhoxpbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"phixc", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhoppbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"xip", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipcx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipp", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipxp", "\[Rule]", "0"}], ",", 
-      RowBox[{"mupbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhopbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhopbarx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarcx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarp", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarxb", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarpb", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarxp", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhocx", "\[Rule]", "1"}], ",", 
-      RowBox[{"phics", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicx", "\[Rule]", "1"}], ",", 
-      RowBox[{"phicc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicpp", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicpc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phic", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicsp", "\[Rule]", "0"}], ",", 
-      RowBox[{"xic", "\[Rule]", "0"}], ",", 
-      RowBox[{"Esg", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhog", "\[Rule]", "0"}], ",", 
-      RowBox[{"phig", "\[Rule]", "0"}], ",", 
-      RowBox[{"Esc", "\[Rule]", "0"}], ",", 
-      RowBox[{"vc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phiscv", "\[Rule]", "0"}], ",", 
-      RowBox[{"Esp", "\[Rule]", "0"}], ",", 
-      RowBox[{"vp", "\[Rule]", "0"}], ",", 
-      RowBox[{"vpp", "\[Rule]", "0"}], ",", 
-      RowBox[{"vppbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"phispw", "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phids", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidpp", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidpc", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidpd", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidcc", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidcd", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidsp", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"xid", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidc", "[", "1", "]"}], "\[Rule]", "0"}]}], "}"}]}], ",", 
-   RowBox[{
-   "FernandoDuarte`LongRunRisk`Model`Catalog`Private`assignParamStocks", 
-    "\[Rule]", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{
-       RowBox[{
-       "taugd", "[", "FernandoDuarte`LongRunRisk`Model`Catalog`Private`i_", 
-        "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{
-       "phids", "[", "FernandoDuarte`LongRunRisk`Model`Catalog`Private`i_", 
-        "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{
-       "phidpp", "[", "FernandoDuarte`LongRunRisk`Model`Catalog`Private`i_", 
-        "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{
-       "phidpc", "[", "FernandoDuarte`LongRunRisk`Model`Catalog`Private`i_", 
-        "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{
-       "phidpd", "[", "FernandoDuarte`LongRunRisk`Model`Catalog`Private`i_", 
-        "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{
-       "phidcc", "[", "FernandoDuarte`LongRunRisk`Model`Catalog`Private`i_", 
-        "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{
-       "phidcd", "[", "FernandoDuarte`LongRunRisk`Model`Catalog`Private`i_", 
-        "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{
-       "phidsp", "[", "FernandoDuarte`LongRunRisk`Model`Catalog`Private`i_", 
-        "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{
-       "xid", "[", "FernandoDuarte`LongRunRisk`Model`Catalog`Private`i_", 
-        "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{
-       "phidc", "[", "FernandoDuarte`LongRunRisk`Model`Catalog`Private`i_", 
-        "]"}], "\[Rule]", "0"}]}], "}"}]}], ",", 
-   RowBox[{
-   "FernandoDuarte`LongRunRisk`Model`Catalog`Private`exogenous", "\[Rule]", 
-    RowBox[{"{", "\<\"ddeq\"\>", "}"}]}], ",", 
-   RowBox[{
-   "FernandoDuarte`LongRunRisk`Model`Catalog`Private`modelEq", "\[Rule]", 
-    TagBox[
-     DynamicModuleBox[{Typeset`var$$ = True}, 
-      InterpretationBox[
-       StyleBox[
-        PaneSelectorBox[{False->GridBox[{
-           {
-            OpenerBox[Dynamic[Typeset`var$$],
-             Appearance->Automatic,
-             AutoAction->False,
-             ContinuousAction->False,
-             Enabled->Automatic], "\<\"Equations\"\>"}
-          },
-          AutoDelete->False,
-          BaselinePosition->{1, 1},
-          GridBoxAlignment->{"Columns" -> {{Left}}},
-          GridBoxBackground->{"Columns" -> {{Automatic}}},
-          
-          GridBoxItemSize->{
-           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
-          GridBoxSpacings->{"Columns" -> {{0.2}}, "Rows" -> {{0.5}}}], True->
-         GridBox[{
-           {
-            OpenerBox[Dynamic[Typeset`var$$],
-             Appearance->Automatic,
-             AutoAction->False,
-             ContinuousAction->False,
-             Enabled->Automatic], "\<\"Equations\"\>"},
-           {"", 
-            PaneBox[
-             TagBox[GridBox[{
-                {
-                 RowBox[{
-                  RowBox[{
-                  "FernandoDuarte`LongRunRisk`Model`Catalog`Private`dd", "[", 
-                   
-                   RowBox[{"t", ",", "1"}], "]"}], "\[Equal]", 
-                  RowBox[{
-                  "FernandoDuarte`LongRunRisk`Model`Catalog`Private`ddeq", 
-                   "[", 
-                   RowBox[{"t", ",", "1"}], "]"}]}]}
-               },
-               AutoDelete->False,
-               FrameStyle->Directive[
-                 Thickness[Tiny]],
-               GridBoxAlignment->{"Columns" -> {{Left}}},
-               GridBoxFrame->{"Columns" -> False, "Rows" -> {{True}}},
-               GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{2}}}],
-              "Grid"],
-             ImageMargins->0]}
-          },
-          AutoDelete->False,
-          BaselinePosition->{1, 1},
-          GridBoxAlignment->{"Columns" -> {{Left}}},
-          GridBoxBackground->{"Columns" -> {{Automatic}}},
-          GridBoxItemSize->{
-           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
-          GridBoxSpacings->{"Columns" -> {{0.2}}, "Rows" -> {{0.5}}}]}, 
-         Dynamic[Typeset`var$$],
-         Alignment->Automatic,
-         BaseStyle->{},
-         BaselinePosition->Baseline,
-         DefaultBaseStyle->"OpenerView",
-         ImageMargins->0,
-         ImageSize->Automatic],
-        Deployed->False,
-        StripOnInput->False],
-       OpenerView[{"Equations", 
-         Grid[{{
-           FernandoDuarte`LongRunRisk`Model`Catalog`Private`dd[
-             FernandoDuarte`LongRunRisk`Model`Catalog`t, 1] == 
-            FernandoDuarte`LongRunRisk`Model`Catalog`Private`ddeq[
-             FernandoDuarte`LongRunRisk`Model`Catalog`t, 1]}}, Alignment -> 
-          Left, ItemSize -> {Automatic, 2}, Frame -> {False, All}, FrameStyle -> 
-          Directive[
-            Thickness[Tiny]]]}, True]],
-      DynamicModuleValues:>{}],
-     Setting[#, {0}]& ]}]}], "\[RightAssociation]"}]], "Output",
- CellChangeTimes->{3.8895906864852123`*^9},
- CellLabel->"Out[6]=",ExpressionUUID->"0b190428-1788-4cdd-9db4-263b1b6cf18c"]
-}, Open  ]],
+Cell["CI Tests", "Subsection",
+ CellChangeTimes->{{3.8895791922306013`*^9, 3.889579196409403*^9}, {
+  3.889905620469079*^9, 3.8899056207707977`*^9}, {3.889967624152501*^9, 
+  3.889967626012704*^9}},ExpressionUUID->"31e1b2df-6c38-4738-ae7d-\
+157759dc5a90"],
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{
-   RowBox[{"nb", "=", 
-    RowBox[{"CreateNotebook", "[", "]"}]}], ";"}], 
-  RowBox[{"(*", 
-   RowBox[{"EvaluationNotebook", "[", "]"}], "*)"}]}]], "Input",
- CellChangeTimes->{{3.889522972812972*^9, 3.889522979518414*^9}, {
-  3.889523016760015*^9, 3.8895230284966097`*^9}},
- CellLabel->"In[7]:=",ExpressionUUID->"2e02f01b-2ef2-4c87-b5e6-a211518fb3a2"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"model", "=", 
-  RowBox[{"KeyTake", "[", 
-   RowBox[{
-    RowBox[{"models", "[", "BKYinf", "]"}], ",", 
-    RowBox[{"{", 
-     RowBox[{
-     "name", ",", "shortname", ",", "bibRef", ",", "desc", ",", "stateVars", 
-      ",", "parameters"}], "}"}]}], "]"}]}]], "Input",
- CellChangeTimes->{{3.8895025195721483`*^9, 3.889502527536544*^9}, {
-   3.889502617060133*^9, 3.889502649291317*^9}, 3.889503280421523*^9, {
-   3.889519163988133*^9, 3.889519183097261*^9}, {3.8895192505430307`*^9, 
-   3.8895192509007797`*^9}, 3.88951958275963*^9, 3.8895205898294373`*^9, {
-   3.889521385566202*^9, 3.889521427739089*^9}, 3.88952148765103*^9, {
-   3.889521717237623*^9, 3.8895217270730553`*^9}, 3.889522023410536*^9, 
-   3.8895227971336184`*^9, {3.889523044083989*^9, 3.889523058102641*^9}, 
-   3.889523175219767*^9, {3.8895233038151407`*^9, 3.889523311838176*^9}, 
-   3.889523408669209*^9, 3.88952457766611*^9, 3.889526427757784*^9, 
-   3.889578988920977*^9, 3.889584556944222*^9},
- CellLabel->"In[8]:=",ExpressionUUID->"3c794a3b-9a6d-425d-94c5-c596fb517e9a"],
-
-Cell[BoxData[
- RowBox[{"\[LeftAssociation]", 
-  RowBox[{
-   RowBox[{
-   "name", "\[Rule]", "\<\"Similar to Bansal-Kiku-Yaron but with \
-inflation\"\>"}], ",", 
-   RowBox[{"shortname", "\[Rule]", "\<\"BKYinf\"\>"}], ",", 
-   RowBox[{"bibRef", "\[Rule]", "\<\"None\"\>"}], ",", 
-   RowBox[{
-   "desc", "\[Rule]", "\<\"Inflation is persistent and predicts consumption \
-growth (without time-variation, without NRC)\"\>"}], ",", 
-   RowBox[{"stateVars", "\[Rule]", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"x", "[", "t", "]"}], ",", 
-      RowBox[{"sx", "[", "t", "]"}], ",", 
-      RowBox[{
-       RowBox[{"-", "mup"}], "+", 
-       RowBox[{"pi", "[", "t", "]"}]}]}], "}"}]}], ",", 
-   RowBox[{"parameters", "\[Rule]", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"delta", "\[Rule]", "0.998`"}], ",", 
-      RowBox[{"psi", "\[Rule]", "0.108086466108274`"}], ",", 
-      RowBox[{"gamma", "\[Rule]", 
-       RowBox[{"1", "-", "theta", "+", 
-        FractionBox["theta", "psi"]}]}], ",", 
-      RowBox[{"theta", "\[Rule]", 
-       RowBox[{"-", "0.0319364382914013`"}]}], ",", 
-      RowBox[{
-       RowBox[{"taugd", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{"rhox", "\[Rule]", "0.95`"}], ",", 
-      RowBox[{"rhoxpbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"phix", "\[Rule]", 
-       RowBox[{"-", "0.0100455931054077`"}]}], ",", 
-      RowBox[{"phixc", "\[Rule]", "0"}], ",", 
-      RowBox[{"mup", "\[Rule]", "0.0028955730909963`"}], ",", 
-      RowBox[{"rhoppbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhop", "\[Rule]", "0.985`"}], ",", 
-      RowBox[{"phip", "\[Rule]", 
-       RowBox[{"-", "0.00043247571691955`"}]}], ",", 
-      RowBox[{"xip", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipcx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipp", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipxp", "\[Rule]", "0"}], ",", 
-      RowBox[{"mupbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhopbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhopbarx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarcx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarx", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarp", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarxb", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarpb", "\[Rule]", "0"}], ",", 
-      RowBox[{"phipbarxp", "\[Rule]", "0"}], ",", 
-      RowBox[{"muc", "\[Rule]", "0.00157399080415904`"}], ",", 
-      RowBox[{"rhocx", "\[Rule]", "1"}], ",", 
-      RowBox[{"rhocp", "\[Rule]", 
-       RowBox[{"-", "0.292835401816459`"}]}], ",", 
-      RowBox[{"phics", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicx", "\[Rule]", "1"}], ",", 
-      RowBox[{"phicc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicpp", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicpc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phic", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicsp", "\[Rule]", "0"}], ",", 
-      RowBox[{"xic", "\[Rule]", "0"}], ",", 
-      RowBox[{"phicp", "\[Rule]", 
-       RowBox[{"-", "0.00822757941067304`"}]}], ",", 
-      RowBox[{"Esg", "\[Rule]", "0"}], ",", 
-      RowBox[{"rhog", "\[Rule]", "0"}], ",", 
-      RowBox[{"phig", "\[Rule]", "0"}], ",", 
-      RowBox[{"Esx", "\[Rule]", "7.83587415060296`*^-23"}], ",", 
-      RowBox[{"vx", "\[Rule]", "0.979`"}], ",", 
-      RowBox[{"phisxs", "\[Rule]", "0.00530944692661557`"}], ",", 
-      RowBox[{"Esc", "\[Rule]", "0"}], ",", 
-      RowBox[{"vc", "\[Rule]", "0"}], ",", 
-      RowBox[{"phiscv", "\[Rule]", "0"}], ",", 
-      RowBox[{"Esp", "\[Rule]", "0"}], ",", 
-      RowBox[{"vp", "\[Rule]", "0"}], ",", 
-      RowBox[{"vpp", "\[Rule]", "0"}], ",", 
-      RowBox[{"vppbar", "\[Rule]", "0"}], ",", 
-      RowBox[{"phispw", "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"mud", "[", "1", "]"}], "\[Rule]", "0.00107967475744456`"}], 
-      ",", 
-      RowBox[{
-       RowBox[{"rhodx", "[", "1", "]"}], "\[Rule]", "7.44835878922388`"}], 
-      ",", 
-      RowBox[{
-       RowBox[{"rhodp", "[", "1", "]"}], "\[Rule]", "0.0347877157464962`"}], 
-      ",", 
-      RowBox[{
-       RowBox[{"phidxd", "[", "1", "]"}], "\[Rule]", 
-       RowBox[{"-", "0.794376370651053`"}]}], ",", 
-      RowBox[{
-       RowBox[{"phids", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidxc", "[", "1", "]"}], "\[Rule]", "1.`*^-8"}], ",", 
-      RowBox[{
-       RowBox[{"phidpp", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidpc", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidpd", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidcc", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidcd", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidsp", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"xid", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
-      RowBox[{
-       RowBox[{"phidp", "[", "1", "]"}], "\[Rule]", "0.0375725143683261`"}], 
-      ",", 
-      RowBox[{
-       RowBox[{"phidc", "[", "1", "]"}], "\[Rule]", "0"}]}], "}"}]}]}], 
-  "\[RightAssociation]"}]], "Output",
- CellChangeTimes->{3.889590686755361*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"41996736-7d43-4a37-864d-2d2db765a06d"]
-}, Open  ]],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"formatted1", "=", 
-   RowBox[{"modelFormattingTemplate", "[", "model", "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"NotebookWrite", "[", 
-   RowBox[{"nb", ",", "formatted1"}], "]"}], ";"}]}], "Input",
- CellChangeTimes->{{3.8895025195721483`*^9, 3.889502527536544*^9}, {
-   3.889502617060133*^9, 3.889502649291317*^9}, 3.889503280421523*^9, {
-   3.889519163988133*^9, 3.889519183097261*^9}, {3.8895192505430307`*^9, 
-   3.8895192509007797`*^9}, 3.88951958275963*^9, 3.8895205898294373`*^9, {
-   3.889521385566202*^9, 3.889521427739089*^9}, 3.88952148765103*^9, {
-   3.889521717237623*^9, 3.8895217270730553`*^9}, 3.889522023410536*^9, 
-   3.8895227971336184`*^9, {3.889523044083989*^9, 3.889523058102641*^9}, 
-   3.889523175219767*^9, {3.8895233038151407`*^9, 3.889523311838176*^9}, {
-   3.889523881245844*^9, 3.88952388558988*^9}, 3.889524024489562*^9, 
-   3.8895243434002113`*^9, 3.88952648360085*^9, {3.889526789378293*^9, 
-   3.8895268071380253`*^9}, 3.88952686892837*^9, 3.889526918208033*^9, 
-   3.889538657672538*^9, 3.8895719178588333`*^9, 3.889572602552044*^9},
- CellLabel->"In[9]:=",ExpressionUUID->"b8f5e17a-4f31-4771-a4cf-44606b0a2a63"],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"formatted2", "=", 
-   RowBox[{"modelFormattingTemplate", "[", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"model", "[", "name", "]"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"model", "[", "shortname", "]"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"model", "[", "bibRef", "]"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"model", "[", "desc", "]"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"model", "[", "stateVars", "]"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"model", "[", "parameters", "]"}]}], "\[IndentingNewLine]", 
-    "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"NotebookWrite", "[", 
-   RowBox[{"nb", ",", "formatted2"}], "]"}], 
-  ";"}], "\[IndentingNewLine]"}], "Input",
- CellChangeTimes->{{3.8895025195721483`*^9, 3.889502527536544*^9}, {
-   3.889502617060133*^9, 3.889502649291317*^9}, 3.889503280421523*^9, {
-   3.889519163988133*^9, 3.889519183097261*^9}, {3.8895192505430307`*^9, 
-   3.8895192509007797`*^9}, 3.88951958275963*^9, 3.8895205898294373`*^9, {
-   3.889521385566202*^9, 3.889521427739089*^9}, {3.88952148765103*^9, 
-   3.8895215139093037`*^9}, 3.889522019990877*^9, {3.889523044085559*^9, 
-   3.889523058103464*^9}, 3.8895774171431837`*^9, {3.889579131982417*^9, 
-   3.889579132110105*^9}},
- CellLabel->"In[11]:=",ExpressionUUID->"5a51138a-0b7f-4bef-98cf-75a1aa01c60a"],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"formatted3", "=", 
-   RowBox[{"modelFormattingTemplate", "[", 
-    RowBox[{"models", "[", "BY", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"NotebookWrite", "[", 
-   RowBox[{"nb", ",", "formatted3"}], "]"}], ";"}]}], "Input",
- CellChangeTimes->{{3.8895219035756483`*^9, 3.889521929511641*^9}, {
-  3.889521990970478*^9, 3.889522017791257*^9}, {3.889523044086913*^9, 
-  3.889523058104178*^9}},
- CellLabel->"In[13]:=",ExpressionUUID->"6ee911ae-223b-4dae-9a9f-3d876b33d5e3"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"NotebookWrite", "[", 
-   RowBox[{"nb", ",", 
-    RowBox[{"modelFormattingTemplate", "[", 
-     RowBox[{"models", "[", "BY", "]"}], "]"}]}], "]"}], ";"}]], "Input",
- CellChangeTimes->{{3.8895219415324383`*^9, 3.889521968759942*^9}, 
-   3.889522015570706*^9, {3.889523044088252*^9, 3.8895230581049*^9}},
- CellLabel->"In[15]:=",ExpressionUUID->"229467f5-894c-4b77-a951-7231c64016e0"],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"nb2", "=", 
-   RowBox[{"CreateNotebook", "[", "]"}]}], ";"}], "\n", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"NotebookWrite", "[", 
-     RowBox[{"nb2", ",", 
-      RowBox[{"modelFormattingTemplate", "[", 
-       RowBox[{"models", "[", "#", "]"}], "]"}]}], "]"}], "&"}], "/@", 
-   RowBox[{"Keys", "[", "models", "]"}]}], ";"}]}], "Input",
- CellChangeTimes->{{3.889579201004313*^9, 3.889579205528034*^9}},
- CellLabel->"In[16]:=",ExpressionUUID->"6a05784e-8521-485c-b9fe-dff9482cd113"],
-
-Cell[CellGroupData[{
-
-Cell["Tests", "Subsection",
- CellChangeTimes->{{3.8895791922306013`*^9, 
-  3.889579196409403*^9}},ExpressionUUID->"5216b0c6-0b30-4607-beca-\
-83054aa122f9"],
+  RowBox[{"confirm", "=", "True"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8899677184366713`*^9, 3.88996772700289*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"91c1009c-f5f8-4c13-a87a-42c785c70d90"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
-  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
-   RowBox[{
-   "stringFormattingTemplate", "[", 
-    "\"\<Long-run risk model with stochastic volatility in the original 2004 \
-paper by Bansal and Yaron\>\"", "]"}]}], "\[IndentingNewLine]", 
-  RowBox[{"(*", 
-   RowBox[{",", 
-    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "*)"}], 
-  "]"}]], "Input",
- CellChangeTimes->{3.889497154816502*^9},
- CellLabel->"In[18]:=",ExpressionUUID->"6ac224c0-9cb0-40f1-931c-960ca520e8a1"],
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", "\t", 
+   RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8899652151465197`*^9, 3.889965235350771*^9}, 
+   3.8899652808817787`*^9, {3.889967731242805*^9, 3.8899677356636972`*^9}, {
+   3.889967971867523*^9, 3.889967975146998*^9}, {3.889968339451161*^9, 
+   3.88996834001075*^9}, 3.889968619774049*^9, {3.8899688826075077`*^9, 
+   3.88996888992594*^9}, {3.88996899475625*^9, 3.8899690018858624`*^9}, {
+   3.8899691256166267`*^9, 3.8899691257757883`*^9}, {3.889969207667478*^9, 
+   3.8899692141700287`*^9}, {3.8899692798779783`*^9, 3.889969288274632*^9}, 
+   3.889969387087708*^9, 3.889969585993528*^9, {3.8899702972149563`*^9, 
+   3.889970314454108*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"df3441c2-82a3-4dc6-ae55-72fe028a7826"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230409-1N009Y\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230409-1N009Y"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.890016245570259*^9, 3.890060636718602*^9},
+ CellLabel->
+  "During evaluation of \
+In[6]:=",ExpressionUUID->"6a438360-fafe-4ebc-8e15-4f990c257028"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.890016245570259*^9, 3.890060636748487*^9},
+ CellLabel->
+  "During evaluation of \
+In[6]:=",ExpressionUUID->"445f7d85-201b-4647-8329-a14eaa5065c3"]
+}, Open  ]],
 
 Cell[BoxData[
  DynamicModuleBox[{
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
-  "stringFormattingTemplate @ \"Long-run risk model with stochastic \
-volatility in the original 2004 paper by Bansal and Yaron\"", 
+  "Needs @ \"FernandoDuarte`LongRunRisk`\"", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
-  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = \
-$CellContext`stringFormattingTemplate[
-  "Long-run risk model with stochastic volatility in the original 2004 paper \
-by Bansal and Yaron"], 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = Null, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
-  "stringFormattingTemplate @ \"Long-run risk model with stochastic \
-volatility in the original 2004 paper by Bansal and Yaron\"", 
+  "VerificationTest[\n\tNeeds @ \"FernandoDuarte`LongRunRisk`\"\n\t,\n\tNull\n\
+\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230409-1N009Y\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$ = True, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
-  "Result" :> $CellContext`stringFormattingTemplate[
-    "Long-run risk model with stochastic volatility in the original 2004 \
-paper by Bansal and Yaron"], "Success" -> True, "FailureType" -> None, 
+  "Result" :> Null, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0., "AbsoluteTiming" -> 0., 
-   "InputString" :> ToString[
+   "MessagesExpressions" -> {}, "Timing" -> 0.083, "AbsoluteTiming" -> 
+   0.10300000000000001`, "InputString" :> ToString[
      Unevaluated[
-      $CellContext`stringFormattingTemplate[
-      "Long-run risk model with stochastic volatility in the original 2004 \
-paper by Bansal and Yaron"]], InputForm]|>, 
+      Needs["FernandoDuarte`LongRunRisk`"]], InputForm]|>, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
-   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$}, 
-  TagBox[GridBox[{
-     {
-      TemplateBox[{
-       "\"Input: \"", 
-        "\"stringFormattingTemplate @ \\\"Long-run risk model with stochastic \
-volatility in the original 2004 paper by Bansal and Yaron\\\"\""},
-       "RowDefault"]},
-     {
-      TemplateBox[{
-       "\"Result: \"", 
-        "\"stringFormattingTemplate @ \\\"Long-run risk model with stochastic \
-volatility in the original 2004 paper by Bansal and Yaron\\\"\""},
-       "RowDefault"]},
-     {
-      TemplateBox[{"\"Messages: \"", "\"{}\""},
-       "RowDefault"]},
-     {
-      TemplateBox[{"  ", "\"  \"", 
-        ButtonBox[
-         InterpretationBox[
-          Cell[
-           BoxData[
-            FormBox[
-             StyleBox["\"Yes\"", StripOnInput -> False], TextForm]], 
-           "InlineText"], 
-          Text[
-           Style["Yes"]]], 
-         ButtonFunction :> (
-          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]\
-; Null), "BaseStyle" -> RGBColor[0, 
-           Rational[2, 3], 0], Appearance -> Automatic, Evaluator -> 
-         Automatic, Method -> "Preemptive"], 
-        ButtonBox[
-         InterpretationBox[
-          Cell[
-           BoxData[
-            FormBox[
-             StyleBox["\"No\"", StripOnInput -> False], TextForm]], 
-           "InlineText"], 
-          Text[
-           Style["No"]]], 
-         ButtonFunction :> (
-          Print["Aborting without writing to ", 
-            "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
-            ButtonNotebook[], All, ButtonCell]; NotebookDelete[
-            ButtonNotebook[]]; Null), "BaseStyle" -> RGBColor[
-           Rational[2, 3], 0, 0], Appearance -> Automatic, Evaluator -> 
-         Automatic, Method -> "Preemptive"]},
-       "RowWithSeparators"]}
-    },
-    DefaultBaseStyle->"Column",
-    GridBoxAlignment->{"Columns" -> {{Left}}},
-    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
-   "Column"],
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tNeeds @ \
+\"FernandoDuarte`LongRunRisk`\"\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-1N009Y\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
     DownValues[
       FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
@@ -803,8 +197,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.8895906878341703`*^9},
- CellLabel->"Out[18]=",ExpressionUUID->"9fe408df-7ee9-44c2-8154-fdab87c1dda5"]
+ CellChangeTimes->{3.890016245606235*^9, 3.890060636764126*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"02b96a7b-613a-4e8a-b147-0f1a72171c7f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -812,189 +206,69 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
-  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
-   RowBox[{"With", "[", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{"localPi", "=", "3.14"}], "}"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"{", "\[IndentingNewLine]", 
-      RowBox[{
-       RowBox[{"numberFormattingTemplate", "[", "3.14", "]"}], ",", 
-       "\[IndentingNewLine]", 
-       RowBox[{"numberFormattingTemplate", "[", 
-        RowBox[{"3.14", ",", 
-         RowBox[{"NumberMarks", "->", "True"}]}], "]"}], ",", 
-       "\[IndentingNewLine]", 
-       RowBox[{"numberFormattingTemplate", "[", 
-        RowBox[{"3.14", ",", 
-         RowBox[{"NumberMarks", "->", "False"}]}], "]"}], ",", 
-       "\[IndentingNewLine]", 
-       RowBox[{"numberFormattingTemplate", "[", "localPi", "]"}], ",", 
-       "\[IndentingNewLine]", 
-       RowBox[{"numberFormattingTemplate", "[", 
-        RowBox[{"localPi", ",", 
-         RowBox[{"NumberMarks", "->", "True"}]}], "]"}], ",", 
-       "\[IndentingNewLine]", 
-       RowBox[{"numberFormattingTemplate", "[", 
-        RowBox[{"localPi", ",", 
-         RowBox[{"NumberMarks", "->", "False"}]}], "]"}], ",", 
-       "\[IndentingNewLine]", 
-       RowBox[{"numberFormattingTemplate", "[", "\[CapitalPi]", "]"}], ",", 
-       "\[IndentingNewLine]", 
-       RowBox[{"numberFormattingTemplate", "[", 
-        RowBox[{"\[CapitalPi]", ",", 
-         RowBox[{"CharacterEncoding", "\[Rule]", "\"\<ASCII\>\""}]}], "]"}], 
-       ",", "\[IndentingNewLine]", 
-       RowBox[{"numberFormattingTemplate", "[", 
-        RowBox[{"N", "[", "Pi", "]"}], "]"}]}], "\[IndentingNewLine]", 
-      "}"}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
-  RowBox[{"(*", 
-   RowBox[{",", 
-    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "*)"}], 
-  "]"}]], "Input",
- CellChangeTimes->{{3.889497238316308*^9, 3.8894972782111683`*^9}, {
-  3.889497378794739*^9, 3.889497484690709*^9}, {3.8894976245389767`*^9, 
-  3.889497629059166*^9}, {3.889498203547433*^9, 3.8894984283506927`*^9}},
- CellLabel->"In[19]:=",ExpressionUUID->"2d666041-996e-40c0-bfda-774a1c5d1728"],
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", "\t", 
+   RowBox[{"MemberQ", "[", 
+    RowBox[{"$ContextPath", ",", "\"\<FernandoDuarte`LongRunRisk`\>\""}], 
+    "]"}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.889901579125684*^9, {3.889965035911569*^9, 3.889965039550325*^9}, {
+   3.889965296152458*^9, 3.889965305191854*^9}, 3.8899653858152437`*^9, 
+   3.889967740469187*^9, {3.889968345370779*^9, 3.889968347169169*^9}, {
+   3.889968526692542*^9, 3.8899685355316963`*^9}, {3.889968649261517*^9, 
+   3.889968660343141*^9}, 3.889969395693264*^9, {3.88996958684683*^9, 
+   3.8899695947482367`*^9}, {3.889970300225127*^9, 3.889970329366473*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"37a69960-4a4b-47f2-bed8-e68905e00bd9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230409-DXJURD\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230409-DXJURD"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.8900162480753202`*^9, 3.890060638241741*^9},
+ CellLabel->
+  "During evaluation of \
+In[7]:=",ExpressionUUID->"e5a55aa2-841c-481c-884b-7961fc0e286b"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.8900162480753202`*^9, 3.890060638244824*^9},
+ CellLabel->
+  "During evaluation of \
+In[7]:=",ExpressionUUID->"1e2504cf-af70-4dc2-be71-c13e766f8bf0"]
+}, Open  ]],
 
 Cell[BoxData[
  DynamicModuleBox[{
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
-  "With[{localPi = 3.14},\n\t\t{\n\t\t\tnumberFormattingTemplate @ 3.14,\n\t\t\
-\tnumberFormattingTemplate[3.14, NumberMarks -> True],\n\t\t\t\
-numberFormattingTemplate[3.14, NumberMarks -> False],\n\t\t\t\
-numberFormattingTemplate @ localPi,\n\t\t\tnumberFormattingTemplate[localPi, \
-NumberMarks -> True],\n\t\t\tnumberFormattingTemplate[localPi, NumberMarks -> \
-False],\n\t\t\tnumberFormattingTemplate @ \\[CapitalPi],\n\t\t\t\
-numberFormattingTemplate[\\[CapitalPi], CharacterEncoding -> \"ASCII\"],\n\t\t\
-\tnumberFormattingTemplate @ N @ Pi\n\t\t}\n\t]", 
+  "MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`\"]", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
-  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = {
-   $CellContext`numberFormattingTemplate[3.14], 
-   $CellContext`numberFormattingTemplate[3.14, NumberMarks -> True], 
-   $CellContext`numberFormattingTemplate[3.14, NumberMarks -> False], 
-   $CellContext`numberFormattingTemplate[3.14], 
-   $CellContext`numberFormattingTemplate[3.14, NumberMarks -> True], 
-   $CellContext`numberFormattingTemplate[3.14, NumberMarks -> False], 
-   $CellContext`numberFormattingTemplate[$CellContext`\[CapitalPi]], 
-   $CellContext`numberFormattingTemplate[$CellContext`\[CapitalPi], 
-    CharacterEncoding -> "ASCII"], 
-   $CellContext`numberFormattingTemplate[3.141592653589793]}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
-  "{\n\t\tnumberFormattingTemplate @ 3.14,\n\t\t\
-numberFormattingTemplate[3.14, NumberMarks -> True],\n\t\t\
-numberFormattingTemplate[3.14, NumberMarks -> False],\n\t\t\
-numberFormattingTemplate @ 3.14,\n\t\tnumberFormattingTemplate[3.14, \
-NumberMarks -> True],\n\t\tnumberFormattingTemplate[3.14, NumberMarks -> \
-False],\n\t\tnumberFormattingTemplate @ \\[CapitalPi],\n\t\t\
-numberFormattingTemplate[\\[CapitalPi], CharacterEncoding -> \"ASCII\"],\n\t\t\
-numberFormattingTemplate @ 3.141592653589793\n\t}", 
-  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$ = True, 
+  "VerificationTest[\n\tMemberQ[$ContextPath, \
+\"FernandoDuarte`LongRunRisk`\"]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-DXJURD\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
-  "Result" :> {
-     $CellContext`numberFormattingTemplate[3.14], 
-     $CellContext`numberFormattingTemplate[3.14, NumberMarks -> True], 
-     $CellContext`numberFormattingTemplate[3.14, NumberMarks -> False], 
-     $CellContext`numberFormattingTemplate[3.14], 
-     $CellContext`numberFormattingTemplate[3.14, NumberMarks -> True], 
-     $CellContext`numberFormattingTemplate[3.14, NumberMarks -> False], 
-     $CellContext`numberFormattingTemplate[$CellContext`\[CapitalPi]], 
-     $CellContext`numberFormattingTemplate[$CellContext`\[CapitalPi], 
-      CharacterEncoding -> "ASCII"], 
-     $CellContext`numberFormattingTemplate[3.141592653589793]}, "Success" -> 
-   True, "FailureType" -> None, "OutputLog" -> {}, "Messages" -> {}, 
-   "MessagesText" -> {}, "MessagesExpressions" -> {}, "Timing" -> 0., 
-   "AbsoluteTiming" -> 0., "InputString" :> ToString[
+  "Result" :> True, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 0., "AbsoluteTiming" -> 0., 
+   "InputString" :> ToString[
      Unevaluated[
-      With[{$CellContext`localPi = 3.14}, {
-        $CellContext`numberFormattingTemplate[3.14], 
-        $CellContext`numberFormattingTemplate[3.14, NumberMarks -> True], 
-        $CellContext`numberFormattingTemplate[3.14, NumberMarks -> False], 
-        $CellContext`numberFormattingTemplate[$CellContext`localPi], 
-        $CellContext`numberFormattingTemplate[$CellContext`localPi, 
-         NumberMarks -> True], 
-        $CellContext`numberFormattingTemplate[$CellContext`localPi, 
-         NumberMarks -> False], 
-        $CellContext`numberFormattingTemplate[$CellContext`\[CapitalPi]], 
-        $CellContext`numberFormattingTemplate[$CellContext`\[CapitalPi], 
-         CharacterEncoding -> "ASCII"], 
-        $CellContext`numberFormattingTemplate[
-         N[Pi]]}]], InputForm]|>, 
+      MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`"]], InputForm]|>, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
-   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$}, 
-  TagBox[GridBox[{
-     {
-      TemplateBox[{
-       "\"Input: \"", 
-        "\"With[{localPi = \
-3.14},\\n\\t\\t{\\n\\t\\t\\tnumberFormattingTemplate @ \
-3.14,\\n\\t\\t\\tnumberFormattingTemplate[3.14, NumberMarks -> \
-True],\\n\\t\\t\\tnumberFormattingTemplate[3.14, NumberMarks -> False],\\n\\t\
-\\t\\tnumberFormattingTemplate @ \
-localPi,\\n\\t\\t\\tnumberFormattingTemplate[localPi, NumberMarks -> \
-True],\\n\\t\\t\\tnumberFormattingTemplate[localPi, NumberMarks -> False],\\n\
-\\t\\t\\tnumberFormattingTemplate @ \
-\\\\[CapitalPi],\\n\\t\\t\\tnumberFormattingTemplate[\\\\[CapitalPi], \
-CharacterEncoding -> \\\"ASCII\\\"],\\n\\t\\t\\tnumberFormattingTemplate @ N \
-@ Pi\\n\\t\\t}\\n\\t]\""},
-       "RowDefault"]},
-     {
-      TemplateBox[{
-       "\"Result: \"", 
-        "\"{\\n\\t\\tnumberFormattingTemplate @ \
-3.14,\\n\\t\\tnumberFormattingTemplate[3.14, NumberMarks -> \
-True],\\n\\t\\tnumberFormattingTemplate[3.14, NumberMarks -> \
-False],\\n\\t\\tnumberFormattingTemplate @ \
-3.14,\\n\\t\\tnumberFormattingTemplate[3.14, NumberMarks -> \
-True],\\n\\t\\tnumberFormattingTemplate[3.14, NumberMarks -> \
-False],\\n\\t\\tnumberFormattingTemplate @ \
-\\\\[CapitalPi],\\n\\t\\tnumberFormattingTemplate[\\\\[CapitalPi], \
-CharacterEncoding -> \\\"ASCII\\\"],\\n\\t\\tnumberFormattingTemplate @ \
-3.141592653589793\\n\\t}\""},
-       "RowDefault"]},
-     {
-      TemplateBox[{"\"Messages: \"", "\"{}\""},
-       "RowDefault"]},
-     {
-      TemplateBox[{"  ", "\"  \"", 
-        ButtonBox[
-         InterpretationBox[
-          Cell[
-           BoxData[
-            FormBox[
-             StyleBox["\"Yes\"", StripOnInput -> False], TextForm]], 
-           "InlineText"], 
-          Text[
-           Style["Yes"]]], 
-         ButtonFunction :> (
-          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]\
-; Null), "BaseStyle" -> RGBColor[0, 
-           Rational[2, 3], 0], Appearance -> Automatic, Evaluator -> 
-         Automatic, Method -> "Preemptive"], 
-        ButtonBox[
-         InterpretationBox[
-          Cell[
-           BoxData[
-            FormBox[
-             StyleBox["\"No\"", StripOnInput -> False], TextForm]], 
-           "InlineText"], 
-          Text[
-           Style["No"]]], 
-         ButtonFunction :> (
-          Print["Aborting without writing to ", 
-            "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
-            ButtonNotebook[], All, ButtonCell]; NotebookDelete[
-            ButtonNotebook[]]; Null), "BaseStyle" -> RGBColor[
-           Rational[2, 3], 0, 0], Appearance -> Automatic, Evaluator -> 
-         Automatic, Method -> "Preemptive"]},
-       "RowWithSeparators"]}
-    },
-    DefaultBaseStyle->"Column",
-    GridBoxAlignment->{"Columns" -> {{Left}}},
-    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
-   "Column"],
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tNeeds @ \
+\"FernandoDuarte`LongRunRisk`\"\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-1N009Y\"\n]\n\n\nVerificationTest[\n\t\
+MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`\"]\n\t,\n\tTrue\n\t,\n\t\
+{}\n\t,\n\tTestID->\"Catalog_20230409-DXJURD\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
     DownValues[
       FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
@@ -1021,8 +295,274 @@ CharacterEncoding -> \\\"ASCII\\\"],\\n\\t\\tnumberFormattingTemplate @ \
                 Span[1, 3]]]] <> "-" <> ToUpperCase[
               IntegerString[
                RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
-          Print[
-           "Adding test: ", 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$\
+]; Export[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.890016248083091*^9, 3.890060638253879*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"e7755972-a3e1-40a7-8f58-729382997320"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", "\t", 
+   RowBox[{
+   "Needs", "[", "\"\<FernandoDuarte`LongRunRisk`Model`Catalog`\>\"", "]"}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.889970444788332*^9, 3.889970460485238*^9}, 
+   3.889972027468637*^9, {3.890015991835294*^9, 3.890015993219262*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"b822a665-a923-4386-b002-407f0c5b80cd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230409-BS7LY9\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230409-BS7LY9"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.890016249572627*^9, 3.890060639887232*^9},
+ CellLabel->
+  "During evaluation of \
+In[8]:=",ExpressionUUID->"e18138cf-67b8-4a9d-9dd9-d7bead1e0676"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.890016249572627*^9, 3.890060639890196*^9},
+ CellLabel->
+  "During evaluation of \
+In[8]:=",ExpressionUUID->"c53a0502-1b7d-48ac-b8d0-02a7908fa87d"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "Needs @ \"FernandoDuarte`LongRunRisk`Model`Catalog`\"", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = Null, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tNeeds @ \"FernandoDuarte`LongRunRisk`Model`Catalog`\"\
+\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230409-BS7LY9\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> Null, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 0., "AbsoluteTiming" -> 0., 
+   "InputString" :> ToString[
+     Unevaluated[
+      Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"]], InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tNeeds @ \
+\"FernandoDuarte`LongRunRisk`\"\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-1N009Y\"\n]\n\n\nVerificationTest[\n\t\
+MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`\"]\n\t,\n\tTrue\n\t,\n\t\
+{}\n\t,\n\tTestID->\"Catalog_20230409-DXJURD\"\n]\n\n\nVerificationTest[\n\t\
+Needs @ \"FernandoDuarte`LongRunRisk`Model`Catalog`\"\n\t,\n\tNull\n\t,\n\t{}\
+\n\t,\n\tTestID->\"Catalog_20230409-BS7LY9\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.890016249591527*^9, 3.890060639918643*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"5eb476da-6f7d-488a-9797-087f00e86161"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "should", " ", "be", " ", "true", " ", "if", " ", "models", " ", "can", 
+     " ", "be", " ", "found"}], "*)"}], "\[IndentingNewLine]", "\t", 
+   RowBox[{"Not", "[", 
+    RowBox[{
+     RowBox[{"Names", "[", "\"\<*models\>\"", "]"}], "===", 
+     RowBox[{"{", "}"}]}], "]"}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8899706175264597`*^9, 3.889970628972746*^9}, 
+   3.889972029349813*^9, {3.890016004516365*^9, 3.890016008058874*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"78efcfa0-e9fa-47a2-9b51-782cbea2e41b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230409-SV9YAT\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230409-SV9YAT"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.890016251020383*^9, 3.8900606412257*^9},
+ CellLabel->
+  "During evaluation of \
+In[9]:=",ExpressionUUID->"d04f564e-e97a-4c8a-b592-197bb2b0bdad"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.890016251020383*^9, 3.890060641228158*^9},
+ CellLabel->
+  "During evaluation of \
+In[9]:=",ExpressionUUID->"2fa9fe12-c360-46ce-bd68-84b37b5b5173"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "!SameQ[Names @ \"*models\", {}]", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\t!SameQ[Names @ \"*models\", {}]\n\t,\n\tTrue\n\t,\n\t\
+{}\n\t,\n\tTestID->\"Catalog_20230409-SV9YAT\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> True, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.021, "AbsoluteTiming" -> 0.022, 
+   "InputString" :> ToString[
+     Unevaluated[
+      Not[Names["*models"] === {}]], InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tNeeds @ \
+\"FernandoDuarte`LongRunRisk`\"\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-1N009Y\"\n]\n\n\nVerificationTest[\n\t\
+MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`\"]\n\t,\n\tTrue\n\t,\n\t\
+{}\n\t,\n\tTestID->\"Catalog_20230409-DXJURD\"\n]\n\n\nVerificationTest[\n\t\
+Needs @ \"FernandoDuarte`LongRunRisk`Model`Catalog`\"\n\t,\n\tNull\n\t,\n\t{}\
+\n\t,\n\tTestID->\"Catalog_20230409-BS7LY9\"\n]\n\n\nVerificationTest[\n\t\
+!SameQ[Names @ \"*models\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-SV9YAT\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
            "VerificationTest[\n\t" <> 
@@ -1057,822 +597,986 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.889590687880478*^9},
- CellLabel->"Out[19]=",ExpressionUUID->"52e1831a-98e2-47d6-8b21-0912f496f1a5"]
+ CellChangeTimes->{3.890016251041669*^9, 3.890060641253112*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"7cc2ffad-c246-4712-91de-c0bf6f675838"]
 }, Open  ]],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"testFileName", "=", 
-   RowBox[{"FileNameJoin", "[", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"NotebookDirectory", "[", "]"}], ",", 
-      RowBox[{
-       RowBox[{"FileBaseName", "[", 
-        RowBox[{"NotebookFileName", "[", "]"}], "]"}], "<>", 
-       "\"\<.wlt\>\""}]}], "}"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"If", "[", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"FileNames", "[", "testFileName", "]"}], "===", 
-     RowBox[{"{", "}"}]}], ",", "Nothing", ",", 
-    RowBox[{"DeleteFile", "[", "testFileName", "]"}]}], "]"}], ";"}], "\n", 
- RowBox[{
-  RowBox[{"pacletDir", "=", 
-   RowBox[{"DirectoryName", "[", 
-    RowBox[{"testFileName", ",", "2"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"PacletDirectoryLoad", "[", "pacletDir", "]"}], ";"}], "\n", 
- RowBox[{
-  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}], 
-  "\[IndentingNewLine]", 
-  RowBox[{"(*", 
-   RowBox[{"<<", "FernandoDuarte`LongRunRisk`"}], "*)"}]}], "\n", 
- RowBox[{
-  RowBox[{"model", "=", 
-   RowBox[{"KeyTake", "[", 
-    RowBox[{
-     RowBox[{"models", "[", "BKYinf", "]"}], ",", 
-     RowBox[{"{", 
-      RowBox[{
-      "name", ",", "shortname", ",", "bibRef", ",", "desc", ",", "stateVars", 
-       ",", "parameters"}], "}"}]}], "]"}]}], ";"}]}], "Input",
- CellChangeTimes->{{3.8890661685133457`*^9, 3.889066220685074*^9}, {
-   3.8890662555512333`*^9, 3.889066299901951*^9}, {3.889066581166473*^9, 
-   3.8890665847967653`*^9}, {3.889066731765956*^9, 3.889066745674687*^9}, {
-   3.889431410824514*^9, 3.88943144002302*^9}, 3.889502968269744*^9, {
-   3.889584956003687*^9, 3.889584966714899*^9}},
- CellLabel->"In[20]:=",ExpressionUUID->"65769c76-c5ef-480e-a6f1-aa6024e2457a"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"modelFormattingTemplate", "[", "model", "]"}]], "Input",
- CellChangeTimes->{{3.889584843739429*^9, 3.889584844410083*^9}},
- CellLabel->"In[26]:=",ExpressionUUID->"a32688b9-e855-4916-9c9d-41fcb2407d1c"],
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "all", " ", "be", " ", "true"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"StringQ", "/@", 
+    RowBox[{"Keys", "[", "models", "]"}]}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.889965468632722*^9, 3.889965535681717*^9}, {
+   3.889965687921562*^9, 3.889965719041513*^9}, {3.8899657564745703`*^9, 
+   3.8899657868805656`*^9}, {3.889965818275572*^9, 3.88996587402346*^9}, {
+   3.8899660417909737`*^9, 3.889966042024665*^9}, {3.889967536877624*^9, 
+   3.88996754071059*^9}, {3.8899676626847277`*^9, 3.889967663326408*^9}, {
+   3.889967743694665*^9, 3.889967744059184*^9}, {3.8899677859095707`*^9, 
+   3.8899678081741953`*^9}, {3.8899679955631647`*^9, 3.889968003395926*^9}, {
+   3.889969462764024*^9, 3.8899694656136417`*^9}, {3.889969517081333*^9, 
+   3.8899695670076637`*^9}, {3.889970354531378*^9, 3.889970361426557*^9}, 
+   3.889970446358612*^9, 3.889971586268968*^9, 3.8899720413397284`*^9, {
+   3.890016031161611*^9, 3.8900160360345497`*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"3b136a4b-47f6-4831-84cf-79751d15b3d2"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"Cell", "[", 
-  RowBox[{
-   RowBox[{"BoxData", "[", 
-    RowBox[{"RowBox", "[", 
-     RowBox[{"{", 
-      RowBox[{"\<\"\\t\"\>", ",", 
-       RowBox[{"RowBox", "[", 
-        RowBox[{"{", 
-         RowBox[{"\<\"BKYinf\"\>", ",", "\<\" \"\>", ",", "\<\"->\"\>", 
-          ",", "\<\" \"\>", ",", 
-          RowBox[{"RowBox", "[", 
-           RowBox[{"{", 
-            
-            RowBox[{"\<\"<|\"\>", ",", "\<\"\\n\"\>", ",", "\<\"\\t\\t\"\>", 
-             ",", 
-             RowBox[{"RowBox", "[", 
-              RowBox[{"{", 
-               RowBox[{
-                RowBox[{"RowBox", "[", 
-                 RowBox[{"{", 
-                  
-                  RowBox[{"\<\"name\"\>", ",", "\<\" \"\>", ",", "\<\"->\"\>",
-                    ",", "\<\" \"\>", 
-                   ",", "\<\"\\\"Similar to Bansal-Kiku-Yaron but \
-with\\n\\t\\t\\tinflation\\\"\"\>"}], "}"}], "]"}], ",", "\<\",\"\>", 
-                ",", "\<\"\\n\"\>", ",", "\<\"\\t\\t\"\>", ",", 
-                RowBox[{"RowBox", "[", 
-                 RowBox[{"{", 
-                  
-                  RowBox[{"\<\"shortname\"\>", ",", "\<\" \"\>", 
-                   ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                   ",", "\<\"\\\"BKYinf\\\"\"\>"}], "}"}], "]"}], 
-                ",", "\<\",\"\>", ",", "\<\"\\n\"\>", ",", "\<\"\\t\\t\"\>", 
-                ",", 
-                RowBox[{"RowBox", "[", 
-                 RowBox[{"{", 
-                  
-                  RowBox[{"\<\"bibRef\"\>", ",", "\<\" \"\>", 
-                   ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                   ",", "\<\"\\\"None\\\"\"\>"}], "}"}], "]"}], 
-                ",", "\<\",\"\>", ",", "\<\"\\n\"\>", ",", "\<\"\\t\\t\"\>", 
-                ",", 
-                RowBox[{"RowBox", "[", 
-                 RowBox[{"{", 
-                  
-                  RowBox[{"\<\"desc\"\>", ",", "\<\" \"\>", ",", "\<\"->\"\>",
-                    ",", "\<\" \"\>", 
-                   ",", "\<\"\\\"Inflation is persistent and \
-predicts\\n\\t\\t\\tconsumption growth (without\\n\\t\\t\\ttime-variation, \
-without NRC)\\\"\"\>"}], "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                ",", "\<\"\\t\\t\"\>", ",", 
-                RowBox[{"RowBox", "[", 
-                 RowBox[{"{", 
-                  
-                  RowBox[{"\<\"stateVars\"\>", ",", "\<\" \"\>", 
-                   ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", 
-                   RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{"\<\"{\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"x\"\>", ",", "\<\"[\"\>", ",", "\<\"t\"\>", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\",\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"sx\"\>", ",", "\<\"[\"\>", ",", "\<\"t\"\>", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\",\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{"\<\"-\"\>", ",", "\<\"mup\"\>"}], "}"}], "]"}], 
-                    ",", "\<\"+\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"pi\"\>", ",", "\<\"[\"\>", ",", "\<\"t\"\>", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}]}], "}"}], "]"}]}], "}"}],
-                     "]"}], ",", "\<\"}\"\>"}], "}"}], "]"}]}], "}"}], "]"}], 
-                ",", "\<\",\"\>", ",", "\<\"\\n\"\>", ",", "\<\"\\t\\t\"\>", 
-                ",", 
-                RowBox[{"RowBox", "[", 
-                 RowBox[{"{", 
-                  
-                  RowBox[{"\<\"parameters\"\>", ",", "\<\" \"\>", 
-                   ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", 
-                   RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"{\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"(*\"\>", ",", "\<\"\\\"Preferences\\\"\"\>", 
-                    ",", "\<\"*)\"\>"}], "}"}], "]"}], ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"delta\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"0.998\"\>"}], "}"}], "]"}], ",", "\<\",\"\>", 
-                    ",", "\<\"\\n\"\>", ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"psi\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"0.108086466108274\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"gamma\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"1 - theta + theta/psi\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"theta\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"-0.0319364382914013\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"(*\"\>", 
-                    ",", "\<\"\\\"Long-run risk\\\"\"\>", ",", "\<\"*)\"\>"}],
-                     "}"}], "]"}], ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"rhox\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"0.95\"\>"}], "}"}], "]"}], ",", "\<\",\"\>", 
-                    ",", "\<\"\\n\"\>", ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"rhoxpbar\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phix\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"-0.0100455931054077\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phixc\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"(*\"\>", ",", "\<\"\\\"Inflation\\\"\"\>", 
-                    ",", "\<\"*)\"\>"}], "}"}], "]"}], ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"mup\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"0.0028955730909963\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"rhoppbar\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"rhop\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"0.985\"\>"}], "}"}], "]"}], ",", "\<\",\"\>", 
-                    ",", "\<\"\\n\"\>", ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phip\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"-0.00043247571691955\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"xip\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipc\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipx\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipcx\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipp\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipxp\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"(*\"\>", 
-                    ",", "\<\"\\\"Expected inflation\\\"\"\>", 
-                    ",", "\<\"*)\"\>"}], "}"}], "]"}], ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"mupbar\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"rhopbar\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"rhopbarx\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipbarp\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipbarc\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipbarx\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipbarcx\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipbarpb\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipbarxb\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phipbarxp\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"(*\"\>", 
-                    ",", "\<\"\\\"Real consumption growth\\\"\"\>", 
-                    ",", "\<\"*)\"\>"}], "}"}], "]"}], ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"muc\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"0.00157399080415904\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"rhocx\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"1\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"rhocp\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"-0.292835401816459\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phic\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phicp\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"-0.00822757941067304\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phicsp\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"xic\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phics\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phicx\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"1\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phicc\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phicpc\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phicpp\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"(*\"\>", 
-                    ",", "\<\"\\\"Nominal-real covariance (NRC)\\\"\"\>", 
-                    ",", "\<\"*)\"\>"}], "}"}], "]"}], ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"Esg\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"rhog\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phig\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"(*\"\>", 
-                    ",", "\<\"\\\"Stochastic volatility of long-run \
-risk\\\"\"\>", ",", "\<\"*)\"\>"}], "}"}], "]"}], ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"Esx\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"7.83587415060296*^-23\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"vx\"\>", ",", "\<\" \"\>", ",", "\<\"->\"\>",
-                     ",", "\<\" \"\>", ",", "\<\"0.979\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phisxs\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"0.00530944692661557\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"(*\"\>", 
-                    ",", "\<\"\\\"Stochastic volatility of consumption growth\
-\\\"\"\>", ",", "\<\"*)\"\>"}], "}"}], "]"}], ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"Esc\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"vc\"\>", ",", "\<\" \"\>", ",", "\<\"->\"\>",
-                     ",", "\<\" \"\>", ",", "\<\"0\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phiscv\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"(*\"\>", 
-                    ",", "\<\"\\\"Stochastic volatility of inflation\\\"\"\>",
-                     ",", "\<\"*)\"\>"}], "}"}], "]"}], ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"Esp\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"vp\"\>", ",", "\<\" \"\>", ",", "\<\"->\"\>",
-                     ",", "\<\" \"\>", ",", "\<\"0\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"vpp\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"vppbar\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phispw\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"(*\"\>", 
-                    ",", "\<\"\\\"Real dividend growth\\\"\"\>", 
-                    ",", "\<\"*)\"\>"}], "}"}], "]"}], ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{"\<\"(*\"\>", ",", "\<\" \"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{"\<\"stock\"\>", ",", "\<\" \"\>", ",", "1"}], 
-                    "}"}], "]"}], ",", "\<\" \"\>", ",", "\<\"*)\"\>"}], 
-                    "}"}], "]"}], ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"mud\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"0.00107967475744456\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"rhodx\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"7.44835878922388\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"rhodp\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"0.0347877157464962\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phidc\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phidp\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"0.0375725143683261\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phidsp\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"xid\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phids\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phidxc\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"1.*^-8\"\>"}], "}"}], "]"}], ",", "\<\",\"\>", 
-                    ",", "\<\"\\n\"\>", ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phidcc\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phidpc\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phidpp\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phidxd\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", 
-                    ",", "\<\"-0.794376370651053\"\>"}], "}"}], "]"}], 
-                    ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phidcd\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"phidpd\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\",\"\>", ",", "\<\"\\n\"\>", 
-                    ",", "\<\"\\t\\t\\t\\t\\t\"\>", ",", 
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"RowBox", "[", 
-                    RowBox[{"{", 
-                    
-                    RowBox[{"\<\"taugd\"\>", ",", "\<\"[\"\>", ",", "1", 
-                    ",", "\<\"]\"\>"}], "}"}], "]"}], ",", "\<\" \"\>", 
-                    ",", "\<\"->\"\>", ",", "\<\" \"\>", ",", "\<\"0\"\>"}], 
-                    "}"}], "]"}], ",", "\<\"\"\>", ",", "\<\"\"\>"}], "}"}], 
-                    "]"}], ",", "\<\"\\n\"\>", ",", "\<\"\\t\\t\"\>", 
-                    ",", "\<\"}\"\>"}], "}"}], "]"}]}], "}"}], "]"}]}], "}"}],
-               "]"}], ",", "\<\"\\n\"\>", ",", "\<\"\\t\"\>", 
-             ",", "\<\"|>\"\>", ",", "\<\"\\n\"\>"}], "}"}], "]"}]}], "}"}], 
-        "]"}]}], "}"}], "]"}], "]"}], ",", "\<\"Input\"\>"}], "]"}]], "Output",\
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230409-EDEQJ2\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230409-EDEQJ2"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.890016252587188*^9, 3.890060642956778*^9},
+ CellLabel->
+  "During evaluation of \
+In[10]:=",ExpressionUUID->"554c41f9-5815-40bb-9887-5a3e6bf0ed34"],
 
- CellChangeTimes->{3.889590687955867*^9},
- CellLabel->"Out[26]=",ExpressionUUID->"1147f642-70fe-4c33-9595-1d02ed04eef7"]
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.890016252587188*^9, 3.890060642959313*^9},
+ CellLabel->
+  "During evaluation of \
+In[10]:=",ExpressionUUID->"a8e70fea-076f-4d9c-88c3-5d607f2cef3c"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = {
+  True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tMap[StringQ, Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t,\n\t{True, True, True, \
+True, True, True, True, True, True, True, True, True, True, True, True}\n\t,\n\
+\t{}\n\t,\n\tTestID->\"Catalog_20230409-EDEQJ2\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> {
+    True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True}, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.029, "AbsoluteTiming" -> 0.024, 
+   "InputString" :> ToString[
+     Unevaluated[
+      Map[StringQ, 
+       Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]], InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tNeeds @ \
+\"FernandoDuarte`LongRunRisk`\"\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-1N009Y\"\n]\n\n\nVerificationTest[\n\t\
+MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`\"]\n\t,\n\tTrue\n\t,\n\t\
+{}\n\t,\n\tTestID->\"Catalog_20230409-DXJURD\"\n]\n\n\nVerificationTest[\n\t\
+Needs @ \"FernandoDuarte`LongRunRisk`Model`Catalog`\"\n\t,\n\tNull\n\t,\n\t{}\
+\n\t,\n\tTestID->\"Catalog_20230409-BS7LY9\"\n]\n\n\nVerificationTest[\n\t\
+!SameQ[Names @ \"*models\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-SV9YAT\"\n]\n\n\nVerificationTest[\n\tMap[StringQ, \
+Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t,\n\t{True, True, \
+True, True, True, True, True, True, True, True, True, True, True, True, True}\
+\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230409-EDEQJ2\"\n]\n\n\n\
+EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.890016252608904*^9, 3.89006064298176*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"863d1d58-3e03-41e3-b94f-8630f5ea64b6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "all", " ", "be", " ", "true"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"StringQ", "/@", 
+    RowBox[{"Flatten", "@", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"models", "[", "#", "]"}], "[", "\"\<name\>\"", "]"}], ",", 
+          RowBox[{
+           RowBox[{"models", "[", "#", "]"}], "[", "\"\<shortname\>\"", "]"}],
+           ",", 
+          RowBox[{
+           RowBox[{"models", "[", "#", "]"}], "[", "\"\<bibRef\>\"", "]"}], 
+          ",", 
+          RowBox[{
+           RowBox[{"models", "[", "#", "]"}], "[", "\"\<desc\>\"", "]"}]}], 
+         "}"}], "&"}], "/@", 
+       RowBox[{"Keys", "[", "models", "]"}]}], ")"}]}]}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{3.890016052447173*^9},
+ CellLabel->"In[11]:=",ExpressionUUID->"086c67ce-011c-45b8-81d0-c7167de13fb0"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230409-B614GG\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230409-B614GG"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.8900162545826397`*^9, 3.890060644799451*^9},
+ CellLabel->
+  "During evaluation of \
+In[11]:=",ExpressionUUID->"f9ef7aff-f739-4f3a-a334-560a30d9ae32"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.8900162545826397`*^9, 3.890060644801853*^9},
+ CellLabel->
+  "During evaluation of \
+In[11]:=",ExpressionUUID->"d4df177e-4630-495b-bdcd-c1b9597e64d1"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "Map[StringQ,\n\t\tFlatten[\n\t\t\tMap[\n\t\t\t\tFunction @ {\n\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"name\"],\n\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"bibRef\"],\n\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t},\n\t\t\
+\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t]\n\t\t]\n\t\
+]", FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = {
+  True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tMap[StringQ,\n\t\tFlatten[\n\t\t\tMap[\n\t\t\t\t\
+Function @ {\n\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"name\"],\n\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"bibRef\"],\n\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t},\n\t\t\
+\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t]\n\t\t]\n\t\
+]\n\t,\n\t{\n\t\tTrue, True, True, True, True, True, True, True, True, True, \
+True, True,\n\t\tTrue, True, True, True, True, True, True, True, True, True, \
+True, True,\n\t\tTrue, True, True, True, True, True, True, True, True, True, \
+True, True,\n\t\tTrue, True, True, True, True, True, True, True, True, True, \
+True, True,\n\t\tTrue, True, True, True, True, True, True, True, True, True, \
+True, True\n\t}\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230409-B614GG\"\n]\n\n\
+", FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> {
+    True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True}, 
+   "Success" -> True, "FailureType" -> None, "OutputLog" -> {}, 
+   "Messages" -> {}, "MessagesText" -> {}, "MessagesExpressions" -> {}, 
+   "Timing" -> 0.534, "AbsoluteTiming" -> 0.534, "InputString" :> ToString[
+     Unevaluated[
+      Map[StringQ, 
+       Flatten[
+        Map[{
+          FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["name"], 
+          FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["shortname"], 
+          FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["bibRef"], 
+          FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["desc"]}& , 
+         Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]]], 
+     InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tNeeds @ \
+\"FernandoDuarte`LongRunRisk`\"\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-1N009Y\"\n]\n\n\nVerificationTest[\n\t\
+MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`\"]\n\t,\n\tTrue\n\t,\n\t\
+{}\n\t,\n\tTestID->\"Catalog_20230409-DXJURD\"\n]\n\n\nVerificationTest[\n\t\
+Needs @ \"FernandoDuarte`LongRunRisk`Model`Catalog`\"\n\t,\n\tNull\n\t,\n\t{}\
+\n\t,\n\tTestID->\"Catalog_20230409-BS7LY9\"\n]\n\n\nVerificationTest[\n\t\
+!SameQ[Names @ \"*models\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-SV9YAT\"\n]\n\n\nVerificationTest[\n\tMap[StringQ, \
+Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t,\n\t{True, True, \
+True, True, True, True, True, True, True, True, True, True, True, True, True}\
+\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230409-EDEQJ2\"\n]\n\n\n\
+VerificationTest[\n\tMap[StringQ,\n\t\tFlatten[\n\t\t\tMap[\n\t\t\t\tFunction \
+@ {\n\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"name\"],\n\
+\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\
+\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"bibRef\"],\n\t\
+\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\
+},\n\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t]\n\
+\t\t]\n\t]\n\t,\n\t{\n\t\tTrue, True, True, True, True, True, True, True, \
+True, True, True, True,\n\t\tTrue, True, True, True, True, True, True, True, \
+True, True, True, True,\n\t\tTrue, True, True, True, True, True, True, True, \
+True, True, True, True,\n\t\tTrue, True, True, True, True, True, True, True, \
+True, True, True, True,\n\t\tTrue, True, True, True, True, True, True, True, \
+True, True, True, True\n\t}\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-B614GG\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.890016254604062*^9, 3.890060644822801*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"40d4a3e1-3e51-49dc-864e-45a591eaa8b0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "all", " ", "be", " ", "true"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"NumberQ", "/@", 
+    RowBox[{"Flatten", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Values", "@", 
+        RowBox[{"FilterRules", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"models", "[", "#", "]"}], "[", "\"\<parameters\>\"", 
+           "]"}], ",", 
+          RowBox[{"Except", "[", 
+           RowBox[{"gamma", "|", "theta"}], "]"}]}], "]"}]}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{"\"\<BY\>\"", ",", "\"\<BKY\>\""}], "}"}]}], "]"}]}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.889965468632722*^9, 3.889965535681717*^9}, {
+   3.889965687921562*^9, 3.889965719041513*^9}, {3.8899657564745703`*^9, 
+   3.8899657868805656`*^9}, {3.889965818275572*^9, 3.88996587402346*^9}, {
+   3.8899660417909737`*^9, 3.889966042024665*^9}, {3.889967536877624*^9, 
+   3.88996754071059*^9}, {3.8899676626847277`*^9, 3.889967663326408*^9}, {
+   3.889967743694665*^9, 3.889967744059184*^9}, {3.8899677859095707`*^9, 
+   3.8899678081741953`*^9}, {3.8899679955631647`*^9, 3.889968003395926*^9}, {
+   3.889969462764024*^9, 3.8899694656136417`*^9}, {3.889969517081333*^9, 
+   3.8899695670076637`*^9}, {3.889970354531378*^9, 3.889970361426557*^9}, 
+   3.889970446358612*^9, 3.889971586268968*^9, 3.8899720413397284`*^9, {
+   3.890016031161611*^9, 3.8900160360345497`*^9}, {3.8900160737670794`*^9, 
+   3.890016085435741*^9}},
+ CellLabel->"In[12]:=",ExpressionUUID->"a3a609d1-b215-40d6-9e60-398b1031989e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230409-A2GEFV\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230409-A2GEFV"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.890016256145426*^9, 3.890060646193428*^9},
+ CellLabel->
+  "During evaluation of \
+In[12]:=",ExpressionUUID->"5e44f523-15f3-47d6-a8a9-b9ebfd723433"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.890016256145426*^9, 3.89006064619604*^9},
+ CellLabel->
+  "During evaluation of \
+In[12]:=",ExpressionUUID->"7cad5e8b-1610-4286-854c-d2f8db4326cd"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "Map[NumberQ,\n\t\tFlatten[\n\t\t\tMap[\n\t\t\t\tFunction[\n\t\t\t\t\t\
+Values[FilterRules[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"\
+parameters\"], Except[gamma | theta]]]\n\t\t\t\t],\n\t\t\t\t{\"BY\", \"BKY\"}\
+\n\t\t\t]\n\t\t]\n\t]", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = {
+  True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True, True, True, True, True, True, True, True, True, 
+   True, True, True, True}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tMap[NumberQ,\n\t\tFlatten[\n\t\t\tMap[\n\t\t\t\t\
+Function[\n\t\t\t\t\t\
+Values[FilterRules[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"\
+parameters\"], Except[gamma | theta]]]\n\t\t\t\t],\n\t\t\t\t{\"BY\", \"BKY\"}\
+\n\t\t\t]\n\t\t]\n\t]\n\t,\n\t{\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True\n\t}\n\t,\n\t\
+{}\n\t,\n\tTestID->\"Catalog_20230409-A2GEFV\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> {
+    True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True, True, True, True, True, True, True, True, True, 
+     True, True, True, True}, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.022, "AbsoluteTiming" -> 0.022, 
+   "InputString" :> ToString[
+     Unevaluated[
+      Map[NumberQ, 
+       Flatten[
+        Map[Values[
+          FilterRules[
+           FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"], 
+           Except[
+            Alternatives[$CellContext`gamma, $CellContext`theta]]]]& , {
+         "BY", "BKY"}]]]], InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tNeeds @ \
+\"FernandoDuarte`LongRunRisk`\"\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-1N009Y\"\n]\n\n\nVerificationTest[\n\t\
+MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`\"]\n\t,\n\tTrue\n\t,\n\t\
+{}\n\t,\n\tTestID->\"Catalog_20230409-DXJURD\"\n]\n\n\nVerificationTest[\n\t\
+Needs @ \"FernandoDuarte`LongRunRisk`Model`Catalog`\"\n\t,\n\tNull\n\t,\n\t{}\
+\n\t,\n\tTestID->\"Catalog_20230409-BS7LY9\"\n]\n\n\nVerificationTest[\n\t\
+!SameQ[Names @ \"*models\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-SV9YAT\"\n]\n\n\nVerificationTest[\n\tMap[StringQ, \
+Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t,\n\t{True, True, \
+True, True, True, True, True, True, True, True, True, True, True, True, True}\
+\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230409-EDEQJ2\"\n]\n\n\n\
+VerificationTest[\n\tMap[StringQ,\n\t\tFlatten[\n\t\t\tMap[\n\t\t\t\tFunction \
+@ {\n\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"name\"],\n\
+\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\
+\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"bibRef\"],\n\t\
+\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\
+},\n\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t]\n\
+\t\t]\n\t]\n\t,\n\t{\n\t\tTrue, True, True, True, True, True, True, True, \
+True, True, True, True,\n\t\tTrue, True, True, True, True, True, True, True, \
+True, True, True, True,\n\t\tTrue, True, True, True, True, True, True, True, \
+True, True, True, True,\n\t\tTrue, True, True, True, True, True, True, True, \
+True, True, True, True,\n\t\tTrue, True, True, True, True, True, True, True, \
+True, True, True, True\n\t}\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230409-B614GG\"\n]\n\n\nVerificationTest[\n\tMap[NumberQ,\
+\n\t\tFlatten[\n\t\t\tMap[\n\t\t\t\tFunction[\n\t\t\t\t\t\
+Values[FilterRules[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"\
+parameters\"], Except[gamma | theta]]]\n\t\t\t\t],\n\t\t\t\t{\"BY\", \"BKY\"}\
+\n\t\t\t]\n\t\t]\n\t]\n\t,\n\t{\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True, True, True, \
+True, True, True, True, True, True,\n\t\tTrue, True, True, True\n\t}\n\t,\n\t\
+{}\n\t,\n\tTestID->\"Catalog_20230409-A2GEFV\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.8900162561667223`*^9, 3.89006064622375*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"53fc0bb0-208e-4f5f-9f00-029aed788bfa"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "give", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"x", "[", "t", "]"}], ",", 
+       RowBox[{"sx", "[", "t", "]"}]}], "}"}]}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"models", "[", "\"\<BY\>\"", "]"}], "[", "\"\<stateVars\>\"", 
+    "]"}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.889966121134981*^9, 3.889966129513671*^9}, {
+  3.8899675430265427`*^9, 3.889967546703742*^9}, {3.889967666639736*^9, 
+  3.8899676668939447`*^9}, {3.889967746374608*^9, 3.889967746668034*^9}, {
+  3.88996781333914*^9, 3.8899678201195583`*^9}, {3.88996801609513*^9, 
+  3.88996801967063*^9}, {3.8900161094568357`*^9, 3.890016118394877*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"ea3d9744-ad21-4709-9e68-2e602fb4625c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230409-O76X3R\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230409-O76X3R"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.890060654797516*^9},
+ CellLabel->"",ExpressionUUID->"184b2422-5775-439e-b8f0-c41ad676dd2b"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.890060654806044*^9},
+ CellLabel->"",ExpressionUUID->"4dad1b46-a488-438f-9cc2-9e9fdd0d630c"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "all", " ", "be", " ", "true"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"MemberQ", "[", 
+      RowBox[{
+       RowBox[{"Keys", "[", "models", "]"}], ",", "#"}], "]"}], "&"}], "/@", 
+    RowBox[{"{", 
+     RowBox[{"\"\<BY\>\"", ",", "\"\<BKY\>\""}], "}"}]}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.889966137593294*^9, 3.889966157676291*^9}, {
+  3.8899675483847713`*^9, 3.889967551583518*^9}, {3.8899676691600733`*^9, 
+  3.889967669364262*^9}, {3.889967748725914*^9, 3.889967749007223*^9}, {
+  3.889967825028019*^9, 3.8899678304574842`*^9}, {3.889968028194545*^9, 
+  3.889968031839179*^9}, {3.890016134135317*^9, 3.890016138691626*^9}},
+ CellLabel->"In[14]:=",ExpressionUUID->"44fb97e9-5f9a-4e84-afbf-a0ac1a1142de"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230409-94MN6Y\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230409-94MN6Y"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.890060656546157*^9},
+ CellLabel->"",ExpressionUUID->"f6028aa0-01e9-43c0-9daa-22565c2d1fbb"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.8900606565527573`*^9},
+ CellLabel->"",ExpressionUUID->"e61c9e2e-4963-46e8-a110-1ec6ec0b284a"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "all", " ", "give", " ", "Association"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Flatten", "@", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Head", "[", "models", "]"}], ",", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Head", "[", 
+         RowBox[{"models", "[", "#", "]"}], "]"}], "&"}], "/@", 
+       RowBox[{"Keys", "[", "models", "]"}]}]}], "}"}]}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.8899661404752703`*^9, 3.889966162544742*^9}, {
+  3.88996755330625*^9, 3.8899675539045153`*^9}, {3.8899676717688217`*^9, 
+  3.889967672005005*^9}, {3.88996775093589*^9, 3.8899677512290583`*^9}, {
+  3.889967834057867*^9, 3.88996783977798*^9}, {3.889968042239496*^9, 
+  3.889968052278575*^9}, {3.890016146817315*^9, 3.8900161536190767`*^9}},
+ CellLabel->"In[15]:=",ExpressionUUID->"bfa88386-6324-49f2-ae9a-0226f7867840"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230409-0FE1VR\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230409-0FE1VR"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.890060659013689*^9},
+ CellLabel->"",ExpressionUUID->"a513b3ec-98ee-44fb-b280-117cce50bdcf"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.8900606590196533`*^9},
+ CellLabel->"",ExpressionUUID->"1763034d-0d06-446c-8b64-e0bbe9830b15"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Interactive Tests", "Subsection",
+ CellChangeTimes->{{3.889905622471089*^9, 3.889905629759961*^9}, {
+  3.889972063478182*^9, 
+  3.889972065236586*^9}},ExpressionUUID->"2c4a83cf-8af5-4d19-89ae-\
+a864a258310f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"packageFileName", "=", 
+  RowBox[{"FileNameJoin", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"DirectoryName", "[", 
+      RowBox[{
+       RowBox[{"NotebookDirectory", "[", "]"}], ",", "1"}], "]"}], ",", 
+     "\"\<Kernel\>\"", ",", "\"\<Model\>\"", ",", 
+     RowBox[{
+      RowBox[{"FileBaseName", "[", 
+       RowBox[{"NotebookFileName", "[", "]"}], "]"}], "<>", "\"\<.wl\>\""}]}],
+     "}"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Needs", "[", 
+  RowBox[{
+   RowBox[{"\"\<FernandoDuarte`LongRunRisk`Model`\>\"", "<>", 
+    RowBox[{"FileBaseName", "[", 
+     RowBox[{"NotebookFileName", "[", "]"}], "]"}], "<>", "\"\<`\>\""}], ",", 
+   "packageFileName"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.889968360919714*^9, 3.889968361169221*^9}, {
+  3.889998753242611*^9, 3.8899987613556004`*^9}},
+ CellLabel->"In[16]:=",ExpressionUUID->"f275bdc7-d1c5-4b14-9c2f-42b3fa65a747"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/Model/Catalog.wl\"\>"], "Output",
+ CellChangeTimes->{3.89001628518836*^9, 3.890032959435354*^9, 
+  3.89006066250316*^9},
+ CellLabel->"Out[16]=",ExpressionUUID->"22a4515e-4241-4a2c-9e58-ce6087de394f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Short", "[", 
+  RowBox[{"models", ",", "5"}], "]"}]], "Input",
+ CellChangeTimes->{{3.8900155176659718`*^9, 3.8900155182062263`*^9}, {
+  3.890016290339801*^9, 3.8900163245868483`*^9}},
+ CellLabel->"In[18]:=",ExpressionUUID->"ebbba576-a288-4095-9797-111d65f603ff"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"\[LeftAssociation]", 
+   RowBox[{
+    RowBox[{"\<\"BY\"\>", "\[Rule]", 
+     RowBox[{"\[LeftAssociation]", 
+      RowBox[{
+       RowBox[{"\<\"name\"\>", 
+        "\[Rule]", "\<\"Original long-run risk model\"\>"}], ",", 
+       RowBox[{"\[LeftSkeleton]", "4", "\[RightSkeleton]"}], ",", 
+       RowBox[{"\<\"parameters\"\>", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"delta", "\[Rule]", "0.998`"}], ",", 
+          RowBox[{"psi", "\[Rule]", "1.5`"}], ",", 
+          RowBox[{"gamma", "\[Rule]", "10"}], ",", 
+          RowBox[{"theta", "\[Rule]", 
+           FractionBox[
+            RowBox[{"1", "-", "gamma"}], 
+            RowBox[{"1", "-", 
+             FractionBox["1", "psi"]}]]}], ",", 
+          RowBox[{"rhox", "\[Rule]", "0.979`"}], ",", 
+          RowBox[{"rhoxpbar", "\[Rule]", "0"}], ",", 
+          RowBox[{"\[LeftSkeleton]", "58", "\[RightSkeleton]"}], ",", 
+          RowBox[{
+           RowBox[{"phidpc", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
+          RowBox[{
+           RowBox[{"phidpp", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
+          RowBox[{
+           RowBox[{"phidxd", "[", "1", "]"}], "\[Rule]", "4.5`"}], ",", 
+          RowBox[{
+           RowBox[{"phidcd", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
+          RowBox[{
+           RowBox[{"phidpd", "[", "1", "]"}], "\[Rule]", "0"}], ",", 
+          RowBox[{
+           RowBox[{"taugd", "[", "1", "]"}], "\[Rule]", "0"}]}], "}"}]}]}], 
+      "\[RightAssociation]"}]}], ",", 
+    RowBox[{"\[LeftSkeleton]", "13", "\[RightSkeleton]"}], ",", 
+    RowBox[{"\<\"BS\"\>", "\[Rule]", 
+     RowBox[{"\[LeftAssociation]", 
+      RowBox[{"\[LeftSkeleton]", "1", "\[RightSkeleton]"}], 
+      "\[RightAssociation]"}]}]}], "\[RightAssociation]"}],
+  Short[#, 5]& ]], "Output",
+ CellChangeTimes->{{3.8900162870581217`*^9, 3.8900163250176973`*^9}, 
+   3.890032961857539*^9, 3.8900606650778933`*^9},
+ CellLabel->
+  "Out[18]//Short=",ExpressionUUID->"c496d884-06da-42a5-acca-f3a7ace78c51"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"And", "@@", 
+  RowBox[{"(", 
+   RowBox[{"StringQ", "/@", 
+    RowBox[{"Keys", "[", "models", "]"}]}], ")"}]}]], "Input",
+ CellChangeTimes->{
+  3.89000889839254*^9, {3.890016339728188*^9, 3.890016342139681*^9}},
+ CellLabel->"In[19]:=",ExpressionUUID->"78177850-499e-456b-b442-fad780dafdf0"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.890016330510503*^9, 3.890016360986127*^9, 
+  3.8900329705899982`*^9, 3.890060667044271*^9},
+ CellLabel->"Out[19]=",ExpressionUUID->"58c40f30-da9e-4efc-b019-3a7a50ffbedd"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"And", "@@", 
+  RowBox[{"(", 
+   RowBox[{"StringQ", "/@", 
+    RowBox[{"Flatten", "@", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"models", "[", "#", "]"}], "[", "\"\<name\>\"", "]"}], ",", 
+          RowBox[{
+           RowBox[{"models", "[", "#", "]"}], "[", "\"\<shortname\>\"", "]"}],
+           ",", 
+          RowBox[{
+           RowBox[{"models", "[", "#", "]"}], "[", "\"\<bibRef\>\"", "]"}], 
+          ",", 
+          RowBox[{
+           RowBox[{"models", "[", "#", "]"}], "[", "\"\<desc\>\"", "]"}]}], 
+         "}"}], "&"}], "/@", 
+       RowBox[{"Keys", "[", "models", "]"}]}], ")"}]}]}], ")"}]}]], "Input",
+ CellChangeTimes->{{3.890008770382118*^9, 3.890008858894733*^9}, {
+  3.890016345133547*^9, 3.8900163569166937`*^9}},
+ CellLabel->"In[20]:=",ExpressionUUID->"a17059c2-5416-45b1-b84e-0c2f842f7fb5"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.890016333170814*^9, 3.890016362680401*^9}, 
+   3.890032972092759*^9, 3.890060668409647*^9},
+ CellLabel->"Out[20]=",ExpressionUUID->"05568e0b-a10a-43b9-9ca6-be1b04e5823b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"And", "@@", 
+  RowBox[{"(", 
+   RowBox[{"NumberQ", "/@", 
+    RowBox[{"Flatten", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Values", "@", 
+        RowBox[{"FilterRules", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"models", "[", "#", "]"}], "[", "\"\<parameters\>\"", 
+           "]"}], ",", 
+          RowBox[{"Except", "[", 
+           RowBox[{"gamma", "|", "theta"}], "]"}]}], "]"}]}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{"\"\<BY\>\"", ",", "\"\<BKY\>\""}], "}"}]}], "]"}]}], 
+   ")"}]}]], "Input",
+ CellChangeTimes->{{3.890008965671461*^9, 3.8900089726778793`*^9}, {
+   3.8900090147612762`*^9, 3.890009193827691*^9}, 3.8900101461421833`*^9, 
+   3.890015540563738*^9, {3.8900156352184877`*^9, 3.89001567714233*^9}},
+ CellLabel->"In[21]:=",ExpressionUUID->"61202b86-4708-4e03-aa51-3fcb0e388f46"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.890016334527555*^9, 3.89001636396594*^9}, 
+   3.890032973231872*^9, 3.890060668629961*^9},
+ CellLabel->"Out[21]=",ExpressionUUID->"d0d26cae-36ad-4b29-985c-d393a6f219f4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"models", "[", "\"\<BY\>\"", "]"}], "[", "\"\<stateVars\>\"", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.890008358526595*^9, 3.890008367251541*^9}, {
+  3.890008571631298*^9, 3.890008637654916*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"c6bbd0ce-43eb-4838-b846-eed9f4e82d49"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"x", "[", "t", "]"}], ",", 
+   RowBox[{"sx", "[", "t", "]"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.890016366093617*^9, 3.890032974213314*^9, 
+  3.890060670079206*^9},
+ CellLabel->"Out[22]=",ExpressionUUID->"2e85ae47-29a6-4209-8a49-b911732618df"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"And", "@@", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"MemberQ", "[", 
+      RowBox[{
+       RowBox[{"Keys", "[", "models", "]"}], ",", "#"}], "]"}], "&"}], "/@", 
+    RowBox[{"{", 
+     RowBox[{"\"\<BY\>\"", ",", "\"\<BKY\>\""}], "}"}]}], ")"}]}]], "Input",
+ CellChangeTimes->{{3.8900087062162313`*^9, 3.890008740193614*^9}, {
+  3.89001637048425*^9, 3.890016372993977*^9}},
+ CellLabel->"In[23]:=",ExpressionUUID->"78983d07-8f42-43d9-a50f-d26a03b2ee5c"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.890016368666882*^9, 3.890016373785022*^9}, 
+   3.890032975070776*^9, 3.890060670947837*^9},
+ CellLabel->"Out[23]=",ExpressionUUID->"8ccecc0b-9aaf-4d32-9dc7-975e400247a1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"AllTrue", "[", 
+  RowBox[{"models", ",", "AssociationQ"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"AllTrue", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"models", "[", "#", "]"}], "&"}], "/@", 
+    RowBox[{"Keys", "[", "models", "]"}]}], ",", "AssociationQ"}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.8900086430073547`*^9, 3.890008684982678*^9}, {
+  3.890010177349143*^9, 3.890010179091837*^9}, {3.8900163791247263`*^9, 
+  3.890016449580503*^9}},
+ CellLabel->"In[24]:=",ExpressionUUID->"33533fdf-b808-460b-a76c-9a554476db8f"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.8900163754614763`*^9, 3.890016401488854*^9}, 
+   3.890016451487769*^9, 3.890032975905486*^9, 3.890060671851157*^9},
+ CellLabel->"Out[24]=",ExpressionUUID->"536e0958-2442-465c-991a-94007ae7c98d"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.8900163754614763`*^9, 3.890016401488854*^9}, 
+   3.890016451487769*^9, 3.890032975905486*^9, 3.8900606719971113`*^9},
+ CellLabel->"Out[25]=",ExpressionUUID->"8035392f-ce6c-49a2-ad34-1f7c30ded95a"]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1920, 1062},
-WindowMargins->{{-1920, Automatic}, {Automatic, 0}},
+WindowSize->{921, 890},
+WindowMargins->{{185, Automatic}, {Automatic, 0}},
 WindowStatusArea->"",
 DockedCells->{
   Cell[
@@ -2727,37 +2431,123 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 981, 23, 64, "Input",ExpressionUUID->"946b8633-fd90-4e81-9c93-3393a5b979a7"],
-Cell[1542, 45, 520, 10, 64, "Input",ExpressionUUID->"51d6328f-d8cd-48b3-bef0-42a0f01b0d77"],
-Cell[2065, 57, 400, 8, 64, "Input",ExpressionUUID->"8ca679c3-2d1e-4627-911a-271e99f7202f"],
+Cell[558, 20, 214, 4, 37, "Input",ExpressionUUID->"2d530782-807c-4677-ac15-0a1524d3eb66"],
+Cell[775, 26, 1283, 30, 142, "Input",ExpressionUUID->"0360f784-d335-43f3-8e4d-2bba830763e2"],
 Cell[CellGroupData[{
-Cell[2490, 69, 210, 3, 37, "Input",ExpressionUUID->"260a597d-edf2-4bfb-974c-7ffbfab67b25"],
-Cell[2703, 74, 13052, 315, 641, "Output",ExpressionUUID->"0b190428-1788-4cdd-9db4-263b1b6cf18c"]
+Cell[2083, 60, 255, 4, 67, "Subsection",ExpressionUUID->"31e1b2df-6c38-4738-ae7d-157759dc5a90"],
+Cell[2341, 66, 221, 4, 37, "Input",ExpressionUUID->"91c1009c-f5f8-4c13-a87a-42c785c70d90"],
+Cell[CellGroupData[{
+Cell[2587, 74, 1034, 16, 90, "Input",ExpressionUUID->"df3441c2-82a3-4dc6-ae55-72fe028a7826"],
+Cell[CellGroupData[{
+Cell[3646, 94, 388, 9, 29, "Print",ExpressionUUID->"6a438360-fafe-4ebc-8e15-4f990c257028"],
+Cell[4037, 105, 285, 5, 29, "Print",ExpressionUUID->"445f7d85-201b-4647-8329-a14eaa5065c3"]
 }, Open  ]],
-Cell[15770, 392, 386, 9, 37, "Input",ExpressionUUID->"2e02f01b-2ef2-4c87-b5e6-a211518fb3a2"],
-Cell[CellGroupData[{
-Cell[16181, 405, 1068, 19, 37, "Input",ExpressionUUID->"3c794a3b-9a6d-425d-94c5-c596fb517e9a"],
-Cell[17252, 426, 5291, 122, 275, "Output",ExpressionUUID->"41996736-7d43-4a37-864d-2d2db765a06d"]
-}, Open  ]],
-Cell[22558, 551, 1202, 20, 64, "Input",ExpressionUUID->"b8f5e17a-4f31-4771-a4cf-44606b0a2a63"],
-Cell[23763, 573, 1366, 24, 272, "Input",ExpressionUUID->"5a51138a-0b7f-4bef-98cf-75a1aa01c60a"],
-Cell[25132, 599, 529, 11, 64, "Input",ExpressionUUID->"6ee911ae-223b-4dae-9a9f-3d876b33d5e3"],
-Cell[25664, 612, 415, 8, 37, "Input",ExpressionUUID->"229467f5-894c-4b77-a951-7231c64016e0"],
-Cell[26082, 622, 523, 13, 64, "Input",ExpressionUUID->"6a05784e-8521-485c-b9fe-dff9482cd113"],
-Cell[CellGroupData[{
-Cell[26630, 639, 155, 3, 67, "Subsection",ExpressionUUID->"5216b0c6-0b30-4607-beca-83054aa122f9"],
-Cell[CellGroupData[{
-Cell[26810, 646, 589, 13, 90, "Input",ExpressionUUID->"6ac224c0-9cb0-40f1-931c-960ca520e8a1"],
-Cell[27402, 661, 6883, 145, 127, "Output",ExpressionUUID->"9fe408df-7ee9-44c2-8154-fdab87c1dda5"]
+Cell[4337, 113, 4788, 87, 69, "Output",ExpressionUUID->"02b96a7b-613a-4e8a-b147-0f1a72171c7f"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[34322, 811, 2164, 46, 402, "Input",ExpressionUUID->"2d666041-996e-40c0-bfda-774a1c5d1728"],
-Cell[36489, 859, 10201, 201, 729, "Output",ExpressionUUID->"52e1831a-98e2-47d6-8b21-0912f496f1a5"]
-}, Open  ]],
-Cell[46705, 1063, 1755, 43, 194, "Input",ExpressionUUID->"65769c76-c5ef-480e-a6f1-aa6024e2457a"],
+Cell[9162, 205, 914, 15, 90, "Input",ExpressionUUID->"37a69960-4a4b-47f2-bed8-e68905e00bd9"],
 Cell[CellGroupData[{
-Cell[48485, 1110, 225, 3, 37, "Input",ExpressionUUID->"a32688b9-e855-4916-9c9d-41fcb2407d1c"],
-Cell[48713, 1115, 38243, 754, 2487, "Output",ExpressionUUID->"1147f642-70fe-4c33-9595-1d02ed04eef7"]
+Cell[10101, 224, 390, 9, 29, "Print",ExpressionUUID->"e5a55aa2-841c-481c-884b-7961fc0e286b"],
+Cell[10494, 235, 287, 5, 29, "Print",ExpressionUUID->"1e2504cf-af70-4dc2-be71-c13e766f8bf0"]
+}, Open  ]],
+Cell[10796, 243, 4977, 91, 69, "Output",ExpressionUUID->"e7755972-a3e1-40a7-8f58-729382997320"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15810, 339, 573, 10, 90, "Input",ExpressionUUID->"b822a665-a923-4386-b002-407f0c5b80cd"],
+Cell[CellGroupData[{
+Cell[16408, 353, 388, 9, 29, "Print",ExpressionUUID->"e18138cf-67b8-4a9d-9dd9-d7bead1e0676"],
+Cell[16799, 364, 285, 5, 29, "Print",ExpressionUUID->"c53a0502-1b7d-48ac-b8d0-02a7908fa87d"]
+}, Open  ]],
+Cell[17099, 372, 5126, 92, 69, "Output",ExpressionUUID->"5eb476da-6f7d-488a-9797-087f00e86161"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22262, 469, 786, 15, 116, "Input",ExpressionUUID->"78efcfa0-e9fa-47a2-9b51-782cbea2e41b"],
+Cell[CellGroupData[{
+Cell[23073, 488, 386, 9, 29, "Print",ExpressionUUID->"d04f564e-e97a-4c8a-b592-197bb2b0bdad"],
+Cell[23462, 499, 285, 5, 29, "Print",ExpressionUUID->"2fa9fe12-c360-46ce-bd68-84b37b5b5173"]
+}, Open  ]],
+Cell[23762, 507, 5186, 93, 69, "Output",ExpressionUUID->"7cc2ffad-c246-4712-91de-c0bf6f675838"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[28985, 605, 1314, 21, 116, "Input",ExpressionUUID->"3b136a4b-47f6-4831-84cf-79751d15b3d2"],
+Cell[CellGroupData[{
+Cell[30324, 630, 389, 9, 29, "Print",ExpressionUUID->"554c41f9-5815-40bb-9887-5a3e6bf0ed34"],
+Cell[30716, 641, 286, 5, 29, "Print",ExpressionUUID->"a8e70fea-076f-4d9c-88c3-5d607f2cef3c"]
+}, Open  ]],
+Cell[31017, 649, 5845, 103, 69, "Output",ExpressionUUID->"863d1d58-3e03-41e3-b94f-8630f5ea64b6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[36899, 757, 1155, 29, 194, "Input",ExpressionUUID->"086c67ce-011c-45b8-81d0-c7167de13fb0"],
+Cell[CellGroupData[{
+Cell[38079, 790, 391, 9, 29, "Print",ExpressionUUID->"f9ef7aff-f739-4f3a-a334-560a30d9ae32"],
+Cell[38473, 801, 288, 5, 29, "Print",ExpressionUUID->"d4df177e-4630-495b-bdcd-c1b9597e64d1"]
+}, Open  ]],
+Cell[38776, 809, 8815, 143, 69, "Output",ExpressionUUID->"40d4a3e1-3e51-49dc-864e-45a591eaa8b0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[47628, 957, 1786, 35, 169, "Input",ExpressionUUID->"a3a609d1-b215-40d6-9e60-398b1031989e"],
+Cell[CellGroupData[{
+Cell[49439, 996, 389, 9, 29, "Print",ExpressionUUID->"5e44f523-15f3-47d6-a8a9-b9ebfd723433"],
+Cell[49831, 1007, 285, 5, 29, "Print",ExpressionUUID->"7cad5e8b-1610-4286-854c-d2f8db4326cd"]
+}, Open  ]],
+Cell[50131, 1015, 10967, 174, 69, "Output",ExpressionUUID->"53fc0bb0-208e-4f5f-9f00-029aed788bfa"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[61135, 1194, 1019, 21, 116, "Input",ExpressionUUID->"ea3d9744-ad21-4709-9e68-2e602fb4625c"],
+Cell[CellGroupData[{
+Cell[62179, 1219, 333, 7, 29, "Print",ExpressionUUID->"184b2422-5775-439e-b8f0-c41ad676dd2b"],
+Cell[62515, 1228, 230, 3, 29, "Print",ExpressionUUID->"4dad1b46-a488-438f-9cc2-9e9fdd0d630c"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[62794, 1237, 1043, 22, 116, "Input",ExpressionUUID->"44fb97e9-5f9a-4e84-afbf-a0ac1a1142de"],
+Cell[CellGroupData[{
+Cell[63862, 1263, 333, 7, 29, "Print",ExpressionUUID->"f6028aa0-01e9-43c0-9daa-22565c2d1fbb"],
+Cell[64198, 1272, 232, 3, 29, "Print",ExpressionUUID->"e61c9e2e-4963-46e8-a110-1ec6ec0b284a"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[64479, 1281, 1123, 24, 116, "Input",ExpressionUUID->"bfa88386-6324-49f2-ae9a-0226f7867840"],
+Cell[CellGroupData[{
+Cell[65627, 1309, 333, 7, 29, "Print",ExpressionUUID->"a513b3ec-98ee-44fb-b280-117cce50bdcf"],
+Cell[65963, 1318, 232, 3, 29, "Print",ExpressionUUID->"1763034d-0d06-446c-8b64-e0bbe9830b15"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[66256, 1328, 214, 4, 67, "Subsection",ExpressionUUID->"2c4a83cf-8af5-4d19-89ae-a864a258310f"],
+Cell[CellGroupData[{
+Cell[66495, 1336, 908, 21, 142, "Input",ExpressionUUID->"f275bdc7-d1c5-4b14-9c2f-42b3fa65a747"],
+Cell[67406, 1359, 290, 4, 69, "Output",ExpressionUUID->"22a4515e-4241-4a2c-9e58-ce6087de394f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[67733, 1368, 286, 5, 37, "Input",ExpressionUUID->"ebbba576-a288-4095-9797-111d65f603ff"],
+Cell[68022, 1375, 2017, 46, 199, "Output",ExpressionUUID->"c496d884-06da-42a5-acca-f3a7ace78c51"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[70076, 1426, 313, 7, 37, "Input",ExpressionUUID->"78177850-499e-456b-b442-fad780dafdf0"],
+Cell[70392, 1435, 223, 3, 42, "Output",ExpressionUUID->"58c40f30-da9e-4efc-b019-3a7a50ffbedd"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[70652, 1443, 925, 24, 142, "Input",ExpressionUUID->"a17059c2-5416-45b1-b84e-0c2f842f7fb5"],
+Cell[71580, 1469, 224, 3, 42, "Output",ExpressionUUID->"05568e0b-a10a-43b9-9ca6-be1b04e5823b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[71841, 1477, 860, 21, 143, "Input",ExpressionUUID->"61202b86-4708-4e03-aa51-3fcb0e388f46"],
+Cell[72704, 1500, 223, 3, 42, "Output",ExpressionUUID->"d0d26cae-36ad-4b29-985c-d393a6f219f4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[72964, 1508, 309, 6, 37, "Input",ExpressionUUID->"c6bbd0ce-43eb-4838-b846-eed9f4e82d49"],
+Cell[73276, 1516, 300, 7, 42, "Output",ExpressionUUID->"2e85ae47-29a6-4209-8a49-b911732618df"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[73613, 1528, 490, 12, 37, "Input",ExpressionUUID->"78983d07-8f42-43d9-a50f-d26a03b2ee5c"],
+Cell[74106, 1542, 224, 3, 42, "Output",ExpressionUUID->"8ccecc0b-9aaf-4d32-9dc7-975e400247a1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[74367, 1550, 565, 13, 64, "Input",ExpressionUUID->"33533fdf-b808-460b-a76c-9a554476db8f"],
+Cell[74935, 1565, 248, 3, 42, "Output",ExpressionUUID->"536e0958-2442-465c-991a-94007ae7c98d"],
+Cell[75186, 1570, 250, 3, 62, "Output",ExpressionUUID->"8035392f-ce6c-49a2-ad34-1f7c30ded95a"]
 }, Open  ]]
 }, Open  ]]
 }
