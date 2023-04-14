@@ -17,7 +17,7 @@ SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
 models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];
 
 
-(* ::Input::Initialization:: *)
+(* ::Code::Initialization:: *)
 modelsLocal = <|
 	"BY" -> <|
 		"name" -> "Original long-run risk model",

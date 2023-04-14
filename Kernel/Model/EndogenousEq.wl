@@ -154,9 +154,9 @@ uncondE, uncondVar, uncondCov, etc.";*)
 Begin["`Private`"]
 
 
-<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
-<<FernandoDuarte`LongRunRisk`Model`Shocks`;
 <<FernandoDuarte`LongRunRisk`Model`Parameters`;
+<<FernandoDuarte`LongRunRisk`Model`Shocks`;
+<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
 
 
 (* conjecture the wealth-consumption ratio is linear in stateVars *)
