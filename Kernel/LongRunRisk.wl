@@ -20,6 +20,8 @@ main::usage=""
 (*models
 info*)
 Models
+Growth
+fillModels
 
 
 Begin["`Private`"]
@@ -33,11 +35,18 @@ SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
 (*re-export models from FernandoDuarte`LongRunRisk`Model`Catalog` *)
 NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`NiceOutput`"];
+NeedsDefinitions["FernandoDuarte`LongRunRisk`TimeAggregation`"];
+
 (*models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];*)
 Models[] := FernandoDuarte`LongRunRisk`Model`NiceOutput`Catalog[FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]];
 Models[x_String] := FernandoDuarte`LongRunRisk`Model`Catalog`models[x];
 
 Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];
+
+Growth := FernandoDuarte`LongRunRisk`TimeAggregation`Growth
+fillModels := FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels
+
+
 
 (*re-export info from FernandoDuarte`LongRunRisk`Model`NiceOutput` *)
 (*info = (ResourceFunction["NeedsDefinitions"]["FernandoDuarte`LongRunRisk`Model`NiceOutput`"]; 

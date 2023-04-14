@@ -12,18 +12,13 @@ BeginPackage[ "FernandoDuarte`LongRunRisk`TimeAggregation`" ]
 
 
 Growth
-f
-g
-s
-timeSeriesVector
-gt
 
 
 (* ::Subsubsection:: *)
 (*Usage*)
 
 
-(* ::Input::Initialization:: *)
+(* ::Code::Initialization:: *)
 Growth::usage = "Growth[variable,t] the growth rate at time t of variable."<>"\n"<>
 "Growth[variable,t,i] specify the stock identifier i when variable is a stock-related variable such as dividends."<>"\n"<>
 "Growth[variable,t,m] specify the maturity m in months when variable is a bond-related variable such as bond yields."<>"\n"<>"Growth[variable,t,Options] allows options to specify time aggregation periods in months and number of time-aggregated periods over which approximate growth rates are calculated.
@@ -34,13 +29,8 @@ Growth[variable,t,\"Time aggregation\"->12,\"numPeriods\"->2] gives the growth r
 "
 
 
-
-(* ::Section::Initialization:: *)
+(* ::Section:: *)
 (*Code*)
-
-
-(* ::Subsection::Closed:: *)
-(*Private symbols*)
 
 
 Begin["`Private`"]
@@ -51,77 +41,86 @@ Begin["`Private`"]
 
 
 Growth//Options = {
-	"varkappa"->Function[{t,h,j,v,im},0], (*function to compute the point around which the power series expansion is performed*)
-	"order"->1 (*use a power series expansion of order `order` to compute *)
+	"v0"->Function[{t,j,h,k,v,im},0], (*function to compute the point around which the power series expansion is performed*)
+	"order"->1 (*use a power series expansion of order `order` to compute approximation*)
 };
 
 
-(* ::Input::Initialization:: *)
+(* ::Code::Initialization:: *)
 (*for flow variables, do power series expansion for gt*)
 Growth[
-v_Symbol,(*variable to time-aggregate*)
-t_,(*current time period*)
-Optional[im:Except@(_Rule|_List),Hold@Sequence[]],(*stock identifier or bond maturity*)
-opts:OptionsPattern[{Growth,timeSeriesVector,g}]
+	v_Symbol,(*variable to time-aggregate*)
+	t_,(*current time period*)
+	Optional[im:Except@(_Rule|_List),Hold@Sequence[]],(*stock identifier or bond maturity*)
+	opts:OptionsPattern[{Growth,timeSeriesVector,g}]
 ] := Module[
-{
-h=OptionValue["TimeAggregation"],
-k=OptionValue["numPeriods"],
-n=OptionValue["order"],
-v0=OptionValue["varkappa"],
-optsgt=FilterRules[{opts},Except[Options[Growth]]],
-imR=im//ReleaseHold,
-tau,
-s
-},
-Normal[
-	  (
-ReplaceAll[gt[v, t,im,optsgt],v[t+tau_Integer:0,imR]:>s*(v[t+tau,imR]-v0[t,h,-tau,v,im])+v0[t,h,-tau,v,im]]
-) + 
-	   O[s]^(n + 1)
-]/. s -> 1
+	{
+		h=OptionValue["TimeAggregation"],
+		k=OptionValue["numPeriods"],
+		n=OptionValue["order"],
+		v0=OptionValue["v0"],
+		optsgt=FilterRules[{opts},Except[Options[Growth]]],
+		imR=im//ReleaseHold,
+		tau,
+		d,
+		j,
+		v0args,
+		v0eval
+	},
+
+	v0args[j_]:= Function[Null,v0[##1],Listable]@@{t,j,h,k,v,im}; (*allow v0 to have any number of arguments smaller than the maximum of six*)
+		
+	Normal[
+		(
+			ReplaceAll[gt[v, t,im,optsgt],v[t+tau_Integer:0,imR]:>d*(v[t+tau,imR]-v0args[-tau])+v0args[-tau]]
+		) + O[d]^(n + 1)  //ReleaseHold
+	]/. d -> 1
 ]/; (OptionValue["flowVariable"]==True)
 
 (*for stock variables, growth rate is already linear, return gt unchanged*)
 Growth[
-v_Symbol,(*variable to time-aggregate*)
-t_,(*current time period*)
-Optional[im:Except@(_Rule|_List),Hold@Sequence[]],(*stock identifier or bond maturity*)
-opts:OptionsPattern[{Growth,timeSeriesVector,g}]
+	v_Symbol,(*variable to time-aggregate*)
+	t_,(*current time period*)
+	Optional[im:Except@(_Rule|_List),Hold@Sequence[]],(*stock identifier or bond maturity*)
+	opts:OptionsPattern[{Growth,timeSeriesVector,g}]
 ] := Module[
-{
-optsgt=FilterRules[{opts},Except[Options[Growth]]]
-},
-gt[v, t,im,optsgt]
+	{
+		optsgt=FilterRules[{opts},Except[Options[Growth]]]
+	},
+	gt[v, t,im,optsgt]
 ]/;(OptionValue["flowVariable"]==False)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*f*)
 
 
-(* ::Input::Initialization:: *)
+(* ::Code::Initialization:: *)
 (*if argumenet is not a list, convert to list*)
 f[x:__?(!ListQ[##]&)]:=f[{x}]
+
 (*if argumenet is a list*)
 f[x_List]:=Module[{h=Length[x]+1,i,j},
-Log[
-1 + Sum[
-Exp[
--Sum[x[[j]], {j, 1, h - i}]],
-{i, 1, h - 1}
-]
-]
+	Log[
+		1 + Sum[
+				Exp[
+					-Sum[x[[j]], {j, 1, h - i}]
+				],
+			{i, 1, h - 1}
+		]
+	]
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*s*)
 
 
-(* ::Input::Initialization:: *)
+(* ::Code::Initialization:: *)
+(*check if list without evaluating it s_?(Function[Null, ListQ[Unevaluated[#]], HoldAll])*)
 (*if argumenet is not a list, convert to list*)
 s[x:__?(!ListQ[##]&)]:=s[{x}]
+
 (*if argumenet is a list*)
 s[x_List]:=Plus@@x
 
@@ -135,100 +134,105 @@ g//Options = {
 };
 
 
-(* ::Input::Initialization:: *)
-(*if argumenet is not a list, convert to list*)
+(* ::Code::Initialization:: *)
+(*if argument is not a list, convert to list*)
 g[
-x:__?(!ListQ[##]&),
-h:_Integer?Positive:1,(*time-aggregate over `h` months*)
-k:_Integer?Positive:1,(*growth rate is computed over k time-aggregated periods*)
-opts:OptionsPattern[g]
+	x:__?(!ListQ[##]&),
+	h:_Integer?Positive,(*time-aggregate over `h` months*)
+	k:_Integer?Positive:1,(*growth rate is computed over k time-aggregated periods*)
+	opts:OptionsPattern[g]
 ]:=g[{x},h,k,opts]
-(*if argumenet is a list*)
-g[
-x_List,
-h:_Integer?Positive:1,(*time-aggregate over `h` months*)
-k:_Integer?Positive:1, (*growth rate is computed over k time-aggregated periods*)
-opts:OptionsPattern[g]
-]:=With[
-{
-flowVariable=OptionValue["flowVariable"],
-x1=x[[;;k*h]],(*first k*h months*)
-x2=x[[;;h-1]],(*first k-1 months*)
-x3=x[[k*h+1;;]] (*months k*h+1 until end*)
-},
-If[flowVariable,
-s[x1]+f[x2]-f[x3],
-s[x1]
-]
-]/;(Length[x]==(1+k)*h-1)
 
-(*if computing growth of a stock variable, allow to pass x with length k*h rather than (1+k)*h-1 *)
+(*if argument is a list*)
+(** if computing growth of a stock variable, x must have length k*h **)
 g[
-x_List,
-h:_Integer?Positive:1,(*time-aggregate over `h` months*)
-k:_Integer?Positive:1, (*growth rate is computed over k time-aggregated periods*)
-opts:OptionsPattern[g]
-]:=s[x]/;(Length[x]==k*h)&& (OptionValue["flowVariable"]==False)
+	x_List,
+	h:_Integer?Positive,(*time-aggregate over `h` months*)
+	k:_Integer?Positive:1, (*growth rate is computed over k time-aggregated periods*)
+	opts:OptionsPattern[g]
+]:=With[
+	{
+		flowVariable=OptionValue["flowVariable"]
+	},
+	s[x]
+	]/; ((Length[x]==k*h) && (OptionValue["flowVariable"]==False))
+	
+(** if computing growth of a flow variable, x must have length (1+k)*h-1 **)
+(** if computing growth of a stock variable, allow length of x to be (1+k)*h-1 
+but then evaluate using only first h*k entries of x,
+ discarding entries k*h+1, k*h+2, ..., (1+k)*h-1 **)
+g[
+	x_List,
+	h:_Integer?Positive,(*time-aggregate over `h` months*)
+	k:_Integer?Positive:1, (*growth rate is computed over k time-aggregated periods*)
+	opts:OptionsPattern[g]
+]:=With[
+	{
+		flowVariable=OptionValue["flowVariable"],
+		x1=x[[;;k*h]],(*first k*h months*)
+		x2=x[[;;h-1]],(*first k-1 months*)
+		x3=x[[k*h+1;;]] (*months k*h+1 until end*)
+	},
+	If[flowVariable,
+		s[x1]+f[x2]-f[x3],
+		g[x1,h,k,opts]
+	]
+]/;(Length[x]==(1+k)*h-1)
+	
+
 
 
 (* ::Subsubsection:: *)
 (*timeSeriesVector*)
 
 
-(* ::Input::Initialization:: *)
+(* ::Code::Initialization:: *)
 timeSeriesVector//Options = {
-  "TimeAggregation"->1,(*time-aggregate over `h` months*)
+	"TimeAggregation"->1,(*time-aggregate over `h` months*)
 	"numPeriods"->1(*compute growth rates/inflation/returns of time-aggregated variables over a number `numPeriods` of time-aggregated periods, i.e., over `numPeriods*h` months*)
 };
 
 timeSeriesVector[
-variable_Symbol,(*variable to time-aggregate*)
-t_,(*current time period*)
-Optional[im:Except@(_Rule|_List),Hold@Sequence[]],(*stock identifier or bond maturity*)
-opts:OptionsPattern[timeSeriesVector]
+	variable_Symbol,(*variable to time-aggregate*)
+	t_,(*current time period*)
+	Optional[im:Except@(_Rule|_List),Hold@Sequence[]],(*stock identifier or bond maturity*)
+	opts:OptionsPattern[timeSeriesVector]
 ]:=Module[
-{
-h=OptionValue["TimeAggregation"],
-k=OptionValue["numPeriods"],
-lastPeriod,
-tau
-},
-lastPeriod=(1+k)*h-2;
-(*Echo["timeSeries opts"->{opts}];*)
-Table[variable[t-tau,im//ReleaseHold],{tau,0,lastPeriod}]
-
-];
+	{
+		h=OptionValue["TimeAggregation"],
+		k=OptionValue["numPeriods"],
+		lastPeriod,
+		tau
+	},
+	lastPeriod=(1+k)*h-2;
+	(*Echo["timeSeries opts"->{opts}];*)
+	Table[
+		variable[t-tau,im//ReleaseHold],
+		{tau,0,lastPeriod}
+	]
+]/; Implies[NumberQ[t],t>=0]
 
 
 (* ::Subsubsection:: *)
 (*gt*)
 
 
-(* ::Input::Initialization:: *)
+(* ::Code::Initialization:: *)
 (*g[timeSeriesVector]*)
 gt[
-variable_Symbol,(*variable to time-aggregate*)
-t_,(*current time period*)
-Optional[im:Except@(_Rule|_List),Hold@Sequence[]],(*stock identifier or bond maturity*)
-opts:OptionsPattern[{timeSeriesVector,g}]
+	variable_Symbol,(*variable to time-aggregate*)
+	t_,(*current time period*)
+	Optional[im:Except@(_Rule|_List),Hold@Sequence[]],(*stock identifier or bond maturity*)
+	opts:OptionsPattern[{timeSeriesVector,g}]
 ]:=Module[
 {
-h=OptionValue["TimeAggregation"],
-k=OptionValue["numPeriods"],
-optsTs=FilterRules[{opts},Options[timeSeriesVector]],
-optsg=FilterRules[{opts},Options[g]]
+	h=OptionValue["TimeAggregation"],
+	k=OptionValue["numPeriods"],
+	optsTs=FilterRules[{opts},Options[timeSeriesVector]],
+	optsg=FilterRules[{opts},Options[g]]
 },
-(*Echo["timeSeriesVector"->timeSeriesVector[variable,t,im,optsTs]];
-Echo["optsTs"->optsTs];
-Echo["Options[timeSeriesVector]"->Options[timeSeriesVector]];
-Echo["FilterRules[Options[timeSeriesVector],{opts}]"->FilterRules[Options[timeSeriesVector],{opts}]];
-Echo["optsg"->optsg];
-Echo["{opts}"->{opts}];
-Echo["h"->h];
-Echo["k"->k];*)
-
-g[timeSeriesVector[variable,t,im,optsTs],h,k, optsg]
-];
+	g[timeSeriesVector[variable,t,im,optsTs],h,k, optsg]
+]/; Implies[NumberQ[t],t>=0];
 
 
 (* ::Section:: *)
