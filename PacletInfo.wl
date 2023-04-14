@@ -23,7 +23,8 @@ PacletObject[
         "Root" -> "Documentation",
         "Language" -> "English"
       },
-      {"Asset", "Assets" -> {{"License", "./LICENSE"}}}
+      {"Asset", "Assets" -> {{"License", "./LICENSE"}}},
+      {"Path","Root"->"Resources"}
     }
   |>
 ]

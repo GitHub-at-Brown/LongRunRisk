@@ -13,11 +13,10 @@ models::usage= "Association with the definition and properties of models.";
 Begin["`Private`"]
 
 
-SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
+<<PacletizedResourceFunctions`
 models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];
 
 
-(* ::Code::Initialization:: *)
 modelsLocal = <|
 	"BY" -> <|
 		"name" -> "Original long-run risk model",

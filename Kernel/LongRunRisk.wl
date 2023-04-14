@@ -1,5 +1,10 @@
 (* ::Package:: *)
 
+PacletInstall[File[FindFile["FernandoDuarte/LongRunRisk/PacletizedResourceFunctions.paclet"]],KeepExistingVersion->True, ForceVersionInstall->True];
+PacletInstall[File[FindFile["FernandoDuarte/LongRunRisk/MaTeX-1.7.9.paclet"]],KeepExistingVersion->True, ForceVersionInstall->True];
+<<"MaTeX`";
+
+
 BeginPackage["FernandoDuarte`LongRunRisk`"]
 
 
@@ -12,8 +17,6 @@ BeginPackage["FernandoDuarte`LongRunRisk`"]
 <<FernandoDuarte`LongRunRisk`TimeAggregation`;
 
 
-(*<<FernandoDuarte`LongRunRisk`ComputationalEngine`;*)
-(*<<FernandoDuarte`LongRunRisk`Model`NiceOutput`; *)
 main::usage=""
 
 (*re-exported symbols*)
@@ -92,3 +95,6 @@ UsingFrontEnd[
 	"\\usepackage{microtype}"
 	};
 ]*)
+
+
+
