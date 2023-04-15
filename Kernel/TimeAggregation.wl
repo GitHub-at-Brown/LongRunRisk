@@ -11,22 +11,21 @@ BeginPackage[ "FernandoDuarte`LongRunRisk`TimeAggregation`" ]
 (*Public symbols*)
 
 
-Growth
+(*growth*)
 
 
 (* ::Subsubsection:: *)
 (*Usage*)
 
 
-(* ::Code::Initialization:: *)
-Growth::usage = "Growth[variable,t] the growth rate at time t of variable."<>"\n"<>
-"Growth[variable,t,i] specify the stock identifier i when variable is a stock-related variable such as dividends."<>"\n"<>
-"Growth[variable,t,m] specify the maturity m in months when variable is a bond-related variable such as bond yields."<>"\n"<>"Growth[variable,t,Options] allows options to specify time aggregation periods in months and number of time-aggregated periods over which approximate growth rates are calculated.
+growth::usage = "growth[variable,t] the growth rate at time t of variable."(*<>"\n"<>
+"growth[variable,t,i] specify the stock identifier i when variable is a stock-related variable such as dividends."<>"\n"<>
+"growth[variable,t,m] specify the maturity m in months when variable is a bond-related variable such as bond yields."<>"\n"<>"growth[variable,t,Options] allows options to specify time aggregation periods in months and number of time-aggregated periods over which approximate growth rates are calculated.
 Examples:
-Growth[variable,t,\"Time aggregation\"->3] gives the growth rate of time-aggregated consumption, with time aggregation done over 3 months.
-Growth[variable,t,\"Time aggregation\"->3] gives the growth rate of time-aggregated dividends for stock 1, with time aggregation done over 3 months.
-Growth[variable,t,\"Time aggregation\"->12,\"numPeriods\"->2] gives the growth rate over 2 years of time-aggregated consumption, with time aggregation done over 12 months.
-"
+growth[variable,t,\"Time aggregation\"->3] gives the growth rate of time-aggregated consumption, with time aggregation done over 3 months.
+growth[variable,t,\"Time aggregation\"->3] gives the growth rate of time-aggregated dividends for stock 1, with time aggregation done over 3 months.
+growth[variable,t,\"Time aggregation\"->12,\"numPeriods\"->2] gives the growth rate over 2 years of time-aggregated consumption, with time aggregation done over 12 months.
+"*)
 
 
 (* ::Section:: *)
@@ -37,29 +36,28 @@ Begin["`Private`"]
 
 
 (* ::Subsection:: *)
-(*Growth*)
+(*growth*)
 
 
-Growth//Options = {
+growth//Options = {
 	"v0"->Function[{t,j,h,k,v,im},0], (*function to compute the point around which the power series expansion is performed*)
 	"order"->1 (*use a power series expansion of order `order` to compute approximation*)
 };
 
 
-(* ::Code::Initialization:: *)
 (*for flow variables, do power series expansion for gt*)
-Growth[
+growth[
 	v_Symbol,(*variable to time-aggregate*)
 	t_,(*current time period*)
 	Optional[im:Except@(_Rule|_List),Hold@Sequence[]],(*stock identifier or bond maturity*)
-	opts:OptionsPattern[{Growth,timeSeriesVector,g}]
+	opts:OptionsPattern[{growth,timeSeriesVector,g}]
 ] := Module[
 	{
 		h=OptionValue["TimeAggregation"],
 		k=OptionValue["numPeriods"],
 		n=OptionValue["order"],
 		v0=OptionValue["v0"],
-		optsgt=FilterRules[{opts},Except[Options[Growth]]],
+		optsgt=FilterRules[{opts},Except[Options[growth]]],
 		imR=im//ReleaseHold,
 		tau,
 		d,
@@ -78,14 +76,14 @@ Growth[
 ]/; (OptionValue["flowVariable"]==True)
 
 (*for stock variables, growth rate is already linear, return gt unchanged*)
-Growth[
+growth[
 	v_Symbol,(*variable to time-aggregate*)
 	t_,(*current time period*)
 	Optional[im:Except@(_Rule|_List),Hold@Sequence[]],(*stock identifier or bond maturity*)
-	opts:OptionsPattern[{Growth,timeSeriesVector,g}]
+	opts:OptionsPattern[{growth,timeSeriesVector,g}]
 ] := Module[
 	{
-		optsgt=FilterRules[{opts},Except[Options[Growth]]]
+		optsgt=FilterRules[{opts},Except[Options[growth]]]
 	},
 	gt[v, t,im,optsgt]
 ]/;(OptionValue["flowVariable"]==False)
@@ -95,7 +93,6 @@ Growth[
 (*f*)
 
 
-(* ::Code::Initialization:: *)
 (*if argumenet is not a list, convert to list*)
 f[x:__?(!ListQ[##]&)]:=f[{x}]
 
@@ -116,7 +113,6 @@ f[x_List]:=Module[{h=Length[x]+1,i,j},
 (*s*)
 
 
-(* ::Code::Initialization:: *)
 (*check if list without evaluating it s_?(Function[Null, ListQ[Unevaluated[#]], HoldAll])*)
 (*if argumenet is not a list, convert to list*)
 s[x:__?(!ListQ[##]&)]:=s[{x}]
@@ -134,7 +130,6 @@ g//Options = {
 };
 
 
-(* ::Code::Initialization:: *)
 (*if argument is not a list, convert to list*)
 g[
 	x:__?(!ListQ[##]&),
@@ -186,7 +181,6 @@ g[
 (*timeSeriesVector*)
 
 
-(* ::Code::Initialization:: *)
 timeSeriesVector//Options = {
 	"TimeAggregation"->1,(*time-aggregate over `h` months*)
 	"numPeriods"->1(*compute growth rates/inflation/returns of time-aggregated variables over a number `numPeriods` of time-aggregated periods, i.e., over `numPeriods*h` months*)
@@ -217,7 +211,6 @@ timeSeriesVector[
 (*gt*)
 
 
-(* ::Code::Initialization:: *)
 (*g[timeSeriesVector]*)
 gt[
 	variable_Symbol,(*variable to time-aggregate*)

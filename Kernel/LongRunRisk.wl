@@ -1,8 +1,38 @@
 (* ::Package:: *)
 
-PacletInstall[File[FindFile["FernandoDuarte/LongRunRisk/PacletizedResourceFunctions.paclet"]],KeepExistingVersion->True, ForceVersionInstall->True];
-PacletInstall[File[FindFile["FernandoDuarte/LongRunRisk/MaTeX-1.7.9.paclet"]],KeepExistingVersion->True, ForceVersionInstall->True];
-<<"MaTeX`";
+(*install PacletizedResourceFunctions provided with LongRunRisk paclet if not already installed*)
+orig=$ContextPath;
+If[
+	{}===PacletFind["PacletizedResourceFunctions"],
+	PacletInstall[
+		File[
+			FindFile[
+				"FernandoDuarte/LongRunRisk/PacletizedResourceFunctions.paclet"
+			]
+		],
+	KeepExistingVersion->False,
+	ForceVersionInstall->True
+	]
+];
+Get["PacletizedResourceFunctions`"];
+
+(*install local version of MaTeX provided with LongRunRisk paclet if not already installed*)
+(*consider putting in a module to localize pacletMaTeX*)
+pacletMaTeX=PacletFind["MaTeX"];
+If[
+	{}===pacletMaTeX || (First@pacletMaTeX)["Version"]!= "1.7.9",
+	pacletMaTeX=PacletInstall[
+		File[
+			FindFile[
+				"FernandoDuarte/LongRunRisk/MaTeX-1.7.9.paclet"
+			]
+		],
+		KeepExistingVersion->True,
+		ForceVersionInstall->True
+	]
+]
+Get[FileNameJoin[{(First@pacletMaTeX)["Location"],"MaTeX.m"}]];(*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
+ClearAll[pacletMaTeX]
 
 
 BeginPackage["FernandoDuarte`LongRunRisk`"]
@@ -17,13 +47,14 @@ BeginPackage["FernandoDuarte`LongRunRisk`"]
 <<FernandoDuarte`LongRunRisk`TimeAggregation`;
 
 
-main::usage=""
+main::usage="";
 
 (*re-exported symbols*)
+Models;
+Growth;
+
 (*models
 info*)
-(*Models*)
-Growth
 (*fillModels*)
 
 
@@ -32,22 +63,24 @@ Begin["`Private`"]
 
 main=1;
 
-NeedsDefinitions=ResourceFunction["NeedsDefinitions"];
-SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
+(*NeedsDefinitions=ResourceFunction["NeedsDefinitions"];
+SetSymbolsContext=ResourceFunction["SetSymbolsContext"];*)
 
 (*re-export symbols from other private contexts *)
-NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 (*NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`NiceOutput`"];*)
-NeedsDefinitions["FernandoDuarte`LongRunRisk`TimeAggregation`"];
 
+(*fillModels := FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels*)
 (*models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];*)
-(*Models[] := FernandoDuarte`LongRunRisk`Model`NiceOutput`Catalog[FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]];
+(*Models[] := FernandoDuarte`LongRunRisk`Model`NiceOutput`Catalog[FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]];*)
 Models[x_String] := FernandoDuarte`LongRunRisk`Model`Catalog`models[x];
 
-Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];*)
+Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];
 
-Growth := FernandoDuarte`LongRunRisk`TimeAggregation`Growth
-(*fillModels := FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels*)
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`TimeAggregation`"];
+Growth[] := FernandoDuarte`LongRunRisk`TimeAggregation`growth;
+Growth::usage = Information["FernandoDuarte`LongRunRisk`TimeAggregation`growth","Usage"];
+
 
 
 
