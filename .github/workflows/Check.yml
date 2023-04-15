@@ -55,7 +55,11 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v3
-      - uses: r-lib/actions/setup-tinytex@v2
+      - uses: r-lib/actions/setup-r@latest
+      - name: Install packages
+        run: |
+          R -e 'install.packages("tinytex")'
+          R -e 'tinytex::install_tinytex()'
       - name: Test
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.10.2
