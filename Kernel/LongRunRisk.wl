@@ -1,7 +1,6 @@
 (* ::Package:: *)
 
 (*install PacletizedResourceFunctions provided with LongRunRisk paclet if not already installed*)
-orig=$ContextPath;
 If[
 	{}===PacletFind["PacletizedResourceFunctions"],
 	PacletInstall[
@@ -18,10 +17,9 @@ Get["PacletizedResourceFunctions`"];
 
 (*install local version of MaTeX provided with LongRunRisk paclet if not already installed*)
 (*consider putting in a module to localize pacletMaTeX*)
-pacletMaTeX=PacletFind["MaTeX"];
 If[
-	{}===pacletMaTeX || (First@pacletMaTeX)["Version"]!= "1.7.9",
-	pacletMaTeX=PacletInstall[
+	{}===PacletFind["MaTeX"->"1.7.9"],
+	PacletInstall[
 		File[
 			FindFile[
 				"FernandoDuarte/LongRunRisk/MaTeX-1.7.9.paclet"
@@ -31,8 +29,9 @@ If[
 		ForceVersionInstall->True
 	]
 ]
-Get[FileNameJoin[{(First@pacletMaTeX)["Location"],"MaTeX.m"}]];(*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
-ClearAll[pacletMaTeX]
+Get[FileNameJoin[{(First@PacletFind["MaTeX"->"1.7.9"])["Location"],"MaTeX.m"}]];(*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
+ConfigureMaTeX["pdfLaTeX" -> "/usr/local/texlive/2023/bin/x86_64-linux"]
+ConfigureMaTeX["Ghostscript" -> "/usr/local/bin/gs"]
 
 
 BeginPackage["FernandoDuarte`LongRunRisk`"]
@@ -68,14 +67,15 @@ SetSymbolsContext=ResourceFunction["SetSymbolsContext"];*)
 
 (*re-export symbols from other private contexts *)
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+Models[x_String] := FernandoDuarte`LongRunRisk`Model`Catalog`models[x];
+Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];
+
 (*NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`NiceOutput`"];*)
 
 (*fillModels := FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels*)
 (*models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];*)
 (*Models[] := FernandoDuarte`LongRunRisk`Model`NiceOutput`Catalog[FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]];*)
-Models[x_String] := FernandoDuarte`LongRunRisk`Model`Catalog`models[x];
 
-Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];
 
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`TimeAggregation`"];
 Growth[] := FernandoDuarte`LongRunRisk`TimeAggregation`growth;
