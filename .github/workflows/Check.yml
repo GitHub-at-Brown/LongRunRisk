@@ -55,7 +55,8 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v3
-      - name: Install latex dependencies
+      - uses: r-lib/actions/setup-r@master
+      - name: Install latex dependencies using R's tinytex
         run: |
           R -e 'install.packages(tinytex)'
           R -e 'tinytex::install_tinytex()'
