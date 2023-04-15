@@ -44,12 +44,12 @@ jobs:
           if-no-files-found: ignore
   Test:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     container:
       image: wolframresearch/wolframengine:13.0.1
       options: --user root
     env:
-      WOLFRAM_SYSTEM_ID: Linux-x86-64
+      WOLFRAM_SYSTEM_ID: macos-latest
     timeout-minutes: 360
     steps:
       - name: Checkout
