@@ -55,12 +55,20 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v3
-      - name: Install latex dependencies
+      - name: Update apt-get
+        run: apt-get update -y
+      - name: Install latex-base
+        run: apt-get install -y texlive-latex-base
+      - name: Install latexmk
+        run: apt-get install -y latexmk
+      - name: Install latex ghostscript
+        run: apt-get install -y ghostscript
+      - name: Install pdflatex
+        run: apt-get install pdflatex
+      - name: Set PATH
         run: |
-          apt-get update -y 
-          apt-get install -y latexmk
-          apt-get install -y ghostscript
-          apt-get install -y texlive-latex-base
+          PATH=/usr/local/texlive/2023/bin/x86_64-linux:$PATH
+          PATH=/usr/local/bin/gs:$PATH
       - name: Test
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.10.2
