@@ -63,8 +63,6 @@ jobs:
         run: apt-get install -y latexmk
       - name: Install latex ghostscript
         run: apt-get install -y ghostscript
-      - name: Install pdflatex
-        run: apt-get install pdflatex
       - name: Set PATH
         run: |
           PATH=/usr/local/texlive/2023/bin/x86_64-linux:$PATH
