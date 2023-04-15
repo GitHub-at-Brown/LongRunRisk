@@ -56,7 +56,7 @@ jobs:
         id: checkout-code-step
         uses: actions/checkout@v3
       - name: Install latex dependencies
-        run: apt-get update -y && apt-get install -y texlive latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended ghostscript
+        run: wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
       - name: Test
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.10.2
