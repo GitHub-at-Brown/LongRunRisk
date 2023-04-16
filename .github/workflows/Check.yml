@@ -62,7 +62,7 @@ jobs:
           apt-get install ghostscript -y
           wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
       - name: Add latex to path
-        run: echo "~/bin" >> $GITHUB_PATH
+        run: echo "$HOME/bin" >> $GITHUB_PATH
       - name: Install LaTeX packages for MaTeX
         run: |
           tlmgr --version
