@@ -30,8 +30,6 @@ If[
 	]
 ]
 Get[FileNameJoin[{(First@PacletFind["MaTeX"->"1.7.9"])["Location"],"MaTeX.m"}]];(*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
-ConfigureMaTeX["pdfLaTeX" -> "/usr/local/texlive/2023/bin/x86_64-linux"]
-ConfigureMaTeX["Ghostscript" -> "/usr/local/bin/gs"]
 
 
 BeginPackage["FernandoDuarte`LongRunRisk`"]
@@ -128,6 +126,4 @@ UsingFrontEnd[
 	"\\usepackage{microtype}"
 	};
 ]*)
-
-
 

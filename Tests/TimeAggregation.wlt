@@ -2,70 +2,70 @@ BeginTestSection["TimeAggregation"]
 
 
 VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`"
-	,
-	Null
-	,
-	{}
-	,
-	TestID->"TimeAggregation_20230414-56CZ60"
-]
-
-
-VerificationTest[
-	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`"]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"TimeAggregation_20230414-EMS273"
-]
-
-
-VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`TimeAggregation`"
 	,
 	Null
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230414-ZI0STI"
+	TestID->"TimeAggregation_20230415-CMX20T"
+]
+
+
+VerificationTest[
+	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`TimeAggregation`"]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"TimeAggregation_20230415-TBWQ3T"
+]
+
+
+VerificationTest[
+	!SameQ[Names @ "*growth", {}]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"TimeAggregation_20230415-QAQBQ5"
 ]
 
 
 VerificationTest[
 	!SameQ[Names @ "*Growth", {}]
 	,
-	True
+	False
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230414-5OPIXY"
+	TestID->"TimeAggregation_20230415-2RDKC6"
 ]
 
 
 VerificationTest[
 	{
-		FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc, t],
-		FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc, t, "TimeAggregation" -> 1, "numPeriods" -> 1]
+		FernandoDuarte`LongRunRisk`TimeAggregation`growth[dc, t],
+		FernandoDuarte`LongRunRisk`TimeAggregation`growth[dc, t, "TimeAggregation" -> 1, "numPeriods" -> 1]
 	}
 	,
 	{dc @ t, dc @ t}
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230414-J01UM3"
+	TestID->"TimeAggregation_20230415-Y9RQUT"
 ]
 
 
 VerificationTest[
 	{
-		FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1],
+		FernandoDuarte`LongRunRisk`TimeAggregation`growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1],
 		ReplaceAll[
 			ReplaceAll[
 				ReplaceAll[
-					FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc, t, "TimeAggregation" -> 12, "numPeriods" -> 1] /. Plus -> List,
+					FernandoDuarte`LongRunRisk`TimeAggregation`growth[dc, t, "TimeAggregation" -> 12, "numPeriods" -> 1] /. Plus -> List,
 					Times -> List
 				],
 				dc[{x__, t}] -> (-x)
@@ -111,14 +111,14 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230414-UVGKQI"
+	TestID->"TimeAggregation_20230415-CAU280"
 ]
 
 
 VerificationTest[
 	{
-		FernandoDuarte`LongRunRisk`TimeAggregation`Growth[sx, tau, "TimeAggregation" -> 3, "numPeriods" -> 1],
-		FernandoDuarte`LongRunRisk`TimeAggregation`Growth[pibar, t - h, "TimeAggregation" -> 3, "numPeriods" -> 1]
+		FernandoDuarte`LongRunRisk`TimeAggregation`growth[sx, tau, "TimeAggregation" -> 3, "numPeriods" -> 1],
+		FernandoDuarte`LongRunRisk`TimeAggregation`growth[pibar, t - h, "TimeAggregation" -> 3, "numPeriods" -> 1]
 	}
 	,
 	{
@@ -142,7 +142,26 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230414-6GW8OI"
+	TestID->"TimeAggregation_20230415-WEG4FW"
+]
+
+
+VerificationTest[
+	{FernandoDuarte`LongRunRisk`TimeAggregation`growth[dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 1]}
+	,
+	{
+		Times[Rational[1, 3],
+			Plus[dd[t - 4, i],
+				Plus[2 * dd[t - 3, i],
+					(3 * dd[t - 2, i]) + (2 * dd[t - 1, i]) + dd[t, i]
+				]
+			]
+		]
+	}
+	,
+	{}
+	,
+	TestID->"TimeAggregation_20230415-BEA06N"
 ]
 
 
@@ -152,7 +171,7 @@ VerificationTest[
 			ReplaceAll[
 				ReplaceAll[
 					ReplaceAll[
-						FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc,
+						FernandoDuarte`LongRunRisk`TimeAggregation`growth[dc,
 							t, "TimeAggregation" -> 12, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, 0.0015]
 						],
 						Plus -> List
@@ -196,141 +215,172 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230414-H07DZ5"
-]
-
-
-VerificationTest[
-	Simplify[
-		FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc,
-			t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
-				{t, j, h, k, v, im},
-				If[Equal[h, 12], h12, hnot12]
-			]
-		]
-	]
-	,
-	Divide[
-		Plus[dc[t - 4],
-			Plus[(1 + E ^ hnot12) * dc[t - 3],
-				Plus[dc[t - 2],
-					Plus[(E ^ hnot12) * dc[t - 2],
-						Plus[(E ^ (2 * hnot12)) * dc[t - 2],
-							Plus[
-								(E ^ hnot12) * dc[t - 1],
-								((E ^ (2 * hnot12)) * dc[t - 1]) + (E ^ (2 * hnot12)) * dc[t]
-							]
-						]
-					]
-				]
-			]
-		],
-		1 + (E ^ hnot12) + E ^ (2 * hnot12)
-	]
-	,
-	{}
-	,
-	TestID->"TimeAggregation_20230414-PNMEMY"
+	TestID->"TimeAggregation_20230415-KWYYMQ"
 ]
 
 
 VerificationTest[
 	{
-		SameQ[0,
-			FullSimplify[
-				Coefficient[
-					ReplaceAll[
-						FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc,
-							t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
-								{t, j, h, k, v, im},
-								-((h + 1) ^ -1)
-							]
-						],
-						dc[__] -> dcX
-					],
-					dcX, 0
-				]
-			]
-		],
-		SameQ[0,
-			FullSimplify[
-				Coefficient[
-					ReplaceAll[
-						FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc,
-							t, "TimeAggregation" -> 3, "numPeriods" -> 3, "v0" -> Function[{t, j, h, k, v, im}, k ^ 2]
-						],
-						dc[__] -> dcX
-					],
-					dcX, 0
-				]
-			]
-		],
-		SameQ[0,
-			FullSimplify[
-				Coefficient[
-					ReplaceAll[
-						FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc,
-							t, "TimeAggregation" -> 3, "numPeriods" -> 3, "v0" -> Function[{t, j, h, k, v, im}, v]
-						],
-						dc[__] -> dcX
-					],
-					dcX, 0
-				]
-			]
-		],
-		SameQ[0,
-			FullSimplify[
-				Coefficient[
-					ReplaceAll[
-						FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dd,
-							t, i, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, im]
-						],
-						dc[__] -> dcX
-					],
-					dcX, 0
+		FernandoDuarte`LongRunRisk`TimeAggregation`growth[dc,
+			t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j}, 0.0015]
+		]
+	}
+	,
+	{
+		Plus[0.,
+			Plus[0.3328334585207629 * dc[t - 4],
+				Plus[0.6661665418542368 * dc[t - 3],
+					Plus[dc[t - 2],
+						(0.6671665414792372 * dc[t - 1]) + 0.33383345814576315 * dc[t]
+					]
 				]
 			]
 		]
 	}
 	,
-	{True, True, True, False}
-	,
 	{}
 	,
-	TestID->"TimeAggregation_20230414-AXTK26"
+	TestID->"TimeAggregation_20230415-N2TKQW"
 ]
 
 
 VerificationTest[
-	Module[
-		{arbitraryFun6 = Function[{t, j, h, k, v}, (-h) * t * k]},
+	Apply[And,
 		{
-			N[
-				ReplaceAll[
-					SameQ[0,
-						FullSimplify[
-							Coefficient[
-								ReplaceAll[
-									FernandoDuarte`LongRunRisk`TimeAggregation`Growth[
-										dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, F[h, v, im]]
-									],
-									dc[__] -> dcX
-								],
-								dcX, 0
-							]
-						]
-					],
-					F -> arbitraryFun6
+			FreeQ[
+				FernandoDuarte`LongRunRisk`TimeAggregation`growth[dc,
+					t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
+						{t, j, h, k, v, im},
+						If[Equal[h, 12], h12, hnot12]
+					]
+				],
+				h12
+			],
+			FreeQ[
+				FernandoDuarte`LongRunRisk`TimeAggregation`growth[dc,
+					t, "TimeAggregation" -> 12, "numPeriods" -> 1, "v0" -> Function[
+						{t, j, h, k, v, im},
+						If[Equal[h, 12], h12, hnot12]
+					]
+				],
+				hnot12
+			]
+		}
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"TimeAggregation_20230415-EXIKK2"
+]
+
+
+VerificationTest[
+	Apply[And,
+		{
+			SameQ[0,
+				FullSimplify[
+					Coefficient[
+						ReplaceAll[
+							FernandoDuarte`LongRunRisk`TimeAggregation`growth[
+								dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
+									{t, j, h, k, v, im},
+									-((h + 1) ^ -1)
+								]
+							],
+							dc[__] -> dcX
+						],
+						dcX, 0
+					]
+				]
+			],
+			SameQ[0,
+				FullSimplify[
+					Coefficient[
+						ReplaceAll[
+							FernandoDuarte`LongRunRisk`TimeAggregation`growth[
+								dc, t, "TimeAggregation" -> 3, "numPeriods" -> 3, "v0" -> Function[{t, j, h, k, v, im}, k ^ 2]
+							],
+							dc[__] -> dcX
+						],
+						dcX, 0
+					]
+				]
+			],
+			SameQ[0,
+				FullSimplify[
+					Coefficient[
+						ReplaceAll[
+							FernandoDuarte`LongRunRisk`TimeAggregation`growth[
+								dc, t, "TimeAggregation" -> 3, "numPeriods" -> 3, "v0" -> Function[{t, j, h, k, v, im}, v]
+							],
+							dc[__] -> dcX
+						],
+						dcX, 0
+					]
+				]
+			],
+			SameQ[0,
+				FullSimplify[
+					Coefficient[
+						ReplaceAll[
+							FernandoDuarte`LongRunRisk`TimeAggregation`growth[
+								dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, im]
+							],
+							dd[__, i] -> ddX
+						],
+						ddX, 0
+					]
 				]
 			]
 		}
 	]
 	,
-	{True}
+	True
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230414-YBBM3R"
+	TestID->"TimeAggregation_20230415-KI9IEB"
+]
+
+
+VerificationTest[
+	Module[
+		{
+			arbitraryFun = Function[{t, h, k, v},
+				If[SameQ[v, dc],
+					(-(k ^ 4)) * (h ^ 2) / t,
+					Sqrt[(h / k) + 1] / t
+				]
+			]
+		},
+		SameQ[0.,
+			FullSimplify[
+				N[
+					ReplaceAll[
+						Coefficient[
+							ReplaceAll[
+								FernandoDuarte`LongRunRisk`TimeAggregation`growth[
+									dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, F[t, h, k, v]]
+								],
+								dc[__] -> dcX
+							],
+							dcX, 0
+						],
+						F -> arbitraryFun
+					]
+				],
+				GreaterEqual[t, 0]
+			]
+		]
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"TimeAggregation_20230415-4ZIGQM"
 ]
 
 
@@ -340,7 +390,7 @@ VerificationTest[
 			SameQ[0,
 				Coefficient[
 					ReplaceAll[
-						FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc,
+						FernandoDuarte`LongRunRisk`TimeAggregation`growth[dc,
 							t, "TimeAggregation" -> 3, "numPeriods" -> 3, "v0" -> Function[{t, j, h, k, v, im}, j]
 						],
 						dc[__] -> dcX
@@ -355,47 +405,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230414-4J8FE9"
-]
-
-
-VerificationTest[
-	FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc,
-		t,
-		"TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j}, j]
-	]
-	,
-	Subtract[
-		Plus[
-			Divide[
-				Subtract[
-					Plus[-3 * E ^ 4,
-						dc[t - 4] + dc[t - 3] + (E ^ 4) * dc[t - 3]
-					],
-					7
-				],
-				1 + (E ^ 4) + E ^ 7
-			],
-			Plus[dc[t - 2],
-				Plus[dc[t - 1],
-					Plus[dc @ t,
-						Plus[
-							Divide[
-								((1 - E * dc[t]) - dc[t]) - dc[t - 1],
-								1 + 2 * E
-							],
-							Log[2 + E ^ -1]
-						]
-					]
-				]
-			]
-		],
-		Log[1 + (E ^ -7) + E ^ -3]
-	]
-	,
-	{}
-	,
-	TestID->"TimeAggregation_20230414-UWU00G"
+	TestID->"TimeAggregation_20230415-6K3AIF"
 ]
 
 
@@ -406,7 +416,7 @@ VerificationTest[
 			SameQ[0,
 				Coefficient[
 					ReplaceAll[
-						FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc,
+						FernandoDuarte`LongRunRisk`TimeAggregation`growth[dc,
 							t, "TimeAggregation" -> h, "numPeriods" -> k, "v0" -> Function[{t, j, h, k, v, im}, F[t]]
 						],
 						dc[__] -> dcX
@@ -425,7 +435,7 @@ VerificationTest[
 				Coefficient[
 					ReplaceAll[
 						ReplaceAll[
-							FernandoDuarte`LongRunRisk`TimeAggregation`Growth[
+							FernandoDuarte`LongRunRisk`TimeAggregation`growth[
 								dc, t, "TimeAggregation" -> h, "numPeriods" -> k, "v0" -> Function[{t, j, h, k, v, im}, F[j]]
 							],
 							rulej
@@ -446,7 +456,7 @@ VerificationTest[
 				Coefficient[
 					ReplaceAll[
 						ReplaceAll[
-							FernandoDuarte`LongRunRisk`TimeAggregation`Growth[
+							FernandoDuarte`LongRunRisk`TimeAggregation`growth[
 								dc, t, "TimeAggregation" -> h, "numPeriods" -> k, "v0" -> Function[{t, j, h, k, v, im}, F[j]]
 							],
 							rulej
@@ -457,107 +467,81 @@ VerificationTest[
 				]
 			]
 		];
-		{out1, out2, out3}
+		Apply[And, {out1, out2, out3}]
 	]
 	,
-	{True, True, True}
+	True
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230414-DZ4UZT"
+	TestID->"TimeAggregation_20230415-ADRM3D"
 ]
 
 
 VerificationTest[
-	{
-		FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "order" -> 0],
-		FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "order" -> 1],
-		ReplaceAll[
-			ReplaceAll[
-				ReplaceAll[
-					ReplaceAll[
-						FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "order" -> 2],
-						Plus -> List
+	Apply[And,
+		{
+			SameQ[
+				Cases[
+					Expand[
+						FernandoDuarte`LongRunRisk`TimeAggregation`growth[dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 2, "order" -> 0]
 					],
-					Times -> List
+					Times[Optional[coef_], Power[dd[__, i], Optional[p_]]] :> p
 				],
-				dc[{x__, t}] -> (-x)
+				{}
 			],
-			dc[t] -> 0
-		],
-		ReplaceAll[
-			ReplaceAll[
-				ReplaceAll[
-					ReplaceAll[
-						FernandoDuarte`LongRunRisk`TimeAggregation`Growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "order" -> 3],
-						Plus -> List
-					],
-					Times -> List
+			SameQ[
+				Max[
+					Cases[
+						Expand[
+							FernandoDuarte`LongRunRisk`TimeAggregation`growth[dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 2, "order" -> 1]
+						],
+						Times[Optional[coef_], Power[dd[__, i], Optional[p_]]] :> p
+					]
 				],
-				dc[{x__, t}] -> (-x)
+				1
 			],
-			dc[t] -> 0
-		]
-	}
-	,
-	{
-		0,
-		Times[Rational[1, 3],
-			Plus[dc[t - 4],
-				Plus[2 * dc[t - 3],
-					(3 * dc[t - 2]) + (2 * dc[t - 1]) + dc[t]
-				]
+			SameQ[
+				Max[
+					Cases[
+						Expand[
+							FernandoDuarte`LongRunRisk`TimeAggregation`growth[dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 2, "order" -> 2]
+						],
+						Times[Optional[coef_], Power[dd[__, i], Optional[p_]]] :> p
+					]
+				],
+				2
+			],
+			SameQ[
+				Max[
+					Cases[
+						Expand[
+							FernandoDuarte`LongRunRisk`TimeAggregation`growth[dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 2, "order" -> 3]
+						],
+						Times[Optional[coef_], Power[dd[__, i], Optional[p_]]] :> p
+					]
+				],
+				3
+			],
+			SameQ[
+				Max[
+					Cases[
+						Expand[
+							FernandoDuarte`LongRunRisk`TimeAggregation`growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 2, "order" -> 3]
+						],
+						Times[Optional[coef_], Power[dc[__], Optional[p_]]] :> p
+					]
+				],
+				3
 			]
-		],
-		{
-			{
-				{Rational[1, 3], 4},
-				{Rational[2, 3], 3},
-				2,
-				{Rational[2, 3], 1},
-				{Rational[1, 3], 0}
-			},
-			{
-				{Rational[-1, 9], 16},
-				{Rational[-1, 9], 4, 3},
-				{Rational[-1, 9], 9},
-				{Rational[1, 9], 1},
-				{Rational[1, 9], 0, 1},
-				{Rational[1, 9], 0}
-			}
-		},
-		{
-			{
-				{Rational[1, 3], 4},
-				{Rational[2, 3], 3},
-				2,
-				{Rational[2, 3], 1},
-				{Rational[1, 3], 0}
-			},
-			{
-				{Rational[-1, 9], 16},
-				{Rational[-1, 9], 4, 3},
-				{Rational[-1, 9], 9},
-				{Rational[1, 9], 1},
-				{Rational[1, 9], 0, 1},
-				{Rational[1, 9], 0}
-			},
-			{
-				{Rational[1, 81], 64},
-				{Rational[1, 54], 16, 3},
-				{Rational[-1, 54], 4, 9},
-				{Rational[-1, 81], 27},
-				{Rational[-1, 81], 1},
-				{Rational[-1, 54], 0, 1},
-				{Rational[1, 54], 0, 1},
-				{Rational[1, 81], 0}
-			}
 		}
-	}
+	]
+	,
+	True
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230414-J2QBRP"
+	TestID->"TimeAggregation_20230415-5HM6M0"
 ]
 
 

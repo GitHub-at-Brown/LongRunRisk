@@ -2,13 +2,13 @@ BeginTestSection["PacletizeResources"]
 
 
 VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`"
+	{Needs @ "FernandoDuarte`LongRunRisk`"}
 	,
-	Null
+	{Null}
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230414-5DF78T"
+	TestID->"PacletizeResources_20230415-DG3WKS"
 ]
 
 
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230414-6ZM6ZG"
+	TestID->"PacletizeResources_20230415-3STXGP"
 ]
 
 
@@ -30,18 +30,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230414-T243UX"
-]
-
-
-VerificationTest[
-	Context @ MaTeX`MaTeX
-	,
-	"MaTeX`"
-	,
-	{}
-	,
-	TestID->"PacletizeResources_20230414-QZILYD"
+	TestID->"PacletizeResources_20230415-WSHNSS"
 ]
 
 
@@ -52,7 +41,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230414-ULTRAS"
+	TestID->"PacletizeResources_20230415-5U5MIK"
 ]
 
 
@@ -63,7 +52,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230414-DVI7RK"
+	TestID->"PacletizeResources_20230415-1DSQHK"
 ]
 
 
@@ -74,7 +63,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230414-9QDOFO"
+	TestID->"PacletizeResources_20230415-ZQ15HW"
 ]
 
 
@@ -85,7 +74,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230414-G6STRE"
+	TestID->"PacletizeResources_20230415-YG813A"
 ]
 
 
