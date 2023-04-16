@@ -55,7 +55,9 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v3
-      - run: apt install tar  
+      - run: |
+          apt-get update
+          apt-get install tar
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: '5.34'
