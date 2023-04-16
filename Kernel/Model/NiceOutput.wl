@@ -101,8 +101,9 @@ MakeBoxes::usage="MakeBoxes[] ."<>"\n"<>
 
 
 (*adds useful key-value pairs to models*)
-SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
-FullSymbolName=ResourceObject["FullSymbolName"];
+(*SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
+FullSymbolName=ResourceObject["FullSymbolName"];*)
+<<PacletizedResourceFunctions`;
 
 fillModels[m_]:=Module[
 	{
@@ -367,9 +368,15 @@ modelToTeXNoStocks=Complement[modelToTeX,modelToTeXStocks];
 info[m_]:= ResourceFunction["SetSymbolsContext"][Evaluate@infoLocal[m]];*)
 
 
-pacletBaseDir=DirectoryName[NotebookDirectory[],2];
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];
 pacletBibDir = {"Resources","BibTeX","references.bib"};
 bibFile=FileNameJoin[Prepend[pacletBibDir,pacletBaseDir]];
+*)
+bibFile=File[
+			FindFile[
+				"FernandoDuarte/LongRunRisk/BibTeX/references.bib"
+			]
+		];
 
 
 info[m_]:=OpenerView[
@@ -379,7 +386,7 @@ info[m_]:=OpenerView[
 			Join[
 				{{"Model: "<>StringDelete[StringReplace[m["name"],"\n"->" "],"\t"|"  "],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
 				(*{{TextGrid[{{TextCell[Row[{"Reference: ","\\textcite{"<>m["bibRef"]<>"} in ", If[Not[$Failed===FindFile[bibFile]],Hyperlink[FileNameJoin[pacletBibDir],File[bibFile]],FileNameJoin[pacletBibDir]]}]]}}],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},(*MaTeX["\\text{\\textcite{"<>m["bibRef"]<>"}}","Preamble"->preambleTeX,"DisplayStyle"->True,FontSize->14]*)*)
-				{{Row[{"Reference: ","\\textcite{"<>m["bibRef"]<>"} in ", If[Not[$Failed===FindFile[bibFile]],Hyperlink[FileNameJoin[pacletBibDir],File[bibFile]],FileNameJoin[pacletBibDir]]}],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},(*MaTeX["\\text{\\textcite{"<>m["bibRef"]<>"}}","Preamble"->preambleTeX,"DisplayStyle"->True,FontSize->14]*)
+				{{Row[{"Reference: ","\\textcite{"<>m["bibRef"]<>"} in ", If[Not[$Failed===FindFile[bibFile]],Hyperlink[File[bibFile]],"Resources/BibTeX/references.bib"  ]}],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},(*MaTeX["\\text{\\textcite{"<>m["bibRef"]<>"}}","Preamble"->preambleTeX,"DisplayStyle"->True,FontSize->14]*)
 				{{"Description: "<>StringDelete[StringReplace[m["desc"],"\n"->" "],"\t"|"  "],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
 				{{m["exogenousEqTable"],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
 				{{m["exogenousEqTableNumeric"],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
