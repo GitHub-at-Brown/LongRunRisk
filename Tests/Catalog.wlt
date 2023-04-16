@@ -2,35 +2,24 @@ BeginTestSection["Catalog"]
 
 
 VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`"
-	,
-	Null
-	,
-	{}
-	,
-	TestID->"Catalog_20230415-O5SYS6"
-]
-
-
-VerificationTest[
-	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`"]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20230415-Z1XY80"
-]
-
-
-VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`Catalog`"
 	,
 	Null
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-75CEP6"
+	TestID->"Catalog_20230415-FSE6IB"
+]
+
+
+VerificationTest[
+	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"Catalog_20230415-MNMVCC"
 ]
 
 
@@ -41,18 +30,21 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-OU7EMA"
+	TestID->"Catalog_20230415-E94TOA"
 ]
 
 
 VerificationTest[
 	Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]
 	,
-	{True, True, True, True, True, True, True, True, True, True, True, True, True, True, True}
+	{
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True
+	}
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-NYR54B"
+	TestID->"Catalog_20230415-O5G4JV"
 ]
 
 
@@ -76,12 +68,13 @@ VerificationTest[
 		True, True, True, True, True, True, True, True, True, True, True, True,
 		True, True, True, True, True, True, True, True, True, True, True, True,
 		True, True, True, True, True, True, True, True, True, True, True, True,
-		True, True, True, True, True, True, True, True, True, True, True, True
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True
 	}
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-NSW847"
+	TestID->"Catalog_20230415-7OOG66"
 ]
 
 
@@ -114,7 +107,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-C16HFL"
+	TestID->"Catalog_20230415-ENDY4I"
 ]
 
 
@@ -125,7 +118,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-V9KZ88"
+	TestID->"Catalog_20230415-JD6T1C"
 ]
 
 
@@ -136,7 +129,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-YNYG75"
+	TestID->"Catalog_20230415-SETP4B"
 ]
 
 
@@ -151,12 +144,23 @@ VerificationTest[
 	{
 		Association, Association, Association, Association, Association, Association,
 		Association, Association, Association, Association, Association, Association,
-		Association, Association, Association, Association
+		Association, Association, Association, Association, Association
 	}
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-QGC35Z"
+	TestID->"Catalog_20230415-1MUCGN"
+]
+
+
+VerificationTest[
+	$ContextPath = Cases[$ContextPath, Except @ "FernandoDuarte`LongRunRisk`Model`Catalog`"];
+	,
+	Null
+	,
+	{}
+	,
+	TestID->"Catalog_20230415-L0M5OM"
 ]
 
 

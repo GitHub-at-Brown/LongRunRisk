@@ -2,35 +2,13 @@ BeginTestSection["EndogenousEq"]
 
 
 VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`"
-	,
-	Null
-	,
-	{}
-	,
-	TestID->"EndogenousEq_20230415-VODUVG"
-]
-
-
-VerificationTest[
-	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`"]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"EndogenousEq_20230415-SIZYAQ"
-]
-
-
-VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`EndogenousEq`"
 	,
 	Null
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20230415-6HFZQ1"
+	TestID->"EndogenousEq_20230415-0PW302"
 ]
 
 
@@ -41,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20230415-B9GRGJ"
+	TestID->"EndogenousEq_20230415-7BR0DX"
 ]
 
 

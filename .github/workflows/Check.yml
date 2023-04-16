@@ -55,6 +55,14 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v3
+      - uses: r-lib/actions/setup-tinytex@v2
+        env:
+          TINYTEX_INSTALLER: TinyTeX
+      - run: tlmgr --version
+      - name: Install LaTeX packages for MaTeX
+        run: |
+          tlmgr install latex standalone lm svn-prov
+          tlmgr list --only-installed        
       - name: Test
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.10.2
