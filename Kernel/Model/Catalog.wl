@@ -1488,6 +1488,97 @@ modelsLocal = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
+	|>,
+(**********************************************************)
+	"DES" -> <|
+		"name" -> "Long-Run Consumption and Inflation Risks in Stock and Bond Returns of Duarte, Elias and Szymanowska",
+		"shortname" -> "DES",
+		"bibRef" -> "des2023stocksbonds",
+		"desc" -> "Long-run risk model with real effects of inflation",
+		"stateVars" -> {x[t],-mupbar+pibar[t],sx[t],sp[t]},
+		"parameters" -> {
+			(*"Preferences"*)
+			delta -> 0.9995,
+				psi -> 1.1,
+				gamma -> 10,
+				theta -> (1 - gamma)/(1 - psi^(-1)),
+			(*"Long-run risk"*)
+			rhox -> 0.9980,
+				rhoxpbar -> 0,
+				phix -> 0.0265,
+				phixc -> 0,
+			(*"Inflation"*)
+			mup -> 0.0027,
+				rhoppbar -> 1,
+				rhop -> 0,
+				phip -> -0.0011,
+				xip -> 1.81*10^(-4),
+				phipc -> 0,
+				phipx -> 0,
+				phipcx -> 0,
+				phipp -> 0,
+				phipxp -> 0,
+			(*"Expected inflation"*)
+			mupbar -> 0,
+				rhopbar -> 0.9874,
+				rhopbarx -> 0,
+				phipbarp -> 0,
+				phipbarc -> 0,
+				phipbarx -> -0.1269,
+				phipbarcx -> 0,
+				phipbarpb -> 0,
+				phipbarxb -> -0.1438,
+				phipbarxp -> 0,
+			(*"Real consumption growth"*)
+			muc -> 0.0015,
+				rhocx -> 1,
+				rhocp -> 0,
+				phic -> 0,
+				phicp -> 0,
+				phicsp -> 0,
+				xic -> -0.0334,
+				phics -> 0,
+				phicx -> 1,
+				phicc -> 0,
+				phicpc -> 0,
+				phicpp -> 0,
+			(*"Nominal-real covariance (NRC)"*)
+			Esg -> -0.2138,
+				rhog -> 0.9993,
+				phig -> -0.0035,
+			(*"Stochastic volatility of long-run risk"*)
+			Esx -> 0.0017,
+				vx -> 0.9961,
+				phisxs -> 3.56*10^(-7),
+			(*"Stochastic volatility of consumption growth"*)
+			Esc -> 0,
+				vc -> 0,
+				phiscv -> 0,
+			(*"Stochastic volatility of inflation"*)
+			Esp -> 0,
+				vp -> 0,
+				vpp -> 0,
+				vppbar -> 0,
+				phispw -> 0,
+			(*"Real dividend growth"*)
+				(* stock 1 *)
+				mud[1] -> 0.0021,
+					rhodx[1] -> 1.0802,
+					rhodp[1] -> 0,
+					phidc[1] -> 0,
+					phidp[1] -> 0,
+					phidsp[1] -> 0,
+					xid[1] -> -0.1470,
+					phids[1] -> 0,
+					phidxc[1] -> 2.5496,
+					phidcc[1] -> 0,
+					phidpc[1] -> 0,
+					phidpp[1] -> 0,
+					phidxd[1] -> 0,
+					phidcd[1] -> 0,
+					phidpd[1] -> 0,
+					taugd[1] -> 0
+		}
 	|>
 |>;(*end models*) 
 

@@ -40,7 +40,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`"]
 <<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
 <<FernandoDuarte`LongRunRisk`Model`Catalog`;
 <<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
-(*<<FernandoDuarte`LongRunRisk`Model`NiceOutput`;*)
+<<FernandoDuarte`LongRunRisk`Model`NiceOutput`;
 <<FernandoDuarte`LongRunRisk`TimeAggregation`;
 
 
@@ -65,14 +65,17 @@ SetSymbolsContext=ResourceFunction["SetSymbolsContext"];*)
 
 (*re-export symbols from other private contexts *)
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+fillModels := FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels;
+Models[] := FernandoDuarte`LongRunRisk`Model`NiceOutput`Catalog[FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]];
+
 Models[x_String] := FernandoDuarte`LongRunRisk`Model`Catalog`models[x];
 Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];
 
 (*NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`NiceOutput`"];*)
 
-(*fillModels := FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels*)
+
 (*models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];*)
-(*Models[] := FernandoDuarte`LongRunRisk`Model`NiceOutput`Catalog[FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]];*)
+
 
 
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`TimeAggregation`"];
