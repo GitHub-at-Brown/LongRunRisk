@@ -55,14 +55,12 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v3
-      - name: Install perl, ghostscript
+      - name: Install perl, ghostscript, tinytex
         run: |
           apt-get update -y
           apt-get install perl -y
           apt-get install ghostscript -y
-      - uses: r-lib/actions/setup-tinytex@v2
-        env:
-          TINYTEX_INSTALLER: TinyTeX
+          wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
       - name: Add latex to path
         run: export PATH="$HOME/bin:$PATH" 
       - name: Install LaTeX packages for MaTeX
