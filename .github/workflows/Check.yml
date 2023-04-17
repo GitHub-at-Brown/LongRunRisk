@@ -74,7 +74,7 @@ jobs:
         uses: WolframResearch/test-paclet@v1.10.2
         with:
           target: Submit
-          debug: "true"
+          debug: "false"
           paclet_cicd_version: 0.34.0
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
