@@ -31,6 +31,9 @@ If[
 ]
 Get[FileNameJoin[{(First@PacletFind["MaTeX"->"1.7.9"])["Location"],"MaTeX.m"}]];(*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
 
+ConfigureMaTeX["pdfLaTeX" -> "/github/home/bin/pdflatex"]
+ConfigureMaTeX["Ghostscript" -> "/usr/bin/gs"]
+
 
 BeginPackage["FernandoDuarte`LongRunRisk`"]
 
