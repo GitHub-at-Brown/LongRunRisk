@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20230415-K9KEIO"
+	TestID->"ExogenousEq_20230416-87JI0J"
 ]
 
 
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20230415-LP9RUW"
+	TestID->"ExogenousEq_20230416-B57RI4"
 ]
 
 
@@ -45,33 +45,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20230415-HYQAKH"
-]
-
-
-VerificationTest[
-	PacletizedResourceFunctions`SetSymbolsContext @ Evaluate @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ t
-	,
-	Plus[rhoxpbar * (pibar[t - 1] - mupbar),
-		Plus[rhox * x[t - 1],
-			Plus[
-				Times[phixc,
-					Times[((Esc ^ 2) + sc[t - 1]) ^ Rational[1, 2],
-						eps["dc"][t]
-					]
-				],
-				Times[phix,
-					Times[((Esx ^ 2) + sx[t - 1]) ^ Rational[1, 2],
-						eps["x"][t]
-					]
-				]
-			]
-		]
-	]
-	,
-	{}
-	,
-	TestID->"ExogenousEq_20230415-YL370Q"
+	TestID->"ExogenousEq_20230416-5MKM6G"
 ]
 
 
