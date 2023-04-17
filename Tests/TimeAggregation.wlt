@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-CMX20T"
+	TestID->"TimeAggregation_20230416-B1L516"
 ]
 
 
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-TBWQ3T"
+	TestID->"TimeAggregation_20230416-R3D4P3"
 ]
 
 
@@ -30,18 +30,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-QAQBQ5"
-]
-
-
-VerificationTest[
-	!SameQ[Names @ "*Growth", {}]
-	,
-	False
-	,
-	{}
-	,
-	TestID->"TimeAggregation_20230415-2RDKC6"
+	TestID->"TimeAggregation_20230416-1K9FEO"
 ]
 
 
@@ -55,7 +44,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-Y9RQUT"
+	TestID->"TimeAggregation_20230416-5NGJCQ"
 ]
 
 
@@ -111,7 +100,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-CAU280"
+	TestID->"TimeAggregation_20230416-NTSZC2"
 ]
 
 
@@ -142,7 +131,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-WEG4FW"
+	TestID->"TimeAggregation_20230416-8HGD4Y"
 ]
 
 
@@ -161,7 +150,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-BEA06N"
+	TestID->"TimeAggregation_20230416-2MKF3J"
 ]
 
 
@@ -215,7 +204,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-KWYYMQ"
+	TestID->"TimeAggregation_20230416-V0J4SC"
 ]
 
 
@@ -240,7 +229,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-N2TKQW"
+	TestID->"TimeAggregation_20230416-LBW6AG"
 ]
 
 
@@ -272,7 +261,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-EXIKK2"
+	TestID->"TimeAggregation_20230416-T9OEQ9"
 ]
 
 
@@ -341,7 +330,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-KI9IEB"
+	TestID->"TimeAggregation_20230416-MPG2Z3"
 ]
 
 
@@ -380,7 +369,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-4ZIGQM"
+	TestID->"TimeAggregation_20230416-JY01XB"
 ]
 
 
@@ -405,7 +394,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-6K3AIF"
+	TestID->"TimeAggregation_20230416-7HJJNI"
 ]
 
 
@@ -474,7 +463,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-ADRM3D"
+	TestID->"TimeAggregation_20230416-KXLIEQ"
 ]
 
 
@@ -541,7 +530,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20230415-5HM6M0"
+	TestID->"TimeAggregation_20230416-KIYCWO"
 ]
 
 
