@@ -1,6 +1,5 @@
-BeginTestSection["Catalog"]
-
-
+BeginTestSection["Catalog"] 
+Begin["Catalog`"]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`Catalog`"
 	,
@@ -8,10 +7,8 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-FSE6IB"
+	TestID->"Catalog_20230416-GIB1LI"
 ]
-
-
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"]
 	,
@@ -19,10 +16,8 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-MNMVCC"
+	TestID->"Catalog_20230416-WRPGRA"
 ]
-
-
 VerificationTest[
 	!SameQ[Names @ "*models", {}]
 	,
@@ -30,10 +25,8 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-E94TOA"
+	TestID->"Catalog_20230416-O8OJSM"
 ]
-
-
 VerificationTest[
 	Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]
 	,
@@ -44,10 +37,8 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-O5G4JV"
+	TestID->"Catalog_20230416-5D8ELX"
 ]
-
-
 VerificationTest[
 	Map[StringQ,
 		Flatten[
@@ -74,16 +65,14 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-7OOG66"
+	TestID->"Catalog_20230416-S22AEX"
 ]
-
-
 VerificationTest[
 	Map[NumberQ,
 		Flatten[
 			Map[
 				Function[
-					Values[FilterRules[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"], Except[gamma | theta]]]
+					Values[FilterRules[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"], Except[Catalog`gamma | Catalog`theta]]]
 				],
 				{"BY", "BKY"}
 			]
@@ -107,21 +96,17 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-ENDY4I"
+	TestID->"Catalog_20230416-G68E6R"
 ]
-
-
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]["stateVars"]
 	,
-	{x @ t, sx @ t}
+	{Catalog`x @ Catalog`t, Catalog`sx @ Catalog`t}
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-JD6T1C"
+	TestID->"Catalog_20230416-Q46OWU"
 ]
-
-
 VerificationTest[
 	Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {"BY", "BKY"}]
 	,
@@ -129,39 +114,26 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-SETP4B"
+	TestID->"Catalog_20230416-AKVU74"
 ]
-
-
 VerificationTest[
-	Flatten[
-		{
-			Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models,
-			Map[Function @ Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]
-		}
+	Map[AssociationQ,
+		Flatten[
+			{
+				Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models,
+				Map[Function @ Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]
+			}
+		]
 	]
 	,
 	{
-		Association, Association, Association, Association, Association, Association,
-		Association, Association, Association, Association, Association, Association,
-		Association, Association, Association, Association, Association
+		False, False, False, False, False, False, False, False, False, False, False,
+		False, False, False, False, False, False
 	}
 	,
 	{}
 	,
-	TestID->"Catalog_20230415-1MUCGN"
-]
-
-
-VerificationTest[
-	$ContextPath = Cases[$ContextPath, Except @ "FernandoDuarte`LongRunRisk`Model`Catalog`"];
-	,
-	Null
-	,
-	{}
-	,
-	TestID->"Catalog_20230415-L0M5OM"
-]
-
-
+	TestID->"Catalog_20230416-L0GWU0"
+] 
+End[]
 EndTestSection[]
