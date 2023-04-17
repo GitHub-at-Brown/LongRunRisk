@@ -10,6 +10,10 @@ PacletObject[
     "PublisherID" -> "FernandoDuarte",
     "Version" -> "1.0.0",
     "WolframVersion" -> "13.0+",
+    "Dependencies"     -> {
+        "MaTeX" -> ">=1.7.9",
+        "PacletizedResourceFunctions"-> ">=1.0.0"
+    },
     "Extensions" -> {
       {
         "Kernel",
