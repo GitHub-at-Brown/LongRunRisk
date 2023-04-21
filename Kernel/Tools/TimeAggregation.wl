@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage[ "FernandoDuarte`LongRunRisk`TimeAggregation`" ]
+BeginPackage[ "FernandoDuarte`LongRunRisk`Tools`TimeAggregation`" ]
 
 
 (* ::Subsection:: *)

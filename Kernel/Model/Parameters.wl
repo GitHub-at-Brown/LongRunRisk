@@ -93,14 +93,14 @@ Begin["`Private`"]
 
 
 (* assumptions on parameters *)
-	modelAssumptions::usage = "modelAssumptions[t]"
+	paramAssumptions::usage = "modelAssumptions"
 	
-	modelAssumptions = 
+	paramAssumptions = 
 	(*preferences*)delta>0 && delta<1 && psi>0 && gamma>0 && theta!=0 &&
 	(*process for x*)rhox>-1 && rhox<1 && 
 	(*process for pi*) rhop>-1 && rhop<1 && 
 	(*process for pibar*)rhopbar>-1 && rhopbar<1 && 
-	(*process for sg*)rhog>-1 && rhog<1 && phig>=0 &&
+	(*process for sg*)rhog>-1 && rhog<1 &&
 	(*process for sx*)vx>-1 && vx<1 && Esx>=0 && phisxs>=0 &&
 	(*process for sc*)vc>-1 && vc<1 && Esc>=0 && phiscv>=0 &&
 	(*process for sp*)vp>-1 && vp<1 && Esp>=0 && phispw>=0;

@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Model`NiceOutput`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]
 
 
 (* ::Subsection:: *)
@@ -15,7 +15,7 @@ fillModels
 Catalog
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Usage*)
 
 
@@ -62,7 +62,7 @@ Begin["`Private`"]
 (*<<FernandoDuarte`LongRunRisk`Model`Catalog`;*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Helper functions*)
 
 
@@ -84,271 +84,69 @@ MakeBoxes::usage="MakeBoxes[] ."<>"\n"<>
 				"MakeBoxes[] .";
 
 
-(* ::Subsection:: *)
-(*fillModel*)
+(* ::Subsection::Closed:: *)
+(*Catalog*)
 
 
-(*adds useful key-value pairs to models*)
-(*SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
-FullSymbolName=ResourceObject["FullSymbolName"];*)
-<<PacletizedResourceFunctions`;
-
-fillModels[m_]:=Module[
+Catalog[m_]:=Module[
 	{
 		models=m,
-		exoVarsNoStocks,
-		exoNoStocks,
-		exoString,
-		exoExprPrivate,
-		exoExpr,
-		exoVarString,
-		exoVar,
-		exoVarExpr,
-		
-		indicesKeep,
-		exoStateVars,
-		exoKeep,
-		exoEq,
-		exoEqN,
-	
-		exoStocks,
-		exoStocksString,
-		exoExprStocksPrivate,
-		exoExprStocks,
-		exoEqStocks,
-		exoEqStocksN,
-		
-		exoEqAll,
-		exoEqAllN,
-		
+		modelsKeys = Keys[models[[1]]]
+	},
+	If[ 
+		Not@MemberQ[modelsKeys2,"exogenousEqTable"] || Not@MemberQ[modelsKeys2,"exogenousEqTableNumeric"],
+		models = createEqTables[models]
+	];
+	Column[info[models[#]]&/@Keys[models]]
+]
+
+
+(* ::Subsubsection::Closed:: *)
+(*createEqTables*)
+
+
+createEqTables[m_]:=Module[
+	(*adds nicely formatted tables with exogenous equations to each model in m*)
+	{
+		models=m,
 		exoNiceOutput,
 		exoNiceOutputN
-	},
-
-	(*add number of stocks as a new key-value pair in each model*)
-	models = Append[
-		#,
-		"numStocks" -> Count[#["parameters"], SetSymbolsContext[mud][_Integer], Infinity]
-	]& /@ models;
-	
-	(*find parameters that are zero or one in parameters and add to models*)
-	models = Append[
-		#,
-		"assignParam" -> Select[#["parameters"], #[[2]] == 0 || #[[2]] == 1&]
-	]& /@ models;
-	
-	(*find parameters of stocks that are zero for all stocks and add to models*)
-	models = Append[
-			#,
-			"stockZeroParam" -> DeleteDuplicates[Cases[#["parameters"], Rule[z_[i_], 0] :> {z, i}, Infinity]]
-	]& /@ models;
-	
-	models = Append[#,
-		"assignParamStocks" -> DeleteDuplicates[
-			Table[
-				If[And @@ Table[
-					MemberQ[#["stockZeroParam"], {#["stockZeroParam"][[q, 1]], j}],
-					{j, 1, #["numStocks"]}
-				],
-				#["stockZeroParam"][[q, 1]][SetSymbolsContext[i_]] -> 0], 
-				{q, 1, Length[#["stockZeroParam"]]}
-			]
-		 ]
-	]& /@ models;
-	
-	models = KeyDrop[#, "stockZeroParam"]& /@ models;
-	
-	(*add list of exogenous variables and equations to models*)
-	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"->None];
-	exoNoStocks=FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVarsNoStocks;
-	exoString=("FernandoDuarte`LongRunRisk`Model`ExogenousEq`"<>#<>"[t]")&/@exoNoStocks;
-	exoExprPrivate=ToExpression/@exoString;
-	exoExpr := Block[{$ContextPath = {}}, SetSymbolsContext[exoExprPrivate]];
-	(*exoExpr2 = Block[{$ContextPath = {}}, SetSymbolsContext[exoExprPrivate]];*)
-	
-	exoVarString=(StringDrop[#,-2]<>"[t]")&/@exoNoStocks;
-	exoVar=ToExpression/@exoVarString;
-	exoVarExpr=Thread[exoVar==exoExpr];
-	
-	indicesKeep=(Complement[
-			Thread[{Range @ Length @ exoExpr}],Position[exoExpr//.#["assignParam"],0]])&/@models;
-	exoStateVars=("exogenousVars"->Append[Extract[exoNoStocks, #],"ddeq"])&/@indicesKeep;
-	
-	exoKeep=Extract[exoVarExpr, #]&/@indicesKeep;
-	exoEq=(exoKeep[#["shortname"]]//.#["assignParam"])& /@ models;
-	exoEqN=(exoKeep[#["shortname"]]//.#["parameters"])& /@ models;
-
-	exoStocks=FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVarsStocks;
-	exoStocksString=("FernandoDuarte`LongRunRisk`Model`ExogenousEq`"<>#)&/@exoStocks;(**)
-	exoExprStocksPrivate=Table[dd[t,i]==(ToExpression/@exoStocksString)[[1]][t,i],{i,1,#["numStocks"]}] &/@models;
-	exoExprStocks = Block[{$ContextPath = {}}, SetSymbolsContext[exoExprStocksPrivate]];
-
-	exoEqStocks=(exoExprStocks[#["shortname"]]//.(#["assignParam"])&)/@models;
-	exoEqStocksN=(exoExprStocks[#["shortname"]]//.(#["parameters"])&)/@models;
-	
-	exoEqAll=(Join[exoEq[#["shortname"]],exoEqStocks[#["shortname"]]]&)/@ models;
-	exoEqAllN=(Join[exoEqN[#["shortname"]],exoEqStocksN[#["shortname"]]]&)/@ models;
-	
+	},		
 	exoNiceOutput=OpenerView[
-			{
-				"Equations", 
-				Grid[
-					Thread[{exoEqAll[#["shortname"]]}],
-					Alignment -> Left,
-					ItemSize -> {Automatic, 2},
-					Frame -> {False, All}, 
-					FrameStyle -> Directive[Thin],
-					Background->White
-				]
-			},
-		True]&/@ models;
+		{
+			"Equations", 
+			Grid[
+				Thread[{#["shortname"]["exogenousEq"]}],
+				Alignment -> Left,
+				ItemSize -> {Automatic, 2},
+				Frame -> {False, All}, 
+				FrameStyle -> Directive[Thin],
+				Background->White
+			]
+		},
+	True]&/@ models;
+		
 	exoNiceOutputN=OpenerView[
-			{
-				"Equations using initial parameter values", 
-				Grid[
-					Thread[{exoEqAllN[#["shortname"]]}],
-					Alignment -> Left,
-					ItemSize -> {Automatic, 2},
-					Frame -> {False, All}, 
-					FrameStyle -> Directive[Thin],
-					Background->White
-				]
-			},
-		False]&/@ models;
+		{
+			"Equations using initial parameter values", 
+			Grid[
+				Thread[{#["shortname"]["exogenousEq"]//.#["shortname"]["parameters"]}],
+				Alignment -> Left,
+				ItemSize -> {Automatic, 2},
+				Frame -> {False, All}, 
+				FrameStyle -> Directive[Thin],
+				Background->White
+			]
+		},
+	False]&/@ models;
 
-	models=(Append[#,exoStateVars[#["shortname"]] ]&) /@models;
-	models=(Append[#, "exogenousEq"->exoEqAll[#["shortname"]] ]&) /@models;
-	models=(Append[#, "exogenousEqNumeric"->exoEqAllN[#["shortname"]] ]&) /@models;
 	models=(Append[#, "exogenousEqTable"->exoNiceOutput[#["shortname"]] ]&) /@models;
 	models=(Append[#, "exogenousEqTableNumeric"->exoNiceOutputN[#["shortname"]] ]&) /@models
-
 ];
 
 
-(* ::Subsection:: *)
-(*modelToTeX*)
 
-
-(* mapping between parameter names in Mathematica and their latex representation *)
-modelToTeX=<|
-	(*"Preferences"*)
-	"delta"->"\\delta",
-		"psi"->"\\psi",
-		"gamma"->"\\gamma",
-		"theta"->"\\theta",
-	(*"Long-run risk"*)
-	"rhox"->"\\rho_{x}",
-		"rhoxpbar"->"\\rho_{x,\\overline{\\pi}}",
-		"phix"->"\\phi_{x}",
-		"phixc"->"\\phi_{x,c}",
-	(*"Inflation"*)
-	"mup"->"\\mu_{\\pi}",
-		"rhoppbar"->"\\rho_{\\pi,\\overline{\\pi}}",
-		"rhop"->"\\rho_{\\pi}",
-		"phip"->"\\phi_{\\pi}",
-		"xip"->"\\xi_{\\pi}",
-		"phipc"->"\\phi_{\\pi,c}",
-		"phipx"->"\\phi_{\\pi,x}",
-		"phipcx"->"\\phi_{\\pi,cx}",
-		"phipp"->"\\phi_{\\pi,p}",
-		"phipxp"->"\\phi_{\\pi,xp}",
-	(*"Expected inflation"*)
-	"mupbar"->"\\mu_{\\overline{\\pi}}",
-		"rhopbar"->"\\rho_{\\overline{\\pi}}",
-		"rhopbarx"->"\\rho_{\\overline{\\pi},x}",
-		"phipbarp"->"\\phi_{\\overline{\\pi},\\pi}",
-		"phipbarc"->"\\phi_{\\overline{\\pi},c}",
-		"phipbarx"->"\\phi_{\\overline{\\pi},x}",
-		"phipbarcx"->"\\phi_{\\overline{\\pi},cx}",
-		"phipbarpb"->"\\phi_{\\overline{\\pi},pb}",
-		"phipbarxb"->"\\phi_{\\overline{\\pi},xb}",
-		"phipbarxp"->"\\phi_{\\overline{\\pi},xp}",
-	(*"Real consumption growth"*)
-	"muc"->"\\mu_{c}",
-		"rhocx"->"\\rho_{c,x}",
-		"rhocp"->"\\rho_{c,\\pi}",
-		"phic"->"\\phi_{c}",
-		"phicp"->"\\phi_{c,\\pi}",
-		"phicsp"->"\\phi_{c,s \\pi}",
-		"xic"->"\\xi_{c}",
-		"phics"->"\\phi_{c,s}",
-		"phicx"->"\\phi_{c,x}",
-		"phicc"->"\\phi_{c,c}",
-		"phicpc"->"\\phi_{c,pc}",
-		"phicpp"->"\\phi_{c,pp}",
-	(*"Nominal-real covariance (NRC)"*)
-	"Esg"->"\\bar{\\sigma}_{g}",
-		"rhog"->"\\rho_{g}",
-		"phig"->"\\phi_{g}",
-	(*"Stochastic volatility of long-run risk"*)
-	"Esx"->"\\bar{\\sigma}_{x}",
-		"vx"->"v_{x}",
-		"phisxs"->"\\phi_{s,xs}",
-	(*"Stochastic volatility of consumption growth"*)
-	"Esc"->"\\bar{\\sigma}_{c}",
-		"vc"->"v_{c}",
-		"phiscv"->"\\phi_{s,cv}",
-	(*"Stochastic volatility of inflation"*)
-	"Esp"->"\\bar{\\sigma}_{p}",
-		"vp"->"v_{p}",
-		"vpp"->"v_{\\pi}",
-		"vppbar"->"v_{\\bar{\\pi}}",
-		"phispw"->"\\phi_{s,pw}",
-	(*"Real dividend growth"*)
-	"mud[i]"->"\\mu_{d}^{(i)}",
-		"rhodx[i]"->"\\rho_{d,x}^{(i)}",
-		"rhodp[i]"->"\\rho_{d,\\pi}^{(i)}",		
-		"phidc[i]"->"\\phi_{d,c}^{(i)}",
-		"phidp[i]"->"\\phi_{d,\\pi}^{(i)}",
-		"phidsp[i]"->"\\phi_{d,s\\pi}^{(i)}",
-		"xid[i]"->"\\xi_{d}^{(i)}",
-		"phids[i]"->"\\phi_{d,s}^{(i)}",
-		"phidxc[i]"->"\\phi_{d,xc}^{(i)}",
-		"phidcc[i]"->"\\phi_{d,cc}^{(i)}",
-		"phidpc[i]"->"\\phi_{d,pc}^{(i)}",
-		"phidpp[i]"->"\\phi_{d,pp}^{(i)}",
-		"phidxd[i]"->"\\phi_{d,xd}^{(i)}",
-		"phidcd[i]"->"\\phi_{d,cd}^{(i)}",
-		"phidpd[i]"->"\\phi_{d,pd}^{(i)}",
-		"taugd[i]"->"\\tau_{gd}^{(i)}"
-|>;
-
-
-(* ::Subsubsection:: *)
-(*TeXToModel*)
-
-
-TeXToModel=Association@Reverse[Normal[modelToTeX],{2}];
-
-
-(* ::Subsubsection:: *)
-(*modelToTeXStocks*)
-
-
-(* split into stock parameters and non-stock parameters *)
-modelToTeXStocks=Association@Thread[
-	Select[
-		Keys[modelToTeX],
-		StringMatchQ[___~~"[i]"]
-	]
-	(*thread*)->
-	(
-		Select[
-			Keys[modelToTeX],
-			StringMatchQ[___~~"[i]"]
-		]/.modelToTeX
-	)
-];
-
-
-(* ::Subsubsection:: *)
-(*modelToTeXNoStocks*)
-
-
-modelToTeXNoStocks=Complement[modelToTeX,modelToTeXStocks];
-
-
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*info*)
 
 
@@ -594,7 +392,130 @@ iToNum[s : <|(_String -> _String)..|>, numStocks_Integer:1] :=
 	Map[iToNum[#, numStocks]&, (Normal @ s)]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
+(*modelToTeX*)
+
+
+(* mapping between parameter names in Mathematica and their latex representation *)
+modelToTeX=<|
+	(*"Preferences"*)
+	"delta"->"\\delta",
+		"psi"->"\\psi",
+		"gamma"->"\\gamma",
+		"theta"->"\\theta",
+	(*"Long-run risk"*)
+	"rhox"->"\\rho_{x}",
+		"rhoxpbar"->"\\rho_{x,\\overline{\\pi}}",
+		"phix"->"\\phi_{x}",
+		"phixc"->"\\phi_{x,c}",
+	(*"Inflation"*)
+	"mup"->"\\mu_{\\pi}",
+		"rhoppbar"->"\\rho_{\\pi,\\overline{\\pi}}",
+		"rhop"->"\\rho_{\\pi}",
+		"phip"->"\\phi_{\\pi}",
+		"xip"->"\\xi_{\\pi}",
+		"phipc"->"\\phi_{\\pi,c}",
+		"phipx"->"\\phi_{\\pi,x}",
+		"phipcx"->"\\phi_{\\pi,cx}",
+		"phipp"->"\\phi_{\\pi,p}",
+		"phipxp"->"\\phi_{\\pi,xp}",
+	(*"Expected inflation"*)
+	"mupbar"->"\\mu_{\\overline{\\pi}}",
+		"rhopbar"->"\\rho_{\\overline{\\pi}}",
+		"rhopbarx"->"\\rho_{\\overline{\\pi},x}",
+		"phipbarp"->"\\phi_{\\overline{\\pi},\\pi}",
+		"phipbarc"->"\\phi_{\\overline{\\pi},c}",
+		"phipbarx"->"\\phi_{\\overline{\\pi},x}",
+		"phipbarcx"->"\\phi_{\\overline{\\pi},cx}",
+		"phipbarpb"->"\\phi_{\\overline{\\pi},pb}",
+		"phipbarxb"->"\\phi_{\\overline{\\pi},xb}",
+		"phipbarxp"->"\\phi_{\\overline{\\pi},xp}",
+	(*"Real consumption growth"*)
+	"muc"->"\\mu_{c}",
+		"rhocx"->"\\rho_{c,x}",
+		"rhocp"->"\\rho_{c,\\pi}",
+		"phic"->"\\phi_{c}",
+		"phicp"->"\\phi_{c,\\pi}",
+		"phicsp"->"\\phi_{c,s \\pi}",
+		"xic"->"\\xi_{c}",
+		"phics"->"\\phi_{c,s}",
+		"phicx"->"\\phi_{c,x}",
+		"phicc"->"\\phi_{c,c}",
+		"phicpc"->"\\phi_{c,pc}",
+		"phicpp"->"\\phi_{c,pp}",
+	(*"Nominal-real covariance (NRC)"*)
+	"Esg"->"\\bar{\\sigma}_{g}",
+		"rhog"->"\\rho_{g}",
+		"phig"->"\\phi_{g}",
+	(*"Stochastic volatility of long-run risk"*)
+	"Esx"->"\\bar{\\sigma}_{x}",
+		"vx"->"v_{x}",
+		"phisxs"->"\\phi_{s,xs}",
+	(*"Stochastic volatility of consumption growth"*)
+	"Esc"->"\\bar{\\sigma}_{c}",
+		"vc"->"v_{c}",
+		"phiscv"->"\\phi_{s,cv}",
+	(*"Stochastic volatility of inflation"*)
+	"Esp"->"\\bar{\\sigma}_{p}",
+		"vp"->"v_{p}",
+		"vpp"->"v_{\\pi}",
+		"vppbar"->"v_{\\bar{\\pi}}",
+		"phispw"->"\\phi_{s,pw}",
+	(*"Real dividend growth"*)
+	"mud[i]"->"\\mu_{d}^{(i)}",
+		"rhodx[i]"->"\\rho_{d,x}^{(i)}",
+		"rhodp[i]"->"\\rho_{d,\\pi}^{(i)}",		
+		"phidc[i]"->"\\phi_{d,c}^{(i)}",
+		"phidp[i]"->"\\phi_{d,\\pi}^{(i)}",
+		"phidsp[i]"->"\\phi_{d,s\\pi}^{(i)}",
+		"xid[i]"->"\\xi_{d}^{(i)}",
+		"phids[i]"->"\\phi_{d,s}^{(i)}",
+		"phidxc[i]"->"\\phi_{d,xc}^{(i)}",
+		"phidcc[i]"->"\\phi_{d,cc}^{(i)}",
+		"phidpc[i]"->"\\phi_{d,pc}^{(i)}",
+		"phidpp[i]"->"\\phi_{d,pp}^{(i)}",
+		"phidxd[i]"->"\\phi_{d,xd}^{(i)}",
+		"phidcd[i]"->"\\phi_{d,cd}^{(i)}",
+		"phidpd[i]"->"\\phi_{d,pd}^{(i)}",
+		"taugd[i]"->"\\tau_{gd}^{(i)}"
+|>;
+
+
+(* ::Subsubsection:: *)
+(*TeXToModel*)
+
+
+TeXToModel=Association@Reverse[Normal[modelToTeX],{2}];
+
+
+(* ::Subsubsection:: *)
+(*modelToTeXStocks*)
+
+
+(* split into stock parameters and non-stock parameters *)
+modelToTeXStocks=Association@Thread[
+	Select[
+		Keys[modelToTeX],
+		StringMatchQ[___~~"[i]"]
+	]
+	(*thread*)->
+	(
+		Select[
+			Keys[modelToTeX],
+			StringMatchQ[___~~"[i]"]
+		]/.modelToTeX
+	)
+];
+
+
+(* ::Subsubsection:: *)
+(*modelToTeXNoStocks*)
+
+
+modelToTeXNoStocks=Complement[modelToTeX,modelToTeXStocks];
+
+
+(* ::Subsection::Closed:: *)
 (*formatModels*)
 
 
@@ -822,34 +743,6 @@ stripContext[x_?AtomQ]:=stripContext[{x}][[1]]
 
 
 separator[lineLength_Number:60] := RowBox[{"(*", StringRepeat["*",lineLength-4]<>"*)"}];
-
-
-(* ::Subsection:: *)
-(*Catalog*)
-
-
-(*Catalog=Column[info[models[#]]&/@Keys[models]];
-Catalog=models;*)
-
-
-Catalog[models_]:=Column[info[models[#]]&/@Keys[models]];
-
-
-(*(*check model is in models*)
-Catalog/:Conditions[Catalog,model_]:= Module[
-	{
-		mCatalogContext=ToExpression["FernandoDuarte`LongRunRisk`Model`Catalog`Private`"<>ToString[model]]
-	},
-	MemberQ[Keys[models],mCatalogContext]
-]*)
-
-
-(*Catalog[model_]:=Module[
-{
-	m=model
-},
-models[m]
-](*/;Conditions[Catalog,model]*)*)
 
 
 (* ::Section:: *)

@@ -24,6 +24,10 @@ $exogenousVarsNoStocks=SortBy[Complement[$exogenousVars,$exogenousVarsStocks],Po
 Begin["`Private`"]
 
 
+Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]
+Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"]
+
+
 (*Exogenous processes*)
 (*Long-run risk*)
 xeq[t_]=

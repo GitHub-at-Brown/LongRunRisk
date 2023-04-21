@@ -17,6 +17,9 @@ $shocks=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
 Begin["`Private`"]
 
 
+Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]
+
+
 (*
 eps["x"]
 eps["dc"]
@@ -35,13 +38,14 @@ rulesE[t_]:=With[
 	{
 		shockNames={"x","dc","pi","pibar","sg","sx","sc","sp"}
 	},
+
 	{
 		eps["dc"][t]*eps["dd"][t,i_]:>taugd[i],
 		eps[var_][t]/;MemberQ[shockNames,var]:>0,
 		eps["dd"][t,i_]:>0,
 		eps[var_][t]^p_Integer/;MemberQ[shockNames,var]:>Expectation[y^p,y\[Distributed]NormalDistribution[0,1]],
 		eps["dd"][t,i_]^p_Integer:>Expectation[y^p,y\[Distributed]NormalDistribution[0,1]]
-	}
+	}	
 ]
 
 

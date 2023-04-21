@@ -66,10 +66,12 @@ SetSymbolsContext=ResourceFunction["SetSymbolsContext"];*)
 
 (*re-export symbols from other private contexts *)
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
-fillModels := FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels;
-Models[] := FernandoDuarte`LongRunRisk`Model`NiceOutput`Catalog[FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]];
-
+FillModels := FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels;
+Models[] := FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels[FernandoDuarte`LongRunRisk`Model`Catalog`models];
+Models["Table"] := FernandoDuarte`LongRunRisk`Model`NiceOutput`Catalog[FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]];
 Models[x_String] := FernandoDuarte`LongRunRisk`Model`Catalog`models[x];
+
+
 Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];
 
 (*NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`NiceOutput`"];*)
