@@ -60,12 +60,13 @@ FullSymbolName=ResourceObject["FullSymbolName"];*)
 
 processModels[m_]:=Module[
 	{
-		models=m,
+		keys=Keys[m],
+		models=keyRename[m, Thread[Keys[m]->Values@(#["shortname"]&/@m)] ], (*rename Keys to shortname*)
 		z,
-		i,
-		ContextPath=$ContextPath
+		i(*,
+		ContextPath=$ContextPath*)
 	},
-	
+	    
 	(*add number of stocks as a new key-value pair in each model*)
 	models = Append[
 		#,
@@ -113,10 +114,10 @@ processModels[m_]:=Module[
 	models=(Append[#, "modelAssumptions"->(SetSymbolsContext[modelAssumptions]//.#["assignParam"]//.#["assignParamStocks"]) ]&) /@models;
 
 	(*restore $ContextPath to initial state*)
-	$ContextPath=ContextPath;
+	(*$ContextPath=ContextPath;*)
 
-	(*output models*)
-	models
+	(*restore original keys and output models*)
+	keyRename[models, Thread[Keys[models]->keys] ]
 
 ];
 
@@ -266,6 +267,17 @@ createStateVarEq[m_]:=Module[
 	#["exogenousEq"]*)
 	m
 ]	
+
+
+(* ::Subsubsection:: *)
+(*keyRename*)
+
+
+(*rename keys in an association using a list of rules {oldkey1->newkey1,oldkey2->newkey2,..}*)
+keyRename[a_Association, key_ -> key_] := a
+keyRename[a_Association, old_ -> new_] /; KeyExistsQ[a, old] := KeyDrop[old]@Insert[a, new -> a[old], Key[old]]
+keyRename[a:Association[Rule[_,Association[Rule[_,_]..]]..], replaceRules : {Rule[_, _] ..}]:=Fold[keyRename, a , replaceRules]
+
 
 
 (* ::Section:: *)

@@ -1,68 +1,91 @@
-BeginTestSection["NiceOutput"]
-
-
+BeginTestSection["NiceOutput"] 
+Begin["NiceOutput`"]
 VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`"
+	Needs @ "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"
 	,
 	Null
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230415-LZF7W3"
+	TestID->"NiceOutput_20230422-L305K0"
 ]
-
-
 VerificationTest[
-	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`"]
+	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230415-L8TNC8"
+	TestID->"NiceOutput_20230422-4FKIS8"
 ]
-
-
 VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`Model`NiceOutput`"
-	,
-	Null
-	,
-	{}
-	,
-	TestID->"NiceOutput_20230415-N9FXDW"
-]
-
-
-VerificationTest[
-	!SameQ[Names @ "*formatModels", {}]
+	!SameQ[Names @ "*Info", {}]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230415-QHOU6W"
+	TestID->"NiceOutput_20230422-L2JQBJ"
 ]
-
-
 VerificationTest[
-	With[{localPi = 3.14},
+	Needs @ "FernandoDuarte`LongRunRisk`Model`Catalog`";
+	Needs @ "FernandoDuarte`LongRunRisk`Model`ProcessModels`";
+	Apply[And,
 		{
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate @ 3.14,
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate[3.14, NumberMarks -> True],
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate[3.14, NumberMarks -> False],
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate @ localPi,
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate[localPi, NumberMarks -> True],
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate[localPi, NumberMarks -> False],
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate @ \[CapitalPi],
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate[\[CapitalPi], CharacterEncoding -> "ASCII"],
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate @ Pi,
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate @ N @ Pi,
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate[3.14 * 10 ^ -7],
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate @ FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`stripContext @ {3.14*10^-7},
-			FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`numberFormattingTemplate[
+			!SameQ[Names @ "*models", {}],
+			!SameQ[Names @ "*processModels", {}]
+		}
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"NiceOutput_20230422-TC2NKC"
+]
+VerificationTest[
+	NiceOutput`newBY = <|"myModel" -> FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]|>;
+	NiceOutput`newBYInfo = FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info @ NiceOutput`newBY;
+	NiceOutput`newBYproc = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels @ NiceOutput`newBY;
+	NiceOutput`newBYprocInfo = FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info @ NiceOutput`newBYproc;
+	Apply[And,
+		{
+			SameQ[NiceOutput`newBYInfo[[1, 1, 1, 1]], "BY"],
+			SameQ[NiceOutput`newBYInfo[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]],
+				NiceOutput`x @ NiceOutput`t
+			],
+			SameQ[NiceOutput`newBYprocInfo[[1, 1, 1, 1]], "BY"],
+			SameQ[
+				NiceOutput`newBYprocInfo[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]],
+				NiceOutput`x @ NiceOutput`t
+			]
+		}
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"NiceOutput_20230422-97F6HY"
+]
+VerificationTest[
+	With[{NiceOutput`localPi = 3.14},
+		{
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate @ 3.14,
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate[3.14, NumberMarks -> True],
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate[3.14, NumberMarks -> False],
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate @ NiceOutput`localPi,
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate[NiceOutput`localPi, NumberMarks -> True],
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate[NiceOutput`localPi, NumberMarks -> False],
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate @ NiceOutput`\[CapitalPi],
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate[NiceOutput`\[CapitalPi], CharacterEncoding -> "ASCII"],
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate @ Pi,
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate @ N @ Pi,
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate[3.14 * 10 ^ -7],
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate @ FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`stripContext @ {3.14*10^-7},
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate[
 				Flatten[
-					{ReplaceAll[FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`stripContext[delta] / 2, FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`stripContext[{delta -> 0.99}]]}
+					{ReplaceAll[FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`stripContext[NiceOutput`delta] / 2, FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`stripContext[{NiceOutput`delta -> 0.99}]]}
 				]
 			]
 		}
@@ -75,19 +98,21 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230415-IXG0ZW"
+	TestID->"NiceOutput_20230422-CVC92U"
 ]
-
-
 VerificationTest[
-	FernandoDuarte`LongRunRisk`Model`NiceOutput`Private`stringFormattingTemplate @ "Long-run risk model with stochastic volatility in the original 2004 paper by Bansal and Yaron"
+	Not[
+		StringFreeQ[
+			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`stringFormattingTemplate @ "Long-run risk model with stochastic volatility in the original 2004 paper by Bansal and Yaron",
+			"\t" | "\n"
+		]
+	]
 	,
-	"Long-run risk model with stochastic\n\t\t\tvolatility in the original 2004 paper by\n\t\t\tBansal and Yaron"
+	True
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230415-BEG1EJ"
-]
-
-
+	TestID->"NiceOutput_20230422-34A8FL"
+] 
+End[]
 EndTestSection[]

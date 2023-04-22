@@ -11,8 +11,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]
 (*Public symbols*)
 
 
-fillModels
-Catalog
+Info
 
 
 (* ::Subsubsection:: *)
@@ -60,6 +59,7 @@ Begin["`Private`"]
 (*<<FernandoDuarte`LongRunRisk`Model`Shocks`;*)
 (*<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;*)
 (*<<FernandoDuarte`LongRunRisk`Model`Catalog`;*)
+<<FernandoDuarte`LongRunRisk`Model`ProcessModels`;
 
 
 (* ::Subsection:: *)
@@ -84,39 +84,49 @@ MakeBoxes::usage="MakeBoxes[] ."<>"\n"<>
 				"MakeBoxes[] .";
 
 
-(* ::Subsection::Closed:: *)
-(*Catalog*)
+(* ::Subsection:: *)
+(*Info*)
 
 
-Catalog[m_]:=Module[
+Info[m_]:=Module[
 	{
 		models=m,
-		modelsKeys = Keys[models[[1]]]
+		modelKeys= Keys[m[[1]]]
 	},
 	If[ 
-		Not@MemberQ[modelsKeys2,"exogenousEqTable"] || Not@MemberQ[modelsKeys2,"exogenousEqTableNumeric"],
+		Not@MemberQ[modelKeys,"exogenousEq"],
+		models = processModels[models]
+	];
+	If[ 
+		Not@MemberQ[modelKeys,"exogenousEqTable"] || Not@MemberQ[modelKeys,"exogenousEqTableNumeric"],
 		models = createEqTables[models]
 	];
-	Column[info[models[#]]&/@Keys[models]]
+	out=Column[info[models[#]]&/@Keys[models]]
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*createEqTables*)
 
 
 createEqTables[m_]:=Module[
 	(*adds nicely formatted tables with exogenous equations to each model in m*)
 	{
-		models=m,
+		keys=Keys[m],
+		models=FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`keyRename[m, Thread[Keys[m]->Values@(#["shortname"]&/@m)] ], (*rename Keys to shortname*)
+		lhs,
+		rhs,
 		exoNiceOutput,
 		exoNiceOutputN
-	},		
+	},
+	(*functions to extract and format left-hand side and right-hand side of equations for exogenous variables*)
+	lhs[model_]:=Normal@(model["exogenousEq"][[;;,;;,2,1]]/.(Verbatim[Pattern][name_,_]->name)/.Function->Identity)/.(a_->{b__})->a@b;
+	rhs[model_]:=Values@(model["exogenousEq"][[;;,;;,2,2]]/.Function->Identity);
 	exoNiceOutput=OpenerView[
 		{
-			"Equations", 
+			"Exogenous variables", 
 			Grid[
-				Thread[{#["shortname"]["exogenousEq"]}],
+				Thread[{Thread[lhs[#]==rhs[#]]}],
 				Alignment -> Left,
 				ItemSize -> {Automatic, 2},
 				Frame -> {False, All}, 
@@ -128,9 +138,9 @@ createEqTables[m_]:=Module[
 		
 	exoNiceOutputN=OpenerView[
 		{
-			"Equations using initial parameter values", 
+			"Exogenous variables evaluated at initial parameter values", 
 			Grid[
-				Thread[{#["shortname"]["exogenousEq"]//.#["shortname"]["parameters"]}],
+				Thread[{Thread[lhs[#]==rhs[#]]}]//.#["parameters"],
 				Alignment -> Left,
 				ItemSize -> {Automatic, 2},
 				Frame -> {False, All}, 
@@ -141,12 +151,16 @@ createEqTables[m_]:=Module[
 	False]&/@ models;
 
 	models=(Append[#, "exogenousEqTable"->exoNiceOutput[#["shortname"]] ]&) /@models;
-	models=(Append[#, "exogenousEqTableNumeric"->exoNiceOutputN[#["shortname"]] ]&) /@models
+	models=(Append[#, "exogenousEqTableNumeric"->exoNiceOutputN[#["shortname"]] ]&) /@models;
+	
+	(*restore original keys and output models*)
+	FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`keyRename[models, Thread[Keys[models]->keys] ]
+
 ];
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*info*)
 
 
@@ -230,7 +244,7 @@ paramTable[m_]:=Module[
 	mtom=Join[mtomNoStocks,mtomStocks];
 	OpenerView[
 		{
-		"This model's parameters",
+		"Parameters in this model",
 			Grid[
 				Transpose@{
 					Join[
@@ -292,7 +306,7 @@ paramTable[m_]:=Module[
 ](*module*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*allParamTable*)
 
 
@@ -368,7 +382,7 @@ allParamTable[m_]:=OpenerView[
 ](*OpenerView*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*iToNum*)
 
 
