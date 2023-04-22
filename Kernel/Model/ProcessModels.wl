@@ -12,7 +12,6 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`ProcessModels`"]
 
 
 processModels
-createExogenous
 
 
 (* ::Subsubsection:: *)
@@ -112,12 +111,11 @@ processModels[m_]:=Module[
 	(*add assumptions*)
 	modelAssumptions = FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramAssumptions && FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`endogEqAssumptions;
 	models=(Append[#, "modelAssumptions"->(SetSymbolsContext[modelAssumptions]//.#["assignParam"]//.#["assignParamStocks"]) ]&) /@models;
-	
 
-
+	(*restore $ContextPath to initial state*)
 	$ContextPath=ContextPath;
-	
-	
+
+	(*output models*)
 	models
 
 ];
@@ -131,80 +129,57 @@ createExogenous[m_]:=Module[
 	(*adds exogenous variables and equations to each model in m after removing those that are always 0*)
 	{
 		models=m,
-		exoNoStocks,
-		exoString,
-		exoExprPrivate,
-		exoExpr,
+		argsPattern,
+		funs,
 		exoExprAssignParam,
 		indicesKeep,
-		exoVar,
-		exoVarString,
-		exoVarExpr,
-		exoEqAll,
-		exoEq,
-		exoStocks,
-		exoStocksString,
-		(*dd,t,i,j*)
-		exoExprStocksPrivate,
-		exoExprStocks,
-		exoExprStocksAssignParam,
-		indicesNumStocks,
-		indicesZeroStocks,
-		indicesKeepStocks,
-		exoEqStocks,	
-		exoVars,
-		exoEqs
+		argsPatternKeep,
+		funsKeepList,
+		funsKeep,
+		exoExpr,
+		exoExprKeep,
+		exoVarKeep,
+		funTemplate,
+		exo
+		(*,vars,fun,argPatt*)
 	},
-	(*add list of exogenous variables and equations to models*)
-	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"->None];
-	
-	(*non-stock specific*)
-		exoNoStocks=FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVarsNoStocks;
-		(*find exogenous variables that are not identically equal to zero*)
-		exoString=("FernandoDuarte`LongRunRisk`Model`ExogenousEq`"<>#<>"[t]")&/@exoNoStocks;
-		exoExprPrivate=ToExpression/@exoString;
-		exoExpr := Block[{$ContextPath = {}}, SetSymbolsContext[exoExprPrivate]];
-		exoExprAssignParam=(exoExpr//.#["assignParam"])& /@models;
-		indicesKeep=Complement[
-				Thread[{Range @ Length @ exoExpr}],
-				Position[#,0]
-			]& /@exoExprAssignParam;
-		(*variables*)
-		exoVar= Extract[exoNoStocks, #]&/@indicesKeep;	
-		(*equations*)
-		exoVarString=(StringDrop[#,-2]<>"[t]")&/@exoNoStocks;
-		exoVarExpr=ToExpression/@exoVarString;
-		(*funTemplate[fun_,argPatt_,arg_] := ( {##} /. (argPatt :> fun) )&;
-		exoEqAll=Thread[exoVarExpr->funTemplate[exoExpr,{t}]];*)
-		exoEqAll=Thread[exoVarExpr->exoExpr];
-		exoEq=Extract[exoEqAll, #]&/@indicesKeep;
-	
-	(*stock specific*)
-		exoStocks=FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVarsStocks;
-		(*find exogenous variables that are not identically equal to zero*)
-		exoStocksString=("FernandoDuarte`LongRunRisk`Model`ExogenousEq`"<>#)&/@exoStocks;
-		exoExprStocksPrivate=Table[dd[t,j]->(ToExpression/@exoStocksString)[[1]][t,j],{j,Prepend[Range[#["numStocks"]],i] }] &/@models;
-		(*exoExprStocksPrivate=Table[dd-> ({t,j}:>(ToExpression/@exoStocksString)[[1]][t,j]),{j,Prepend[Range[#["numStocks"]],i] }] &/@models;*)
-		exoExprStocks = Block[{$ContextPath = {}}, SetSymbolsContext[exoExprStocksPrivate]];
-		exoExprStocksAssignParam=(exoExprStocks[#["shortname"]]//.#["assignParam"]//.#["assignParamStocks"])&/@models;
-		indicesNumStocks=(Range @ Length @ exoExprStocks[#["shortname"]])& /@models;
-		indicesZeroStocks=First/@Position[#,0]&/@exoExprStocksAssignParam;
-		indicesKeepStocks=Complement[
-			indicesNumStocks[#["shortname"]],
-			indicesZeroStocks[#["shortname"]]
-		]& /@models;
-		(*equations*)
-		exoEqStocks = Extract[exoExprStocksAssignParam[#["shortname"]], Thread[{indicesKeepStocks[#["shortname"]]}]]&/@models;
-		
-	(*combine*)
-		exoVars=Append[Extract[exoNoStocks, #],"ddeq"]&/@indicesKeep;(*we assume at least one stock has dividends not identically 0*)
-		exoEqs=Join[exoEq,exoEqStocks,2];
+	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 
+	(*separate the equations into arguments `argsPattern` and expressions that define the functions `fun`*)
+	argsPattern = SetSymbolsContext[Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]->vars]&/@$exogenousVars];
+	(*args = argsPattern /. Optional->First /. (x_Pattern :> First@x);*)
+	funs = SetSymbolsContext[DownValues[#][[;;,2]][[1]]&/@(ToExpression/@$exogenousVars)];
+	
+	(*plug in parameters that are assumed fixed (most are fixed to 0 or 1)*)
+	exoExprAssignParam=(funs//.#["assignParam"]//.#["assignParamStocks"])& /@models;
+	(*find indices of exogenous variables that are not identically 0*)
+	indicesKeep=Complement[
+		Thread[{Range @ Length @ #}],
+		Position[#,0]
+	]& /@exoExprAssignParam;
+	(*keep args, funs for variables that are not identically 0 *)
+	argsPatternKeep=Extract[argsPattern,#]&/@indicesKeep;
+	funsKeepList=MapApply[Extract,{Values@exoExprAssignParam,Values@indicesKeep}\[Transpose]];
+	funsKeep=Association@Thread[Keys@exoExprAssignParam->funsKeepList];
+	
+	(*get names of all exogenous variables and keep those not identically 0*)
+	exoExpr=ToExpression@(StringDrop[#,-2]&/@$exogenousVars);
+	exoExprKeep=Extract[exoExpr,#]&/@indicesKeep;
+	exoVarKeep=Extract[$exogenousVars,#]&/@indicesKeep;
+	
+	(*arrange as anonymous function with the right arguments*)
+	funTemplate[fun_,argPatt_] := ( {##} /. (argPatt :> fun) )&;
+	exo=MapThread[Association@Thread[#1->MapThread[funTemplate,{##2}]]&,{exoExprKeep,funsKeep,argsPatternKeep}];
+	
 	(*append to models*)
-	models=(Append[#, "exogenousVars"->exoVars[#["shortname"]] ]&) /@models;
-	models=(Append[#, "exogenousEq"->Association@exoEqs[#["shortname"]] ]&) /@models
-	
-
+	models=Append[
+		#,
+		"exogenousVars"->exoVarKeep[#["shortname"]]
+	]& /@ models;
+	models=Append[
+		#,
+		"exogenousEq"->exo[#["shortname"]]
+	]& /@models
 ]	
 
 
