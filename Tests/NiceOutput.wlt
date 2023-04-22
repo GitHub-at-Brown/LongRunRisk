@@ -7,7 +7,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-L305K0"
+	TestID->"NiceOutput_20230422-DV269C"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]
@@ -16,7 +16,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-4FKIS8"
+	TestID->"NiceOutput_20230422-SA5KP9"
 ]
 VerificationTest[
 	!SameQ[Names @ "*Info", {}]
@@ -25,7 +25,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-L2JQBJ"
+	TestID->"NiceOutput_20230422-DEH4B7"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`Catalog`";
@@ -41,32 +41,35 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-TC2NKC"
+	TestID->"NiceOutput_20230422-R10AA3"
 ]
 VerificationTest[
 	NiceOutput`newBY = <|"myModel" -> FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]|>;
 	NiceOutput`newBYInfo = FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info @ NiceOutput`newBY;
 	NiceOutput`newBYproc = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels @ NiceOutput`newBY;
 	NiceOutput`newBYprocInfo = FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info @ NiceOutput`newBYproc;
-	Apply[And,
-		{
-			SameQ[NiceOutput`newBYInfo[[1, 1, 1, 1]], "BY"],
-			SameQ[NiceOutput`newBYInfo[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]],
-				NiceOutput`x @ NiceOutput`t
+	{
+		SameQ[NiceOutput`newBYInfo[[1, 1, 1, 1]], "BY"],
+		SameQ[
+			ToString[
+				NiceOutput`newBYInfo[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]]
 			],
-			SameQ[NiceOutput`newBYprocInfo[[1, 1, 1, 1]], "BY"],
-			SameQ[
-				NiceOutput`newBYprocInfo[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]],
-				NiceOutput`x @ NiceOutput`t
-			]
-		}
-	]
+			"x[t]"
+		],
+		SameQ[NiceOutput`newBYprocInfo[[1, 1, 1, 1]], "BY"],
+		SameQ[
+			ToString[
+				NiceOutput`newBYprocInfo[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]]
+			],
+			"x[t]"
+		]
+	}
 	,
-	True
+	{True, True, True, True}
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-97F6HY"
+	TestID->"NiceOutput_20230422-WGBQV8"
 ]
 VerificationTest[
 	With[{NiceOutput`localPi = 3.14},
@@ -98,7 +101,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-CVC92U"
+	TestID->"NiceOutput_20230422-XXELMV"
 ]
 VerificationTest[
 	Not[
@@ -112,7 +115,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-34A8FL"
+	TestID->"NiceOutput_20230422-K6BPF4"
 ] 
 End[]
 EndTestSection[]
