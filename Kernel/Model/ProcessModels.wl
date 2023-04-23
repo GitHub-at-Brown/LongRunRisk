@@ -155,7 +155,7 @@ createExogenous[m_]:=Module[
 	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 
 	(*separate the equations into arguments `argsPattern` and expressions that define the functions `fun`*)
-	argsPattern = SetSymbolsContext[Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]->vars]&/@$exogenousVars];
+	argsPattern = SetSymbolsContext[Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@$exogenousVars];
 	(*args = argsPattern /. Optional->First /. (x_Pattern :> First@x);*)
 	funs = SetSymbolsContext[DownValues[#][[;;,2]][[1]]&/@(ToExpression/@$exogenousVars)];
 	
@@ -228,7 +228,7 @@ createEndogenous[m_]:=Module[
 
 	(*without UpValues*)
 		(*equations are given functions of other variables*)
-		argsPattern = SetSymbolsContext[Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]->vars]&/@endogRestEq];
+		argsPattern = SetSymbolsContext[Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@endogRestEq];
 		args = argsPattern /. Optional->First /. (x_Pattern :> First@x);
 		(*funs = ToExpression/@endogRestEq;
 		funTemplate[fun_,argPatt_,arg_] := ( {##} /. (argPatt :> (fun@@arg )) )&;*)
@@ -282,7 +282,7 @@ createStateVarEq[m_]:=Module[
 
 
 (*rename keys in an association using a list of rules {oldkey1->newkey1,oldkey2->newkey2,..}*)
-keyRename[a_Association, key_ -> key_] := a
+keyRename[a_Association,  HoldPattern[key1_ -> key2_]/;MatchQ[key1,key2]] := a
 keyRename[a_Association, old_ -> new_] /; KeyExistsQ[a, old] := KeyDrop[old]@Insert[a, new -> a[old], Key[old]]
 keyRename[a:Association[Rule[_,Association[Rule[_,_]..]]..], replaceRules : {Rule[_, _] ..}]:=Fold[keyRename, a , replaceRules]
 

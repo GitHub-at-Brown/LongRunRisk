@@ -100,18 +100,18 @@ Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];*)
 linearInStateVars[stateVars_,coeff_]:= Module[
 	{
 		n=Length[stateVars],
-		stateVars1=Prepend[stateVars,1],
+		stateVarsWith1=Prepend[stateVars,1],
 		coeffs=Table[coeff[j],{j,0,Length[stateVars]}]
 	},	
-		Dot[coeffs,stateVars1]
+		Dot[coeffs,stateVarsWith1]
 ]
 dv=DownValues@linearInStateVars;
 
 
-stateVars_[wceq] ^:= ({t_}:>linearInStateVars[stateVars,A])/. dv
-stateVars_[pdeq] ^:= ({t_,i_}:>linearInStateVars[stateVars,B[i]])/. dv
-stateVars_[bondeq] ^:= ({t_,m_}:>linearInStateVars[stateVars,R[m]])/. dv
-stateVars_[nombondeq] ^:= ({t_,m_}:>linearInStateVars[stateVars,P[m]])/. dv
+wceq /: stateVars_List[wceq] := ({t_}:>linearInStateVars[stateVars,A])/. dv
+pdeq /: stateVars_List[pdeq] := ({t_,i_}:>linearInStateVars[stateVars,B[i]])/. dv
+bondeq /: stateVars_List[bondeq] := ({t_,m_}:>linearInStateVars[stateVars,R[m]])/. dv
+nombondeq /: stateVars_List[nombondeq] := ({t_,m_}:>linearInStateVars[stateVars,P[m]])/. dv
 
 (*wceq[stateVars_] := Function@@(Evaluate@stateVars[wceq])/. dv
 pdeq[stateVars_] := Function@@(Evaluate@stateVars[pdeq])/. dv

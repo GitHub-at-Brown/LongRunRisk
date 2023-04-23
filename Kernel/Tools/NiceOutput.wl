@@ -120,7 +120,7 @@ createEqTables[m_]:=Module[
 		exoNiceOutputN
 	},
 	(*functions to extract and format left-hand side and right-hand side of equations for exogenous variables*)
-	lhs[model_]:=Normal@(model["exogenousEq"][[;;,;;,2,1]]/.(Verbatim[Pattern][name_,_]->name)/.Function->Identity)/.(a_->{b__})->a@b;
+	lhs[model_]:=Normal@(model["exogenousEq"][[;;,;;,2,1]]/.(Verbatim[Pattern][name_,_]:>name)/.Function->Identity)/. ((a_->{b__}):>(a@b));
 	rhs[model_]:=Values@(model["exogenousEq"][[;;,;;,2,2]]/.Function->Identity);
 	exoNiceOutput=OpenerView[
 		{
