@@ -7,7 +7,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Shocks`"]
 rulesE::usage = "rulesE[t]"
 	
 (* exogenous shocks *)
-eps::usage = ""
+eps::usage = "Shocks"
 
 
 (*globals to share across packages*)
@@ -17,7 +17,7 @@ $shocks=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
 Begin["`Private`"]
 
 
-Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]
+(*Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]*)
 
 
 (*

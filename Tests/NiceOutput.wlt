@@ -7,7 +7,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-DV269C"
+	TestID->"NiceOutput_20230423-WK0Y9W"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]
@@ -16,7 +16,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-SA5KP9"
+	TestID->"NiceOutput_20230423-Z8P6SU"
 ]
 VerificationTest[
 	!SameQ[Names @ "*Info", {}]
@@ -25,7 +25,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-DEH4B7"
+	TestID->"NiceOutput_20230423-7S9DNO"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`Catalog`";
@@ -41,7 +41,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-R10AA3"
+	TestID->"NiceOutput_20230423-YI2YLB"
 ]
 VerificationTest[
 	NiceOutput`newBY = <|"myModel" -> FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]|>;
@@ -69,7 +69,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-WGBQV8"
+	TestID->"NiceOutput_20230423-8MH542"
 ]
 VerificationTest[
 	With[{NiceOutput`localPi = 3.14},
@@ -101,7 +101,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-XXELMV"
+	TestID->"NiceOutput_20230423-4ZW713"
 ]
 VerificationTest[
 	Not[
@@ -115,7 +115,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230422-K6BPF4"
+	TestID->"NiceOutput_20230423-42E703"
 ] 
 End[]
 EndTestSection[]

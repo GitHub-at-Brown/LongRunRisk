@@ -32,11 +32,19 @@ Begin["`Private`"]
 (*Load packages*)
 
 
-<<FernandoDuarte`LongRunRisk`Model`Parameters`;
-<<FernandoDuarte`LongRunRisk`Model`Shocks`;
-<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
-<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
-<<PacletizedResourceFunctions`;
+(*<<PacletizedResourceFunctions`;*)
+(*<<FernandoDuarte`LongRunRisk`Model`Parameters`;
+<<FernandoDuarte`LongRunRisk`Model`Shocks`;*)
+(*<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;*)
+(*<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;*)
+
+
+Needs["PacletizedResourceFunctions`"];
+(*Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
+*)Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+
 
 
 (* ::Subsection:: *)
@@ -63,8 +71,8 @@ processModels[m_]:=Module[
 		keys=Keys[m],
 		models=keyRename[m, Thread[Keys[m]->Values@(#["shortname"]&/@m)] ], (*rename Keys to shortname*)
 		z,
-		i(*,
-		ContextPath=$ContextPath*)
+		i,
+		ContextPath=$ContextPath
 	},
 	    
 	(*add number of stocks as a new key-value pair in each model*)
@@ -114,7 +122,7 @@ processModels[m_]:=Module[
 	models=(Append[#, "modelAssumptions"->(SetSymbolsContext[modelAssumptions]//.#["assignParam"]//.#["assignParamStocks"]) ]&) /@models;
 
 	(*restore $ContextPath to initial state*)
-	(*$ContextPath=ContextPath;*)
+	$ContextPath=ContextPath;
 
 	(*restore original keys and output models*)
 	keyRename[models, Thread[Keys[models]->keys] ]
@@ -152,7 +160,7 @@ createExogenous[m_]:=Module[
 	funs = SetSymbolsContext[DownValues[#][[;;,2]][[1]]&/@(ToExpression/@$exogenousVars)];
 	
 	(*plug in parameters that are assumed fixed (most are fixed to 0 or 1)*)
-	exoExprAssignParam=(funs//.#["assignParam"]//.#["assignParamStocks"])& /@models;
+	exoExprAssignParam=(funs//.SetSymbolsContext[#["assignParam"]]//.SetSymbolsContext[#["assignParamStocks"]])& /@models;
 	(*find indices of exogenous variables that are not identically 0*)
 	indicesKeep=Complement[
 		Thread[{Range @ Length @ #}],

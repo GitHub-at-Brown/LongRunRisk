@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230422-9N3SZQ"
+	TestID->"ProcessModels_20230423-2LSFRY"
 ]
 VerificationTest[
 	Apply[And, {MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"], MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`ProcessModels`"]}]
@@ -17,7 +17,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230422-OQEXXP"
+	TestID->"ProcessModels_20230423-U537GO"
 ]
 VerificationTest[
 	Apply[And,
@@ -31,7 +31,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230422-0G96K9"
+	TestID->"ProcessModels_20230423-WXNQV4"
 ]
 VerificationTest[
 	Apply[And, Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]]
@@ -40,7 +40,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230422-O5W5UZ"
+	TestID->"ProcessModels_20230423-5YXMB2"
 ]
 VerificationTest[
 	Apply[And,
@@ -63,7 +63,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230422-SGMQL1"
+	TestID->"ProcessModels_20230423-3NAMQ6"
 ]
 VerificationTest[
 	Apply[And,
@@ -83,7 +83,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230422-VHB2PA"
+	TestID->"ProcessModels_20230423-80VNB5"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]["stateVars"]
@@ -92,7 +92,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230422-BIFT7N"
+	TestID->"ProcessModels_20230423-6RXSYE"
 ]
 VerificationTest[
 	Apply[And, Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {"BY", "BKY"}]]
@@ -101,7 +101,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230422-VQWHQ9"
+	TestID->"ProcessModels_20230423-QBOR7P"
 ]
 VerificationTest[
 	AllTrue[FernandoDuarte`LongRunRisk`Model`Catalog`models, AssociationQ]
@@ -110,7 +110,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230422-ZEO85B"
+	TestID->"ProcessModels_20230423-HTSUQ4"
 ]
 VerificationTest[
 	AllTrue[Map[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]&, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models], AssociationQ]
@@ -119,11 +119,23 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230422-PTX6YT"
+	TestID->"ProcessModels_20230423-7257UB"
 ]
 VerificationTest[
-	Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
-		{ProcessModels`pi[ProcessModels`t] /. ProcessModels`model["exogenousEq"]}
+	Get @ "PacletizedResourceFunctions`";
+	!SameQ[Names @ "*SetSymbolsContext", {}]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"ProcessModels_20230423-DVXLJO"
+]
+VerificationTest[
+	PacletizedResourceFunctions`SetSymbolsContext[
+		Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
+			{PacletizedResourceFunctions`SetSymbolsContext[ProcessModels`pi[ProcessModels`t]] /. ProcessModels`model["exogenousEq"]}
+		]
 	]
 	,
 	{
@@ -136,158 +148,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230422-423KYL"
-]
-VerificationTest[
-	Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
-		{(ProcessModels`pi[ProcessModels`t] /. ProcessModels`model["exogenousEq"]) /. ProcessModels`model["exogenousEq"]}
-	]
-	,
-	{
-		Plus[ProcessModels`mup,
-			Plus[ProcessModels`xip * ProcessModels`eps["p"][ProcessModels`t - 1],
-				Plus[
-					Times[ProcessModels`rhop,
-						Plus[ProcessModels`rhop * (ProcessModels`pi[ProcessModels`t - 2] - ProcessModels`mup),
-							(ProcessModels`xip * ProcessModels`eps["p"][ProcessModels`t - 2]) + ProcessModels`phip * ProcessModels`eps["p"][ProcessModels`t - 1]
-						]
-					],
-					ProcessModels`phip * ProcessModels`eps["p"][ProcessModels`t]
-				]
-			]
-		]
-	}
-	,
-	{}
-	,
-	TestID->"ProcessModels_20230422-T3757Z"
-]
-VerificationTest[
-	Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
-		{ProcessModels`eps["dc"][ProcessModels`t] /. ProcessModels`model["exogenousEq"]}
-	]
-	,
-	{ProcessModels`eps["dc"][ProcessModels`t]}
-	,
-	{}
-	,
-	TestID->"ProcessModels_20230422-Q6R5XJ"
-]
-VerificationTest[
-	Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
-		{ProcessModels`dd[ProcessModels`t, ProcessModels`i] /. ProcessModels`model["exogenousEq"]}
-	]
-	,
-	{
-		Plus[ProcessModels`mud @ ProcessModels`i,
-			Plus[(ProcessModels`pi[ProcessModels`t - 1] - ProcessModels`mup) * ProcessModels`rhodp[ProcessModels`i],
-				(ProcessModels`phidc[ProcessModels`i] * ProcessModels`eps["dc"][ProcessModels`t]) + ProcessModels`sg[ProcessModels`t - 2] * ProcessModels`xid[ProcessModels`i] * ProcessModels`eps["p"][ProcessModels`t - 1]
-			]
-		]
-	}
-	,
-	{}
-	,
-	TestID->"ProcessModels_20230422-TZE8DL"
-]
-VerificationTest[
-	Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
-		{ProcessModels`wc[ProcessModels`t] /. ProcessModels`model["endogenousEq"]}
-	]
-	,
-	{
-		Plus[ProcessModels`A @ 0,
-			Plus[ProcessModels`A[1] * (ProcessModels`pi[ProcessModels`t] - ProcessModels`mup),
-				Plus[ProcessModels`A[4] * (ProcessModels`sg[ProcessModels`t] - ProcessModels`Esg),
-					Plus[
-						Times[ProcessModels`A @ 5,
-							Subtract[
-								(ProcessModels`sg[ProcessModels`t] ^ 2) - (ProcessModels`phig ^ 2) / (1 - ProcessModels`rhog ^ 2),
-								ProcessModels`Esg ^ 2
-							]
-						],
-						(ProcessModels`A[3] * ProcessModels`eps["p"][ProcessModels`t]) + ProcessModels`A[2] * ProcessModels`sg[ProcessModels`t - 1] * ProcessModels`eps["p"][ProcessModels`t]
-					]
-				]
-			]
-		]
-	}
-	,
-	{}
-	,
-	TestID->"ProcessModels_20230422-977FKP"
-]
-VerificationTest[
-	Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
-		{ProcessModels`pd[ProcessModels`t, ProcessModels`i] /. ProcessModels`model["endogenousEq"]}
-	]
-	,
-	{
-		Plus[ProcessModels`B[ProcessModels`i][0],
-			Plus[(ProcessModels`pi[ProcessModels`t] - ProcessModels`mup) * ProcessModels`B[ProcessModels`i][1],
-				Plus[(ProcessModels`sg[ProcessModels`t] - ProcessModels`Esg) * ProcessModels`B[ProcessModels`i][4],
-					Plus[
-						Times[
-							Subtract[
-								(ProcessModels`sg[ProcessModels`t] ^ 2) - (ProcessModels`phig ^ 2) / (1 - ProcessModels`rhog ^ 2),
-								ProcessModels`Esg ^ 2
-							],
-							ProcessModels`B[ProcessModels`i][5]
-						],
-						Plus[ProcessModels`sg[ProcessModels`t - 1] * ProcessModels`B[ProcessModels`i][2] * ProcessModels`eps["p"][ProcessModels`t],
-							ProcessModels`B[ProcessModels`i][3] * ProcessModels`eps["p"][ProcessModels`t]
-						]
-					]
-				]
-			]
-		]
-	}
-	,
-	{}
-	,
-	TestID->"ProcessModels_20230422-INX2G9"
-]
-VerificationTest[
-	Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
-		{ProcessModels`bondexcret[ProcessModels`t, ProcessModels`i] /. ProcessModels`model["endogenousEq"]}
-	]
-	,
-	{ProcessModels`bondret[ProcessModels`t, ProcessModels`i, 1] - ProcessModels`bondyield[ProcessModels`t - 1, 1]}
-	,
-	{}
-	,
-	TestID->"ProcessModels_20230422-ISB5GL"
-]
-VerificationTest[
-	Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
-		{
-			SameQ[ProcessModels`bondexcret[ProcessModels`t, ProcessModels`i] //. ProcessModels`model["endogenousEq"],
-				ProcessModels`bondexcret[ProcessModels`t, ProcessModels`i, 1] //. ProcessModels`model["endogenousEq"]
-			]
-		}
-	]
-	,
-	{True}
-	,
-	{}
-	,
-	TestID->"ProcessModels_20230422-3RHHIG"
-]
-VerificationTest[
-	Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
-		Apply[And,
-			{
-				AllTrue[Map[Head, Keys @ ProcessModels`model @ "exogenousEq"], MatchQ[#, Symbol]&],
-				AllTrue[Map[Head, Keys @ ProcessModels`model @ "endogenousEq"], MatchQ[#, Symbol]&]
-			}
-		]
-	]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"ProcessModels_20230422-4UC8XX"
+	TestID->"ProcessModels_20230423-KMP705"
 ] 
 End[]
 EndTestSection[]

@@ -7,7 +7,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20230422-CEAWIR"
+	TestID->"ExogenousEq_20230423-VCKBIJ"
 ]
 VerificationTest[
 	!SameQ[Names @ "*xeq", {}]
@@ -16,22 +16,22 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20230422-Z5NJPK"
+	TestID->"ExogenousEq_20230423-1YBQDC"
 ]
 VerificationTest[
-	FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ ProcessModels`t
+	FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ ExogenousEq`t
 	,
-	Plus[FernandoDuarte`LongRunRisk`Model`Parameters`rhoxpbar * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pibar[ProcessModels`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mupbar),
-		Plus[FernandoDuarte`LongRunRisk`Model`Parameters`rhox * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x[ProcessModels`t - 1],
+	Plus[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`rhoxpbar * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pibar[ExogenousEq`t - 1] - FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`mupbar),
+		Plus[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`rhox * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x[ExogenousEq`t - 1],
 			Plus[
-				Times[FernandoDuarte`LongRunRisk`Model`Parameters`phixc,
-					Times[((FernandoDuarte`LongRunRisk`Model`Parameters`Esc ^ 2) + FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sc[ProcessModels`t - 1]) ^ Rational[1, 2],
-						FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][ProcessModels`t]
+				Times[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`phixc,
+					Times[((FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`Esc ^ 2) + FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sc[ExogenousEq`t - 1]) ^ Rational[1, 2],
+						FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`eps["dc"][ExogenousEq`t]
 					]
 				],
-				Times[FernandoDuarte`LongRunRisk`Model`Parameters`phix,
-					Times[((FernandoDuarte`LongRunRisk`Model`Parameters`Esx ^ 2) + FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx[ProcessModels`t - 1]) ^ Rational[1, 2],
-						FernandoDuarte`LongRunRisk`Model`Shocks`eps["x"][ProcessModels`t]
+				Times[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`phix,
+					Times[((FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`Esx ^ 2) + FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx[ExogenousEq`t - 1]) ^ Rational[1, 2],
+						FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`eps["x"][ExogenousEq`t]
 					]
 				]
 			]
@@ -40,7 +40,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20230422-3FVK6U"
+	TestID->"ExogenousEq_20230423-U6AG00"
 ] 
 End[]
 EndTestSection[]

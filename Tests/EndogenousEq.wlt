@@ -1,6 +1,5 @@
-BeginTestSection["EndogenousEq"]
-
-
+BeginTestSection["EndogenousEq"] 
+Begin["EndogenousEq`"]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`EndogenousEq`"
 	,
@@ -8,10 +7,8 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20230415-0PW302"
+	TestID->"EndogenousEq_20230423-BIU5WK"
 ]
-
-
 VerificationTest[
 	!SameQ[Names @ "*pdeq", {}]
 	,
@@ -19,8 +16,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20230415-7BR0DX"
-]
-
-
+	TestID->"EndogenousEq_20230423-C5F1AR"
+] 
+End[]
 EndTestSection[]

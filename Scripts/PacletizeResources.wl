@@ -5,8 +5,20 @@
 functions from ResourceFunction) that are used by FernandoDuarte/LongRunRisk
  into local paclets that can be ported*)
  
-thisDir=NotebookDirectory[];
-resourceDir = FileNameJoin[{DirectoryName[NotebookDirectory[],1],"Resources"}] ;
+ findPacletDir=NameQ["pacletDir"];
+ If[
+	 findPacletDir
+	 ,
+	 thisFile = FindFile[FileNameJoin[{pacletDir,"Scripts","PacletizeResources.wl"}]];
+	 resourceDir = FileNameJoin[{DirectoryName[thisFile,2],"Resources"}];
+	 ,
+	 resourceDir = FileNameJoin[{DirectoryName[NotebookDirectory[],1],"Resources"}] ;
+	 Remove["pacletDir"];
+ ];
+
+
+
+
 If[FileNames[resourceDir]==={},CreateDirectory[resourceDir]];
 
 toPacletize = {"NeedsDefinitions","SetSymbolsContext"}; (*ResourceFunction["SetByRules"]*)

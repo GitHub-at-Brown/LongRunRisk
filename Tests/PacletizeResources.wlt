@@ -1,6 +1,5 @@
-BeginTestSection["PacletizeResources"]
-
-
+BeginTestSection["PacletizeResources"] 
+Begin["PacletizeResources`"]
 VerificationTest[
 	{Needs @ "FernandoDuarte`LongRunRisk`"}
 	,
@@ -8,74 +7,26 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230415-DG3WKS"
+	TestID->"PacletizeResources_20230423-YRJP88"
 ]
-
-
 VerificationTest[
-	SameQ[PacletFind @ "MaTeX", {}]
-	,
-	False
-	,
-	{}
-	,
-	TestID->"PacletizeResources_20230415-3STXGP"
-]
-
-
-VerificationTest[
-	SameQ[PacletFind @ "PacletizedResourceFunctions", {}]
-	,
-	False
-	,
-	{}
-	,
-	TestID->"PacletizeResources_20230415-WSHNSS"
-]
-
-
-VerificationTest[
-	MemberQ[$Packages, "MaTeX`"]
+	Apply[And,
+		{
+			MemberQ[$ContextPath, "MaTeX`"],
+			!SameQ[PacletFind @ "MaTeX", {}],
+			!SameQ[PacletFind @ "PacletizedResourceFunctions", {}],
+			MemberQ[$Packages, "MaTeX`"],
+			SameQ[Part[PacletFind @ "MaTeX", 1]["Version"], "1.7.9"],
+			!SameQ[PacletFind @ Names @ "*NeedsDefinitions", {}],
+			!SameQ[PacletFind @ Names @ "*SetSymbolsContext", {}]
+		}
+	]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230415-5U5MIK"
-]
-
-
-VerificationTest[
-	SameQ[Part[PacletFind @ "MaTeX", 1]["Version"], "1.7.9"]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"PacletizeResources_20230415-1DSQHK"
-]
-
-
-VerificationTest[
-	SameQ[PacletFind @ Names @ "*NeedsDefinitions", {}]
-	,
-	False
-	,
-	{}
-	,
-	TestID->"PacletizeResources_20230415-ZQ15HW"
-]
-
-
-VerificationTest[
-	SameQ[PacletFind @ Names @ "*SetSymbolsContext", {}]
-	,
-	False
-	,
-	{}
-	,
-	TestID->"PacletizeResources_20230415-YG813A"
-]
-
-
+	TestID->"PacletizeResources_20230423-ZJY76W"
+] 
+End[]
 EndTestSection[]

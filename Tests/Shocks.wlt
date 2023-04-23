@@ -1,28 +1,5 @@
-BeginTestSection["Shocks"]
-
-
-VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`"
-	,
-	Null
-	,
-	{}
-	,
-	TestID->"Shocks_20230415-HR80CB"
-]
-
-
-VerificationTest[
-	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`"]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Shocks_20230415-69DYMJ"
-]
-
-
+BeginTestSection["Shocks"] 
+Begin["Shocks`"]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`Shocks`"
 	,
@@ -30,10 +7,17 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-PAE5Z4"
+	TestID->"Shocks_20230423-IHQJK4"
 ]
-
-
+VerificationTest[
+	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Shocks`"]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"Shocks_20230423-T76QG1"
+]
 VerificationTest[
 	!SameQ[Names @ "*rulesE", {}]
 	,
@@ -41,17 +25,15 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-UPTBSZ"
+	TestID->"Shocks_20230423-Z7THCB"
 ]
-
-
 VerificationTest[
 	{
-		Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][t] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+		Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`f][Shocks`t] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 		],
-		Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][t, ii] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{ii, {1, i, j}}
+		Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][Shocks`t, Shocks`ii] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}}
 		]
 	}
 	,
@@ -62,17 +44,15 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-IVWSJ2"
+	TestID->"Shocks_20230423-61UISN"
 ]
-
-
 VerificationTest[
 	{
-		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][t] ^ 2) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`f][Shocks`t] ^ 2) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 		],
-		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][t, ii] ^ 2) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{ii, {1, i, j}}
+		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][Shocks`t, Shocks`ii] ^ 2) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}}
 		]
 	}
 	,
@@ -83,17 +63,15 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-6S2KYN"
+	TestID->"Shocks_20230423-1FK99V"
 ]
-
-
 VerificationTest[
 	{
-		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][t] ^ 3) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`f][Shocks`t] ^ 3) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 		],
-		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][t, ii] ^ 3) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{ii, {1, i, j}}
+		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][Shocks`t, Shocks`ii] ^ 3) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}}
 		]
 	}
 	,
@@ -104,17 +82,15 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-5SWVBC"
+	TestID->"Shocks_20230423-GCD6M8"
 ]
-
-
 VerificationTest[
 	{
-		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][t] ^ 4) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`f][Shocks`t] ^ 4) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 		],
-		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][t, ii] ^ 4) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{ii, {1, i, j}}
+		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][Shocks`t, Shocks`ii] ^ 4) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}}
 		]
 	}
 	,
@@ -125,23 +101,21 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-F7CLQW"
+	TestID->"Shocks_20230423-5M2ZIS"
 ]
-
-
 VerificationTest[
 	{
 		Table[
-			If[SameQ[f, g],
+			If[SameQ[Shocks`f, Shocks`g],
 				0,
-				(FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps[g][t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t]
+				(FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`f][Shocks`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`g][Shocks`t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t]
 			],
-			{f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}},
-			{g, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+			{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}},
+			{Shocks`g, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 		],
-		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][t, ii] * FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{ii, {1, i, j}},
-			{f, {"x", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][Shocks`t, Shocks`ii] * FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`f][Shocks`t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}},
+			{Shocks`f, {"x", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 		]
 	}
 	,
@@ -165,17 +139,15 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-PFUHMX"
+	TestID->"Shocks_20230423-GRAH6T"
 ]
-
-
 VerificationTest[
 	Map[
 		Function[
 			StringDelete[#, StringExpression["FernandoDuarte" | "`", __, "`"]]
 		],
-		Table[ToString[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][t, ii] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t]],
-			{ii, {1, i, j}}
+		Table[ToString[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][Shocks`t, Shocks`ii] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][Shocks`t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t]],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}}
 		]
 	]
 	,
@@ -183,17 +155,15 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-ZQA0RT"
+	TestID->"Shocks_20230423-OJ48WS"
 ]
-
-
 VerificationTest[
 	{
-		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][t] ^ 4) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`f][Shocks`t] ^ 4) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 		],
-		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][t, ii] ^ 4) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{ii, {1, i, j}}
+		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][Shocks`t, Shocks`ii] ^ 4) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}}
 		]
 	}
 	,
@@ -204,23 +174,21 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-EDOOHQ"
+	TestID->"Shocks_20230423-JZK1JZ"
 ]
-
-
 VerificationTest[
 	{
 		Table[
-			If[SameQ[f, g],
+			If[SameQ[Shocks`f, Shocks`g],
 				0,
-				((FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps[g][t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t]
+				((FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`f][Shocks`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`g][Shocks`t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t]
 			],
-			{f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}},
-			{g, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+			{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}},
+			{Shocks`g, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 		],
-		Table[((FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][t, ii] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
-			{ii, {1, i, j}},
-			{f, {"x", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+		Table[((FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][Shocks`t, Shocks`ii] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`f][Shocks`t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}},
+			{Shocks`f, {"x", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 		]
 	}
 	,
@@ -244,32 +212,30 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-5MKL2S"
+	TestID->"Shocks_20230423-D59F0Z"
 ]
-
-
 VerificationTest[
 	{
-		Table[SameQ[expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t], expr],
+		Table[SameQ[Shocks`expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t], Shocks`expr],
 			{
-				expr,
-				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][t + 1],
-					{f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+				Shocks`expr,
+				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`f][Shocks`t + 1],
+					{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 				]
 			}
 		],
-		Table[SameQ[expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t], expr],
+		Table[SameQ[Shocks`expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t], Shocks`expr],
 			{
-				expr,
-				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps[ToExpression @ f][t],
-					{f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+				Shocks`expr,
+				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps[ToExpression @ Shocks`f][Shocks`t],
+					{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 				]
 			}
 		],
-		Table[SameQ[expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t], expr],
+		Table[SameQ[Shocks`expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t], Shocks`expr],
 			{
-				expr,
-				{FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][t + 1, i], FernandoDuarte`LongRunRisk`Model`Shocks`eps[dd][t, i]}
+				Shocks`expr,
+				{FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][Shocks`t + 1, Shocks`i], FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`dd][Shocks`t, Shocks`i]}
 			}
 		]
 	}
@@ -282,22 +248,20 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-T5G1BE"
+	TestID->"Shocks_20230423-ATA7T3"
 ]
-
-
 VerificationTest[
 	{
-		Table[SameQ[expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t], expr],
+		Table[SameQ[Shocks`expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t], Shocks`expr],
 			{
-				expr,
-				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps @ f,
-					{f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+				Shocks`expr,
+				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps @ Shocks`f,
+					{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
 				]
 			}
 		],
-		Table[SameQ[FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t], FernandoDuarte`LongRunRisk`Model`Shocks`eps @ "dd"],
-			{ii, {1, i, j}}
+		Table[SameQ[FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t], FernandoDuarte`LongRunRisk`Model`Shocks`eps @ "dd"],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}}
 		]
 	}
 	,
@@ -308,25 +272,23 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-L6HEVF"
+	TestID->"Shocks_20230423-X5G6EC"
 ]
-
-
 VerificationTest[
 	{
-		Table[SameQ[expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t], expr],
+		Table[SameQ[Shocks`expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t], Shocks`expr],
 			{
-				expr,
-				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps @ f,
+				Shocks`expr,
+				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps @ Shocks`f,
 					{
-						f,
+						Shocks`f,
 						{"xx", "adc", "p", "rhobar", "ssg", "ssx", "sdc", "spi"}
 					}
 				]
 			}
 		],
-		Table[SameQ[FernandoDuarte`LongRunRisk`Model`Shocks`eps["ddd"] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t], FernandoDuarte`LongRunRisk`Model`Shocks`eps @ "ddd"],
-			{ii, {1, i, j}}
+		Table[SameQ[FernandoDuarte`LongRunRisk`Model`Shocks`eps["ddd"] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t], FernandoDuarte`LongRunRisk`Model`Shocks`eps @ "ddd"],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}}
 		]
 	}
 	,
@@ -337,30 +299,28 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-S45CJF"
+	TestID->"Shocks_20230423-DYXIFA"
 ]
-
-
 VerificationTest[
 	{
-		Table[SameQ[expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t], expr],
+		Table[SameQ[Shocks`expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t], Shocks`expr],
 			{
-				expr,
-				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps[f][tt],
+				Shocks`expr,
+				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps[Shocks`f][Shocks`tt],
 					{
-						f,
+						Shocks`f,
 						{"xx", "adc", "p", "rhobar", "ssg", "ssx", "sdc", "spi"}
 					},
-					{tt, {t + 1, t - 1, s, t + h}}
+					{Shocks`tt, {Shocks`t + 1, Shocks`t - 1, Shocks`s, Shocks`t + Shocks`h}}
 				]
 			}
 		],
-		Table[SameQ[expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t], expr],
+		Table[SameQ[Shocks`expr /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t], Shocks`expr],
 			{
-				expr,
-				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][tt, ii],
-					{ii, {1, i, j}},
-					{tt, {t + 1, t - 1, s, t + h}}
+				Shocks`expr,
+				Table[FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][Shocks`tt, Shocks`ii],
+					{Shocks`ii, {1, Shocks`i, Shocks`j}},
+					{Shocks`tt, {Shocks`t + 1, Shocks`t - 1, Shocks`s, Shocks`t + Shocks`h}}
 				]
 			}
 		]
@@ -373,8 +333,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230415-U4ZF7F"
-]
-
-
+	TestID->"Shocks_20230423-M1OPE2"
+] 
+End[]
 EndTestSection[]

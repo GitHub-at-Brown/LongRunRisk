@@ -29,8 +29,8 @@ If[
 		ForceVersionInstall->True
 	]
 ]
-Get[FileNameJoin[{(First@PacletFind["MaTeX"->"1.7.9"])["Location"],"MaTeX.m"}]];(*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
-MaTeX`Developer`ResetConfiguration[]
+Quiet@Get[FileNameJoin[{(First@PacletFind["MaTeX"->"1.7.9"])["Location"],"MaTeX.m"}]];(*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
+MaTeX`Developer`ResetConfiguration[];
 
 
 BeginPackage["FernandoDuarte`LongRunRisk`"]
@@ -41,8 +41,8 @@ BeginPackage["FernandoDuarte`LongRunRisk`"]
 <<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
 <<FernandoDuarte`LongRunRisk`Model`Catalog`;
 <<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
-<<FernandoDuarte`LongRunRisk`Model`NiceOutput`;
-<<FernandoDuarte`LongRunRisk`TimeAggregation`;
+<<FernandoDuarte`LongRunRisk`Tools`NiceOutput`;
+<<FernandoDuarte`LongRunRisk`Tools`TimeAggregation`;
 
 
 main::usage="";
@@ -66,9 +66,9 @@ SetSymbolsContext=ResourceFunction["SetSymbolsContext"];*)
 
 (*re-export symbols from other private contexts *)
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
-FillModels := FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels;
-Models[] := FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels[FernandoDuarte`LongRunRisk`Model`Catalog`models];
-Models["Table"] := FernandoDuarte`LongRunRisk`Model`NiceOutput`Catalog[FernandoDuarte`LongRunRisk`Model`NiceOutput`fillModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]];
+FillModels := FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info;
+Models[] := FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info[FernandoDuarte`LongRunRisk`Model`Catalog`models];
+Models["Table"] := FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info[FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]];
 Models[x_String] := FernandoDuarte`LongRunRisk`Model`Catalog`models[x];
 
 
@@ -81,9 +81,9 @@ Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","U
 
 
 
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`TimeAggregation`"];
-Growth[] := FernandoDuarte`LongRunRisk`TimeAggregation`growth;
-Growth::usage = Information["FernandoDuarte`LongRunRisk`TimeAggregation`growth","Usage"];
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
+Growth[] := FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth;
+Growth::usage = Information["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth","Usage"];
 
 
 

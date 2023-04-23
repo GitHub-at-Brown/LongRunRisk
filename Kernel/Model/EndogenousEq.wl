@@ -86,9 +86,9 @@ $endogenousVars=SortBy[Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&],P
 Begin["`Private`"]
 
 
-Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
+(*Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
-Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];*)
 
 
 (* conjecture the wealth-consumption ratio is linear in stateVars *)
@@ -108,10 +108,10 @@ linearInStateVars[stateVars_,coeff_]:= Module[
 dv=DownValues@linearInStateVars;
 
 
-stateVars_List[wceq] ^:= ({t_}:>linearInStateVars[stateVars,A])/. dv
-stateVars_List[pdeq] ^:= ({t_,i_}:>linearInStateVars[stateVars,B[i]])/. dv
-stateVars_List[bondeq] ^:= ({t_,m_}:>linearInStateVars[stateVars,R[m]])/. dv
-stateVars_List[nombondeq] ^:= ({t_,m_}:>linearInStateVars[stateVars,P[m]])/. dv
+stateVars_[wceq] ^:= ({t_}:>linearInStateVars[stateVars,A])/. dv
+stateVars_[pdeq] ^:= ({t_,i_}:>linearInStateVars[stateVars,B[i]])/. dv
+stateVars_[bondeq] ^:= ({t_,m_}:>linearInStateVars[stateVars,R[m]])/. dv
+stateVars_[nombondeq] ^:= ({t_,m_}:>linearInStateVars[stateVars,P[m]])/. dv
 
 (*wceq[stateVars_] := Function@@(Evaluate@stateVars[wceq])/. dv
 pdeq[stateVars_] := Function@@(Evaluate@stateVars[pdeq])/. dv
