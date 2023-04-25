@@ -13,11 +13,11 @@ models::usage= "Association with the definition and properties of models.";
 Begin["`Private`"]
 
 
-<<PacletizedResourceFunctions`
-models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];
+(*<<PacletizedResourceFunctions`
+models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];*)
 
 
-modelsLocal = <|
+models = <|
 	"BY" -> <|
 		"name" -> "Original long-run risk model",
 		"shortname" -> "BY",
@@ -678,7 +678,7 @@ modelsLocal = <|
 		"desc" -> "Model without long-run risk. Inflation		
 					shocks predict consumption growth with
 							time-varying sign given by the NRC",
-		"stateVars" -> {-mup+pi[t],sg[-1+t] eps["p"][t],eps["p"][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2},
+		"stateVars" -> {-mup+pi[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.99,
@@ -805,7 +805,7 @@ modelsLocal = <|
 		"desc" -> "Long-run risk added with same				
 			qualitative properties as in				
 			Bansal-Yaron (but different parameters)",
-		"stateVars" -> {-mup+pi[t],sg[-1+t] eps["p"][t],eps["p"][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2,x[t],sx[t]},
+		"stateVars" -> {-mup+pi[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2,x[t],sx[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.99,
@@ -1309,7 +1309,7 @@ modelsLocal = <|
 		"desc" -> "NRC modeled as in model NRC (inflation		
 					shocks predict consumption in				
 			time-varying way)",
-		"stateVars" -> {x[t],sx[t],-mupbar+pibar[t],sg[-1+t] eps["p"][t],eps["p"][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2},
+		"stateVars" -> {x[t],sx[t],-mupbar+pibar[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9995,

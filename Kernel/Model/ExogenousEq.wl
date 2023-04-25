@@ -40,26 +40,26 @@ pieq[t_]=
 	mup+
 	rhoppbar * (pibar[t-1]-mupbar)+
 	rhop * (pi[t-1]-mup)+
-	phip eps["p"][t]+
-	xip eps["p"][t-1]+
+	phip eps["pi"][t]+
+	xip eps["pi"][t-1]+
 	phipc Sqrt[sc[t-1]+Esc^2] eps["dc"][t]+
 	phipx Sqrt[sx[t-1]+Esx^2] eps["x"][t] +
 	phipcx Sqrt[sc[t-1]+Esc^2] eps["x"][t] +
-	phipp Sqrt[sp[t-1]+Esp^2] eps["p"][t]+
-	phipxp Sqrt[sx[t-1]+Esx^2] eps["p"][t]
+	phipp Sqrt[sp[t-1]+Esp^2] eps["pi"][t]+
+	phipxp Sqrt[sx[t-1]+Esx^2] eps["pi"][t]
 
 (*Expected inflation*)
 pibareq[t_]= 
 	mupbar+
 	rhopbar * (pibar[t-1]-mupbar)+ 
 	rhopbarx x[t-1]+
-	phipbarp eps["p"][t]+
+	phipbarp eps["pi"][t]+
 	phipbarc Sqrt[sc[t-1]+Esc^2] eps["dc"][t]+ 
 	phipbarx Sqrt[sx[t-1]+Esx^2] eps["x"][t]+
 	phipbarcx Sqrt[sc[t-1]+Esc^2] eps["x"][t]+
 	phipbarpb Sqrt[sp[t-1]+Esp^2] eps["pibar"][t]+
 	phipbarxb Sqrt[sx[t-1]+Esx^2] eps["pibar"][t]+
-	phipbarxp Sqrt[sx[t-1]+Esx^2] eps["p"][t]
+	phipbarxp Sqrt[sx[t-1]+Esx^2] eps["pi"][t]
 
 (*Real consumption growth*)
 dceq[t_]= 
@@ -67,14 +67,14 @@ dceq[t_]=
 	rhocx x[t-1]+
 	rhocp * (pi[t-1]-mup)+
 	phic eps["dc"][t]+
-	phicp eps["p"][t]+
-	phicsp sg[t-1] eps["p"][t]+
-	xic sg[t-2] eps["p"][t-1] + 
+	phicp eps["pi"][t]+
+	phicsp sg[t-1] eps["pi"][t]+
+	xic sg[t-2] eps["pi"][t-1] + 
 	phics Sqrt[sx[t-1]+Esx^2] eps["x"][t]+
 	phicx Sqrt[sx[t-1]+Esx^2] eps["dc"][t]+
 	phicc Sqrt[sc[t-1]+Esc^2] eps["dc"][t]+
 	phicpc Sqrt[sp[t-1]+Esp^2] eps["dc"][t]+
-	phicpp Sqrt[sp[t-1]+Esp^2] eps["p"][t]
+	phicpp Sqrt[sp[t-1]+Esp^2] eps["pi"][t]
 
 (*Nominal-real covariance (NRC)*)
 sgeq[t_]= 
@@ -105,14 +105,14 @@ ddeq[t_,i_]=
 	rhodx[i]x[t-1]+
 	rhodp[i] * (pi[t-1]-mup)+ 
 	phidc[i] eps["dc"][t]+ 
-	phidp[i] eps["p"][t]+
-	phidsp[i] sg[t-1]eps["p"][t]+
-	xid[i] sg[t-2] eps["p"][t-1]+
+	phidp[i] eps["pi"][t]+
+	phidsp[i] sg[t-1]eps["pi"][t]+
+	xid[i] sg[t-2] eps["pi"][t-1]+
 	phids[i] Sqrt[sx[t-1]+Esx^2] eps["x"][t]+
 	phidxc[i] Sqrt[sx[t-1]+Esx^2] eps["dc"][t]+
 	phidcc[i] Sqrt[sc[t-1]+Esc^2] eps["dc"][t]+ 
 	phidpc[i] Sqrt[sp[t-1]+Esp^2] eps["dc"][t]+
-	phidpp[i] Sqrt[sp[t-1]+Esp^2] eps["p"][t]+
+	phidpp[i] Sqrt[sp[t-1]+Esp^2] eps["pi"][t]+
 	phidxd[i] Sqrt[sx[t-1]+Esx^2] eps["dd"][t,i]+ 
 	phidcd[i] Sqrt[sc[t-1]+Esc^2] eps["dd"][t,i] +
 	phidpd[i] Sqrt[sp[t-1]+Esp^2] eps["dd"][t,i]
