@@ -7,6 +7,14 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeMoments`"];
 (*Public symbols*)
 
 
+ev::usage = "ev[x,s] gives the expected value of x conditional on time s."; 
+var::usage = "var[x,s] gives the variance of x conditional on time s."; 
+cov::usage = "cov[x,y,s] gives the covariance of x and y conditional on time s."; 
+uncondE::usage = "uncondE[x] gives the unconditional mean of x."; 
+uncondVar::usage = "uncondVar[x] gives the unconditional variance of x."; 
+uncondCov::usage = "uncondCov[x,y] gives the unconditional covariance of x and y."; 
+
+
 Begin["`Private`"];
 
 
@@ -15,42 +23,6 @@ Begin["`Private`"];
 
 
 Get["PacletizedResourceFunctions`"]
-
-
-(* ::Subsection:: *)
-(*Helper functions*)
-
-
-(* ::Subsubsection:: *)
-(*Usage*)
-
-
-(* conjecture wealth-consumption and price-dividend ratios are linear in state variables *)
-Ewc = uncondE[wc[t]]
-Epd = uncondE[pd[t,i]]
-
-
-(* rules to write kappa as function of wc and pd coefficients *)
-kappaRulesA[Ecw_]={
-	Subscript[\[Kappa], 0]->FullSimplify[kappa0eq[Ewc],Assumptions->modelAssumptions],
-	Subscript[\[Kappa], 1]->FullSimplify[kappa1eq[Ewc],Assumptions->modelAssumptions]
-};
-kappaRules[Ewc_,Epd_]=Flatten[{
-	Subscript[\[Kappa],0,m][i]->FullSimplify[kappa0eq[Epd],Assumptions->modelAssumptions],
-	Subscript[\[Kappa],1,m][i]->FullSimplify[kappa1eq[Epd],Assumptions->modelAssumptions],
-	kappaRulesA
-}];
-
-(* rule to replace kappas by expressions involving A and D[i] *)
-toParameters := Flatten[
-	{
-		Table[
-			Complement[kappaRules[Ewc],kappaRulesA[Ewc,Epd]],
-			{i,1,numStocks}
-		],
-		kappaRulesA[Ewc,Epd]
-	}
-]
 
 
 (* ::Subsection:: *)
@@ -79,11 +51,8 @@ runInModel[expr_,model_]:=With[
 		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]],
 		assignParam=model["assignParam"],
 		assignParamStocks=model["assignParamStocks"]
-		
-			(*stateVarEq =(addt/@stateVarsNoEps)/.mapAll*)
 	},
-	(*mapToStateVars = Cases[mapAll,Except[Alternatives@@(stateVars)->_]]*)
-	(*stateVarsNoEps = Cases[stateVars,Except[eps[_]]]*)
+
 	With[
 		{
 			stateVarsNoEps = Cases[stateVars,Except[Symbol["eps"][_]]],
@@ -216,9 +185,9 @@ createSystem[n_]:=Module[
 ]
 
 
-maxMoment=3;
+(*maxMoment=2;
 {system,unknowns,nameRules}=createSystem[maxMoment];
-uncondMomStateVars=Flatten@Solve[system,unknowns];
+uncondMomStateVars=Flatten@Solve[system,unknowns];*)
 
 
 (* unconditional moments of any expression *)

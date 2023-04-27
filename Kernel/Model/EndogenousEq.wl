@@ -67,13 +67,20 @@ excretceq::usage =
 excreteq::usage = 
    "excreteq[t,i] gives the return for stock i in excess of the risk-free rate."
 
-kappa1eq::usage = "kappa1eq[Epd] is the Campbell-Shiller approximation constant \
-	\!\(\*SubscriptBox[\(\[Kappa]\), \(1\)]\)=Exp[Epd]/(Exp[Epd]-1) where Epd is the unconditional mean of \
-	the log price dividend ratio of the corresponding asset."
+kappa1eq::usage = "kappa1eq[Ewc] is the Campbell-Shiller approximation constant \
+	\!\(\*SubscriptBox[\(\[Kappa]\), \(1\)]\)=Exp[Ewc]/(Exp[Ewc]-1) where Ewc is the unconditional mean of \
+	the log wealth consumption ratio."
 kappa0eq::usage = "kappa0eq[Epd] is the Campbell-Shiller approximation constant \
-	\!\(\*SubscriptBox[\(\[Kappa]\), \(0\)]\)=-Log[Exp[Epd]-1]+Epd Exp[Epd]/(Exp[Epd]-1) where Epd is the \
-	unconditional mean of the log price dividend ratio of the corresponding asset."
+	\!\(\*SubscriptBox[\(\[Kappa]\), \(0\)]\)=-Log[Exp[Ewc]-1]+Ewc Exp[Ewc]/(Exp[Ewc]-1) where Ewc is the \
+	unconditional mean of the the log wealth consumption ratio."
 
+kappa1meq::usage = "kappa1meq[Epd] is the Campbell-Shiller approximation constant \
+	\!\(\*SubscriptBox[\(\[Kappa]\), \(1\)]\)=Exp[Epd]/(Exp[Epd]-1) where Epd is the unconditional mean of \
+	the log price dividend ratio of asset i."
+kappa0meq::usage = "kappa0meq[Epd] is the Campbell-Shiller approximation constant \
+	\!\(\*SubscriptBox[\(\[Kappa]\), \(0\)]\)=-Log[Exp[Epd]-1]+Epd Exp[Epd]/(Exp[Epd]-1) where Epd is the \
+	unconditional mean of the log price dividend ratio of asset i."
+	
 eulereq::usage = "eulereq[x[t],s] or eulereq[x[t,i],s] gives the Euler equation for (real) \
 	return x[t] or x[t,i] conditional on time s."
 nomeulereq::usage = "nomeulereq[x[t],s] or nomeulereq[x[t,i],s]  gives the Euler equation for \
@@ -151,14 +158,14 @@ rfeq[t_,h_:1]=bondyield[t,h]
 nomrfeq[t_,h_:1]=nombondyield[t,h]
 
 (* campbell-shiller approximation for returns from Bansal Yaron *)
-retceq[t_]=Subscript[\[Kappa], 0]+Subscript[\[Kappa], 1]wc[t]-wc[t-1]+dc[t]
-reteq[t_,i_]=Subscript[\[Kappa],0,m][i]+Subscript[\[Kappa],1,m][i]pd[t,i]-pd[t-1,i]+dd[t,i]
+retceq[t_]=kappa0+kappa1 wc[t]-wc[t-1]+dc[t]
+reteq[t_,i_]=kappa0m[i]+kappa1m[i]pd[t,i]-pd[t-1,i]+dd[t,i]
 kappa1eq[mu_]=Exp[mu]/(Exp[mu]+1)
 kappa0eq[mu_]=Log[Exp[mu]+1]-kappa1eq[mu]mu
 
 (* campbell-shiller approximation for returns from Koijen, Lustig, Van Nieuwerburgh and Verdelhan *)
-(*retceq[t_]:=Subscript[\[Kappa], 0]+wc[t]-Subscript[\[Kappa], 1]wc[t-1]+dc[t];
-reteq[t_,i_]:=Subscript[\[Kappa],0,m][i]+pd[t,i]-Subscript[\[Kappa],1,m][i]pd[t-1,i]+dd[t,i];
+(*retceq[t_]:=kappa0+wc[t]-kappa1 wc[t-1]+dc[t];
+reteq[t_,i_]:=kappa0m[i]+pd[t,i]-kappa1m[i]pd[t-1,i]+dd[t,i];
 kappa1eq[mu_]:=Exp[mu]/(Exp[mu]-1);
 kappa0eq[mu_]:=-Log[Exp[mu]-1]+kappa1eq[mu]mu;*)
 
@@ -166,15 +173,20 @@ excretceq[t_]=retc[t]-rf[t]
 excreteq[t_,i_]=ret[t,i]-rf[t]
 
 
+coefwc=Cases[UpValues[wceq],linearInStateVars[_,x_]->x,Infinity][[1]];
+coefpd=Cases[UpValues[pdeq],linearInStateVars[_,x_]->x,Infinity][[1]];
+coefb=Cases[UpValues[bondeq],linearInStateVars[_,x_]->x,Infinity][[1]];
+coefnb=Cases[UpValues[nombondeq],linearInStateVars[_,x_]->x,Infinity][[1]];
+
 endogEqAssumptions=
-	(*coefficients of wc*)Element[Subscript[A, ___],Reals]  && 
-	(*coefficients of pd*)Element[Subscript[D, ___][___],Reals] && 
-	(*coefficients of real bond prices*)Element[Subscript[R, ___][___],Reals] && 
-	(*coefficients of nominal bond prices*)Element[Subscript[P, ___][___],Reals] && 
-	(*linearization constants*)Subscript[\[Kappa], 0]>0 && Subscript[\[Kappa], 0]<1 && 
-	Subscript[\[Kappa], 1]>0&& Subscript[\[Kappa], 1]<1 && 
-	Subscript[\[Kappa],0,m][___]>0 && Subscript[\[Kappa],0,m][___]<1 && 
-	Subscript[\[Kappa],1,m][___]>0&& Subscript[\[Kappa],1,m][___]<1
+	(*coefficients of wc*)Element[Subscript[coefwc, ___],Reals]  && 
+	(*coefficients of pd*)Element[Subscript[coefpd, ___][___],Reals] && 
+	(*coefficients of real bond prices*)Element[Subscript[coefb, ___][___],Reals] && 
+	(*coefficients of nominal bond prices*)Element[Subscript[coefnb, ___][___],Reals] && 
+	(*linearization constants*)kappa0>0 && kappa0<1 && 
+	kappa1>0&& kappa1<1 && 
+	kappa0m[___]>0  && kappa0m[___]<1 && 
+	kappa1m[___]>0&& kappa1m[___]<1
 
 
 
