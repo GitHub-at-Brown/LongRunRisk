@@ -40,9 +40,9 @@ Begin["`Private`"]
 
 
 Needs["PacletizedResourceFunctions`"];
-(*Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
-*)Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
 
@@ -66,15 +66,18 @@ Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 (*SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
 FullSymbolName=ResourceObject["FullSymbolName"];*)
 
-processModels[m_]:=Module[
+processModels[m_]:=
+	Module[
 	{
-		keys=Keys[m],
-		models=keyRename[m, Thread[Keys[m]->Values@(#["shortname"]&/@m)] ], (*rename Keys to shortname*)
+		models = KeyMap[Replace[#, Thread[Keys[m]->Values@(#["shortname"]&/@m)] ]&,m],(*rename Keys to shortname*)
+		keys=Keys[m],		
+		ContextPath=$ContextPath,
 		z,
 		i,
-		ContextPath=$ContextPath
+		modelAssumptions
 	},
-	    
+	
+	 		   
 	(*add number of stocks as a new key-value pair in each model*)
 	models = Append[
 		#,
@@ -125,9 +128,10 @@ processModels[m_]:=Module[
 	$ContextPath=ContextPath;
 
 	(*restore original keys and output models*)
-	keyRename[models, Thread[Keys[models]->keys] ]
+	KeyMap[Replace[#,Thread[Keys[models]->keys]]&,models]
 
-];
+]
+
 
 
 (* ::Subsubsection:: *)
@@ -190,6 +194,16 @@ createExogenous[m_]:=Module[
 		"exogenousEq"->exo[#["shortname"]]
 	]& /@models
 ]	
+
+
+(*
+to not pollute workspace idea
+something[] := 
+  (
+  Block[{$ContextPath}, Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];];
+   FernandoDuarte`LongRunRisk`Model`EndogenousEq`fun[] 
+   )
+*)
 
 
 (* ::Subsubsection:: *)
@@ -275,17 +289,6 @@ createStateVarEq[m_]:=Module[
 	#["exogenousEq"]*)
 	m
 ]	
-
-
-(* ::Subsubsection:: *)
-(*keyRename*)
-
-
-(*rename keys in an association using a list of rules {oldkey1->newkey1,oldkey2->newkey2,..}*)
-keyRename[a_Association,  HoldPattern[key1_ -> key2_]/;MatchQ[key1,key2]] := a
-keyRename[a_Association, old_ -> new_] /; KeyExistsQ[a, old] := KeyDrop[old]@Insert[a, new -> a[old], Key[old]]
-keyRename[a:Association[Rule[_,Association[Rule[_,_]..]]..], replaceRules : {Rule[_, _] ..}]:=Fold[keyRename, a , replaceRules]
-
 
 
 (* ::Section:: *)
