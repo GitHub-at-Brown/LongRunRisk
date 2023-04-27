@@ -161,7 +161,7 @@ nomrfeq[t_,h_:1]=nombondyield[t,h]
 retceq[t_]=kappa0+kappa1 wc[t]-wc[t-1]+dc[t]
 reteq[t_,i_]=kappa0m[i]+kappa1m[i]pd[t,i]-pd[t-1,i]+dd[t,i]
 kappa1eq[mu_]=Exp[mu]/(Exp[mu]+1)
-kappa0eq[mu_]=Log[Exp[mu]+1]-kappa1eq[mu]mu
+kappa0eq[mu_]=Log[Exp[mu]+1]-kappa1eq[mu]*mu
 
 (* campbell-shiller approximation for returns from Koijen, Lustig, Van Nieuwerburgh and Verdelhan *)
 (*retceq[t_]:=kappa0+wc[t]-kappa1 wc[t-1]+dc[t];
@@ -173,20 +173,21 @@ excretceq[t_]=retc[t]-rf[t]
 excreteq[t_,i_]=ret[t,i]-rf[t]
 
 
-coefwc=Cases[UpValues[wceq],linearInStateVars[_,x_]->x,Infinity][[1]];
-coefpd=Cases[UpValues[pdeq],linearInStateVars[_,x_]->x,Infinity][[1]];
-coefb=Cases[UpValues[bondeq],linearInStateVars[_,x_]->x,Infinity][[1]];
-coefnb=Cases[UpValues[nombondeq],linearInStateVars[_,x_]->x,Infinity][[1]];
+
+coefwc=Cases[UpValues[wceq], HoldPattern[linearInStateVars[_,x_]]:>x,Infinity][[1]];
+coefpd=Cases[UpValues[pdeq], HoldPattern[linearInStateVars[_,x_[i__]]]:>x[_],Infinity][[1]];
+coefb=Cases[UpValues[bondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],Infinity][[1]];
+coefnb=Cases[UpValues[nombondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],Infinity][[1]];
 
 endogEqAssumptions=
-	(*coefficients of wc*)Element[Subscript[coefwc, ___],Reals]  && 
-	(*coefficients of pd*)Element[Subscript[coefpd, ___][___],Reals] && 
-	(*coefficients of real bond prices*)Element[Subscript[coefb, ___][___],Reals] && 
-	(*coefficients of nominal bond prices*)Element[Subscript[coefnb, ___][___],Reals] && 
+	(*coefficients of wc*)Element[coefwc,Reals]  && 
+	(*coefficients of pd*)Element[coefpd,Reals] && 
+	(*coefficients of real bond prices*)Element[coefb,Reals] && 
+	(*coefficients of nominal bond prices*)Element[coefnb,Reals] &&
 	(*linearization constants*)kappa0>0 && kappa0<1 && 
 	kappa1>0&& kappa1<1 && 
-	kappa0m[___]>0  && kappa0m[___]<1 && 
-	kappa1m[___]>0&& kappa1m[___]<1
+	kappa0m[__]>0  && kappa0m[__]<1 && 
+	kappa1m[__]>0&& kappa1m[__]<1 
 
 
 
