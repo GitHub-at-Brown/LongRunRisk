@@ -74,11 +74,11 @@ kappa0eq::usage = "kappa0eq[Epd] is the Campbell-Shiller approximation constant 
 	\!\(\*SubscriptBox[\(\[Kappa]\), \(0\)]\)=-Log[Exp[Ewc]-1]+Ewc Exp[Ewc]/(Exp[Ewc]-1) where Ewc is the \
 	unconditional mean of the the log wealth consumption ratio."
 
-kappa1meq::usage = "kappa1meq[Epd] is the Campbell-Shiller approximation constant \
-	\!\(\*SubscriptBox[\(\[Kappa]\), \(1\)]\)=Exp[Epd]/(Exp[Epd]-1) where Epd is the unconditional mean of \
+kappa1meq::usage = "kappa1meq[i][Epd] is the Campbell-Shiller approximation constant \
+	\!\(\*SubscriptBox[\(\[Kappa]\), m, \(1\)]\)=Exp[Epd]/(Exp[Epd]-1) where Epd is the unconditional mean of \
 	the log price dividend ratio of asset i."
-kappa0meq::usage = "kappa0meq[Epd] is the Campbell-Shiller approximation constant \
-	\!\(\*SubscriptBox[\(\[Kappa]\), \(0\)]\)=-Log[Exp[Epd]-1]+Epd Exp[Epd]/(Exp[Epd]-1) where Epd is the \
+kappa0meq::usage = "kappa0meq[i][Epd] is the Campbell-Shiller approximation constant \
+	\!\(\*SubscriptBox[\(\[Kappa]\), m, \(0\)]\)=-Log[Exp[Epd]-1]+Epd Exp[Epd]/(Exp[Epd]-1) where Epd is the \
 	unconditional mean of the log price dividend ratio of asset i."
 	
 eulereq::usage = "eulereq[x[t],s] or eulereq[x[t,i],s] gives the Euler equation for (real) \
