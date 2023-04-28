@@ -67,20 +67,13 @@ excretceq::usage =
 excreteq::usage = 
    "excreteq[t,i] gives the return for stock i in excess of the risk-free rate."
 
-kappa1eq::usage = "kappa1eq[Ewc] is the Campbell-Shiller approximation constant \
-	\!\(\*SubscriptBox[\(\[Kappa]\), \(1\)]\)=Exp[Ewc]/(Exp[Ewc]-1) where Ewc is the unconditional mean of \
-	the log wealth consumption ratio."
-kappa0eq::usage = "kappa0eq[Epd] is the Campbell-Shiller approximation constant \
-	\!\(\*SubscriptBox[\(\[Kappa]\), \(0\)]\)=-Log[Exp[Ewc]-1]+Ewc Exp[Ewc]/(Exp[Ewc]-1) where Ewc is the \
-	unconditional mean of the the log wealth consumption ratio."
+kappa1eq::usage = "kappa1eq[mu] is the Campbell-Shiller approximation constant \
+	\!\(\*SubscriptBox[\(\[Kappa]\), \(1\)]\)=Exp[mu]/(Exp[mu]-1) where mu is the unconditional mean of \
+	the log of the approximated variable."
+kappa0eq::usage = "kappa0eq[mu] is the Campbell-Shiller approximation constant \
+	\!\(\*SubscriptBox[\(\[Kappa]\), \(0\)]\)=-Log[Exp[mu]-1]+Ewc Exp[mu]/(Exp[mu]-1) where mu \
+	is the unconditional mean of the log of the approximated variable."
 
-kappa1meq::usage = "kappa1meq[i][Epd] is the Campbell-Shiller approximation constant \
-	\!\(\*SubscriptBox[\(\[Kappa]\), m, \(1\)]\)=Exp[Epd]/(Exp[Epd]-1) where Epd is the unconditional mean of \
-	the log price dividend ratio of asset i."
-kappa0meq::usage = "kappa0meq[i][Epd] is the Campbell-Shiller approximation constant \
-	\!\(\*SubscriptBox[\(\[Kappa]\), m, \(0\)]\)=-Log[Exp[Epd]-1]+Epd Exp[Epd]/(Exp[Epd]-1) where Epd is the \
-	unconditional mean of the log price dividend ratio of asset i."
-	
 eulereq::usage = "eulereq[x[t],s] or eulereq[x[t,i],s] gives the Euler equation for (real) \
 	return x[t] or x[t,i] conditional on time s."
 nomeulereq::usage = "nomeulereq[x[t],s] or nomeulereq[x[t,i],s]  gives the Euler equation for \
@@ -127,67 +120,65 @@ nombondeq[stateVars_] := Function@@(Evaluate@stateVars[nombondeq])/. dv*)
 
 
 (* define bond yields *)
-bondyieldeq[t_,m_]= -(1/m) bond[t,m]
-nombondyieldeq[t_,m_]=-(1/m) nombond[t,m]
+bondyieldeq[t_,m_] := -(1/m) bond[t,m]
+nombondyieldeq[t_,m_] := -(1/m) nombond[t,m]
 
 (* define log forward rate *)
-bondfweq[t_,m_,h_:1]=bond[t,m-h]-bond[t,m] 
-nombondfweq[t_,m_,h_:1]=nombond[t,m-h]-nombond[t,m]
+bondfweq[t_,m_,h_:1] := bond[t,m-h]-bond[t,m] 
+nombondfweq[t_,m_,h_:1] := nombond[t,m-h]-nombond[t,m]
 
 (* define bond returns *)
-bondreteq[t_,m_,h_:1]=bond[t,m-h]-bond[t-h,m]
-nombondreteq[t_,m_,h_:1]=nombond[t,m-h]-nombond[t-h,m]
+bondreteq[t_,m_,h_:1] := bond[t,m-h]-bond[t-h,m]
+nombondreteq[t_,m_,h_:1] := nombond[t,m-h]-nombond[t-h,m]
 
 (* define log forward rate spread *)
-bondfwspreadeq[t_,m_,h_:1]=bondfw[t,m,h]-bondyield[t,h] 
-nombondfwspreadeq[t_,m_,h_:1]=nombond[t,m,h]-nombondyield[t,h]
+bondfwspreadeq[t_,m_,h_:1] := bondfw[t,m,h]-bondyield[t,h] 
+nombondfwspreadeq[t_,m_,h_:1] := nombond[t,m,h]-nombondyield[t,h]
 
 (* define excess bond returns *)
-bondexcreteq[t_,m_,h_:1]=bondret[t,m,h]-bondyield[t-h,h]
-nombondexcreteq[t_,m_,h_:1]=nombondret[t,m,h]-nombondyield[t-h,h]
+bondexcreteq[t_,m_,h_:1] := bondret[t,m,h]-bondyield[t-h,h]
+nombondexcreteq[t_,m_,h_:1] := nombondret[t,m,h]-nombondyield[t-h,h]
 
 (* stochastic discount factor *)
-sdfeq[t_]=theta Log[delta]-(theta/psi)dc[t]+(theta-1)retc[t]
-nomsdfeq[t_]=sdf[t]-pi[t]
+sdfeq[t_] := theta Log[delta]-(theta/psi)dc[t]+(theta-1)retc[t]
+nomsdfeq[t_] := sdf[t]-pi[t]
 
 (* Euler equation *)
-eulereq[x_[t_,i___],s_]:= ev[sdf[t],s]+(1/2)var[sdf[t],s]+ev[x[t,i],s]+(1/2)var[x[t,i],s]+cov[sdf[t],x[t,i],s] 
-nomeulereq[x_[t_,i___],s_]:= ev[nomsdf[t],s]+(1/2)var[nomsdf[t],s]+ev[x[t,i],s]+(1/2)var[x[t,i],s]+cov[nomsdf[t],x[t,i],s] 
+eulereq[x_[t_,i___],s_] := ev[sdf[t],s]+(1/2)var[sdf[t],s]+ev[x[t,i],s]+(1/2)var[x[t,i],s]+cov[sdf[t],x[t,i],s] 
+nomeulereq[x_[t_,i___],s_] := ev[nomsdf[t],s]+(1/2)var[nomsdf[t],s]+ev[x[t,i],s]+(1/2)var[x[t,i],s]+cov[nomsdf[t],x[t,i],s] 
 
-rfeq[t_,h_:1]=bondyield[t,h]
-nomrfeq[t_,h_:1]=nombondyield[t,h]
+rfeq[t_,h_:1] := bondyield[t,h]
+nomrfeq[t_,h_:1] := nombondyield[t,h]
 
 (* campbell-shiller approximation for returns from Bansal Yaron *)
-retceq[t_]=kappa0+kappa1 wc[t]-wc[t-1]+dc[t]
-reteq[t_,i_]=kappa0m[i]+kappa1m[i]pd[t,i]-pd[t-1,i]+dd[t,i]
-kappa1eq[mu_]=Exp[mu]/(Exp[mu]+1)
-kappa0eq[mu_]=Log[Exp[mu]+1]-kappa1eq[mu]*mu
+retceq[t_] := kappa0[Ewc] + kappa1[Ewc] wc[t]-wc[t-1]+dc[t]
+reteq[t_,i_] := kappa0[Epd[i]] + kappa1[Epd[i]]pd[t,i]-pd[t-1,i]+dd[t,i]
+kappa1eq[mu_] := Exp[mu]/(Exp[mu]+1)
+kappa0eq[mu_] := Log[Exp[mu]+1]-kappa1eq[mu]*mu
 
 (* campbell-shiller approximation for returns from Koijen, Lustig, Van Nieuwerburgh and Verdelhan *)
-(*retceq[t_]:=kappa0+wc[t]-kappa1 wc[t-1]+dc[t];
-reteq[t_,i_]:=kappa0m[i]+pd[t,i]-kappa1m[i]pd[t-1,i]+dd[t,i];
-kappa1eq[mu_]:=Exp[mu]/(Exp[mu]-1);
-kappa0eq[mu_]:=-Log[Exp[mu]-1]+kappa1eq[mu]mu;*)
+(*retceq[t_] := kappa0[Ewc]+wc[t]-kappa1[Ewc] wc[t-1]+dc[t]
+reteq[t_,i_] := kappa0[Epd[i]]+pd[t,i]-kappa1[Epd[i]] pd[t-1,i]+dd[t,i]
+kappa1eq[mu_] := Exp[mu]/(Exp[mu]-1)
+kappa0eq[mu_] := -Log[Exp[mu]-1]+kappa1eq[mu]mu*)
 
-excretceq[t_]=retc[t]-rf[t]
-excreteq[t_,i_]=ret[t,i]-rf[t]
+excretceq[t_] := retc[t]-rf[t]
+excreteq[t_,i_] := ret[t,i]-rf[t]
 
 
 
-coefwc=Cases[UpValues[wceq], HoldPattern[linearInStateVars[_,x_]]:>x,Infinity][[1]];
-coefpd=Cases[UpValues[pdeq], HoldPattern[linearInStateVars[_,x_[i__]]]:>x[_],Infinity][[1]];
-coefb=Cases[UpValues[bondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],Infinity][[1]];
-coefnb=Cases[UpValues[nombondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],Infinity][[1]];
+coefwc = Cases[UpValues[wceq], HoldPattern[linearInStateVars[_,x_]]:>x,Infinity][[1]];
+coefpd = Cases[UpValues[pdeq], HoldPattern[linearInStateVars[_,x_[i__]]]:>x[_],Infinity][[1]];
+coefb = Cases[UpValues[bondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],Infinity][[1]];
+coefnb = Cases[UpValues[nombondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],Infinity][[1]];
 
 endogEqAssumptions=
 	(*coefficients of wc*)Element[coefwc,Reals]  && 
 	(*coefficients of pd*)Element[coefpd,Reals] && 
 	(*coefficients of real bond prices*)Element[coefb,Reals] && 
 	(*coefficients of nominal bond prices*)Element[coefnb,Reals] &&
-	(*linearization constants*)kappa0>0 && kappa0<1 && 
-	kappa1>0&& kappa1<1 && 
-	kappa0m[__]>0  && kappa0m[__]<1 && 
-	kappa1m[__]>0&& kappa1m[__]<1 
+	(*linearization constants*)kappa0[__]>0 && kappa0[_]<1 && 
+	kappa1[__]>0&& kappa1[__]<1;
 
 
 
