@@ -1,18 +1,17 @@
 BeginTestSection["PacletizeResources"] 
 Begin["PacletizeResources`"]
 VerificationTest[
-	{Needs @ "FernandoDuarte`LongRunRisk`"}
+	{Needs @ "FernandoDuarte`LongRunRisk`";}
 	,
 	{Null}
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230423-YRJP88"
+	TestID->"PacletizeResources_20230430-TSBLY6"
 ]
 VerificationTest[
 	Apply[And,
 		{
-			MemberQ[$ContextPath, "MaTeX`"],
 			!SameQ[PacletFind @ "MaTeX", {}],
 			!SameQ[PacletFind @ "PacletizedResourceFunctions", {}],
 			MemberQ[$Packages, "MaTeX`"],
@@ -26,7 +25,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20230423-ZJY76W"
+	TestID->"PacletizeResources_20230430-8Q9ENI"
 ] 
 End[]
 EndTestSection[]

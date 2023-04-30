@@ -13,11 +13,17 @@ models::usage= "Association with the definition and properties of models.";
 Begin["`Private`"]
 
 
-<<PacletizedResourceFunctions`
-models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];
+(*<<PacletizedResourceFunctions`
+models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];*)
 
 
-modelsLocal = <|
+Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
+Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+
+
+models = <|
 	"BY" -> <|
 		"name" -> "Original long-run risk model",
 		"shortname" -> "BY",

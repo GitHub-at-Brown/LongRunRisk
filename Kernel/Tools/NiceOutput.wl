@@ -55,11 +55,12 @@ Begin["`Private`"]
 (*Load packages*)
 
 
-(*<<FernandoDuarte`LongRunRisk`Model`Parameters`;*)
-(*<<FernandoDuarte`LongRunRisk`Model`Shocks`;*)
-(*<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;*)
-(*<<FernandoDuarte`LongRunRisk`Model`Catalog`;*)
+<<FernandoDuarte`LongRunRisk`Model`Parameters`;
+<<FernandoDuarte`LongRunRisk`Model`Shocks`;
+<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
+<<FernandoDuarte`LongRunRisk`Model`Catalog`;
 <<FernandoDuarte`LongRunRisk`Model`ProcessModels`;
+<<MaTeX`;
 
 
 (* ::Subsection:: *)
@@ -69,11 +70,11 @@ Begin["`Private`"]
 (*resource functions*)
 
 
-(*coloring of formal symbols*)
+(*(*coloring of formal symbols*)
 MakeBoxes[\[FormalX],_]:=TagBox["x",\[FormalX]&,AutoDelete->True,BaseStyle->{FontColor->RGBColor[.6,.4,.2],ShowSyntaxStyles->False}]
 MakeBoxes[\[FormalY],_]:=TagBox["y",\[FormalY]&,AutoDelete->True,BaseStyle->{FontColor->RGBColor[.6,.4,.2],ShowSyntaxStyles->False}]
 (*restore formal symbols coloring to previous state*)
-FormatValues@MakeBoxes={};
+FormatValues@MakeBoxes={};*)
 
 
 (* ::Subsubsection::Closed:: *)
@@ -113,7 +114,8 @@ createEqTables[m_]:=Module[
 	(*adds nicely formatted tables with exogenous equations to each model in m*)
 	{
 		keys=Keys[m],
-		models=FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`keyRename[m, Thread[Keys[m]->Values@(#["shortname"]&/@m)] ], (*rename Keys to shortname*)
+		models = KeyMap[Replace[#, Thread[Keys[m]->Values@(#["shortname"]&/@m) ] ]&,m],(*rename Keys to shortname*)
+		ContextPath=$ContextPath,
 		lhs,
 		rhs,
 		exoNiceOutput,
@@ -153,8 +155,11 @@ createEqTables[m_]:=Module[
 	models=(Append[#, "exogenousEqTable"->exoNiceOutput[#["shortname"]] ]&) /@models;
 	models=(Append[#, "exogenousEqTableNumeric"->exoNiceOutputN[#["shortname"]] ]&) /@models;
 	
+	(*restore $ContextPath to initial state*)
+	$ContextPath=ContextPath;
+
 	(*restore original keys and output models*)
-	FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`keyRename[models, Thread[Keys[models]->keys] ]
+	KeyMap[Replace[#,Thread[Keys[models]->keys]]&,models]
 
 ];
 
@@ -306,7 +311,7 @@ paramTable[m_]:=Module[
 ](*module*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*allParamTable*)
 
 
@@ -382,7 +387,7 @@ allParamTable[m_]:=OpenerView[
 ](*OpenerView*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*iToNum*)
 
 
@@ -529,7 +534,7 @@ modelToTeXStocks=Association@Thread[
 modelToTeXNoStocks=Complement[modelToTeX,modelToTeXStocks];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*formatModels*)
 
 

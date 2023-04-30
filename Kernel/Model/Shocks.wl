@@ -17,7 +17,7 @@ $shocks=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
 Begin["`Private`"]
 
 
-(*Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]*)
+Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 
 
 (*

@@ -86,9 +86,9 @@ $endogenousVars=SortBy[Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&],P
 Begin["`Private`"]
 
 
-(*Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
-Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];*)
+Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 
 
 (* conjecture the wealth-consumption ratio is linear in stateVars *)

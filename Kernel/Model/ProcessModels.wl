@@ -39,7 +39,7 @@ Begin["`Private`"]
 (*<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;*)
 
 
-Needs["PacletizedResourceFunctions`"];
+(*Needs["PacletizedResourceFunctions`"];*)
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
@@ -69,19 +69,18 @@ FullSymbolName=ResourceObject["FullSymbolName"];*)
 processModels[m_]:=
 	Module[
 	{
-		models = KeyMap[Replace[#, Thread[Keys[m]->Values@(#["shortname"]&/@m)] ]&,m],(*rename Keys to shortname*)
-		keys=Keys[m],		
+		keys=Keys[m],
+		models = KeyMap[Replace[#, Thread[Keys[m]->Values@(#["shortname"]&/@m) ] ]&,m],(*rename Keys to shortname*)		
 		ContextPath=$ContextPath,
 		z,
 		i,
 		modelAssumptions
 	},
-	
-	 		   
+
 	(*add number of stocks as a new key-value pair in each model*)
 	models = Append[
 		#,
-		"numStocks" -> Count[#["parameters"], SetSymbolsContext[mud][_Integer], Infinity]
+		"numStocks" -> Count[#["parameters"], mud[_Integer], Infinity]
 	]& /@ models;
 	
 	(*find parameters that are zero or one in parameters and add to models*)
@@ -104,7 +103,7 @@ processModels[m_]:=
 						MemberQ[#["stockZeroParam"], {#["stockZeroParam"][[q, 1]], j}],
 						{j, 1, #["numStocks"]}
 					],
-					#["stockZeroParam"][[q, 1]][SetSymbolsContext[i_]] -> 0,
+					#["stockZeroParam"][[q, 1]][i_] -> 0,
 					Nothing
 				], 
 				{q, 1, Length[#["stockZeroParam"]]}
@@ -121,8 +120,9 @@ processModels[m_]:=
 	models = createEndogenous[models];
 	
 	(*add assumptions*)
-	modelAssumptions = FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramAssumptions && FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`endogEqAssumptions;
-	models=(Append[#, "modelAssumptions"->(SetSymbolsContext[modelAssumptions]//.#["assignParam"]//.#["assignParamStocks"]) ]&) /@models;
+	modelAssumptions = FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramAssumptions 
+		&& FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`endogEqAssumptions;
+	models=(Append[#, "modelAssumptions"->(modelAssumptions//.#["assignParam"]//.#["assignParamStocks"]) ]&) /@models;
 
 	(*restore $ContextPath to initial state*)
 	$ContextPath=ContextPath;
@@ -159,12 +159,17 @@ createExogenous[m_]:=Module[
 	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 
 	(*separate the equations into arguments `argsPattern` and expressions that define the functions `fun`*)
-	argsPattern = SetSymbolsContext[Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@$exogenousVars];
-	(*args = argsPattern /. Optional->First /. (x_Pattern :> First@x);*)
-	funs = SetSymbolsContext[DownValues[#][[;;,2]][[1]]&/@(ToExpression/@$exogenousVars)];
+(*	argsPattern = SetSymbolsContext[Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@$exogenousVars];*)
+(*	funs = SetSymbolsContext[DownValues[#][[;;,2]][[1]]&/@(ToExpression/@$exogenousVars)];*)
+	
+	argsPattern = Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@$exogenousVars;
+	funs = DownValues[#][[;;,2]][[1]]&/@(ToExpression/@$exogenousVars);
+	
 	
 	(*plug in parameters that are assumed fixed (most are fixed to 0 or 1)*)
-	exoExprAssignParam=(funs//.SetSymbolsContext[#["assignParam"]]//.SetSymbolsContext[#["assignParamStocks"]])& /@models;
+	(*exoExprAssignParam=(funs//.SetSymbolsContext[#["assignParam"]]//.SetSymbolsContext[#["assignParamStocks"]])& /@models;*)
+	exoExprAssignParam=(funs//.#["assignParam"]//.#["assignParamStocks"])& /@models;
+	
 	(*find indices of exogenous variables that are not identically 0*)
 	indicesKeep=Complement[
 		Thread[{Range @ Length @ #}],
@@ -192,7 +197,9 @@ createExogenous[m_]:=Module[
 	models=Append[
 		#,
 		"exogenousEq"->exo[#["shortname"]]
-	]& /@models
+	]& /@models;
+	
+	models
 ]	
 
 
@@ -210,10 +217,10 @@ something[] :=
 (*createEndogenous*)
 
 
-createEndogenous[m_]:=Module[
+createEndogenous[mod_]:=Module[
 	(*adds exogenous variables and equations to each model in m after removing those that are always 0*)
 	{
-		models=m,
+		models=mod,
 		endogenousVarsExpr,
 		endogUpValuesEq,
 		endogUpValuesVar,
@@ -221,7 +228,6 @@ createEndogenous[m_]:=Module[
 		endogRestVar,
 		endog,
 		argsPattern,
-		args,
 		funs,
 		funTemplate
 	},
@@ -242,29 +248,30 @@ createEndogenous[m_]:=Module[
 
 	(*without UpValues*)
 		(*equations are given functions of other variables*)
-		argsPattern = SetSymbolsContext[Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@endogRestEq];
-		args = argsPattern /. Optional->First /. (x_Pattern :> First@x);
-		(*funs = ToExpression/@endogRestEq;
-		funTemplate[fun_,argPatt_,arg_] := ( {##} /. (argPatt :> (fun@@arg )) )&;*)
-		funs = SetSymbolsContext[DownValues[#][[;;,2]][[1]]&/@(ToExpression/@endogRestEq)];
-		
+(*		argsPattern = SetSymbolsContext[Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@endogRestEq];*)
+(*		funs = SetSymbolsContext[DownValues[#][[;;,2]][[1]]&/@(ToExpression/@endogRestEq)];*)
+		argsPattern = Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@endogRestEq;
+		funs = DownValues[#][[;;,2]][[1]]&/@(ToExpression/@endogRestEq);
+
+
 		funTemplate[argPattFun_] := ( {##} /. (argPattFun) )&;
-		funTemplate[fun_,argPatt_,arg_] := ( {##} /. (argPatt :> fun) )&;
+		funTemplate[fun_,argPatt_] := ( {##} /. (argPatt :> fun) )&;
 	
 	(*append to models*)
 	models=Append[
 		#,
 		"endogenousVars"->Join[endogUpValuesEq,endogRestEq]
 	]& /@models;
-	
+
 	models=Append[
 		#,
 		"endogenousEq"->Association@Join[
 			Thread[
-				endogUpValuesVar -> SetSymbolsContext[funTemplate[#]&/@endog[#["stateVars"]]]
+				(*endogUpValuesVar -> SetSymbolsContext[funTemplate[#]&/@endog[#["stateVars"]]]*)
+				endogUpValuesVar -> (funTemplate[#]&/@endog[#["stateVars"]])
 			],
 			Thread[
-				endogRestVar -> MapApply[funTemplate,{funs,argsPattern,args}\[Transpose]]
+				endogRestVar -> MapApply[funTemplate,{funs,argsPattern}\[Transpose]]
 			]
 		]
 	]& /@models

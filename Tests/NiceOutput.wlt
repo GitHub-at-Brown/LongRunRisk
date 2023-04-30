@@ -1,22 +1,33 @@
 BeginTestSection["NiceOutput"] 
 Begin["NiceOutput`"]
 VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"
+	Needs @ "FernandoDuarte`LongRunRisk`Tools`NiceOutput`";
+	Needs @ "FernandoDuarte`LongRunRisk`Model`ProcessModels`";
+	Needs @ "PacletizedResourceFunctions`";
+	Get @ "FernandoDuarte`LongRunRisk`Model`Catalog`";
+	Needs @ "MaTeX`";
 	,
 	Null
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230423-WK0Y9W"
+	TestID->"NiceOutput_20230430-ZCQFAM"
 ]
 VerificationTest[
-	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]
+	Apply[And,
+		{
+			MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"],
+			MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"],
+			MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`ProcessModels`"],
+			MemberQ[$ContextPath, "PacletizedResourceFunctions`"]
+		}
+	]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230423-Z8P6SU"
+	TestID->"NiceOutput_20230430-H5Y998"
 ]
 VerificationTest[
 	!SameQ[Names @ "*Info", {}]
@@ -25,15 +36,13 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230423-7S9DNO"
+	TestID->"NiceOutput_20230430-QKXM6S"
 ]
 VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`Model`Catalog`";
-	Needs @ "FernandoDuarte`LongRunRisk`Model`ProcessModels`";
 	Apply[And,
 		{
-			!SameQ[Names @ "*models", {}],
-			!SameQ[Names @ "*processModels", {}]
+			!SameQ[Names @ "*processModels", {}],
+			!SameQ[Names @ "*models", {}]
 		}
 	]
 	,
@@ -41,35 +50,91 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230423-YI2YLB"
+	TestID->"NiceOutput_20230430-RT7KCF"
 ]
 VerificationTest[
-	NiceOutput`newBY = <|"myModel" -> FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]|>;
-	NiceOutput`newBYInfo = FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info @ NiceOutput`newBY;
-	NiceOutput`newBYproc = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels @ NiceOutput`newBY;
-	NiceOutput`newBYprocInfo = FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info @ NiceOutput`newBYproc;
+	NiceOutput`myModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
 	{
-		SameQ[NiceOutput`newBYInfo[[1, 1, 1, 1]], "BY"],
-		SameQ[
-			ToString[
-				NiceOutput`newBYInfo[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]]
-			],
-			"x[t]"
-		],
-		SameQ[NiceOutput`newBYprocInfo[[1, 1, 1, 1]], "BY"],
-		SameQ[
-			ToString[
-				NiceOutput`newBYprocInfo[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]]
-			],
-			"x[t]"
-		]
+		Head @ NiceOutput`myModels["BKY"]["numStocks"],
+		Part[NiceOutput`myModels["BKY"]["parameters"], 1]
 	}
 	,
-	{True, True, True, True}
+	{Missing, FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9989}
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230423-8MH542"
+	TestID->"NiceOutput_20230430-GSTQDK"
+]
+VerificationTest[
+	NiceOutput`myModelsInfo = FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info @ NiceOutput`myModels;
+	Apply[And,
+		{
+			SameQ[Head @ NiceOutput`myModelsInfo, Column],
+			SameQ[Head[NiceOutput`myModelsInfo[[1]]], List],
+			SameQ[Head[NiceOutput`myModelsInfo[[1, 1]]], OpenerView],
+			Apply[And,
+				Map[MatchQ[#, Grid]&,
+					Map[Head, NiceOutput`myModelsInfo[[1, 1;;, 1, 2]]]
+				]
+			]
+		}
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"NiceOutput_20230430-IW2FAF"
+]
+VerificationTest[
+	NiceOutput`newBY = <|"myModel" -> NiceOutput`myModels["BY"]|>;
+	NiceOutput`newBYInfo = PacletizedResourceFunctions`SetSymbolsContext @ FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info @ NiceOutput`newBY;
+	NiceOutput`newBYproc = PacletizedResourceFunctions`SetSymbolsContext @ FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels @ NiceOutput`newBY;
+	NiceOutput`newBYprocInfo = FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info @ NiceOutput`newBYproc;
+	Apply[And,
+		{
+			SameQ[NiceOutput`newBYInfo[[1, 1, 1, 1]], "BY"],
+			SameQ[
+				ToString[
+					NiceOutput`newBYInfo[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]]
+				],
+				"x[t]"
+			],
+			SameQ[NiceOutput`newBYprocInfo[[1, 1, 1, 1]], "BY"],
+			SameQ[
+				ToString[
+					NiceOutput`newBYprocInfo[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]]
+				],
+				"x[t]"
+			]
+		}
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"NiceOutput_20230430-D66RE9"
+]
+VerificationTest[
+	Apply[And,
+		{
+			SameQ[Head @ NiceOutput`newBYInfo, Column],
+			SameQ[Head[NiceOutput`newBYInfo[[1]]], List],
+			SameQ[Head[NiceOutput`newBYInfo[[1, 1]]], OpenerView],
+			Apply[And,
+				Map[MatchQ[#, Grid]&,
+					Map[Head, NiceOutput`newBYInfo[[1, 1;;, 1, 2]]]
+				]
+			]
+		}
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"NiceOutput_20230430-78KH9K"
 ]
 VerificationTest[
 	With[{NiceOutput`localPi = 3.14},
@@ -85,7 +150,6 @@ VerificationTest[
 			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate @ Pi,
 			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate @ N @ Pi,
 			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate[3.14 * 10 ^ -7],
-			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate @ FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`stripContext @ {3.14*10^-7},
 			FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate[
 				Flatten[
 					{ReplaceAll[FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`stripContext[NiceOutput`delta] / 2, FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`stripContext[{NiceOutput`delta -> 0.99}]]}
@@ -96,12 +160,12 @@ VerificationTest[
 	,
 	{
 		"3.14", "3.14`", "3.14", "3.14", "3.14`", "3.14", "\[CapitalPi]", "\\[CapitalPi]", "3.141592653589793",
-		"3.141592653589793", "3.14*^-7", "{}", "{0.495}"
+		"3.141592653589793", "3.14*^-7", "{0.495}"
 	}
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230423-4ZW713"
+	TestID->"NiceOutput_20230430-3HYGZ7"
 ]
 VerificationTest[
 	Not[
@@ -115,7 +179,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20230423-42E703"
+	TestID->"NiceOutput_20230430-UH3CPJ"
 ] 
 End[]
 EndTestSection[]

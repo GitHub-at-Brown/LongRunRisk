@@ -1,14 +1,15 @@
 BeginTestSection["ProcessModels"] 
 Begin["ProcessModels`"]
 VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`Model`Catalog`";
+	Get @ "FernandoDuarte`LongRunRisk`Model`Catalog`";
 	Needs @ "FernandoDuarte`LongRunRisk`Model`ProcessModels`";
+	Needs @ "PacletizedResourceFunctions`";
 	,
 	Null
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-VN6E9J"
+	TestID->"ProcessModels_20230430-LQGN9L"
 ]
 VerificationTest[
 	Apply[And, {MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"], MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`ProcessModels`"]}]
@@ -17,7 +18,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-33YU84"
+	TestID->"ProcessModels_20230430-2VUU3H"
 ]
 VerificationTest[
 	Apply[And,
@@ -31,16 +32,17 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-067LMQ"
+	TestID->"ProcessModels_20230430-MM0N2R"
 ]
 VerificationTest[
-	Apply[And, Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]]
+	ProcessModels`myModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
+	Apply[And, Map[StringQ, Keys @ ProcessModels`myModels]]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-U36TUO"
+	TestID->"ProcessModels_20230430-6XBRD7"
 ]
 VerificationTest[
 	Apply[And,
@@ -48,12 +50,12 @@ VerificationTest[
 			Flatten[
 				Map[
 					Function @ {
-						FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["name"],
-						FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["shortname"],
-						FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["bibRef"],
-						FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["desc"]
+						ProcessModels`myModels[#]["name"],
+						ProcessModels`myModels[#]["shortname"],
+						ProcessModels`myModels[#]["bibRef"],
+						ProcessModels`myModels[#]["desc"]
 					},
-					Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
+					Keys @ ProcessModels`myModels
 				]
 			]
 		]
@@ -63,7 +65,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-P1RA97"
+	TestID->"ProcessModels_20230430-WMC319"
 ]
 VerificationTest[
 	Apply[And,
@@ -71,9 +73,13 @@ VerificationTest[
 			Flatten[
 				Map[
 					Function[
-						Values[FilterRules[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"], Except[ProcessModels`gamma | ProcessModels`theta]]]
+						Values[
+							N[
+								Association[ProcessModels`myModels[#]["parameters"]] //. ProcessModels`myModels[#]["parameters"]
+							]
+						]
 					],
-					{"BY", "BKY"}
+					Keys @ ProcessModels`myModels
 				]
 			]
 		]
@@ -83,43 +89,45 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-J7XNGO"
+	TestID->"ProcessModels_20230430-IM6EQG"
 ]
 VerificationTest[
-	FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]["stateVars"]
+	PacletizedResourceFunctions`SetSymbolsContext[
+		Block[{ProcessModels`model = ProcessModels`myModels @ "BY", $Context = "ProcessModels`"}, ProcessModels`model @ "stateVars"]
+	]
 	,
 	{ProcessModels`x @ ProcessModels`t, ProcessModels`sx @ ProcessModels`t}
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-UNNTW4"
+	TestID->"ProcessModels_20230430-E0UA32"
 ]
 VerificationTest[
-	Apply[And, Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {"BY", "BKY"}]]
+	Apply[And, Map[MemberQ[Keys[ProcessModels`myModels], #]&, {"BY", "BKY"}]]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-SZN3DS"
+	TestID->"ProcessModels_20230430-AROFNG"
 ]
 VerificationTest[
-	AllTrue[FernandoDuarte`LongRunRisk`Model`Catalog`models, AssociationQ]
+	AllTrue[ProcessModels`myModels, AssociationQ]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-BKEF3V"
+	TestID->"ProcessModels_20230430-OE90D5"
 ]
 VerificationTest[
-	AllTrue[Map[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]&, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models], AssociationQ]
+	AllTrue[Map[ProcessModels`myModels[#]&, Keys @ ProcessModels`myModels], AssociationQ]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-IGKT8B"
+	TestID->"ProcessModels_20230430-I4KF9P"
 ]
 VerificationTest[
 	Get @ "PacletizedResourceFunctions`";
@@ -129,33 +137,45 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-UZ7IWK"
+	TestID->"ProcessModels_20230430-RZRH6P"
 ]
 VerificationTest[
 	PacletizedResourceFunctions`SetSymbolsContext[
-		Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
-			SameQ[{PacletizedResourceFunctions`SetSymbolsContext[ProcessModels`pi[ProcessModels`t]] /. ProcessModels`model["exogenousEq"]},
-				{
+		Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[ProcessModels`myModels]["NRC"], $Context = "ProcessModels`"},
+			{
+				PacletizedResourceFunctions`SetSymbolsContext[ProcessModels`pi[ProcessModels`t] /. PacletizedResourceFunctions`SetSymbolsContext[ProcessModels`model["exogenousEq"]]],
+				PacletizedResourceFunctions`SetSymbolsContext[
 					Plus[ProcessModels`mup,
 						Plus[ProcessModels`rhop * (ProcessModels`pi[ProcessModels`t - 1] - ProcessModels`mup),
-							(ProcessModels`xip * ProcessModels`eps["p"][ProcessModels`t - 1]) + ProcessModels`phip * ProcessModels`eps["p"][ProcessModels`t]
+							(ProcessModels`xip * ProcessModels`eps["pi"][ProcessModels`t - 1]) + ProcessModels`phip * ProcessModels`eps["pi"][ProcessModels`t]
 						]
 					]
-				}
-			]
+				]
+			}
 		]
 	]
 	,
-	True
+	{
+		Plus[ProcessModels`mup,
+			Plus[ProcessModels`rhop * (ProcessModels`pi[ProcessModels`t - 1] - ProcessModels`mup),
+				(ProcessModels`xip * ProcessModels`eps["pi"][ProcessModels`t - 1]) + ProcessModels`phip * ProcessModels`eps["pi"][ProcessModels`t]
+			]
+		],
+		Plus[ProcessModels`mup,
+			Plus[ProcessModels`rhop * (ProcessModels`pi[ProcessModels`t - 1] - ProcessModels`mup),
+				(ProcessModels`xip * ProcessModels`eps["pi"][ProcessModels`t - 1]) + ProcessModels`phip * ProcessModels`eps["pi"][ProcessModels`t]
+			]
+		]
+	}
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-Y3GDZ8"
+	TestID->"ProcessModels_20230430-CNQZU4"
 ]
 VerificationTest[
 	PacletizedResourceFunctions`SetSymbolsContext[
-		Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["BY"], $Context = "ProcessModels`"},
-			SameQ[{PacletizedResourceFunctions`SetSymbolsContext[ProcessModels`wc[ProcessModels`t]] /. ProcessModels`model["endogenousEq"]},
+		Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[ProcessModels`myModels]["BY"], $Context = "ProcessModels`"},
+			SameQ[{PacletizedResourceFunctions`SetSymbolsContext[ProcessModels`wc[ProcessModels`t] /. ProcessModels`model["endogenousEq"]]},
 				{ProcessModels`A[0] + (ProcessModels`A[2] * ProcessModels`sx[ProcessModels`t]) + ProcessModels`A[1] * ProcessModels`x[ProcessModels`t]}
 			]
 		]
@@ -165,12 +185,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-BP0OFQ"
+	TestID->"ProcessModels_20230430-H47GX8"
 ]
 VerificationTest[
 	PacletizedResourceFunctions`SetSymbolsContext[
-		Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["BY"], $Context = "ProcessModels`"},
-			SameQ[{PacletizedResourceFunctions`SetSymbolsContext[ProcessModels`pd[ProcessModels`t, ProcessModels`i]] /. ProcessModels`model["endogenousEq"]},
+		Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[ProcessModels`myModels]["BY"], $Context = "ProcessModels`"},
+			SameQ[{PacletizedResourceFunctions`SetSymbolsContext[ProcessModels`pd[ProcessModels`t, ProcessModels`i] /. ProcessModels`model["endogenousEq"]]},
 				{
 					Plus[ProcessModels`B[ProcessModels`i][0],
 						(ProcessModels`B[ProcessModels`i][2] * ProcessModels`sx[ProcessModels`t]) + ProcessModels`B[ProcessModels`i][1] * ProcessModels`x[ProcessModels`t]
@@ -184,13 +204,13 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-IXHI7U"
+	TestID->"ProcessModels_20230430-4WYFNQ"
 ]
 VerificationTest[
 	PacletizedResourceFunctions`SetSymbolsContext[
-		Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
+		Block[{ProcessModels`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[ProcessModels`myModels]["NRC"], $Context = "ProcessModels`"},
 			SameQ[
-				{PacletizedResourceFunctions`SetSymbolsContext[ProcessModels`bondexcret[ProcessModels`t, ProcessModels`m]] /. ProcessModels`model["endogenousEq"]},
+				{PacletizedResourceFunctions`SetSymbolsContext[ProcessModels`bondexcret[ProcessModels`t, ProcessModels`m] /. ProcessModels`model["endogenousEq"]]},
 				{ProcessModels`bondret[ProcessModels`t, ProcessModels`m, 1] - ProcessModels`bondyield[ProcessModels`t - 1, 1]}
 			]
 		]
@@ -200,15 +220,15 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-WOI760"
+	TestID->"ProcessModels_20230430-JWVGH2"
 ]
 VerificationTest[
 	PacletizedResourceFunctions`SetSymbolsContext[
 		Block[
 			{
-				ProcessModels`modelsP = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels @ FernandoDuarte`LongRunRisk`Model`Catalog`models,
-				ProcessModels`modelBY = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["BY"],
-				ProcessModels`modelBKY = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["BKY"],
+				ProcessModels`modelsP = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels @ ProcessModels`myModels,
+				ProcessModels`modelBY = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[ProcessModels`myModels]["BY"],
+				ProcessModels`modelBKY = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[ProcessModels`myModels]["BKY"],
 				ProcessModels`newModels, ProcessModels`newModelsP, $Context = "ProcessModels`"
 			},
 			ProcessModels`newModels = <|"myModel" -> ProcessModels`modelBKY, "BY" -> ProcessModels`modelBY|>;
@@ -226,7 +246,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230423-OWN0DS"
+	TestID->"ProcessModels_20230430-BJRV99"
 ] 
 End[]
 EndTestSection[]
