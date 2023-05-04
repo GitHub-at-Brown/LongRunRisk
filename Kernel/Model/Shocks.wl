@@ -36,15 +36,16 @@ eps["dd"]
 (*for a normal distribution, we only need rules for how to compute expectations of products of shocks*)
 rulesE[t_]:=With[
 	{
-		shockNames={"x","dc","pi","pibar","sg","sx","sc","sp"}
+		shockNames={"x","dc","pi","pibar","sg","sx","sc","sp"},
+		epsPattern=(_Symbol?((SymbolName[#]==="eps")&))
 	},
 
 	{
-		eps["dc"][t]*eps["dd"][t,i_]:>taugd[i],
-		eps[var_][t]/;MemberQ[shockNames,var]:>0,
-		eps["dd"][t,i_]:>0,
-		eps[var_][t]^p_Integer/;MemberQ[shockNames,var]:>Expectation[y^p,y\[Distributed]NormalDistribution[0,1]],
-		eps["dd"][t,i_]^p_Integer:>Expectation[y^p,y\[Distributed]NormalDistribution[0,1]]
+		epsPattern["dc"][t]*epsPattern["dd"][t,i_]:>taugd[i],
+		epsPattern[var_][t]/;MemberQ[shockNames,var]:>0,
+		epsPattern["dd"][t,i_]:>0,
+		epsPattern[var_][t]^p_Integer/;MemberQ[shockNames,var]:>Expectation[y^p,y\[Distributed]NormalDistribution[0,1]],
+		epsPattern["dd"][t,i_]^p_Integer:>Expectation[y^p,y\[Distributed]NormalDistribution[0,1]]
 	}	
 ]
 

@@ -7,7 +7,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-8YEBOI"
+	TestID->"Shocks_20230503-RNOUX5"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Shocks`"]
@@ -16,7 +16,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-CFK9NO"
+	TestID->"Shocks_20230503-JDVNNJ"
 ]
 VerificationTest[
 	!SameQ[Names @ "*rulesE", {}]
@@ -25,7 +25,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-W9ZYUO"
+	TestID->"Shocks_20230503-NFFJHZ"
 ]
 VerificationTest[
 	{
@@ -44,7 +44,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-PODS5K"
+	TestID->"Shocks_20230503-3BRJQN"
 ]
 VerificationTest[
 	{
@@ -63,7 +63,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-LHQK7R"
+	TestID->"Shocks_20230503-2O3ZJ4"
 ]
 VerificationTest[
 	{
@@ -82,7 +82,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-M4G293"
+	TestID->"Shocks_20230503-WTI85K"
 ]
 VerificationTest[
 	{
@@ -101,7 +101,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-NHPBNM"
+	TestID->"Shocks_20230503-VRZEKL"
 ]
 VerificationTest[
 	{
@@ -139,7 +139,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-12Z06P"
+	TestID->"Shocks_20230503-Q00MJG"
 ]
 VerificationTest[
 	Map[
@@ -155,7 +155,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-MM36PF"
+	TestID->"Shocks_20230503-TL5UBK"
 ]
 VerificationTest[
 	{
@@ -174,7 +174,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-EH5MUP"
+	TestID->"Shocks_20230503-FK75YS"
 ]
 VerificationTest[
 	{
@@ -212,7 +212,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-NVWWAI"
+	TestID->"Shocks_20230503-J2ZKFP"
 ]
 VerificationTest[
 	{
@@ -248,7 +248,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-AGSMGW"
+	TestID->"Shocks_20230503-4LCSM3"
 ]
 VerificationTest[
 	{
@@ -272,7 +272,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-WBCMA6"
+	TestID->"Shocks_20230503-MVL927"
 ]
 VerificationTest[
 	{
@@ -299,7 +299,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-M5PH7J"
+	TestID->"Shocks_20230503-115E06"
 ]
 VerificationTest[
 	{
@@ -333,7 +333,45 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230430-FEYKJT"
+	TestID->"Shocks_20230503-CG0EJO"
+]
+VerificationTest[
+	{
+		Table[NewContext`eps[Shocks`f][Shocks`t] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+		],
+		Table[NewContext`eps["dd"][Shocks`t, Shocks`ii] /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}}
+		]
+	}
+	,
+	{
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0}
+	}
+	,
+	{}
+	,
+	TestID->"Shocks_20230503-HD5ME8"
+]
+VerificationTest[
+	{
+		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`Private`eps[Shocks`f][Shocks`t] ^ 2) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`f, {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"}}
+		],
+		Table[(FernandoDuarte`LongRunRisk`Model`Shocks`Private`eps["dd"][Shocks`t, Shocks`ii] ^ 2) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[Shocks`t],
+			{Shocks`ii, {1, Shocks`i, Shocks`j}}
+		]
+	}
+	,
+	{
+		{1, 1, 1, 1, 1, 1, 1, 1},
+		{1, 1, 1}
+	}
+	,
+	{}
+	,
+	TestID->"Shocks_20230503-RH2XUN"
 ] 
 End[]
 EndTestSection[]

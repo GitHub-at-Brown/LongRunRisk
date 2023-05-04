@@ -78,6 +78,7 @@ eulereq::usage = "eulereq[x[t],s] or eulereq[x[t,i],s] gives the Euler equation 
 	return x[t] or x[t,i] conditional on time s."
 nomeulereq::usage = "nomeulereq[x[t],s] or nomeulereq[x[t,i],s]  gives the Euler equation for \
 	nominal return x[t] or x[t,i] conditional on time s."
+	
 
 
 $endogenousVars=SortBy[Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&],PositionIndex[{"wceq","pdeq","bondeq","nombondeq"}]];(*SortBy have exogenous variables in a given canonical order*)

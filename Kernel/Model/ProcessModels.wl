@@ -153,7 +153,9 @@ createExogenous[m_]:=Module[
 		exoExprKeep,
 		exoVarKeep,
 		funTemplate,
-		exo
+		exo,
+		matchSymbol,
+		exoExprMatchSymbol
 		(*,vars,fun,argPatt*)
 	},
 	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
@@ -181,14 +183,20 @@ createExogenous[m_]:=Module[
 	funsKeep=Association@Thread[Keys@exoExprAssignParam->funsKeepList];
 	
 	(*get names of all exogenous variables and keep those not identically 0*)
-	exoExpr=ToExpression@(StringDrop[#,-2]&/@$exogenousVars);
+(*	exoExpr=ToExpression@(StringDrop[#,-2]&/@$exogenousVars);
+	exoExprKeep=Extract[exoExpr,#]&/@indicesKeep;*)
+	exoExpr=StringDrop[#,-2]&/@$exogenousVars;
 	exoExprKeep=Extract[exoExpr,#]&/@indicesKeep;
+	
 	exoVarKeep=Extract[$exogenousVars,#]&/@indicesKeep;
 	
 	(*arrange as anonymous function with the right arguments*)
 	funTemplate[fun_,argPatt_] := ( {##} /. (argPatt :> fun) )&;
-	exo=MapThread[Association@Thread[#1->MapThread[funTemplate,{##2}]]&,{exoExprKeep,funsKeep,argsPatternKeep}];
-	
+	Attributes[matchSymbol]={Listable};
+	matchSymbol[var_String]:= (_Symbol?((SymbolName[#]===var)&)); (*pattern to match symbols in any Context*)
+	exoExprMatchSymbol = matchSymbol/@exoExprKeep;
+	exo=MapThread[Association@Thread[#1->MapThread[funTemplate,{##2}]]&,{exoExprMatchSymbol,funsKeep,argsPatternKeep}];
+
 	(*append to models*)
 	models=Append[
 		#,
@@ -237,10 +245,12 @@ createEndogenous[mod_]:=Module[
 	(*separate endogenous equations and variables with and without UpValues*)
 	
 		endogUpValuesEq = Pick[$endogenousVars,UnsameQ[{},#]&/@(UpValues/@endogenousVarsExpr)];
-		endogUpValuesVar = ToExpression@(StringDrop[#,-2]&/@endogUpValuesEq);
+		(*endogUpValuesVar = ToExpression@(StringDrop[#,-2]&/@endogUpValuesEq);*)
+		endogUpValuesVar = StringDrop[#,-2]&/@endogUpValuesEq;
 		
 		endogRestEq=Complement[$endogenousVars,endogUpValuesEq];
-		endogRestVar= ToExpression@(StringDrop[#,-2]&/@endogRestEq);
+		(*endogRestVar= ToExpression@(StringDrop[#,-2]&/@endogRestEq);*)
+		endogRestVar= StringDrop[#,-2]&/@endogRestEq;
 
 	(*with UpValues*)
 		(*equations are linear functions of state variables*)		
@@ -257,6 +267,9 @@ createEndogenous[mod_]:=Module[
 		funTemplate[argPattFun_] := ( {##} /. (argPattFun) )&;
 		funTemplate[fun_,argPatt_] := ( {##} /. (argPatt :> fun) )&;
 	
+		Attributes[matchSymbol]={Listable};
+		matchSymbol[var_String]:= (_Symbol?((SymbolName[#]===var)&)); (*pattern to match symbols in any Context*)
+	
 	(*append to models*)
 	models=Append[
 		#,
@@ -268,10 +281,10 @@ createEndogenous[mod_]:=Module[
 		"endogenousEq"->Association@Join[
 			Thread[
 				(*endogUpValuesVar -> SetSymbolsContext[funTemplate[#]&/@endog[#["stateVars"]]]*)
-				endogUpValuesVar -> (funTemplate[#]&/@endog[#["stateVars"]])
+				(matchSymbol/@endogUpValuesVar) -> (funTemplate[#]&/@endog[#["stateVars"]])
 			],
 			Thread[
-				endogRestVar -> MapApply[funTemplate,{funs,argsPattern}\[Transpose]]
+				(matchSymbol/@endogRestVar) -> MapApply[funTemplate,{funs,argsPattern}\[Transpose]]
 			]
 		]
 	]& /@models
