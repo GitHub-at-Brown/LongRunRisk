@@ -10,7 +10,6 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalE
 ev::usage = "ev[x,s] gives the expected value of x conditional on time s."; 
 var::usage = "var[x,s] gives the variance of x conditional on time s."; 
 cov::usage = "cov[x,y,s] gives the covariance of x and y conditional on time s."; 
-lagStateVarst
 
 
 Begin["`Private`"];
