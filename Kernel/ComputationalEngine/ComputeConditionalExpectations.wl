@@ -98,7 +98,7 @@ lagStateVarst[expr_,conditionalTime_,model_]:=With[
 Attributes[ev]={HoldFirst};
 ev[expr_,conditionalTime_,model_]:=With[
 	{
-		conditionalTimeLocal=SetSymbolsContext[conditionalTime],
+		conditionalTimeLocal=ReplaceAll[conditionalTime,x_Symbol :> Symbol@SymbolName@x],(*SetSymbolsContext[conditionalTime]*)
 		assignParam=model["assignParam"],
 		assignParamStocks=model["assignParamStocks"],
 		epsPattern=(_Symbol?((SymbolName[#]==="eps")&)),

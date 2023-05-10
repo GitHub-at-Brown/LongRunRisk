@@ -44,6 +44,7 @@ Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 
 
 
@@ -124,6 +125,21 @@ processModels[m_]:=
 		&& FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`endogEqAssumptions;
 	models=(Append[#, "modelAssumptions"->(modelAssumptions//.#["assignParam"]//.#["assignParamStocks"]) ]&) /@models;
 
+	(*add unconditional moments of state variables*)
+	maxMomentOrder=2;
+	models = Append[#,
+		"uncondMomOfStateVars"-> 
+		Activate[
+			Inactivate[
+				Join[
+					First@#,
+					Flatten@(Solve@@(Rest@#))
+				]
+			],
+			First|Rest
+		]&@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`createSystem[maxMomentOrder,#]
+	]&/@models;
+	
 	(*restore $ContextPath to initial state*)
 	$ContextPath=ContextPath;
 
