@@ -1,0 +1,3712 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    159807,       3704]
+NotebookOptionsPosition[    107238,       2778]
+NotebookOutlinePosition[    153604,       3633]
+CellTagsIndexPosition[    153561,       3630]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.889964198656839*^9, 3.889964203363894*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"2d530782-807c-4677-ac15-0a1524d3eb66"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"testFileName", "=", 
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"DirectoryName", "[", 
+       RowBox[{
+        RowBox[{"NotebookDirectory", "[", "]"}], ",", "1"}], "]"}], ",", 
+      RowBox[{
+       RowBox[{"FileBaseName", "[", 
+        RowBox[{"NotebookFileName", "[", "]"}], "]"}], "<>", 
+       "\"\<.wlt\>\""}]}], "}"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pacletDir", "=", 
+   RowBox[{"DirectoryName", "[", 
+    RowBox[{"testFileName", ",", "2"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"PacletDirectoryLoad", "[", "pacletDir", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"testContextBase", "=", 
+   RowBox[{"FileBaseName", "[", "testFileName", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$ContextPath", "=", 
+   RowBox[{"Cases", "[", 
+    RowBox[{"$ContextPath", ",", 
+     RowBox[{"Except", "[", "\"\<PacletizedResourceFunctions`\>\"", "]"}]}], 
+    "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.8890661685133457`*^9, 3.889066220685074*^9}, {
+   3.8890662555512333`*^9, 3.889066299901951*^9}, {3.889066581166473*^9, 
+   3.8890665847967653`*^9}, {3.889066731765956*^9, 3.889066745674687*^9}, {
+   3.889431410824514*^9, 3.88943144002302*^9}, 3.889502968269744*^9, {
+   3.889998928469849*^9, 3.889998928670561*^9}, {3.890676553021196*^9, 
+   3.890676564028514*^9}, 3.890676636594749*^9, {3.890679618620262*^9, 
+   3.89067961902995*^9}, {3.8908254134370813`*^9, 3.890825413876319*^9}, {
+   3.890825459205497*^9, 3.890825473041605*^9}, {3.890825503118348*^9, 
+   3.8908255374530487`*^9}, {3.891021675325671*^9, 3.891021675545487*^9}, {
+   3.8911588731924877`*^9, 3.891158877904397*^9}, {3.8911592499395514`*^9, 
+   3.8911592502376633`*^9}, {3.891250905264741*^9, 3.891250915510642*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"0360f784-d335-43f3-8e4d-2bba830763e2"],
+
+Cell[CellGroupData[{
+
+Cell["CI Tests", "Subsection",
+ CellChangeTimes->{{3.8895791922306013`*^9, 3.889579196409403*^9}, {
+  3.889905620469079*^9, 3.8899056207707977`*^9}, {3.889967624152501*^9, 
+  3.889967626012704*^9}},ExpressionUUID->"31e1b2df-6c38-4738-ae7d-\
+157759dc5a90"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"FileNames", "[", "testFileName", "]"}], "===", 
+     RowBox[{"{", "}"}]}], ",", "Nothing", ",", 
+    RowBox[{"DeleteFile", "[", "testFileName", "]"}]}], "]"}], ";"}]], "Input",\
+
+ CellLabel->"In[6]:=",ExpressionUUID->"464119fe-5b46-4abb-930f-1de6d0c0c7ec"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"confirm", "=", "False"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"testContext", "=", 
+  RowBox[{
+  "\"\<FernandoDuarte`LongRunRisk`Model`\>\"", "<>", "testContextBase", "<>", 
+   "\"\<`\>\""}]}]}], "Input",
+ CellChangeTimes->{{3.8906795325443907`*^9, 3.8906795357982817`*^9}, 
+   3.890679566064293*^9, {3.8906796081672497`*^9, 3.8906796258061447`*^9}, {
+   3.890679757679096*^9, 3.890679766260743*^9}, 3.890679874010334*^9, {
+   3.89115778716877*^9, 3.8911577875972347`*^9}, {3.891158046655726*^9, 
+   3.8911580470847473`*^9}, {3.8912509099668617`*^9, 
+   3.8912509132288647`*^9}, {3.89164129470868*^9, 3.891641295139255*^9}, {
+   3.8917057583850603`*^9, 3.891705758834621*^9}, {3.8917059158307037`*^9, 
+   3.891705917269414*^9}, {3.8917066708409977`*^9, 3.8917066712983313`*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"c66ba99e-d8d1-4f03-a4ff-e02a4a612fbe"],
+
+Cell[BoxData[
+ RowBox[{"Begin", "[", "\"\<ProcessModels`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.890680288696157*^9, 3.8906802887021513`*^9}, 
+   3.891157128406151*^9},
+ CellLabel->"In[9]:=",ExpressionUUID->"e0c56802-23a4-4683-930d-2f72f95927a4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "Get", "[", "\"\<FernandoDuarte`LongRunRisk`Model`Catalog`\>\"", "]"}], 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{
+    "Needs", "[", "\"\<FernandoDuarte`LongRunRisk`Model`ProcessModels`\>\"", 
+     "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Needs", "[", "\"\<PacletizedResourceFunctions`\>\"", "]"}], 
+    ";"}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.8899652151465197`*^9, 3.889965235350771*^9}, 
+   3.8899652808817787`*^9, {3.889967731242805*^9, 3.8899677356636972`*^9}, {
+   3.889967971867523*^9, 3.889967975146998*^9}, {3.889968339451161*^9, 
+   3.88996834001075*^9}, 3.889968619774049*^9, {3.8899688826075077`*^9, 
+   3.88996888992594*^9}, {3.88996899475625*^9, 3.8899690018858624`*^9}, {
+   3.8899691256166267`*^9, 3.8899691257757883`*^9}, {3.889969207667478*^9, 
+   3.8899692141700287`*^9}, {3.8899692798779783`*^9, 3.889969288274632*^9}, 
+   3.889969387087708*^9, 3.889969585993528*^9, {3.8899702972149563`*^9, 
+   3.889970314454108*^9}, {3.890603045806611*^9, 3.890603046578224*^9}, 
+   3.890603139674321*^9, {3.890676572733183*^9, 3.890676585108572*^9}, {
+   3.890679071059198*^9, 3.890679121055434*^9}, {3.89067917308251*^9, 
+   3.890679177122958*^9}, 3.890679328121275*^9, {3.8906795122187853`*^9, 
+   3.890679514391316*^9}, {3.890679606901452*^9, 3.8906796293121653`*^9}, {
+   3.890679668768669*^9, 3.890679669902752*^9}, {3.8906797200186*^9, 
+   3.890679786626452*^9}, {3.890679828108779*^9, 3.890679882954316*^9}, {
+   3.8911571592686443`*^9, 3.8911571682982073`*^9}, 3.891157792145975*^9, {
+   3.891173222845828*^9, 3.8911732231089373`*^9}, {3.891173275033695*^9, 
+   3.891173275304864*^9}, {3.891316564754774*^9, 3.8913166100337257`*^9}, {
+   3.891852279447442*^9, 3.891852279736619*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"df3441c2-82a3-4dc6-ae55-72fe028a7826"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", "\t", 
+   RowBox[{"And", "@@", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"MemberQ", "[", 
+       RowBox[{
+       "$ContextPath", ",", 
+        "\"\<FernandoDuarte`LongRunRisk`Model`Catalog`\>\""}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"MemberQ", "[", 
+       RowBox[{
+       "$ContextPath", ",", 
+        "\"\<FernandoDuarte`LongRunRisk`Model`ProcessModels`\>\""}], "]"}]}], 
+     "}"}]}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{
+  3.889901579125684*^9, {3.889965035911569*^9, 3.889965039550325*^9}, {
+   3.889965296152458*^9, 3.889965305191854*^9}, 3.8899653858152437`*^9, 
+   3.889967740469187*^9, {3.889968345370779*^9, 3.889968347169169*^9}, {
+   3.889968526692542*^9, 3.8899685355316963`*^9}, {3.889968649261517*^9, 
+   3.889968660343141*^9}, 3.889969395693264*^9, {3.88996958684683*^9, 
+   3.8899695947482367`*^9}, {3.889970300225127*^9, 3.889970329366473*^9}, {
+   3.890603050754869*^9, 3.8906030512673264`*^9}, 3.890603142316881*^9, 
+   3.89067659639168*^9, {3.890679255090239*^9, 3.890679318737549*^9}, 
+   3.890679634337233*^9, 3.890679895680545*^9, {3.891157174045011*^9, 
+   3.891157185913196*^9}, 3.8911577932659283`*^9},
+ CellLabel->"In[11]:=",ExpressionUUID->"37a69960-4a4b-47f2-bed8-e68905e00bd9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+     "should", " ", "be", " ", "True", " ", "if", " ", "processModels"}], ",",
+      " ", 
+     RowBox[{"models", " ", "can", " ", "be", " ", "found"}]}], "*)"}], 
+   "\[IndentingNewLine]", "\t", 
+   RowBox[{"And", "@@", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Not", "[", 
+       RowBox[{
+        RowBox[{"Names", "[", "\"\<*processModels\>\"", "]"}], "===", 
+        RowBox[{"{", "}"}]}], "]"}], ",", 
+      RowBox[{"Not", "[", 
+       RowBox[{
+        RowBox[{"Names", "[", "\"\<*models\>\"", "]"}], "===", 
+        RowBox[{"{", "}"}]}], "]"}]}], "}"}]}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.8899706175264597`*^9, 3.889970628972746*^9}, 
+   3.889972029349813*^9, {3.890016004516365*^9, 3.890016008058874*^9}, {
+   3.890679266281045*^9, 3.8906792665642843`*^9}, {3.89067933542416*^9, 
+   3.890679337313949*^9}, {3.8911571916035423`*^9, 3.891157220658489*^9}, {
+   3.891157734825952*^9, 3.891157748683607*^9}, 3.891157795291888*^9},
+ CellLabel->"In[12]:=",ExpressionUUID->"78efcfa0-e9fa-47a2-9b51-782cbea2e41b"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"models", "=", " ", 
+    RowBox[{"Block", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"$ContextPath", " ", "=", " ", 
+        RowBox[{"{", "}"}]}], "}"}], ",", " ", 
+      RowBox[{"SetSymbolsContext", "[", "models", "]"}]}], "]"}]}], ";"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{3.8913169005664043`*^9},
+ CellLabel->"In[13]:=",ExpressionUUID->"cb607e00-5967-477a-8aac-14f80aff48c4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "be", " ", "True"}], "*)"}], "\[IndentingNewLine]",
+    " ", 
+   RowBox[{
+    RowBox[{"myModels", "=", " ", "models"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"And", "@@", 
+     RowBox[{"(", 
+      RowBox[{"StringQ", "/@", 
+       RowBox[{"Keys", "[", "myModels", "]"}]}], ")"}]}]}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.889965468632722*^9, 3.889965535681717*^9}, {
+   3.889965687921562*^9, 3.889965719041513*^9}, {3.8899657564745703`*^9, 
+   3.8899657868805656`*^9}, {3.889965818275572*^9, 3.88996587402346*^9}, {
+   3.8899660417909737`*^9, 3.889966042024665*^9}, {3.889967536877624*^9, 
+   3.88996754071059*^9}, {3.8899676626847277`*^9, 3.889967663326408*^9}, {
+   3.889967743694665*^9, 3.889967744059184*^9}, {3.8899677859095707`*^9, 
+   3.8899678081741953`*^9}, {3.8899679955631647`*^9, 3.889968003395926*^9}, {
+   3.889969462764024*^9, 3.8899694656136417`*^9}, {3.889969517081333*^9, 
+   3.8899695670076637`*^9}, {3.889970354531378*^9, 3.889970361426557*^9}, 
+   3.889970446358612*^9, 3.889971586268968*^9, 3.8899720413397284`*^9, {
+   3.890016031161611*^9, 3.8900160360345497`*^9}, {3.890676734948654*^9, 
+   3.890676751540125*^9}, {3.890676845455442*^9, 3.8906768494530687`*^9}, {
+   3.890677074824079*^9, 3.890677087212*^9}, {3.89067716026512*^9, 
+   3.890677182253841*^9}, {3.890677263672217*^9, 3.890677304382949*^9}, {
+   3.890677341975574*^9, 3.890677356067058*^9}, {3.8906773977299557`*^9, 
+   3.8906774089663153`*^9}, 3.890677598758559*^9, {3.890679268914014*^9, 
+   3.890679269116164*^9}, {3.890679349751339*^9, 3.890679350122447*^9}, {
+   3.8911572263261967`*^9, 3.891157254825345*^9}, 3.891157798139289*^9, {
+   3.891316618642054*^9, 3.891316620282501*^9}, {3.8913167076685543`*^9, 
+   3.891316733828278*^9}, {3.891316769048416*^9, 3.891316775764515*^9}, {
+   3.891316878441306*^9, 3.891316890938974*^9}, {3.8917063746866713`*^9, 
+   3.89170637642522*^9}, {3.8917064122024727`*^9, 3.891706430281082*^9}, {
+   3.8917487927769003`*^9, 3.891748792777731*^9}},
+ CellLabel->"In[14]:=",ExpressionUUID->"3b136a4b-47f6-4831-84cf-79751d15b3d2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "be", " ", "True"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{"StringQ", "/@", 
+      RowBox[{"Flatten", "@", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"myModels", "[", "#", "]"}], "[", "\"\<name\>\"", "]"}], 
+            ",", 
+            RowBox[{
+             RowBox[{"myModels", "[", "#", "]"}], "[", "\"\<shortname\>\"", 
+             "]"}], ",", 
+            RowBox[{
+             RowBox[{"myModels", "[", "#", "]"}], "[", "\"\<bibRef\>\"", 
+             "]"}], ",", 
+            RowBox[{
+             RowBox[{"myModels", "[", "#", "]"}], "[", "\"\<desc\>\"", 
+             "]"}]}], "}"}], "&"}], "/@", 
+         RowBox[{"Keys", "[", "myModels", "]"}]}], ")"}]}]}], ")"}]}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{
+  3.890016052447173*^9, {3.8906792711540194`*^9, 3.890679271381631*^9}, {
+   3.890679354610903*^9, 3.890679355945959*^9}, {3.891157231965362*^9, 
+   3.8911572600328197`*^9}, 3.891157799266303*^9, {3.8917064389574413`*^9, 
+   3.891706445807704*^9}, {3.8917487927789593`*^9, 3.891748792781392*^9}},
+ CellLabel->"In[15]:=",ExpressionUUID->"086c67ce-011c-45b8-81d0-c7167de13fb0"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "be", " ", "True"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{"NumberQ", "/@", 
+      RowBox[{"Flatten", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Values", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Association", "@", 
+             RowBox[{
+              RowBox[{"myModels", "[", "#", "]"}], "[", "\"\<parameters\>\"", 
+              "]"}]}], "//.", 
+            RowBox[{
+             RowBox[{"myModels", "[", "#", "]"}], "[", "\"\<parameters\>\"", 
+             "]"}]}], "//", "N"}], "]"}], "&"}], "/@", 
+        RowBox[{"(", 
+         RowBox[{"Keys", "@", "myModels"}], ")"}]}], "]"}]}], ")"}]}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.889965468632722*^9, 3.889965535681717*^9}, {
+   3.889965687921562*^9, 3.889965719041513*^9}, {3.8899657564745703`*^9, 
+   3.8899657868805656`*^9}, {3.889965818275572*^9, 3.88996587402346*^9}, {
+   3.8899660417909737`*^9, 3.889966042024665*^9}, {3.889967536877624*^9, 
+   3.88996754071059*^9}, {3.8899676626847277`*^9, 3.889967663326408*^9}, {
+   3.889967743694665*^9, 3.889967744059184*^9}, {3.8899677859095707`*^9, 
+   3.8899678081741953`*^9}, {3.8899679955631647`*^9, 3.889968003395926*^9}, {
+   3.889969462764024*^9, 3.8899694656136417`*^9}, {3.889969517081333*^9, 
+   3.8899695670076637`*^9}, {3.889970354531378*^9, 3.889970361426557*^9}, 
+   3.889970446358612*^9, 3.889971586268968*^9, 3.8899720413397284`*^9, {
+   3.890016031161611*^9, 3.8900160360345497`*^9}, {3.8900160737670794`*^9, 
+   3.890016085435741*^9}, {3.890676438175074*^9, 3.890676444283903*^9}, {
+   3.890678425473001*^9, 3.890678429341833*^9}, {3.890679273563212*^9, 
+   3.890679273764824*^9}, {3.890679359602653*^9, 3.890679360228259*^9}, {
+   3.8911572340737457`*^9, 3.891157264736269*^9}, 3.891157801521652*^9, 
+   3.8917060215506687`*^9, {3.891706454158939*^9, 3.8917064580980263`*^9}, {
+   3.891748792782566*^9, 3.891748792783733*^9}},
+ CellLabel->"In[16]:=",ExpressionUUID->"a3a609d1-b215-40d6-9e60-398b1031989e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "give", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"x", "[", "t", "]"}], ",", 
+       RowBox[{"sx", "[", "t", "]"}]}], "}"}]}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"SetSymbolsContext", "[", "\[IndentingNewLine]", 
+    RowBox[{"Block", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"model", "=", 
+         RowBox[{"myModels", "[", "\"\<BY\>\"", "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"$Context", "=", "\"\<ProcessModels`\>\""}]}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"model", "[", "\"\<stateVars\>\"", "]"}]}], 
+     "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "]"}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.891849017835821*^9, 3.891849070910334*^9}, 
+   3.891849175527986*^9},
+ CellLabel->"In[17]:=",ExpressionUUID->"13c86d96-d01a-485f-9d57-f4aa9c33192a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "be", " ", "True"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{
+         RowBox[{"Keys", "[", "myModels", "]"}], ",", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{"\"\<BY\>\"", ",", "\"\<BKY\>\""}], "}"}]}], ")"}]}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.889966137593294*^9, 3.889966157676291*^9}, {
+   3.8899675483847713`*^9, 3.889967551583518*^9}, {3.8899676691600733`*^9, 
+   3.889967669364262*^9}, {3.889967748725914*^9, 3.889967749007223*^9}, {
+   3.889967825028019*^9, 3.8899678304574842`*^9}, {3.889968028194545*^9, 
+   3.889968031839179*^9}, {3.890016134135317*^9, 3.890016138691626*^9}, 
+   3.891157236885373*^9, {3.891157270823503*^9, 3.891157272161461*^9}, 
+   3.891706491310471*^9, 3.891748792786337*^9},
+ CellLabel->"In[18]:=",ExpressionUUID->"44fb97e9-5f9a-4e84-afbf-a0ac1a1142de"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "be", " ", "True"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"AllTrue", "[", 
+    RowBox[{"myModels", ",", "AssociationQ"}], "]"}], "\[IndentingNewLine]", 
+   ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{3.891157355131826*^9, 3.891706495277528*^9, 
+  3.891748792787478*^9},
+ CellLabel->"In[19]:=",ExpressionUUID->"41be6289-55e4-495f-b27e-01557580124e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"should", " ", "be", " ", "True"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"AllTrue", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"myModels", "[", "#", "]"}], "&"}], "/@", 
+      RowBox[{"Keys", "[", "myModels", "]"}]}], ",", "AssociationQ"}], "]"}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{
+  3.891157360494576*^9, {3.8917064997588243`*^9, 3.8917065010202837`*^9}, {
+   3.891748792788644*^9, 3.891748792789082*^9}},
+ CellLabel->"In[20]:=",ExpressionUUID->"41e86c8e-79e5-4aca-ba40-23ea8bccfdaf"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "should", " ", "be", " ", "True", " ", "if", " ", "SetSymbolsContext", 
+     " ", "can", " ", "be", " ", "found"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Get", "[", "\"\<PacletizedResourceFunctions`\>\"", "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Not", "[", 
+     RowBox[{
+      RowBox[{"Names", "[", "\"\<*SetSymbolsContext\>\"", "]"}], "===", 
+      RowBox[{"{", "}"}]}], "]"}]}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.891172735631423*^9, 3.8911727675017767`*^9}, {
+  3.891173133782814*^9, 3.891173145766657*^9}},
+ CellLabel->"In[21]:=",ExpressionUUID->"aba0a833-810d-4e6d-a170-0180213ee312"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "fix", " ", "change", " ", "in", " ", "endogenousEq", " ", "and", " ", 
+    "exogenousEq"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"new", " ", "usage"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"pi", "[", "t", "]"}], "/.", 
+    RowBox[{"Normal", "@", 
+     RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AnyContext`pi", "[", "t", "]"}], "/.", 
+    RowBox[{"Normal", "@", 
+     RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}]}]}]}]], "Input",Expr\
+essionUUID->"36f6eb98-f46f-4c44-b040-6fba97d53c4f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "should", " ", "be", " ", "True", " ", "if", " ", "expression", " ", 
+     "for", " ", 
+     RowBox[{"pi", "[", "t", "]"}], " ", "is", " ", "correct"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"SetSymbolsContext", "[", "\[IndentingNewLine]", 
+    RowBox[{"Block", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"model", "=", 
+         RowBox[{
+          RowBox[{"processModels", "[", "myModels", "]"}], "[", "\"\<NRC\>\"",
+           "]"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{"$Context", "=", "\"\<ProcessModels`\>\""}]}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"SetSymbolsContext", "[", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"pi", "[", "t", "]"}], "/.", 
+           RowBox[{"SetSymbolsContext", "[", 
+            RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}], "]"}]}], 
+          ")"}], "]"}], ",", 
+        RowBox[{"SetSymbolsContext", "[", 
+         RowBox[{"mup", "+", 
+          RowBox[{"rhop", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"-", "mup"}], "+", 
+             RowBox[{"pi", "[", 
+              RowBox[{
+               RowBox[{"-", "1"}], "+", "t"}], "]"}]}], ")"}]}], "+", 
+          RowBox[{"xip", " ", 
+           RowBox[{
+            RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", 
+            RowBox[{
+             RowBox[{"-", "1"}], "+", "t"}], "]"}]}], "+", 
+          RowBox[{"phip", " ", 
+           RowBox[{
+            RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", "t", "]"}]}]}], 
+         "]"}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", "}"}]}], 
+     "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "]"}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.8912155406231613`*^9, 3.891215544486298*^9}, {
+   3.891248526472972*^9, 3.891248526881178*^9}, {3.891248599245037*^9, 
+   3.891248645909585*^9}, {3.891313100796596*^9, 3.8913131076524897`*^9}, {
+   3.89131495021702*^9, 3.8913149525589314`*^9}, {3.891641454824098*^9, 
+   3.89164146024651*^9}, {3.891641512448462*^9, 3.891641514917321*^9}, {
+   3.891641578411665*^9, 3.89164158422756*^9}, {3.891641618157803*^9, 
+   3.891641629468273*^9}, 3.891706157777219*^9, 3.891706520129119*^9, 
+   3.891748792790701*^9, {3.8918491331833677`*^9, 3.8918491411196012`*^9}, {
+   3.891849271019837*^9, 3.8918492801124268`*^9}, {3.891849377122795*^9, 
+   3.8918494680968*^9}, {3.8918495740854*^9, 3.8918495856546717`*^9}, {
+   3.891849686877618*^9, 3.891849689356598*^9}, {3.891849814788913*^9, 
+   3.891849820405472*^9}, {3.891849857742722*^9, 3.8918498660342617`*^9}, {
+   3.891850444610857*^9, 3.891850462029203*^9}, 3.891850966738976*^9, {
+   3.8918524454947567`*^9, 3.891852445792688*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"7f765353-4315-4c8c-9042-96527bdabb38"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "should", " ", "be", " ", "True", " ", "if", " ", "expression", " ", 
+     "for", " ", 
+     RowBox[{"pi", "[", "t", "]"}], " ", "is", " ", "correct"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"SetSymbolsContext", "[", "\[IndentingNewLine]", 
+    RowBox[{"Block", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"model", "=", 
+         RowBox[{
+          RowBox[{"processModels", "[", "myModels", "]"}], "[", "\"\<BY\>\"", 
+          "]"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{"$Context", "=", "\"\<ProcessModels`\>\""}]}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{"SetSymbolsContext", "[", 
+         RowBox[{
+          RowBox[{"wc", "[", "t", "]"}], "/.", 
+          RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], "]"}], 
+        "\[IndentingNewLine]", "}"}], " ", "===", "\[IndentingNewLine]", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"ProcessModels`A", "[", "0", "]"}], "+", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"ProcessModels`A", "[", "2", "]"}], "*", 
+           RowBox[{"ProcessModels`sx", "[", "ProcessModels`t", "]"}]}], ")"}],
+          "+", 
+         RowBox[{
+          RowBox[{"ProcessModels`A", "[", "1", "]"}], "*", 
+          RowBox[{"ProcessModels`x", "[", "ProcessModels`t", "]"}]}]}], 
+        "\[IndentingNewLine]", "}"}]}]}], "\[IndentingNewLine]", "]"}], 
+    "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.891249762736104*^9, 3.8912497741908903`*^9}, {
+   3.8912498272407417`*^9, 3.8912498275689497`*^9}, {3.8912499173447313`*^9, 
+   3.8912499220011377`*^9}, {3.8917065670706053`*^9, 3.891706580967813*^9}, 
+   3.89174879279284*^9},
+ CellLabel->"In[23]:=",ExpressionUUID->"18232e93-4f03-418c-bae7-bbd82aeb3369"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "should", " ", "be", " ", "True", " ", "if", " ", "expression", " ", 
+     "for", " ", 
+     RowBox[{"pi", "[", "t", "]"}], " ", "is", " ", "correct"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"SetSymbolsContext", "[", "\[IndentingNewLine]", 
+    RowBox[{"Block", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"model", "=", 
+         RowBox[{
+          RowBox[{"processModels", "[", "myModels", "]"}], "[", "\"\<BY\>\"", 
+          "]"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{"$Context", "=", "\"\<ProcessModels`\>\""}]}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{"SetSymbolsContext", "[", 
+         RowBox[{
+          RowBox[{"pd", "[", 
+           RowBox[{"t", ",", "i"}], "]"}], "/.", 
+          RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], "]"}], 
+        "\[IndentingNewLine]", "}"}], " ", "===", "\[IndentingNewLine]", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"ProcessModels`B", "[", "ProcessModels`i", "]"}], "[", "0", 
+          "]"}], "+", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"ProcessModels`B", "[", "ProcessModels`i", "]"}], "[", 
+            "2", "]"}], "*", 
+           RowBox[{"ProcessModels`sx", "[", "ProcessModels`t", "]"}]}], ")"}],
+          "+", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ProcessModels`B", "[", "ProcessModels`i", "]"}], "[", "1",
+            "]"}], "*", 
+          RowBox[{"ProcessModels`x", "[", "ProcessModels`t", "]"}]}]}], 
+        "\[IndentingNewLine]", "}"}]}]}], "\[IndentingNewLine]", "]"}], 
+    "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.891249762736104*^9, 3.8912497741908903`*^9}, {
+   3.8912498272407417`*^9, 3.8912498275689497`*^9}, {3.8912499173447313`*^9, 
+   3.8912499220011377`*^9}, {3.891250454563781*^9, 3.891250503702057*^9}, {
+   3.891706586674197*^9, 3.891706592270479*^9}, 3.891748792795218*^9},
+ CellLabel->"In[24]:=",ExpressionUUID->"bf3a8fde-5e51-4793-a10c-5cca02c3c202"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "should", " ", "be", " ", "True", " ", "if", " ", "expression", " ", 
+     "for", " ", 
+     RowBox[{"pi", "[", "t", "]"}], " ", "is", " ", "correct"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"SetSymbolsContext", "[", "\[IndentingNewLine]", 
+    RowBox[{"Block", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"model", "=", 
+         RowBox[{
+          RowBox[{"processModels", "[", "myModels", "]"}], "[", "\"\<NRC\>\"",
+           "]"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{"$Context", "=", "\"\<ProcessModels`\>\""}]}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{"SetSymbolsContext", "[", 
+         RowBox[{
+          RowBox[{"bondexcret", "[", 
+           RowBox[{"t", ",", "m"}], "]"}], "/.", 
+          RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], "]"}], 
+        "\[IndentingNewLine]", "}"}], " ", "===", "\[IndentingNewLine]", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"ProcessModels`bondret", "[", 
+          RowBox[{"ProcessModels`t", ",", "ProcessModels`m", ",", "1"}], 
+          "]"}], "-", 
+         RowBox[{"ProcessModels`bondyield", "[", 
+          RowBox[{
+           RowBox[{"ProcessModels`t", "-", "1"}], ",", "1"}], "]"}]}], 
+        "\[IndentingNewLine]", "}"}]}]}], "\[IndentingNewLine]", "]"}], 
+    "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.891249781902464*^9, 3.891249823969201*^9}, {
+   3.89125028038274*^9, 3.89125028059556*^9}, {3.891250421668085*^9, 
+   3.8912504257068787`*^9}, {3.891706601820408*^9, 3.891706606198838*^9}, 
+   3.891748792797187*^9},
+ CellLabel->"In[25]:=",ExpressionUUID->"6bb82085-b515-44a8-b385-848493dfcd34"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "should", " ", "be", " ", "True", " ", "if", " ", "expression", " ", 
+     "for", " ", 
+     RowBox[{"pi", "[", "t", "]"}], " ", "is", " ", "correct"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"SetSymbolsContext", "[", "\[IndentingNewLine]", 
+    RowBox[{"Block", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"modelsP", "=", 
+         RowBox[{"processModels", "[", "myModels", "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"modelBY", "=", 
+         RowBox[{
+          RowBox[{"processModels", "[", "myModels", "]"}], "[", "\"\<BY\>\"", 
+          "]"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{"modelBKY", "=", 
+         RowBox[{
+          RowBox[{"processModels", "[", "myModels", "]"}], "[", "\"\<BKY\>\"",
+           "]"}]}], ",", "\[IndentingNewLine]", "newModels", ",", 
+        "\[IndentingNewLine]", "newModelsP", ",", "\[IndentingNewLine]", 
+        RowBox[{"$Context", "=", "\"\<ProcessModels`\>\""}]}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"newModels", "=", 
+        RowBox[{"<|", 
+         RowBox[{
+          RowBox[{"\"\<myModel\>\"", "->", "modelBKY"}], ",", 
+          RowBox[{"\"\<BY\>\"", "->", "modelBY"}]}], "|>"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"newModelsP", "=", 
+        RowBox[{"processModels", "[", "newModels", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"And", "@@", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"newModelsP", "[", "\"\<myModel\>\"", "]"}], "===", 
+           RowBox[{"modelsP", "[", "\"\<BKY\>\"", "]"}]}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"newModelsP", "[", "\"\<BY\>\"", "]"}], "===", 
+           RowBox[{"modelsP", "[", "\"\<BY\>\"", "]"}]}]}], 
+         "\[IndentingNewLine]", "}"}]}]}]}], "\[IndentingNewLine]", "]"}], 
+    "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.891252204837583*^9, 3.891252319466831*^9}, {
+  3.8917066210529537`*^9, 3.891706622792925*^9}, {3.89174879279928*^9, 
+  3.891748792801324*^9}},
+ CellLabel->"In[26]:=",ExpressionUUID->"f75871c4-012b-431e-b82f-2f91b988f0d4"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"SetSymbolsContext", "[", 
+       RowBox[{"pi", "[", "t", "]"}], "]"}], "/.", 
+      RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], "/.", 
+     RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], 
+    "\[IndentingNewLine]", ",", 
+    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.89115869158225*^9, 3.891158694761683*^9}, 
+   3.8911587905554113`*^9, 3.8911727790310698`*^9, {3.891173044607326*^9, 
+   3.89117304691362*^9}, {3.8911733113913794`*^9, 3.8911733125354156`*^9}, {
+   3.89117336748596*^9, 3.891173367832836*^9}},
+ CellLabel->"In[27]:=",ExpressionUUID->"fbb97c46-8e65-42d9-9313-bde25e19376a"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"SetSymbolsContext", "[", 
+      RowBox[{
+       RowBox[{"eps", "[", "\"\<dc\>\"", "]"}], "[", "t", "]"}], "]"}], "/.", 
+     
+     RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], 
+    "\[IndentingNewLine]", ",", 
+    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.891158698442772*^9, 3.891158702905323*^9}, 
+   3.891158788172776*^9, 3.8911727809095297`*^9, {3.8911728313197327`*^9, 
+   3.891172833195159*^9}, {3.891173049152054*^9, 3.89117305088199*^9}},
+ CellLabel->"In[28]:=",ExpressionUUID->"17ba3ab6-e302-49ee-abd5-9dd9b94076f4"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"SetSymbolsContext", "[", 
+      RowBox[{"dd", "[", 
+       RowBox[{"t", ",", "i"}], "]"}], "]"}], "/.", 
+     RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], 
+    "\[IndentingNewLine]", ",", 
+    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.891158718186545*^9, 3.89115872190696*^9}, 
+   3.891158785987136*^9, 3.891172783268828*^9, {3.891172824328397*^9, 
+   3.891172846996797*^9}, {3.891173053471175*^9, 3.89117305534599*^9}},
+ CellLabel->"In[29]:=",ExpressionUUID->"ff30acd3-11ce-4dbd-910a-03b2437fdcbe"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"SetSymbolsContext", "[", 
+      RowBox[{"wc", "[", "t", "]"}], "]"}], "/.", 
+     RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], 
+    "\[IndentingNewLine]", ",", 
+    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.891158725433227*^9, 3.891158728336502*^9}, 
+   3.8911587825561237`*^9, 3.891172784726501*^9, {3.89117281787202*^9, 
+   3.8911728198839293`*^9}, {3.8911728499708967`*^9, 3.891172850678425*^9}, {
+   3.891173058287218*^9, 3.891173060292323*^9}},
+ CellLabel->"In[30]:=",ExpressionUUID->"3599f9bf-d63a-47e5-9f69-2ec7c144bd62"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"SetSymbolsContext", "[", 
+      RowBox[{"pd", "[", 
+       RowBox[{"t", ",", "i"}], "]"}], "]"}], "/.", 
+     RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], 
+    "\[IndentingNewLine]", ",", 
+    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.8911587343073673`*^9, 3.891158738296015*^9}, 
+   3.89115878088715*^9, {3.891172786168221*^9, 3.891172814958315*^9}, {
+   3.89117285467281*^9, 3.891172855267911*^9}, {3.891173063024602*^9, 
+   3.891173064890114*^9}},
+ CellLabel->"In[31]:=",ExpressionUUID->"0aa6609e-2978-419f-af00-ff72828d801a"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"SetSymbolsContext", "[", 
+      RowBox[{"bondexcret", "[", 
+       RowBox[{"t", ",", "i"}], "]"}], "]"}], "/.", 
+     RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], 
+    "\[IndentingNewLine]", ",", 
+    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{
+  3.891158929329384*^9, {3.89117278796531*^9, 3.891172805051045*^9}, {
+   3.891173067271572*^9, 3.891173069177144*^9}},
+ CellLabel->"In[32]:=",ExpressionUUID->"e5d494f0-e098-4125-9cfc-743088cb8aaa"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"SetSymbolsContext", "[", 
+        RowBox[{"bondexcret", "[", 
+         RowBox[{"t", ",", "i"}], "]"}], "]"}], "//.", 
+       RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], ")"}], "===", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"bondexcret", "[", 
+        RowBox[{"t", ",", "i", ",", "1"}], "]"}], "//.", 
+       RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], ")"}]}], 
+    "\[IndentingNewLine]", ",", 
+    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.891158745360284*^9, 3.891158766915942*^9}, {
+  3.891158924432661*^9, 3.891158924740337*^9}, {3.891172789284499*^9, 
+  3.891172800530435*^9}, {3.891172866469346*^9, 3.891172879867579*^9}, {
+  3.8911730720488167`*^9, 3.8911730738344088`*^9}},
+ CellLabel->"In[33]:=",ExpressionUUID->"060d14b2-b30d-4e59-965e-e47f29802ac3"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+    RowBox[{"And", "@@", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"AllTrue", "[", 
+        RowBox[{
+         RowBox[{"Head", "/@", 
+          RowBox[{"(", 
+           RowBox[{"Keys", "@", 
+            RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], ")"}]}], 
+         ",", 
+         RowBox[{
+          RowBox[{"MatchQ", "[", 
+           RowBox[{"#", ",", "Symbol"}], "]"}], "&"}]}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"AllTrue", "[", 
+        RowBox[{
+         RowBox[{"Head", "/@", 
+          RowBox[{"(", 
+           RowBox[{"Keys", "@", 
+            RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], ")"}]}], 
+         ",", 
+         RowBox[{
+          RowBox[{"MatchQ", "[", 
+           RowBox[{"#", ",", "Symbol"}], "]"}], "&"}]}], "]"}]}], 
+      "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", ",", 
+    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.891157416452394*^9, 3.891157461857395*^9}, {
+   3.891157679613635*^9, 3.8911577113107758`*^9}, 3.8911579972125874`*^9, 
+   3.8911587995921926`*^9, {3.8911730775967903`*^9, 3.891173082696052*^9}},
+ CellLabel->"In[34]:=",ExpressionUUID->"3fc043cd-f1ec-464f-9c3b-52360eeb7545"],
+
+Cell[BoxData[
+ RowBox[{"End", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.890680295645965*^9, 3.89068029650622*^9}},
+ CellLabel->"In[35]:=",ExpressionUUID->"33ebf65e-6034-462e-bfb9-1324117a5073"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"add", " ", 
+    RowBox[{"Begin", "[", "\"\<Context`\>\"", "]"}], " ", "and", " ", 
+    RowBox[{"End", "[", "]"}], " ", "to", " ", "wlt", " ", "file"}], "*)"}], 
+  "\n", 
+  RowBox[{"(*", 
+   RowBox[{"helper", " ", "functions"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ClearAll", "[", "countLines", "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"countLines", "[", "file_String", "]"}], ":=", 
+    RowBox[{"Module", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"readStream", "=", 
+         RowBox[{"OpenRead", "[", "file", "]"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{"n", "=", "1"}], ",", "\[IndentingNewLine]", "temp"}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"While", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"temp", "=!=", "EndOfFile"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"temp", "=", 
+           RowBox[{"ReadLine", "[", "readStream", "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"n", "=", 
+           RowBox[{"n", "+", "1"}]}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"Close", "/@", 
+        RowBox[{"{", "readStream", "}"}]}], ";", "\[IndentingNewLine]", 
+       "n"}]}], "\[IndentingNewLine]", "]"}]}], "\n", 
+   RowBox[{"ClearAll", "[", "replaceNthRecord", "]"}], "\[IndentingNewLine]", 
+   
+   RowBox[{
+    RowBox[{"replaceNthRecord", "[", 
+     RowBox[{"file_String", ",", "n_Integer", ",", "replaceWith_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"readStream", "=", 
+         RowBox[{"OpenRead", "[", "file", "]"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{"writeStream", "=", 
+         RowBox[{"OpenWrite", "[", 
+          RowBox[{"file", "<>", "\"\<temp\>\""}], "]"}]}], ",", 
+        "\[IndentingNewLine]", "temp"}], "\[IndentingNewLine]", "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"WriteLine", "[", 
+          RowBox[{"writeStream", ",", 
+           RowBox[{"ReadLine", "[", "readStream", "]"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"n", "-", "1"}], "}"}]}], "\[IndentingNewLine]", "]"}], ";",
+        "\[IndentingNewLine]", 
+       RowBox[{"WriteLine", "[", 
+        RowBox[{"writeStream", ",", 
+         RowBox[{
+          RowBox[{"ReadLine", "[", "readStream", "]"}], "<>", 
+          "\"\< \\r\\n\>\"", "<>", "replaceWith"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"While", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"temp", "=!=", "EndOfFile"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"temp", "=", 
+           RowBox[{"ReadLine", "[", "readStream", "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"If", "[", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"UnsameQ", "[", 
+             RowBox[{"temp", ",", "EndOfFile"}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"WriteLine", "[", 
+             RowBox[{"writeStream", ",", "temp"}], "]"}]}], 
+           "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", 
+        "]"}], ";", 
+       RowBox[{"Close", "/@", 
+        RowBox[{"{", 
+         RowBox[{"readStream", ",", "writeStream"}], "}"}]}]}]}], "]"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"insert", " ", "into", " ", "wlt", " ", "file"}], "*)"}], "\n", 
+   RowBox[{"replaceNthRecord", "[", 
+    RowBox[{
+    "testFileName", ",", "1", ",", "\"\<Begin[\\\"ProcessModels`\\\"]\>\""}], 
+    "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"CopyFile", "[", 
+     RowBox[{
+      RowBox[{"testFileName", "<>", "\"\<temp\>\""}], ",", "testFileName", 
+      ",", 
+      RowBox[{"OverwriteTarget", "->", "True"}]}], "]"}], ";"}], "\n", 
+   RowBox[{"DeleteFile", "[", 
+    RowBox[{"testFileName", "<>", "\"\<temp\>\""}], "]"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"numLines", "=", 
+    RowBox[{"countLines", "[", "testFileName", "]"}]}], "\[IndentingNewLine]", 
+   RowBox[{"replaceNthRecord", "[", 
+    RowBox[{"testFileName", ",", 
+     RowBox[{"numLines", "-", "3"}], ",", " ", "\"\<End[]\>\""}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"CopyFile", "[", 
+     RowBox[{
+      RowBox[{"testFileName", "<>", "\"\<temp\>\""}], ",", "testFileName", 
+      ",", 
+      RowBox[{"OverwriteTarget", "->", "True"}]}], "]"}], ";"}], "\n", 
+   RowBox[{"DeleteFile", "[", 
+    RowBox[{"testFileName", "<>", "\"\<temp\>\""}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.890686194230386*^9, 3.890686228283702*^9}, 
+   3.8911593195689373`*^9},
+ CellLabel->"In[36]:=",ExpressionUUID->"54483af6-5a40-4f54-bac7-293214472e69"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Interactive Tests", "Subsection",
+ CellChangeTimes->{{3.889905622471089*^9, 3.889905629759961*^9}, {
+  3.889972063478182*^9, 
+  3.889972065236586*^9}},ExpressionUUID->"2c4a83cf-8af5-4d19-89ae-\
+a864a258310f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"packageFileName", "=", 
+  RowBox[{"FileNameJoin", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"DirectoryName", "[", 
+      RowBox[{
+       RowBox[{"NotebookDirectory", "[", "]"}], ",", "2"}], "]"}], ",", 
+     "\"\<Kernel\>\"", ",", "\"\<Model\>\"", ",", 
+     RowBox[{
+      RowBox[{"FileBaseName", "[", 
+       RowBox[{"NotebookFileName", "[", "]"}], "]"}], "<>", "\"\<.wl\>\""}]}],
+     "}"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Needs", "[", 
+  RowBox[{
+   RowBox[{"\"\<FernandoDuarte`LongRunRisk`Model`\>\"", "<>", 
+    RowBox[{"FileBaseName", "[", 
+     RowBox[{"NotebookFileName", "[", "]"}], "]"}], "<>", "\"\<`\>\""}], ",", 
+   "packageFileName"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`Model`Catalog`\>\"", 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.889968360919714*^9, 3.889968361169221*^9}, {
+   3.889998753242611*^9, 3.8899987613556004`*^9}, 3.890825576987958*^9, {
+   3.890987450098063*^9, 3.8909874502616673`*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"f275bdc7-d1c5-4b14-9c2f-42b3fa65a747"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl\"\>"], \
+"Output",
+ CellChangeTimes->{3.8926692730260077`*^9, 3.892669389231524*^9, 
+  3.8926695421794367`*^9, 3.892669625201486*^9, 3.892670197167325*^9, 
+  3.892670472963286*^9, 3.892670574291664*^9, 3.892670720615552*^9, 
+  3.89267288196037*^9, 3.892719518335198*^9, 3.892722761277437*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"07ddaed8-4e57-476b-ae7c-814d46c142c0"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"<<", "PacletizedResourceFunctions`"}]], "Input",
+ CellChangeTimes->{{3.891316492165969*^9, 3.891316499275926*^9}, 
+   3.891640556566022*^9, {3.891640591953074*^9, 3.8916405928498983`*^9}},
+ CellLabel->"In[33]:=",ExpressionUUID->"28f77535-d3b1-4e11-82f1-50d0c1ce6053"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ms", "=", 
+   RowBox[{"KeySelect", "[", 
+    RowBox[{"models", ",", 
+     RowBox[{
+      RowBox[{"MatchQ", "[", 
+       RowBox[{"#", ",", 
+        RowBox[{"\"\<BKY\>\"", "|", "\"\<NRC\>\""}]}], "]"}], "&"}]}], 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{3.892669373096829*^9},
+ CellLabel->"In[34]:=",ExpressionUUID->"f1bbd457-4d3c-4e4d-a658-914c1c230477"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"modelsP", "=", 
+   RowBox[{"processModels", "[", "ms", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.8909883877387238`*^9, 3.890988391814777*^9}, {
+   3.891024276272113*^9, 3.891024276531678*^9}, {3.891080756489718*^9, 
+   3.891080756787756*^9}, {3.891156541394204*^9, 3.8911565422206573`*^9}, 
+   3.891251901451174*^9, 3.8926693778981247`*^9},
+ CellLabel->"In[35]:=",ExpressionUUID->"74432a1e-39fd-4358-a150-ee7576cb4360"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"modelsP", "[", "\"\<BKY\>\"", "]"}], "[", 
+  "\"\<uncondMomOfStateVars\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"modelsP", "[", "\"\<BKY\>\"", "]"}], "[", 
+   "\"\<uncondMomOfStateVars\>\"", "]"}], "//", 
+  "Activate"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   SuperscriptBox[
+    RowBox[{"x", "[", "t", "]"}], "2"], "//.", 
+   RowBox[{
+    RowBox[{"modelsP", "[", "\"\<BKY\>\"", "]"}], "[", 
+    "\"\<uncondMomOfStateVars\>\"", "]"}]}], "//", "Activate"}]}], "Input",
+ CellChangeTimes->{{3.8926694041398153`*^9, 3.89266940492375*^9}, {
+   3.892669568275824*^9, 3.892669571886633*^9}, {3.8926702794229727`*^9, 
+   3.892670320094716*^9}, {3.8926729753491573`*^9, 3.8926729968552303`*^9}, 
+   3.892673034802946*^9},
+ CellLabel->"In[13]:=",ExpressionUUID->"307e98a6-0cd9-4fdf-b610-1c7b7718be91"],
+
+Cell[BoxData[
+ RowBox[{
+  TemplateBox[{"Join"},
+   "InactiveHead",
+   BaseStyle->"Inactive",
+   SyntaxForm->"Symbol",
+   Tooltip->"Inactive[Join]"], "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       TemplateBox[{"sx"},
+        "InactiveHead",
+        BaseStyle->"Inactive",
+        SyntaxForm->"Symbol",
+        Tooltip->"Inactive[sx]"], "[", "_", "]"}], "\[Rule]", "sx1"}], ",", 
+     RowBox[{
+      RowBox[{
+       TemplateBox[{"x"},
+        "InactiveHead",
+        BaseStyle->"Inactive",
+        SyntaxForm->"Symbol",
+        Tooltip->"Inactive[x]"], "[", "_", "]"}], "\[Rule]", "x1"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        TemplateBox[{"sx"},
+         "InactiveHead",
+         BaseStyle->"Inactive",
+         SyntaxForm->"Symbol",
+         Tooltip->"Inactive[sx]"], "[", "_", "]"}], 
+       TagBox["^",
+        "InactiveToken",
+        BaseStyle->"Inactive",
+        SyntaxForm->"^"], "2"}], "\[Rule]", "sx2"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        TemplateBox[{"sx"},
+         "InactiveHead",
+         BaseStyle->"Inactive",
+         SyntaxForm->"Symbol",
+         Tooltip->"Inactive[sx]"], "[", "_", "]"}], 
+       TagBox["\[Times]",
+        "InactiveToken",
+        BaseStyle->"Inactive",
+        SyntaxForm->"a*b"], 
+       RowBox[{
+        TemplateBox[{"x"},
+         "InactiveHead",
+         BaseStyle->"Inactive",
+         SyntaxForm->"Symbol",
+         Tooltip->"Inactive[x]"], "[", "_", "]"}]}], "\[Rule]", "sx1x1"}], 
+     ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        TemplateBox[{"x"},
+         "InactiveHead",
+         BaseStyle->"Inactive",
+         SyntaxForm->"Symbol",
+         Tooltip->"Inactive[x]"], "[", "_", "]"}], 
+       TagBox["^",
+        "InactiveToken",
+        BaseStyle->"Inactive",
+        SyntaxForm->"^"], "2"}], "\[Rule]", "x2"}]}], "}"}], ",", 
+   RowBox[{
+    TemplateBox[{"Flatten"},
+     "InactiveHead",
+     BaseStyle->"Inactive",
+     SyntaxForm->"Symbol",
+     Tooltip->"Inactive[Flatten]"], "[", 
+    RowBox[{"Solve", 
+     TagBox["@@",
+      "InactiveToken",
+      BaseStyle->"Inactive",
+      SyntaxForm->"@@"], 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"sx1", 
+          TagBox["\[Equal]",
+           "InactiveToken",
+           BaseStyle->"Inactive",
+           SyntaxForm->"\[Equal]"], 
+          RowBox[{"sx1", 
+           TagBox["\[Times]",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"a*b"], 
+           "FernandoDuarte`LongRunRisk`Model`Parameters`vx"}]}], ",", 
+         RowBox[{"x1", 
+          TagBox["\[Equal]",
+           "InactiveToken",
+           BaseStyle->"Inactive",
+           SyntaxForm->"\[Equal]"], 
+          RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`rhox", 
+           TagBox["\[Times]",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"a*b"], "x1"}]}], ",", 
+         RowBox[{"sx2", 
+          TagBox["\[Equal]",
+           "InactiveToken",
+           BaseStyle->"Inactive",
+           SyntaxForm->"\[Equal]"], 
+          RowBox[{
+           RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`phisxs", 
+            TagBox["^",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"^"], "2"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"sx2", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`vx", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}]}]}]}], ",", 
+         RowBox[{"sx1x1", 
+          TagBox["\[Equal]",
+           "InactiveToken",
+           BaseStyle->"Inactive",
+           SyntaxForm->"\[Equal]"], 
+          RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`rhox", 
+           TagBox["\[Times]",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"a*b"], "sx1x1", 
+           TagBox["\[Times]",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"a*b"], 
+           "FernandoDuarte`LongRunRisk`Model`Parameters`vx"}]}], ",", 
+         RowBox[{"x2", 
+          TagBox["\[Equal]",
+           "InactiveToken",
+           BaseStyle->"Inactive",
+           SyntaxForm->"\[Equal]"], 
+          RowBox[{
+           RowBox[{
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`phix", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}]}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`phix", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "sx1"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`rhox", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "x2"}]}]}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"sx1", ",", "x1", ",", "sx2", ",", "sx1x1", ",", "x2"}], 
+        "}"}]}], "}"}]}], "]"}]}], "]"}]], "Output",
+ CellChangeTimes->{3.892672935874358*^9, 3.8926729805315657`*^9, 
+  3.892673035179915*^9, 3.8927195885896053`*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"292cfd93-0f87-49d3-9c7a-60ce608b7232"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"sx", "[", "_", "]"}], "\[Rule]", "sx1"}], ",", 
+   RowBox[{
+    RowBox[{"x", "[", "_", "]"}], "\[Rule]", "x1"}], ",", 
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"sx", "[", "_", "]"}], "2"], "\[Rule]", "sx2"}], ",", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"sx", "[", "_", "]"}], " ", 
+     RowBox[{"x", "[", "_", "]"}]}], "\[Rule]", "sx1x1"}], ",", 
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"x", "[", "_", "]"}], "2"], "\[Rule]", "x2"}], ",", 
+   RowBox[{"sx1", "\[Rule]", "0"}], ",", 
+   RowBox[{"x1", "\[Rule]", "0"}], ",", 
+   RowBox[{"sx2", "\[Rule]", 
+    RowBox[{"-", 
+     FractionBox[
+      SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phisxs", 
+       "2"], 
+      RowBox[{
+       RowBox[{"-", "1"}], "+", 
+       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`vx", 
+        "2"]}]]}]}], ",", 
+   RowBox[{"sx1x1", "\[Rule]", "0"}], ",", 
+   RowBox[{"x2", "\[Rule]", 
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{
+       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", "2"],
+        " ", 
+       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phix", 
+        "2"]}], 
+      RowBox[{
+       RowBox[{"-", "1"}], "+", 
+       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhox", 
+        "2"]}]]}]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.892672935874358*^9, 3.8926729805315657`*^9, 
+  3.892673035179915*^9, 3.8927195885938053`*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"18e40c65-3eb8-4038-9506-b34a7c625d6e"],
+
+Cell[BoxData[
+ RowBox[{"-", 
+  FractionBox[
+   RowBox[{
+    SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", "2"], 
+    " ", 
+    SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phix", "2"]}], 
+   RowBox[{
+    RowBox[{"-", "1"}], "+", 
+    SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhox", 
+     "2"]}]]}]], "Output",
+ CellChangeTimes->{3.892672935874358*^9, 3.8926729805315657`*^9, 
+  3.892673035179915*^9, 3.892719588638095*^9},
+ CellLabel->"Out[15]=",ExpressionUUID->"e42ee44e-e762-433d-9462-8d79d1122d9d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"modelsP", "[", "\"\<NRC\>\"", "]"}], "[", 
+  "\"\<uncondMomOfStateVars\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"modelsP", "[", "\"\<NRC\>\"", "]"}], "[", 
+   "\"\<uncondMomOfStateVars\>\"", "]"}], "//", 
+  "Activate"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"pi", "[", "t", "]"}], "2"], "//.", 
+    RowBox[{
+     RowBox[{"modelsP", "[", "\"\<NRC\>\"", "]"}], "[", 
+     "\"\<uncondMomOfStateVars\>\"", "]"}]}], "//", "Activate"}], "//", 
+  "SetSymbolsContext"}]}], "Input",
+ CellChangeTimes->{{3.892672947666657*^9, 3.892672961060685*^9}, {
+  3.892673000883745*^9, 3.89267302113514*^9}, {3.892719614916048*^9, 
+  3.892719618957439*^9}},
+ CellLabel->"In[19]:=",ExpressionUUID->"8f57d6c0-230e-4209-8c4b-d1d582f6c207"],
+
+Cell[BoxData[
+ RowBox[{
+  TemplateBox[{"Join"},
+   "InactiveHead",
+   BaseStyle->"Inactive",
+   SyntaxForm->"Symbol",
+   Tooltip->"Inactive[Join]"], "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       TemplateBox[{"pi"},
+        "InactiveHead",
+        BaseStyle->"Inactive",
+        SyntaxForm->"Symbol",
+        Tooltip->"Inactive[pi]"], "[", "_", "]"}], "\[Rule]", "pi1"}], ",", 
+     RowBox[{
+      RowBox[{
+       TemplateBox[{"sg"},
+        "InactiveHead",
+        BaseStyle->"Inactive",
+        SyntaxForm->"Symbol",
+        Tooltip->"Inactive[sg]"], "[", "_", "]"}], "\[Rule]", "sg1"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        TemplateBox[{"pi"},
+         "InactiveHead",
+         BaseStyle->"Inactive",
+         SyntaxForm->"Symbol",
+         Tooltip->"Inactive[pi]"], "[", "_", "]"}], 
+       TagBox["^",
+        "InactiveToken",
+        BaseStyle->"Inactive",
+        SyntaxForm->"^"], "2"}], "\[Rule]", "pi2"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        TemplateBox[{"pi"},
+         "InactiveHead",
+         BaseStyle->"Inactive",
+         SyntaxForm->"Symbol",
+         Tooltip->"Inactive[pi]"], "[", "_", "]"}], 
+       TagBox["\[Times]",
+        "InactiveToken",
+        BaseStyle->"Inactive",
+        SyntaxForm->"a*b"], 
+       RowBox[{
+        TemplateBox[{"sg"},
+         "InactiveHead",
+         BaseStyle->"Inactive",
+         SyntaxForm->"Symbol",
+         Tooltip->"Inactive[sg]"], "[", "_", "]"}]}], "\[Rule]", "pi1sg1"}], 
+     ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        TemplateBox[{"sg"},
+         "InactiveHead",
+         BaseStyle->"Inactive",
+         SyntaxForm->"Symbol",
+         Tooltip->"Inactive[sg]"], "[", "_", "]"}], 
+       TagBox["^",
+        "InactiveToken",
+        BaseStyle->"Inactive",
+        SyntaxForm->"^"], "2"}], "\[Rule]", "sg2"}]}], "}"}], ",", 
+   RowBox[{
+    TemplateBox[{"Flatten"},
+     "InactiveHead",
+     BaseStyle->"Inactive",
+     SyntaxForm->"Symbol",
+     Tooltip->"Inactive[Flatten]"], "[", 
+    RowBox[{"Solve", 
+     TagBox["@@",
+      "InactiveToken",
+      BaseStyle->"Inactive",
+      SyntaxForm->"@@"], 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"pi1", 
+          TagBox["\[Equal]",
+           "InactiveToken",
+           BaseStyle->"Inactive",
+           SyntaxForm->"\[Equal]"], 
+          RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"-", "1"}], ")"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhop"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"pi1", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhop"}]}]}], ",", 
+         RowBox[{"sg1", 
+          TagBox["\[Equal]",
+           "InactiveToken",
+           BaseStyle->"Inactive",
+           SyntaxForm->"\[Equal]"], 
+          RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"-", "1"}], ")"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhog"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "sg1"}]}]}], ",", 
+         RowBox[{"pi2", 
+          TagBox["\[Equal]",
+           "InactiveToken",
+           BaseStyle->"Inactive",
+           SyntaxForm->"\[Equal]"], 
+          RowBox[{
+           RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+            TagBox["^",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"^"], "2"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`phip", 
+            TagBox["^",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"^"], "2"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"-", "2"}], ")"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhop"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"2", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "pi1", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhop"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`rhop", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}]}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"-", "2"}], ")"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "pi1", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`rhop", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}]}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"pi2", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`rhop", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}]}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`xip", 
+            TagBox["^",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"^"], "2"}]}]}], ",", 
+         RowBox[{"pi1sg1", 
+          TagBox["\[Equal]",
+           "InactiveToken",
+           BaseStyle->"Inactive",
+           SyntaxForm->"\[Equal]"], 
+          RowBox[{
+           RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`mup"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"-", "1"}], ")"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhog"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"-", "1"}], ")"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhop"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "pi1", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhop"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhop"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"-", "1"}], ")"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "pi1", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhop"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"pi1sg1", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhop"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "sg1"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"-", "1"}], ")"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhop", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "sg1"}]}]}], ",", 
+         RowBox[{"sg2", 
+          TagBox["\[Equal]",
+           "InactiveToken",
+           BaseStyle->"Inactive",
+           SyntaxForm->"\[Equal]"], 
+          RowBox[{
+           RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+            TagBox["^",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"^"], "2"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`phig", 
+            TagBox["^",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"^"], "2"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"-", "2"}], ")"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhog"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}]}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{"2", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "sg1"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"-", "2"}], ")"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            "FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], 
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "sg1"}], 
+           TagBox["+",
+            "InactiveToken",
+            BaseStyle->"Inactive",
+            SyntaxForm->"+"], 
+           RowBox[{
+            RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
+             TagBox["^",
+              "InactiveToken",
+              BaseStyle->"Inactive",
+              SyntaxForm->"^"], "2"}], 
+            TagBox["\[Times]",
+             "InactiveToken",
+             BaseStyle->"Inactive",
+             SyntaxForm->"a*b"], "sg2"}]}]}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"pi1", ",", "sg1", ",", "pi2", ",", "pi1sg1", ",", "sg2"}], 
+        "}"}]}], "}"}]}], "]"}]}], "]"}]], "Output",
+ CellChangeTimes->{{3.892672949458205*^9, 3.892672961570732*^9}, {
+  3.8926730099686527`*^9, 3.892673021462191*^9}, {3.892719603808751*^9, 
+  3.8927196195591497`*^9}},
+ CellLabel->"Out[19]=",ExpressionUUID->"22b64eee-7af5-4d6d-826f-64d70dd19f0e"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"pi", "[", "_", "]"}], "\[Rule]", "pi1"}], ",", 
+   RowBox[{
+    RowBox[{"sg", "[", "_", "]"}], "\[Rule]", "sg1"}], ",", 
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"pi", "[", "_", "]"}], "2"], "\[Rule]", "pi2"}], ",", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"pi", "[", "_", "]"}], " ", 
+     RowBox[{"sg", "[", "_", "]"}]}], "\[Rule]", "pi1sg1"}], ",", 
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"sg", "[", "_", "]"}], "2"], "\[Rule]", "sg2"}], ",", 
+   RowBox[{
+   "pi1", "\[Rule]", "FernandoDuarte`LongRunRisk`Model`Parameters`mup"}], ",", 
+   RowBox[{
+   "sg1", "\[Rule]", "FernandoDuarte`LongRunRisk`Model`Parameters`Esg"}], ",", 
+   RowBox[{"pi2", "\[Rule]", 
+    RowBox[{"-", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+          "2"], "+", 
+         SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phip", 
+          "2"], "-", 
+         RowBox[{
+          
+          SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`mup", 
+           "2"], " ", 
+          
+          SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhop", 
+           "2"]}], "+", 
+         SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`xip", 
+          "2"]}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           "FernandoDuarte`LongRunRisk`Model`Parameters`rhop"}], ")"}], " ", 
+         RowBox[{"(", 
+          RowBox[{
+          "1", "+", "FernandoDuarte`LongRunRisk`Model`Parameters`rhop"}], 
+          ")"}]}], ")"}]}], ")"}]}]}], ",", 
+   RowBox[{"pi1sg1", "\[Rule]", 
+    RowBox[{
+    "FernandoDuarte`LongRunRisk`Model`Parameters`Esg", " ", 
+     "FernandoDuarte`LongRunRisk`Model`Parameters`mup"}]}], ",", 
+   RowBox[{"sg2", "\[Rule]", 
+    RowBox[{"-", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+          "2"], "+", 
+         SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phig", 
+          "2"], "-", 
+         RowBox[{
+          
+          SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
+           "2"], " ", 
+          
+          SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
+           "2"]}]}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           "FernandoDuarte`LongRunRisk`Model`Parameters`rhog"}], ")"}], " ", 
+         RowBox[{"(", 
+          RowBox[{
+          "1", "+", "FernandoDuarte`LongRunRisk`Model`Parameters`rhog"}], 
+          ")"}]}], ")"}]}], ")"}]}]}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.892672949458205*^9, 3.892672961570732*^9}, {
+  3.8926730099686527`*^9, 3.892673021462191*^9}, {3.892719603808751*^9, 
+  3.8927196195641413`*^9}},
+ CellLabel->"Out[20]=",ExpressionUUID->"d08f4023-668d-4a93-bda6-835f3fbc5ce3"],
+
+Cell[BoxData[
+ RowBox[{"-", 
+  FractionBox[
+   RowBox[{
+    SuperscriptBox["mup", "2"], "+", 
+    SuperscriptBox["phip", "2"], "-", 
+    RowBox[{
+     SuperscriptBox["mup", "2"], " ", 
+     SuperscriptBox["rhop", "2"]}], "+", 
+    SuperscriptBox["xip", "2"]}], 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "rhop"}], ")"}], " ", 
+    RowBox[{"(", 
+     RowBox[{"1", "+", "rhop"}], ")"}]}]]}]], "Output",
+ CellChangeTimes->{{3.892672949458205*^9, 3.892672961570732*^9}, {
+  3.8926730099686527`*^9, 3.892673021462191*^9}, {3.892719603808751*^9, 
+  3.892719619605398*^9}},
+ CellLabel->"Out[21]=",ExpressionUUID->"7575cf9c-e00a-469e-8490-1dd3f72ed4de"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"And", "@@", 
+  RowBox[{"(", 
+   RowBox[{"StringQ", "/@", 
+    RowBox[{"Keys", "[", "modelsP", "]"}]}], ")"}]}]], "Input",
+ CellChangeTimes->{
+  3.89000889839254*^9, {3.890016339728188*^9, 3.890016342139681*^9}, 
+   3.891251908164126*^9},
+ CellLabel->"In[11]:=",ExpressionUUID->"78177850-499e-456b-b442-fad780dafdf0"],
+
+Cell[BoxData[
+ RowBox[{"And", "@@", 
+  RowBox[{"(", 
+   RowBox[{"StringQ", "/@", 
+    RowBox[{"Flatten", "@", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"modelsP", "[", "#", "]"}], "[", "\"\<name\>\"", "]"}], 
+          ",", 
+          RowBox[{
+           RowBox[{"modelsP", "[", "#", "]"}], "[", "\"\<shortname\>\"", 
+           "]"}], ",", 
+          RowBox[{
+           RowBox[{"modelsP", "[", "#", "]"}], "[", "\"\<bibRef\>\"", "]"}], 
+          ",", 
+          RowBox[{
+           RowBox[{"modelsP", "[", "#", "]"}], "[", "\"\<desc\>\"", "]"}]}], 
+         "}"}], "&"}], "/@", 
+       RowBox[{"Keys", "[", "modelsP", "]"}]}], ")"}]}]}], ")"}]}]], "Input",
+ CellChangeTimes->{{3.890008770382118*^9, 3.890008858894733*^9}, {
+  3.890016345133547*^9, 3.8900163569166937`*^9}, {3.891251925999875*^9, 
+  3.891251929267716*^9}},
+ CellLabel->"In[12]:=",ExpressionUUID->"a17059c2-5416-45b1-b84e-0c2f842f7fb5"],
+
+Cell[BoxData[{
+ RowBox[{"And", "@@", 
+  RowBox[{"(", 
+   RowBox[{"NumberQ", "/@", 
+    RowBox[{"Flatten", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Values", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Association", "@", 
+           RowBox[{
+            RowBox[{"models", "[", "#", "]"}], "[", "\"\<parameters\>\"", 
+            "]"}]}], "//.", 
+          RowBox[{
+           RowBox[{"models", "[", "#", "]"}], "[", "\"\<parameters\>\"", 
+           "]"}]}], "//", "N"}], "]"}], "&"}], "/@", 
+      RowBox[{"(", 
+       RowBox[{"Keys", "@", "models"}], ")"}]}], "]"}]}], 
+   ")"}]}], "\[IndentingNewLine]", 
+ RowBox[{"And", "@@", 
+  RowBox[{"(", 
+   RowBox[{"NumberQ", "/@", 
+    RowBox[{"Flatten", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Values", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Association", "@", 
+           RowBox[{
+            RowBox[{"modelsP", "[", "#", "]"}], "[", "\"\<parameters\>\"", 
+            "]"}]}], "//.", 
+          RowBox[{
+           RowBox[{"modelsP", "[", "#", "]"}], "[", "\"\<parameters\>\"", 
+           "]"}]}], "//", "N"}], "]"}], "&"}], "/@", 
+      RowBox[{"(", 
+       RowBox[{"Keys", "@", "models"}], ")"}]}], "]"}]}], ")"}]}]}], "Input",
+ CellChangeTimes->{{3.890008965671461*^9, 3.8900089726778793`*^9}, {
+   3.8900090147612762`*^9, 3.890009193827691*^9}, 3.8900101461421833`*^9, 
+   3.890015540563738*^9, {3.8900156352184877`*^9, 3.89001567714233*^9}, 
+   3.8912519303524723`*^9, {3.891640840825358*^9, 3.8916408678776903`*^9}, {
+   3.89164090174683*^9, 3.8916409201814632`*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"61202b86-4708-4e03-aa51-3fcb0e388f46"],
+
+Cell[BoxData[{
+ RowBox[{"And", "@@", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"MemberQ", "[", 
+      RowBox[{
+       RowBox[{"Keys", "[", "models", "]"}], ",", "#"}], "]"}], "&"}], "/@", 
+    RowBox[{"{", 
+     RowBox[{"\"\<BY\>\"", ",", "\"\<BKY\>\""}], "}"}]}], 
+   ")"}]}], "\[IndentingNewLine]", 
+ RowBox[{"And", "@@", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"MemberQ", "[", 
+      RowBox[{
+       RowBox[{"Keys", "[", "modelsP", "]"}], ",", "#"}], "]"}], "&"}], "/@", 
+    
+    RowBox[{"{", 
+     RowBox[{"\"\<BY\>\"", ",", "\"\<BKY\>\""}], "}"}]}], ")"}]}]}], "Input",
+ CellChangeTimes->{{3.8900087062162313`*^9, 3.890008740193614*^9}, {
+   3.89001637048425*^9, 3.890016372993977*^9}, 3.8912519320207787`*^9, {
+   3.891640927230764*^9, 3.891640929613118*^9}},
+ CellLabel->"In[15]:=",ExpressionUUID->"78983d07-8f42-43d9-a50f-d26a03b2ee5c"],
+
+Cell[BoxData[{
+ RowBox[{"AllTrue", "[", 
+  RowBox[{"models", ",", "AssociationQ"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"AllTrue", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"models", "[", "#", "]"}], "&"}], "/@", 
+    RowBox[{"Keys", "[", "models", "]"}]}], ",", "AssociationQ"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"AllTrue", "[", 
+  RowBox[{"modelsP", ",", "AssociationQ"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"AllTrue", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"modelsP", "[", "#", "]"}], "&"}], "/@", 
+    RowBox[{"Keys", "[", "modelsP", "]"}]}], ",", "AssociationQ"}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.8900086430073547`*^9, 3.890008684982678*^9}, {
+  3.890010177349143*^9, 3.890010179091837*^9}, {3.8900163791247263`*^9, 
+  3.890016449580503*^9}, {3.891251933188879*^9, 3.891251935189865*^9}, {
+  3.891640937075639*^9, 3.891640945348556*^9}},
+ CellLabel->"In[17]:=",ExpressionUUID->"33533fdf-b808-460b-a76c-9a554476db8f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "fix", " ", "change", " ", "in", " ", "endogenousEq", " ", "and", " ", 
+    "exogenousEq"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"new", " ", "usage"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"pi", "[", "t", "]"}], "/.", 
+    RowBox[{"Normal", "@", 
+     RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AnyContext`pi", "[", "t", "]"}], "/.", 
+    RowBox[{"Normal", "@", 
+     RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}]}]}]}]], "Input",
+ CellChangeTimes->{{3.892050167870915*^9, 
+  3.8920502040053997`*^9}},ExpressionUUID->"9a5351ab-3ad9-40be-9517-\
+04e9287e219e"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"model", "=", 
+   RowBox[{"modelsP", "[", "\"\<NRC\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetSymbolsContext", "[", 
+   RowBox[{
+    RowBox[{"pi", "[", "t", "]"}], "/.", 
+    RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], "]"}], "===", 
+  RowBox[{"mup", "+", 
+   RowBox[{"rhop", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "mup"}], "+", 
+      RowBox[{"pi", "[", 
+       RowBox[{
+        RowBox[{"-", "1"}], "+", "t"}], "]"}]}], ")"}]}], "+", 
+   RowBox[{"xip", " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "t"}], "]"}]}], "+", 
+   RowBox[{"phip", " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", "t", 
+     "]"}]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetSymbolsContext", "[", 
+   RowBox[{
+    RowBox[{"SetSymbolsContext", "[", 
+     RowBox[{
+      RowBox[{"pi", "[", "t", "]"}], "/.", 
+      RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], "]"}], "/.", 
+    RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], " ", "]"}], "===", 
+  RowBox[{"mup", "+", 
+   RowBox[{"xip", " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "t"}], "]"}]}], "+", 
+   RowBox[{"rhop", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"rhop", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", "mup"}], "+", 
+         RowBox[{"pi", "[", 
+          RowBox[{
+           RowBox[{"-", "2"}], "+", "t"}], "]"}]}], ")"}]}], "+", 
+      RowBox[{"xip", " ", 
+       RowBox[{
+        RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", 
+        RowBox[{
+         RowBox[{"-", "2"}], "+", "t"}], "]"}]}], "+", 
+      RowBox[{"phip", " ", 
+       RowBox[{
+        RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", "t"}], "]"}]}]}], ")"}]}], "+", 
+   RowBox[{"phip", " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", "t", 
+     "]"}]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<dc\>\"", "]"}], "[", "t", "]"}], "/.", 
+    RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], ")"}], "===", 
+  RowBox[{
+   RowBox[{"eps", "[", "\"\<dc\>\"", "]"}], "[", "t", "]"}]}]}], "Input",
+ CellChangeTimes->{{3.891096980907036*^9, 3.89109711061628*^9}, {
+   3.891097286996798*^9, 3.891097326901675*^9}, {3.891097391614285*^9, 
+   3.891097426325962*^9}, {3.891097467965479*^9, 3.8910975106149073`*^9}, {
+   3.891156548001099*^9, 3.891156597486952*^9}, 3.891248470072023*^9, {
+   3.891250014698707*^9, 3.891250040928877*^9}, 3.891251936708044*^9, {
+   3.891315016113975*^9, 3.8913150202981033`*^9}, {3.891640980885796*^9, 
+   3.8916410055982122`*^9}, 3.891641098596366*^9},
+ CellLabel->"In[21]:=",ExpressionUUID->"39dff485-94bf-4e47-927c-bad3763b0fef"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetSymbolsContext", "[", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"dd", "[", 
+      RowBox[{"t", ",", "i"}], "]"}], "/.", 
+     RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], ")"}], "]"}], "===", 
+  RowBox[{
+   RowBox[{"mud", "[", "i", "]"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "mup"}], "+", 
+      RowBox[{"pi", "[", 
+       RowBox[{
+        RowBox[{"-", "1"}], "+", "t"}], "]"}]}], ")"}], " ", 
+    RowBox[{"rhodp", "[", "i", "]"}]}], "+", 
+   RowBox[{
+    RowBox[{"phidc", "[", "i", "]"}], " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<dc\>\"", "]"}], "[", "t", "]"}]}], "+", 
+   RowBox[{
+    RowBox[{"sg", "[", 
+     RowBox[{
+      RowBox[{"-", "2"}], "+", "t"}], "]"}], " ", 
+    RowBox[{"xid", "[", "i", "]"}], " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "t"}], "]"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.891096980907036*^9, 3.89109711061628*^9}, {
+   3.891097286996798*^9, 3.891097326901675*^9}, {3.891097391614285*^9, 
+   3.891097426325962*^9}, {3.891097467965479*^9, 3.8910975106149073`*^9}, {
+   3.891156548001099*^9, 3.891156597486952*^9}, {3.891248470072023*^9, 
+   3.8912484726803226`*^9}, {3.891250048801281*^9, 3.891250056843604*^9}, 
+   3.8913150211492643`*^9, {3.891640151245019*^9, 3.891640160267971*^9}},
+ CellLabel->"In[25]:=",ExpressionUUID->"cd9ca62b-58ab-4d3e-808f-386e3f5813ad"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetSymbolsContext", "[", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"wc", "[", "t", "]"}], "/.", 
+     RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], ")"}], "]"}], "===", 
+  RowBox[{
+   RowBox[{"A", "[", "0", "]"}], "+", 
+   RowBox[{
+    RowBox[{"A", "[", "1", "]"}], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "mup"}], "+", 
+      RowBox[{"pi", "[", "t", "]"}]}], ")"}]}], "+", 
+   RowBox[{
+    RowBox[{"A", "[", "4", "]"}], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "Esg"}], "+", 
+      RowBox[{"sg", "[", "t", "]"}]}], ")"}]}], "+", 
+   RowBox[{
+    RowBox[{"A", "[", "5", "]"}], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", 
+       SuperscriptBox["Esg", "2"]}], "-", 
+      FractionBox[
+       SuperscriptBox["phig", "2"], 
+       RowBox[{"1", "-", 
+        SuperscriptBox["rhog", "2"]}]], "+", 
+      SuperscriptBox[
+       RowBox[{"sg", "[", "t", "]"}], "2"]}], ")"}]}], "+", 
+   RowBox[{
+    RowBox[{"A", "[", "3", "]"}], " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", "t", "]"}]}], "+", 
+   RowBox[{
+    RowBox[{"A", "[", "2", "]"}], " ", 
+    RowBox[{"sg", "[", 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "t"}], "]"}], " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", "t", 
+     "]"}]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetSymbolsContext", "[", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"wc", "[", "t", "]"}], "//.", 
+     RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], ")"}], "]"}], "===", 
+  RowBox[{
+   RowBox[{"A", "[", "0", "]"}], "+", 
+   RowBox[{
+    RowBox[{"A", "[", "1", "]"}], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "mup"}], "+", 
+      RowBox[{"pi", "[", "t", "]"}]}], ")"}]}], "+", 
+   RowBox[{
+    RowBox[{"A", "[", "4", "]"}], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "Esg"}], "+", 
+      RowBox[{"sg", "[", "t", "]"}]}], ")"}]}], "+", 
+   RowBox[{
+    RowBox[{"A", "[", "5", "]"}], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", 
+       SuperscriptBox["Esg", "2"]}], "-", 
+      FractionBox[
+       SuperscriptBox["phig", "2"], 
+       RowBox[{"1", "-", 
+        SuperscriptBox["rhog", "2"]}]], "+", 
+      SuperscriptBox[
+       RowBox[{"sg", "[", "t", "]"}], "2"]}], ")"}]}], "+", 
+   RowBox[{
+    RowBox[{"A", "[", "3", "]"}], " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", "t", "]"}]}], "+", 
+   RowBox[{
+    RowBox[{"A", "[", "2", "]"}], " ", 
+    RowBox[{"sg", "[", 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "t"}], "]"}], " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", "t", "]"}]}]}]}]}], "Input",\
+
+ CellChangeTimes->{{3.891096980907036*^9, 3.89109711061628*^9}, {
+   3.891097286996798*^9, 3.891097326901675*^9}, {3.891097391614285*^9, 
+   3.891097426325962*^9}, {3.891097467965479*^9, 3.8910975106149073`*^9}, {
+   3.891156548001099*^9, 3.891156597486952*^9}, {3.891248470072023*^9, 
+   3.891248478649832*^9}, 3.8912492984981613`*^9, {3.891250067894711*^9, 
+   3.891250074685601*^9}, {3.891250240915606*^9, 3.891250254030705*^9}, {
+   3.891315022333788*^9, 3.891315024801173*^9}, {3.8916411397238827`*^9, 
+   3.891641157078068*^9}},
+ CellLabel->"In[26]:=",ExpressionUUID->"aa6ab47b-ede2-4602-b484-f47a43ab6b84"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetSymbolsContext", "[", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"pd", "[", 
+      RowBox[{"t", ",", "i"}], "]"}], "/.", 
+     RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], ")"}], "]"}], "===", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"B", "[", "i", "]"}], "[", "0", "]"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "mup"}], "+", 
+      RowBox[{"pi", "[", "t", "]"}]}], ")"}], " ", 
+    RowBox[{
+     RowBox[{"B", "[", "i", "]"}], "[", "1", "]"}]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "Esg"}], "+", 
+      RowBox[{"sg", "[", "t", "]"}]}], ")"}], " ", 
+    RowBox[{
+     RowBox[{"B", "[", "i", "]"}], "[", "4", "]"}]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", 
+       SuperscriptBox["Esg", "2"]}], "-", 
+      FractionBox[
+       SuperscriptBox["phig", "2"], 
+       RowBox[{"1", "-", 
+        SuperscriptBox["rhog", "2"]}]], "+", 
+      SuperscriptBox[
+       RowBox[{"sg", "[", "t", "]"}], "2"]}], ")"}], " ", 
+    RowBox[{
+     RowBox[{"B", "[", "i", "]"}], "[", "5", "]"}]}], "+", 
+   RowBox[{
+    RowBox[{"sg", "[", 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "t"}], "]"}], " ", 
+    RowBox[{
+     RowBox[{"B", "[", "i", "]"}], "[", "2", "]"}], " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", "t", "]"}]}], "+", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"B", "[", "i", "]"}], "[", "3", "]"}], " ", 
+    RowBox[{
+     RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", "t", "]"}]}]}]}]], "Input",\
+
+ CellChangeTimes->{{3.891096980907036*^9, 3.89109711061628*^9}, {
+  3.891097286996798*^9, 3.891097326901675*^9}, {3.891097391614285*^9, 
+  3.891097426325962*^9}, {3.891097467965479*^9, 3.8910975106149073`*^9}, {
+  3.891156548001099*^9, 3.891156597486952*^9}, {3.891248470072023*^9, 
+  3.891248478649832*^9}, {3.891250078873067*^9, 3.891250085899415*^9}, {
+  3.8913150261708384`*^9, 3.891315027036374*^9}, {3.8916411641932697`*^9, 
+  3.8916411669884233`*^9}},
+ CellLabel->"In[28]:=",ExpressionUUID->"d57cb323-0416-47f9-9cc0-32fc3ee2a06f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"bondexcret", "[", 
+   RowBox[{"t", ",", "i"}], "]"}], "//.", 
+  RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}]], "Input",
+ CellChangeTimes->{{3.89164121827634*^9, 3.891641223669627*^9}},
+ CellLabel->"In[29]:=",ExpressionUUID->"74afa0bb-da92-4443-b6e6-ae48f161a506"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetSymbolsContext", "[", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"bondexcret", "[", 
+      RowBox[{"t", ",", "i"}], "]"}], "/.", 
+     RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], ")"}], "]"}], "===", 
+  RowBox[{
+   RowBox[{"bondret", "[", 
+    RowBox[{"t", ",", "i", ",", "1"}], "]"}], "-", 
+   RowBox[{"bondyield", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "t"}], ",", "1"}], 
+    "]"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetSymbolsContext", "[", 
+   RowBox[{
+    RowBox[{"SetSymbolsContext", "[", 
+     RowBox[{
+      RowBox[{"bondexcret", "[", 
+       RowBox[{"t", ",", "i"}], "]"}], "/.", 
+      RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], "]"}], "/.", 
+    RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], "]"}], "===", 
+  RowBox[{
+   RowBox[{"bond", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "t"}], ",", "1"}], "]"}], "-", 
+   RowBox[{"bond", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "t"}], ",", "i"}], "]"}], "+", 
+   RowBox[{"bond", "[", 
+    RowBox[{"t", ",", 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "i"}]}], "]"}]}]}]}], "Input",
+ CellChangeTimes->{{3.891250096976623*^9, 3.891250129715899*^9}, {
+  3.89125016208969*^9, 3.8912502058647118`*^9}, {3.891315028740855*^9, 
+  3.891315032975741*^9}, {3.891641176242813*^9, 3.8916412007851133`*^9}, {
+  3.891641235963982*^9, 3.891641236421321*^9}},
+ CellLabel->"In[30]:=",ExpressionUUID->"64ef20f2-4d34-4121-a93e-9b5c8889fc0d"],
+
+Cell[BoxData[{
+ RowBox[{"AllTrue", "[", 
+  RowBox[{
+   RowBox[{"Head", "/@", 
+    RowBox[{"(", 
+     RowBox[{"Keys", "@", 
+      RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], ")"}]}], ",", 
+   RowBox[{
+    RowBox[{"MatchQ", "[", 
+     RowBox[{"#", ",", "Symbol"}], "]"}], "&"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"AllTrue", "[", 
+  RowBox[{
+   RowBox[{"Head", "/@", 
+    RowBox[{"(", 
+     RowBox[{"Keys", "@", 
+      RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}], ")"}]}], ",", 
+   RowBox[{
+    RowBox[{"MatchQ", "[", 
+     RowBox[{"#", ",", "Symbol"}], "]"}], "&"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.891157496969887*^9, 3.891157544107942*^9}},
+ CellLabel->"In[32]:=",ExpressionUUID->"cd8b1760-536a-488f-9246-597cbd161a39"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "shortname", " ", "different", " ", "from", " ", "model", " ", "key"}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"modelBY", "=", 
+     RowBox[{"models", "[", "\"\<BY\>\"", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"modelBKY", "=", 
+     RowBox[{"models", "[", "\"\<BKY\>\"", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"newModels", "=", 
+     RowBox[{"<|", 
+      RowBox[{
+       RowBox[{"\"\<myModel\>\"", "->", "modelBKY"}], ",", 
+       RowBox[{"\"\<BY\>\"", "->", "modelBY"}]}], "|>"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"newModelsSameName", "=", 
+     RowBox[{"<|", 
+      RowBox[{"\"\<BY\>\"", "->", "modelBY"}], "|>"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"newModelsRename", "=", 
+     RowBox[{"<|", 
+      RowBox[{"\"\<myModel\>\"", "->", "modelBY"}], "|>"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"newModelsP", "=", 
+     RowBox[{"processModels", "[", "newModels", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"newModelsSameNameP", "=", 
+     RowBox[{"processModels", "[", "newModelsSameName", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"newModelsRenameP", "=", 
+     RowBox[{"processModels", "[", "newModelsRename", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"newModelsP", "[", "\"\<myModel\>\"", "]"}], "===", 
+       RowBox[{"modelsP", "[", "\"\<BKY\>\"", "]"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"newModelsP", "[", "\"\<BY\>\"", "]"}], "===", 
+       RowBox[{"modelsP", "[", "\"\<BY\>\"", "]"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"newModelsSameNameP", "[", "\"\<BY\>\"", "]"}], "===", 
+       RowBox[{"modelsP", "[", "\"\<BY\>\"", "]"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"newModelsRenameP", "[", "\"\<myModel\>\"", "]"}], "===", 
+       RowBox[{"modelsP", "[", "\"\<BY\>\"", "]"}]}]}], "\[IndentingNewLine]",
+      "}"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.8912512942103243`*^9, 3.8912513055502443`*^9}, {
+   3.8912513517340593`*^9, 3.891251461543272*^9}, {3.891251500422112*^9, 
+   3.891251525384585*^9}, 3.891251633145433*^9, {3.891251727184629*^9, 
+   3.8912517398515368`*^9}, {3.89125184158985*^9, 3.891251848736774*^9}, {
+   3.891252152348381*^9, 3.891252165553775*^9}},
+ CellLabel->"In[34]:=",ExpressionUUID->"876ead52-65a8-42a3-aa99-574711040d84"],
+
+Cell[BoxData[{
+ RowBox[{"Begin", "[", "\"\<ProcessModels`\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"packageFileName", "=", 
+  RowBox[{"FileNameJoin", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"DirectoryName", "[", 
+      RowBox[{
+       RowBox[{"NotebookDirectory", "[", "]"}], ",", "2"}], "]"}], ",", 
+     "\"\<Kernel\>\"", ",", "\"\<Model\>\"", ",", 
+     RowBox[{
+      RowBox[{"FileBaseName", "[", 
+       RowBox[{"NotebookFileName", "[", "]"}], "]"}], "<>", "\"\<.wl\>\""}]}],
+     "}"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Needs", "[", 
+  RowBox[{
+   RowBox[{"\"\<FernandoDuarte`LongRunRisk`Model`\>\"", "<>", 
+    RowBox[{"FileBaseName", "[", 
+     RowBox[{"NotebookFileName", "[", "]"}], "]"}], "<>", "\"\<`\>\""}], ",", 
+   "packageFileName"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`Model`Catalog`\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Block", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"model", "=", 
+       RowBox[{
+        RowBox[{"processModels", "[", "models", "]"}], "[", "\"\<NRC\>\"", 
+        "]"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{"$Context", "=", "\"\<ProcessModels`\>\""}]}], 
+     "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"SetSymbolsContext", "[", 
+       RowBox[{
+        RowBox[{"pi", "[", "t", "]"}], "/.", 
+        RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], "]"}], 
+      "\[IndentingNewLine]", "}"}], "===", "\[IndentingNewLine]", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"mup", "+", 
+       RowBox[{"rhop", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", "mup"}], "+", 
+          RowBox[{"pi", "[", 
+           RowBox[{
+            RowBox[{"-", "1"}], "+", "t"}], "]"}]}], ")"}]}], "+", 
+       RowBox[{"xip", " ", 
+        RowBox[{
+         RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", 
+         RowBox[{
+          RowBox[{"-", "1"}], "+", "t"}], "]"}]}], "+", 
+       RowBox[{"phip", " ", 
+        RowBox[{
+         RowBox[{"eps", "[", "\"\<pi\>\"", "]"}], "[", "t", "]"}]}]}], 
+      "\[IndentingNewLine]", "}"}]}]}], "\[IndentingNewLine]", "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"End", "[", "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.891158444407263*^9, 3.891158534313613*^9}, {
+   3.891158586414115*^9, 3.8911586149662037`*^9}, 3.891158809185891*^9, {
+   3.891251110601142*^9, 3.891251115797772*^9}, {3.891314987816784*^9, 
+   3.891314988869979*^9}, {3.8916412818104143`*^9, 3.891641283662361*^9}},
+ CellLabel->"In[43]:=",ExpressionUUID->"6ae4497c-962c-4d4c-a2e5-60aad4db46d9"],
+
+Cell[BoxData[
+ RowBox[{"modelsP", "[", "\"\<BKY\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.891749393740911*^9, 3.891749399207871*^9}},
+ CellLabel->"In[11]:=",ExpressionUUID->"b13e40a3-8829-4747-abfb-9fb5845b8034"]
+}, Open  ]]
+},
+WindowSize->{1554, 941},
+WindowMargins->{{Automatic, -1782}, {-32, Automatic}},
+WindowStatusArea->"",
+DockedCells->{
+  Cell[
+   BoxData[
+    DynamicModuleBox[{LinterUIDockedCell`Private`notebook$$}, 
+     GraphicsBox[{
+       InsetBox[
+        TemplateBox[{
+          PaneBox[
+           StyleBox[
+           "\"Code Analysis\"", FontColor -> GrayLevel[0.4], FontFamily -> 
+            "Source Sans Pro", FontWeight -> Plain, FontSize -> 13, 
+            StripOnInput -> False], 
+           BaselinePosition -> (Baseline -> Scaled[0.65])], 
+          TemplateBox[{8}, "Spacer1"], 
+          PaneBox[
+           
+           PaneSelectorBox[{{False, False} -> 
+             TemplateBox[{0}, "Spacer1"], {True, False} -> 
+             TemplateBox[{0}, "Spacer1"], {True, True} -> PaneBox[
+               InterpretationBox[
+                DynamicBox[
+                 FEPrivate`FrontEndResource[
+                 "FEExpressions", "PercolateAnimator"][Medium]], 
+                ProgressIndicator[Appearance -> "Percolate"], 
+                BaseStyle -> {"Deploy"}], BaselinePosition -> Scaled[0.05]], {
+              False, True} -> 
+             DynamicModuleBox[{
+               CodeInspector`LinterUI`Private`tracker$$ = 
+                CodeInspector`LinterUI`Private`DynamicTriggers`\
+dockedCellLintCounts}, 
+               DynamicWrapperBox[
+                DynamicBox[
+                 ToBoxes[
+                 CodeInspector`LinterUI`Private`tracker$$; 
+                  LinterUIDockedCell`Private`dockedCellSeverityCountsButton[
+                   LinterUIDockedCell`Private`notebook$$], TraditionalForm], 
+                 TrackedSymbols :> {
+                  CodeInspector`LinterUI`Private`tracker$$}], 
+                If[
+                CodeInspector`LinterUI`Private`tracker$$ =!= 
+                 CodeInspector`LinterUI`Private`DynamicTriggers`\
+dockedCellLintCounts, CodeInspector`LinterUI`Private`tracker$$ = 
+                 CodeInspector`LinterUI`Private`DynamicTriggers`\
+dockedCellLintCounts]], DynamicModuleValues :> {}]}, 
+            Dynamic[FEPrivate`EvaluatorStatus["Local"]; {
+               CodeInspector`LinterUI`Private`varValue[
+               LinterUIDockedCell`Private`notebook$$, "AnalysisInProgressQ"], 
+               
+               TrueQ[
+                CodeInspector`LinterUI`Private`varValue[
+                LinterUIDockedCell`Private`notebook$$, 
+                 "DockedCellPresentQ"]]}], ImageSize -> Automatic], 
+           BaselinePosition -> Scaled[0.15]]}, "Row", 
+         DisplayFunction -> (PaneBox[
+           RowBox[{
+             TemplateSlotSequence[1, "\[InvisibleSpace]"]}], Alignment -> 
+           Baseline]& ), InterpretationFunction -> (RowBox[{"Row", "[", 
+            RowBox[{
+              RowBox[{"{", 
+                TemplateSlotSequence[1, ","], "}"}], ",", 
+              RowBox[{"Alignment", "\[Rule]", "Baseline"}]}], "]"}]& )], 
+        Offset[{8, 0}, {-1, 0}], {-1, 0}], 
+       InsetBox[
+        PaneSelectorBox[{
+         True -> DynamicModuleBox[{
+            CodeInspector`LinterUI`Private`hoverQ$$ = False, 
+             CodeInspector`LinterUI`Private`mouseDownQ$$ = False, 
+             CodeInspector`LinterUI`Private`fontColor$$}, 
+            ButtonBox[
+             DynamicWrapperBox[
+              TemplateBox[{
+                DynamicWrapperBox[
+                 StyleBox[
+                  PaneBox[
+                  "\"Reanalyze Notebook\"", ContentPadding -> True, 
+                   FrameMargins -> None, BaselinePosition -> Baseline], 
+                  FontColor -> 
+                  Dynamic[CodeInspector`LinterUI`Private`fontColor$$], 
+                  FontColor -> GrayLevel[0.2], FontFamily -> 
+                  "Source Sans Pro", FontWeight -> Plain, FontSize -> 14, 
+                  StripOnInput -> False], 
+                 CodeInspector`LinterUI`Private`fontColor$$ = Which[
+                   TrueQ[
+                    Not[
+                    
+                    OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "ActiveQ"]]], 
+                   
+                   OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "TextInactiveColor"], 
+                   CodeInspector`LinterUI`Private`hoverQ$$, 
+                   
+                   OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "TextHoverColor"], True, 
+                   
+                   OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "TextColor"]]], ContentPadding -> False, 
+                FrameMargins -> {{9, 9}, {0, 0}}, 
+                Alignment -> {Center, Center}, ImageSize -> {Automatic, 19}, 
+                RoundingRadius -> 3, FrameStyle -> Dynamic[
+                  Directive[
+                   AbsoluteThickness[0.5], 
+                   Which[
+                    TrueQ[
+                    Not[
+                    
+                    OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "ActiveQ"]]], 
+                    
+                    OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "EdgeInactiveColor"], 
+                    CodeInspector`LinterUI`Private`hoverQ$$, 
+                    
+                    OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "EdgeHoverColor"], True, 
+                    
+                    OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "EdgeColor"]]]], Background -> Dynamic[
+                  Which[
+                   TrueQ[
+                    Not[
+                    
+                    OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "ActiveQ"]]], 
+                   
+                   OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "BackInactiveColor"], 
+                   And[
+                   CodeInspector`LinterUI`Private`hoverQ$$, 
+                    CodeInspector`LinterUI`Private`mouseDownQ$$], 
+                   
+                   OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "BackMouseDownColor"], 
+                   CodeInspector`LinterUI`Private`hoverQ$$, 
+                   
+                   OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "BackHoverColor"], True, 
+                   
+                   OptionValue[{
+                    ImageSize -> {Automatic, 19}, 
+                    FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                    Baseline, Alignment -> {Center, Center}, Method -> 
+                    "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                    "TextHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                    "BackHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                    CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                    "EdgeHoverColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                    CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+                    "BackColor"]]]}, "Highlighted"], 
+              CodeInspector`LinterUI`Private`hoverQ$$ = 
+               CurrentValue["MouseOver"]; 
+              CodeInspector`LinterUI`Private`mouseDownQ$$ = 
+               CurrentValue["MouseButtonTest"]], 
+             Appearance -> {
+              "Default" -> 
+               Image[RawArray["UnsignedInteger8",{{{255, 255, 255, 255}, {0, 
+                  0, 0, 255}, {255, 255, 255, 255}}, {{0, 0, 0, 255}, {0, 0, 
+                  0, 0}, {0, 0, 0, 255}}, {{255, 255, 255, 255}, {0, 0, 0, 
+                  255}, {255, 255, 255, 255}}}], "Byte", ColorSpace -> "RGB", 
+                 ImageResolution -> {72, 72}, Interleaving -> True], "Hover" -> 
+               Image[RawArray["UnsignedInteger8",{{{255, 255, 255, 255}, {0, 
+                  0, 0, 255}, {255, 255, 255, 255}}, {{0, 0, 0, 255}, {0, 0, 
+                  0, 0}, {0, 0, 0, 255}}, {{255, 255, 255, 255}, {0, 0, 0, 
+                  255}, {255, 255, 255, 255}}}], "Byte", ColorSpace -> "RGB", 
+                 ImageResolution -> {72, 72}, Interleaving -> True], 
+               "Pressed" -> 
+               Image[RawArray["UnsignedInteger8",{{{255, 255, 255, 255}, {0, 
+                  0, 0, 255}, {255, 255, 255, 255}}, {{0, 0, 0, 255}, {0, 0, 
+                  0, 0}, {0, 0, 0, 255}}, {{255, 255, 255, 255}, {0, 0, 0, 
+                  255}, {255, 255, 255, 255}}}], "Byte", ColorSpace -> "RGB", 
+                 ImageResolution -> {72, 72}, Interleaving -> True]}, 
+             BaselinePosition -> Baseline, 
+             ButtonFunction :> (
+              If[OptionValue[{
+                  ImageSize -> {Automatic, 19}, 
+                   FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+                   Baseline, Alignment -> {Center, Center}, Method -> 
+                   "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+                   CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+                   "TextHoverColor" -> 
+                   CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextHover"], "TextInactiveColor" -> 
+                   CodeInspector`LinterUI`Private`colorData[
+                    "ButtonTextInactive"], "BackColor" -> 
+                   CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+                   "BackHoverColor" -> 
+                   CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackHover"], "BackMouseDownColor" -> 
+                   CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
+                   CodeInspector`LinterUI`Private`colorData[
+                    "ButtonBackInactive"], "EdgeColor" -> 
+                   CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+                   "EdgeHoverColor" -> 
+                   CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
+                   CodeInspector`LinterUI`Private`colorData[
+                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, "ActiveQ"] =!= 
+                False, 
+                CodeInspector`LinterUI`Private`attachAnalysisAction[
+                 EvaluationNotebook[]]]; 
+              CodeInspector`LinterUI`Private`mouseDownQ$$ = False), 
+             ContentPadding -> False, Evaluator -> Automatic, Method -> 
+             "Queued"], DynamicModuleValues :> {}], False -> ButtonBox[
+            TemplateBox[{
+              StyleBox[
+              "\"Analyze Notebook\"", FontColor -> GrayLevel[0.2], FontFamily -> 
+               "Source Sans Pro", FontWeight -> Plain, FontSize -> 14, 
+               StripOnInput -> False], ImageSize -> {Automatic, 19}, 
+              FrameMargins -> {{9, 9}, {0, 0}}, BaselinePosition -> Baseline, 
+              Alignment -> {Center, Center}, Background -> GrayLevel[1], 
+              FrameStyle -> Dynamic[
+                If[
+                 CurrentValue["MouseOver"], 
+                 Hue[0.55, 0.82, 0.87], 
+                 GrayLevel[0.8]]]}, "Highlighted"], 
+            Appearance -> {
+             "Default" -> 
+              Image[RawArray["UnsignedInteger8",{{{255, 255, 255, 255}, {0, 0,
+                  0, 255}, {255, 255, 255, 255}}, {{0, 0, 0, 255}, {0, 0, 0, 
+                 0}, {0, 0, 0, 255}}, {{255, 255, 255, 255}, {0, 0, 0, 255}, {
+                 255, 255, 255, 255}}}], "Byte", ColorSpace -> "RGB", 
+                ImageResolution -> {72, 72}, Interleaving -> True], "Hover" -> 
+              Image[RawArray["UnsignedInteger8",{{{255, 255, 255, 255}, {0, 0,
+                  0, 255}, {255, 255, 255, 255}}, {{0, 0, 0, 255}, {0, 0, 0, 
+                 0}, {0, 0, 0, 255}}, {{255, 255, 255, 255}, {0, 0, 0, 255}, {
+                 255, 255, 255, 255}}}], "Byte", ColorSpace -> "RGB", 
+                ImageResolution -> {72, 72}, Interleaving -> True], "Pressed" -> 
+              Image[RawArray["UnsignedInteger8",{{{255, 255, 255, 255}, {0, 0,
+                  0, 255}, {255, 255, 255, 255}}, {{0, 0, 0, 255}, {0, 0, 0, 
+                 0}, {0, 0, 0, 255}}, {{255, 255, 255, 255}, {0, 0, 0, 255}, {
+                 255, 255, 255, 255}}}], "Byte", ColorSpace -> "RGB", 
+                ImageResolution -> {72, 72}, Interleaving -> True]}, 
+            ButtonFunction :> (CurrentValue[
+                EvaluationNotebook[], DockedCells] = 
+              With[{LinterUIDockedCell`Private`dockedCells = CurrentValue[
+                   EvaluationNotebook[], DockedCells]}, 
+                Pick[LinterUIDockedCell`Private`dockedCells, 
+                 Map[Quiet[
+                    Options[#, CellTags]] =!= {
+                   CellTags -> "CodeAnalysisDockedCell"}& , 
+                  LinterUIDockedCell`Private`dockedCells]]]; 
+             Needs["CodeInspector`"]; 
+             CodeInspector`AttachAnalysis[
+              LinterUIDockedCell`Private`notebook$$]), Evaluator -> Automatic,
+             Method -> "Queued"]}, 
+         Dynamic[FEPrivate`EvaluatorStatus["Local"]; TrueQ[
+            CodeInspector`LinterUI`Private`varValue[
+            LinterUIDockedCell`Private`notebook$$, "DockedCellPresentQ"]]], 
+         ImageSize -> Automatic], 
+        Offset[{-26, 0}, {1, 0}], {1, 0}], 
+       TagBox[
+        TagBox[
+         TooltipBox[{{
+            GrayLevel[0.6], 
+            DiskBox[
+             Offset[{-11, 0}, {1, 0}], 
+             Offset[6]]}, {
+            GrayLevel[0.97], 
+            AbsoluteThickness[1.5], 
+            CapForm["Round"], 
+            LineBox[{{
+               Offset[{-13, 2}, {1, 0}], 
+               Offset[{-9, -2}, {1, 0}]}, {
+               Offset[{-13, -2}, {1, 0}], 
+               Offset[{-9, 2}, {1, 0}]}}]}}, "\"Close analysis\"", 
+          TooltipDelay -> 0, TooltipStyle -> "TextStyling"], 
+         Annotation[#, "Close analysis", "Tooltip"]& ], 
+        EventHandlerTag[{"MouseClicked" :> (Map[NotebookDelete, 
+             Flatten[
+              CodeInspector`LinterUI`Private`varValue[
+              LinterUIDockedCell`Private`notebook$$, All, 
+               "UIAttachedCells"]]]; Map[NotebookDelete, 
+             Flatten[
+              CodeInspector`LinterUI`Private`varValue[
+              LinterUIDockedCell`Private`notebook$$, All, 
+               "CleanCellBracketMarker"]]]; CurrentValue[
+              EvaluationNotebook[], DockedCells] = 
+            With[{LinterUIDockedCell`Private`dockedCells = CurrentValue[
+                 EvaluationNotebook[], DockedCells]}, 
+              Pick[LinterUIDockedCell`Private`dockedCells, 
+               Map[Quiet[
+                  Options[#, CellTags]] =!= {
+                 CellTags -> "CodeAnalysisDockedCell"}& , 
+                LinterUIDockedCell`Private`dockedCells]]]; 
+           CodeInspector`LinterUI`Private`applyToVar[Remove, {
+              EvaluationNotebook[], All}]; 
+           CodeInspector`LinterUI`Private`varSet[{
+             LinterUIDockedCell`Private`notebook$$, "DockedCellPresentQ"}, 
+             False]), Method -> "Preemptive", PassEventsDown -> Automatic, 
+          PassEventsUp -> True}]]}, AspectRatio -> Full, 
+      ImageSize -> {Full, 23}, PlotRange -> {{-1, 1}, {-1, 1}}], 
+     Deinitialization :> 
+     CodeInspector`LinterUI`Private`varSet[{
+       LinterUIDockedCell`Private`notebook$$, "DockedCellPresentQ"}, False], 
+     DynamicModuleValues :> {}, 
+     Initialization :> ({
+       LinterUIDockedCell`Private`dockedCellSeverityCountsButton[
+          Pattern[LinterUIDockedCell`Private`notebook, 
+           Blank[NotebookObject]]] := 
+        With[{LinterUIDockedCell`Private`formatIcon = 
+           Show[#, ImageSize -> {13, 9}, BaselinePosition -> Scaled[-0.2]]& }, 
+          ActionMenu[
+           Highlighted[
+            Row[{
+              CodeInspector`LinterUI`Private`lintSeverityCountsIconRow[
+              LinterUIDockedCell`Private`notebook, "exclamSize" -> 12, 
+               FontSize -> 14, FontWeight -> Plain], 
+              Spacer[2], 
+              LinterUIDockedCell`Private`formatIcon[
+               CodeInspector`LinterUI`Private`iconData["DownChevron"][
+                CodeInspector`LinterUI`Private`colorData["UIDark"]]]}], 
+            ImageSize -> {Automatic, 19}, BaselinePosition -> Baseline, 
+            Background -> White, Frame -> True, FrameStyle -> Dynamic[
+              If[
+               CurrentValue["MouseOver"], 
+               Hue[0.55, 0.82, 0.87], 
+               GrayLevel[0.8]]], FrameMargins -> {6 {1, 1}, {1, 1}}, 
+            Alignment -> {Center, Baseline}], 
+           Map[
+           LinterUIDockedCell`Private`dockedCellMenuItem[
+            LinterUIDockedCell`Private`notebook, #]& , 
+            CodeInspector`LinterUI`Private`varValue[
+            LinterUIDockedCell`Private`notebook, All, "Cell"]], Appearance -> 
+           None]], LinterUIDockedCell`Private`dockedCellMenuItem[
+          Pattern[LinterUIDockedCell`Private`notebook, 
+           Blank[NotebookObject]], 
+          Pattern[LinterUIDockedCell`Private`cell, 
+           Blank[CellObject]]] := With[{}, Graphics[{
+             Inset[
+              With[{LinterUIDockedCell`Private`expressionString = First[
+                  FrontEndExecute[
+                   FrontEnd`ExportPacket[
+                    First[
+                    CodeInspector`LinterUI`Private`varValue[
+                    LinterUIDockedCell`Private`notebook, 
+                    LinterUIDockedCell`Private`cell, "CellContents"]], 
+                    "InputText"]]]}, {
+               LinterUIDockedCell`Private`noLineBreaks = 
+                StringReplace[
+                 LinterUIDockedCell`Private`expressionString, "\n" -> " "]}, {
+               LinterUIDockedCell`Private`previewString = 
+                StringTake[LinterUIDockedCell`Private`noLineBreaks, {1, 
+                   UpTo[LinterUIDockedCell`Private`$previewLength]}]}, 
+               CodeInspector`LinterUI`Private`styleData["FixedWidth"][
+                If[
+                StringLength[LinterUIDockedCell`Private`expressionString] > 
+                 LinterUIDockedCell`Private`$previewLength, 
+                 StringDrop[LinterUIDockedCell`Private`previewString, -1] <> 
+                 "\[Ellipsis]", 
+                 LinterUIDockedCell`Private`previewString]]], {-1, 0}, {-1, 
+              0}], 
+             Inset[
+              CodeInspector`LinterUI`Private`lintSeverityCountsIconRow[
+              LinterUIDockedCell`Private`cell], {1, 0}, {1, 0}]}, 
+            ImageSize -> {300, 25}, AspectRatio -> Full, 
+            PlotRange -> {{-1, 1}, {-1, 1}}, ImagePadding -> None] :> (
+           SelectionMove[LinterUIDockedCell`Private`cell, All, Cell]; 
+           With[{LinterUIDockedCell`Private`nb = 
+              ParentNotebook[LinterUIDockedCell`Private`cell]}, 
+             FrontEndExecute[
+              FrontEnd`FrontEndToken[
+              LinterUIDockedCell`Private`nb, "OpenSelectionParents"]]]; 
+           SelectionMove[LinterUIDockedCell`Private`cell, After, Cell])], 
+        LinterUIDockedCell`Private`$previewLength = 28, 
+        CodeInspector`LinterUI`Private`applyToVar[
+          Pattern[CodeInspector`LinterUI`Private`function, 
+           Blank[]], {
+           Pattern[CodeInspector`LinterUI`Private`notebook, 
+            Blank[NotebookObject]], All, 
+           Pattern[CodeInspector`LinterUI`Private`name, 
+            Blank[String]]}, 
+          Pattern[CodeInspector`LinterUI`Private`args, 
+           BlankNullSequence[]]] := 
+        Map[Apply[CodeInspector`LinterUI`Private`function, 
+           Join[
+            ToHeldExpression[#], 
+            Hold[CodeInspector`LinterUI`Private`args]]]& , 
+          
+          Names[(CodeInspector`LinterUI`Private`varNameString[
+             CodeInspector`LinterUI`Private`notebook] <> "*") <> 
+           CodeInspector`LinterUI`Private`name]], Null, 
+        CodeInspector`LinterUI`Private`applyToVar[
+          Pattern[CodeInspector`LinterUI`Private`function, 
+           Blank[]], {
+           Pattern[CodeInspector`LinterUI`Private`nameArguments, 
+            BlankSequence[]], 
+           Pattern[CodeInspector`LinterUI`Private`name, 
+            Blank[String]]}, 
+          Pattern[CodeInspector`LinterUI`Private`args, 
+           BlankNullSequence[]]] := 
+        Apply[CodeInspector`LinterUI`Private`function, 
+          Join[
+           ToHeldExpression[
+            CodeInspector`LinterUI`Private`varNameString[
+            CodeInspector`LinterUI`Private`nameArguments]], 
+           Hold[CodeInspector`LinterUI`Private`args]]], Null, 
+        CodeInspector`LinterUI`Private`applyToVar[
+          Pattern[CodeInspector`LinterUI`Private`function, 
+           Blank[]], {
+           Pattern[CodeInspector`LinterUI`Private`nameArguments, 
+            BlankSequence[]], All}, 
+          Pattern[CodeInspector`LinterUI`Private`args, 
+           BlankNullSequence[]]] := 
+        Map[Apply[CodeInspector`LinterUI`Private`function, 
+           Join[
+            ToHeldExpression[#], 
+            Hold[CodeInspector`LinterUI`Private`args]]]& , 
+          Names[
+          CodeInspector`LinterUI`Private`varNameString[
+            CodeInspector`LinterUI`Private`nameArguments] <> "*"]], 
+        CodeInspector`LinterUI`Private`varValue[
+          Pattern[CodeInspector`LinterUI`Private`notebook, 
+           Blank[NotebookObject]], All, 
+          Pattern[CodeInspector`LinterUI`Private`name, 
+           Blank[String]]] := Map[Symbol, 
+          
+          Names[(CodeInspector`LinterUI`Private`varNameString[
+             CodeInspector`LinterUI`Private`notebook] <> "*") <> 
+           CodeInspector`LinterUI`Private`name]], Null, 
+        CodeInspector`LinterUI`Private`varValue[
+          Pattern[CodeInspector`LinterUI`Private`nameArguments, 
+           BlankSequence[]], 
+          Pattern[CodeInspector`LinterUI`Private`name, 
+           Blank[String]]] := Symbol[
+          CodeInspector`LinterUI`Private`varNameString[
+          CodeInspector`LinterUI`Private`nameArguments, 
+           CodeInspector`LinterUI`Private`name]], Null, 
+        CodeInspector`LinterUI`Private`varValue[
+          Pattern[CodeInspector`LinterUI`Private`nameArguments, 
+           BlankSequence[]], All] := Map[Symbol, 
+          Names[
+          CodeInspector`LinterUI`Private`varNameString[
+            CodeInspector`LinterUI`Private`nameArguments] <> "*"]], 
+        CodeInspector`LinterUI`Private`varSet[{
+           Pattern[CodeInspector`LinterUI`Private`nameArguments, 
+            BlankSequence[]]}, 
+          Pattern[CodeInspector`LinterUI`Private`value, 
+           Blank[]]] := Apply[Set, 
+          Append[
+           ToHeldExpression[
+            CodeInspector`LinterUI`Private`varNameString[
+            CodeInspector`LinterUI`Private`nameArguments]], 
+           CodeInspector`LinterUI`Private`value]], 
+        CodeInspector`LinterUI`Private`varNameString[
+          Pattern[CodeInspector`LinterUI`Private`notebook, 
+           Blank[NotebookObject]]] := ((
+           "CodeInspector`LinterUI`Private`Vars`" <> "$$") <> 
+          With[{CodeInspector`LinterUI`Private`nbID = 
+             Last[CodeInspector`LinterUI`Private`notebook]}, 
+            If[
+             StringQ[CodeInspector`LinterUI`Private`nbID], 
+             StringReplace[CodeInspector`LinterUI`Private`nbID, "-" -> "$"], 
+             ToString[CodeInspector`LinterUI`Private`nbID]]]) <> "$$", Null, 
+        CodeInspector`LinterUI`Private`varNameString[
+          Pattern[CodeInspector`LinterUI`Private`cell, 
+           Blank[CellObject]]] := (
+          CodeInspector`LinterUI`Private`varNameString[
+            Replace[
+             ParentNotebook[CodeInspector`LinterUI`Private`cell], $Failed -> 
+             EvaluationNotebook[]]] <> 
+          With[{CodeInspector`LinterUI`Private`cellID = 
+             First[CodeInspector`LinterUI`Private`cell]}, 
+            If[
+             StringQ[CodeInspector`LinterUI`Private`cellID], 
+             StringReplace[CodeInspector`LinterUI`Private`cellID, "-" -> "$"], 
+             ToString[CodeInspector`LinterUI`Private`cellID]]]) <> "$$", Null,
+         CodeInspector`LinterUI`Private`varNameString[
+          Pattern[CodeInspector`LinterUI`Private`notebook, 
+           Blank[NotebookObject]], 
+          Pattern[CodeInspector`LinterUI`Private`cell, 
+           Blank[CellObject]]] := (
+          CodeInspector`LinterUI`Private`varNameString[
+           CodeInspector`LinterUI`Private`notebook] <> 
+          With[{CodeInspector`LinterUI`Private`cellID = 
+             First[CodeInspector`LinterUI`Private`cell]}, 
+            If[
+             StringQ[CodeInspector`LinterUI`Private`cellID], 
+             StringReplace[CodeInspector`LinterUI`Private`cellID, "-" -> "$"], 
+             ToString[CodeInspector`LinterUI`Private`cellID]]]) <> "$$", Null,
+         CodeInspector`LinterUI`Private`varNameString[
+          Pattern[CodeInspector`LinterUI`Private`notebook, 
+           Blank[NotebookObject]], 
+          Pattern[CodeInspector`LinterUI`Private`name, 
+           Blank[String]]] := 
+        CodeInspector`LinterUI`Private`varNameString[
+          CodeInspector`LinterUI`Private`notebook] <> 
+         CodeInspector`LinterUI`Private`name, Null, 
+        CodeInspector`LinterUI`Private`varNameString[
+          Pattern[CodeInspector`LinterUI`Private`cell, 
+           Blank[CellObject]], 
+          Pattern[CodeInspector`LinterUI`Private`name, 
+           Blank[String]]] := 
+        CodeInspector`LinterUI`Private`varNameString[
+          CodeInspector`LinterUI`Private`cell] <> 
+         CodeInspector`LinterUI`Private`name, Null, 
+        CodeInspector`LinterUI`Private`varNameString[
+          Pattern[CodeInspector`LinterUI`Private`notebook, 
+           Blank[NotebookObject]], 
+          Pattern[CodeInspector`LinterUI`Private`cell, 
+           Blank[CellObject]], 
+          Pattern[CodeInspector`LinterUI`Private`name, 
+           Blank[String]]] := 
+        CodeInspector`LinterUI`Private`varNameString[
+          CodeInspector`LinterUI`Private`notebook, 
+           CodeInspector`LinterUI`Private`cell] <> 
+         CodeInspector`LinterUI`Private`name, Null, 
+        CodeInspector`LinterUI`Private`varNameString[
+          Pattern[CodeInspector`LinterUI`Private`nameArguments, 
+           BlankSequence[]], 
+          Pattern[CodeInspector`LinterUI`Private`lint, 
+           Blank[CodeInspector`InspectionObject]], 
+          Pattern[CodeInspector`LinterUI`Private`name, 
+           Blank[String]]] := ((
+           CodeInspector`LinterUI`Private`varNameString[
+            CodeInspector`LinterUI`Private`nameArguments] <> Apply[Sequence, 
+             Riffle[
+              Map[StringDelete[
+                ToString[#], 
+                Alternatives["[", "]", "{", "}", ",", " "]]& , 
+               CodeInspector`LinterUI`Private`extractFirstList[
+                Last[CodeInspector`LinterUI`Private`lint][
+                CodeParser`Source]]], "$"]]) <> "$$") <> 
+         CodeInspector`LinterUI`Private`name, 
+        CodeInspector`LinterUI`Private`extractFirstList[
+          Pattern[CodeInspector`LinterUI`Private`expr, 
+           Blank[]]] := FirstCase[CodeInspector`LinterUI`Private`expr, 
+          Blank[List], {}, {0, Infinity}]}; 
+      LinterUIDockedCell`Private`notebook$$ = EvaluationNotebook[]), 
+     UnsavedVariables :> {LinterUIDockedCell`Private`notebook$$}]], 
+   CellFrame -> {{0, 0}, {1, 1}}, CellFrameMargins -> {{0, 0}, {0, 0}}, 
+   CellFrameColor -> GrayLevel[0.85], Background -> GrayLevel[0.97], CellTags -> 
+   "CodeAnalysisDockedCell"]},
+TaggingRules-><|"TryRealOnly" -> False|>,
+Magnification:>1.5 Inherited,
+FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"8c85f702-113c-487a-8dec-6eaf60825603"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 215, 4, 46, "Input",ExpressionUUID->"2d530782-807c-4677-ac15-0a1524d3eb66"],
+Cell[776, 26, 1924, 41, 171, "Input",ExpressionUUID->"0360f784-d335-43f3-8e4d-2bba830763e2"],
+Cell[CellGroupData[{
+Cell[2725, 71, 255, 4, 81, "Subsection",ExpressionUUID->"31e1b2df-6c38-4738-ae7d-157759dc5a90"],
+Cell[2983, 77, 341, 9, 44, "Input",ExpressionUUID->"464119fe-5b46-4abb-930f-1de6d0c0c7ec"],
+Cell[3327, 88, 895, 15, 76, "Input",ExpressionUUID->"c66ba99e-d8d1-4f03-a4ff-e02a4a612fbe"],
+Cell[4225, 105, 251, 4, 44, "Input",ExpressionUUID->"e0c56802-23a4-4683-930d-2f72f95927a4"],
+Cell[4479, 111, 2069, 34, 170, "Input",ExpressionUUID->"df3441c2-82a3-4dc6-ae55-72fe028a7826"],
+Cell[6551, 147, 1480, 30, 139, "Input",ExpressionUUID->"37a69960-4a4b-47f2-bed8-e68905e00bd9"],
+Cell[8034, 179, 1313, 29, 139, "Input",ExpressionUUID->"78efcfa0-e9fa-47a2-9b51-782cbea2e41b"],
+Cell[9350, 210, 447, 12, 48, "Input",ExpressionUUID->"cb607e00-5967-477a-8aac-14f80aff48c4"],
+Cell[9800, 224, 2351, 39, 170, "Input",ExpressionUUID->"3b136a4b-47f6-4831-84cf-79751d15b3d2"],
+Cell[12154, 265, 1535, 36, 264, "Input",ExpressionUUID->"086c67ce-011c-45b8-81d0-c7167de13fb0"],
+Cell[13692, 303, 2308, 44, 264, "Input",ExpressionUUID->"a3a609d1-b215-40d6-9e60-398b1031989e"],
+Cell[16003, 349, 1222, 28, 388, "Input",ExpressionUUID->"13c86d96-d01a-485f-9d57-f4aa9c33192a"],
+Cell[17228, 379, 1219, 25, 139, "Input",ExpressionUUID->"44fb97e9-5f9a-4e84-afbf-a0ac1a1142de"],
+Cell[18450, 406, 614, 13, 139, "Input",ExpressionUUID->"41be6289-55e4-495f-b27e-01557580124e"],
+Cell[19067, 421, 794, 18, 139, "Input",ExpressionUUID->"41e86c8e-79e5-4aca-ba40-23ea8bccfdaf"],
+Cell[19864, 441, 907, 19, 170, "Input",ExpressionUUID->"aba0a833-810d-4e6d-a170-0180213ee312"],
+Cell[20774, 462, 670, 18, 139, "Input",ExpressionUUID->"36f6eb98-f46f-4c44-b040-6fba97d53c4f"],
+Cell[21447, 482, 3178, 66, 544, "Input",ExpressionUUID->"7f765353-4315-4c8c-9042-96527bdabb38"],
+Cell[24628, 550, 2195, 47, 576, "Input",ExpressionUUID->"18232e93-4f03-418c-bae7-bbd82aeb3369"],
+Cell[26826, 599, 2461, 54, 607, "Input",ExpressionUUID->"bf3a8fde-5e51-4793-a10c-5cca02c3c202"],
+Cell[29290, 655, 2103, 45, 576, "Input",ExpressionUUID->"6bb82085-b515-44a8-b385-848493dfcd34"],
+Cell[31396, 702, 2549, 56, 669, "Input",ExpressionUUID->"f75871c4-012b-431e-b82f-2f91b988f0d4"],
+Cell[33948, 760, 886, 18, 108, "Input",ExpressionUUID->"fbb97c46-8e65-42d9-9313-bde25e19376a"],
+Cell[34837, 780, 800, 17, 108, "Input",ExpressionUUID->"17ba3ab6-e302-49ee-abd5-9dd9b94076f4"],
+Cell[35640, 799, 774, 16, 108, "Input",ExpressionUUID->"ff30acd3-11ce-4dbd-910a-03b2437fdcbe"],
+Cell[36417, 817, 804, 16, 108, "Input",ExpressionUUID->"3599f9bf-d63a-47e5-9f69-2ec7c144bd62"],
+Cell[37224, 835, 805, 17, 108, "Input",ExpressionUUID->"0aa6609e-2978-419f-af00-ff72828d801a"],
+Cell[38032, 854, 715, 16, 108, "Input",ExpressionUUID->"e5d494f0-e098-4125-9cfc-743088cb8aaa"],
+Cell[38750, 872, 1094, 24, 139, "Input",ExpressionUUID->"060d14b2-b30d-4e59-965e-e47f29802ac3"],
+Cell[39847, 898, 1440, 35, 201, "Input",ExpressionUUID->"3fc043cd-f1ec-464f-9c3b-52360eeb7545"],
+Cell[41290, 935, 195, 3, 44, "Input",ExpressionUUID->"33ebf65e-6034-462e-bfb9-1324117a5073"],
+Cell[41488, 940, 5049, 118, 1449, "Input",ExpressionUUID->"54483af6-5a40-4f54-bac7-293214472e69"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[46574, 1063, 214, 4, 55, "Subsection",ExpressionUUID->"2c4a83cf-8af5-4d19-89ae-a864a258310f"],
+Cell[CellGroupData[{
+Cell[46813, 1071, 1092, 24, 140, "Input",ExpressionUUID->"f275bdc7-d1c5-4b14-9c2f-42b3fa65a747"],
+Cell[47908, 1097, 484, 7, 52, "Output",ExpressionUUID->"07ddaed8-4e57-476b-ae7c-814d46c142c0"]
+}, Open  ]],
+Cell[48407, 1107, 291, 4, 46, "Input",ExpressionUUID->"28f77535-d3b1-4e11-82f1-50d0c1ce6053"],
+Cell[48701, 1113, 396, 11, 47, "Input",ExpressionUUID->"f1bbd457-4d3c-4e4d-a658-914c1c230477"],
+Cell[49100, 1126, 460, 8, 46, "Input",ExpressionUUID->"74432a1e-39fd-4358-a150-ee7576cb4360"],
+Cell[CellGroupData[{
+Cell[49585, 1138, 864, 20, 109, "Input",ExpressionUUID->"307e98a6-0cd9-4fdf-b610-1c7b7718be91"],
+Cell[50452, 1160, 6452, 197, 270, "Output",ExpressionUUID->"292cfd93-0f87-49d3-9c7a-60ce608b7232"],
+Cell[56907, 1359, 1567, 43, 190, "Output",ExpressionUUID->"18e40c65-3eb8-4038-9506-b34a7c625d6e"],
+Cell[58477, 1404, 555, 13, 80, "Output",ExpressionUUID->"e42ee44e-e762-433d-9462-8d79d1122d9d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[59069, 1422, 832, 21, 109, "Input",ExpressionUUID->"8f57d6c0-230e-4209-8c4b-d1d582f6c207"],
+Cell[59904, 1445, 19873, 569, 952, "Output",ExpressionUUID->"22b64eee-7af5-4d6d-826f-64d70dd19f0e"],
+Cell[79780, 2016, 3087, 84, 357, "Output",ExpressionUUID->"d08f4023-668d-4a93-bda6-835f3fbc5ce3"],
+Cell[82870, 2102, 678, 19, 104, "Output",ExpressionUUID->"7575cf9c-e00a-469e-8490-1dd3f72ed4de"]
+}, Open  ]],
+Cell[83563, 2124, 340, 8, 44, "Input",ExpressionUUID->"78177850-499e-456b-b442-fad780dafdf0"],
+Cell[83906, 2134, 991, 26, 44, "Input",ExpressionUUID->"a17059c2-5416-45b1-b84e-0c2f842f7fb5"],
+Cell[84900, 2162, 1656, 43, 76, "Input",ExpressionUUID->"61202b86-4708-4e03-aa51-3fcb0e388f46"],
+Cell[86559, 2207, 873, 24, 76, "Input",ExpressionUUID->"78983d07-8f42-43d9-a50f-d26a03b2ee5c"],
+Cell[87435, 2233, 980, 23, 139, "Input",ExpressionUUID->"33533fdf-b808-460b-a76c-9a554476db8f"],
+Cell[88418, 2258, 741, 20, 139, "Input",ExpressionUUID->"9a5351ab-3ad9-40be-9517-04e9287e219e"],
+Cell[89162, 2280, 2915, 80, 170, "Input",ExpressionUUID->"39dff485-94bf-4e47-927c-bad3763b0fef"],
+Cell[92080, 2362, 1458, 37, 76, "Input",ExpressionUUID->"cd9ca62b-58ab-4d3e-808f-386e3f5813ad"],
+Cell[93541, 2401, 3298, 97, 222, "Input",ExpressionUUID->"aa6ab47b-ede2-4602-b484-f47a43ab6b84"],
+Cell[96842, 2500, 2088, 59, 116, "Input",ExpressionUUID->"d57cb323-0416-47f9-9cc0-32fc3ee2a06f"],
+Cell[98933, 2561, 307, 6, 44, "Input",ExpressionUUID->"74afa0bb-da92-4443-b6e6-ae48f161a506"],
+Cell[99243, 2569, 1536, 42, 108, "Input",ExpressionUUID->"64ef20f2-4d34-4121-a93e-9b5c8889fc0d"],
+Cell[100782, 2613, 760, 21, 76, "Input",ExpressionUUID->"cd8b1760-536a-488f-9246-597cbd161a39"],
+Cell[101545, 2636, 2689, 68, 544, "Input",ExpressionUUID->"876ead52-65a8-42a3-aa99-574711040d84"],
+Cell[104237, 2706, 2767, 64, 607, "Input",ExpressionUUID->"6ae4497c-962c-4d4c-a2e5-60aad4db46d9"],
+Cell[107007, 2772, 215, 3, 44, "Input",ExpressionUUID->"b13e40a3-8829-4747-abfb-9fb5845b8034"]
+}, Open  ]]
+}
+]
+*)
+

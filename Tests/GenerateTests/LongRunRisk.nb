@@ -1,0 +1,803 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     31574,        795]
+NotebookOptionsPosition[     29660,        759]
+NotebookOutlinePosition[     30088,        776]
+CellTagsIndexPosition[     30045,        773]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.890497521412341*^9, 3.890497523049814*^9}, {
+   3.890504943896141*^9, 3.8905049500189657`*^9}, 3.89050587359697*^9},
+ CellLabel->"In[18]:=",ExpressionUUID->"a594d500-6732-49d5-a292-97f7f92537a3"],
+
+Cell[BoxData[{
+ RowBox[{"testFileName", "=", 
+  RowBox[{"FileNameJoin", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"DirectoryName", "[", 
+      RowBox[{
+       RowBox[{"NotebookDirectory", "[", "]"}], ",", "1"}], "]"}], ",", 
+     RowBox[{
+      RowBox[{"FileBaseName", "[", 
+       RowBox[{"NotebookFileName", "[", "]"}], "]"}], "<>", 
+      "\"\<.wlt\>\""}]}], "}"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"pacletDir", "=", 
+  RowBox[{"DirectoryName", "[", 
+   RowBox[{"testFileName", ",", "2"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"If", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"FileNames", "[", "testFileName", "]"}], "===", 
+    RowBox[{"{", "}"}]}], ",", "Nothing", ",", 
+   RowBox[{"DeleteFile", "[", "testFileName", "]"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.8890661685133457`*^9, 3.889066220685074*^9}, {
+   3.8890662555512333`*^9, 3.889066299901951*^9}, {3.889066581166473*^9, 
+   3.8890665847967653`*^9}, {3.889066731765956*^9, 3.889066745674687*^9}, {
+   3.889431410824514*^9, 3.88943144002302*^9}, 3.889502968269744*^9, {
+   3.889998928469849*^9, 3.889998928670561*^9}, {3.890676553021196*^9, 
+   3.890676564028514*^9}, 3.890676636594749*^9, {3.890679618620262*^9, 
+   3.89067961902995*^9}, {3.8908254134370813`*^9, 3.890825413876319*^9}, {
+   3.890825459205497*^9, 3.890825473041605*^9}, {3.890825503118348*^9, 
+   3.8908255374530487`*^9}, {3.891021675325671*^9, 3.891021675545487*^9}, {
+   3.8911588731924877`*^9, 3.891158877904397*^9}, {3.8911592499395514`*^9, 
+   3.8911592502376633`*^9}, {3.891244978572403*^9, 3.8912449817448387`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"0c7accec-d8a0-48e0-a9a8-3514c663c5f4"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<PacletTools`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"built", "=", 
+  RowBox[{"PacletBuild", "[", "pacletDir", "]"}]}]}], "Input",
+ CellChangeTimes->{
+  3.890551821031066*^9, {3.890551900596265*^9, 3.890551947889617*^9}, {
+   3.890552042268401*^9, 3.8905520508788013`*^9}, {3.8905522165629272`*^9, 
+   3.890552248376504*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"b51e613a-8e54-4b2c-9cf9-656754c31877"],
+
+Cell[CellGroupData[{
+
+Cell["CI Tests", "Subsection",
+ CellChangeTimes->{{3.8895791922306013`*^9, 3.889579196409403*^9}, {
+  3.889905620469079*^9, 3.8899056207707977`*^9}, {3.889967624152501*^9, 
+  3.889967626012704*^9}},ExpressionUUID->"a85393fb-271e-4f16-88bb-\
+af662714305d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"confirm", "=", "False"}], ";"}]], "Input",
+ CellChangeTimes->{{3.890446156125807*^9, 3.8904461589534082`*^9}, {
+   3.890446198679139*^9, 3.890446200848682*^9}, {3.8904462812710247`*^9, 
+   3.8904463285675383`*^9}, {3.890446459451333*^9, 3.890446459963114*^9}, {
+   3.890447252970792*^9, 3.8904472795454283`*^9}, {3.890447526364854*^9, 
+   3.890447526505061*^9}, {3.8904482145822144`*^9, 3.8904482150399027`*^9}, 
+   3.8904486484913282`*^9, {3.8905545197195377`*^9, 3.8905545201416616`*^9}, {
+   3.8905568503396482`*^9, 3.890556851134685*^9}, {3.890593310348106*^9, 
+   3.890593310776772*^9}, {3.890594158796171*^9, 3.890594159715356*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"029c83ff-6711-427f-822e-1435729b5a57"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "assume", " ", "tests", " ", "run", " ", "when", " ", "no", " ", "paclet", 
+    " ", "dependencies", " ", "are", " ", "installed"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Quiet", "[", 
+     RowBox[{
+     "PacletUninstall", "[", "\"\<FernandoDuarte/LongRunRisk\>\"", "]"}], 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Quiet", "[", 
+     RowBox[{"PacletUninstall", "[", 
+      RowBox[{
+      "\"\<PacletizedResourceFunctions\>\"", "\[Rule]", "\"\<1.0\>\""}], 
+      "]"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Quiet", "[", 
+     RowBox[{"PacletUninstall", "[", 
+      RowBox[{"\"\<MaTeX\>\"", "\[Rule]", "\"\<1.7.9\>\""}], "]"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"installed", "=", 
+     RowBox[{"PacletInstall", "[", 
+      RowBox[{"built", "[", "\"\<PacletArchive\>\"", "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"$ContextPath", "=", 
+     RowBox[{"Cases", "[", 
+      RowBox[{"$ContextPath", ",", 
+       RowBox[{"Except", "[", "\"\<PacletizedResourceFunctions`\>\"", "]"}]}],
+       "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.890446336323517*^9, 3.8904463515749817`*^9}, 
+   3.8904472289643927`*^9, 3.8904474628884*^9, {3.890554535539854*^9, 
+   3.890554554672842*^9}, {3.8905546016245003`*^9, 3.8905546192407293`*^9}, {
+   3.8905547477552423`*^9, 3.8905547512810287`*^9}, {3.890554877040183*^9, 
+   3.890554877231408*^9}, {3.8905555579945593`*^9, 3.890555558239829*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"2e930d4f-e2a8-48ca-b0b5-1d584d8c6290"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}], ";"}],
+    "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.8905514540580378`*^9, 3.890551474973082*^9}, {
+   3.890551507910462*^9, 3.8905516378898897`*^9}, {3.890551780104455*^9, 
+   3.8905517805507593`*^9}, {3.890552391149941*^9, 3.890552425675847*^9}, {
+   3.890554533995181*^9, 3.890554588026968*^9}, {3.8905546207202187`*^9, 
+   3.890554710266571*^9}, 3.890554837688201*^9, {3.890555143851248*^9, 
+   3.890555307416963*^9}, {3.890555513764667*^9, 3.8905555556373*^9}, {
+   3.890556129176399*^9, 3.890556130694498*^9}},
+ CellLabel->"In[12]:=",ExpressionUUID->"add2b32b-4945-4b31-9ea0-9e361d381e02"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Interactive Tests", "Subsection",
+ CellChangeTimes->{{3.889905622471089*^9, 3.889905629759961*^9}, {
+  3.889972063478182*^9, 
+  3.889972065236586*^9}},ExpressionUUID->"6430e8db-a2e6-4116-803b-\
+d1b396c6416e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "when", " ", "no", " ", "paclet", " ", "dependencies", " ", "are", " ", 
+    "installed"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Quiet", "[", 
+     RowBox[{
+     "PacletUninstall", "[", "\"\<FernandoDuarte/LongRunRisk\>\"", "]"}], 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Quiet", "[", 
+     RowBox[{"PacletUninstall", "[", 
+      RowBox[{
+      "\"\<PacletizedResourceFunctions\>\"", "\[Rule]", "\"\<1.0\>\""}], 
+      "]"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Quiet", "[", 
+     RowBox[{"PacletUninstall", "[", 
+      RowBox[{"\"\<MaTeX\>\"", "\[Rule]", "\"\<1.7.9\>\""}], "]"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"installed", "=", 
+     RowBox[{"PacletInstall", "[", 
+      RowBox[{"built", "[", "\"\<PacletArchive\>\"", "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}], ";"}],
+    "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{"$ContextPath", ",", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<FernandoDuarte`LongRunRisk`\>\"", ",", "\"\<MaTeX`\>\"", ",", 
+        "\"\<PacletizedResourceFunctions`\>\""}], "}"}]}], ")"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{
+         RowBox[{"Names", "[", "\"\<FernandoDuarte`LongRunRisk`*\>\"", "]"}], 
+         ",", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Growth\>\"", ",", "\"\<Models\>\""}], "}"}]}], ")"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{
+         RowBox[{"Names", "[", "\"\<PacletizedResourceFunctions`*\>\"", "]"}],
+          ",", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{"\"\<NeedsDefinitions\>\"", ",", "\"\<SetSymbolsContext\>\""}],
+        "}"}]}], ")"}]}], "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{
+         RowBox[{"Names", "[", "\"\<MaTeX`*\>\"", "]"}], ",", "#"}], "]"}], 
+       "&"}], "/@", 
+      RowBox[{"{", "\"\<MaTeX\>\"", "}"}]}], ")"}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Models", "[", "\"\<BY\>\"", "]"}], "[", "\"\<shortname\>\"", 
+     "]"}], "==", "\"\<BY\>\""}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Head", "@", 
+     RowBox[{"MaTeX", "[", "\"\<x^2\>\"", "]"}]}], "===", "Graphics"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Not", "[", 
+    RowBox[{
+     RowBox[{"Information", "[", 
+      RowBox[{"SetSymbolsContext", ",", "\"\<Definitions\>\""}], "]"}], "===",
+      "None"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"Not", "[", 
+    RowBox[{
+     RowBox[{"Information", "[", 
+      RowBox[{"NeedsDefinitions", ",", "\"\<Definitions\>\""}], "]"}], "===", 
+     "None"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.8905514540580378`*^9, 3.890551474973082*^9}, {
+   3.890551507910462*^9, 3.8905516378898897`*^9}, {3.890551780104455*^9, 
+   3.8905517805507593`*^9}, {3.890552391149941*^9, 3.890552425675847*^9}, {
+   3.8905547195950537`*^9, 3.8905547197978563`*^9}, {3.890556494721118*^9, 
+   3.890556494961019*^9}, 3.8905568029552517`*^9},
+ CellLabel->"In[12]:=",ExpressionUUID->"52fe5eb2-34a2-4133-9c1d-254984a84356"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "when", " ", "paclet", " ", "dependencies", " ", "are", " ", "already", 
+    " ", "installed"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Quiet", "@", 
+     RowBox[{
+     "PacletUninstall", "[", "\"\<FernandoDuarte/LongRunRisk\>\"", "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"installed", "=", 
+     RowBox[{"PacletInstall", "[", 
+      RowBox[{"built", "[", "\"\<PacletArchive\>\"", "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}], ";"}],
+    "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{"$ContextPath", ",", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<FernandoDuarte`LongRunRisk`\>\"", ",", "\"\<MaTeX`\>\"", ",", 
+        "\"\<PacletizedResourceFunctions`\>\""}], "}"}]}], ")"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{
+         RowBox[{"Names", "[", "\"\<FernandoDuarte`LongRunRisk`*\>\"", "]"}], 
+         ",", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Growth\>\"", ",", "\"\<Models\>\""}], "}"}]}], ")"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{
+         RowBox[{"Names", "[", "\"\<PacletizedResourceFunctions`*\>\"", "]"}],
+          ",", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{"\"\<NeedsDefinitions\>\"", ",", "\"\<SetSymbolsContext\>\""}],
+        "}"}]}], ")"}]}], "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{
+         RowBox[{"Names", "[", "\"\<MaTeX`*\>\"", "]"}], ",", "#"}], "]"}], 
+       "&"}], "/@", 
+      RowBox[{"{", "\"\<MaTeX\>\"", "}"}]}], ")"}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Models", "[", "\"\<BY\>\"", "]"}], "[", "\"\<shortname\>\"", 
+     "]"}], "==", "\"\<BY\>\""}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Head", "@", 
+     RowBox[{"MaTeX", "[", "\"\<x^2\>\"", "]"}]}], "===", "Graphics"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Not", "[", 
+    RowBox[{
+     RowBox[{"Information", "[", 
+      RowBox[{"SetSymbolsContext", ",", "\"\<Definitions\>\""}], "]"}], "===",
+      "None"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"Not", "[", 
+    RowBox[{
+     RowBox[{"Information", "[", 
+      RowBox[{"NeedsDefinitions", ",", "\"\<Definitions\>\""}], "]"}], "===", 
+     "None"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.890551478521497*^9, 3.890551478817877*^9}, {
+  3.8905516493931704`*^9, 3.8905516651534433`*^9}, {3.89055178248217*^9, 
+  3.8905517827974577`*^9}, {3.890552399832224*^9, 3.8905524180860987`*^9}, {
+  3.89055471773151*^9, 3.890554718053688*^9}, {3.8905564905460653`*^9, 
+  3.890556490784897*^9}, {3.890556794880351*^9, 3.890556810247841*^9}},
+ CellLabel->"In[25]:=",ExpressionUUID->"0a19708d-8f36-4e5b-a488-0df1e51dc178"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "when", " ", "everything", " ", "is", " ", "already", " ", "installed"}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Quiet", "@", 
+     RowBox[{
+     "PacletUninstall", "[", "\"\<FernandoDuarte/LongRunRisk\>\"", "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"installed", "=", 
+     RowBox[{"PacletInstall", "[", 
+      RowBox[{"built", "[", "\"\<PacletArchive\>\"", "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}], ";"}],
+    "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{"$ContextPath", ",", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<FernandoDuarte`LongRunRisk`\>\"", ",", "\"\<MaTeX`\>\"", ",", 
+        "\"\<PacletizedResourceFunctions`\>\""}], "}"}]}], ")"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{
+         RowBox[{"Names", "[", "\"\<FernandoDuarte`LongRunRisk`*\>\"", "]"}], 
+         ",", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Growth\>\"", ",", "\"\<Models\>\""}], "}"}]}], ")"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{
+         RowBox[{"Names", "[", "\"\<PacletizedResourceFunctions`*\>\"", "]"}],
+          ",", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"{", 
+       RowBox[{"\"\<NeedsDefinitions\>\"", ",", "\"\<SetSymbolsContext\>\""}],
+        "}"}]}], ")"}]}], "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{
+         RowBox[{"Names", "[", "\"\<MaTeX`*\>\"", "]"}], ",", "#"}], "]"}], 
+       "&"}], "/@", 
+      RowBox[{"{", "\"\<MaTeX\>\"", "}"}]}], ")"}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Models", "[", "\"\<BY\>\"", "]"}], "[", "\"\<shortname\>\"", 
+     "]"}], "==", "\"\<BY\>\""}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Head", "@", 
+     RowBox[{"MaTeX", "[", "\"\<x^2\>\"", "]"}]}], "===", "Graphics"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Not", "[", 
+    RowBox[{
+     RowBox[{"Information", "[", 
+      RowBox[{"SetSymbolsContext", ",", "\"\<Definitions\>\""}], "]"}], "===",
+      "None"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"Not", "[", 
+    RowBox[{
+     RowBox[{"Information", "[", 
+      RowBox[{"NeedsDefinitions", ",", "\"\<Definitions\>\""}], "]"}], "===", 
+     "None"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.890551673650092*^9, 3.8905516877694397`*^9}, {
+   3.890551785585765*^9, 3.890551785958749*^9}, {3.890552402339553*^9, 
+   3.890552517650592*^9}, 3.890554426301773*^9, {3.890556479530114*^9, 
+   3.890556484429839*^9}, {3.8905567796662283`*^9, 3.890556789384465*^9}},
+ CellLabel->"In[36]:=",ExpressionUUID->"143236ef-b8a5-4dd3-8d3d-a7ff943e0559"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Models", "[", "\"\<BY\>\"", "]"}], "[", "\"\<stateVars\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Short", "[", 
+  RowBox[{"Models", ",", "10"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"?", "Models"}], "\[IndentingNewLine]", 
+ RowBox[{"Keys", "[", 
+  RowBox[{"Models", "[", "\"\<BY\>\"", "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.889431746063068*^9, 3.889431752653256*^9}, {
+  3.889498746279821*^9, 3.88949874835758*^9}, {3.8900382319831257`*^9, 
+  3.890038266150962*^9}, {3.89175224907029*^9, 3.891752256553832*^9}},
+ CellLabel->
+  "In[138]:=",ExpressionUUID->"8ca679c3-2d1e-4627-911a-271e99f7202f"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+   "FernandoDuarte`LongRunRisk`Model`Catalog`Private`x", "[", 
+    "FernandoDuarte`LongRunRisk`Model`Catalog`Private`t", "]"}], ",", 
+   RowBox[{
+   "FernandoDuarte`LongRunRisk`Model`Catalog`Private`sx", "[", 
+    "FernandoDuarte`LongRunRisk`Model`Catalog`Private`t", "]"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.891752190979095*^9, 3.891752258022251*^9},
+ CellLabel->
+  "Out[139]=",ExpressionUUID->"b0b2e0c9-29bd-4ee2-a824-e75a2ba26840"],
+
+Cell[BoxData[
+ TagBox["Models",
+  Short[#, 10]& ]], "Output",
+ CellChangeTimes->{3.891752190979095*^9, 3.8917522580248947`*^9},
+ CellLabel->
+  "Out[140]//Short=",ExpressionUUID->"1eec0b67-86cd-450f-83df-8b57b3b95fa2"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"Association with the definition and properties of \
+models.\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[
+           TagBox[GridBox[{
+              {
+               StyleBox[
+                TagBox[
+                 TooltipBox[
+                  StyleBox["\<\" Definitions\"\>", "InformationRowLabel",
+                   StripOnInput->False],
+                  "\"Definitions\"",
+                  TooltipStyle->"TextStyling"],
+                 Annotation[#, "Definitions", "Tooltip"]& ], "DialogStyle",
+                StripOnInput->False]},
+              {
+               TemplateBox[{"\"\[ThinSpace]\"", 
+                 GridBox[{{
+                    RowBox[{
+                    RowBox[{"Models", "[", "]"}], ":=", 
+                    RowBox[{"Info", "[", "models", "]"}]}]}, {" "}, {
+                    RowBox[{
+                    RowBox[{"Models", "[", "\"Table\"", "]"}], ":=", 
+                    RowBox[{"Info", "[", 
+                    RowBox[{"processModels", "[", "models", "]"}], "]"}]}]}, {
+                   " "}, {
+                    RowBox[{
+                    
+                    RowBox[{
+                    "Models", "[", 
+                    "FernandoDuarte`LongRunRisk`Private`x_String", "]"}], 
+                    ":=", 
+                    
+                    RowBox[{
+                    "models", "[", "FernandoDuarte`LongRunRisk`Private`x", 
+                    "]"}]}]}, {" "}}, 
+                  GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                  DefaultBaseStyle -> "Column", 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]},
+                "RowDefault"]}
+             },
+             DefaultBaseStyle->"Column",
+             GridBoxAlignment->{"Columns" -> {{Left}}},
+             
+             GridBoxItemSize->{
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+            "Column"],
+           FrameMargins->{{6, 0}, {3, 6}}], "\<\"\"\>"},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"FernandoDuarte`LongRunRisk`Models\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"Association with the definition and properties of \
+models.\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{13., {2., 11.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{13., {2., 11.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "Association with the definition and properties of models.", 
+    "Documentation" -> None, "OwnValues" -> None, "UpValues" -> None, 
+    "DownValues" -> 
+    Information`InformationValueForm[
+     DownValues, FernandoDuarte`LongRunRisk`Models, {
+      FernandoDuarte`LongRunRisk`Models[] :> 
+       FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info[
+        FernandoDuarte`LongRunRisk`Model`Catalog`models], 
+       FernandoDuarte`LongRunRisk`Models["Table"] :> 
+       FernandoDuarte`LongRunRisk`Tools`NiceOutput`Info[
+         FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
+         FernandoDuarte`LongRunRisk`Model`Catalog`models]], 
+       FernandoDuarte`LongRunRisk`Models[
+         Pattern[FernandoDuarte`LongRunRisk`Private`x, 
+          Blank[String]]] :> 
+       FernandoDuarte`LongRunRisk`Model`Catalog`models[
+        FernandoDuarte`LongRunRisk`Private`x]}], "SubValues" -> None, 
+    "DefaultValues" -> None, "NValues" -> None, "FormatValues" -> None, 
+    "Options" -> None, "Attributes" -> {}, "FullName" -> 
+    "FernandoDuarte`LongRunRisk`Models"|>, False]]], "Output",
+ CellChangeTimes->{3.891752190979095*^9, 3.891752258051518*^9},
+ CellLabel->
+  "Out[141]=",ExpressionUUID->"a9cbb1f7-109a-4400-b3a0-031965c4e5d7"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"name\"\>", ",", "\<\"shortname\"\>", ",", "\<\"bibRef\"\>", 
+   ",", "\<\"desc\"\>", ",", "\<\"stateVars\"\>", ",", "\<\"parameters\"\>"}],
+   "}"}]], "Output",
+ CellChangeTimes->{3.891752190979095*^9, 3.891752258056212*^9},
+ CellLabel->
+  "Out[142]=",ExpressionUUID->"e6687c0d-393e-4061-b5dd-97e6ac74e5eb"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{870, 820},
+WindowMargins->{{168, Automatic}, {Automatic, 24}},
+Magnification:>1.25 Inherited,
+FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"f949c8c5-45ff-43cb-bc9d-21628a9a524a"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 288, 5, 37, "Input",ExpressionUUID->"a594d500-6732-49d5-a292-97f7f92537a3"],
+Cell[849, 27, 1655, 32, 142, "Input",ExpressionUUID->"0c7accec-d8a0-48e0-a9a8-3514c663c5f4"],
+Cell[2507, 61, 473, 10, 64, "Input",ExpressionUUID->"b51e613a-8e54-4b2c-9cf9-656754c31877"],
+Cell[CellGroupData[{
+Cell[3005, 75, 255, 4, 67, "Subsection",ExpressionUUID->"a85393fb-271e-4f16-88bb-af662714305d"],
+Cell[3263, 81, 751, 11, 37, "Input",ExpressionUUID->"029c83ff-6711-427f-822e-1435729b5a57"],
+Cell[4017, 94, 1665, 40, 194, "Input",ExpressionUUID->"2e930d4f-e2a8-48ca-b0b5-1d584d8c6290"],
+Cell[5685, 136, 922, 16, 90, "Input",ExpressionUUID->"add2b32b-4945-4b31-9ea0-9e361d381e02"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6644, 157, 214, 4, 67, "Subsection",ExpressionUUID->"6430e8db-a2e6-4116-803b-d1b396c6416e"],
+Cell[6861, 163, 3627, 96, 532, "Input",ExpressionUUID->"52fe5eb2-34a2-4133-9c1d-254984a84356"],
+Cell[10491, 261, 3214, 85, 454, "Input",ExpressionUUID->"0a19708d-8f36-4e5b-a488-0df1e51dc178"],
+Cell[13708, 348, 3121, 84, 454, "Input",ExpressionUUID->"143236ef-b8a5-4dd3-8d3d-a7ff943e0559"],
+Cell[CellGroupData[{
+Cell[16854, 436, 744, 15, 142, "Input",ExpressionUUID->"8ca679c3-2d1e-4627-911a-271e99f7202f"],
+Cell[17601, 453, 496, 12, 121, "Output",ExpressionUUID->"b0b2e0c9-29bd-4ee2-a824-e75a2ba26840"],
+Cell[18100, 467, 217, 5, 60, "Output",ExpressionUUID->"1eec0b67-86cd-450f-83df-8b57b3b95fa2"],
+Cell[18320, 474, 10958, 272, 119, "Output",ExpressionUUID->"a9cbb1f7-109a-4400-b3a0-031965c4e5d7"],
+Cell[29281, 748, 351, 7, 42, "Output",ExpressionUUID->"e6687c0d-393e-4061-b5dd-97e6ac74e5eb"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

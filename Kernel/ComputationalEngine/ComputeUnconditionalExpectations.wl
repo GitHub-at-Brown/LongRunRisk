@@ -10,6 +10,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditiona
 uncondE::usage = "uncondE[x] gives the unconditional mean of x."; 
 uncondVar::usage = "uncondVar[x] gives the unconditional variance of x."; 
 uncondCov::usage = "uncondCov[x,y] gives the unconditional covariance of x and y."; 
+createSystem
 
 
 Begin["`Private`"];
@@ -27,9 +28,29 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectat
 (*Unconditional moments of state variables*)
 
 
-evNoEps[model_]:= Module[
+evNoEps[model_,variablesToLag_]:= Module[
 	{e,i,r,M,q,x,t,p},
-	(e_Symbol?(MatchQ[SymbolName[#],"eps"]&)[i_][r_,M___]^q_. x_[t_]^p_.) :> eps[i][r,M]^q If[FullSimplify[r<=t,r>=0&&t>=0],cond`Private`lagStateVarst[x[t]^p,r-1,model],x[t]^p](*/;MemberQ[stateVarsNoEps,x]*)
+	(e_Symbol?(MatchQ[SymbolName[#],"eps"]&)[i_][r_,M___]^q_. x_Symbol?(MemberQ[Alternatives@@(SymbolName/@variablesToLag),SymbolName[#]]&)[t_]^p_.) :> e[i][r,M]^q If[FullSimplify[r<=t,r>=0&&t>=0],cond`Private`lagStateVarst[x[t]^p,r-1,model],x[t]^p](*/;MemberQ[stateVarsNoEps,x]*)
+]
+
+lagStateVarsProduct[model_,variablesToLag_]:= Module[
+	{x1,x2,t1,t2,i1,i2,q1,q2},
+	((x1_Symbol?(MemberQ[Alternatives@@(SymbolName/@variablesToLag),SymbolName[#]]&)[t1_,i1___]^q1_.)(x2_Symbol?(MemberQ[Alternatives@@(SymbolName/@variablesToLag),SymbolName[#]]&)[t2_,i2___]^q2_.)) :>  If[FullSimplify[t1<=t2,t1>=0&&t2>=0],x1[t1,i1]^q1 cond`Private`lagStateVarst[x2[t2,i2]^q2,t1,model],cond`Private`lagStateVarst[x1[t1,i1]^q1,t2,model]x2[t2,i2]^q2](*/;MemberQ[stateVarsNoEps,x]*)
+]
+
+evNoEpsStateVarsProduct[expr_,model_,variablesToLag_]:= Module[
+	{
+		assignParam=model["assignParam"],
+		assignParamStocks=model["assignParamStocks"],
+		rulesEfun = t |-> FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t],
+		rulesE,
+		exprLagStateVarsProduct,
+		exprEvNoEps
+	},
+	rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;
+	exprLagStateVarsProduct=ExpandAll[expr]//.lagStateVarsProduct[model,variablesToLag];
+	exprEvNoEps=ExpandAll[exprLagStateVarsProduct]//.evNoEps[model,variablesToLag];
+	ExpandAll[exprEvNoEps](*/.rulesE[_]*)
 ]
 
 (*evNoEps[expr_,model_,statevarsnoeps_]:= Module[
@@ -72,23 +93,7 @@ createSystem::nomom = "Unconditional moments cannot be computed for state variab
 "that computes uncoditional moments of state variables in ComputationalEngine.wl";
 
 addt[x_] := x[Symbol["t"]];
-minTfun[expr_,variablesToLag_]:= With[
-	{
-		vLocal=Alternatives@@(SymbolName/@variablesToLag),
-		exprLocal=ReplaceAll[expr,x_Symbol:>Symbol@SymbolName@x]
-	},
-	With[
-		{
-			lagTimes=Cases[
-				Variables[exprLocal],
-				(k_Symbol?(MemberQ[vLocal,SymbolName[#]]&)[t__][i___]) :> t,
-				Infinity
-			]
-		},
-		FullSimplify[Min@@lagTimes,Thread[lagTimes >= 0]]
-		]
-]
-minTfun[expr_] := minTfun[expr,Variables[expr]]
+
 
 (*minTfun[x_] := Module[
 	{
@@ -107,7 +112,7 @@ createSystem[n_,model_]:=With[
 		assignParamStocks=model["assignParamStocks"],
 		rulesEfun = t |-> FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t]
 	},
-	rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;
+	
 
 	With[
 		{
@@ -124,7 +129,7 @@ createSystem[n_,model_]:=With[
 				stateVarsProducts,
 				stateVarsMapAll,
 				minEpsT,
-				minStateVarsT,
+				(*minStateVarsT,*)
 				minT,
 				stateVarsEqs,
 				times0,
@@ -142,8 +147,10 @@ createSystem[n_,model_]:=With[
 				term,
 				prod,
 				posEqs,
-				eq
+				eq,
+				rulesE
 			},
+			rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;
 				(*
 					(*create products of powers of state variables of order n*)
 					stateVarsTuples=Tuples[stateVarsNoEpst,n];
@@ -155,15 +162,16 @@ createSystem[n_,model_]:=With[
 				
 				(*evaluate products of powers using equations for exogenous processes*)
 				stateVarsMapAll=stateVarsProducts/.mapAll;
-				
+
 				(*lag state variables until shocks are in the future (using lagsUntilEpsInFuture), then
 				apply rulesE to compute unconditional expectations*)
 				(*minEpsT = lagsUntilEpsInFuture[ExpandAll[#], model, stateVarsNoEps]& /@stateVarsMapAll;*)
-				minStateVarsT=minTfun[stateVarsMapAll];
-				(*minT = FullSimplify[ (Min[#,minStateVarsT]&)/@minEpsT, And@@Thread[Variables[AppendTo[minEpsT,minStateVarsT]]>=0] ];*)
-				(*stateVarsEqs = MapThread[cond`Private`lagStateVarst[ExpandAll[#1],#2,model]&, {stateVarsMapAll,minT}]/.rulesE[_];*)
-				stateVarsEqs = cond`ev[ExpandAll[stateVarsMapAll]//.evNoEps[model],minStateVarsT,model]/.rulesE[_] ;
+				(*minStateVarsT=minTfun[stateVarsMapAll];	*)
+				(*stateVarsEqs = cond`ev[ExpandAll[stateVarsMapAll]//.evNoEps[model],minStateVarsT,model]/.rulesE[_] ;*)
 				
+				(*stateVarsEqs = ExpandAll[ExpandAll[stateVarsMapAll]//.evNoEps[model,stateVarsNoEps]]/.rulesE[_] ;*)
+				stateVarsEqs = FixedPoint[evNoEpsStateVarsProduct[#,model,stateVarsNoEps]&,stateVarsMapAll];
+			
 				(*find time indices of state variables for each summand of each equation*)
 				times0=Cases[#,k_Symbol?(MemberQ[Alternatives@@(SymbolName/@stateVarsNoEps),SymbolName[#]]&)[g_]:>g,Infinity]&/@(Flatten@(List@@@stateVarsEqs));
 				times=times0/.{}->Sequence[];
@@ -177,20 +185,25 @@ createSystem[n_,model_]:=With[
 					powers =CoefficientRules[stateVarsProducts,addt/@stateVarsNoEpst][[;;,1,1]];
 					powersString=IntegerString@powers;
 					stateVarsNoEpsString=ToString/@stateVarsNoEps;
-					stateVarsPowers=Riffle[ToString/@stateVarsNoEpsString,#]&/@powersString;
+					stateVarsPowers=Riffle[stateVarsNoEpsString,#]&/@powersString;
 					unknowns =Module[
 						{z}
 						,
 						ToExpression /@ Map[StringJoin, Map[ToString, (Tally /@ stateVarsSets), {3}], {1}]
 					];
-					stateVarsProductsLocal=ReplaceAll[stateVarsProducts,k_Symbol?(MemberQ[Alternatives@@(SymbolName/@stateVarsNoEps),SymbolName[#]]&)[g_]:>Symbol[SymbolName[k]][g]];
+					(*stateVarsProductsLocal=ReplaceAll[stateVarsProducts,k_Symbol?(MemberQ[Alternatives@@(SymbolName/@stateVarsNoEps),SymbolName[#]]&)[g_]:>Symbol[SymbolName[k]][g]];
 					nameRules=Thread[(stateVarsProductsLocal/. t_Symbol?(MatchQ[SymbolName[#],"t"]&)->_ )->unknowns];(*/.x_Symbol:>Symbol[SymbolName[x]]*)
+					
 					(*create system of equations to solve for moments*)
 					stateVarsEqsLocal=ReplaceAll[stateVarsEqs,k_Symbol?(MemberQ[Alternatives@@(SymbolName/@stateVarsNoEps),SymbolName[#]]&)[g_]:>Symbol[SymbolName[k]][g]];
 					
-					system=Thread[stateVarsProducts==stateVarsEqsLocal]/.nameRules;
+					system=Thread[stateVarsProducts==stateVarsEqsLocal]/.nameRules;*)
+										
+					nameRules=Thread[(stateVarsProducts/. x_Symbol?(MatchQ[SymbolName[#],"t"]&) ->_ )->unknowns];(*/.x_Symbol:>Symbol[SymbolName[x]]*)
+					system=Thread[stateVarsProducts==stateVarsEqs]/.nameRules;
+					
 					(*return system, unknowns, and naming rules*)
-					{nameRules,system,unknowns}
+					{nameRules,system,unknowns,stateVars,stateVarsNoEpst}
 					,		
 					(*find the problematic term, issue message, return unsolved stateVarsEqs*)
 					pos=Position[SameQ@@@times0,False,1,1];
@@ -200,7 +213,7 @@ createSystem[n_,model_]:=With[
 					eq=Inactive[uncondE][stateVarsProducts[[posEqs[[1,1]]]]];
 					Message[createSystem::nomom,term,eq,prod];
 					(*{stateVarsEqs,stateVarsProducts}*)
-					$Failed
+					{$Failed,$Failed,$Failed}
 				]
 			]
 		]
@@ -241,16 +254,35 @@ uncondMomStateVars=Solve[##]&@@(createSystem[n,modNRC])
 uncondMomStateVars=Flatten@Solve[system,unknowns];*)
 
 
+minTfun[expr_,variablesToLag_]:= With[
+	{
+		vLocal=Alternatives@@(SymbolName/@variablesToLag),
+		exprLocal=ReplaceAll[expr,x_Symbol:>Symbol@SymbolName@x]
+	},
+	With[
+		{
+			lagTimes=Cases[
+				Variables[exprLocal],
+				(k_Symbol?(MemberQ[vLocal,SymbolName[#]]&)[t__][i___]) :> t,
+				Infinity
+			]
+		},
+		FullSimplify[Min@@lagTimes,Thread[lagTimes >= 0]]
+		]
+]
+(*minTfun[expr_] := minTfun[expr,Variables[expr]]*)
+
+
 uncondEStep[expr_,model_]:=With[
 	{
 		stateVars=DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"] ],x_[_]:>x],0]],
+		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]](*,
 		varNames = StringDrop[#,-2]&/@Join[model["exogenousVars"],model["endogenousVars"]],
-		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]],
 		assignParam=model["assignParam"],
 		assignParamStocks=model["assignParamStocks"],
-		rulesEfun = t |-> FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t]		
+		rulesEfun = t |-> FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t]		*)
 	},
-	rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;
+	
 	With[
 		{
 			stateVarsNoEps = Complement[stateVars,Cases[stateVars,x_Symbol?(MatchQ[SymbolName[#],"eps"]&)[y___]:>x[y],Infinity,Heads->True]]
@@ -263,13 +295,21 @@ uncondEStep[expr_,model_]:=With[
 				{
 					minT=minTfun[expr/.mapToStateVars,varNames]
 				},
-				ExpandAll[cond`ev[expr//.evNoEps[model],minT,model]]/.rulesE[_]
-				
-				(*minTstep=Min[Cases[Variables[expr/.mapToStateVars] ,y_[s_,i___]/;MemberQ[ToExpression[varNames],y]:>s]];*)
-				(*timeIndices=Cases[Variables[expr/.mapToStateVars],y_Symbol?(MemberQ[Alternatives@@(SymbolName/@varNames),SymbolName[#]]&)[s_,i___]:>s,Infinity];*)
-				(*minTstep=Refine[Min[timeIndices], Thread[timeIndices >= 0]];*)
-				(*xStateVars = evNoEps[ Expand[cond`Private`lagStateVarst[expr,minTstep,model]],model,stateVarsNoEps];*)(*Expand[cond`Private`lagStateVarst[expr,minTstep,model]]/.evNoEps[model]*)
-				(*xEshocks = Expand[xStateVars]/.rulesE[_]*)
+				Module[
+				{
+					rulesE
+				},
+					(*rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;*)
+					(*ExpandAll[cond`ev[expr//.evNoEps[model],minT,model]]/.rulesE[_]*)
+					
+					(*ExpandAll[ExpandAll[expr/.mapToStateVars]//.evNoEps[model]]/.rulesE[_]*)
+					FixedPoint[evNoEpsStateVarsProduct[#,model,stateVarsNoEps]&,expr/.mapToStateVars]
+					(*minTstep=Min[Cases[Variables[expr/.mapToStateVars] ,y_[s_,i___]/;MemberQ[ToExpression[varNames],y]:>s]];*)
+					(*timeIndices=Cases[Variables[expr/.mapToStateVars],y_Symbol?(MemberQ[Alternatives@@(SymbolName/@varNames),SymbolName[#]]&)[s_,i___]:>s,Infinity];*)
+					(*minTstep=Refine[Min[timeIndices], Thread[timeIndices >= 0]];*)
+					(*xStateVars = evNoEps[ Expand[cond`Private`lagStateVarst[expr,minTstep,model]],model,stateVarsNoEps];*)(*Expand[cond`Private`lagStateVarst[expr,minTstep,model]]/.evNoEps[model]*)
+					(*xEshocks = Expand[xStateVars]/.rulesE[_]*)
+				]
 			]
 		]
 	]
@@ -282,7 +322,8 @@ uncondE[x_,model_]:= With[
 	{
 	uncondMomOfStateVars = model["uncondMomOfStateVars"]
 	},
-	FixedPoint[uncondEStep[#,model]&,x] //. uncondMomOfStateVars
+	(*FixedPoint[uncondEStep[#,model]&,x] //. uncondMomOfStateVars*)
+	uncondEStep[x,model] //. uncondMomOfStateVars
 ]
 
 (* unconditional variances and covariances *)
