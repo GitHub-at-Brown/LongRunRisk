@@ -90,6 +90,8 @@ Begin["`Private`"]
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
+Symbol/@{"wc","pd","bond","nombond","bondexcret","bondfw","bondfwspread","bondret","bondyield","euler","excretc","excret","kappa0","kappa1","nombondexcret","nombondfw","nombondfwspread","nombondret","nombondyield","nomeuler","nomrf","nomsdf","retc","ret","rf","sdf"};
 
 
 (* conjecture the wealth-consumption ratio is linear in stateVars *)
@@ -97,7 +99,6 @@ Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 
 
 (* conjecture price-dividend ratios for stocks and bond prices are a linear function of the same variables that determine the wealth-consumption ratio *)
-
 linearInStateVars[stateVars_,coeff_]:= Module[
 	{
 		n=Length[stateVars],
@@ -109,10 +110,10 @@ linearInStateVars[stateVars_,coeff_]:= Module[
 dv=DownValues@linearInStateVars;
 
 
-wceq /: stateVars_List[wceq] := ({t_}:>linearInStateVars[stateVars,A])/. dv
-pdeq /: stateVars_List[pdeq] := ({t_,i_}:>linearInStateVars[stateVars,B[i]])/. dv
-bondeq /: stateVars_List[bondeq] := ({t_,m_}:>linearInStateVars[stateVars,R[m]])/. dv
-nombondeq /: stateVars_List[nombondeq] := ({t_,m_}:>linearInStateVars[stateVars,P[m]])/. dv
+wceq /: stateVars_Function[wceq] := ({t_} :> linearInStateVars[stateVars[t],A])/. dv
+pdeq /: stateVars_Function[pdeq] := ({t_,i_}:>linearInStateVars[stateVars[t],B[i]])/. dv
+bondeq /: stateVars_Function[bondeq] := ({t_,m_}:>linearInStateVars[stateVars[t],R[m]])/. dv
+nombondeq /: stateVars_Function[nombondeq] := ({t_,m_}:>linearInStateVars[stateVars[t],P[m]])/. dv
 
 (*wceq[stateVars_] := Function@@(Evaluate@stateVars[wceq])/. dv
 pdeq[stateVars_] := Function@@(Evaluate@stateVars[pdeq])/. dv

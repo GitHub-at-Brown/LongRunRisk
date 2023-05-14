@@ -19,19 +19,19 @@ Begin["`Private`"];
 (*Package Dependencies*)
 
 
-Needs["PacletizedResourceFunctions`"]
+(*Needs["PacletizedResourceFunctions`"]*)
 
 
 (* ::Subsection:: *)
 (*Independent of Model*)
 
 
-stript[x_[t+i_Integer:0]] := x
+(*stript[x_[t+i_Integer:0]] := x*)
 
 
 (*With[
 	{
-		stateVars=DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"] ],x_[_]:>x],0]],
+		stateVars=DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"][t] ],x_[_]:>x],0]],
 		varNames = StringDrop[#,-2]&/@Join[model["exogenousVars"],model["endogenousVars"]],
 		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]],
 		assignParam=model["assignParam"],
@@ -65,11 +65,23 @@ minTfun[x_,subsetVars_]:= Module[
 ]	
 
 
+parametersContextPattern[parameter_String,context_String]:=(y_Symbol?(MatchQ[parameter,SymbolName[#]]&)):>ToExpression[context<>parameter]
+shocksContextPattern[shock_String,context_String]:=(y_Symbol?(MatchQ[shock,SymbolName[#]]&)[z__String][t__]):>ToExpression[context<>shock][z][t]
+eqsContextPattern[var_String,context_String]:=(y_Symbol?(MatchQ[var,SymbolName[#]]&)[s__,i___]):>ToExpression[context<>var][s,i]
+
+parametersContextRules=parametersContextPattern[#,"FernandoDuarte`LongRunRisk`Model`Parameters`"]&/@FernandoDuarte`LongRunRisk`Model`Parameters`$parameters;
+coefsContextRules=parametersContextPattern[#,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"]&/@{SymbolName@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,SymbolName@Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd,SymbolName@Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb,SymbolName@Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb};
+shocksContextRules=shocksContextPattern[#,"FernandoDuarte`LongRunRisk`Model`Shocks`"]&/@{"eps"};
+eqsContextRules=Join[eqsContextPattern[#,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"]&/@(StringDrop[#,-2]&/@FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars),eqsContextPattern[#,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"]&/@(StringDrop[#,-2]&/@FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars)];
+
+modelContextRules=Join[parametersContextRules,coefsContextRules,shocksContextRules,eqsContextRules];
+
+
 Attributes[lagStateVarst]={HoldFirst};
 lagStateVarst[expr_,conditionalTime_,model_]:=With[
 	{
-		conditionalTimeLocal=ReplaceAll[conditionalTime,x_Symbol:>Symbol@SymbolName@x], (*strip context*)
-		stateVars=DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"] ],x_[_]:>x],0]],
+		(*conditionalTimeLocal=ReplaceAll[conditionalTime,x_Symbol:>Symbol@SymbolName@x], (*strip context*)*)
+		stateVars=DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"][t] ],x_[_]:>x],0]],
 		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]]
 	},
 
@@ -90,23 +102,24 @@ lagStateVarst[expr_,conditionalTime_,model_]:=With[
 (*			lagone[x_[t__,i___]]:=x[t,i]/.mapAll;
 			lag[x_,t_,n_,i___]:=Nest[lagone,x[t,i],n] // Expand ;*)
 			lagt[x_,t_]:= x//.mapAllt[t] ;
-			lagt[expr,conditionalTimeLocal]//. mapToStateVars
+			lagt[expr/.modelContextRules,conditionalTime]//. mapToStateVars
 		]
 	]
 ]
 
+
 Attributes[ev]={HoldFirst};
 ev[expr_,conditionalTime_,model_]:=With[
 	{
-		conditionalTimeLocal=ReplaceAll[conditionalTime,x_Symbol :> Symbol@SymbolName@x],(*SetSymbolsContext[conditionalTime]*)
+		(*conditionalTimeLocal=ReplaceAll[conditionalTime,x_Symbol :> Symbol@SymbolName@x],(*SetSymbolsContext[conditionalTime]*)*)
 		assignParam=model["assignParam"],
 		assignParamStocks=model["assignParamStocks"],
-		epsPattern=(_Symbol?((SymbolName[#]==="eps")&)),
+		(*epsPattern=(_Symbol?((SymbolName[#]==="eps")&)),*)
 		rulesEfun = t |-> FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t]		
 	},
 		(*rules to compute expectations of shocks*)
 		rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;
-		ExpandAll[lagStateVarst[expr,conditionalTimeLocal,model]] /. epsPattern:>eps //. rulesE[t_/;Refine[t>conditionalTimeLocal,t>=0&&conditionalTimeLocal>=0]]
+		ExpandAll[lagStateVarst[expr,conditionalTime,model]](* /. epsPattern:>eps *)//. rulesE[t_/;Refine[t>conditionalTime,t>=0&&conditionalTime>=0]]
 		
 (*		{
 		ExpandAll[lagStateVarst[expr,conditionalTimeLocal,model]],

@@ -20,7 +20,9 @@ models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];*)
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+
 
 
 models = <|
