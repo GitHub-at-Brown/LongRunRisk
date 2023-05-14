@@ -2,42 +2,30 @@ BeginTestSection["Catalog"]
 Begin["Catalog`"]
 VerificationTest[
 	Get @ "FernandoDuarte`LongRunRisk`Model`Catalog`";
-	Needs @ "FernandoDuarte`LongRunRisk`Model`ProcessModels`";
-	Needs @ "PacletizedResourceFunctions`";
 	,
 	Null
 	,
 	{}
 	,
-	TestID->"Catalog_20230430-5B0DZE"
+	TestID->"Catalog_20230513-O7IVJG"
 ]
 VerificationTest[
-	Apply[And, {MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"], MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`ProcessModels`"]}]
+	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"Catalog_20230430-CGYW9A"
+	TestID->"Catalog_20230513-M3BF54"
 ]
 VerificationTest[
-	!SameQ[Names @ "*processModels", {}]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20230430-XEO7BX"
-]
-VerificationTest[
-	FernandoDuarte`LongRunRisk`Model`Catalog`models = PacletizedResourceFunctions`SetSymbolsContext @ FernandoDuarte`LongRunRisk`Model`Catalog`models;
 	Apply[And, Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"Catalog_20230430-2XB46L"
+	TestID->"Catalog_20230513-36O403"
 ]
 VerificationTest[
 	Apply[And,
@@ -60,7 +48,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230430-7Y5QR3"
+	TestID->"Catalog_20230513-LSDZE2"
 ]
 VerificationTest[
 	Apply[And,
@@ -68,9 +56,9 @@ VerificationTest[
 			Flatten[
 				Map[
 					Function[
-						Values[FilterRules[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"], Except[Catalog`gamma | Catalog`theta]]]
+						Part[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"], 1;;, 2] //. FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"]
 					],
-					{"BY", "BKY"}
+					Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
 				]
 			]
 		]
@@ -80,16 +68,16 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230430-746FXB"
+	TestID->"Catalog_20230513-GKTLMR"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]["stateVars"]
 	,
-	{Catalog`x @ Catalog`t, Catalog`sx @ Catalog`t}
+	{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}
 	,
 	{}
 	,
-	TestID->"Catalog_20230430-PTW6QX"
+	TestID->"Catalog_20230513-CBV558"
 ]
 VerificationTest[
 	Apply[And, Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {"BY", "BKY"}]]
@@ -98,7 +86,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230430-7GZ4W5"
+	TestID->"Catalog_20230513-Z1S2IV"
 ]
 VerificationTest[
 	Apply[And,
@@ -116,20 +104,163 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230430-BUOGJB"
+	TestID->"Catalog_20230513-S27D0F"
 ]
 VerificationTest[
-	PacletizedResourceFunctions`SetSymbolsContext[
-		Block[{Catalog`model = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[FernandoDuarte`LongRunRisk`Model`Catalog`models]["NRC"], $Context = "ProcessModels`"},
-			{PacletizedResourceFunctions`SetSymbolsContext[Catalog`pi[Catalog`t]] /. Catalog`model["exogenousEq"]}
+	Apply[And,
+		Map[
+			Function[
+				Apply[And,
+					Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"]&,
+						Map[Context,
+							Cases[
+								FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["stateVars"],
+								RuleDelayed[
+									PatternTest[
+										Catalog`var_Symbol,
+										Function[
+											MemberQ[
+												Map[Function[StringDrop[#, -2]], FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],
+												SymbolName[#]
+											]
+										]
+									][__],
+									Catalog`var
+								],
+								Infinity
+							]
+						]
+					]
+				]
+			],
+			Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
 		]
 	]
 	,
-	{Catalog`pi @ Catalog`t}
+	True
 	,
 	{}
 	,
-	TestID->"Catalog_20230430-BC1D0D"
+	TestID->"Catalog_20230513-YSBF0M"
+]
+VerificationTest[
+	Apply[And,
+		Map[
+			Function[
+				Apply[And,
+					Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]&,
+						Map[Context,
+							Cases[
+								FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["stateVars"],
+								RuleDelayed[
+									PatternTest[Catalog`var_Symbol, Function[MatchQ[SymbolName[#], "eps"]]][__][__],
+									Catalog`var
+								],
+								Infinity
+							]
+						]
+					]
+				]
+			],
+			Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
+		]
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"Catalog_20230513-9V3X3N"
+]
+VerificationTest[
+	Apply[And,
+		Map[
+			Function[
+				Apply[And,
+					Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`Parameters`"]&,
+						Map[Context,
+							Cases[
+								FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"],
+								RuleDelayed[
+									PatternTest[Catalog`var_Symbol, Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, SymbolName[#]]]],
+									Catalog`var
+								],
+								Infinity
+							]
+						]
+					]
+				]
+			],
+			Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
+		]
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"Catalog_20230513-EGY2H8"
+]
+VerificationTest[
+	Apply[And,
+		Map[
+			Function[
+				Apply[And,
+					Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`Parameters`"]&,
+						Map[Context,
+							Cases[
+								FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["stateVars"],
+								RuleDelayed[
+									PatternTest[Catalog`var_Symbol, Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, SymbolName[#]]]],
+									Catalog`var
+								],
+								Infinity
+							]
+						]
+					]
+				]
+			],
+			Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
+		]
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"Catalog_20230513-JFNZD4"
+]
+VerificationTest[
+	Apply[And,
+		Map[MatchQ[{}, #]&,
+			Map[
+				Function[
+					Cases[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["stateVars"],
+						RuleDelayed[
+							PatternTest[
+								Catalog`var_Symbol,
+								Function[
+									MemberQ[
+										Map[Function[StringDrop[#, -2]], FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],
+										SymbolName[#]
+									]
+								]
+							][__],
+							Catalog`var
+						],
+						Infinity
+					]
+				],
+				Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
+			]
+		]
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"Catalog_20230513-L28COC"
 ] 
 End[]
 EndTestSection[]
