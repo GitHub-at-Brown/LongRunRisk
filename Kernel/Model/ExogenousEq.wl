@@ -26,17 +26,19 @@ Begin["`Private`"]
 
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"]
+Symbol/@{"x","pi","pibar","dc","sg","sx","sc","sp","dd","t"};
+
 
 
 (*Exogenous processes*)
 (*Long-run risk*)
-xeq[t_]=
+xeq[t_]:=
 	rhox x[t-1]+rhoxpbar * (pibar[t-1]-mupbar)+
 	phix Sqrt[sx[t-1]+Esx^2] eps["x"][t] +
 	phixc Sqrt[sc[t-1]+Esc^2] eps["dc"][t] 
 
 (*Inflation*)
-pieq[t_]=
+pieq[t_]:=
 	mup+
 	rhoppbar * (pibar[t-1]-mupbar)+
 	rhop * (pi[t-1]-mup)+
@@ -49,7 +51,7 @@ pieq[t_]=
 	phipxp Sqrt[sx[t-1]+Esx^2] eps["pi"][t]
 
 (*Expected inflation*)
-pibareq[t_]= 
+pibareq[t_]:= 
 	mupbar+
 	rhopbar * (pibar[t-1]-mupbar)+ 
 	rhopbarx x[t-1]+
@@ -62,7 +64,7 @@ pibareq[t_]=
 	phipbarxp Sqrt[sx[t-1]+Esx^2] eps["pi"][t]
 
 (*Real consumption growth*)
-dceq[t_]= 
+dceq[t_]:= 
 	muc+
 	rhocx x[t-1]+
 	rhocp * (pi[t-1]-mup)+
@@ -77,30 +79,30 @@ dceq[t_]=
 	phicpp Sqrt[sp[t-1]+Esp^2] eps["pi"][t]
 
 (*Nominal-real covariance (NRC)*)
-sgeq[t_]= 
+sgeq[t_]:= 
 	Esg + 
 	rhog * (sg[t-1]-Esg)+
 	phig eps["sg"][t]
 
 (*Stochastic volatility of long-run risk*)
-sxeq[t_]= 
+sxeq[t_]:= 
 	vx sx[t-1]+
 	phisxs eps["sx"][t]
 
 (*Stochastic volatility of consumption growth*)
-sceq[t_]= 
+sceq[t_]:= 
 	vc sc[t-1]+
 	phiscv eps["sc"][t]
 
 (*Stochastic volatility of inflation*)
-speq[t_]= 
+speq[t_]:= 
 	vp sp[t-1]+
 	vpp * (pi[t-1]-mup)+
 	vppbar * (pibar[t-1]-mupbar)+
 	phispw eps["sp"][t]  
 
 (*Real dividend growth for stock i*)
-ddeq[t_,i_]= 
+ddeq[t_,i_]:= 
 	mud[i]+
 	rhodx[i]x[t-1]+
 	rhodp[i] * (pi[t-1]-mup)+ 

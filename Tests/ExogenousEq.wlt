@@ -7,7 +7,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20230430-2RKQZT"
+	TestID->"ExogenousEq_20230513-ZCEH03"
 ]
 VerificationTest[
 	!SameQ[Names @ "*xeq", {}]
@@ -16,49 +16,256 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20230430-NYA3HI"
+	TestID->"ExogenousEq_20230513-GYWIO2"
 ]
 VerificationTest[
-	FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ ExogenousEq`t
-	,
-	Plus[FernandoDuarte`LongRunRisk`Model`Parameters`rhoxpbar * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pibar[ExogenousEq`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mupbar),
-		Plus[FernandoDuarte`LongRunRisk`Model`Parameters`rhox * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x[ExogenousEq`t - 1],
-			Plus[
-				Times[FernandoDuarte`LongRunRisk`Model`Parameters`phixc,
-					Times[((FernandoDuarte`LongRunRisk`Model`Parameters`Esc ^ 2) + FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sc[ExogenousEq`t - 1]) ^ Rational[1, 2],
-						FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][ExogenousEq`t]
+	Apply[And,
+		{
+			MemberQ[
+				DeleteDuplicates[
+					Map[Context,
+						Cases[FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ ExogenousEq`t,
+							RuleDelayed[
+								PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "x"]]][___],
+								ExogenousEq`var
+							],
+							Infinity
+						]
 					]
 				],
-				Times[FernandoDuarte`LongRunRisk`Model`Parameters`phix,
-					Times[((FernandoDuarte`LongRunRisk`Model`Parameters`Esx ^ 2) + FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx[ExogenousEq`t - 1]) ^ Rational[1, 2],
-						FernandoDuarte`LongRunRisk`Model`Shocks`eps["x"][ExogenousEq`t]
+				"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"
+			],
+			MemberQ[
+				DeleteDuplicates[
+					Map[Context,
+						Cases[FernandoDuarte`LongRunRisk`Model`ExogenousEq`pieq @ ExogenousEq`t,
+							RuleDelayed[
+								PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "pi"]]][___],
+								ExogenousEq`var
+							],
+							Infinity
+						]
+					]
+				],
+				"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"
+			],
+			MemberQ[
+				DeleteDuplicates[
+					Map[Context,
+						Cases[FernandoDuarte`LongRunRisk`Model`ExogenousEq`pibareq @ ExogenousEq`t,
+							RuleDelayed[
+								PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "pibar"]]][___],
+								ExogenousEq`var
+							],
+							Infinity
+						]
+					]
+				],
+				"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"
+			],
+			MemberQ[
+				DeleteDuplicates[
+					Map[Context,
+						Cases[FernandoDuarte`LongRunRisk`Model`ExogenousEq`sgeq @ ExogenousEq`t,
+							RuleDelayed[
+								PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "sg"]]][___],
+								ExogenousEq`var
+							],
+							Infinity
+						]
+					]
+				],
+				"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"
+			],
+			MemberQ[
+				DeleteDuplicates[
+					Map[Context,
+						Cases[FernandoDuarte`LongRunRisk`Model`ExogenousEq`sxeq @ ExogenousEq`t,
+							RuleDelayed[
+								PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "sx"]]][___],
+								ExogenousEq`var
+							],
+							Infinity
+						]
+					]
+				],
+				"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"
+			],
+			MemberQ[
+				DeleteDuplicates[
+					Map[Context,
+						Cases[FernandoDuarte`LongRunRisk`Model`ExogenousEq`sceq @ ExogenousEq`t,
+							RuleDelayed[
+								PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "sc"]]][___],
+								ExogenousEq`var
+							],
+							Infinity
+						]
+					]
+				],
+				"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"
+			],
+			MemberQ[
+				DeleteDuplicates[
+					Map[Context,
+						Cases[FernandoDuarte`LongRunRisk`Model`ExogenousEq`speq @ ExogenousEq`t,
+							RuleDelayed[
+								PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "sp"]]][___],
+								ExogenousEq`var
+							],
+							Infinity
+						]
+					]
+				],
+				"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"
+			],
+			Not[
+				SameQ[{},
+					Cases[Map[Symbol, Names @ "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`*"],
+						RuleDelayed[
+							PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "dc"]]],
+							ExogenousEq`var
+						],
+						Infinity
 					]
 				]
-			]
-		]
-	]
-	,
-	{}
-	,
-	TestID->"ExogenousEq_20230430-6FI1ZA"
-]
-VerificationTest[
-	Module[{ExogenousEq`allShocks},
-		ExogenousEq`allShocks = Cases[
-			ResourceFunction["SetSymbolsContext"][
-				Map[ToExpression, Map[StringJoin[#, "[t]"]&, FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars]]
 			],
-			ExogenousEq`eps[ExogenousEq`var_][ExogenousEq`t_] :> StringJoin[ToString[ExogenousEq`var], "eq"],
-			Infinity
-		];
-		SubsetQ[FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars, DeleteDuplicates @ ExogenousEq`allShocks]
+			Not[
+				SameQ[{},
+					Cases[Map[Symbol, Names @ "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`*"],
+						RuleDelayed[
+							PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "dd"]]],
+							ExogenousEq`var
+						],
+						Infinity
+					]
+				]
+			],
+			MemberQ[
+				DeleteDuplicates[
+					Map[Context,
+						Cases[Map[Symbol, Names @ "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`*"],
+							RuleDelayed[
+								PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "dc"]]],
+								ExogenousEq`var
+							],
+							Infinity
+						]
+					]
+				],
+				"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"
+			],
+			MemberQ[
+				DeleteDuplicates[
+					Map[Context,
+						Cases[Map[Symbol, Names @ "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`*"],
+							RuleDelayed[
+								PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "dd"]]],
+								ExogenousEq`var
+							],
+							Infinity
+						]
+					]
+				],
+				"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"
+			]
+		}
 	]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20230430-CH1YSN"
+	TestID->"ExogenousEq_20230513-9RRRF8"
+]
+VerificationTest[
+	Apply[And,
+		Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"]&,
+			Map[Context,
+				Cases[Map[Slot[1][ExogenousEq`t]&, Map[Symbol, FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars]],
+					RuleDelayed[
+						PatternTest[
+							ExogenousEq`var_Symbol,
+							Function[
+								MemberQ[
+									Map[Function[StringDrop[#, -2]], FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],
+									SymbolName[#]
+								]
+							]
+						][__],
+						ExogenousEq`var
+					],
+					Infinity
+				]
+			]
+		]
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"ExogenousEq_20230513-NXOTIG"
+]
+VerificationTest[
+	Apply[And,
+		Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]&,
+			Map[Context,
+				Cases[Map[Slot[1][ExogenousEq`t]&, Map[Symbol, FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars]],
+					RuleDelayed[
+						PatternTest[ExogenousEq`var_Symbol, Function[MatchQ[SymbolName[#], "eps"]]][__][__],
+						ExogenousEq`var
+					],
+					Infinity
+				]
+			]
+		]
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"ExogenousEq_20230513-BVWWMZ"
+]
+VerificationTest[
+	Apply[And,
+		Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`Parameters`"]&,
+			Map[Context,
+				Cases[Map[Slot[1][ExogenousEq`t]&, Map[Symbol, FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars]],
+					RuleDelayed[
+						PatternTest[ExogenousEq`var_Symbol, Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, SymbolName[#]]]],
+						ExogenousEq`var
+					],
+					Infinity
+				]
+			]
+		]
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"ExogenousEq_20230513-BV43YV"
+]
+VerificationTest[
+	Apply[And,
+		{
+			FreeQ[FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ ExogenousEq`t, foo`t],
+			!FreeQ[FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ ExogenousEq`t, ExogenousEq`t],
+			FreeQ[FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ foo`t, ExogenousEq`t],
+			!FreeQ[FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ foo`t, foo`t],
+			!SameQ[foo`xeq @ ExogenousEq`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ ExogenousEq`t],
+			!SameQ[FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ ExogenousEq`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq @ foo`t]
+		}
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"ExogenousEq_20230513-8RJUH2"
 ] 
 End[]
 EndTestSection[]

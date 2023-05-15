@@ -77,7 +77,12 @@ processModels[m_]:=
 		i,
 		modelAssumptions
 	},
-
+	(*replace stateVars by a function t |-> stateVars[t] *)
+	models = Append[
+		#,
+		"stateVars" -> Function[Evaluate@DeleteDuplicates@Cases[#["stateVars"],e_Symbol?(MatchQ[SymbolName[#],"t"]&),Infinity],Evaluate@#["stateVars"]]
+	]& /@ models;
+	
 	(*add number of stocks as a new key-value pair in each model*)
 	models = Append[
 		#,
@@ -158,6 +163,7 @@ createExogenous[m_]:=Module[
 	(*adds exogenous variables and equations to each model in m after removing those that are always 0*)
 	{
 		models=m,
+		ContextPath=$ContextPath,
 		argsPattern,
 		funs,
 		exoExprAssignParam,
@@ -175,7 +181,9 @@ createExogenous[m_]:=Module[
 		(*,vars,fun,argPatt*)
 	},
 	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
-
+	(*$ContextPath = PrependTo[ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];*)
+	(*DeclareKnownSymbols[{"pi","x"}];*)
+	
 	(*separate the equations into arguments `argsPattern` and expressions that define the functions `fun`*)
 (*	argsPattern = SetSymbolsContext[Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@$exogenousVars];*)
 (*	funs = SetSymbolsContext[DownValues[#][[;;,2]][[1]]&/@(ToExpression/@$exogenousVars)];*)
@@ -222,7 +230,10 @@ createExogenous[m_]:=Module[
 		#,
 		"exogenousEq"->exo[#["shortname"]]
 	]& /@models;
-	
+
+	(*restore $ContextPath to initial state*)
+	(*$ContextPath=ContextPath;*)
+		
 	models
 ]	
 
@@ -278,7 +289,6 @@ createEndogenous[mod_]:=Module[
 (*		funs = SetSymbolsContext[DownValues[#][[;;,2]][[1]]&/@(ToExpression/@endogRestEq)];*)
 		argsPattern = Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@endogRestEq;
 		funs = DownValues[#][[;;,2]][[1]]&/@(ToExpression/@endogRestEq);
-
 
 		funTemplate[argPattFun_] := ( {##} /. (argPattFun) )&;
 		funTemplate[fun_,argPatt_] := ( {##} /. (argPatt :> fun) )&;
