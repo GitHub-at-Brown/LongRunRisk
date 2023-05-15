@@ -9,7 +9,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-TSBRK3"
+	TestID->"ComputeUnconditionalExpectations_20230515-Q74AML"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`";
@@ -18,7 +18,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-4DMSZ9"
+	TestID->"ComputeUnconditionalExpectations_20230515-W3A6YL"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"]
@@ -27,7 +27,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-XIX7L0"
+	TestID->"ComputeUnconditionalExpectations_20230515-KVZJUV"
 ]
 VerificationTest[
 	!SameQ[Names @ "*uncondE", {}]
@@ -36,16 +36,18 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-QYOPE9"
+	TestID->"ComputeUnconditionalExpectations_20230515-5HQ1EE"
 ]
 VerificationTest[
 	ComputationalEngine`Uncond`mm = FernandoDuarte`LongRunRisk`Model`Catalog`models;
-	ComputationalEngine`Uncond`ms = KeySelect[ComputationalEngine`Uncond`mm, MatchQ[#, "BKY" | "NRC"]&];
+	ComputationalEngine`Uncond`ms = KeySelect[ComputationalEngine`Uncond`mm, MatchQ[#, "BKY" | "NRC" | "BS"]&];
 	ComputationalEngine`Uncond`msp = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels @ ComputationalEngine`Uncond`ms;
-	ComputationalEngine`Uncond`modNRC = ComputationalEngine`Uncond`msp[[2]];
 	ComputationalEngine`Uncond`modBKY = ComputationalEngine`Uncond`msp[[1]];
-	ComputationalEngine`Uncond`modNRCa = Map[Activate, ComputationalEngine`Uncond`modNRC];
+	ComputationalEngine`Uncond`modNRC = ComputationalEngine`Uncond`msp[[2]];
+	ComputationalEngine`Uncond`modBS = ComputationalEngine`Uncond`msp[[3]];
 	ComputationalEngine`Uncond`modBKYa = Map[Activate, ComputationalEngine`Uncond`modBKY];
+	ComputationalEngine`Uncond`modNRCa = Map[Activate, ComputationalEngine`Uncond`modNRC];
+	ComputationalEngine`Uncond`modBSa = Map[Activate, ComputationalEngine`Uncond`modBS];
 	ComputationalEngine`Uncond`createSystem = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`createSystem;
 	ComputationalEngine`Uncond`evNoEpsStateVarsProduct = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`evNoEpsStateVarsProduct;
 	ComputationalEngine`Uncond`uncondEStep = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`uncondEStep;
@@ -54,7 +56,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-62I3L1"
+	TestID->"ComputeUnconditionalExpectations_20230515-7WS2U2"
 ]
 VerificationTest[
 	{ComputationalEngine`Uncond`nameRules1, ComputationalEngine`Uncond`system1, ComputationalEngine`Uncond`unknowns1} = ComputationalEngine`Uncond`createSystem[1, ComputationalEngine`Uncond`modNRC];
@@ -119,7 +121,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-N5IUPU"
+	TestID->"ComputeUnconditionalExpectations_20230515-Z508IE"
 ]
 VerificationTest[
 	Apply[And,
@@ -151,7 +153,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-KX2BDI"
+	TestID->"ComputeUnconditionalExpectations_20230515-74NRQJ"
 ]
 VerificationTest[
 	Apply[And,
@@ -185,7 +187,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-33Q1W2"
+	TestID->"ComputeUnconditionalExpectations_20230515-3NYT4W"
 ]
 VerificationTest[
 	Apply[And,
@@ -201,7 +203,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-IO5GCA"
+	TestID->"ComputeUnconditionalExpectations_20230515-QXVF37"
 ]
 VerificationTest[
 	ComputationalEngine`Uncond`stateVarsNoEps = {ComputationalEngine`Uncond`sg, ComputationalEngine`Uncond`pi};
@@ -291,7 +293,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-3G7JIL"
+	TestID->"ComputeUnconditionalExpectations_20230515-T5UFV6"
 ]
 VerificationTest[
 	Apply[And,
@@ -360,7 +362,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-JOA1NR"
+	TestID->"ComputeUnconditionalExpectations_20230515-T5LJGA"
 ]
 VerificationTest[
 	Apply[And,
@@ -432,7 +434,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-0AW5PX"
+	TestID->"ComputeUnconditionalExpectations_20230515-LTFGG6"
 ]
 VerificationTest[
 	Apply[And,
@@ -461,7 +463,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-MQPQ23"
+	TestID->"ComputeUnconditionalExpectations_20230515-V0GXRD"
 ]
 VerificationTest[
 	Apply[And,
@@ -491,7 +493,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-RD06ZW"
+	TestID->"ComputeUnconditionalExpectations_20230515-6BGSM7"
 ]
 VerificationTest[
 	Apply[And,
@@ -583,7 +585,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-ZLKI74"
+	TestID->"ComputeUnconditionalExpectations_20230515-0P2CUB"
 ]
 VerificationTest[
 	Apply[And,
@@ -721,7 +723,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-MMT4CO"
+	TestID->"ComputeUnconditionalExpectations_20230515-WXWKPL"
 ]
 VerificationTest[
 	Apply[And,
@@ -885,7 +887,21 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20230514-07TN21"
+	TestID->"ComputeUnconditionalExpectations_20230515-FT7BV9"
+]
+VerificationTest[
+	Apply[And,
+		{
+			SameQ[0, FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`sp @ ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`modBSa]],
+			SameQ[0, FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`sx @ ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`modBSa]]
+		}
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"ComputeUnconditionalExpectations_20230515-892ECD"
 ] 
 End[]
 EndTestSection[]

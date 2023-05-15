@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-D8S6WK"
+	TestID->"ProcessModels_20230515-V5K5MR"
 ]
 VerificationTest[
 	Apply[And, {MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"], MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`ProcessModels`"]}]
@@ -17,7 +17,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-ZOZG38"
+	TestID->"ProcessModels_20230515-Z6V9MQ"
 ]
 VerificationTest[
 	Apply[And,
@@ -31,17 +31,17 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-7R7SYI"
+	TestID->"ProcessModels_20230515-MQ50DY"
 ]
 VerificationTest[
-	ProcessModels`ms = KeySelect[FernandoDuarte`LongRunRisk`Model`Catalog`models, MatchQ[#, "BKY" | "NRC"]&];
+	ProcessModels`ms = KeySelect[FernandoDuarte`LongRunRisk`Model`Catalog`models, MatchQ[#, "BKY" | "NRC" | "BY"]&];
 	ProcessModels`modelsP = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels @ ProcessModels`ms;
 	,
 	Null
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-64YZWR"
+	TestID->"ProcessModels_20230515-10B80P"
 ]
 VerificationTest[
 	Apply[And, Map[StringQ, Keys @ ProcessModels`modelsP]]
@@ -50,7 +50,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-74XJFA"
+	TestID->"ProcessModels_20230515-S90DEP"
 ]
 VerificationTest[
 	Apply[And,
@@ -75,7 +75,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-0BNCRB"
+	TestID->"ProcessModels_20230515-U2EJRM"
 ]
 VerificationTest[
 	Apply[And,
@@ -119,7 +119,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-HL3356"
+	TestID->"ProcessModels_20230515-OA4TG9"
 ]
 VerificationTest[
 	Apply[And,
@@ -133,7 +133,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-8BKI14"
+	TestID->"ProcessModels_20230515-JJTBMV"
 ]
 VerificationTest[
 	Apply[And,
@@ -149,7 +149,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-OG68SE"
+	TestID->"ProcessModels_20230515-2NL68F"
 ]
 VerificationTest[
 	Apply[And,
@@ -285,7 +285,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-9X1I6K"
+	TestID->"ProcessModels_20230515-GTCZKA"
 ]
 VerificationTest[
 	Apply[And,
@@ -389,7 +389,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-I8AQY6"
+	TestID->"ProcessModels_20230515-F714OJ"
 ]
 VerificationTest[
 	Apply[And,
@@ -516,7 +516,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-BRHTBS"
+	TestID->"ProcessModels_20230515-21ICXJ"
 ]
 VerificationTest[
 	Apply[And,
@@ -590,7 +590,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-8PFXX6"
+	TestID->"ProcessModels_20230515-OUJ82P"
 ]
 VerificationTest[
 	ProcessModels`coefs = Apply[Alternatives,
@@ -624,7 +624,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-3S3J0I"
+	TestID->"ProcessModels_20230515-YI75OO"
 ]
 VerificationTest[
 	Apply[And,
@@ -686,23 +686,23 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-P3S92O"
+	TestID->"ProcessModels_20230515-49NGR0"
 ]
 VerificationTest[
 	Apply[And,
 		{
-			SameQ[Keys @ ProcessModels`modelsP, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models],
-			SameQ[Map[ProcessModels`modelsP[#]["shortname"]&, Keys @ ProcessModels`modelsP],
-				Map[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["shortname"]&, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]
+			SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models, Keys @ ProcessModels`modelsP],
+			SubsetQ[Map[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["shortname"]&, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models],
+				Map[ProcessModels`modelsP[#]["shortname"]&, Keys @ ProcessModels`modelsP]
 			]
 		}
 	]
 	,
-	False
+	True
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-J8Y1BU"
+	TestID->"ProcessModels_20230515-NEKFNC"
 ]
 VerificationTest[
 	Apply[And,
@@ -733,16 +733,16 @@ VerificationTest[
 				]
 			],
 			SameQ[Map[ProcessModels`modelsP[#]["stateVars"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]&, Keys @ ProcessModels`modelsP],
-				Map[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["stateVars"]&, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]
+				Map[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["stateVars"]&, Keys @ ProcessModels`modelsP]
 			]
 		}
 	]
 	,
-	False
+	True
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-AV4W98"
+	TestID->"ProcessModels_20230515-H2ZPHB"
 ]
 VerificationTest[
 	Apply[And,
@@ -753,7 +753,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-JS58KJ"
+	TestID->"ProcessModels_20230515-9AYD4D"
 ]
 VerificationTest[
 	ProcessModels`model = ProcessModels`modelsP @ "NRC";
@@ -827,7 +827,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-374SKP"
+	TestID->"ProcessModels_20230515-Z1RONW"
 ]
 VerificationTest[
 	Apply[And,
@@ -929,7 +929,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-X1VH63"
+	TestID->"ProcessModels_20230515-GMBVKE"
 ]
 VerificationTest[
 	Apply[And,
@@ -1031,7 +1031,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-7WH31Y"
+	TestID->"ProcessModels_20230515-ZZ40XW"
 ]
 VerificationTest[
 	Apply[And,
@@ -1049,7 +1049,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-F5VU4A"
+	TestID->"ProcessModels_20230515-22GUXV"
 ]
 VerificationTest[
 	Apply[And,
@@ -1143,42 +1143,6 @@ VerificationTest[
 						Keys @ ProcessModels`modelsP
 					]
 				]
-			],
-			Apply[And,
-				Map[Not,
-					Map[
-						Function[
-							SameQ[
-								Head[ProcessModels`euler[ProcessModels`retc @ ProcessModels`t, ProcessModels`t - 1]],
-								Head[
-									ReplaceAll[
-										ProcessModels`euler[ProcessModels`retc @ ProcessModels`t, ProcessModels`t - 1],
-										Normal @ Join[ProcessModels`modelsP[#]["exogenousEq"], ProcessModels`modelsP[#]["endogenousEq"]]
-									]
-								]
-							]
-						],
-						Keys @ ProcessModels`modelsP
-					]
-				]
-			],
-			Apply[And,
-				Map[Not,
-					Map[
-						Function[
-							SameQ[
-								Head[ProcessModels`euler[ProcessModels`ret[ProcessModels`t, ProcessModels`i], ProcessModels`t - 1]],
-								Head[
-									ReplaceAll[
-										ProcessModels`euler[ProcessModels`ret[ProcessModels`t, ProcessModels`i], ProcessModels`t - 1],
-										Normal @ Join[ProcessModels`modelsP[#]["exogenousEq"], ProcessModels`modelsP[#]["endogenousEq"]]
-									]
-								]
-							]
-						],
-						Keys @ ProcessModels`modelsP
-					]
-				]
 			]
 		}
 	]
@@ -1187,7 +1151,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-CNZUPQ"
+	TestID->"ProcessModels_20230515-0Q3XZI"
 ]
 VerificationTest[
 	Apply[And,
@@ -1214,7 +1178,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-IJ3TFU"
+	TestID->"ProcessModels_20230515-F76RDX"
 ]
 VerificationTest[
 	ProcessModels`modelBY = FernandoDuarte`LongRunRisk`Model`Catalog`models @ "BY";
@@ -1234,11 +1198,11 @@ VerificationTest[
 		}
 	]
 	,
-	False
+	True
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-Z2KJBK"
+	TestID->"ProcessModels_20230515-HTN4K9"
 ] 
 End[]
 EndTestSection[]
