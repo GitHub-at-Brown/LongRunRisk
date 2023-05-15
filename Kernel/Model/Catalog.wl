@@ -941,7 +941,7 @@ models = <|
 		"desc" -> "Long-run risk model with long-run risk		
 					in expected inflation and no real				
 			effects of inflation",
-		"stateVars" -> {x[t],sc[t],sx[t],-mupbar+pibar[t]},
+		"stateVars" -> {x[t],sc[t],sx[t],-mupbar+pibar[t],-mup+pi[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9987,
@@ -1503,7 +1503,7 @@ models = <|
 		"shortname" -> "DES",
 		"bibRef" -> "des2023stocksbonds",
 		"desc" -> "Long-run risk model with real effects of inflation",
-		"stateVars" -> {x[t],-mupbar+pibar[t],sx[t],sg[t]},
+		"stateVars" -> {x[t],sx[t],-mupbar+pibar[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9995,

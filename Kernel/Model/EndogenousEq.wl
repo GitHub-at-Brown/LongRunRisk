@@ -73,11 +73,6 @@ kappa1eq::usage = "kappa1eq[mu] is the Campbell-Shiller approximation constant \
 kappa0eq::usage = "kappa0eq[mu] is the Campbell-Shiller approximation constant \
 	\!\(\*SubscriptBox[\(\[Kappa]\), \(0\)]\)=-Log[Exp[mu]-1]+Ewc Exp[mu]/(Exp[mu]-1) where mu \
 	is the unconditional mean of the log of the approximated variable."
-
-eulereq::usage = "eulereq[x[t],s] or eulereq[x[t,i],s] gives the Euler equation for (real) \
-	return x[t] or x[t,i] conditional on time s."
-nomeulereq::usage = "nomeulereq[x[t],s] or nomeulereq[x[t,i],s]  gives the Euler equation for \
-	nominal return x[t] or x[t,i] conditional on time s."
 	
 
 
@@ -91,7 +86,9 @@ Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 $ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
-Symbol/@{"wc","pd","bond","nombond","bondexcret","bondfw","bondfwspread","bondret","bondyield","euler","excretc","excret","kappa0","kappa1","nombondexcret","nombondfw","nombondfwspread","nombondret","nombondyield","nomeuler","nomrf","nomsdf","retc","ret","rf","sdf"};
+
+
+Symbol/@{"wc","pd","bond","nombond","bondexcret","bondfw","bondfwspread","bondret","bondyield"(*,"euler"*),"excretc","excret","kappa0","kappa1","nombondexcret","nombondfw","nombondfwspread","nombondret","nombondyield"(*,"nomeuler"*),"nomrf","nomsdf","retc","ret","rf","sdf"};
 
 
 (* conjecture the wealth-consumption ratio is linear in stateVars *)
@@ -145,9 +142,6 @@ nombondexcreteq[t_,m_,h_:1] := nombondret[t,m,h]-nombondyield[t-h,h]
 sdfeq[t_] := theta Log[delta]-(theta/psi)dc[t]+(theta-1)retc[t]
 nomsdfeq[t_] := sdf[t]-pi[t]
 
-(* Euler equation *)
-eulereq[x_[t_,i___],s_] := ev[sdf[t],s]+(1/2)var[sdf[t],s]+ev[x[t,i],s]+(1/2)var[x[t,i],s]+cov[sdf[t],x[t,i],s] 
-nomeulereq[x_[t_,i___],s_] := ev[nomsdf[t],s]+(1/2)var[nomsdf[t],s]+ev[x[t,i],s]+(1/2)var[x[t,i],s]+cov[nomsdf[t],x[t,i],s] 
 
 rfeq[t_,h_:1] := bondyield[t,h]
 nomrfeq[t_,h_:1] := nombondyield[t,h]

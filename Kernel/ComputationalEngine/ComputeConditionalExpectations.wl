@@ -7,9 +7,10 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalE
 (*Public symbols*)
 
 
-ev::usage = "ev[x,s] gives the expected value of x conditional on time s."; 
-var::usage = "var[x,s] gives the variance of x conditional on time s."; 
-cov::usage = "cov[x,y,s] gives the covariance of x and y conditional on time s."; 
+ev::usage = "ev[x,s,model] gives the expected value of x conditional on time s."; 
+var::usage = "var[x,s,model] gives the variance of x conditional on time s."; 
+cov::usage = "cov[x,y,s,model] gives the covariance of x and y conditional on time s."; 
+corr::usage = "corr[x,y,s,model] gives the correlation of x and y conditional on time s."; 
 
 
 Begin["`Private`"];
@@ -141,6 +142,8 @@ var[expr_,conditionalTime_,model_]:=ev[(expr-ev[expr,conditionalTime,model])^2,c
 Attributes[cov]={HoldFirst};
 cov[expr1_,expr2_,conditionalTime_,model_]:=ev[(expr1-ev[expr1,conditionalTime,model])(expr2-ev[expr2,conditionalTime,model]),conditionalTime,model];
 
+Attributes[corr]={HoldFirst};
+corr[expr1_,expr2_,conditionalTime_,model_]:=cov[expr1,expr2,conditionalTime,model]/(Sqrt[var[expr1,conditionalTime,model]]Sqrt[var[expr2,conditionalTime,model]])
 
 
 
