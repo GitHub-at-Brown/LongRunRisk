@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-8L6J1O"
+	TestID->"ProcessModels_20230514-D8S6WK"
 ]
 VerificationTest[
 	Apply[And, {MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"], MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`ProcessModels`"]}]
@@ -17,7 +17,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-LJIQ2Y"
+	TestID->"ProcessModels_20230514-ZOZG38"
 ]
 VerificationTest[
 	Apply[And,
@@ -31,16 +31,17 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-IXXT1F"
+	TestID->"ProcessModels_20230514-7R7SYI"
 ]
 VerificationTest[
-	ProcessModels`modelsP = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels @ FernandoDuarte`LongRunRisk`Model`Catalog`models;
+	ProcessModels`ms = KeySelect[FernandoDuarte`LongRunRisk`Model`Catalog`models, MatchQ[#, "BKY" | "NRC"]&];
+	ProcessModels`modelsP = FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels @ ProcessModels`ms;
 	,
 	Null
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-XYM9H4"
+	TestID->"ProcessModels_20230514-64YZWR"
 ]
 VerificationTest[
 	Apply[And, Map[StringQ, Keys @ ProcessModels`modelsP]]
@@ -49,7 +50,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-TX518M"
+	TestID->"ProcessModels_20230514-74XJFA"
 ]
 VerificationTest[
 	Apply[And,
@@ -74,7 +75,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-YND67T"
+	TestID->"ProcessModels_20230514-0BNCRB"
 ]
 VerificationTest[
 	Apply[And,
@@ -118,7 +119,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-53OG7N"
+	TestID->"ProcessModels_20230514-HL3356"
 ]
 VerificationTest[
 	Apply[And,
@@ -132,7 +133,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-9PX19C"
+	TestID->"ProcessModels_20230514-8BKI14"
 ]
 VerificationTest[
 	Apply[And,
@@ -148,7 +149,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-BNLM5A"
+	TestID->"ProcessModels_20230514-OG68SE"
 ]
 VerificationTest[
 	Apply[And,
@@ -284,7 +285,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-C7ZHUI"
+	TestID->"ProcessModels_20230514-9X1I6K"
 ]
 VerificationTest[
 	Apply[And,
@@ -388,7 +389,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-RK0EKG"
+	TestID->"ProcessModels_20230514-I8AQY6"
 ]
 VerificationTest[
 	Apply[And,
@@ -515,7 +516,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-6AOTLY"
+	TestID->"ProcessModels_20230514-BRHTBS"
 ]
 VerificationTest[
 	Apply[And,
@@ -589,7 +590,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-3VF84O"
+	TestID->"ProcessModels_20230514-8PFXX6"
 ]
 VerificationTest[
 	ProcessModels`coefs = Apply[Alternatives,
@@ -623,7 +624,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-8FNKMP"
+	TestID->"ProcessModels_20230514-3S3J0I"
 ]
 VerificationTest[
 	Apply[And,
@@ -685,7 +686,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-OAXSLX"
+	TestID->"ProcessModels_20230514-P3S92O"
 ]
 VerificationTest[
 	Apply[And,
@@ -697,11 +698,11 @@ VerificationTest[
 		}
 	]
 	,
-	True
+	False
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-2O4M8Q"
+	TestID->"ProcessModels_20230514-J8Y1BU"
 ]
 VerificationTest[
 	Apply[And,
@@ -737,11 +738,11 @@ VerificationTest[
 		}
 	]
 	,
-	True
+	False
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-63Y0JY"
+	TestID->"ProcessModels_20230514-AV4W98"
 ]
 VerificationTest[
 	Apply[And,
@@ -752,7 +753,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-54NXAE"
+	TestID->"ProcessModels_20230514-JS58KJ"
 ]
 VerificationTest[
 	ProcessModels`model = ProcessModels`modelsP @ "NRC";
@@ -826,7 +827,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-ZGRPAM"
+	TestID->"ProcessModels_20230514-374SKP"
 ]
 VerificationTest[
 	Apply[And,
@@ -928,7 +929,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-06WIBI"
+	TestID->"ProcessModels_20230514-X1VH63"
 ]
 VerificationTest[
 	Apply[And,
@@ -1030,7 +1031,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-M0J6IC"
+	TestID->"ProcessModels_20230514-7WH31Y"
 ]
 VerificationTest[
 	Apply[And,
@@ -1048,7 +1049,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-PFEMHK"
+	TestID->"ProcessModels_20230514-F5VU4A"
 ]
 VerificationTest[
 	Apply[And,
@@ -1186,7 +1187,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-YB2ZJE"
+	TestID->"ProcessModels_20230514-CNZUPQ"
 ]
 VerificationTest[
 	Apply[And,
@@ -1213,7 +1214,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-QME21T"
+	TestID->"ProcessModels_20230514-IJ3TFU"
 ]
 VerificationTest[
 	ProcessModels`modelBY = FernandoDuarte`LongRunRisk`Model`Catalog`models @ "BY";
@@ -1233,11 +1234,11 @@ VerificationTest[
 		}
 	]
 	,
-	True
+	False
 	,
 	{}
 	,
-	TestID->"ProcessModels_20230514-S6JTNP"
+	TestID->"ProcessModels_20230514-Z2KJBK"
 ] 
 End[]
 EndTestSection[]

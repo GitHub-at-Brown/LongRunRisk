@@ -44,7 +44,7 @@ Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 
 
 
