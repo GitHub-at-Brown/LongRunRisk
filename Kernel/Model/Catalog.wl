@@ -1129,7 +1129,7 @@ models = <|
 		"desc" -> "Volatility of inflation is different				
 			from volatility of long-run risk and				
 			depends on inflation levels",
-		"stateVars" -> {x[t],sx[t],-mup+pi[t],Null},
+		"stateVars" -> {x[t],sx[t],-mup+pi[t],sp[x]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9989,
@@ -1412,7 +1412,7 @@ models = <|
 		"desc" -> "Long-run risk depends on expected				
 			inflation, expected inflation is				
 			persistent",
-		"stateVars" -> {x[t],-mupbar+pibar[t],sx[t],sp[t]},
+		"stateVars" -> {x[t],pibar[t]-mupbar,sx[t],sp[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.994,
@@ -1503,7 +1503,7 @@ models = <|
 		"shortname" -> "DES",
 		"bibRef" -> "des2023stocksbonds",
 		"desc" -> "Long-run risk model with real effects of inflation",
-		"stateVars" -> {x[t],-mupbar+pibar[t],sx[t],sp[t]},
+		"stateVars" -> {x[t],-mupbar+pibar[t],sx[t],sg[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9995,
