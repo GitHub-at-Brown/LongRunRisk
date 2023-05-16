@@ -10,6 +10,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 findEulerEqConstants::usage = "findEulerEqConstants[x[t]] or findEulerEqConstants[x[t,i]] finds \
 the constants of the price-dividend ratio of the asset whose return is x[t] or x[t,i]."; 
 niceEulerEq::usage = "temp"
+niceNomEulerEq::usage = "temp"
 
 findBondRecursion::usage = "findBondRecursion[b[t,m]]] finds the recursion satisfied by \
 the bond price coefficients in bondeq[t,m] for a bond with maturity m."; 
@@ -18,6 +19,8 @@ eulereq::usage = "eulereq[x[t],s,model] or eulereq[x[t,i],s,model] gives the Eul
 	return x[t] or x[t,i] conditional on time s."
 nomeulereq::usage = "nomeulereq[x[t],s,model] or nomeulereq[x[t,i],s,model]  gives the Euler equation for \
 	nominal return x[t] or x[t,i] conditional on time s."
+	
+coeff::usage = "coeff[model] solves for the coefficients in the wealth-consumption ratio, price-dividend ratio of stocks, and bond prices."
 
 
 Begin["`Private`"];
@@ -28,6 +31,7 @@ Begin["`Private`"];
 
 
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 
 
 (* Euler equation *)
@@ -203,6 +207,212 @@ findBondRecursion[t_,n_,model_]:=With[
 (* solve recursion *)
 (* if the recursion is solvable symbolically, you can solve with the following line *)
 (* solBond=RSolve[Flatten[{systemEqBond,initialCondBond}],unknownsCondBond,n]; *)
+
+
+(* ::Subsection:: *)
+(*coeff*)
+
+
+coeff//Options={
+	"initialGuessEwc"->8,
+	"initialGuessEPd"->7,
+	"maxMaturity"->6,
+	"parameters"->{},
+	"FindRootOptions"->{MaxIterations->1500(*,"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)},
+	"RecurrenceTableOptions"->{"DependentVariables"->Automatic}
+};
+
+
+coeff[model_, opts : OptionsPattern[{coeff,FindRoot,RecurrenceTable}]]:=With[
+	{
+		modelAssumptions=model["modelAssumptions"],
+		parameters=model["parameters"],
+		numStocks=model["numStocks"],
+		maxMaturity = Evaluate@OptionValue["maxMaturity"],
+		initialGuessEwc = Evaluate@OptionValue["initialGuessEwc"],
+		initialGuessEPd = Evaluate@OptionValue["initialGuessEPd"]
+	},
+	Module[
+		{
+			newParameters=Evaluate@OptionValue["parameters"],
+			ratiosUncondERule,
+			systemWc,
+			unknownsWc,
+			systemPd,
+			unknownsPd,
+			bondRecursion,
+			unknownsWcGuess,
+			solWc,
+			unknownsPdGuess,
+			solOnePd,
+			solPd,
+			bondCoefficientRules,
+			posConstantCoeff,
+			perturbation,
+			bondRecursionPerturbation,
+			solBondNum,
+			solBond,
+			posConstantCoeffNom,
+			perturbationNom,
+			bondRecursionPerturbationNom,
+			solNomBondNum,
+			solNomBond
+		},
+		(*check, process newParameters*)
+		newParameters = processNewParameters[newParameters,parameters];
+		
+		ratiosUncondERule={
+			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc->
+				Simplify@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[wc[t],model],
+			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[j_]->
+				Simplify@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[pd[t,j],model]
+		};
+
+		(* create system of equations for coefficients of wc ratio *)
+		{systemWc,unknownsWc}=findEulerEqConstants[retc[t+1],model]/.ratiosUncondERule;
+			
+		(* create system of equations for coefficients of pd ratios *)
+		{systemPd,unknownsPd}=findEulerEqConstants[ret[t+1,j],model]/.ratiosUncondERule;
+		
+		(* create recursion for price of bonds *)
+		bondRecursion = findBondRecursion[t,n+1,model]/.ratiosUncondERule;
+		
+		(*solve for coefficients of wc ratio *)
+		unknownsWcGuess=Prepend[Table[0,Length[unknownsWc]-1],initialGuessEwc];
+		solWc=FindRoot[
+			systemWc//.newParameters//.parameters,
+			Thread@List[unknownsWc,unknownsWcGuess],
+			Evaluate[FilterRules[{opts}, Options[FindRoot]]],
+			Evaluate@OptionValue["FindRootOptions"]
+		];
+			
+		(*solve for coefficients of pd ratios *)
+		unknownsPdGuess=Prepend[Table[0,Length[unknownsPd]-1],initialGuessEPd];
+		solOnePd[stockNumber_]:=FindRoot[
+			systemPd/.j->stockNumber//.solWc//.newParameters//.parameters,
+			Thread@List[unknownsPd,unknownsPdGuess]/.j->stockNumber,
+			Evaluate[FilterRules[{opts}, Options[FindRoot]]],
+			Evaluate@OptionValue["FindRootOptions"]
+		];
+		solPd=solOnePd[#]&/@Range[numStocks];
+		
+		(*solve for bond prices *)
+		bondCoefficientRules=Join[
+			bondRecursion[[1,4]],
+			bondRecursion[[2,4]]
+		]/.(x_[n][j_Integer] :> Rule[x[n_][j], Symbol[(SymbolName@x)<>IntegerString[j]][n]]);
+		
+		(*real bonds*)
+		(*add small perturbation to make all coefficients depend on n, otherwise RecurrenceTable does not work*)
+		posConstantCoeff=Position[bondRecursion[[1,2]],_?(FreeQ[#,n-1]&),1,Heads->False];
+		perturbation=If[posConstantCoeff==={},0,N[10^-18]First@Extract[bondRecursion[[1,4]],posConstantCoeff]/.(n->n-1)];
+		bondRecursionPerturbation=MapAt[(#/.(Equal[a_,b_]:>Equal[a,b+perturbation])&),bondRecursion[[1,2]],posConstantCoeff];		
+		solBondNum=RecurrenceTable[
+			Flatten[
+				{
+					bondRecursionPerturbation,
+					bondRecursion[[1,3]]
+				}
+			]//.newParameters//.parameters/.solWc/.bondCoefficientRules,
+			bondRecursion[[1,4]]/.bondCoefficientRules,
+			{n,1,maxMaturity},
+			Evaluate[FilterRules[{opts}, Options[RecurrenceTable]]],
+			Evaluate@OptionValue["RecurrenceTableOptions"]
+		]//Column//Chop;		
+		solBond=Flatten[{bondRecursion[[1,3]]/. Equal->Rule,Table[Thread[bondRecursion[[1,4]]->solBondNum[[1,n]]],{n,1,maxMaturity}]}];
+		
+		(*nominal bonds*)
+		posConstantCoeffNom=Position[bondRecursion[[2,2]],_?(FreeQ[#,n-1]&),1,Heads->False];
+		perturbationNom=If[posConstantCoeffNom==={},0,10^-18 First@Extract[bondRecursion[[2,4]],posConstantCoeffNom]/.(n->n-1)];(*(Last@bondRecursion[[1,4]] /.n->n-1)*)
+		bondRecursionPerturbationNom=MapAt[(#/.(Equal[a_,b_]:>Equal[a,b+perturbationNom])&),bondRecursion[[2,2]],posConstantCoeffNom];		
+		solNomBondNum=RecurrenceTable[
+			Flatten[
+				{
+					bondRecursionPerturbationNom,
+					bondRecursion[[2,3]]
+				}
+			]//.newParameters//.parameters/.solWc/.bondCoefficientRules,
+			bondRecursion[[2,4]]/.bondCoefficientRules,
+			{n,1,maxMaturity},
+			Evaluate[FilterRules[{opts}, Options[RecurrenceTable]]],
+			Evaluate@OptionValue["RecurrenceTableOptions"]
+		]//Column//Chop;	
+		solNomBond=Flatten[{bondRecursion[[2,3]]/. Equal->Rule,Table[Thread[bondRecursion[[2,4]]->solNomBondNum[[1,n]]],{n,1,maxMaturity}]}];
+		
+		Flatten@{solWc,solPd,solBond,solNomBond}
+	]
+]
+
+
+processNewParameters::psi="psi=1 implies a constant wealth-consumption ratio, please choose a different psi.";
+processNewParameters::param="theta must equal (1-gamma)/(1-1/psi), replacing theta by (1-gamma)/(1-1/psi)=`1`.";
+processNewParameters::theta="Plase provide psi or gamma with theta.";
+processNewParameters::subsetparam="Provided parameters must be a subset of model[\"parameters\"]= `1`.";
+
+
+processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=Module[
+	{
+		toSymNewParam,
+		toSymParam,
+		symNewParam,
+		symParam,
+		posNew,
+		newParametersString,
+		thetaNew,
+		system,
+		processedParameters
+	},
+	If[
+		newParameters==={},
+		Return[{}],
+		newParametersString=Normal@KeyMap[ToString,Association@newParameters];
+		If[1===("psi"/.newParametersString),Message[processNewParameters::psi];Abort[];]; (*psi=1 aborts*)
+		processedParameters=Switch[
+			Count[MemberQ[Keys@newParametersString,#]&/@{"gamma","psi","theta"},True],
+				3,
+					(*when gamma,psi,theta all provided, override theta*)	
+					thetaNew=(1-("gamma"/.newParametersString))/(1-1/("psi"/.newParametersString));
+					Message[processNewParameters::param,thetaNew];
+					ReplaceAll[newParameters, Rule[s_Symbol?(MatchQ[SymbolName[#],"theta"]&),_] :> Rule[s, thetaNew] ],		
+				2,
+					(*when 2 of {gamma,psi,theta} are provided solve for the third and add to newParameters*)
+					system= (1-ToExpression@("gamma"/.newParametersString))/(1-1/ToExpression@("psi"/.newParametersString)) == ToExpression@("theta"/.newParametersString);
+					Join[newParameters,Solve[system,Reals][[1]]],
+				1,
+					(*if theta provided without gamma or psi, abort -- otherwise, return newParameters unchanged*)
+					If[
+						MemberQ[SymbolName/@(Keys@newParameters),"theta"],
+						Message[processNewParameters::theta];Abort[];,
+						newParameters
+					],
+				_,
+				newParameters
+		];
+		(*make Keys of newParameters match context of Keys of parameters that have the same SymbolName*)
+		toSymNewParam=DeleteDuplicates@((Keys@processedParameters)/.x_[j_Integer]:>x);
+		toSymParam=DeleteDuplicates@((Keys@parameters)/.x_[j_Integer]:>x);
+		symNewParam=SymbolName/@(toSymNewParam);
+		symParam=SymbolName/@(toSymParam);
+		If[
+			Not@SubsetQ[symParam,symNewParam],
+			Message[processNewParameters::subsetparam,symParam];Abort[];,	
+			posNew=Position[symParam,#]&/@symNewParam;
+			Thread[
+				(
+					Symbol/@MapThread[
+						StringJoin,
+						{
+							Context@@@Extract[Keys@parameters,posNew],
+							symNewParam
+						}
+					]
+				) -> 
+				(Values@processedParameters)
+			]
+		]
+		(*TO DO: iterate over stocks to not ignore stock parameters*)
+	]
+]
 
 
 (* ::Section:: *)

@@ -41,8 +41,12 @@ BeginPackage["FernandoDuarte`LongRunRisk`"]
 <<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
 <<FernandoDuarte`LongRunRisk`Model`Catalog`;
 <<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
+<<FernandoDuarte`LongRunRisk`Model`ProcessModels;
 <<FernandoDuarte`LongRunRisk`Tools`NiceOutput`;
 <<FernandoDuarte`LongRunRisk`Tools`TimeAggregation`;
+<<FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`;
+<<FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`;
+<<FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`;
 
 
 main::usage="";
@@ -50,7 +54,7 @@ main::usage="";
 (*re-exported symbols*)
 Models;
 Growth;
-
+(*coeff;*)
 (*models
 info*)
 (*fillModels*)
@@ -60,9 +64,6 @@ Begin["`Private`"]
 
 
 main=1;
-
-(*NeedsDefinitions=ResourceFunction["NeedsDefinitions"];
-SetSymbolsContext=ResourceFunction["SetSymbolsContext"];*)
 
 (*re-export symbols from other private contexts *)
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
@@ -85,7 +86,9 @@ PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`T
 Growth[] := FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth;
 Growth::usage = Information["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth","Usage"];
 
-
+(*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+coeff[] := FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`coeff;
+coeff::usage = Information["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`coeff","Usage"];*)
 
 
 (*re-export info from FernandoDuarte`LongRunRisk`Model`NiceOutput` *)
