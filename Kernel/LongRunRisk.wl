@@ -41,7 +41,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`"]
 <<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
 <<FernandoDuarte`LongRunRisk`Model`Catalog`;
 <<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
-<<FernandoDuarte`LongRunRisk`Model`ProcessModels;
+<<FernandoDuarte`LongRunRisk`Model`ProcessModels`;
 <<FernandoDuarte`LongRunRisk`Tools`NiceOutput`;
 <<FernandoDuarte`LongRunRisk`Tools`TimeAggregation`;
 <<FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`;
