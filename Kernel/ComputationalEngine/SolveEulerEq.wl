@@ -7,220 +7,48 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 (*Public symbols*)
 
 
-findEulerEqConstants::usage = "findEulerEqConstants[x[t]] or findEulerEqConstants[x[t,i]] finds \
-the constants of the price-dividend ratio of the asset whose return is x[t] or x[t,i]."; 
-niceEulerEq::usage = "temp"
-niceNomEulerEq::usage = "temp"
-
-findBondRecursion::usage = "findBondRecursion[b[t,m]]] finds the recursion satisfied by \
-the bond price coefficients in bondeq[t,m] for a bond with maturity m."; 
-
-eulereq::usage = "eulereq[x[t],s,model] or eulereq[x[t,i],s,model] gives the Euler equation for (real) \
-	return x[t] or x[t,i] conditional on time s."
-nomeulereq::usage = "nomeulereq[x[t],s,model] or nomeulereq[x[t,i],s,model]  gives the Euler equation for \
-	nominal return x[t] or x[t,i] conditional on time s."
-	
 coeff::usage = "coeff[model] solves for the coefficients in the wealth-consumption ratio, price-dividend ratio of stocks, and bond prices."
+createStartingPoint::usage = "";
+getStartingValues::usage = "";
+formatStartingValuesRest::usage = "";
+formatStartingValues::usage = "formatStartingValues[initialGuess, coefficients] transforms user-provided starting values initialGuess into a form that can be used directly as a second argument to FindRoots when numerically solving for coefficients of the wealth-consumption or price-dividend ratios. 
+
+Example: let the wealth-consumption ratio be given by:
+
+wc = someContext`A[0] +  someContext`A[1] * state variable 1 +  someContext`A[2] * state variable 2 +  someContext`A[3] * state variable 3.
+
+We know someContext`A[2] and want to use FindRoot to solve for someContext`A[0], someContext`A[1] and someContext`A[3]. The variable initialGuess provided by the user is:
+
+initialGuess = {{A[0],1},{A[3],2}}.
+
+Then, 
+
+sv = formatStartingValues[initialGuess, {someContext`A[0], someContext`A[1] and someContext`A[3]} ]
+
+gives
+
+{{someContext`A[1],0}, {someContext`A[3],2}} and 
+
+which can be used in a call FindRoot[ ... , sv]."
 
 
 Begin["`Private`"];
 
 
 (* ::Subsection:: *)
-(*niceEulerEq*)
-
-
-Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
-Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
-
-
-(* Euler equation *)
-eulereq[x_[t_,i___],s_,model_] := ev[sdf[t],s,model]+(1/2)var[sdf[t],s,model]+ev[x[t,i],s,model]+(1/2)var[x[t,i],s,model]+cov[sdf[t],x[t,i],s,model] 
-nomeulereq[x_[t_,i___],s_,model_] := ev[nomsdf[t],s,model]+(1/2)var[nomsdf[t],s,model]+ev[x[t,i],s,model]+(1/2)var[x[t,i],s,model]+cov[nomsdf[t],x[t,i],s,model] 
-
-
-
-orderingToTarget[list_,sourceIds_,targetIds_]:=list[[Ordering@sourceIds]][[Ordering@Ordering@targetIds]]
-	
-niceEulerEq[x_[t_,i___],model_,nominalFlag_:False]:=With[
-	{
-		stateVars=DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"][t] ],z_[_]:>z],0]],
-		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]]
-	},
-	Module[
-	{
-		ratio,
-		unknowns,
-		timeVars,
-		timeVarsPolyu,
-		newRules,
-		newRulesNoConst,
-		sortF,
-		sortedNewRules,
-		newCoeff,
-		newReminder,
-		coeffC,
-		crRules,
-		newPoly,
-		newC
-	},
-	stateVarsAnyt:=Alternatives@@Map[Function[{y},y[r_]],stateVars];
-	ratio=If[{i} === {},wc[t-1]/.mapAll,pd[t-1,i]/.mapAll];
-	unknowns=If[
-		{i} === {},
-		Sort[Cases[Variables[ratio],FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[j_]]],
-		Sort[Cases[Variables[ratio],FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[j_]  ]]
-	];
-	timeVars=DeleteDuplicates[Cases[ratio,stateVarsAnyt,Infinity]];
-	timeVarsPolyu=DeleteCases[Flatten[CoefficientList[ratio,unknowns]],0|1]; 
-	newRules=CoefficientRules[ratio,unknowns];
-	newRulesNoConst = newRules[[2;;,2]];
-	sortF[lst_]:=SortBy[lst,{-Total@#,-Max@#}&[Exponent[#,Variables[timeVars] ]]&];(*orders newRules for PolynomialReduce*)
-	sortedNewRules=sortF[newRulesNoConst];
-	(* use real or nominal euler equation depending on nominalFlag *)
-	{newCoeff,newReminder}=If[
-		nominalFlag,
-		PolynomialReduce[Expand[nomeulereq[x[t,i],t-1,model]],Factor[sortedNewRules],timeVars],
-		PolynomialReduce[Expand[eulereq[x[t,i],t-1,model]],Factor[sortedNewRules],timeVars]
-	];
-	(* undo ordering *)
-	newCoeff=orderingToTarget[newCoeff,sortedNewRules,newRulesNoConst];
-	coeffC=If[
-		{i} === {},
-		Table[G[j],{j,0,Length[newCoeff]}],
-		Table[F[i,j],{j,0,Length[newCoeff]}]
-	];
-	newPoly=coeffC . Flatten[{1,newRulesNoConst}];
-	newPoly=Replace[
-		SortBy[
-			List@@newPoly,
-			Cases[#,(G|F)[j_,p___]:>{j,p}]&
-		],
-		List[y__]:>HoldForm[Plus[y]]
-	];
-	newC=Flatten[{
-		coeffC[[1]]->Collect[newReminder,unknowns,Simplify],
-		MapThread[#1->#2&,{coeffC[[2;;-1]],Collect[newCoeff,unknowns,Simplify]}]
-	}];
-	{newPoly,newC}
-]
-]
-
-(* wrapper for nominal euler eq *)
-niceNomEulerEq[x_[t_,i___],model_]:=niceEulerEq[x[t,i],model,True] (* flag True indicates nominal *)
-
-
-(* ::Subsection:: *)
-(*findEulerEqConstants*)
-
-
-(* find Euler equation for return on consumption portfolio *)
-findEulerEqConstants[x_[t_,i___],model_,nominalFlag_:False]:=With[
-	{
-		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]]
-	},
-	Module[
-	{
-		ruleToEqual,
-		eulerEqCoeff,
-		systemEq,
-		ratio,
-		unknownCoefficients
-	},
-	(* first define some formatting rules *)
-	ruleToEqual[a_->b_] := (0==b);
-
-	(* find Euler equation *)
-	eulerEqCoeff = niceEulerEq[x[t,i],model,nominalFlag];
-	
-	(* convert to system of equations on coefficients *)
-	systemEq=Map[ruleToEqual,eulerEqCoeff[[2]]];
-	ratio=If[{i} === {},wc[t-1]/.mapAll,pd[t-1,i]/.mapAll];
-	unknownCoefficients=If[
-		{i} === {},
-		Sort[Cases[Variables[ratio],FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[j_]]],
-		Sort[Cases[Variables[ratio],FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[j_]  ]]
-	];
-
-	(* return system of equations and the unknowns of the system  *)
-	{systemEq,unknownCoefficients}
-]
-]
-(* solve system of equations *)
-(* if the system is solvable symbolically, you can solve with the following line *)
-(* wSol=Solve[systemEqCons,unknownCoefficients] // Simplify; *)
-
-
-
-(* ::Subsection:: *)
-(*findBondRecursion*)
-
-
-(* find Euler equation for bonds, which gives a recursion *)
-findBondRecursion[t_,n_,model_]:=With[
-	{
-		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]]
-	},
-	Module[
-	{
-		ruleToEqual,
-		eulerEqBond,
-		eulerEqNomBond,
-		systemEqBond,
-		unknownsCondBond,
-		initialCondBond,
-		systemEqNomBond,
-		unknownsCondNomBond,
-		initialCondNomBond
-	},
-	(* first define formatting rules *)
-	ruleToEqual[x_->y_]:=0==y;
-
-	(* get Euler equation for the bonds *)
-	eulerEqBond = niceEulerEq[bondret[t+1,n-1],model];
-	eulerEqNomBond = niceNomEulerEq[nombondret[t+1,n-1],model]; 
-
-	(* convert to a system of recursive equations *)
-	systemEqBond=Map[ruleToEqual,eulerEqBond[[2]]];
-	unknownsCondBond=Sort[Cases[bond[t+1,n-1]/.mapAll,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb[m_],Infinity]];
-	initialCondBond=Thread[(unknownsCondBond/.((n-1)->0))==0];
-	systemEqBond=Flatten[Solve[systemEqBond,unknownsCondBond]]/.Rule->Equal;(* solves for the highest n coefficient, can comment out and recursion will be a set of implicit equations *)
-	
-	systemEqNomBond=Map[ruleToEqual,eulerEqNomBond[[2]]]/.
-		If[
-			(*if inflation not defined, set it equal to zero*)
-			FreeQ[Join[model["endogenousVars"],model["exogenousVars"]],"pieq"],
-			_Symbol?(MatchQ[SymbolName@#,"pi"]&)[__]->0,
-			{}
-		];
-	unknownsCondNomBond = Sort[Cases[nombond[t+1,n-1]/.mapAll,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb[m_],Infinity]];
-	initialCondNomBond =Thread[(unknownsCondNomBond/.((n-1)->0))==0];
-	(*(*systemEqNomBond=Flatten[Solve[systemEqNomBond,unknownsCondNomBond]]/.Rule->Equal;*) *)	
-
-	(* return all elements of the recursion *)
-{	
-		{"Real Bonds",systemEqBond,initialCondBond,unknownsCondBond,n},
-		{"Nominal Bonds",systemEqNomBond,initialCondNomBond,unknownsCondNomBond,n}
-	}
-]
-]
-(* solve recursion *)
-(* if the recursion is solvable symbolically, you can solve with the following line *)
-(* solBond=RSolve[Flatten[{systemEqBond,initialCondBond}],unknownsCondBond,n]; *)
-
-
-(* ::Subsection:: *)
 (*coeff*)
 
 
-coeff//Options={
-	"initialGuessEwc"->8,
-	"initialGuessEPd"->7,
+solveEulerEq//Options={
+	"initialGuess" -> <|"Ewc"->{6},"Epd"->{{4.1}}|>,
 	"maxMaturity"->6,
 	"parameters"->{},
 	"FindRootOptions"->{MaxIterations->1500(*,"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)},
 	"RecurrenceTableOptions"->{"DependentVariables"->Automatic}
 };
+
+
+coeff::badextrainfo="The rules provided in modelsExtraInfo[\"coeffs\"] do not solve the Euler equation. Switching to a numerical solution.";
 
 
 coeff[model_, opts : OptionsPattern[{coeff,FindRoot,RecurrenceTable}]]:=With[
@@ -230,12 +58,20 @@ coeff[model_, opts : OptionsPattern[{coeff,FindRoot,RecurrenceTable}]]:=With[
 		numStocks=model["numStocks"],
 		maxMaturity = Evaluate@OptionValue["maxMaturity"],
 		initialGuessEwc = Evaluate@OptionValue["initialGuessEwc"],
-		initialGuessEPd = Evaluate@OptionValue["initialGuessEPd"]
+		initialGuessEpd = Evaluate@OptionValue["initialGuessEpd"],
+		(*rules that re-write Ewc, Epd in terms of the coefficients of wc[t] or pd[t,j]*)
+		ratiosUncondERuleWc={
+			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc :>
+				Simplify@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[wc[t],model]
+		},
+		ratiosUncondERulePd ={
+			ratiosUncondERuleWc,
+			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[j_] :> Simplify@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[pd[t,j],model]
+		}
 	},
 	Module[
 		{
 			newParameters=Evaluate@OptionValue["parameters"],
-			ratiosUncondERule,
 			systemWc,
 			unknownsWc,
 			systemPd,
@@ -260,25 +96,18 @@ coeff[model_, opts : OptionsPattern[{coeff,FindRoot,RecurrenceTable}]]:=With[
 		},
 		(*check, process newParameters*)
 		newParameters = processNewParameters[newParameters,parameters];
-		
-		ratiosUncondERule={
-			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc->
-				Simplify@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[wc[t],model],
-			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[j_]->
-				Simplify@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[pd[t,j],model]
-		};
 
 		(* create system of equations for coefficients of wc ratio *)
-		{systemWc,unknownsWc}=findEulerEqConstants[retc[t+1],model]/.ratiosUncondERule;
+		{systemWc,unknownsWc}=findEulerEqConstants[retc[t+1],model]/.ratiosUncondERuleWc;
 			
 		(* create system of equations for coefficients of pd ratios *)
-		{systemPd,unknownsPd}=findEulerEqConstants[ret[t+1,j],model]/.ratiosUncondERule;
+		{systemPd,unknownsPd}=findEulerEqConstants[ret[t+1,j],model]/.ratiosUncondERulePd[j];
 		
 		(* create recursion for price of bonds *)
-		bondRecursion = findBondRecursion[t,n+1,model]/.ratiosUncondERule;
+		bondRecursion = findBondRecursion[t,n+1,model]/.ratiosUncondERuleWc;
 		
 		(*solve for coefficients of wc ratio *)
-		unknownsWcGuess=Prepend[Table[0,Length[unknownsWc]-1],initialGuessEwc];
+		unknownsWcGuess=Prepend[Table[0,Length[unknownsWc]-1],ratiosUncondERuleWc];
 		solWc=FindRoot[
 			systemWc//.newParameters//.parameters,
 			Thread@List[unknownsWc,unknownsWcGuess],
@@ -300,13 +129,14 @@ coeff[model_, opts : OptionsPattern[{coeff,FindRoot,RecurrenceTable}]]:=With[
 		bondCoefficientRules=Join[
 			bondRecursion[[1,4]],
 			bondRecursion[[2,4]]
-		]/.(x_[n][j_Integer] :> Rule[x[n_][j], Symbol[(SymbolName@x)<>IntegerString[j]][n]]);
+		]/.(x_[n][j_Integer] :> RuleDelayed[x[m_][j], Symbol[(SymbolName@x)<>IntegerString[j]][m]]);
 		
 		(*real bonds*)
 		(*add small perturbation to make all coefficients depend on n, otherwise RecurrenceTable does not work*)
 		posConstantCoeff=Position[bondRecursion[[1,2]],_?(FreeQ[#,n-1]&),1,Heads->False];
-		perturbation=If[posConstantCoeff==={},0,N[10^-18]First@Extract[bondRecursion[[1,4]],posConstantCoeff]/.(n->n-1)];
-		bondRecursionPerturbation=MapAt[(#/.(Equal[a_,b_]:>Equal[a,b+perturbation])&),bondRecursion[[1,2]],posConstantCoeff];		
+		perturbation=If[posConstantCoeff==={},0,N[10^-18]*First@Extract[bondRecursion[[1,4]],posConstantCoeff]/.(n->n-1)];
+		bondRecursionPerturbation=MapAt[(#/.(Equal[a_,b_]:>Equal[a,b+perturbation])&),bondRecursion[[1,2]],posConstantCoeff];
+		(*TO DO: check out AsymptoticRSolveValue for long maturities*)
 		solBondNum=RecurrenceTable[
 			Flatten[
 				{
@@ -344,74 +174,373 @@ coeff[model_, opts : OptionsPattern[{coeff,FindRoot,RecurrenceTable}]]:=With[
 ]
 
 
+(* ::Subsubsection:: *)
+(*processNewParameters*)
+
+
 processNewParameters::psi="psi=1 implies a constant wealth-consumption ratio, please choose a different psi.";
 processNewParameters::param="theta must equal (1-gamma)/(1-1/psi), replacing theta by (1-gamma)/(1-1/psi)=`1`.";
 processNewParameters::theta="Plase provide psi or gamma with theta.";
-processNewParameters::subsetparam="Provided parameters must be a subset of model[\"parameters\"]= `1`.";
+processNewParameters::subsetparam="Parameters `1` in newParameters are not a subset of model[\"parameters\"].";
 
 
-processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=Module[
+processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=If[
+	newParameters==={},
+	Return[{}],
+	With[
+		{
+			newParametersA=Association@newParameters,
+			parametersA=Association@parameters
+		},
+		Module[
+			{
+				newParametersSplit,
+				parametersSplit,
+				newParametersString,
+				processedParameters,
+				thetaNew,
+				system,
+				processedParametersA,
+				posNew
+			},
+			(*newParameters and parameters may have symbols in different contexts, split keys into context, symbol name and index*)
+			newParametersSplit=KeyMap[Replace[{x_Symbol[j_Integer]:>{Context@x,SymbolName@x,j},x_Symbol:>{Context@x,SymbolName@x}}],newParametersA];
+			parametersSplit=KeyMap[Replace[{x_Symbol[j_Integer]:>{Context@x,SymbolName@x,j},x_Symbol:>{Context@x,SymbolName@x}}],parametersA];
+			If[
+				Not@SubsetQ[Map[Rest,Keys@parametersSplit],Map[Rest,Keys@newParametersSplit]],
+				(*abort with message if newParameters has a parameter not in parameters*)
+				Message[processNewParameters::subsetparam,Pick[newParameters,MemberQ[Map[Rest,Keys@parametersSplit],#]&/@Map[Rest,Keys@newParametersSplit],False]];
+				Abort[];
+			];
+			(*process gamma, psi, theta*)
+			newParametersString = Normal@KeyMap[#[[2]]&,newParametersSplit];
+			If[1===("psi"/.newParametersString), Message[processNewParameters::psi]; Abort[]; ]; (*psi=1 aborts*)
+			processedParameters = Switch[
+				Count[MemberQ[Keys@newParametersString,#]&/@{"gamma","psi","theta"},True],
+					3,
+						(*when gamma, psi, theta all provided, ignore theta and issue message*)	
+						thetaNew=(1-("gamma"/.newParametersString))/(1-1/("psi"/.newParametersString));
+						Message[processNewParameters::param,thetaNew];
+						Append[newParametersSplit,{"Global`","theta"}->thetaNew],		
+					2,
+						(*when 2 of {gamma, psi, theta} are provided, solve for the third and add to newParameters*)
+						system = (1-ToExpression@("gamma"/.newParametersString))/(1-1/ToExpression@("psi"/.newParametersString)) == ToExpression@("theta"/.newParametersString);
+						Append[newParametersSplit,KeyMap[{"Context`",SymbolName@#}&,Association@SolveAlways[system,Reals]]],
+					1,
+						(*if theta provided without gamma or psi, abort*)
+						If[
+							MemberQ[SymbolName/@(Keys@newParameters),"theta"],
+							Message[processNewParameters::theta];Abort[];,
+							newParametersSplit
+						],
+					(*otherwise, return newParametersSplit unchanged*)
+					_,
+					newParametersSplit
+			];
+			(*make keys of newParameters match context of keys of parameters that have the same SymbolName*)
+			processedParametersA=Association@processedParameters;
+			posNew=Position[Rest/@Keys@parametersSplit,#]&/@Rest/@Keys@processedParametersA;
+			Thread[Extract[Keys@parametersA,Flatten[posNew,1]]->(Values@processedParametersA)]
+		](*Module*)
+	](*With*)
+](*If*)
+
+
+(* ::Subsection:: *)
+(*createStartingPoint*)
+
+
+createStartingPoint::coeffswc = "infoModel[\"modelAssumptions\"] requires values of the wealth-consumption ratio
+coefficients to be provided as an association with key \"coeffsSolution\" in opts, e.g., 
+opts={ \"coeffsSolution\"-> <|\"wc\"-> {A[0]\[Rule]4.59,A[1],...}|>}";
+
+
+createStartingPoint[
+	coefficientNames_,
+	ratioUncondE_,
+	numStocks_Integer:1,
+	opts_List:{},
+	infoModel_Association:<||>
+]:=With[
 	{
-		toSymNewParam,
-		toSymParam,
-		symNewParam,
-		symParam,
-		posNew,
-		newParametersString,
-		thetaNew,
-		system,
-		processedParameters
+		ratio = If[FreeQ[coefficientNames,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc],"pd","wc"]
 	},
-	If[
-		newParameters==={},
-		Return[{}],
-		newParametersString=Normal@KeyMap[ToString,Association@newParameters];
-		If[1===("psi"/.newParametersString),Message[processNewParameters::psi];Abort[];]; (*psi=1 aborts*)
-		processedParameters=Switch[
-			Count[MemberQ[Keys@newParametersString,#]&/@{"gamma","psi","theta"},True],
-				3,
-					(*when gamma,psi,theta all provided, override theta*)	
-					thetaNew=(1-("gamma"/.newParametersString))/(1-1/("psi"/.newParametersString));
-					Message[processNewParameters::param,thetaNew];
-					ReplaceAll[newParameters, Rule[s_Symbol?(MatchQ[SymbolName[#],"theta"]&),_] :> Rule[s, thetaNew] ],		
-				2,
-					(*when 2 of {gamma,psi,theta} are provided solve for the third and add to newParameters*)
-					system= (1-ToExpression@("gamma"/.newParametersString))/(1-1/ToExpression@("psi"/.newParametersString)) == ToExpression@("theta"/.newParametersString);
-					Join[newParameters,Solve[system,Reals][[1]]],
-				1,
-					(*if theta provided without gamma or psi, abort -- otherwise, return newParameters unchanged*)
+	With[
+		{
+			iEv = "E"<>ratio,
+			startValues=formatStartingValues[coefficientNames, ratioUncondE, opts, infoModel]
+		},		
+		Module[{out},
+			Catch[
+				With[
+					{
+						dimStartValues=Dimensions@startValues
+					},
 					If[
-						MemberQ[SymbolName/@(Keys@newParameters),"theta"],
-						Message[processNewParameters::theta];Abort[];,
-						newParameters
-					],
-				_,
-				newParameters
-		];
-		(*make Keys of newParameters match context of Keys of parameters that have the same SymbolName*)
-		toSymNewParam=DeleteDuplicates@((Keys@processedParameters)/.x_[j_Integer]:>x);
-		toSymParam=DeleteDuplicates@((Keys@parameters)/.x_[j_Integer]:>x);
-		symNewParam=SymbolName/@(toSymNewParam);
-		symParam=SymbolName/@(toSymParam);
-		If[
-			Not@SubsetQ[symParam,symNewParam],
-			Message[processNewParameters::subsetparam,symParam];Abort[];,	
-			posNew=Position[symParam,#]&/@symNewParam;
-			Thread[
-				(
-					Symbol/@MapThread[
-						StringJoin,
+						StringMatchQ[ratio,"pd"] && (*createStartingPoints for stocks*)
+						Not@KeyExistsQ[opts,"stocksSolvedQ"] || (KeyExistsQ[opts,"stocksSolvedQ"] && Not@TrueQ["stocksSolvedQ"/.opts]) &&  (*opts["stocksSolvedQ"] is used as an internal state that indicates createStartingPoint has already been run for stocks*)
+						MatchQ[ First@dimStartValues, 1 | model["numStocks"]] && MatchQ[Length@coefficientNames, dimStartValues[[2]]] (*dimensions of startValues are correct*)
+						,
+						(*If[
+							(*if infoModel["modelAssumptions"][iEv] exists*)
+							KeyExistsQ[infoModel,"modelAssumptions"] && KeyExistsQ[infoModel["modelAssumptions"],iEv] &&
+							(*and if infoModel["modelAssumptions"] has expressions that contain the coefficients
+							of the wealth-consumption ratio*)
+							Not@FreeQ[infoModel["modelAssumptions"][iEv],FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc] &&
+							(*and if user did not provide the coefficients inside opts*) 
+							(Not@KeyExistsQ[opts,"coeffsSolution"] || Not@KeyExistsQ["coeffsSolution"/.opts,"wc"])
+							,
+							(*issue message and abort*)
+							Message[createStartingPoint::coeffswc];Abort[];
+						];*)
+						out=With[
+							{
+								j=Last@Head@First@coefficientNames
+							},
+							MapIndexed[
+								createStartingPoint[
+									coefficientNames /. j -> (First@#2),
+									ratioUncondE /. j -> (First@#2),
+									numStocks,
+									{"initialGuess" -> <|"Epd" -> (#1 /. j -> (First@#2) )|>, "stocksSolvedQ" -> True},
+									infoModel  //.
+										If[
+											(*infoModel["modelAssumptions"][iEv] does not exist*)
+											(Not@KeyExistsQ[infoModel,"modelAssumptions"] || Not@KeyExistsQ[infoModel["modelAssumptions"],iEv])
+												(*or infoModel["modelAssumptions"][iEv] is free of coefficients of the price-dividend ratio with index other than 0*)
+												||FreeQ[infoModel["modelAssumptions"][iEv],FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[Except[0]]]
+											,
+											(*then nothing to do*)
+											{}
+											,
+											(*otherwise, use the provided coefficients*)
+											infoModel["coeffs"][ratio]
+										] /. j -> (First@#2)
+								]&,
+								If[
+									(*if user provided a single set of starting values but there are more stocks, use the same starting value for all stocks*)
+									((First@dimStartValues)===1) && (numStocks>1),
+									Table[Replace[startValues[[1]],B_[1][ind_]:>B[k][ind],{2}],{k,numStocks}],
+									startValues
+								]
+							](*MapIndexed*)
+						];(*With*)
+						Throw[out];
+					];(*If*)
+				];(*With*)		
+				With[
+					{
+						guessFirst = First@startValues
+					},
+					With[
 						{
-							Context@@@Extract[Keys@parameters,posNew],
-							symNewParam
-						}
-					]
-				) -> 
-				(Values@processedParameters)
-			]
-		]
-		(*TO DO: iterate over stocks to not ignore stock parameters*)
+							guessFirstValues = Rest@guessFirst,
+							coeff0 = First@coefficientNames
+						},
+						Module[
+							{
+								boundsGuess0,
+								boundsInfo0,
+								bounds0,
+								guess0,
+								lb,
+								ub,
+								fv,(*maybe move to With*)
+								intervalPattern,(*maybe move to With*)
+								intervals0(*maybe move to With*)
+							},
+							boundsGuess0=Switch[
+								Length[guessFirstValues],
+								1, True,
+								2, Inequality[guessFirstValues[[1]],LessEqual,coeff0,LessEqual,guessFirstValues[[2]]],
+								3, Inequality[guessFirstValues[[2]],LessEqual,coeff0,LessEqual,guessFirstValues[[3]]]
+							];		
+							(*combine with assumptions*)	
+							boundsInfo0=If[
+								KeyExistsQ[infoModel,"modelAssumptions"] && KeyExistsQ[infoModel["modelAssumptions"],iEv]
+								,
+								infoModel["modelAssumptions"][iEv]
+								,
+								True
+							];
+							bounds0= Inactive[Reduce][Inactive[Simplify][ boundsGuess0 && boundsInfo0 && 0 < coeff0 < 15], coeff0];
+							fv=First@guessFirstValues;
+							intervalPattern=Alternatives@@((Inequality[ lb_?NumberQ,#[[1]],coeff0,#[[2]], ub_?NumberQ])&/@Tuples[{Less,LessEqual},2]);
+							intervals0=Inactive[Cases][bounds0,intervalPattern :> {coeff0,Inactive[If][Inactive[TrueQ][lb<=fv<=ub],fv,(lb+ub)/2],lb,ub},{0,1}];
+							guess0=Inactive[If][
+								Inactive[SameQ][{}, intervals0]
+								,
+								(*if assumptions don't give an interval, use initial guess only*)
+								{guessFirst}
+								,
+								(*if assumptions do give an interval, use it*)
+								intervals0
+							];		
+							Inactive[Map][Join[{#},Rest@startValues]&, guess0]
+						](*Module*)
+					](*With*)
+				](*With*)
+			](*Catch*)
+		](*Module for stocks*)
+	](*With*)
+](*With*)
+
+
+(* ::Subsubsection:: *)
+(*formatStartingValues*)
+
+
+formatStartingValues::badformat = "The format of `1` for starting points is incorrect. Try setting starting points using the optional argument {\"initialGuess\" -> \[LeftAssociation]\"Ewc\"\[Rule]{4.5},\"Epd\"\[Rule]{4.5}\[RightAssociation]}."
+
+
+formatStartingValues[
+	coefficientNames_List,
+	ratioUncondE_,
+	opts_:{},
+	infoModel_:<||>
+]:=With[
+	{
+		ratio = If[FreeQ[coefficientNames,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc],"pd","wc"],
+		pattern1 = (VectorQ[#,NumberQ] && 1<=Length[#]<=3)&,
+		pattern2 = { {_?(Not@NumberQ[#]&),Repeated[_?NumberQ,{1,3}]}..}
+	},
+	With[
+		{
+			pattern3 = (ListQ[#] && pattern1[First@#] && MatchQ[Rest@#, {} | pattern2])&,
+			ig = getStartingValues[ratio,opts,infoModel]
+		},
+		Module[{out},
+			Catch[
+				If[
+					StringMatchQ[ratio,"pd"] && And@@((pattern1[#] || (ListQ[#] && MatchQ[#, pattern2]) || pattern3[#])& /@ig)
+					,
+					out=With[
+						{
+							j=Last@Head@First@coefficientNames
+						},
+						MapIndexed[
+							formatStartingValues[
+								coefficientNames /. (j -> (First@#2)), 
+								ratioUncondE /. (j -> (First@#2)), 
+								{"initialGuess" -> <|"Epd" -> #1|>},
+								infoModel/. (j -> (First@#2))
+							]&,ig
+						]
+					];
+					Throw[out];
+				];
+				With[
+					{
+						firstIg = First@ig,
+						restIg = Rest@ig
+					},
+					With[
+						{
+							firstNames = First@coefficientNames,
+							restNames = Rest@coefficientNames
+						},
+						Which[
+							(*a number or a vector of up to three numbers*)
+							(*NumberQ[ig] || (VectorQ[ig,NumberQ] && 1<=Length[ig]<=3)*)
+							NumberQ[ig] || pattern1[ig]
+							,
+							(*wrap ig in list, add zeros for all other variables*)
+							If[
+								Length[ig]===2,
+								Join[{Flatten@{firstNames,Mean@ig,ig}},Thread[{#,0}]&/@restNames],
+								Join[{Flatten@{firstNames,ig}},Thread[{#,0}]&/@restNames]
+							]
+							,
+							(*a list of lists, with sublists having 1 to 3 numbers as their last entries*)
+							(*ListQ[ig] && MatchQ[ig, { {_?(Not@NumberQ[#]&),Repeated[_?NumberQ,{1,3}]}..}]*)
+							ListQ[ig] && MatchQ[ig, pattern2]
+							,
+							(*reformat to only include needed coefficients and fix the context of the coefficients if needed*)
+							Join[{Flatten@{firstNames,Rest@(firstIg)}},formatStartingValuesRest[restIg,restNames]]
+							,
+							(*ListQ[ig] && (NumberQ[firstIg]||(VectorQ[firstIg,NumberQ]&&1<=Length[firstIg]<=3))  &&  MatchQ[restIg, {} | { {_?(Not@NumberQ[#]&),Repeated[_?NumberQ,{1,3}]}..}]*)
+							pattern3[ig]
+							,
+							Module[
+								{
+									guessRest,
+									guessRules,
+									guessFirst,
+									keys,
+									values,
+									uncondERatio
+								},
+								guessRest=formatStartingValuesRest[restIg,restNames];
+								guessRules = MapThread[#1 -> If[Length[#2]==2,Mean[#2],#2[[1]]]&,{First/@guessRest,Rest/@guessRest}];
+								guessFirst=Solve[(ratioUncondE/.guessRules)==uncondERatio,firstNames,Reals];
+								keys = Keys[guessFirst];
+								values = Switch[
+									Length[firstIg],
+									1,
+										Values@(guessFirst/.uncondERatio->First@firstIg),
+									2,
+										Join[Values@(guessFirst/.uncondERatio->Mean@firstIg),Sort@@@(Values@(guessFirst/.(uncondERatio->(firstIg)))),2],
+									3,
+										Join[Values@(guessFirst/.uncondERatio->First@firstIg),Sort@@@(Values@(guessFirst/.(uncondERatio->(Rest@firstIg)))),2]
+								];
+								Join[Join[keys,values,2],guessRest]
+							](*Module*)
+							,
+							(*all other cases*)
+							True
+							,
+							Abort[];
+						](*Which*)
+					](*With*)
+				](*With*)
+			](*Catch for stocks*)
+		](*Module for stocks*)
+	](*With*)
+](*With*)
+
+getStartingValues[ratio_String,opts_:{},infoModel_:<||>]:=With[
+	{
+		iEv = "E"<>ratio
+	},
+	(*get initial guess from the places where it can be provided*)
+	ig=Which[
+		(*optional argument in call to solveEulerEq*)
+		KeyExistsQ[opts,"initialGuess"] && KeyExistsQ["initialGuess"/.opts,iEv],
+			("initialGuess"/.opts)[iEv],
+		(*modelsExtraInfo[modKey]["initialGuess"] in Catalog.wl*)
+		KeyExistsQ[infoModel,"initialGuess"] && KeyExistsQ[infoModel["initialGuess"],iEv],
+			infoModel["initialGuess"][iEv],
+		(*default function option*)
+		KeyExistsQ[Options[solveEulerEq],"initialGuess"] && KeyExistsQ["initialGuess"/.Options[solveEulerEq],iEv],
+			("initialGuess"/.Options[solveEulerEq])[iEv],
+		(*a number*)
+		True,
+			Switch[ratio,"wc",{4},"pd",{{6}}]
 	]
+]
+
+formatStartingValuesRest[startingValuesRest_,coefficientNamesRest_List]:=Module[
+	{
+		all,
+		guess,
+		inter,
+		overlapAll,
+		overlapGuess,
+		overlapNames,
+		noOverlapNames,
+		noOverlapNamesGuess,
+		overlapNamesGuess
+	},
+	all=ReplaceAll[coefficientNamesRest, ( a_[j__] | a_)[ind_] :> {SymbolName@a,If[j===Sequence ,Nothing,Switch[ Head[j],Symbol,SymbolName@j,Integer,IntegerString@j,_,ToString@j]],ind}];
+	guess=Replace[First/@startingValuesRest, ( a_[j__] | a_)[ind_] :> {SymbolName@a,If[j===Sequence ,Nothing,Switch[ Head[j],Symbol,SymbolName@j,Integer,IntegerString@j,_,ToString@j]],ind},{1}];
+	inter=Intersection[all,guess];
+	overlapAll=PositionIndex[all][#]&/@(Keys@PositionIndex[inter]);
+	overlapGuess=PositionIndex[guess][#]&/@(Keys@PositionIndex[inter]);
+	overlapNames=Extract[coefficientNamesRest,overlapAll];
+	noOverlapNames = Complement[coefficientNamesRest,overlapNames];
+	noOverlapNamesGuess=Thread[{#,0}]&/@noOverlapNames;
+	overlapNamesGuess=MapIndexed[Join[overlapNames[[#2]],Rest@#1]&,Extract[startingValuesRest,overlapGuess]];
+	SortBy[Join[overlapNamesGuess,noOverlapNamesGuess],First]
 ]
 
 

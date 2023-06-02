@@ -169,8 +169,8 @@ coefb = Cases[UpValues[bondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],
 coefnb = Cases[UpValues[nombondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],Infinity][[1]];
 
 endogEqAssumptions=
-	(*coefficients of wc*)Element[coefwc,Reals]  && 
-	(*coefficients of pd*)Element[coefpd,Reals] && 
+	(*coefficients of wc*)Element[coefwc,Reals]  && coefwc[0]>0 && Ewc>0 &&
+	(*coefficients of pd*)Element[coefpd,Reals] && coefpd[0]>0 && Epd[_]>0 &&
 	(*coefficients of real bond prices*)Element[coefb,Reals] && 
 	(*coefficients of nominal bond prices*)Element[coefnb,Reals] &&
 	(*linearization constants*)kappa0[__]>0 && kappa0[_]<1 && 
