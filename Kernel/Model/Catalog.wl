@@ -1154,7 +1154,7 @@ models = <|
 				phipc -> 0,
 				phipx -> 0,
 				phipcx -> 0,
-				phipp -> 0.0038,
+				phipp -> 0,
 				phipxp -> 0,
 			(*"Expected inflation"*)
 			mupbar -> 0,
@@ -1178,7 +1178,7 @@ models = <|
 				phics -> 0.5,
 				phicx -> 0,
 				phicc -> 0,
-				phicpc -> 0.005,
+				phicpc -> 0,
 				phicpp -> 0,
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
@@ -1214,7 +1214,7 @@ models = <|
 					phidpp[1] -> 0,
 					phidxd[1] -> 0,
 					phidcd[1] -> 0,
-					phidpd[1] -> 0.002,
+					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
 	|>,
@@ -1321,7 +1321,7 @@ models = <|
 		"desc" -> "NRC modeled as in model NRC (inflation		
 					shocks predict consumption in				
 			time-varying way)",
-		"stateVars" -> {x[t],sx[t],-mupbar+pibar[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2},
+		"stateVars" -> {x[t],sx[t],-mupbar+pibar[t],-mup+pi[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9995,
@@ -1354,7 +1354,7 @@ models = <|
 				phipbarcx -> 0,
 				phipbarpb -> 0,
 				phipbarxb -> 0,
-				phipbarxp -> -0.143835018418508,
+				phipbarxp -> 0,
 			(*"Real consumption growth"*)
 			muc -> 0.0015254166666666667,
 				rhocx -> 1,
@@ -1770,9 +1770,63 @@ modelsExtraInfo = <|
 				"Ewc" -> {5.2},
 				"Epd" -> {{4}}
 			|>
+	|>,
+	(**********************************************************)
+	"hasselNRC" -> <|
+		"coeffs" -><|
+			"wc"-> With[
+				{
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc
+				},
+				{
+					A[3] -> 0,
+					A[4] -> 0,
+					A[6] -> 0
+				}
+			],
+			"pd" -> With[
+				{
+					(*sv = models["NRC"]["stateVars"],*)
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+					B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
+					j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
+					sign = 1
+				},
+				{
+					B[j][3] -> 0,
+					B[j][4] -> 0,
+					B[j][6] -> 0
+				}
+			]
+		|>
+	|>,
+	(**********************************************************)
+	"infStochVol" -> <|
+		"coeffs" -><|
+			"wc"-> With[
+				{
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc
+				},
+				{
+					A[4] -> 0
+				}
+			],
+			"pd" -> With[
+				{
+					(*sv = models["NRC"]["stateVars"],*)
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+					B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
+					j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
+					sign = 1
+				},
+				{
+					B[j][4] -> 0
+				}
+			]
+		|>
 	|>
 	(**********************************************************)
-|>;
+|>;(*end modelsExtraInfo*)
 
 
 End[] (*"`Private`"*)

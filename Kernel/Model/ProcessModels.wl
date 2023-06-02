@@ -71,7 +71,7 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 (*SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
 FullSymbolName=ResourceObject["FullSymbolName"];*)
 
-processModels[modelsCatalog_]:=
+processModels[modelsCatalog_, modelsExtraInfo_:<||>]:=
 	Module[
 	{
 		keys=Keys[modelsCatalog],
@@ -184,9 +184,23 @@ processModels[modelsCatalog_]:=
 	]&/@models;*)
 	
 	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
-
-	(*add addCoeffsSolution with fields "coeffsSolution" and subfields "wc" "pd"*)
+	models = Append[
+		#,
+		"extraInfo" -> If[KeyExistsQ[modelsExtraInfo,#["shortname"]],modelsExtraInfo[#["shortname"]],<||>]
+	]& /@ models;
 	
+	(*add inactive solution to Euler equations*)
+	opts = {};(*TO DO: pass options, allow to pass use/don't use extraInfo flag, or user's own extraInfo*)
+	models = Append[
+		#,
+		"coeffsSolution" -> <| 
+			"wc"->addCoeffsSolution[#,"wc", opts],
+			"pd"->addCoeffsSolution[#,"pd", opts],
+			"bond"->addCoeffsSolution[#,"bond", opts],
+			"nombond"->addCoeffsSolution[#,"nombond", opts]
+		|>
+	]& /@ models;
+
 	(*restore $ContextPath to initial state*)
 	$ContextPath=ContextPath;
 
@@ -437,12 +451,13 @@ addCoeffsSystem[model_]:=Module[
 (*addCoeffsSolution*)
 
 
-addCoeffsSolution[model_, ratio_String, opts_List:{}, infoModel_Association:<||>]:=With[
+addCoeffsSolution[model_, ratio_String, opts_List:{}]:=With[
 	{
 		cs = model["coeffsSystem"][ratio],
 		shortname = model["shortname"],
 		numStocks = model["numStocks"],
-		ratioUncondE=model["ratioUncondE"][ratio]
+		ratioUncondE=model["ratioUncondE"][ratio],
+		infoModel = model["extraInfo"]
 	},
 	With[
 		{
@@ -471,7 +486,7 @@ addCoeffsSolution[model_, ratio_String, opts_List:{}, infoModel_Association:<||>
 				KeyExistsQ[infoModel,"coeffs"]&&KeyExistsQ[infoModel["coeffs"],ratio]
 				,
 				(*use the closed form to make the system of equations smaller*)
-				coeffInfo=infoModel["coeffs"][ratio];
+				coeffInfo=Join[infoModel["coeffs"][ratio],infoModel["coeffs"]["wc"]];
 				solvedQ=Quiet[Simplify[#,Assumptions->n>=1&&Element[n,Integers],TimeConstraint->{1,2}]&/@(system[[2;;-1]]//.coeffInfo/.dependentParameters),Simplify::gtime];
 				If[
 					(*if the closed form coefficients from infoModel make some equation not hold*)
