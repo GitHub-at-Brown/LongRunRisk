@@ -464,8 +464,8 @@ addCoeffsSolution[model_, ratio_String, opts_List:{}, infoModel_Association:<||>
 				replaceCoeffInfo,
 				coeffInfoSol
 			},
-			Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
-			Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+(*			Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+			Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];*)
 			If[
 				(*infoModel has coefficients in closed form*)
 				KeyExistsQ[infoModel,"coeffs"]&&KeyExistsQ[infoModel["coeffs"],ratio]
@@ -544,8 +544,6 @@ addCoeffsSolution[model_, ratio_String, opts_List:{}, infoModel_Association:<||>
 					With[
 						{
 							bondCoefficientRules=unknowns /. (x_[n][j_Integer] :> RuleDelayed[x[m_][j], Symbol[(SymbolName@x)<>IntegerString[j]][m]])
-							(*ic=Flatten@{(First@initialConditions)//.coeffInfo,Pick[Rest@initialConditions,notSolvedQ]}*)
-							(*solInfo=Table[Thread[remainingUnknowns->(remainingUnknowns/.coeffInfoSol)]/.n->m,{m,1,maxMaturity}]*)
 						},
 						Module[
 							{
@@ -574,7 +572,6 @@ addCoeffsSolution[model_, ratio_String, opts_List:{}, infoModel_Association:<||>
 							solNum[maxMaturity:_Integer?Positive]:=Inactive[MapIndexed][Inactive[Thread][(coefficientNames/.n->(First@#2-1))->#1]&,solBondNum[maxMaturity]];
 							solInfo[maxMaturity:_Integer?Positive]:= If[remainingUnknowns==={},ConstantArray[{},maxMaturity+1],Inactive[Prepend][Inactive[Table][Inactive[Thread][remainingUnknowns->(remainingUnknowns/.coeffInfoSol)]/.n->m,{m,1,maxMaturity}],Complement[cs[[3]],x]/.Equal->Rule]];
 							{
-								(*Inactive[Prepend][Inactive[Join][solNum,solInfo,2],initialConditions/.Equal->Rule]*)
 								solNum,
 								solInfo
 							}
@@ -582,8 +579,6 @@ addCoeffsSolution[model_, ratio_String, opts_List:{}, infoModel_Association:<||>
 					](*With*)
 				](*With*)
 			](*Switch*)
-			(*Inactive[Join][sol, Inactive[ReplaceAll][coeffInfoSol, sol]]*)
-			(*{sol, coeffInfoSol}*)
 		](*Module*)
 	](*Which*)
 ](*Which*)
