@@ -88,7 +88,28 @@ Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 $ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 
 
-Symbol/@{"wc","pd","bond","nombond","bondexcret","bondfw","bondfwspread","bondret","bondyield"(*,"euler"*),"excretc","excret","kappa0","kappa1","nombondexcret","nombondfw","nombondfwspread","nombondret","nombondyield"(*,"nomeuler"*),"nomrf","nomsdf","retc","ret","rf","sdf"};
+(*declare symbols for endogenous variables that do not end in "eq", inherit usage message*)
+Symbol/@ ((StringDrop[#,-2]&) /@ $endogenousVars);
+
+Function[sym,
+	With[
+		{
+			symNew=Symbol@StringDrop[SymbolName@sym,-2]
+		},
+		AppendTo[
+			Messages[symNew],
+			HoldPattern[MessageName[symNew,"usage"]]:>StringReplace[
+				Information[sym,"Usage"],
+				{
+					SymbolName@sym->SymbolName@symNew,
+					"gives"->"represents"
+				}
+			]/;StringQ[MessageName[sym,"usage"]]
+		];
+	];
+	,
+	HoldAll
+]@@@(Hold /@ Symbol /@ $endogenousVars);
 
 
 (* conjecture the wealth-consumption ratio is linear in stateVars *)

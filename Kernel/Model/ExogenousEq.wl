@@ -26,7 +26,29 @@ Begin["`Private`"]
 
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"]
-Symbol/@{"x","pi","pibar","dc","sg","sx","sc","sp","dd","t"};
+
+(*declare symbols for exogenous variables that do not end in "eq", inherit usage message*)
+Symbol/@ ((StringDrop[#,-2]&) /@ $exogenousVars);
+
+Function[sym,
+	With[
+		{
+			symNew=Symbol@StringDrop[SymbolName@sym,-2]
+		},
+		AppendTo[
+			Messages[symNew],
+			HoldPattern[MessageName[symNew,"usage"]]:>StringReplace[
+				Information[sym,"Usage"],
+				{
+					SymbolName@sym->SymbolName@symNew,
+					"gives"->"represents"
+				}
+			]/;StringQ[MessageName[sym,"usage"]]
+		];
+	];
+	,
+	HoldAll
+]@@@(Hold /@ Symbol /@ $exogenousVars);
 
 
 
