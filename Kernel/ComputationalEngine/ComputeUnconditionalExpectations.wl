@@ -190,11 +190,12 @@ createSystem[n_,model_]:=With[
 					powersString=IntegerString@powers;
 					stateVarsNoEpsString=ToString/@stateVarsNoEps;
 					stateVarsPowers=Riffle[stateVarsNoEpsString,#]&/@powersString;
-					unknowns =Module[
+					unknowns = Symbol /@ Map[StringJoin,Map[If[IntegerQ[#],IntegerString[#],ToString[#]]&, (Tally /@ stateVarsSets), {3}], {1}];
+					(*unknowns =Module[
 						{z}
 						,
-						ToExpression /@Map[StringJoin,Map[If[IntegerQ[#],IntegerString[#],SymbolName[#]]&, (Tally /@ stateVarsSets), {3}], {1}]
-					];
+						ToExpression /@ Map[StringJoin,Map[If[IntegerQ[#],IntegerString[#],SymbolName[#]]&, (Tally /@ stateVarsSets), {3}], {1}]
+					];*)
 					(*stateVarsProductsLocal=ReplaceAll[stateVarsProducts,k_Symbol?(MemberQ[Alternatives@@(SymbolName/@stateVarsNoEps),SymbolName[#]]&)[g_]:>Symbol[SymbolName[k]][g]];
 					nameRules=Thread[(stateVarsProductsLocal/. t_Symbol?(MatchQ[SymbolName[#],"t"]&)->_ )->unknowns];(*/.x_Symbol:>Symbol[SymbolName[x]]*)
 					

@@ -11,7 +11,8 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]
 (*Public symbols*)
 
 
-Info
+info
+createEqTables
 
 
 (* ::Subsubsection:: *)
@@ -23,7 +24,7 @@ TeXToModel::usage = "Association of LATEX strings for parameters of the model an
 
 allParamTable::usage = "allParamTable[m]";
 paramTable::usage = "paramTable[m]";
-info::usage = "info[m]";
+info::usage = "info[m] is nice";
 
 modelFormattingTemplate::usage = "modelFormattingTemplate[model] Re-writes model as a Cell object with nice formatting.
 	To automatically write the output of modelFormattingTemplate[model] into a cell that can be copied and pasted,
@@ -58,7 +59,9 @@ Begin["`Private`"]
 <<FernandoDuarte`LongRunRisk`Model`Parameters`;
 <<FernandoDuarte`LongRunRisk`Model`Shocks`;
 <<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
+$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 <<FernandoDuarte`LongRunRisk`Model`Catalog`;
+<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
 <<FernandoDuarte`LongRunRisk`Model`ProcessModels`;
 <<MaTeX`;
 
@@ -85,27 +88,6 @@ MakeBoxes::usage="MakeBoxes[] ."<>"\n"<>
 				"MakeBoxes[] .";
 
 
-(* ::Subsection:: *)
-(*Info*)
-
-
-Info[m_]:=Module[
-	{
-		models=m,
-		modelKeys= Keys[m[[1]]]
-	},
-	If[ 
-		Not@MemberQ[modelKeys,"exogenousEq"],
-		models = processModels[models]
-	];
-	If[ 
-		Not@MemberQ[modelKeys,"exogenousEqTable"] || Not@MemberQ[modelKeys,"exogenousEqTableNumeric"],
-		models = createEqTables[models]
-	];
-	out=Column[info[models[#]]&/@Keys[models]]
-]
-
-
 (* ::Subsubsection:: *)
 (*createEqTables*)
 
@@ -121,9 +103,22 @@ createEqTables[m_]:=Module[
 		exoNiceOutput,
 		exoNiceOutputN
 	},
+	
+(*	<<FernandoDuarte`LongRunRisk`Model`Parameters`;
+<<FernandoDuarte`LongRunRisk`Model`Shocks`;
+<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
+$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
+<<FernandoDuarte`LongRunRisk`Model`Catalog`;
+<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
+$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`"];*)
+
 	(*functions to extract and format left-hand side and right-hand side of equations for exogenous variables*)
-	lhs[model_]:=Normal@(model["exogenousEq"][[;;,;;,2,1]]/.(Verbatim[Pattern][name_,_]:>name)/.Function->Identity)/. ((a_->{b__}):>(a@b));
-	rhs[model_]:=Values@(model["exogenousEq"][[;;,;;,2,2]]/.Function->Identity);
+	lhs[model_]:=Join[
+		Symbol[StringDrop[#,-2]][t]&/@Cases[model["exogenousVars"],Except["ddeq"]]
+		,
+		Table[dd[t,j],{j,1,model["numStocks"]}]
+	];
+	rhs[model_]:=lhs[model]/.Normal@model["exogenousEq"];
 	exoNiceOutput=OpenerView[
 		{
 			"Exogenous variables", 
@@ -411,7 +406,7 @@ iToNum[s : <|(_String -> _String)..|>, numStocks_Integer:1] :=
 	Map[iToNum[#, numStocks]&, (Normal @ s)]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*modelToTeX*)
 
 
@@ -496,8 +491,19 @@ modelToTeX=<|
 		"phidxd[i]"->"\\phi_{d,xd}^{(i)}",
 		"phidcd[i]"->"\\phi_{d,cd}^{(i)}",
 		"phidpd[i]"->"\\phi_{d,pd}^{(i)}",
-		"taugd[i]"->"\\tau_{gd}^{(i)}"
+		"taugd[i]"->"\\tau_{gd}^{(i)}",
+	(*"Shocks"*)
+	"eps" -> "\\varepsilon",
+	(*Exogenous variables*)
+	"dc" -> "\\Delta c"
 |>;
+(*
+{
+	eps[x_String][t__]:>("eps"/.Normal@modelToTeX)<>"_{"<>x<>"}("<>ToString[t]<>")",
+	x_Symbol[t_.]:>(SymbolName[x]/.Normal@modelToTeX)<>"("<>ToString[t]<>")",
+	x_Symbol/;MemberQ[Keys@modelToTeX,SymbolName@x]:>(SymbolName[x]/.Normal@modelToTeX)
+}
+*)
 
 
 (* ::Subsubsection:: *)
