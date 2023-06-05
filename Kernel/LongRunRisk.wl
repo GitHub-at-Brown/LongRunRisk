@@ -63,6 +63,7 @@ Info;
 uncondCov;*)
 ToNum;
 ToExogenous;
+YieldCurve;
 
 (*re-exported symbols*)
 (*Models;
@@ -163,6 +164,16 @@ uncondCov[x_,y_] := FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUncond
 uncondE::usage = Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE,"Usage"];
 (*uncondVar::usage = Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondVar,"Usage"];
 uncondCov::usage = Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov,"Usage"];*)
+
+
+
+(* ::Subsubsection:: *)
+(*Plots*)
+
+
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];
+YieldCurve[args___] := FernandoDuarte`LongRunRisk`Tools`NicePlots`yieldCurve@@{args};
+YieldCurve::usage = Information[FernandoDuarte`LongRunRisk`Tools`NicePlots`yieldCurve,"Usage"];
 
 
 
