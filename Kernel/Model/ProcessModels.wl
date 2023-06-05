@@ -67,11 +67,16 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 (*processModels*)
 
 
+processModels//Options = {
+	"SaveModels" -> False
+};
+
+
 (*adds useful key-value pairs to models*)
 (*SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
 FullSymbolName=ResourceObject["FullSymbolName"];*)
 
-processModels[modelsCatalog_, modelsExtraInfo_:<||>]:=
+processModels[modelsCatalog_Association, modelsExtraInfo_Association:<||>, opts:OptionsPattern[]]:=
 	Module[
 	{
 		keys=Keys[modelsCatalog],
@@ -79,7 +84,9 @@ processModels[modelsCatalog_, modelsExtraInfo_:<||>]:=
 		ContextPath=$ContextPath,
 		z,
 		i,
-		modelAssumptions
+		modelAssumptions,
+		optsSol,
+		maxMomentOrder
 	},
 	(*replace stateVars by a function t |-> stateVars[t] *)
 	models = Append[
@@ -123,11 +130,19 @@ processModels[modelsCatalog_, modelsExtraInfo_:<||>]:=
 	
 	models = KeyDrop[#, "stockZeroParam"]& /@ models;
 	
+	(*parameters that can be changed for each model*)
+	models = Append[
+			#,
+			"params" -> Complement[#["parameters"], #["assignParam"]]
+	]& /@ models;
+	
 	(*add "exogenousVars","exogenousEq" to each model*)
 	models = createExogenous[models];
+	(*TO DO: add  exogenousVarNames without eq at the end just for user*)
 	
 	(*add "endogenousVars","endogenousEq" to each model*)
 	models = createEndogenous[models];
+	(*TO DO: add endogenousVarNames without eq at the end just for user*)
 	
 	(*add assumptions*)
 	modelAssumptions = FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramAssumptions 
@@ -190,23 +205,28 @@ processModels[modelsCatalog_, modelsExtraInfo_:<||>]:=
 	]& /@ models;
 	
 	(*add inactive solution to Euler equations*)
-	opts = {};(*TO DO: pass options, allow to pass use/don't use extraInfo flag, or user's own extraInfo*)
+	optsSol = {};(*TO DO: pass options, allow to pass use/don't use extraInfo flag, or user's own extraInfo*)
 	models = Append[
 		#,
 		"coeffsSolution" -> <| 
-			"wc"->addCoeffsSolution[#,"wc", opts],
-			"pd"->addCoeffsSolution[#,"pd", opts],
-			"bond"->addCoeffsSolution[#,"bond", opts],
-			"nombond"->addCoeffsSolution[#,"nombond", opts]
+			"wc"->addCoeffsSolution[#,"wc", optsSol],
+			"pd"->addCoeffsSolution[#,"pd", optsSol],
+			"bond"->addCoeffsSolution[#,"bond", optsSol],
+			"nombond"->addCoeffsSolution[#,"nombond", optsSol]
 		|>
 	]& /@ models;
 
+	(*add a list of existing Keys called Properties*)
+	models=Append[
+		#,
+		"Properties" -> Keys[#]
+	]&/@models;	
+	
 	(*restore $ContextPath to initial state*)
 	$ContextPath=ContextPath;
 
 	(*restore original keys and output models*)
-	KeyMap[Replace[#,Thread[Keys[models]->keys]]&,models]
-
+	models = KeyMap[Replace[#,Thread[Keys[models]->keys]]&,models]
 ]
 
 
@@ -572,7 +592,7 @@ addCoeffsSolution[model_, ratio_String, opts_List:{}]:=With[
 							posConstantCoeff=Position[eq,_?(FreeQ[#,n-1]&),1,Heads->False];
 							perturbation=If[posConstantCoeff==={},0,10^(-18)*(First@Extract[coefficientNames,posConstantCoeff]/.(n->n-1))];
 							bondRecursionPerturbation=MapAt[(#/.(Equal[a_,b_]:>Equal[a,b+perturbation])&),eq,posConstantCoeff];
-							solBondNum[maxMaturity:_Integer?Positive]:=Inactive[RecurrenceTable][
+							solBondNum[maxMaturity_:_Integer?Positive]:=Inactive[RecurrenceTable][
 								Flatten[
 									{
 										bondRecursionPerturbation,
@@ -580,16 +600,24 @@ addCoeffsSolution[model_, ratio_String, opts_List:{}]:=With[
 									}
 								]/.bondCoefficientRules,
 								coefficientNames/.bondCoefficientRules,
-								{n,0,maxMaturity}(*,
+								{n,0,maxMaturity}
+								(*,
 								Evaluate[FilterRules[{opts}, Options[RecurrenceTable]]],
-								Evaluate@OptionValue["RecurrenceTableOptions"]*)
-							];							
-							solNum[maxMaturity:_Integer?Positive]:=Inactive[MapIndexed][Inactive[Thread][(coefficientNames/.n->(First@#2-1))->#1]&,solBondNum[maxMaturity]];
-							solInfo[maxMaturity:_Integer?Positive]:= If[remainingUnknowns==={},ConstantArray[{},maxMaturity+1],Inactive[Prepend][Inactive[Table][Inactive[Thread][remainingUnknowns->(remainingUnknowns/.coeffInfoSol)]/.n->m,{m,1,maxMaturity}],Complement[cs[[3]],x]/.Equal->Rule]];
+								Evaluate@OptionValue["RecurrenceTableOptions"]
+								*)
+							];					
+							solNum[maxMaturity_]:=With[{coefficientNamesLocal=coefficientNames},Inactive[MapIndexed][Inactive[Thread][(coefficientNamesLocal/.n->(First@#2-1))->#1]&,solBondNum[maxMaturity]]];
+							solInfo[maxMaturity_]:= If[remainingUnknowns==={},Inactive[ConstantArray][{},maxMaturity+1],Inactive[Prepend][Inactive[Table][Inactive[Thread][remainingUnknowns->(remainingUnknowns/.coeffInfoSol)]/.n->m,{m,1,maxMaturity}],Complement[cs[[3]],x]/.Equal->Rule]];
 							{
 								solNum,
 								solInfo
-							}
+							};
+							(*With[{br=bondRecursionPerturbation,xr=x,bcr=bondCoefficientRules,cn=coefficientNames},*)
+								{
+									maxMaturity|->Evaluate@solNum[maxMaturity],
+									maxMaturity|->Evaluate@solInfo[maxMaturity]
+								}
+								(*]*)
 						](*Module*)
 					](*With*)
 				](*With*)

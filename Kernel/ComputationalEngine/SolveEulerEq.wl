@@ -8,6 +8,8 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
 
 coeff::usage = "coeff[model] solves for the coefficients in the wealth-consumption ratio, price-dividend ratio of stocks, and bond prices."
+processNewParameters::usage = "";
+updateCoeffSol::usage = "";
 createStartingPoint::usage = "";
 getStartingValues::usage = "";
 formatStartingValuesRest::usage = "";
@@ -542,6 +544,107 @@ formatStartingValuesRest[startingValuesRest_,coefficientNamesRest_List]:=Module[
 	overlapNamesGuess=MapIndexed[Join[overlapNames[[#2]],Rest@#1]&,Extract[startingValuesRest,overlapGuess]];
 	SortBy[Join[overlapNamesGuess,noOverlapNamesGuess],First]
 ]
+
+
+(* ::Subsection:: *)
+(*updateCoeffSol*)
+
+
+updateCoeffSol//Options ={
+"PrintResidualsNorm"->True,
+"CheckResiduals"->True,
+"Tol"->10^-16
+};
+updateCoeffSol::largeresid="The norm of the residuals (errors) is `1`, which is larger than the specified tolerance `2`.";
+
+
+checks[eqs_, sol_, params_, newParams_] :=
+	With[{residualsNorm = Norm @ (Subtract @@@ (eqs //. newParams //. params
+		 //. sol))},
+		If[TrueQ @ OptionValue["PrintResidualsNorm"],
+			Echo[residualsNorm, "Norm of residual (error) for the wealth-consumption ratio coefficients"
+				];
+		];
+		If[TrueQ @ OptionValue["CheckResiduals"] && TrueQ[residualsNorm >= 
+			OptionValue["Tol"]],
+			Message[updateCoeffSol::check, residualsNorm, OptionValue["Tol"]]
+		];
+	];
+
+
+(* ::Input::Initialization:: *)
+updateCoeffSol[model_Association,newParameters_List,GuessCoeffsSolution_List:{}]:=With[
+{
+	parameters=model["parameters"],
+	params = model["params"]
+},
+	With[
+	{
+		newProcessedParam=processNewParameters[newParameters,params]
+	},
+	With[
+	{
+	stockFreeQ=FreeQ[#,_Symbol[_Integer]]&/@(Keys@newProcessedParam),
+	doChecks=TrueQ@OptionValue["PrintResidualsNorm"] || TrueQ@OptionValue["CheckResiduals"] 
+	},
+Module[
+{
+solWc = Nothing,
+solPd = Nothing,
+solFirst,
+solRest,
+solFirstStocks,
+solRestStocks
+},
+	Which[
+	(*if none of the new parameters are stock parameters*)
+	AllTrue[stockFreeQ,TrueQ]
+	,
+		(*only update wealth-consumption ratio coefficients*)
+		{solFirst,solRest}=Activate[model["coeffsSolution"]["wc"]//.newProcessedParam//.parameters];
+		solWc=Flatten@Join[solFirst,solRest/.solFirst,2];
+		
+		If[
+		doChecks,
+		checks[First@model["coeffsSystem"]["wc"],solWc,parameters,newProcessedParam];
+		];
+	,
+	(*if all of the new parameters are stock parameters*)
+	AllTrue[Not/@stockFreeQ,TrueQ]
+	,
+		(*only update price-dividend ratio coefficients*)
+		solWc=If[GuessCoeffsSolution==={},
+		(*if coefficients for wc were not provided, will have to compute them anyway*)
+		{solFirst,solRest}=Activate[model["coeffsSolution"]["wc"]//.newProcessedParam//.parameters];
+		Flatten@Join[solFirst,solRest/.solFirst,2],
+		GuessCoeffsSolution
+		];
+		
+		{solFirstStocks,solRestStocks}=Activate[model["coeffsSolution"]["pd"]//.newProcessedParam//.parameters /.solWc,Reduce|Simplify|Cases|Flatten|If|TrueQ|SameQ |Map | MapThread]//Activate;
+		solPd=MapThread[Flatten@{#1,#2/.#1}&,{solFirstStocks,solRestStocks}];
+		(*TO DO: If[doChecks, ... ];*)
+	,
+	(*both stock and non-stock parameters*)
+	True
+	,
+		{solFirst,solRest}=Activate[model["coeffsSolution"]["wc"]//.newProcessedParam//.parameters];
+		solWc=Flatten@Join[solFirst,solRest/.solFirst,2];
+
+		{solFirstStocks,solRestStocks}=Activate[model["coeffsSolution"]["pd"]//.newProcessedParam//.parameters /.solWc,Reduce|Simplify|Cases|Flatten|If|TrueQ|SameQ |Map | MapThread]//Activate;
+		solPd=MapThread[Flatten@{#1,#2/.#1}&,{solFirstStocks,solRestStocks}];
+
+		If[
+			doChecks,
+			checks[First@model["coeffsSystem"]["wc"],solWc,parameters,newProcessedParam];
+		];(*TO DO: checks for stocks;*)
+
+];(*Which*)
+Flatten@{solWc,solPd}
+](*Module*)
+](*With*)
+](*With*)
+](*With*)
+
 
 
 (* ::Section:: *)

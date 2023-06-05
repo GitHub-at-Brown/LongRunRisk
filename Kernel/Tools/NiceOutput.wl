@@ -92,6 +92,13 @@ MakeBoxes::usage="MakeBoxes[] ."<>"\n"<>
 (*createEqTables*)
 
 
+(*SetAttributes[{ContextFreeForm,ContextFreeInformation},HoldAll]
+
+ContextFreeForm/:MakeBoxes[ContextFreeForm[expr_],form_]:=Block[{Internal`$ContextMarks=False},MakeBoxes[expr,form]]
+
+ContextFreeInformation[expr_]:=With[{name=ToString[Unevaluated@expr,InputForm]},Block[{Internal`$ContextMarks=False},Information[name]]]*)
+
+
 createEqTables[m_]:=Module[
 	(*adds nicely formatted tables with exogenous equations to each model in m*)
 	{
@@ -114,7 +121,7 @@ $ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Tools`NiceOutput`
 
 	(*functions to extract and format left-hand side and right-hand side of equations for exogenous variables*)
 	lhs[model_]:=Join[
-		Symbol[StringDrop[#,-2]][t]&/@Cases[model["exogenousVars"],Except["ddeq"]]
+		Evaluate[Symbol[StringDrop[#,-2]][t]&/@Cases[model["exogenousVars"],Except["ddeq"]]]
 		,
 		Table[dd[t,j],{j,1,model["numStocks"]}]
 	];
