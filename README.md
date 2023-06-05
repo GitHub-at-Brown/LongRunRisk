@@ -3,4 +3,4 @@
 # LongRunRisk
 Tools to solve and analyze long-run risk models
 
-[Instructions for installation](https://www.wolframcloud.com/obj/fernandoduarte/Published/LongRunRisk-starter.nb)
+[Instructions for installation](https://www.wolframcloud.com/obj/fernandoduarte/Published/QuickStart.nb)
