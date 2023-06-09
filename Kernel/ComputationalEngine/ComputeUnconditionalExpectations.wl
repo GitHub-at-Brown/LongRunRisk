@@ -10,6 +10,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditiona
 uncondE::usage = "uncondE[x,model] gives the unconditional mean of x in model."; 
 uncondVar::usage = "uncondVar[x,model] gives the unconditional variance of x in model."; 
 uncondCov::usage = "uncondCov[x,y,model] gives the unconditional covariance of x and y in model."; 
+uncondCorr::usage = "uncondCorr[x,y,model] gives the unconditional correlation of x and y in model."; 
 
 
 Begin["`Private`"];
@@ -141,6 +142,9 @@ createSystem[n_,model_]:=With[
 				stateVarsPowers,
 				unknowns,
 				stateVarsProductsLocal,
+				nameRulesUnsorted,
+				sortOrder,
+				sortFun,
 				nameRules,
 				stateVarsEqsLocal,
 				system,
@@ -190,7 +194,8 @@ createSystem[n_,model_]:=With[
 					powersString=IntegerString@powers;
 					stateVarsNoEpsString=ToString/@stateVarsNoEps;
 					stateVarsPowers=Riffle[stateVarsNoEpsString,#]&/@powersString;
-					unknowns = Symbol /@ Map[StringJoin,Map[If[IntegerQ[#],IntegerString[#],ToString[#]]&, (Tally /@ stateVarsSets), {3}], {1}];
+					(*unknowns = Symbol /@ Map[StringJoin,Map[If[IntegerQ[#],IntegerString[#],ToString[#]]&, (Tally /@ stateVarsSets), {3}], {1}];*)
+					unknowns = Symbol /@ Map[StringJoin,Map[If[IntegerQ[#],IntegerString[#],SymbolName[#]]&, (Tally /@ stateVarsSets), {3}], {1}];
 					(*unknowns =Module[
 						{z}
 						,
@@ -203,7 +208,13 @@ createSystem[n_,model_]:=With[
 					stateVarsEqsLocal=ReplaceAll[stateVarsEqs,k_Symbol?(MemberQ[Alternatives@@(SymbolName/@stateVarsNoEps),SymbolName[#]]&)[g_]:>Symbol[SymbolName[k]][g]];
 					
 					system=Thread[stateVarsProducts==stateVarsEqsLocal]/.nameRules;*)		
-					nameRules=Thread[(stateVarsProducts/. x_Symbol?(MatchQ[SymbolName[#],"t"]&) ->_ )->unknowns];(*/.x_Symbol:>Symbol[SymbolName[x]]*)
+					nameRulesUnsorted=Thread[(stateVarsProducts/. x_Symbol?(MatchQ[SymbolName[#],"t"]&) ->_ )->unknowns];(*/.x_Symbol:>Symbol[SymbolName[x]]*)
+					
+					(*sort nameRules to apply products of a larger number of variables first*)
+					sortOrder=Count[#,0]&/@powers;
+					sortFun[namerule_]:=First@Extract[sortOrder,Position[nameRulesUnsorted,namerule]];
+					nameRules=Sort[nameRulesUnsorted,(sortFun[#1]<sortFun[#2])&];
+
 					system=Thread[stateVarsProducts==stateVarsEqs]/.nameRules;
 					
 					(*return system, unknowns, and naming rules*)
@@ -226,10 +237,10 @@ createSystem[n_,model_]:=With[
 
 
 (*solveSystem[n_Integer/;n>0,model_]:=
-	With
+	With[
 	{
 		m=model
-	}
+	},
 	Module[
 	{
 		system,
@@ -239,18 +250,19 @@ createSystem[n_,model_]:=With[
 		newSystem,
 		newUnknowns
 	},
-		{system,unknowns,nameRules}=createSystem[n,model];
-		lastSol=solveStage[n-1];
+		{nameRules,system,unknowns}=createSystem[n,model];
+		lastSol=solveStage[n-1,model];
 		newSystem=Cases[system/.lastSol,Except[True]];
 		newUnknowns=Complement[unknowns,lastSol[[;;,1]]];
 		Join[Flatten@Solve[system,unknowns],lastSol]
 	]
 ]
 solveStage[0]={};
-solveSystem[4]
-Solve[system,unknowns]
-uncondMomStateVars=Solve[##]&@@(createSystem[n,modNRC])
-*)
+solveSystem[1,model]*)
+(*solveSystem[4]*)
+(*Solve[system,unknowns]
+uncondMomStateVars=Solve[##]&@@(createSystem[n,modNRC])*)
+
 
 
 (*maxMoment=2;
@@ -320,9 +332,9 @@ uncondE[x_,model_]:= With[
 ]
 
 (* unconditional variances and covariances *)
-uncondVar[x_]:=uncondE[(x-uncondE[x])^2]
-uncondCov[x_,y_]:=uncondE[(x-uncondE[x])(y-uncondE[y])]
-uncondCorr[x_,y_]:=uncondCov[x,y]/(Sqrt[uncondVar[x]]Sqrt[uncondVar[y]])
+uncondVar[x_,model_]:=uncondE[(x-uncondE[x,model])^2,model]
+uncondCov[x_,y_,model_]:=uncondE[(x-uncondE[x,model])(y-uncondE[y,model]),model]
+uncondCorr[x_,y_,model_]:=uncondCov[x,y,model]/(Sqrt[uncondVar[x,model]]Sqrt[uncondVar[y,model]])
 
 
 (* ::Section:: *)

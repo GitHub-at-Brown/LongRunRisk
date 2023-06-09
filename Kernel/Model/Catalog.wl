@@ -1746,7 +1746,8 @@ modelsExtraInfo = <|
 						j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
 						sign = 1
 					},
-					 (1/(1 + E^B[j][0])^2)*((1 + E^A[0] - E^B[j][0]*(-1 + rhog^2 + E^A[0]*(-1 + rhog^2*(1 + 4*phig^2*(-1 + theta)*A[5]))))^2/(1 + E^A[0])^2 + 8*E^(2*B[j][0])*phig^2*rhog^2*(-(((-1 + theta)*(-2*A[5] + 2*E^A[0]*(-2 + rhog^2)*A[5] + E^(2*A[0])*((-1 + theta)*A[2]^2 + 2*A[5]*(-1 + rhog^2 + 2*phig^2*rhog^2*(-1 + theta)*A[5]))))/(2*(1 + E^A[0])^2)) - (E^(A[0] + B[j][0])*(-1 + theta)*A[2]*B[j][2])/((1 + E^A[0])*(1 + E^B[j][0])) - (E^(2*B[j][0])*B[j][2]^2)/(2*(1 + E^B[j][0])^2))) >= 0
+					(1/(1 + E^B[j][0])^2)*((1 + E^A[0] - E^B[j][0]*(-1 + rhog^2 + E^A[0]*(-1 + rhog^2*(1 + 4*phig^2*(-1 + theta)*A[5]))))^2/(1 + E^A[0])^2 + 8*E^(2*B[j][0])*phig^2*rhog^2*(-(((-1 + theta)*(-2*A[5] + 2*E^A[0]*(-2 + rhog^2)*A[5] + E^(2*A[0])*((-1 + theta)*A[2]^2 + 2*A[5]*(-1 + rhog^2*(1 + 2*phig^2*(-1 + theta)*A[5])))))/(2*(1 + E^A[0])^2)) - (E^(A[0] + B[j][0])*(-1 + theta)*A[2]*(-A[2] + gamma*(xic - psi*xic + psi*A[2]) + (-1 + psi)*xid[j]))/((1 + E^A[0])*(1 + E^B[j][0])*(-1 + psi)) - (E^(2*B[j][0])*(-A[2] + gamma*(xic - psi*xic + psi*A[2]) + (-1 + psi)*xid[j])^2)/(2*(1 + E^B[j][0])^2*(-1 + psi)^2))) >= 0
+					 (*(1/(1 + E^B[j][0])^2)*((1 + E^A[0] - E^B[j][0]*(-1 + rhog^2 + E^A[0]*(-1 + rhog^2*(1 + 4*phig^2*(-1 + theta)*A[5]))))^2/(1 + E^A[0])^2 + 8*E^(2*B[j][0])*phig^2*rhog^2*(-(((-1 + theta)*(-2*A[5] + 2*E^A[0]*(-2 + rhog^2)*A[5] + E^(2*A[0])*((-1 + theta)*A[2]^2 + 2*A[5]*(-1 + rhog^2 + 2*phig^2*rhog^2*(-1 + theta)*A[5]))))/(2*(1 + E^A[0])^2)) - (E^(A[0] + B[j][0])*(-1 + theta)*A[2]*B[j][2])/((1 + E^A[0])*(1 + E^B[j][0])) - (E^(2*B[j][0])*B[j][2]^2)/(2*(1 + E^B[j][0])^2))) >= 0*)
 				],
 			"nombond" -> 
 				With[
@@ -1760,7 +1761,7 @@ modelsExtraInfo = <|
 				]
 		|>,
 		"initialGuess" -> <| 
-			"Ewc" -> {4.6}, 
+			"Ewc" -> {4.45}, 
 			"Epd" -> {{5.5},{6.3},{5.6}}
 		|>
 	|>,
