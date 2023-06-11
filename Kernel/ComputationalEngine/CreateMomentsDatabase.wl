@@ -1,5 +1,9 @@
 (* ::Package:: *)
 
+(* ::Section:: *)
+(*Begin package*)
+
+
 BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
 
 
@@ -7,7 +11,24 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDataba
 (*Public symbols*)
 
 
+uncondVarLong::usage = "uncondVarLong[expression, toExogenous] computes the unconditional variance of expression using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."
+					   "uncondVarLong[expression, toExogenous, covfun] uses the covariance function covfun."
+uncondCovLong::usage = "uncondCovLong[expression1,expression2, toExogenous] computes the unconditional covariance of expression1 and expression2 using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."
+					   "uncondCovLong[expression1,expression2, toExogenous, covfun] computes the unconditional covariance of expression1 and expression2 using the covariance function covfun."
+
+
+(* ::Section:: *)
+(*Code*)
+
+
 Begin["`Private`"];
+
+
+(* ::Subsection:: *)
+(*Package dependencies*)
+
+
+Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
 
 (* ::Subsection:: *)
@@ -15,10 +36,10 @@ Begin["`Private`"];
 
 
 (*write variables in terms of exogenous variables*)
-expand= Reverse/@FilterRules[Reverse/@mapAll,$endogenousVars];
+(*expand= Reverse/@FilterRules[Reverse/@mapAll,$endogenousVars];*)
 	
 SetAttributes[uncondCovLong,HoldAll]
-uncondCovLong[expression1_,expression2_,covfun_:covLong]:=Module[
+uncondCovLong[expression1_, expression2_, toExogenous_List, covfun_:covLong]:=Module[
 	{
 		p1,p2,
 		split1,split2,
@@ -36,8 +57,10 @@ uncondCovLong[expression1_,expression2_,covfun_:covLong]:=Module[
 	},
 
 	(*convert sums to lists*)
-		p1=plusToList@(Expand[expression1//.expand]);p2=plusToList@(Expand[expression2//.expand]);
-		If[p1=={} || p2=={},
+Echo[Expand[expression1//.toExogenous],"expression1"];Echo[Expand[expression2//.toExogenous],"expression2"];
+		p1=plusToList@(Expand[expression1//.toExogenous]);p2=plusToList@(Expand[expression2//.toExogenous]);
+Echo[p1,"p1"];Echo[p2,"p2"];
+			If[p1=={} || p2=={},
 			(*if expression1 or expression2 is constant, return 0*)
 			0,
 			(*if expression1 and expression2 are not constant, compute covariance*) 
@@ -67,20 +90,20 @@ uncondCovLong[expression1_,expression2_,covfun_:covLong]:=Module[
 ]
 
 SetAttributes[uncondVarLong,HoldAll]
-uncondVarLong[expression_,covfun_:covLong]:=uncondCovLong[expression,expression,covfun]
+uncondVarLong[expression_, toExogenous_List, covfun_:covLong]:=uncondCovLong[expression,expression,toExogenous,covfun]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*powerToProduct*)
 
 
 powerToProduct[expr_]:= Module[
-	{a,x,n},
-	Hold[expr]/. a_. * x_^n_Integer?Positive/;(!FreeQ[x,t] &&FreeQ[a,t]):>RuleCondition@(Prepend[Table[x,n],a])/. List->Times
+	{a,x},
+	Hold[expr]/. a_. * (x_^n_Integer?Positive)/;(!FreeQ[x,t] && FreeQ[a,t]):>RuleCondition@(Prepend[Table[x,n],a])/. List->Times
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*plusToList*)
 
 
@@ -90,14 +113,11 @@ plusToList[expr_]:= Module[
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*split*)
 
 
-split[expr_]:= Module[
-	{b,vv,i},
-	Cases[expr, vv_[(b_.) + t,i___]:>{{b,vv,{i}},vv[b+ t,i]},Infinity]
-];
+split[expr_]:= Cases[expr, vv_[(b_.) + t,i___]:>{{b,vv,{i}},vv[b+ t,i]},Infinity]
 
 
 (* ::Section:: *)
