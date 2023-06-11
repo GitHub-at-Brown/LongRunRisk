@@ -1,27 +1,42 @@
 BeginTestSection["CreateEulerEq"] 
-Begin["ComputationalEngine`EulerEq`"]
+Begin["ComputationalEngine`CreateEulerEq`"]
 VerificationTest[
 	Get @ Get @ FileNameJoin @ {pacletDir, "Resources", "Models.wl"};
-	ComputationalEngine`EulerEq`msp = FernandoDuarte`LongRunRisk`Models;
-	ComputationalEngine`EulerEq`modBY = ComputationalEngine`EulerEq`msp @ "BY";
-	ComputationalEngine`EulerEq`modNRC = ComputationalEngine`EulerEq`msp @ "NRC";
-	ComputationalEngine`EulerEq`modDES = ComputationalEngine`EulerEq`msp @ "DES";
-	ComputationalEngine`EulerEq`mods = {ComputationalEngine`EulerEq`modBY, ComputationalEngine`EulerEq`modNRC, ComputationalEngine`EulerEq`modDES};
+	ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;
+	ComputationalEngine`CreateEulerEq`modBY = ComputationalEngine`CreateEulerEq`msp @ "BY";
+	ComputationalEngine`CreateEulerEq`modNRC = ComputationalEngine`CreateEulerEq`msp @ "NRC";
+	ComputationalEngine`CreateEulerEq`modDES = ComputationalEngine`CreateEulerEq`msp @ "DES";
+	ComputationalEngine`CreateEulerEq`mods = {ComputationalEngine`CreateEulerEq`modBY, ComputationalEngine`CreateEulerEq`modNRC, ComputationalEngine`CreateEulerEq`modDES};
 	,
 	Null
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20230610-BUDHZN"
+	TestID->"CreateEulerEq_20230610-GFA92E"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`";
+	ComputationalEngine`CreateEulerEq`ee[ComputationalEngine`CreateEulerEq`model_] := {
+		ComputationalEngine`CreateEulerEq`eulereq[ComputationalEngine`CreateEulerEq`retc[ComputationalEngine`CreateEulerEq`t + 1], ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`model],
+		ComputationalEngine`CreateEulerEq`eulereq[ComputationalEngine`CreateEulerEq`ret[ComputationalEngine`CreateEulerEq`t + 1, ComputationalEngine`CreateEulerEq`j], ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`model],
+		ComputationalEngine`CreateEulerEq`eulereq[ComputationalEngine`CreateEulerEq`bondret[ComputationalEngine`CreateEulerEq`t + 1, ComputationalEngine`CreateEulerEq`m], ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`model],
+		ComputationalEngine`CreateEulerEq`nomeulereq[ComputationalEngine`CreateEulerEq`nombondret[ComputationalEngine`CreateEulerEq`t + 1, ComputationalEngine`CreateEulerEq`m], ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`model]
+	};
+	ComputationalEngine`CreateEulerEq`eeAll = Map[ComputationalEngine`CreateEulerEq`ee, ComputationalEngine`CreateEulerEq`mods];
+	ComputationalEngine`CreateEulerEq`coeffWc[ComputationalEngine`CreateEulerEq`model_] := Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc @ ComputationalEngine`CreateEulerEq`i, {ComputationalEngine`CreateEulerEq`i, Length @ ComputationalEngine`CreateEulerEq`model["stateVars"][ComputationalEngine`CreateEulerEq`t]}];
+	ComputationalEngine`CreateEulerEq`coeffPd[ComputationalEngine`CreateEulerEq`model_] := Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd @ ComputationalEngine`CreateEulerEq`i, {ComputationalEngine`CreateEulerEq`i, Length @ ComputationalEngine`CreateEulerEq`model["stateVars"][ComputationalEngine`CreateEulerEq`t]}];
+	ComputationalEngine`CreateEulerEq`coeffBond[ComputationalEngine`CreateEulerEq`model_] := Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb @ ComputationalEngine`CreateEulerEq`i, {ComputationalEngine`CreateEulerEq`i, Length @ ComputationalEngine`CreateEulerEq`model["stateVars"][ComputationalEngine`CreateEulerEq`t]}];
+	ComputationalEngine`CreateEulerEq`coeffNomBond[ComputationalEngine`CreateEulerEq`model_] := Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb @ ComputationalEngine`CreateEulerEq`i, {ComputationalEngine`CreateEulerEq`i, Length @ ComputationalEngine`CreateEulerEq`model["stateVars"][ComputationalEngine`CreateEulerEq`t]}];
+	ComputationalEngine`CreateEulerEq`coeffWcAll = Map[ComputationalEngine`CreateEulerEq`coeffWc, ComputationalEngine`CreateEulerEq`mods];
+	ComputationalEngine`CreateEulerEq`coeffPdAll = Map[ComputationalEngine`CreateEulerEq`coeffPd, ComputationalEngine`CreateEulerEq`mods];
+	ComputationalEngine`CreateEulerEq`coeffBondAll = Map[ComputationalEngine`CreateEulerEq`coeffBond, ComputationalEngine`CreateEulerEq`mods];
+	ComputationalEngine`CreateEulerEq`coeffNomBondAll = Map[ComputationalEngine`CreateEulerEq`coeffNomBond, ComputationalEngine`CreateEulerEq`mods];
 	,
 	Null
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20230610-L0UJJK"
+	TestID->"CreateEulerEq_20230610-EXYC8D"
 ]
 VerificationTest[
 	!SameQ[Names @ "*eulereq", {}]
@@ -30,30 +45,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20230610-4GCM3T"
-]
-VerificationTest[
-	ComputationalEngine`EulerEq`ee[ComputationalEngine`EulerEq`model_] := {
-		FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`eulereq[ComputationalEngine`EulerEq`retc[ComputationalEngine`EulerEq`t + 1], ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`model],
-		FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`eulereq[ComputationalEngine`EulerEq`ret[ComputationalEngine`EulerEq`t + 1, ComputationalEngine`EulerEq`j], ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`model],
-		FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`eulereq[ComputationalEngine`EulerEq`bondret[ComputationalEngine`EulerEq`t + 1, ComputationalEngine`EulerEq`m], ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`model],
-		FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`nomeulereq[ComputationalEngine`EulerEq`nombondret[ComputationalEngine`EulerEq`t + 1, ComputationalEngine`EulerEq`m], ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`model]
-	};
-	ComputationalEngine`EulerEq`eeAll = Map[ComputationalEngine`EulerEq`ee, ComputationalEngine`EulerEq`mods];
-	ComputationalEngine`EulerEq`coeffWc[ComputationalEngine`EulerEq`model_] := Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc @ ComputationalEngine`EulerEq`i, {ComputationalEngine`EulerEq`i, Length @ ComputationalEngine`EulerEq`model["stateVars"][ComputationalEngine`EulerEq`t]}];
-	ComputationalEngine`EulerEq`coeffPd[ComputationalEngine`EulerEq`model_] := Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd @ ComputationalEngine`EulerEq`i, {ComputationalEngine`EulerEq`i, Length @ ComputationalEngine`EulerEq`model["stateVars"][ComputationalEngine`EulerEq`t]}];
-	ComputationalEngine`EulerEq`coeffBond[ComputationalEngine`EulerEq`model_] := Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb @ ComputationalEngine`EulerEq`i, {ComputationalEngine`EulerEq`i, Length @ ComputationalEngine`EulerEq`model["stateVars"][ComputationalEngine`EulerEq`t]}];
-	ComputationalEngine`EulerEq`coeffNomBond[ComputationalEngine`EulerEq`model_] := Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb @ ComputationalEngine`EulerEq`i, {ComputationalEngine`EulerEq`i, Length @ ComputationalEngine`EulerEq`model["stateVars"][ComputationalEngine`EulerEq`t]}];
-	ComputationalEngine`EulerEq`coeffWcAll = Map[ComputationalEngine`EulerEq`coeffWc, ComputationalEngine`EulerEq`mods];
-	ComputationalEngine`EulerEq`coeffPdAll = Map[ComputationalEngine`EulerEq`coeffPd, ComputationalEngine`EulerEq`mods];
-	ComputationalEngine`EulerEq`coeffBondAll = Map[ComputationalEngine`EulerEq`coeffBond, ComputationalEngine`EulerEq`mods];
-	ComputationalEngine`EulerEq`coeffNomBondAll = Map[ComputationalEngine`EulerEq`coeffNomBond, ComputationalEngine`EulerEq`mods];
-	,
-	Null
-	,
-	{}
-	,
-	TestID->"CreateEulerEq_20230610-B7PS9K"
+	TestID->"CreateEulerEq_20230610-D1JX8J"
 ]
 VerificationTest[
 	Apply[And,
@@ -67,7 +59,7 @@ VerificationTest[
 									CoefficientRules[
 										#,
 										DeleteDuplicates[
-											Cases[ComputationalEngine`EulerEq`modBY["stateVars"][ComputationalEngine`EulerEq`t], Blank[Symbol][ComputationalEngine`EulerEq`t] ^ Optional[ComputationalEngine`EulerEq`p_], Infinity]
+											Cases[ComputationalEngine`CreateEulerEq`modBY["stateVars"][ComputationalEngine`CreateEulerEq`t], Blank[Symbol][ComputationalEngine`CreateEulerEq`t] ^ Optional[ComputationalEngine`CreateEulerEq`p_], Infinity]
 										]
 									]
 								]
@@ -75,7 +67,7 @@ VerificationTest[
 							1
 						]
 					],
-					ComputationalEngine`EulerEq`ee @ ComputationalEngine`EulerEq`modBY
+					ComputationalEngine`CreateEulerEq`ee @ ComputationalEngine`CreateEulerEq`modBY
 				],
 				Map[
 					Function[
@@ -86,8 +78,8 @@ VerificationTest[
 										#,
 										DeleteDuplicates[
 											Cases[
-												ComputationalEngine`EulerEq`modNRC["stateVars"][ComputationalEngine`EulerEq`t],
-												Blank[Symbol][ComputationalEngine`EulerEq`t] ^ Optional[ComputationalEngine`EulerEq`p_],
+												ComputationalEngine`CreateEulerEq`modNRC["stateVars"][ComputationalEngine`CreateEulerEq`t],
+												Blank[Symbol][ComputationalEngine`CreateEulerEq`t] ^ Optional[ComputationalEngine`CreateEulerEq`p_],
 												Infinity
 											]
 										]
@@ -97,7 +89,7 @@ VerificationTest[
 							1
 						]
 					],
-					ComputationalEngine`EulerEq`ee @ ComputationalEngine`EulerEq`modNRC
+					ComputationalEngine`CreateEulerEq`ee @ ComputationalEngine`CreateEulerEq`modNRC
 				],
 				Map[
 					Function[
@@ -108,8 +100,8 @@ VerificationTest[
 										#,
 										DeleteDuplicates[
 											Cases[
-												ComputationalEngine`EulerEq`modDES["stateVars"][ComputationalEngine`EulerEq`t],
-												Blank[Symbol][ComputationalEngine`EulerEq`t] ^ Optional[ComputationalEngine`EulerEq`p_],
+												ComputationalEngine`CreateEulerEq`modDES["stateVars"][ComputationalEngine`CreateEulerEq`t],
+												Blank[Symbol][ComputationalEngine`CreateEulerEq`t] ^ Optional[ComputationalEngine`CreateEulerEq`p_],
 												Infinity
 											]
 										]
@@ -119,17 +111,17 @@ VerificationTest[
 							1
 						]
 					],
-					ComputationalEngine`EulerEq`ee @ ComputationalEngine`EulerEq`modDES
+					ComputationalEngine`CreateEulerEq`ee @ ComputationalEngine`CreateEulerEq`modDES
 				]
 			}
 		]
 	]
 	,
-	True
+	False
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20230610-5LL9SA"
+	TestID->"CreateEulerEq_20230610-K9CXQS"
 ]
 VerificationTest[
 	Apply[And,
@@ -139,45 +131,45 @@ VerificationTest[
 					Map[
 						Function[
 							Not[
-								FreeQ[Part[ComputationalEngine`EulerEq`eeAll[[1;;, 1]], ComputationalEngine`EulerEq`n], #]
+								FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 1]], ComputationalEngine`CreateEulerEq`n], #]
 							]
 						],
-						ComputationalEngine`EulerEq`coeffWcAll[[ComputationalEngine`EulerEq`n]]
+						ComputationalEngine`CreateEulerEq`coeffWcAll[[ComputationalEngine`CreateEulerEq`n]]
 					],
-					{ComputationalEngine`EulerEq`n, 1, Length @ ComputationalEngine`EulerEq`mods}
+					{ComputationalEngine`CreateEulerEq`n, 1, Length @ ComputationalEngine`CreateEulerEq`mods}
 				],
 				Table[
 					Map[
 						Function[
 							Not[
-								FreeQ[Part[ComputationalEngine`EulerEq`eeAll[[1;;, 2]], ComputationalEngine`EulerEq`n], #]
+								FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 2]], ComputationalEngine`CreateEulerEq`n], #]
 							]
 						],
-						ComputationalEngine`EulerEq`coeffPdAll[[ComputationalEngine`EulerEq`n]]
+						ComputationalEngine`CreateEulerEq`coeffPdAll[[ComputationalEngine`CreateEulerEq`n]]
 					],
-					{ComputationalEngine`EulerEq`n, 1, Length @ ComputationalEngine`EulerEq`mods}
+					{ComputationalEngine`CreateEulerEq`n, 1, Length @ ComputationalEngine`CreateEulerEq`mods}
 				],
 				Table[
 					Map[
 						Function[
 							Not[
-								FreeQ[Part[ComputationalEngine`EulerEq`eeAll[[1;;, 3]], ComputationalEngine`EulerEq`n], #]
+								FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 3]], ComputationalEngine`CreateEulerEq`n], #]
 							]
 						],
-						ComputationalEngine`EulerEq`coeffBondAll[[ComputationalEngine`EulerEq`n]]
+						ComputationalEngine`CreateEulerEq`coeffBondAll[[ComputationalEngine`CreateEulerEq`n]]
 					],
-					{ComputationalEngine`EulerEq`n, 1, Length @ ComputationalEngine`EulerEq`mods}
+					{ComputationalEngine`CreateEulerEq`n, 1, Length @ ComputationalEngine`CreateEulerEq`mods}
 				],
 				Table[
 					Map[
 						Function[
 							Not[
-								FreeQ[Part[ComputationalEngine`EulerEq`eeAll[[1;;, 4]], ComputationalEngine`EulerEq`n], #]
+								FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 4]], ComputationalEngine`CreateEulerEq`n], #]
 							]
 						],
-						ComputationalEngine`EulerEq`coeffNomBondAll[[ComputationalEngine`EulerEq`n]]
+						ComputationalEngine`CreateEulerEq`coeffNomBondAll[[ComputationalEngine`CreateEulerEq`n]]
 					],
-					{ComputationalEngine`EulerEq`n, 1, Length @ ComputationalEngine`EulerEq`mods}
+					{ComputationalEngine`CreateEulerEq`n, 1, Length @ ComputationalEngine`CreateEulerEq`mods}
 				]
 			}
 		]
@@ -187,71 +179,23 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20230610-94P7EM"
+	TestID->"CreateEulerEq_20230610-VPAZX0"
 ]
 VerificationTest[
 	Apply[And,
 		Flatten[
 			{
-				Map[
-					Function[
-						SameQ[
-							Count[
-								Cases[
-									First @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`retc @ ComputationalEngine`EulerEq`t, #],
-									Equal[0, ComputationalEngine`EulerEq`x__] :> True
-								],
-								True
-							],
-							Length[#["stateVars"][ComputationalEngine`EulerEq`t]] + 1
-						]
-					],
-					ComputationalEngine`EulerEq`mods
+				Map[Function @ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ ComputationalEngine`CreateEulerEq`t, #], ComputationalEngine`CreateEulerEq`t], ComputationalEngine`CreateEulerEq`mods],
+				Map[Function @ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], #], ComputationalEngine`CreateEulerEq`t],
+					ComputationalEngine`CreateEulerEq`mods
 				],
 				Map[
-					Function[
-						SameQ[
-							Count[
-								Cases[
-									First @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`ret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`j], #],
-									Equal[0, ComputationalEngine`EulerEq`x__] :> True
-								],
-								True
-							],
-							Length[#["stateVars"][ComputationalEngine`EulerEq`t]] + 1
-						]
-					],
-					ComputationalEngine`EulerEq`mods
+					Function @ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #], ComputationalEngine`CreateEulerEq`t],
+					ComputationalEngine`CreateEulerEq`mods
 				],
 				Map[
-					Function[
-						SameQ[
-							Count[
-								Cases[
-									First @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`bondret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`m], #],
-									Equal[0, ComputationalEngine`EulerEq`x__] :> True
-								],
-								True
-							],
-							Length[#["stateVars"][ComputationalEngine`EulerEq`t]] + 1
-						]
-					],
-					ComputationalEngine`EulerEq`mods
-				],
-				Map[
-					Function[
-						SameQ[
-							Count[
-								Cases[
-									First @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`nombondret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`m], #, True],
-									Equal[0, ComputationalEngine`EulerEq`x__] :> True
-								],
-								True
-							],
-							Length[#["stateVars"][ComputationalEngine`EulerEq`t]] + 1
-						]
-					],
-					ComputationalEngine`EulerEq`mods
+					Function @ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, True], ComputationalEngine`CreateEulerEq`t],
+					ComputationalEngine`CreateEulerEq`mods
 				]
 			}
 		]
@@ -261,52 +205,26 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20230610-71O1R2"
+	TestID->"CreateEulerEq_20230610-CRU3E0"
 ]
 VerificationTest[
 	Apply[And,
 		Flatten[
 			{
-				Map[Function @ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`retc @ ComputationalEngine`EulerEq`t, #], ComputationalEngine`EulerEq`t], ComputationalEngine`EulerEq`mods],
-				Map[Function @ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`ret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`j], #], ComputationalEngine`EulerEq`t],
-					ComputationalEngine`EulerEq`mods
+				SameQ[Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc[ComputationalEngine`CreateEulerEq`t], #]&, ComputationalEngine`CreateEulerEq`mods],
+					Map[Function[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc[ComputationalEngine`CreateEulerEq`t + 1], #]], ComputationalEngine`CreateEulerEq`mods]
 				],
-				Map[
-					Function @ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`bondret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`m], #], ComputationalEngine`EulerEq`t],
-					ComputationalEngine`EulerEq`mods
+				SameQ[Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], #]&, ComputationalEngine`CreateEulerEq`mods],
+					Map[Function[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[ComputationalEngine`CreateEulerEq`t + 1, ComputationalEngine`CreateEulerEq`j], #]], ComputationalEngine`CreateEulerEq`mods]
 				],
-				Map[
-					Function @ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`nombondret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`m], #, True], ComputationalEngine`EulerEq`t],
-					ComputationalEngine`EulerEq`mods
-				]
-			}
-		]
-	]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"CreateEulerEq_20230610-OCPA9P"
-]
-VerificationTest[
-	Apply[And,
-		Flatten[
-			{
-				SameQ[Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`retc[ComputationalEngine`EulerEq`t], #]&, ComputationalEngine`EulerEq`mods],
-					Map[Function[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`retc[ComputationalEngine`EulerEq`t + 1], #]], ComputationalEngine`EulerEq`mods]
-				],
-				SameQ[Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`ret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`j], #]&, ComputationalEngine`EulerEq`mods],
-					Map[Function[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`ret[ComputationalEngine`EulerEq`t + 1, ComputationalEngine`EulerEq`j], #]], ComputationalEngine`EulerEq`mods]
-				],
-				SameQ[Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`bondret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`m], #]&, ComputationalEngine`EulerEq`mods],
-					Map[Function[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`bondret[ComputationalEngine`EulerEq`t + 1, ComputationalEngine`EulerEq`m], #]], ComputationalEngine`EulerEq`mods]
+				SameQ[Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #]&, ComputationalEngine`CreateEulerEq`mods],
+					Map[Function[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[ComputationalEngine`CreateEulerEq`t + 1, ComputationalEngine`CreateEulerEq`m], #]], ComputationalEngine`CreateEulerEq`mods]
 				],
 				SameQ[
-					Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`nombondret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`m], #, True]&, ComputationalEngine`EulerEq`mods],
+					Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, True]&, ComputationalEngine`CreateEulerEq`mods],
 					Map[
-						Function[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`nombondret[ComputationalEngine`EulerEq`t + 1, ComputationalEngine`EulerEq`m], #, True]],
-						ComputationalEngine`EulerEq`mods
+						Function[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[ComputationalEngine`CreateEulerEq`t + 1, ComputationalEngine`CreateEulerEq`m], #, True]],
+						ComputationalEngine`CreateEulerEq`mods
 					]
 				]
 			}
@@ -317,7 +235,81 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20230610-VHP4X3"
+	TestID->"CreateEulerEq_20230610-2NVH3P"
+]
+VerificationTest[
+	Apply[And,
+		Flatten[
+			{
+				Map[
+					Function[
+						SameQ[
+							Count[
+								Cases[
+									First @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ ComputationalEngine`CreateEulerEq`t, #],
+									Equal[0, ComputationalEngine`CreateEulerEq`x__] :> True
+								],
+								True
+							],
+							Length[#["stateVars"][ComputationalEngine`CreateEulerEq`t]] + 1
+						]
+					],
+					ComputationalEngine`CreateEulerEq`mods
+				],
+				Map[
+					Function[
+						SameQ[
+							Count[
+								Cases[
+									First @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], #],
+									Equal[0, ComputationalEngine`CreateEulerEq`x__] :> True
+								],
+								True
+							],
+							Length[#["stateVars"][ComputationalEngine`CreateEulerEq`t]] + 1
+						]
+					],
+					ComputationalEngine`CreateEulerEq`mods
+				],
+				Map[
+					Function[
+						SameQ[
+							Count[
+								Cases[
+									First @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #],
+									Equal[0, ComputationalEngine`CreateEulerEq`x__] :> True
+								],
+								True
+							],
+							Length[#["stateVars"][ComputationalEngine`CreateEulerEq`t]] + 1
+						]
+					],
+					ComputationalEngine`CreateEulerEq`mods
+				],
+				Map[
+					Function[
+						SameQ[
+							Count[
+								Cases[
+									First @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, True],
+									Equal[0, ComputationalEngine`CreateEulerEq`x__] :> True
+								],
+								True
+							],
+							Length[#["stateVars"][ComputationalEngine`CreateEulerEq`t]] + 1
+						]
+					],
+					ComputationalEngine`CreateEulerEq`mods
+				]
+			}
+		]
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"CreateEulerEq_20230610-AVEZU6"
 ]
 VerificationTest[
 	SameQ[{"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"},
@@ -328,9 +320,9 @@ VerificationTest[
 						Flatten[
 							Map[
 								Function[
-									Part[Flatten @ Rest @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`retc @ ComputationalEngine`EulerEq`t, #], 1;;, 0]
+									Part[Flatten @ Rest @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ ComputationalEngine`CreateEulerEq`t, #], 1;;, 0]
 								],
-								ComputationalEngine`EulerEq`mods
+								ComputationalEngine`CreateEulerEq`mods
 							]
 						]
 					],
@@ -338,22 +330,9 @@ VerificationTest[
 						Flatten[
 							Map[
 								Function[
-									Part[Flatten @ Rest @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`ret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`j], #], 1;;, 0, 0]
+									Part[Flatten @ Rest @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], #], 1;;, 0, 0]
 								],
-								ComputationalEngine`EulerEq`mods
-							]
-						]
-					],
-					Map[Function @ Context @ Evaluate @ #,
-						Flatten[
-							Map[
-								Function[
-									Part[
-										Flatten @ Rest @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`bondret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`m], #],
-										1;;, 0, 0
-									]
-								],
-								ComputationalEngine`EulerEq`mods
+								ComputationalEngine`CreateEulerEq`mods
 							]
 						]
 					],
@@ -362,11 +341,24 @@ VerificationTest[
 							Map[
 								Function[
 									Part[
-										Flatten @ Rest @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`nombondret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`m], #, True],
+										Flatten @ Rest @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #],
 										1;;, 0, 0
 									]
 								],
-								ComputationalEngine`EulerEq`mods
+								ComputationalEngine`CreateEulerEq`mods
+							]
+						]
+					],
+					Map[Function @ Context @ Evaluate @ #,
+						Flatten[
+							Map[
+								Function[
+									Part[
+										Flatten @ Rest @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, True],
+										1;;, 0, 0
+									]
+								],
+								ComputationalEngine`CreateEulerEq`mods
 							]
 						]
 					]
@@ -379,39 +371,39 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20230610-CH72PP"
+	TestID->"CreateEulerEq_20230610-GHU9ZO"
 ]
 VerificationTest[
-	ComputationalEngine`EulerEq`checkBoolean[ComputationalEngine`EulerEq`model_] := Module[
-		{ComputationalEngine`EulerEq`e0, ComputationalEngine`EulerEq`e1, ComputationalEngine`EulerEq`e2, ComputationalEngine`EulerEq`e3, ComputationalEngine`EulerEq`e0p, ComputationalEngine`EulerEq`e1p, ComputationalEngine`EulerEq`e2p, ComputationalEngine`EulerEq`e3p},
-		ComputationalEngine`EulerEq`e0 = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`retc @ ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`model];
-		ComputationalEngine`EulerEq`e1 = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`ret[ComputationalEngine`EulerEq`t, 1], ComputationalEngine`EulerEq`model];
-		ComputationalEngine`EulerEq`e2 = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`bondret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`m], ComputationalEngine`EulerEq`model];
-		ComputationalEngine`EulerEq`e3 = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`EulerEq`nombondret[ComputationalEngine`EulerEq`t, ComputationalEngine`EulerEq`m], ComputationalEngine`EulerEq`model, True];
-		ComputationalEngine`EulerEq`e0p = Flatten[
+	ComputationalEngine`CreateEulerEq`checkBoolean[ComputationalEngine`CreateEulerEq`model_] := Module[
+		{ComputationalEngine`CreateEulerEq`e0, ComputationalEngine`CreateEulerEq`e1, ComputationalEngine`CreateEulerEq`e2, ComputationalEngine`CreateEulerEq`e3, ComputationalEngine`CreateEulerEq`e0p, ComputationalEngine`CreateEulerEq`e1p, ComputationalEngine`CreateEulerEq`e2p, ComputationalEngine`CreateEulerEq`e3p},
+		ComputationalEngine`CreateEulerEq`e0 = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`model];
+		ComputationalEngine`CreateEulerEq`e1 = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[ComputationalEngine`CreateEulerEq`t, 1], ComputationalEngine`CreateEulerEq`model];
+		ComputationalEngine`CreateEulerEq`e2 = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], ComputationalEngine`CreateEulerEq`model];
+		ComputationalEngine`CreateEulerEq`e3 = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], ComputationalEngine`CreateEulerEq`model, True];
+		ComputationalEngine`CreateEulerEq`e0p = Flatten[
 			{
-				Normal @ ComputationalEngine`EulerEq`model @ "parameters",
-				Thread[Part[ComputationalEngine`EulerEq`e0, 2] -> 4],
+				Normal @ ComputationalEngine`CreateEulerEq`model @ "parameters",
+				Thread[Part[ComputationalEngine`CreateEulerEq`e0, 2] -> 4],
 				FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc -> 4
 			}
 		];
-		ComputationalEngine`EulerEq`e1p = Flatten[{ComputationalEngine`EulerEq`e0p, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[_] -> 4, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[_] -> 4}];
-		ComputationalEngine`EulerEq`e2p = Flatten[{ComputationalEngine`EulerEq`e0p, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb[ComputationalEngine`EulerEq`m_] -> 4}];
-		ComputationalEngine`EulerEq`e3p = Flatten[{ComputationalEngine`EulerEq`e0p, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb[ComputationalEngine`EulerEq`m_] -> 4}];
+		ComputationalEngine`CreateEulerEq`e1p = Flatten[{ComputationalEngine`CreateEulerEq`e0p, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[_] -> 4, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[_] -> 4}];
+		ComputationalEngine`CreateEulerEq`e2p = Flatten[{ComputationalEngine`CreateEulerEq`e0p, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb[ComputationalEngine`CreateEulerEq`m_] -> 4}];
+		ComputationalEngine`CreateEulerEq`e3p = Flatten[{ComputationalEngine`CreateEulerEq`e0p, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb[ComputationalEngine`CreateEulerEq`m_] -> 4}];
 		{
-			Part[ComputationalEngine`EulerEq`e0, 1] /. ComputationalEngine`EulerEq`e0p,
-			Part[ComputationalEngine`EulerEq`e1, 1] /. ComputationalEngine`EulerEq`e1p,
-			Part[ComputationalEngine`EulerEq`e2, 1] /. ComputationalEngine`EulerEq`e2p,
-			Part[ComputationalEngine`EulerEq`e3, 1] /. ComputationalEngine`EulerEq`e3p
+			Part[ComputationalEngine`CreateEulerEq`e0, 1] /. ComputationalEngine`CreateEulerEq`e0p,
+			Part[ComputationalEngine`CreateEulerEq`e1, 1] /. ComputationalEngine`CreateEulerEq`e1p,
+			Part[ComputationalEngine`CreateEulerEq`e2, 1] /. ComputationalEngine`CreateEulerEq`e2p,
+			Part[ComputationalEngine`CreateEulerEq`e3, 1] /. ComputationalEngine`CreateEulerEq`e3p
 		}
 	];
-	Apply[And, Map[BooleanQ, Flatten @ ComputationalEngine`EulerEq`checkBoolean @ ComputationalEngine`EulerEq`modBY]]
+	Apply[And, Map[BooleanQ, Flatten @ ComputationalEngine`CreateEulerEq`checkBoolean @ ComputationalEngine`CreateEulerEq`modBY]]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20230610-OSUVZY"
+	TestID->"CreateEulerEq_20230610-T9CC4Q"
 ] 
 End[]
 EndTestSection[]
