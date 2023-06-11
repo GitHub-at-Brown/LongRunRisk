@@ -1,25 +1,43 @@
 (* ::Package:: *)
 
+(* ::Section:: *)
+(*Begin package*)
+
+
 BeginPackage["FernandoDuarte`LongRunRisk`Model`Shocks`"]
 
 
-(* rules that define the distribution of exogenous shocks *)
-rulesE::usage = "rulesE[t]"
-	
-(* exogenous shocks *)
-eps::usage = "Shocks"
+(* ::Subsection:: *)
+(*Public symbols*)
+
+
+rulesE::usage = "rulesE[t] defines the distribution of exogenous shocks by giving replacement rules that compute the unconditional expectation of products of powers of exogenous shocks."
+eps::usage = "Exogenous shocks."
 
 
 (*globals to share across packages*)
 $shocks=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
 
 
+(* ::Section:: *)
+(*Code*)
+
+
 Begin["`Private`"]
+
+
+(* ::Subsection:: *)
+(*Package dependencies*)
 
 
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 
 
+(* ::Subsection:: *)
+(*rulesE*)
+
+
+(*list of exogenous shocks*)
 (*
 eps["x"]
 eps["dc"]
@@ -32,7 +50,7 @@ eps["sp"]
 eps["dd"]
 *)
 
-(* distribution of exogenous shocks *)
+(*distribution of exogenous shocks*)
 (*for a normal distribution, we only need rules for how to compute expectations of products of shocks*)
 rulesE[t_]:=With[
 	{
@@ -48,6 +66,10 @@ rulesE[t_]:=With[
 		epsPattern["dd"][t,i_]^p_Integer:>Expectation[y^p,y\[Distributed]NormalDistribution[0,1]]
 	}	
 ]
+
+
+(* ::Section:: *)
+(*End package*)
 
 
 End[](*"`Private`"*)

@@ -9,7 +9,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-8E4LVW"
+	TestID->"ComputeConditionalExpectations_20230610-U8AMCQ"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`";
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-OHVVZB"
+	TestID->"ComputeConditionalExpectations_20230610-TNKSLD"
 ]
 VerificationTest[
 	Apply[And, {MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"]}]
@@ -28,7 +28,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-3PXLY5"
+	TestID->"ComputeConditionalExpectations_20230610-2YY3L6"
 ]
 VerificationTest[
 	Apply[And,
@@ -42,7 +42,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-FFBQBR"
+	TestID->"ComputeConditionalExpectations_20230610-XWDHYS"
 ]
 VerificationTest[
 	ComputationalEngine`Cond`mm = FernandoDuarte`LongRunRisk`Model`Catalog`models;
@@ -54,7 +54,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-P6W8SG"
+	TestID->"ComputeConditionalExpectations_20230610-88XBF6"
 ]
 VerificationTest[
 	SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
@@ -65,7 +65,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-VW28FU"
+	TestID->"ComputeConditionalExpectations_20230610-J1EV2C"
 ]
 VerificationTest[
 	Apply[And,
@@ -595,7 +595,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-QUG7NA"
+	TestID->"ComputeConditionalExpectations_20230610-GEUQW1"
 ]
 VerificationTest[
 	ComputationalEngine`Cond`dc1 = PacletizedResourceFunctions`SetSymbolsContext[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t - 1] /. Normal[ComputationalEngine`Cond`modNRC["exogenousEq"]]];
@@ -1228,7 +1228,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-PAL03S"
+	TestID->"ComputeConditionalExpectations_20230610-6W05Y4"
 ]
 VerificationTest[
 	Apply[And,
@@ -1498,7 +1498,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-HKKIAZ"
+	TestID->"ComputeConditionalExpectations_20230610-F2XLQV"
 ]
 VerificationTest[
 	Apply[And,
@@ -1521,7 +1521,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-33QJ3G"
+	TestID->"ComputeConditionalExpectations_20230610-KQBZPE"
 ]
 VerificationTest[
 	Apply[And,
@@ -1578,11 +1578,11 @@ VerificationTest[
 		}
 	]
 	,
-	True
+	False
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-DLSZ3P"
+	TestID->"ComputeConditionalExpectations_20230610-JHHDMS"
 ]
 VerificationTest[
 	Apply[And,
@@ -1606,11 +1606,11 @@ VerificationTest[
 		}
 	]
 	,
-	True
+	False
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-TPIND8"
+	TestID->"ComputeConditionalExpectations_20230610-T2R47X"
 ]
 VerificationTest[
 	Apply[And,
@@ -1694,7 +1694,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-ZUL9KY"
+	TestID->"ComputeConditionalExpectations_20230610-FVVM4U"
 ]
 VerificationTest[
 	Unset @ $ContextAliases @ "ce`"
@@ -1703,7 +1703,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20230514-3SW7TI"
+	TestID->"ComputeConditionalExpectations_20230610-Y0ZKOM"
 ] 
 End[]
 EndTestSection[]

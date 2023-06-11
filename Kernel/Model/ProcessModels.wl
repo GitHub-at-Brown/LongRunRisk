@@ -28,18 +28,10 @@ processModels::usage = "";
 Begin["`Private`"]
 
 
-(* ::Subsection::Closed:: *)
-(*Load packages*)
+(* ::Subsection:: *)
+(*Package dependencies*)
 
 
-(*<<PacletizedResourceFunctions`;*)
-(*<<FernandoDuarte`LongRunRisk`Model`Parameters`;
-<<FernandoDuarte`LongRunRisk`Model`Shocks`;*)
-(*<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;*)
-(*<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;*)
-
-
-(*Needs["PacletizedResourceFunctions`"];*)
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
@@ -49,24 +41,12 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
 
-
-(* ::Subsection::Closed:: *)
-(*Helper functions*)
-
-
-(*resource functions*)
-
-
 (* ::Subsection:: *)
 (*processModels*)
 
 
 processModels//Options = {};
 
-
-(*adds useful key-value pairs to models*)
-(*SetSymbolsContext=ResourceFunction["SetSymbolsContext"];
-FullSymbolName=ResourceObject["FullSymbolName"];*)
 
 processModels[
 	modelsCatalog_Association,
@@ -134,11 +114,20 @@ processModels[
 	
 	(*add "exogenousVars","exogenousEq" to each model*)
 	models = createExogenous[models];
-	(*TO DO: add  exogenousVarNames without eq at the end just for user*)
 	
 	(*add "endogenousVars","endogenousEq" to each model*)
 	models = createEndogenous[models];
-	(*TO DO: add endogenousVarNames without eq at the end just for user*)
+	
+	(*add lists of endogenous and exogenous variables that do not end in "eq" for convenience of end user*)
+	models = Append[
+		#,
+		"exogenousVarNames" -> Map[(StringDrop[#,-2]&),#["exogenousVars"]]
+	]& /@ models;
+	
+	models = Append[
+		#,
+		"endogenousVarNames" -> Map[(StringDrop[#,-2]&),#["endogenousVars"]]
+	]& /@ models;
 	
 	(*add assumptions*)
 	modelAssumptions = FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramAssumptions 
@@ -146,8 +135,7 @@ processModels[
 	models=(Append[#, "modelAssumptions"->(modelAssumptions//.#["assignParam"]//.#["assignParamStocks"]) ]&) /@models;
 
 	(*add unconditional moments of state variables*)
-	maxMomentOrder=2;
-	(**activated version**)
+	maxMomentOrder=4;
 	models = Append[#,
 		"uncondMomOfStateVars"-> 
 				Join[
@@ -155,20 +143,6 @@ processModels[
 					Flatten@(Solve@@(Rest@#))
 				]&@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`createSystem[maxMomentOrder,#]
 	]&/@models;
-	
-	(**inactivated version**)
-	(*models = Append[#,
-		"uncondMomOfStateVars"-> 
-		Activate[
-			Inactivate[
-				Join[
-					First@#,
-					Flatten@(Solve@@(Rest@#))
-				]
-			],
-			First|Rest
-		]&@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`createSystem[maxMomentOrder,#]
-	]&/@models;*)
 	
 	(*add expressions for some unconditional moments*)
 	models = Append[
@@ -182,17 +156,10 @@ processModels[
 	]& /@ models;
 	
 	(*add Euler equations*)
-	(**activated version**)
 	models=Append[
 		#,
 		addCoeffsSystem[#]
 	]&/@models;
-		
-	(**inactivated version**)
-	(*models=Append[
-		#,
-		Inactive[addCoeffsSystem][#]
-	]&/@models;*)
 	
 	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
 	models = Append[
@@ -200,11 +167,6 @@ processModels[
 		"extraInfo" -> If[KeyExistsQ[modelsExtraInfo,#["shortname"]],modelsExtraInfo[#["shortname"]],<||>]
 	]& /@ models;
 	
-	(*add inactive solution to Euler equations*)
-	(*optsSol= {
-		Inactive[Evaluate][Inactive[FilterRules][{opts}, Inactive[Options][addCoeffsSolution]]],
-		Inactive[Evaluate][Inactive[OptionValue][processModels, "addCoeffsSolution"]]
-	};*)
 	models = Append[
 		#,
 		"coeffsSolution" -> <| 
@@ -233,8 +195,7 @@ processModels[
 ]
 
 
-
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*createExogenous*)
 
 
@@ -246,6 +207,7 @@ createExogenous[m_]:=Module[
 		argsPattern,
 		funs,
 		exoExprAssignParam,
+		posPi,
 		indicesKeep,
 		argsPatternKeep,
 		funsKeepList,
@@ -260,27 +222,28 @@ createExogenous[m_]:=Module[
 		(*,vars,fun,argPatt*)
 	},
 	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
-	(*$ContextPath = PrependTo[ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];*)
-	(*DeclareKnownSymbols[{"pi","x"}];*)
-	
-	(*separate the equations into arguments `argsPattern` and expressions that define the functions `fun`*)
-(*	argsPattern = SetSymbolsContext[Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@$exogenousVars];*)
-(*	funs = SetSymbolsContext[DownValues[#][[;;,2]][[1]]&/@(ToExpression/@$exogenousVars)];*)
 	
 	argsPattern = Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@$exogenousVars;
 	funs = DownValues[#][[;;,2]][[1]]&/@(ToExpression/@$exogenousVars);
-	
 	
 	(*plug in parameters that are assumed fixed (most are fixed to 0 or 1)*)
 	(*exoExprAssignParam=(funs//.SetSymbolsContext[#["assignParam"]]//.SetSymbolsContext[#["assignParamStocks"]])& /@models;*)
 	exoExprAssignParam=(funs//.#["assignParam"]//.#["assignParamStocks"])& /@models;
 	
-	(*find indices of exogenous variables that are not identically 0*)
-	indicesKeep=Complement[
+	(*find indices of exogenous variables that are not identically 0, except for inflation, which is needed to compute nominal variables even if always zero*)
+	posPi=Position[$exogenousVars,"pieq"];
+	indicesKeep=Union[posPi,
+		Complement[
+			Thread[{Range @ Length @ #}],
+			Position[#,0]
+		]
+	]& /@exoExprAssignParam;
+	
+(*	indicesKeep=Complement[
 		Thread[{Range @ Length @ #}],
 		Position[#,0]
-	]& /@exoExprAssignParam;
-	(*keep args, funs for variables that are not identically 0 *)
+	]& /@exoExprAssignParam;*)
+	(*keep args, funs for variables with position indicesKeep*)
 	argsPatternKeep=Extract[argsPattern,#]&/@indicesKeep;
 	funsKeepList=MapApply[Extract,{Values@exoExprAssignParam,Values@indicesKeep}\[Transpose]];
 	funsKeep=Association@Thread[Keys@exoExprAssignParam->funsKeepList];
@@ -317,17 +280,7 @@ createExogenous[m_]:=Module[
 ]	
 
 
-(*
-to not pollute workspace idea
-something[] := 
-  (
-  Block[{$ContextPath}, Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];];
-   FernandoDuarte`LongRunRisk`Model`EndogenousEq`fun[] 
-   )
-*)
-
-
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*createEndogenous*)
 
 
@@ -397,26 +350,7 @@ createEndogenous[mod_]:=Module[
 ]	
 
 
-(* ::Subsubsection:: *)
-(*createStateVarEq*)
-
-
-createStateVarEq[m_]:=Module[
-	(*adds exogenous variables and equations to each model in m after removing those that are always 0*)
-	{
-		models=m
-		
-	},
-(*	indicesKeep=Complement[
-				Thread[{Range @ Length @ exoExpr}],
-				Position[#,0]
-			]& /@exoExprAssignParam;
-	#["exogenousEq"]*)
-	m
-]	
-
-
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*addCoeffsSystem*)
 
 
@@ -469,7 +403,7 @@ addCoeffsSystem[model_]:=Module[
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*addCoeffsSolution*)
 
 
@@ -477,6 +411,7 @@ addCoeffsSolution//Options={
 	"FindRootOptions"->{MaxIterations->100(*,"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)},
 	"RecurrenceTableOptions"->{"DependentVariables"->Automatic}
 };
+
 
 addCoeffsSolution[
 	model_,
@@ -679,7 +614,7 @@ addCoeffsSolution[
 ](*Which*)
 
 
-(* ::Text:: *)
+(* ::Subsubsection:: *)
 (*createStartingPoint*)
 
 
@@ -722,18 +657,6 @@ createStartingPoint[
 						Not[stocksSolvedQ] &&  (*"stocksSolvedQ" is used as an internal state that indicates createStartingPoint has already been run for stocks*)
 						MatchQ[ First@dimStartValues, numStocks] && MatchQ[Length@coefficientNames, dimStartValues[[2]]] (*dimensions of startValues are correct*)
 						,
-						(*If[
-							(*if infoModel["modelAssumptions"][iEv] exists*)
-							KeyExistsQ[infoModel,"modelAssumptions"] && KeyExistsQ[infoModel["modelAssumptions"],iEv] &&
-							(*and if infoModel["modelAssumptions"] has expressions that contain the coefficients
-							of the wealth-consumption ratio*)
-							Not@FreeQ[infoModel["modelAssumptions"][iEv],FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc] &&
-							(*and if user did not provide the coefficients inside opts*) 
-							(Not@KeyExistsQ[opts,"coeffsSolution"] || Not@KeyExistsQ["coeffsSolution"/.opts,"wc"])
-							,
-							(*issue message and abort*)
-							Message[createStartingPoint::coeffswc];Abort[];
-						];*)
 						out=With[
 							{
 								j=Last@Head@First@coefficientNames
@@ -744,28 +667,10 @@ createStartingPoint[
 									ratioUncondE /. j -> (First@#2),
 									True,(*stocksSolvedQ=True*)
 									numStocks,
-									infoModel /. j -> (First@#2) ,	(* //.
-									If[
-											(*infoModel["modelAssumptions"][iEv] does not exist*)
-											(Not@KeyExistsQ[infoModel,"modelAssumptions"] || Not@KeyExistsQ[infoModel["modelAssumptions"],iEv]) ||
-												(*or infoModel["modelAssumptions"][iEv] is free of coefficients of the price-dividend ratio with index other than 0*)
-												FreeQ[infoModel["modelAssumptions"][iEv],FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[Except[0]]]
-											,
-											(*then nothing to do*)
-											{}
-											,
-											(*otherwise, use the provided coefficients*)
-											infoModel["coeffs"][ratio]
-										] /. j -> (First@#2),*)
+									infoModel /. j -> (First@#2),
 									{"initialGuess" -> <|"Epd" -> Take[#1,1,-1] |>, "stocksSolvedQ" -> True}
 								]&,
 								startValues
-								(*If[
-									(*if user provided a single set of starting values but there are more stocks, use the same starting value for all stocks*)
-									((First@dimStartValues)===1) && (numStocks>1),
-									Table[Replace[startValues[[1]],B_[1][ind_]:>B[k][ind],{2}],{k,numStocks}],
-									startValues
-								]*)
 							](*MapIndexed*)
 						];(*With*)
 						Throw[out];
@@ -834,7 +739,7 @@ createStartingPoint[
 ](*With*)
 
 
-(* ::Text:: *)
+(* ::Subsubsection:: *)
 (*formatStartingValues*)
 
 
@@ -862,16 +767,12 @@ formatStartingValues[
 			{
 				ig = getStartingValues[ratio,infoModel,opts]
 			},
-			(*Echo[ig,"ig after creating"];*)
 			(*if user provided a single set of starting values but there are more stocks, use the same starting value for all stocks*)
 			ig = If[
 					(ratio==="pd") && (numStocks>(First@(Dimensions@ig))) && (Not@stocksSolvedQ),
 					ConstantArray[First@ig,numStocks],
 					ig
 				];
-(*			Echo[ig,"ig after if"];
-			vv={StringMatchQ[ratio,"pd"],Not[stocksSolvedQ],{pattern1[#] & /@ig ,(ListQ[#] && MatchQ[#, pattern2])& /@ig , pattern3[#]& /@ig}};
-			Echo[vv,"vv"];*)	
 			Module[{out},
 				Catch[
 					If[
@@ -879,7 +780,6 @@ formatStartingValues[
 						Not[stocksSolvedQ] && (*"stocksSolvedQ" is used as an internal state that indicates formatStartingValues has already been run for stocks*)
 						And@@((pattern1[#] || (ListQ[#] && MatchQ[#, pattern2]) || pattern3[#])& /@ig) (*dimensions are correct*)
 						,
-						(*Echo[ig,"ig in stocks creating"];*)
 						out=With[
 							{
 								j=Last@Head@First@coefficientNames
@@ -907,7 +807,6 @@ formatStartingValues[
 								firstNames = First@coefficientNames,
 								restNames = Rest@coefficientNames
 							},
-							(*Echo[ig,"ig"];*)
 							Which[
 								(*a number or a vector of up to three numbers*)
 								(*NumberQ[ig] || (VectorQ[ig,NumberQ] && 1<=Length[ig]<=3)*)
@@ -970,7 +869,7 @@ formatStartingValues[
 
 
 
-(* ::Text:: *)
+(* ::Subsubsection:: *)
 (*formatStartingValuesRest*)
 
 
@@ -999,7 +898,7 @@ formatStartingValuesRest[startingValuesRest_,coefficientNamesRest_List]:=Module[
 ]
 
 
-(* ::Text:: *)
+(* ::Subsubsection:: *)
 (*getStartingValues*)
 
 
@@ -1040,7 +939,7 @@ getStartingValues[
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End package*)
 
 

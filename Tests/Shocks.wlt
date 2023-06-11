@@ -7,7 +7,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-RTHEQT"
+	TestID->"Shocks_20230610-7XMM72"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Shocks`"]
@@ -16,7 +16,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-RWER95"
+	TestID->"Shocks_20230610-PJZSVW"
 ]
 VerificationTest[
 	!SameQ[Names @ "*rulesE", {}]
@@ -25,7 +25,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-0CB0EJ"
+	TestID->"Shocks_20230610-R3SZX4"
 ]
 VerificationTest[
 	{
@@ -44,7 +44,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-RYFRF8"
+	TestID->"Shocks_20230610-LCIGAM"
 ]
 VerificationTest[
 	{
@@ -63,7 +63,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-ATZUO7"
+	TestID->"Shocks_20230610-B7YF3O"
 ]
 VerificationTest[
 	{
@@ -82,7 +82,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-SI4RFZ"
+	TestID->"Shocks_20230610-5O0ERJ"
 ]
 VerificationTest[
 	{
@@ -101,7 +101,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-LVTRPW"
+	TestID->"Shocks_20230610-6K6OZX"
 ]
 VerificationTest[
 	{
@@ -139,7 +139,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-A2FCFA"
+	TestID->"Shocks_20230610-8KJ8DP"
 ]
 VerificationTest[
 	Map[
@@ -155,7 +155,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-BHY2DX"
+	TestID->"Shocks_20230610-Z8UMT4"
 ]
 VerificationTest[
 	{
@@ -174,7 +174,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-XKVDH2"
+	TestID->"Shocks_20230610-DQXRBH"
 ]
 VerificationTest[
 	{
@@ -212,7 +212,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-0L5SWT"
+	TestID->"Shocks_20230610-S35S1M"
 ]
 VerificationTest[
 	{
@@ -248,7 +248,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-OBLU0S"
+	TestID->"Shocks_20230610-EHYH2J"
 ]
 VerificationTest[
 	{
@@ -272,7 +272,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-U53FKY"
+	TestID->"Shocks_20230610-0H61YL"
 ]
 VerificationTest[
 	{
@@ -299,7 +299,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-90GJZ1"
+	TestID->"Shocks_20230610-JVI7UX"
 ]
 VerificationTest[
 	{
@@ -333,7 +333,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-OI2ALR"
+	TestID->"Shocks_20230610-QQ63CQ"
 ]
 VerificationTest[
 	{
@@ -352,7 +352,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-R7KHFO"
+	TestID->"Shocks_20230610-BFE4LW"
 ]
 VerificationTest[
 	{
@@ -371,7 +371,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20230513-RV3RPP"
+	TestID->"Shocks_20230610-Q6UEUJ"
 ] 
 End[]
 EndTestSection[]

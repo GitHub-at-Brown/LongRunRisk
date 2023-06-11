@@ -73,29 +73,29 @@ Protect@Definition;*)
 Begin["`Private`"]
 
 
+(*Check out*)
+(*ResourceFunction["CopyDefinitions"]*)
+
+(*Language`ExtendedFullDefinition[] = ResourceFunction["ReplaceContext"][
+  Language`ExtendedDefinition[f], $Context -> "MySandbox`"]*)
+  
+  (*ResourceFunction["TraceView"]*)
+
+
 (* ::Subsubsection:: *)
 (*Load models*)
 
 
-(*tempfile="FernandoDuarte/LongRunRisk/Models.mx";
-Get[tempfile];*)
-Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]]
+Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]] (*loads symbol FernandoDuarte`LongRunRisk`Models*)
 
 
 (* ::Subsubsection:: *)
 (*Info*)
 
 
-(*Check out*)
-(*ResourceFunction["CopyDefinitions"]*)
-
-(*Language`ExtendedFullDefinition[] = ResourceFunction["ReplaceContext"][
-  Language`ExtendedDefinition[f], $Context -> "MySandbox`"]*)
-
-
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
 
-Info[models_Association] := Column[(FernandoDuarte`LongRunRisk`Tools`NiceOutput`info@#&)/@(Values@FernandoDuarte`LongRunRisk`Tools`NiceOutput`createEqTables[models])];
+Info[models_Association] := PacletizedResourceFunctions`SetSymbolsContext@Column[(FernandoDuarte`LongRunRisk`Tools`NiceOutput`info@#&)/@(Values@FernandoDuarte`LongRunRisk`Tools`NiceOutput`createEqTables[models])];
 Info::usage = Information[FernandoDuarte`LongRunRisk`Tools`NiceOutput`info,"Usage"];
 
 
@@ -103,12 +103,13 @@ Info::usage = Information[FernandoDuarte`LongRunRisk`Tools`NiceOutput`info,"Usag
 (*Variables*)
 
 
-(*Begin["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-EndogenousVars=Symbol/@StringDrop[FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars,-2]
+Begin["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+EndogenousVars=Symbol/@StringDrop[FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars,-2];
 End[];
 Begin["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 ExogenousVars[model_Association]:=Symbol/@StringDrop[model["exogenousVars"],-2];
-End[];*)
+End[];
+AllVars[model_Association] = 
 (*wcUsage = StringDelete[wceq::usage,"eq"]
 sym2::msg = sym3::msg = sym1::msg; 
 wc::usage = wceq::usage;(*to use ?wc*)
@@ -120,11 +121,14 @@ Do[With[{ff = f},
   
 
 
+
+
 (* ::Subsubsection:: *)
 (*ToNum*)
 
 
-ToNum[model_Association]:=Function[{expr},ReplaceRepeated[expr,model["parameters"]]]
+paramRules[model_]:= Join[model["parameters"], PacletizedResourceFunctions`SetSymbolsContext@model["parameters"]]
+ToNum[model_Association]:=Function[{expr},ReplaceRepeated[expr,Evaluate@paramRules[model]]];
 (*delta //ToNum[model]
 delta //ToNum[Models["NRC"]]*)
 

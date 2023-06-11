@@ -7,7 +7,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-O7IVJG"
+	TestID->"Catalog_20230610-OQB689"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"]
@@ -16,7 +16,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-M3BF54"
+	TestID->"Catalog_20230610-HTF3BH"
 ]
 VerificationTest[
 	Apply[And, Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]]
@@ -25,7 +25,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-36O403"
+	TestID->"Catalog_20230610-BN4CMJ"
 ]
 VerificationTest[
 	Apply[And,
@@ -48,7 +48,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-LSDZE2"
+	TestID->"Catalog_20230610-WT7OAT"
 ]
 VerificationTest[
 	Apply[And,
@@ -68,7 +68,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-GKTLMR"
+	TestID->"Catalog_20230610-C1FMQ2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]["stateVars"]
@@ -77,7 +77,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-CBV558"
+	TestID->"Catalog_20230610-UQSRTE"
 ]
 VerificationTest[
 	Apply[And, Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {"BY", "BKY"}]]
@@ -86,7 +86,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-Z1S2IV"
+	TestID->"Catalog_20230610-9P3GIH"
 ]
 VerificationTest[
 	Apply[And,
@@ -104,7 +104,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-S27D0F"
+	TestID->"Catalog_20230610-A2TH7C"
 ]
 VerificationTest[
 	Apply[And,
@@ -141,7 +141,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-YSBF0M"
+	TestID->"Catalog_20230610-7VIZ3G"
 ]
 VerificationTest[
 	Apply[And,
@@ -170,7 +170,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-9V3X3N"
+	TestID->"Catalog_20230610-CRNM7A"
 ]
 VerificationTest[
 	Apply[And,
@@ -199,7 +199,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-EGY2H8"
+	TestID->"Catalog_20230610-19YY4G"
 ]
 VerificationTest[
 	Apply[And,
@@ -228,7 +228,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-JFNZD4"
+	TestID->"Catalog_20230610-QA6G8W"
 ]
 VerificationTest[
 	Apply[And,
@@ -260,7 +260,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230513-L28COC"
+	TestID->"Catalog_20230610-Z5QV8I"
 ] 
 End[]
 EndTestSection[]

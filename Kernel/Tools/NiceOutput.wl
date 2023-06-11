@@ -52,6 +52,13 @@ formatModels::usage = "formatModels[models] Re-writes an association of models a
 Begin["`Private`"]
 
 
+(*Check out*)
+(*ResourceFunction["PrintDefinitions"][ParallelTable];*)
+(*ResourceFunction["SetContextStyle"][
+  "MyContext`", {Green, FontFamily -> "Comic Sans MS"}];
+MyContext`test;*)
+
+
 (* ::Subsection:: *)
 (*Load packages*)
 
