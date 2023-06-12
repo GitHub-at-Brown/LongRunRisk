@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    564976,      11314]
-NotebookOptionsPosition[    560819,      11253]
-NotebookOutlinePosition[    561292,      11271]
-CellTagsIndexPosition[    561249,      11268]
+NotebookDataLength[    565127,      11310]
+NotebookOptionsPosition[    560969,      11249]
+NotebookOutlinePosition[    561443,      11267]
+CellTagsIndexPosition[    561400,      11264]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -21,7 +21,7 @@ Notebook[{
 Cell[BoxData[
  RowBox[{"Quit", "[", "]"}]], "Input",
  CellChangeTimes->{{3.8899684458207283`*^9, 3.889968446659306*^9}},
- CellLabel->"In[33]:=",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
+ CellLabel->"In[13]:=",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
 
 Cell[CellGroupData[{
 
@@ -59,14 +59,14 @@ Cell[BoxData[{
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/\"\>"], "Output",
- CellChangeTimes->{3.895431205532568*^9},
- CellLabel->"Out[1]=",ExpressionUUID->"ed57b374-83e1-44e4-b3fc-c537e626a9e5"],
+ CellChangeTimes->{3.895431205532568*^9, 3.89550762830015*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"768c9ed2-c22d-465d-82a1-c12b2fdec233"],
 
 Cell[BoxData[
  RowBox[{"{", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/\"\>", "}"}]], "Output",
- CellChangeTimes->{3.895431205606378*^9},
- CellLabel->"Out[2]=",ExpressionUUID->"ed321fc0-c801-4a85-9e20-17ca2207694f"],
+ CellChangeTimes->{3.895431205532568*^9, 3.895507628386088*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"138b1797-5246-49d0-8a82-8ee6c5c4ea10"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -95,15 +95,15 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/TimeAggregation.wlt\"\>"}], 
   "}"}]], "Output",
- CellChangeTimes->{3.895431205608275*^9},
- CellLabel->"Out[3]=",ExpressionUUID->"df44cb9c-a56f-4f27-931c-f1af71555458"],
+ CellChangeTimes->{3.895431205532568*^9, 3.895507628387451*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"d502a82a-b552-4867-ae81-13b0a65dbbae"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{"\<\"HighlightingCompatibility`\"\>", ",", "\<\"System`\"\>", 
    ",", "\<\"Global`\"\>"}], "}"}]], "Output",
- CellChangeTimes->{3.895431205610361*^9},
- CellLabel->"Out[4]=",ExpressionUUID->"305dd677-b656-49e7-9959-a0f9db906d83"]
+ CellChangeTimes->{3.895431205532568*^9, 3.895507628388955*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"2de1e6fb-9a15-4a5f-a7cc-8e48f907b40c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -145,9 +145,8 @@ Cell[BoxData[{
   3.895362883185739*^9, 3.8953628833320417`*^9}, {3.895362914081757*^9, 
   3.895362914242923*^9}, {3.895363069271865*^9, 3.895363069433126*^9}, {
   3.895364934971695*^9, 3.89536493511489*^9}, {3.8954190984559937`*^9, 
-  3.895419107713436*^9}, {3.895431466385002*^9, 
-  3.8954314730424356`*^9}},ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-\
-2c85ee2d32e0"],
+  3.895419107713436*^9}, {3.895431466385002*^9, 3.8954314730424356`*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -301,7 +300,7 @@ Cell[BoxData[
                  TagBox[
                   
                   TemplateBox[{
-                   "0.097459`", "\"s\"", "seconds", "\"Seconds\""}, 
+                   "0.082743`", "\"s\"", "seconds", "\"Seconds\""}, 
                    "Quantity", SyntaxForm -> Mod], "SummaryItem"]}], 
                "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
@@ -323,9 +322,9 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: Shocks.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     7579765629481986523 -> 
+     2828029488974863090 -> 
       TestResultObject[<|
-        "TestKey" -> 7579765629481986523, "TestID" -> 
+        "TestKey" -> 2828029488974863090, "TestID" -> 
          "Shocks_20230610-7XMM72", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -335,11 +334,11 @@ Cell[BoxData[
            Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"]], 
          "ExpectedOutput" -> HoldForm[Null], "ActualOutput" -> HoldForm[Null],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431207985558*^9, "AbsoluteTimeUsed" -> 
-         0.014133`4.300749356789891, "CPUTimeUsed" -> 0.013219000000000314`, 
-         "MemoryUsed" -> 88048|>], 4769401247710307483 -> 
+         "AbsoluteTime" -> 3.895507629777962*^9, "AbsoluteTimeUsed" -> 
+         0.009458`4.1263143075113975, "CPUTimeUsed" -> 0.009417999999999704, 
+         "MemoryUsed" -> 88016|>], 7978155910965902445 -> 
       TestResultObject[<|
-        "TestKey" -> 4769401247710307483, "TestID" -> 
+        "TestKey" -> 7978155910965902445, "TestID" -> 
          "Shocks_20230610-PJZSVW", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -349,12 +348,11 @@ Cell[BoxData[
            MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Shocks`"]],
           "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> 
          HoldForm[True], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431208019078*^9, 
-         "AbsoluteTimeUsed" -> 0.000035`1.694583042182265, "CPUTimeUsed" -> 
-         0.000030999999999892225`, "MemoryUsed" -> 3296|>], 
-      6298751536798018362 -> 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.89550762980544*^9, 
+         "AbsoluteTimeUsed" -> 0.000036`1.7068174985992763, "CPUTimeUsed" -> 
+         0.00003200000000047609, "MemoryUsed" -> 3296|>], 6665220333730664622 -> 
       TestResultObject[<|
-        "TestKey" -> 6298751536798018362, "TestID" -> 
+        "TestKey" -> 6665220333730664622, "TestID" -> 
          "Shocks_20230610-R3SZX4", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -363,11 +361,11 @@ Cell[BoxData[
          "Outcome" -> "Success", "Input" -> HoldForm[
            Not[Names["*rulesE"] === {}]], "ExpectedOutput" -> HoldForm[True], 
          "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> HoldForm[{}],
-          "ActualMessages" -> {}, "AbsoluteTime" -> 3.8954312080192847`*^9, 
-         "AbsoluteTimeUsed" -> 0.019767`4.446455760099191, "CPUTimeUsed" -> 
-         0.019769999999999843`, "MemoryUsed" -> 2808|>], 802133961335485443 -> 
+          "ActualMessages" -> {}, "AbsoluteTime" -> 3.8955076298056383`*^9, 
+         "AbsoluteTimeUsed" -> 0.017203`4.386119187171829, "CPUTimeUsed" -> 
+         0.01725800000000044, "MemoryUsed" -> 2808|>], 576403780184493446 -> 
       TestResultObject[<|
-        "TestKey" -> 802133961335485443, "TestID" -> "Shocks_20230610-LCIGAM",
+        "TestKey" -> 576403780184493446, "TestID" -> "Shocks_20230610-LCIGAM",
           "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -388,12 +386,11 @@ Cell[BoxData[
          HoldForm[{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0}}], "ActualOutput" -> 
          HoldForm[{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0}}], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8954312080394497`*^9, "AbsoluteTimeUsed" -> 
-         0.000222`2.4968679722826304, "CPUTimeUsed" -> 
-         0.00022299999999964015`, "MemoryUsed" -> 4344|>], 
-      5131767683139549869 -> 
+         3.89550762982313*^9, "AbsoluteTimeUsed" -> 
+         0.000241`2.532532040406858, "CPUTimeUsed" -> 0.00024099999999949162`,
+          "MemoryUsed" -> 4344|>], 8173114366685700460 -> 
       TestResultObject[<|
-        "TestKey" -> 5131767683139549869, "TestID" -> 
+        "TestKey" -> 8173114366685700460, "TestID" -> 
          "Shocks_20230610-B7YF3O", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -415,11 +412,11 @@ Cell[BoxData[
          HoldForm[{{1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1}}], "ActualOutput" -> 
          HoldForm[{{1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1}}], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431208039883*^9, "AbsoluteTimeUsed" -> 
-         0.023858`4.528149032079583, "CPUTimeUsed" -> 0.023951000000000278`, 
-         "MemoryUsed" -> 3824336|>], 5017698643097735181 -> 
+         3.895507629823561*^9, "AbsoluteTimeUsed" -> 
+         0.021511`4.483175598102627, "CPUTimeUsed" -> 0.02155599999999991, 
+         "MemoryUsed" -> 3789512|>], 9106633090545938032 -> 
       TestResultObject[<|
-        "TestKey" -> 5017698643097735181, "TestID" -> 
+        "TestKey" -> 9106633090545938032, "TestID" -> 
          "Shocks_20230610-5O0ERJ", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -441,12 +438,12 @@ Cell[BoxData[
          HoldForm[{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0}}], "ActualOutput" -> 
          HoldForm[{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0}}], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431208064118*^9, "AbsoluteTimeUsed" -> 
-         0.003229`3.659583042849153, "CPUTimeUsed" -> 0.0033159999999998746`, 
-         "MemoryUsed" -> 3016|>], 2483134899483726876 -> 
+         3.895507629845368*^9, "AbsoluteTimeUsed" -> 
+         0.002928`3.6170860702183485, "CPUTimeUsed" -> 0.0029660000000002462`,
+          "MemoryUsed" -> 3016|>], 751588020548242018 -> 
       TestResultObject[<|
-        "TestKey" -> 2483134899483726876, "TestID" -> 
-         "Shocks_20230610-6K6OZX", "TestFileName" -> 
+        "TestKey" -> 751588020548242018, "TestID" -> "Shocks_20230610-6K6OZX",
+          "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
          "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
@@ -467,11 +464,11 @@ Cell[BoxData[
          HoldForm[{{3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3}}], "ActualOutput" -> 
          HoldForm[{{3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3}}], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431208067631*^9, "AbsoluteTimeUsed" -> 
-         0.003047`3.6343874520546655, "CPUTimeUsed" -> 0.0031319999999999126`,
-          "MemoryUsed" -> 3016|>], 4644090061478109276 -> 
+         3.895507629848494*^9, "AbsoluteTimeUsed" -> 0.002911`3.6145572032708,
+          "CPUTimeUsed" -> 0.002941999999999556, "MemoryUsed" -> 3016|>], 
+      8741522474942156818 -> 
       TestResultObject[<|
-        "TestKey" -> 4644090061478109276, "TestID" -> 
+        "TestKey" -> 8741522474942156818, "TestID" -> 
          "Shocks_20230610-8KJ8DP", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -506,11 +503,11 @@ Cell[BoxData[
             0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 
             0, 0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 
             0}, {0, 0, 0, 0, 0, 0, 0}}}], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431208071033*^9, 
-         "AbsoluteTimeUsed" -> 0.001699`3.3807083767010373, "CPUTimeUsed" -> 
-         0.0017000000000000348`, "MemoryUsed" -> 7408|>], 7645715485818618088 -> 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.8955076298516483`*^9, 
+         "AbsoluteTimeUsed" -> 0.001604`3.3557193617801344, "CPUTimeUsed" -> 
+         0.0016039999999999388`, "MemoryUsed" -> 7408|>], 5560745614110524166 -> 
       TestResultObject[<|
-        "TestKey" -> 7645715485818618088, "TestID" -> 
+        "TestKey" -> 5560745614110524166, "TestID" -> 
          "Shocks_20230610-Z8UMT4", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -532,11 +529,11 @@ Cell[BoxData[
          HoldForm[{"taugd[1]", "taugd[i]", "taugd[j]"}], "ActualOutput" -> 
          HoldForm[{"taugd[1]", "taugd[i]", "taugd[j]"}], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8954312080729628`*^9, "AbsoluteTimeUsed" -> 
-         0.000306`2.6362364243135716, "CPUTimeUsed" -> 0.0003069999999998352, 
-         "MemoryUsed" -> 2760|>], 8530148614909990959 -> 
+         3.895507629853432*^9, "AbsoluteTimeUsed" -> 
+         0.00025`2.5484550065040295, "CPUTimeUsed" -> 0.0002510000000004453, 
+         "MemoryUsed" -> 2760|>], 5598221598799487192 -> 
       TestResultObject[<|
-        "TestKey" -> 8530148614909990959, "TestID" -> 
+        "TestKey" -> 5598221598799487192, "TestID" -> 
          "Shocks_20230610-DQXRBH", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -558,11 +555,11 @@ Cell[BoxData[
          HoldForm[{{3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3}}], "ActualOutput" -> 
          HoldForm[{{3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3}}], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.89543120807348*^9, "AbsoluteTimeUsed" -> 
-         0.003539`3.699395560469507, "CPUTimeUsed" -> 0.0036050000000003024`, 
-         "MemoryUsed" -> 3016|>], 5162480000666186291 -> 
+         3.895507629853867*^9, "AbsoluteTimeUsed" -> 
+         0.002889`3.6112625396761864, "CPUTimeUsed" -> 0.002917999999999754, 
+         "MemoryUsed" -> 3016|>], 8131315414493388942 -> 
       TestResultObject[<|
-        "TestKey" -> 5162480000666186291, "TestID" -> 
+        "TestKey" -> 8131315414493388942, "TestID" -> 
          "Shocks_20230610-S35S1M", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -598,11 +595,11 @@ Cell[BoxData[
             0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 
             0, 0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 
             0}, {0, 0, 0, 0, 0, 0, 0}}}], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431208077375*^9, 
-         "AbsoluteTimeUsed" -> 0.023123`4.514559177014884, "CPUTimeUsed" -> 
-         0.023255000000000248`, "MemoryUsed" -> 6208|>], 2739780630838876451 -> 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895507629856988*^9, 
+         "AbsoluteTimeUsed" -> 0.019528`4.441172764241123, "CPUTimeUsed" -> 
+         0.019780999999999604`, "MemoryUsed" -> 6208|>], 1381640533889703051 -> 
       TestResultObject[<|
-        "TestKey" -> 2739780630838876451, "TestID" -> 
+        "TestKey" -> 1381640533889703051, "TestID" -> 
          "Shocks_20230610-EHYH2J", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -638,12 +635,11 @@ Cell[BoxData[
          HoldForm[{{True, True, True, True, True, True, True, True}, {
             True, True, True, True, True, True, True, True}, {True, True}}], 
          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208100937*^9, "AbsoluteTimeUsed" -> 
-         0.000468`2.8207608509061157, "CPUTimeUsed" -> 
-         0.00046900000000027475`, "MemoryUsed" -> 7304|>], 
-      3089040641107909874 -> 
+         "AbsoluteTime" -> 3.895507629876748*^9, "AbsoluteTimeUsed" -> 
+         0.000433`2.787002894185357, "CPUTimeUsed" -> 0.00043199999999998795`,
+          "MemoryUsed" -> 7304|>], 8173017122994513820 -> 
       TestResultObject[<|
-        "TestKey" -> 3089040641107909874, "TestID" -> 
+        "TestKey" -> 8173017122994513820, "TestID" -> 
          "Shocks_20230610-0H61YL", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -666,11 +662,12 @@ Cell[BoxData[
             True, True, True}}], "ActualOutput" -> 
          HoldForm[{{True, True, True, True, True, True, True, True}, {
             True, True, True}}], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431208101628*^9, 
-         "AbsoluteTimeUsed" -> 0.000225`2.5026975159433524, "CPUTimeUsed" -> 
-         0.0002249999999999197, "MemoryUsed" -> 3168|>], 5244817825833089772 -> 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895507629877374*^9, 
+         "AbsoluteTimeUsed" -> 0.000211`2.474797453129687, "CPUTimeUsed" -> 
+         0.00021099999999973917`, "MemoryUsed" -> 3168|>], 
+      6803978974693068197 -> 
       TestResultObject[<|
-        "TestKey" -> 5244817825833089772, "TestID" -> 
+        "TestKey" -> 6803978974693068197, "TestID" -> 
          "Shocks_20230610-JVI7UX", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -693,12 +690,13 @@ Cell[BoxData[
             True, True, True}}], "ActualOutput" -> 
          HoldForm[{{True, True, True, True, True, True, True, True}, {
             True, True, True}}], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.89543120810205*^9, 
-         "AbsoluteTimeUsed" -> 0.000217`2.486974731680521, "CPUTimeUsed" -> 
-         0.00021800000000027353`, "MemoryUsed" -> 3168|>], 866554507301705420 -> 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895507629877766*^9, 
+         "AbsoluteTimeUsed" -> 0.00021`2.4727342925659115, "CPUTimeUsed" -> 
+         0.00021100000000018326`, "MemoryUsed" -> 3168|>], 
+      3797002050895597418 -> 
       TestResultObject[<|
-        "TestKey" -> 866554507301705420, "TestID" -> "Shocks_20230610-QQ63CQ",
-          "TestFileName" -> 
+        "TestKey" -> 3797002050895597418, "TestID" -> 
+         "Shocks_20230610-QQ63CQ", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
          "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
@@ -728,12 +726,13 @@ Cell[BoxData[
             True, True, True}}], "ActualOutput" -> 
          HoldForm[{{True, True, True, True, True, True, True, True}, {
             True, True, True}}], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.8954312081024947`*^9, 
-         "AbsoluteTimeUsed" -> 0.000306`2.6362364243135694, "CPUTimeUsed" -> 
-         0.0003059999999996954, "MemoryUsed" -> 3200|>], 538247785723634243 -> 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895507629878189*^9, 
+         "AbsoluteTimeUsed" -> 0.000297`2.6232714471492042, "CPUTimeUsed" -> 
+         0.00029799999999946536`, "MemoryUsed" -> 3200|>], 
+      6795375763177041016 -> 
       TestResultObject[<|
-        "TestKey" -> 538247785723634243, "TestID" -> "Shocks_20230610-BFE4LW",
-          "TestFileName" -> 
+        "TestKey" -> 6795375763177041016, "TestID" -> 
+         "Shocks_20230610-BFE4LW", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
          "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
@@ -752,11 +751,12 @@ Cell[BoxData[
          HoldForm[{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0}}], "ActualOutput" -> 
          HoldForm[{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0}}], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431208102976*^9, "AbsoluteTimeUsed" -> 
-         0.00018`2.405787502935298, "CPUTimeUsed" -> 0.00017999999999984695`, 
-         "MemoryUsed" -> 4160|>], 6152542199180352596 -> 
+         3.895507629878655*^9, "AbsoluteTimeUsed" -> 
+         0.000173`2.3885611009607874, "CPUTimeUsed" -> 
+         0.00017400000000034055`, "MemoryUsed" -> 4160|>], 
+      1729032691231151722 -> 
       TestResultObject[<|
-        "TestKey" -> 6152542199180352596, "TestID" -> 
+        "TestKey" -> 1729032691231151722, "TestID" -> 
          "Shocks_20230610-Q6UEUJ", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt", "SameTest" -> SameQ, 
@@ -778,22 +778,22 @@ Cell[BoxData[
          HoldForm[{{1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1}}], "ActualOutput" -> 
          HoldForm[{{1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1}}], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431208103335*^9, "AbsoluteTimeUsed" -> 
-         0.003105`3.642576602344593, "CPUTimeUsed" -> 0.0031889999999998864`, 
+         3.895507629878992*^9, "AbsoluteTimeUsed" -> 
+         0.00286`3.606881030961035, "CPUTimeUsed" -> 0.002889999999999837, 
          "MemoryUsed" -> 3016|>]|>, 
-    "TestsSucceededKeys" -> {7579765629481986523, 4769401247710307483, 
-     6298751536798018362, 802133961335485443, 5131767683139549869, 
-     5017698643097735181, 2483134899483726876, 4644090061478109276, 
-     7645715485818618088, 8530148614909990959, 5162480000666186291, 
-     2739780630838876451, 3089040641107909874, 5244817825833089772, 
-     866554507301705420, 538247785723634243, 6152542199180352596}, 
+    "TestsSucceededKeys" -> {2828029488974863090, 7978155910965902445, 
+     6665220333730664622, 576403780184493446, 8173114366685700460, 
+     9106633090545938032, 751588020548242018, 8741522474942156818, 
+     5560745614110524166, 5598221598799487192, 8131315414493388942, 
+     1381640533889703051, 8173017122994513820, 6803978974693068197, 
+     3797002050895597418, 6795375763177041016, 1729032691231151722}, 
     "TestsFailedWrongResultsKeys" -> {}, "TestsFailedWithMessagesKeys" -> {}, 
     "TestsFailedWithErrorsKeys" -> {}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellChangeTimes->{3.895431208289164*^9},
- CellLabel->"Out[5]=",ExpressionUUID->"817127ec-e437-4d24-9301-910db4d007bd"],
+ CellChangeTimes->{3.895431208289164*^9, 3.895507629895403*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"ce1c5af8-134d-45e4-a6eb-b3edf484c365"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -947,7 +947,7 @@ Cell[BoxData[
                  TagBox[
                   
                   TemplateBox[{
-                   "0.050645`", "\"s\"", "seconds", "\"Seconds\""}, 
+                   "0.045895`", "\"s\"", "seconds", "\"Seconds\""}, 
                    "Quantity", SyntaxForm -> Mod], "SummaryItem"]}], 
                "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
@@ -969,9 +969,9 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: Catalog.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     4458489940438577913 -> 
+     7228177162518494870 -> 
       TestResultObject[<|
-        "TestKey" -> 4458489940438577913, "TestID" -> 
+        "TestKey" -> 7228177162518494870, "TestID" -> 
          "Catalog_20230610-OQB689", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -981,11 +981,11 @@ Cell[BoxData[
          HoldForm[Get["FernandoDuarte`LongRunRisk`Model`Catalog`"]; Null], 
          "ExpectedOutput" -> HoldForm[Null], "ActualOutput" -> HoldForm[Null],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208291685*^9, "AbsoluteTimeUsed" -> 
-         0.044505`4.798923803204517, "CPUTimeUsed" -> 0.044482999999999606`, 
-         "MemoryUsed" -> 6525184|>], 7772737595135400370 -> 
+         "AbsoluteTime" -> 3.895507629898697*^9, "AbsoluteTimeUsed" -> 
+         0.040061`4.753236783754636, "CPUTimeUsed" -> 0.040067000000000075`, 
+         "MemoryUsed" -> 6506552|>], 5543659660063995717 -> 
       TestResultObject[<|
-        "TestKey" -> 7772737595135400370, "TestID" -> 
+        "TestKey" -> 5543659660063995717, "TestID" -> 
          "Catalog_20230610-HTF3BH", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -996,11 +996,11 @@ Cell[BoxData[
             "FernandoDuarte`LongRunRisk`Model`Catalog`"]], "ExpectedOutput" -> 
          HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431208336425*^9, "AbsoluteTimeUsed" -> 
-         0.000022`1.4929376786541977, "CPUTimeUsed" -> 0.00002199999999996649,
-          "MemoryUsed" -> 2928|>], 2690611374167339968 -> 
+         3.895507629938998*^9, "AbsoluteTimeUsed" -> 
+         0.000023`1.512242833849585, "CPUTimeUsed" -> 0.00002300000000010627, 
+         "MemoryUsed" -> 2928|>], 6520116624367725394 -> 
       TestResultObject[<|
-        "TestKey" -> 2690611374167339968, "TestID" -> 
+        "TestKey" -> 6520116624367725394, "TestID" -> 
          "Catalog_20230610-BN4CMJ", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -1012,11 +1012,11 @@ Cell[BoxData[
              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8954312083366017`*^9, "AbsoluteTimeUsed" -> 
-         0.000022`1.4929376786541977, "CPUTimeUsed" -> 0.00002300000000010627,
-          "MemoryUsed" -> 2856|>], 3526606431452205704 -> 
+         "AbsoluteTime" -> 3.8955076299391813`*^9, "AbsoluteTimeUsed" -> 
+         0.000023`1.512242833849585, "CPUTimeUsed" -> 0.00002300000000010627, 
+         "MemoryUsed" -> 2856|>], 843701730937317966 -> 
       TestResultObject[<|
-        "TestKey" -> 3526606431452205704, "TestID" -> 
+        "TestKey" -> 843701730937317966, "TestID" -> 
          "Catalog_20230610-WT7OAT", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -1036,11 +1036,11 @@ Cell[BoxData[
                Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8954312083367867`*^9, "AbsoluteTimeUsed" -> 
-         0.000056`1.898703024838192, "CPUTimeUsed" -> 0.00005499999999969418, 
-         "MemoryUsed" -> 2856|>], 1304774761436954938 -> 
+         "AbsoluteTime" -> 3.895507629939365*^9, "AbsoluteTimeUsed" -> 
+         0.000058`1.9139429913949293, "CPUTimeUsed" -> 0.00005699999999997374,
+          "MemoryUsed" -> 2856|>], 5594984155449555397 -> 
       TestResultObject[<|
-        "TestKey" -> 1304774761436954938, "TestID" -> 
+        "TestKey" -> 5594984155449555397, "TestID" -> 
          "Catalog_20230610-C1FMQ2", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -1060,11 +1060,11 @@ Cell[BoxData[
                Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208336995*^9, "AbsoluteTimeUsed" -> 
-         0.002377`3.52654417956017, "CPUTimeUsed" -> 0.0023770000000000735`, 
-         "MemoryUsed" -> 176320|>], 2785042070625576674 -> 
+         "AbsoluteTime" -> 3.895507629939577*^9, "AbsoluteTimeUsed" -> 
+         0.00235`3.5215828601037282, "CPUTimeUsed" -> 0.0023490000000001565`, 
+         "MemoryUsed" -> 176256|>], 5028969074267004880 -> 
       TestResultObject[<|
-        "TestKey" -> 2785042070625576674, "TestID" -> 
+        "TestKey" -> 5028969074267004880, "TestID" -> 
          "Catalog_20230610-UQSRTE", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -1083,12 +1083,12 @@ Cell[BoxData[
             FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx[
             FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]}], 
          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8954312083395557`*^9, "AbsoluteTimeUsed" -> 
-         0.000018`1.4057875029352978, "CPUTimeUsed" -> 
-         0.000018999999999547157`, "MemoryUsed" -> 2816|>], 
-      2615573776795297519 -> 
+         "AbsoluteTime" -> 3.895507629942091*^9, "AbsoluteTimeUsed" -> 
+         0.00002`1.4515449934959728, "CPUTimeUsed" -> 
+         0.000018999999999991246`, "MemoryUsed" -> 2816|>], 
+      718844489252086330 -> 
       TestResultObject[<|
-        "TestKey" -> 2615573776795297519, "TestID" -> 
+        "TestKey" -> 718844489252086330, "TestID" -> 
          "Catalog_20230610-9P3GIH", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -1100,12 +1100,12 @@ Cell[BoxData[
               Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]& , {
              "BY", "BKY"}]]], "ExpectedOutput" -> HoldForm[True], 
          "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> HoldForm[{}],
-          "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431208339713*^9, 
-         "AbsoluteTimeUsed" -> 0.000024`1.5307262395435983, "CPUTimeUsed" -> 
-         0.000024000000000246047`, "MemoryUsed" -> 3120|>], 
-      7578751935423280270 -> 
+          "ActualMessages" -> {}, "AbsoluteTime" -> 3.895507629942256*^9, 
+         "AbsoluteTimeUsed" -> 0.000025`1.5484550065040283, "CPUTimeUsed" -> 
+         0.000024999999999941735`, "MemoryUsed" -> 3120|>], 
+      1840451808574842193 -> 
       TestResultObject[<|
-        "TestKey" -> 7578751935423280270, "TestID" -> 
+        "TestKey" -> 1840451808574842193, "TestID" -> 
          "Catalog_20230610-A2TH7C", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -1121,12 +1121,11 @@ Cell[BoxData[
                 Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]}]]]], 
          "ExpectedOutput" -> HoldForm[False], "ActualOutput" -> 
          HoldForm[False], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431208339884*^9, 
-         "AbsoluteTimeUsed" -> 0.000031`1.6418766916662664, "CPUTimeUsed" -> 
-         0.000029999999999752447`, "MemoryUsed" -> 2864|>], 
-      1047838976227062992 -> 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895507629942427*^9, 
+         "AbsoluteTimeUsed" -> 0.000034`1.6819939148742447, "CPUTimeUsed" -> 
+         0.00003399999999986747, "MemoryUsed" -> 2864|>], 4531017187686467451 -> 
       TestResultObject[<|
-        "TestKey" -> 1047838976227062992, "TestID" -> 
+        "TestKey" -> 4531017187686467451, "TestID" -> 
          "Catalog_20230610-7VIZ3G", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -1153,11 +1152,11 @@ exogenousVars],
              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208340079*^9, "AbsoluteTimeUsed" -> 
-         0.000668`2.9752914603075373, "CPUTimeUsed" -> 0.0006620000000001625, 
-         "MemoryUsed" -> 6088|>], 8866233930126540284 -> 
+         "AbsoluteTime" -> 3.8955076299426293`*^9, "AbsoluteTimeUsed" -> 
+         0.000551`2.891666596683777, "CPUTimeUsed" -> 0.0005530000000004698, 
+         "MemoryUsed" -> 6088|>], 2250476567322526644 -> 
       TestResultObject[<|
-        "TestKey" -> 8866233930126540284, "TestID" -> 
+        "TestKey" -> 2250476567322526644, "TestID" -> 
          "Catalog_20230610-CRNM7A", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -1179,12 +1178,11 @@ exogenousVars],
              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208341056*^9, "AbsoluteTimeUsed" -> 
-         0.000117`2.2187008595781514, "CPUTimeUsed" -> 
-         0.00011900000000064637`, "MemoryUsed" -> 3072|>], 
-      4244397285099540793 -> 
+         "AbsoluteTime" -> 3.895507629943336*^9, "AbsoluteTimeUsed" -> 
+         0.000091`2.1095563901530854, "CPUTimeUsed" -> 0.00009000000000014552,
+          "MemoryUsed" -> 3072|>], 8507626823758030730 -> 
       TestResultObject[<|
-        "TestKey" -> 4244397285099540793, "TestID" -> 
+        "TestKey" -> 8507626823758030730, "TestID" -> 
          "Catalog_20230610-19YY4G", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -1205,12 +1203,12 @@ exogenousVars],
              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.89543120834137*^9, "AbsoluteTimeUsed" -> 
-         0.001513`3.3303539258551806, "CPUTimeUsed" -> 0.0015270000000002781`,
-          "MemoryUsed" -> 10280|>], 7655159685504628970 -> 
+         "AbsoluteTime" -> 3.895507629943581*^9, "AbsoluteTimeUsed" -> 
+         0.001425`3.3043298621765187, "CPUTimeUsed" -> 0.0014250000000002316`,
+          "MemoryUsed" -> 10280|>], 44217477253085511 -> 
       TestResultObject[<|
-        "TestKey" -> 7655159685504628970, "TestID" -> 
-         "Catalog_20230610-QA6G8W", "TestFileName" -> 
+        "TestKey" -> 44217477253085511, "TestID" -> "Catalog_20230610-QA6G8W",
+          "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
          "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
@@ -1230,12 +1228,11 @@ exogenousVars],
              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208343052*^9, "AbsoluteTimeUsed" -> 
-         0.000211`2.4747974531296846, "CPUTimeUsed" -> 
-         0.00021000000000004349`, "MemoryUsed" -> 3072|>], 
-      2743898215950997356 -> 
+         "AbsoluteTime" -> 3.89550762994516*^9, "AbsoluteTimeUsed" -> 
+         0.000207`2.466485343288912, "CPUTimeUsed" -> 0.00020700000000006824`,
+          "MemoryUsed" -> 3072|>], 7829263073834114756 -> 
       TestResultObject[<|
-        "TestKey" -> 2743898215950997356, "TestID" -> 
+        "TestKey" -> 7829263073834114756, "TestID" -> 
          "Catalog_20230610-Z5QV8I", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
@@ -1258,21 +1255,21 @@ endogenousVars],
               Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208343432*^9, "AbsoluteTimeUsed" -> 
-         0.001081`3.1843406917853, "CPUTimeUsed" -> 0.0010810000000001097`, 
-         "MemoryUsed" -> 3016|>]|>, 
-    "TestsSucceededKeys" -> {4458489940438577913, 7772737595135400370, 
-     2690611374167339968, 3526606431452205704, 1304774761436954938, 
-     2785042070625576674, 2615573776795297519, 7578751935423280270, 
-     1047838976227062992, 8866233930126540284, 4244397285099540793, 
-     7655159685504628970, 2743898215950997356}, 
+         "AbsoluteTime" -> 3.89550762994552*^9, "AbsoluteTimeUsed" -> 
+         0.001027`3.16208544142927, "CPUTimeUsed" -> 0.0010279999999998068`, 
+         "MemoryUsed" -> 2952|>]|>, 
+    "TestsSucceededKeys" -> {7228177162518494870, 5543659660063995717, 
+     6520116624367725394, 843701730937317966, 5594984155449555397, 
+     5028969074267004880, 718844489252086330, 1840451808574842193, 
+     4531017187686467451, 2250476567322526644, 8507626823758030730, 
+     44217477253085511, 7829263073834114756}, 
     "TestsFailedWrongResultsKeys" -> {}, "TestsFailedWithMessagesKeys" -> {}, 
     "TestsFailedWithErrorsKeys" -> {}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellChangeTimes->{3.895431208352193*^9},
- CellLabel->"Out[6]=",ExpressionUUID->"55fe1a60-84c4-4c67-97e8-eeb03b9aa40b"],
+ CellChangeTimes->{3.895431208289164*^9, 3.895507629953421*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"4f0d2740-c3a2-4b26-a428-68f85f92fb93"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -1426,7 +1423,7 @@ Cell[BoxData[
                  TagBox[
                   
                   TemplateBox[{
-                   "0.042265`", "\"s\"", "seconds", "\"Seconds\""}, 
+                   "0.038022`", "\"s\"", "seconds", "\"Seconds\""}, 
                    "Quantity", SyntaxForm -> Mod], "SummaryItem"]}], 
                "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
@@ -1448,9 +1445,9 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: ExogenousEq.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     8776043850919386318 -> 
+     5812946853475271417 -> 
       TestResultObject[<|
-        "TestKey" -> 8776043850919386318, "TestID" -> 
+        "TestKey" -> 5812946853475271417, "TestID" -> 
          "ExogenousEq_20230610-CGCOH1", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ExogenousEq.wlt", "SameTest" -> SameQ,
@@ -1460,12 +1457,11 @@ Cell[BoxData[
            Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"]], 
          "ExpectedOutput" -> HoldForm[Null], "ActualOutput" -> HoldForm[Null],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208358258*^9, "AbsoluteTimeUsed" -> 
-         0.000046`1.8132728295135678, "CPUTimeUsed" -> 
-         0.000042000000000097515`, "MemoryUsed" -> 3096|>], 
-      7571414634167090987 -> 
+         "AbsoluteTime" -> 3.895507629958447*^9, "AbsoluteTimeUsed" -> 
+         0.000035`1.6945830421822692, "CPUTimeUsed" -> 0.00003500000000000725,
+          "MemoryUsed" -> 3096|>], 3634504013163856257 -> 
       TestResultObject[<|
-        "TestKey" -> 7571414634167090987, "TestID" -> 
+        "TestKey" -> 3634504013163856257, "TestID" -> 
          "ExogenousEq_20230610-AEPY7W", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ExogenousEq.wlt", "SameTest" -> SameQ,
@@ -1474,11 +1470,11 @@ Cell[BoxData[
          "Outcome" -> "Success", "Input" -> HoldForm[
            Not[Names["*xeq"] === {}]], "ExpectedOutput" -> HoldForm[True], 
          "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> HoldForm[{}],
-          "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431208358508*^9, 
-         "AbsoluteTimeUsed" -> 0.021362`4.480156908562205, "CPUTimeUsed" -> 
-         0.02135700000000007, "MemoryUsed" -> 2808|>], 9032344716816115624 -> 
+          "ActualMessages" -> {}, "AbsoluteTime" -> 3.895507629958664*^9, 
+         "AbsoluteTimeUsed" -> 0.019682`4.444584225302881, "CPUTimeUsed" -> 
+         0.019687000000000232`, "MemoryUsed" -> 2808|>], 8594279148642002033 -> 
       TestResultObject[<|
-        "TestKey" -> 9032344716816115624, "TestID" -> 
+        "TestKey" -> 8594279148642002033, "TestID" -> 
          "ExogenousEq_20230610-LOKXUS", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ExogenousEq.wlt", "SameTest" -> SameQ,
@@ -1605,11 +1601,11 @@ Cell[BoxData[
               "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"]}]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208380291*^9, "AbsoluteTimeUsed" -> 
-         0.019434`4.439077196225813, "CPUTimeUsed" -> 0.01946099999999973, 
-         "MemoryUsed" -> 5744|>], 2189354754184186800 -> 
+         "AbsoluteTime" -> 3.895507629978836*^9, "AbsoluteTimeUsed" -> 
+         0.016907`4.378581550489964, "CPUTimeUsed" -> 0.016915000000000013`, 
+         "MemoryUsed" -> 5744|>], 925063772776273080 -> 
       TestResultObject[<|
-        "TestKey" -> 2189354754184186800, "TestID" -> 
+        "TestKey" -> 925063772776273080, "TestID" -> 
          "ExogenousEq_20230610-PH3WLM", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ExogenousEq.wlt", "SameTest" -> SameQ,
@@ -1637,11 +1633,11 @@ exogenousVars],
                  BlankSequence[]] :> ExogenousEq`var, Infinity]]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208400129*^9, "AbsoluteTimeUsed" -> 
-         0.000837`3.0732404558252537, "CPUTimeUsed" -> 0.0008369999999997546, 
-         "MemoryUsed" -> 4496|>], 1640921348138820817 -> 
+         "AbsoluteTime" -> 3.89550762999608*^9, "AbsoluteTimeUsed" -> 
+         0.000818`3.063268301503315, "CPUTimeUsed" -> 0.0008170000000000677, 
+         "MemoryUsed" -> 4496|>], 7703786943235509269 -> 
       TestResultObject[<|
-        "TestKey" -> 1640921348138820817, "TestID" -> 
+        "TestKey" -> 7703786943235509269, "TestID" -> 
          "ExogenousEq_20230610-WZA87O", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ExogenousEq.wlt", "SameTest" -> SameQ,
@@ -1664,11 +1660,11 @@ exogenousVars],
                  BlankSequence[]] :> ExogenousEq`var, Infinity]]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208401168*^9, "AbsoluteTimeUsed" -> 
-         0.000176`2.3960276656461437, "CPUTimeUsed" -> 
-         0.00017600000000017602`, "MemoryUsed" -> 3456|>], 765548665121099098 -> 
+         "AbsoluteTime" -> 3.895507629997072*^9, "AbsoluteTimeUsed" -> 
+         0.000171`2.3835111082241456, "CPUTimeUsed" -> 
+         0.00017099999999992122`, "MemoryUsed" -> 3456|>], 865795430142348555 -> 
       TestResultObject[<|
-        "TestKey" -> 765548665121099098, "TestID" -> 
+        "TestKey" -> 865795430142348555, "TestID" -> 
          "ExogenousEq_20230610-DNIA16", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ExogenousEq.wlt", "SameTest" -> SameQ,
@@ -1690,11 +1686,11 @@ exogenousVars],
                   SymbolName[#]]& ] :> ExogenousEq`var, Infinity]]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8954312084015107`*^9, "AbsoluteTimeUsed" -> 
-         0.000327`2.665062750492278, "CPUTimeUsed" -> 0.000328000000000106, 
-         "MemoryUsed" -> 3072|>], 4328861113978174693 -> 
+         "AbsoluteTime" -> 3.895507629997413*^9, "AbsoluteTimeUsed" -> 
+         0.000323`2.6597175201630945, "CPUTimeUsed" -> 0.0003229999999998512, 
+         "MemoryUsed" -> 3072|>], 3710502558640517009 -> 
       TestResultObject[<|
-        "TestKey" -> 4328861113978174693, "TestID" -> 
+        "TestKey" -> 3710502558640517009, "TestID" -> 
          "ExogenousEq_20230610-FG8FUM", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ExogenousEq.wlt", "SameTest" -> SameQ,
@@ -1725,19 +1721,19 @@ exogenousVars],
               FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq[foo`t]]}]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8954312084020057`*^9, "AbsoluteTimeUsed" -> 
-         0.000083`2.069593090208068, "CPUTimeUsed" -> 0.00008300000000005525, 
-         "MemoryUsed" -> 3128|>]|>, 
-    "TestsSucceededKeys" -> {8776043850919386318, 7571414634167090987, 
-     9032344716816115624, 2189354754184186800, 1640921348138820817, 
-     765548665121099098, 4328861113978174693}, 
+         "AbsoluteTime" -> 3.8955076299979*^9, "AbsoluteTimeUsed" -> 
+         0.000086`2.0850134490755594, "CPUTimeUsed" -> 0.00008699999999972619,
+          "MemoryUsed" -> 3128|>]|>, 
+    "TestsSucceededKeys" -> {5812946853475271417, 3634504013163856257, 
+     8594279148642002033, 925063772776273080, 7703786943235509269, 
+     865795430142348555, 3710502558640517009}, 
     "TestsFailedWrongResultsKeys" -> {}, "TestsFailedWithMessagesKeys" -> {}, 
     "TestsFailedWithErrorsKeys" -> {}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellChangeTimes->{3.895431208409639*^9},
- CellLabel->"Out[7]=",ExpressionUUID->"73679f39-e6a7-4dff-b169-5a3c2cf31f42"],
+ CellChangeTimes->{3.895431208289164*^9, 3.895507630004744*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"c564145a-127f-4169-9b3b-c2f4fc25c0b3"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -1891,7 +1887,7 @@ Cell[BoxData[
                  TagBox[
                   
                   TemplateBox[{
-                   "0.023888`", "\"s\"", "seconds", "\"Seconds\""}, 
+                   "0.021555`", "\"s\"", "seconds", "\"Seconds\""}, 
                    "Quantity", SyntaxForm -> Mod], "SummaryItem"]}], 
                "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
@@ -1913,9 +1909,9 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: EndogenousEq.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     8361263152500652346 -> 
+     6097286541709740712 -> 
       TestResultObject[<|
-        "TestKey" -> 8361263152500652346, "TestID" -> 
+        "TestKey" -> 6097286541709740712, "TestID" -> 
          "EndogenousEq_20230610-0G7T30", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
@@ -1925,12 +1921,11 @@ Cell[BoxData[
            Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"]], 
          "ExpectedOutput" -> HoldForm[Null], "ActualOutput" -> HoldForm[Null],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208413939*^9, "AbsoluteTimeUsed" -> 
-         0.000037`1.7187167218989887, "CPUTimeUsed" -> 
-         0.000036000000000147026`, "MemoryUsed" -> 3096|>], 
-      8370525547497103545 -> 
+         "AbsoluteTime" -> 3.895507630008539*^9, "AbsoluteTimeUsed" -> 
+         0.000033`1.669028937709879, "CPUTimeUsed" -> 0.00003400000000031156, 
+         "MemoryUsed" -> 3096|>], 4371457634921003458 -> 
       TestResultObject[<|
-        "TestKey" -> 8370525547497103545, "TestID" -> 
+        "TestKey" -> 4371457634921003458, "TestID" -> 
          "EndogenousEq_20230610-DIWSB8", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
@@ -1939,11 +1934,11 @@ Cell[BoxData[
          "Outcome" -> "Success", "Input" -> HoldForm[
            Not[Names["*pdeq"] === {}]], "ExpectedOutput" -> HoldForm[True], 
          "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> HoldForm[{}],
-          "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431208414166*^9, 
-         "AbsoluteTimeUsed" -> 0.021859`4.4901452879060715, "CPUTimeUsed" -> 
-         0.021874000000000393`, "MemoryUsed" -> 2808|>], 6594117812978469225 -> 
+          "ActualMessages" -> {}, "AbsoluteTime" -> 3.895507630008746*^9, 
+         "AbsoluteTimeUsed" -> 0.019546`4.441572892266268, "CPUTimeUsed" -> 
+         0.01958100000000007, "MemoryUsed" -> 2808|>], 5932362036597321995 -> 
       TestResultObject[<|
-        "TestKey" -> 6594117812978469225, "TestID" -> 
+        "TestKey" -> 5932362036597321995, "TestID" -> 
          "EndogenousEq_20230610-OV08TN", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
@@ -1971,11 +1966,11 @@ exogenousVars],
                  BlankSequence[]] :> EndogenousEq`var, Infinity]]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8954312084363327`*^9, "AbsoluteTimeUsed" -> 
-         0.00059`2.9213670094741384, "CPUTimeUsed" -> 0.0005919999999997039, 
-         "MemoryUsed" -> 12912|>], 3413889552477836358 -> 
+         "AbsoluteTime" -> 3.895507630028622*^9, "AbsoluteTimeUsed" -> 
+         0.000554`2.894024762560422, "CPUTimeUsed" -> 0.0005539999999997214, 
+         "MemoryUsed" -> 12912|>], 31596314463895748 -> 
       TestResultObject[<|
-        "TestKey" -> 3413889552477836358, "TestID" -> 
+        "TestKey" -> 31596314463895748, "TestID" -> 
          "EndogenousEq_20230610-I0J24M", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
@@ -1998,11 +1993,11 @@ endogenousVars]], PatternTest[
                  BlankSequence[]] :> EndogenousEq`var, Infinity]]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208437102*^9, "AbsoluteTimeUsed" -> 
-         0.000151`2.329491945125159, "CPUTimeUsed" -> 0.00015100000000023428`,
-          "MemoryUsed" -> 3624|>], 3949415660828878329 -> 
+         "AbsoluteTime" -> 3.895507630029351*^9, "AbsoluteTimeUsed" -> 
+         0.000146`2.314867853616427, "CPUTimeUsed" -> 0.00014700000000011926`,
+          "MemoryUsed" -> 3240|>], 5831018890950696523 -> 
       TestResultObject[<|
-        "TestKey" -> 3949415660828878329, "TestID" -> 
+        "TestKey" -> 5831018890950696523, "TestID" -> 
          "EndogenousEq_20230610-12MROW", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
@@ -2024,11 +2019,11 @@ endogenousVars]], PatternTest[
                   SymbolName[#]]& ] :> EndogenousEq`var, Infinity]]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.89543120843741*^9, "AbsoluteTimeUsed" -> 
-         0.000249`2.5467143449277283, "CPUTimeUsed" -> 0.000248000000000026, 
-         "MemoryUsed" -> 4160|>], 1186949964220409573 -> 
+         "AbsoluteTime" -> 3.895507630029662*^9, "AbsoluteTimeUsed" -> 
+         0.00025`2.5484550065040295, "CPUTimeUsed" -> 0.00024999999999986144`,
+          "MemoryUsed" -> 4288|>], 805636002008265910 -> 
       TestResultObject[<|
-        "TestKey" -> 1186949964220409573, "TestID" -> 
+        "TestKey" -> 805636002008265910, "TestID" -> 
          "EndogenousEq_20230610-1W6A38", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
@@ -2056,11 +2051,11 @@ endogenousVars],
                  BlankSequence[]] :> EndogenousEq`var, Infinity]]]]], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431208437824*^9, "AbsoluteTimeUsed" -> 
-         0.000905`3.1071635770371953, "CPUTimeUsed" -> 0.0009060000000000734, 
-         "MemoryUsed" -> 2944|>], 2687309687956239625 -> 
+         "AbsoluteTime" -> 3.895507630030078*^9, "AbsoluteTimeUsed" -> 
+         0.000922`3.1152459188856194, "CPUTimeUsed" -> 0.0009220000000000894, 
+         "MemoryUsed" -> 3200|>], 1806219790618545363 -> 
       TestResultObject[<|
-        "TestKey" -> 2687309687956239625, "TestID" -> 
+        "TestKey" -> 1806219790618545363, "TestID" -> 
          "EndogenousEq_20230610-SZNWBO", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
@@ -2093,11 +2088,11 @@ endogenousVars],
                foo`t, EndogenousEq`m]]}]], "ExpectedOutput" -> HoldForm[True],
           "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8954312084389057`*^9, "AbsoluteTimeUsed" -> 
-         0.000033`1.6690289377098768, "CPUTimeUsed" -> 0.00003400000000031156,
-          "MemoryUsed" -> 3000|>], 766301297598208678 -> 
+         3.895507630031177*^9, "AbsoluteTimeUsed" -> 
+         0.000036`1.706817498599281, "CPUTimeUsed" -> 0.00003500000000000725, 
+         "MemoryUsed" -> 3000|>], 3322293620310753193 -> 
       TestResultObject[<|
-        "TestKey" -> 766301297598208678, "TestID" -> 
+        "TestKey" -> 3322293620310753193, "TestID" -> 
          "EndogenousEq_20230610-5I43IK", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
@@ -2126,11 +2121,12 @@ endogenousVars],
                EndogenousEq`t, foo`m]]}]], "ExpectedOutput" -> HoldForm[True],
           "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431208439105*^9, "AbsoluteTimeUsed" -> 
-         0.00003`1.627636252551654, "CPUTimeUsed" -> 0.000029000000000056758`,
-          "MemoryUsed" -> 3128|>], 6873115359620666390 -> 
+         3.8955076300313773`*^9, "AbsoluteTimeUsed" -> 
+         0.000031`1.6418766916662644, "CPUTimeUsed" -> 
+         0.000030999999999892225`, "MemoryUsed" -> 3128|>], 
+      4794658445321025396 -> 
       TestResultObject[<|
-        "TestKey" -> 6873115359620666390, "TestID" -> 
+        "TestKey" -> 4794658445321025396, "TestID" -> 
          "EndogenousEq_20230610-X1EP37", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
@@ -2156,20 +2152,20 @@ endogenousVars],
               EndogenousEq`t, EndogenousEq`m, 1]}]], "ExpectedOutput" -> 
          HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431208439299*^9, "AbsoluteTimeUsed" -> 
-         0.000034`1.6819939148742484, "CPUTimeUsed" -> 0.00003399999999986747,
-          "MemoryUsed" -> 2856|>]|>, 
-    "TestsSucceededKeys" -> {8361263152500652346, 8370525547497103545, 
-     6594117812978469225, 3413889552477836358, 3949415660828878329, 
-     1186949964220409573, 2687309687956239625, 766301297598208678, 
-     6873115359620666390}, "TestsFailedWrongResultsKeys" -> {}, 
+         3.895507630031575*^9, "AbsoluteTimeUsed" -> 
+         0.000037`1.718716721898985, "CPUTimeUsed" -> 0.00003799999999998249, 
+         "MemoryUsed" -> 2856|>]|>, 
+    "TestsSucceededKeys" -> {6097286541709740712, 4371457634921003458, 
+     5932362036597321995, 31596314463895748, 5831018890950696523, 
+     805636002008265910, 1806219790618545363, 3322293620310753193, 
+     4794658445321025396}, "TestsFailedWrongResultsKeys" -> {}, 
     "TestsFailedWithMessagesKeys" -> {}, "TestsFailedWithErrorsKeys" -> {}|>],
   
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellChangeTimes->{3.895431208446474*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"6a024176-17b9-4665-b162-cb3501d7ee68"],
+ CellChangeTimes->{3.895431208289164*^9, 3.895507630038171*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"cc423dde-aea4-43f2-89b4-d9f81a020ee0"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -2325,7 +2321,7 @@ Cell[BoxData[
                  TagBox[
                   
                   TemplateBox[{
-                   "37.963665`", "\"s\"", "seconds", "\"Seconds\""}, 
+                   "33.379654`", "\"s\"", "seconds", "\"Seconds\""}, 
                    "Quantity", SyntaxForm -> Mod], "SummaryItem"]}], 
                "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
@@ -2347,9 +2343,9 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: ComputeConditionalExpectations.wlt", "Aborted" -> 
     False, "TestResults" -> <|
-     1361468694063287941 -> 
+     7167730366011987625 -> 
       TestResultObject[<|
-        "TestKey" -> 1361468694063287941, "TestID" -> 
+        "TestKey" -> 7167730366011987625, "TestID" -> 
          "ComputeConditionalExpectations_20230610-U8AMCQ", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -2362,11 +2358,11 @@ Cell[BoxData[
            Needs["PacletizedResourceFunctions`"]; Null], "ExpectedOutput" -> 
          HoldForm[Null], "ActualOutput" -> HoldForm[Null], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431208455356*^9, "AbsoluteTimeUsed" -> 
-         0.023169`4.515422287390026, "CPUTimeUsed" -> 0.023136000000000045`, 
-         "MemoryUsed" -> 495424|>], 8050027675683561375 -> 
+         3.895507630047976*^9, "AbsoluteTimeUsed" -> 
+         0.022171`4.496300279791207, "CPUTimeUsed" -> 0.022165999999999908`, 
+         "MemoryUsed" -> 492344|>], 2722733654549901677 -> 
       TestResultObject[<|
-        "TestKey" -> 8050027675683561375, "TestID" -> 
+        "TestKey" -> 2722733654549901677, "TestID" -> 
          "ComputeConditionalExpectations_20230610-TNKSLD", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -2380,11 +2376,11 @@ ComputeConditionalExpectations`"]; $ContextAliases["ce`"] =
 ComputeConditionalExpectations`Private`"; Null], "ExpectedOutput" -> 
          HoldForm[Null], "ActualOutput" -> HoldForm[Null], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.89543120847878*^9, "AbsoluteTimeUsed" -> 
-         0.004699`3.822520442854942, "CPUTimeUsed" -> 0.00470299999999968, 
-         "MemoryUsed" -> 2312|>], 7985451289623305974 -> 
+         3.8955076300703983`*^9, "AbsoluteTimeUsed" -> 
+         0.005636`3.901485982269308, "CPUTimeUsed" -> 0.0056549999999995215`, 
+         "MemoryUsed" -> 2312|>], 409962477604730398 -> 
       TestResultObject[<|
-        "TestKey" -> 7985451289623305974, "TestID" -> 
+        "TestKey" -> 409962477604730398, "TestID" -> 
          "ComputeConditionalExpectations_20230610-2YY3L6", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -2397,12 +2393,12 @@ ComputeConditionalExpectations`Private`"; Null], "ExpectedOutput" ->
               "FernandoDuarte`LongRunRisk`ComputationalEngine`\
 ComputeConditionalExpectations`"]}]], "ExpectedOutput" -> HoldForm[True], 
          "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> HoldForm[{}],
-          "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431208483715*^9, 
-         "AbsoluteTimeUsed" -> 0.000026`1.5654883458028104, "CPUTimeUsed" -> 
-         0.000024999999999497646`, "MemoryUsed" -> 2952|>], 
-      7927623404901503720 -> 
+          "ActualMessages" -> {}, "AbsoluteTime" -> 3.895507630076288*^9, 
+         "AbsoluteTimeUsed" -> 0.000025`1.5484550065040295, "CPUTimeUsed" -> 
+         0.000023999999999801958`, "MemoryUsed" -> 2952|>], 
+      4786111524001914720 -> 
       TestResultObject[<|
-        "TestKey" -> 7927623404901503720, "TestID" -> 
+        "TestKey" -> 4786111524001914720, "TestID" -> 
          "ComputeConditionalExpectations_20230610-XWDHYS", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -2414,11 +2410,11 @@ ComputeConditionalExpectations`"]}]], "ExpectedOutput" -> HoldForm[True],
              Not[Names["ce`lagStateVarst"] === {}]}]], "ExpectedOutput" -> 
          HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8954312084838967`*^9, "AbsoluteTimeUsed" -> 
-         0.020584`4.464044771034282, "CPUTimeUsed" -> 0.02062699999999973, 
-         "MemoryUsed" -> 2824|>], 6162353380312354671 -> 
+         3.895507630076468*^9, "AbsoluteTimeUsed" -> 
+         0.017136`4.384424451319773, "CPUTimeUsed" -> 0.017141000000000073`, 
+         "MemoryUsed" -> 2824|>], 5697518230657618166 -> 
       TestResultObject[<|
-        "TestKey" -> 6162353380312354671, "TestID" -> 
+        "TestKey" -> 5697518230657618166, "TestID" -> 
          "ComputeConditionalExpectations_20230610-88XBF6", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -2438,11 +2434,11 @@ ComputeConditionalExpectations`"]}]], "ExpectedOutput" -> HoldForm[True],
             Part[ComputationalEngine`Cond`msp, 2]; Null], "ExpectedOutput" -> 
          HoldForm[Null], "ActualOutput" -> HoldForm[Null], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8954312085047817`*^9, "AbsoluteTimeUsed" -> 
-         29.465633`7.6198307731614845, "CPUTimeUsed" -> 29.523950999999997`, 
-         "MemoryUsed" -> 219438640|>], 9089482951647299705 -> 
+         3.8955076300938582`*^9, "AbsoluteTimeUsed" -> 
+         27.003952`7.581942325183374, "CPUTimeUsed" -> 27.1336, "MemoryUsed" -> 
+         152267256|>], 7243980881092663137 -> 
       TestResultObject[<|
-        "TestKey" -> 9089482951647299705, "TestID" -> 
+        "TestKey" -> 7243980881092663137, "TestID" -> 
          "ComputeConditionalExpectations_20230610-J1EV2C", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -2458,11 +2454,11 @@ ComputeConditionalExpectations`ev[
            FernandoDuarte`LongRunRisk`Model`Parameters`phip], 
          "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
           "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431237970757*^9, "AbsoluteTimeUsed" -> 
-         0.004599`3.8131784074060318, "CPUTimeUsed" -> 0.004970000000000141, 
-         "MemoryUsed" -> 20720|>], 6724571376062665366 -> 
+         "AbsoluteTime" -> 3.895507657098136*^9, "AbsoluteTimeUsed" -> 
+         0.004249`3.778801728921506, "CPUTimeUsed" -> 0.00458099999999817, 
+         "MemoryUsed" -> 5640|>], 6463909676053288347 -> 
       TestResultObject[<|
-        "TestKey" -> 6724571376062665366, "TestID" -> 
+        "TestKey" -> 6463909676053288347, "TestID" -> 
          "ComputeConditionalExpectations_20230610-GEUQW1", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -3255,11 +3251,11 @@ ComputeConditionalExpectations`ev[
                    ComputationalEngine`Cond`t - 1])]]}]], "ExpectedOutput" -> 
          HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431237976782*^9, "AbsoluteTimeUsed" -> 
-         7.80496`7.042885679500282, "CPUTimeUsed" -> 2.0395849999999953`, 
-         "MemoryUsed" -> 34149120|>], 8168859515887224018 -> 
+         3.8955076571038404`*^9, "AbsoluteTimeUsed" -> 
+         5.769694`6.911667778468577, "CPUTimeUsed" -> 2.141795000000002, 
+         "MemoryUsed" -> 32799552|>], 4258834640794546445 -> 
       TestResultObject[<|
-        "TestKey" -> 8168859515887224018, "TestID" -> 
+        "TestKey" -> 4258834640794546445, "TestID" -> 
          "ComputeConditionalExpectations_20230610-6W05Y4", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -4222,11 +4218,11 @@ ComputeConditionalExpectations`var[
                  ComputationalEngine`Cond`i]^2]}]], "ExpectedOutput" -> 
          HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431245783409*^9, "AbsoluteTimeUsed" -> 
-         0.196481`5.44383555766245, "CPUTimeUsed" -> 0.2082200000000043, 
-         "MemoryUsed" -> 1133312|>], 9092192592493852122 -> 
+         3.895507662875194*^9, "AbsoluteTimeUsed" -> 
+         0.173834`5.39064972143058, "CPUTimeUsed" -> 0.18679800000000313`, 
+         "MemoryUsed" -> 175424|>], 8413155225868626754 -> 
       TestResultObject[<|
-        "TestKey" -> 9092192592493852122, "TestID" -> 
+        "TestKey" -> 8413155225868626754, "TestID" -> 
          "ComputeConditionalExpectations_20230610-F2XLQV", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -4989,11 +4985,11 @@ ComputeConditionalExpectations`ev[
                ComputationalEngine`Cond`modNRC]}]], "ExpectedOutput" -> 
          HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431245981362*^9, "AbsoluteTimeUsed" -> 
-         0.397166`5.749487060806395, "CPUTimeUsed" -> 0.41982300000000095`, 
-         "MemoryUsed" -> 2222976|>], 7566734249776046374 -> 
+         3.895507663050351*^9, "AbsoluteTimeUsed" -> 
+         0.349308`5.693723529980001, "CPUTimeUsed" -> 0.37540100000000365`, 
+         "MemoryUsed" -> 247648|>], 6468475968646308785 -> 
       TestResultObject[<|
-        "TestKey" -> 7566734249776046374, "TestID" -> 
+        "TestKey" -> 6468475968646308785, "TestID" -> 
          "ComputeConditionalExpectations_20230610-KQBZPE", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -5057,12 +5053,11 @@ ComputeConditionalExpectations`ev[
              FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
               1 + bar`t]}]], "ExpectedOutput" -> HoldForm[True], 
          "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> HoldForm[{}],
-          "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431246378961*^9, 
-         "AbsoluteTimeUsed" -> 0.017089`4.3832316476101605, "CPUTimeUsed" -> 
-         0.017679999999998586`, "MemoryUsed" -> 193200|>], 
-      4541047775161142293 -> 
+          "ActualMessages" -> {}, "AbsoluteTime" -> 3.8955076634000263`*^9, 
+         "AbsoluteTimeUsed" -> 0.013107`4.268018297261223, "CPUTimeUsed" -> 
+         0.013764000000001886`, "MemoryUsed" -> 43232|>], 5571721386851416307 -> 
       TestResultObject[<|
-        "TestKey" -> 4541047775161142293, "TestID" -> 
+        "TestKey" -> 5571721386851416307, "TestID" -> 
          "ComputeConditionalExpectations_20230610-JHHDMS", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -5134,11 +5129,11 @@ ComputeConditionalExpectations`Private`minTfun[{
              ComputationalEngine`Cond`t - 3}]], "ExpectedOutput" -> 
          HoldForm[False], "ActualOutput" -> HoldForm[False], 
          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431246396553*^9, "AbsoluteTimeUsed" -> 
-         0.000051`1.858085173929928, "CPUTimeUsed" -> 0.00005099999999202964, 
-         "MemoryUsed" -> 2904|>], 2486172022534415954 -> 
+         "AbsoluteTime" -> 3.895507663413502*^9, "AbsoluteTimeUsed" -> 
+         0.000048`1.831756235207577, "CPUTimeUsed" -> 0.00004799999999249849, 
+         "MemoryUsed" -> 2904|>], 6775028294677605849 -> 
       TestResultObject[<|
-        "TestKey" -> 2486172022534415954, "TestID" -> 
+        "TestKey" -> 6775028294677605849, "TestID" -> 
          "ComputeConditionalExpectations_20230610-T2R47X", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -5178,12 +5173,12 @@ ComputeConditionalExpectations`Private`minTfun[
              Min[c2`t - 1, foo`t - 2, ComputationalEngine`Cond`t]}]], 
          "ExpectedOutput" -> HoldForm[False], "ActualOutput" -> 
          HoldForm[False], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.89543124639685*^9, 
-         "AbsoluteTimeUsed" -> 0.000033`1.669028937709879, "CPUTimeUsed" -> 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895507663413787*^9, 
+         "AbsoluteTimeUsed" -> 0.000032`1.6556649761518971, "CPUTimeUsed" -> 
          0.000032000000004472895`, "MemoryUsed" -> 2928|>], 
-      3426598873243269282 -> 
+      3643130258752655473 -> 
       TestResultObject[<|
-        "TestKey" -> 3426598873243269282, "TestID" -> 
+        "TestKey" -> 3643130258752655473, "TestID" -> 
          "ComputeConditionalExpectations_20230610-FVVM4U", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -5403,11 +5398,11 @@ ComputeConditionalExpectations`Private`lagStateVarst[
                ComputationalEngine`Cond`t]}]], "ExpectedOutput" -> 
          HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431246397452*^9, "AbsoluteTimeUsed" -> 
-         0.029148`4.615123758684748, "CPUTimeUsed" -> 0.030270000000001573`, 
-         "MemoryUsed" -> 483824|>], 8517037717891853428 -> 
+         3.895507663414369*^9, "AbsoluteTimeUsed" -> 
+         0.020436`4.460910891842218, "CPUTimeUsed" -> 0.02163499999998919, 
+         "MemoryUsed" -> 64848|>], 7682342596783997096 -> 
       TestResultObject[<|
-        "TestKey" -> 8517037717891853428, "TestID" -> 
+        "TestKey" -> 7682342596783997096, "TestID" -> 
          "ComputeConditionalExpectations_20230610-Y0ZKOM", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt", 
@@ -5417,21 +5412,21 @@ ComputeConditionalExpectations`Private`lagStateVarst[
            Unset[
             $ContextAliases["ce`"]]], "ExpectedOutput" -> HoldForm[Null], 
          "ActualOutput" -> HoldForm[Null], "ExpectedMessages" -> HoldForm[{}],
-          "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431246426907*^9, 
-         "AbsoluteTimeUsed" -> 0.000027`1.5818787619909769, "CPUTimeUsed" -> 
-         0.00002800000000036107, "MemoryUsed" -> 2568|>]|>, 
-    "TestsSucceededKeys" -> {1361468694063287941, 8050027675683561375, 
-     7985451289623305974, 7927623404901503720, 6162353380312354671, 
-     9089482951647299705, 6724571376062665366, 8168859515887224018, 
-     9092192592493852122, 7566734249776046374, 4541047775161142293, 
-     2486172022534415954, 3426598873243269282, 8517037717891853428}, 
+          "ActualMessages" -> {}, "AbsoluteTime" -> 3.8955076634350033`*^9, 
+         "AbsoluteTimeUsed" -> 0.000026`1.5654883458028093, "CPUTimeUsed" -> 
+         0.000025000000000829914`, "MemoryUsed" -> 2568|>]|>, 
+    "TestsSucceededKeys" -> {7167730366011987625, 2722733654549901677, 
+     409962477604730398, 4786111524001914720, 5697518230657618166, 
+     7243980881092663137, 6463909676053288347, 4258834640794546445, 
+     8413155225868626754, 6468475968646308785, 5571721386851416307, 
+     6775028294677605849, 3643130258752655473, 7682342596783997096}, 
     "TestsFailedWrongResultsKeys" -> {}, "TestsFailedWithMessagesKeys" -> {}, 
     "TestsFailedWithErrorsKeys" -> {}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellChangeTimes->{3.895431246441031*^9},
- CellLabel->"Out[9]=",ExpressionUUID->"02d72ad1-8697-4453-9664-9e7d54027939"]
+ CellChangeTimes->{3.895431208289164*^9, 3.895507663447412*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"25aa5353-55f0-4c9e-95c1-e6d526769eed"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -5440,7 +5435,8 @@ Cell[BoxData[
   "TestReport", "[", 
    "\"\</Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ComputeUnconditionalExpectations.wlt\>\
-\"", "]"}]}]], "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684"],
+\"", "]"}]}]], "Input",
+ CellLabel->"In[10]:=",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684"],
 
 Cell[CellGroupData[{
 
@@ -11252,7 +11248,7 @@ Cell[BoxData[
 eb2a9bac87a8"]
 },
 WindowSize->{1668, 942},
-WindowMargins->{{-1825, Automatic}, {Automatic, 50}},
+WindowMargins->{{-1777, Automatic}, {Automatic, 116}},
 TaggingRules-><|"TryRealOnly" -> False|>,
 Magnification:>1.25 Inherited,
 FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
@@ -11273,49 +11269,49 @@ Notebook[{
 Cell[558, 20, 199, 3, 37, "Input",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
 Cell[CellGroupData[{
 Cell[782, 27, 1575, 30, 116, "Input",ExpressionUUID->"b9f2d453-3e98-41bc-b67a-28793e860800"],
-Cell[2360, 59, 221, 3, 42, "Output",ExpressionUUID->"ed57b374-83e1-44e4-b3fc-c537e626a9e5"],
-Cell[2584, 64, 243, 4, 42, "Output",ExpressionUUID->"ed321fc0-c801-4a85-9e20-17ca2207694f"],
-Cell[2830, 70, 1511, 28, 329, "Output",ExpressionUUID->"df44cb9c-a56f-4f27-931c-f1af71555458"],
-Cell[4344, 100, 268, 5, 42, "Output",ExpressionUUID->"305dd677-b656-49e7-9959-a0f9db906d83"]
+Cell[2360, 59, 242, 3, 42, "Output",ExpressionUUID->"768c9ed2-c22d-465d-82a1-c12b2fdec233"],
+Cell[2605, 64, 265, 4, 42, "Output",ExpressionUUID->"138b1797-5246-49d0-8a82-8ee6c5c4ea10"],
+Cell[2873, 70, 1533, 28, 329, "Output",ExpressionUUID->"d502a82a-b552-4867-ae81-13b0a65dbbae"],
+Cell[4409, 100, 290, 5, 42, "Output",ExpressionUUID->"2de1e6fb-9a15-4a5f-a7cc-8e48f907b40c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4649, 110, 1482, 39, 220, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0"],
-Cell[6134, 151, 35140, 644, 76, "Output",ExpressionUUID->"817127ec-e437-4d24-9301-910db4d007bd"],
-Cell[41277, 797, 24747, 477, 76, "Output",ExpressionUUID->"55fe1a60-84c4-4c67-97e8-eeb03b9aa40b"],
-Cell[66027, 1276, 22327, 463, 76, "Output",ExpressionUUID->"73679f39-e6a7-4dff-b169-5a3c2cf31f42"],
-Cell[88357, 1741, 21670, 430, 76, "Output",ExpressionUUID->"6a024176-17b9-4665-b162-cb3501d7ee68"],
-Cell[110030, 2173, 174678, 3260, 76, "Output",ExpressionUUID->"02d72ad1-8697-4453-9664-9e7d54027939"]
+Cell[4736, 110, 1500, 38, 220, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0"],
+Cell[6239, 150, 35154, 645, 76, "Output",ExpressionUUID->"ce1c5af8-134d-45e4-a6eb-b3edf484c365"],
+Cell[41396, 797, 24728, 474, 76, "Output",ExpressionUUID->"4f0d2740-c3a2-4b26-a428-68f85f92fb93"],
+Cell[66127, 1273, 22336, 462, 76, "Output",ExpressionUUID->"c564145a-127f-4169-9b3b-c2f4fc25c0b3"],
+Cell[88466, 1737, 21681, 430, 76, "Output",ExpressionUUID->"cc423dde-aea4-43f2-89b4-d9f81a020ee0"],
+Cell[110150, 2169, 174684, 3259, 76, "Output",ExpressionUUID->"25aa5353-55f0-4c9e-95c1-e6d526769eed"]
 }, Open  ]],
-Cell[284723, 5436, 266, 6, 37, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684"],
+Cell[284849, 5431, 290, 7, 37, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684"],
 Cell[CellGroupData[{
-Cell[285014, 5446, 272, 7, 37, "Input",ExpressionUUID->"5a7b1be5-0bb0-47d8-8966-c6eaeeeabe17"],
-Cell[285289, 5455, 43263, 868, 209, "Output",ExpressionUUID->"c0ed6b4a-45c7-49b1-a374-e9d2ad5c685a"]
+Cell[285164, 5442, 272, 7, 37, "Input",ExpressionUUID->"5a7b1be5-0bb0-47d8-8966-c6eaeeeabe17"],
+Cell[285439, 5451, 43263, 868, 189, "Output",ExpressionUUID->"c0ed6b4a-45c7-49b1-a374-e9d2ad5c685a"]
 }, Open  ]],
-Cell[328567, 6326, 454, 8, 90, "Input",ExpressionUUID->"84c78bb2-8e0f-4b6f-ae00-0d2abae7a844"],
-Cell[329024, 6336, 461, 11, 64, "Input",ExpressionUUID->"5121ffd6-f567-4da8-bdc7-b02da924ab5e"],
-Cell[329488, 6349, 271, 5, 64, "Input",ExpressionUUID->"7f4ea337-0076-4787-aac5-76cf6f1f79da"],
-Cell[329762, 6356, 314, 8, 37, "Input",ExpressionUUID->"e19bde9e-a625-488e-9cf4-b74f7c4fcb22"],
-Cell[330079, 6366, 1261, 26, 220, "Input",ExpressionUUID->"6d80ab2b-2576-4050-b521-9cae711fed04"],
-Cell[331343, 6394, 289, 7, 37, "Input",ExpressionUUID->"2ebef7d6-d331-419f-a64e-ead93d146e3f"],
-Cell[331635, 6403, 174, 2, 37, "Input",ExpressionUUID->"cd632827-fda3-49db-ba6c-c16c6cd48a28"],
-Cell[331812, 6407, 314, 8, 37, "Input",ExpressionUUID->"d38c1461-d4f4-423b-8b82-09b784289135"],
-Cell[332129, 6417, 155, 3, 37, "Input",ExpressionUUID->"74fa26f9-abc6-4219-a123-f978597737ff"],
-Cell[332287, 6422, 295, 5, 37, "Input",ExpressionUUID->"8a9c9e85-8cbf-4e1c-870c-0a5ec229dd8b"],
-Cell[332585, 6429, 177, 3, 37, "Input",ExpressionUUID->"89327c75-70af-4b75-adfd-86608c4fe806"],
+Cell[328717, 6322, 454, 8, 90, "Input",ExpressionUUID->"84c78bb2-8e0f-4b6f-ae00-0d2abae7a844"],
+Cell[329174, 6332, 461, 11, 64, "Input",ExpressionUUID->"5121ffd6-f567-4da8-bdc7-b02da924ab5e"],
+Cell[329638, 6345, 271, 5, 64, "Input",ExpressionUUID->"7f4ea337-0076-4787-aac5-76cf6f1f79da"],
+Cell[329912, 6352, 314, 8, 37, "Input",ExpressionUUID->"e19bde9e-a625-488e-9cf4-b74f7c4fcb22"],
+Cell[330229, 6362, 1261, 26, 220, "Input",ExpressionUUID->"6d80ab2b-2576-4050-b521-9cae711fed04"],
+Cell[331493, 6390, 289, 7, 37, "Input",ExpressionUUID->"2ebef7d6-d331-419f-a64e-ead93d146e3f"],
+Cell[331785, 6399, 174, 2, 37, "Input",ExpressionUUID->"cd632827-fda3-49db-ba6c-c16c6cd48a28"],
+Cell[331962, 6403, 314, 8, 37, "Input",ExpressionUUID->"d38c1461-d4f4-423b-8b82-09b784289135"],
+Cell[332279, 6413, 155, 3, 37, "Input",ExpressionUUID->"74fa26f9-abc6-4219-a123-f978597737ff"],
+Cell[332437, 6418, 295, 5, 37, "Input",ExpressionUUID->"8a9c9e85-8cbf-4e1c-870c-0a5ec229dd8b"],
+Cell[332735, 6425, 177, 3, 37, "Input",ExpressionUUID->"89327c75-70af-4b75-adfd-86608c4fe806"],
 Cell[CellGroupData[{
-Cell[332787, 6436, 163, 2, 37, "Input",ExpressionUUID->"f1d84011-dcfc-4f83-98b5-d531ed681557"],
-Cell[332953, 6440, 220340, 4595, 1383, "Output",ExpressionUUID->"361026cd-6753-488f-bd2f-09b604f3a36f"]
+Cell[332937, 6432, 163, 2, 37, "Input",ExpressionUUID->"f1d84011-dcfc-4f83-98b5-d531ed681557"],
+Cell[333103, 6436, 220340, 4595, 1383, "Output",ExpressionUUID->"361026cd-6753-488f-bd2f-09b604f3a36f"]
 }, Open  ]],
-Cell[553308, 11038, 206, 3, 37, "Input",ExpressionUUID->"72b3648a-0cee-4dc9-be71-a2ec78ccaeb6"],
-Cell[553517, 11043, 219, 3, 37, "Input",ExpressionUUID->"281bd614-8e68-4b51-a25c-d118be0d8280"],
-Cell[553739, 11048, 225, 3, 37, "Input",ExpressionUUID->"a6c5e524-ea19-4388-b400-11e7955f8ea5"],
-Cell[553967, 11053, 2104, 62, 194, "Input",ExpressionUUID->"76cb4ed9-01ec-476a-a9e9-6b94634d9568"],
-Cell[556074, 11117, 2013, 59, 194, "Input",ExpressionUUID->"3618d278-2bdc-4117-943a-ec2c4120cbb3"],
-Cell[558090, 11178, 481, 10, 64, "Input",ExpressionUUID->"6969c719-aae4-437c-b901-af76b3071aca"],
-Cell[558574, 11190, 1143, 29, 168, "Input",ExpressionUUID->"145c4020-2b7b-424d-be26-24a62efb7eb2"],
-Cell[559720, 11221, 165, 3, 37, "Input",ExpressionUUID->"5ee11ed9-1b48-4a05-b95e-bf6433e60297"],
-Cell[559888, 11226, 155, 2, 37, "Input",ExpressionUUID->"7eacb08d-7f5b-464e-af3c-e1f85d1ec65e"],
-Cell[560046, 11230, 769, 21, 90, "Input",ExpressionUUID->"86c4bf81-c4ec-4e81-9ee4-eb2a9bac87a8"]
+Cell[553458, 11034, 206, 3, 37, "Input",ExpressionUUID->"72b3648a-0cee-4dc9-be71-a2ec78ccaeb6"],
+Cell[553667, 11039, 219, 3, 37, "Input",ExpressionUUID->"281bd614-8e68-4b51-a25c-d118be0d8280"],
+Cell[553889, 11044, 225, 3, 37, "Input",ExpressionUUID->"a6c5e524-ea19-4388-b400-11e7955f8ea5"],
+Cell[554117, 11049, 2104, 62, 194, "Input",ExpressionUUID->"76cb4ed9-01ec-476a-a9e9-6b94634d9568"],
+Cell[556224, 11113, 2013, 59, 194, "Input",ExpressionUUID->"3618d278-2bdc-4117-943a-ec2c4120cbb3"],
+Cell[558240, 11174, 481, 10, 64, "Input",ExpressionUUID->"6969c719-aae4-437c-b901-af76b3071aca"],
+Cell[558724, 11186, 1143, 29, 168, "Input",ExpressionUUID->"145c4020-2b7b-424d-be26-24a62efb7eb2"],
+Cell[559870, 11217, 165, 3, 37, "Input",ExpressionUUID->"5ee11ed9-1b48-4a05-b95e-bf6433e60297"],
+Cell[560038, 11222, 155, 2, 37, "Input",ExpressionUUID->"7eacb08d-7f5b-464e-af3c-e1f85d1ec65e"],
+Cell[560196, 11226, 769, 21, 90, "Input",ExpressionUUID->"86c4bf81-c4ec-4e81-9ee4-eb2a9bac87a8"]
 }
 ]
 *)

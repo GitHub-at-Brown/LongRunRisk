@@ -45,20 +45,19 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 (*processModels*)
 
 
-processModels//Options = {};
+(*processModels//Options = {};*)
 
 
 processModels[
 	modelsCatalog_Association,
 	modelsExtraInfo_Association:<||>,
-	opts:OptionsPattern[{processModels,addCoeffsSolution, getStartingValues, FindRoot, RecurrenceTable}]
+	opts:OptionsPattern[{(*processModels,*) addCoeffsSolution, getStartingValues, FindRoot, RecurrenceTable}]
 ]:=
 	Module[
 	{
 		keys=Keys[modelsCatalog],
 		models = KeyMap[Replace[#, Thread[Keys[modelsCatalog]->Values@(#["shortname"]&/@modelsCatalog) ] ]&,modelsCatalog],(*rename Keys to shortname*)		
-		ContextPath=$ContextPath,
-		z,
+		contextPath=$ContextPath,
 		i,
 		modelAssumptions,
 		(*optsSol,*)
@@ -112,6 +111,11 @@ processModels[
 			"params" -> Complement[#["parameters"], #["assignParam"]]
 	]& /@ models;
 	
+	(*add assumptions*)
+	modelAssumptions = FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramAssumptions && 
+		FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`endogEqAssumptions;
+	models=(Append[#, "modelAssumptions"->(modelAssumptions//.#["assignParam"]//.#["assignParamStocks"]) ]&) /@models;
+	
 	(*add "exogenousVars","exogenousEq" to each model*)
 	models = createExogenous[models];
 	
@@ -129,10 +133,11 @@ processModels[
 		"endogenousVarNames" -> Map[(StringDrop[#,-2]&),#["endogenousVars"]]
 	]& /@ models;
 	
-	(*add assumptions*)
-	modelAssumptions = FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramAssumptions 
-		&& FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`endogEqAssumptions;
-	models=(Append[#, "modelAssumptions"->(modelAssumptions//.#["assignParam"]//.#["assignParamStocks"]) ]&) /@models;
+	(*add mapping to make expressions only a function of state variables*)
+	models = Append[
+		#,
+		"toStateVars" -> addToStateVars[#]
+	]& /@ models;
 
 	(*add unconditional moments of state variables*)
 	maxMomentOrder=4;
@@ -143,7 +148,7 @@ processModels[
 					Flatten@(Solve@@(Rest@#))
 				]&@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`createSystem[maxMomentOrder,#]
 	]&/@models;
-	
+		
 	(*add expressions for some unconditional moments*)
 	models = Append[
 		#,
@@ -170,11 +175,7 @@ processModels[
 	models = Append[
 		#,
 		"coeffsSolution" -> <| 
-			"wc" -> addCoeffsSolution[
-				#,
-				"wc",
-				opts
-			],
+			"wc" -> addCoeffsSolution[#,"wc",opts],
 			"pd" -> addCoeffsSolution[#,"pd", opts],
 			"bond" -> addCoeffsSolution[#,"bond", opts],
 			"nombond" -> addCoeffsSolution[#,"nombond", opts]
@@ -188,7 +189,7 @@ processModels[
 	]&/@models;	
 	
 	(*restore $ContextPath to initial state*)
-	$ContextPath=ContextPath;
+	$ContextPath=contextPath;
 
 	(*restore original keys and output models*)
 	models = KeyMap[Replace[#,Thread[Keys[models]->keys]]&,models]
@@ -203,7 +204,7 @@ createExogenous[m_]:=Module[
 	(*adds exogenous variables and equations to each model in m after removing those that are always 0*)
 	{
 		models=m,
-		ContextPath=$ContextPath,
+(*		contextPath=$ContextPath,*)
 		argsPattern,
 		funs,
 		exoExprAssignParam,
@@ -274,7 +275,7 @@ createExogenous[m_]:=Module[
 	]& /@models;
 
 	(*restore $ContextPath to initial state*)
-	(*$ContextPath=ContextPath;*)
+	(*$ContextPath=contextPath;*)
 		
 	models
 ]	
@@ -351,6 +352,25 @@ createEndogenous[mod_]:=Module[
 
 
 (* ::Subsection:: *)
+(*addToStateVars*)
+
+
+addToStateVars[model_]:=With[
+	{
+		stateVars = DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"][t] ],x_[_]:>x],0]],
+		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]]
+	},
+	With[
+		{
+			stateVarsNoEps = Complement[stateVars,Cases[stateVars,x_Symbol?(MatchQ[SymbolName[#],"eps"]&)[y___]:>x[y],Infinity,Heads->True]]
+		},
+		(*Cases[mapAll,Rule[a_,b_]/;FreeQ[a,Alternatives@@SymbolName/@(Head/@(Flatten@stateVarsNoEps))]]*)
+		Cases[mapAll,Rule[a_,b_]/;FreeQ[a,Alternatives@@(SymbolName/@stateVarsNoEps)]]
+	]
+]
+
+
+(* ::Subsection:: *)
 (*addCoeffsSystem*)
 
 
@@ -371,8 +391,7 @@ addCoeffsSystem[model_]:=Module[
 		unknownsNomBond,
 		nNomBond,
 		ratiosUncondERuleWc,
-		ratiosUncondERulePd,
-		out
+		ratiosUncondERulePd
 	},
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"];
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
@@ -408,7 +427,7 @@ addCoeffsSystem[model_]:=Module[
 
 
 addCoeffsSolution//Options={
-	"FindRootOptions"->{MaxIterations->100(*,"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)},
+	"FindRootOptions"->{MaxIterations->100}, (*"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)
 	"RecurrenceTableOptions"->{"DependentVariables"->Automatic}
 };
 
@@ -452,8 +471,6 @@ addCoeffsSolution[
 				eq,
 				coefficientNames,
 				x,
-				sol,
-				replaceCoeffInfo,
 				coeffInfoSol
 			},
 (*			Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
@@ -542,14 +559,14 @@ addCoeffsSolution[
 					},
 					Module[
 						{
-							CheckFindRoot,
-							MapFindRoot
+							checkFindRoot,
+							mapFindRoot
 						},
-						CheckFindRoot[x___]:= Quiet[Check[FindRoot[x],Nothing, {FindRoot::reged}],{FindRoot::reged}];
-						MapFindRoot[x1_,x2_,x3___]:=CheckFindRoot[x1,#,x3]&/@x2;
+						checkFindRoot[x___]:= Quiet[Check[FindRoot[x],Nothing, {FindRoot::reged}],{FindRoot::reged}];
+						mapFindRoot[x1_,x2_,x3___]:=checkFindRoot[x1,#,x3]&/@x2;
 						{
 							Inactive[MapThread][
-								Inactive[MapFindRoot][
+								Inactive[mapFindRoot][
 									#1,
 									#2,
 									Evaluate@findRootOpts
@@ -565,7 +582,7 @@ addCoeffsSolution[
 				,
 				With[
 					{						
-						P =(First@unknowns)[[0,0]],
+(*						P =(First@unknowns)[[0,0]],*)
 						remainingUnknowns=Complement[unknowns,coefficientNames]
 					},
 					With[

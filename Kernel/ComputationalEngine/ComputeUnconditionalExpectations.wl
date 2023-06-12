@@ -27,7 +27,7 @@ Begin["`Private`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"->"cond`"]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*uncondE*)
 
 
@@ -42,14 +42,13 @@ uncondE[x_,model_]:= With[
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*uncondEStep*)
 
 
 uncondEStep[expr_,model_]:=With[
 	{
 		stateVarst = model["stateVars"],
-		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]],
 		assignParam = model["assignParam"],
 		assignParamStocks = model["assignParamStocks"],
 		rulesEfun = t |-> FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t]		
@@ -62,19 +61,14 @@ uncondEStep[expr_,model_]:=With[
 			{
 				stateVarsNoEps = Complement[stateVars,Cases[stateVars,x_Symbol?(MatchQ[SymbolName[#],"eps"]&)[y___]:>x[y],Infinity,Heads->True]]
 			},
-			With[
-				{
-					mapToStateVars = Cases[mapAll,Rule[a_,b_]/;FreeQ[a,Alternatives@@(SymbolName/@stateVarsNoEps)]]
-				},
-				rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;				
-				FixedPoint[evNoEpsStateVarsProduct[#,model,stateVarsNoEps]&,(expr/.cond`Private`modelContextRules)//.Normal@model["endogenousEq"]/.mapToStateVars]/.rulesE[_]	
-			]
+			rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;				
+			FixedPoint[evNoEpsStateVarsProduct[#,model,stateVarsNoEps]&,(expr/.cond`Private`modelContextRules)//.Normal@model["endogenousEq"]/.model["toStateVars"]]/.rulesE[_]	
 		]
 	]
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*evNoEpsStateVarsProduct*)
 
 
@@ -89,7 +83,7 @@ evNoEpsStateVarsProduct[expr_,model_,variablesToLag_]:= Module[
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*evNoEps*)
 
 
@@ -107,7 +101,7 @@ evNoEps[model_, variablesToLag_] :=Module[
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*lagStateVarsProduct*)
 
 

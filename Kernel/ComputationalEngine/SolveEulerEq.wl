@@ -7,34 +7,11 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 (*Public symbols*)
 
 
-(*coeff::usage = "coeff[model] solves for the coefficients in the wealth-consumption ratio, price-dividend ratio of stocks, and bond prices."*)
 processNewParameters::usage = "";
 updateCoeffsWc::usage = "";
 updateCoeffsPd::usage = "";
 updateCoeffsBond::usage = "";
 updateCoeffsSol::usage = "";
-(*createStartingPoint::usage = "";
-getStartingValues::usage = "";
-formatStartingValuesRest::usage = "";
-formatStartingValues::usage = "formatStartingValues[initialGuess, coefficients] transforms user-provided starting values initialGuess into a form that can be used directly as a second argument to FindRoots when numerically solving for coefficients of the wealth-consumption or price-dividend ratios. 
-
-Example: let the wealth-consumption ratio be given by:
-
-wc = someContext`A[0] +  someContext`A[1] * state variable 1 +  someContext`A[2] * state variable 2 +  someContext`A[3] * state variable 3.
-
-We know someContext`A[2] and want to use FindRoot to solve for someContext`A[0], someContext`A[1] and someContext`A[3]. The variable initialGuess provided by the user is:
-
-initialGuess = {{A[0],1},{A[3],2}}.
-
-Then, 
-
-sv = formatStartingValues[initialGuess, {someContext`A[0], someContext`A[1] and someContext`A[3]} ]
-
-gives
-
-{{someContext`A[1],0}, {someContext`A[3],2}} and 
-
-which can be used in a call FindRoot[ ... , sv]."*)
 
 
 Begin["`Private`"];
@@ -113,7 +90,7 @@ processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=If[
 
 
 (* ::Subsection:: *)
-(*updateCoeffSol*)
+(*updateCoeffsSol*)
 
 
 checks[eqs_, sol_, params_, newParams_, opts : OptionsPattern[{updateCoeffsSol}]] :=
@@ -199,12 +176,12 @@ updateCoeffsSol[
 	opts : OptionsPattern[
 		{
 			updateCoeffsSol,
-			FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution,
+			FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`addCoeffsSolution,
 			FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`getStartingValues,
 			FindRoot,
 			RecurrenceTable
 		}
-	]	
+	]
 ]:=With[
 	{
 		parameters=model["parameters"],
@@ -217,7 +194,7 @@ updateCoeffsSol[
 			stockFreeQ=FreeQ[#,_Symbol[_Integer]]&/@(Keys@newParameters),
 			optsFindRoot = Flatten[{
 				Evaluate[FilterRules[Flatten@{opts},Options[FindRoot]]],
-				Evaluate[OptionValue[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution,{"FindRootOptions"}]]
+				Evaluate[OptionValue[FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`addCoeffsSolution,{"FindRootOptions"}]]
 			}],
 			initialGuessEwc = "Ewc0"->If[
 				MemberQ[Keys@guessCoeffsSolution,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[0]],

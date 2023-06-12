@@ -11,10 +11,10 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDataba
 (*Public symbols*)
 
 
-uncondVarLong::usage = "uncondVarLong[expression, toExogenous] computes the unconditional variance of expression using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."
-					   "uncondVarLong[expression, toExogenous, covfun] uses the covariance function covfun."
-uncondCovLong::usage = "uncondCovLong[expression1,expression2, toExogenous] computes the unconditional covariance of expression1 and expression2 using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."
-					   "uncondCovLong[expression1,expression2, toExogenous, covfun] computes the unconditional covariance of expression1 and expression2 using the covariance function covfun."
+uncondVarLongExo::usage = "uncondVarLong[toExogenous, expression, ] computes the unconditional variance of expression using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
+					      "uncondVarLong[toExogenous, expression, covfun] uses the covariance function covfun."
+uncondCovLongExo::usage = "uncondCovLong[toExogenous, expression1, expression2] computes the unconditional covariance of expression1 and expression2 using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
+					      "uncondCovLong[toExogenous, expression1, expression2, covfun] computes the unconditional covariance of expression1 and expression2 using the covariance function covfun.";
 
 
 (* ::Section:: *)
@@ -28,7 +28,7 @@ Begin["`Private`"];
 (*Package dependencies*)
 
 
-Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+(*Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];*)
 
 
 (* ::Subsection:: *)
@@ -38,8 +38,13 @@ Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 (*write variables in terms of exogenous variables*)
 (*expand= Reverse/@FilterRules[Reverse/@mapAll,$endogenousVars];*)
 	
-SetAttributes[uncondCovLong,HoldAll]
-uncondCovLong[expression1_, expression2_, toExogenous_List, covfun_:covLong]:=Module[
+SetAttributes[uncondCovLongExo,HoldRest]
+uncondCovLongExo[
+	toExogenous_,
+	expression1_,
+	expression2_,
+	covfun_
+]:=Module[
 	{
 		p1,p2,
 		split1,split2,
@@ -55,11 +60,9 @@ uncondCovLong[expression1_, expression2_, toExogenous_List, covfun_:covLong]:=Mo
 		collect,
 		groups
 	},
-
 	(*convert sums to lists*)
-Echo[Expand[expression1//.toExogenous],"expression1"];Echo[Expand[expression2//.toExogenous],"expression2"];
-		p1=plusToList@(Expand[expression1//.toExogenous]);p2=plusToList@(Expand[expression2//.toExogenous]);
-Echo[p1,"p1"];Echo[p2,"p2"];
+		p1=plusToList[Expand[expression1//.toExogenous]];
+		p2=plusToList[Expand[expression2//.toExogenous]];
 			If[p1=={} || p2=={},
 			(*if expression1 or expression2 is constant, return 0*)
 			0,
@@ -85,39 +88,91 @@ Echo[p1,"p1"];Echo[p2,"p2"];
 			(*collect terms that only differ by their coefficient*)
 				groups=GroupBy[collect,Last->First,Total];
 			(*compute covfun of each term*)
+
+(*Echo[p1,"p1"];Echo[p2,"p2"];Echo[split1,"split1"];Echo[split2,"split2"];Echo[coeff1,"coeff1"];Echo[coeff2,"coeff2"];Echo[e1,"e1"];Echo[e2,"e2"];
+Echo[perm,"perm"];Echo[times,"times"];Echo[first,"first"];Echo[rest,"rest"];
+Echo[lags,"lags"];Echo[vars,"vars"];Echo[stocks,"stocks"];Echo[collect,"collect"];Echo[groups,"groups"];Z*)
+			
 				Plus@@((covfun@@@Keys[groups])*Values[groups])
-				]
+			]
 ]
 
-SetAttributes[uncondVarLong,HoldAll]
-uncondVarLong[expression_, toExogenous_List, covfun_:covLong]:=uncondCovLong[expression,expression,toExogenous,covfun]
+SetAttributes[uncondVarLongExo,HoldRest]
+uncondVarLongExo[toExogenous_, expression_, covfun_]:=uncondCovLongExo[toExogenous, expression, expression, covfun]
 
 
 (* ::Subsubsection:: *)
 (*powerToProduct*)
 
 
-powerToProduct[expr_]:= Module[
-	{a,x},
-	Hold[expr]/. a_. * (x_^n_Integer?Positive)/;(!FreeQ[x,t] && FreeQ[a,t]):>RuleCondition@(Prepend[Table[x,n],a])/. List->Times
+powerToProduct[expr_, t_]:= Module[
+	{a,z},
+	Hold[expr]/. a_. * (z_^n_Integer?Positive)/;(!FreeQ[z,t] && FreeQ[a,t]):>RuleCondition@(Prepend[Table[z,n],a])/. List->Times
 ];
+
+(*powerToProduct[expr_, stateVarsNoEps_]:= Module[
+	{a,z},
+	ReplaceAll[
+		Hold[expr],
+		 (a_.) * 
+		 (z_Symbol?(MemberQ[Alternatives@@(SymbolName/@stateVarsNoEps), SymbolName[#]]&)[t_, i___]^n_Integer?Positive) :> 
+		 RuleCondition@(Prepend[Table[z,n],a])/. List->Times
+	]
+];*)
 
 
 (* ::Subsubsection:: *)
 (*plusToList*)
 
 
-plusToList[expr_]:= Module[
-	{x,n},
-	Cases[1+ExpandAll[expr],Plus[x_^n_./;(!FreeQ[x,t] && Element[n,PositiveIntegers])]:>powerToProduct[x^n],{1}]
+plusToList[expr_]:= With[
+	{
+		(*find all time indices, pick first one*)
+		timeIndex=First@Cases[expr,t_Symbol/;SameQ[SymbolName[t],"t"],Infinity]
+	},
+	With[
+	{
+		(*make all time indices the same*)
+		exprSingleTimeIndex=ReplaceAll[expr,t_Symbol/;SameQ[SymbolName[t],"t"]:>timeIndex]
+	},
+		Module[
+			{z,n},
+			Cases[1+ExpandAll[exprSingleTimeIndex],Plus[z_^n_./;(!FreeQ[z,timeIndex] && Element[n,PositiveIntegers])]:>powerToProduct[z^n,timeIndex],{1}]
+		]
+	]
 ];
+(*plusToList[expr_, stateVarsNoEps_]:= Module[
+	{z,n},
+	Cases[
+		1+ExpandAll[expr],
+		Plus[
+			(z_Symbol?(MemberQ[Alternatives@@(SymbolName/@stateVarsNoEps), SymbolName[#]]&)[t_, i___]^n_.)/;Element[n, PositiveIntegers]
+		] :> powerToProduct[z[t,i]^n, stateVarsNoEps],
+		{1}
+	]
+];*)
 
 
 (* ::Subsubsection:: *)
 (*split*)
 
 
-split[expr_]:= Cases[expr, vv_[(b_.) + t,i___]:>{{b,vv,{i}},vv[b+ t,i]},Infinity]
+(*split[expr_,t_]:= Cases[expr, vv_[(b_.)+t, i___] :> {{b, vv, {i}}, vv[b+t, i]}, Infinity]*)
+
+ split[expr_]:=With[
+	{
+		(*find all time indices, pick first one*)
+		timeIndex=First@Cases[expr,t_Symbol/;SameQ[SymbolName[t],"t"],Infinity]
+	},
+	With[
+		{
+			(*make all time indices the same*)
+			exprSingleTimeIndex=ReplaceAll[expr,t_Symbol/;SameQ[SymbolName[t],"t"]:>timeIndex]
+		},
+		Cases[exprSingleTimeIndex, vv_[(b_.)+timeIndex, i___] :> {{b, vv, {i}}, vv[b+timeIndex, i]}, Infinity]
+	]
+];
+(*split[expr_]:= Cases[expr,v_[e_Symbol?(MatchQ[SymbolName[#], "t"]&)+b_., i___] :> {{b, v, {i}}, v[e+b, i]}, Infinity]*)
 
 
 (* ::Section:: *)

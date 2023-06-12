@@ -85,6 +85,22 @@ corr[expr1_,expr2_,conditionalTime_,model_]:=cov[expr1,expr2,conditionalTime,mod
 
 
 (* ::Subsubsection:: *)
+(*lagStateVarst*)
+
+
+Attributes[lagStateVarst]={HoldFirst};
+lagStateVarst[expr_,conditionalTime_,model_]:=Module[
+	{
+		mapAllt,
+		lagt
+	},
+	mapAllt[t_]:= Module[{s},Replace[Normal[Join[model["exogenousEq"],model["endogenousEq"]]],p_Rule :> ( (p[[1]][s_,q___]/;Refine[s>t,s>=0&&t>=0]) :> p[[2]][s,q] ),2]];
+	lagt[x_,t_]:= x//.mapAllt[t] ;
+	lagt[expr/.modelContextRules,conditionalTime]//. model["toStateVars"]
+]
+
+
+(* ::Subsubsection:: *)
 (*modelContextRules*)
 
 
@@ -136,38 +152,6 @@ eqsContextRules = Join[
 modelContextRules = Join[
 	parametersContextRules, coefsContextRules, shocksContextRules, eqsContextRules
 ];
-
-
-(* ::Subsubsection:: *)
-(*lagStateVarst*)
-
-
-Attributes[lagStateVarst]={HoldFirst};
-lagStateVarst[expr_,conditionalTime_,model_]:=With[
-	{
-		stateVars=DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"][t] ],x_[_]:>x],0]],
-		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]]
-	},
-	With[
-		{
-			stateVarsNoEps = Complement[stateVars,Cases[stateVars,x_Symbol?(MatchQ[SymbolName[#],"eps"]&)[y___]:>x[y],Infinity,Heads->True]]
-		},
-		With[
-			{
-				mapToStateVars = Cases[mapAll,Rule[a_,b_]/;FreeQ[a,Alternatives@@(SymbolName/@stateVarsNoEps)]]
-			},
-			Module[
-				{
-					mapAllt,
-					lagt
-				},
-				mapAllt[t_]:= Module[{s},Replace[mapAll,p_Rule :> ( (p[[1]][s_,q___]/;Refine[s>t,s>=0&&t>=0]) :> p[[2]][s,q] ),2]];
-				lagt[x_,t_]:= x//.mapAllt[t] ;
-				lagt[expr/.modelContextRules,conditionalTime]//. mapToStateVars
-			]
-		]
-	]
-]
 
 
 (* ::Section:: *)
