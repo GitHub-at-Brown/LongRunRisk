@@ -31,12 +31,12 @@ nombondfweq::usage = "nombondfweq[t,m] gives the nominal log forward rate at tim
 					 "nombondfweq[t,m,h] gives the nominal log forward rate at time t for riskless loans between times t+m-h and t+m."
 bondreteq::usage = "bondreteq[t,m] gives the log holding period return from buying a real m-month maturity discount (zero-coupon) riskless bond at time t-1 and selling it as an (m-1)-month maturity bond at time t."<>"\n"<>
 				   "bondreteq[t,m,h] gives the log h-period return from buying a real m-month maturity discount (zero-coupon) riskless bond at time t-h and selling it as an (m-h)-month maturity bond at time t."
-nombondreteq::usage = "nombondreteq[t,m] gives the log holding period return from buying a nominal m-month maturity discount (zero-coupon) riskless bond at time t-1 and selling it as an (m-1)-month 	maturity bond at time t."<>"\n"<>
-					  "nombondreteq[t,m,h] gives the log h-period return from buying a nominal m-month maturity discount (zero-coupon) riskless bond at time t-h and selling it as an (m-h)-month 	maturity bond at time t."
+nombondreteq::usage = "nombondreteq[t,m] gives the log holding period return from buying a nominal m-month maturity discount (zero-coupon) riskless bond at time t-1 and selling it as an (m-1)-month maturity bond at time t."<>"\n"<>
+					  "nombondreteq[t,m,h] gives the log h-period return from buying a nominal m-month maturity discount (zero-coupon) riskless bond at time t-h and selling it as an (m-h)-month maturity bond at time t."
 bondfwspreadeq::usage = "bondfwspreadeq[t,m] gives the real log forward rate at time t for riskless loans between times t+m-1 and t+m, in excess of the one-period risk-free rate."<>"\n"<>
-						"bondfwspreadeq[t,m,h] gives the real log forward rate at time t for riskless loans between times t+m-h and t+m, in excess of the h-period risk-free rate earned by investing in an 	h-month maturity real discount (zero-coupon) riskless bond between times t and t+h."
+						"bondfwspreadeq[t,m,h] gives the real log forward rate at time t for riskless loans between times t+m-h and t+m, in excess of the h-period risk-free rate earned by investing in an h-month maturity real discount (zero-coupon) riskless bond between times t and t+h."
 nombondfwspreadeq::usage = "nombondfwspreadeq[t,m] gives the nominal log forward rate at time t for riskless loans between times t+m-1 and t+m, in excess of the one-period nominal risk-free rate."<>"\n"<>
-						   "nombondfwspreadeq[t,m,h] gives the nominal log forward rate at time t for riskless loans between times t+m-h and t+m, in excess of the h-period risk-free rate earned by investing in an 	h-month maturity nominal discount (zero-coupon) riskless bond between times t and t+h."
+						   "nombondfwspreadeq[t,m,h] gives the nominal log forward rate at time t for riskless loans between times t+m-h and t+m, in excess of the h-period risk-free rate earned by investing in an h-month maturity nominal discount (zero-coupon) riskless bond between times t and t+h."
 bondexcreteq::usage = "bondexcreteq[t,m] gives the log holding period excess return from buying a real m-month maturity discount (zero-coupon) riskless bond at time t-1 and selling it as an (m-1)-month maturity riskless bond at time t, in excess of the one-period risk-free rate."<>"\n"<>
 				  	"bondexcreteq[t,m,h] gives the log h-period excess return from buying a real m-month maturity discount (zero-coupon) riskless bond at time t-h and selling it as an (m-h)-month maturity riskless bond at time t, in excess of the h-period risk-free rate earned by investing in an h-month maturity real discount (zero-coupon) riskless bond between times t-h and t."
 nombondexcreteq::usage = "nombondexcreteq[t,m] gives the log holding period excess return from buying a nominal m-month maturity discount (zero-coupon) riskless bond at time t-1 and selling it as an (m-1)-month maturity riskless bond at time t, in excess of the one-period nominal risk-free rate."<>"\n"<>
@@ -75,7 +75,8 @@ $ContextPath=AppendTo[
 
 
 (*declare symbols*)
-Symbol/@ ((StringDrop[#,-2]&) /@ $endogenousVars);
+$endogenousVarsPrivate = ((StringDrop[#,-2]&) /@ $endogenousVars)
+Symbol/@ $endogenousVarsPrivate;
 
 (*inherit usage message*)
 Function[sym,

@@ -152,7 +152,7 @@ createSystem::nomom = "Unconditional moments cannot be computed for state variab
 
 
 (*unconditional moments of state variables are found  by solving a system of equations*)
-createSystem[n_,model_]:=With[
+createSystem[n_,model_]:=Block[{t},With[
 	{
 		stateVars=DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"][t] ],x_[_]:>x],0]],
 		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]]
@@ -175,7 +175,7 @@ createSystem[n_,model_]:=With[
 			(*create products of powers of state variables up to order n*)
 			stateVarsTuples=Flatten[Table[Tuples[stateVarsNoEps,i],{i,n}],1];
 			stateVarsSets=DeleteDuplicatesBy[Sort]@stateVarsTuples;
-			addt[x_] := x[Symbol["t"]];
+			addt[x_] := x[t];
 			stateVarsProducts=Replace[Map[addt,stateVarsSets,{2}],List->Times,{2},Heads->True];
 			(*evaluate products of powers using equations for exogenous processes*)
 			stateVarsMapAll=stateVarsProducts/.mapAll;
@@ -201,7 +201,8 @@ createSystem[n_,model_]:=With[
 					powers =CoefficientRules[stateVarsProducts,addt/@stateVarsNoEps][[;;,1,1]];
 					powersString=IntegerString@powers;
 					stateVarsNoEpsString=ToString/@stateVarsNoEps;
-					unknowns = Symbol /@ Map[StringJoin, Map[If[IntegerQ[#],IntegerString[#],SymbolName[#]]&, (Tally /@ stateVarsSets), {3}], {1}];
+					(*unknowns = Symbol /@ Map[StringJoin, Map[If[IntegerQ[#],IntegerString[#],SymbolName[#]]&, (Tally /@ stateVarsSets), {3}], {1}];*)
+					unknowns = Symbol["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`"<>#]& /@ Map[StringJoin, Map[If[IntegerQ[#],IntegerString[#],SymbolName[#]]&, (Tally /@ stateVarsSets), {3}], {1}];
 					nameRulesUnsorted=Thread[(stateVarsProducts/. x_Symbol?(MatchQ[SymbolName[#],"t"]&) ->_ )->unknowns];
 					(*sort nameRulesUnsorted to apply products of a larger number of variables first*)
 					sortOrder=Count[#,0]&/@powers;
@@ -232,6 +233,7 @@ createSystem[n_,model_]:=With[
 			]
 		]
 	]
+]
 ]
 
 

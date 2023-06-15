@@ -18,14 +18,14 @@ growth
 (*Usage*)
 
 
-growth::usage = "growth[variable,t] the growth rate at time t of variable."<>"\n"<>
-"growth[variable,t,i] specify the stock identifier i when variable is a stock-related variable such as dividends."<>"\n"<>
-"growth[variable,t,m] specify the maturity m in months when variable is a bond-related variable such as bond yields."<>"\n"<>"growth[variable,t,Options] allows options to specify time aggregation periods in months and number of time-aggregated periods over which approximate growth rates are calculated.
-Examples:
-growth[variable,t,\"TimeAggregation\"->3] gives the growth rate of time-aggregated consumption, with time aggregation done over 3 months.
-growth[variable,t,\"TimeAggregation\"->3] gives the growth rate of time-aggregated dividends for stock 1, with time aggregation done over 3 months.
-growth[variable,t,\"TimeAggregation\"->12,\"numPeriods\"->2] gives the growth rate over 2 years of time-aggregated consumption, with time aggregation done over 12 months.
-"
+growth::usage = "growth[variable,t] gives the growth rate at time t of variable."<>"\n"<>
+				"growth[variable,t,i] specify the stock identifier i when variable is a stock-related variable such as dividends."<>"\n"<>
+				"growth[variable,t,m] specify the maturity m in months when variable is a bond-related variable such as bond yields."<>"\n"<>
+				"growth[variable,t,Options] allows options to specify time aggregation periods in months and number of time-aggregated periods over which approximate growth rates are calculated."<>"\n"<>
+				"Examples:"<>"\n"<>
+					"growth[variable,t,\"TimeAggregation\"->3] gives the growth rate of time-aggregated consumption, with time aggregation done over 3 months."<>"\n"<>
+					"growth[variable,t,\"TimeAggregation\"->3] gives the growth rate of time-aggregated dividends for stock 1, with time aggregation done over 3 months."<>"\n"<>
+					"growth[variable,t,\"TimeAggregation\"->12,\"numPeriods\"->2] gives the growth rate over 2 years of time-aggregated consumption, with time aggregation done over 12 months.";
 
 
 (* ::Section:: *)

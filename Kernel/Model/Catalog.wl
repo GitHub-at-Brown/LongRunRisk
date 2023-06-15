@@ -7,9 +7,9 @@
 BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"]
 
 
+
 (* ::Subsection:: *)
 (*Public symbols*)
-
 
 models::usage= "Association with the definition and properties of models.";
 modelsExtraInfo::usage= "Additional optional information about model solution, constraints, initial guesses for numerical solvers.";
@@ -36,7 +36,7 @@ $ContextPath=AppendTo[
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*models*)
 
 
@@ -1606,7 +1606,7 @@ models = <|
 |>;(*end models*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*modelsExtraInfo*)
 
 

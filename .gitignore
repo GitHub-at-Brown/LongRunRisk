@@ -3,3 +3,4 @@
 /.github/workflows/Check.yml
 /.github/workflows/PublishPaclet.yml
 /.github/workflows/Release.yml
+*.json

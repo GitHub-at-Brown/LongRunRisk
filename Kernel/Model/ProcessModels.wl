@@ -37,6 +37,7 @@ Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
@@ -147,7 +148,7 @@ processModels[
 					First@#,
 					Flatten@(Solve@@(Rest@#))
 				]&@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`createSystem[maxMomentOrder,#]
-	]&/@models;
+	]&/@models; (*leaks global t*)
 		
 	(*add expressions for some unconditional moments*)
 	models = Append[
@@ -159,7 +160,7 @@ processModels[
 			"nombond"->Simplify@uncondE[nombond[t,m],#]
 		|>
 	]& /@ models;
-	
+
 	(*add Euler equations*)
 	models=Append[
 		#,
@@ -591,7 +592,7 @@ addCoeffsSolution[
 								Evaluate[FilterRules[Flatten@{opts}, Options[RecurrenceTable]]],
 								Evaluate[First@OptionValue[addCoeffsSolution,{"RecurrenceTableOptions"}]]
 							}],
-							bondCoefficientRules=unknowns /. (x_[n][j_Integer] :> RuleDelayed[x[m_][j], Symbol[(SymbolName@x)<>IntegerString[j]][m]])
+							bondCoefficientRules=unknowns /. (x_[n][j_Integer] :> RuleDelayed[x[m_][j], Symbol["`Private`"<>(SymbolName@x)<>IntegerString[j]][m]])
 						},
 						Module[
 							{

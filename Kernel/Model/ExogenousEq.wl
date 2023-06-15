@@ -49,7 +49,8 @@ Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"]
 
 
 (*declare private symbols for exogenous variables that are the same as the public symbols but do not end in "eq"*)
-Symbol/@ ((StringDrop[#,-2]&) /@ $exogenousVars);
+$exogenousVarsPrivate = ((StringDrop[#,-2]&) /@ $exogenousVars)
+Symbol/@ $exogenousVarsPrivate;
 (*inherit usage message*)
 Function[sym,
 	With[

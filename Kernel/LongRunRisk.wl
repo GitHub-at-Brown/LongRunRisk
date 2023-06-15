@@ -43,22 +43,45 @@ $ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousE
 $ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`"];*)
 
 
+(*<<FernandoDuarte`LongRunRisk`Model`Parameters`;
+<<FernandoDuarte`LongRunRisk`Model`Shocks`;
+<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
+<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
+$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
+$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
+
+<<FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`;*)
+
+
+
 BeginPackage["FernandoDuarte`LongRunRisk`"]
 
 
 (*<<FernandoDuarte`LongRunRisk`Model`ProcessModels`;
 <<FernandoDuarte`LongRunRisk`Tools`TimeAggregation`;
-<<FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`;
-<<FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`;
+
 <<FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`;*)
 
 
 Models;
 Info;
 ToNum;
-ToExogenous;
-YieldCurve;
+ToEquation;
+ToExogenousVars;
+ToStateVars;
+UncondE; UncondVar; UncondCov; UncondCorr;
+Ev; Var; Cov; Corr;
+Moments;
+Solution;
 Growth;
+YieldCurve;
+
+
+(*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
+
+Symbol/@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`$exogenousVarsPrivate
+Symbol/@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`$endogenousVarsPrivate*)
 
 
 (*display ? without contexts*)
@@ -82,11 +105,69 @@ Begin["`Private`"]
   (*ResourceFunction["TraceView"]*)
 
 
+(* ::Subsection:: *)
+(*Helper functions*)
+
+
+(* ::Subsubsection:: *)
+(*reExport*)
+
+
+CopyDefinitions=ResourceFunction["CopyDefinitions"];
+MessageReplace=ResourceFunction["MessageReplace"];
+CompoundScope=ResourceFunction["CompoundScope"];
+SymbolQ=ResourceFunction["SymbolQ"];
+
+reExport[f_Symbol, g_Symbol]:=
+(
+	CopyDefinitions[f,g];
+	MessageName[g,"usage"] = StringReplace[Information[g,"Usage"],SymbolName[f] :> SymbolName[g]]
+);
+(*exports all public symbols from oldContext to newContext*)
+reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunRisk`"]]:=CompoundScope[
+	{
+		oldFullNames = Names[oldContext<>"*"],
+		oldNames = StringExtract[#,"`"->-1]&/@oldFullNames,
+		newNames = Capitalize/@oldNames,
+		newFullNames = StringJoin[newContext,#]&/@newNames
+	},
+	MapThread[reExport[Symbol@#1,Symbol@#2]&,{oldFullNames,newFullNames}];
+]
+
+
+(* ::Subsection:: *)
+(*Re - export symbols from subcontexts*)
+
+
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
+
+
+<<FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`;
+<<FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`;
+
+
+reExport[#]&/@{
+	"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`",
+	"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`",
+	"FernandoDuarte`LongRunRisk`Tools`TimeAggregation`",
+	"FernandoDuarte`LongRunRisk`Tools`NicePlots`"
+}
+
+
+
 (* ::Subsubsection:: *)
 (*Load models*)
 
 
-Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]] (*loads symbol FernandoDuarte`LongRunRisk`Models*)
+(*Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]] *)
+(*loads the following symbols; write usage?*)
+(*{
+	"FernandoDuarte`LongRunRisk`Epd0",
+	"FernandoDuarte`LongRunRisk`Ewc0",
+	"FernandoDuarte`LongRunRisk`FindRootOptions",
+	"FernandoDuarte`LongRunRisk`Models",
+	"FernandoDuarte`LongRunRisk`RecurrenceTableOptions"
+}*)
 
 
 (* ::Subsubsection:: *)
@@ -103,24 +184,19 @@ Info::usage = Information[FernandoDuarte`LongRunRisk`Tools`NiceOutput`info,"Usag
 (*Variables*)
 
 
-Begin["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-EndogenousVars=Symbol/@StringDrop[FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars,-2];
-End[];
-Begin["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
-ExogenousVars[model_Association]:=Symbol/@StringDrop[model["exogenousVars"],-2];
-End[];
-AllVars[model_Association] = 
-(*wcUsage = StringDelete[wceq::usage,"eq"]
-sym2::msg = sym3::msg = sym1::msg; 
-wc::usage = wceq::usage;(*to use ?wc*)
-Do[With[{ff = f}, 
-  Message[MessageName[ff, "msg"]]
-  ],
-   {f, {sym1, sym2, sym3}}
-]*)
-  
+ToEquation[expr_,model_Association]:= ReplaceAll[expr, Normal@Join[model["exogenousEq"],model["endogenousEq"]] ]
+ToEquation[model_Association]:=Function[{expr}, ToEquation[expr,model]]
+
+(*ToEquation[expr_,model_Association, n_Integer?Positive]:= Nest[ToEquation[#,model]&,expr,n];
+ToEquation[model_Association, n_Integer?Positive]:=Function[{expr}, Nest[ToEquation[#,model]&,expr,n]];*)
+(*ReplaceAll[expr_,ToEquation[model_]]^:=ToEquation[expr,model]*)
 
 
+ToExogenousVars[expr_,model_Association]:= ReplaceRepeated[expr, Normal@model["endogenousEq"]] 
+ToExogenousVars[model_Association]:=Function[{expr}, ToExogenousVars[expr,model]]
+
+ToStateVars[expr_,model_Association]:= ReplaceRepeated[expr, Normal@model["toStateVars"]] 
+ToStateVars[model_Association]:=Function[{expr}, ToStateVars[expr,model]]
 
 
 (* ::Subsubsection:: *)
@@ -129,6 +205,7 @@ Do[With[{ff = f},
 
 paramRules[model_]:= Join[model["parameters"], PacletizedResourceFunctions`SetSymbolsContext@model["parameters"]]
 ToNum[model_Association]:=Function[{expr},ReplaceRepeated[expr,Evaluate@paramRules[model]]];
+
 (*delta //ToNum[model]
 delta //ToNum[Models["NRC"]]*)
 
@@ -141,36 +218,27 @@ delta //ToNum[Models["NRC"]]*)
 
 
 (* ::Subsubsection:: *)
-(*ToExogenous*)
+(*Re-export symbols*)
 
 
-(*ToExogenous[expr_]:=ReplaceRepeated
-ToExogenous[model_Association]:=Function[{expr},ReplaceRepeated[expr,Normal@model["endogenousEq"]]]*)
+(*Ev[x_,t_,model_] := FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[x,t,model];
+Var[x_,t_,model_] := FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`var[x,t,model];
+Cov[x_,y_,t_,model_] := FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`cov[x,y,t,model];
+Corr[x_,y_,t_,model_] := FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`corr[x,y,t,model];
 
-
-(* ::Subsubsection:: *)
-(*Moments*)
-
-
-(*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
-*)
-(*FernandoDuarte`LongRunRisk`uncondE[x_,model_] := FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[x,model];*)
-(*uncondVar[x_] := FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondVar
-uncondCov[x_,y_] := FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov
-*)
-(*uncondE::usage = Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE,"Usage"];*)
-(*uncondVar::usage = Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondVar,"Usage"];
-uncondCov::usage = Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov,"Usage"];*)
-
+Ev::usage = Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev,"Usage"];
+Var::usage = Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`var,"Usage"];
+Cov::usage = Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`cov,"Usage"];
+Corr::usage = Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`corr,"Usage"];*)
 
 
 (* ::Subsubsection:: *)
 (*Time Aggregation*)
 
 
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
+(*
 Growth[args___] := FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth@@{args};
-Growth::usage = Information[FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth,"Usage"];
+Growth::usage = Information[FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth,"Usage"];*)
 (*ResourceFunction["MessageReplace"]*)
 
 
@@ -179,10 +247,10 @@ Growth::usage = Information[FernandoDuarte`LongRunRisk`Tools`TimeAggregation`gro
 
 
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];*)
-Get["FernandoDuarte`LongRunRisk`Tools`NicePlots`"]
+(*Get["FernandoDuarte`LongRunRisk`Tools`NicePlots`"]
 Options[YieldCurve] = Options[FernandoDuarte`LongRunRisk`Tools`NicePlots`yieldCurve];
 YieldCurve[args___] := FernandoDuarte`LongRunRisk`Tools`NicePlots`yieldCurve@@{args};
-YieldCurve::usage = Information[FernandoDuarte`LongRunRisk`Tools`NicePlots`yieldCurve,"Usage"];
+YieldCurve::usage = Information[FernandoDuarte`LongRunRisk`Tools`NicePlots`yieldCurve,"Usage"];*)
 
 
 
@@ -203,19 +271,6 @@ Models[x_String] := FernandoDuarte`LongRunRisk`Model`Catalog`models[x];*)
 (*models := Block[{$ContextPath = {}}, SetSymbolsContext[modelsLocal]];*)
 
 
-
-
-(*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
-coeff[] := FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`coeff;
-coeff::usage = Information["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`coeff","Usage"];*)
-
-
-(*re-export info from FernandoDuarte`LongRunRisk`Model`NiceOutput` *)
-(*Info = (PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]; 
-FernandoDuarte`LongRunRisk`Model`NiceOutput`info);
-
-Info::usage = (PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]; 
-Information[FernandoDuarte`LongRunRisk`Model`NiceOutput`info,"Usage"]);*)
 
 
 End[](*"`Private`"*)
