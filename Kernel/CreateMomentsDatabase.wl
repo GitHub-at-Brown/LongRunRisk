@@ -290,11 +290,19 @@ createDatabase[
 			covLong=Symbol["FernandoDuarte`LongRunRisk`covLong"<>modelShortName]
 		},
 		
-		uncondCovLong[expr1_, expr2_, covfun_:covLong]:= FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`uncondCovLongExo[toExogenous, expr1, expr2,  covfun];
-		uncondVarLong[expr_, covfun_:covLong]:= FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`uncondVarLongExo[toExogenous, expr,  covfun];
+		uncondE[expr_]:=uncondE[expr, model];
+		uncondVar[expr_]:=uncondVar[expr, model];
+		uncondCov[expr1_,expr2_]:=uncondCov[expr1, expr2, model];
+		
+		ev[expr_, t_]:=ev[expr, t, model];
+		var[expr_, t_]:=var[expr, t, model];
+		cov[expr1_, expr2_, t_]:=cov[expr1, expr2, t, model];
+		
+		uncondCovLong[expr1_, expr2_, covfun_:covLong]:=uncondCovLongExo[toExogenous, expr1, expr2,  covfun];
+		uncondVarLong[expr_, covfun_:covLong]:=uncondVarLongExo[toExogenous, expr,  covfun];
 
 		(*law of total variance*)
-		totCovLong[x_,y_,s_,fun_:covLong]:=uncondE[cov[x,y,s, model], model]+uncondCovLong[ev[x,s, model],ev[y,s, model],fun];
+		totCovLong[x_,y_,s_,fun_:covLong]:=uncondE[cov[x,y,s]]+uncondCovLong[ev[x,s],ev[y,s],fun];
 		notAllZero[q___]:=Or@@(\!\(\*
 TagBox[
 StyleBox[
@@ -309,8 +317,8 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 		varlistWithEps = Join[varList,shocksList];
 		tup1=Tuples[varlistWithEps,{2}]/.{a_,b_}:>{a,{b,b}};
 		tup2=Tuples[{varlistWithEps,Subsets[varlistWithEps,{2}]}];
-		(covLong[OrderlessPatternSequence[#[[1]],#[[2]]],0,0]=uncondCov[#[[1]][t],#[[2,1]][t]*#[[2,2]][t], model ])&/@tup1;
-		(covLong[OrderlessPatternSequence[#[[1]],{OrderlessPatternSequence[#[[2,1]] ,#[[2,2]]]}],0,0]=uncondCov[#[[1]][t],#[[2,1]][t]*#[[2,2]][t] , model])&/@tup2;
+		(covLong[OrderlessPatternSequence[#[[1]],#[[2]]],0,0]=uncondCov[#[[1]][t],#[[2,1]][t]*#[[2,2]][t] ])&/@tup1;
+		(covLong[OrderlessPatternSequence[#[[1]],{OrderlessPatternSequence[#[[2,1]] ,#[[2,2]]]}],0,0]=uncondCov[#[[1]][t],#[[2,1]][t]*#[[2,2]][t] ])&/@tup2;
 		
 		covLong[v1_,{v2_ ,v3_},q1_Integer,q2_Integer]/;(notAllZero[q1,q2]):=covLong[v1,{v2 ,v3},q1,q2]=totCovLong[v1[t],v2[t+q1]*v3[t+q2],t+Min[{0,q1,q2}]-1];
 		covLong[{v1_,v2_},v3_,q1_Integer,q2_Integer]/;(notAllZero[q1,q2]):= covLong[{v1,v2},v3,q1,q2]=totCovLong[v1[t]*v2[t+q1], v3[t+q2],t+Min[{0,q1,q2}]-1];
@@ -327,7 +335,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 			tc=(totCovLong[##,t+Min[{0,q1,q2}]-1]&)@@vdd
 		];
 		
-		covLong[{v1_ ,v2_},v3_,q1_Integer,q2_Integer,i__]/;(countStockVars[{v1, v2, v3},"dd"|"pd"|"ret"]===Length[List[i]]):=covLong[{v1,v2},v3,q1,q2,i]/;(countStockVars[{v1, v2, v3},"dd"|"pd"|"ret"]===Length[List[i]])=Module[
+		covLong[{v1_ ,v2_},v3_,q1_Integer,q2_Integer,i__]/;(countStockVars[{v1, v2, v3},"dd"|"pd"|"ret"]===Length[List[i]]):=covLong[{v1,v2},v3,q1,q2,i](*/;(countStockVars[{v1, v2, v3},"dd"|"pd"|"ret"]===Length[List[i]])*)=Module[
 			{pos,vdd,tc},
 			pos=positionStockVars[{{v1 ,v2},v3},"dd"|"pd"|"ret"];
 			vdd=Activate[Fold[rp,{Inactive[Times][v1[t],v2[t+q1]],v3[t+q2] },Transpose[{pos,List[i]}]]];
@@ -339,9 +347,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 		tup4=tup2/.{a_,{b_,c_}}:>{{a,a},{b,c}};
 		tup5=Tuples[{Subsets[varlistWithEps,{2}],Subsets[varlistWithEps,{2}]}];
 		
-		(covLong[OrderlessPatternSequence[#[[1]],#[[2]]],0,0,0]=uncondCov[#[[1,1]][t]*#[[1,2]][t],#[[2,1]][t]*#[[2,2]][t] , model])&/@tup3;
-		(covLong[OrderlessPatternSequence[#[[1]],{OrderlessPatternSequence[#[[2,1]] ,#[[2,2]]]}],0,0,0]=uncondCov[#[[1,1]][t]*#[[1,2]][t],#[[2,1]][t]*#[[2,2]][t] , model])&/@tup4;
-		(covLong[OrderlessPatternSequence[{OrderlessPatternSequence[#[[1,1]] ,#[[1,2]]]},{OrderlessPatternSequence[#[[2,1]] ,#[[2,2]]]}],0,0,0]=uncondCov[#[[1,1]][t]*#[[1,2]][t],#[[2,1]][t]*#[[2,2]][t] , model])&/@tup5;
+		(covLong[OrderlessPatternSequence[#[[1]],#[[2]]],0,0,0]=uncondCov[#[[1,1]][t]*#[[1,2]][t],#[[2,1]][t]*#[[2,2]][t] ])&/@tup3;
+		(covLong[OrderlessPatternSequence[#[[1]],{OrderlessPatternSequence[#[[2,1]] ,#[[2,2]]]}],0,0,0]=uncondCov[#[[1,1]][t]*#[[1,2]][t],#[[2,1]][t]*#[[2,2]][t] ])&/@tup4;
+		(covLong[OrderlessPatternSequence[{OrderlessPatternSequence[#[[1,1]] ,#[[1,2]]]},{OrderlessPatternSequence[#[[2,1]] ,#[[2,2]]]}],0,0,0]=uncondCov[#[[1,1]][t]*#[[1,2]][t],#[[2,1]][t]*#[[2,2]][t] ])&/@tup5;
 		
 		covLong[{v1_,v2_},{v3_ ,v4_},q1_Integer,q2_Integer,q3_Integer]/;(notAllZero[q1,q2,q3]):=covLong[{v1,v2},{v3,v4},q1,q2,q3]=totCovLong[v1[t]*v2[t+q1], v3[t+q2]* v4[t+q3],t+Min[{0,q1,q2,q3}]-1];
 		
@@ -353,7 +361,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 		];
 
 		(*remove function evaluation condition in memoized DownValues of covLong*)
-		DownValues[Evaluate@covLong]=Replace[#,(RuleDelayed[HoldPattern[Verbatim[HoldPattern][Verbatim[Condition][a__,b__]]],c__])/;(!FreeQ[HoldPattern[b],countStockVars] && FreeQ[HoldPattern[c],Module]):>(RuleDelayed[HoldPattern[a],c]),{0,Infinity}]&/@DownValues[Evaluate@covLong];
+		(*DownValues[Evaluate@covLong]=Replace[#,(RuleDelayed[HoldPattern[Verbatim[HoldPattern][Verbatim[Condition][a__,b__]]],c__])/;(!FreeQ[HoldPattern[b],countStockVars] && FreeQ[HoldPattern[c],Module]):>(RuleDelayed[HoldPattern[a],c]),{0,Infinity}]&/@DownValues[Evaluate@covLong];*)
 		(*shocks*)
 		Do[
 			v=shocksList[[mm]];
@@ -361,7 +369,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				covLong[v, q_/;(q!=0)]=0;
 				covLong[v,v,q_]=covLong[v,q];
 				covLong[v,_,q_/;q<0]=0;
-				covLong[v,x_,q_/;q>=0]:=uncondCov[v[t],x[t+q], model];
+				covLong[v,x_,q_/;q>=0]:=uncondCov[v[t],x[t+q]];
 				covLong[x_,v,q_]:=covLong[v,x,-q];
 			,
 			{mm,1,Length[shocksList]}
@@ -371,13 +379,13 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 			v1=varList[[kk]];
 			With[
 				{
-					tempNeg=Table[{T,uncondCov[v1[t],v1[t+T], model  ]},{T,-maxLag-1,-2}],
-					tempPos=Table[{T,uncondCov[v1[t],v1[t+T]  , model ]},{T,2,maxLag+1}]
+					tempNeg=Table[{T,uncondCov[v1[t],v1[t+T]]},{T,-maxLag-1,-2}],
+					tempPos=Table[{T,uncondCov[v1[t],v1[t+T]]},{T,2,maxLag+1}]
 				},
 				covLong[v1,q_/;q < -1]=FindSequenceFunction[tempNeg,q];
-				covLong[v1,-1]=uncondCov[v1[t],v1[t-1], model];
-				covLong[v1,0]=uncondVar[v1[t], model];
-				covLong[v1,1]=uncondCov[v1[t],v1[t+1], model];
+				covLong[v1,-1]=uncondCov[v1[t],v1[t-1]];
+				covLong[v1,0]=uncondVar[v1[t]];
+				covLong[v1,1]=uncondCov[v1[t],v1[t+1]];
 				covLong[v1,q_/;q > 1]=FindSequenceFunction[tempPos,q];
 				covLong[v1,v1,q_]=covLong[v1,q];
 			];
@@ -385,13 +393,13 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				v2=varList[[qq]];
 				With[
 					{
-						tempNeg=Table[{T,uncondCov[v1[t],v2[t+T], model]},{T,-maxLag-1,-2}],
-						tempPos=Table[{T,uncondCov[v1[t],v2[t+T], model]},{T,2,maxLag+1}]
+						tempNeg=Table[{T,uncondCov[v1[t],v2[t+T]]},{T,-maxLag-1,-2}],
+						tempPos=Table[{T,uncondCov[v1[t],v2[t+T]]},{T,2,maxLag+1}]
 					},
 					covLong[v1,v2,q_/;q < -1]=FindSequenceFunction[tempNeg,q];
-					covLong[v1,v2,-1]=uncondCov[v1[t],v2[t-1], model];
-					covLong[v1,v2,0]=uncondCov[v1[t],v2[t], model];
-					covLong[v1,v2,1]=uncondCov[v1[t],v2[t+1], model];
+					covLong[v1,v2,-1]=uncondCov[v1[t],v2[t-1]];
+					covLong[v1,v2,0]=uncondCov[v1[t],v2[t]];
+					covLong[v1,v2,1]=uncondCov[v1[t],v2[t+1]];
 					covLong[v1,v2,q_/;q > 1]=FindSequenceFunction[tempPos,q];
 					covLong[v2,v1,q_]=covLong[v1,v2,-q];
 				];
@@ -400,12 +408,12 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					v3=shocksList[[mm]];
 					With[
 						{
-							tempPos=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,3,maxLag+2}]
+							tempPos=Table[{T,uncondCov[v1[t],v3[t+T]]},{T,3,maxLag+2}]
 						},
 						covLong[v1,v3,q_/;q < 0]=0;
-						covLong[v1,v3,0]=uncondCov[v1[t],v3[t], model];
-						covLong[v1,v3,1]=uncondCov[v1[t],v3[t+1], model];
-						covLong[v1,v3,2]=uncondCov[v1[t],v3[t+2], model];
+						covLong[v1,v3,0]=uncondCov[v1[t],v3[t]];
+						covLong[v1,v3,1]=uncondCov[v1[t],v3[t+1]];
+						covLong[v1,v3,2]=uncondCov[v1[t],v3[t+2]];
 						covLong[v1,v3,q_/;q > 2]=FindSequenceFunction[tempPos,q];
 						(*covLong[v3,v1,q_]=covLong[v1,v3,-q];*)
 					];
@@ -430,14 +438,14 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					tempNeg,
 					tempPos
 				},
-				tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i] , model ]},{T,-maxLag-2,-3}];
-				tempPos[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i], model]},{T,3,maxLag+2}];
+				tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i]]},{T,-maxLag-2,-3}];
+				tempPos[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i]]},{T,3,maxLag+2}];
 				covLong[v1,q_/;q < -1,i_]=FindSequenceFunction[tempNeg[i],q];
-				covLong[v1,-2,i_]=uncondCov[v1[t,i],v1[t-2,i], model];
-				covLong[v1,-1,i_]=uncondCov[v1[t,i],v1[t-1,i], model];
-				covLong[v1,0,i_]=uncondVar[v1[t,i], model];
-				covLong[v1,1,i_]=uncondCov[v1[t,i],v1[t+1,i], model];
-				covLong[v1,2,i_]=uncondCov[v1[t,i],v1[t+2,i], model];
+				covLong[v1,-2,i_]=uncondCov[v1[t,i],v1[t-2,i]];
+				covLong[v1,-1,i_]=uncondCov[v1[t,i],v1[t-1,i]];
+				covLong[v1,0,i_]=uncondVar[v1[t,i]];
+				covLong[v1,1,i_]=uncondCov[v1[t,i],v1[t+1,i]];
+				covLong[v1,2,i_]=uncondCov[v1[t,i],v1[t+2,i]];
 				covLong[v1,q_/;q > 1,i_]=FindSequenceFunction[tempPos[i],q];
 				
 				covLong[v1,q_,i_,i_]=covLong[v1,q,i];
@@ -450,12 +458,12 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					tempNeg,
 					tempPos
 				},
-				tempNeg[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j], model   ]},{T,-maxLag-1,-2}];
-				tempPos[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j], model  ]},{T,2,maxLag+1}];
+				tempNeg[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j]]},{T,-maxLag-1,-2}];
+				tempPos[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j]]},{T,2,maxLag+1}];
 				covLong[v1,q_/;q < -1,i_,j_]/;Not[MatchQ[i,j]]=FindSequenceFunction[tempNeg[i,j],q];
-				covLong[v1,-1,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t-1,j], model];
-				covLong[v1,0,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t,j], model];
-				covLong[v1,1,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t+1,j], model];
+				covLong[v1,-1,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t-1,j]];
+				covLong[v1,0,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t,j]];
+				covLong[v1,1,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t+1,j]];
 				covLong[v1,q_/;q > 1,i_,j_]/;Not[MatchQ[i,j]]=FindSequenceFunction[tempPos[i,j],q];
 				covLong[v1,v1,q_,i_,j_]/;Not[MatchQ[i,j]]=covLong[v1,q,i,j];
 			];
@@ -464,12 +472,12 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				v3=shocksList[[mm]];
 				With[
 					{
-						tempPos=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,3,maxLag+2}]
+						tempPos=Table[{T,uncondCov[v1[t],v3[t+T]]},{T,3,maxLag+2}]
 					},
 					covLong[v1,v3,q_/;q < 0]=0;
-					covLong[v1,v3,0,i_]=uncondCov[v1[t,i],v3[t], model];
-					covLong[v1,v3,1,i_]=uncondCov[v1[t,i],v3[t+1], model];
-					covLong[v1,v3,2,i_]=uncondCov[v1[t,i],v3[t+2], model];
+					covLong[v1,v3,0,i_]=uncondCov[v1[t,i],v3[t]];
+					covLong[v1,v3,1,i_]=uncondCov[v1[t,i],v3[t+1]];
+					covLong[v1,v3,2,i_]=uncondCov[v1[t,i],v3[t+2]];
 					covLong[v1,v3,q_/;q > 2,i_]=FindSequenceFunction[tempPos,q];
 					(*covLong[v3,v1,q_]=covLong[v1,v3,-q];*)
 				];
@@ -483,12 +491,12 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 						tempNeg,
 						tempPos
 					},
-					tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T], model]},{T,-maxLag-1,-2}];
-					tempPos[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T], model]},{T,2,maxLag+1}];
+					tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T]]},{T,-maxLag-1,-2}];
+					tempPos[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T]]},{T,2,maxLag+1}];
 					covLong[v1,v2,q_/;q < -1,i_]=FindSequenceFunction[tempNeg[i],q];
-					covLong[v1,v2,-1,i_]=uncondCov[v1[t,i],v2[t-1], model];
-					covLong[v1,v2,0,i_]=uncondCov[v1[t,i],v2[t], model];
-					covLong[v1,v2,1,i_]=uncondCov[v1[t,i],v2[t+1], model];
+					covLong[v1,v2,-1,i_]=uncondCov[v1[t,i],v2[t-1]];
+					covLong[v1,v2,0,i_]=uncondCov[v1[t,i],v2[t]];
+					covLong[v1,v2,1,i_]=uncondCov[v1[t,i],v2[t+1]];
 					covLong[v1,v2,q_/;q > 1,i_]=FindSequenceFunction[tempPos[i],q];
 					covLong[v2,v1,q_,i_]=covLong[v1,v2,-q,i];
 				]
@@ -536,7 +544,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				Do[
 					v5=shocksList[[mm]];
 					covLong[v5,v1,q_/;q < 0]=0;
-					covLong[v5,v1,q_/;q > 0]=uncondCov[v5[t],v1[t+q], model];
+					covLong[v5,v1,q_/;q > 0]=uncondCov[v5[t],v1[t+q]];
 					(*covLong[v1,v5,q_]=covLong[v5,v1,-q];*)
 					,
 					{mm,1,Length[shocksList]}
@@ -733,7 +741,8 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 		DownValues[Evaluate@covLong]=DeleteDuplicates[Flatten[ParallelEvaluate[DownValues[Evaluate@covLong]]]];
 		
 		(*covariance with pd12lag*)
-		(*
+		(*vars1={"dc","dd"(*,"pd","rf","excret","pdpd","dcdc","dddd","excretexcret","rfrf","dcpd","ddpd","excretpd","rfpd"*)};
+		vars2={"pd12lag"};
 		hor=ToString/@{12,24(*,36,48,60,72*)};
 		vars1cov=Flatten[Outer[{StringJoin[#1,#2],StringJoin[#1,#1,#2],StringJoin[#1,"pd",#2]}&,vars1,hor],1];
 		vars1cov=Flatten@LexicographicSort@Transpose[vars1cov];
