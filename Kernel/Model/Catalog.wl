@@ -11,6 +11,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"]
 (* ::Subsection:: *)
 (*Public symbols*)
 
+
 models::usage= "Association with the definition and properties of models.";
 modelsExtraInfo::usage= "Additional optional information about model solution, constraints, initial guesses for numerical solvers.";
 
@@ -1638,8 +1639,8 @@ modelsExtraInfo = <|
 			}	
 		|>,
 		"initialGuess" -> <| 
-			"Ewc"-> {6},
-			"Epd"-> {{4}}
+			"Ewc"-> {6.25},
+			"Epd"-> {{5.5}}
 		|>
 	|>,
 (**********************************************************)
@@ -1736,7 +1737,7 @@ modelsExtraInfo = <|
 					(2-2 \[ExponentialE]^A[0] (-1+rhog^2))^2-(16 \[ExponentialE]^(4 A[0]) phig^2 (-1+psi)^2 rhog^2 theta^2 xic^2)/((1+\[ExponentialE]^A[0])^2 psi^2)>=0,
 					which simplifies to the expression in the next line
 					*)
-					A[0] > 0 && (gamma == 1 || phig == 0 || rhog == 0 || (rhog == Sqrt[2*(-1 + Sqrt[2])] && ((A[0] <= Log[Max[0,Root[-1 + (-8 + 4*Sqrt[2])*#1 + (-30 + 20*Sqrt[2])*#1^2 + (-40 + 28*Sqrt[2])*#1^3 + (-17 + 12*Sqrt[2] - 8*phig^2*xic^2 + 8*Sqrt[2]*phig^2*xic^2 + 16*gamma*phig^2*xic^2 - 16*Sqrt[2]*gamma*phig^2*xic^2 - 8*gamma^2*phig^2*xic^2 + 8*Sqrt[2]*gamma^2*phig^2*xic^2)*#1^4 & , 2]]] && (Sqrt[-(7/8) + 5/(4*Sqrt[2])] < (-1 + gamma)*phig*xic < 2*Sqrt[-1 + Sqrt[2]] || (2*Sqrt[-1 + Sqrt[2]] + gamma*phig*xic > phig*xic &&  Sqrt[2*(-7 + 5*Sqrt[2])] + 4*(-1 + gamma)*phig*xic < 0)) && gamma != 1) || (4*xic + (Sqrt[2*(-7 + 5*Sqrt[2])]*Sqrt[1/phig^2])/Abs[-1 + gamma] >= 0 && Sqrt[2*(-7 + 5*Sqrt[2])]/Abs[phig - gamma*phig] >= 4*xic))) || (2*xic + (-1 + rhog^2)*Abs[1/((-1 + gamma)*phig*rhog)] <= 0 && 2*xic >= (Sqrt[1/phig^2]*(-1 + rhog^2))/Abs[rhog - gamma*rhog] && (rhog > Sqrt[2*(-1 + Sqrt[2])] || Sqrt[2*(-1 + Sqrt[2])] + rhog < 0 || (rhog < Sqrt[2*(-1 + Sqrt[2])] && Sqrt[2*(-1 + Sqrt[2])] + rhog > 0))) || (Sqrt[2*(-1 + Sqrt[2])] + rhog == 0 && (((Sqrt[2*(-7 + 5*Sqrt[2])]*Sqrt[1/phig^2])/Abs[-1 + gamma] >= 4*xic && 4*xic + Sqrt[2*(-7 + 5*Sqrt[2])]/Abs[phig - gamma*phig] >= 0) || (A[0] <= Log[Max[0, Root[-1 + (-8 + 4*Sqrt[2])*#1 + (-30 + 20*Sqrt[2])*#1^2 + (-40 + 28*Sqrt[2])*#1^3 + (-17 + 12*Sqrt[2] - 8*phig^2*xic^2 + 8*Sqrt[2]*phig^2*xic^2 + 16*gamma*phig^2*xic^2 - 16*Sqrt[2]*gamma*phig^2*xic^2 - 8*gamma^2*phig^2*xic^2 + 8*Sqrt[2]*gamma^2*phig^2*xic^2)*#1^4 & , 2]]] && ((Sqrt[2*(-7 + 5*Sqrt[2])]/(phig - gamma*phig) > 4*xic && (-1 + gamma)*phig*(4 - 2*Sqrt[2] + Sqrt[2*(-1 + Sqrt[2])]*(-1 + gamma)*phig*xic) > 0) || (4*(-1 + gamma)*phig*xic > Sqrt[2*(-7 + 5*Sqrt[2])] && Sqrt[2]*(2 + Sqrt[-1 + Sqrt[2]]*(-1 + gamma)*phig*xic) < 4) || (Sqrt[2*(-7 + 5*Sqrt[2])] + 4*(-1 + gamma)*phig*xic < 0 && 4 + Sqrt[2*(-1 + Sqrt[2])]*(-1 + gamma)*phig*xic > 2*Sqrt[2] &&  ((gamma > 1 && phig < 0) || (gamma < 1 && phig > 0))))))) || (rhog > Sqrt[2*(-1 + Sqrt[2])] && ((A[0] <= Log[Max[0,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 4]]] && ((rhog^3 + 8*(-1 + gamma)*phig*xic >= 0 && 1 + 2*(-1 + gamma)*phig*rhog*xic < rhog^2) || (8*(-1 + gamma)*phig*xic <= rhog^3 &&  rhog*(rhog + 2*(-1 + gamma)*phig*xic) > 1))) || (A[0] <= Log[Max[0,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 2]]] && ((rhog^3 + 8*(-1 + gamma)*phig*xic < 0 && 2 + (-1 + gamma)*phig*rhog*xic > rhog^2) || (8*(-1 + gamma)*phig*xic > rhog^3 &&  rhog*(rhog + (-1 + gamma)*phig*xic) < 2))))) || (Sqrt[2*(-1 + Sqrt[2])] + rhog < 0 && ((A[0] <= Log[Max[0,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 2]]] && ((rhog^3 + 8*(-1 + gamma)*phig*xic > 0 && 2 + (-1 + gamma)*phig*rhog*xic > rhog^2) || (8*(-1 + gamma)*phig*xic < rhog^3 &&  rhog*(rhog + (-1 + gamma)*phig*xic) < 2))) || (A[0] <= Log[Max[0,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 4]]] && ((8*(-1 + gamma)*phig*xic >= rhog^3 && rhog*(rhog + 2*(-1 + gamma)*phig*xic) > 1) || (rhog^3 + 8*(-1 + gamma)*phig*xic <= 0 &&  1 + 2*(-1 + gamma)*phig*rhog*xic < rhog^2))))) || (rhog < Sqrt[2*(-1 + Sqrt[2])] && Sqrt[2*(-1 + Sqrt[2])] + rhog > 0 && A[0] <= Log[Max[0,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 2]]] && ((2 + (-1 + gamma)*phig*rhog*xic > rhog^2 && 1 + 2*(-1 + gamma)*phig*rhog*xic < rhog^2) || (rhog*(rhog + (-1 + gamma)*phig*xic) < 2 && rhog*(rhog + 2*(-1 + gamma)*phig*xic) > 1))))
+					A[0] > $MachineEpsilon && (gamma == 1 || phig == 0 || rhog == 0 || (rhog == Sqrt[2*(-1 + Sqrt[2])] && ((A[0] <= Log[Max[$MachineEpsilon,Root[-1 + (-8 + 4*Sqrt[2])*#1 + (-30 + 20*Sqrt[2])*#1^2 + (-40 + 28*Sqrt[2])*#1^3 + (-17 + 12*Sqrt[2] - 8*phig^2*xic^2 + 8*Sqrt[2]*phig^2*xic^2 + 16*gamma*phig^2*xic^2 - 16*Sqrt[2]*gamma*phig^2*xic^2 - 8*gamma^2*phig^2*xic^2 + 8*Sqrt[2]*gamma^2*phig^2*xic^2)*#1^4 & , 2]]] && (Sqrt[-(7/8) + 5/(4*Sqrt[2])] < (-1 + gamma)*phig*xic < 2*Sqrt[-1 + Sqrt[2]] || (2*Sqrt[-1 + Sqrt[2]] + gamma*phig*xic > phig*xic &&  Sqrt[2*(-7 + 5*Sqrt[2])] + 4*(-1 + gamma)*phig*xic < 0)) && gamma != 1) || (4*xic + (Sqrt[2*(-7 + 5*Sqrt[2])]*Sqrt[1/phig^2])/Abs[-1 + gamma] >= 0 && Sqrt[2*(-7 + 5*Sqrt[2])]/Abs[phig - gamma*phig] >= 4*xic))) || (2*xic + (-1 + rhog^2)*Abs[1/((-1 + gamma)*phig*rhog)] <= 0 && 2*xic >= (Sqrt[1/phig^2]*(-1 + rhog^2))/Abs[rhog - gamma*rhog] && (rhog > Sqrt[2*(-1 + Sqrt[2])] || Sqrt[2*(-1 + Sqrt[2])] + rhog < 0 || (rhog < Sqrt[2*(-1 + Sqrt[2])] && Sqrt[2*(-1 + Sqrt[2])] + rhog > 0))) || (Sqrt[2*(-1 + Sqrt[2])] + rhog == 0 && (((Sqrt[2*(-7 + 5*Sqrt[2])]*Sqrt[1/phig^2])/Abs[-1 + gamma] >= 4*xic && 4*xic + Sqrt[2*(-7 + 5*Sqrt[2])]/Abs[phig - gamma*phig] >= 0) || (A[0] <= Log[Max[$MachineEpsilon, Root[-1 + (-8 + 4*Sqrt[2])*#1 + (-30 + 20*Sqrt[2])*#1^2 + (-40 + 28*Sqrt[2])*#1^3 + (-17 + 12*Sqrt[2] - 8*phig^2*xic^2 + 8*Sqrt[2]*phig^2*xic^2 + 16*gamma*phig^2*xic^2 - 16*Sqrt[2]*gamma*phig^2*xic^2 - 8*gamma^2*phig^2*xic^2 + 8*Sqrt[2]*gamma^2*phig^2*xic^2)*#1^4 & , 2]]] && ((Sqrt[2*(-7 + 5*Sqrt[2])]/(phig - gamma*phig) > 4*xic && (-1 + gamma)*phig*(4 - 2*Sqrt[2] + Sqrt[2*(-1 + Sqrt[2])]*(-1 + gamma)*phig*xic) > 0) || (4*(-1 + gamma)*phig*xic > Sqrt[2*(-7 + 5*Sqrt[2])] && Sqrt[2]*(2 + Sqrt[-1 + Sqrt[2]]*(-1 + gamma)*phig*xic) < 4) || (Sqrt[2*(-7 + 5*Sqrt[2])] + 4*(-1 + gamma)*phig*xic < 0 && 4 + Sqrt[2*(-1 + Sqrt[2])]*(-1 + gamma)*phig*xic > 2*Sqrt[2] &&  ((gamma > 1 && phig < 0) || (gamma < 1 && phig > 0))))))) || (rhog > Sqrt[2*(-1 + Sqrt[2])] && ((A[0] <= Log[Max[$MachineEpsilon,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 4]]] && ((rhog^3 + 8*(-1 + gamma)*phig*xic >= 0 && 1 + 2*(-1 + gamma)*phig*rhog*xic < rhog^2) || (8*(-1 + gamma)*phig*xic <= rhog^3 &&  rhog*(rhog + 2*(-1 + gamma)*phig*xic) > 1))) || (A[0] <= Log[Max[$MachineEpsilon,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 2]]] && ((rhog^3 + 8*(-1 + gamma)*phig*xic < 0 && 2 + (-1 + gamma)*phig*rhog*xic > rhog^2) || (8*(-1 + gamma)*phig*xic > rhog^3 &&  rhog*(rhog + (-1 + gamma)*phig*xic) < 2))))) || (Sqrt[2*(-1 + Sqrt[2])] + rhog < 0 && ((A[0] <= Log[Max[$MachineEpsilon,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 2]]] && ((rhog^3 + 8*(-1 + gamma)*phig*xic > 0 && 2 + (-1 + gamma)*phig*rhog*xic > rhog^2) || (8*(-1 + gamma)*phig*xic < rhog^3 &&  rhog*(rhog + (-1 + gamma)*phig*xic) < 2))) || (A[0] <= Log[Max[$MachineEpsilon,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 4]]] && ((8*(-1 + gamma)*phig*xic >= rhog^3 && rhog*(rhog + 2*(-1 + gamma)*phig*xic) > 1) || (rhog^3 + 8*(-1 + gamma)*phig*xic <= 0 &&  1 + 2*(-1 + gamma)*phig*rhog*xic < rhog^2))))) || (rhog < Sqrt[2*(-1 + Sqrt[2])] && Sqrt[2*(-1 + Sqrt[2])] + rhog > 0 && A[0] <= Log[Max[$MachineEpsilon,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 2]]] && ((2 + (-1 + gamma)*phig*rhog*xic > rhog^2 && 1 + 2*(-1 + gamma)*phig*rhog*xic < rhog^2) || (rhog*(rhog + (-1 + gamma)*phig*xic) < 2 && rhog*(rhog + 2*(-1 + gamma)*phig*xic) > 1))))
 				],
 			"Epd" -> 
 				With[
@@ -1747,7 +1748,7 @@ modelsExtraInfo = <|
 						sign = 1
 					},
 					(*assumption needed to get real roots for coefficients of the price dividend ratio is:*)
-					(1/(1 + E^B[j][0])^2)*((1 + E^A[0] - E^B[j][0]*(-1 + rhog^2 + E^A[0]*(-1 + rhog^2*(1 + 4*phig^2*(-1 + theta)*A[5]))))^2/(1 + E^A[0])^2 + 8*E^(2*B[j][0])*phig^2*rhog^2*(-(((-1 + theta)*(-2*A[5] + 2*E^A[0]*(-2 + rhog^2)*A[5] + E^(2*A[0])*((-1 + theta)*A[2]^2 + 2*A[5]*(-1 + rhog^2*(1 + 2*phig^2*(-1 + theta)*A[5])))))/(2*(1 + E^A[0])^2)) - (E^(A[0] + B[j][0])*(-1 + theta)*A[2]*(-A[2] + gamma*(xic - psi*xic + psi*A[2]) + (-1 + psi)*xid[j]))/((1 + E^A[0])*(1 + E^B[j][0])*(-1 + psi)) - (E^(2*B[j][0])*(-A[2] + gamma*(xic - psi*xic + psi*A[2]) + (-1 + psi)*xid[j])^2)/(2*(1 + E^B[j][0])^2*(-1 + psi)^2))) >= 0
+					(1/(1 + E^B[j][0])^2)*((1 + E^A[0] - E^B[j][0]*(-1 + rhog^2 + E^A[0]*(-1 + rhog^2*(1 + 4*phig^2*(-1 + theta)*A[5]))))^2/(1 + E^A[0])^2 + 8*E^(2*B[j][0])*phig^2*rhog^2*(-(((-1 + theta)*(-2*A[5] + 2*E^A[0]*(-2 + rhog^2)*A[5] + E^(2*A[0])*((-1 + theta)*A[2]^2 + 2*A[5]*(-1 + rhog^2*(1 + 2*phig^2*(-1 + theta)*A[5])))))/(2*(1 + E^A[0])^2)) - (E^(A[0] + B[j][0])*(-1 + theta)*A[2]*(-A[2] + gamma*(xic - psi*xic + psi*A[2]) + (-1 + psi)*xid[j]))/((1 + E^A[0])*(1 + E^B[j][0])*(-1 + psi)) - (E^(2*B[j][0])*(-A[2] + gamma*(xic - psi*xic + psi*A[2]) + (-1 + psi)*xid[j])^2)/(2*(1 + E^B[j][0])^2*(-1 + psi)^2))) >= $MachineEpsilon
 				],
 			"nombond" -> 
 				With[
@@ -1760,8 +1761,8 @@ modelsExtraInfo = <|
 				]
 		|>,
 		"initialGuess" -> <| 
-			"Ewc" -> {4.45}, 
-			"Epd" -> {{5.5},{6.3},{5.6}}
+			"Ewc" -> {4.6}, 
+			"Epd" -> {{5.5},{6},{7}}
 		|>
 	|>,
 (**********************************************************)
@@ -1820,6 +1821,13 @@ modelsExtraInfo = <|
 				}
 			]
 		|>
+	|>,
+(**********************************************************)
+	"DES" -> <|
+		"initialGuess" -> <| 
+				"Ewc" -> {7},
+				"Epd" -> {{5.7}}
+			|>
 	|>
 (**********************************************************)
 |>;(*end modelsExtraInfo*)

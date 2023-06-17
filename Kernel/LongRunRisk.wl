@@ -1,5 +1,9 @@
 (* ::Package:: *)
 
+(* ::Section:: *)
+(*Install dependencies*)
+
+
 (*install PacletizedResourceFunctions provided with LongRunRisk paclet if not already installed*)
 If[
 	{}===PacletFind["PacletizedResourceFunctions"],
@@ -16,7 +20,6 @@ If[
 Get["PacletizedResourceFunctions`"];
 
 (*install local version of MaTeX provided with LongRunRisk paclet if not already installed*)
-(*consider putting in a module to localize pacletMaTeX*)
 If[
 	{}===PacletFind["MaTeX"->"1.7.9"],
 	PacletInstall[
@@ -29,122 +32,87 @@ If[
 		ForceVersionInstall->True
 	]
 ]
-Quiet@Get[FileNameJoin[{(First@PacletFind["MaTeX"->"1.7.9"])["Location"],"MaTeX.m"}]];(*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
+Quiet@Get[FileNameJoin[{(First@PacletFind["MaTeX"->"1.7.9"])["Location"],"MaTeX.m"}]];
 MaTeX`Developer`ResetConfiguration[];
+
+
+(* ::Section:: *)
+(*Load sub-contexts*)
+
 
 <<FernandoDuarte`LongRunRisk`Model`Parameters`;
 <<FernandoDuarte`LongRunRisk`Model`Shocks`;
 <<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
-$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
-
-<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
-$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
-
-<<FernandoDuarte`LongRunRisk`Tools`NiceOutput`;
-$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`"];
-
-<<FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`;
-<<FernandoDuarte`LongRunRisk`Tools`TimeAggregation`;
-
-(*<<FernandoDuarte`LongRunRisk`Model`Catalog`;
-<<FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`;*)
-
-
-(*<<FernandoDuarte`LongRunRisk`Model`Parameters`;
-<<FernandoDuarte`LongRunRisk`Model`Shocks`;
-<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
 <<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
-*)
-<<FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`;
 
+
+(* ::Section:: *)
+(*Begin package*)
 
 
 BeginPackage["FernandoDuarte`LongRunRisk`"]
 
 
-(*<<FernandoDuarte`LongRunRisk`Model`ProcessModels`;
-<<FernandoDuarte`LongRunRisk`Tools`TimeAggregation`;
-
-<<FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`;*)
+(* ::Subsection:: *)
+(*Public symbols*)
 
 
 Models;
 Info;
-ToNum;
-ToEquation;
-ToExogenousVars;
-ToStateVars;
-UncondE; UncondVar; UncondCov; UncondCorr;
+ToEquation;ToExogenousVars;ToStateVars;
+UncondE; UncondCov; UncondVar; UncondCorr;
+covLongBY;covLongNRC;covLongDES;
 Ev; Var; Cov; Corr;
-Moments;
-Solution;
+ToNum;
 Growth;
-YieldCurve;
-covLongBY;covLongNRC;covLongDES
 
 
-(*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
+(* ::Subsubsection:: *)
+(*Usage*)
 
-Symbol/@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`$exogenousVarsPrivate
+
+ToEquation::usage = "";
+ToExogenousVars::usage = "";
+ToStateVars::usage = "";
+(*other symbols automatically inherit usage messages from the package in which they were first introduced*)
+
+
+(*Symbol/@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`$exogenousVarsPrivate
 Symbol/@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`$endogenousVarsPrivate*)
 
 
-(*display ? without contexts*)
-(*Unprotect@Definition;
-Definition[x_Symbol] /; StringMatchQ[Context[x], "Package`" ~~ ___] := 
-    StringReplace[ToString@FullDefinition[x], 
-        (WordCharacter .. ~~ DigitCharacter ... ~~ "`") .. ~~ s_ :> s
-    ];
-Protect@Definition;*)
+(* ::Section:: *)
+(*Code*)
 
 
 Begin["`Private`"]
 
 
-(*Check out*)
-(*ResourceFunction["CopyDefinitions"]*)
-
-(*Language`ExtendedFullDefinition[] = ResourceFunction["ReplaceContext"][
-  Language`ExtendedDefinition[f], $Context -> "MySandbox`"]*)
-  
-  (*ResourceFunction["TraceView"]*)
-
-
-(* ::Subsubsection:: *)
-(*Load models*)
-
-
-Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];
-
-momentsTablesFiles=FileNames["*.wl","FernandoDuarte/LongRunRisk/MomentsLookupTables/"];
-momentsTables = Get/@momentsTablesFiles;
-Get/@momentsTables;
-
-(*loads the following symbols; write usage?*)
-(*{
-	"FernandoDuarte`LongRunRisk`Epd0",
-	"FernandoDuarte`LongRunRisk`Ewc0",
-	"FernandoDuarte`LongRunRisk`FindRootOptions",
-	"FernandoDuarte`LongRunRisk`Models",
-	"FernandoDuarte`LongRunRisk`RecurrenceTableOptions"
-}*)
-
-
 (* ::Subsection:: *)
+(*Package dependencies*)
+
+
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceTables`"];
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];
+CopyDefinitions = ResourceFunction["CopyDefinitions"];
+CompoundScope = ResourceFunction["CompoundScope"];
+
+
+(* ::Subsection::Closed:: *)
 (*Helper functions*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*reExport*)
 
-
-CopyDefinitions=ResourceFunction["CopyDefinitions"];
-MessageReplace=ResourceFunction["MessageReplace"];
-CompoundScope=ResourceFunction["CompoundScope"];
-SymbolQ=ResourceFunction["SymbolQ"];
 
 reExport[f_Symbol, g_Symbol]:=
 (
@@ -163,42 +131,28 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 ]
 
 
+(* ::Subsection::Closed:: *)
+(*Models*)
+
+
+Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];
+
+
+(* ::Subsection::Closed:: *)
+(*Info*)
+
+
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
+Info[models_Association] := PacletizedResourceFunctions`SetSymbolsContext@Column[(FernandoDuarte`LongRunRisk`Tools`NiceOutput`info@#&)/@(Values@FernandoDuarte`LongRunRisk`Tools`NiceOutput`createEqTables[models])];
+Info::usage = StringReplace[Information[FernandoDuarte`LongRunRisk`Tools`NiceOutput`info,"Usage"],"info" -> "Info"];
+
+
 (* ::Subsection:: *)
-(*Re - export symbols from subcontexts*)
-
-
-<<FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`;
-<<FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`;
-
-
-reExport[#]&/@{
-(*	"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`",*)
-	"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`",
-	"FernandoDuarte`LongRunRisk`Tools`TimeAggregation`",
-	"FernandoDuarte`LongRunRisk`Tools`NiceOutput`",
-	"FernandoDuarte`LongRunRisk`Tools`NicePlots`"
-}
-
-
-UncondCov[x_,y_,model_]:=Module[
-	{
-		toExogenous = Normal@model["endogenousEq"],
-		covLong=Symbol["FernandoDuarte`LongRunRisk`covLong"<>model["shortname"]]
-	},
-	<<FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`;
-	cExo=FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`uncondCovLongExo[toExogenous, x, y, covLong];
-	If[
-		FreeQ[cE,covLong],
-		cExo,
-		FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov[x, y, model]]
-];
-
-UncondVar[x_, model_]:=UncondCov[x,x, model];
-UncondCorr[x_,y_,model_]:=UncondCov[x,y,model]/(Sqrt[UncondVar[x,model]]Sqrt[UncondVar[y,model]]);
+(*ToEquation and ToVars*)
 
 
 (* ::Subsubsection:: *)
-(*Variables*)
+(*ToEquation*)
 
 
 ToEquation[expr_,model_Association]:= ReplaceAll[expr, Normal@Join[model["exogenousEq"],model["endogenousEq"]] ]
@@ -209,47 +163,154 @@ ToEquation[model_Association, n_Integer?Positive]:=Function[{expr}, Nest[ToEquat
 (*ReplaceAll[expr_,ToEquation[model_]]^:=ToEquation[expr,model]*)
 
 
+(* ::Subsubsection:: *)
+(*ToExogenousVars*)
+
+
 ToExogenousVars[expr_,model_Association]:= ReplaceRepeated[expr, Normal@model["endogenousEq"]] 
 ToExogenousVars[model_Association]:=Function[{expr}, ToExogenousVars[expr,model]]
+
+
+(* ::Subsubsection:: *)
+(*ToStateVars*)
+
 
 ToStateVars[expr_,model_Association]:= ReplaceRepeated[expr, Normal@model["toStateVars"]] 
 ToStateVars[model_Association]:=Function[{expr}, ToStateVars[expr,model]]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
+(*Unconditional moments*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*UncondE*)
+
+
+reExport[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE,FernandoDuarte`LongRunRisk`UncondE];
+
+
+(* ::Subsubsection::Closed:: *)
+(*UncondCov*)
+
+
+UncondCov[x_,y_,model_]:=With[
+	{
+		toExogenous = Normal@model["endogenousEq"],
+		covLong=Symbol["FernandoDuarte`LongRunRisk`covLong"<>model["shortname"]]
+	},
+	Module[
+		{cExo},
+		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
+		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+
+		cExo=FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`uncondCovLongExo[toExogenous, x, y, covLong];
+		If[
+			FreeQ[cExo,covLong],
+			cExo,
+			FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov[x, y, model]
+		]
+	](*Module*)
+](*With*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*covLong*)
+
+
+covLongFileNames=Map[StringJoin["FernandoDuarte/LongRunRisk/MomentsLookupTables/covLong",#, ".wl"]&,Keys@Models];
+Map[(Get@Get@#) &,covLongFileNames];
+
+
+(* ::Subsubsection::Closed:: *)
+(*UncondVar*)
+
+
+UncondVar[x_, model_]:=UncondCov[x,x, model];
+
+
+(* ::Subsubsection::Closed:: *)
+(*UncondCorr*)
+
+
+UncondCorr[x_,y_,model_]:=UncondCov[x,y,model]/(Sqrt[UncondVar[x,model]]Sqrt[UncondVar[y,model]]);
+
+
+(* ::Subsection::Closed:: *)
+(*Conditional moments*)
+
+
+reExport[#]&/@{
+	"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"
+}
+
+
+(* ::Subsection:: *)
 (*ToNum*)
 
 
-paramRules[model_]:= Join[model["parameters"], PacletizedResourceFunctions`SetSymbolsContext@model["parameters"]]
-ToNum[model_Association]:=Function[{expr},ReplaceRepeated[expr,Evaluate@paramRules[model]]];
+(*reExport["FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum",FernandoDuarte`LongRunRisk`ToNum];*)
+reExport[#]&/@{
+	"FernandoDuarte`LongRunRisk`Tools`ToNumber`"
+}
 
-(*delta //ToNum[model]
-delta //ToNum[Models["NRC"]]*)
+
+(* ::Subsection::Closed:: *)
+(*Growth*)
+
+
+reExport[#]&/@{
+	"FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"
+}
+
+
+(* ::Subsection:: *)
+(*Plots and tables*)
 
 
 (* ::Subsubsection:: *)
+(*NicePlots*)
+
+
+reExport[#]&/@{
+	"FernandoDuarte`LongRunRisk`Tools`NicePlots`"
+}
+
+
+(* ::Subsubsection:: *)
+(*NiceTables*)
+
+
+reExport[#]&/@{
+	"FernandoDuarte`LongRunRisk`Tools`NiceTables`"
+}
+
+
+(* ::Section:: *)
+(*End package*)
+
+
+End[]; (*"`Private`"*)
+
+
+EndPackage[];
+
+
+(* ::Subsection:: *)
 (*ToTex*)
 
 
 (*dc[t] //ToTeX*)
 
 
-End[](*"`Private`"*)
+(* ::Subsection:: *)
+(*useMaTeX*)
 
 
-EndPackage[]
-
-
-(*(*install local version of external packages*)
-UsingFrontEnd[
-	$pacletBaseDir=DirectoryName[NotebookDirectory[],1];
-	pacletResourceFuns=PacletInstall[FileNameJoin[{$pacletBaseDir,"Resources","PacletizedResourceFunctions.paclet"}],KeepExistingVersion->True, ForceVersionInstall->True];
-	pacletMaTeX=PacletInstall[FileNameJoin[{$pacletBaseDir,"Resources","MaTeX-1.7.9.paclet"}],KeepExistingVersion->True, ForceVersionInstall->True];
-]
-Get[FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]
+(*Get[FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
 (*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
 (*automatically use MaTeX instead of built-in LaTeX in inline/displayed formula cells*)
-UsingFrontEnd[
+(*UsingFrontEnd[
 	$useMaTeXMag=1;
 	$useMaTeXBaselineShift=0;
 	$useMaTeXMag=1.44; (*x^2 and x have the~same size in a Text cell*)

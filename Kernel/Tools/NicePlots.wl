@@ -34,6 +34,7 @@ Begin["`Private`"]
 
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"]
 
 
 (* ::Subsection:: *)
@@ -61,6 +62,7 @@ yieldCurve[
 	},
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+	Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 	With[
 		{
 			newParams=processNewParameters[newParameters,params]
@@ -80,22 +82,25 @@ yieldCurve[
 				
 			(*if coefficients for wc were not provided, compute them*)
 			solWc=If[coeffsWc==={}, updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParams,opts], coeffsWc];
-			
 			(*solve bond recursion*)
 			solNomBonds=updateCoeffsBond[model["coeffsSolution"][bondType], params, newParams, maxMaturity, solWc,opts];
-
 			(*compute unconditional expectation of bond yields*)
 			yE=Simplify@If[bondType==="nombond", momF@@{nombondyield[t,m],model}, momF@@{bondyield[t,m],model}];
-
 			(*restore options*)
 			SetOptions[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution,initialOpts];
 			On[Reduce::ratnz];
 			(*yield curve, plot with ListLinePlot[yieldCurve]*)
-			Table[{m,yE},{m,maxMaturity}]/.solNomBonds
+			Table[{m,yE}/.m->mm,{mm,maxMaturity}]/.solNomBonds
 			
 		](*Module*)
 	](*With*)
 ](*With*)
+
+
+(*Plot to visualize solution to Ew0, Epd0
+Fix moment function for yield curve
+Variance ratios over horizons*)
+
 
 
 (* ::Section:: *)

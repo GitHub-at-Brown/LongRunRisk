@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[    181134,       4584]
-NotebookOptionsPosition[    171748,       4431]
-NotebookOutlinePosition[    172239,       4450]
-CellTagsIndexPosition[    172196,       4447]
+NotebookDataLength[    173966,       4358]
+NotebookOptionsPosition[    164127,       4197]
+NotebookOutlinePosition[    164619,       4216]
+CellTagsIndexPosition[    164576,       4213]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -16,7 +16,7 @@ Cell[BoxData[
   RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.889964198656839*^9, 3.889964203363894*^9}, 
    3.895556812534958*^9, 3.895680268596149*^9},
- CellLabel->"In[12]:=",ExpressionUUID->"22feddcb-b3fc-478d-8077-4a914f160da7"],
+ CellLabel->"In[49]:=",ExpressionUUID->"22feddcb-b3fc-478d-8077-4a914f160da7"],
 
 Cell[BoxData[{
  RowBox[{
@@ -103,8 +103,9 @@ Cell[BoxData[
 
 Cell[BoxData[
  RowBox[{"{", "}"}]], "Output",
- CellChangeTimes->{3.895794225673542*^9, 3.895797866659919*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"f5fefff1-a3c8-4835-a308-1b1f38eb52e5"]
+ CellChangeTimes->{3.895794225673542*^9, 3.895797866659919*^9, 
+  3.895805902901041*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"7f37c53c-0fe4-4b91-ad25-b870bdf4885b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -138,12 +139,13 @@ Cell[BoxData[
 \\\"\\!\\(\\*RowBox[{\\\"\\\\\\\"ResourceSystemClient`DefinitionUtilities`\
 WithContext\\\\\\\"\\\"}]\\)\\\" cannot be used for a symbol name. A symbol \
 name must start with a letter followed by letters and numbers.\"", 2, 9, 74, 
-   28992779734298899726, "Local"},
+   28992832418740651161, "Local"},
   "MessageTemplate"]], "Message", "MSG",
- CellChangeTimes->{3.895794257633594*^9, 3.89579789881708*^9},
+ CellChangeTimes->{3.895794257633594*^9, 3.89579789881708*^9, 
+  3.8958059418581657`*^9},
  CellLabel->
   "During evaluation of \
-In[9]:=",ExpressionUUID->"6fbc6e9f-dcae-4857-802d-000f873994e2"]
+In[9]:=",ExpressionUUID->"46098e99-4dac-4500-a240-3e7c4e6eca10"]
 }, Open  ]],
 
 Cell[BoxData[""], "Input",
@@ -562,8 +564,7 @@ Cell[BoxData[
   RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.89480383844411*^9, 3.894803841134717*^9}, 
    3.894803954627451*^9},
- CellLabel->
-  "In[100]:=",ExpressionUUID->"64d267ef-c43d-4273-bbc2-c7b225c110ae"],
+ CellLabel->"In[41]:=",ExpressionUUID->"64d267ef-c43d-4273-bbc2-c7b225c110ae"],
 
 Cell[BoxData[{
  RowBox[{
@@ -1980,6 +1981,92 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell[BoxData[
+ RowBox[{
+  RowBox[{"FernandoDuarte`LongRunRisk`covLongDES", "[", 
+   RowBox[{
+   "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pibar", ",", 
+    RowBox[{"{", 
+     RowBox[{
+     "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg", ",", 
+      "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pibar"}], "}"}], 
+    ",", 
+    RowBox[{"-", "1"}], ",", 
+    RowBox[{"-", "1"}]}], "]"}], " "}]], "Input",
+ CellLabel->"In[57]:=",ExpressionUUID->"85c4187b-d6ad-498b-b81a-02eb0f487243"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", " ", 
+   SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", "2"], 
+   " ", 
+   SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx", 
+    "2"], " ", "FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar"}], "+", 
+  RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", " ", 
+   SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", "2"], 
+   " ", 
+   SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phipbarxb", 
+    "2"], " ", "FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar"}], "-", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", " ", 
+        SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
+         "2"], " ", 
+        SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx",
+          "2"]}], "+", 
+       RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", " ", 
+        SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
+         "2"], " ", 
+        SuperscriptBox[
+         "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarxb", "2"]}]}], 
+      ")"}], " ", "FernandoDuarte`LongRunRisk`Model`Parameters`rhog", " ", 
+     SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar", 
+      "3"]}], ")"}], "/", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "1"}], "+", 
+     SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar", 
+      "2"]}], ")"}]}], "-", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
+         "2"], " ", 
+        SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx",
+          "2"]}], "+", 
+       RowBox[{
+        SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
+         "2"], " ", 
+        SuperscriptBox[
+         "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarxb", "2"]}]}], 
+      ")"}], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Esg", " ", 
+        SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar", 
+         "3"]}], "-", 
+       RowBox[{
+       "FernandoDuarte`LongRunRisk`Model`Parameters`Esg", " ", 
+        "FernandoDuarte`LongRunRisk`Model`Parameters`rhog", " ", 
+        SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar", 
+         "3"]}]}], ")"}]}], ")"}], "/", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "1"}], "+", 
+     SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar", 
+      "2"]}], ")"}]}]}]], "Output",
+ CellChangeTimes->{3.895803882843869*^9},
+ CellLabel->"Out[57]=",ExpressionUUID->"a5cea5be-f7e2-4506-b5b0-fc2818455b65"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
  RowBox[{"covLong", "[", 
   RowBox[{"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x", ",", 
    RowBox[{"{", 
@@ -1989,11 +2076,11 @@ Cell[BoxData[
    
    RowBox[{"-", "1"}], ",", 
    RowBox[{"-", "1"}]}], "]"}]], "Input",
- CellLabel->"In[57]:=",ExpressionUUID->"0b138d0a-8999-4253-8db8-38240d473d50"],
+ CellLabel->"In[58]:=",ExpressionUUID->"0b138d0a-8999-4253-8db8-38240d473d50"],
 
 Cell[BoxData["0"], "Output",
- CellChangeTimes->{3.895802301073061*^9},
- CellLabel->"Out[57]=",ExpressionUUID->"414774fa-5610-46c7-940b-0073b6da920b"]
+ CellChangeTimes->{3.895802301073061*^9, 3.895803957135522*^9},
+ CellLabel->"Out[58]=",ExpressionUUID->"0440ed5e-94a7-48ad-aee3-0073d61411f5"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -3938,18 +4025,18 @@ f2451dfb4351"],
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"dv0", "=", 
-   RowBox[{
-    RowBox[{"DownValues", "[", 
-     RowBox[{"Evaluate", "@", "covLong"}], "]"}], "=", 
-    RowBox[{"DeleteDuplicates", "[", 
-     RowBox[{"Flatten", "[", 
-      RowBox[{"ParallelEvaluate", "[", 
-       RowBox[{"DownValues", "[", 
-        RowBox[{"Evaluate", "@", "covLong"}], "]"}], "]"}], "]"}], "]"}]}]}], 
+  RowBox[{
+   RowBox[{"DownValues", "[", 
+    RowBox[{"Evaluate", "@", "covLong"}], "]"}], "=", 
+   RowBox[{"DeleteDuplicates", "[", 
+    RowBox[{"Flatten", "[", 
+     RowBox[{"ParallelEvaluate", "[", 
+      RowBox[{"DownValues", "[", 
+       RowBox[{"Evaluate", "@", "covLong"}], "]"}], "]"}], "]"}], "]"}]}], 
   ";"}]], "Input",
- CellChangeTimes->{{3.895802741780113*^9, 3.895802746258977*^9}},
- CellLabel->"In[99]:=",ExpressionUUID->"c43c3f4c-88d9-443b-b469-50f75da17b6c"],
+ CellChangeTimes->{{3.895802741780113*^9, 3.895802746258977*^9}, 
+   3.8958040388382187`*^9},
+ CellLabel->"In[64]:=",ExpressionUUID->"c43c3f4c-88d9-443b-b469-50f75da17b6c"],
 
 Cell[CellGroupData[{
 
@@ -4046,6 +4133,25 @@ Cell[BoxData["0"], "Output",
   "Out[103]=",ExpressionUUID->"e8b26647-9092-43a0-bc94-6d21650b8a3a"]
 }, Open  ]],
 
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"covLongFilename", "=", 
+  "\"\</Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Resources/MomentsLookupTables/covLongDES.wl\
+\>\""}]], "Input",
+ CellChangeTimes->{{3.8958030129838257`*^9, 3.895803031487645*^9}},
+ CellLabel->"In[65]:=",ExpressionUUID->"6e8209c3-14ad-49a2-971c-e700bb627c68"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Resources/MomentsLookupTables/covLongDES.wl\
+\"\>"], "Output",
+ CellChangeTimes->{3.895803034719208*^9, 3.8958040465245733`*^9},
+ CellLabel->"Out[65]=",ExpressionUUID->"6e1a2697-84e6-4003-9ecf-1395702b8e66"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
 Cell[BoxData[
  RowBox[{"\t\t", 
   RowBox[{
@@ -4067,370 +4173,30 @@ Cell[BoxData[
   3.8957977059596977`*^9, 3.895797745066999*^9, {3.895799494793117*^9, 
    3.8957995838480787`*^9}, 3.895801294712697*^9, {3.895801363162952*^9, 
    3.895801435428623*^9}},
- EmphasizeSyntaxErrors->
-  True,ExpressionUUID->"c31726bd-b890-410d-8926-cbe5a09b4f80"],
-
-Cell[CellGroupData[{
+ CellLabel->"In[66]:=",ExpressionUUID->"c31726bd-b890-410d-8926-cbe5a09b4f80"],
 
 Cell[BoxData[
- RowBox[{"dv1", "[", 
-  RowBox[{"[", 
-   RowBox[{"1", ";;", "10"}], "]"}], "]"}]], "Input",
- CellChangeTimes->{{3.8958028066943417`*^9, 3.8958028149592743`*^9}, {
-  3.895802892904027*^9, 3.8958029058128366`*^9}},
+ TemplateBox[{
+  "Symbol", "symname", 
+   "\"The string \
+\\\"\\!\\(\\*RowBox[{\\\"\\\\\\\"ResourceSystemClient`DefinitionUtilities`\
+WithContext\\\\\\\"\\\"}]\\)\\\" cannot be used for a symbol name. A symbol \
+name must start with a letter followed by letters and numbers.\"", 2, 67, 53, 
+   28992817581377575239, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.895803057468286*^9, 3.8958040552903*^9},
  CellLabel->
-  "In[107]:=",ExpressionUUID->"1470bbc4-8813-43d8-a5e4-77b256bd5d73"],
+  "During evaluation of \
+In[66]:=",ExpressionUUID->"703f1237-1dbf-4b6a-9daa-e28031dcc5c0"],
 
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{
-   RowBox[{
-    RowBox[{"HoldPattern", "[", 
-     RowBox[{"FernandoDuarte`LongRunRisk`covLongDES", "[", 
-      RowBox[{
-      "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc", ",", 
-       RowBox[{"-", "1"}]}], "]"}], "]"}], "\[RuleDelayed]", 
-    RowBox[{"-", 
-     FractionBox[
-      RowBox[{
-       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", "2"],
-        " ", 
-       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phix", 
-        "2"], " ", "FernandoDuarte`LongRunRisk`Model`Parameters`rhox"}], 
-      RowBox[{
-       RowBox[{"-", "1"}], "+", 
-       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhox", 
-        "2"]}]]}]}], ",", 
-   RowBox[{
-    RowBox[{"HoldPattern", "[", 
-     RowBox[{"FernandoDuarte`LongRunRisk`covLongDES", "[", 
-      RowBox[{
-      "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc", ",", "0"}], 
-      "]"}], "]"}], "\[RuleDelayed]", 
-    RowBox[{
-     SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", "2"], 
-     "-", 
-     FractionBox[
-      RowBox[{
-       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", "2"],
-        " ", 
-       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phix", 
-        "2"]}], 
-      RowBox[{
-       RowBox[{"-", "1"}], "+", 
-       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhox", 
-        "2"]}]], "-", 
-     RowBox[{
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          
-          SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
-           "2"], "+", 
-          
-          SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phig", 
-           "2"], "-", 
-          RowBox[{
-           
-           SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
-            "2"], " ", 
-           
-           SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
-            "2"]}]}], ")"}], " ", 
-        SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`xic", 
-         "2"]}], ")"}], "/", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"-", "1"}], "+", 
-          "FernandoDuarte`LongRunRisk`Model`Parameters`rhog"}], ")"}], " ", 
-        RowBox[{"(", 
-         RowBox[{
-         "1", "+", "FernandoDuarte`LongRunRisk`Model`Parameters`rhog"}], 
-         ")"}]}], ")"}]}]}]}], ",", 
-   RowBox[{
-    RowBox[{"HoldPattern", "[", 
-     RowBox[{"FernandoDuarte`LongRunRisk`covLongDES", "[", 
-      RowBox[{
-      "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc", ",", "1"}], 
-      "]"}], "]"}], "\[RuleDelayed]", 
-    RowBox[{"-", 
-     FractionBox[
-      RowBox[{
-       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", "2"],
-        " ", 
-       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phix", 
-        "2"], " ", "FernandoDuarte`LongRunRisk`Model`Parameters`rhox"}], 
-      RowBox[{
-       RowBox[{"-", "1"}], "+", 
-       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhox", 
-        "2"]}]]}]}], ",", 
-   RowBox[{
-    RowBox[{"HoldPattern", "[", 
-     RowBox[{"FernandoDuarte`LongRunRisk`covLongDES", "[", 
-      RowBox[{
-      "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi", ",", 
-       RowBox[{"-", "1"}]}], "]"}], "]"}], "\[RuleDelayed]", 
-    RowBox[{
-     RowBox[{"-", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{
-             
-             SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx",
-               "2"], " ", 
-             
-             SuperscriptBox[
-              "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx", "2"]}], 
-            "+", 
-            RowBox[{
-             
-             SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx",
-               "2"], " ", 
-             
-             SuperscriptBox[
-              "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarxb", 
-              "2"]}]}], ")"}], " ", 
-          "FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar"}], ")"}], "/", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"-", "1"}], "+", 
-          SuperscriptBox[
-           "FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar", "2"]}], 
-         ")"}]}], ")"}]}], "+", 
-     RowBox[{
-     "FernandoDuarte`LongRunRisk`Model`Parameters`phip", " ", 
-      "FernandoDuarte`LongRunRisk`Model`Parameters`xip"}]}]}], ",", 
-   RowBox[{
-    RowBox[{"HoldPattern", "[", 
-     RowBox[{"FernandoDuarte`LongRunRisk`covLongDES", "[", 
-      RowBox[{
-      "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi", ",", "0"}], 
-      "]"}], "]"}], "\[RuleDelayed]", 
-    RowBox[{
-     SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phip", "2"], 
-     "-", 
-     RowBox[{
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{
-         SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
-          "2"], " ", 
-         SuperscriptBox[
-          "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx", "2"]}], "+", 
-        RowBox[{
-         SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
-          "2"], " ", 
-         SuperscriptBox[
-          "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarxb", "2"]}]}], 
-       ")"}], "/", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"-", "1"}], "+", 
-        SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar", 
-         "2"]}], ")"}]}], "+", 
-     SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`xip", 
-      "2"]}]}], ",", 
-   RowBox[{
-    RowBox[{"HoldPattern", "[", 
-     RowBox[{"FernandoDuarte`LongRunRisk`covLongDES", "[", 
-      RowBox[{
-      "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi", ",", "1"}], 
-      "]"}], "]"}], "\[RuleDelayed]", 
-    RowBox[{
-     RowBox[{"-", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{
-             
-             SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx",
-               "2"], " ", 
-             
-             SuperscriptBox[
-              "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx", "2"]}], 
-            "+", 
-            RowBox[{
-             
-             SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx",
-               "2"], " ", 
-             
-             SuperscriptBox[
-              "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarxb", 
-              "2"]}]}], ")"}], " ", 
-          "FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar"}], ")"}], "/", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"-", "1"}], "+", 
-          
-          SuperscriptBox[
-           "FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar", "2"]}], 
-         ")"}]}], ")"}]}], "+", 
-     RowBox[{
-     "FernandoDuarte`LongRunRisk`Model`Parameters`phip", " ", 
-      "FernandoDuarte`LongRunRisk`Model`Parameters`xip"}]}]}], ",", 
-   RowBox[{
-    RowBox[{"HoldPattern", "[", 
-     RowBox[{"FernandoDuarte`LongRunRisk`covLongDES", "[", 
-      RowBox[{
-      "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pibar", ",", 
-       RowBox[{"-", "1"}]}], "]"}], "]"}], "\[RuleDelayed]", 
-    RowBox[{"-", 
-     RowBox[{"(", 
-      RowBox[{
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{
-            
-            SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
-             "2"], " ", 
-            
-            SuperscriptBox[
-             "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx", "2"]}], 
-           "+", 
-           RowBox[{
-            
-            SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
-             "2"], " ", 
-            
-            SuperscriptBox[
-             "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarxb", 
-             "2"]}]}], ")"}], " ", 
-         "FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar"}], ")"}], "/", 
-       
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"-", "1"}], "+", 
-         SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar",
-           "2"]}], ")"}]}], ")"}]}]}], ",", 
-   RowBox[{
-    RowBox[{"HoldPattern", "[", 
-     RowBox[{"FernandoDuarte`LongRunRisk`covLongDES", "[", 
-      RowBox[{
-      "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pibar", ",", 
-       "0"}], "]"}], "]"}], "\[RuleDelayed]", 
-    RowBox[{"-", 
-     RowBox[{"(", 
-      RowBox[{
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{
-          
-          SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
-           "2"], " ", 
-          
-          SuperscriptBox[
-           "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx", "2"]}], 
-         "+", 
-         RowBox[{
-          
-          SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
-           "2"], " ", 
-          
-          SuperscriptBox[
-           "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarxb", "2"]}]}], 
-        ")"}], "/", 
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"-", "1"}], "+", 
-         SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar",
-           "2"]}], ")"}]}], ")"}]}]}], ",", 
-   RowBox[{
-    RowBox[{"HoldPattern", "[", 
-     RowBox[{"FernandoDuarte`LongRunRisk`covLongDES", "[", 
-      RowBox[{
-      "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pibar", ",", 
-       "1"}], "]"}], "]"}], "\[RuleDelayed]", 
-    RowBox[{"-", 
-     RowBox[{"(", 
-      RowBox[{
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{
-            
-            SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
-             "2"], " ", 
-            
-            SuperscriptBox[
-             "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx", "2"]}], 
-           "+", 
-           RowBox[{
-            
-            SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esx", 
-             "2"], " ", 
-            
-            SuperscriptBox[
-             "FernandoDuarte`LongRunRisk`Model`Parameters`phipbarxb", 
-             "2"]}]}], ")"}], " ", 
-         "FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar"}], ")"}], "/", 
-       
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"-", "1"}], "+", 
-         SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar",
-           "2"]}], ")"}]}], ")"}]}]}], ",", 
-   RowBox[{
-    RowBox[{"HoldPattern", "[", 
-     RowBox[{"FernandoDuarte`LongRunRisk`covLongDES", "[", 
-      RowBox[{
-      "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg", ",", 
-       RowBox[{"-", "1"}]}], "]"}], "]"}], "\[RuleDelayed]", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"-", 
-       SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
-        "2"]}], " ", "FernandoDuarte`LongRunRisk`Model`Parameters`rhog"}], 
-     "-", 
-     RowBox[{
-      RowBox[{"(", 
-       RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`rhog", " ", 
-        RowBox[{"(", 
-         RowBox[{
-          
-          SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
-           "2"], "+", 
-          
-          SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`phig", 
-           "2"], "-", 
-          RowBox[{
-           
-           SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`Esg", 
-            "2"], " ", 
-           
-           SuperscriptBox["FernandoDuarte`LongRunRisk`Model`Parameters`rhog", 
-            "2"]}]}], ")"}]}], ")"}], "/", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"-", "1"}], "+", 
-          "FernandoDuarte`LongRunRisk`Model`Parameters`rhog"}], ")"}], " ", 
-        RowBox[{"(", 
-         RowBox[{
-         "1", "+", "FernandoDuarte`LongRunRisk`Model`Parameters`rhog"}], 
-         ")"}]}], ")"}]}]}]}]}], "}"}]], "Output",
- CellChangeTimes->{{3.8958028111747713`*^9, 3.895802815390888*^9}, {
-  3.895802893466628*^9, 3.895802906254204*^9}},
- CellLabel->
-  "Out[107]=",ExpressionUUID->"1191a33b-8200-4688-a0fe-80e32c37ce8e"]
+Cell[BoxData["\<\"FernandoDuarte`LongRunRisk`covLongDES\"\>"], "Output",
+ CellChangeTimes->{3.8958030576314707`*^9, 3.8958040553691187`*^9},
+ CellLabel->"Out[68]=",ExpressionUUID->"052f888a-5a11-4519-8039-7987d5b0a0df"]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1704, 942},
-WindowMargins->{{81, Automatic}, {Automatic, 1}},
+WindowMargins->{{Automatic, 69}, {Automatic, 54}},
 WindowStatusArea->"",
 TaggingRules-><|"TryRealOnly" -> False|>,
 Magnification:>1.25 Inherited,
@@ -4456,127 +4222,135 @@ Cell[3051, 72, 257, 4, 67, "Subsection",ExpressionUUID->"d03dfeba-2718-41c7-9b3f
 Cell[3311, 78, 576, 16, 64, "Input",ExpressionUUID->"4ed5f578-352d-450a-80c3-862d7bf99a10"],
 Cell[CellGroupData[{
 Cell[3912, 98, 217, 3, 37, "Input",ExpressionUUID->"65bb4142-4641-4071-9777-2e590187c288"],
-Cell[4132, 103, 187, 3, 42, "Output",ExpressionUUID->"f5fefff1-a3c8-4835-a308-1b1f38eb52e5"]
+Cell[4132, 103, 212, 4, 42, "Output",ExpressionUUID->"7f37c53c-0fe4-4b91-ad25-b870bdf4885b"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4356, 111, 899, 20, 220, "Input",ExpressionUUID->"5ea9f70b-0b8c-459e-9ee8-7dc6c6672ae0"],
-Cell[5258, 133, 546, 12, 35, "Message",ExpressionUUID->"6fbc6e9f-dcae-4857-802d-000f873994e2"]
+Cell[4381, 112, 899, 20, 220, "Input",ExpressionUUID->"5ea9f70b-0b8c-459e-9ee8-7dc6c6672ae0"],
+Cell[5283, 134, 573, 13, 35, "Message",ExpressionUUID->"46098e99-4dac-4500-a240-3e7c4e6eca10"]
 }, Open  ]],
-Cell[5819, 148, 152, 3, 37, "Input",ExpressionUUID->"b16e2830-ef75-4fed-955f-2aa02f8df491"],
-Cell[5974, 153, 152, 3, 37, "Input",ExpressionUUID->"fe38193e-e8f0-43aa-9a50-7201df9589cb"],
-Cell[6129, 158, 255, 4, 37, "Input",ExpressionUUID->"2a27c620-1f7f-422b-b849-aea1cc675dd7"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[6421, 167, 210, 4, 67, "Subsection",ExpressionUUID->"6b918d18-7704-45dd-b222-55d8d234ce9f"],
-Cell[6634, 173, 214, 4, 37, "Input",ExpressionUUID->"456aea83-3b17-4426-af60-5b58a2a0573c"],
-Cell[6851, 179, 1086, 30, 142, "Input",ExpressionUUID->"1cb52e22-209f-41eb-978c-5c7f5d404f1b"],
-Cell[7940, 211, 978, 18, 90, "Input",ExpressionUUID->"61d39cc5-b370-402a-9f30-d3392e6deb46"],
-Cell[8921, 231, 918, 26, 90, "Input",ExpressionUUID->"47632f64-5dee-462c-9f21-f5a3d49e3d8e"],
-Cell[9842, 259, 2102, 43, 142, "Input",ExpressionUUID->"30f23af8-6038-4069-8243-a8e8072685a3"],
-Cell[11947, 304, 2542, 60, 298, "Input",ExpressionUUID->"2888b875-28ee-4f08-b551-05df1c125f41"],
-Cell[14492, 366, 312, 5, 64, "Input",ExpressionUUID->"b28bdbbf-9e84-4f0f-9cc9-412f8abccedb"],
-Cell[14807, 373, 336, 5, 64, "Input",ExpressionUUID->"6fdd5095-1718-4546-b971-15bac0990051"],
-Cell[15146, 380, 979, 21, 116, "Input",ExpressionUUID->"e035627d-f7f6-4f0b-b74f-a562c8336cab"],
-Cell[16128, 403, 370, 5, 37, "Input",ExpressionUUID->"d53916ef-b35f-45bb-9307-c0dcafb92ee4"],
-Cell[16501, 410, 228, 4, 37, "Input",ExpressionUUID->"3bbf1e7d-920d-4b6a-b764-228095543844"],
-Cell[16732, 416, 718, 13, 64, "Input",ExpressionUUID->"b0a7a7d7-6e01-463e-bb68-03ecfc5cd6c0"],
-Cell[17453, 431, 152, 3, 37, "Input",ExpressionUUID->"b5a90dab-6546-43a5-b44b-426d50d3c017"],
-Cell[17608, 436, 1061, 25, 90, "Input",ExpressionUUID->"d4271660-79d6-4a2b-8f75-9d299046b6e8"],
-Cell[18672, 463, 200, 4, 37, "Input",ExpressionUUID->"4f5becb4-417d-44c0-a5db-9b4d6abe31ef"],
-Cell[18875, 469, 388, 7, 64, "Input",ExpressionUUID->"ec170e6e-3cfc-4d72-98f6-a53ddb03fec0"],
-Cell[19266, 478, 294, 6, 37, "Input",ExpressionUUID->"ba4bd127-e349-4d5a-9d76-82ba632deefb"],
-Cell[19563, 486, 471, 9, 37, "Input",ExpressionUUID->"e5d99f81-f1c1-4728-8921-4e9ce80e78bc"],
-Cell[20037, 497, 488, 11, 37, "Input",ExpressionUUID->"c48e6a3a-36ab-4126-8120-47b9b05e0bf5"],
-Cell[20528, 510, 272, 6, 37, "Input",ExpressionUUID->"ff1dfa66-5872-4078-9774-d4aa40f7fca5"],
-Cell[20803, 518, 323, 7, 37, "Input",ExpressionUUID->"83ffc50e-9817-40cb-a285-a67e2e7ec6a8"],
-Cell[21129, 527, 152, 3, 37, "Input",ExpressionUUID->"6012e8ad-beaa-4242-b048-50a587909a58"],
-Cell[21284, 532, 478, 9, 37, "Input",ExpressionUUID->"cc9ac178-06f9-4e51-9ff1-d63e640447f9"],
-Cell[21765, 543, 295, 6, 37, "Input",ExpressionUUID->"7fd0b4b2-db22-4e4b-8fab-6a18b26b3c1d"]
+Cell[5871, 150, 152, 3, 37, "Input",ExpressionUUID->"b16e2830-ef75-4fed-955f-2aa02f8df491"],
+Cell[6026, 155, 152, 3, 37, "Input",ExpressionUUID->"fe38193e-e8f0-43aa-9a50-7201df9589cb"],
+Cell[6181, 160, 255, 4, 37, "Input",ExpressionUUID->"2a27c620-1f7f-422b-b849-aea1cc675dd7"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[22097, 554, 150, 3, 84, "Section",ExpressionUUID->"72e79a29-293d-428d-900e-aee3ff3eef52"],
-Cell[22250, 559, 244, 6, 37, "Input",ExpressionUUID->"64d267ef-c43d-4273-bbc2-c7b225c110ae"],
-Cell[22497, 567, 459, 11, 64, "Input",ExpressionUUID->"f1ccf0d1-7fcd-455f-bbca-3b02b9ecda1d"],
-Cell[22959, 580, 564, 15, 64, "Input",ExpressionUUID->"02a8f277-51a9-43db-b955-d2ef72edc09f"],
-Cell[23526, 597, 305, 7, 37, "Input",ExpressionUUID->"514de941-f32a-49f7-b62c-1268e76de7a9"],
-Cell[23834, 606, 317, 7, 37, "Input",ExpressionUUID->"88d221ca-4aaf-4a62-b156-5cd441faa68a"],
-Cell[24154, 615, 11305, 299, 1702, "Code",ExpressionUUID->"be1d4434-4229-45b5-8319-40217b9e2b3d",
- InitializationCell->False],
-Cell[35462, 916, 1204, 35, 45, "Code",ExpressionUUID->"3f7819bb-9a57-4c19-9a7c-c5427f84ed1d",
- InitializationCell->False],
-Cell[36669, 953, 1496, 42, 45, "Code",ExpressionUUID->"634af7b2-4432-429a-8a36-51d501d307a2",
- InitializationCell->False],
-Cell[38168, 997, 1195, 35, 45, "Code",ExpressionUUID->"c482c1db-7570-4ac3-a0bb-c14bd231ac15",
- InitializationCell->False],
-Cell[39366, 1034, 1199, 35, 45, "Code",ExpressionUUID->"4ae19c32-ce9a-4581-9048-ab9d083a5402",
- InitializationCell->False],
-Cell[40568, 1071, 17998, 497, 892, "Code",ExpressionUUID->"92577d8e-9722-4013-a231-538d93055e50",
- InitializationCell->False],
-Cell[58569, 1570, 1992, 52, 70, "Code",ExpressionUUID->"54051711-0548-4c27-8083-c8cb0ff6e32f",
- InitializationCell->False],
-Cell[60564, 1624, 2168, 57, 310, "Code",ExpressionUUID->"0163861e-1c73-483f-b8ba-48e215f9251f",
- InitializationCell->False],
-Cell[62735, 1683, 11654, 276, 1318, "Code",ExpressionUUID->"05052288-97f2-4f6a-8c96-4f645d7747ed",
- InitializationCell->False],
-Cell[74392, 1961, 697, 16, 45, "Code",ExpressionUUID->"abff1ddb-a713-415e-b8c9-891224985de6",
- InitializationCell->False],
-Cell[CellGroupData[{
-Cell[75114, 1981, 445, 10, 64, "Input",ExpressionUUID->"0b138d0a-8999-4253-8db8-38240d473d50"],
-Cell[75562, 1993, 149, 2, 42, "Output",ExpressionUUID->"414774fa-5610-46c7-940b-0073b6da920b"]
-}, Open  ]],
-Cell[75726, 1998, 20136, 489, 1966, "Code",ExpressionUUID->"15e9698d-6d6a-451c-a0fc-ed57fa786cfb",
- InitializationCell->False],
-Cell[CellGroupData[{
-Cell[95887, 2491, 445, 10, 64, "Input",ExpressionUUID->"9ca0d9a8-c707-41d2-ab25-512682ae9481"],
-Cell[96335, 2503, 148, 2, 42, "Output",ExpressionUUID->"41186ea0-1380-4b8b-8a94-6d4af9eac509"]
-}, Open  ]],
-Cell[96498, 2508, 6879, 159, 1102, "Code",ExpressionUUID->"64e0a54a-4e8d-4e4a-904c-6a568ad0bcdb",
- InitializationCell->False],
-Cell[103380, 2669, 683, 17, 45, "Code",ExpressionUUID->"3866a9bf-883e-45da-9eb9-504b148b20d5",
- InitializationCell->False],
-Cell[CellGroupData[{
-Cell[104088, 2690, 445, 10, 64, "Input",ExpressionUUID->"8da0ba10-9393-49b4-8111-2274dfb963d2"],
-Cell[104536, 2702, 151, 2, 42, "Output",ExpressionUUID->"8256f0ea-ff8f-4788-8ca5-0bf5f32b704f"]
-}, Open  ]],
-Cell[104702, 2707, 19488, 445, 2590, "Code",ExpressionUUID->"3b024d84-0992-409c-8e96-cc5346357892",
- InitializationCell->False],
-Cell[124193, 3154, 730, 17, 45, "Code",ExpressionUUID->"2c3358bd-95d6-4ef4-89ad-4f6c9fd50c6a",
- InitializationCell->False],
-Cell[CellGroupData[{
-Cell[124948, 3175, 445, 10, 64, "Input",ExpressionUUID->"9e7bd343-07f8-4880-9df1-087879af8d97"],
-Cell[125396, 3187, 149, 2, 42, "Output",ExpressionUUID->"233b43ed-2784-4a3d-9c1c-d225a4edfa4a"]
-}, Open  ]],
-Cell[125560, 3192, 15711, 378, 1750, "Code",ExpressionUUID->"dc8474dc-f6e0-49cc-abbc-34a26d2e1d7a",
- InitializationCell->False],
-Cell[141274, 3572, 685, 17, 45, "Code",ExpressionUUID->"d2b607e7-a18b-4e2d-84aa-330b1f146107",
- InitializationCell->False],
-Cell[CellGroupData[{
-Cell[141984, 3593, 445, 10, 64, "Input",ExpressionUUID->"4c7208fa-5ce0-4540-83ca-23ae9485474b"],
-Cell[142432, 3605, 151, 2, 42, "Output",ExpressionUUID->"5f18b343-e6fb-4409-9838-6ffdd98be1e1"]
+Cell[6473, 169, 210, 4, 67, "Subsection",ExpressionUUID->"6b918d18-7704-45dd-b222-55d8d234ce9f"],
+Cell[6686, 175, 214, 4, 37, "Input",ExpressionUUID->"456aea83-3b17-4426-af60-5b58a2a0573c"],
+Cell[6903, 181, 1086, 30, 142, "Input",ExpressionUUID->"1cb52e22-209f-41eb-978c-5c7f5d404f1b"],
+Cell[7992, 213, 978, 18, 90, "Input",ExpressionUUID->"61d39cc5-b370-402a-9f30-d3392e6deb46"],
+Cell[8973, 233, 918, 26, 90, "Input",ExpressionUUID->"47632f64-5dee-462c-9f21-f5a3d49e3d8e"],
+Cell[9894, 261, 2102, 43, 142, "Input",ExpressionUUID->"30f23af8-6038-4069-8243-a8e8072685a3"],
+Cell[11999, 306, 2542, 60, 298, "Input",ExpressionUUID->"2888b875-28ee-4f08-b551-05df1c125f41"],
+Cell[14544, 368, 312, 5, 64, "Input",ExpressionUUID->"b28bdbbf-9e84-4f0f-9cc9-412f8abccedb"],
+Cell[14859, 375, 336, 5, 64, "Input",ExpressionUUID->"6fdd5095-1718-4546-b971-15bac0990051"],
+Cell[15198, 382, 979, 21, 116, "Input",ExpressionUUID->"e035627d-f7f6-4f0b-b74f-a562c8336cab"],
+Cell[16180, 405, 370, 5, 37, "Input",ExpressionUUID->"d53916ef-b35f-45bb-9307-c0dcafb92ee4"],
+Cell[16553, 412, 228, 4, 37, "Input",ExpressionUUID->"3bbf1e7d-920d-4b6a-b764-228095543844"],
+Cell[16784, 418, 718, 13, 64, "Input",ExpressionUUID->"b0a7a7d7-6e01-463e-bb68-03ecfc5cd6c0"],
+Cell[17505, 433, 152, 3, 37, "Input",ExpressionUUID->"b5a90dab-6546-43a5-b44b-426d50d3c017"],
+Cell[17660, 438, 1061, 25, 90, "Input",ExpressionUUID->"d4271660-79d6-4a2b-8f75-9d299046b6e8"],
+Cell[18724, 465, 200, 4, 37, "Input",ExpressionUUID->"4f5becb4-417d-44c0-a5db-9b4d6abe31ef"],
+Cell[18927, 471, 388, 7, 64, "Input",ExpressionUUID->"ec170e6e-3cfc-4d72-98f6-a53ddb03fec0"],
+Cell[19318, 480, 294, 6, 37, "Input",ExpressionUUID->"ba4bd127-e349-4d5a-9d76-82ba632deefb"],
+Cell[19615, 488, 471, 9, 37, "Input",ExpressionUUID->"e5d99f81-f1c1-4728-8921-4e9ce80e78bc"],
+Cell[20089, 499, 488, 11, 37, "Input",ExpressionUUID->"c48e6a3a-36ab-4126-8120-47b9b05e0bf5"],
+Cell[20580, 512, 272, 6, 37, "Input",ExpressionUUID->"ff1dfa66-5872-4078-9774-d4aa40f7fca5"],
+Cell[20855, 520, 323, 7, 37, "Input",ExpressionUUID->"83ffc50e-9817-40cb-a285-a67e2e7ec6a8"],
+Cell[21181, 529, 152, 3, 37, "Input",ExpressionUUID->"6012e8ad-beaa-4242-b048-50a587909a58"],
+Cell[21336, 534, 478, 9, 37, "Input",ExpressionUUID->"cc9ac178-06f9-4e51-9ff1-d63e640447f9"],
+Cell[21817, 545, 295, 6, 37, "Input",ExpressionUUID->"7fd0b4b2-db22-4e4b-8fab-6a18b26b3c1d"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[142620, 3612, 301, 7, 37, "Input",ExpressionUUID->"28955eba-19d4-4e85-9eed-8a8a94cafb27"],
-Cell[142924, 3621, 171, 2, 42, "Output",ExpressionUUID->"ac97f1f3-0dee-4047-8638-29220fd74840"]
-}, Open  ]],
-Cell[143110, 3626, 3697, 112, 142, "Input",ExpressionUUID->"9cf98f8f-d038-4f16-bd8d-fb09fe113440"],
-Cell[146810, 3740, 216, 6, 37, "Input",ExpressionUUID->"60c17552-5251-4a89-9e41-bfd1160eb2f8"],
-Cell[147029, 3748, 7492, 188, 550, "Code",ExpressionUUID->"4e6bdd6c-3420-4278-ba52-f2451dfb4351",
+Cell[22149, 556, 150, 3, 84, "Section",ExpressionUUID->"72e79a29-293d-428d-900e-aee3ff3eef52"],
+Cell[22302, 561, 240, 5, 37, "Input",ExpressionUUID->"64d267ef-c43d-4273-bbc2-c7b225c110ae"],
+Cell[22545, 568, 459, 11, 64, "Input",ExpressionUUID->"f1ccf0d1-7fcd-455f-bbca-3b02b9ecda1d"],
+Cell[23007, 581, 564, 15, 64, "Input",ExpressionUUID->"02a8f277-51a9-43db-b955-d2ef72edc09f"],
+Cell[23574, 598, 305, 7, 37, "Input",ExpressionUUID->"514de941-f32a-49f7-b62c-1268e76de7a9"],
+Cell[23882, 607, 317, 7, 37, "Input",ExpressionUUID->"88d221ca-4aaf-4a62-b156-5cd441faa68a"],
+Cell[24202, 616, 11305, 299, 1702, "Code",ExpressionUUID->"be1d4434-4229-45b5-8319-40217b9e2b3d",
  InitializationCell->False],
-Cell[154524, 3938, 532, 13, 37, "Input",ExpressionUUID->"c43c3f4c-88d9-443b-b469-50f75da17b6c"],
-Cell[CellGroupData[{
-Cell[155081, 3955, 2512, 66, 118, "Code",ExpressionUUID->"56e91183-1a7e-4d1b-a238-c2371d3dcd52",
+Cell[35510, 917, 1204, 35, 45, "Code",ExpressionUUID->"3f7819bb-9a57-4c19-9a7c-c5427f84ed1d",
  InitializationCell->False],
-Cell[157596, 4023, 158, 3, 42, "Output",ExpressionUUID->"0e672a37-da4d-45d1-9886-3232a4badedd"]
+Cell[36717, 954, 1496, 42, 45, "Code",ExpressionUUID->"634af7b2-4432-429a-8a36-51d501d307a2",
+ InitializationCell->False],
+Cell[38216, 998, 1195, 35, 45, "Code",ExpressionUUID->"c482c1db-7570-4ac3-a0bb-c14bd231ac15",
+ InitializationCell->False],
+Cell[39414, 1035, 1199, 35, 45, "Code",ExpressionUUID->"4ae19c32-ce9a-4581-9048-ab9d083a5402",
+ InitializationCell->False],
+Cell[40616, 1072, 17998, 497, 892, "Code",ExpressionUUID->"92577d8e-9722-4013-a231-538d93055e50",
+ InitializationCell->False],
+Cell[58617, 1571, 1992, 52, 70, "Code",ExpressionUUID->"54051711-0548-4c27-8083-c8cb0ff6e32f",
+ InitializationCell->False],
+Cell[60612, 1625, 2168, 57, 310, "Code",ExpressionUUID->"0163861e-1c73-483f-b8ba-48e215f9251f",
+ InitializationCell->False],
+Cell[62783, 1684, 11654, 276, 1318, "Code",ExpressionUUID->"05052288-97f2-4f6a-8c96-4f645d7747ed",
+ InitializationCell->False],
+Cell[74440, 1962, 697, 16, 45, "Code",ExpressionUUID->"abff1ddb-a713-415e-b8c9-891224985de6",
+ InitializationCell->False],
+Cell[CellGroupData[{
+Cell[75162, 1982, 512, 12, 64, "Input",ExpressionUUID->"85c4187b-d6ad-498b-b81a-02eb0f487243"],
+Cell[75677, 1996, 2884, 67, 356, "Output",ExpressionUUID->"a5cea5be-f7e2-4506-b5b0-fc2818455b65"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[157791, 4031, 305, 8, 37, "Input",ExpressionUUID->"984f9dbe-bd43-46e6-975b-c84e866b34c5"],
-Cell[158099, 4041, 204, 4, 42, "Output",ExpressionUUID->"e8b26647-9092-43a0-bc94-6d21650b8a3a"]
+Cell[78598, 2068, 445, 10, 64, "Input",ExpressionUUID->"0b138d0a-8999-4253-8db8-38240d473d50"],
+Cell[79046, 2080, 171, 2, 42, "Output",ExpressionUUID->"0440ed5e-94a7-48ad-aee3-0073d61411f5"]
 }, Open  ]],
-Cell[158318, 4048, 833, 22, 118, "Code",ExpressionUUID->"c31726bd-b890-410d-8926-cbe5a09b4f80",
+Cell[79232, 2085, 20136, 489, 1966, "Code",ExpressionUUID->"15e9698d-6d6a-451c-a0fc-ed57fa786cfb",
  InitializationCell->False],
 Cell[CellGroupData[{
-Cell[159176, 4074, 309, 7, 37, "Input",ExpressionUUID->"1470bbc4-8813-43d8-a5e4-77b256bd5d73"],
-Cell[159488, 4083, 12232, 344, 1207, "Output",ExpressionUUID->"1191a33b-8200-4688-a0fe-80e32c37ce8e"]
+Cell[99393, 2578, 445, 10, 64, "Input",ExpressionUUID->"9ca0d9a8-c707-41d2-ab25-512682ae9481"],
+Cell[99841, 2590, 148, 2, 42, "Output",ExpressionUUID->"41186ea0-1380-4b8b-8a94-6d4af9eac509"]
+}, Open  ]],
+Cell[100004, 2595, 6879, 159, 1102, "Code",ExpressionUUID->"64e0a54a-4e8d-4e4a-904c-6a568ad0bcdb",
+ InitializationCell->False],
+Cell[106886, 2756, 683, 17, 45, "Code",ExpressionUUID->"3866a9bf-883e-45da-9eb9-504b148b20d5",
+ InitializationCell->False],
+Cell[CellGroupData[{
+Cell[107594, 2777, 445, 10, 64, "Input",ExpressionUUID->"8da0ba10-9393-49b4-8111-2274dfb963d2"],
+Cell[108042, 2789, 151, 2, 42, "Output",ExpressionUUID->"8256f0ea-ff8f-4788-8ca5-0bf5f32b704f"]
+}, Open  ]],
+Cell[108208, 2794, 19488, 445, 2590, "Code",ExpressionUUID->"3b024d84-0992-409c-8e96-cc5346357892",
+ InitializationCell->False],
+Cell[127699, 3241, 730, 17, 45, "Code",ExpressionUUID->"2c3358bd-95d6-4ef4-89ad-4f6c9fd50c6a",
+ InitializationCell->False],
+Cell[CellGroupData[{
+Cell[128454, 3262, 445, 10, 64, "Input",ExpressionUUID->"9e7bd343-07f8-4880-9df1-087879af8d97"],
+Cell[128902, 3274, 149, 2, 42, "Output",ExpressionUUID->"233b43ed-2784-4a3d-9c1c-d225a4edfa4a"]
+}, Open  ]],
+Cell[129066, 3279, 15711, 378, 1750, "Code",ExpressionUUID->"dc8474dc-f6e0-49cc-abbc-34a26d2e1d7a",
+ InitializationCell->False],
+Cell[144780, 3659, 685, 17, 45, "Code",ExpressionUUID->"d2b607e7-a18b-4e2d-84aa-330b1f146107",
+ InitializationCell->False],
+Cell[CellGroupData[{
+Cell[145490, 3680, 445, 10, 64, "Input",ExpressionUUID->"4c7208fa-5ce0-4540-83ca-23ae9485474b"],
+Cell[145938, 3692, 151, 2, 62, "Output",ExpressionUUID->"5f18b343-e6fb-4409-9838-6ffdd98be1e1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[146126, 3699, 301, 7, 37, "Input",ExpressionUUID->"28955eba-19d4-4e85-9eed-8a8a94cafb27"],
+Cell[146430, 3708, 171, 2, 42, "Output",ExpressionUUID->"ac97f1f3-0dee-4047-8638-29220fd74840"]
+}, Open  ]],
+Cell[146616, 3713, 3697, 112, 142, "Input",ExpressionUUID->"9cf98f8f-d038-4f16-bd8d-fb09fe113440"],
+Cell[150316, 3827, 216, 6, 37, "Input",ExpressionUUID->"60c17552-5251-4a89-9e41-bfd1160eb2f8"],
+Cell[150535, 3835, 7492, 188, 550, "Code",ExpressionUUID->"4e6bdd6c-3420-4278-ba52-f2451dfb4351",
+ InitializationCell->False],
+Cell[158030, 4025, 527, 13, 37, "Input",ExpressionUUID->"c43c3f4c-88d9-443b-b469-50f75da17b6c"],
+Cell[CellGroupData[{
+Cell[158582, 4042, 2512, 66, 118, "Code",ExpressionUUID->"56e91183-1a7e-4d1b-a238-c2371d3dcd52",
+ InitializationCell->False],
+Cell[161097, 4110, 158, 3, 42, "Output",ExpressionUUID->"0e672a37-da4d-45d1-9886-3232a4badedd"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[161292, 4118, 305, 8, 37, "Input",ExpressionUUID->"984f9dbe-bd43-46e6-975b-c84e866b34c5"],
+Cell[161600, 4128, 204, 4, 42, "Output",ExpressionUUID->"e8b26647-9092-43a0-bc94-6d21650b8a3a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[161841, 4137, 331, 6, 37, "Input",ExpressionUUID->"6e8209c3-14ad-49a2-971c-e700bb627c68"],
+Cell[162175, 4145, 291, 4, 42, "Output",ExpressionUUID->"6e1a2697-84e6-4003-9ecf-1395702b8e66"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[162503, 4154, 824, 21, 118, "Code",ExpressionUUID->"c31726bd-b890-410d-8926-cbe5a09b4f80",
+ InitializationCell->False],
+Cell[163330, 4177, 547, 12, 35, "Message",ExpressionUUID->"703f1237-1dbf-4b6a-9daa-e28031dcc5c0"],
+Cell[163880, 4191, 219, 2, 42, "Output",ExpressionUUID->"052f888a-5a11-4519-8039-7987d5b0a0df"]
 }, Open  ]]
 }, Open  ]]
 }

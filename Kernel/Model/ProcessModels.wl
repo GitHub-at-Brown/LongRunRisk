@@ -52,7 +52,7 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 processModels[
 	modelsCatalog_Association,
 	modelsExtraInfo_Association:<||>,
-	opts:OptionsPattern[{(*processModels,*) addCoeffsSolution, getStartingValues, FindRoot, RecurrenceTable}]
+	opts:OptionsPattern[{(*processModels,*) updateCoeffsSol, getStartingValues, FindRoot, RecurrenceTable}]
 ]:=
 	Module[
 	{
@@ -181,6 +181,12 @@ processModels[
 			"bond" -> addCoeffsSolution[#,"bond", opts],
 			"nombond" -> addCoeffsSolution[#,"nombond", opts]
 		|>
+	]& /@ models;
+
+	(*add numerical solution to coeffsSolution when using model["params"]*)
+	models = Append[
+		#,
+		"coeffsSolutionN" -> addCoeffsSolutionN[#]
 	]& /@ models;
 
 	(*add a list of existing Keys called Properties*)
@@ -427,16 +433,10 @@ addCoeffsSystem[model_]:=Module[
 (*addCoeffsSolution*)
 
 
-addCoeffsSolution//Options={
-	"FindRootOptions"->{MaxIterations->100}, (*"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)
-	"RecurrenceTableOptions"->{"DependentVariables"->Automatic}
-};
-
-
 addCoeffsSolution[
 	model_,
 	ratio_String,
-	opts : OptionsPattern[{addCoeffsSolution, getStartingValues, FindRoot, RecurrenceTable}]]:=With[
+	opts : OptionsPattern[{updateCoeffsSol, getStartingValues, FindRoot, RecurrenceTable}]]:=With[
 	{
 		cs = model["coeffsSystem"][ratio],
 		shortname = model["shortname"],
@@ -767,9 +767,9 @@ formatStartingValues::badformat = "The format of `1` for starting points is inco
 formatStartingValues[
 	coefficientNames_List,
 	ratioUncondE_,
-	stocksSolvedQ_:False,
+	stocksSolvedQ_Booleans:False,
 	numStocks_Integer:1,
-	infoModel_:<||>,
+	Shortest[infoModel_Association:<||>],
 	opts : OptionsPattern[{getStartingValues}]
 ]:=With[
 	{
@@ -954,6 +954,29 @@ getStartingValues[
 		,
 		Switch[ratio,"wc",{4},"pd",{{4}}]
 	]
+]
+
+
+(* ::Subsection:: *)
+(*addCoeffsSolutionN*)
+
+
+addCoeffsSolutionN[model_]:=With[
+	{
+		modelInfo=model["extraInfo"],
+		params=model["params"],
+		maxMaturity = 120,
+		numStocks = model["numStocks"]
+	},
+	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+	Ewc0 = getStartingValues["wc",modelInfo,"initialGuess" -> {}];
+	Epd0 = getStartingValues["pd",modelInfo,"initialGuess" -> {}];
+	Epd0j=Table["Epd0["<>IntegerString[j]<>"]"->Epd0[[j]],{j,1,numStocks}];
+	solWc=updateCoeffsWc[model["coeffsSolution"]["wc"],params,{},"Ewc0"->Sequence[First@Ewc0],MaxIterations->1000];
+	solPd=updateCoeffsPd[model["coeffsSolution"]["pd"],params,{},solWc,Epd0j];
+	solBond=updateCoeffsBond[model["coeffsSolution"]["bond"],params,{},maxMaturity,solWc];
+	solNomBond=updateCoeffsBond[model["coeffsSolution"]["nombond"],params,{},maxMaturity,solWc];
+	Join[solWc,solPd,solBond,solNomBond]
 ]
 
 

@@ -78,6 +78,7 @@ $ContextPath=AppendTo[
 $endogenousVarsPrivate = ((StringDrop[#,-2]&) /@ $endogenousVars)
 Symbol/@ $endogenousVarsPrivate;
 
+
 (*inherit usage message*)
 Function[sym,
 	With[
@@ -98,6 +99,13 @@ Function[sym,
 	,
 	HoldAll
 ]@@@(Hold /@ Symbol /@ $endogenousVars);
+
+
+(* ::Subsection:: *)
+(*time variable*)
+
+
+t::usage = "t denotes time.";
 
 
 (* ::Subsection:: *)

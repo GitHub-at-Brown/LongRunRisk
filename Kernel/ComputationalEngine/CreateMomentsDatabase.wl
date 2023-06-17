@@ -11,7 +11,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDataba
 (*Public symbols*)
 
 
-uncondVarLongExo::usage = "uncondVarLong[toExogenous, expression, ] computes the unconditional variance of expression using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
+uncondVarLongExo::usage = "uncondVarLong[toExogenous, expression ] computes the unconditional variance of expression using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
 					      "uncondVarLong[toExogenous, expression, covfun] uses the covariance function covfun."
 uncondCovLongExo::usage = "uncondCovLong[toExogenous, expression1, expression2] computes the unconditional covariance of expression1 and expression2 using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
 					      "uncondCovLong[toExogenous, expression1, expression2, covfun] computes the unconditional covariance of expression1 and expression2 using the covariance function covfun.";
@@ -38,9 +38,6 @@ Begin["`Private`"];
 (*uncondCovLong*)
 
 
-(*write variables in terms of exogenous variables*)
-(*expand= Reverse/@FilterRules[Reverse/@mapAll,$endogenousVars];*)
-	
 SetAttributes[uncondCovLongExo,HoldRest]
 uncondCovLongExo[
 	toExogenous_,
@@ -193,9 +190,7 @@ If[$VersionNumber<13,
 	LexicographicSort[l_List]:=LexicographicSort[l,1];
 	LexicographicSort[l_List,lev_]:=With[{min=Min[Length/@l]},Composition[Flatten[#,1]&,Map[If[Length[#]==1,#,With[{smallest=LengthWhile[#,Length[#]==lev&]},Take[#,smallest]~Join~LexicographicSort[Drop[#,smallest],lev+1]]]&],SplitBy[#,Take[#,{lev,min}]&]&,SortBy[Take[#,{lev,min}]&]]@l];
 	(*ReplaceAt*)
-	ClearAll[ReplaceAt];
 	ReplaceAt[expr_,rules_,part_]:=MapAt[Replace[#,rules]&,expr,part];
-	
 	(*protect so that save does not save functions to file, which will clash with built-in definitions in version +13*)
 	Protect[ReplaceAt];
 	Protect[LexicographicSort];

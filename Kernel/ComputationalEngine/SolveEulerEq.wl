@@ -1,5 +1,9 @@
 (* ::Package:: *)
 
+(* ::Section:: *)
+(*Begin package*)
+
+
 BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
 
@@ -7,179 +11,60 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 (*Public symbols*)
 
 
-processNewParameters::usage = "";
+updateCoeffsWc
+updateCoeffsPd
+updateCoeffsBond
+updateCoeffsSol
+checks
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
 updateCoeffsWc::usage = "";
 updateCoeffsPd::usage = "";
 updateCoeffsBond::usage = "";
 updateCoeffsSol::usage = "";
+checks::usage = "";
+
+
+(* ::Section:: *)
+(*Code*)
 
 
 Begin["`Private`"];
 
 
-(* ::Subsubsection:: *)
-(*processNewParameters*)
+(* ::Subsection:: *)
+(*Package dependencies*)
 
 
-processNewParameters::psi="psi=1 implies a constant wealth-consumption ratio, please choose a different psi.";
-processNewParameters::param="theta must equal (1-gamma)/(1-1/psi), replacing theta by (1-gamma)/(1-1/psi)=`1`.";
-processNewParameters::theta="Plase provide psi or gamma with theta.";
-processNewParameters::subsetparam="Parameters `1` in newParameters are not a subset of model[\"parameters\"].";
-
-
-processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=If[
-	newParameters==={},
-	Return[{}],
-	With[
-		{
-			newParametersA=Association@newParameters,
-			parametersA=Association@parameters
-		},
-		Module[
-			{
-				newParametersSplit,
-				parametersSplit,
-				newParametersString,
-				processedParameters,
-				thetaNew,
-				system,
-				processedParametersA,
-				posNew
-			},
-			(*newParameters and parameters may have symbols in different contexts, split keys into context, symbol name and index*)
-			newParametersSplit=KeyMap[Replace[{x_Symbol[j_Integer]:>{Context@x,SymbolName@x,j},x_Symbol:>{Context@x,SymbolName@x}}],newParametersA];
-			parametersSplit=KeyMap[Replace[{x_Symbol[j_Integer]:>{Context@x,SymbolName@x,j},x_Symbol:>{Context@x,SymbolName@x}}],parametersA];
-			If[
-				Not@SubsetQ[Map[Rest,Keys@parametersSplit],Map[Rest,Keys@newParametersSplit]],
-				(*abort with message if newParameters has a parameter not in parameters*)
-				Message[processNewParameters::subsetparam,Pick[newParameters,MemberQ[Map[Rest,Keys@parametersSplit],#]&/@Map[Rest,Keys@newParametersSplit],False]];
-				Abort[];
-			];
-			(*process gamma, psi, theta*)
-			newParametersString = Normal@KeyMap[#[[2]]&,newParametersSplit];
-			If[1===("psi"/.newParametersString), Message[processNewParameters::psi]; Abort[]; ]; (*psi=1 aborts*)
-			processedParameters = Switch[
-				Count[MemberQ[Keys@newParametersString,#]&/@{"gamma","psi","theta"},True],
-					3,
-						(*when gamma, psi, theta all provided, ignore theta and issue message*)	
-						thetaNew=(1-("gamma"/.newParametersString))/(1-1/("psi"/.newParametersString));
-						Message[processNewParameters::param,thetaNew];
-						Append[newParametersSplit,{"Global`","theta"}->thetaNew],		
-					2,
-						(*when 2 of {gamma, psi, theta} are provided, solve for the third and add to newParameters*)
-						system = (1-ToExpression@("gamma"/.newParametersString))/(1-1/ToExpression@("psi"/.newParametersString)) == ToExpression@("theta"/.newParametersString);
-						Append[newParametersSplit,KeyMap[{"Context`",SymbolName@#}&,Association@SolveAlways[system,Reals]]],
-					1,
-						(*if theta provided without gamma or psi, abort*)
-						If[
-							MemberQ[SymbolName/@(Keys@newParameters),"theta"],
-							Message[processNewParameters::theta];Abort[];,
-							newParametersSplit
-						],
-					(*otherwise, return newParametersSplit unchanged*)
-					_,
-					newParametersSplit
-			];
-			(*make keys of newParameters match context of keys of parameters that have the same SymbolName*)
-			processedParametersA=Association@processedParameters;
-			posNew=Position[Rest/@Keys@parametersSplit,#]&/@Rest/@Keys@processedParametersA;
-			Thread[Extract[Keys@parametersA,Flatten[posNew,1]]->(Values@processedParametersA)]
-		](*Module*)
-	](*With*)
-](*If*)
+Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 
 
 (* ::Subsection:: *)
 (*updateCoeffsSol*)
 
 
-checks[eqs_, sol_, params_, newParams_, opts : OptionsPattern[{updateCoeffsSol}]] :=
-	With[{residualsNorm = Norm @ (Subtract @@@ eqs) //. newParams //. params//. sol},
-		If[OptionValue["PrintResidualsNorm"],
-			Message[updateCoeffsSol::norm, residualsNorm]
-		];
-
-		If[OptionValue["CheckResiduals"],
-			If[
-				residualsNorm >= OptionValue["Tol"],
-				Message[updateCoeffsSol::largeresid, residualsNorm, OptionValue["Tol"]],
-				Message[updateCoeffsSol::smallresid, residualsNorm, OptionValue["Tol"]]
-			];
-		];
-	];
-	
-(*bond checks
-residuals=Table[Subtract@@@(First@model["coeffsSystem"]["nombond"])/.model["coeffsSystem"]["nombond"][[4]]->n,{n,1,maxMaturity}]//.newProcessedParam//.params/.solWc/.solNomBonds;
-Norm[residuals]*)
-
-
-updateCoeffsWc[modelCoeffsSolution_, modelParameters_, newParameters_List, opts : OptionsPattern[{}]]:=Module[{solFirst,solRest},
-	
-	With[
-		{
-			newParams=processNewParameters[newParameters,modelParameters]
-		},
-		
-	{solFirst,solRest}=Activate[
-		modelCoeffsSolution//.newParameters//.modelParameters/.(x_Symbol?(MatchQ[SymbolName[#],"FindRootOptions"]&)->FilterRules[Flatten@{opts}, Options[FindRoot]])/.(x_Symbol?(MatchQ[SymbolName[#],"Ewc0"]&)->OptionValue["Ewc0"])
-	];
-	Flatten@Join[solFirst,solRest/.solFirst,2]
-	]
-]
-
-
-updateCoeffsPd[modelCoeffsSolution_, modelParameters_, newParameters_List, coeffsWc_List, opts : OptionsPattern[{}]]:=Module[{solFirst,solRest},
-
-With[
-		{
-			newParams=processNewParameters[newParameters,modelParameters]
-		},
-		
-	{solFirst,solRest}=Activate[
-		modelCoeffsSolution//.newParameters//.modelParameters/.coeffsWc/.({x_Symbol?(MatchQ[SymbolName[#],"FindRootOptions"]&)}->FilterRules[Flatten@{opts}, Options[FindRoot]])/.(x_Symbol?(MatchQ[SymbolName[#],"Epd0"]&)[j_Integer]:>OptionValue["Epd0["<>IntegerString[j]<>"]"])
-	];
-	MapThread[Flatten@{#1,#2/.#1}&,{solFirst,solRest}]
-	
-	]
-]
-
-
-updateCoeffsBond[modelCoeffsSolution_, modelParameters_, newParameters_List, maxMaturity_, coeffsWc_List, opts : OptionsPattern[{}]]:=Module[
-{solFirst,solRest},
-With[
-		{
-			newParams=processNewParameters[newParameters,modelParameters]
-		},
-		(*Echo[(#[maxMaturity]&/@modelCoeffsSolution)//.newParameters//.modelParameters/.coeffsWc,"E"];*)
-		{solFirst,solRest}=Activate[
-			(#[maxMaturity]&/@modelCoeffsSolution)//.newParameters//.modelParameters/.coeffsWc/.(x_Symbol?(MatchQ[SymbolName[#],"RecurrenceTableOptions"]&)->FilterRules[Flatten@{opts}, Options[RecurrenceTable]])
-		];
-	Flatten@MapThread[Flatten@{#1,#2/.#1}&,{solFirst,solRest}]
-	]
-]
-
-
-updateCoeffsSol//Options ={
-	"PrintResidualsNorm"->True,
-	"CheckResiduals"->False,
-	"Tol"->10.^-16
+updateCoeffsSol//Options={
+	"initialGuess" -> <|"Ewc"->{4},"Epd"->{{4}}|>,
+	"FindRootOptions"->{MaxIterations->100}, (*"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)
+	"RecurrenceTableOptions"->{"DependentVariables"->Automatic},
+	"ReturnPd"->True
 };
-updateCoeffsSol::norm="The norm of the residuals (errors) is `1`";
-updateCoeffsSol::largeresid="The norm of the residuals (errors) is `1`, which is larger than the specified tolerance `2`.";
-updateCoeffsSol::smallresid="The norm of the residuals (errors) is `1`, which is smaller than the specified tolerance `2`.";
 
 
 updateCoeffsSol[
 	model_Association,
 	newParameters_List,
-	guessCoeffsSolution_List:{},
+	guessCoeffsSolution_List,
 	opts : OptionsPattern[
 		{
 			updateCoeffsSol,
-			FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`addCoeffsSolution,
-			FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`getStartingValues,
-			FindRoot,
-			RecurrenceTable
+			checks,
+			FindRoot
 		}
 	]
 ]:=With[
@@ -189,12 +74,14 @@ updateCoeffsSol[
 		numStocks = model["numStocks"],
 		guessCoeffsSolutionWc=FilterRules[guessCoeffsSolution,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[_]]
 	},
+	Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+	Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 	With[
 		{
 			stockFreeQ=FreeQ[#,_Symbol[_Integer]]&/@(Keys@newParameters),
 			optsFindRoot = Flatten[{
 				Evaluate[FilterRules[Flatten@{opts},Options[FindRoot]]],
-				Evaluate[OptionValue[FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`addCoeffsSolution,{"FindRootOptions"}]]
+				Evaluate[OptionValue["FindRootOptions"]]
 			}],
 			initialGuessEwc = "Ewc0"->If[
 				MemberQ[Keys@guessCoeffsSolution,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[0]],
@@ -205,7 +92,7 @@ updateCoeffsSol[
 			ig = Evaluate[OptionValue["initialGuess"]]["Epd"],
 			(*initialGuessEpd = First@(First@(Evaluate[OptionValue["initialGuess"]]["Epd"])),*)
 			doChecks= OptionValue["PrintResidualsNorm"] || OptionValue["CheckResiduals"],
-			optsCheck = FilterRules[Flatten@{opts}, Options[updateCoeffsSol]]
+			optsCheck = FilterRules[Flatten@{opts}, Options[checks]]
 		},
 		(*Echo[guessCoeffsSolutionPd,"guessCoeffsSolutionPd"];
 		Echo[ig,"ig"];*)
@@ -277,6 +164,98 @@ updateCoeffsSol[
 	](*With*)
 ](*With*)
 
+
+(* ::Subsubsection:: *)
+(*updateCoeffsWc*)
+
+
+updateCoeffsWc//Options ={
+	"Ewc0" -> 4
+};
+
+
+updateCoeffsWc[modelCoeffsSolution_, modelParameters_, newParameters_List, opts : OptionsPattern[{updateCoeffsWc,FindRoot}]]:=Module[{solFirst,solRest},
+	With[{newParams=processNewParameters[newParameters,modelParameters]},		
+		{solFirst,solRest}=Activate[
+			modelCoeffsSolution//.newParameters//.modelParameters/.
+				(x_Symbol?(MatchQ[SymbolName[#],"FindRootOptions"]&)->FilterRules[Flatten@{opts}, Options[FindRoot]])/.
+				(x_Symbol?(MatchQ[SymbolName[#],"Ewc0"]&)->OptionValue["Ewc0"])
+		];
+	Flatten@Join[solFirst,solRest/.solFirst,2]
+	]
+]
+
+
+(* ::Subsubsection:: *)
+(*updateCoeffsPd*)
+
+
+updateCoeffsPd//Options ={
+	"Epd0[1]" -> Sequence[0,15],
+	"Epd0[2]" -> Sequence[6],
+	"Epd0[3]" -> Sequence[7]
+};
+
+
+updateCoeffsPd[modelCoeffsSolution_, modelParameters_, newParameters_List, coeffsWc_List, opts : OptionsPattern[{updateCoeffsPd,FindRoot}]]:=Module[{solFirst,solRest},
+	With[{newParams=processNewParameters[newParameters,modelParameters]},	
+		{solFirst,solRest}=Activate[
+			modelCoeffsSolution//.newParameters//.modelParameters/.coeffsWc/.
+				({x_Symbol?(MatchQ[SymbolName[#],"FindRootOptions"]&)}->FilterRules[Flatten@{opts}, Options[FindRoot]])/.
+				(x_Symbol?(MatchQ[SymbolName[#],"Epd0"]&)[j_Integer]:>OptionValue["Epd0["<>IntegerString[j]<>"]"])
+		];
+	MapThread[Flatten@{#1,#2/.#1}&,{solFirst,solRest}]
+	]
+]
+
+
+(* ::Subsubsection:: *)
+(*updateCoeffsBond*)
+
+
+updateCoeffsBond[modelCoeffsSolution_, modelParameters_, newParameters_List, maxMaturity_, coeffsWc_List, opts : OptionsPattern[{RecurrenceTable}]]:=Module[{solFirst,solRest},
+	With[{newParams=processNewParameters[newParameters,modelParameters]},
+		{solFirst,solRest}=Activate[
+			(#[maxMaturity]&/@modelCoeffsSolution)//.newParameters//.modelParameters/.coeffsWc/.
+				(x_Symbol?(MatchQ[SymbolName[#],"RecurrenceTableOptions"]&)->FilterRules[Flatten@{opts}, Options[RecurrenceTable]])
+		];
+	Flatten@MapThread[Flatten@{#1,#2/.#1}&,{solFirst,solRest}]
+	]
+]
+
+
+(* ::Subsubsection:: *)
+(*checks*)
+
+
+checks//Options ={
+	"PrintResidualsNorm"->False,
+	"CheckResiduals"->False,
+	"Tol"->10.^-16
+};
+checks::norm="The norm of the residuals (errors) is `1`";
+checks::largeresid="The norm of the residuals (errors) is `1`, which is larger than the specified tolerance `2`.";
+checks::smallresid="The norm of the residuals (errors) is `1`, which is smaller than the specified tolerance `2`.";
+
+
+checks[eqs_, sol_, params_, newParams_, opts : OptionsPattern[]] :=With[
+	{residualsNorm = Norm @ (Subtract @@@ eqs) //. newParams //. params//. sol},
+	If[OptionValue["CheckResiduals"],
+		If[
+			residualsNorm >= OptionValue["Tol"],
+			Message[checks::largeresid, residualsNorm, OptionValue["Tol"]];Abort[],
+			Message[checks::smallresid, residualsNorm, OptionValue["Tol"]]
+		];
+		,
+		If[OptionValue["PrintResidualsNorm"],
+			Message[checks::norm, residualsNorm]
+		];
+	];
+];
+	
+(*bond checks
+residuals=Table[Subtract@@@(First@model["coeffsSystem"]["nombond"])/.model["coeffsSystem"]["nombond"][[4]]->n,{n,1,maxMaturity}]//.newProcessedParam//.params/.solWc/.solNomBonds;
+Norm[residuals]*)
 
 
 (* ::Section:: *)

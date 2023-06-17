@@ -41,7 +41,7 @@ Begin["`Private`"]
 
 growth//Options = {
 	"v0"->Function[{t,j,h,k,v,im},0], (*function to compute the point around which the power series expansion is performed*)
-	"order"->1 (*use a power series expansion of order `order` to compute approximation*)
+	"Order"->1 (*use a power series expansion of Order `Order` to compute approximation*)
 };
 
 
@@ -55,7 +55,7 @@ growth[
 	{
 		h=OptionValue["TimeAggregation"],
 		k=OptionValue["numPeriods"],
-		n=OptionValue["order"],
+		n=OptionValue["Order"],
 		v0=OptionValue["v0"],
 		optsgt=FilterRules[{opts},Except[Options[growth]]],
 		imR=im//ReleaseHold,
