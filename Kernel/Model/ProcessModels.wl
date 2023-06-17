@@ -447,7 +447,7 @@ addCoeffsSolution[
 	With[
 		{
 			getStartingValuesOpts=FilterRules[Flatten[{opts}],Options[getStartingValues]],
-			findRootOpts=Flatten[{
+			findRootOpts=Sequence@@Flatten[{
 				Evaluate[
 					FilterRules[
 						Flatten@{opts},
@@ -455,7 +455,10 @@ addCoeffsSolution[
 					]
 				],
 				Evaluate[
-					First@OptionValue[addCoeffsSolution, {"FindRootOptions"}]
+					First@OptionValue[updateCoeffsSol,Flatten@{opts}, {"FindRootOptions"}]
+				],
+				Evaluate[
+					First@OptionValue[updateCoeffsSol, {"FindRootOptions"}]
 				]
 			}],
 			system=cs[[1]],
@@ -644,7 +647,7 @@ opts={ \"coeffsSolution\"-> <|\"wc\"-> {A[0]\[Rule]4.59,A[1],...}|>}";
 createStartingPoint[
 	coefficientNames_,
 	ratioUncondE_,
-	stocksSolvedQ_:False,
+	stocksSolvedQ:_?BooleanQ:False,
 	numStocks_Integer:1,
 	infoModel_Association:<||>,
 	opts : OptionsPattern[{getStartingValues}]
@@ -767,9 +770,9 @@ formatStartingValues::badformat = "The format of `1` for starting points is inco
 formatStartingValues[
 	coefficientNames_List,
 	ratioUncondE_,
-	stocksSolvedQ_Booleans:False,
+	stocksSolvedQ:_?BooleanQ:False,
 	numStocks_Integer:1,
-	Shortest[infoModel_Association:<||>],
+	Longest[infoModel_Association:<||>],
 	opts : OptionsPattern[{getStartingValues}]
 ]:=With[
 	{
@@ -938,10 +941,9 @@ getStartingValues[
 	Which[
 		(*optional argument in function call or default option, but only if non-empty*)
 		And[
-			KeyExistsQ[ig,iEv],
-				Not[
-					SameQ[ig[iEv],{}]
-				]
+				KeyExistsQ[ig,iEv],
+				Not[SameQ[ig,{}]] || Not[SameQ[ig[iEv],{}]
+			]
 		]
 		,
 		ig[iEv],
@@ -971,12 +973,12 @@ addCoeffsSolutionN[model_]:=With[
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 	Ewc0 = getStartingValues["wc",modelInfo,"initialGuess" -> {}];
 	Epd0 = getStartingValues["pd",modelInfo,"initialGuess" -> {}];
-	Epd0j=Table["Epd0["<>IntegerString[j]<>"]"->Epd0[[j]],{j,1,numStocks}];
+	Epd0j=Table["Epd0["<>IntegerString[j]<>"]"->First@(Epd0[[j]]),{j,1,numStocks}]/.Table->Sequence;
 	solWc=updateCoeffsWc[model["coeffsSolution"]["wc"],params,{},"Ewc0"->Sequence[First@Ewc0],MaxIterations->1000];
-	solPd=updateCoeffsPd[model["coeffsSolution"]["pd"],params,{},solWc,Epd0j];
+	solPd=updateCoeffsPd[model["coeffsSolution"]["pd"],params,{},solWc,Epd0j,MaxIterations->1000];
 	solBond=updateCoeffsBond[model["coeffsSolution"]["bond"],params,{},maxMaturity,solWc];
 	solNomBond=updateCoeffsBond[model["coeffsSolution"]["nombond"],params,{},maxMaturity,solWc];
-	Join[solWc,solPd,solBond,solNomBond]
+	Flatten@Join[solWc,solPd,solBond,solNomBond]
 ]
 
 

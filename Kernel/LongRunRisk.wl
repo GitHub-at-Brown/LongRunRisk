@@ -100,7 +100,7 @@ PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Computa
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceTables`"];
+(*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceTables`"];*)
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];
 CopyDefinitions = ResourceFunction["CopyDefinitions"];
 CompoundScope = ResourceFunction["CompoundScope"];
@@ -138,7 +138,7 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Info*)
 
 
@@ -214,7 +214,7 @@ UncondCov[x_,y_,model_]:=With[
 ](*With*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*covLong*)
 
 
@@ -281,9 +281,9 @@ reExport[#]&/@{
 (*NiceTables*)
 
 
-reExport[#]&/@{
+(*reExport[#]&/@{
 	"FernandoDuarte`LongRunRisk`Tools`NiceTables`"
-}
+}*)
 
 
 (* ::Section:: *)

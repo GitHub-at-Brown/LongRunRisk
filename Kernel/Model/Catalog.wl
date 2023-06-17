@@ -1528,7 +1528,7 @@ models = <|
 				theta -> (1 - gamma)/(1 - psi^(-1)),
 			(*"Long-run risk"*)
 			rhox -> 0.9980,
-				rhoxpbar -> 0,
+				rhoxpbar -> 0.001,
 				phix -> 0.0265,
 				phixc -> 0,
 			(*"Inflation"*)
@@ -1603,7 +1603,137 @@ models = <|
 					phidpd[1] -> 0,
 					taugd[1] -> 0
 		}
+	|>,
+(**********************************************************)
+	"NRCStochVol" -> <|
+		"name" -> "Model with a nominal real covariance				
+			(NRC) and stochastic volatility of expected inflation",
+		"shortname" -> "NRCStochVol",
+		"bibRef" -> "n/a",
+		"desc" -> "Model without long-run risk. Inflation		
+					shocks predict consumption growth with
+					time-varying sign given by the NRC and expected inflation 
+					has stochastic volatility",
+		"stateVars" -> {-mup+pi[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],-Esg^2-phig^2/(1-rhog^2)+sg[t]^2, pibar[t]-mupbar, sp[t]-Esp},
+		"parameters" -> {
+			(*"Preferences"*)
+			delta -> 0.99,
+				psi -> 2,
+				gamma -> 15,
+				theta -> (1 - gamma)/(1 - psi^(-1)),
+			(*"Long-run risk"*)
+			rhox -> 0,
+				rhoxpbar -> 0,
+				phix -> 0,
+				phixc -> 0,
+			(*"Inflation"*)
+			mup -> 0,
+				rhoppbar -> 0.5,
+				rhop -> 0,
+				phip -> -0.0024624,
+				xip -> 0.00073007,
+				phipc -> 0,
+				phipx -> 0,
+				phipcx -> 0,
+				phipp -> 0,
+				phipxp -> 0,
+			(*"Expected inflation"*)
+			mupbar -> 0.00327532,
+				rhopbar -> 0.9,
+				rhopbarx -> 0,
+				phipbarp -> 0,
+				phipbarc -> 0,
+				phipbarx -> 0,
+				phipbarcx -> 0,
+				phipbarpb -> 1.5,
+				phipbarxb -> 0,
+				phipbarxp -> 0,
+			(*"Real consumption growth"*)
+			muc -> 0.0016426,
+				rhocx -> 0,
+				rhocp -> -0.0521066,
+				phic -> 0.00204654,
+				phicp -> 0,
+				phicsp -> 0,
+				xic -> -0.198287,
+				phics -> 0,
+				phicx -> 0,
+				phicc -> 0,
+				phicpc -> 0,
+				phicpp -> 0,
+			(*"Nominal-real covariance (NRC)"*)
+			Esg -> -0.00624,
+				rhog -> 0.996289,
+				phig -> 0.002927236529485,
+			(*"Stochastic volatility of long-run risk"*)
+			Esx -> 0,
+				vx -> 0,
+				phisxs -> 0,
+			(*"Stochastic volatility of consumption growth"*)
+			Esc -> 0,
+				vc -> 0,
+				phiscv -> 0,
+			(*"Stochastic volatility of inflation"*)
+			Esp -> 0.00111,
+				vp -> 0.979,
+				vpp -> 0,
+				vppbar -> 0,
+				phispw -> 1.81*^-7,
+			(*"Real dividend growth"*)
+				(* stock 1 *)
+				mud[1] -> 0.000171798971158204,
+					rhodx[1] -> 0,
+					rhodp[1] -> 0.709922405282179,
+					phidc[1] -> 0.033700231996206,
+					phidp[1] -> 0,
+					phidsp[1] -> 0,
+					xid[1] -> -0.307616182414513,
+					phids[1] -> 0,
+					phidxc[1] -> 0,
+					phidcc[1] -> 0,
+					phidpc[1] -> 0,
+					phidpp[1] -> 0,
+					phidxd[1] -> 0,
+					phidcd[1] -> 0,
+					phidpd[1] -> 0,
+					taugd[1] -> 0,
+				(* stock 2 *)
+				mud[2] -> 0.005964299279041,
+					rhodx[2] -> 0,
+					rhodp[2] -> 0.698934055063512,
+					phidc[2] -> -0.051654152930244,
+					phidp[2] -> 0,
+					phidsp[2] -> 0,
+					xid[2] -> 0.108236851752829,
+					phids[2] -> 0,
+					phidxc[2] -> 0,
+					phidcc[2] -> 0,
+					phidpc[2] -> 0,
+					phidpp[2] -> 0,
+					phidxd[2] -> 0,
+					phidcd[2] -> 0,
+					phidpd[2] -> 0,
+					taugd[2] -> 0,
+				(* stock 3 *)
+				mud[3] -> 0.000344066546708281,
+					rhodx[3] -> 0,
+					rhodp[3] -> -0.234446726759537,
+					phidc[3] -> 0.031806774038977,
+					phidp[3] -> 0,
+					phidsp[3] -> 0,
+					xid[3] -> 0.194175986681852,
+					phids[3] -> 0,
+					phidxc[3] -> 0,
+					phidcc[3] -> 0,
+					phidpc[3] -> 0,
+					phidpp[3] -> 0,
+					phidxd[3] -> 0,
+					phidcd[3] -> 0,
+					phidpd[3] -> 0,
+					taugd[3] -> 0
+		}
 	|>
+(**********************************************************)
 |>;(*end models*)
 
 
@@ -1825,11 +1955,17 @@ modelsExtraInfo = <|
 (**********************************************************)
 	"DES" -> <|
 		"initialGuess" -> <| 
-				"Ewc" -> {7},
-				"Epd" -> {{5.7}}
-			|>
-	|>
+			"Ewc" -> {7},
+			"Epd" -> {{5.7}}
+		|>
+	|>,
 (**********************************************************)
+	"NRCStochVol" -> <|
+		"initialGuess" -> <| 
+			"Ewc" -> {4.6}, 
+			"Epd" -> {{7},{3},{3}}
+		|>
+	|>
 |>;(*end modelsExtraInfo*)
 
 
