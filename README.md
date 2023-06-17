@@ -1,6 +1,6 @@
-[![Check](https://github.com/GitHub-at-Brown/LongRunRisk/actions/workflows/Check.yml/badge.svg)](https://github.com/GitHub-at-Brown/LongRunRisk/actions/workflows/Check.yml)
-
 # LongRunRisk
 Tools to solve and analyze long-run risk models
 
-[Instructions for installation](https://www.wolframcloud.com/obj/fernandoduarte/Published/QuickStart.nb)
+[Instructions for installation and getting started](https://www.wolframcloud.com/obj/fernandoduarte/Published/QuickStart.nb).
+
+Or download the [Quick Start guide](https://www.wolframcloud.com/download/fernandoduarte/Published/QuickStart.nb) and run it locally in your computer.
