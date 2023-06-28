@@ -59,6 +59,8 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 (*nominal-real covariance (NRC)*)
 	Esg::usage = "Description of parameter (needs to be added).";
 	rhog::usage = "Description of parameter (needs to be added).";
+	rhogp::usage = "Description of parameter (needs to be added).";
+	rhogpbar::usage = "Description of parameter (needs to be added).";
 	phig::usage = "Description of parameter (needs to be added).";
 (*stochastic volatility of long-run risk*)
 	Esx::usage = "Description of parameter (needs to be added).";
