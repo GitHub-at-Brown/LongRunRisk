@@ -7,7 +7,6 @@
 BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"]
 
 
-
 (* ::Subsection:: *)
 (*Public symbols*)
 

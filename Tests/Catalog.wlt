@@ -7,7 +7,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-OQB689"
+	TestID->"Catalog_20230818-EZ0IPS"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"]
@@ -16,7 +16,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-HTF3BH"
+	TestID->"Catalog_20230818-9IB3BO"
 ]
 VerificationTest[
 	Apply[And, Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]]
@@ -25,7 +25,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-BN4CMJ"
+	TestID->"Catalog_20230818-Q9619E"
 ]
 VerificationTest[
 	Apply[And,
@@ -48,7 +48,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-WT7OAT"
+	TestID->"Catalog_20230818-J79VTR"
 ]
 VerificationTest[
 	Apply[And,
@@ -68,7 +68,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-C1FMQ2"
+	TestID->"Catalog_20230818-TYBNVE"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]["stateVars"]
@@ -77,7 +77,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-UQSRTE"
+	TestID->"Catalog_20230818-O92FQK"
 ]
 VerificationTest[
 	Apply[And, Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {"BY", "BKY"}]]
@@ -86,7 +86,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-9P3GIH"
+	TestID->"Catalog_20230818-JMDSLH"
 ]
 VerificationTest[
 	Apply[And,
@@ -104,7 +104,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-A2TH7C"
+	TestID->"Catalog_20230818-378O7D"
 ]
 VerificationTest[
 	Apply[And,
@@ -141,7 +141,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-7VIZ3G"
+	TestID->"Catalog_20230818-S2LCS4"
 ]
 VerificationTest[
 	Apply[And,
@@ -170,7 +170,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-CRNM7A"
+	TestID->"Catalog_20230818-YAL7TY"
 ]
 VerificationTest[
 	Apply[And,
@@ -199,7 +199,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-19YY4G"
+	TestID->"Catalog_20230818-O8TATH"
 ]
 VerificationTest[
 	Apply[And,
@@ -228,7 +228,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-QA6G8W"
+	TestID->"Catalog_20230818-WHJ85T"
 ]
 VerificationTest[
 	Apply[And,
@@ -260,7 +260,61 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230610-Z5QV8I"
+	TestID->"Catalog_20230818-8QV3HS"
+]
+VerificationTest[
+	Apply[And,
+		{
+			AllTrue[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo, AssociationQ],
+			AllTrue[Map[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]&, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo],
+				AssociationQ
+			]
+		}
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"Catalog_20230818-BV7QIC"
+]
+VerificationTest[
+	Apply[And, {SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]}]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"Catalog_20230818-SBMA65"
+]
+VerificationTest[
+	Apply[And,
+		{
+			And[VectorQ[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ "BY"["initialGuess"]["Ewc"], NumberQ],
+				Equal[Dimensions @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ "BY"["initialGuess"]["Ewc"],
+					{1}
+				]
+			],
+			Apply[And,
+				Map[
+					Function @ Implies[
+						KeyExistsQ[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ #, "initialGuess"],
+						Equal[
+							Dimensions @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ #["initialGuess"]["Epd"],
+							{Count[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"], Catalog`mud @ _Integer, Infinity], 1}
+						]
+					],
+					Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo
+				]
+			]
+		}
+	]
+	,
+	False
+	,
+	{}
+	,
+	TestID->"Catalog_20230818-HONONJ"
 ] 
 End[]
 EndTestSection[]

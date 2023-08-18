@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    253702,       5009]
-NotebookOptionsPosition[    197106,       3980]
-NotebookOutlinePosition[    243468,       4835]
-CellTagsIndexPosition[    243425,       4832]
+NotebookDataLength[    314815,       6126]
+NotebookOptionsPosition[    255976,       5059]
+NotebookOutlinePosition[    302334,       5914]
+CellTagsIndexPosition[    302291,       5911]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -22,7 +22,7 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.889964198656839*^9, 3.889964203363894*^9}},
- CellLabel->"In[31]:=",ExpressionUUID->"5936db62-753d-4c20-a941-1dfb10c21e69"],
+ CellLabel->"In[40]:=",ExpressionUUID->"5936db62-753d-4c20-a941-1dfb10c21e69"],
 
 Cell[BoxData[{
  RowBox[{
@@ -101,8 +101,8 @@ Cell[BoxData[{
  CellLabel->"In[7]:=",ExpressionUUID->"7373936c-ff06-42f3-99c4-9976b014d9be"],
 
 Cell[BoxData["\<\"FernandoDuarte`LongRunRisk`Model`Catalog`\"\>"], "Output",
- CellChangeTimes->{{3.895362772845051*^9, 3.8953627836787043`*^9}},
- CellLabel->"Out[8]=",ExpressionUUID->"465950e4-3aaa-4c32-83be-f95811290682"]
+ CellChangeTimes->{3.901354999236985*^9, 3.9013551225229177`*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"43404c29-bf60-4db0-8e7d-7643057b8cd7"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -113,8 +113,8 @@ Cell[BoxData[
  CellLabel->"In[9]:=",ExpressionUUID->"56243fb4-4478-4214-a53b-c438a5bbcfe2"],
 
 Cell[BoxData["\<\"Catalog`\"\>"], "Output",
- CellChangeTimes->{{3.895362772848477*^9, 3.8953627836819763`*^9}},
- CellLabel->"Out[9]=",ExpressionUUID->"d5ae0e0f-5cf6-41d7-80e0-d97db6c514b6"]
+ CellChangeTimes->{3.901354999240387*^9, 3.901355122528211*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"ff57e4e4-570d-4369-bfe8-bdf67083d544"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -154,20 +154,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-OQB689\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-OQB689"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-EZ0IPS\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-EZ0IPS"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362784063813*^9},
+ CellChangeTimes->{3.9013550015959177`*^9, 3.901355122849064*^9},
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"11006c9d-d83b-4a95-8057-fcf8143c83c0"],
+In[10]:=",ExpressionUUID->"a4f9e92f-d998-47bd-895c-cc88c6adce46"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362784081867*^9},
+ CellChangeTimes->{3.9013550015959177`*^9, 3.9013551228724117`*^9},
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"2323f3e6-50fe-4ec9-9a35-c6b120db12fa"]
+In[10]:=",ExpressionUUID->"642d3119-cbc6-4950-8360-583b30c55fc3"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -178,12 +178,12 @@ Cell[BoxData[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = Null, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
   "VerificationTest[\n\tGet @ \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\
-\t,\n\tNull\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n", 
+\t,\n\tNull\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$ = True, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> Null, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.049, "AbsoluteTiming" -> 0.049, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.056, "AbsoluteTiming" -> 0.056, 
    "InputString" :> ToString[
      Unevaluated[Get["FernandoDuarte`LongRunRisk`Model`Catalog`"]; Null], 
      InputForm]|>, 
@@ -192,7 +192,7 @@ Cell[BoxData[
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nEndTestSection[]\n"}, \
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -256,8 +256,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.895362773131874*^9, 3.895362784086067*^9}},
- CellLabel->"Out[10]=",ExpressionUUID->"76c60354-4171-4e77-9a10-34a2d6cd5cf1"]
+ CellChangeTimes->{3.9013550016231194`*^9, 3.901355122878662*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"10e32ad5-0113-4d7e-8fa7-e0165f0c6526"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -291,20 +291,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-HTF3BH\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-HTF3BH"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-9IB3BO\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-9IB3BO"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362784123402*^9},
+ CellChangeTimes->{3.901355001798633*^9, 3.901355122915556*^9},
  CellLabel->
   "During evaluation of \
-In[11]:=",ExpressionUUID->"de687eb1-5dc2-449d-ac53-c15921cb4a89"],
+In[11]:=",ExpressionUUID->"5858684d-f3c0-4bde-89a7-42191d2a28c3"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362784125279*^9},
+ CellChangeTimes->{3.901355001798633*^9, 3.9013551229167833`*^9},
  CellLabel->
   "During evaluation of \
-In[11]:=",ExpressionUUID->"a85b636d-29e7-4d93-b799-16fd7ca8a12d"]
+In[11]:=",ExpressionUUID->"ba3c265c-889b-4198-bca8-7e1147a4de5f"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -316,7 +316,7 @@ Cell[BoxData[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
   "VerificationTest[\n\tMemberQ[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n", 
+\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -331,9 +331,9 @@ Cell[BoxData[
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -397,8 +397,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.895362773135714*^9, 3.8953627841437283`*^9}},
- CellLabel->"Out[11]=",ExpressionUUID->"d6e4dbb3-8704-4ec8-9af3-0265b45ffe23"]
+ CellChangeTimes->{3.901355001922152*^9, 3.901355122934442*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"0c59c5a7-44c9-4280-8b5f-b0428daa151c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -445,20 +445,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-BN4CMJ\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-BN4CMJ"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-Q9619E\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-Q9619E"],
   Editable->False]], "Print",
- CellChangeTimes->{3.89536278419023*^9},
+ CellChangeTimes->{3.9013550019579287`*^9, 3.901355122973522*^9},
  CellLabel->
   "During evaluation of \
-In[12]:=",ExpressionUUID->"2623cfcb-9929-4e46-8bab-5f7202714eaf"],
+In[12]:=",ExpressionUUID->"59fe35da-e0bc-4872-b6ab-7178b3e0ba8b"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362784192115*^9},
+ CellChangeTimes->{3.9013550019579287`*^9, 3.901355122974861*^9},
  CellLabel->
   "During evaluation of \
-In[12]:=",ExpressionUUID->"6253d324-975e-4ee4-92d4-b332d6a3d03e"]
+In[12]:=",ExpressionUUID->"21887f66-23e5-4a20-b768-b6be16c12f2d"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -471,7 +471,7 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models]]",
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
   "VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n", 
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -488,12 +488,12 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n\nEndTestSection[]\n"}, \
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -557,8 +557,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.8953627731422157`*^9, 3.8953627841979017`*^9}},
- CellLabel->"Out[12]=",ExpressionUUID->"3411e180-1bdc-42e8-ad2d-784f904ec660"]
+ CellChangeTimes->{3.901355001964418*^9, 3.901355122980299*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"c6675733-f5cf-4a69-ba2b-6d8f1e528647"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -607,20 +607,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-WT7OAT\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-WT7OAT"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-J79VTR\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-J79VTR"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362784240028*^9},
+ CellChangeTimes->{3.901355002006213*^9, 3.9013551230175133`*^9},
  CellLabel->
   "During evaluation of \
-In[13]:=",ExpressionUUID->"40079cd0-1fb8-461d-bd67-5c1c1b81f1c9"],
+In[13]:=",ExpressionUUID->"7fa5b65f-f0c4-4a56-b5e9-3c1725cb37c6"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362784241981*^9},
+ CellChangeTimes->{3.901355002006213*^9, 3.9013551230189533`*^9},
  CellLabel->
   "During evaluation of \
-In[13]:=",ExpressionUUID->"0b15c745-afee-4b3f-b8ae-3570462a0f64"]
+In[13]:=",ExpressionUUID->"e84cfe09-38ed-4cb2-9490-65b686f714ec"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -645,7 +645,7 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
 \tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
 \t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
 \t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n", 
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -668,12 +668,12 @@ TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
 Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
 \"name\"],\n\t\t\t\t\t\t\
@@ -682,7 +682,7 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
 \tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
 \t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
 \t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -746,8 +746,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.895362773145822*^9, 3.8953627842592697`*^9}},
- CellLabel->"Out[13]=",ExpressionUUID->"313ad5f1-8f1c-4b81-8212-e3dba0ff95db"]
+ CellChangeTimes->{3.901355002026352*^9, 3.901355123037631*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"7dec6abc-7c00-4bdb-a7ce-15168bf650a0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -803,20 +803,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-C1FMQ2\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-C1FMQ2"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-TYBNVE\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-TYBNVE"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362784299073*^9},
+ CellChangeTimes->{3.901355002070557*^9, 3.9013551230801163`*^9},
  CellLabel->
   "During evaluation of \
-In[14]:=",ExpressionUUID->"a659ce97-f497-4b7c-9297-aaee13b692db"],
+In[14]:=",ExpressionUUID->"a86b6c89-f718-486e-91ce-9c00142a0aeb"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362784300846*^9},
+ CellChangeTimes->{3.901355002070557*^9, 3.901355123081565*^9},
  CellLabel->
   "During evaluation of \
-In[14]:=",ExpressionUUID->"9660b7bf-23f2-4f4a-9958-2e564e41d189"]
+In[14]:=",ExpressionUUID->"da3e594a-8efc-4519-ad12-726c9d2c01a1"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -837,12 +837,12 @@ Part[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], 1;;, \
 2] //. FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\
 \t\t\t\t],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\
 \t\t\t\t]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-C1FMQ2\"\n]\n\n", 
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.002, "AbsoluteTiming" -> 0.002, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.003, "AbsoluteTiming" -> 0.003, 
    "InputString" :> ToString[
      Unevaluated[
       Apply[And, 
@@ -862,12 +862,12 @@ TestID->\"Catalog_20230610-C1FMQ2\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
 Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
 \"name\"],\n\t\t\t\t\t\t\
@@ -876,14 +876,14 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
 \tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
 \t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
 \t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
 1;;, 2] //. \
 FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
 ],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
 ]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-C1FMQ2\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -947,8 +947,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.8953627731523647`*^9, 3.895362784307624*^9}},
- CellLabel->"Out[14]=",ExpressionUUID->"89b8f138-c61f-45e6-a84e-a6a881951c28"]
+ CellChangeTimes->{3.901355002090757*^9, 3.9013551231005087`*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"bca4b315-2abf-42b7-9303-a8cf83615970"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -982,20 +982,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-UQSRTE\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-UQSRTE"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-O92FQK\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-O92FQK"],
   Editable->False]], "Print",
- CellChangeTimes->{3.8953627843446417`*^9},
+ CellChangeTimes->{3.901355002129588*^9, 3.901355123137883*^9},
  CellLabel->
   "During evaluation of \
-In[15]:=",ExpressionUUID->"a11aa893-63a3-423a-85e8-fa05baa41215"],
+In[15]:=",ExpressionUUID->"dd09f9de-ca21-4f7f-adf1-8cda12e1adf8"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362784346311*^9},
+ CellChangeTimes->{3.901355002129588*^9, 3.901355123139182*^9},
  CellLabel->
   "During evaluation of \
-In[15]:=",ExpressionUUID->"54a6c087-b497-4c92-9fae-75315eb39eca"]
+In[15]:=",ExpressionUUID->"b6bef6e7-cfd0-499b-a996-f0b7c9e86f53"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1015,7 +1015,7 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-UQSRTE\"\n]\n\n", 
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> {
@@ -1034,12 +1034,12 @@ TestID->\"Catalog_20230610-UQSRTE\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
 Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
 \"name\"],\n\t\t\t\t\t\t\
@@ -1048,20 +1048,20 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
 \tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
 \t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
 \t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
 1;;, 2] //. \
 FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
 ],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
 ]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-C1FMQ2\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nVerificationTest[\n\t\
 FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
 \t{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-UQSRTE\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1125,8 +1125,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.895362773156838*^9, 3.895362784363106*^9}},
- CellLabel->"Out[15]=",ExpressionUUID->"b9986693-b984-4d79-8302-d8b673d7c61e"]
+ CellChangeTimes->{3.9013550021551113`*^9, 3.901355123146369*^9},
+ CellLabel->"Out[15]=",ExpressionUUID->"43009e71-909c-41a8-b623-473ddf9a6ac0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1165,20 +1165,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-9P3GIH\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-9P3GIH"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-JMDSLH\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-JMDSLH"],
   Editable->False]], "Print",
- CellChangeTimes->{3.8953627844025593`*^9},
+ CellChangeTimes->{3.9013550021767893`*^9, 3.9013551231820183`*^9},
  CellLabel->
   "During evaluation of \
-In[16]:=",ExpressionUUID->"f58d65e4-d3d5-437e-aa67-79d325a93cb4"],
+In[16]:=",ExpressionUUID->"d2e1fd4d-7662-45a2-a43f-8464be3e120e"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.8953627844041977`*^9},
+ CellChangeTimes->{3.9013550021767893`*^9, 3.90135512320158*^9},
  CellLabel->
   "During evaluation of \
-In[16]:=",ExpressionUUID->"9b0d44b7-76db-4238-850a-68c3955f9c7a"]
+In[16]:=",ExpressionUUID->"60197f36-46d5-43dc-a9a5-4e6294a4f267"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1193,7 +1193,7 @@ Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
   "VerificationTest[\n\tApply[And, \
 Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
 \", \"BKY\"}]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-9P3GIH\"\n]\n\n", 
+TestID->\"Catalog_20230818-JMDSLH\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -1210,12 +1210,12 @@ TestID->\"Catalog_20230610-9P3GIH\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
 Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
 \"name\"],\n\t\t\t\t\t\t\
@@ -1224,23 +1224,23 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
 \tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
 \t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
 \t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
 1;;, 2] //. \
 FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
 ],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
 ]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-C1FMQ2\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nVerificationTest[\n\t\
 FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
 \t{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-UQSRTE\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n\nVerificationTest[\n\tApply[And, \
 Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
 \", \"BKY\"}]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-9P3GIH\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"Catalog_20230818-JMDSLH\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1304,8 +1304,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.8953627731632338`*^9, 3.895362784409748*^9}},
- CellLabel->"Out[16]=",ExpressionUUID->"f7ccfcb6-3dab-430a-98e3-e15cecfd750d"]
+ CellChangeTimes->{3.901355002207388*^9, 3.901355123205996*^9},
+ CellLabel->"Out[16]=",ExpressionUUID->"2a407487-ade7-4822-b99c-69bf765c383a"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1350,20 +1350,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-A2TH7C\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-A2TH7C"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-378O7D\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-378O7D"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362784450931*^9},
+ CellChangeTimes->{3.9013550022465763`*^9, 3.9013551232453117`*^9},
  CellLabel->
   "During evaluation of \
-In[17]:=",ExpressionUUID->"8fee9ee1-09d2-4b46-9f81-a4b8810487f0"],
+In[17]:=",ExpressionUUID->"7a2824a5-4ddc-452a-a9e9-8550e1b8b74c"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362784452721*^9},
+ CellChangeTimes->{3.9013550022465763`*^9, 3.90135512324666*^9},
  CellLabel->
   "During evaluation of \
-In[17]:=",ExpressionUUID->"71508de7-d5e8-484f-8ecb-33f69167a789"]
+In[17]:=",ExpressionUUID->"f1fbe5a3-7f42-465e-ac85-09cc51ef24af"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1382,7 +1382,7 @@ Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t\t\t\t}\n\t\t\t]\n\
 \t\t\t\tMap[Function @ Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models \
 @ #, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t\t\t\t}\n\t\t\
 \t]\n\t\t]\n\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-A2TH7C\"\n]\n\n", 
+TestID->\"Catalog_20230818-378O7D\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> False, "Success" -> True, "FailureType" -> None, 
@@ -1403,12 +1403,12 @@ TestID->\"Catalog_20230610-A2TH7C\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
 Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
 \"name\"],\n\t\t\t\t\t\t\
@@ -1417,28 +1417,28 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
 \tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
 \t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
 \t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
 1;;, 2] //. \
 FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
 ],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
 ]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-C1FMQ2\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nVerificationTest[\n\t\
 FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
 \t{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-UQSRTE\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n\nVerificationTest[\n\tApply[And, \
 Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
 \", \"BKY\"}]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-9P3GIH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-JMDSLH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[AssociationQ,\n\t\t\tFlatten[\n\t\t\t\t{\n\t\t\t\t\tHead @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models,\n\t\t\t\t\tMap[Function @ \
 Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\
-\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-A2TH7C\"\n]\n\
+\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-378O7D\"\n]\n\
 \n\nEndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1502,8 +1502,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.895362773166717*^9, 3.8953627844711723`*^9}},
- CellLabel->"Out[17]=",ExpressionUUID->"d028b09a-73fa-4638-b7c4-541f5b242eaa"]
+ CellChangeTimes->{3.901355002256878*^9, 3.901355123265486*^9},
+ CellLabel->"Out[17]=",ExpressionUUID->"642aa479-91b1-4d54-84df-2d526ad1bea0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1574,20 +1574,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-7VIZ3G\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-7VIZ3G"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-S2LCS4\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-S2LCS4"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362784513524*^9},
+ CellChangeTimes->{3.9013550022930593`*^9, 3.901355123307602*^9},
  CellLabel->
   "During evaluation of \
-In[18]:=",ExpressionUUID->"d1b808b8-0fbe-4824-a9f7-9a30d27db666"],
+In[18]:=",ExpressionUUID->"0db816e6-b084-4982-a228-45196364bdd2"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362784515312*^9},
+ CellChangeTimes->{3.9013550022930593`*^9, 3.901355123326602*^9},
  CellLabel->
   "During evaluation of \
-In[18]:=",ExpressionUUID->"d63c6253-ad61-4416-b43e-2885b1ca3d37"]
+In[18]:=",ExpressionUUID->"7b6cabb3-1f7b-4c02-9687-1e9bba1d9025"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1621,7 +1621,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\t\t\t\t\t\t][__],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\
 \t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\
 \t\t\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\
-\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-7VIZ3G\"\n]\n\
+\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-S2LCS4\"\n]\n\
 \n", FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -1652,12 +1652,12 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
 Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
 \"name\"],\n\t\t\t\t\t\t\
@@ -1666,28 +1666,28 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
 \tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
 \t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
 \t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
 1;;, 2] //. \
 FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
 ],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
 ]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-C1FMQ2\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nVerificationTest[\n\t\
 FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
 \t{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-UQSRTE\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n\nVerificationTest[\n\tApply[And, \
 Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
 \", \"BKY\"}]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-9P3GIH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-JMDSLH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[AssociationQ,\n\t\t\tFlatten[\n\t\t\t\t{\n\t\t\t\t\tHead @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models,\n\t\t\t\t\tMap[Function @ \
 Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\
-\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-A2TH7C\"\n]\n\
+\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-378O7D\"\n]\n\
 \n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
 Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\t\t\t\
@@ -1701,7 +1701,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\t\t\t\t\t\t][__],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\
 \t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\
 \t\t\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\
-\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-7VIZ3G\"\n]\n\
+\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-S2LCS4\"\n]\n\
 \n\nEndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1765,8 +1765,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.8953627731763268`*^9, 3.8953627845344877`*^9}},
- CellLabel->"Out[18]=",ExpressionUUID->"43d93919-360b-47ca-9010-e3013676e7b7"]
+ CellChangeTimes->{3.901355002323772*^9, 3.901355123337223*^9},
+ CellLabel->"Out[18]=",ExpressionUUID->"ee33c667-d266-473e-bc50-dcb590f3e58a"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1830,20 +1830,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-CRNM7A\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-CRNM7A"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-YAL7TY\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-YAL7TY"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362784573164*^9},
+ CellChangeTimes->{3.901355002363224*^9, 3.901355123378151*^9},
  CellLabel->
   "During evaluation of \
-In[19]:=",ExpressionUUID->"f3f54c32-1971-46c1-8037-7e7c85979d9a"],
+In[19]:=",ExpressionUUID->"55f4da71-d81b-4bb3-9065-c8e7ab98fe07"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.8953627845746927`*^9},
+ CellChangeTimes->{3.901355002363224*^9, 3.901355123379291*^9},
  CellLabel->
   "During evaluation of \
-In[19]:=",ExpressionUUID->"af50a78b-92b4-47cc-a1a4-c75a03777b60"]
+In[19]:=",ExpressionUUID->"d9038e10-9c3c-4d1e-8c25-3769491f8805"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1870,7 +1870,7 @@ Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\t\t\t\
 Catalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\
 \t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t],\n\t\t\tKeys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\
-\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-CRNM7A\"\n]\n\n", 
+\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-YAL7TY\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -1897,12 +1897,12 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
 Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
 \"name\"],\n\t\t\t\t\t\t\
@@ -1911,28 +1911,28 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
 \tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
 \t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
 \t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
 1;;, 2] //. \
 FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
 ],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
 ]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-C1FMQ2\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nVerificationTest[\n\t\
 FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
 \t{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-UQSRTE\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n\nVerificationTest[\n\tApply[And, \
 Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
 \", \"BKY\"}]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-9P3GIH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-JMDSLH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[AssociationQ,\n\t\t\tFlatten[\n\t\t\t\t{\n\t\t\t\t\tHead @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models,\n\t\t\t\t\tMap[Function @ \
 Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\
-\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-A2TH7C\"\n]\n\
+\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-378O7D\"\n]\n\
 \n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
 Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\t\t\t\
@@ -1946,7 +1946,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\t\t\t\t\t\t][__],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\
 \t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\
 \t\t\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\
-\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-7VIZ3G\"\n]\n\
+\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-S2LCS4\"\n]\n\
 \n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
 Apply[And,\n\t\t\t\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\
 \"]&,\n\t\t\t\t\t\tMap[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
@@ -1956,7 +1956,7 @@ Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\t\t\t\
 Catalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\
 \t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t],\n\t\t\tKeys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\
-\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-CRNM7A\"\n]\n\n\nEndTestSection[]\n\
+\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-YAL7TY\"\n]\n\n\nEndTestSection[]\n\
 "}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -2021,8 +2021,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.895362773180265*^9, 3.895362784580428*^9}},
- CellLabel->"Out[19]=",ExpressionUUID->"b44bd278-a98d-4d84-88ed-90551bb83e1c"]
+ CellChangeTimes->{3.901355002387678*^9, 3.901355123384831*^9},
+ CellLabel->"Out[19]=",ExpressionUUID->"87fcc2a8-4126-4859-95d1-d7289a320f43"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2127,20 +2127,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-19YY4G\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-19YY4G"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-O8TATH\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-O8TATH"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362784629179*^9},
+ CellChangeTimes->{3.9013550024283047`*^9, 3.9013551234309053`*^9},
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"b52cfb46-3a55-4f6d-bc9b-bac57807db23"],
+In[20]:=",ExpressionUUID->"9f1098b2-ec32-4b20-af1c-378dddf7ced9"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.8953627846349*^9},
+ CellChangeTimes->{3.9013550024283047`*^9, 3.901355123436355*^9},
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"ee5ca8ea-d574-4125-8fad-cbd72d39f3ed"]
+In[20]:=",ExpressionUUID->"049e220f-d410-455c-a8fb-356bec0c181f"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -2168,7 +2168,7 @@ Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
 \t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
 \t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-19YY4G\"\n]\n\n",
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-O8TATH\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -2194,12 +2194,12 @@ SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
 Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
 \"name\"],\n\t\t\t\t\t\t\
@@ -2208,28 +2208,28 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
 \tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
 \t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
 \t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
 1;;, 2] //. \
 FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
 ],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
 ]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-C1FMQ2\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nVerificationTest[\n\t\
 FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
 \t{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-UQSRTE\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n\nVerificationTest[\n\tApply[And, \
 Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
 \", \"BKY\"}]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-9P3GIH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-JMDSLH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[AssociationQ,\n\t\t\tFlatten[\n\t\t\t\t{\n\t\t\t\t\tHead @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models,\n\t\t\t\t\tMap[Function @ \
 Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\
-\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-A2TH7C\"\n]\n\
+\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-378O7D\"\n]\n\
 \n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
 Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\t\t\t\
@@ -2243,7 +2243,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\t\t\t\t\t\t][__],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\
 \t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\
 \t\t\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\
-\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-7VIZ3G\"\n]\n\
+\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-S2LCS4\"\n]\n\
 \n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
 Apply[And,\n\t\t\t\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\
 \"]&,\n\t\t\t\t\t\tMap[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
@@ -2253,7 +2253,7 @@ Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\t\t\t\
 Catalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\
 \t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t],\n\t\t\tKeys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\
-\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-CRNM7A\"\n]\n\n\nVerificationTest[\n\
+\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-YAL7TY\"\n]\n\n\nVerificationTest[\n\
 \tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\tApply[And,\n\t\t\t\t\t\
 Map[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\t\t\t\t\
 Map[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
@@ -2263,7 +2263,7 @@ Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
 \t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
 \t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-19YY4G\"\n]\n\n\n\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-O8TATH\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -2327,28 +2327,28 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.895362773187106*^9, 3.8953627846522007`*^9}},
- CellLabel->"Out[20]=",ExpressionUUID->"b4c2d1a3-add4-4a05-a3bb-e6202e227fc1"],
+ CellChangeTimes->{3.901355002448378*^9, 3.901355123450432*^9},
+ CellLabel->"Out[20]=",ExpressionUUID->"2e97d322-76e5-4e77-8f30-7f0b4533bbc6"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-QA6G8W\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-QA6G8W"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-WHJ85T\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-WHJ85T"],
   Editable->False]], "Print",
- CellChangeTimes->{3.89536278468217*^9},
+ CellChangeTimes->{3.9013550024283047`*^9, 3.901355123523369*^9},
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"d51d670d-b55e-4ed2-892b-a31dfaac1343"],
+In[20]:=",ExpressionUUID->"b8cef9a8-d900-4e59-84db-ce89e57b8be7"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362784693063*^9},
+ CellChangeTimes->{3.9013550024283047`*^9, 3.901355123541634*^9},
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"ce56aad8-fcd1-4be2-9943-aae467dcbec2"]
+In[20]:=",ExpressionUUID->"bacca1e2-4ed5-43dd-a9b9-88030bdc51bf"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -2376,7 +2376,7 @@ Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
 \t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
 \t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-QA6G8W\"\n]\n\n",
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-WHJ85T\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -2402,12 +2402,12 @@ SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
 Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
 \"name\"],\n\t\t\t\t\t\t\
@@ -2416,28 +2416,28 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
 \tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
 \t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
 \t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
 1;;, 2] //. \
 FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
 ],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
 ]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-C1FMQ2\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nVerificationTest[\n\t\
 FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
 \t{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-UQSRTE\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n\nVerificationTest[\n\tApply[And, \
 Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
 \", \"BKY\"}]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-9P3GIH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-JMDSLH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[AssociationQ,\n\t\t\tFlatten[\n\t\t\t\t{\n\t\t\t\t\tHead @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models,\n\t\t\t\t\tMap[Function @ \
 Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\
-\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-A2TH7C\"\n]\n\
+\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-378O7D\"\n]\n\
 \n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
 Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\t\t\t\
@@ -2451,7 +2451,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\t\t\t\t\t\t][__],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\
 \t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\
 \t\t\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\
-\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-7VIZ3G\"\n]\n\
+\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-S2LCS4\"\n]\n\
 \n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
 Apply[And,\n\t\t\t\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\
 \"]&,\n\t\t\t\t\t\tMap[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
@@ -2461,7 +2461,7 @@ Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\t\t\t\
 Catalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\
 \t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t],\n\t\t\tKeys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\
-\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-CRNM7A\"\n]\n\n\nVerificationTest[\n\
+\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-YAL7TY\"\n]\n\n\nVerificationTest[\n\
 \tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\tApply[And,\n\t\t\t\t\t\
 Map[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\t\t\t\t\
 Map[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
@@ -2471,7 +2471,7 @@ Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
 \t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
 \t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-19YY4G\"\n]\n\n\n\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-O8TATH\"\n]\n\n\n\
 VerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
 Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\t\t\t\tMap[Context,\
@@ -2482,7 +2482,7 @@ Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
 \t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
 \t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-QA6G8W\"\n]\n\n\n\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-WHJ85T\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -2546,8 +2546,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.895362773187106*^9, 3.8953627847063017`*^9}},
- CellLabel->"Out[21]=",ExpressionUUID->"071f4179-a944-4bf6-b5b6-f5b4aef67e35"]
+ CellChangeTimes->{3.901355002448378*^9, 3.901355123544607*^9},
+ CellLabel->"Out[21]=",ExpressionUUID->"510f7899-c111-4ebc-b181-87f1689030dd"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2612,20 +2612,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"Catalog_20230610-Z5QV8I\"\>"}],
-  SequenceForm["Adding test: ", "Catalog_20230610-Z5QV8I"],
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-8QV3HS\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-8QV3HS"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362784796941*^9},
+ CellChangeTimes->{3.90135500254027*^9, 3.90135512362425*^9},
  CellLabel->
   "During evaluation of \
-In[22]:=",ExpressionUUID->"469cf111-c8d6-4393-b5b8-4ec9802e13ac"],
+In[22]:=",ExpressionUUID->"fe82d254-51e6-4fb6-a21b-9d4732b29452"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362784813345*^9},
+ CellChangeTimes->{3.90135500254027*^9, 3.9013551236422367`*^9},
  CellLabel->
   "During evaluation of \
-In[22]:=",ExpressionUUID->"f031d266-b441-4393-a75d-31276930898f"]
+In[22]:=",ExpressionUUID->"ab441088-3174-4b3f-a991-04aad138ba5a"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -2655,7 +2655,7 @@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],\n\t\t\t\t\t\t\
 ][__],\n\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t],\n\t\t\t\t\t\tInfinity\n\t\t\
 \t\t\t]\n\t\t\t\t],\n\t\t\t\tKeys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t]\n\t\t]\n\t]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-Z5QV8I\"\n]\n\n", 
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-8QV3HS\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -2683,12 +2683,12 @@ True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-Z5QV8I\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
 \"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
-\tTestID->\"Catalog_20230610-OQB689\"\n]\n\n\nVerificationTest[\n\t\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
 MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-HTF3BH\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
-,\n\tTestID->\"Catalog_20230610-BN4CMJ\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
 Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
 \"name\"],\n\t\t\t\t\t\t\
@@ -2697,28 +2697,28 @@ FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
 \tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
 \t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
 \t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-WT7OAT\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
 1;;, 2] //. \
 FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
 ],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
 ]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-C1FMQ2\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nVerificationTest[\n\t\
 FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
 \t{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-UQSRTE\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n\nVerificationTest[\n\tApply[And, \
 Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
 \", \"BKY\"}]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"Catalog_20230610-9P3GIH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+TestID->\"Catalog_20230818-JMDSLH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
 \t\tMap[AssociationQ,\n\t\t\tFlatten[\n\t\t\t\t{\n\t\t\t\t\tHead @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models,\n\t\t\t\t\tMap[Function @ \
 Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\
-\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-A2TH7C\"\n]\n\
+\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-378O7D\"\n]\n\
 \n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
 Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\t\t\t\
@@ -2732,7 +2732,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\t\t\t\t\t\t][__],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\
 \t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\
 \t\t\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\
-\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-7VIZ3G\"\n]\n\
+\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-S2LCS4\"\n]\n\
 \n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
 Apply[And,\n\t\t\t\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\
 \"]&,\n\t\t\t\t\t\tMap[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
@@ -2742,7 +2742,7 @@ Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\t\t\t\
 Catalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\
 \t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t],\n\t\t\tKeys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\
-\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-CRNM7A\"\n]\n\n\nVerificationTest[\n\
+\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-YAL7TY\"\n]\n\n\nVerificationTest[\n\
 \tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\tApply[And,\n\t\t\t\t\t\
 Map[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\t\t\t\t\
 Map[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
@@ -2752,7 +2752,7 @@ Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
 \t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
 \t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-19YY4G\"\n]\n\n\n\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-O8TATH\"\n]\n\n\n\
 VerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
 Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\t\t\t\tMap[Context,\
@@ -2763,7 +2763,7 @@ Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
 \t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
 \t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-QA6G8W\"\n]\n\n\n\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-WHJ85T\"\n]\n\n\n\
 VerificationTest[\n\tApply[And,\n\t\tMap[MatchQ[{}, #]&,\n\t\t\tMap[\n\t\t\t\t\
 Function[\n\t\t\t\t\t\
 Cases[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\
@@ -2775,7 +2775,7 @@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],\n\t\t\t\t\t\t\
 ][__],\n\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t],\n\t\t\t\t\t\tInfinity\n\t\t\
 \t\t\t]\n\t\t\t\t],\n\t\t\t\tKeys @ \
 FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t]\n\t\t]\n\t]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230610-Z5QV8I\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-8QV3HS\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
   DynamicModuleValues:>{{
@@ -2839,8 +2839,866 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{{3.895362773192423*^9, 3.89536278481857*^9}},
- CellLabel->"Out[22]=",ExpressionUUID->"a95b0f8f-6b12-42a8-9d32-b6fc54a35863"]
+ CellChangeTimes->{3.901355002560134*^9, 3.901355123647376*^9},
+ CellLabel->"Out[22]=",ExpressionUUID->"b124026d-dad5-4688-8aaa-a9ba94930662"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "True", " ", "if", " ", "modelsExtraInfo", " ", "is", " ", "an", " ", 
+    "association", " ", "and", " ", "each", " ", "model", " ", "inside", " ", 
+    "modelsExtraInfo", " ", "is", " ", "an", " ", "association"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+    RowBox[{"(*", "\"\<stateVars\>\"", "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"And", "@@", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"AllTrue", "[", 
+        RowBox[{"modelsExtraInfo", ",", "AssociationQ"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"AllTrue", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"modelsExtraInfo", "[", "#", "]"}], "&"}], "/@", 
+          RowBox[{"Keys", "[", "modelsExtraInfo", "]"}]}], ",", 
+         "AssociationQ"}], "]"}]}], "\[IndentingNewLine]", "}"}]}], 
+    "\[IndentingNewLine]", ",", 
+    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.901354712476226*^9, 3.901354720626876*^9}, 
+   3.901354757130762*^9},
+ CellLabel->"In[23]:=",ExpressionUUID->"f5ca1345-d64e-4932-bad5-b6dd8e1f4392"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-BV7QIC\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-BV7QIC"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.901355002596871*^9, 3.9013551236840754`*^9},
+ CellLabel->
+  "During evaluation of \
+In[23]:=",ExpressionUUID->"5198a873-9265-4129-851f-d2fa9a6763d1"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.901355002596871*^9, 3.9013551237029057`*^9},
+ CellLabel->
+  "During evaluation of \
+In[23]:=",ExpressionUUID->"f876161e-759d-4e62-a394-0dc36e9bbaa2"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "Apply[And,\n\t\t{\n\t\t\t\
+AllTrue[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo, \
+AssociationQ],\n\t\t\t\
+AllTrue[Map[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]&, \
+Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo],\n\t\t\t\t\
+AssociationQ\n\t\t\t]\n\t\t}\n\t]", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tApply[And,\n\t\t{\n\t\t\t\
+AllTrue[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo, \
+AssociationQ],\n\t\t\t\
+AllTrue[Map[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]&, \
+Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo],\n\t\t\t\t\
+AssociationQ\n\t\t\t]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-BV7QIC\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> True, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 0., "AbsoluteTiming" -> 0., 
+   "InputString" :> ToString[
+     Unevaluated[
+      Apply[And, {
+        AllTrue[
+        FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo, 
+         AssociationQ], 
+        AllTrue[
+         Map[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]& , 
+          Keys[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]], 
+         AssociationQ]}]], InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
+\"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
+MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
+VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
+Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
+\"name\"],\n\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
+\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"bibRef\"],\n\t\t\t\t\t\
+\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
+\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
+\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+\t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
+\t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
+1;;, 2] //. \
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
+],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
+]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nVerificationTest[\n\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
+\t{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
+\", \"BKY\"}]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-JMDSLH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+\t\tMap[AssociationQ,\n\t\t\tFlatten[\n\t\t\t\t{\n\t\t\t\t\tHead @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models,\n\t\t\t\t\tMap[Function @ \
+Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\
+\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-378O7D\"\n]\n\
+\n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
+Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
+\"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\t\t\t\
+Map[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\t\t\t\
+\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[\n\t\t\t\t\t\t\t\t\t\t\
+Catalog`var_Symbol,\n\t\t\t\t\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\t\t\t\t\t\
+MemberQ[\n\t\t\t\t\t\t\t\t\t\t\t\tMap[Function[StringDrop[#, -2]], \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
+\t\t\t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\
+\t\t\t\t\t\t\t][__],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\
+\t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\
+\t\t\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\
+\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-S2LCS4\"\n]\n\
+\n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
+Apply[And,\n\t\t\t\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\
+\"]&,\n\t\t\t\t\t\tMap[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\t\t\t\
+\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[Catalog`var_Symbol, \
+Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\t\t\t\
+Catalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\
+\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t],\n\t\t\tKeys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\
+\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-YAL7TY\"\n]\n\n\nVerificationTest[\n\
+\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\tApply[And,\n\t\t\t\t\t\
+Map[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\t\t\t\t\
+Map[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"],\n\t\t\t\t\
+\t\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[Catalog`var_Symbol, \
+Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
+SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
+\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
+\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-O8TATH\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
+Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
+\"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\t\t\t\tMap[Context,\
+\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\t\t\t\
+\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[Catalog`var_Symbol, \
+Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
+SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
+\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
+\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-WHJ85T\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\tMap[MatchQ[{}, #]&,\n\t\t\tMap[\n\t\t\t\t\
+Function[\n\t\t\t\t\t\
+Cases[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\
+\t\t\t\tRuleDelayed[\n\t\t\t\t\t\t\tPatternTest[\n\t\t\t\t\t\t\t\t\
+Catalog`var_Symbol,\n\t\t\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\t\t\tMemberQ[\n\t\
+\t\t\t\t\t\t\t\t\tMap[Function[StringDrop[#, -2]], \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],\n\t\t\t\t\t\t\
+\t\t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\
+][__],\n\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t],\n\t\t\t\t\t\tInfinity\n\t\t\
+\t\t\t]\n\t\t\t\t],\n\t\t\t\tKeys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t]\n\t\t]\n\t]\n\t,\n\t\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-8QV3HS\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\t{\n\t\t\t\
+AllTrue[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo, \
+AssociationQ],\n\t\t\t\
+AllTrue[Map[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]&, \
+Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo],\n\t\t\t\t\
+AssociationQ\n\t\t\t]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-BV7QIC\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.901355002620672*^9, 3.901355123707529*^9},
+ CellLabel->"Out[23]=",ExpressionUUID->"821f1e90-536d-4746-818a-245b4430f52b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "True", " ", "if", " ", "models", " ", "in", " ", "modelsExtraInfo", " ", 
+    "are", " ", "a", " ", "subset", " ", "of", " ", "those", " ", "defined", 
+    " ", "in", " ", "models"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+    RowBox[{"(*", "\"\<stateVars\>\"", "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"And", "@@", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"SubsetQ", "[", 
+       RowBox[{
+        RowBox[{"Keys", "[", "models", "]"}], ",", 
+        RowBox[{"Keys", "[", "modelsExtraInfo", "]"}]}], "]"}], 
+      "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", ",", 
+    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.9013547750980167`*^9, 3.901354787461472*^9}},
+ CellLabel->"In[24]:=",ExpressionUUID->"7aa2432c-8b1c-4da0-9390-74fe2051cbf3"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-SBMA65\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-SBMA65"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.901355002657137*^9, 3.90135512375016*^9},
+ CellLabel->
+  "During evaluation of \
+In[24]:=",ExpressionUUID->"ba4ee7b5-a95d-4d61-8a94-2e5e52f500ab"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.901355002657137*^9, 3.90135512376912*^9},
+ CellLabel->
+  "During evaluation of \
+In[24]:=",ExpressionUUID->"e05de2f3-dc80-450a-9294-5289faacf2e5"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "Apply[And, {SubsetQ[Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models, Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]}]", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tApply[And, {SubsetQ[Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models, Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]}]\n\t,\n\tTrue\n\t,\
+\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-SBMA65\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> True, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 0., "AbsoluteTiming" -> 0., 
+   "InputString" :> ToString[
+     Unevaluated[
+      Apply[And, {
+        SubsetQ[
+         Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], 
+         Keys[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]]}]], 
+     InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
+\"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
+MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
+VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
+Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
+\"name\"],\n\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
+\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"bibRef\"],\n\t\t\t\t\t\
+\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
+\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
+\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+\t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
+\t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
+1;;, 2] //. \
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
+],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
+]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nVerificationTest[\n\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
+\t{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
+\", \"BKY\"}]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-JMDSLH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+\t\tMap[AssociationQ,\n\t\t\tFlatten[\n\t\t\t\t{\n\t\t\t\t\tHead @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models,\n\t\t\t\t\tMap[Function @ \
+Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\
+\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-378O7D\"\n]\n\
+\n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
+Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
+\"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\t\t\t\
+Map[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\t\t\t\
+\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[\n\t\t\t\t\t\t\t\t\t\t\
+Catalog`var_Symbol,\n\t\t\t\t\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\t\t\t\t\t\
+MemberQ[\n\t\t\t\t\t\t\t\t\t\t\t\tMap[Function[StringDrop[#, -2]], \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
+\t\t\t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\
+\t\t\t\t\t\t\t][__],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\
+\t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\
+\t\t\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\
+\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-S2LCS4\"\n]\n\
+\n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
+Apply[And,\n\t\t\t\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\
+\"]&,\n\t\t\t\t\t\tMap[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\t\t\t\
+\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[Catalog`var_Symbol, \
+Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\t\t\t\
+Catalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\
+\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t],\n\t\t\tKeys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\
+\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-YAL7TY\"\n]\n\n\nVerificationTest[\n\
+\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\tApply[And,\n\t\t\t\t\t\
+Map[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\t\t\t\t\
+Map[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"],\n\t\t\t\t\
+\t\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[Catalog`var_Symbol, \
+Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
+SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
+\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
+\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-O8TATH\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
+Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
+\"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\t\t\t\tMap[Context,\
+\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\t\t\t\
+\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[Catalog`var_Symbol, \
+Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
+SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
+\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
+\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-WHJ85T\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\tMap[MatchQ[{}, #]&,\n\t\t\tMap[\n\t\t\t\t\
+Function[\n\t\t\t\t\t\
+Cases[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\
+\t\t\t\tRuleDelayed[\n\t\t\t\t\t\t\tPatternTest[\n\t\t\t\t\t\t\t\t\
+Catalog`var_Symbol,\n\t\t\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\t\t\tMemberQ[\n\t\
+\t\t\t\t\t\t\t\t\tMap[Function[StringDrop[#, -2]], \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],\n\t\t\t\t\t\t\
+\t\t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\
+][__],\n\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t],\n\t\t\t\t\t\tInfinity\n\t\t\
+\t\t\t]\n\t\t\t\t],\n\t\t\t\tKeys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t]\n\t\t]\n\t]\n\t,\n\t\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-8QV3HS\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\t{\n\t\t\t\
+AllTrue[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo, \
+AssociationQ],\n\t\t\t\
+AllTrue[Map[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]&, \
+Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo],\n\t\t\t\t\
+AssociationQ\n\t\t\t]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-BV7QIC\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+{SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models, Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]}]\n\t,\n\tTrue\n\t,\
+\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-SBMA65\"\n]\n\n\nEndTestSection[]\n\
+"}, "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.901355002677319*^9, 3.901355123773847*^9},
+ CellLabel->"Out[24]=",ExpressionUUID->"6d35919c-9e8b-430e-b0c2-4d4c824a60db"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "True", " ", "if", " ", "Ewc", " ", "in", " ", "initialGuess", " ", 
+     "inside", " ", "modelsExtraInfo", " ", "is", " ", "a", " ", "list", " ", 
+     "with", " ", "a", " ", "single", " ", "number", " ", "and"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+    "if", " ", "Epd", " ", "in", " ", "initialGuess", " ", "inside", " ", 
+     "modelsExtraInfo", " ", "exists"}], ",", " ", 
+    RowBox[{
+    "it", " ", "has", " ", "dimensions", " ", "consistent", " ", "with", " ", 
+     "numStocks", " ", "in", " ", "models"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
+    RowBox[{"(*", "\"\<stateVars\>\"", "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"And", "@@", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"VectorQ", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"modelsExtraInfo", "[", "\"\<BY\>\"", "]"}], "[", 
+             "\"\<initialGuess\>\"", "]"}], "[", "\"\<Ewc\>\"", "]"}], ",", 
+           "NumberQ"}], "]"}], " ", "&&", " ", 
+         RowBox[{
+          RowBox[{"Dimensions", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"modelsExtraInfo", "[", "\"\<BY\>\"", "]"}], "[", 
+             "\"\<initialGuess\>\"", "]"}], "[", "\"\<Ewc\>\"", "]"}], "]"}], 
+          "==", 
+          RowBox[{"{", "1", "}"}]}]}], ")"}], " ", ",", "\[IndentingNewLine]", 
+       RowBox[{"And", "@@", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Implies", "[", 
+            RowBox[{
+             RowBox[{"KeyExistsQ", "[", 
+              RowBox[{
+               RowBox[{"modelsExtraInfo", "[", "#", "]"}], ",", 
+               "\"\<initialGuess\>\""}], "]"}], ",", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Dimensions", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"modelsExtraInfo", "[", "#", "]"}], "[", 
+                  "\"\<initialGuess\>\"", "]"}], "[", "\"\<Epd\>\"", "]"}], 
+                "]"}], "==", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Count", "[", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"models", "[", "#", "]"}], "[", 
+                    "\"\<parameters\>\"", "]"}], ",", " ", 
+                   RowBox[{"mud", "[", "_Integer", "]"}], ",", " ", 
+                   "Infinity"}], "]"}], ",", "1"}], "}"}]}], ")"}]}], "]"}], 
+           "&"}], "/@", 
+          RowBox[{"Keys", "[", "modelsExtraInfo", "]"}]}], ")"}]}]}], 
+      "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", ",", 
+    RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.9013548101359787`*^9, 3.901354928094619*^9}, 
+   3.901355109464764*^9},
+ CellLabel->"In[25]:=",ExpressionUUID->"334254d6-ef9b-468f-9a92-aba24077ad39"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"Catalog_20230818-HONONJ\"\>"}],
+  SequenceForm["Adding test: ", "Catalog_20230818-HONONJ"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.9013550027280197`*^9, 3.901355123810321*^9},
+ CellLabel->
+  "During evaluation of \
+In[25]:=",ExpressionUUID->"96d0fad2-0d9d-49d0-98d9-f02ac6bf6ec0"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>"], "Print",
+ CellChangeTimes->{3.9013550027280197`*^9, 3.901355123811511*^9},
+ CellLabel->
+  "During evaluation of \
+In[25]:=",ExpressionUUID->"3ff74205-7162-4ac0-b3b8-ee15b2317a11"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "Apply[And,\n\t\t{\n\t\t\t\
+And[VectorQ[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ \
+\"BY\"[\"initialGuess\"][\"Ewc\"], NumberQ],\n\t\t\t\tEqual[Dimensions @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ \
+\"BY\"[\"initialGuess\"][\"Ewc\"],\n\t\t\t\t\t{1}\n\t\t\t\t]\n\t\t\t],\n\t\t\t\
+Apply[And,\n\t\t\t\tMap[\n\t\t\t\t\tFunction @ Implies[\n\t\t\t\t\t\t\
+KeyExistsQ[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ #, \
+\"initialGuess\"],\n\t\t\t\t\t\tEqual[\n\t\t\t\t\t\t\tDimensions @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ \
+#[\"initialGuess\"][\"Epd\"],\n\t\t\t\t\t\t\t\
+{Count[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
+Catalog`mud @ _Integer, Infinity], 1}\n\t\t\t\t\t\t]\n\t\t\t\t\t],\n\t\t\t\t\t\
+Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo\n\t\t\t\t]\n\t\
+\t\t]\n\t\t}\n\t]", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = False, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tApply[And,\n\t\t{\n\t\t\t\
+And[VectorQ[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ \
+\"BY\"[\"initialGuess\"][\"Ewc\"], NumberQ],\n\t\t\t\tEqual[Dimensions @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ \
+\"BY\"[\"initialGuess\"][\"Ewc\"],\n\t\t\t\t\t{1}\n\t\t\t\t]\n\t\t\t],\n\t\t\t\
+Apply[And,\n\t\t\t\tMap[\n\t\t\t\t\tFunction @ Implies[\n\t\t\t\t\t\t\
+KeyExistsQ[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ #, \
+\"initialGuess\"],\n\t\t\t\t\t\tEqual[\n\t\t\t\t\t\t\tDimensions @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ \
+#[\"initialGuess\"][\"Epd\"],\n\t\t\t\t\t\t\t\
+{Count[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
+Catalog`mud @ _Integer, Infinity], 1}\n\t\t\t\t\t\t]\n\t\t\t\t\t],\n\t\t\t\t\t\
+Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo\n\t\t\t\t]\n\t\
+\t\t]\n\t\t}\n\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-HONONJ\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> False, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 0., "AbsoluteTiming" -> 0., 
+   "InputString" :> ToString[
+     Unevaluated[
+      Apply[And, {
+        And[
+         VectorQ[
+          FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo["BY"][
+          "initialGuess"]["Ewc"], NumberQ], Dimensions[
+           FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo["BY"][
+           "initialGuess"]["Ewc"]] == {1}], 
+        Apply[And, 
+         Map[Implies[
+           KeyExistsQ[
+            FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#], 
+            "initialGuess"], Dimensions[
+             FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#][
+             "initialGuess"]["Epd"]] == {
+             Count[
+              FernandoDuarte`LongRunRisk`Model`Catalog`models[#][
+              "parameters"], 
+              Catalog`mud[
+               Blank[Integer]], Infinity], 1}]& , 
+          Keys[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]]]}]],
+      InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"Catalog\"]\n\n\nVerificationTest[\n\tGet @ \
+\"FernandoDuarte`LongRunRisk`Model`Catalog`\";\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\
+\tTestID->\"Catalog_20230818-EZ0IPS\"\n]\n\n\nVerificationTest[\n\t\
+MemberQ[$ContextPath, \"FernandoDuarte`LongRunRisk`Model`Catalog`\"]\n\t,\n\t\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-9IB3BO\"\n]\n\n\n\
+VerificationTest[\n\tApply[And, Map[StringQ, Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models]]\n\t,\n\tTrue\n\t,\n\t{}\n\t\
+,\n\tTestID->\"Catalog_20230818-Q9619E\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tMap[StringQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\t\
+Function @ {\n\t\t\t\t\t\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\
+\"name\"],\n\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"shortname\"],\n\t\t\t\t\t\
+\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"bibRef\"],\n\t\t\t\t\t\
+\tFernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"desc\"]\n\t\t\t\t\t},\n\
+\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t]\n\
+\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-J79VTR\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+\t\tMap[NumberQ,\n\t\t\tFlatten[\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
+\t\tPart[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
+1;;, 2] //. \
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"]\n\t\t\t\t\t\
+],\n\t\t\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t\t\
+]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-TYBNVE\"\n]\n\n\nVerificationTest[\n\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[\"BY\"][\"stateVars\"]\n\t,\n\
+\t{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-O92FQK\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {\"BY\
+\", \"BKY\"}]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-JMDSLH\"\n]\n\n\nVerificationTest[\n\tApply[And,\n\
+\t\tMap[AssociationQ,\n\t\t\tFlatten[\n\t\t\t\t{\n\t\t\t\t\tHead @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models,\n\t\t\t\t\tMap[Function @ \
+Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\
+\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-378O7D\"\n]\n\
+\n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
+Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
+\"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\t\t\t\
+Map[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\t\t\t\
+\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[\n\t\t\t\t\t\t\t\t\t\t\
+Catalog`var_Symbol,\n\t\t\t\t\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\t\t\t\t\t\
+MemberQ[\n\t\t\t\t\t\t\t\t\t\t\t\tMap[Function[StringDrop[#, -2]], \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
+\t\t\t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\
+\t\t\t\t\t\t\t][__],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\
+\t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\
+\t\t\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\
+\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-S2LCS4\"\n]\n\
+\n\nVerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
+Apply[And,\n\t\t\t\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\
+\"]&,\n\t\t\t\t\t\tMap[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\t\t\t\
+\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[Catalog`var_Symbol, \
+Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\t\t\t\
+Catalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\
+\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t],\n\t\t\tKeys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\
+\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-YAL7TY\"\n]\n\n\nVerificationTest[\n\
+\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\tApply[And,\n\t\t\t\t\t\
+Map[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\t\t\t\t\
+Map[Context,\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"],\n\t\t\t\t\
+\t\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[Catalog`var_Symbol, \
+Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
+SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
+\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
+\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-O8TATH\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\tMap[\n\t\t\tFunction[\n\t\t\t\t\
+Apply[And,\n\t\t\t\t\tMap[SameQ[#, \
+\"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\t\t\t\tMap[Context,\
+\n\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\t\t\t\
+\t\t\tRuleDelayed[\n\t\t\t\t\t\t\t\t\tPatternTest[Catalog`var_Symbol, \
+Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
+SymbolName[#]]]],\n\t\t\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\
+\t\t\t\tInfinity\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\
+\t],\n\t\t\tKeys @ FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t]\n\t\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-WHJ85T\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\tMap[MatchQ[{}, #]&,\n\t\t\tMap[\n\t\t\t\t\
+Function[\n\t\t\t\t\t\
+Cases[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"stateVars\"],\n\t\t\
+\t\t\t\tRuleDelayed[\n\t\t\t\t\t\t\tPatternTest[\n\t\t\t\t\t\t\t\t\
+Catalog`var_Symbol,\n\t\t\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\t\t\tMemberQ[\n\t\
+\t\t\t\t\t\t\t\t\tMap[Function[StringDrop[#, -2]], \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],\n\t\t\t\t\t\t\
+\t\t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\
+][__],\n\t\t\t\t\t\t\tCatalog`var\n\t\t\t\t\t\t],\n\t\t\t\t\t\tInfinity\n\t\t\
+\t\t\t]\n\t\t\t\t],\n\t\t\t\tKeys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`models\n\t\t\t]\n\t\t]\n\t]\n\t,\n\t\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-8QV3HS\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\t{\n\t\t\t\
+AllTrue[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo, \
+AssociationQ],\n\t\t\t\
+AllTrue[Map[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]&, \
+Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo],\n\t\t\t\t\
+AssociationQ\n\t\t\t]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-BV7QIC\"\n]\n\n\nVerificationTest[\n\tApply[And, \
+{SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models, Keys @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]}]\n\t,\n\tTrue\n\t,\
+\n\t{}\n\t,\n\tTestID->\"Catalog_20230818-SBMA65\"\n]\n\n\nVerificationTest[\n\
+\tApply[And,\n\t\t{\n\t\t\t\
+And[VectorQ[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ \
+\"BY\"[\"initialGuess\"][\"Ewc\"], NumberQ],\n\t\t\t\tEqual[Dimensions @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ \
+\"BY\"[\"initialGuess\"][\"Ewc\"],\n\t\t\t\t\t{1}\n\t\t\t\t]\n\t\t\t],\n\t\t\t\
+Apply[And,\n\t\t\t\tMap[\n\t\t\t\t\tFunction @ Implies[\n\t\t\t\t\t\t\
+KeyExistsQ[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ #, \
+\"initialGuess\"],\n\t\t\t\t\t\tEqual[\n\t\t\t\t\t\t\tDimensions @ \
+FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ \
+#[\"initialGuess\"][\"Epd\"],\n\t\t\t\t\t\t\t\
+{Count[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][\"parameters\"], \
+Catalog`mud @ _Integer, Infinity], 1}\n\t\t\t\t\t\t]\n\t\t\t\t\t],\n\t\t\t\t\t\
+Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo\n\t\t\t\t]\n\t\
+\t\t]\n\t\t}\n\t]\n\t,\n\tFalse\n\t,\n\t{}\n\t,\n\t\
+TestID->\"Catalog_20230818-HONONJ\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]; SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.901355002755817*^9, 3.901355123829152*^9},
+ CellLabel->"Out[25]=",ExpressionUUID->"6c074c89-bba2-48ee-afb0-f2760ef4c6c5"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2848,11 +3706,11 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"End", "[", "]"}]], "Input",
  CellChangeTimes->{{3.890680295645965*^9, 3.89068029650622*^9}},
- CellLabel->"In[23]:=",ExpressionUUID->"1e489da7-03ac-4c09-a3b0-3f18678c417b"],
+ CellLabel->"In[26]:=",ExpressionUUID->"1e489da7-03ac-4c09-a3b0-3f18678c417b"],
 
 Cell[BoxData["\<\"Catalog`\"\>"], "Output",
- CellChangeTimes->{{3.895362773198694*^9, 3.895362784843158*^9}},
- CellLabel->"Out[23]=",ExpressionUUID->"51731e53-cfcb-4640-9d62-94b4b18e747b"]
+ CellChangeTimes->{3.9013550027628717`*^9, 3.901355123836164*^9},
+ CellLabel->"Out[26]=",ExpressionUUID->"484351e7-7ed2-44ff-94b6-56b84ffca410"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -2862,7 +3720,7 @@ Cell[BoxData[
    RowBox[{"End", "[", "]"}], " ", "to", " ", "wlt", " ", "file"}], 
   "*)"}]], "Input",
  CellChangeTimes->{{3.890686194230386*^9, 3.890686228283702*^9}},
- CellLabel->"In[24]:=",ExpressionUUID->"d681ce4c-fe5c-46cc-a106-c3fb97c91dc9"],
+ CellLabel->"In[27]:=",ExpressionUUID->"d681ce4c-fe5c-46cc-a106-c3fb97c91dc9"],
 
 Cell[BoxData[
  RowBox[{
@@ -2897,7 +3755,7 @@ Cell[BoxData[
   3.890682055663522*^9, 3.890682084827585*^9}, {3.890683635625399*^9, 
   3.890683720295089*^9}, {3.890685425949465*^9, 3.890685434516119*^9}, {
   3.890686231117095*^9, 3.890686238212121*^9}},
- CellLabel->"In[25]:=",ExpressionUUID->"8480e291-f089-46a8-93b3-cdc5392f18f2"],
+ CellLabel->"In[28]:=",ExpressionUUID->"8480e291-f089-46a8-93b3-cdc5392f18f2"],
 
 Cell[BoxData[{
  RowBox[{"ClearAll", "[", "replaceNthRecord", "]"}], "\[IndentingNewLine]", 
@@ -2966,7 +3824,7 @@ Cell[BoxData[{
    3.8906858923977957`*^9, {3.890685924003189*^9, 3.890685959055036*^9}, {
    3.890686016304421*^9, 3.890686073140353*^9}, {3.890686249638393*^9, 
    3.8906862512145*^9}},
- CellLabel->"In[26]:=",ExpressionUUID->"c6d94536-d712-4817-8c56-b5a9e698596b"],
+ CellLabel->"In[29]:=",ExpressionUUID->"c6d94536-d712-4817-8c56-b5a9e698596b"],
 
 Cell[CellGroupData[{
 
@@ -3007,7 +3865,7 @@ Cell[BoxData[
   3.890684439578331*^9, {3.8906861781312037`*^9, 3.890686181646003*^9}, {
    3.890686261099564*^9, 3.8906862940387907`*^9}, 3.891156970368805*^9, 
    3.891216542664113*^9},
- CellLabel->"In[28]:=",ExpressionUUID->"9e83fb3a-481f-4cb8-b330-c26292abdf5f"],
+ CellLabel->"In[31]:=",ExpressionUUID->"9e83fb3a-481f-4cb8-b330-c26292abdf5f"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -3016,12 +3874,12 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlttemp\"\>"}], 
   "}"}]], "Output",
- CellChangeTimes->{{3.895362773212719*^9, 3.89536278490219*^9}},
- CellLabel->"Out[28]=",ExpressionUUID->"30c41965-565f-4cf8-ae28-7c44739122c3"],
+ CellChangeTimes->{3.901355002827455*^9, 3.901355123899284*^9},
+ CellLabel->"Out[31]=",ExpressionUUID->"2c4a414c-4a80-4460-b25f-7bd260b33d91"],
 
-Cell[BoxData["267"], "Output",
- CellChangeTimes->{{3.895362773212719*^9, 3.8953627849092007`*^9}},
- CellLabel->"Out[31]=",ExpressionUUID->"674f7df4-4697-468b-8ee9-0f031c1169c6"],
+Cell[BoxData["321"], "Output",
+ CellChangeTimes->{3.901355002827455*^9, 3.901355123907591*^9},
+ CellLabel->"Out[34]=",ExpressionUUID->"b096d74d-44d0-44a5-89d3-983d0958e0e7"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -3030,8 +3888,8 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlttemp\"\>"}], 
   "}"}]], "Output",
- CellChangeTimes->{{3.895362773212719*^9, 3.89536278491857*^9}},
- CellLabel->"Out[32]=",ExpressionUUID->"c09591b6-6700-4841-9c1a-b9b2f47faf3a"]
+ CellChangeTimes->{3.901355002827455*^9, 3.9013551239205847`*^9},
+ CellLabel->"Out[35]=",ExpressionUUID->"ce57995e-1a60-47ec-96f6-ae8f98ebba36"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3039,7 +3897,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"tr", "=", 
   RowBox[{"TestReport", "[", "testFileName", "]"}]}]], "Input",
- CellLabel->"In[35]:=",ExpressionUUID->"e077b813-cdd0-4bd1-8dfd-78f30a4f8df7"],
+ CellLabel->"In[38]:=",ExpressionUUID->"e077b813-cdd0-4bd1-8dfd-78f30a4f8df7"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -3098,9 +3956,9 @@ Cell[BoxData[
                     StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
                     AutoDelete -> True], PercentForm], "SummaryItem"]}], 
                RowBox[{
-                 TagBox["\"Tests run: \"", "SummaryItemAnnotation"], 
+                 TagBox["\"Tests count: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
-                 TagBox["13", "SummaryItem"]}]}}, 
+                 TagBox["16", "SummaryItem"]}]}}, 
              GridBoxAlignment -> {
               "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
              False, GridBoxItemSize -> {
@@ -3162,40 +4020,22 @@ Cell[BoxData[
                     StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
                     AutoDelete -> True], PercentForm], "SummaryItem"]}], 
                RowBox[{
-                 TagBox["\"Tests run: \"", "SummaryItemAnnotation"], 
+                 TagBox["\"Tests count: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
-                 TagBox["13", "SummaryItem"]}]}, {
+                 TagBox["16", "SummaryItem"]}]}, {
                RowBox[{
                  TagBox["\"Succeeded: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
-                 TagBox["13", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
-                 TagBox["\"Failed: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
-                 TagBox[
-                 "\"Failed with wrong results: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
-                 TagBox[
-                 "\"Failed with messages: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
-                 TagBox["\"Failed with errors: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
+                 TagBox["16", "SummaryItem"]}], "\[SpanFromLeft]"}, {
                RowBox[{
                  TagBox["\"Time elapsed: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
                  TagBox[
                   
                   TemplateBox[{
-                   "0.018248`", "\"s\"", "seconds", "\"Seconds\""}, 
-                   "Quantity", SyntaxForm -> Mod], "SummaryItem"]}], 
-               "\[SpanFromLeft]"}}, 
+                   "0.0176290000000000002`3.192622692943384", "\"s\"", 
+                    "seconds", "\"Seconds\""}, "Quantity", SyntaxForm -> Mod],
+                   "SummaryItem"]}], "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
               "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
              False, GridBoxItemSize -> {
@@ -3215,61 +4055,69 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: Catalog.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     249783349622661243 -> 
-      TestResultObject[<|
-        "TestKey" -> 249783349622661243, "TestID" -> 
-         "Catalog_20230610-OQB689", "TestFileName" -> 
+     2524745101314687337 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9013551239838867`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "fea705ec-13a1-426e-a96a-2cb7e173a7d1", "TestID" -> 
+         "Catalog_20230818-EZ0IPS", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> 
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "14fe0d47-0dde-4a8a-9a17-0c657f76b4a8", "Input" -> 
          HoldForm[Get["FernandoDuarte`LongRunRisk`Model`Catalog`"]; Null], 
-         "ExpectedOutput" -> HoldForm[Null], "ActualOutput" -> HoldForm[Null],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8953627849633393`*^9, "AbsoluteTimeUsed" -> 
-         0.012076`4.232438102183054, "CPUTimeUsed" -> 0.011941000000000201`, 
-         "MemoryUsed" -> -169184|>], 2007547390434635391 -> 
-      TestResultObject[<|
-        "TestKey" -> 2007547390434635391, "TestID" -> 
-         "Catalog_20230610-HTF3BH", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[Null],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.011173`4.198684796598012, "CPUTimeUsed" -> 0.011174999999999713`, 
+         "MemoryUsed" -> -182016, "ExpectedOutput" -> HoldForm[Null], 
+         "Outcome" -> "Success"|>], 1760978382552566969 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901355123995362*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "dbdaafb1-9731-4003-a050-8bdcd571c456", "TestID" -> 
+         "Catalog_20230818-9IB3BO", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "946917e9-992c-4631-b51a-ad18d649987c", "Input" -> HoldForm[
+           
            MemberQ[$ContextPath, 
-            "FernandoDuarte`LongRunRisk`Model`Catalog`"]], "ExpectedOutput" -> 
-         HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895362784977477*^9, "AbsoluteTimeUsed" -> 
-         0.000032`1.6556649761518993, "CPUTimeUsed" -> 0.000032000000000032, 
-         "MemoryUsed" -> 3296|>], 4876096927021919936 -> 
-      TestResultObject[<|
-        "TestKey" -> 4876096927021919936, "TestID" -> 
-         "Catalog_20230610-BN4CMJ", "TestFileName" -> 
+            "FernandoDuarte`LongRunRisk`Model`Catalog`"]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000026`1.5654883458028126, "CPUTimeUsed" -> 
+         0.000025999999999637424`, "MemoryUsed" -> 3104, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 3848560878771573040 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9013551239956207`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "e0c40bb6-68f1-4830-8371-8f42586b3348", "TestID" -> 
+         "Catalog_20230818-Q9619E", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "894bd4c9-f3ec-4dea-b6ed-93c30746c27d", "Input" -> HoldForm[
            Apply[And, 
             Map[StringQ, 
              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895362784977693*^9, "AbsoluteTimeUsed" -> 
-         0.000026`1.5654883458028115, "CPUTimeUsed" -> 
-         0.000026999999999777202`, "MemoryUsed" -> 2856|>], 
-      390632354450251920 -> 
-      TestResultObject[<|
-        "TestKey" -> 390632354450251920, "TestID" -> 
-         "Catalog_20230610-WT7OAT", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000025`1.5484550065040317, "CPUTimeUsed" -> 
+         0.000025000000000385825`, "MemoryUsed" -> 2560, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 8946356687632719448 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9013551239958725`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "d5fa3b32-b09b-464e-953b-efcf01c31999", "TestID" -> 
+         "Catalog_20230818-J79VTR", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "42514bc6-8238-4ab2-8385-e29888ad7bba", "Input" -> HoldForm[
            Apply[And, 
             Map[StringQ, 
              Flatten[
@@ -3281,19 +4129,21 @@ Cell[BoxData[
                 
                 FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["desc"]}& , 
                Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8953627849779053`*^9, "AbsoluteTimeUsed" -> 
-         0.000061`1.935844832842761, "CPUTimeUsed" -> 0.00006199999999978445, 
-         "MemoryUsed" -> 2856|>], 2661900958057965824 -> 
-      TestResultObject[<|
-        "TestKey" -> 2661900958057965824, "TestID" -> 
-         "Catalog_20230610-C1FMQ2", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000055`1.8908776873262378, "CPUTimeUsed" -> 0.00005600000000027805,
+          "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 867316389275546409 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9013551239961367`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "877df8cc-98de-4d93-aefe-dbb6649b1033", "TestID" -> 
+         "Catalog_20230818-TYBNVE", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "9e35a6c1-3d35-490d-88f4-b5acc505a5ef", "Input" -> HoldForm[
            Apply[And, 
             Map[NumberQ, 
              Flatten[
@@ -3305,59 +4155,64 @@ Cell[BoxData[
                 FernandoDuarte`LongRunRisk`Model`Catalog`models[#][
                 "parameters"]]& , 
                Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895362784978135*^9, "AbsoluteTimeUsed" -> 
-         0.002498`3.5481074318701107, "CPUTimeUsed" -> 0.0024980000000001112`,
-          "MemoryUsed" -> 176256|>], 8141817888168856157 -> 
-      TestResultObject[<|
-        "TestKey" -> 8141817888168856157, "TestID" -> 
-         "Catalog_20230610-UQSRTE", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.002482`3.545316774994705, "CPUTimeUsed" -> 0.002482999999999791, 
+         "MemoryUsed" -> 190472, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 5500938946825709855 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.90135512399884*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "028b27ea-4440-4276-874f-7104b6b64eda", "TestID" -> 
+         "Catalog_20230818-O92FQK", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "41559609-f5db-4651-9165-cd0267e5a872", "Input" -> HoldForm[
            FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"][
-           "stateVars"]], "ExpectedOutput" -> HoldForm[{
-            FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x[
-            FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], 
-            FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx[
-            FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]}], 
+           "stateVars"]], "ExpectedMessages" -> HoldForm[{}], 
          "ActualOutput" -> HoldForm[{
             FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x[
             FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], 
             FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx[
             FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]}], 
-         "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8953627849809713`*^9, "AbsoluteTimeUsed" -> 
-         0.000026`1.5654883458028126, "CPUTimeUsed" -> 
-         0.000026000000000081513`, "MemoryUsed" -> 2816|>], 
-      569471102416415519 -> 
-      TestResultObject[<|
-        "TestKey" -> 569471102416415519, "TestID" -> 
-         "Catalog_20230610-9P3GIH", "TestFileName" -> 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000021`1.4727342925659124, "CPUTimeUsed" -> 0.00002199999999996649,
+          "MemoryUsed" -> 2688, "ExpectedOutput" -> HoldForm[{
+            FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x[
+            FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], 
+            FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx[
+            FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]}], 
+         "Outcome" -> "Success"|>], 914380413003860376 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901355123999066*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "80e9499a-d652-4d54-aae2-451eaf119367", "TestID" -> 
+         "Catalog_20230818-JMDSLH", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "80b31e3c-1c3e-4ee5-95c7-798421490cfd", "Input" -> HoldForm[
            Apply[And, 
             Map[MemberQ[
               Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]& , {
-             "BY", "BKY"}]]], "ExpectedOutput" -> HoldForm[True], 
-         "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> HoldForm[{}],
-          "ActualMessages" -> {}, "AbsoluteTime" -> 3.8953627849811883`*^9, 
-         "AbsoluteTimeUsed" -> 0.000027`1.581878761990981, "CPUTimeUsed" -> 
-         0.00002700000000022129, "MemoryUsed" -> 3120|>], 5901068552951724076 -> 
-      TestResultObject[<|
-        "TestKey" -> 5901068552951724076, "TestID" -> 
-         "Catalog_20230610-A2TH7C", "TestFileName" -> 
+             "BY", "BKY"}]]], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
+         "AbsoluteTimeUsed" -> 0.000021`1.4727342925659135, "CPUTimeUsed" -> 
+         0.0000219999999995224, "MemoryUsed" -> 2800, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 4481224523406606249 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9013551239992867`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "c9947488-18e9-4c19-85fa-9c7df8ff6e4e", "TestID" -> 
+         "Catalog_20230818-378O7D", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "d188dac4-2f13-4687-8204-868ff62ef995", "Input" -> HoldForm[
            Apply[And, 
             Map[AssociationQ, 
              Flatten[{
@@ -3365,19 +4220,21 @@ Cell[BoxData[
                Map[Head[
                  FernandoDuarte`LongRunRisk`Model`Catalog`models[#]]& , 
                 Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]}]]]], 
-         "ExpectedOutput" -> HoldForm[False], "ActualOutput" -> 
-         HoldForm[False], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.8953627849813943`*^9, 
-         "AbsoluteTimeUsed" -> 0.000034`1.6819939148742489, "CPUTimeUsed" -> 
-         0.00003500000000045134, "MemoryUsed" -> 2864|>], 8880105563885270873 -> 
-      TestResultObject[<|
-        "TestKey" -> 8880105563885270873, "TestID" -> 
-         "Catalog_20230610-7VIZ3G", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> 
+         HoldForm[False], "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.00003`1.6276362525516561, "CPUTimeUsed" -> 
+         0.000031000000000336314`, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
+         HoldForm[False], "Outcome" -> "Success"|>], 3190079812417127568 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9013551239995437`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "b12ebda9-197e-4fe9-909e-72ecd419e0f6", "TestID" -> 
+         "Catalog_20230818-S2LCS4", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "d9bde359-1bd3-4323-adb6-7fc914175dcb", "Input" -> HoldForm[
            Apply[And, 
             Map[Apply[And, 
               
@@ -3396,19 +4253,21 @@ exogenousVars],
                     SymbolName[#]]& ][
                    BlankSequence[]] :> Catalog`var, Infinity]]]]& , 
              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895362784981632*^9, "AbsoluteTimeUsed" -> 
-         0.000585`2.917670863914174, "CPUTimeUsed" -> 0.0005849999999996136, 
-         "MemoryUsed" -> 4728|>], 2168697342322078053 -> 
-      TestResultObject[<|
-        "TestKey" -> 2168697342322078053, "TestID" -> 
-         "Catalog_20230610-CRNM7A", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000635`2.9532887231239697, "CPUTimeUsed" -> 0.0006369999999997766, 
+         "MemoryUsed" -> 4480, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 1230729391656980068 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9013551240003977`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "674a67f2-4a1c-4979-a64d-93a44d6210bf", "TestID" -> 
+         "Catalog_20230818-YAL7TY", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "daf0a979-0194-46c9-befc-f17a118790a0", "Input" -> HoldForm[
            Apply[And, 
             Map[Apply[And, 
               Map[# === "FernandoDuarte`LongRunRisk`Model`Shocks`"& , 
@@ -3422,19 +4281,21 @@ exogenousVars],
                    BlankSequence[]][
                    BlankSequence[]] :> Catalog`var, Infinity]]]]& , 
              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8953627849824*^9, "AbsoluteTimeUsed" -> 
-         0.000098`2.1417410735244884, "CPUTimeUsed" -> 0.00009800000000037556,
-          "MemoryUsed" -> 3072|>], 8324662238032061468 -> 
-      TestResultObject[<|
-        "TestKey" -> 8324662238032061468, "TestID" -> 
-         "Catalog_20230610-19YY4G", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000093`2.118997946385929, "CPUTimeUsed" -> 0.00009299999999967667, 
+         "MemoryUsed" -> 2664, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 1264406515485823886 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901355124000705*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "b2136a62-4faa-487d-ba07-1c7ae2615c00", "TestID" -> 
+         "Catalog_20230818-O8TATH", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "9dd35c93-f7eb-4e7d-82d3-32fa803d39a7", "Input" -> HoldForm[
            Apply[And, 
             Map[Apply[And, 
               Map[# === "FernandoDuarte`LongRunRisk`Model`Parameters`"& , 
@@ -3447,19 +4308,21 @@ exogenousVars],
                    FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, 
                     SymbolName[#]]& ] :> Catalog`var, Infinity]]]]& , 
              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895362784982673*^9, "AbsoluteTimeUsed" -> 
-         0.001499`3.3263166306802736, "CPUTimeUsed" -> 0.001498999999999917, 
-         "MemoryUsed" -> 2936|>], 8526703447638016442 -> 
-      TestResultObject[<|
-        "TestKey" -> 8526703447638016442, "TestID" -> 
-         "Catalog_20230610-QA6G8W", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.001507`3.3286282501466258, "CPUTimeUsed" -> 0.0015079999999998428`,
+          "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 2242933516134157153 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901355124002421*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "2419bce6-a555-4a72-aa76-7e6144629876", "TestID" -> 
+         "Catalog_20230818-WHJ85T", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "15e1ee8c-0597-4f8a-b337-2d1134c82bd5", "Input" -> HoldForm[
            Apply[And, 
             Map[Apply[And, 
               Map[# === "FernandoDuarte`LongRunRisk`Model`Parameters`"& , 
@@ -3472,20 +4335,21 @@ exogenousVars],
                    FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, 
                     SymbolName[#]]& ] :> Catalog`var, Infinity]]]]& , 
              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8953627849843473`*^9, "AbsoluteTimeUsed" -> 
-         0.000212`2.4768508587607454, "CPUTimeUsed" -> 
-         0.00021099999999973917`, "MemoryUsed" -> 2936|>], 
-      8502436750836820994 -> 
-      TestResultObject[<|
-        "TestKey" -> 8502436750836820994, "TestID" -> 
-         "Catalog_20230610-Z5QV8I", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.00022`2.4929376786542004, "CPUTimeUsed" -> 0.000220000000000109, 
+         "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 6984144052854998016 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901355124002853*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "aef7a8f3-2c8d-4789-83c4-02bb9ab66cb3", "TestID" -> 
+         "Catalog_20230818-8QV3HS", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "SameTest" -> SameQ, 
-         "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "7ee816c2-4cf1-4da0-a831-52b0c5ae9d50", "Input" -> HoldForm[
            Apply[And, 
             Map[MatchQ[{}, #]& , 
              Map[Cases[
@@ -3500,23 +4364,104 @@ endogenousVars],
                   SymbolName[#]]& ][
                  BlankSequence[]] :> Catalog`var, Infinity]& , 
               Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895362784984725*^9, "AbsoluteTimeUsed" -> 
-         0.001074`3.181519279195531, "CPUTimeUsed" -> 0.0010729999999998796`, 
-         "MemoryUsed" -> 2952|>]|>, 
-    "TestsSucceededKeys" -> {249783349622661243, 2007547390434635391, 
-     4876096927021919936, 390632354450251920, 2661900958057965824, 
-     8141817888168856157, 569471102416415519, 5901068552951724076, 
-     8880105563885270873, 2168697342322078053, 8324662238032061468, 
-     8526703447638016442, 8502436750836820994}, 
-    "TestsFailedWrongResultsKeys" -> {}, "TestsFailedWithMessagesKeys" -> {}, 
-    "TestsFailedWithErrorsKeys" -> {}|>],
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.001179`3.222028802927083, "CPUTimeUsed" -> 0.0011790000000000411`, 
+         "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 8161952573617055623 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9013551240042276`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "b28bc920-8574-48cf-98c0-d59ee649995d", "TestID" -> 
+         "Catalog_20230818-BV7QIC", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "9e139c68-e398-47c2-a3fa-f2c1c3825ec2", "Input" -> HoldForm[
+           Apply[And, {
+             AllTrue[
+             FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo, 
+              AssociationQ], 
+             AllTrue[
+              Map[
+              FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]& , 
+               Keys[
+               FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]], 
+              AssociationQ]}]], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
+         "AbsoluteTimeUsed" -> 0.000022`1.4929376786542, "CPUTimeUsed" -> 
+         0.00002399999999935787, "MemoryUsed" -> 2560, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 8917891900712022191 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.90135512400444*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "867c9b4a-c265-4a2e-88b1-f0591d96dd7f", "TestID" -> 
+         "Catalog_20230818-SBMA65", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "bf961ef7-bc91-40d0-b778-67c012e72e33", "Input" -> HoldForm[
+           Apply[And, {
+             SubsetQ[
+              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], 
+              Keys[
+              FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]]}]], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000052`1.8665183414667932, "CPUTimeUsed" -> 0.00005200000000016303,
+          "MemoryUsed" -> 2912, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 4279310150491347371 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9013551240047116`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "9a228122-f038-4883-be6a-eb2dfd7cf8fc", "TestID" -> 
+         "Catalog_20230818-HONONJ", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt", "EvaluationID" -> 
+         "c158920f-7e2c-4e19-afa2-b9ded1949012", "Input" -> HoldForm[
+           Apply[And, {
+             And[
+              VectorQ[
+               FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[
+                "BY"["initialGuess"]["Ewc"]], NumberQ], Dimensions[
+                FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[
+                 "BY"["initialGuess"]["Ewc"]]] == {1}], 
+             Apply[And, 
+              Map[Implies[
+                KeyExistsQ[
+                 FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#], 
+                 "initialGuess"], Dimensions[
+                  FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[
+                   #["initialGuess"]["Epd"]]] == {
+                  Count[
+                   FernandoDuarte`LongRunRisk`Model`Catalog`models[#][
+                   "parameters"], 
+                   Catalog`mud[
+                    Blank[Integer]], Infinity], 1}]& , 
+               Keys[
+               FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]]]}]],
+          "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> 
+         HoldForm[False], "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000088`2.094997669982163, "CPUTimeUsed" -> 0.00008799999999986596, 
+         "MemoryUsed" -> 2856, "ExpectedOutput" -> HoldForm[False], "Outcome" -> 
+         "Success"|>]|>, "FailureResults" -> <||>, 
+    "TestsNotEvaluatedKeys" -> {}, "TestsFailedWrongResultsKeys" -> {}, 
+    "TestsFailedWithMessagesKeys" -> {}, "TestsFailedWithErrorsKeys" -> {}, 
+    "TestsSucceededKeys" -> {2524745101314687337, 1760978382552566969, 
+     3848560878771573040, 8946356687632719448, 867316389275546409, 
+     5500938946825709855, 914380413003860376, 4481224523406606249, 
+     3190079812417127568, 1230729391656980068, 1264406515485823886, 
+     2242933516134157153, 6984144052854998016, 8161952573617055623, 
+     8917891900712022191, 4279310150491347371}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellChangeTimes->{{3.895362773471382*^9, 3.8953627851655617`*^9}},
- CellLabel->"Out[35]=",ExpressionUUID->"9c2e8980-6391-44e7-b785-11d01d69432f"]
+ CellChangeTimes->{3.901355002988624*^9, 3.901355124183124*^9},
+ CellLabel->"Out[38]=",ExpressionUUID->"1bc9aee3-aafc-42fc-9bcb-107bb5ed45ae"]
 }, Open  ]]
 }, Open  ]],
 
@@ -3555,8 +4500,8 @@ Cell[BoxData[{
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Kernel/Model/Catalog.wl\"\>"], "Output",
- CellChangeTimes->{3.8953627362863293`*^9},
- CellLabel->"Out[6]=",ExpressionUUID->"2577268e-8e81-4d6c-a9a6-12aab0b257ab"]
+ CellChangeTimes->{3.9013549740108128`*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"d254662f-839e-4d39-b6d5-c2e46ac20636"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3576,8 +4521,8 @@ Cell[BoxData[
  CellLabel->"In[8]:=",ExpressionUUID->"78177850-499e-456b-b442-fad780dafdf0"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.895362736440661*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"a5927606-c550-461c-bd27-a334950fe1ea"]
+ CellChangeTimes->{3.901354974151864*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"d3075a09-ecd3-41d9-996b-727807babcb8"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3615,8 +4560,8 @@ Cell[BoxData[
  CellLabel->"In[9]:=",ExpressionUUID->"a17059c2-5416-45b1-b84e-0c2f842f7fb5"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.895362736443432*^9},
- CellLabel->"Out[9]=",ExpressionUUID->"becc95b8-bd59-45ee-a5c4-dfe8176e7b75"]
+ CellChangeTimes->{3.901354974157668*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"3b6292df-94f6-4eaa-ae45-81d213830ccd"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3649,8 +4594,8 @@ Cell[BoxData[
  CellLabel->"In[10]:=",ExpressionUUID->"eac6cf31-dd90-40a1-b538-ae578852c33b"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.895362736447588*^9},
- CellLabel->"Out[10]=",ExpressionUUID->"1366566f-70b8-44b7-b5b1-57bb622d0660"]
+ CellChangeTimes->{3.901354974164603*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"431eed05-7327-41b8-85ba-53a65db3a012"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3677,8 +4622,8 @@ Cell[BoxData[
  CellLabel->"In[11]:=",ExpressionUUID->"78983d07-8f42-43d9-a50f-d26a03b2ee5c"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.895362736464415*^9},
- CellLabel->"Out[11]=",ExpressionUUID->"29326ae3-3926-4663-9c61-9334a3fdeced"]
+ CellChangeTimes->{3.901354974170619*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"2a239aea-63e0-45ad-936f-895260807bf1"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3708,12 +4653,12 @@ Cell[BoxData[
  CellLabel->"In[12]:=",ExpressionUUID->"33533fdf-b808-460b-a76c-9a554476db8f"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.8953627364694567`*^9},
- CellLabel->"Out[12]=",ExpressionUUID->"24bbf1a5-0858-4676-8ad1-82865e9ddb5a"],
+ CellChangeTimes->{3.901354974177949*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"2b2a220d-b4e1-49aa-b0df-f19bb732fe26"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.895362736470488*^9},
- CellLabel->"Out[13]=",ExpressionUUID->"354677aa-b215-4bbd-9ff0-f2abc44604a3"]
+ CellChangeTimes->{3.90135497417869*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"fb3f4ce8-0c38-4403-bb4f-c38bfe5af386"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3772,8 +4717,8 @@ exogenousVars"}], ",",
  CellLabel->"In[14]:=",ExpressionUUID->"0ecadbe4-cf71-476b-8c76-ee242fab4284"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.8953627364807253`*^9},
- CellLabel->"Out[14]=",ExpressionUUID->"c9b9803d-66ff-4a2f-9cdf-19140b4ceafd"]
+ CellChangeTimes->{3.901354974181698*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"aecaa8cb-d539-4a10-b771-9fccac7b0614"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3825,8 +4770,8 @@ Cell[BoxData[
  CellLabel->"In[15]:=",ExpressionUUID->"5497c17b-b2dd-4e7c-a7af-d730dba6c11b"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.8953627364868097`*^9},
- CellLabel->"Out[15]=",ExpressionUUID->"36a6b8fb-5390-42ef-8b37-456acad91c52"]
+ CellChangeTimes->{3.901354974190486*^9},
+ CellLabel->"Out[15]=",ExpressionUUID->"be424646-922b-4721-8c2b-79eef7e09e91"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3915,12 +4860,12 @@ Cell[BoxData[
  CellLabel->"In[16]:=",ExpressionUUID->"602c7d97-d584-412d-b870-0ca50055aa97"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.895362736497738*^9},
- CellLabel->"Out[16]=",ExpressionUUID->"290f577f-e1b8-4bd2-b473-f4d2b543db1b"],
+ CellChangeTimes->{3.901354974194149*^9},
+ CellLabel->"Out[16]=",ExpressionUUID->"9bc75337-cfe0-4884-bec3-e2b510a384b4"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.895362736498933*^9},
- CellLabel->"Out[17]=",ExpressionUUID->"30ba7c11-1f3e-4082-98f5-c37292adb32e"]
+ CellChangeTimes->{3.9013549741949368`*^9},
+ CellLabel->"Out[17]=",ExpressionUUID->"715125ab-71de-4a9f-8e7e-2eb985a5d241"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3973,13 +4918,147 @@ endogenousVars"}], ",",
  CellLabel->"In[18]:=",ExpressionUUID->"1a2dcded-7e53-422c-80f9-ab1140dea2c3"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.8953627365033903`*^9},
- CellLabel->"Out[18]=",ExpressionUUID->"5dbe08ee-f894-4ae1-8b93-e052b82062bf"]
+ CellChangeTimes->{3.901354974197874*^9},
+ CellLabel->"Out[18]=",ExpressionUUID->"a37bcf98-ff97-4901-b888-8c7056026937"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"modelsExtraInfo", " ", "is", " ", "an", " ", "association"}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"AllTrue", "[", 
+    RowBox[{"modelsExtraInfo", ",", "AssociationQ"}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "each", " ", "model", " ", "inside", " ", "modelsExtraInfo", " ", "is", 
+     " ", "an", " ", "association"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"AllTrue", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"modelsExtraInfo", "[", "#", "]"}], "&"}], "/@", 
+      RowBox[{"Keys", "[", "modelsExtraInfo", "]"}]}], ",", "AssociationQ"}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.901353583738072*^9, 3.901353594897225*^9}},
+ CellLabel->"In[19]:=",ExpressionUUID->"22c0137c-bdbb-4e8a-919e-b9ba199344a5"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.901354974201576*^9},
+ CellLabel->"Out[19]=",ExpressionUUID->"9bbd33ba-0d92-4ec7-8920-d711fd1a7328"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.901354974202423*^9},
+ CellLabel->"Out[20]=",ExpressionUUID->"5a92b41c-cd7e-4383-a85e-b6b82b32bc1b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "models", " ", "in", " ", "modelsExtraInfo", " ", "are", " ", "a", " ", 
+    "subset", " ", "of", " ", "those", " ", "defined", " ", "in", " ", 
+    "models"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"SubsetQ", "[", 
+   RowBox[{
+    RowBox[{"Keys", "[", "models", "]"}], ",", 
+    RowBox[{"Keys", "[", "modelsExtraInfo", "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.901353606406434*^9, 3.901353651160013*^9}},
+ CellLabel->"In[21]:=",ExpressionUUID->"5d0d6c37-c913-4696-b5ea-fa4bc8e7f5f1"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.901354974225315*^9},
+ CellLabel->"Out[21]=",ExpressionUUID->"e1b26ab8-c9a2-4656-a5c0-283490fbb2c6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Ewc", " ", "in", " ", "initialGuess", " ", "inside", " ", 
+    "modelsExtraInfo", " ", "is", " ", "a", " ", "list", " ", "with", " ", 
+    "a", " ", "single", " ", "number"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"VectorQ", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"modelsExtraInfo", "[", "\"\<BY\>\"", "]"}], "[", 
+        "\"\<initialGuess\>\"", "]"}], "[", "\"\<Ewc\>\"", "]"}], ",", 
+      "NumberQ"}], "]"}], " ", "&&", " ", 
+    RowBox[{
+     RowBox[{"Dimensions", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"modelsExtraInfo", "[", "\"\<BY\>\"", "]"}], "[", 
+        "\"\<initialGuess\>\"", "]"}], "[", "\"\<Ewc\>\"", "]"}], "]"}], "==", 
+     RowBox[{"{", "1", "}"}]}]}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+     "if", " ", "Epd", " ", "in", " ", "initialGuess", " ", "inside", " ", 
+      "modelsExtraInfo", " ", "exists"}], ",", " ", 
+     RowBox[{
+     "it", " ", "has", " ", "dimensions", " ", "consistent", " ", "with", " ",
+       "numStocks", " ", "in", " ", "models"}]}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Implies", "[", 
+        RowBox[{
+         RowBox[{"KeyExistsQ", "[", 
+          RowBox[{
+           RowBox[{"modelsExtraInfo", "[", "#", "]"}], ",", 
+           "\"\<initialGuess\>\""}], "]"}], ",", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Dimensions", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"modelsExtraInfo", "[", "#", "]"}], "[", 
+              "\"\<initialGuess\>\"", "]"}], "[", "\"\<Epd\>\"", "]"}], "]"}],
+            "==", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Count", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"models", "[", "#", "]"}], "[", "\"\<parameters\>\"", 
+                "]"}], ",", " ", 
+               RowBox[{
+               "FernandoDuarte`LongRunRisk`Model`Parameters`mud", "[", 
+                "_Integer", "]"}], ",", " ", "Infinity"}], "]"}], ",", "1"}], 
+            "}"}]}], ")"}]}], "]"}], "&"}], "/@", 
+      RowBox[{"Keys", "[", "modelsExtraInfo", "]"}]}], ")"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.901353710509602*^9, 3.901353858822919*^9}, {
+  3.901353922804742*^9, 3.9013539583277817`*^9}, {3.9013540371889668`*^9, 
+  3.901354054019368*^9}, {3.901354592688126*^9, 3.901354622947588*^9}, {
+  3.90135498400948*^9, 3.901354986990878*^9}},
+ CellLabel->"In[24]:=",ExpressionUUID->"6cc10cde-a6cb-404a-b3d1-b39522e85b5a"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.9013549742287703`*^9, 3.901354987450778*^9}},
+ CellLabel->"Out[24]=",ExpressionUUID->"e064d958-cdec-4d28-a317-47e714192b5d"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.9013549742287703`*^9, 3.9013549874521933`*^9}},
+ CellLabel->"Out[25]=",ExpressionUUID->"8202c245-282e-4118-a701-9e5b0d72d594"]
 }, Open  ]]
-}, Closed]]
+}, Open  ]]
 },
-WindowSize->{921, 890},
-WindowMargins->{{226, Automatic}, {Automatic, 0}},
+WindowSize->{1920, 942},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 WindowStatusArea->"",
 DockedCells->{
   Cell[
@@ -4819,7 +5898,7 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
    "CodeAnalysisDockedCell"]},
 TaggingRules-><|"TryRealOnly" -> False|>,
 Magnification:>1.25 Inherited,
-FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
+FrontEndVersion->"13.3 for Mac OS X ARM (64-bit) (July 24, 2023)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"9463f144-165a-4c11-9859-b1ba37118027"
 ]
@@ -4835,182 +5914,220 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[558, 20, 215, 4, 37, "Input",ExpressionUUID->"5936db62-753d-4c20-a941-1dfb10c21e69"],
-Cell[776, 26, 1926, 41, 194, "Input",ExpressionUUID->"1f20a6f1-c8fe-4d25-91dc-21cad8616c89"],
+Cell[776, 26, 1926, 41, 142, "Input",ExpressionUUID->"1f20a6f1-c8fe-4d25-91dc-21cad8616c89"],
 Cell[CellGroupData[{
 Cell[2727, 71, 255, 4, 67, "Subsection",ExpressionUUID->"bc721a90-5248-4709-baf0-508070e5c013"],
 Cell[2985, 77, 341, 9, 37, "Input",ExpressionUUID->"61e9a1c2-4ad4-4fe4-8929-2a7bfa852efa"],
 Cell[CellGroupData[{
 Cell[3351, 90, 539, 10, 64, "Input",ExpressionUUID->"7373936c-ff06-42f3-99c4-9976b014d9be"],
-Cell[3893, 102, 222, 2, 42, "Output",ExpressionUUID->"465950e4-3aaa-4c32-83be-f95811290682"]
+Cell[3893, 102, 220, 2, 42, "Output",ExpressionUUID->"43404c29-bf60-4db0-8e7d-7643057b8cd7"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4152, 109, 219, 3, 37, "Input",ExpressionUUID->"56243fb4-4478-4214-a53b-c438a5bbcfe2"],
-Cell[4374, 114, 189, 2, 42, "Output",ExpressionUUID->"d5ae0e0f-5cf6-41d7-80e0-d97db6c514b6"]
+Cell[4150, 109, 219, 3, 37, "Input",ExpressionUUID->"56243fb4-4478-4214-a53b-c438a5bbcfe2"],
+Cell[4372, 114, 185, 2, 42, "Output",ExpressionUUID->"ff57e4e4-570d-4369-bfe8-bdf67083d544"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4600, 121, 1799, 28, 90, "Input",ExpressionUUID->"9f314737-f9fe-4d9e-8551-523b0929d53e"],
+Cell[4594, 121, 1799, 28, 90, "Input",ExpressionUUID->"9f314737-f9fe-4d9e-8551-523b0929d53e"],
 Cell[CellGroupData[{
-Cell[6424, 153, 367, 9, 29, "Print",ExpressionUUID->"11006c9d-d83b-4a95-8057-fcf8143c83c0"],
-Cell[6794, 164, 264, 5, 29, "Print",ExpressionUUID->"2323f3e6-50fe-4ec9-9a35-c6b120db12fa"]
+Cell[6418, 153, 391, 9, 29, "Print",ExpressionUUID->"a4f9e92f-d998-47bd-895c-cc88c6adce46"],
+Cell[6812, 164, 290, 5, 29, "Print",ExpressionUUID->"642d3119-cbc6-4950-8360-583b30c55fc3"]
 }, Open  ]],
-Cell[7073, 172, 4832, 87, 69, "Output",ExpressionUUID->"76c60354-4171-4e77-9a10-34a2d6cd5cf1"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[11942, 264, 1250, 22, 90, "Input",ExpressionUUID->"30ea8f81-e3a5-4912-928a-3a488ce6e518"],
-Cell[CellGroupData[{
-Cell[13217, 290, 367, 9, 29, "Print",ExpressionUUID->"de687eb1-5dc2-449d-ac53-c15921cb4a89"],
-Cell[13587, 301, 264, 5, 29, "Print",ExpressionUUID->"a85b636d-29e7-4d93-b799-16fd7ca8a12d"]
-}, Open  ]],
-Cell[13866, 309, 5044, 91, 69, "Output",ExpressionUUID->"d6e4dbb3-8704-4ec8-9af3-0265b45ffe23"]
+Cell[7117, 172, 4832, 87, 42, "Output",ExpressionUUID->"10e32ad5-0113-4d7e-8fa7-e0165f0c6526"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[18947, 405, 2171, 35, 116, "Input",ExpressionUUID->"f65e45e8-2582-4d00-8615-d27896add0d0"],
+Cell[11986, 264, 1250, 22, 90, "Input",ExpressionUUID->"30ea8f81-e3a5-4912-928a-3a488ce6e518"],
 Cell[CellGroupData[{
-Cell[21143, 444, 366, 9, 29, "Print",ExpressionUUID->"2623cfcb-9929-4e46-8bab-5f7202714eaf"],
-Cell[21512, 455, 264, 5, 29, "Print",ExpressionUUID->"6253d324-975e-4ee4-92d4-b332d6a3d03e"]
+Cell[13261, 290, 389, 9, 29, "Print",ExpressionUUID->"5858684d-f3c0-4bde-89a7-42191d2a28c3"],
+Cell[13653, 301, 288, 5, 29, "Print",ExpressionUUID->"ba3c265c-889b-4198-bca8-7e1147a4de5f"]
 }, Open  ]],
-Cell[21791, 463, 5286, 97, 69, "Output",ExpressionUUID->"3411e180-1bdc-42e8-ad2d-784f904ec660"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[27114, 565, 1544, 37, 220, "Input",ExpressionUUID->"5d749a31-d7a1-48d2-a85b-e58e3fb2c847"],
-Cell[CellGroupData[{
-Cell[28683, 606, 367, 9, 29, "Print",ExpressionUUID->"40079cd0-1fb8-461d-bd67-5c1c1b81f1c9"],
-Cell[29053, 617, 264, 5, 29, "Print",ExpressionUUID->"0b15c745-afee-4b3f-b8ae-3570462a0f64"]
-}, Open  ]],
-Cell[29332, 625, 7098, 124, 69, "Output",ExpressionUUID->"313ad5f1-8f1c-4b81-8212-e3dba0ff95db"]
+Cell[13956, 309, 5040, 91, 42, "Output",ExpressionUUID->"0c59c5a7-44c9-4280-8b5f-b0428daa151c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[36467, 754, 2293, 44, 194, "Input",ExpressionUUID->"9a7acfd9-2870-4210-a7af-7c10ed2af5d1"],
+Cell[19033, 405, 2171, 35, 116, "Input",ExpressionUUID->"f65e45e8-2582-4d00-8615-d27896add0d0"],
 Cell[CellGroupData[{
-Cell[38785, 802, 367, 9, 29, "Print",ExpressionUUID->"a659ce97-f497-4b7c-9297-aaee13b692db"],
-Cell[39155, 813, 264, 5, 29, "Print",ExpressionUUID->"9660b7bf-23f2-4f4a-9958-2e564e41d189"]
+Cell[21229, 444, 391, 9, 29, "Print",ExpressionUUID->"59fe35da-e0bc-4872-b6ab-7178b3e0ba8b"],
+Cell[21623, 455, 288, 5, 29, "Print",ExpressionUUID->"21887f66-23e5-4a20-b768-b6be16c12f2d"]
 }, Open  ]],
-Cell[39434, 821, 7226, 129, 69, "Output",ExpressionUUID->"89b8f138-c61f-45e6-a84e-a6a881951c28"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[46697, 955, 1091, 22, 116, "Input",ExpressionUUID->"3aa8b5cd-154c-4923-aed4-60a60049060a"],
-Cell[CellGroupData[{
-Cell[47813, 981, 369, 9, 29, "Print",ExpressionUUID->"a11aa893-63a3-423a-85e8-fa05baa41215"],
-Cell[48185, 992, 264, 5, 29, "Print",ExpressionUUID->"54a6c087-b497-4c92-9fae-75315eb39eca"]
-}, Open  ]],
-Cell[48464, 1000, 7430, 128, 69, "Output",ExpressionUUID->"b9986693-b984-4d79-8302-d8b673d7c61e"]
+Cell[21926, 463, 5280, 97, 42, "Output",ExpressionUUID->"c6675733-f5cf-4a69-ba2b-6d8f1e528647"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[55931, 1133, 1281, 27, 116, "Input",ExpressionUUID->"4ebbc95c-22ea-48d7-bdec-0d430d2b154f"],
+Cell[27243, 565, 1544, 37, 116, "Input",ExpressionUUID->"5d749a31-d7a1-48d2-a85b-e58e3fb2c847"],
 Cell[CellGroupData[{
-Cell[57237, 1164, 369, 9, 29, "Print",ExpressionUUID->"f58d65e4-d3d5-437e-aa67-79d325a93cb4"],
-Cell[57609, 1175, 266, 5, 29, "Print",ExpressionUUID->"9b0d44b7-76db-4238-850a-68c3955f9c7a"]
+Cell[28812, 606, 391, 9, 29, "Print",ExpressionUUID->"7fa5b65f-f0c4-4a56-b5e9-3c1725cb37c6"],
+Cell[29206, 617, 288, 5, 29, "Print",ExpressionUUID->"e84cfe09-38ed-4cb2-9490-65b686f714ec"]
 }, Open  ]],
-Cell[57890, 1183, 7049, 124, 69, "Output",ExpressionUUID->"f7ccfcb6-3dab-430a-98e3-e15cecfd750d"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[64976, 1312, 1601, 33, 168, "Input",ExpressionUUID->"0cc2f06b-6e8f-4978-97cc-c47753fea3f2"],
-Cell[CellGroupData[{
-Cell[66602, 1349, 367, 9, 29, "Print",ExpressionUUID->"8fee9ee1-09d2-4b46-9f81-a4b8810487f0"],
-Cell[66972, 1360, 264, 5, 29, "Print",ExpressionUUID->"71508de7-d5e8-484f-8ecb-33f69167a789"]
-}, Open  ]],
-Cell[67251, 1368, 8027, 137, 69, "Output",ExpressionUUID->"d028b09a-73fa-4638-b7c4-541f5b242eaa"]
+Cell[29509, 625, 7094, 124, 42, "Output",ExpressionUUID->"7dec6abc-7c00-4bdb-a7ce-15168bf650a0"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[75315, 1510, 2497, 59, 298, "Input",ExpressionUUID->"c37f51a1-837c-4f11-a194-78705f4642f7"],
+Cell[36640, 754, 2293, 44, 116, "Input",ExpressionUUID->"9a7acfd9-2870-4210-a7af-7c10ed2af5d1"],
 Cell[CellGroupData[{
-Cell[77837, 1573, 367, 9, 29, "Print",ExpressionUUID->"d1b808b8-0fbe-4824-a9f7-9a30d27db666"],
-Cell[78207, 1584, 264, 5, 29, "Print",ExpressionUUID->"d63c6253-ad61-4416-b43e-2885b1ca3d37"]
+Cell[38958, 802, 391, 9, 29, "Print",ExpressionUUID->"a86b6c89-f718-486e-91ce-9c00142a0aeb"],
+Cell[39352, 813, 286, 5, 29, "Print",ExpressionUUID->"da3e594a-8efc-4519-ad12-726c9d2c01a1"]
 }, Open  ]],
-Cell[78486, 1592, 10634, 176, 69, "Output",ExpressionUUID->"43d93919-360b-47ca-9010-e3013676e7b7"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[89157, 1773, 2117, 52, 272, "Input",ExpressionUUID->"21e8aec5-4a2d-4eec-a0e6-4a0295241e7d"],
-Cell[CellGroupData[{
-Cell[91299, 1829, 367, 9, 29, "Print",ExpressionUUID->"f3f54c32-1971-46c1-8037-7e7c85979d9a"],
-Cell[91669, 1840, 266, 5, 29, "Print",ExpressionUUID->"af50a78b-92b4-47cc-a1a4-c75a03777b60"]
-}, Open  ]],
-Cell[91950, 1848, 10653, 176, 69, "Output",ExpressionUUID->"b44bd278-a98d-4d84-88ed-90551bb83e1c"]
+Cell[39653, 821, 7224, 129, 42, "Output",ExpressionUUID->"bca4b315-2abf-42b7-9303-a8cf83615970"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[102640, 2029, 3817, 93, 610, "Input",ExpressionUUID->"67116dee-9a87-405d-93eb-27ea07c14940"],
+Cell[46914, 955, 1091, 22, 116, "Input",ExpressionUUID->"3aa8b5cd-154c-4923-aed4-60a60049060a"],
 Cell[CellGroupData[{
-Cell[106482, 2126, 367, 9, 29, "Print",ExpressionUUID->"b52cfb46-3a55-4f6d-bc9b-bac57807db23"],
-Cell[106852, 2137, 262, 5, 29, "Print",ExpressionUUID->"ee5ca8ea-d574-4125-8fad-cbd72d39f3ed"]
+Cell[48030, 981, 389, 9, 29, "Print",ExpressionUUID->"dd09f9de-ca21-4f7f-adf1-8cda12e1adf8"],
+Cell[48422, 992, 286, 5, 29, "Print",ExpressionUUID->"b6bef6e7-cfd0-499b-a996-f0b7c9e86f53"]
 }, Open  ]],
-Cell[107129, 2145, 11524, 185, 69, "Output",ExpressionUUID->"b4c2d1a3-add4-4a05-a3bb-e6202e227fc1"],
-Cell[CellGroupData[{
-Cell[118678, 2334, 366, 9, 29, "Print",ExpressionUUID->"d51d670d-b55e-4ed2-892b-a31dfaac1343"],
-Cell[119047, 2345, 264, 5, 29, "Print",ExpressionUUID->"ce56aad8-fcd1-4be2-9943-aae467dcbec2"]
-}, Open  ]],
-Cell[119326, 2353, 12290, 196, 69, "Output",ExpressionUUID->"071f4179-a944-4bf6-b5b6-f5b4aef67e35"]
+Cell[48723, 1000, 7430, 128, 42, "Output",ExpressionUUID->"43009e71-909c-41a8-b623-473ddf9a6ac0"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[131653, 2554, 2261, 53, 298, "Input",ExpressionUUID->"eeb0f7ac-c9ae-4068-9a86-aa0d4212e5fe"],
+Cell[56190, 1133, 1281, 27, 116, "Input",ExpressionUUID->"4ebbc95c-22ea-48d7-bdec-0d430d2b154f"],
 Cell[CellGroupData[{
-Cell[133939, 2611, 367, 9, 29, "Print",ExpressionUUID->"469cf111-c8d6-4393-b5b8-4ec9802e13ac"],
-Cell[134309, 2622, 264, 5, 29, "Print",ExpressionUUID->"f031d266-b441-4393-a75d-31276930898f"]
+Cell[57496, 1164, 393, 9, 29, "Print",ExpressionUUID->"d2e1fd4d-7662-45a2-a43f-8464be3e120e"],
+Cell[57892, 1175, 287, 5, 29, "Print",ExpressionUUID->"60197f36-46d5-43dc-a9a5-4e6294a4f267"]
 }, Open  ]],
-Cell[134588, 2630, 13174, 212, 69, "Output",ExpressionUUID->"a95b0f8f-6b12-42a8-9d32-b6fc54a35863"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[147799, 2847, 195, 3, 37, "Input",ExpressionUUID->"1e489da7-03ac-4c09-a3b0-3f18678c417b"],
-Cell[147997, 2852, 188, 2, 42, "Output",ExpressionUUID->"51731e53-cfcb-4640-9d62-94b4b18e747b"]
-}, Open  ]],
-Cell[148200, 2857, 356, 7, 37, "Input",ExpressionUUID->"d681ce4c-fe5c-46cc-a106-c3fb97c91dc9"],
-Cell[148559, 2866, 1502, 33, 402, "Input",ExpressionUUID->"8480e291-f089-46a8-93b3-cdc5392f18f2"],
-Cell[150064, 2901, 3288, 67, 558, "Input",ExpressionUUID->"c6d94536-d712-4817-8c56-b5a9e698596b"],
-Cell[CellGroupData[{
-Cell[153377, 2972, 1534, 37, 246, "Input",ExpressionUUID->"9e83fb3a-481f-4cb8-b330-c26292abdf5f"],
-Cell[154914, 3011, 408, 8, 121, "Output",ExpressionUUID->"30c41965-565f-4cf8-ae28-7c44739122c3"],
-Cell[155325, 3021, 177, 2, 42, "Output",ExpressionUUID->"674f7df4-4697-468b-8ee9-0f031c1169c6"],
-Cell[155505, 3025, 408, 8, 121, "Output",ExpressionUUID->"c09591b6-6700-4841-9c1a-b9b2f47faf3a"]
+Cell[58194, 1183, 7045, 124, 42, "Output",ExpressionUUID->"2a407487-ade7-4822-b99c-69bf765c383a"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[155950, 3038, 177, 3, 37, "Input",ExpressionUUID->"e077b813-cdd0-4bd1-8dfd-78f30a4f8df7"],
-Cell[156130, 3043, 24750, 475, 76, "Output",ExpressionUUID->"9c2e8980-6391-44e7-b785-11d01d69432f"]
+Cell[65276, 1312, 1601, 33, 116, "Input",ExpressionUUID->"0cc2f06b-6e8f-4978-97cc-c47753fea3f2"],
+Cell[CellGroupData[{
+Cell[66902, 1349, 393, 9, 29, "Print",ExpressionUUID->"7a2824a5-4ddc-452a-a9e9-8550e1b8b74c"],
+Cell[67298, 1360, 287, 5, 29, "Print",ExpressionUUID->"f1fbe5a3-7f42-465e-ac85-09cc51ef24af"]
+}, Open  ]],
+Cell[67600, 1368, 8023, 137, 42, "Output",ExpressionUUID->"642aa479-91b1-4d54-84df-2d526ad1bea0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[75660, 1510, 2497, 59, 220, "Input",ExpressionUUID->"c37f51a1-837c-4f11-a194-78705f4642f7"],
+Cell[CellGroupData[{
+Cell[78182, 1573, 391, 9, 29, "Print",ExpressionUUID->"0db816e6-b084-4982-a228-45196364bdd2"],
+Cell[78576, 1584, 288, 5, 29, "Print",ExpressionUUID->"7b6cabb3-1f7b-4c02-9687-1e9bba1d9025"]
+}, Open  ]],
+Cell[78879, 1592, 10628, 176, 42, "Output",ExpressionUUID->"ee33c667-d266-473e-bc50-dcb590f3e58a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[89544, 1773, 2117, 52, 194, "Input",ExpressionUUID->"21e8aec5-4a2d-4eec-a0e6-4a0295241e7d"],
+Cell[CellGroupData[{
+Cell[91686, 1829, 389, 9, 29, "Print",ExpressionUUID->"55f4da71-d81b-4bb3-9065-c8e7ab98fe07"],
+Cell[92078, 1840, 286, 5, 29, "Print",ExpressionUUID->"d9038e10-9c3c-4d1e-8c25-3769491f8805"]
+}, Open  ]],
+Cell[92379, 1848, 10651, 176, 42, "Output",ExpressionUUID->"87fcc2a8-4126-4859-95d1-d7289a320f43"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[103067, 2029, 3817, 93, 454, "Input",ExpressionUUID->"67116dee-9a87-405d-93eb-27ea07c14940"],
+Cell[CellGroupData[{
+Cell[106909, 2126, 393, 9, 29, "Print",ExpressionUUID->"9f1098b2-ec32-4b20-af1c-378dddf7ced9"],
+Cell[107305, 2137, 288, 5, 29, "Print",ExpressionUUID->"049e220f-d410-455c-a8fb-356bec0c181f"]
+}, Open  ]],
+Cell[107608, 2145, 11520, 185, 42, "Output",ExpressionUUID->"2e97d322-76e5-4e77-8f30-7f0b4533bbc6"],
+Cell[CellGroupData[{
+Cell[119153, 2334, 391, 9, 29, "Print",ExpressionUUID->"b8cef9a8-d900-4e59-84db-ce89e57b8be7"],
+Cell[119547, 2345, 288, 5, 29, "Print",ExpressionUUID->"bacca1e2-4ed5-43dd-a9b9-88030bdc51bf"]
+}, Open  ]],
+Cell[119850, 2353, 12286, 196, 42, "Output",ExpressionUUID->"510f7899-c111-4ebc-b181-87f1689030dd"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[132173, 2554, 2261, 53, 220, "Input",ExpressionUUID->"eeb0f7ac-c9ae-4068-9a86-aa0d4212e5fe"],
+Cell[CellGroupData[{
+Cell[134459, 2611, 387, 9, 29, "Print",ExpressionUUID->"fe82d254-51e6-4fb6-a21b-9d4732b29452"],
+Cell[134849, 2622, 287, 5, 29, "Print",ExpressionUUID->"ab441088-3174-4b3f-a991-04aad138ba5a"]
+}, Open  ]],
+Cell[135151, 2630, 13173, 212, 42, "Output",ExpressionUUID->"b124026d-dad5-4688-8aaa-a9ba94930662"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[148361, 2847, 1316, 30, 220, "Input",ExpressionUUID->"f5ca1345-d64e-4932-bad5-b6dd8e1f4392"],
+Cell[CellGroupData[{
+Cell[149702, 2881, 391, 9, 29, "Print",ExpressionUUID->"5198a873-9265-4129-851f-d2fa9a6763d1"],
+Cell[150096, 2892, 288, 5, 29, "Print",ExpressionUUID->"f876161e-759d-4e62-a394-0dc36e9bbaa2"]
+}, Open  ]],
+Cell[150399, 2900, 12551, 203, 42, "Output",ExpressionUUID->"821f1e90-536d-4746-818a-245b4430f52b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[162987, 3108, 1017, 21, 194, "Input",ExpressionUUID->"7aa2432c-8b1c-4da0-9390-74fe2051cbf3"],
+Cell[CellGroupData[{
+Cell[164029, 3133, 388, 9, 29, "Print",ExpressionUUID->"ba4ee7b5-a95d-4d61-8a94-2e5e52f500ab"],
+Cell[164420, 3144, 285, 5, 29, "Print",ExpressionUUID->"e05de2f3-dc80-450a-9294-5289faacf2e5"]
+}, Open  ]],
+Cell[164720, 3152, 12338, 197, 42, "Output",ExpressionUUID->"6d35919c-9e8b-430e-b0c2-4d4c824a60db"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[177095, 3354, 3086, 73, 298, "Input",ExpressionUUID->"334254d6-ef9b-468f-9a92-aba24077ad39"],
+Cell[CellGroupData[{
+Cell[180206, 3431, 391, 9, 29, "Print",ExpressionUUID->"96d0fad2-0d9d-49d0-98d9-f02ac6bf6ec0"],
+Cell[180600, 3442, 288, 5, 29, "Print",ExpressionUUID->"3ff74205-7162-4ac0-b3b8-ee15b2317a11"]
+}, Open  ]],
+Cell[180903, 3450, 15522, 250, 42, "Output",ExpressionUUID->"6c074c89-bba2-48ee-afb0-f2760ef4c6c5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[196462, 3705, 195, 3, 37, "Input",ExpressionUUID->"1e489da7-03ac-4c09-a3b0-3f18678c417b"],
+Cell[196660, 3710, 188, 2, 42, "Output",ExpressionUUID->"484351e7-7ed2-44ff-94b6-56b84ffca410"]
+}, Open  ]],
+Cell[196863, 3715, 356, 7, 37, "Input",ExpressionUUID->"d681ce4c-fe5c-46cc-a106-c3fb97c91dc9"],
+Cell[197222, 3724, 1502, 33, 402, "Input",ExpressionUUID->"8480e291-f089-46a8-93b3-cdc5392f18f2"],
+Cell[198727, 3759, 3288, 67, 558, "Input",ExpressionUUID->"c6d94536-d712-4817-8c56-b5a9e698596b"],
+Cell[CellGroupData[{
+Cell[202040, 3830, 1534, 37, 246, "Input",ExpressionUUID->"9e83fb3a-481f-4cb8-b330-c26292abdf5f"],
+Cell[203577, 3869, 407, 8, 42, "Output",ExpressionUUID->"2c4a414c-4a80-4460-b25f-7bd260b33d91"],
+Cell[203987, 3879, 173, 2, 42, "Output",ExpressionUUID->"b096d74d-44d0-44a5-89d3-983d0958e0e7"],
+Cell[204163, 3883, 409, 8, 42, "Output",ExpressionUUID->"ce57995e-1a60-47ec-96f6-ae8f98ebba36"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[204609, 3896, 177, 3, 37, "Input",ExpressionUUID->"e077b813-cdd0-4bd1-8dfd-78f30a4f8df7"],
+Cell[204789, 3901, 29997, 562, 76, "Output",ExpressionUUID->"1bc9aee3-aafc-42fc-9bcb-107bb5ed45ae"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[180929, 3524, 214, 4, 67, "Subsection",ExpressionUUID->"2c4a83cf-8af5-4d19-89ae-a864a258310f"],
+Cell[234835, 4469, 214, 4, 67, "Subsection",ExpressionUUID->"2c4a83cf-8af5-4d19-89ae-a864a258310f"],
 Cell[CellGroupData[{
-Cell[181168, 3532, 930, 21, 142, "Input",ExpressionUUID->"f275bdc7-d1c5-4b14-9c2f-42b3fa65a747"],
-Cell[182101, 3555, 246, 3, 69, "Output",ExpressionUUID->"2577268e-8e81-4d6c-a9a6-12aab0b257ab"]
+Cell[235074, 4477, 930, 21, 64, "Input",ExpressionUUID->"f275bdc7-d1c5-4b14-9c2f-42b3fa65a747"],
+Cell[236007, 4500, 246, 3, 42, "Output",ExpressionUUID->"d254662f-839e-4d39-b6d5-c2e46ac20636"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[182384, 3563, 479, 12, 64, "Input",ExpressionUUID->"78177850-499e-456b-b442-fad780dafdf0"],
-Cell[182866, 3577, 151, 2, 42, "Output",ExpressionUUID->"a5927606-c550-461c-bd27-a334950fe1ea"]
+Cell[236290, 4508, 479, 12, 64, "Input",ExpressionUUID->"78177850-499e-456b-b442-fad780dafdf0"],
+Cell[236772, 4522, 151, 2, 42, "Output",ExpressionUUID->"d3075a09-ecd3-41d9-996b-727807babcb8"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[183054, 3584, 1110, 30, 168, "Input",ExpressionUUID->"a17059c2-5416-45b1-b84e-0c2f842f7fb5"],
-Cell[184167, 3616, 151, 2, 42, "Output",ExpressionUUID->"becc95b8-bd59-45ee-a5c4-dfe8176e7b75"]
+Cell[236960, 4529, 1110, 30, 64, "Input",ExpressionUUID->"a17059c2-5416-45b1-b84e-0c2f842f7fb5"],
+Cell[238073, 4561, 151, 2, 42, "Output",ExpressionUUID->"3b6292df-94f6-4eaa-ae45-81d213830ccd"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[184355, 3623, 949, 25, 142, "Input",ExpressionUUID->"eac6cf31-dd90-40a1-b538-ae578852c33b"],
-Cell[185307, 3650, 152, 2, 42, "Output",ExpressionUUID->"1366566f-70b8-44b7-b5b1-57bb622d0660"]
+Cell[238261, 4568, 949, 25, 64, "Input",ExpressionUUID->"eac6cf31-dd90-40a1-b538-ae578852c33b"],
+Cell[239213, 4595, 152, 2, 42, "Output",ExpressionUUID->"431eed05-7327-41b8-85ba-53a65db3a012"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[185496, 3657, 681, 19, 64, "Input",ExpressionUUID->"78983d07-8f42-43d9-a50f-d26a03b2ee5c"],
-Cell[186180, 3678, 152, 2, 42, "Output",ExpressionUUID->"29326ae3-3926-4663-9c61-9334a3fdeced"]
+Cell[239402, 4602, 681, 19, 64, "Input",ExpressionUUID->"78983d07-8f42-43d9-a50f-d26a03b2ee5c"],
+Cell[240086, 4623, 152, 2, 42, "Output",ExpressionUUID->"2a239aea-63e0-45ad-936f-895260807bf1"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[186369, 3685, 938, 22, 116, "Input",ExpressionUUID->"33533fdf-b808-460b-a76c-9a554476db8f"],
-Cell[187310, 3709, 154, 2, 42, "Output",ExpressionUUID->"24bbf1a5-0858-4676-8ad1-82865e9ddb5a"],
-Cell[187467, 3713, 152, 2, 42, "Output",ExpressionUUID->"354677aa-b215-4bbd-9ff0-f2abc44604a3"]
+Cell[240275, 4630, 938, 22, 116, "Input",ExpressionUUID->"33533fdf-b808-460b-a76c-9a554476db8f"],
+Cell[241216, 4654, 152, 2, 42, "Output",ExpressionUUID->"2b2a220d-b4e1-49aa-b0df-f19bb732fe26"],
+Cell[241371, 4658, 151, 2, 42, "Output",ExpressionUUID->"fb3f4ce8-0c38-4403-bb4f-c38bfe5af386"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[187656, 3720, 1977, 51, 220, "Input",ExpressionUUID->"0ecadbe4-cf71-476b-8c76-ee242fab4284"],
-Cell[189636, 3773, 154, 2, 42, "Output",ExpressionUUID->"c9b9803d-66ff-4a2f-9cdf-19140b4ceafd"]
+Cell[241559, 4665, 1977, 51, 142, "Input",ExpressionUUID->"0ecadbe4-cf71-476b-8c76-ee242fab4284"],
+Cell[243539, 4718, 152, 2, 42, "Output",ExpressionUUID->"aecaa8cb-d539-4a10-b771-9fccac7b0614"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[189827, 3780, 1671, 44, 194, "Input",ExpressionUUID->"5497c17b-b2dd-4e7c-a7af-d730dba6c11b"],
-Cell[191501, 3826, 154, 2, 42, "Output",ExpressionUUID->"36a6b8fb-5390-42ef-8b37-456acad91c52"]
+Cell[243728, 4725, 1671, 44, 142, "Input",ExpressionUUID->"5497c17b-b2dd-4e7c-a7af-d730dba6c11b"],
+Cell[245402, 4771, 152, 2, 42, "Output",ExpressionUUID->"be424646-922b-4721-8c2b-79eef7e09e91"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[191692, 3833, 3058, 81, 454, "Input",ExpressionUUID->"602c7d97-d584-412d-b870-0ca50055aa97"],
-Cell[194753, 3916, 152, 2, 42, "Output",ExpressionUUID->"290f577f-e1b8-4bd2-b473-f4d2b543db1b"],
-Cell[194908, 3920, 152, 2, 42, "Output",ExpressionUUID->"30ba7c11-1f3e-4082-98f5-c37292adb32e"]
+Cell[245591, 4778, 3058, 81, 272, "Input",ExpressionUUID->"602c7d97-d584-412d-b870-0ca50055aa97"],
+Cell[248652, 4861, 152, 2, 42, "Output",ExpressionUUID->"9bc75337-cfe0-4884-bec3-e2b510a384b4"],
+Cell[248807, 4865, 154, 2, 42, "Output",ExpressionUUID->"715125ab-71de-4a9f-8e7e-2eb985a5d241"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[195097, 3927, 1824, 45, 246, "Input",ExpressionUUID->"1a2dcded-7e53-422c-80f9-ab1140dea2c3"],
-Cell[196924, 3974, 154, 2, 62, "Output",ExpressionUUID->"5dbe08ee-f894-4ae1-8b93-e052b82062bf"]
+Cell[248998, 4872, 1824, 45, 168, "Input",ExpressionUUID->"1a2dcded-7e53-422c-80f9-ab1140dea2c3"],
+Cell[250825, 4919, 152, 2, 42, "Output",ExpressionUUID->"a37bcf98-ff97-4901-b888-8c7056026937"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[251014, 4926, 840, 21, 116, "Input",ExpressionUUID->"22c0137c-bdbb-4e8a-919e-b9ba199344a5"],
+Cell[251857, 4949, 152, 2, 42, "Output",ExpressionUUID->"9bbd33ba-0d92-4ec7-8920-d711fd1a7328"],
+Cell[252012, 4953, 152, 2, 42, "Output",ExpressionUUID->"5a92b41c-cd7e-4383-a85e-b6b82b32bc1b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[252201, 4960, 552, 12, 64, "Input",ExpressionUUID->"5d0d6c37-c913-4696-b5ea-fa4bc8e7f5f1"],
+Cell[252756, 4974, 152, 2, 42, "Output",ExpressionUUID->"e1b26ab8-c9a2-4656-a5c0-283490fbb2c6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[252945, 4981, 2639, 66, 194, "Input",ExpressionUUID->"6cc10cde-a6cb-404a-b3d1-b39522e85b5a"],
+Cell[255587, 5049, 178, 2, 42, "Output",ExpressionUUID->"e064d958-cdec-4d28-a317-47e714192b5d"],
+Cell[255768, 5053, 180, 2, 62, "Output",ExpressionUUID->"8202c245-282e-4118-a701-9e5b0d72d594"]
 }, Open  ]]
-}, Closed]]
+}, Open  ]]
 }
 ]
 *)
