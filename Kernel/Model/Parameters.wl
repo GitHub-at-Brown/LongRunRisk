@@ -12,85 +12,85 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 
 
 (*preferences*)
-	delta::usage = "Description of parameter (needs to be added).";
-	psi::usage = "Description of parameter (needs to be added).";
-	gamma::usage = "Description of parameter (needs to be added).";
-	theta::usage = "Description of parameter (needs to be added).";
+	delta::usage = "Discount factor.";
+	psi::usage = "Elasticity of intertemporal substitution.";
+	gamma::usage = "Risk aversion coefficient.";
+	theta::usage = "Defined by \[Theta] := \!\(\*FractionBox[\(1 - \[Gamma]\), \(1 - \*FractionBox[\(1\), \(\[Psi]\)]\)]\).";
 (*long-run risk*)
-	rhox::usage = "Description of parameter (needs to be added).";
-	rhoxpbar::usage = "Description of parameter (needs to be added).";
-	phix::usage = "Description of parameter (needs to be added).";
-	phixc::usage = "Description of parameter (needs to be added).";
+	rhox::usage = "Persistence of long-run risk, AR(1) coefficient.";
+	rhoxpbar::usage = "Exposure of long-run risk to lagged expected inflation.";
+	phix::usage = "Exposure of long-run risk to stochastic volatility of long-run risk and long-run risk shocks.";
+	phixc::usage = "Exposure of long-run risk to stochastic volatility of consumption growth and consumption growth shocks.";
 (*inflation*)
-	mup::usage = "Description of parameter (needs to be added).";
-	rhoppbar::usage = "Description of parameter (needs to be added).";
-	rhop::usage = "Description of parameter (needs to be added).";
-	phip::usage = "Description of parameter (needs to be added).";
-	xip::usage = "Description of parameter (needs to be added).";
-	phipc::usage = "Description of parameter (needs to be added).";
-	phipx::usage = "Description of parameter (needs to be added).";
-	phipcx::usage = "Description of parameter (needs to be added).";
-	phipp::usage = "Description of parameter (needs to be added).";
-	phipxp::usage = "Description of parameter (needs to be added).";
+	mup::usage = "Mean of inflation rate.";
+	rhoppbar::usage = "Exposure of inflation to lagged expected inflation.";
+	rhop::usage = "Persistence of inflation, AR(1) coefficient.";
+	phip::usage = "Exposure of inflation to inflation shocks.";
+	xip::usage = "Exposure of inflation to lagged inflation shocks.";
+	phipc::usage = "Exposure of inflation to stochastic volatility of consumption growth and consumption growth shocks.";
+	phipx::usage = "Exposure of inflation to stochastic volatility of long-run risk and long-run risk shocks.";
+	phipcx::usage = "Exposure of inflation to stochastic volatility of consumption growth and long-run risk shocks.";
+	phipp::usage = "Exposure of inflation to stochastic volatility of inflation and inflation shocks.";
+	phipxp::usage = "Exposure of inflation to stochastic volatility of long-run risk and inflation shocks.";
 (*expected inflation*)
-	mupbar::usage = "Description of parameter (needs to be added).";
-	rhopbar::usage = "Description of parameter (needs to be added).";
-	rhopbarx::usage = "Description of parameter (needs to be added).";
-	phipbarp::usage = "Description of parameter (needs to be added).";
-	phipbarc::usage = "Description of parameter (needs to be added).";
-	phipbarx::usage = "Description of parameter (needs to be added).";
-	phipbarcx::usage = "Description of parameter (needs to be added).";
-	phipbarpb::usage = "Description of parameter (needs to be added).";
-	phipbarxb::usage = "Description of parameter (needs to be added).";
-	phipbarxp::usage = "Description of parameter (needs to be added).";
+	mupbar::usage = "Mean of expected inflation.";
+	rhopbar::usage = "Persistence of expected inflation, AR(1) coefficient.";
+	rhopbarx::usage = "Exposure of expected inflation to lagged long-run risk.";
+	phipbarp::usage = "Exposure of expected inflation to inflation shocks.";
+	phipbarc::usage = "Exposure of expected inflation to stochastic volatility of consumption growth and consumption growth shocks.";
+	phipbarx::usage = "Exposure of expected inflation to stochastic volatility of long-run risk and long-run risk shocks.";
+	phipbarcx::usage = "Exposure of expected inflation to stochastic volatility of consumption growth and long-run risk shocks.";
+	phipbarpb::usage = "Exposure of expected inflation to stochastic volatility of inflation and expected inflation shocks.";
+	phipbarxb::usage = "Exposure of expected inflation to stochastic volatility of long-run risk and expected inflation shocks.";
+	phipbarxp::usage = "Exposure of expected inflation to stochastic volatility of long-run risk and inflation shocks.";
 (*real consumption growth*)
-	muc::usage = "Description of parameter (needs to be added).";
-	rhocx::usage = "Description of parameter (needs to be added).";
-	rhocp::usage = "Description of parameter (needs to be added).";
-	phic::usage = "Description of parameter (needs to be added).";
-	phicp::usage = "Description of parameter (needs to be added).";
-	phicsp::usage = "Description of parameter (needs to be added).";
-	xic::usage = "Description of parameter (needs to be added).";
-	phics::usage = "Description of parameter (needs to be added).";
-	phicx::usage = "Description of parameter (needs to be added).";
-	phicc::usage = "Description of parameter (needs to be added).";
-	phicpc::usage = "Description of parameter (needs to be added).";
-	phicpp::usage = "Description of parameter (needs to be added).";
+	muc::usage = "Mean of consumption growth.";
+	rhocx::usage = "Exposure of consumption growth to lagged long-run risk.";
+	rhocp::usage = "Exposure of consumption growth to lagged inflation.";
+	phic::usage = "Exposure of consumption growth to consumption growth shocks.";
+	phicp::usage = "Exposure of consumption growth to inflation shocks.";
+	phicsp::usage = "Exposure of consumption growth to lagged nominal-real covariance and inflation shocks.";
+	xic::usage =  "Exposure of consumption growth to nominal-real covariance two periods ago and lagged inflation shocks.";
+	phics::usage = "Exposure of consumption growth to stochastic volatility of long-run risk and long-run risk shocks.";
+	phicx::usage = "Exposure of consumption growth to stochastic volatility of long-run risk and consumption growth shocks.";
+	phicc::usage = "Exposure of consumption growth to stochastic volatility of consumption growth and consumption growth shocks.";
+	phicpc::usage = "Exposure of consumption growth to stochastic volatility of inflation and consumption growth shocks.";
+	phicpp::usage = "Exposure of consumption growth to stochastic volatility of inflation and inflation shocks.";
 (*nominal-real covariance (NRC)*)
-	Esg::usage = "Description of parameter (needs to be added).";
-	rhog::usage = "Description of parameter (needs to be added).";
-	phig::usage = "Description of parameter (needs to be added).";
+	Esg::usage = "Mean of nominal-real covariance.";
+	rhog::usage = "Persistence of nominal-real covariance, AR(1) coefficient.";
+	phig::usage = "Volatility of nominal-real covariance.";
 (*stochastic volatility of long-run risk*)
-	Esx::usage = "Description of parameter (needs to be added).";
-	vx::usage = "Description of parameter (needs to be added).";
-	phisxs::usage = "Description of parameter (needs to be added).";
+	Esx::usage = "Mean of stochastic volatility of long-run risk.";
+	vx::usage = "Persistence of stochastic volatility of long-run risk, AR(1) coefficient.";
+	phisxs::usage = "Volatility of stochastic volatility of long-run risk.";
 (*stochastic volatility of consumption growth*)
-	Esc::usage = "Description of parameter (needs to be added).";
-	vc::usage = "Description of parameter (needs to be added).";
-	phiscv::usage = "Description of parameter (needs to be added).";
+	Esc::usage = "Mean of stochastic volatility of consumption growth.";
+	vc::usage = "Persistence of stochastic volatility of consumption growth, AR(1) coefficient.";
+	phiscv::usage = "Volatility of stochastic volatility of consumption growth.";
 (*stochastic volatility of inflation*)
-	Esp::usage = "Description of parameter (needs to be added).";
-	vp::usage = "Description of parameter (needs to be added).";
-	vpp::usage = "Description of parameter (needs to be added).";
-	vppbar::usage = "Description of parameter (needs to be added).";
-	phispw::usage = "Description of parameter (needs to be added).";	
+	Esp::usage = "Mean of stochastic volatility of inflation.";
+	vp::usage = "Persistence of stochastic volatility of inflation, AR(1) coefficient.";
+	vpp::usage = "Exposure of stochastic volatility of inflation to lagged inflation.";
+	vppbar::usage = "Exposure of stochastic volatility of inflation to lagged expected inflation.";
+	phispw::usage = "Volatility of stochastic volatility of inflation.";
 (*real dividend growth*)
-	mud::usage = "Description of parameter (needs to be added).";
-	rhodx::usage = "Description of parameter (needs to be added).";
-	rhodp::usage = "Description of parameter (needs to be added).";
-	phidc::usage = "Description of parameter (needs to be added).";
-	phidp::usage = "Description of parameter (needs to be added).";
-	phidsp::usage = "Description of parameter (needs to be added).";
-	xid::usage = "Description of parameter (needs to be added).";
-	phids::usage = "Description of parameter (needs to be added).";
-	phidxc::usage = "Description of parameter (needs to be added).";
-	phidcc::usage = "Description of parameter (needs to be added).";
-	phidpc::usage = "Description of parameter (needs to be added).";
-	phidpp::usage = "Description of parameter (needs to be added).";
-	phidxd::usage = "Description of parameter (needs to be added).";
-	phidcd::usage = "Description of parameter (needs to be added).";
-	phidpd::usage = "Description of parameter (needs to be added).";
-	taugd::usage = "Description of parameter (needs to be added).";
+	mud::usage = "Mean of real dividend growth.";
+	rhodx::usage = "Exposure of dividend growth to lagged long-run risk.";
+	rhodp::usage = "Exposure of dividend growth to lagged inflation.";
+	phidc::usage = "Exposure of dividend growth to consumption growth shocks.";
+	phidp::usage = "Exposure of dividend growth to inflation shocks.";
+	phidsp::usage = "Exposure of dividend growth to lagged nominal-real covariance and inflation shocks.";
+	xid::usage = "Exposure of dividend growth to nominal-real covariance two periods ago and lagged inflation shocks.";
+	phids::usage = "Exposure of dividend growth to stochastic volatility of long-run risk and long-run risk shocks.";
+	phidxc::usage = "Exposure of dividend growth to stochastic volatility of long-run risk and consumption growth shocks.";
+	phidcc::usage = "Exposure of dividend growth to stochastic volatility of consumption growth and consumption growth shocks.";
+	phidpc::usage = "Exposure of dividend growth to stochastic volatility of inflation and consumption growth shocks.";
+	phidpp::usage = "Exposure of dividend growth to stochastic volatility of inflation and inflation shocks.";
+	phidxd::usage = "Exposure of dividend growth to stochastic volatility of long-run risk and dividend growth shocks.";
+	phidcd::usage = "Exposure of dividend growth to stochastic volatility of consumption growth and dividend growth shocks.";
+	phidpd::usage = "Exposure of dividend growth to stochastic volatility of inflation and dividend growth shocks.";
+	taugd::usage = "Correlation between shocks to consumption growth and dividend growth.";
 
 
 (*globals to share across packages*)

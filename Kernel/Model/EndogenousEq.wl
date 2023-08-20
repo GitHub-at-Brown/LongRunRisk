@@ -71,7 +71,7 @@ $ContextPath=AppendTo[
 
 
 (* ::Subsection:: *)
-(*Private symbols that do not end in "eq" for endogenous variables *)
+(*Private symbols that have the same name as public symbols but do not end in "eq"*)
 
 
 (*declare symbols*)
@@ -194,7 +194,7 @@ nomrfeq[t_,h_:1] := nombondyield[t,h]
 
 
 (* ::Subsection:: *)
-(*Symbols for coefficients*)
+(*Symbols for coefficients of wealth-consumption ratio, price-dividend ratio, real and nominal bond prices*)
 
 
 coefwc = Cases[UpValues[wceq], HoldPattern[linearInStateVars[_,x_]]:>x,Infinity][[1]];
