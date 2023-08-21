@@ -4,3 +4,4 @@
 /.github/workflows/PublishPaclet.yml
 /.github/workflows/Release.yml
 *.json
+/ToProcess/
