@@ -11,22 +11,17 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 (*Public symbols*)
 
 
-updateCoeffsWc
-updateCoeffsPd
-updateCoeffsBond
-updateCoeffsSol
-checks
-
-
-(* ::Subsubsection:: *)
-(*Usage*)
-
-
 updateCoeffsWc::usage = "";
 updateCoeffsPd::usage = "";
 updateCoeffsBond::usage = "";
 updateCoeffsSol::usage = "";
+updateCoeffs::usage = "";
 checks::usage = "";
+
+
+updateCoeffs::usage = "updateCoeffs[model] gives a list of rules to evaluate expressions numerically."<>"\n"<>
+			          "updateCoeffs[model, newParameters] uses the parameters provided in the list of rules parameters."<>"\n"<>
+			          "updateCoeffs[model, newParameters, guessCoeffsSolution] uses the parameters provided in the list of rules parameters."
 
 
 (* ::Section:: *)
@@ -45,6 +40,37 @@ Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 
 
 (* ::Subsection:: *)
+(*updateCoeffs*)
+
+
+(*inherit default options from updateCoeffsSol, checks*)
+updateCoeffs//Options = Flatten@(
+	Options/@
+	{
+		updateCoeffsSol,
+		checks
+	}
+);
+
+
+(*updateCoeffs is a wrapper to updateCoeffsSol that splits arguments into positional and optional*)
+updateCoeffs[args__]:=Module[
+	{
+		posArgs,
+		optArgs,
+		posArgsLength3
+	},
+	{posArgs,optArgs}=ArgumentsOptions[
+		updateCoeffsSol[args],
+		{1,3},
+		<|"OptionsMode"->"Shortest","ExtraOptions"->{checks,FindRoot}|>
+	];
+	posArgsLength3=PadRight[posArgs,3,{{}}];
+	updateCoeffsSol[Sequence@@Join[posArgsLength3,optArgs]]
+]
+
+
+(* ::Subsection:: *)
 (*updateCoeffsSol*)
 
 
@@ -52,7 +78,7 @@ updateCoeffsSol//Options={
 	"initialGuess" -> <|"Ewc"->{4},"Epd"->{{4}}|>,
 	"FindRootOptions"->{MaxIterations->100}, (*"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)
 	"RecurrenceTableOptions"->{"DependentVariables"->Automatic},
-	"ReturnPd"->True
+	"UpdatePd"->False
 };
 
 
@@ -69,10 +95,10 @@ updateCoeffsSol[
 	]
 ]:=With[
 	{
-		parameters=model["parameters"],
+		parameters = model["parameters"],
 		params = model["params"],
 		numStocks = model["numStocks"],
-		guessCoeffsSolutionWc=FilterRules[guessCoeffsSolution,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[_]]
+		guessCoeffsSolutionWc = FilterRules[guessCoeffsSolution,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[_]]
 	},
 	Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 	Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
@@ -92,10 +118,9 @@ updateCoeffsSol[
 			ig = Evaluate[OptionValue["initialGuess"]]["Epd"],
 			(*initialGuessEpd = First@(First@(Evaluate[OptionValue["initialGuess"]]["Epd"])),*)
 			doChecks= OptionValue["PrintResidualsNorm"] || OptionValue["CheckResiduals"],
-			optsCheck = FilterRules[Flatten@{opts}, Options[checks]]
+			optsCheck = FilterRules[Flatten@{opts}, Options[checks]],
+			optsReturnPd = OptionValue["UpdatePd"]
 		},
-		(*Echo[guessCoeffsSolutionPd,"guessCoeffsSolutionPd"];
-		Echo[ig,"ig"];*)
 		With[
 		{
 			igNumStocks=If[(First@Dimensions[ig])!=numStocks,ConstantArray[First@ig,numStocks],ig]
@@ -111,7 +136,6 @@ updateCoeffsSol[
 					{j,1,numStocks}
 				]
 			},
-			(*Echo[initialGuessEpd,"initialGuessEpd"];*)
 			Module[
 				{
 					solWc = Nothing,
@@ -122,8 +146,8 @@ updateCoeffsSol[
 					solRestStocks
 				},
 				Which[
-					(*if none of the new parameters are stock parameters*)
-					AllTrue[stockFreeQ,TrueQ]
+					(*if none of the new parameters are stock parameters and pd coefficients were not requested*)
+					AllTrue[stockFreeQ,TrueQ] && Not@TrueQ[optsReturnPd]
 					,
 					(*only update wealth-consumption ratio coefficients*)
 					solWc=updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]];
