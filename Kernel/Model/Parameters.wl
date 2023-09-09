@@ -104,6 +104,10 @@ $parameters=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
 Begin["`Private`"]
 
 
+(*make index variables be maintained as exact integers, rather than being converted by N to approximate numbers*)
+SetAttributes[$parameters,NHoldAll]
+
+
 (* ::Subsection:: *)
 (*Assumptions on parameters*)
 

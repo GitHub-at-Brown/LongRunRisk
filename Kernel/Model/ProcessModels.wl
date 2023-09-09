@@ -116,7 +116,7 @@ processModels[
 	modelAssumptions = FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramAssumptions && 
 		FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`endogEqAssumptions;
 	models=(Append[#, "modelAssumptions"->(modelAssumptions//.#["assignParam"]//.#["assignParamStocks"]) ]&) /@models;
-	
+
 	(*add "exogenousVars","exogenousEq" to each model*)
 	models = createExogenous[models];
 	
@@ -188,7 +188,7 @@ processModels[
 		#,
 		"coeffsSolutionN" -> addCoeffsSolutionN[#]
 	]& /@ models;
-
+	
 	(*add a list of existing Keys called Properties*)
 	models=Append[
 		#,
@@ -203,7 +203,7 @@ processModels[
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*createExogenous*)
 
 
@@ -288,7 +288,7 @@ createExogenous[m_]:=Module[
 ]	
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*createEndogenous*)
 
 
@@ -358,7 +358,7 @@ createEndogenous[mod_]:=Module[
 ]	
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*addToStateVars*)
 
 
@@ -481,11 +481,11 @@ addCoeffsSolution[
 			Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];*)
 			If[
 				(*infoModel has coefficients in closed form*)
-				KeyExistsQ[infoModel,"coeffs"]&&KeyExistsQ[infoModel["coeffs"],ratio]
+				KeyExistsQ[infoModel,"coeffs"] && KeyExistsQ[infoModel["coeffs"],ratio]
 				,
 				(*use the closed form to make the system of equations smaller*)
 				coeffInfo=infoModel["coeffs"][ratio];(*Join[infoModel["coeffs"][ratio],If[ratio==="wc",{},infoModel["coeffs"]["wc"]]];*)
-				solvedQ=Quiet[Simplify[#,Assumptions->n>=1&&Element[n,Integers],TimeConstraint->{1,2}]&/@(system[[2;;-1]]//.coeffInfo/.dependentParameters),Simplify::gtime];
+				solvedQ=Quiet[Simplify[#,Assumptions->n>=1 && Element[n,Integers],TimeConstraint->{1,2}]&/@(system[[2;;-1]]//.coeffInfo/.dependentParameters),Simplify::gtime];
 				If[
 					(*if the closed form coefficients from infoModel make some equation not hold*)
 					AnyTrue[Not/@solvedQ,TrueQ]
@@ -524,6 +524,7 @@ addCoeffsSolution[
 					cs[[3]]
 				]
 				,
+				(*solve a subset of the system numerically, use closed form solution for the rest*)
 				If[
 					StringMatchQ[ratio,"wc"|"pd"],
 					createStartingPoint[
@@ -546,8 +547,8 @@ addCoeffsSolution[
 				{
 					Inactive[MapThread][
 						Inactive[FindRoot][
-							#1,
-							#2,
+							N@#1,
+							N@#2,
 							Evaluate@findRootOpts
 						]&,
 						{{eq}, x}
@@ -571,8 +572,8 @@ addCoeffsSolution[
 						{
 							Inactive[MapThread][
 								Inactive[mapFindRoot][
-									#1,
-									#2,
+									N@#1,
+									N@#2,
 									Evaluate@findRootOpts
 								]&,
 								{eq  /. ({j->#}&/@Range[numStocks]), x}
@@ -736,7 +737,7 @@ createStartingPoint[
 							bounds0= (
 								Off[Reduce::ratnz]
 								;
-								Inactive[Reduce][Inactive[Simplify][ boundsGuess0 && boundsInfo0 && 0 < coeff0 < 15], coeff0, Reals]
+								Inactive[Reduce][Inactive[Simplify][boundsGuess0 && boundsInfo0 && 0 < coeff0 < 15], coeff0, Reals]
 								;
 								On[Reduce::ratnz]
 							);
@@ -829,7 +830,7 @@ formatStartingValues[
 								restNames = Rest@coefficientNames
 							},
 							Which[
-								(*a number or a vector of up to three numbers*)
+								(*a number or a vector of up to three elements*)
 								(*NumberQ[ig] || (VectorQ[ig,NumberQ] && 1<=Length[ig]<=3)*)
 								NumberQ[ig] || pattern1[ig]
 								,
@@ -844,7 +845,7 @@ formatStartingValues[
 								(*ListQ[ig] && MatchQ[ig, { {_?(Not@NumberQ[#]&),Repeated[_?NumberQ,{1,3}]}..}]*)
 								ListQ[ig] && MatchQ[ig, pattern2]
 								,
-								(*reformat to only include needed coefficients and fix the context of the coefficients if needed*)
+								(*reformat to only include coefficients that are being solved for and fix the context of the coefficients if needed*)
 								Join[{Flatten@{firstNames,Rest@(firstIg)}},formatStartingValuesRest[restIg,restNames]]
 								,
 								(*ListQ[ig] && (NumberQ[firstIg]||(VectorQ[firstIg,NumberQ]&&1<=Length[firstIg]<=3))  &&  MatchQ[restIg, {} | { {_?(Not@NumberQ[#]&),Repeated[_?NumberQ,{1,3}]}..}]*)

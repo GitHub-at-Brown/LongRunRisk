@@ -68,6 +68,10 @@ rulesE[t_]:=With[
 ]
 
 
+(*make index variables be maintained as exact integers, rather than being converted by N to approximate numbers*)
+SetAttributes[$shocks,NHoldAll]
+
+
 (* ::Section:: *)
 (*End package*)
 

@@ -74,6 +74,10 @@ Function[sym,
 ]@@@(Hold /@ Symbol /@ $exogenousVars);
 
 
+(*make index variables be maintained as exact integers, rather than being converted by N to approximate numbers*)
+SetAttributes[$exogenousVarsPrivate,NHoldAll]
+
+
 (* ::Subsection:: *)
 (*Exogenous processes*)
 

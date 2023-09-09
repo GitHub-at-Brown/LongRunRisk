@@ -101,6 +101,10 @@ Function[sym,
 ]@@@(Hold /@ Symbol /@ $endogenousVars);
 
 
+(*make index variables be maintained as exact integers, rather than being converted by N to approximate numbers*)
+SetAttributes[$endogenousVarsPrivate,NHoldAll]
+
+
 (* ::Subsection:: *)
 (*time variable*)
 
@@ -201,6 +205,9 @@ coefwc = Cases[UpValues[wceq], HoldPattern[linearInStateVars[_,x_]]:>x,Infinity]
 coefpd = Cases[UpValues[pdeq], HoldPattern[linearInStateVars[_,x_[i__]]]:>x[_],Infinity][[1]];
 coefb = Cases[UpValues[bondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],Infinity][[1]];
 coefnb = Cases[UpValues[nombondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],Infinity][[1]];
+
+(*make index variables be maintained as exact integers, rather than being converted by N to approximate numbers*)
+SetAttributes[Evaluate@{coefwc,Head@coefpd,Head@coefb,Head@coefnb},NHoldAll]
 
 
 (* ::Subsection:: *)
