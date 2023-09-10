@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[    363659,       7177]
-NotebookOptionsPosition[    307991,       6164]
-NotebookOutlinePosition[    354354,       7019]
-CellTagsIndexPosition[    354311,       7016]
+NotebookDataLength[    393062,       7641]
+NotebookOptionsPosition[    337296,       6627]
+NotebookOutlinePosition[    383658,       7482]
+CellTagsIndexPosition[    383615,       7479]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -15,7 +15,7 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.889964198656839*^9, 3.889964203363894*^9}},
- CellLabel->"In[1]:=",ExpressionUUID->"22feddcb-b3fc-478d-8077-4a914f160da7"],
+ CellLabel->"In[33]:=",ExpressionUUID->"22feddcb-b3fc-478d-8077-4a914f160da7"],
 
 Cell[CellGroupData[{
 
@@ -60,35 +60,30 @@ Cell[BoxData[{
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>"], "Output",
- CellChangeTimes->{3.8954308446988173`*^9, 3.895430974234503*^9, 
-  3.8955077901156816`*^9},
- CellLabel->"Out[1]=",ExpressionUUID->"105247e4-ffb9-42a5-90ef-ceecb5cc624c"],
+ CellChangeTimes->{3.9015344196188726`*^9, 3.901548652585556*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"e5f51980-af68-41f0-b2e9-275a810eccc8"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/\"\>"], "Output",
- CellChangeTimes->{3.8954308446988173`*^9, 3.895430974234503*^9, 
-  3.8955077901173353`*^9},
- CellLabel->"Out[2]=",ExpressionUUID->"3dd52cc1-b131-4a9c-afaf-02fd19b65ee0"],
+ CellChangeTimes->{3.9015344196188726`*^9, 3.9015486525863533`*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"d2e9cfe9-7d99-4d31-8d65-2eaf00386f93"],
 
 Cell[BoxData[
  RowBox[{"{", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/\"\>", "}"}]], "Output",
- CellChangeTimes->{3.8954308446988173`*^9, 3.895430974234503*^9, 
-  3.895507790161319*^9},
- CellLabel->"Out[3]=",ExpressionUUID->"fe876e7b-fd15-44ad-82eb-1cfb4bab9def"],
+ CellChangeTimes->{3.9015344196188726`*^9, 3.901548652622882*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"7d44a2ba-8eb1-43d1-a0c2-8c2a91ebabe7"],
 
 Cell[BoxData["\<\"CreateEulerEq\"\>"], "Output",
- CellChangeTimes->{3.8954308446988173`*^9, 3.895430974234503*^9, 
-  3.8955077901626987`*^9},
- CellLabel->"Out[4]=",ExpressionUUID->"771da473-e753-4ed7-a925-dca74dc65798"],
+ CellChangeTimes->{3.9015344196188726`*^9, 3.901548652623603*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"45abb243-f63c-4079-ba3f-e2718ec13067"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"\<\"HighlightingCompatibility`\"\>", ",", "\<\"System`\"\>", 
+  RowBox[{"\<\"Wolfram`Chatbook`\"\>", ",", "\<\"System`\"\>", 
    ",", "\<\"Global`\"\>"}], "}"}]], "Output",
- CellChangeTimes->{3.8954308446988173`*^9, 3.895430974234503*^9, 
-  3.895507790164062*^9},
- CellLabel->"Out[5]=",ExpressionUUID->"615ee317-4ee6-4820-b92b-33ca6dd3d61d"]
+ CellChangeTimes->{3.9015344196188726`*^9, 3.9015486526241093`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"78c3c686-2325-46c8-ac82-94c97e82bd8e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -125,8 +120,8 @@ Cell[BoxData[{
 
 Cell[BoxData["\<\"FernandoDuarte`LongRunRisk`ComputationalEngine`\
 CreateEulerEq`\"\>"], "Output",
- CellChangeTimes->{3.895430979395316*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"c72d9ec0-f3ae-41df-99d5-0bd09420b66c"]
+ CellChangeTimes->{3.901548704300213*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"298561ff-9dfd-458f-8576-795e0c4db25f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -141,8 +136,8 @@ Cell[BoxData[
  CellLabel->"In[9]:=",ExpressionUUID->"2f82b75d-42a0-4b76-b3ff-7172db85f4de"],
 
 Cell[BoxData["\<\"ComputationalEngine`CreateEulerEq`\"\>"], "Output",
- CellChangeTimes->{3.895430979410696*^9},
- CellLabel->"Out[9]=",ExpressionUUID->"d3efd4ba-9282-4846-8082-682200e09bfe"]
+ CellChangeTimes->{3.901548704303474*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"cfc2da5e-df57-4fa7-b1c2-abf2d7b33e02"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -157,7 +152,7 @@ Cell[BoxData[
       RowBox[{"FileNameJoin", "[", 
        RowBox[{"{", 
         RowBox[{
-        "pacletDir", ",", "\"\<Resources\>\"", ",", "\"\<Models.wl\>\""}], 
+        "\"\<FernandoDuarte/LongRunRisk\>\"", ",", "\"\<Models.wl\>\""}], 
         "}"}], "]"}], "]"}]}], " ", ";", "\[IndentingNewLine]", "\t", 
     RowBox[{"msp", "=", "FernandoDuarte`LongRunRisk`Models"}], ";", 
     "\[IndentingNewLine]", "\t", 
@@ -179,7 +174,7 @@ Cell[BoxData[
  CellChangeTimes->{
   3.893175497420415*^9, 3.895391994582877*^9, 3.895392105630176*^9, {
    3.89539218281699*^9, 3.895392183152795*^9}, {3.895416814433571*^9, 
-   3.8954168147165403`*^9}, 3.8954226795755463`*^9},
+   3.8954168147165403`*^9}, 3.8954226795755463`*^9, 3.901548696187284*^9},
  CellLabel->"In[10]:=",ExpressionUUID->"eccf8930-58b0-4acf-8ec2-cc24c39a0278"],
 
 Cell[CellGroupData[{
@@ -187,29 +182,29 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230610-GFA92E\"\>"}],
-  SequenceForm["Adding test: ", "CreateEulerEq_20230610-GFA92E"],
+   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230820-UJLDBE\"\>"}],
+  SequenceForm["Adding test: ", "CreateEulerEq_20230820-UJLDBE"],
   Editable->False]], "Print",
- CellChangeTimes->{3.8954309798541813`*^9},
+ CellChangeTimes->{3.901548704684141*^9},
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"721ab47a-c4d1-49a5-ab86-234b604a34ad"],
+In[10]:=",ExpressionUUID->"db7b4d9a-8fd6-4d60-8a93-6c57607a7fc5"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.8954309798830357`*^9},
+ CellChangeTimes->{3.901548704700968*^9},
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"80dac066-dac6-4b22-9a4b-76a9d2a8afe5"]
+In[10]:=",ExpressionUUID->"c217689a-1cf5-4966-a0a2-f456d66c9cf8"]
 }, Open  ]],
 
 Cell[BoxData[
  DynamicModuleBox[{
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
-  "Get @ Get @ FileNameJoin @ {pacletDir, \"Resources\", \"Models.wl\"};\n\t\
-ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
-ComputationalEngine`CreateEulerEq`modBY = \
-ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
+  "Get @ Get @ FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \
+\"Models.wl\"};\n\tComputationalEngine`CreateEulerEq`msp = \
+FernandoDuarte`LongRunRisk`Models;\n\tComputationalEngine`CreateEulerEq`modBY \
+= ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
 ComputationalEngine`CreateEulerEq`modNRC = \
 ComputationalEngine`CreateEulerEq`msp @ \"NRC\";\n\t\
 ComputationalEngine`CreateEulerEq`modDES = \
@@ -221,10 +216,11 @@ ComputationalEngine`CreateEulerEq`modDES};",
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = Null, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
-  "VerificationTest[\n\tGet @ Get @ FileNameJoin @ {pacletDir, \"Resources\", \
-\"Models.wl\"};\n\tComputationalEngine`CreateEulerEq`msp = \
-FernandoDuarte`LongRunRisk`Models;\n\tComputationalEngine`CreateEulerEq`modBY \
-= ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
+  "VerificationTest[\n\tGet @ Get @ FileNameJoin @ \
+{\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
+ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
+ComputationalEngine`CreateEulerEq`modBY = \
+ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
 ComputationalEngine`CreateEulerEq`modNRC = \
 ComputationalEngine`CreateEulerEq`msp @ \"NRC\";\n\t\
 ComputationalEngine`CreateEulerEq`modDES = \
@@ -233,16 +229,16 @@ ComputationalEngine`CreateEulerEq`mods = \
 {ComputationalEngine`CreateEulerEq`modBY, \
 ComputationalEngine`CreateEulerEq`modNRC, \
 ComputationalEngine`CreateEulerEq`modDES};\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-GFA92E\"\n]\n\n", 
+TestID->\"CreateEulerEq_20230820-UJLDBE\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$ = True, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> Null, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.111, "AbsoluteTiming" -> 0.115, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.168, "AbsoluteTiming" -> 0.176, 
    "InputString" :> ToString[
      Unevaluated[Get[
         Get[
-         FileNameJoin[{$CellContext`pacletDir, "Resources", "Models.wl"}]]]; 
+         FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]]; 
       ComputationalEngine`CreateEulerEq`msp = 
        FernandoDuarte`LongRunRisk`Models; 
       ComputationalEngine`CreateEulerEq`modBY = 
@@ -259,7 +255,7 @@ TestID->\"CreateEulerEq_20230610-GFA92E\"\n]\n\n",
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"CreateEulerEq\"]\n\n\nVerificationTest[\n\tGet @ Get @ \
-FileNameJoin @ {pacletDir, \"Resources\", \"Models.wl\"};\n\t\
+FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
 ComputationalEngine`CreateEulerEq`modBY = \
 ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
@@ -271,16 +267,15 @@ ComputationalEngine`CreateEulerEq`mods = \
 {ComputationalEngine`CreateEulerEq`modBY, \
 ComputationalEngine`CreateEulerEq`modNRC, \
 ComputationalEngine`CreateEulerEq`modDES};\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-GFA92E\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"CreateEulerEq_20230820-UJLDBE\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>",
   DynamicModuleValues:>{{
     DownValues[
       FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
       HoldPattern[
-         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]
-         :> (
-        If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
           Export[
           "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", 
@@ -337,8 +332,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895430979893202*^9},
- CellLabel->"Out[10]=",ExpressionUUID->"5e4a411c-3811-4ab1-973a-0963001b00fc"]
+ CellChangeTimes->{3.901548704710239*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"58d69d61-3bce-4acf-b734-d5638b71f6b3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -477,20 +472,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230610-EXYC8D\"\>"}],
-  SequenceForm["Adding test: ", "CreateEulerEq_20230610-EXYC8D"],
+   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230820-XD2P9G\"\>"}],
+  SequenceForm["Adding test: ", "CreateEulerEq_20230820-XD2P9G"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895430979992136*^9},
+ CellChangeTimes->{3.90154870479427*^9},
  CellLabel->
   "During evaluation of \
-In[11]:=",ExpressionUUID->"52345c8b-4cf0-4b8b-84be-818ee0610322"],
+In[11]:=",ExpressionUUID->"2ff50437-47d2-47a8-9fe7-fbb09166bbba"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.8954309799948053`*^9},
+ CellChangeTimes->{3.9015487047955027`*^9},
  CellLabel->
   "During evaluation of \
-In[11]:=",ExpressionUUID->"24cc4a5e-f83f-431b-af6f-94ec2fb0368d"]
+In[11]:=",ExpressionUUID->"0956ff2f-f413-43a4-8d49-3c069ac85c5b"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -610,12 +605,12 @@ ComputationalEngine`CreateEulerEq`mods];\n\t\
 ComputationalEngine`CreateEulerEq`coeffNomBondAll = \
 Map[ComputationalEngine`CreateEulerEq`coeffNomBond, \
 ComputationalEngine`CreateEulerEq`mods];\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-EXYC8D\"\n]\n\n", 
+TestID->\"CreateEulerEq_20230820-XD2P9G\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> Null, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.053, "AbsoluteTiming" -> 0.053, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.058, "AbsoluteTiming" -> 0.058, 
    "InputString" :> ToString[
      Unevaluated[
      Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"]; 
@@ -700,7 +695,7 @@ TestID->\"CreateEulerEq_20230610-EXYC8D\"\n]\n\n",
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"CreateEulerEq\"]\n\n\nVerificationTest[\n\tGet @ Get @ \
-FileNameJoin @ {pacletDir, \"Resources\", \"Models.wl\"};\n\t\
+FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
 ComputationalEngine`CreateEulerEq`modBY = \
 ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
@@ -712,7 +707,7 @@ ComputationalEngine`CreateEulerEq`mods = \
 {ComputationalEngine`CreateEulerEq`modBY, \
 ComputationalEngine`CreateEulerEq`modNRC, \
 ComputationalEngine`CreateEulerEq`modDES};\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-GFA92E\"\n]\n\n\nVerificationTest[\n\tNeeds \
+TestID->\"CreateEulerEq_20230820-UJLDBE\"\n]\n\n\nVerificationTest[\n\tNeeds \
 @ \"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\";\n\t\
 ComputationalEngine`CreateEulerEq`ee[ComputationalEngine`CreateEulerEq`model_]\
  := {\n\t\t\
@@ -768,7 +763,7 @@ ComputationalEngine`CreateEulerEq`mods];\n\t\
 ComputationalEngine`CreateEulerEq`coeffNomBondAll = \
 Map[ComputationalEngine`CreateEulerEq`coeffNomBond, \
 ComputationalEngine`CreateEulerEq`mods];\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-EXYC8D\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"CreateEulerEq_20230820-XD2P9G\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -833,8 +828,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.8954309800134907`*^9},
- CellLabel->"Out[11]=",ExpressionUUID->"dfb4e013-e849-4490-ba8d-b4e4d92c4c4b"]
+ CellChangeTimes->{3.9015487048121157`*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"8fa0b4ad-905d-4e78-8eec-482bf45293eb"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -865,20 +860,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230610-D1JX8J\"\>"}],
-  SequenceForm["Adding test: ", "CreateEulerEq_20230610-D1JX8J"],
+   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230820-13QTF7\"\>"}],
+  SequenceForm["Adding test: ", "CreateEulerEq_20230820-13QTF7"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895430980075935*^9},
+ CellChangeTimes->{3.901548704864751*^9},
  CellLabel->
   "During evaluation of \
-In[12]:=",ExpressionUUID->"e3d8c19e-a4d2-4d5d-a60d-222cfe5e0e49"],
+In[12]:=",ExpressionUUID->"08752e2a-b31b-4e17-b99c-98151e9cdff4"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.895430980078273*^9},
+ CellChangeTimes->{3.901548704880825*^9},
  CellLabel->
   "During evaluation of \
-In[12]:=",ExpressionUUID->"d2ea8521-96a6-4d48-86cf-d07e9cb921cb"]
+In[12]:=",ExpressionUUID->"9ea1f85e-2949-4173-a953-3555614b2065"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -889,12 +884,12 @@ Cell[BoxData[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
   "VerificationTest[\n\t!SameQ[Names @ \"*eulereq\", {}]\n\t,\n\tTrue\n\t,\n\t\
-{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-D1JX8J\"\n]\n\n", 
+{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-13QTF7\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.023, "AbsoluteTiming" -> 0.023, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.029, "AbsoluteTiming" -> 0.029, 
    "InputString" :> ToString[
      Unevaluated[
       Not[Names["*eulereq"] === {}]], InputForm]|>, 
@@ -902,7 +897,7 @@ Cell[BoxData[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"CreateEulerEq\"]\n\n\nVerificationTest[\n\tGet @ Get @ \
-FileNameJoin @ {pacletDir, \"Resources\", \"Models.wl\"};\n\t\
+FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
 ComputationalEngine`CreateEulerEq`modBY = \
 ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
@@ -914,7 +909,7 @@ ComputationalEngine`CreateEulerEq`mods = \
 {ComputationalEngine`CreateEulerEq`modBY, \
 ComputationalEngine`CreateEulerEq`modNRC, \
 ComputationalEngine`CreateEulerEq`modDES};\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-GFA92E\"\n]\n\n\nVerificationTest[\n\tNeeds \
+TestID->\"CreateEulerEq_20230820-UJLDBE\"\n]\n\n\nVerificationTest[\n\tNeeds \
 @ \"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\";\n\t\
 ComputationalEngine`CreateEulerEq`ee[ComputationalEngine`CreateEulerEq`model_]\
  := {\n\t\t\
@@ -970,9 +965,9 @@ ComputationalEngine`CreateEulerEq`mods];\n\t\
 ComputationalEngine`CreateEulerEq`coeffNomBondAll = \
 Map[ComputationalEngine`CreateEulerEq`coeffNomBond, \
 ComputationalEngine`CreateEulerEq`mods];\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-EXYC8D\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-XD2P9G\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*eulereq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-D1JX8J\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"CreateEulerEq_20230820-13QTF7\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1038,8 +1033,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895430980097095*^9},
- CellLabel->"Out[12]=",ExpressionUUID->"0b64c897-ad5c-440d-a279-15afd1fcfa36"]
+ CellChangeTimes->{3.901548704891678*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"4a9c4379-5a7b-4fe1-ac01-0d4b6ac4120f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1131,20 +1126,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230610-K9CXQS\"\>"}],
-  SequenceForm["Adding test: ", "CreateEulerEq_20230610-K9CXQS"],
+   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230820-0SCP5W\"\>"}],
+  SequenceForm["Adding test: ", "CreateEulerEq_20230820-0SCP5W"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895430980258588*^9},
+ CellChangeTimes->{3.901548705120863*^9},
  CellLabel->
   "During evaluation of \
-In[13]:=",ExpressionUUID->"b34e1baa-8b3b-4aa2-947c-2ecb7907f9d9"],
+In[13]:=",ExpressionUUID->"2217c778-daa0-45b9-9529-b6b9b479368b"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.895430980260956*^9},
+ CellChangeTimes->{3.901548705137368*^9},
  CellLabel->
   "During evaluation of \
-In[13]:=",ExpressionUUID->"b79c4c47-1b72-4af5-b09c-da9fab415c69"]
+In[13]:=",ExpressionUUID->"1e371683-f410-4013-8e9b-97a5e58b17ac"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1221,13 +1216,13 @@ Infinity\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t]\
 \n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t1\n\t\t\t\t\t\t]\n\t\t\t\
 \t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`ee @ \
 ComputationalEngine`CreateEulerEq`modDES\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\
-\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-K9CXQS\"\n]\n\n\
+\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-0SCP5W\"\n]\n\n\
 ", FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> False, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.124, "AbsoluteTiming" -> 0.124, 
-   "InputString" :> ToString[
+   "MessagesExpressions" -> {}, "Timing" -> 0.20500000000000002`, 
+   "AbsoluteTiming" -> 0.20500000000000002`, "InputString" :> ToString[
      Unevaluated[
       Apply[And, 
        Flatten[{
@@ -1271,7 +1266,7 @@ ComputationalEngine`CreateEulerEq`modDES\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"CreateEulerEq\"]\n\n\nVerificationTest[\n\tGet @ Get @ \
-FileNameJoin @ {pacletDir, \"Resources\", \"Models.wl\"};\n\t\
+FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
 ComputationalEngine`CreateEulerEq`modBY = \
 ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
@@ -1283,7 +1278,7 @@ ComputationalEngine`CreateEulerEq`mods = \
 {ComputationalEngine`CreateEulerEq`modBY, \
 ComputationalEngine`CreateEulerEq`modNRC, \
 ComputationalEngine`CreateEulerEq`modDES};\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-GFA92E\"\n]\n\n\nVerificationTest[\n\tNeeds \
+TestID->\"CreateEulerEq_20230820-UJLDBE\"\n]\n\n\nVerificationTest[\n\tNeeds \
 @ \"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\";\n\t\
 ComputationalEngine`CreateEulerEq`ee[ComputationalEngine`CreateEulerEq`model_]\
  := {\n\t\t\
@@ -1339,9 +1334,9 @@ ComputationalEngine`CreateEulerEq`mods];\n\t\
 ComputationalEngine`CreateEulerEq`coeffNomBondAll = \
 Map[ComputationalEngine`CreateEulerEq`coeffNomBond, \
 ComputationalEngine`CreateEulerEq`mods];\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-EXYC8D\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-XD2P9G\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*eulereq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-D1JX8J\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-13QTF7\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tEqual[\n\t\t\t\t\t\t\tMax[\n\t\t\t\t\t\t\t\tKeys[\n\t\t\t\t\t\t\t\t\t\
 CoefficientRules[\n\t\t\t\t\t\t\t\t\t\t#,\n\t\t\t\t\t\t\t\t\t\t\
@@ -1376,7 +1371,7 @@ Infinity\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t]\
 \n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t1\n\t\t\t\t\t\t]\n\t\t\t\
 \t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`ee @ \
 ComputationalEngine`CreateEulerEq`modDES\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\
-\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-K9CXQS\"\n]\n\n\
+\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-0SCP5W\"\n]\n\n\
 \nEndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1441,8 +1436,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.8954309802811613`*^9},
- CellLabel->"Out[13]=",ExpressionUUID->"eecae2c2-bc91-4af2-b78e-d33b9078dc68"]
+ CellChangeTimes->{3.901548705142476*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"0a60b5f8-55d3-464c-9f7e-62fdf314807f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1547,20 +1542,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230610-VPAZX0\"\>"}],
-  SequenceForm["Adding test: ", "CreateEulerEq_20230610-VPAZX0"],
+   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230820-Q4Z5LO\"\>"}],
+  SequenceForm["Adding test: ", "CreateEulerEq_20230820-Q4Z5LO"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895430980474372*^9},
+ CellChangeTimes->{3.9015487051977663`*^9},
  CellLabel->
   "During evaluation of \
-In[14]:=",ExpressionUUID->"8dafb9dc-ca0b-46ad-aed9-fa57bbf7073b"],
+In[14]:=",ExpressionUUID->"1054bb19-1e99-469c-8739-1cb140be3622"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.8954309804769297`*^9},
+ CellChangeTimes->{3.901548705215433*^9},
  CellLabel->
   "During evaluation of \
-In[14]:=",ExpressionUUID->"0d4b9fe4-defa-42a3-99a1-165637177e8c"]
+In[14]:=",ExpressionUUID->"88dec9dc-57c2-40c2-a69e-1f2b3db4f1dc"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1627,12 +1622,12 @@ ComputationalEngine`CreateEulerEq`n], #]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t],\n\t\
 ComputationalEngine`CreateEulerEq`n]]\n\t\t\t\t\t],\n\t\t\t\t\t\
 {ComputationalEngine`CreateEulerEq`n, 1, Length @ \
 ComputationalEngine`CreateEulerEq`mods}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
-\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-VPAZX0\"\n]\n\n", 
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-Q4Z5LO\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.003, "AbsoluteTiming" -> 0.003, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.016, "AbsoluteTiming" -> 0.016, 
    "InputString" :> ToString[
      Unevaluated[
       Apply[And, 
@@ -1689,7 +1684,7 @@ ComputationalEngine`CreateEulerEq`mods}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"CreateEulerEq\"]\n\n\nVerificationTest[\n\tGet @ Get @ \
-FileNameJoin @ {pacletDir, \"Resources\", \"Models.wl\"};\n\t\
+FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
 ComputationalEngine`CreateEulerEq`modBY = \
 ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
@@ -1701,7 +1696,7 @@ ComputationalEngine`CreateEulerEq`mods = \
 {ComputationalEngine`CreateEulerEq`modBY, \
 ComputationalEngine`CreateEulerEq`modNRC, \
 ComputationalEngine`CreateEulerEq`modDES};\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-GFA92E\"\n]\n\n\nVerificationTest[\n\tNeeds \
+TestID->\"CreateEulerEq_20230820-UJLDBE\"\n]\n\n\nVerificationTest[\n\tNeeds \
 @ \"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\";\n\t\
 ComputationalEngine`CreateEulerEq`ee[ComputationalEngine`CreateEulerEq`model_]\
  := {\n\t\t\
@@ -1757,9 +1752,9 @@ ComputationalEngine`CreateEulerEq`mods];\n\t\
 ComputationalEngine`CreateEulerEq`coeffNomBondAll = \
 Map[ComputationalEngine`CreateEulerEq`coeffNomBond, \
 ComputationalEngine`CreateEulerEq`mods];\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-EXYC8D\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-XD2P9G\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*eulereq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-D1JX8J\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-13QTF7\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tEqual[\n\t\t\t\t\t\t\tMax[\n\t\t\t\t\t\t\t\tKeys[\n\t\t\t\t\t\t\t\t\t\
 CoefficientRules[\n\t\t\t\t\t\t\t\t\t\t#,\n\t\t\t\t\t\t\t\t\t\t\
@@ -1794,7 +1789,7 @@ Infinity\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t]\
 \n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t1\n\t\t\t\t\t\t]\n\t\t\t\
 \t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`ee @ \
 ComputationalEngine`CreateEulerEq`modDES\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\
-\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-K9CXQS\"\n]\n\n\
+\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-0SCP5W\"\n]\n\n\
 \nVerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tTable[\n\t\t\
 \t\t\tMap[\n\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\tNot[\n\t\t\t\t\t\t\t\t\
 FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 1]], \
@@ -1824,7 +1819,7 @@ ComputationalEngine`CreateEulerEq`n], #]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t],\n\t\
 ComputationalEngine`CreateEulerEq`n]]\n\t\t\t\t\t],\n\t\t\t\t\t\
 {ComputationalEngine`CreateEulerEq`n, 1, Length @ \
 ComputationalEngine`CreateEulerEq`mods}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
-\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-VPAZX0\"\n]\n\n\n\
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-Q4Z5LO\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1889,8 +1884,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895430980498612*^9},
- CellLabel->"Out[14]=",ExpressionUUID->"874d0a0d-b8ed-488b-8387-d72f857e9006"]
+ CellChangeTimes->{3.901548705218911*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"77fd54ff-117c-49bb-954d-33c33990a0a7"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2019,26 +2014,418 @@ Cell[BoxData[
    3.893174857369234*^9, {3.8931756795157223`*^9, 3.8931757087748537`*^9}, {
    3.895392444526318*^9, 3.895392484243939*^9}, {3.8954169653591022`*^9, 
    3.8954169785255527`*^9}, {3.895417160985211*^9, 3.8954171613491287`*^9}, {
-   3.895423034578776*^9, 3.895423035028845*^9}, 
-   3.8954310734670973`*^9},ExpressionUUID->"ca14d8f1-7a77-428b-8c74-\
-a7eb0de7af1a"],
+   3.895423034578776*^9, 3.895423035028845*^9}, 3.8954310734670973`*^9},
+ CellLabel->"In[15]:=",ExpressionUUID->"ca14d8f1-7a77-428b-8c74-a7eb0de7af1a"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230610-AVEZU6\"\>"}],
-  SequenceForm["Adding test: ", "CreateEulerEq_20230610-AVEZU6"],
+   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230820-JHMC1M\"\>"}],
+  SequenceForm["Adding test: ", "CreateEulerEq_20230820-JHMC1M"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895431065163702*^9},
- CellLabel->"",ExpressionUUID->"ed876dd4-63d0-45fd-90aa-57c9889cfad2"],
+ CellChangeTimes->{3.901548739035277*^9},
+ CellLabel->
+  "During evaluation of \
+In[15]:=",ExpressionUUID->"e1a72497-f59a-4dbc-958b-a1ffd524e0ae"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.895431065166621*^9},
- CellLabel->"",ExpressionUUID->"62b5cdaa-9549-45aa-ad6e-c3695a6443f3"]
-}, Open  ]]
+ CellChangeTimes->{3.901548739040991*^9},
+ CellLabel->
+  "During evaluation of \
+In[15]:=",ExpressionUUID->"e5f542b0-e345-482f-879b-e8c8ced43cf1"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\
+\t\t\t\tSameQ[\n\t\t\t\t\t\t\tCount[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\
+\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
+ComputationalEngine`CreateEulerEq`t, #],\n\t\t\t\t\t\t\t\t\tEqual[0, \
+ComputationalEngine`CreateEulerEq`x__] :> True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\
+\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\
+Length[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\t\
+\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\
+],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
+True],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t]\n\t\t\t}\n\t\t]\n\t]", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\
+\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\tCount[\n\t\t\t\t\t\t\t\t\
+Cases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
+ComputationalEngine`CreateEulerEq`t, #],\n\t\t\t\t\t\t\t\t\tEqual[0, \
+ComputationalEngine`CreateEulerEq`x__] :> True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\
+\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\
+Length[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\t\
+\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\
+],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
+True],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"CreateEulerEq_20230820-JHMC1M\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> True, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 33.934, "AbsoluteTiming" -> 
+   33.776, "InputString" :> ToString[
+     Unevaluated[
+      Apply[And, 
+       Flatten[{
+         Map[Count[
+            Cases[
+             First[
+              
+              FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[
+               ComputationalEngine`CreateEulerEq`retc[
+               ComputationalEngine`CreateEulerEq`t], #]], 
+             0 == Pattern[ComputationalEngine`CreateEulerEq`x, 
+                BlankSequence[]] :> True], True] === Length[
+             #["stateVars"][ComputationalEngine`CreateEulerEq`t]] + 1& , 
+          ComputationalEngine`CreateEulerEq`mods], 
+         Map[Count[
+            Cases[
+             First[
+              
+              FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[
+               ComputationalEngine`CreateEulerEq`ret[
+               ComputationalEngine`CreateEulerEq`t, 
+                ComputationalEngine`CreateEulerEq`j], #]], 
+             0 == Pattern[ComputationalEngine`CreateEulerEq`x, 
+                BlankSequence[]] :> True], True] === Length[
+             #["stateVars"][ComputationalEngine`CreateEulerEq`t]] + 1& , 
+          ComputationalEngine`CreateEulerEq`mods], 
+         Map[Count[
+            Cases[
+             First[
+              
+              FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[
+               ComputationalEngine`CreateEulerEq`bondret[
+               ComputationalEngine`CreateEulerEq`t, 
+                ComputationalEngine`CreateEulerEq`m], #]], 
+             0 == Pattern[ComputationalEngine`CreateEulerEq`x, 
+                BlankSequence[]] :> True], True] === Length[
+             #["stateVars"][ComputationalEngine`CreateEulerEq`t]] + 1& , 
+          ComputationalEngine`CreateEulerEq`mods], 
+         Map[Count[
+            Cases[
+             First[
+              
+              FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[
+               ComputationalEngine`CreateEulerEq`nombondret[
+               ComputationalEngine`CreateEulerEq`t, 
+                ComputationalEngine`CreateEulerEq`m], #, True]], 
+             0 == Pattern[ComputationalEngine`CreateEulerEq`x, 
+                BlankSequence[]] :> True], True] === Length[
+             #["stateVars"][ComputationalEngine`CreateEulerEq`t]] + 1& , 
+          ComputationalEngine`CreateEulerEq`mods]}]]], InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"CreateEulerEq\"]\n\n\nVerificationTest[\n\tGet @ Get @ \
+FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
+ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
+ComputationalEngine`CreateEulerEq`modBY = \
+ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
+ComputationalEngine`CreateEulerEq`modNRC = \
+ComputationalEngine`CreateEulerEq`msp @ \"NRC\";\n\t\
+ComputationalEngine`CreateEulerEq`modDES = \
+ComputationalEngine`CreateEulerEq`msp @ \"DES\";\n\t\
+ComputationalEngine`CreateEulerEq`mods = \
+{ComputationalEngine`CreateEulerEq`modBY, \
+ComputationalEngine`CreateEulerEq`modNRC, \
+ComputationalEngine`CreateEulerEq`modDES};\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
+TestID->\"CreateEulerEq_20230820-UJLDBE\"\n]\n\n\nVerificationTest[\n\tNeeds \
+@ \"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\";\n\t\
+ComputationalEngine`CreateEulerEq`ee[ComputationalEngine`CreateEulerEq`model_]\
+ := {\n\t\t\
+ComputationalEngine`CreateEulerEq`eulereq[ComputationalEngine`CreateEulerEq`\
+retc[ComputationalEngine`CreateEulerEq`t + 1], \
+ComputationalEngine`CreateEulerEq`t, \
+ComputationalEngine`CreateEulerEq`model],\n\t\t\
+ComputationalEngine`CreateEulerEq`eulereq[ComputationalEngine`CreateEulerEq`\
+ret[ComputationalEngine`CreateEulerEq`t + 1, \
+ComputationalEngine`CreateEulerEq`j], ComputationalEngine`CreateEulerEq`t, \
+ComputationalEngine`CreateEulerEq`model],\n\t\t\
+ComputationalEngine`CreateEulerEq`eulereq[ComputationalEngine`CreateEulerEq`\
+bondret[ComputationalEngine`CreateEulerEq`t + 1, \
+ComputationalEngine`CreateEulerEq`m], ComputationalEngine`CreateEulerEq`t, \
+ComputationalEngine`CreateEulerEq`model],\n\t\t\
+ComputationalEngine`CreateEulerEq`nomeulereq[ComputationalEngine`\
+CreateEulerEq`nombondret[ComputationalEngine`CreateEulerEq`t + 1, \
+ComputationalEngine`CreateEulerEq`m], ComputationalEngine`CreateEulerEq`t, \
+ComputationalEngine`CreateEulerEq`model]\n\t};\n\t\
+ComputationalEngine`CreateEulerEq`eeAll = \
+Map[ComputationalEngine`CreateEulerEq`ee, \
+ComputationalEngine`CreateEulerEq`mods];\n\t\
+ComputationalEngine`CreateEulerEq`coeffWc[ComputationalEngine`CreateEulerEq`\
+model_] := Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc \
+@ ComputationalEngine`CreateEulerEq`i, {ComputationalEngine`CreateEulerEq`i, \
+Length @ ComputationalEngine`CreateEulerEq`model[\"stateVars\"][\
+ComputationalEngine`CreateEulerEq`t]}];\n\t\
+ComputationalEngine`CreateEulerEq`coeffPd[ComputationalEngine`CreateEulerEq`\
+model_] := Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd \
+@ ComputationalEngine`CreateEulerEq`i, {ComputationalEngine`CreateEulerEq`i, \
+Length @ ComputationalEngine`CreateEulerEq`model[\"stateVars\"][\
+ComputationalEngine`CreateEulerEq`t]}];\n\t\
+ComputationalEngine`CreateEulerEq`coeffBond[ComputationalEngine`CreateEulerEq`\
+model_] := Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb \
+@ ComputationalEngine`CreateEulerEq`i, {ComputationalEngine`CreateEulerEq`i, \
+Length @ ComputationalEngine`CreateEulerEq`model[\"stateVars\"][\
+ComputationalEngine`CreateEulerEq`t]}];\n\t\
+ComputationalEngine`CreateEulerEq`coeffNomBond[ComputationalEngine`\
+CreateEulerEq`model_] := \
+Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb @ \
+ComputationalEngine`CreateEulerEq`i, {ComputationalEngine`CreateEulerEq`i, \
+Length @ ComputationalEngine`CreateEulerEq`model[\"stateVars\"][\
+ComputationalEngine`CreateEulerEq`t]}];\n\t\
+ComputationalEngine`CreateEulerEq`coeffWcAll = \
+Map[ComputationalEngine`CreateEulerEq`coeffWc, \
+ComputationalEngine`CreateEulerEq`mods];\n\t\
+ComputationalEngine`CreateEulerEq`coeffPdAll = \
+Map[ComputationalEngine`CreateEulerEq`coeffPd, \
+ComputationalEngine`CreateEulerEq`mods];\n\t\
+ComputationalEngine`CreateEulerEq`coeffBondAll = \
+Map[ComputationalEngine`CreateEulerEq`coeffBond, \
+ComputationalEngine`CreateEulerEq`mods];\n\t\
+ComputationalEngine`CreateEulerEq`coeffNomBondAll = \
+Map[ComputationalEngine`CreateEulerEq`coeffNomBond, \
+ComputationalEngine`CreateEulerEq`mods];\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
+TestID->\"CreateEulerEq_20230820-XD2P9G\"\n]\n\n\nVerificationTest[\n\t\
+!SameQ[Names @ \"*eulereq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"CreateEulerEq_20230820-13QTF7\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
+\t\tEqual[\n\t\t\t\t\t\t\tMax[\n\t\t\t\t\t\t\t\tKeys[\n\t\t\t\t\t\t\t\t\t\
+CoefficientRules[\n\t\t\t\t\t\t\t\t\t\t#,\n\t\t\t\t\t\t\t\t\t\t\
+DeleteDuplicates[\n\t\t\t\t\t\t\t\t\t\t\t\
+Cases[ComputationalEngine`CreateEulerEq`modBY[\"stateVars\"][\
+ComputationalEngine`CreateEulerEq`t], \
+Blank[Symbol][ComputationalEngine`CreateEulerEq`t] ^ \
+Optional[ComputationalEngine`CreateEulerEq`p_], Infinity]\n\t\t\t\t\t\t\t\t\t\
+\t]\n\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\
+1\n\t\t\t\t\t\t]\n\t\t\t\t\t],\n\t\t\t\t\t\
+ComputationalEngine`CreateEulerEq`ee @ \
+ComputationalEngine`CreateEulerEq`modBY\n\t\t\t\t],\n\t\t\t\tMap[\n\t\t\t\t\t\
+Function[\n\t\t\t\t\t\tEqual[\n\t\t\t\t\t\t\tMax[\n\t\t\t\t\t\t\t\tKeys[\n\t\t\
+\t\t\t\t\t\t\tCoefficientRules[\n\t\t\t\t\t\t\t\t\t\t#,\n\t\t\t\t\t\t\t\t\t\t\
+DeleteDuplicates[\n\t\t\t\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\t\t\t\t\
+ComputationalEngine`CreateEulerEq`modNRC[\"stateVars\"][ComputationalEngine`\
+CreateEulerEq`t],\n\t\t\t\t\t\t\t\t\t\t\t\t\
+Blank[Symbol][ComputationalEngine`CreateEulerEq`t] ^ \
+Optional[ComputationalEngine`CreateEulerEq`p_],\n\t\t\t\t\t\t\t\t\t\t\t\t\
+Infinity\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t]\
+\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t1\n\t\t\t\t\t\t]\n\t\t\t\
+\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`ee @ \
+ComputationalEngine`CreateEulerEq`modNRC\n\t\t\t\t],\n\t\t\t\tMap[\n\t\t\t\t\t\
+Function[\n\t\t\t\t\t\tEqual[\n\t\t\t\t\t\t\tMax[\n\t\t\t\t\t\t\t\tKeys[\n\t\t\
+\t\t\t\t\t\t\tCoefficientRules[\n\t\t\t\t\t\t\t\t\t\t#,\n\t\t\t\t\t\t\t\t\t\t\
+DeleteDuplicates[\n\t\t\t\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\t\t\t\t\
+ComputationalEngine`CreateEulerEq`modDES[\"stateVars\"][ComputationalEngine`\
+CreateEulerEq`t],\n\t\t\t\t\t\t\t\t\t\t\t\t\
+Blank[Symbol][ComputationalEngine`CreateEulerEq`t] ^ \
+Optional[ComputationalEngine`CreateEulerEq`p_],\n\t\t\t\t\t\t\t\t\t\t\t\t\
+Infinity\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t]\
+\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t1\n\t\t\t\t\t\t]\n\t\t\t\
+\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`ee @ \
+ComputationalEngine`CreateEulerEq`modDES\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\
+\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-0SCP5W\"\n]\n\n\
+\nVerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tTable[\n\t\t\
+\t\t\tMap[\n\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\tNot[\n\t\t\t\t\t\t\t\t\
+FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 1]], \
+ComputationalEngine`CreateEulerEq`n], #]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t],\n\t\
+\t\t\t\t\tComputationalEngine`CreateEulerEq`coeffWcAll[[ComputationalEngine`\
+CreateEulerEq`n]]\n\t\t\t\t\t],\n\t\t\t\t\t\
+{ComputationalEngine`CreateEulerEq`n, 1, Length @ \
+ComputationalEngine`CreateEulerEq`mods}\n\t\t\t\t],\n\t\t\t\tTable[\n\t\t\t\t\
+\tMap[\n\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\tNot[\n\t\t\t\t\t\t\t\t\
+FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 2]], \
+ComputationalEngine`CreateEulerEq`n], #]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t],\n\t\
+\t\t\t\t\tComputationalEngine`CreateEulerEq`coeffPdAll[[ComputationalEngine`\
+CreateEulerEq`n]]\n\t\t\t\t\t],\n\t\t\t\t\t\
+{ComputationalEngine`CreateEulerEq`n, 1, Length @ \
+ComputationalEngine`CreateEulerEq`mods}\n\t\t\t\t],\n\t\t\t\tTable[\n\t\t\t\t\
+\tMap[\n\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\tNot[\n\t\t\t\t\t\t\t\t\
+FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 3]], \
+ComputationalEngine`CreateEulerEq`n], #]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t],\n\t\
+\t\t\t\t\tComputationalEngine`CreateEulerEq`coeffBondAll[[ComputationalEngine`\
+CreateEulerEq`n]]\n\t\t\t\t\t],\n\t\t\t\t\t\
+{ComputationalEngine`CreateEulerEq`n, 1, Length @ \
+ComputationalEngine`CreateEulerEq`mods}\n\t\t\t\t],\n\t\t\t\tTable[\n\t\t\t\t\
+\tMap[\n\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\tNot[\n\t\t\t\t\t\t\t\t\
+FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 4]], \
+ComputationalEngine`CreateEulerEq`n], #]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t],\n\t\
+\t\t\t\t\tComputationalEngine`CreateEulerEq`coeffNomBondAll[[\
+ComputationalEngine`CreateEulerEq`n]]\n\t\t\t\t\t],\n\t\t\t\t\t\
+{ComputationalEngine`CreateEulerEq`n, 1, Length @ \
+ComputationalEngine`CreateEulerEq`mods}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-Q4Z5LO\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\
+\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\tCount[\n\t\t\t\t\t\t\t\tCases[\
+\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
+ComputationalEngine`CreateEulerEq`t, #],\n\t\t\t\t\t\t\t\t\tEqual[0, \
+ComputationalEngine`CreateEulerEq`x__] :> True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\
+\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\
+Length[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\t\
+\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\
+],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
+True],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"CreateEulerEq_20230820-JHMC1M\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", 
+           "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]; SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.901548739061056*^9},
+ CellLabel->"Out[15]=",ExpressionUUID->"cf0da688-63a4-492d-87fd-6189ecd51e57"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2106,20 +2493,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230610-CRU3E0\"\>"}],
-  SequenceForm["Adding test: ", "CreateEulerEq_20230610-CRU3E0"],
+   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230820-JD404O\"\>"}],
+  SequenceForm["Adding test: ", "CreateEulerEq_20230820-JD404O"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895431033506853*^9},
+ CellChangeTimes->{3.9015487558456507`*^9},
  CellLabel->
   "During evaluation of \
-In[16]:=",ExpressionUUID->"bc312fa5-ef69-4d2f-9abf-c299eecfb06e"],
+In[16]:=",ExpressionUUID->"50c7077e-4fab-4c44-9dca-ce05d8681964"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.89543103350948*^9},
+ CellChangeTimes->{3.90154875585145*^9},
  CellLabel->
   "During evaluation of \
-In[16]:=",ExpressionUUID->"174703fa-04d4-4a14-89b2-04dd186dd6f2"]
+In[16]:=",ExpressionUUID->"2391b5c0-f099-43d5-b3a2-e5f634abab13"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -2175,13 +2562,13 @@ findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
 ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
 True], ComputationalEngine`CreateEulerEq`t],\n\t\t\t\t\t\
 ComputationalEngine`CreateEulerEq`mods\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
-\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-CRU3E0\"\n]\n\n", 
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-JD404O\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 18.974, "AbsoluteTiming" -> 
-   18.872, "InputString" :> ToString[
+   "MessagesExpressions" -> {}, "Timing" -> 16.773, "AbsoluteTiming" -> 
+   16.688, "InputString" :> ToString[
      Unevaluated[
       Apply[And, 
        Flatten[{
@@ -2224,7 +2611,7 @@ findEulerEqConstants[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"CreateEulerEq\"]\n\n\nVerificationTest[\n\tGet @ Get @ \
-FileNameJoin @ {pacletDir, \"Resources\", \"Models.wl\"};\n\t\
+FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
 ComputationalEngine`CreateEulerEq`modBY = \
 ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
@@ -2236,7 +2623,7 @@ ComputationalEngine`CreateEulerEq`mods = \
 {ComputationalEngine`CreateEulerEq`modBY, \
 ComputationalEngine`CreateEulerEq`modNRC, \
 ComputationalEngine`CreateEulerEq`modDES};\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-GFA92E\"\n]\n\n\nVerificationTest[\n\tNeeds \
+TestID->\"CreateEulerEq_20230820-UJLDBE\"\n]\n\n\nVerificationTest[\n\tNeeds \
 @ \"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\";\n\t\
 ComputationalEngine`CreateEulerEq`ee[ComputationalEngine`CreateEulerEq`model_]\
  := {\n\t\t\
@@ -2292,9 +2679,9 @@ ComputationalEngine`CreateEulerEq`mods];\n\t\
 ComputationalEngine`CreateEulerEq`coeffNomBondAll = \
 Map[ComputationalEngine`CreateEulerEq`coeffNomBond, \
 ComputationalEngine`CreateEulerEq`mods];\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-EXYC8D\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-XD2P9G\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*eulereq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-D1JX8J\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-13QTF7\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tEqual[\n\t\t\t\t\t\t\tMax[\n\t\t\t\t\t\t\t\tKeys[\n\t\t\t\t\t\t\t\t\t\
 CoefficientRules[\n\t\t\t\t\t\t\t\t\t\t#,\n\t\t\t\t\t\t\t\t\t\t\
@@ -2329,7 +2716,7 @@ Infinity\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t]\
 \n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t1\n\t\t\t\t\t\t]\n\t\t\t\
 \t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`ee @ \
 ComputationalEngine`CreateEulerEq`modDES\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\
-\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-K9CXQS\"\n]\n\n\
+\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-0SCP5W\"\n]\n\n\
 \nVerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tTable[\n\t\t\
 \t\t\tMap[\n\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\tNot[\n\t\t\t\t\t\t\t\t\
 FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 1]], \
@@ -2359,9 +2746,48 @@ ComputationalEngine`CreateEulerEq`n], #]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t],\n\t\
 ComputationalEngine`CreateEulerEq`n]]\n\t\t\t\t\t],\n\t\t\t\t\t\
 {ComputationalEngine`CreateEulerEq`n, 1, Length @ \
 ComputationalEngine`CreateEulerEq`mods}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
-\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-VPAZX0\"\n]\n\n\n\
-VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[Function \
-@ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-Q4Z5LO\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\
+\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\tCount[\n\t\t\t\t\t\t\t\tCases[\
+\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
+ComputationalEngine`CreateEulerEq`t, #],\n\t\t\t\t\t\t\t\t\tEqual[0, \
+ComputationalEngine`CreateEulerEq`x__] :> True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\
+\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\
+Length[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\t\
+\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\
+],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
+True],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"CreateEulerEq_20230820-JHMC1M\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[Function @ \
+FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
 findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
 ComputationalEngine`CreateEulerEq`t, #], \
 ComputationalEngine`CreateEulerEq`t], \
@@ -2383,7 +2809,7 @@ findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
 ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
 True], ComputationalEngine`CreateEulerEq`t],\n\t\t\t\t\t\
 ComputationalEngine`CreateEulerEq`mods\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
-\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-CRU3E0\"\n]\n\n\n\
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-JD404O\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -2448,8 +2874,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895431033530649*^9},
- CellLabel->"Out[16]=",ExpressionUUID->"e85c268c-bd95-4e4e-b353-77e85f869e4d"]
+ CellChangeTimes->{3.9015487558691177`*^9},
+ CellLabel->"Out[16]=",ExpressionUUID->"8755c036-8446-4dc9-888d-15da5e0c7415"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2548,20 +2974,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230610-2NVH3P\"\>"}],
-  SequenceForm["Adding test: ", "CreateEulerEq_20230610-2NVH3P"],
+   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230820-0UIR4J\"\>"}],
+  SequenceForm["Adding test: ", "CreateEulerEq_20230820-0UIR4J"],
   Editable->False]], "Print",
- CellChangeTimes->{3.89543106507598*^9},
+ CellChangeTimes->{3.901548788212555*^9},
  CellLabel->
   "During evaluation of \
-In[17]:=",ExpressionUUID->"98833299-c2d2-4dc5-b5d8-970bd94deef8"],
+In[17]:=",ExpressionUUID->"8e43417d-c38d-4ef6-a95e-da6759163266"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.895431065078174*^9},
+ CellChangeTimes->{3.901548788218419*^9},
  CellLabel->
   "During evaluation of \
-In[17]:=",ExpressionUUID->"ad61a2b6-bd92-4e63-8f57-f7971f4fe603"]
+In[17]:=",ExpressionUUID->"e15d5a75-b36c-430b-a1a7-c7e8509cab68"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -2643,13 +3069,13 @@ ComputationalEngine`CreateEulerEq`t + 1, \
 ComputationalEngine`CreateEulerEq`m], #, True]],\n\t\t\t\t\t\t\
 ComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t}\n\t\t\
 ]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-2NVH3P\"\n]\n\n", 
+TestID->\"CreateEulerEq_20230820-0UIR4J\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 31.589000000000002`, 
-   "AbsoluteTiming" -> 31.486, "InputString" :> ToString[
+   "MessagesExpressions" -> {}, "Timing" -> 32.328, "AbsoluteTiming" -> 
+   32.286, "InputString" :> ToString[
      Unevaluated[
       Apply[And, 
        Flatten[{
@@ -2703,7 +3129,7 @@ findEulerEqConstants[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"CreateEulerEq\"]\n\n\nVerificationTest[\n\tGet @ Get @ \
-FileNameJoin @ {pacletDir, \"Resources\", \"Models.wl\"};\n\t\
+FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
 ComputationalEngine`CreateEulerEq`modBY = \
 ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
@@ -2715,7 +3141,7 @@ ComputationalEngine`CreateEulerEq`mods = \
 {ComputationalEngine`CreateEulerEq`modBY, \
 ComputationalEngine`CreateEulerEq`modNRC, \
 ComputationalEngine`CreateEulerEq`modDES};\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-GFA92E\"\n]\n\n\nVerificationTest[\n\tNeeds \
+TestID->\"CreateEulerEq_20230820-UJLDBE\"\n]\n\n\nVerificationTest[\n\tNeeds \
 @ \"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\";\n\t\
 ComputationalEngine`CreateEulerEq`ee[ComputationalEngine`CreateEulerEq`model_]\
  := {\n\t\t\
@@ -2771,9 +3197,9 @@ ComputationalEngine`CreateEulerEq`mods];\n\t\
 ComputationalEngine`CreateEulerEq`coeffNomBondAll = \
 Map[ComputationalEngine`CreateEulerEq`coeffNomBond, \
 ComputationalEngine`CreateEulerEq`mods];\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-EXYC8D\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-XD2P9G\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*eulereq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-D1JX8J\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-13QTF7\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tEqual[\n\t\t\t\t\t\t\tMax[\n\t\t\t\t\t\t\t\tKeys[\n\t\t\t\t\t\t\t\t\t\
 CoefficientRules[\n\t\t\t\t\t\t\t\t\t\t#,\n\t\t\t\t\t\t\t\t\t\t\
@@ -2808,7 +3234,7 @@ Infinity\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t]\
 \n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t1\n\t\t\t\t\t\t]\n\t\t\t\
 \t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`ee @ \
 ComputationalEngine`CreateEulerEq`modDES\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\
-\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-K9CXQS\"\n]\n\n\
+\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-0SCP5W\"\n]\n\n\
 \nVerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tTable[\n\t\t\
 \t\t\tMap[\n\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\tNot[\n\t\t\t\t\t\t\t\t\
 FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 1]], \
@@ -2838,9 +3264,48 @@ ComputationalEngine`CreateEulerEq`n], #]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t],\n\t\
 ComputationalEngine`CreateEulerEq`n]]\n\t\t\t\t\t],\n\t\t\t\t\t\
 {ComputationalEngine`CreateEulerEq`n, 1, Length @ \
 ComputationalEngine`CreateEulerEq`mods}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
-\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-VPAZX0\"\n]\n\n\n\
-VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[Function \
-@ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-Q4Z5LO\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\
+\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\tCount[\n\t\t\t\t\t\t\t\tCases[\
+\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
+ComputationalEngine`CreateEulerEq`t, #],\n\t\t\t\t\t\t\t\t\tEqual[0, \
+ComputationalEngine`CreateEulerEq`x__] :> True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\
+\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\
+Length[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\t\
+\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\
+],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
+True],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"CreateEulerEq_20230820-JHMC1M\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[Function @ \
+FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
 findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
 ComputationalEngine`CreateEulerEq`t, #], \
 ComputationalEngine`CreateEulerEq`t], \
@@ -2862,7 +3327,7 @@ findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
 ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
 True], ComputationalEngine`CreateEulerEq`t],\n\t\t\t\t\t\
 ComputationalEngine`CreateEulerEq`mods\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
-\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-CRU3E0\"\n]\n\n\n\
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-JD404O\"\n]\n\n\n\
 VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\t\
 SameQ[Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
 findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc[\
@@ -2900,7 +3365,7 @@ ComputationalEngine`CreateEulerEq`t + 1, \
 ComputationalEngine`CreateEulerEq`m], #, True]],\n\t\t\t\t\t\t\
 ComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t}\n\t\t\
 ]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-2NVH3P\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"CreateEulerEq_20230820-0UIR4J\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -2965,8 +3430,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895431065094193*^9},
- CellLabel->"Out[17]=",ExpressionUUID->"cd31cf77-1710-401f-b8dc-c897bb6d347e"]
+ CellChangeTimes->{3.9015487882358828`*^9},
+ CellLabel->"Out[17]=",ExpressionUUID->"3fa6ec9c-317c-46d9-a1ee-3ba5430cf1c3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3083,20 +3548,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230610-GHU9ZO\"\>"}],
-  SequenceForm["Adding test: ", "CreateEulerEq_20230610-GHU9ZO"],
+   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230820-PX7O15\"\>"}],
+  SequenceForm["Adding test: ", "CreateEulerEq_20230820-PX7O15"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895431080909124*^9},
+ CellChangeTimes->{3.901548804369748*^9},
  CellLabel->
   "During evaluation of \
-In[18]:=",ExpressionUUID->"f5a2662d-62cb-40dc-88e9-01bb7bb532bc"],
+In[18]:=",ExpressionUUID->"2ecea28e-f332-41e7-8f08-e89fbb8261bd"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.895431080911501*^9},
+ CellChangeTimes->{3.90154880439142*^9},
  CellLabel->
   "During evaluation of \
-In[18]:=",ExpressionUUID->"8ac93904-fa60-4f5b-9bee-062eeac7f9f9"]
+In[18]:=",ExpressionUUID->"fa482a3c-1736-445d-af9f-627bb330c560"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -3172,16 +3637,13 @@ ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
 True],\n\t\t\t\t\t\t\t\t\t\t1;;, 0, 0\n\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\
 ],\n\t\t\t\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\t\t\t]\n\
 \t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\
-\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-GHU9ZO\"\n]\n\n", 
+\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-PX7O15\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
-   "OutputLog" -> {
-    "Adding test: CreateEulerEq_20230610-AVEZU6", 
-     "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"}, "Messages" -> {},
-    "MessagesText" -> {}, "MessagesExpressions" -> {}, "Timing" -> 15.833, 
-   "AbsoluteTiming" -> 15.757, "InputString" :> ToString[
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 16.151, "AbsoluteTiming" -> 
+   16.084, "InputString" :> ToString[
      Unevaluated[{"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"} === 
       DeleteDuplicates[
         Flatten[{
@@ -3243,7 +3705,7 @@ findEulerEqConstants[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"CreateEulerEq\"]\n\n\nVerificationTest[\n\tGet @ Get @ \
-FileNameJoin @ {pacletDir, \"Resources\", \"Models.wl\"};\n\t\
+FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
 ComputationalEngine`CreateEulerEq`modBY = \
 ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
@@ -3255,7 +3717,7 @@ ComputationalEngine`CreateEulerEq`mods = \
 {ComputationalEngine`CreateEulerEq`modBY, \
 ComputationalEngine`CreateEulerEq`modNRC, \
 ComputationalEngine`CreateEulerEq`modDES};\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-GFA92E\"\n]\n\n\nVerificationTest[\n\tNeeds \
+TestID->\"CreateEulerEq_20230820-UJLDBE\"\n]\n\n\nVerificationTest[\n\tNeeds \
 @ \"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\";\n\t\
 ComputationalEngine`CreateEulerEq`ee[ComputationalEngine`CreateEulerEq`model_]\
  := {\n\t\t\
@@ -3311,9 +3773,9 @@ ComputationalEngine`CreateEulerEq`mods];\n\t\
 ComputationalEngine`CreateEulerEq`coeffNomBondAll = \
 Map[ComputationalEngine`CreateEulerEq`coeffNomBond, \
 ComputationalEngine`CreateEulerEq`mods];\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-EXYC8D\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-XD2P9G\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*eulereq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-D1JX8J\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-13QTF7\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tEqual[\n\t\t\t\t\t\t\tMax[\n\t\t\t\t\t\t\t\tKeys[\n\t\t\t\t\t\t\t\t\t\
 CoefficientRules[\n\t\t\t\t\t\t\t\t\t\t#,\n\t\t\t\t\t\t\t\t\t\t\
@@ -3348,7 +3810,7 @@ Infinity\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t]\
 \n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t1\n\t\t\t\t\t\t]\n\t\t\t\
 \t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`ee @ \
 ComputationalEngine`CreateEulerEq`modDES\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\
-\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-K9CXQS\"\n]\n\n\
+\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-0SCP5W\"\n]\n\n\
 \nVerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tTable[\n\t\t\
 \t\t\tMap[\n\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\tNot[\n\t\t\t\t\t\t\t\t\
 FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 1]], \
@@ -3378,9 +3840,48 @@ ComputationalEngine`CreateEulerEq`n], #]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t],\n\t\
 ComputationalEngine`CreateEulerEq`n]]\n\t\t\t\t\t],\n\t\t\t\t\t\
 {ComputationalEngine`CreateEulerEq`n, 1, Length @ \
 ComputationalEngine`CreateEulerEq`mods}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
-\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-VPAZX0\"\n]\n\n\n\
-VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[Function \
-@ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-Q4Z5LO\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\
+\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\tCount[\n\t\t\t\t\t\t\t\tCases[\
+\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
+ComputationalEngine`CreateEulerEq`t, #],\n\t\t\t\t\t\t\t\t\tEqual[0, \
+ComputationalEngine`CreateEulerEq`x__] :> True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\
+\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\
+Length[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\t\
+\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\
+],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
+True],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"CreateEulerEq_20230820-JHMC1M\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[Function @ \
+FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
 findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
 ComputationalEngine`CreateEulerEq`t, #], \
 ComputationalEngine`CreateEulerEq`t], \
@@ -3402,7 +3903,7 @@ findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
 ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
 True], ComputationalEngine`CreateEulerEq`t],\n\t\t\t\t\t\
 ComputationalEngine`CreateEulerEq`mods\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
-\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-CRU3E0\"\n]\n\n\n\
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-JD404O\"\n]\n\n\n\
 VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\t\
 SameQ[Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
 findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc[\
@@ -3440,45 +3941,7 @@ ComputationalEngine`CreateEulerEq`t + 1, \
 ComputationalEngine`CreateEulerEq`m], #, True]],\n\t\t\t\t\t\t\
 ComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t}\n\t\t\
 ]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-2NVH3P\"\n]\n\n\nVerificationTest[\n\t\
-Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
-\t\tSameQ[\n\t\t\t\t\t\t\tCount[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\t\
-First @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
-ComputationalEngine`CreateEulerEq`t, #],\n\t\t\t\t\t\t\t\t\tEqual[0, \
-ComputationalEngine`CreateEulerEq`x__] :> True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\
-\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\
-Length[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\t\
-\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\
-],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
-Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
-FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[\
-ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], \
-#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
-True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
-\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
-\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
-\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
-Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
-FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[\
-ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], \
-#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
-True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
-\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
-\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
-\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
-Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
-FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
-ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
-True],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
-True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
-\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
-\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
-\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-AVEZU6\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-0UIR4J\"\n]\n\n\nVerificationTest[\n\t\
 SameQ[{\"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`\"},\n\t\t\
 DeleteDuplicates[\n\t\t\tFlatten[\n\t\t\t\t{\n\t\t\t\t\tMap[Function @ \
 Context @ Evaluate @ #,\n\t\t\t\t\t\tFlatten[\n\t\t\t\t\t\t\tMap[\n\t\t\t\t\t\
@@ -3512,7 +3975,7 @@ ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
 True],\n\t\t\t\t\t\t\t\t\t\t1;;, 0, 0\n\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\
 ],\n\t\t\t\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\t\t\t]\n\
 \t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\
-\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-GHU9ZO\"\n]\n\n\n\
+\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-PX7O15\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -3569,7 +4032,8 @@ $ <> "\nEndTestSection[]\n"],
            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
            "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
 outputString$$]; 
-        Export["/Users/fernandoduarte/Dropbox \
+        Export[
+         "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", 
           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
           "Text"]; Print[
@@ -3577,8 +4041,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895431080933045*^9},
- CellLabel->"Out[18]=",ExpressionUUID->"d0ec3bc9-b18e-4781-851b-1579a450d986"]
+ CellChangeTimes->{3.901548804403256*^9},
+ CellLabel->"Out[18]=",ExpressionUUID->"2570fc03-2841-4156-b829-5d624f4c9a47"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3702,20 +4166,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230610-T9CC4Q\"\>"}],
-  SequenceForm["Adding test: ", "CreateEulerEq_20230610-T9CC4Q"],
+   "\[InvisibleSpace]", "\<\"CreateEulerEq_20230820-PF3P04\"\>"}],
+  SequenceForm["Adding test: ", "CreateEulerEq_20230820-PF3P04"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895431082386932*^9},
+ CellChangeTimes->{3.901548805816531*^9},
  CellLabel->
   "During evaluation of \
-In[19]:=",ExpressionUUID->"a051e978-6621-446a-9fdc-1e53fcabf2de"],
+In[19]:=",ExpressionUUID->"185b09ae-4ef9-4d18-a351-46499e6e4b25"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.8954310823894157`*^9},
+ CellChangeTimes->{3.901548805823058*^9},
  CellLabel->
   "During evaluation of \
-In[19]:=",ExpressionUUID->"62398342-0a4f-4ab4-beae-26c4d274ae78"]
+In[19]:=",ExpressionUUID->"268eb09d-2f63-40c8-b3f3-8a39003e66ca"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -3829,13 +4293,13 @@ Part[ComputationalEngine`CreateEulerEq`e3, 1] /. \
 ComputationalEngine`CreateEulerEq`e3p\n\t\t}\n\t];\n\tApply[And, \
 Map[BooleanQ, Flatten @ ComputationalEngine`CreateEulerEq`checkBoolean @ \
 ComputationalEngine`CreateEulerEq`modBY]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-T9CC4Q\"\n]\n\n", 
+TestID->\"CreateEulerEq_20230820-PF3P04\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 1.416, "AbsoluteTiming" -> 1.401, 
-   "InputString" :> ToString[
+   "MessagesExpressions" -> {}, "Timing" -> 1.3820000000000001`, 
+   "AbsoluteTiming" -> 1.367, "InputString" :> ToString[
      Unevaluated[ComputationalEngine`CreateEulerEq`checkBoolean[
          Pattern[ComputationalEngine`CreateEulerEq`model, 
           Blank[]]] := 
@@ -3917,7 +4381,7 @@ findEulerEqConstants[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"CreateEulerEq\"]\n\n\nVerificationTest[\n\tGet @ Get @ \
-FileNameJoin @ {pacletDir, \"Resources\", \"Models.wl\"};\n\t\
+FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 ComputationalEngine`CreateEulerEq`msp = FernandoDuarte`LongRunRisk`Models;\n\t\
 ComputationalEngine`CreateEulerEq`modBY = \
 ComputationalEngine`CreateEulerEq`msp @ \"BY\";\n\t\
@@ -3929,7 +4393,7 @@ ComputationalEngine`CreateEulerEq`mods = \
 {ComputationalEngine`CreateEulerEq`modBY, \
 ComputationalEngine`CreateEulerEq`modNRC, \
 ComputationalEngine`CreateEulerEq`modDES};\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-GFA92E\"\n]\n\n\nVerificationTest[\n\tNeeds \
+TestID->\"CreateEulerEq_20230820-UJLDBE\"\n]\n\n\nVerificationTest[\n\tNeeds \
 @ \"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\";\n\t\
 ComputationalEngine`CreateEulerEq`ee[ComputationalEngine`CreateEulerEq`model_]\
  := {\n\t\t\
@@ -3985,9 +4449,9 @@ ComputationalEngine`CreateEulerEq`mods];\n\t\
 ComputationalEngine`CreateEulerEq`coeffNomBondAll = \
 Map[ComputationalEngine`CreateEulerEq`coeffNomBond, \
 ComputationalEngine`CreateEulerEq`mods];\n\t,\n\tNull\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-EXYC8D\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-XD2P9G\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*eulereq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-D1JX8J\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-13QTF7\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
 \t\tEqual[\n\t\t\t\t\t\t\tMax[\n\t\t\t\t\t\t\t\tKeys[\n\t\t\t\t\t\t\t\t\t\
 CoefficientRules[\n\t\t\t\t\t\t\t\t\t\t#,\n\t\t\t\t\t\t\t\t\t\t\
@@ -4022,7 +4486,7 @@ Infinity\n\t\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\t]\
 \n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t1\n\t\t\t\t\t\t]\n\t\t\t\
 \t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`ee @ \
 ComputationalEngine`CreateEulerEq`modDES\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\
-\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-K9CXQS\"\n]\n\n\
+\n\tFalse\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-0SCP5W\"\n]\n\n\
 \nVerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tTable[\n\t\t\
 \t\t\tMap[\n\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\tNot[\n\t\t\t\t\t\t\t\t\
 FreeQ[Part[ComputationalEngine`CreateEulerEq`eeAll[[1;;, 1]], \
@@ -4052,9 +4516,48 @@ ComputationalEngine`CreateEulerEq`n], #]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t],\n\t\
 ComputationalEngine`CreateEulerEq`n]]\n\t\t\t\t\t],\n\t\t\t\t\t\
 {ComputationalEngine`CreateEulerEq`n, 1, Length @ \
 ComputationalEngine`CreateEulerEq`mods}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
-\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-VPAZX0\"\n]\n\n\n\
-VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[Function \
-@ FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-Q4Z5LO\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\
+\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\tCount[\n\t\t\t\t\t\t\t\tCases[\
+\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
+ComputationalEngine`CreateEulerEq`t, #],\n\t\t\t\t\t\t\t\t\tEqual[0, \
+ComputationalEngine`CreateEulerEq`x__] :> True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\
+\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\
+Length[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\t\
+\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\
+],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], \
+#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
+Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
+FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
+ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
+True],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
+True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
+\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
+\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
+\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"CreateEulerEq_20230820-JHMC1M\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[Function @ \
+FreeQ[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
 findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
 ComputationalEngine`CreateEulerEq`t, #], \
 ComputationalEngine`CreateEulerEq`t], \
@@ -4076,7 +4579,7 @@ findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
 ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
 True], ComputationalEngine`CreateEulerEq`t],\n\t\t\t\t\t\
 ComputationalEngine`CreateEulerEq`mods\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\
-\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-CRU3E0\"\n]\n\n\n\
+\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-JD404O\"\n]\n\n\n\
 VerificationTest[\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\t\
 SameQ[Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
 findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc[\
@@ -4114,45 +4617,7 @@ ComputationalEngine`CreateEulerEq`t + 1, \
 ComputationalEngine`CreateEulerEq`m], #, True]],\n\t\t\t\t\t\t\
 ComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t}\n\t\t\
 ]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-2NVH3P\"\n]\n\n\nVerificationTest[\n\t\
-Apply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\
-\t\tSameQ[\n\t\t\t\t\t\t\tCount[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\t\
-First @ FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[ComputationalEngine`CreateEulerEq`retc @ \
-ComputationalEngine`CreateEulerEq`t, #],\n\t\t\t\t\t\t\t\t\tEqual[0, \
-ComputationalEngine`CreateEulerEq`x__] :> True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\
-\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\
-Length[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\t\
-\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\
-],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
-Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
-FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[ComputationalEngine`CreateEulerEq`ret[\
-ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`j], \
-#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
-True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
-\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
-\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
-\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
-Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
-FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[ComputationalEngine`CreateEulerEq`bondret[\
-ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], \
-#],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
-True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
-\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
-\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
-\t],\n\t\t\t\tMap[\n\t\t\t\t\tFunction[\n\t\t\t\t\t\tSameQ[\n\t\t\t\t\t\t\t\
-Count[\n\t\t\t\t\t\t\t\tCases[\n\t\t\t\t\t\t\t\t\tFirst @ \
-FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[ComputationalEngine`CreateEulerEq`nombondret[\
-ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
-True],\n\t\t\t\t\t\t\t\t\tEqual[0, ComputationalEngine`CreateEulerEq`x__] :> \
-True\n\t\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\tTrue\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\
-\tLength[#[\"stateVars\"][ComputationalEngine`CreateEulerEq`t]] + 1\n\t\t\t\t\
-\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\
-\t]\n\t\t\t}\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-AVEZU6\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"CreateEulerEq_20230820-0UIR4J\"\n]\n\n\nVerificationTest[\n\t\
 SameQ[{\"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`\"},\n\t\t\
 DeleteDuplicates[\n\t\t\tFlatten[\n\t\t\t\t{\n\t\t\t\t\tMap[Function @ \
 Context @ Evaluate @ #,\n\t\t\t\t\t\tFlatten[\n\t\t\t\t\t\t\tMap[\n\t\t\t\t\t\
@@ -4186,7 +4651,7 @@ ComputationalEngine`CreateEulerEq`t, ComputationalEngine`CreateEulerEq`m], #, \
 True],\n\t\t\t\t\t\t\t\t\t\t1;;, 0, 0\n\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t\
 ],\n\t\t\t\t\t\t\t\tComputationalEngine`CreateEulerEq`mods\n\t\t\t\t\t\t\t]\n\
 \t\t\t\t\t\t]\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\
-\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230610-GHU9ZO\"\n]\n\n\n\
+\t{}\n\t,\n\tTestID->\"CreateEulerEq_20230820-PX7O15\"\n]\n\n\n\
 VerificationTest[\n\t\
 ComputationalEngine`CreateEulerEq`checkBoolean[ComputationalEngine`\
 CreateEulerEq`model_] := Module[\n\t\t{ComputationalEngine`CreateEulerEq`e0, \
@@ -4240,7 +4705,7 @@ Part[ComputationalEngine`CreateEulerEq`e3, 1] /. \
 ComputationalEngine`CreateEulerEq`e3p\n\t\t}\n\t];\n\tApply[And, \
 Map[BooleanQ, Flatten @ ComputationalEngine`CreateEulerEq`checkBoolean @ \
 ComputationalEngine`CreateEulerEq`modBY]]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"CreateEulerEq_20230610-T9CC4Q\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"CreateEulerEq_20230820-PF3P04\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -4305,8 +4770,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895431082410083*^9},
- CellLabel->"Out[19]=",ExpressionUUID->"75117ea8-16af-433e-8ead-6d9b3b9b3bd8"]
+ CellChangeTimes->{3.9015488058375187`*^9},
+ CellLabel->"Out[19]=",ExpressionUUID->"3be76f2d-7e5b-4a96-817a-5024ea6bef0d"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -4317,8 +4782,8 @@ Cell[BoxData[
  CellLabel->"In[20]:=",ExpressionUUID->"985a3ae6-e130-4f8a-9b93-ae3fe10177bc"],
 
 Cell[BoxData["\<\"ComputationalEngine`CreateEulerEq`\"\>"], "Output",
- CellChangeTimes->{3.895431082450046*^9},
- CellLabel->"Out[20]=",ExpressionUUID->"3b0d5ae4-2255-4179-af43-db88782a3952"]
+ CellChangeTimes->{3.901548805868597*^9},
+ CellLabel->"Out[20]=",ExpressionUUID->"080d9bab-f253-4f16-a04d-4088084b2bfb"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -4484,12 +4949,12 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlttemp\"\>"}], 
   "}"}]], "Output",
- CellChangeTimes->{3.895431082518209*^9},
- CellLabel->"Out[25]=",ExpressionUUID->"e673922f-a335-425d-ac11-52d58a691751"],
+ CellChangeTimes->{3.901548805932522*^9},
+ CellLabel->"Out[25]=",ExpressionUUID->"804a1c55-ab82-4619-a292-ca8edb26cc50"],
 
 Cell[BoxData["410"], "Output",
- CellChangeTimes->{3.89543108253399*^9},
- CellLabel->"Out[28]=",ExpressionUUID->"e81cc3f3-5414-45af-bc0d-158796a12ff2"],
+ CellChangeTimes->{3.901548805943481*^9},
+ CellLabel->"Out[28]=",ExpressionUUID->"f3c3adaf-a065-46b9-84aa-d7be992e0baf"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -4498,8 +4963,8 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlttemp\"\>"}], 
   "}"}]], "Output",
- CellChangeTimes->{3.89543108254944*^9},
- CellLabel->"Out[29]=",ExpressionUUID->"c813dd6e-7332-4c2d-bb05-54e0db425554"]
+ CellChangeTimes->{3.901548805958208*^9},
+ CellLabel->"Out[29]=",ExpressionUUID->"15ceb16e-fa1a-4ffb-9820-2906e0392e26"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -4567,7 +5032,7 @@ Cell[BoxData[
                     StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
                     AutoDelete -> True], PercentForm], "SummaryItem"]}], 
                RowBox[{
-                 TagBox["\"Tests run: \"", "SummaryItemAnnotation"], 
+                 TagBox["\"Tests count: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
                  TagBox["10", "SummaryItem"]}]}}, 
              GridBoxAlignment -> {
@@ -4632,7 +5097,7 @@ Cell[BoxData[
                     StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
                     AutoDelete -> True], PercentForm], "SummaryItem"]}], 
                RowBox[{
-                 TagBox["\"Tests run: \"", "SummaryItemAnnotation"], 
+                 TagBox["\"Tests count: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
                  TagBox["10", "SummaryItem"]}]}, {
                RowBox[{
@@ -4640,32 +5105,14 @@ Cell[BoxData[
                  "\[InvisibleSpace]", 
                  TagBox["10", "SummaryItem"]}], "\[SpanFromLeft]"}, {
                RowBox[{
-                 TagBox["\"Failed: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
-                 TagBox[
-                 "\"Failed with wrong results: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
-                 TagBox[
-                 "\"Failed with messages: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
-                 TagBox["\"Failed with errors: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
                  TagBox["\"Time elapsed: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
                  TagBox[
                   
                   TemplateBox[{
-                   "77.745565`", "\"s\"", "seconds", "\"Seconds\""}, 
-                   "Quantity", SyntaxForm -> Mod], "SummaryItem"]}], 
-               "\[SpanFromLeft]"}}, 
+                   "81.7685389999999999999`7.0631012358934235", "\"s\"", 
+                    "seconds", "\"Seconds\""}, "Quantity", SyntaxForm -> Mod],
+                   "SummaryItem"]}], "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
               "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
              False, GridBoxItemSize -> {
@@ -4685,19 +5132,19 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: CreateEulerEq.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     6600198960589760462 -> 
-      TestResultObject[<|
-        "TestKey" -> 6600198960589760462, "TestID" -> 
-         "CreateEulerEq_20230610-GFA92E", "TestFileName" -> 
+     3649498793491948157 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9015488060273438`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "afeb492a-1490-41ae-9faf-4b0a90daa1dd", "TestID" -> 
+         "CreateEulerEq_20230820-UJLDBE", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[Get[
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "EvaluationID" -> 
+         "b0b0e568-c310-4c79-9d68-6e82a1851a40", "Input" -> HoldForm[Get[
              Get[
-              
-              FileNameJoin[{$CellContext`pacletDir, "Resources", 
-                "Models.wl"}]]]; 
+              FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]]; 
            ComputationalEngine`CreateEulerEq`msp = 
             FernandoDuarte`LongRunRisk`Models; 
            ComputationalEngine`CreateEulerEq`modBY = 
@@ -4710,19 +5157,21 @@ Cell[BoxData[
              ComputationalEngine`CreateEulerEq`modBY, 
               ComputationalEngine`CreateEulerEq`modNRC, 
               ComputationalEngine`CreateEulerEq`modDES}; Null], 
-         "ExpectedOutput" -> HoldForm[Null], "ActualOutput" -> HoldForm[Null],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8954310825998907`*^9, "AbsoluteTimeUsed" -> 
-         0.077975`5.042470381261175, "CPUTimeUsed" -> 0.08338899999999683, 
-         "MemoryUsed" -> 6561936|>], 6049661819606404488 -> 
-      TestResultObject[<|
-        "TestKey" -> 6049661819606404488, "TestID" -> 
-         "CreateEulerEq_20230610-EXYC8D", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[Null],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.154898`5.340560808137544, "CPUTimeUsed" -> 0.16061500000000706`, 
+         "MemoryUsed" -> 11089536, "ExpectedOutput" -> HoldForm[Null], 
+         "Outcome" -> "Success"|>], 6969215722831244956 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901548806182796*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "aea83440-7a49-4dad-8625-a429c72ce2a6", "TestID" -> 
+         "CreateEulerEq_20230820-XD2P9G", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> 
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "EvaluationID" -> 
+         "9bfaecb2-ce82-482c-a581-071129dd565b", "Input" -> 
          HoldForm[
           Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
 "]; ComputationalEngine`CreateEulerEq`ee[
@@ -4794,8 +5243,7 @@ Cell[BoxData[
             Map[ComputationalEngine`CreateEulerEq`coeffWc, 
               ComputationalEngine`CreateEulerEq`mods]; 
            ComputationalEngine`CreateEulerEq`coeffPdAll = 
-            Map[
-             ComputationalEngine`CreateEulerEq`coeffPd, 
+            Map[ComputationalEngine`CreateEulerEq`coeffPd, 
               ComputationalEngine`CreateEulerEq`mods]; 
            ComputationalEngine`CreateEulerEq`coeffBondAll = 
             Map[ComputationalEngine`CreateEulerEq`coeffBond, 
@@ -4803,33 +5251,36 @@ Cell[BoxData[
            ComputationalEngine`CreateEulerEq`coeffNomBondAll = 
             Map[ComputationalEngine`CreateEulerEq`coeffNomBond, 
               ComputationalEngine`CreateEulerEq`mods]; Null], 
-         "ExpectedOutput" -> HoldForm[Null], "ActualOutput" -> HoldForm[Null],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431082680004*^9, "AbsoluteTimeUsed" -> 
-         0.003427`3.685429102261861, "CPUTimeUsed" -> 0.0034279999999995425`, 
-         "MemoryUsed" -> -6412808|>], 8966295597765298070 -> 
-      TestResultObject[<|
-        "TestKey" -> 8966295597765298070, "TestID" -> 
-         "CreateEulerEq_20230610-D1JX8J", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[Null],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000173`2.388561100960789, "CPUTimeUsed" -> 0.000171000000008803, 
+         "MemoryUsed" -> -14880, "ExpectedOutput" -> HoldForm[Null], 
+         "Outcome" -> "Success"|>], 5338373382218127237 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9015488061832347`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "2c0c2779-87fe-47f8-9151-16efa52a95cb", "TestID" -> 
+         "CreateEulerEq_20230820-13QTF7", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           Not[Names["*eulereq"] === {}]], "ExpectedOutput" -> HoldForm[True],
-          "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431082683642*^9, "AbsoluteTimeUsed" -> 
-         0.020066`4.452975805742374, "CPUTimeUsed" -> 0.02007199999999898, 
-         "MemoryUsed" -> 2808|>], 3441919163044283775 -> 
-      TestResultObject[<|
-        "TestKey" -> 3441919163044283775, "TestID" -> 
-         "CreateEulerEq_20230610-K9CXQS", "TestFileName" -> 
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "EvaluationID" -> 
+         "2691a12d-6464-479c-b47b-be8a08dc91c4", "Input" -> HoldForm[
+           Not[Names["*eulereq"] === {}]], "ExpectedMessages" -> HoldForm[{}],
+          "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
+         "AbsoluteTimeUsed" -> 0.024207`4.534455968018202, "CPUTimeUsed" -> 
+         0.02424699999998836, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 4876371338542595742 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901548806207831*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "b99793d6-2943-4fdd-a302-aa70d650869b", "TestID" -> 
+         "CreateEulerEq_20230820-0SCP5W", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "EvaluationID" -> 
+         "1a09b850-b06b-4e82-a81d-b5e33a5a961e", "Input" -> HoldForm[
            Apply[And, 
             Flatten[{
               Map[Max[
@@ -4871,19 +5322,21 @@ Cell[BoxData[
                     Blank[]]], Infinity]]]]] == 1& , 
                ComputationalEngine`CreateEulerEq`ee[
                ComputationalEngine`CreateEulerEq`modDES]]}]]], 
-         "ExpectedOutput" -> HoldForm[False], "ActualOutput" -> 
-         HoldForm[False], "ExpectedMessages" -> HoldForm[{}], 
-         "ActualMessages" -> {}, "AbsoluteTime" -> 3.895431082704076*^9, 
-         "AbsoluteTimeUsed" -> 0.12011`5.230094164802125, "CPUTimeUsed" -> 
-         0.12015799999998933`, "MemoryUsed" -> 7280|>], 4332890899948883151 -> 
-      TestResultObject[<|
-        "TestKey" -> 4332890899948883151, "TestID" -> 
-         "CreateEulerEq_20230610-VPAZX0", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> 
+         HoldForm[False], "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.202054`5.455982450288128, "CPUTimeUsed" -> 0.20213599999999587`, 
+         "MemoryUsed" -> 7664, "ExpectedOutput" -> HoldForm[False], "Outcome" -> 
+         "Success"|>], 8910304391402629994 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901548806410359*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "293e17fe-79dc-4364-b47a-e91a8c2feaae", "TestID" -> 
+         "CreateEulerEq_20230820-Q4Z5LO", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "EvaluationID" -> 
+         "375d337d-4720-42f4-ac2b-b0a5a1fee501", "Input" -> HoldForm[
            Apply[And, 
             Flatten[{
               Table[
@@ -4934,131 +5387,21 @@ Cell[BoxData[
                  ComputationalEngine`CreateEulerEq`n]], {
                ComputationalEngine`CreateEulerEq`n, 1, 
                 Length[ComputationalEngine`CreateEulerEq`mods]}]}]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431082824577*^9, "AbsoluteTimeUsed" -> 
-         0.002745`3.5890573466181044, "CPUTimeUsed" -> 0.0027449999999902275`,
-          "MemoryUsed" -> 21992|>], 2070559969721020485 -> 
-      TestResultObject[<|
-        "TestKey" -> 2070559969721020485, "TestID" -> 
-         "CreateEulerEq_20230610-CRU3E0", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.015454`4.339555905741004, "CPUTimeUsed" -> 0.015450999999998771`, 
+         "MemoryUsed" -> 21576, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 3277747818854829997 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901548806426252*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "0040093f-a4ec-42fc-9238-d02009894e26", "TestID" -> 
+         "CreateEulerEq_20230820-JHMC1M", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           Apply[And, 
-            Flatten[{
-              Map[FreeQ[
-                
-                FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`retc[
-                 ComputationalEngine`CreateEulerEq`t], #], 
-                ComputationalEngine`CreateEulerEq`t]& , 
-               ComputationalEngine`CreateEulerEq`mods], 
-              Map[FreeQ[
-                
-                FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`ret[
-                 ComputationalEngine`CreateEulerEq`t, 
-                  ComputationalEngine`CreateEulerEq`j], #], 
-                ComputationalEngine`CreateEulerEq`t]& , 
-               ComputationalEngine`CreateEulerEq`mods], 
-              Map[FreeQ[
-                
-                FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`bondret[
-                 ComputationalEngine`CreateEulerEq`t, 
-                  ComputationalEngine`CreateEulerEq`m], #], 
-                ComputationalEngine`CreateEulerEq`t]& , 
-               ComputationalEngine`CreateEulerEq`mods], 
-              Map[FreeQ[
-                
-                FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`nombondret[
-                 ComputationalEngine`CreateEulerEq`t, 
-                  ComputationalEngine`CreateEulerEq`m], #, True], 
-                ComputationalEngine`CreateEulerEq`t]& , 
-               ComputationalEngine`CreateEulerEq`mods]}]]], "ExpectedOutput" -> 
-         HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431082827588*^9, "AbsoluteTimeUsed" -> 
-         15.240353`7.3335100241647515, "CPUTimeUsed" -> 15.315173000000016`, 
-         "MemoryUsed" -> 2344640|>], 8751300789800774302 -> 
-      TestResultObject[<|
-        "TestKey" -> 8751300789800774302, "TestID" -> 
-         "CreateEulerEq_20230610-2NVH3P", "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           Apply[And, 
-            
-            Flatten[{
-             Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
-findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`retc[
-                 ComputationalEngine`CreateEulerEq`t], #]& , 
-                ComputationalEngine`CreateEulerEq`mods] === 
-              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
-CreateEulerEq`findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`retc[
-                 ComputationalEngine`CreateEulerEq`t + 1], #]& , 
-                ComputationalEngine`CreateEulerEq`mods], 
-              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
-CreateEulerEq`findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`ret[
-                 ComputationalEngine`CreateEulerEq`t, 
-                  ComputationalEngine`CreateEulerEq`j], #]& , 
-                ComputationalEngine`CreateEulerEq`mods] === 
-              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
-CreateEulerEq`findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`ret[
-                 ComputationalEngine`CreateEulerEq`t + 1, 
-                  ComputationalEngine`CreateEulerEq`j], #]& , 
-                ComputationalEngine`CreateEulerEq`mods], 
-              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
-CreateEulerEq`findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`bondret[
-                 ComputationalEngine`CreateEulerEq`t, 
-                  ComputationalEngine`CreateEulerEq`m], #]& , 
-                ComputationalEngine`CreateEulerEq`mods] === 
-              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
-CreateEulerEq`findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`bondret[
-                 ComputationalEngine`CreateEulerEq`t + 1, 
-                  ComputationalEngine`CreateEulerEq`m], #]& , 
-                ComputationalEngine`CreateEulerEq`mods], 
-              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
-CreateEulerEq`findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`nombondret[
-                 ComputationalEngine`CreateEulerEq`t, 
-                  ComputationalEngine`CreateEulerEq`m], #, True]& , 
-                ComputationalEngine`CreateEulerEq`mods] === 
-              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
-CreateEulerEq`findEulerEqConstants[
-                 ComputationalEngine`CreateEulerEq`nombondret[
-                 ComputationalEngine`CreateEulerEq`t + 1, 
-                  ComputationalEngine`CreateEulerEq`m], #, True]& , 
-                ComputationalEngine`CreateEulerEq`mods]}]]], "ExpectedOutput" -> 
-         HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431098068449*^9, "AbsoluteTimeUsed" -> 
-         30.732417`7.638111715214451, "CPUTimeUsed" -> 30.884028, 
-         "MemoryUsed" -> 3792728|>], 9148955298407642730 -> 
-      TestResultObject[<|
-        "TestKey" -> 9148955298407642730, "TestID" -> 
-         "CreateEulerEq_20230610-AVEZU6", "TestFileName" -> 
-         "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "EvaluationID" -> 
+         "7daba720-1e98-4af8-9935-d456046aa06a", "Input" -> HoldForm[
            Apply[And, 
             Flatten[{
               Map[Count[
@@ -5111,20 +5454,138 @@ CreateEulerEq`findEulerEqConstants[
                   0 == Pattern[ComputationalEngine`CreateEulerEq`x, 
                     BlankSequence[]] :> True], True] === Length[
                   #["stateVars"][ComputationalEngine`CreateEulerEq`t]] + 1& , 
-               ComputationalEngine`CreateEulerEq`mods]}]]], "ExpectedOutput" -> 
-         HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895431128801454*^9, "AbsoluteTimeUsed" -> 
-         15.282803`7.334718012791017, "CPUTimeUsed" -> 15.356484999999992`, 
-         "MemoryUsed" -> 1828904|>], 4048471927062055058 -> 
-      TestResultObject[<|
-        "TestKey" -> 4048471927062055058, "TestID" -> 
-         "CreateEulerEq_20230610-GHU9ZO", "TestFileName" -> 
+               ComputationalEngine`CreateEulerEq`mods]}]]], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         15.755433`7.347945341040304, "CPUTimeUsed" -> 15.765370000000004`, 
+         "MemoryUsed" -> 2327472, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 1034453787756344402 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901548822182208*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "92f0906e-0ee8-4b10-a475-f62c111b548a", "TestID" -> 
+         "CreateEulerEq_20230820-JD404O", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> 
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "EvaluationID" -> 
+         "9e2fc295-bfb3-498b-887c-95fcbc438e10", "Input" -> HoldForm[
+           Apply[And, 
+            Flatten[{
+              Map[FreeQ[
+                
+                FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`retc[
+                 ComputationalEngine`CreateEulerEq`t], #], 
+                ComputationalEngine`CreateEulerEq`t]& , 
+               ComputationalEngine`CreateEulerEq`mods], 
+              Map[FreeQ[
+                
+                FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`ret[
+                 ComputationalEngine`CreateEulerEq`t, 
+                  ComputationalEngine`CreateEulerEq`j], #], 
+                ComputationalEngine`CreateEulerEq`t]& , 
+               ComputationalEngine`CreateEulerEq`mods], 
+              Map[FreeQ[
+                
+                FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`bondret[
+                 ComputationalEngine`CreateEulerEq`t, 
+                  ComputationalEngine`CreateEulerEq`m], #], 
+                ComputationalEngine`CreateEulerEq`t]& , 
+               ComputationalEngine`CreateEulerEq`mods], 
+              Map[FreeQ[
+                
+                FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`nombondret[
+                 ComputationalEngine`CreateEulerEq`t, 
+                  ComputationalEngine`CreateEulerEq`m], #, True], 
+                ComputationalEngine`CreateEulerEq`t]& , 
+               ComputationalEngine`CreateEulerEq`mods]}]]], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         15.846517`7.350448818713512, "CPUTimeUsed" -> 15.922230000000013`, 
+         "MemoryUsed" -> 570560, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 2056131499073109139 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901548838029411*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "f3ae1867-83ce-4b19-b3a0-4e40319a6314", "TestID" -> 
+         "CreateEulerEq_20230820-0UIR4J", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "EvaluationID" -> 
+         "b8f89326-543b-49cf-a87e-5bb5a6fa883d", "Input" -> HoldForm[
+           Apply[And, 
+            
+            Flatten[{
+             Map[FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\
+findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`retc[
+                 ComputationalEngine`CreateEulerEq`t], #]& , 
+                ComputationalEngine`CreateEulerEq`mods] === 
+              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
+CreateEulerEq`findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`retc[
+                 ComputationalEngine`CreateEulerEq`t + 1], #]& , 
+                ComputationalEngine`CreateEulerEq`mods], 
+              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
+CreateEulerEq`findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`ret[
+                 ComputationalEngine`CreateEulerEq`t, 
+                  ComputationalEngine`CreateEulerEq`j], #]& , 
+                ComputationalEngine`CreateEulerEq`mods] === 
+              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
+CreateEulerEq`findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`ret[
+                 ComputationalEngine`CreateEulerEq`t + 1, 
+                  ComputationalEngine`CreateEulerEq`j], #]& , 
+                ComputationalEngine`CreateEulerEq`mods], 
+              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
+CreateEulerEq`findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`bondret[
+                 ComputationalEngine`CreateEulerEq`t, 
+                  ComputationalEngine`CreateEulerEq`m], #]& , 
+                ComputationalEngine`CreateEulerEq`mods] === 
+              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
+CreateEulerEq`findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`bondret[
+                 ComputationalEngine`CreateEulerEq`t + 1, 
+                  ComputationalEngine`CreateEulerEq`m], #]& , 
+                ComputationalEngine`CreateEulerEq`mods], 
+              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
+CreateEulerEq`findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`nombondret[
+                 ComputationalEngine`CreateEulerEq`t, 
+                  ComputationalEngine`CreateEulerEq`m], #, True]& , 
+                ComputationalEngine`CreateEulerEq`mods] === 
+              Map[FernandoDuarte`LongRunRisk`ComputationalEngine`\
+CreateEulerEq`findEulerEqConstants[
+                 ComputationalEngine`CreateEulerEq`nombondret[
+                 ComputationalEngine`CreateEulerEq`t + 1, 
+                  ComputationalEngine`CreateEulerEq`m], #, True]& , 
+                ComputationalEngine`CreateEulerEq`mods]}]]], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         32.575029`7.663399808848523, "CPUTimeUsed" -> 32.737437, 
+         "MemoryUsed" -> 408576, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 4149493385216746358 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.901548870605014*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "854c1e7a-bee3-4a1a-9378-485567322b0c", "TestID" -> 
+         "CreateEulerEq_20230820-PX7O15", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "EvaluationID" -> 
+         "5ab5ef80-722c-4028-9cce-7bd9b031e8de", "Input" -> 
          HoldForm[{"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"} === 
            DeleteDuplicates[
              Flatten[{
@@ -5183,19 +5644,21 @@ CreateEulerEq`findEulerEqConstants[
                     ComputationalEngine`CreateEulerEq`m], #, True]]], 
                    Span[1, All], 0, 0]& , 
                   ComputationalEngine`CreateEulerEq`mods]]]}]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895431144084802*^9, "AbsoluteTimeUsed" -> 
-         15.316309`7.335669117301925, "CPUTimeUsed" -> 15.392291, 
-         "MemoryUsed" -> 2105064|>], 7160430326202457974 -> 
-      TestResultObject[<|
-        "TestKey" -> 7160430326202457974, "TestID" -> 
-         "CreateEulerEq_20230610-T9CC4Q", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         16.261521`7.3616761621536115, "CPUTimeUsed" -> 16.340581999999984`, 
+         "MemoryUsed" -> 233600, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 6870792565439788772 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.90154888686717*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "58ee713b-f222-4ba6-b7b3-317bcd0d74f9", "TestID" -> 
+         "CreateEulerEq_20230820-PF3P04", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> 
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt", "EvaluationID" -> 
+         "1427d64b-b78c-43ae-8876-048c080c04e7", "Input" -> 
          HoldForm[ComputationalEngine`CreateEulerEq`checkBoolean[
               Pattern[ComputationalEngine`CreateEulerEq`model, 
                Blank[]]] := 
@@ -5273,25 +5736,25 @@ findEulerEqConstants[
              Map[BooleanQ, 
               Flatten[
                ComputationalEngine`CreateEulerEq`checkBoolean[
-               ComputationalEngine`CreateEulerEq`modBY]]]]], "ExpectedOutput" -> 
-         HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8954311594016957`*^9, "AbsoluteTimeUsed" -> 
-         0.94936`6.127945927189015, "CPUTimeUsed" -> 0.958172999999988, 
-         "MemoryUsed" -> 604680|>]|>, 
-    "TestsSucceededKeys" -> {6600198960589760462, 6049661819606404488, 
-     8966295597765298070, 3441919163044283775, 4332890899948883151, 
-     2070559969721020485, 8751300789800774302, 9148955298407642730, 
-     4048471927062055058, 7160430326202457974}, 
-    "TestsFailedWrongResultsKeys" -> {}, "TestsFailedWithMessagesKeys" -> {}, 
-    "TestsFailedWithErrorsKeys" -> {}|>],
+               ComputationalEngine`CreateEulerEq`modBY]]]]], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.933253`6.12051439249929, "CPUTimeUsed" -> 0.9429409999999905, 
+         "MemoryUsed" -> -714192, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>]|>, "FailureResults" -> <||>, 
+    "TestsNotEvaluatedKeys" -> {}, "TestsFailedWrongResultsKeys" -> {}, 
+    "TestsFailedWithMessagesKeys" -> {}, "TestsFailedWithErrorsKeys" -> {}, 
+    "TestsSucceededKeys" -> {3649498793491948157, 6969215722831244956, 
+     5338373382218127237, 4876371338542595742, 8910304391402629994, 
+     3277747818854829997, 1034453787756344402, 2056131499073109139, 
+     4149493385216746358, 6870792565439788772}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellChangeTimes->{3.895431160563786*^9},
- CellLabel->"Out[32]=",ExpressionUUID->"7a1ccfcb-95bd-4e6c-868d-cef84f60b7b6"]
+ CellChangeTimes->{3.901548887989668*^9},
+ CellLabel->"Out[32]=",ExpressionUUID->"853f7cb8-6852-46ee-b15e-539e9da4e495"]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5541,8 +6004,8 @@ Cell[BoxData[
  CellLabel->"In[24]:=",ExpressionUUID->"f065eeba-7e2a-4191-b21e-6d5f29dc37ee"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.895430860112846*^9, 3.895507802778337*^9},
- CellLabel->"Out[24]=",ExpressionUUID->"e857c17c-5223-4f48-86d8-1c9606f0f280"]
+ CellChangeTimes->{3.9015344326071587`*^9},
+ CellLabel->"Out[24]=",ExpressionUUID->"706f0a88-1009-4e5e-ac69-6f4ac2a25cf5"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -5644,8 +6107,8 @@ Cell[BoxData[
  CellLabel->"In[25]:=",ExpressionUUID->"450d026c-b18a-43e7-a1f7-1fbd64889a02"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.8954308601329803`*^9, 3.895507802809013*^9},
- CellLabel->"Out[25]=",ExpressionUUID->"ccf57084-cf1d-4bc4-b13c-c8e6e854c2d2"]
+ CellChangeTimes->{3.9015344326234217`*^9},
+ CellLabel->"Out[25]=",ExpressionUUID->"0be031c3-452f-4e9b-b984-6e779f478b25"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -5770,8 +6233,8 @@ Cell[BoxData[
  CellLabel->"In[27]:=",ExpressionUUID->"b469d433-9a13-454a-9c41-8fcf8f6ada95"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.89543089392869*^9, 3.8955078360808687`*^9},
- CellLabel->"Out[27]=",ExpressionUUID->"a9a1aee3-bc71-4cd6-ae4d-4bc984d8f0f0"]
+ CellChangeTimes->{3.9015344667787943`*^9},
+ CellLabel->"Out[27]=",ExpressionUUID->"788e8b71-26b9-40ce-9875-1bcc7a53eba5"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -5832,8 +6295,8 @@ Cell[BoxData[
  CellLabel->"In[28]:=",ExpressionUUID->"a14f8e57-f2d4-4fb0-adf4-2ed265fddaa5"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.895430910461753*^9, 3.895507852266591*^9},
- CellLabel->"Out[28]=",ExpressionUUID->"fd03d4c8-36e6-46ac-af84-92bd4dd67bad"]
+ CellChangeTimes->{3.9015344845019417`*^9},
+ CellLabel->"Out[28]=",ExpressionUUID->"f95b8213-7dfe-4d47-a91b-169027c9fa1c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -5930,8 +6393,8 @@ Cell[BoxData[
  CellLabel->"In[29]:=",ExpressionUUID->"bb33459f-1e17-444a-8cb1-59734faa64d8"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.895430941825082*^9, 3.8955078828536577`*^9},
- CellLabel->"Out[29]=",ExpressionUUID->"c0e6da9a-b6d6-4024-88b1-59ef7ce5605a"]
+ CellChangeTimes->{3.9015345179316597`*^9},
+ CellLabel->"Out[29]=",ExpressionUUID->"966d3add-45cb-4519-8666-ce8d1266dff8"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -6041,8 +6504,8 @@ Cell[BoxData[
  CellLabel->"In[30]:=",ExpressionUUID->"40a7a3fe-b29a-43ad-8bf9-968a4a819d71"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.8954309574409523`*^9, 3.895507898398039*^9},
- CellLabel->"Out[30]=",ExpressionUUID->"7eb0f288-6036-4e11-814b-30bcfcc4fab1"]
+ CellChangeTimes->{3.901534535465733*^9},
+ CellLabel->"Out[30]=",ExpressionUUID->"ceaca685-34b8-4e5c-8c69-8c1c116ca8a8"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -6157,13 +6620,13 @@ Cell[BoxData[
  CellLabel->"In[31]:=",ExpressionUUID->"15096dd1-9781-426a-add3-5d1e6c4880bf"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.8954309588646307`*^9, 3.895507899787277*^9},
- CellLabel->"Out[32]=",ExpressionUUID->"0062f6f7-ba80-40f6-8403-7d7e53f34adb"]
+ CellChangeTimes->{3.901534536853282*^9},
+ CellLabel->"Out[32]=",ExpressionUUID->"8b59040b-c48d-4abb-9205-9cc9bcc9d9c1"]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{815, 828},
-WindowMargins->{{158, Automatic}, {Automatic, 24}},
+WindowSize->{1331, 828},
+WindowMargins->{{-1553, Automatic}, {7, Automatic}},
 WindowStatusArea->"",
 DockedCells->{
   Cell[
@@ -7003,7 +7466,7 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
    "CodeAnalysisDockedCell"]},
 TaggingRules-><|"TryRealOnly" -> False|>,
 Magnification:>1.25 Inherited,
-FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
+FrontEndVersion->"13.3 for Mac OS X ARM (64-bit) (July 24, 2023)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"aa263687-a9be-4f29-a043-b4b72fa56207"
 ]
@@ -7018,158 +7481,159 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[400, 13, 214, 4, 37, "Input",ExpressionUUID->"22feddcb-b3fc-478d-8077-4a914f160da7"],
+Cell[400, 13, 215, 4, 37, "Input",ExpressionUUID->"22feddcb-b3fc-478d-8077-4a914f160da7"],
 Cell[CellGroupData[{
-Cell[639, 21, 1958, 37, 220, "Input",ExpressionUUID->"3678a217-ed8d-42c6-86a2-75c1ea1115fd"],
-Cell[2600, 60, 295, 4, 69, "Output",ExpressionUUID->"105247e4-ffb9-42a5-90ef-ceecb5cc624c"],
-Cell[2898, 66, 272, 4, 42, "Output",ExpressionUUID->"3dd52cc1-b131-4a9c-afaf-02fd19b65ee0"],
-Cell[3173, 72, 292, 5, 42, "Output",ExpressionUUID->"fe876e7b-fd15-44ad-82eb-1cfb4bab9def"],
-Cell[3468, 79, 219, 3, 42, "Output",ExpressionUUID->"771da473-e753-4ed7-a925-dca74dc65798"],
-Cell[3690, 84, 317, 6, 42, "Output",ExpressionUUID->"615ee317-4ee6-4820-b92b-33ca6dd3d61d"]
+Cell[640, 21, 1958, 37, 142, "Input",ExpressionUUID->"3678a217-ed8d-42c6-86a2-75c1ea1115fd"],
+Cell[2601, 60, 268, 3, 42, "Output",ExpressionUUID->"e5f51980-af68-41f0-b2e9-275a810eccc8"],
+Cell[2872, 65, 247, 3, 42, "Output",ExpressionUUID->"d2e9cfe9-7d99-4d31-8d65-2eaf00386f93"],
+Cell[3122, 70, 267, 4, 42, "Output",ExpressionUUID->"7d44a2ba-8eb1-43d1-a0c2-8c2a91ebabe7"],
+Cell[3392, 76, 192, 2, 42, "Output",ExpressionUUID->"45abb243-f63c-4079-ba3f-e2718ec13067"],
+Cell[3587, 80, 285, 5, 42, "Output",ExpressionUUID->"78c3c686-2325-46c8-ac82-94c97e82bd8e"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4044, 95, 255, 4, 67, "Subsection",ExpressionUUID->"2157750c-ae6d-47e9-b5dd-9c68ad40141b"],
-Cell[4302, 101, 316, 7, 37, "Input",ExpressionUUID->"f2799e55-a4bc-4cd6-9966-6392a845d852"],
+Cell[3909, 90, 255, 4, 67, "Subsection",ExpressionUUID->"2157750c-ae6d-47e9-b5dd-9c68ad40141b"],
+Cell[4167, 96, 316, 7, 37, "Input",ExpressionUUID->"f2799e55-a4bc-4cd6-9966-6392a845d852"],
 Cell[CellGroupData[{
-Cell[4643, 112, 601, 11, 64, "Input",ExpressionUUID->"8eff5a9c-f1a4-4d23-af33-c77709b1754e"],
-Cell[5247, 125, 218, 3, 42, "Output",ExpressionUUID->"c72d9ec0-f3ae-41df-99d5-0bd09420b66c"]
+Cell[4508, 107, 601, 11, 64, "Input",ExpressionUUID->"8eff5a9c-f1a4-4d23-af33-c77709b1754e"],
+Cell[5112, 120, 218, 3, 42, "Output",ExpressionUUID->"298561ff-9dfd-458f-8576-795e0c4db25f"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5502, 133, 423, 7, 37, "Input",ExpressionUUID->"2f82b75d-42a0-4b76-b3ff-7172db85f4de"],
-Cell[5928, 142, 189, 2, 42, "Output",ExpressionUUID->"d3efd4ba-9282-4846-8082-682200e09bfe"]
+Cell[5367, 128, 423, 7, 37, "Input",ExpressionUUID->"2f82b75d-42a0-4b76-b3ff-7172db85f4de"],
+Cell[5793, 137, 189, 2, 42, "Output",ExpressionUUID->"cfc2da5e-df57-4fa7-b1c2-abf2d7b33e02"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6154, 149, 1417, 33, 220, "Input",ExpressionUUID->"eccf8930-58b0-4acf-8ec2-cc24c39a0278"],
+Cell[6019, 144, 1438, 33, 220, "Input",ExpressionUUID->"eccf8930-58b0-4acf-8ec2-cc24c39a0278"],
 Cell[CellGroupData[{
-Cell[7596, 186, 381, 9, 29, "Print",ExpressionUUID->"721ab47a-c4d1-49a5-ab86-234b604a34ad"],
-Cell[7980, 197, 272, 5, 29, "Print",ExpressionUUID->"80dac066-dac6-4b22-9a4b-76a9d2a8afe5"]
+Cell[7482, 181, 379, 9, 29, "Print",ExpressionUUID->"db7b4d9a-8fd6-4d60-8a93-6c57607a7fc5"],
+Cell[7864, 192, 270, 5, 29, "Print",ExpressionUUID->"c217689a-1cf5-4966-a0a2-f456d66c9cf8"]
 }, Open  ]],
-Cell[8267, 205, 7252, 135, 42, "Output",ExpressionUUID->"5e4a411c-3811-4ab1-973a-0963001b00fc"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[15556, 345, 5487, 127, 584, "Input",ExpressionUUID->"0f0d628d-d6b9-4205-8e24-5e38623917fa"],
-Cell[CellGroupData[{
-Cell[21068, 476, 379, 9, 29, "Print",ExpressionUUID->"52345c8b-4cf0-4b8b-84be-818ee0610322"],
-Cell[21450, 487, 272, 5, 29, "Print",ExpressionUUID->"24cc4a5e-f83f-431b-af6f-94ec2fb0368d"]
-}, Open  ]],
-Cell[21737, 495, 19187, 341, 42, "Output",ExpressionUUID->"dfb4e013-e849-4490-ba8d-b4e4d92c4c4b"]
+Cell[8149, 200, 7249, 135, 42, "Output",ExpressionUUID->"58d69d61-3bce-4acf-b734-d5638b71f6b3"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[40961, 841, 990, 19, 116, "Input",ExpressionUUID->"8845796e-7665-4c7d-8872-0aad8272ffea"],
+Cell[15435, 340, 5487, 127, 584, "Input",ExpressionUUID->"0f0d628d-d6b9-4205-8e24-5e38623917fa"],
 Cell[CellGroupData[{
-Cell[41976, 864, 379, 9, 29, "Print",ExpressionUUID->"e3d8c19e-a4d2-4d5d-a60d-222cfe5e0e49"],
-Cell[42358, 875, 270, 5, 29, "Print",ExpressionUUID->"d2ea8521-96a6-4d48-86cf-d07e9cb921cb"]
+Cell[20947, 471, 378, 9, 29, "Print",ExpressionUUID->"2ff50437-47d2-47a8-9fe7-fbb09166bbba"],
+Cell[21328, 482, 272, 5, 29, "Print",ExpressionUUID->"0956ff2f-f413-43a4-8d49-3c069ac85c5b"]
 }, Open  ]],
-Cell[42643, 883, 8914, 158, 42, "Output",ExpressionUUID->"0b64c897-ad5c-440d-a279-15afd1fcfa36"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[51594, 1046, 3282, 80, 344, "Input",ExpressionUUID->"5f14f312-6a58-4995-9f99-c90fffb7702e"],
-Cell[CellGroupData[{
-Cell[54901, 1130, 379, 9, 29, "Print",ExpressionUUID->"b34e1baa-8b3b-4aa2-947c-2ecb7907f9d9"],
-Cell[55283, 1141, 270, 5, 29, "Print",ExpressionUUID->"b79c4c47-1b72-4af5-b09c-da9fab415c69"]
-}, Open  ]],
-Cell[55568, 1149, 17501, 295, 42, "Output",ExpressionUUID->"eecae2c2-bc91-4af2-b78e-d33b9078dc68"]
+Cell[21615, 490, 19193, 341, 42, "Output",ExpressionUUID->"8fa0b4ad-905d-4e78-8eec-482bf45293eb"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[73106, 1449, 3609, 93, 272, "Input",ExpressionUUID->"6b8161f3-f0ae-4e4b-86b2-a9950c303b70"],
+Cell[40845, 836, 990, 19, 116, "Input",ExpressionUUID->"8845796e-7665-4c7d-8872-0aad8272ffea"],
 Cell[CellGroupData[{
-Cell[76740, 1546, 379, 9, 29, "Print",ExpressionUUID->"8dafb9dc-ca0b-46ad-aed9-fa57bbf7073b"],
-Cell[77122, 1557, 272, 5, 29, "Print",ExpressionUUID->"0d4b9fe4-defa-42a3-99a1-165637177e8c"]
+Cell[41860, 859, 379, 9, 29, "Print",ExpressionUUID->"08752e2a-b31b-4e17-b99c-98151e9cdff4"],
+Cell[42242, 870, 270, 5, 29, "Print",ExpressionUUID->"9ea1f85e-2949-4173-a953-3555614b2065"]
 }, Open  ]],
-Cell[77409, 1565, 19003, 327, 42, "Output",ExpressionUUID->"874d0a0d-b8ed-488b-8387-d72f857e9006"]
+Cell[42527, 878, 8920, 158, 42, "Output",ExpressionUUID->"4a9c4379-5a7b-4fe1-ac01-0d4b6ac4120f"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[96449, 1897, 5239, 126, 376, "Input",ExpressionUUID->"ca14d8f1-7a77-428b-8c74-a7eb0de7af1a"],
+Cell[51484, 1041, 3282, 80, 344, "Input",ExpressionUUID->"5f14f312-6a58-4995-9f99-c90fffb7702e"],
 Cell[CellGroupData[{
-Cell[101713, 2027, 345, 7, 29, "Print",ExpressionUUID->"ed876dd4-63d0-45fd-90aa-57c9889cfad2"],
-Cell[102061, 2036, 236, 3, 29, "Print",ExpressionUUID->"62b5cdaa-9549-45aa-ad6e-c3695a6443f3"]
+Cell[54791, 1125, 379, 9, 29, "Print",ExpressionUUID->"2217c778-daa0-45b9-9529-b6b9b479368b"],
+Cell[55173, 1136, 270, 5, 29, "Print",ExpressionUUID->"1e371683-f410-4013-8e9b-97a5e58b17ac"]
+}, Open  ]],
+Cell[55458, 1144, 17535, 295, 42, "Output",ExpressionUUID->"0a60b5f8-55d3-464c-9f7e-62fdf314807f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[73030, 1444, 3609, 93, 272, "Input",ExpressionUUID->"6b8161f3-f0ae-4e4b-86b2-a9950c303b70"],
+Cell[CellGroupData[{
+Cell[76664, 1541, 381, 9, 29, "Print",ExpressionUUID->"1054bb19-1e99-469c-8739-1cb140be3622"],
+Cell[77048, 1552, 270, 5, 29, "Print",ExpressionUUID->"88dec9dc-57c2-40c2-a69e-1f2b3db4f1dc"]
+}, Open  ]],
+Cell[77333, 1560, 19009, 327, 42, "Output",ExpressionUUID->"77fd54ff-117c-49bb-954d-33c33990a0a7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[96379, 1892, 5257, 125, 376, "Input",ExpressionUUID->"ca14d8f1-7a77-428b-8c74-a7eb0de7af1a"],
+Cell[CellGroupData[{
+Cell[101661, 2021, 379, 9, 29, "Print",ExpressionUUID->"e1a72497-f59a-4dbc-958b-a1ffd524e0ae"],
+Cell[102043, 2032, 270, 5, 29, "Print",ExpressionUUID->"e5f542b0-e345-482f-879b-e8c8ced43cf1"]
+}, Open  ]],
+Cell[102328, 2040, 23663, 387, 42, "Output",ExpressionUUID->"cf0da688-63a4-492d-87fd-6189ecd51e57"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[126028, 2432, 2296, 56, 246, "Input",ExpressionUUID->"10534701-86cc-4812-b9d1-583f080b6be2"],
+Cell[CellGroupData[{
+Cell[128349, 2492, 381, 9, 29, "Print",ExpressionUUID->"50c7077e-4fab-4c44-9dca-ce05d8681964"],
+Cell[128733, 2503, 269, 5, 29, "Print",ExpressionUUID->"2391b5c0-f099-43d5-b3a2-e5f634abab13"]
+}, Open  ]],
+Cell[129017, 2511, 21874, 366, 42, "Output",ExpressionUUID->"8755c036-8446-4dc9-888d-15da5e0c7415"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[150928, 2882, 3246, 87, 272, "Input",ExpressionUUID->"ee1337d5-0f3d-49eb-bbbe-5245cda1f6a9"],
+Cell[CellGroupData[{
+Cell[154199, 2973, 379, 9, 29, "Print",ExpressionUUID->"8e43417d-c38d-4ef6-a95e-da6759163266"],
+Cell[154581, 2984, 270, 5, 29, "Print",ExpressionUUID->"e15d5a75-b36c-430b-a1a7-c7e8509cab68"]
+}, Open  ]],
+Cell[154866, 2992, 26993, 441, 42, "Output",ExpressionUUID->"3fa6ec9c-317c-46d9-a1ee-3ba5430cf1c3"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[181896, 3438, 4154, 105, 272, "Input",ExpressionUUID->"52893134-e9af-4ce7-a13c-6142dbb2be0e"],
+Cell[CellGroupData[{
+Cell[186075, 3547, 379, 9, 29, "Print",ExpressionUUID->"2ecea28e-f332-41e7-8f08-e89fbb8261bd"],
+Cell[186457, 3558, 269, 5, 29, "Print",ExpressionUUID->"fa482a3c-1736-445d-af9f-627bb330c560"]
+}, Open  ]],
+Cell[186741, 3566, 29047, 478, 42, "Output",ExpressionUUID->"2570fc03-2841-4156-b829-5d624f4c9a47"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[215825, 4049, 4413, 112, 454, "Input",ExpressionUUID->"1720f7ae-66fa-40eb-88fe-12a3d25a6bb4"],
+Cell[CellGroupData[{
+Cell[220263, 4165, 379, 9, 29, "Print",ExpressionUUID->"185b09ae-4ef9-4d18-a351-46499e6e4b25"],
+Cell[220645, 4176, 270, 5, 29, "Print",ExpressionUUID->"268eb09d-2f63-40c8-b3f3-8a39003e66ca"]
+}, Open  ]],
+Cell[220930, 4184, 35365, 589, 42, "Output",ExpressionUUID->"3be76f2d-7e5b-4a96-817a-5024ea6bef0d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[256332, 4778, 195, 3, 37, "Input",ExpressionUUID->"985a3ae6-e130-4f8a-9b93-ae3fe10177bc"],
+Cell[256530, 4783, 190, 2, 42, "Output",ExpressionUUID->"080d9bab-f253-4f16-a04d-4088084b2bfb"]
+}, Open  ]],
+Cell[256735, 4788, 356, 7, 37, "Input",ExpressionUUID->"34eb60b3-650d-4879-853c-727ea9a613af"],
+Cell[257094, 4797, 1502, 33, 402, "Input",ExpressionUUID->"a85f5693-d085-4cc5-989a-a9500987950c"],
+Cell[258599, 4832, 3288, 67, 558, "Input",ExpressionUUID->"ad25c99b-2683-4ce1-a7e6-bbce1e6ba9da"],
+Cell[CellGroupData[{
+Cell[261912, 4903, 1642, 39, 246, "Input",ExpressionUUID->"315ef181-7d11-46ac-8819-a70759fefbb2"],
+Cell[263557, 4944, 397, 8, 69, "Output",ExpressionUUID->"804a1c55-ab82-4619-a292-ca8edb26cc50"],
+Cell[263957, 4954, 151, 2, 42, "Output",ExpressionUUID->"f3c3adaf-a065-46b9-84aa-d7be992e0baf"],
+Cell[264111, 4958, 397, 8, 69, "Output",ExpressionUUID->"15ceb16e-fa1a-4ffb-9820-2906e0392e26"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[264545, 4971, 177, 3, 37, "Input",ExpressionUUID->"fc1d992d-4049-45c4-8e03-501b9a0475c2"],
+Cell[264725, 4976, 40147, 778, 76, "Output",ExpressionUUID->"853f7cb8-6852-46ee-b15e-539e9da4e495"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[102346, 2045, 2296, 56, 246, "Input",ExpressionUUID->"10534701-86cc-4812-b9d1-583f080b6be2"],
+Cell[304921, 5760, 214, 4, 46, "Subsection",ExpressionUUID->"d03dfeba-2718-41c7-9b3f-19ce5bed64e2"],
+Cell[305138, 5766, 1084, 28, 168, "Input",ExpressionUUID->"095b63f1-fbc1-44ae-86fe-ddcb73be2d11"],
+Cell[306225, 5796, 209, 4, 37, "Input",ExpressionUUID->"89f99144-f1e3-48fd-a4d3-9f079d006be7"],
+Cell[306437, 5802, 1416, 36, 90, "Input",ExpressionUUID->"6c44f3a6-c84d-4629-8b8e-fbe680284498"],
+Cell[307856, 5840, 2791, 75, 324, "Input",ExpressionUUID->"90c42b22-0729-4071-8a87-80bfc7acfa05"],
+Cell[310650, 5917, 277, 6, 37, "Input",ExpressionUUID->"3a69e638-17e7-4dc8-983d-9a2bb95dbc44"],
 Cell[CellGroupData[{
-Cell[104667, 2105, 379, 9, 29, "Print",ExpressionUUID->"bc312fa5-ef69-4d2f-9abf-c299eecfb06e"],
-Cell[105049, 2116, 269, 5, 29, "Print",ExpressionUUID->"174703fa-04d4-4a14-89b2-04dd186dd6f2"]
-}, Open  ]],
-Cell[105333, 2124, 19113, 327, 42, "Output",ExpressionUUID->"e85c268c-bd95-4e4e-b353-77e85f869e4d"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[124483, 2456, 3246, 87, 272, "Input",ExpressionUUID->"ee1337d5-0f3d-49eb-bbbe-5245cda1f6a9"],
-Cell[CellGroupData[{
-Cell[127754, 2547, 378, 9, 29, "Print",ExpressionUUID->"98833299-c2d2-4dc5-b5d8-970bd94deef8"],
-Cell[128135, 2558, 270, 5, 29, "Print",ExpressionUUID->"ad61a2b6-bd92-4e63-8f57-f7971f4fe603"]
-}, Open  ]],
-Cell[128420, 2566, 24245, 402, 42, "Output",ExpressionUUID->"cd31cf77-1710-401f-b8dc-c897bb6d347e"]
+Cell[310952, 5927, 3162, 76, 260, "Input",ExpressionUUID->"f065eeba-7e2a-4191-b21e-6d5f29dc37ee"],
+Cell[314117, 6005, 154, 2, 42, "Output",ExpressionUUID->"706f0a88-1009-4e5e-ac69-6f4ac2a25cf5"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[152702, 2973, 4154, 105, 272, "Input",ExpressionUUID->"52893134-e9af-4ce7-a13c-6142dbb2be0e"],
-Cell[CellGroupData[{
-Cell[156881, 3082, 379, 9, 29, "Print",ExpressionUUID->"f5a2662d-62cb-40dc-88e9-01bb7bb532bc"],
-Cell[157263, 3093, 270, 5, 29, "Print",ExpressionUUID->"8ac93904-fa60-4f5b-9bee-062eeac7f9f9"]
+Cell[314308, 6012, 3714, 94, 194, "Input",ExpressionUUID->"450d026c-b18a-43e7-a1f7-1fbd64889a02"],
+Cell[318025, 6108, 154, 2, 42, "Output",ExpressionUUID->"0be031c3-452f-4e9b-b984-6e779f478b25"]
 }, Open  ]],
-Cell[157548, 3101, 29177, 479, 42, "Output",ExpressionUUID->"d0ec3bc9-b18e-4781-851b-1579a450d986"]
-}, Open  ]],
+Cell[318194, 6113, 223, 4, 37, "Input",ExpressionUUID->"d89511c1-61a6-4d82-a574-abba10bb836f"],
 Cell[CellGroupData[{
-Cell[186762, 3585, 4413, 112, 454, "Input",ExpressionUUID->"1720f7ae-66fa-40eb-88fe-12a3d25a6bb4"],
-Cell[CellGroupData[{
-Cell[191200, 3701, 379, 9, 29, "Print",ExpressionUUID->"a051e978-6621-446a-9fdc-1e53fcabf2de"],
-Cell[191582, 3712, 272, 5, 29, "Print",ExpressionUUID->"62398342-0a4f-4ab4-beae-26c4d274ae78"]
-}, Open  ]],
-Cell[191869, 3720, 35341, 588, 42, "Output",ExpressionUUID->"75117ea8-16af-433e-8ead-6d9b3b9b3bd8"]
+Cell[318442, 6121, 4402, 111, 298, "Input",ExpressionUUID->"b469d433-9a13-454a-9c41-8fcf8f6ada95"],
+Cell[322847, 6234, 154, 2, 42, "Output",ExpressionUUID->"788e8b71-26b9-40ce-9875-1bcc7a53eba5"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[227247, 4313, 195, 3, 37, "Input",ExpressionUUID->"985a3ae6-e130-4f8a-9b93-ae3fe10177bc"],
-Cell[227445, 4318, 190, 2, 42, "Output",ExpressionUUID->"3b0d5ae4-2255-4179-af43-db88782a3952"]
-}, Open  ]],
-Cell[227650, 4323, 356, 7, 37, "Input",ExpressionUUID->"34eb60b3-650d-4879-853c-727ea9a613af"],
-Cell[228009, 4332, 1502, 33, 402, "Input",ExpressionUUID->"a85f5693-d085-4cc5-989a-a9500987950c"],
-Cell[229514, 4367, 3288, 67, 558, "Input",ExpressionUUID->"ad25c99b-2683-4ce1-a7e6-bbce1e6ba9da"],
-Cell[CellGroupData[{
-Cell[232827, 4438, 1642, 39, 246, "Input",ExpressionUUID->"315ef181-7d11-46ac-8819-a70759fefbb2"],
-Cell[234472, 4479, 397, 8, 69, "Output",ExpressionUUID->"e673922f-a335-425d-ac11-52d58a691751"],
-Cell[234872, 4489, 150, 2, 42, "Output",ExpressionUUID->"e81cc3f3-5414-45af-bc0d-158796a12ff2"],
-Cell[235025, 4493, 396, 8, 69, "Output",ExpressionUUID->"c813dd6e-7332-4c2d-bb05-54e0db425554"]
+Cell[323038, 6241, 2190, 53, 194, "Input",ExpressionUUID->"a14f8e57-f2d4-4fb0-adf4-2ed265fddaa5"],
+Cell[325231, 6296, 154, 2, 42, "Output",ExpressionUUID->"f95b8213-7dfe-4d47-a91b-169027c9fa1c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[235458, 4506, 177, 3, 37, "Input",ExpressionUUID->"fc1d992d-4049-45c4-8e03-501b9a0475c2"],
-Cell[235638, 4511, 39776, 780, 76, "Output",ExpressionUUID->"7a1ccfcb-95bd-4e6c-868d-cef84f60b7b6"]
-}, Open  ]]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[275463, 5297, 214, 4, 46, "Subsection",ExpressionUUID->"d03dfeba-2718-41c7-9b3f-19ce5bed64e2"],
-Cell[275680, 5303, 1084, 28, 168, "Input",ExpressionUUID->"095b63f1-fbc1-44ae-86fe-ddcb73be2d11"],
-Cell[276767, 5333, 209, 4, 37, "Input",ExpressionUUID->"89f99144-f1e3-48fd-a4d3-9f079d006be7"],
-Cell[276979, 5339, 1416, 36, 116, "Input",ExpressionUUID->"6c44f3a6-c84d-4629-8b8e-fbe680284498"],
-Cell[278398, 5377, 2791, 75, 428, "Input",ExpressionUUID->"90c42b22-0729-4071-8a87-80bfc7acfa05"],
-Cell[281192, 5454, 277, 6, 37, "Input",ExpressionUUID->"3a69e638-17e7-4dc8-983d-9a2bb95dbc44"],
-Cell[CellGroupData[{
-Cell[281494, 5464, 3162, 76, 356, "Input",ExpressionUUID->"f065eeba-7e2a-4191-b21e-6d5f29dc37ee"],
-Cell[284659, 5542, 174, 2, 42, "Output",ExpressionUUID->"e857c17c-5223-4f48-86d8-1c9606f0f280"]
+Cell[325422, 6303, 3371, 89, 220, "Input",ExpressionUUID->"bb33459f-1e17-444a-8cb1-59734faa64d8"],
+Cell[328796, 6394, 154, 2, 42, "Output",ExpressionUUID->"966d3add-45cb-4519-8666-ce8d1266dff8"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[284870, 5549, 3714, 94, 298, "Input",ExpressionUUID->"450d026c-b18a-43e7-a1f7-1fbd64889a02"],
-Cell[288587, 5645, 176, 2, 42, "Output",ExpressionUUID->"ccf57084-cf1d-4bc4-b13c-c8e6e854c2d2"]
-}, Open  ]],
-Cell[288778, 5650, 223, 4, 37, "Input",ExpressionUUID->"d89511c1-61a6-4d82-a574-abba10bb836f"],
-Cell[CellGroupData[{
-Cell[289026, 5658, 4402, 111, 454, "Input",ExpressionUUID->"b469d433-9a13-454a-9c41-8fcf8f6ada95"],
-Cell[293431, 5771, 175, 2, 42, "Output",ExpressionUUID->"a9a1aee3-bc71-4cd6-ae4d-4bc984d8f0f0"]
+Cell[328987, 6401, 3858, 102, 220, "Input",ExpressionUUID->"40a7a3fe-b29a-43ad-8bf9-968a4a819d71"],
+Cell[332848, 6505, 152, 2, 42, "Output",ExpressionUUID->"ceaca685-34b8-4e5c-8c69-8c1c116ca8a8"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[293643, 5778, 2190, 53, 194, "Input",ExpressionUUID->"a14f8e57-f2d4-4fb0-adf4-2ed265fddaa5"],
-Cell[295836, 5833, 174, 2, 42, "Output",ExpressionUUID->"fd03d4c8-36e6-46ac-af84-92bd4dd67bad"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[296047, 5840, 3371, 89, 298, "Input",ExpressionUUID->"bb33459f-1e17-444a-8cb1-59734faa64d8"],
-Cell[299421, 5931, 176, 2, 42, "Output",ExpressionUUID->"c0e6da9a-b6d6-4024-88b1-59ef7ce5605a"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[299634, 5938, 3858, 102, 584, "Input",ExpressionUUID->"40a7a3fe-b29a-43ad-8bf9-968a4a819d71"],
-Cell[303495, 6042, 176, 2, 42, "Output",ExpressionUUID->"7eb0f288-6036-4e11-814b-30bcfcc4fab1"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[303708, 6049, 4076, 107, 766, "Input",ExpressionUUID->"15096dd1-9781-426a-add3-5d1e6c4880bf"],
-Cell[307787, 6158, 176, 2, 62, "Output",ExpressionUUID->"0062f6f7-ba80-40f6-8403-7d7e53f34adb"]
+Cell[333037, 6512, 4076, 107, 402, "Input",ExpressionUUID->"15096dd1-9781-426a-add3-5d1e6c4880bf"],
+Cell[337116, 6621, 152, 2, 42, "Output",ExpressionUUID->"8b59040b-c48d-4abb-9205-9cc9bcc9d9c1"]
 }, Open  ]]
 }, Open  ]]
 }

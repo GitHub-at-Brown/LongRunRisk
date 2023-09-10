@@ -547,8 +547,8 @@ addCoeffsSolution[
 				{
 					Inactive[MapThread][
 						Inactive[FindRoot][
-							N@#1,
-							N@#2,
+							Inactive[N][#1],
+							Inactive[N][#2],
 							Evaluate@findRootOpts
 						]&,
 						{{eq}, x}
@@ -572,8 +572,8 @@ addCoeffsSolution[
 						{
 							Inactive[MapThread][
 								Inactive[mapFindRoot][
-									N@#1,
-									N@#2,
+									Inactive[N][#1],
+									Inactive[N][#2],
 									Evaluate@findRootOpts
 								]&,
 								{eq  /. ({j->#}&/@Range[numStocks]), x}
@@ -716,9 +716,7 @@ createStartingPoint[
 								guess0,
 								lb,
 								ub,
-								fv,(*maybe move to With*)
-								intervalPattern,(*maybe move to With*)
-								intervals0(*maybe move to With*)
+								intervals0
 							},
 							boundsGuess0=Switch[
 								Length[guessFirstValues],
@@ -734,16 +732,15 @@ createStartingPoint[
 								,
 								True
 							];
-							bounds0= (
-								Off[Reduce::ratnz]
-								;
-								Inactive[Reduce][Inactive[Simplify][boundsGuess0 && boundsInfo0 && 0 < coeff0 < 15], coeff0, Reals]
-								;
-								On[Reduce::ratnz]
-							);
-							fv=First@guessFirstValues;
-							intervalPattern=Alternatives@@((Inequality[lb_?NumberQ,#[[1]],coeff0,#[[2]], ub_?NumberQ])&/@Tuples[{Less,LessEqual},2]);
-							intervals0= With[{coeff0Local=coeff0},Inactive[Cases][bounds0,intervalPattern :> {coeff0Local,Inactive[If][Inactive[TrueQ][lb<=fv<=ub],fv,(lb+ub)/2],lb,ub},{0,1}]];
+							bounds0= Inactive[Reduce][Inactive[Simplify][boundsGuess0 && boundsInfo0 && 0 < coeff0 < 15], coeff0, Reals];
+							intervals0= With[
+								{
+									coeff0Local=coeff0,
+									fv=First@guessFirstValues,
+									intervalPattern=Alternatives@@((Inequality[lb_?NumberQ,#[[1]],coeff0,#[[2]], ub_?NumberQ])&/@Tuples[{Less,LessEqual},2])
+								},
+								Inactive[Cases][bounds0,intervalPattern :> {coeff0Local,Inactive[If][Inactive[TrueQ][lb<=fv<=ub],fv,(lb+ub)/2],lb,ub},{0,1}]
+							];
 							guess0=Inactive[If][
 								Inactive[SameQ][{}, intervals0],
 								(*if assumptions do not give an interval, use provided initial guess*)

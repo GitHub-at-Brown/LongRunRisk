@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    199225,       4070]
-NotebookOptionsPosition[    146112,       3105]
-NotebookOutlinePosition[    192475,       3960]
-CellTagsIndexPosition[    192432,       3957]
+NotebookDataLength[    271469,       5605]
+NotebookOptionsPosition[    216621,       4604]
+NotebookOutlinePosition[    262985,       5459]
+CellTagsIndexPosition[    262942,       5456]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -22,7 +22,7 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.889964198656839*^9, 3.889964203363894*^9}},
- CellLabel->"In[65]:=",ExpressionUUID->"ecc6d428-0f07-4dc4-b145-1fdd39576e75"],
+ CellLabel->"In[89]:=",ExpressionUUID->"ecc6d428-0f07-4dc4-b145-1fdd39576e75"],
 
 Cell[BoxData[{
  RowBox[{
@@ -101,8 +101,8 @@ Cell[BoxData[{
 
 Cell[BoxData["\<\"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\>"], \
 "Output",
- CellChangeTimes->{3.8953628939225597`*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"ad77484b-2b53-4769-b11a-784fd32a3392"]
+ CellChangeTimes->{3.90331633892756*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"92d36978-893f-4d16-8ca6-4d72a4a63a94"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -140,8 +140,8 @@ Cell[BoxData[
  CellLabel->"In[11]:=",ExpressionUUID->"83a2cde8-33d4-441a-9a57-a82ece671585"],
 
 Cell[BoxData["\<\"EndogenousEq`\"\>"], "Output",
- CellChangeTimes->{3.8953628939486933`*^9},
- CellLabel->"Out[11]=",ExpressionUUID->"93eb3e18-c3fc-4f5a-89f0-820e08522221"]
+ CellChangeTimes->{3.90331633894543*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"5aa3b369-6999-44b4-bf4a-794b7680f5c4"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -163,20 +163,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"EndogenousEq_20230610-0G7T30\"\>"}],
-  SequenceForm["Adding test: ", "EndogenousEq_20230610-0G7T30"],
+   "\[InvisibleSpace]", "\<\"EndogenousEq_20230910-4DQU12\"\>"}],
+  SequenceForm["Adding test: ", "EndogenousEq_20230910-4DQU12"],
   Editable->False]], "Print",
- CellChangeTimes->{3.8953628943269567`*^9},
+ CellChangeTimes->{3.9033163392454243`*^9},
  CellLabel->
   "During evaluation of \
-In[12]:=",ExpressionUUID->"3e9890a6-bfe0-4cd2-bb19-a0d70e7bceff"],
+In[12]:=",ExpressionUUID->"ca4fc767-c9e8-437c-a4dd-8df2486127b5"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.8953628943436413`*^9},
+ CellChangeTimes->{3.9033163392743187`*^9},
  CellLabel->
   "During evaluation of \
-In[12]:=",ExpressionUUID->"3a386f78-8895-403a-ac50-577c37f6d933"]
+In[12]:=",ExpressionUUID->"b0f39d53-15a5-4948-a25b-c1653de9e137"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -188,13 +188,13 @@ Cell[BoxData[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
   "VerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\n\t,\n\tNull\n\t,\n\t{}\n\t\
-,\n\tTestID->\"EndogenousEq_20230610-0G7T30\"\n]\n\n", 
+,\n\tTestID->\"EndogenousEq_20230910-4DQU12\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$ = True, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> Null, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.039, "AbsoluteTiming" -> 0.039, 
-   "InputString" :> ToString[
+   "MessagesExpressions" -> {}, "Timing" -> 0.043000000000000003`, 
+   "AbsoluteTiming" -> 0.043000000000000003`, "InputString" :> ToString[
      Unevaluated[
       Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"]], InputForm]|>, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
@@ -202,7 +202,7 @@ Cell[BoxData[
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"EndogenousEq\"]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\n\t,\n\tNull\n\t,\n\t{}\n\t\
-,\n\tTestID->\"EndogenousEq_20230610-0G7T30\"\n]\n\n\nEndTestSection[]\n"}, "\
+,\n\tTestID->\"EndogenousEq_20230910-4DQU12\"\n]\n\n\nEndTestSection[]\n"}, "\
 \<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -267,8 +267,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895362894356042*^9},
- CellLabel->"Out[12]=",ExpressionUUID->"0aefbac8-0a1d-4ddb-9f57-422bf7e27bf6"]
+ CellChangeTimes->{3.9033163392841578`*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"90984f59-272c-4a99-bd0e-6fb3c2db31d4"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -296,20 +296,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"EndogenousEq_20230610-DIWSB8\"\>"}],
-  SequenceForm["Adding test: ", "EndogenousEq_20230610-DIWSB8"],
+   "\[InvisibleSpace]", "\<\"EndogenousEq_20230910-URX6TH\"\>"}],
+  SequenceForm["Adding test: ", "EndogenousEq_20230910-URX6TH"],
   Editable->False]], "Print",
- CellChangeTimes->{3.8953628944178257`*^9},
+ CellChangeTimes->{3.903316339335054*^9},
  CellLabel->
   "During evaluation of \
-In[13]:=",ExpressionUUID->"7bf8d1b6-b992-45f9-b99b-0d9299ce7a3c"],
+In[13]:=",ExpressionUUID->"6bbb905f-6dd6-4dbe-acf2-5ab251d0cee8"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362894419712*^9},
+ CellChangeTimes->{3.903316339336347*^9},
  CellLabel->
   "During evaluation of \
-In[13]:=",ExpressionUUID->"5b641ff2-eb35-47ea-9480-c8718e65d390"]
+In[13]:=",ExpressionUUID->"94c8b68e-9941-4f7c-b052-fd2d23f4ec95"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -320,12 +320,12 @@ Cell[BoxData[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
   "VerificationTest[\n\t!SameQ[Names @ \"*pdeq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\
-\n\t,\n\tTestID->\"EndogenousEq_20230610-DIWSB8\"\n]\n\n", 
+\n\t,\n\tTestID->\"EndogenousEq_20230910-URX6TH\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.021, "AbsoluteTiming" -> 0.022, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.025, "AbsoluteTiming" -> 0.025, 
    "InputString" :> ToString[
      Unevaluated[
       Not[Names["*pdeq"] === {}]], InputForm]|>, 
@@ -334,9 +334,9 @@ Cell[BoxData[
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"EndogenousEq\"]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\n\t,\n\tNull\n\t,\n\t{}\n\t\
-,\n\tTestID->\"EndogenousEq_20230610-0G7T30\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"EndogenousEq_20230910-4DQU12\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*pdeq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-DIWSB8\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"EndogenousEq_20230910-URX6TH\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -401,8 +401,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895362894425651*^9},
- CellLabel->"Out[13]=",ExpressionUUID->"a2ff15ca-3f74-41d2-8feb-a11345905591"]
+ CellChangeTimes->{3.903316339354309*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"5bb3210b-40a0-4c07-b7a4-4839f0fae586"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -466,20 +466,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"EndogenousEq_20230610-OV08TN\"\>"}],
-  SequenceForm["Adding test: ", "EndogenousEq_20230610-OV08TN"],
+   "\[InvisibleSpace]", "\<\"EndogenousEq_20230910-UJMW6O\"\>"}],
+  SequenceForm["Adding test: ", "EndogenousEq_20230910-UJMW6O"],
   Editable->False]], "Print",
- CellChangeTimes->{3.8953628944690943`*^9},
+ CellChangeTimes->{3.903316339394915*^9},
  CellLabel->
   "During evaluation of \
-In[14]:=",ExpressionUUID->"72e76535-0a9b-477c-b0cd-ff288453745f"],
+In[14]:=",ExpressionUUID->"78686441-112c-453e-9210-db69535db7f6"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.89536289447106*^9},
+ CellChangeTimes->{3.9033163393961277`*^9},
  CellLabel->
   "During evaluation of \
-In[14]:=",ExpressionUUID->"96e14b56-5a73-4c1e-b821-6a03044a0f44"]
+In[14]:=",ExpressionUUID->"89a77f4f-9a2b-4499-b34b-12caab909bff"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -510,7 +510,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\t\
 \t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\
 \t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-OV08TN\"\n]\n\n", 
+TestID->\"EndogenousEq_20230910-UJMW6O\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -538,9 +538,9 @@ endogenousVars]], PatternTest[
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"EndogenousEq\"]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\n\t,\n\tNull\n\t,\n\t{}\n\t\
-,\n\tTestID->\"EndogenousEq_20230610-0G7T30\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"EndogenousEq_20230910-4DQU12\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*pdeq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-DIWSB8\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-URX6TH\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\
 Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -552,7 +552,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\t\
 \t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\
 \t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-OV08TN\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"EndogenousEq_20230910-UJMW6O\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -617,8 +617,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895362894489443*^9},
- CellLabel->"Out[14]=",ExpressionUUID->"f9d621ea-c7ff-4766-96f3-e278f0a48b78"]
+ CellChangeTimes->{3.9033163394018383`*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"b89f33f4-9ea3-4819-8256-f94eb2214d9b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -673,20 +673,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"EndogenousEq_20230610-I0J24M\"\>"}],
-  SequenceForm["Adding test: ", "EndogenousEq_20230610-I0J24M"],
+   "\[InvisibleSpace]", "\<\"EndogenousEq_20230910-6RNT7U\"\>"}],
+  SequenceForm["Adding test: ", "EndogenousEq_20230910-6RNT7U"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362894530851*^9},
+ CellChangeTimes->{3.903316339445689*^9},
  CellLabel->
   "During evaluation of \
-In[15]:=",ExpressionUUID->"2a3127d8-6db9-4559-a98a-eb8d4adbc1f6"],
+In[15]:=",ExpressionUUID->"48cc8779-33f7-443a-a723-36b475b3fcfd"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.8953628945327044`*^9},
+ CellChangeTimes->{3.903316339447029*^9},
  CellLabel->
   "During evaluation of \
-In[15]:=",ExpressionUUID->"d0f4f20d-3e42-4a30-aa4d-0358ea2d52c2"]
+In[15]:=",ExpressionUUID->"8cecc514-b46f-499e-bc1d-066eb0798913"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -710,7 +710,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\
 EndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\
 \n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-I0J24M\"\n]\n\n", 
+TestID->\"EndogenousEq_20230910-6RNT7U\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -736,9 +736,9 @@ endogenousVars]], PatternTest[
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"EndogenousEq\"]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\n\t,\n\tNull\n\t,\n\t{}\n\t\
-,\n\tTestID->\"EndogenousEq_20230610-0G7T30\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"EndogenousEq_20230910-4DQU12\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*pdeq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-DIWSB8\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-URX6TH\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\
 Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -750,7 +750,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\t\
 \t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\
 \t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-OV08TN\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-UJMW6O\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\"]&,\n\
 \t\t\tMap[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars]],\n\t\t\t\t\t\
@@ -758,7 +758,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\
 EndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\
 \n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-I0J24M\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"EndogenousEq_20230910-6RNT7U\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -823,8 +823,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.8953628945384912`*^9},
- CellLabel->"Out[15]=",ExpressionUUID->"7a9de8fe-b0eb-4fa4-b435-361dc635ee37"]
+ CellChangeTimes->{3.903316339465126*^9},
+ CellLabel->"Out[15]=",ExpressionUUID->"89cf1ad6-3a6c-4edf-bb57-37bd5b0239cb"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -877,20 +877,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"EndogenousEq_20230610-12MROW\"\>"}],
-  SequenceForm["Adding test: ", "EndogenousEq_20230610-12MROW"],
+   "\[InvisibleSpace]", "\<\"EndogenousEq_20230910-Q7VW1N\"\>"}],
+  SequenceForm["Adding test: ", "EndogenousEq_20230910-Q7VW1N"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362894579082*^9},
+ CellChangeTimes->{3.9033163395082684`*^9},
  CellLabel->
   "During evaluation of \
-In[16]:=",ExpressionUUID->"5cb79ed0-c525-4761-a539-5ad32ca8cafb"],
+In[16]:=",ExpressionUUID->"de634ecf-52e6-432e-85ca-c1bcdb4521cd"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362894580925*^9},
+ CellChangeTimes->{3.90331633950939*^9},
  CellLabel->
   "During evaluation of \
-In[16]:=",ExpressionUUID->"1a089435-e030-47f5-8f05-4c956d877214"]
+In[16]:=",ExpressionUUID->"0d97a8cb-4817-4101-965a-1fabfb200c45"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -915,7 +915,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\t\
 Infinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-12MROW\"\n]\n\n", 
+TestID->\"EndogenousEq_20230910-Q7VW1N\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -941,9 +941,9 @@ endogenousVars]], PatternTest[
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"EndogenousEq\"]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\n\t,\n\tNull\n\t,\n\t{}\n\t\
-,\n\tTestID->\"EndogenousEq_20230610-0G7T30\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"EndogenousEq_20230910-4DQU12\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*pdeq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-DIWSB8\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-URX6TH\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\
 Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -955,7 +955,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\t\
 \t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\
 \t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-OV08TN\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-UJMW6O\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\"]&,\n\
 \t\t\tMap[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars]],\n\t\t\t\t\t\
@@ -963,7 +963,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\
 EndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\
 \n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-I0J24M\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-6RNT7U\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\tMap[Context,\n\t\t\
 \t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -972,7 +972,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\t\
 Infinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-12MROW\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"EndogenousEq_20230910-Q7VW1N\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1037,8 +1037,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895362894604018*^9},
- CellLabel->"Out[16]=",ExpressionUUID->"8cf8fa8c-0a13-40b0-9a05-f4c4e8c212bb"]
+ CellChangeTimes->{3.903316339515168*^9},
+ CellLabel->"Out[16]=",ExpressionUUID->"cbc00947-c357-4867-b43c-46cddd2b2dce"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1103,20 +1103,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"EndogenousEq_20230610-1W6A38\"\>"}],
-  SequenceForm["Adding test: ", "EndogenousEq_20230610-1W6A38"],
+   "\[InvisibleSpace]", "\<\"EndogenousEq_20230910-348WK6\"\>"}],
+  SequenceForm["Adding test: ", "EndogenousEq_20230910-348WK6"],
   Editable->False]], "Print",
- CellChangeTimes->{3.895362894652367*^9},
+ CellChangeTimes->{3.903316339569537*^9},
  CellLabel->
   "During evaluation of \
-In[17]:=",ExpressionUUID->"548cf899-dae9-440e-8320-852d89e203f5"],
+In[17]:=",ExpressionUUID->"89d8bf4c-3e0a-4e86-a1b5-fb7dd87a7d06"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362894654148*^9},
+ CellChangeTimes->{3.903316339570674*^9},
  CellLabel->
   "During evaluation of \
-In[17]:=",ExpressionUUID->"bd7992f8-4a05-4df2-bbdd-664e4bce2e60"]
+In[17]:=",ExpressionUUID->"e7ef796e-15e0-4d99-a9f6-8beb25dd0998"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1147,7 +1147,7 @@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],\n\t\t\t\t\t\t\
 \t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\
 \t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\
 \t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-1W6A38\"\n]\n\n", 
+TestID->\"EndogenousEq_20230910-348WK6\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -1176,9 +1176,9 @@ endogenousVars]], PatternTest[
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"EndogenousEq\"]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\n\t,\n\tNull\n\t,\n\t{}\n\t\
-,\n\tTestID->\"EndogenousEq_20230610-0G7T30\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"EndogenousEq_20230910-4DQU12\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*pdeq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-DIWSB8\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-URX6TH\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\
 Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -1190,7 +1190,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\t\
 \t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\
 \t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-OV08TN\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-UJMW6O\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\"]&,\n\
 \t\t\tMap[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars]],\n\t\t\t\t\t\
@@ -1198,7 +1198,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\
 EndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\
 \n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-I0J24M\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-6RNT7U\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\tMap[Context,\n\t\t\
 \t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -1207,7 +1207,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\t\
 Infinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-12MROW\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-Q7VW1N\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`\"]&,\n\t\t\t\
 Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -1219,7 +1219,7 @@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],\n\t\t\t\t\t\t\
 \t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\
 \t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\
 \t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-1W6A38\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"EndogenousEq_20230910-348WK6\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1285,8 +1285,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895362894674479*^9},
- CellLabel->"Out[17]=",ExpressionUUID->"ef4c8ef8-2ea7-4437-acbd-1a6454e23d9a"]
+ CellChangeTimes->{3.903316339576828*^9},
+ CellLabel->"Out[17]=",ExpressionUUID->"5705e9f7-66c2-449a-b766-ccbd2c7d57f2"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1354,20 +1354,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"EndogenousEq_20230610-SZNWBO\"\>"}],
-  SequenceForm["Adding test: ", "EndogenousEq_20230610-SZNWBO"],
+   "\[InvisibleSpace]", "\<\"EndogenousEq_20230910-ZT5HJC\"\>"}],
+  SequenceForm["Adding test: ", "EndogenousEq_20230910-ZT5HJC"],
   Editable->False]], "Print",
- CellChangeTimes->{3.8953628947149763`*^9},
+ CellChangeTimes->{3.903316339619033*^9},
  CellLabel->
   "During evaluation of \
-In[18]:=",ExpressionUUID->"55e9fc54-a178-445b-8a7f-168affde1767"],
+In[18]:=",ExpressionUUID->"97c01cc7-76c9-4b14-a528-259dff482a70"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362894716707*^9},
+ CellChangeTimes->{3.903316339620185*^9},
  CellLabel->
   "During evaluation of \
-In[18]:=",ExpressionUUID->"0ffac905-e21e-476f-9d26-38bca9675acf"]
+In[18]:=",ExpressionUUID->"7d2452f3-2609-4da1-bb9a-c30e5f5e2e44"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1408,7 +1408,7 @@ EndogenousEq`m]],\n\t\t\t\
 t, EndogenousEq`m], \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[foo`t, \
 EndogenousEq`m]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-SZNWBO\"\n]\n\n", 
+TestID->\"EndogenousEq_20230910-ZT5HJC\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -1445,9 +1445,9 @@ TestID->\"EndogenousEq_20230610-SZNWBO\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"EndogenousEq\"]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\n\t,\n\tNull\n\t,\n\t{}\n\t\
-,\n\tTestID->\"EndogenousEq_20230610-0G7T30\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"EndogenousEq_20230910-4DQU12\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*pdeq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-DIWSB8\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-URX6TH\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\
 Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -1459,7 +1459,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\t\
 \t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\
 \t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-OV08TN\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-UJMW6O\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\"]&,\n\
 \t\t\tMap[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars]],\n\t\t\t\t\t\
@@ -1467,7 +1467,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\
 EndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\
 \n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-I0J24M\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-6RNT7U\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\tMap[Context,\n\t\t\
 \t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -1476,7 +1476,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\t\
 Infinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-12MROW\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-Q7VW1N\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`\"]&,\n\t\t\t\
 Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -1488,7 +1488,7 @@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],\n\t\t\t\t\t\t\
 \t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\
 \t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\
 \t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-1W6A38\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-348WK6\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\t{\n\t\t\t\
 FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
 t, EndogenousEq`m], foo`t],\n\t\t\t\
@@ -1505,7 +1505,7 @@ EndogenousEq`m]],\n\t\t\t\
 t, EndogenousEq`m], \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[foo`t, \
 EndogenousEq`m]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-SZNWBO\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"EndogenousEq_20230910-ZT5HJC\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1570,8 +1570,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.895362894734928*^9},
- CellLabel->"Out[18]=",ExpressionUUID->"caf67745-a3b5-4c87-abef-a6c3bbb255aa"]
+ CellChangeTimes->{3.9033163396386957`*^9},
+ CellLabel->"Out[18]=",ExpressionUUID->"e93a1cf7-905b-4986-8db5-126d687b3aec"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1631,20 +1631,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"EndogenousEq_20230610-5I43IK\"\>"}],
-  SequenceForm["Adding test: ", "EndogenousEq_20230610-5I43IK"],
+   "\[InvisibleSpace]", "\<\"EndogenousEq_20230910-Q8OJ3S\"\>"}],
+  SequenceForm["Adding test: ", "EndogenousEq_20230910-Q8OJ3S"],
   Editable->False]], "Print",
- CellChangeTimes->{3.8953628947751703`*^9},
+ CellChangeTimes->{3.903316339677503*^9},
  CellLabel->
   "During evaluation of \
-In[19]:=",ExpressionUUID->"3a2b3769-7bee-4cd2-845e-3e0bbb8e86e1"],
+In[19]:=",ExpressionUUID->"a88dc110-4453-4e29-a80d-88217edb582f"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.8953628947768707`*^9},
+ CellChangeTimes->{3.903316339678569*^9},
  CellLabel->
   "During evaluation of \
-In[19]:=",ExpressionUUID->"dfce1d7b-602a-40d2-bc11-04b4842b3520"]
+In[19]:=",ExpressionUUID->"d65ddddb-e6f1-4972-b73d-dc2908d1a3c2"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1679,7 +1679,7 @@ t, foo`m], foo`m],\n\t\t\t\
 t, EndogenousEq`m], \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`t, \
 foo`m]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-5I43IK\"\n]\n\n", 
+TestID->\"EndogenousEq_20230910-Q8OJ3S\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -1712,9 +1712,9 @@ TestID->\"EndogenousEq_20230610-5I43IK\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"EndogenousEq\"]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\n\t,\n\tNull\n\t,\n\t{}\n\t\
-,\n\tTestID->\"EndogenousEq_20230610-0G7T30\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"EndogenousEq_20230910-4DQU12\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*pdeq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-DIWSB8\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-URX6TH\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\
 Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -1726,7 +1726,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\t\
 \t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\
 \t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-OV08TN\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-UJMW6O\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\"]&,\n\
 \t\t\tMap[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars]],\n\t\t\t\t\t\
@@ -1734,7 +1734,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\
 EndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\
 \n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-I0J24M\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-6RNT7U\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\tMap[Context,\n\t\t\
 \t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -1743,7 +1743,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\t\
 Infinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-12MROW\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-Q7VW1N\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`\"]&,\n\t\t\t\
 Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -1755,7 +1755,7 @@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],\n\t\t\t\t\t\t\
 \t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\
 \t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\
 \t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-1W6A38\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-348WK6\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\t{\n\t\t\t\
 FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
 t, EndogenousEq`m], foo`t],\n\t\t\t\
@@ -1772,7 +1772,7 @@ EndogenousEq`m]],\n\t\t\t\
 t, EndogenousEq`m], \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[foo`t, \
 EndogenousEq`m]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-SZNWBO\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-ZT5HJC\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\t{\n\t\t\t\
 FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
 t, EndogenousEq`m], foo`m],\n\t\t\t\
@@ -1786,7 +1786,7 @@ t, foo`m], foo`m],\n\t\t\t\
 t, EndogenousEq`m], \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`t, \
 foo`m]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-5I43IK\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"EndogenousEq_20230910-Q8OJ3S\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1851,8 +1851,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.89536289478333*^9},
- CellLabel->"Out[19]=",ExpressionUUID->"549f1986-a2f9-46cc-850b-e6a9fa8bc775"]
+ CellChangeTimes->{3.903316339685378*^9},
+ CellLabel->"Out[19]=",ExpressionUUID->"4253afa0-3590-4c17-8e16-16305c7bee2a"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1904,20 +1904,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"EndogenousEq_20230610-X1EP37\"\>"}],
-  SequenceForm["Adding test: ", "EndogenousEq_20230610-X1EP37"],
+   "\[InvisibleSpace]", "\<\"EndogenousEq_20230910-M67H2E\"\>"}],
+  SequenceForm["Adding test: ", "EndogenousEq_20230910-M67H2E"],
   Editable->False]], "Print",
- CellChangeTimes->{3.8953628948201103`*^9},
+ CellChangeTimes->{3.903316339726128*^9},
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"105d124b-6a4d-4257-bc87-a96fbbfba114"],
+In[20]:=",ExpressionUUID->"dc00db20-15c5-4f06-b6b4-23ba908f2d6a"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>"], "Print",
- CellChangeTimes->{3.895362894821859*^9},
+ CellChangeTimes->{3.9033163397272243`*^9},
  CellLabel->
   "During evaluation of \
-In[20]:=",ExpressionUUID->"5294798b-e961-4e89-b209-e8fca0c7c091"]
+In[20]:=",ExpressionUUID->"e2a23adb-56cf-441d-8001-bd6abe72d45f"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1960,7 +1960,7 @@ SameQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondexcreteq[EndogenousEq`\
 t, EndogenousEq`m], \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondexcreteq[EndogenousEq`t, \
 EndogenousEq`m, 1]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-X1EP37\"\n]\n\n", 
+TestID->\"EndogenousEq_20230910-M67H2E\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -1990,9 +1990,9 @@ TestID->\"EndogenousEq_20230610-X1EP37\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"EndogenousEq\"]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\n\t,\n\tNull\n\t,\n\t{}\n\t\
-,\n\tTestID->\"EndogenousEq_20230610-0G7T30\"\n]\n\n\nVerificationTest[\n\t\
+,\n\tTestID->\"EndogenousEq_20230910-4DQU12\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*pdeq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-DIWSB8\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-URX6TH\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\
 Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -2004,7 +2004,7 @@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
 \t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\t\
 \t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\
 \t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-OV08TN\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-UJMW6O\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\"]&,\n\
 \t\t\tMap[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars]],\n\t\t\t\t\t\
@@ -2012,7 +2012,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\
 EndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\
 \n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-I0J24M\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-6RNT7U\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\tMap[Context,\n\t\t\
 \t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -2021,7 +2021,7 @@ RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
 Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
 SymbolName[#]]]],\n\t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\t\
 Infinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-12MROW\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-Q7VW1N\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\tMap[SameQ[#, \
 \"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`\"]&,\n\t\t\t\
 Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
@@ -2033,7 +2033,7 @@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],\n\t\t\t\t\t\t\
 \t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\
 \t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\
 \t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-1W6A38\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-348WK6\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\t{\n\t\t\t\
 FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
 t, EndogenousEq`m], foo`t],\n\t\t\t\
@@ -2050,7 +2050,7 @@ EndogenousEq`m]],\n\t\t\t\
 t, EndogenousEq`m], \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[foo`t, \
 EndogenousEq`m]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-SZNWBO\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-ZT5HJC\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\t{\n\t\t\t\
 FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
 t, EndogenousEq`m], foo`m],\n\t\t\t\
@@ -2064,7 +2064,7 @@ t, foo`m], foo`m],\n\t\t\t\
 t, EndogenousEq`m], \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`t, \
 foo`m]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-5I43IK\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"EndogenousEq_20230910-Q8OJ3S\"\n]\n\n\nVerificationTest[\n\t\
 Apply[And,\n\t\t{\n\t\t\t\
 SameQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondfweq[EndogenousEq`t, \
 EndogenousEq`m], \
@@ -2082,7 +2082,7 @@ SameQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondexcreteq[EndogenousEq`\
 t, EndogenousEq`m], \
 FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondexcreteq[EndogenousEq`t, \
 EndogenousEq`m, 1]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"EndogenousEq_20230610-X1EP37\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"EndogenousEq_20230910-M67H2E\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>",
   DynamicModuleValues:>{{
@@ -2147,19 +2147,945 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.8953628948526087`*^9},
- CellLabel->"Out[20]=",ExpressionUUID->"336489b1-2ab9-45ea-b131-9321d612f91f"]
+ CellChangeTimes->{3.90331633974522*^9},
+ CellLabel->"Out[20]=",ExpressionUUID->"42c94f25-d526-4465-9755-97e4a19be557"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResourceFunction", "[", "\"\<WriteUnitTest\>\"", "]"}], "[", 
+  RowBox[{"testFileName", ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "indices", " ", "of", " ", "coefficients", " ", "are", " ", "exact", " ", 
+     "integers"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "coefwc", "=", 
+     "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+    "coefpd", "=", 
+     "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+    "coefb", "=", 
+     "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+    "coefnb", "=", 
+     "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb"}], ";", 
+    "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    RowBox[{"hpd", "=", 
+     RowBox[{"Head", "@", "coefpd"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"hb", "=", 
+     RowBox[{"Head", "@", "coefb"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"hnb", "=", 
+     RowBox[{"Head", "@", "coefnb"}]}], ";", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"ch", "=", 
+     RowBox[{"Flatten", "@", "\[IndentingNewLine]", 
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"coefwc", "[", "0", "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"N", "@", 
+           RowBox[{"coefwc", "[", "0", "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"N", "[", 
+           RowBox[{"coefwc", "[", "0", "]"}], "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"coefwc", "[", "0.", "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"N", "@", 
+           RowBox[{"coefwc", "[", "0.", "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"N", "[", 
+           RowBox[{"coefwc", "[", "0.", "]"}], "]"}]}], "\[IndentingNewLine]",
+          "}"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"Table", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"c", "[", "0", "]"}], ",", "\[IndentingNewLine]", 
+            RowBox[{"N", "@", 
+             RowBox[{"c", "[", "0", "]"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{"N", "[", 
+             RowBox[{"c", "[", "0", "]"}], "]"}], ",", "\[IndentingNewLine]", 
+            
+            RowBox[{"c", "[", "0.", "]"}], ",", "\[IndentingNewLine]", 
+            RowBox[{"N", "@", 
+             RowBox[{"c", "[", "0.", "]"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{"N", "[", 
+             RowBox[{"c", "[", "0.", "]"}], "]"}]}], "}"}], 
+          "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"c", ",", 
+            RowBox[{"{", 
+             RowBox[{"coefpd", ",", "coefb", ",", "coefnb"}], "}"}]}], 
+           "}"}]}], "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Table", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"h", "[", "1", "]"}], "[", "0", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "1", "]"}], "[", "0", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "1", "]"}], "[", "0", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "1", "]"}], "[", "0.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "1", "]"}], "[", "0.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "1", "]"}], "[", "0.", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0", "]"}], "[", "1", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "1", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "1", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0.", "]"}], "[", "1", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "1", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "1", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "1.", "]"}], "[", "0", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "1.", "]"}], "[", "0", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "1.", "]"}], "[", "0", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "1.", "]"}], "[", "0.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "1.", "]"}], "[", "0.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "1.", "]"}], "[", "0.", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0", "]"}], "[", "1.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "1.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"N", "[", 
+                RowBox[{"h", "[", "0", "]"}], "]"}], "[", "1.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0.", "]"}], "[", "1.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "1.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "1.", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0", "]"}], "[", "j", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "j", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "j", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0.", "]"}], "[", "j", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "j", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "j", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "j", "]"}], "[", "0", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "j", "]"}], "[", "0", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "j", "]"}], "[", "0", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "j", "]"}], "[", "0.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "j", "]"}], "[", "0.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "j", "]"}], "[", "0.", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0", "]"}], "[", "jj", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "jj", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "jj", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0.", "]"}], "[", "jj", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "jj", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "jj", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "jj", "]"}], "[", "0", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "0", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "0", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "jj", "]"}], "[", "0.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "0.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "0.", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "jj", "]"}], "[", "kk", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "kk", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "kk", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{"Table", "[", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"h", "[", "ii", "]"}], "[", "qq", "]"}], ",", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"N", "@", 
+                    RowBox[{
+                    RowBox[{"h", "[", "ii", "]"}], "[", "qq", "]"}]}], ",", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"N", "[", 
+                    RowBox[{
+                    RowBox[{"h", "[", "ii", "]"}], "[", "qq", "]"}], "]"}]}], 
+                  "}"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"{", 
+                  RowBox[{"ii", ",", "0", ",", "1"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"qq", ",", "2", ",", "3"}], "}"}]}], "]"}]}]}], 
+             "\[IndentingNewLine]", "}"}], " ", "/.", 
+            RowBox[{"jj", "->", "2"}]}], "/.", 
+           RowBox[{"kk", "->", "3"}]}], "\[IndentingNewLine]", ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"h", ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Head", "@", "coefpd"}], ",", 
+              RowBox[{"Head", "@", "coefb"}], ",", 
+              RowBox[{"Head", "@", "coefnb"}]}], "}"}]}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "}"}]}]}], 
+    ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    RowBox[{"And", "@@", 
+     RowBox[{"Flatten", "@", 
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Not", "/@", 
+          RowBox[{"InexactNumberQ", "/@", 
+           RowBox[{"Select", "[", 
+            RowBox[{
+             RowBox[{"Flatten", "@", 
+              RowBox[{"Cases", "[", 
+               RowBox[{"ch", ",", 
+                RowBox[{
+                 RowBox[{"x_", "[", "i_", "]"}], ":>", "i"}]}], "]"}]}], ",", 
+             "NumberQ"}], "]"}]}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"Not", "/@", 
+          RowBox[{"InexactNumberQ", "/@", 
+           RowBox[{"Select", "[", 
+            RowBox[{
+             RowBox[{"Flatten", "@", 
+              RowBox[{"Cases", "[", 
+               RowBox[{"ch", ",", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"x_", "[", "i_", "]"}], "[", "j_", "]"}], ":>", 
+                 RowBox[{"{", 
+                  RowBox[{"i", ",", "j"}], "}"}]}]}], "]"}]}], ",", 
+             "NumberQ"}], "]"}]}]}]}], "}"}], "\[IndentingNewLine]", 
+       "}"}]}]}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.903284197964473*^9, 3.903284451708227*^9}, {
+  3.903284489773975*^9, 3.903284495622746*^9}, {3.9032845325526657`*^9, 
+  3.903284577032341*^9}, {3.903284611773882*^9, 3.903284627874106*^9}, {
+  3.903315169597864*^9, 3.903315184051227*^9}, {3.903315803874839*^9, 
+  3.903315809654161*^9}, {3.903316271248337*^9, 3.903316271649033*^9}, {
+  3.9033163081082067`*^9, 3.903316317630024*^9}},
+ CellLabel->"In[21]:=",ExpressionUUID->"ab9c9e29-a255-43f3-a959-94510b509935"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Adding test: \"\>", 
+   "\[InvisibleSpace]", "\<\"EndogenousEq_20230910-DE837N\"\>"}],
+  SequenceForm["Adding test: ", "EndogenousEq_20230910-DE837N"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.903316339787423*^9},
+ CellLabel->
+  "During evaluation of \
+In[21]:=",ExpressionUUID->"9357ae7c-06d7-4f79-a958-a064720ea1df"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>"], "Print",
+ CellChangeTimes->{3.903316339801593*^9},
+ CellLabel->
+  "During evaluation of \
+In[21]:=",ExpressionUUID->"7e85d364-7223-4e55-9471-581b1d74fb0e"]
+}, Open  ]],
+
+Cell[BoxData[
+ DynamicModuleBox[{
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
+  "EndogenousEq`coefwc = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc;\n\t\
+EndogenousEq`coefpd = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd;\n\t\
+EndogenousEq`coefb = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb;\n\t\
+EndogenousEq`coefnb = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb;\n\t\
+EndogenousEq`hpd = Head @ EndogenousEq`coefpd;\n\tEndogenousEq`hb = Head @ \
+EndogenousEq`coefb;\n\tEndogenousEq`hnb = Head @ EndogenousEq`coefnb;\n\t\
+EndogenousEq`ch = Flatten[\n\t\t{\n\t\t\t{\n\t\t\t\tEndogenousEq`coefwc @ 0,\n\
+\t\t\t\tN @ EndogenousEq`coefwc @ 0,\n\t\t\t\tN @ EndogenousEq`coefwc @ 0,\n\t\
+\t\t\tEndogenousEq`coefwc @ 0.,\n\t\t\t\tN @ EndogenousEq`coefwc @ 0.,\n\t\t\t\
+\tN @ EndogenousEq`coefwc @ 0.\n\t\t\t},\n\t\t\tTable[\n\t\t\t\t{\n\t\t\t\t\t\
+EndogenousEq`c @ 0,\n\t\t\t\t\tN @ EndogenousEq`c @ 0,\n\t\t\t\t\tN @ \
+EndogenousEq`c @ 0,\n\t\t\t\t\tEndogenousEq`c @ 0.,\n\t\t\t\t\tN @ \
+EndogenousEq`c @ 0.,\n\t\t\t\t\tN @ EndogenousEq`c @ 0.\n\t\t\t\t},\n\t\t\t\t\
+{EndogenousEq`c, {EndogenousEq`coefpd, EndogenousEq`coefb, \
+EndogenousEq`coefnb}}\n\t\t\t],\n\t\t\tTable[\n\t\t\t\tReplaceAll[\n\t\t\t\t\t\
+ReplaceAll[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tEndogenousEq`h[1][0],\n\t\t\t\t\t\t\
+\tN @ EndogenousEq`h[1][0],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[1][0],\n\t\t\t\t\
+\t\t\tEndogenousEq`h[1][0.],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[1][0.],\n\t\t\t\
+\t\t\t\tN @ EndogenousEq`h[1][0.],\n\t\t\t\t\t\t\tEndogenousEq`h[0][1],\n\t\t\
+\t\t\t\t\tN @ EndogenousEq`h[0][1],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[0][1],\n\
+\t\t\t\t\t\t\tEndogenousEq`h[0.][1],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][1],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[0.][1],\n\t\t\t\t\t\t\
+\tEndogenousEq`h[1.][0],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[1.][0],\n\t\t\t\t\t\
+\t\tN @ EndogenousEq`h[1.][0],\n\t\t\t\t\t\t\tEndogenousEq`h[1.][0.],\n\t\t\t\
+\t\t\t\tN @ EndogenousEq`h[1.][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[1.][0.],\n\t\t\t\t\t\t\tEndogenousEq`h[0][1.],\n\t\t\t\t\t\t\t\
+N @ EndogenousEq`h[0][1.],\n\t\t\t\t\t\t\tN[EndogenousEq`h @ 0][1.],\n\t\t\t\t\
+\t\t\tEndogenousEq`h[0.][1.],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[0.][1.],\n\t\t\
+\t\t\t\t\tN @ EndogenousEq`h[0.][1.],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`j],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0.][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`j],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`j][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`j][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0.],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`jj],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0.][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`jj],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`jj][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`jj][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0.],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk],\n\t\t\t\t\t\t\tN @ Table[\n\
+\t\t\t\t\t\t\t\t{EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq], N @ \
+EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq], N @ \
+EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq]},\n\t\t\t\t\t\t\t\t\
+{EndogenousEq`ii, 0, 1},\n\t\t\t\t\t\t\t\t{EndogenousEq`qq, 2, 3}\n\t\t\t\t\t\
+\t\t]\n\t\t\t\t\t\t},\n\t\t\t\t\t\tEndogenousEq`jj -> 2\n\t\t\t\t\t],\n\t\t\t\
+\t\tEndogenousEq`kk -> 3\n\t\t\t\t],\n\t\t\t\t{EndogenousEq`h, {Head @ \
+EndogenousEq`coefpd, Head @ EndogenousEq`coefb, Head @ EndogenousEq`coefnb}}\n\
+\t\t\t]\n\t\t}\n\t];\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\t{\n\t\t\t\t\
+\tMap[Not,\n\t\t\t\t\t\tMap[InexactNumberQ,\n\t\t\t\t\t\t\tSelect[\n\t\t\t\t\t\
+\t\t\tFlatten[Cases[EndogenousEq`ch, Pattern[EndogenousEq`x, \
+_][EndogenousEq`i_] :> EndogenousEq`i]],\n\t\t\t\t\t\t\t\tNumberQ\n\t\t\t\t\t\
+\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tMap[Not,\n\t\t\t\t\t\t\
+Map[InexactNumberQ,\n\t\t\t\t\t\t\tSelect[\n\t\t\t\t\t\t\t\t\
+Flatten[Cases[EndogenousEq`ch, \
+EndogenousEq`x_[EndogenousEq`i_][EndogenousEq`j_] :> {EndogenousEq`i, \
+EndogenousEq`j}]],\n\t\t\t\t\t\t\t\tNumberQ\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\
+\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t}\n\t\t]\n\t]", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+  "VerificationTest[\n\tEndogenousEq`coefwc = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc;\n\t\
+EndogenousEq`coefpd = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd;\n\t\
+EndogenousEq`coefb = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb;\n\t\
+EndogenousEq`coefnb = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb;\n\t\
+EndogenousEq`hpd = Head @ EndogenousEq`coefpd;\n\tEndogenousEq`hb = Head @ \
+EndogenousEq`coefb;\n\tEndogenousEq`hnb = Head @ EndogenousEq`coefnb;\n\t\
+EndogenousEq`ch = Flatten[\n\t\t{\n\t\t\t{\n\t\t\t\tEndogenousEq`coefwc @ 0,\n\
+\t\t\t\tN @ EndogenousEq`coefwc @ 0,\n\t\t\t\tN @ EndogenousEq`coefwc @ 0,\n\t\
+\t\t\tEndogenousEq`coefwc @ 0.,\n\t\t\t\tN @ EndogenousEq`coefwc @ 0.,\n\t\t\t\
+\tN @ EndogenousEq`coefwc @ 0.\n\t\t\t},\n\t\t\tTable[\n\t\t\t\t{\n\t\t\t\t\t\
+EndogenousEq`c @ 0,\n\t\t\t\t\tN @ EndogenousEq`c @ 0,\n\t\t\t\t\tN @ \
+EndogenousEq`c @ 0,\n\t\t\t\t\tEndogenousEq`c @ 0.,\n\t\t\t\t\tN @ \
+EndogenousEq`c @ 0.,\n\t\t\t\t\tN @ EndogenousEq`c @ 0.\n\t\t\t\t},\n\t\t\t\t\
+{EndogenousEq`c, {EndogenousEq`coefpd, EndogenousEq`coefb, \
+EndogenousEq`coefnb}}\n\t\t\t],\n\t\t\tTable[\n\t\t\t\tReplaceAll[\n\t\t\t\t\t\
+ReplaceAll[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tEndogenousEq`h[1][0],\n\t\t\t\t\t\t\
+\tN @ EndogenousEq`h[1][0],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[1][0],\n\t\t\t\t\
+\t\t\tEndogenousEq`h[1][0.],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[1][0.],\n\t\t\t\
+\t\t\t\tN @ EndogenousEq`h[1][0.],\n\t\t\t\t\t\t\tEndogenousEq`h[0][1],\n\t\t\
+\t\t\t\t\tN @ EndogenousEq`h[0][1],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[0][1],\n\
+\t\t\t\t\t\t\tEndogenousEq`h[0.][1],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][1],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[0.][1],\n\t\t\t\t\t\t\
+\tEndogenousEq`h[1.][0],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[1.][0],\n\t\t\t\t\t\
+\t\tN @ EndogenousEq`h[1.][0],\n\t\t\t\t\t\t\tEndogenousEq`h[1.][0.],\n\t\t\t\
+\t\t\t\tN @ EndogenousEq`h[1.][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[1.][0.],\n\t\t\t\t\t\t\tEndogenousEq`h[0][1.],\n\t\t\t\t\t\t\t\
+N @ EndogenousEq`h[0][1.],\n\t\t\t\t\t\t\tN[EndogenousEq`h @ 0][1.],\n\t\t\t\t\
+\t\t\tEndogenousEq`h[0.][1.],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[0.][1.],\n\t\t\
+\t\t\t\t\tN @ EndogenousEq`h[0.][1.],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`j],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0.][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`j],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`j][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`j][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0.],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`jj],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0.][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`jj],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`jj][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`jj][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0.],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk],\n\t\t\t\t\t\t\tN @ Table[\n\
+\t\t\t\t\t\t\t\t{EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq], N @ \
+EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq], N @ \
+EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq]},\n\t\t\t\t\t\t\t\t\
+{EndogenousEq`ii, 0, 1},\n\t\t\t\t\t\t\t\t{EndogenousEq`qq, 2, 3}\n\t\t\t\t\t\
+\t\t]\n\t\t\t\t\t\t},\n\t\t\t\t\t\tEndogenousEq`jj -> 2\n\t\t\t\t\t],\n\t\t\t\
+\t\tEndogenousEq`kk -> 3\n\t\t\t\t],\n\t\t\t\t{EndogenousEq`h, {Head @ \
+EndogenousEq`coefpd, Head @ EndogenousEq`coefb, Head @ EndogenousEq`coefnb}}\n\
+\t\t\t]\n\t\t}\n\t];\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\t{\n\t\t\t\t\
+\tMap[Not,\n\t\t\t\t\t\tMap[InexactNumberQ,\n\t\t\t\t\t\t\tSelect[\n\t\t\t\t\t\
+\t\t\tFlatten[Cases[EndogenousEq`ch, Pattern[EndogenousEq`x, \
+_][EndogenousEq`i_] :> EndogenousEq`i]],\n\t\t\t\t\t\t\t\tNumberQ\n\t\t\t\t\t\
+\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tMap[Not,\n\t\t\t\t\t\t\
+Map[InexactNumberQ,\n\t\t\t\t\t\t\tSelect[\n\t\t\t\t\t\t\t\t\
+Flatten[Cases[EndogenousEq`ch, \
+EndogenousEq`x_[EndogenousEq`i_][EndogenousEq`j_] :> {EndogenousEq`i, \
+EndogenousEq`j}]],\n\t\t\t\t\t\t\t\tNumberQ\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\
+\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t}\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"EndogenousEq_20230910-DE837N\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
+  "Result" :> True, "Success" -> True, "FailureType" -> None, 
+   "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.001, "AbsoluteTiming" -> 0.001, 
+   "InputString" :> ToString[
+     Unevaluated[
+     EndogenousEq`coefwc = 
+       FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc; 
+      EndogenousEq`coefpd = 
+       FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd; 
+      EndogenousEq`coefb = 
+       FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb; 
+      EndogenousEq`coefnb = 
+       FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb; 
+      EndogenousEq`hpd = Head[EndogenousEq`coefpd]; 
+      EndogenousEq`hb = Head[EndogenousEq`coefb]; 
+      EndogenousEq`hnb = Head[EndogenousEq`coefnb]; 
+      EndogenousEq`ch = Flatten[{{
+           EndogenousEq`coefwc[0], 
+           N[
+            EndogenousEq`coefwc[0]], 
+           N[
+            EndogenousEq`coefwc[0]], 
+           EndogenousEq`coefwc[0.], 
+           N[
+            EndogenousEq`coefwc[0.]], 
+           N[
+            EndogenousEq`coefwc[0.]]}, 
+          Table[{
+            EndogenousEq`c[0], 
+            N[
+             EndogenousEq`c[0]], 
+            N[
+             EndogenousEq`c[0]], 
+            EndogenousEq`c[0.], 
+            N[
+             EndogenousEq`c[0.]], 
+            N[
+             EndogenousEq`c[0.]]}, {
+           EndogenousEq`c, {
+            EndogenousEq`coefpd, EndogenousEq`coefb, EndogenousEq`coefnb}}], 
+          Table[
+           ReplaceAll[
+            ReplaceAll[{
+              EndogenousEq`h[1][0], 
+              N[
+               EndogenousEq`h[1][0]], 
+              N[
+               EndogenousEq`h[1][0]], 
+              EndogenousEq`h[1][0.], 
+              N[
+               EndogenousEq`h[1][0.]], 
+              N[
+               EndogenousEq`h[1][0.]], 
+              EndogenousEq`h[0][1], 
+              N[
+               EndogenousEq`h[0][1]], 
+              N[
+               EndogenousEq`h[0][1]], 
+              EndogenousEq`h[0.][1], 
+              N[
+               EndogenousEq`h[0.][1]], 
+              N[
+               EndogenousEq`h[0.][1]], 
+              EndogenousEq`h[1.][0], 
+              N[
+               EndogenousEq`h[1.][0]], 
+              N[
+               EndogenousEq`h[1.][0]], 
+              EndogenousEq`h[1.][0.], 
+              N[
+               EndogenousEq`h[1.][0.]], 
+              N[
+               EndogenousEq`h[1.][0.]], 
+              EndogenousEq`h[0][1.], 
+              N[
+               EndogenousEq`h[0][1.]], 
+              N[
+               EndogenousEq`h[0]][1.], 
+              EndogenousEq`h[0.][1.], 
+              N[
+               EndogenousEq`h[0.][1.]], 
+              N[
+               EndogenousEq`h[0.][1.]], 
+              EndogenousEq`h[0][EndogenousEq`j], 
+              N[
+               EndogenousEq`h[0][EndogenousEq`j]], 
+              N[
+               EndogenousEq`h[0][EndogenousEq`j]], 
+              EndogenousEq`h[0.][EndogenousEq`j], 
+              N[
+               EndogenousEq`h[0.][EndogenousEq`j]], 
+              N[
+               EndogenousEq`h[0.][EndogenousEq`j]], 
+              EndogenousEq`h[EndogenousEq`j][0], 
+              N[
+               EndogenousEq`h[EndogenousEq`j][0]], 
+              N[
+               EndogenousEq`h[EndogenousEq`j][0]], 
+              EndogenousEq`h[EndogenousEq`j][0.], 
+              N[
+               EndogenousEq`h[EndogenousEq`j][0.]], 
+              N[
+               EndogenousEq`h[EndogenousEq`j][0.]], 
+              EndogenousEq`h[0][EndogenousEq`jj], 
+              N[
+               EndogenousEq`h[0][EndogenousEq`jj]], 
+              N[
+               EndogenousEq`h[0][EndogenousEq`jj]], 
+              EndogenousEq`h[0.][EndogenousEq`jj], 
+              N[
+               EndogenousEq`h[0.][EndogenousEq`jj]], 
+              N[
+               EndogenousEq`h[0.][EndogenousEq`jj]], 
+              EndogenousEq`h[EndogenousEq`jj][0], 
+              N[
+               EndogenousEq`h[EndogenousEq`jj][0]], 
+              N[
+               EndogenousEq`h[EndogenousEq`jj][0]], 
+              EndogenousEq`h[EndogenousEq`jj][0.], 
+              N[
+               EndogenousEq`h[EndogenousEq`jj][0.]], 
+              N[
+               EndogenousEq`h[EndogenousEq`jj][0.]], 
+              EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk], 
+              N[
+               EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk]], 
+              N[
+               EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk]], 
+              N[
+               Table[{
+                 EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq], 
+                 N[
+                  EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq]], 
+                 N[
+                  EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq]]}, {
+                EndogenousEq`ii, 0, 1}, {EndogenousEq`qq, 2, 3}]]}, 
+             EndogenousEq`jj -> 2], EndogenousEq`kk -> 3], {EndogenousEq`h, {
+             Head[EndogenousEq`coefpd], 
+             Head[EndogenousEq`coefb], 
+             Head[EndogenousEq`coefnb]}}]}]; Apply[And, 
+        Flatten[{{
+           Map[Not, 
+            Map[InexactNumberQ, 
+             Select[
+              Flatten[
+               Cases[EndogenousEq`ch, Pattern[EndogenousEq`x, 
+                  Blank[]][
+                  Pattern[EndogenousEq`i, 
+                   Blank[]]] :> EndogenousEq`i]], NumberQ]]], 
+           Map[Not, 
+            Map[InexactNumberQ, 
+             Select[
+              Flatten[
+               Cases[EndogenousEq`ch, Pattern[EndogenousEq`x, 
+                  Blank[]][
+                  Pattern[EndogenousEq`i, 
+                   Blank[]]][
+                  Pattern[EndogenousEq`j, 
+                   Blank[]]] :> {EndogenousEq`i, EndogenousEq`j}]], 
+              NumberQ]]]}}]]], InputForm]|>, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
+   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+  "BeginTestSection[\"EndogenousEq\"]\n\n\nVerificationTest[\n\tNeeds @ \
+\"FernandoDuarte`LongRunRisk`Model`EndogenousEq`\"\n\t,\n\tNull\n\t,\n\t{}\n\t\
+,\n\tTestID->\"EndogenousEq_20230910-4DQU12\"\n]\n\n\nVerificationTest[\n\t\
+!SameQ[Names @ \"*pdeq\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"EndogenousEq_20230910-URX6TH\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tMap[SameQ[#, \
+\"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\"]&,\n\t\t\t\
+Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars]],\n\t\t\t\t\t\
+RuleDelayed[\n\t\t\t\t\t\tPatternTest[\n\t\t\t\t\t\t\t\
+EndogenousEq`var_Symbol,\n\t\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\t\tMemberQ[\n\
+\t\t\t\t\t\t\t\t\tMap[Function[StringDrop[#, -2]], \
+FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],\n\t\t\t\t\t\t\t\
+\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\t\
+\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\
+\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"EndogenousEq_20230910-UJMW6O\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tMap[SameQ[#, \"FernandoDuarte`LongRunRisk`Model`Shocks`\"]&,\n\
+\t\t\tMap[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars]],\n\t\t\t\t\t\
+RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
+Function[MatchQ[SymbolName[#], \"eps\"]]][__][__],\n\t\t\t\t\t\t\
+EndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\
+\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"EndogenousEq_20230910-6RNT7U\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tMap[SameQ[#, \
+\"FernandoDuarte`LongRunRisk`Model`Parameters`\"]&,\n\t\t\tMap[Context,\n\t\t\
+\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars]],\n\t\t\t\t\t\
+RuleDelayed[\n\t\t\t\t\t\tPatternTest[EndogenousEq`var_Symbol, \
+Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, \
+SymbolName[#]]]],\n\t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\t\
+Infinity\n\t\t\t\t]\n\t\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"EndogenousEq_20230910-Q7VW1N\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\tMap[SameQ[#, \
+\"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`\"]&,\n\t\t\t\
+Map[Context,\n\t\t\t\tCases[Map[Slot[1][EndogenousEq`t]&, Map[Symbol, \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars]],\n\t\t\t\t\t\
+RuleDelayed[\n\t\t\t\t\t\tPatternTest[\n\t\t\t\t\t\t\t\
+EndogenousEq`var_Symbol,\n\t\t\t\t\t\t\tFunction[\n\t\t\t\t\t\t\t\tMemberQ[\n\
+\t\t\t\t\t\t\t\t\tMap[Function[StringDrop[#, -2]], \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],\n\t\t\t\t\t\t\
+\t\t\tSymbolName[#]\n\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t][__],\n\
+\t\t\t\t\t\tEndogenousEq`var\n\t\t\t\t\t],\n\t\t\t\t\tInfinity\n\t\t\t\t]\n\t\
+\t\t]\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"EndogenousEq_20230910-348WK6\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\t{\n\t\t\t\
+FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
+t, EndogenousEq`m], foo`t],\n\t\t\t\
+!FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
+t, EndogenousEq`m], EndogenousEq`t],\n\t\t\t\
+FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[foo`t, \
+EndogenousEq`m], EndogenousEq`t],\n\t\t\t\
+!FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[foo`t, \
+EndogenousEq`m], foo`t],\n\t\t\t!SameQ[foo`bondyieldeq[EndogenousEq`t, \
+EndogenousEq`m], \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`t, \
+EndogenousEq`m]],\n\t\t\t\
+!SameQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
+t, EndogenousEq`m], \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[foo`t, \
+EndogenousEq`m]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"EndogenousEq_20230910-ZT5HJC\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\t{\n\t\t\t\
+FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
+t, EndogenousEq`m], foo`m],\n\t\t\t\
+!FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
+t, EndogenousEq`m], EndogenousEq`m],\n\t\t\t\
+FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
+t, foo`m], EndogenousEq`m],\n\t\t\t\
+!FreeQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
+t, foo`m], foo`m],\n\t\t\t\
+!SameQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`\
+t, EndogenousEq`m], \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[EndogenousEq`t, \
+foo`m]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"EndogenousEq_20230910-Q8OJ3S\"\n]\n\n\nVerificationTest[\n\t\
+Apply[And,\n\t\t{\n\t\t\t\
+SameQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondfweq[EndogenousEq`t, \
+EndogenousEq`m], \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondfweq[EndogenousEq`t, \
+EndogenousEq`m, 1]],\n\t\t\t\
+SameQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondreteq[EndogenousEq`t, \
+EndogenousEq`m], \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondreteq[EndogenousEq`t, \
+EndogenousEq`m, 1]],\n\t\t\t\
+SameQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondfwspreadeq[\
+EndogenousEq`t, EndogenousEq`m], \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondfwspreadeq[EndogenousEq`t, \
+EndogenousEq`m, 1]],\n\t\t\t\
+SameQ[FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondexcreteq[EndogenousEq`\
+t, EndogenousEq`m], \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondexcreteq[EndogenousEq`t, \
+EndogenousEq`m, 1]]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"EndogenousEq_20230910-M67H2E\"\n]\n\n\nVerificationTest[\n\t\
+EndogenousEq`coefwc = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc;\n\t\
+EndogenousEq`coefpd = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd;\n\t\
+EndogenousEq`coefb = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb;\n\t\
+EndogenousEq`coefnb = \
+FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb;\n\t\
+EndogenousEq`hpd = Head @ EndogenousEq`coefpd;\n\tEndogenousEq`hb = Head @ \
+EndogenousEq`coefb;\n\tEndogenousEq`hnb = Head @ EndogenousEq`coefnb;\n\t\
+EndogenousEq`ch = Flatten[\n\t\t{\n\t\t\t{\n\t\t\t\tEndogenousEq`coefwc @ 0,\n\
+\t\t\t\tN @ EndogenousEq`coefwc @ 0,\n\t\t\t\tN @ EndogenousEq`coefwc @ 0,\n\t\
+\t\t\tEndogenousEq`coefwc @ 0.,\n\t\t\t\tN @ EndogenousEq`coefwc @ 0.,\n\t\t\t\
+\tN @ EndogenousEq`coefwc @ 0.\n\t\t\t},\n\t\t\tTable[\n\t\t\t\t{\n\t\t\t\t\t\
+EndogenousEq`c @ 0,\n\t\t\t\t\tN @ EndogenousEq`c @ 0,\n\t\t\t\t\tN @ \
+EndogenousEq`c @ 0,\n\t\t\t\t\tEndogenousEq`c @ 0.,\n\t\t\t\t\tN @ \
+EndogenousEq`c @ 0.,\n\t\t\t\t\tN @ EndogenousEq`c @ 0.\n\t\t\t\t},\n\t\t\t\t\
+{EndogenousEq`c, {EndogenousEq`coefpd, EndogenousEq`coefb, \
+EndogenousEq`coefnb}}\n\t\t\t],\n\t\t\tTable[\n\t\t\t\tReplaceAll[\n\t\t\t\t\t\
+ReplaceAll[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tEndogenousEq`h[1][0],\n\t\t\t\t\t\t\
+\tN @ EndogenousEq`h[1][0],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[1][0],\n\t\t\t\t\
+\t\t\tEndogenousEq`h[1][0.],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[1][0.],\n\t\t\t\
+\t\t\t\tN @ EndogenousEq`h[1][0.],\n\t\t\t\t\t\t\tEndogenousEq`h[0][1],\n\t\t\
+\t\t\t\t\tN @ EndogenousEq`h[0][1],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[0][1],\n\
+\t\t\t\t\t\t\tEndogenousEq`h[0.][1],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][1],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[0.][1],\n\t\t\t\t\t\t\
+\tEndogenousEq`h[1.][0],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[1.][0],\n\t\t\t\t\t\
+\t\tN @ EndogenousEq`h[1.][0],\n\t\t\t\t\t\t\tEndogenousEq`h[1.][0.],\n\t\t\t\
+\t\t\t\tN @ EndogenousEq`h[1.][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[1.][0.],\n\t\t\t\t\t\t\tEndogenousEq`h[0][1.],\n\t\t\t\t\t\t\t\
+N @ EndogenousEq`h[0][1.],\n\t\t\t\t\t\t\tN[EndogenousEq`h @ 0][1.],\n\t\t\t\t\
+\t\t\tEndogenousEq`h[0.][1.],\n\t\t\t\t\t\t\tN @ EndogenousEq`h[0.][1.],\n\t\t\
+\t\t\t\t\tN @ EndogenousEq`h[0.][1.],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`j],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0.][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`j],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`j],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`j][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`j][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`j][0.],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0][EndogenousEq`jj],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[0.][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`jj],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[0.][EndogenousEq`jj],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`jj][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`jj][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0.],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][0.],\n\t\t\t\t\t\t\t\
+EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk],\n\t\t\t\t\t\t\tN @ \
+EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk],\n\t\t\t\t\t\t\tN @ Table[\n\
+\t\t\t\t\t\t\t\t{EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq], N @ \
+EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq], N @ \
+EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq]},\n\t\t\t\t\t\t\t\t\
+{EndogenousEq`ii, 0, 1},\n\t\t\t\t\t\t\t\t{EndogenousEq`qq, 2, 3}\n\t\t\t\t\t\
+\t\t]\n\t\t\t\t\t\t},\n\t\t\t\t\t\tEndogenousEq`jj -> 2\n\t\t\t\t\t],\n\t\t\t\
+\t\tEndogenousEq`kk -> 3\n\t\t\t\t],\n\t\t\t\t{EndogenousEq`h, {Head @ \
+EndogenousEq`coefpd, Head @ EndogenousEq`coefb, Head @ EndogenousEq`coefnb}}\n\
+\t\t\t]\n\t\t}\n\t];\n\tApply[And,\n\t\tFlatten[\n\t\t\t{\n\t\t\t\t{\n\t\t\t\t\
+\tMap[Not,\n\t\t\t\t\t\tMap[InexactNumberQ,\n\t\t\t\t\t\t\tSelect[\n\t\t\t\t\t\
+\t\t\tFlatten[Cases[EndogenousEq`ch, Pattern[EndogenousEq`x, \
+_][EndogenousEq`i_] :> EndogenousEq`i]],\n\t\t\t\t\t\t\t\tNumberQ\n\t\t\t\t\t\
+\t\t]\n\t\t\t\t\t\t]\n\t\t\t\t\t],\n\t\t\t\t\tMap[Not,\n\t\t\t\t\t\t\
+Map[InexactNumberQ,\n\t\t\t\t\t\t\tSelect[\n\t\t\t\t\t\t\t\t\
+Flatten[Cases[EndogenousEq`ch, \
+EndogenousEq`x_[EndogenousEq`i_][EndogenousEq`j_] :> {EndogenousEq`i, \
+EndogenousEq`j}]],\n\t\t\t\t\t\t\t\tNumberQ\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t]\n\
+\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t}\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
+TestID->\"EndogenousEq_20230910-DE837N\"\n]\n\n\nEndTestSection[]\n"}, \
+"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>",
+  DynamicModuleValues:>{{
+    DownValues[
+      FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$] = {
+      HoldPattern[
+         FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$[]]\
+ :> (If[FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
+          Export[
+          "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", 
+           "BeginTestSection[\"" <> 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"] <> 
+           "\"]\n\n\nEndTestSection[]\n", "Text"]]; 
+        Block[{FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FileBaseName[
+            "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]}, 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id = 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> "_" <> 
+            StringJoin[
+              Map[If[# > 9, "", "0"] <> ToString[#]& , 
+               Part[
+                Date[], 
+                Span[1, 3]]]] <> "-" <> ToUpperCase[
+              IntegerString[
+               RandomInteger[{0, 2176782336}], 36, 6]] <> ""; 
+          Print["Adding test: ", 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id]; 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
+           "VerificationTest[\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$\
+ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\n\t,\n\t" <> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+messageString$$ <> ("\n\t,\n\tTestID->\"" <> 
+             FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`id <> 
+             "\"\n]\n\n"); Null]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
+         Import["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "Text"]; 
+        FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = If[
+           StringContainsQ[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]"], 
+           StringReplace[
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+            "EndTestSection[]" :> 
+            FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$\
+$ <> "\nEndTestSection[]\n"], 
+           FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ <> 
+           "\n" <> FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`\
+outputString$$]; 
+        Export["/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", 
+          FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$, 
+          "Text"]; Print[
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]; SelectionMove[
+          ButtonNotebook[], All, ButtonCell]; NotebookDelete[
+          ButtonNotebook[]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.9033163398119307`*^9},
+ CellLabel->"Out[21]=",ExpressionUUID->"4f2e6141-a87d-487b-afda-336ffbbd4ed7"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"End", "[", "]"}]], "Input",
- CellLabel->"In[21]:=",ExpressionUUID->"3eb99ea3-bc8c-4524-b27c-2528a0af68a2"],
+ CellLabel->"In[22]:=",ExpressionUUID->"3eb99ea3-bc8c-4524-b27c-2528a0af68a2"],
 
 Cell[BoxData["\<\"EndogenousEq`\"\>"], "Output",
- CellChangeTimes->{3.89536289492448*^9},
- CellLabel->"Out[21]=",ExpressionUUID->"dbdb7e18-6223-483d-bbec-72abb3badde3"]
+ CellChangeTimes->{3.903316339818528*^9},
+ CellLabel->"Out[22]=",ExpressionUUID->"1596750c-7d77-461c-ab32-280328e89d50"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2282,7 +3208,7 @@ Cell[BoxData[
     RowBox[{"testFileName", "<>", "\"\<temp\>\""}], "]"}]}]}]], "Input",
  CellChangeTimes->{{3.890686194230386*^9, 3.890686228283702*^9}, 
    3.8911593195689373`*^9, 3.891215663824191*^9},
- CellLabel->"In[22]:=",ExpressionUUID->"a987c799-a69e-45bc-a9f6-b0b6f0e903c9"],
+ CellLabel->"In[23]:=",ExpressionUUID->"a987c799-a69e-45bc-a9f6-b0b6f0e903c9"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2291,12 +3217,12 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlttemp\"\>"}], 
   "}"}]], "Output",
- CellChangeTimes->{3.8953628949661837`*^9},
- CellLabel->"Out[26]=",ExpressionUUID->"460e61f2-f606-4bd8-917a-5844cb3c6161"],
+ CellChangeTimes->{3.9033163398615723`*^9},
+ CellLabel->"Out[27]=",ExpressionUUID->"3d37d129-a7d4-4dcf-a804-537321e983de"],
 
-Cell[BoxData["174"], "Output",
- CellChangeTimes->{3.8953628949744463`*^9},
- CellLabel->"Out[29]=",ExpressionUUID->"528309df-b5aa-42a0-8cd6-516999ff2c5b"],
+Cell[BoxData["303"], "Output",
+ CellChangeTimes->{3.903316339872678*^9},
+ CellLabel->"Out[30]=",ExpressionUUID->"5c3cac88-d143-44e4-a338-ac09ce7a66de"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2305,8 +3231,8 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlttemp\"\>"}], 
   "}"}]], "Output",
- CellChangeTimes->{3.8953628949796658`*^9},
- CellLabel->"Out[30]=",ExpressionUUID->"63b9db32-ac30-4023-bcd5-f379c0e6d46b"]
+ CellChangeTimes->{3.9033163398835297`*^9},
+ CellLabel->"Out[31]=",ExpressionUUID->"73a32d9a-5f47-4ed0-b2a6-596d81294e22"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2314,7 +3240,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"tr", "=", 
   RowBox[{"TestReport", "[", "testFileName", "]"}]}]], "Input",
- CellLabel->"In[33]:=",ExpressionUUID->"c23f102e-032c-466b-baef-594a42a2c443"],
+ CellLabel->"In[34]:=",ExpressionUUID->"c23f102e-032c-466b-baef-594a42a2c443"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -2373,9 +3299,9 @@ Cell[BoxData[
                     StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
                     AutoDelete -> True], PercentForm], "SummaryItem"]}], 
                RowBox[{
-                 TagBox["\"Tests run: \"", "SummaryItemAnnotation"], 
+                 TagBox["\"Tests count: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
-                 TagBox["9", "SummaryItem"]}]}}, 
+                 TagBox["10", "SummaryItem"]}]}}, 
              GridBoxAlignment -> {
               "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
              False, GridBoxItemSize -> {
@@ -2437,40 +3363,22 @@ Cell[BoxData[
                     StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
                     AutoDelete -> True], PercentForm], "SummaryItem"]}], 
                RowBox[{
-                 TagBox["\"Tests run: \"", "SummaryItemAnnotation"], 
+                 TagBox["\"Tests count: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
-                 TagBox["9", "SummaryItem"]}]}, {
+                 TagBox["10", "SummaryItem"]}]}, {
                RowBox[{
                  TagBox["\"Succeeded: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
-                 TagBox["9", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
-                 TagBox["\"Failed: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
-                 TagBox[
-                 "\"Failed with wrong results: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
-                 TagBox[
-                 "\"Failed with messages: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
-               RowBox[{
-                 TagBox["\"Failed with errors: \"", "SummaryItemAnnotation"], 
-                 "\[InvisibleSpace]", 
-                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
+                 TagBox["10", "SummaryItem"]}], "\[SpanFromLeft]"}, {
                RowBox[{
                  TagBox["\"Time elapsed: \"", "SummaryItemAnnotation"], 
                  "\[InvisibleSpace]", 
                  TagBox[
                   
                   TemplateBox[{
-                   "0.017734`", "\"s\"", "seconds", "\"Seconds\""}, 
-                   "Quantity", SyntaxForm -> Mod], "SummaryItem"]}], 
-               "\[SpanFromLeft]"}}, 
+                   "0.02658`3.5750699744387076", "\"s\"", "seconds", 
+                    "\"Seconds\""}, "Quantity", SyntaxForm -> Mod], 
+                  "SummaryItem"]}], "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
               "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
              False, GridBoxItemSize -> {
@@ -2490,42 +3398,48 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: EndogenousEq.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     5525804390918074521 -> 
-      TestResultObject[<|
-        "TestKey" -> 5525804390918074521, "TestID" -> 
-         "EndogenousEq_20230610-0G7T30", "TestFileName" -> 
+     8934163693088203270 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.903316340009271*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "5cb87c89-50d0-41f8-a6e5-b37262b020b9", "TestID" -> 
+         "EndogenousEq_20230910-4DQU12", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "EvaluationID" -> 
+         "faacb40b-2ad4-4f37-9f68-04e07590b8ea", "Input" -> HoldForm[
            Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"]], 
-         "ExpectedOutput" -> HoldForm[Null], "ActualOutput" -> HoldForm[Null],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895362895025969*^9, "AbsoluteTimeUsed" -> 
-         0.000032`1.6556649761518998, "CPUTimeUsed" -> 0.00003300000000017178,
-          "MemoryUsed" -> 3048|>], 7337864540533437790 -> 
-      TestResultObject[<|
-        "TestKey" -> 7337864540533437790, "TestID" -> 
-         "EndogenousEq_20230610-DIWSB8", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[Null],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.00004`1.752574989159956, "CPUTimeUsed" -> 0.00004000000000026205, 
+         "MemoryUsed" -> 2760, "ExpectedOutput" -> HoldForm[Null], "Outcome" -> 
+         "Success"|>], 3945932779181891980 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.903316340009664*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "d4338740-252a-4807-bc50-0eba442c4226", "TestID" -> 
+         "EndogenousEq_20230910-URX6TH", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
-           Not[Names["*pdeq"] === {}]], "ExpectedOutput" -> HoldForm[True], 
-         "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> HoldForm[{}],
-          "ActualMessages" -> {}, "AbsoluteTime" -> 3.89536289502771*^9, 
-         "AbsoluteTimeUsed" -> 0.015677`4.345777956174054, "CPUTimeUsed" -> 
-         0.015698999999999685`, "MemoryUsed" -> 3176|>], 2749804378547808574 -> 
-      TestResultObject[<|
-        "TestKey" -> 2749804378547808574, "TestID" -> 
-         "EndogenousEq_20230610-OV08TN", "TestFileName" -> 
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "EvaluationID" -> 
+         "576a0f87-1d4b-4bf0-9468-303c3f7317bd", "Input" -> HoldForm[
+           Not[Names["*pdeq"] === {}]], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
+         "AbsoluteTimeUsed" -> 0.023371`4.51919229324478, "CPUTimeUsed" -> 
+         0.023387000000000047`, "MemoryUsed" -> 2896, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 6770291444593940324 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9033163400334353`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "f2e3abb8-8944-4d85-8cf7-0b419067c71b", "TestID" -> 
+         "EndogenousEq_20230910-UJMW6O", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "EvaluationID" -> 
+         "039f28a0-f981-4d74-9e28-1ab705e1fc75", "Input" -> HoldForm[
            Apply[And, 
             
             Map[# === 
@@ -2545,19 +3459,21 @@ endogenousVars]], PatternTest[
 exogenousVars], 
                   SymbolName[#]]& ][
                  BlankSequence[]] :> EndogenousEq`var, Infinity]]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895362895043692*^9, "AbsoluteTimeUsed" -> 
-         0.000563`2.90102339268334, "CPUTimeUsed" -> 0.0005610000000002557, 
-         "MemoryUsed" -> 2952|>], 3969601895569927099 -> 
-      TestResultObject[<|
-        "TestKey" -> 3969601895569927099, "TestID" -> 
-         "EndogenousEq_20230610-I0J24M", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000518`2.8648447575772273, "CPUTimeUsed" -> 0.0005189999999997141, 
+         "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 3556370086550334297 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.903316340034223*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "0339418e-d86c-4bd2-b3ae-a0c6f8a0c9b3", "TestID" -> 
+         "EndogenousEq_20230910-6RNT7U", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "EvaluationID" -> 
+         "2c8f5e65-8ce6-4966-a4c8-951eb158e105", "Input" -> HoldForm[
            Apply[And, 
             Map[# === "FernandoDuarte`LongRunRisk`Model`Shocks`"& , 
              Map[Context, 
@@ -2572,20 +3488,21 @@ endogenousVars]], PatternTest[
                   SymbolName[#], "eps"]& ][
                  BlankSequence[]][
                  BlankSequence[]] :> EndogenousEq`var, Infinity]]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.895362895044436*^9, "AbsoluteTimeUsed" -> 
-         0.000141`2.2997341104873716, "CPUTimeUsed" -> 
-         0.00014200000000030855`, "MemoryUsed" -> 3072|>], 
-      3169116347706549548 -> 
-      TestResultObject[<|
-        "TestKey" -> 3169116347706549548, "TestID" -> 
-         "EndogenousEq_20230610-12MROW", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000137`2.287235564988401, "CPUTimeUsed" -> 0.00013800000000019352`,
+          "MemoryUsed" -> 2664, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 2558028499725926819 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9033163400345883`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "fa43753e-e7dd-40bb-8f5a-a18c8716e0f5", "TestID" -> 
+         "EndogenousEq_20230910-Q7VW1N", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "EvaluationID" -> 
+         "48eab1a8-b864-4e10-b1e6-0a2bd0f87ab2", "Input" -> HoldForm[
            Apply[And, 
             Map[# === "FernandoDuarte`LongRunRisk`Model`Parameters`"& , 
              Map[Context, 
@@ -2599,19 +3516,21 @@ endogenousVars]], PatternTest[
                   Blank[Symbol]], MemberQ[
                  FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, 
                   SymbolName[#]]& ] :> EndogenousEq`var, Infinity]]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8953628950447507`*^9, "AbsoluteTimeUsed" -> 
-         0.000262`2.568816289151737, "CPUTimeUsed" -> 0.0002629999999999022, 
-         "MemoryUsed" -> 2936|>], 7797652481439182622 -> 
-      TestResultObject[<|
-        "TestKey" -> 7797652481439182622, "TestID" -> 
-         "EndogenousEq_20230610-1W6A38", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000247`2.5432119510916595, "CPUTimeUsed" -> 0.0002469999999994421, 
+         "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 6092941968557088043 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9033163400350933`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "985c8044-461f-433a-86f8-a00f1831e1c0", "TestID" -> 
+         "EndogenousEq_20230910-348WK6", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "EvaluationID" -> 
+         "6bc94cf5-2aa4-45bf-939f-fd441e859f7a", "Input" -> HoldForm[
            Apply[And, 
             
             Map[# === 
@@ -2631,19 +3550,21 @@ endogenousVars]], PatternTest[
 endogenousVars], 
                   SymbolName[#]]& ][
                  BlankSequence[]] :> EndogenousEq`var, Infinity]]]]], 
-         "ExpectedOutput" -> HoldForm[True], "ActualOutput" -> HoldForm[True],
-          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
-         "AbsoluteTime" -> 3.8953628950451827`*^9, "AbsoluteTimeUsed" -> 
-         0.000956`3.1309728901080938, "CPUTimeUsed" -> 0.0009589999999999321, 
-         "MemoryUsed" -> 2944|>], 1938121943548207788 -> 
-      TestResultObject[<|
-        "TestKey" -> 1938121943548207788, "TestID" -> 
-         "EndogenousEq_20230610-SZNWBO", "TestFileName" -> 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000913`3.110985775366293, "CPUTimeUsed" -> 0.0009130000000001637, 
+         "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 5485988182863809371 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.903316340036251*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "b54af9e7-611d-43b2-b9e1-bc5b5e2dff4c", "TestID" -> 
+         "EndogenousEq_20230910-ZT5HJC", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "EvaluationID" -> 
+         "f64d2c7f-d8d1-4c7f-b73a-94b68cfa3fba", "Input" -> HoldForm[
            Apply[And, {
              FreeQ[
               FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[
@@ -2667,21 +3588,21 @@ endogenousVars],
              FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[
                EndogenousEq`t, EndogenousEq`m] === 
               FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[
-               foo`t, EndogenousEq`m]]}]], "ExpectedOutput" -> HoldForm[True],
-          "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.8953628950463257`*^9, "AbsoluteTimeUsed" -> 
-         0.000035`1.6945830421822676, "CPUTimeUsed" -> 
-         0.000035999999999702936`, "MemoryUsed" -> 2864|>], 
-      403559067223699727 -> 
-      TestResultObject[<|
-        "TestKey" -> 403559067223699727, "TestID" -> 
-         "EndogenousEq_20230610-5I43IK", "TestFileName" -> 
+               foo`t, EndogenousEq`m]]}]], "ExpectedMessages" -> HoldForm[{}],
+          "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
+         "AbsoluteTimeUsed" -> 0.000032`1.6556649761518993, "CPUTimeUsed" -> 
+         0.000032000000000032, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 354301120216070796 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9033163400365043`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "1af78b4b-fb02-4245-a0c2-cda8d8e95535", "TestID" -> 
+         "EndogenousEq_20230910-Q8OJ3S", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "EvaluationID" -> 
+         "b825b6fa-8ad0-4673-af1a-8d7208744c18", "Input" -> HoldForm[
            Apply[And, {
              FreeQ[
               FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[
@@ -2701,21 +3622,21 @@ endogenousVars],
              FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[
                EndogenousEq`t, EndogenousEq`m] === 
               FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondyieldeq[
-               EndogenousEq`t, foo`m]]}]], "ExpectedOutput" -> HoldForm[True],
-          "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895362895046534*^9, "AbsoluteTimeUsed" -> 
-         0.00003`1.6276362525516561, "CPUTimeUsed" -> 
-         0.000031000000000336314`, "MemoryUsed" -> 2856|>], 
-      5254775196504701272 -> 
-      TestResultObject[<|
-        "TestKey" -> 5254775196504701272, "TestID" -> 
-         "EndogenousEq_20230610-X1EP37", "TestFileName" -> 
+               EndogenousEq`t, foo`m]]}]], "ExpectedMessages" -> HoldForm[{}],
+          "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
+         "AbsoluteTimeUsed" -> 0.000028`1.5976730291742125, "CPUTimeUsed" -> 
+         0.00002799999999991698, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 8323956669791681686 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.903316340036756*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "897ba9e1-ec9f-4d3d-9a6a-c83f59c8951f", "TestID" -> 
+         "EndogenousEq_20230910-M67H2E", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "SameTest" -> 
-         SameQ, "SameMessages" -> Testing`MessageMatchQ, "MemoryConstraint" -> 
-         DirectedInfinity[1], "TimeConstraint" -> DirectedInfinity[1], 
-         "Outcome" -> "Success", "Input" -> HoldForm[
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "EvaluationID" -> 
+         "55e6d37d-0cb3-4404-9a89-e45724f43367", "Input" -> HoldForm[
            Apply[
            And, {FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondfweq[
               EndogenousEq`t, EndogenousEq`m] === 
@@ -2732,25 +3653,198 @@ endogenousVars],
              FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondexcreteq[
               EndogenousEq`t, EndogenousEq`m] === 
              FernandoDuarte`LongRunRisk`Model`EndogenousEq`bondexcreteq[
-              EndogenousEq`t, EndogenousEq`m, 1]}]], "ExpectedOutput" -> 
-         HoldForm[True], "ActualOutput" -> HoldForm[True], "ExpectedMessages" -> 
-         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
-         3.895362895046743*^9, "AbsoluteTimeUsed" -> 
-         0.000038`1.7302985944487996, "CPUTimeUsed" -> 0.00003899999999967818,
-          "MemoryUsed" -> 2856|>]|>, 
-    "TestsSucceededKeys" -> {5525804390918074521, 7337864540533437790, 
-     2749804378547808574, 3969601895569927099, 3169116347706549548, 
-     7797652481439182622, 1938121943548207788, 403559067223699727, 
-     5254775196504701272}, "TestsFailedWrongResultsKeys" -> {}, 
-    "TestsFailedWithMessagesKeys" -> {}, "TestsFailedWithErrorsKeys" -> {}|>],
-  
+              EndogenousEq`t, EndogenousEq`m, 1]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000033`1.669028937709881, "CPUTimeUsed" -> 0.00003299999999972769, 
+         "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 1772640886376932343 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9033163400372243`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "99454d4d-5792-4559-8316-b0e1b11b0fe0", "TestID" -> 
+         "EndogenousEq_20230910-DE837N", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt", "EvaluationID" -> 
+         "9cd384e4-8eda-4ace-86ba-e9b2b3fa0102", "Input" -> 
+         HoldForm[
+          EndogenousEq`coefwc = 
+            FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc; 
+           EndogenousEq`coefpd = 
+            FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd; 
+           EndogenousEq`coefb = 
+            FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb; 
+           EndogenousEq`coefnb = 
+            FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb; 
+           EndogenousEq`hpd = Head[EndogenousEq`coefpd]; 
+           EndogenousEq`hb = Head[EndogenousEq`coefb]; 
+           EndogenousEq`hnb = Head[EndogenousEq`coefnb]; 
+           EndogenousEq`ch = Flatten[{{
+                EndogenousEq`coefwc[0], 
+                N[
+                 EndogenousEq`coefwc[0]], 
+                N[
+                 EndogenousEq`coefwc[0]], 
+                EndogenousEq`coefwc[0.], 
+                N[
+                 EndogenousEq`coefwc[0.]], 
+                N[
+                 EndogenousEq`coefwc[0.]]}, 
+               Table[{
+                 EndogenousEq`c[0], 
+                 N[
+                  EndogenousEq`c[0]], 
+                 N[
+                  EndogenousEq`c[0]], 
+                 EndogenousEq`c[0.], 
+                 N[
+                  EndogenousEq`c[0.]], 
+                 N[
+                  EndogenousEq`c[0.]]}, {
+                EndogenousEq`c, {
+                 EndogenousEq`coefpd, EndogenousEq`coefb, 
+                  EndogenousEq`coefnb}}], 
+               Table[
+                ReplaceAll[
+                 ReplaceAll[{
+                   EndogenousEq`h[1][0], 
+                   N[
+                    EndogenousEq`h[1][0]], 
+                   N[
+                    EndogenousEq`h[1][0]], 
+                   EndogenousEq`h[1][0.], 
+                   N[
+                    EndogenousEq`h[1][0.]], 
+                   N[
+                    EndogenousEq`h[1][0.]], 
+                   EndogenousEq`h[0][1], 
+                   N[
+                    EndogenousEq`h[0][1]], 
+                   N[
+                    EndogenousEq`h[0][1]], 
+                   EndogenousEq`h[0.][1], 
+                   N[
+                    EndogenousEq`h[0.][1]], 
+                   N[
+                    EndogenousEq`h[0.][1]], 
+                   EndogenousEq`h[1.][0], 
+                   N[
+                    EndogenousEq`h[1.][0]], 
+                   N[
+                    EndogenousEq`h[1.][0]], 
+                   EndogenousEq`h[1.][0.], 
+                   N[
+                    EndogenousEq`h[1.][0.]], 
+                   N[
+                    EndogenousEq`h[1.][0.]], 
+                   EndogenousEq`h[0][1.], 
+                   N[
+                    EndogenousEq`h[0][1.]], 
+                   N[
+                    EndogenousEq`h[0]][1.], 
+                   EndogenousEq`h[0.][1.], 
+                   N[
+                    EndogenousEq`h[0.][1.]], 
+                   N[
+                    EndogenousEq`h[0.][1.]], 
+                   EndogenousEq`h[0][EndogenousEq`j], 
+                   N[
+                    EndogenousEq`h[0][EndogenousEq`j]], 
+                   N[
+                    EndogenousEq`h[0][EndogenousEq`j]], 
+                   EndogenousEq`h[0.][EndogenousEq`j], 
+                   N[
+                    EndogenousEq`h[0.][EndogenousEq`j]], 
+                   N[
+                    EndogenousEq`h[0.][EndogenousEq`j]], 
+                   EndogenousEq`h[EndogenousEq`j][0], 
+                   N[
+                    EndogenousEq`h[EndogenousEq`j][0]], 
+                   N[
+                    EndogenousEq`h[EndogenousEq`j][0]], 
+                   EndogenousEq`h[EndogenousEq`j][0.], 
+                   N[
+                    EndogenousEq`h[EndogenousEq`j][0.]], 
+                   N[
+                    EndogenousEq`h[EndogenousEq`j][0.]], 
+                   EndogenousEq`h[0][EndogenousEq`jj], 
+                   N[
+                    EndogenousEq`h[0][EndogenousEq`jj]], 
+                   N[
+                    EndogenousEq`h[0][EndogenousEq`jj]], 
+                   EndogenousEq`h[0.][EndogenousEq`jj], 
+                   N[
+                    EndogenousEq`h[0.][EndogenousEq`jj]], 
+                   N[
+                    EndogenousEq`h[0.][EndogenousEq`jj]], 
+                   EndogenousEq`h[EndogenousEq`jj][0], 
+                   N[
+                    EndogenousEq`h[EndogenousEq`jj][0]], 
+                   N[
+                    EndogenousEq`h[EndogenousEq`jj][0]], 
+                   EndogenousEq`h[EndogenousEq`jj][0.], 
+                   N[
+                    EndogenousEq`h[EndogenousEq`jj][0.]], 
+                   N[
+                    EndogenousEq`h[EndogenousEq`jj][0.]], 
+                   EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk], 
+                   N[
+                    EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk]], 
+                   N[
+                    EndogenousEq`h[EndogenousEq`jj][EndogenousEq`kk]], 
+                   N[
+                    Table[{
+                    EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq], 
+                    N[
+                    EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq]], 
+                    N[
+                    EndogenousEq`h[EndogenousEq`ii][EndogenousEq`qq]]}, {
+                    EndogenousEq`ii, 0, 1}, {EndogenousEq`qq, 2, 3}]]}, 
+                  EndogenousEq`jj -> 2], EndogenousEq`kk -> 3], {
+                EndogenousEq`h, {
+                  Head[EndogenousEq`coefpd], 
+                  Head[EndogenousEq`coefb], 
+                  Head[EndogenousEq`coefnb]}}]}]; Apply[And, 
+             Flatten[{{
+                Map[Not, 
+                 Map[InexactNumberQ, 
+                  Select[
+                   Flatten[
+                    Cases[EndogenousEq`ch, Pattern[EndogenousEq`x, 
+                    Blank[]][
+                    Pattern[EndogenousEq`i, 
+                    Blank[]]] :> EndogenousEq`i]], NumberQ]]], 
+                Map[Not, 
+                 Map[InexactNumberQ, 
+                  Select[
+                   Flatten[
+                    Cases[EndogenousEq`ch, Pattern[EndogenousEq`x, 
+                    Blank[]][
+                    Pattern[EndogenousEq`i, 
+                    Blank[]]][
+                    Pattern[EndogenousEq`j, 
+                    Blank[]]] :> {EndogenousEq`i, EndogenousEq`j}]], 
+                   NumberQ]]]}}]]], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
+         "AbsoluteTimeUsed" -> 0.001261`3.2512300844050754, "CPUTimeUsed" -> 
+         0.0012620000000000964`, "MemoryUsed" -> 7072, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>]|>, 
+    "FailureResults" -> <||>, "TestsNotEvaluatedKeys" -> {}, 
+    "TestsFailedWrongResultsKeys" -> {}, "TestsFailedWithMessagesKeys" -> {}, 
+    "TestsFailedWithErrorsKeys" -> {}, 
+    "TestsSucceededKeys" -> {8934163693088203270, 3945932779181891980, 
+     6770291444593940324, 3556370086550334297, 2558028499725926819, 
+     6092941968557088043, 5485988182863809371, 354301120216070796, 
+     8323956669791681686, 1772640886376932343}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellChangeTimes->{3.895362895229072*^9},
- CellLabel->"Out[33]=",ExpressionUUID->"e9a8ffe7-acd9-47ac-ab6b-d28f8ddcb837"]
+ CellChangeTimes->{3.903316340211533*^9},
+ CellLabel->"Out[34]=",ExpressionUUID->"a6d374da-0098-42ea-9a98-ada1a8e6a49b"]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2758,6 +3852,8 @@ Cell["Interactive Tests", "Subsection",
  CellChangeTimes->{{3.889905622471089*^9, 
   3.889905629759961*^9}},ExpressionUUID->"110fa690-a939-4013-acf2-\
 a07d9942e533"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{"packageFileName", "=", 
@@ -2782,7 +3878,16 @@ Cell[BoxData[{
    3.889998753242611*^9, 3.8899987613556004`*^9}, 3.890825576987958*^9, {
    3.890987450098063*^9, 3.8909874502616673`*^9}, {3.891249043174148*^9, 
    3.891249043429118*^9}},
- CellLabel->"In[33]:=",ExpressionUUID->"c6962841-0262-40ae-930b-03c2d84ad007"],
+ CellLabel->"In[6]:=",ExpressionUUID->"c6962841-0262-40ae-930b-03c2d84ad007"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Kernel/Model/EndogenousEq.wl\"\>"], "Output",\
+
+ CellChangeTimes->{3.903314606921711*^9, 3.9033151465660067`*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"e78cef4f-ab13-4ec2-aad1-20c417118f94"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -2833,7 +3938,14 @@ exogenousVars"}], ",",
  CellChangeTimes->{{3.893001201934902*^9, 3.893001214021667*^9}, {
   3.893001245798745*^9, 3.8930012743606873`*^9}, {3.893001352341578*^9, 
   3.893001386197197*^9}, {3.893001448430169*^9, 3.893001448726687*^9}},
- CellLabel->"In[35]:=",ExpressionUUID->"5539aadf-c938-4d1c-8d1c-b42171733c46"],
+ CellLabel->"In[8]:=",ExpressionUUID->"5539aadf-c938-4d1c-8d1c-b42171733c46"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.9033146070564957`*^9, 3.903315146752269*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"67325c42-ee4b-4312-bd40-0092c37e03c2"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -2874,7 +3986,14 @@ Cell[BoxData[
                 "]"}], "&"}], ")"}]}], "[", "__", "]"}], "[", "__", "]"}], ":>",
            "var"}], ",", "Infinity"}], "]"}]}], ")"}]}], ")"}]}]}]], "Input",
  CellChangeTimes->{3.893001499960679*^9},
- CellLabel->"In[36]:=",ExpressionUUID->"1d9fb645-56a4-4839-914f-c3371c7acad4"],
+ CellLabel->"In[9]:=",ExpressionUUID->"1d9fb645-56a4-4839-914f-c3371c7acad4"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.903314607059766*^9, 3.903315146755151*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"89823f1a-3d87-4564-a741-748f862e7168"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -2915,7 +4034,14 @@ Cell[BoxData[
            ":>", "var"}], ",", "Infinity"}], "]"}]}], ")"}]}], 
     ")"}]}]}]], "Input",
  CellChangeTimes->{3.893001501399847*^9},
- CellLabel->"In[37]:=",ExpressionUUID->"71d99c6c-939f-469f-9c44-33510ae053ee"],
+ CellLabel->"In[10]:=",ExpressionUUID->"71d99c6c-939f-469f-9c44-33510ae053ee"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.9033146070625563`*^9, 3.903315146757926*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"3af44599-99ea-4f61-a01e-a6a8cb5b23c7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -2965,7 +4091,14 @@ Cell[BoxData[
  CellChangeTimes->{{3.89300111387222*^9, 3.8930011727459707`*^9}, {
   3.893001247830225*^9, 3.893001299678648*^9}, {3.893001353751255*^9, 
   3.8930015072417727`*^9}},
- CellLabel->"In[38]:=",ExpressionUUID->"83910cd7-b1dd-4239-adc5-d7db927ecbbb"],
+ CellLabel->"In[11]:=",ExpressionUUID->"83910cd7-b1dd-4239-adc5-d7db927ecbbb"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.903314607071836*^9, 3.9033151467668247`*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"ba1f2c6e-e3bc-4087-9372-94fa71f9500b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -3017,8 +4150,15 @@ Cell[BoxData[
  CellChangeTimes->{{3.891249141704917*^9, 3.89124916402168*^9}, {
    3.891249445870871*^9, 3.8912494720282707`*^9}, {3.891250866902298*^9, 
    3.891250867076214*^9}, {3.8930015258912563`*^9, 3.8930016288464193`*^9}, 
-   3.893001996652837*^9},ExpressionUUID->"d3873290-92c0-4c12-b128-\
-d49f172b57f5"],
+   3.893001996652837*^9},
+ CellLabel->"In[12]:=",ExpressionUUID->"d3873290-92c0-4c12-b128-d49f172b57f5"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.90331460708405*^9, 3.9033151467768097`*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"5bf06920-1047-49c1-a53a-abab3ec322c5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -3062,8 +4202,15 @@ Cell[BoxData[
  CellChangeTimes->{{3.891249141704917*^9, 3.89124916402168*^9}, {
    3.891249445870871*^9, 3.8912494720282707`*^9}, {3.891250866902298*^9, 
    3.891250867076214*^9}, {3.8930015258912563`*^9, 3.8930016288464193`*^9}, 
-   3.893001996652837*^9},ExpressionUUID->"facd0866-8192-407c-8843-\
-14fd02288176"],
+   3.893001996652837*^9},
+ CellLabel->"In[13]:=",ExpressionUUID->"facd0866-8192-407c-8843-14fd02288176"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.903314607093121*^9, 3.9033151467806177`*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"8dfabef2-b782-4862-bf44-634468f261c2"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -3100,11 +4247,363 @@ Cell[BoxData[
      "}"}]}], "\[IndentingNewLine]"}]}]], "Input",
  CellChangeTimes->{{3.889976523114066*^9, 3.889976540444695*^9}, {
   3.893001639326522*^9, 3.893001727628183*^9}},
- CellLabel->"In[41]:=",ExpressionUUID->"3389fbf0-1cb9-4756-9b1e-85278e1c9290"]
+ CellLabel->"In[14]:=",ExpressionUUID->"3389fbf0-1cb9-4756-9b1e-85278e1c9290"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.903314607096327*^9, 3.903315146789258*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"786612a4-9fac-4ce5-aa99-8acfbd10a7f1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "indices", " ", "of", " ", "coefficients", " ", "are", " ", "exact", " ", 
+    "integers"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+    "coefwc", "=", 
+     "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "coefpd", "=", 
+     "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "coefb", "=", 
+     "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "coefnb", "=", 
+     "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"hpd", "=", 
+     RowBox[{"Head", "@", "coefpd"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"hb", "=", 
+     RowBox[{"Head", "@", "coefb"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"hnb", "=", 
+     RowBox[{"Head", "@", "coefnb"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ch", "=", 
+     RowBox[{"Flatten", "@", "\[IndentingNewLine]", 
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"coefwc", "[", "0", "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"N", "@", 
+           RowBox[{"coefwc", "[", "0", "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"N", "[", 
+           RowBox[{"coefwc", "[", "0", "]"}], "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"coefwc", "[", "0.", "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"N", "@", 
+           RowBox[{"coefwc", "[", "0.", "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"N", "[", 
+           RowBox[{"coefwc", "[", "0.", "]"}], "]"}]}], "\[IndentingNewLine]",
+          "}"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"Table", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"c", "[", "0", "]"}], ",", "\[IndentingNewLine]", 
+            RowBox[{"N", "@", 
+             RowBox[{"c", "[", "0", "]"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{"N", "[", 
+             RowBox[{"c", "[", "0", "]"}], "]"}], ",", "\[IndentingNewLine]", 
+            
+            RowBox[{"c", "[", "0.", "]"}], ",", "\[IndentingNewLine]", 
+            RowBox[{"N", "@", 
+             RowBox[{"c", "[", "0.", "]"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{"N", "[", 
+             RowBox[{"c", "[", "0.", "]"}], "]"}]}], "}"}], 
+          "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"c", ",", 
+            RowBox[{"{", 
+             RowBox[{"coefpd", ",", "coefb", ",", "coefnb"}], "}"}]}], 
+           "}"}]}], "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Table", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"h", "[", "1", "]"}], "[", "0", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "1", "]"}], "[", "0", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "1", "]"}], "[", "0", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "1", "]"}], "[", "0.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "1", "]"}], "[", "0.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "1", "]"}], "[", "0.", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0", "]"}], "[", "1", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "1", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "1", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0.", "]"}], "[", "1", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "1", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "1", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "1.", "]"}], "[", "0", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "1.", "]"}], "[", "0", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "1.", "]"}], "[", "0", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "1.", "]"}], "[", "0.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "1.", "]"}], "[", "0.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "1.", "]"}], "[", "0.", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0", "]"}], "[", "1.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "1.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"N", "[", 
+                RowBox[{"h", "[", "0", "]"}], "]"}], "[", "1.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0.", "]"}], "[", "1.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "1.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "1.", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0", "]"}], "[", "j", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "j", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "j", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0.", "]"}], "[", "j", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "j", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "j", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "j", "]"}], "[", "0", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "j", "]"}], "[", "0", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "j", "]"}], "[", "0", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "j", "]"}], "[", "0.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "j", "]"}], "[", "0.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "j", "]"}], "[", "0.", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0", "]"}], "[", "jj", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "jj", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0", "]"}], "[", "jj", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "0.", "]"}], "[", "jj", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "jj", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "0.", "]"}], "[", "jj", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "jj", "]"}], "[", "0", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "0", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "0", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "jj", "]"}], "[", "0.", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "0.", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "0.", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"h", "[", "jj", "]"}], "[", "kk", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "kk", "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"N", "[", 
+               RowBox[{
+                RowBox[{"h", "[", "jj", "]"}], "[", "kk", "]"}], "]"}], ",", 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{"N", "@", 
+               RowBox[{"Table", "[", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"h", "[", "ii", "]"}], "[", "qq", "]"}], ",", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"N", "@", 
+                    RowBox[{
+                    RowBox[{"h", "[", "ii", "]"}], "[", "qq", "]"}]}], ",", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"N", "[", 
+                    RowBox[{
+                    RowBox[{"h", "[", "ii", "]"}], "[", "qq", "]"}], "]"}]}], 
+                  "}"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"{", 
+                  RowBox[{"ii", ",", "0", ",", "1"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"qq", ",", "2", ",", "3"}], "}"}]}], "]"}]}]}], 
+             "\[IndentingNewLine]", "}"}], " ", "/.", 
+            RowBox[{"jj", "->", "2"}]}], "/.", 
+           RowBox[{"kk", "->", "3"}]}], "\[IndentingNewLine]", ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"h", ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Head", "@", "coefpd"}], ",", 
+              RowBox[{"Head", "@", "coefb"}], ",", 
+              RowBox[{"Head", "@", "coefnb"}]}], "}"}]}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "}"}]}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"And", "@@", 
+    RowBox[{"Flatten", "@", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Not", "/@", 
+         RowBox[{"InexactNumberQ", "/@", 
+          RowBox[{"Select", "[", 
+           RowBox[{
+            RowBox[{"Flatten", "@", 
+             RowBox[{"Cases", "[", 
+              RowBox[{"ch", ",", 
+               RowBox[{
+                RowBox[{"x_", "[", "i_", "]"}], ":>", "i"}]}], "]"}]}], ",", 
+            "NumberQ"}], "]"}]}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Not", "/@", 
+         RowBox[{"InexactNumberQ", "/@", 
+          RowBox[{"Select", "[", 
+           RowBox[{
+            RowBox[{"Flatten", "@", 
+             RowBox[{"Cases", "[", 
+              RowBox[{"ch", ",", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"x_", "[", "i_", "]"}], "[", "j_", "]"}], ":>", 
+                RowBox[{"{", 
+                 RowBox[{"i", ",", "j"}], "}"}]}]}], "]"}]}], ",", 
+            "NumberQ"}], "]"}]}]}]}], "}"}], "\[IndentingNewLine]", 
+      "}"}]}]}]}]}]], "Input",
+ CellChangeTimes->{{3.903284197964473*^9, 3.903284451708227*^9}, {
+  3.903284489773975*^9, 3.903284495622746*^9}, {3.9032845325526657`*^9, 
+  3.903284577032341*^9}, {3.903284611773882*^9, 3.903284627874106*^9}, {
+  3.903315169597864*^9, 3.903315184051227*^9}, {3.903315803874839*^9, 
+  3.903315809654161*^9}, {3.903316271248337*^9, 3.903316271649033*^9}},
+ CellLabel->"In[80]:=",ExpressionUUID->"161541ad-dc6b-4c9c-b7dc-bdbe0754621e"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.903316278378483*^9},
+ CellLabel->"Out[88]=",ExpressionUUID->"d33f3f1a-204d-4ee1-b0e2-54509ead49de"]
 }, Open  ]]
+}, Closed]]
 },
 WindowSize->{1252, 927},
-WindowMargins->{{276, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, -1517}, {-43, Automatic}},
 WindowStatusArea->"",
 DockedCells->{
   Cell[
@@ -3944,7 +5443,7 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
    "CodeAnalysisDockedCell"]},
 TaggingRules-><|"TryRealOnly" -> False|>,
 Magnification:>1.25 Inherited,
-FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
+FrontEndVersion->"13.3 for Mac OS X ARM (64-bit) (July 24, 2023)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"66994810-29cf-44d1-973e-80e9f6a0fee7"
 ]
@@ -3966,112 +5465,148 @@ Cell[2725, 71, 209, 4, 67, "Subsection",ExpressionUUID->"5216b0c6-0b30-4607-beca
 Cell[2937, 77, 341, 9, 37, "Input",ExpressionUUID->"de12a740-d7f8-44f2-9d77-de8939589dcd"],
 Cell[CellGroupData[{
 Cell[3303, 90, 415, 9, 64, "Input",ExpressionUUID->"478c2735-a41a-4934-8062-93434d83aff8"],
-Cell[3721, 101, 205, 3, 42, "Output",ExpressionUUID->"ad77484b-2b53-4769-b11a-784fd32a3392"]
+Cell[3721, 101, 202, 3, 42, "Output",ExpressionUUID->"92d36978-893f-4d16-8ca6-4d72a4a63a94"]
 }, Open  ]],
-Cell[3941, 107, 492, 10, 90, "Input",ExpressionUUID->"3940f713-c887-49c0-8088-70b0b47a4c35"],
-Cell[4436, 119, 632, 13, 96, "Input",ExpressionUUID->"b7d248a9-fa9b-47dd-9dfc-efe31b2c0ada"],
+Cell[3938, 107, 492, 10, 90, "Input",ExpressionUUID->"3940f713-c887-49c0-8088-70b0b47a4c35"],
+Cell[4433, 119, 632, 13, 90, "Input",ExpressionUUID->"b7d248a9-fa9b-47dd-9dfc-efe31b2c0ada"],
 Cell[CellGroupData[{
-Cell[5093, 136, 198, 3, 37, "Input",ExpressionUUID->"83a2cde8-33d4-441a-9a57-a82ece671585"],
-Cell[5294, 141, 171, 2, 42, "Output",ExpressionUUID->"93eb3e18-c3fc-4f5a-89f0-820e08522221"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[5502, 148, 531, 10, 90, "Input",ExpressionUUID->"6011cbec-7521-493c-b009-40fef28d9959"],
-Cell[CellGroupData[{
-Cell[6058, 162, 379, 9, 29, "Print",ExpressionUUID->"3e9890a6-bfe0-4cd2-bb19-a0d70e7bceff"],
-Cell[6440, 173, 271, 5, 29, "Print",ExpressionUUID->"3a386f78-8895-403a-ac50-577c37f6d933"]
-}, Open  ]],
-Cell[6726, 181, 4892, 89, 42, "Output",ExpressionUUID->"0aefbac8-0a1d-4ddb-9f57-422bf7e27bf6"]
+Cell[5090, 136, 198, 3, 37, "Input",ExpressionUUID->"83a2cde8-33d4-441a-9a57-a82ece671585"],
+Cell[5291, 141, 168, 2, 42, "Output",ExpressionUUID->"5aa3b369-6999-44b4-bf4a-794b7680f5c4"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[11655, 275, 762, 16, 116, "Input",ExpressionUUID->"e2633f79-ec85-4da8-b3f8-1dfe9c81f85e"],
+Cell[5496, 148, 531, 10, 90, "Input",ExpressionUUID->"6011cbec-7521-493c-b009-40fef28d9959"],
 Cell[CellGroupData[{
-Cell[12442, 295, 379, 9, 29, "Print",ExpressionUUID->"7bf8d1b6-b992-45f9-b99b-0d9299ce7a3c"],
-Cell[12824, 306, 269, 5, 29, "Print",ExpressionUUID->"5b641ff2-eb35-47ea-9480-c8718e65d390"]
+Cell[6052, 162, 379, 9, 29, "Print",ExpressionUUID->"ca4fc767-c9e8-437c-a4dd-8df2486127b5"],
+Cell[6434, 173, 271, 5, 29, "Print",ExpressionUUID->"b0f39d53-15a5-4948-a25b-c1653de9e137"]
 }, Open  ]],
-Cell[13108, 314, 4932, 90, 42, "Output",ExpressionUUID->"a2ff15ca-3f74-41d2-8feb-a11345905591"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[18077, 409, 2110, 52, 194, "Input",ExpressionUUID->"4c83d4e9-dd51-4118-b273-f9754fdb598c"],
-Cell[CellGroupData[{
-Cell[20212, 465, 379, 9, 29, "Print",ExpressionUUID->"72e76535-0a9b-477c-b0cd-ff288453745f"],
-Cell[20594, 476, 268, 5, 29, "Print",ExpressionUUID->"96e14b56-5a73-4c1e-b821-6a03044a0f44"]
-}, Open  ]],
-Cell[20877, 484, 7607, 136, 42, "Output",ExpressionUUID->"f9d621ea-c7ff-4766-96f3-e278f0a48b78"]
+Cell[6720, 181, 4926, 89, 42, "Output",ExpressionUUID->"90984f59-272c-4a99-bd0e-6fb3c2db31d4"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[28521, 625, 1656, 43, 168, "Input",ExpressionUUID->"bd50b66f-1a8f-4c7a-a4e2-192cc425c462"],
+Cell[11683, 275, 762, 16, 116, "Input",ExpressionUUID->"e2633f79-ec85-4da8-b3f8-1dfe9c81f85e"],
 Cell[CellGroupData[{
-Cell[30202, 672, 377, 9, 29, "Print",ExpressionUUID->"2a3127d8-6db9-4559-a98a-eb8d4adbc1f6"],
-Cell[30582, 683, 271, 5, 29, "Print",ExpressionUUID->"d0f4f20d-3e42-4a30-aa4d-0358ea2d52c2"]
+Cell[12470, 295, 377, 9, 29, "Print",ExpressionUUID->"6bbb905f-6dd6-4dbe-acf2-5ab251d0cee8"],
+Cell[12850, 306, 269, 5, 29, "Print",ExpressionUUID->"94c8b68e-9941-4f7c-b052-fd2d23f4ec95"]
 }, Open  ]],
-Cell[30868, 691, 7575, 135, 42, "Output",ExpressionUUID->"7a9de8fe-b0eb-4fa4-b435-361dc635ee37"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[38480, 831, 1628, 41, 194, "Input",ExpressionUUID->"5178a463-7413-4f48-b3eb-a5e6bdf2b8a5"],
-Cell[CellGroupData[{
-Cell[40133, 876, 377, 9, 29, "Print",ExpressionUUID->"5cb79ed0-c525-4761-a539-5ad32ca8cafb"],
-Cell[40513, 887, 269, 5, 29, "Print",ExpressionUUID->"1a089435-e030-47f5-8f05-4c956d877214"]
-}, Open  ]],
-Cell[40797, 895, 8285, 145, 42, "Output",ExpressionUUID->"8cf8fa8c-0a13-40b0-9a05-f4c4e8c212bb"]
+Cell[13134, 314, 4932, 90, 42, "Output",ExpressionUUID->"5bb3210b-40a0-4c07-b7a4-4839f0fae586"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[49119, 1045, 2078, 53, 168, "Input",ExpressionUUID->"7f4f591d-7e46-4d39-a083-282c80799487"],
+Cell[18103, 409, 2110, 52, 194, "Input",ExpressionUUID->"4c83d4e9-dd51-4118-b273-f9754fdb598c"],
 Cell[CellGroupData[{
-Cell[51222, 1102, 377, 9, 29, "Print",ExpressionUUID->"548cf899-dae9-440e-8320-852d89e203f5"],
-Cell[51602, 1113, 269, 5, 29, "Print",ExpressionUUID->"bd7992f8-4a05-4df2-bbdd-664e4bce2e60"]
+Cell[20238, 465, 377, 9, 29, "Print",ExpressionUUID->"78686441-112c-453e-9210-db69535db7f6"],
+Cell[20618, 476, 271, 5, 29, "Print",ExpressionUUID->"89a77f4f-9a2b-4499-b34b-12caab909bff"]
 }, Open  ]],
-Cell[51886, 1121, 9605, 167, 42, "Output",ExpressionUUID->"ef4c8ef8-2ea7-4437-acbd-1a6454e23d9a"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[61528, 1293, 2269, 56, 298, "Input",ExpressionUUID->"d11ae37b-6b96-438d-bf01-44fcd5230180"],
-Cell[CellGroupData[{
-Cell[63822, 1353, 379, 9, 29, "Print",ExpressionUUID->"55e9fc54-a178-445b-8a7f-168affde1767"],
-Cell[64204, 1364, 269, 5, 29, "Print",ExpressionUUID->"0ffac905-e21e-476f-9d26-38bca9675acf"]
-}, Open  ]],
-Cell[64488, 1372, 11264, 201, 42, "Output",ExpressionUUID->"caf67745-a3b5-4c87-abef-a6c3bbb255aa"]
+Cell[20904, 484, 7609, 136, 42, "Output",ExpressionUUID->"b89f33f4-9ea3-4819-8256-f94eb2214d9b"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[75789, 1578, 1977, 48, 272, "Input",ExpressionUUID->"6708c186-9a69-4536-af69-fcc1b2ce3305"],
+Cell[28550, 625, 1656, 43, 168, "Input",ExpressionUUID->"bd50b66f-1a8f-4c7a-a4e2-192cc425c462"],
 Cell[CellGroupData[{
-Cell[77791, 1630, 379, 9, 29, "Print",ExpressionUUID->"3a2b3769-7bee-4cd2-845e-3e0bbb8e86e1"],
-Cell[78173, 1641, 271, 5, 29, "Print",ExpressionUUID->"dfce1d7b-602a-40d2-bc11-04b4842b3520"]
+Cell[30231, 672, 377, 9, 29, "Print",ExpressionUUID->"48cc8779-33f7-443a-a723-36b475b3fcfd"],
+Cell[30611, 683, 269, 5, 29, "Print",ExpressionUUID->"8cecc514-b46f-499e-bc1d-066eb0798913"]
 }, Open  ]],
-Cell[78459, 1649, 11551, 205, 42, "Output",ExpressionUUID->"549f1986-a2f9-46cc-850b-e6a9fa8bc775"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[90047, 1859, 1712, 40, 272, "Input",ExpressionUUID->"b7a62ecb-32a1-45aa-8527-9ed71591fde8"],
-Cell[CellGroupData[{
-Cell[91784, 1903, 379, 9, 29, "Print",ExpressionUUID->"105d124b-6a4d-4257-bc87-a96fbbfba114"],
-Cell[92166, 1914, 269, 5, 29, "Print",ExpressionUUID->"5294798b-e961-4e89-b209-e8fca0c7c091"]
-}, Open  ]],
-Cell[92450, 1922, 12942, 228, 42, "Output",ExpressionUUID->"336489b1-2ab9-45ea-b131-9321d612f91f"]
+Cell[30895, 691, 7573, 135, 42, "Output",ExpressionUUID->"89cf1ad6-3a6c-4edf-bb57-37bd5b0239cb"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[105429, 2155, 130, 2, 37, "Input",ExpressionUUID->"3eb99ea3-bc8c-4524-b27c-2528a0af68a2"],
-Cell[105562, 2159, 168, 2, 42, "Output",ExpressionUUID->"dbdb7e18-6223-483d-bbec-72abb3badde3"]
+Cell[38505, 831, 1628, 41, 194, "Input",ExpressionUUID->"5178a463-7413-4f48-b3eb-a5e6bdf2b8a5"],
+Cell[CellGroupData[{
+Cell[40158, 876, 379, 9, 29, "Print",ExpressionUUID->"de634ecf-52e6-432e-85ca-c1bcdb4521cd"],
+Cell[40540, 887, 268, 5, 29, "Print",ExpressionUUID->"0d97a8cb-4817-4101-965a-1fabfb200c45"]
+}, Open  ]],
+Cell[40823, 895, 8285, 145, 42, "Output",ExpressionUUID->"cbc00947-c357-4867-b43c-46cddd2b2dce"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[105767, 2166, 5070, 118, 1208, "Input",ExpressionUUID->"a987c799-a69e-45bc-a9f6-b0b6f0e903c9"],
-Cell[110840, 2286, 397, 8, 69, "Output",ExpressionUUID->"460e61f2-f606-4bd8-917a-5844cb3c6161"],
-Cell[111240, 2296, 153, 2, 42, "Output",ExpressionUUID->"528309df-b5aa-42a0-8cd6-516999ff2c5b"],
-Cell[111396, 2300, 397, 8, 69, "Output",ExpressionUUID->"63b9db32-ac30-4023-bcd5-f379c0e6d46b"]
+Cell[49145, 1045, 2078, 53, 168, "Input",ExpressionUUID->"7f4f591d-7e46-4d39-a083-282c80799487"],
+Cell[CellGroupData[{
+Cell[51248, 1102, 377, 9, 29, "Print",ExpressionUUID->"89d8bf4c-3e0a-4e86-a1b5-fb7dd87a7d06"],
+Cell[51628, 1113, 269, 5, 29, "Print",ExpressionUUID->"e7ef796e-15e0-4d99-a9f6-8beb25dd0998"]
+}, Open  ]],
+Cell[51912, 1121, 9605, 167, 42, "Output",ExpressionUUID->"5705e9f7-66c2-449a-b766-ccbd2c7d57f2"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[111830, 2313, 177, 3, 37, "Input",ExpressionUUID->"c23f102e-032c-466b-baef-594a42a2c443"],
-Cell[112010, 2318, 21686, 432, 96, "Output",ExpressionUUID->"e9a8ffe7-acd9-47ac-ab6b-d28f8ddcb837"]
+Cell[61554, 1293, 2269, 56, 298, "Input",ExpressionUUID->"d11ae37b-6b96-438d-bf01-44fcd5230180"],
+Cell[CellGroupData[{
+Cell[63848, 1353, 377, 9, 29, "Print",ExpressionUUID->"97c01cc7-76c9-4b14-a528-259dff482a70"],
+Cell[64228, 1364, 269, 5, 29, "Print",ExpressionUUID->"7d2452f3-2609-4da1-bb9a-c30e5f5e2e44"]
+}, Open  ]],
+Cell[64512, 1372, 11266, 201, 42, "Output",ExpressionUUID->"e93a1cf7-905b-4986-8db5-126d687b3aec"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[75815, 1578, 1977, 48, 272, "Input",ExpressionUUID->"6708c186-9a69-4536-af69-fcc1b2ce3305"],
+Cell[CellGroupData[{
+Cell[77817, 1630, 377, 9, 29, "Print",ExpressionUUID->"a88dc110-4453-4e29-a80d-88217edb582f"],
+Cell[78197, 1641, 269, 5, 29, "Print",ExpressionUUID->"d65ddddb-e6f1-4972-b73d-dc2908d1a3c2"]
+}, Open  ]],
+Cell[78481, 1649, 11552, 205, 42, "Output",ExpressionUUID->"4253afa0-3590-4c17-8e16-16305c7bee2a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[90070, 1859, 1712, 40, 272, "Input",ExpressionUUID->"b7a62ecb-32a1-45aa-8527-9ed71591fde8"],
+Cell[CellGroupData[{
+Cell[91807, 1903, 377, 9, 29, "Print",ExpressionUUID->"dc00db20-15c5-4f06-b6b4-23ba908f2d6a"],
+Cell[92187, 1914, 271, 5, 29, "Print",ExpressionUUID->"e2a23adb-56cf-441d-8001-bd6abe72d45f"]
+}, Open  ]],
+Cell[92473, 1922, 12939, 228, 42, "Output",ExpressionUUID->"42c94f25-d526-4465-9755-97e4a19be557"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[105449, 2155, 14732, 334, 2976, "Input",ExpressionUUID->"ab9c9e29-a255-43f3-a959-94510b509935"],
+Cell[CellGroupData[{
+Cell[120206, 2493, 377, 9, 29, "Print",ExpressionUUID->"9357ae7c-06d7-4f79-a958-a064720ea1df"],
+Cell[120586, 2504, 269, 5, 29, "Print",ExpressionUUID->"7e85d364-7223-4e55-9471-581b1d74fb0e"]
+}, Open  ]],
+Cell[120870, 2512, 30925, 564, 42, "Output",ExpressionUUID->"4f2e6141-a87d-487b-afda-336ffbbd4ed7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[151832, 3081, 130, 2, 37, "Input",ExpressionUUID->"3eb99ea3-bc8c-4524-b27c-2528a0af68a2"],
+Cell[151965, 3085, 169, 2, 42, "Output",ExpressionUUID->"1596750c-7d77-461c-ab32-280328e89d50"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[152171, 3092, 5070, 118, 1208, "Input",ExpressionUUID->"a987c799-a69e-45bc-a9f6-b0b6f0e903c9"],
+Cell[157244, 3212, 397, 8, 69, "Output",ExpressionUUID->"3d37d129-a7d4-4dcf-a804-537321e983de"],
+Cell[157644, 3222, 151, 2, 42, "Output",ExpressionUUID->"5c3cac88-d143-44e4-a338-ac09ce7a66de"],
+Cell[157798, 3226, 397, 8, 69, "Output",ExpressionUUID->"73a32d9a-5f47-4ed0-b2a6-596d81294e22"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[158232, 3239, 177, 3, 37, "Input",ExpressionUUID->"c23f102e-032c-466b-baef-594a42a2c443"],
+Cell[158412, 3244, 29279, 600, 76, "Output",ExpressionUUID->"a6d374da-0098-42ea-9a98-ada1a8e6a49b"]
 }, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[187740, 3850, 165, 3, 46, "Subsection",ExpressionUUID->"110fa690-a939-4013-acf2-a07d9942e533"],
+Cell[CellGroupData[{
+Cell[187930, 3857, 1032, 23, 116, "Input",ExpressionUUID->"c6962841-0262-40ae-930b-03c2d84ad007"],
+Cell[188965, 3882, 275, 4, 42, "Output",ExpressionUUID->"e78cef4f-ab13-4ec2-aad1-20c417118f94"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[133745, 2756, 165, 3, 67, "Subsection",ExpressionUUID->"110fa690-a939-4013-acf2-a07d9942e533"],
-Cell[133913, 2761, 1033, 23, 90, "Input",ExpressionUUID->"c6962841-0262-40ae-930b-03c2d84ad007"],
-Cell[134949, 2786, 1806, 49, 142, "Input",ExpressionUUID->"5539aadf-c938-4d1c-8d1c-b42171733c46"],
-Cell[136758, 2837, 1355, 39, 142, "Input",ExpressionUUID->"1d9fb645-56a4-4839-914f-c3371c7acad4"],
-Cell[138116, 2878, 1344, 39, 168, "Input",ExpressionUUID->"71d99c6c-939f-469f-9c44-33510ae053ee"],
-Cell[139463, 2919, 1719, 48, 116, "Input",ExpressionUUID->"83910cd7-b1dd-4239-adc5-d7db927ecbbb"],
-Cell[141185, 2969, 1899, 51, 246, "Input",ExpressionUUID->"d3873290-92c0-4c12-b128-d49f172b57f5"],
-Cell[143087, 3022, 1623, 43, 220, "Input",ExpressionUUID->"facd0866-8192-407c-8843-14fd02288176"],
-Cell[144713, 3067, 1383, 35, 246, "Input",ExpressionUUID->"3389fbf0-1cb9-4756-9b1e-85278e1c9290"]
+Cell[189277, 3891, 1805, 49, 142, "Input",ExpressionUUID->"5539aadf-c938-4d1c-8d1c-b42171733c46"],
+Cell[191085, 3942, 175, 2, 42, "Output",ExpressionUUID->"67325c42-ee4b-4312-bd40-0092c37e03c2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[191297, 3949, 1354, 39, 142, "Input",ExpressionUUID->"1d9fb645-56a4-4839-914f-c3371c7acad4"],
+Cell[192654, 3990, 173, 2, 42, "Output",ExpressionUUID->"89823f1a-3d87-4564-a741-748f862e7168"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[192864, 3997, 1344, 39, 168, "Input",ExpressionUUID->"71d99c6c-939f-469f-9c44-33510ae053ee"],
+Cell[194211, 4038, 176, 2, 42, "Output",ExpressionUUID->"3af44599-99ea-4f61-a01e-a6a8cb5b23c7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[194424, 4045, 1719, 48, 116, "Input",ExpressionUUID->"83910cd7-b1dd-4239-adc5-d7db927ecbbb"],
+Cell[196146, 4095, 176, 2, 42, "Output",ExpressionUUID->"ba1f2c6e-e3bc-4087-9372-94fa71f9500b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[196359, 4102, 1921, 51, 246, "Input",ExpressionUUID->"d3873290-92c0-4c12-b128-d49f172b57f5"],
+Cell[198283, 4155, 175, 2, 42, "Output",ExpressionUUID->"5bf06920-1047-49c1-a53a-abab3ec322c5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[198495, 4162, 1645, 43, 220, "Input",ExpressionUUID->"facd0866-8192-407c-8843-14fd02288176"],
+Cell[200143, 4207, 176, 2, 42, "Output",ExpressionUUID->"8dfabef2-b782-4862-bf44-634468f261c2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[200356, 4214, 1383, 35, 246, "Input",ExpressionUUID->"3389fbf0-1cb9-4756-9b1e-85278e1c9290"],
+Cell[201742, 4251, 174, 2, 42, "Output",ExpressionUUID->"786612a4-9fac-4ce5-aa99-8acfbd10a7f1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[201953, 4258, 14485, 338, 2872, "Input",ExpressionUUID->"161541ad-dc6b-4c9c-b7dc-bdbe0754621e"],
+Cell[216441, 4598, 152, 2, 62, "Output",ExpressionUUID->"d33f3f1a-204d-4ee1-b0e2-54509ead49de"]
 }, Open  ]]
+}, Closed]]
 }
 ]
 *)

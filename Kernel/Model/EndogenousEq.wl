@@ -207,7 +207,34 @@ coefb = Cases[UpValues[bondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],
 coefnb = Cases[UpValues[nombondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x[_],Infinity][[1]];
 
 (*make index variables be maintained as exact integers, rather than being converted by N to approximate numbers*)
-SetAttributes[Evaluate@{coefwc,Head@coefpd,Head@coefb,Head@coefnb},NHoldAll]
+(*SetAttributes[Evaluate@coefwc,NHoldAll]*)
+
+(*make index variable be exact integer rather than approximate number, e.g., A[0.] and N[A[0]] both return A[0]*)
+(*wc has one index*)
+coefwc[j_/;InexactNumberQ[j]]:=coefwc[IntegerPart@j];
+N[coefwc[j_/;InexactNumberQ[j]]]:=coefwc[IntegerPart@j];
+		
+(*pd, b, nb have two indices*)	
+Do[
+	Block[{j,k},
+		With[{hc=Head@c},
+			(*blank first argument and inexact number second argument*)
+			c[k_/;InexactNumberQ[k]]:=(c[IntegerPart@k]);
+			
+			(*any first argument and inexact number second argument*)
+			hc[j_][k_/;InexactNumberQ[k]]:=hc[j][IntegerPart@k];
+			
+			(*inexact first argument and any second argument *)
+			hc[j_/;InexactNumberQ[j]][k_]:=hc[IntegerPart@j][k];
+			
+			(*hc[j][k] behaves as having NHoldAll in both j and k*)
+			hc[j_/;InexactNumberQ[j]][k_/;InexactNumberQ[k]]:=hc[IntegerPart@j][IntegerPart@k];
+			N[hc[j_/;InexactNumberQ[j]][k_/;InexactNumberQ[k]]]:=hc[IntegerPart@j][IntegerPart@k]
+		](*With*)
+	](*Block*)
+	,
+	{c,{coefpd,coefb,coefnb}}
+](*Do*)
 
 
 (* ::Subsection:: *)

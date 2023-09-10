@@ -200,11 +200,13 @@ updateCoeffsWc//Options ={
 
 updateCoeffsWc[modelCoeffsSolution_, modelParameters_, newParameters_List, opts : OptionsPattern[{updateCoeffsWc,FindRoot}]]:=Module[{solFirst,solRest},
 	With[{newParams=processNewParameters[newParameters,modelParameters]},
+		Off[Reduce::ratnz];
 		{solFirst,solRest}=Activate[
 			modelCoeffsSolution//.newParameters//.modelParameters/.
 				(x_/;(Head[x]===Symbol)&&(MatchQ[SymbolName[x],"FindRootOptions"]):>FilterRules[Flatten@{opts}, Options[FindRoot]])/.
 				(x_Symbol?(MatchQ[SymbolName[#],"Ewc0"]&)->OptionValue["Ewc0"])
 		];
+		On[Reduce::ratnz];
 	Flatten@Join[solFirst,solRest/.solFirst,2]
 	]
 ]
@@ -223,11 +225,13 @@ updateCoeffsPd//Options ={
 
 updateCoeffsPd[modelCoeffsSolution_, modelParameters_, newParameters_List, coeffsWc_List, opts : OptionsPattern[{updateCoeffsPd,FindRoot}]]:=Module[{solFirst,solRest},
 	With[{newParams=processNewParameters[newParameters,modelParameters]},
+		Off[Reduce::ratnz];
 		{solFirst,solRest}=Activate[
 			modelCoeffsSolution//.newParameters//.modelParameters/.coeffsWc/.
 				(x_/;(Head[x]===Symbol)&&(MatchQ[SymbolName[x],"FindRootOptions"]):>FilterRules[Flatten@{opts}, Options[FindRoot]])/.
 				(x_Symbol?(MatchQ[SymbolName[#],"Epd0"]&)[j_Integer]:>OptionValue["Epd0["<>IntegerString[j]<>"]"])
 		];
+		On[Reduce::ratnz];
 	MapThread[Flatten@{#1,#2/.#1}&,{solFirst,solRest}]
 	]
 ]
