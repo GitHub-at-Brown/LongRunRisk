@@ -40,37 +40,6 @@ Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 
 
 (* ::Subsection:: *)
-(*updateCoeffs*)
-
-
-(*inherit default options from updateCoeffsSol, checks*)
-updateCoeffs//Options = Flatten@(
-	Options/@
-	{
-		updateCoeffsSol,
-		checks
-	}
-);
-
-
-(*updateCoeffs is a wrapper to updateCoeffsSol that splits arguments into positional and optional*)
-updateCoeffs[args__]:=Module[
-	{
-		posArgs,
-		optArgs,
-		posArgsLength3
-	},
-	{posArgs,optArgs}=ArgumentsOptions[
-		updateCoeffsSol[args],
-		{1,3},
-		<|"OptionsMode"->"Shortest","ExtraOptions"->{checks,FindRoot}|>
-	];
-	posArgsLength3=PadRight[posArgs,3,{{}}];
-	updateCoeffsSol[Sequence@@Join[posArgsLength3,optArgs]]
-]
-
-
-(* ::Subsection:: *)
 (*updateCoeffsSol*)
 
 
@@ -78,7 +47,11 @@ updateCoeffsSol//Options={
 	"initialGuess" -> <|"Ewc"->{4},"Epd"->{{4}}|>,
 	"FindRootOptions"->{MaxIterations->100}, (*"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)
 	"RecurrenceTableOptions"->{"DependentVariables"->Automatic},
-	"UpdatePd"->False
+	"UpdatePd"->False,
+	"UpdateBond"->False,
+	"UpdateNomBond"->False,
+	"UpdateBonds"->False,
+	"MaxMaturity"->12
 };
 
 
@@ -90,7 +63,8 @@ updateCoeffsSol[
 		{
 			updateCoeffsSol,
 			checks,
-			FindRoot
+			FindRoot,
+			RecurrenceTable
 		}
 	]
 ]:=With[
@@ -98,31 +72,35 @@ updateCoeffsSol[
 		parameters = model["parameters"],
 		params = model["params"],
 		numStocks = model["numStocks"],
-		guessCoeffsSolutionWc = FilterRules[guessCoeffsSolution,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[_]]
+		stockFreeQ=FreeQ[#,_Symbol[_Integer]]&/@(Keys@newParameters),
+		ig = Evaluate[OptionValue["initialGuess"]]["Epd"],
+		optsFindRoot = Flatten[{
+			Evaluate[FilterRules[Flatten@{opts},Options[FindRoot]]],
+			Evaluate[OptionValue["FindRootOptions"]]
+		}],
+		optsRecurrenceTable = Flatten[{
+			Evaluate[FilterRules[Flatten@{opts},Options[RecurrenceTable]]],
+			Evaluate[OptionValue["RecurrenceTableOptions"]]
+		}],
+		optsUpdatePd = OptionValue["UpdatePd"],
+		optsUpdateBond = OptionValue["UpdateBond"],
+		optsUpdateNomBond = OptionValue["UpdateNomBond"],
+		optsUpdateBonds = OptionValue["UpdateBonds"],
+		maxMaturity = OptionValue["MaxMaturity"],
+		doChecks= OptionValue["PrintResidualsNorm"] || OptionValue["CheckResiduals"],
+		optsCheck = Evaluate[FilterRules[Flatten@{opts}, Options[checks]]]
 	},
 	Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 	Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 	With[
 		{
-			stockFreeQ=FreeQ[#,_Symbol[_Integer]]&/@(Keys@newParameters),
-			optsFindRoot = Flatten[{
-				Evaluate[FilterRules[Flatten@{opts},Options[FindRoot]]],
-				Evaluate[OptionValue["FindRootOptions"]]
-			}],
+			guessCoeffsSolutionWc = FilterRules[guessCoeffsSolution,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[_]],
 			initialGuessEwc = "Ewc0"->If[
 				MemberQ[Keys@guessCoeffsSolution,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[0]],
 				FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[0]/.guessCoeffsSolution,
 				First@(Evaluate[OptionValue["initialGuess"]]["Ewc"])
 			],
 			guessCoeffsSolutionPd=Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]][j][0],{j,1,numStocks}]/.guessCoeffsSolution,
-			ig = Evaluate[OptionValue["initialGuess"]]["Epd"],
-			(*initialGuessEpd = First@(First@(Evaluate[OptionValue["initialGuess"]]["Epd"])),*)
-			doChecks= OptionValue["PrintResidualsNorm"] || OptionValue["CheckResiduals"],
-			optsCheck = FilterRules[Flatten@{opts}, Options[checks]],
-			optsReturnPd = OptionValue["UpdatePd"]
-		},
-		With[
-		{
 			igNumStocks=If[(First@Dimensions[ig])!=numStocks,ConstantArray[First@ig,numStocks],ig]
 		},
 		With[
@@ -140,14 +118,12 @@ updateCoeffsSol[
 				{
 					solWc = Nothing,
 					solPd = Nothing,
-					solFirst,
-					solRest,
-					solFirstStocks,
-					solRestStocks
+					solBond = Nothing,
+					solNomBond = Nothing
 				},
 				Which[
 					(*if none of the new parameters are stock parameters and pd coefficients were not requested*)
-					AllTrue[stockFreeQ,TrueQ] && Not@TrueQ[optsReturnPd]
+					AllTrue[stockFreeQ,TrueQ] && Not@TrueQ[optsUpdatePd]
 					,
 					(*only update wealth-consumption ratio coefficients*)
 					solWc=updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]];
@@ -181,9 +157,35 @@ updateCoeffsSol[
 					];
 					(*TO DO: checks for stocks;*)
 				];(*Which*)
-			Flatten@{solWc,solPd}
+				If[
+					(*any bond coefficients requested*)
+					optsUpdateBond || optsUpdateNomBond || optsUpdateBonds
+					,
+					(*get wc coefficients*)
+					If[
+						(*bond coefficients requested and wc coefficients not computed*)
+						solWc===Nothing,
+						(*compute wc coefficients*)
+						solWc=updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]]
+					];
+					(*compute bond coefficients*)
+					Which[
+						optsUpdateBonds || (optsUpdateBond && optsUpdateNomBond),
+						(*compute both*)
+						solBond=updateCoeffsBond[model["coeffsSolution"]["bond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
+						solNomBond=updateCoeffsBond[model["coeffsSolution"]["nombond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
+						,
+						optsUpdateBond,
+						(*compute only real*)
+						solBond=updateCoeffsBond[model["coeffsSolution"]["bond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
+						,
+						optsUpdateNomBond,
+						(*compute only nominal*)
+						solNomBond=updateCoeffsBond[model["coeffsSolution"]["nombond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
+					];
+				];
+			Flatten@{solWc,solPd,solBond,solNomBond}
 		](*Module*)
-	](*With*)
 	](*With*)
 	](*With*)
 ](*With*)
@@ -284,6 +286,37 @@ checks[eqs_, sol_, params_, newParams_, opts : OptionsPattern[]] :=With[
 (*bond checks
 residuals=Table[Subtract@@@(First@model["coeffsSystem"]["nombond"])/.model["coeffsSystem"]["nombond"][[4]]->n,{n,1,maxMaturity}]//.newProcessedParam//.params/.solWc/.solNomBonds;
 Norm[residuals]*)
+
+
+(* ::Subsection:: *)
+(*updateCoeffs*)
+
+
+(*inherit default options from updateCoeffsSol, checks*)
+updateCoeffs//Options = Join@@(
+Options/@
+	{
+		updateCoeffsSol,
+		checks
+	}
+);
+
+
+(*updateCoeffs is a wrapper to updateCoeffsSol that splits arguments into positional and optional*)
+updateCoeffs[args__]:=Module[
+	{
+		posArgs,
+		optArgs,
+		posArgsLength3
+	},
+	{posArgs,optArgs}=ArgumentsOptions[
+		updateCoeffsSol[args],
+		{1,3},
+		<|"OptionsMode"->"Shortest","ExtraOptions"->{checks,FindRoot}|>
+	];
+	posArgsLength3=PadRight[posArgs,3,{{}}];
+	updateCoeffsSol[Sequence@@Join[posArgsLength3,optArgs,Options@updateCoeffs]]
+]
 
 
 (* ::Section:: *)
