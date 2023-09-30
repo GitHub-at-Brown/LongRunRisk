@@ -11,14 +11,6 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 (*Public symbols*)
 
 
-updateCoeffsWc::usage = "";
-updateCoeffsPd::usage = "";
-updateCoeffsBond::usage = "";
-updateCoeffsSol::usage = "";
-updateCoeffs::usage = "";
-checks::usage = "";
-
-
 updateCoeffs::usage = "updateCoeffs[model] gives a list of rules to evaluate expressions numerically."<>"\n"<>
 			          "updateCoeffs[model, newParameters] uses the parameters provided in the list of rules parameters."<>"\n"<>
 			          "updateCoeffs[model, newParameters, guessCoeffsSolution] uses the parameters provided in the list of rules parameters."
