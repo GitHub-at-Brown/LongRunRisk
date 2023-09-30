@@ -122,14 +122,20 @@ updateCoeffsSol[
 					solNomBond = Nothing
 				},
 				Which[
-					(*if none of the new parameters are stock parameters and pd coefficients were not requested*)
+					(*if none of the new parameters are stock parameters and pd coefficients are not requested*)
 					AllTrue[stockFreeQ,TrueQ] && Not@TrueQ[optsUpdatePd]
 					,
 					(*only update wealth-consumption ratio coefficients*)
 					solWc=updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]];
 					If[
 						doChecks,
-						checks[First@model["coeffsSystem"]["wc"],solWc,params,newParameters,optsCheck]
+						checks[
+							First@model["coeffsSystem"]["wc"],
+							solWc,
+							params,
+							newParameters,
+							optsCheck
+						];
 					];
 					,
 					(*if all of the new parameters are stock parameters*)
@@ -138,35 +144,81 @@ updateCoeffsSol[
 					(*only update price-dividend ratio coefficients*)
 					solWc=If[
 						guessCoeffsSolutionWc==={},
-						(*if coefficients for wc were not provided, compute them*)
+						(*if coefficients for wc are not provided, compute them*)
 						updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]],
 						guessCoeffsSolutionWc
 					];
 					solPd=updateCoeffsPd[model["coeffsSolution"]["pd"], params, newParameters, solWc, Sequence[optsFindRoot,initialGuessEpd]];
-						(*TO DO: If[doChecks, ... ];*)
+					If[
+						doChecks,
+						(*check pd coefficients*)
+						With[
+							{
+								j=DeleteDuplicates@Cases[(First@model["coeffsSystem"]["pd"]),Head[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd][j_][_]:>j,{0,Infinity}]
+							},
+							checks[
+								Table[First@model["coeffsSystem"]["pd"],{j,1,numStocks}],
+								Join[solWc,solPd],
+								params,
+								newParameters,
+								optsCheck
+							];
+						];(*With*)
+						(*check wc coefficients*)
+						checks[
+							First@model["coeffsSystem"]["wc"],
+							solWc,
+							params,
+							newParameters,
+							optsCheck
+						];
+					];(*If*)
 					,
 					(*both stock and non-stock parameters*)
 					True
 					,
 					solWc=updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]];
 					solPd=updateCoeffsPd[model["coeffsSolution"]["pd"], params, newParameters, solWc, Sequence[optsFindRoot,initialGuessEpd]];
-	
 					If[
 						doChecks,
-						checks[First@model["coeffsSystem"]["wc"],solWc,parameters,newParameters,optsCheck];
-					];
-					(*TO DO: checks for stocks;*)
+						(*check pd coefficients*)
+						With[
+							{
+								j=First@DeleteDuplicates@Cases[(First@model["coeffsSystem"]["pd"]),Head[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd][j_][_]:>j,{0,Infinity}]
+							},
+							checks[
+								Table[First@model["coeffsSystem"]["pd"],{j,1,numStocks}],
+								Join[solWc,solPd],
+								params,
+								newParameters,
+								optsCheck
+							];
+						];(*With*)
+						(*check wc coefficients*)
+						checks[
+							First@model["coeffsSystem"]["wc"],
+							solWc,
+							params,
+							newParameters,
+							optsCheck
+						];
+					];(*If*)
 				];(*Which*)
 				If[
-					(*any bond coefficients requested*)
+					(*any bond coefficients are requested*)
 					optsUpdateBond || optsUpdateNomBond || optsUpdateBonds
 					,
 					(*get wc coefficients*)
 					If[
-						(*bond coefficients requested and wc coefficients not computed*)
+						(*bond coefficients requested and wc coefficients not available*)
 						solWc===Nothing,
 						(*compute wc coefficients*)
-						solWc=updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]]
+						solWc=If[
+							guessCoeffsSolutionWc==={},
+							(*if coefficients for wc are not provided, compute them*)
+							updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]],
+							guessCoeffsSolutionWc
+						];
 					];
 					(*compute bond coefficients*)
 					Which[
@@ -174,15 +226,95 @@ updateCoeffsSol[
 						(*compute both*)
 						solBond=updateCoeffsBond[model["coeffsSolution"]["bond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
 						solNomBond=updateCoeffsBond[model["coeffsSolution"]["nombond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
+						If[
+							doChecks,
+							With[
+								{
+									n=First@DeleteDuplicates@Cases[(First@model["coeffsSystem"]["bond"]),Head[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb][n_][_]:>(n/;FreeQ[n,Plus]),{0,Infinity}]
+								},
+								(*check bond coefficients*)
+								checks[
+									Flatten@Table[First@model["coeffsSystem"]["bond"],{n,1,maxMaturity}],
+									Join[solWc,solBond],
+									params,
+									newParameters,
+									optsCheck
+								];
+								(*check nombond coefficients*)
+								checks[
+									Flatten@Table[First@model["coeffsSystem"]["nombond"],{n,1,maxMaturity}],
+									Join[solWc,solNomBond],
+									params,
+									newParameters,
+									optsCheck
+								];
+							];(*With*)
+							(*check wc coefficients*)
+							checks[
+								First@model["coeffsSystem"]["wc"],
+								solWc,
+								params,
+								newParameters,
+								optsCheck
+							];
+						];		
 						,
 						optsUpdateBond,
 						(*compute only real*)
 						solBond=updateCoeffsBond[model["coeffsSolution"]["bond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
+						If[
+							doChecks,
+							With[
+								{
+									n=First@DeleteDuplicates@Cases[(First@model["coeffsSystem"]["bond"]),Head[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb][n_][_]:>(n/;FreeQ[n,Plus]),{0,Infinity}]
+								},
+								(*check bond coefficients*)
+								checks[
+									Flatten@Table[First@model["coeffsSystem"]["bond"],{n,1,maxMaturity}],
+									Join[solWc,solBond],
+									params,
+									newParameters,
+									optsCheck
+								];
+							];(*With*)
+							(*check wc coefficients*)
+							checks[
+								First@model["coeffsSystem"]["wc"],
+								solWc,
+								params,
+								newParameters,
+								optsCheck
+							];
+						];
 						,
 						optsUpdateNomBond,
 						(*compute only nominal*)
 						solNomBond=updateCoeffsBond[model["coeffsSolution"]["nombond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
-					];
+						If[
+							doChecks,
+							With[
+								{
+									n=First@DeleteDuplicates@Cases[(First@model["coeffsSystem"]["bond"]),Head[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb][n_][_]:>(n/;FreeQ[n,Plus]),{0,Infinity}]
+								},
+								(*check nombond coefficients*)
+								checks[
+									Flatten@Table[First@model["coeffsSystem"]["nombond"],{n,1,maxMaturity}],
+									Join[solWc,solNomBond],
+									params,
+									newParameters,
+									optsCheck
+								];
+							];(*With*)
+							(*check wc coefficients*)
+							checks[
+								First@model["coeffsSystem"]["wc"],
+								solWc,
+								params,
+								newParameters,
+								optsCheck
+							];
+						];
+					];				
 				];
 			Flatten@{solWc,solPd,solBond,solNomBond}
 		](*Module*)
@@ -269,7 +401,9 @@ checks::smallresid="The norm of the residuals (errors) is `1`, which is smaller 
 
 
 checks[eqs_, sol_, params_, newParams_, opts : OptionsPattern[]] :=With[
-	{residualsNorm = Norm @ (Subtract @@@ eqs) //. newParams //. params//. sol},
+	{
+		residualsNorm = Max @ (Norm @ (Subtract @@@ eqs) //. newParams //. params//. sol)
+	},
 	If[OptionValue["CheckResiduals"],
 		If[
 			residualsNorm >= OptionValue["Tol"],
@@ -282,10 +416,6 @@ checks[eqs_, sol_, params_, newParams_, opts : OptionsPattern[]] :=With[
 		];
 	];
 ];
-	
-(*bond checks
-residuals=Table[Subtract@@@(First@model["coeffsSystem"]["nombond"])/.model["coeffsSystem"]["nombond"][[4]]->n,{n,1,maxMaturity}]//.newProcessedParam//.params/.solWc/.solNomBonds;
-Norm[residuals]*)
 
 
 (* ::Subsection:: *)
