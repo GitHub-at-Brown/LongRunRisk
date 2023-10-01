@@ -43,6 +43,10 @@ formatModels::usage = "formatModels[models] Re-writes an association of models a
 		nb=CreateNotebook[];\[IndentingNewLine]		content=formatModels[models];\[IndentingNewLine]		NotebookWrite[nb,content];\[IndentingNewLine]\[IndentingNewLine]		SelectionMove[nb,All,Notebook];\[IndentingNewLine]		FrontEndTokenExecute[nb,\"ClearCellOptions\"];
 	The last two lines clear all cell formatting (needed to make the cell executable for some reason).
 "
+toCatalog::usage = "toCatalog[models, {key_1, key_2, ...}] re-writes an association of models so that each model contains only 
+	the elements with keys `keys_i` and, if `key_i` is \"stateVars\" and has head Function, 
+	replace its value `val_i` by `val_i[t]`
+"
 
 
 (* ::Section:: *)
@@ -57,6 +61,7 @@ Begin["`Private`"]
 (*ResourceFunction["SetContextStyle"][
   "MyContext`", {Green, FontFamily -> "Comic Sans MS"}];
 MyContext`test;*)
+Get["PacletizedResourceFunctions`"];
 
 
 (* ::Subsection:: *)
@@ -87,7 +92,7 @@ MakeBoxes[\[FormalY],_]:=TagBox["y",\[FormalY]&,AutoDelete->True,BaseStyle->{Fon
 FormatValues@MakeBoxes={};*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Usage*)
 
 
@@ -189,6 +194,8 @@ bibFile=FileNameJoin[Prepend[pacletBibDir,pacletBaseDir]];
 bibFile="FernandoDuarte/LongRunRisk/BibTeX/references.bib";
 
 
+
+
 info[m_]:=OpenerView[
 	{
 		m["shortname"],
@@ -250,10 +257,9 @@ paramTable[m_]:=Module[
 		mtomStocks,
 		mtom
 	},
-
-	keysNoStocks=Complement[Keys[modelToTeXNoStocks],ToString/@(m["assignParam"][[;;,1]])];
+	keysNoStocks=DeleteCases[Keys[modelToTeXNoStocks],Alternatives@@(ToString/@(m["assignParam"][[;;,1]]/.v_Symbol:>(SymbolName@v)))];
 	mtomNoStocks=Association@Thread[keysNoStocks->(keysNoStocks/.modelToTeXNoStocks)];
-	keysStocks=Complement[Keys[modelToTeXStocks],StringDelete[ToString/@Keys[m["assignParamStocks"]],"_"]];
+	keysStocks=DeleteCases[Keys[modelToTeXStocks],Alternatives@@(ToString/@((Keys[m["assignParamStocks"]])/.v_Symbol[Verbatim[Pattern][i_,Blank[]]]:>(SymbolName@v)[SymbolName@i]))];
 	mtomStocks=Association@Thread[keysStocks->(keysStocks/.modelToTeXStocks)];
 	mtom=Join[mtomNoStocks,mtomStocks];
 	OpenerView[
@@ -280,10 +286,10 @@ paramTable[m_]:=Module[
 								NumberQ[#],
 								"-",
 								If[
-									MatchQ[#,_[SetSymbolsContext@i]],
-									Block[{i=SetSymbolsContext@i},Table[#/.i->j,{j,1,m["numStocks"]}]],
+									MatchQ[#,_[SetSymbolsContext[i]]],
+									Block[{i=SetSymbolsContext[i]},Table[#/.i->j,{j,1,m["numStocks"]}]],
 									#
-								]//.m["parameters"] 
+								] //. SetSymbolsContext[m["parameters"]]
 							]&,
 							ToExpression/@Keys[mtom]
 						]
@@ -346,7 +352,7 @@ allParamTable[m_]:=OpenerView[
 					{"Fixed value"},
 					Map[
 						If[
-							MemberQ[Keys[m["assignParam"]],#/.(SetSymbolsContext[i]->i_)]
+							MemberQ[Keys[SetSymbolsContext[m["assignParam"]]],#/.(SetSymbolsContext[i]->i_)]
 							,"Yes"(*#*),
 							"No"
 						]&,
@@ -360,10 +366,10 @@ allParamTable[m_]:=OpenerView[
 							NumberQ[#],
 							"-",
 							If[
-								MatchQ[#,_[SetSymbolsContext@i]],
-								Block[{i=SetSymbolsContext@i},Table[#/.i->j,{j,1,m["numStocks"]}]],
+								MatchQ[#,_[SetSymbolsContext[i]]],
+								Block[{i=SetSymbolsContext[i]},Table[#/.i->j,{j,1,m["numStocks"]}]],
 								#
-							]//.m["parameters"] 
+							] //. SetSymbolsContext[m["parameters"]]
 						]&,
 						ToExpression/@Keys[modelToTeX]
 					]
@@ -505,11 +511,11 @@ modelToTeX=<|
 		"phidxd[i]"->"\\phi_{d,xd}^{(i)}",
 		"phidcd[i]"->"\\phi_{d,cd}^{(i)}",
 		"phidpd[i]"->"\\phi_{d,pd}^{(i)}",
-		"taugd[i]"->"\\tau_{gd}^{(i)}",
+		"taugd[i]"->"\\tau_{gd}^{(i)}"
 	(*"Shocks"*)
-	"eps" -> "\\varepsilon",
+	(*"eps" -> "\\varepsilon",*)
 	(*Exogenous variables*)
-	"dc" -> "\\Delta c"
+	(*"dc" -> "\\Delta c"*)
 |>;
 (*
 {
@@ -605,11 +611,12 @@ modelFormattingTemplate[
 	formatNumFun_Function:numberFormattingTemplate
 ]:=Module[
 	{
+		stateVarsLocal=stateVars /. v_Symbol:>(Symbol@SymbolName@v),
 		parametersLocal=stripContext[parameters],
 		mudLocal=stripContext[mud],
 		formatLocal=Function[x,
 			formatNumFun[
-			Flatten[{stripContext[x]/.stripContext[parameters]}][[1]]
+			Flatten[{stripContext[x]//.stripContext[parameters]}][[1]]
 			]],
 		numStocks
 	},
@@ -639,7 +646,7 @@ modelFormattingTemplate[
 						"\>\""}],",","\n","\t\t",
 						
 						RowBox[{"\"\<stateVars\>\""," ","->"," ",
-						ToBoxes[stateVars,StandardForm]
+						ToBoxes[stateVarsLocal,StandardForm]
 						}],",","\n","\t\t",
 						
 						RowBox[{
@@ -772,8 +779,17 @@ numberFormattingTemplate[num_,opts:OptionsPattern[]]:=ToString[Evaluate[N[num]],
 (*stripContext*)
 
 
-stripContext[x:(_Rule|{_Rule..})]:= Module[{v,i,n}, Cases[x,Rule[(v_Symbol[i_Integer]|v_Symbol),n_]:>Rule[If[i===Sequence,SymbolName[v],SymbolName[v][i]],n],{0,Infinity}]]
-stripContext[x_]:= Module[{v,i,n}, Cases[x,(v_Symbol[i_Integer]|v_Symbol):>If[i===Sequence,SymbolName[v],SymbolName[v][i]],{0,Infinity}]]
+stripContext[x:(_Rule|{_Rule..})]:= Module[{v,i,n,q}, Cases[x,Rule[(v_Symbol[i_Integer]|v_Symbol),n_]:>Rule[If[i===Sequence,SymbolName[v],SymbolName[v][i]],If[NumberQ[n],n,n/.q_Symbol:>Symbol@SymbolName@q]],{0,Infinity}]]
+stripContext[x_]:= Module[
+	{v,i},
+	Cases[
+		x
+		,
+		(v_Symbol[i_Integer]|v_Symbol) :> If[i===Sequence,SymbolName[v],SymbolName[v][i]]
+		,
+		{0,Infinity}
+	]
+]
 stripContext[x_?AtomQ]:=stripContext[{x}][[1]]
 
 
@@ -782,6 +798,53 @@ stripContext[x_?AtomQ]:=stripContext[{x}][[1]]
 
 
 separator[lineLength_Number:60] := RowBox[{"(*", StringRepeat["*",lineLength-4]<>"*)"}];
+
+
+(* ::Subsection:: *)
+(*toCatalog*)
+
+
+toCatalog/:Conditions[
+	toCatalog,
+	m_Association/; MemberQ[Values[m], _Association],
+	keysToKeep_?(VectorQ[#,StringQ]&)
+]:= And@@Values@(SubsetQ[#,keysToKeep]&/@(Keys[#]&/@m)) (*keysToKeep exist in each element of m*)
+
+
+toCatalog[
+	m_Association/; MemberQ[Values[m], _Association],
+	keysToKeep_?(VectorQ[#,StringQ]&)
+]:=With[
+	{
+		keysNoStateVars = Cases[keysToKeep,Except["stateVars"]],
+		t=FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t
+	}
+	,
+	With[
+		{
+			stateVarsAssoc=If[
+				(*stateVars is in keysToKeep*)
+				MemberQ[keysToKeep,"stateVars"],
+				(*create association with stateVars as sole key*)
+				(
+					Association[
+						"stateVars"->If[
+							(*value of stateVars is a function*)
+							Head@#["stateVars"]===Function,
+							(*evaluate function at t*)
+							#["stateVars"][t],
+							(*return value of stateVars unchanged*)
+							#["stateVars"]
+						]
+					]
+				)&/@m,
+				(*create empty association*)
+				<||>&/@m
+			]
+		},
+		MapThread[Join,{stateVarsAssoc,KeyTake[#,keysNoStateVars]&/@m}]
+	]
+]/;Conditions[toCatalog,m,keysToKeep]
 
 
 (* ::Section:: *)
