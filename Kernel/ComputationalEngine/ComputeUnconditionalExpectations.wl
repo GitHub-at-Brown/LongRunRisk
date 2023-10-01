@@ -11,10 +11,10 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditiona
 (*Public symbols*)
 
 
-uncondE::usage = "uncondE[x,model] gives the unconditional mean of x for model."; 
-uncondVar::usage = "uncondVar[x,model] gives the unconditional variance of x for model."; 
-uncondCov::usage = "uncondCov[x,y,model] gives the unconditional covariance of x and y for model."; 
-uncondCorr::usage = "uncondCorr[x,y,model] gives the unconditional correlation of x and y for model."; 
+uncondE::usage = "uncondE[expr,model] gives the unconditional expectation of expr for model ."; 
+uncondVar::usage = "uncondVar[expr,model] gives the unconditional variance of expr for model ."; 
+uncondCov::usage = "uncondCov[expr1,expr2,model] gives the unconditional covariance of expr1 and expr2 for model ."; 
+uncondCorr::usage = "uncondCorr[expr1,expr2,model] gives the unconditional correlation of expr1 and expr2 for model ."; 
 
 
 Begin["`Private`"];
@@ -61,7 +61,7 @@ uncondEStep[expr_,model_]:=With[
 			{
 				stateVarsNoEps = Complement[stateVars,Cases[stateVars,x_Symbol?(MatchQ[SymbolName[#],"eps"]&)[y___]:>x[y],Infinity,Heads->True]]
 			},
-			rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;				
+			rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;
 			FixedPoint[evNoEpsStateVarsProduct[#,model,stateVarsNoEps]&,(expr/.cond`Private`modelContextRules)//.Normal@model["endogenousEq"]/.model["toStateVars"]]/.rulesE[_]	
 		]
 	]

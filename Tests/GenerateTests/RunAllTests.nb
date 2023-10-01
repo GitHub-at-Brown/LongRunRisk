@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    894458,      18173]
-NotebookOptionsPosition[    889392,      18093]
-NotebookOutlinePosition[    889862,      18111]
-CellTagsIndexPosition[    889819,      18108]
+NotebookDataLength[    896361,      18234]
+NotebookOptionsPosition[    891105,      18152]
+NotebookOutlinePosition[    891575,      18170]
+CellTagsIndexPosition[    891532,      18167]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -137,6 +137,11 @@ Cell[BoxData[
   3.905096100849764*^9, 3.9050966578385*^9, 3.905097113292179*^9},
  CellLabel->"Out[4]=",ExpressionUUID->"95df616f-c613-4d69-8aff-2df5b4b17385"]
 }, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.905135772105291*^9, 
+  3.905135778512949*^9}},ExpressionUUID->"0fb4bc80-b5a1-4dd6-a563-\
+6bd71e7ef9ce"],
 
 Cell[CellGroupData[{
 
@@ -2826,10 +2831,11 @@ ComputeConditionalExpectations`ev[
                  ComputationalEngine`Cond`mud[ComputationalEngine`Cond`i] + (
                   ComputationalEngine`Cond`rhodp[ComputationalEngine`Cond`i] (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`xid[ComputationalEngine`Cond`i] 
-                   ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1]
-                     ComputationalEngine`Cond`eps["pi"][
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`xid[ComputationalEngine`Cond`i] 
+                    ComputationalEngine`Cond`sg[
+                    ComputationalEngine`Cond`t - 1]) 
+                   ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t]))]], 0 === Simplify[
                Subtract[
                 PacletizedResourceFunctions`SetSymbolsContext[
@@ -2846,19 +2852,19 @@ ComputeConditionalExpectations`ev[
                    ComputationalEngine`Cond`rhodp[
                     ComputationalEngine`Cond`i] (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
-                   ComputationalEngine`Cond`xid[ComputationalEngine`Cond`i] 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`xid[ComputationalEngine`Cond`i] 
                     ComputationalEngine`Cond`sg[
-                    ComputationalEngine`Cond`t - 1] 
+                    ComputationalEngine`Cond`t - 1]) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])) (
                   ComputationalEngine`Cond`muc + (
                    ComputationalEngine`Cond`rhocp (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
-                   ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`xic 
                     ComputationalEngine`Cond`sg[
-                    ComputationalEngine`Cond`t - 1] 
+                    ComputationalEngine`Cond`t - 1]) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])) + 
                 ComputationalEngine`Cond`phic 
@@ -2868,9 +2874,10 @@ ComputeConditionalExpectations`ev[
                 PacletizedResourceFunctions`SetSymbolsContext[
                  
                  FernandoDuarte`LongRunRisk`ComputationalEngine`\
-ComputeConditionalExpectations`ev[
-                 ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 3] 
-                  ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 2] 
+ComputeConditionalExpectations`ev[(
+                   ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 3]
+                     ComputationalEngine`Cond`dc[
+                    ComputationalEngine`Cond`t + 2]) 
                   ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1],
                    ComputationalEngine`Cond`t, 
                   ComputationalEngine`Cond`modNRC]], (
@@ -2885,18 +2892,19 @@ ComputeConditionalExpectations`ev[
                     ComputationalEngine`Cond`xip 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])) (
-                   ComputationalEngine`Cond`muc + (
+                   ComputationalEngine`Cond`muc + ((
                     ComputationalEngine`Cond`rhocp 
-                    ComputationalEngine`Cond`rhop (
+                    ComputationalEngine`Cond`rhop) (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
+                    ComputationalEngine`Cond`mup) + (
                     ComputationalEngine`Cond`rhocp 
-                    ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`xip) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])) + (
                   ComputationalEngine`Cond`rhocp 
-                   ComputationalEngine`Cond`phip^2 + 
-                  ComputationalEngine`Cond`xic ComputationalEngine`Cond`phip 
+                   ComputationalEngine`Cond`phip^2 + (
+                    ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`phip) 
                    ComputationalEngine`Cond`sg[
                     ComputationalEngine`Cond`t]))]], 0 === Simplify[
                Subtract[
@@ -2918,8 +2926,9 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`mup + (
                    ComputationalEngine`Cond`rhop^2 (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
-                   ComputationalEngine`Cond`rhop ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhop 
+                    ComputationalEngine`Cond`xip) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])) + (
                  ComputationalEngine`Cond`rhop 
@@ -2960,20 +2969,20 @@ ComputeConditionalExpectations`ev[
                    ComputationalEngine`Cond`xip 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])) (
-                  ComputationalEngine`Cond`muc + (
-                   ComputationalEngine`Cond`rhocp 
-                    ComputationalEngine`Cond`rhop (
+                  ComputationalEngine`Cond`muc + ((
+                    ComputationalEngine`Cond`rhocp 
+                    ComputationalEngine`Cond`rhop) (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
-                   ComputationalEngine`Cond`rhocp 
-                    ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhocp 
+                    ComputationalEngine`Cond`xip) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])) + (
                  ComputationalEngine`Cond`rhocp 
-                  ComputationalEngine`Cond`phip^2 + 
-                 ComputationalEngine`Cond`xic ComputationalEngine`Cond`phip 
-                  ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t])]], 
-             0 === Simplify[
+                  ComputationalEngine`Cond`phip^2 + (
+                   ComputationalEngine`Cond`xic ComputationalEngine`Cond`phip)
+                    ComputationalEngine`Cond`sg[
+                   ComputationalEngine`Cond`t])]], 0 === Simplify[
                Subtract[
                 PacletizedResourceFunctions`SetSymbolsContext[
                  
@@ -2993,10 +3002,11 @@ ComputeConditionalExpectations`ev[
                  ComputationalEngine`Cond`muc + (
                   ComputationalEngine`Cond`rhocp (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`xic 
-                   ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1]
-                     ComputationalEngine`Cond`eps["pi"][
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`sg[
+                    ComputationalEngine`Cond`t - 1]) 
+                   ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t]))]], 0 === Simplify[
                Subtract[
                 PacletizedResourceFunctions`SetSymbolsContext[
@@ -3012,10 +3022,10 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`rhocp (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 1] - 
-                    ComputationalEngine`Cond`mup) + (
-                   ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`mup) + ((
+                    ComputationalEngine`Cond`xic 
                     ComputationalEngine`Cond`sg[
-                    ComputationalEngine`Cond`t - 2] 
+                    ComputationalEngine`Cond`t - 2]) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 1] + 
                    ComputationalEngine`Cond`phic 
@@ -3035,10 +3045,10 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`rhocp (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 2] - 
-                    ComputationalEngine`Cond`mup) + (
-                   ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`mup) + ((
+                    ComputationalEngine`Cond`xic 
                     ComputationalEngine`Cond`sg[
-                    ComputationalEngine`Cond`t - 3] 
+                    ComputationalEngine`Cond`t - 3]) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 2] + 
                    ComputationalEngine`Cond`phic 
@@ -3058,10 +3068,10 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`rhocp (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 3] - 
-                    ComputationalEngine`Cond`mup) + (
-                   ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`mup) + ((
+                    ComputationalEngine`Cond`xic 
                     ComputationalEngine`Cond`sg[
-                    ComputationalEngine`Cond`t - 4] 
+                    ComputationalEngine`Cond`t - 4]) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 3] + 
                    ComputationalEngine`Cond`phic 
@@ -3076,8 +3086,9 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`sg[
                     ComputationalEngine`Cond`t + 1]^2, 
                   ComputationalEngine`Cond`t, 
-                  ComputationalEngine`Cond`modNRC]], (1 - 
-                  ComputationalEngine`Cond`rhog) ComputationalEngine`Cond`Esg 
+                  ComputationalEngine`Cond`modNRC]], ((1 - 
+                   ComputationalEngine`Cond`rhog) 
+                  ComputationalEngine`Cond`Esg) 
                  PacletizedResourceFunctions`SetSymbolsContext[
                    
                    FernandoDuarte`LongRunRisk`ComputationalEngine`\
@@ -3129,9 +3140,9 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`sg[
                     ComputationalEngine`Cond`t + 1]^2, 
                   ComputationalEngine`Cond`t, 
-                  ComputationalEngine`Cond`modNRC]], (1 - 
-                  ComputationalEngine`Cond`rhog^2) 
-                 ComputationalEngine`Cond`Esg 
+                  ComputationalEngine`Cond`modNRC]], ((1 - 
+                   ComputationalEngine`Cond`rhog^2) 
+                  ComputationalEngine`Cond`Esg) 
                  PacletizedResourceFunctions`SetSymbolsContext[
                    
                    FernandoDuarte`LongRunRisk`ComputationalEngine`\
@@ -3364,8 +3375,9 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`rhop^2 (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 1] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`rhop ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhop 
+                    ComputationalEngine`Cond`xip) 
                    ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 1]))]], 0 === Simplify[
                Subtract[
@@ -3386,9 +3398,9 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`rhop^3 (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 2] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`rhop^2 
-                   ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhop^2 
+                    ComputationalEngine`Cond`xip) 
                    ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 2]))]], 0 === Simplify[
                Subtract[
@@ -3562,13 +3574,14 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1],
                    ComputationalEngine`Cond`t - 1, 
                   ComputationalEngine`Cond`modNRC]], 
-                ComputationalEngine`Cond`muc + (
-                 ComputationalEngine`Cond`rhocp 
-                  ComputationalEngine`Cond`rhop (
+                ComputationalEngine`Cond`muc + ((
+                   ComputationalEngine`Cond`rhocp 
+                   ComputationalEngine`Cond`rhop) (
                    ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 1] - 
-                   ComputationalEngine`Cond`mup) + 
-                 ComputationalEngine`Cond`rhocp ComputationalEngine`Cond`xip 
+                   ComputationalEngine`Cond`mup) + (
+                   ComputationalEngine`Cond`rhocp 
+                   ComputationalEngine`Cond`xip) 
                   ComputationalEngine`Cond`eps["pi"][
                    ComputationalEngine`Cond`t - 1])]], 0 === Simplify[
                Subtract[
@@ -3583,9 +3596,10 @@ ComputeConditionalExpectations`ev[
                  ComputationalEngine`Cond`rhocp (
                    ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 1] - 
-                   ComputationalEngine`Cond`mup) + 
-                 ComputationalEngine`Cond`xic 
-                  ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 2] 
+                   ComputationalEngine`Cond`mup) + (
+                   ComputationalEngine`Cond`xic 
+                   ComputationalEngine`Cond`sg[
+                    ComputationalEngine`Cond`t - 2]) 
                   ComputationalEngine`Cond`eps["pi"][
                    ComputationalEngine`Cond`t - 1])]]}]], "ExpectedMessages" -> 
          HoldForm[{}], "ActualOutput" -> HoldForm[True], 
@@ -3622,10 +3636,11 @@ ComputeConditionalExpectations`ev[
                  ComputationalEngine`Cond`rhocp (
                    ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 2] - 
-                   ComputationalEngine`Cond`mup) + (
-                  ComputationalEngine`Cond`xic 
-                   ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 3]
-                     ComputationalEngine`Cond`eps["pi"][
+                   ComputationalEngine`Cond`mup) + ((
+                    ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`sg[
+                    ComputationalEngine`Cond`t - 3]) 
+                   ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 2] + 
                   ComputationalEngine`Cond`phic 
                    ComputationalEngine`Cond`eps["dc"][
@@ -3643,10 +3658,10 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`rhocp (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 2] - 
-                    ComputationalEngine`Cond`mup) + (
-                   ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`mup) + ((
+                    ComputationalEngine`Cond`xic 
                     ComputationalEngine`Cond`sg[
-                    ComputationalEngine`Cond`t - 3] 
+                    ComputationalEngine`Cond`t - 3]) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 2] + 
                    ComputationalEngine`Cond`phic 
@@ -3658,10 +3673,11 @@ ComputeConditionalExpectations`ev[
                  ComputationalEngine`Cond`rhocp (
                    ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 3] - 
-                   ComputationalEngine`Cond`mup) + (
-                  ComputationalEngine`Cond`xic 
-                   ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 4]
-                     ComputationalEngine`Cond`eps["pi"][
+                   ComputationalEngine`Cond`mup) + ((
+                    ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`sg[
+                    ComputationalEngine`Cond`t - 4]) 
+                   ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 3] + 
                   ComputationalEngine`Cond`phic 
                    ComputationalEngine`Cond`eps["dc"][
@@ -3679,10 +3695,10 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`rhocp (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 3] - 
-                    ComputationalEngine`Cond`mup) + (
-                   ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`mup) + ((
+                    ComputationalEngine`Cond`xic 
                     ComputationalEngine`Cond`sg[
-                    ComputationalEngine`Cond`t - 4] 
+                    ComputationalEngine`Cond`t - 4]) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 3] + 
                    ComputationalEngine`Cond`phic 
@@ -3700,10 +3716,11 @@ ComputeConditionalExpectations`ev[
                  ComputationalEngine`Cond`muc + (
                   ComputationalEngine`Cond`rhocp (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`xic 
-                   ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1]
-                     ComputationalEngine`Cond`eps["pi"][
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`sg[
+                    ComputationalEngine`Cond`t - 1]) 
+                   ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])]], 0 === Simplify[
                 Subtract[
                  PacletizedResourceFunctions`SetSymbolsContext[
@@ -3714,13 +3731,14 @@ ComputeConditionalExpectations`ev[
                    ComputationalEngine`Cond`t + 1], 
                    ComputationalEngine`Cond`t - 1, 
                    ComputationalEngine`Cond`modNRC]], 
-                 ComputationalEngine`Cond`muc + (
-                  ComputationalEngine`Cond`rhocp 
-                   ComputationalEngine`Cond`rhop (
+                 ComputationalEngine`Cond`muc + ((
+                    ComputationalEngine`Cond`rhocp 
+                    ComputationalEngine`Cond`rhop) (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 1] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`rhocp ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhocp 
+                    ComputationalEngine`Cond`xip) 
                    ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 1])]], 0 === Simplify[
                 Subtract[
@@ -3732,14 +3750,15 @@ ComputeConditionalExpectations`ev[
                    ComputationalEngine`Cond`t + 1], 
                    ComputationalEngine`Cond`t - 2, 
                    ComputationalEngine`Cond`modNRC]], 
-                 ComputationalEngine`Cond`muc + (
-                  ComputationalEngine`Cond`rhocp 
-                   ComputationalEngine`Cond`rhop^2 (
+                 ComputationalEngine`Cond`muc + ((
+                    ComputationalEngine`Cond`rhocp 
+                    ComputationalEngine`Cond`rhop^2) (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 2] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`rhocp 
-                   ComputationalEngine`Cond`rhop ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + ((
+                    ComputationalEngine`Cond`rhocp 
+                    ComputationalEngine`Cond`rhop) 
+                    ComputationalEngine`Cond`xip) 
                    ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 2])]], 0 === Simplify[
                 Subtract[
@@ -3793,8 +3812,9 @@ ComputeConditionalExpectations`ev[
                    ComputationalEngine`Cond`rhop^2 (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 1] - 
-                    ComputationalEngine`Cond`mup) + 
-                   ComputationalEngine`Cond`rhop ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhop 
+                    ComputationalEngine`Cond`xip) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 1])) 
                  ComputationalEngine`Cond`eps["pi"][
@@ -3814,8 +3834,9 @@ ComputeConditionalExpectations`ev[
                    ComputationalEngine`Cond`rhop^2 (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 1] - 
-                    ComputationalEngine`Cond`mup) + 
-                   ComputationalEngine`Cond`rhop ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhop 
+                    ComputationalEngine`Cond`xip) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 1])) 
                  ComputationalEngine`Cond`eps["pi"][
@@ -4108,8 +4129,9 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`mup + (
                    ComputationalEngine`Cond`rhop^2 (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
-                   ComputationalEngine`Cond`rhop ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhop 
+                    ComputationalEngine`Cond`xip) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])) 
                  ComputationalEngine`Cond`eps["pi"][
@@ -4295,8 +4317,9 @@ ComputeConditionalExpectations`ev[
                  ComputationalEngine`Cond`mup + (
                   ComputationalEngine`Cond`rhop^2 (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`rhop ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhop 
+                    ComputationalEngine`Cond`xip) 
                    ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])]], 0 === Simplify[
                 Subtract[
@@ -4312,9 +4335,9 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`rhop^3 (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 1] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`rhop^2 
-                   ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhop^2 
+                    ComputationalEngine`Cond`xip) 
                    ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 1])]], 0 === Simplify[
                 Subtract[
@@ -4330,9 +4353,9 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`rhop^4 (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 2] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`rhop^3 
-                   ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhop^3 
+                    ComputationalEngine`Cond`xip) 
                    ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 2])]], 0 === Simplify[
                 Subtract[
@@ -4364,8 +4387,9 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`rhop^2 (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 1] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`rhop ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhop 
+                    ComputationalEngine`Cond`xip) 
                    ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 1])]], 0 === Simplify[
                 Subtract[
@@ -4381,9 +4405,9 @@ ComputeConditionalExpectations`ev[
                   ComputationalEngine`Cond`rhop^3 (
                     ComputationalEngine`Cond`pi[
                     ComputationalEngine`Cond`t - 2] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`rhop^2 
-                   ComputationalEngine`Cond`xip 
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`rhop^2 
+                    ComputationalEngine`Cond`xip) 
                    ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t - 2])]], 0 === Simplify[
                 Subtract[
@@ -4414,10 +4438,11 @@ ComputeConditionalExpectations`ev[
                  ComputationalEngine`Cond`muc + (
                   ComputationalEngine`Cond`rhocp (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`xic 
-                   ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1]
-                     ComputationalEngine`Cond`eps["pi"][
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`xic 
+                    ComputationalEngine`Cond`sg[
+                    ComputationalEngine`Cond`t - 1]) 
+                   ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])]], 0 === 
               Simplify[PacletizedResourceFunctions`SetSymbolsContext[
                   
@@ -4443,10 +4468,11 @@ ComputeConditionalExpectations`ev[
                  ComputationalEngine`Cond`mud[ComputationalEngine`Cond`i] + (
                   ComputationalEngine`Cond`rhodp[ComputationalEngine`Cond`i] (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
-                  ComputationalEngine`Cond`xid[ComputationalEngine`Cond`i] 
-                   ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1]
-                     ComputationalEngine`Cond`eps["pi"][
+                    ComputationalEngine`Cond`mup) + (
+                    ComputationalEngine`Cond`xid[ComputationalEngine`Cond`i] 
+                    ComputationalEngine`Cond`sg[
+                    ComputationalEngine`Cond`t - 1]) 
+                   ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t])]], 0 === Simplify[
                 Subtract[
                  PacletizedResourceFunctions`SetSymbolsContext[
@@ -4477,10 +4503,10 @@ ComputeConditionalExpectations`ev[
                    ComputationalEngine`Cond`muc + (
                     ComputationalEngine`Cond`rhocp (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
+                    ComputationalEngine`Cond`mup) + (
                     ComputationalEngine`Cond`xic 
                     ComputationalEngine`Cond`sg[
-                    ComputationalEngine`Cond`t - 1] 
+                    ComputationalEngine`Cond`t - 1]) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t]))^2 + 
                  ComputationalEngine`Cond`phic^2]], 0 === Simplify[
@@ -4512,10 +4538,10 @@ ComputeConditionalExpectations`ev[
                     ComputationalEngine`Cond`rhodp[
                     ComputationalEngine`Cond`i] (
                     ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - 
-                    ComputationalEngine`Cond`mup) + 
+                    ComputationalEngine`Cond`mup) + (
                     ComputationalEngine`Cond`xid[ComputationalEngine`Cond`i] 
                     ComputationalEngine`Cond`sg[
-                    ComputationalEngine`Cond`t - 1] 
+                    ComputationalEngine`Cond`t - 1]) 
                     ComputationalEngine`Cond`eps["pi"][
                     ComputationalEngine`Cond`t]))^2 + 
                  ComputationalEngine`Cond`phidc[
@@ -4797,7 +4823,6 @@ ComputeConditionalExpectations`ev[
                ComputationalEngine`Cond`eps["dc"][
                 ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 
                1, ComputationalEngine`Cond`modNRC] === 
-             
              FernandoDuarte`LongRunRisk`ComputationalEngine`\
 ComputeConditionalExpectations`ev[
                
@@ -5254,13 +5279,13 @@ ComputeConditionalExpectations`ev[
                 ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC], 
                ComputationalEngine`Cond`t - 1, 
                ComputationalEngine`Cond`modNRC], 
+             
              FernandoDuarte`LongRunRisk`ComputationalEngine`\
 ComputeConditionalExpectations`ev[
                ComputationalEngine`Cond`dd[
                ComputationalEngine`Cond`t, ComputationalEngine`Cond`i], 
                ComputationalEngine`Cond`t - 1, 
                ComputationalEngine`Cond`modNRC] === 
-             
              FernandoDuarte`LongRunRisk`ComputationalEngine`\
 ComputeConditionalExpectations`ev[
               ComputationalEngine`Cond`dd[
@@ -5578,15 +5603,16 @@ ComputeConditionalExpectations`Private`lagStateVarst[
                ComputationalEngine`Cond`t - 1, 
                ComputationalEngine`Cond`modNRC], 
              FernandoDuarte`LongRunRisk`ComputationalEngine`\
-ComputeConditionalExpectations`Private`lagStateVarst[
-              foo`pi[ComputationalEngine`Cond`t] 
-               ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] 
-               bar`delta, ComputationalEngine`Cond`t - 1, 
+ComputeConditionalExpectations`Private`lagStateVarst[(
+                foo`pi[ComputationalEngine`Cond`t] 
+                ComputationalEngine`Cond`eps["pi"][
+                 ComputationalEngine`Cond`t]) bar`delta, 
+               ComputationalEngine`Cond`t - 1, 
                ComputationalEngine`Cond`modNRC] === 
              FernandoDuarte`LongRunRisk`ComputationalEngine`\
-ComputeConditionalExpectations`Private`lagStateVarst[
-              ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] 
-               foo`eps["pi"][ComputationalEngine`Cond`t] 
+ComputeConditionalExpectations`Private`lagStateVarst[(
+                ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] 
+                foo`eps["pi"][ComputationalEngine`Cond`t]) 
                ComputationalEngine`Cond`delta, ComputationalEngine`Cond`t - 1,
                 ComputationalEngine`Cond`modNRC], 
              FernandoDuarte`LongRunRisk`ComputationalEngine`\
@@ -6077,9 +6103,9 @@ ComputeUnconditionalExpectations`Private`uncondEStep; Null],
                  ComputationalEngine`Uncond`sol2]]] === FullSimplify[
                ExpandAll[
                FernandoDuarte`LongRunRisk`Model`Parameters`mup^2 + 
-                Divide[FernandoDuarte`LongRunRisk`Model`Parameters`xip^2 + 
-                  2 FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                Divide[FernandoDuarte`LongRunRisk`Model`Parameters`xip^2 + ((
+                    2 FernandoDuarte`LongRunRisk`Model`Parameters`rhop) 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Parameters`phip + 
                   FernandoDuarte`LongRunRisk`Model`Parameters`phip^2, 1 - 
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2]]], 
@@ -6132,9 +6158,9 @@ ComputeUnconditionalExpectations`uncondE[
                   ComputationalEngine`Uncond`modNRC]]] === FullSimplify[
                ExpandAll[
                FernandoDuarte`LongRunRisk`Model`Parameters`mup^2 + 
-                Divide[FernandoDuarte`LongRunRisk`Model`Parameters`xip^2 + 
-                  2 FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                Divide[FernandoDuarte`LongRunRisk`Model`Parameters`xip^2 + ((
+                    2 FernandoDuarte`LongRunRisk`Model`Parameters`rhop) 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Parameters`phip + 
                   FernandoDuarte`LongRunRisk`Model`Parameters`phip^2, 1 - 
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2]]], 
@@ -6251,19 +6277,19 @@ ComputeUnconditionalExpectations`uncondE[
                 Subtract[
                 FernandoDuarte`LongRunRisk`Model`Parameters`Esg 
                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-                   ComputationalEngine`Uncond`t - 1] + (
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhog 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-                    ComputationalEngine`Uncond`t - 1] 
+                   ComputationalEngine`Uncond`t - 1] + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhog 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                    ComputationalEngine`Uncond`t - 1]) 
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
-                    ComputationalEngine`Uncond`t - 1] + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`phig 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-                    ComputationalEngine`Uncond`t - 1] 
+                    ComputationalEngine`Uncond`t - 1] + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`phig 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                    ComputationalEngine`Uncond`t - 1]) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][
-                    ComputationalEngine`Uncond`t]), 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`Esg 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`rhog 
+                    ComputationalEngine`Uncond`t]), (
+                  FernandoDuarte`LongRunRisk`Model`Parameters`Esg 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`rhog) 
                  FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                   ComputationalEngine`Uncond`t - 1]]], ExpandAll[
                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
@@ -6275,22 +6301,22 @@ ComputeUnconditionalExpectations`uncondE[
                 Subtract[
                 FernandoDuarte`LongRunRisk`Model`Parameters`mup 
                   FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                   ComputationalEngine`Uncond`t] + (
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-                    ComputationalEngine`Uncond`t - 1] 
+                   ComputationalEngine`Uncond`t] + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                    ComputationalEngine`Uncond`t - 1]) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t] + (
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    ComputationalEngine`Uncond`t] + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t - 1] 
+                    ComputationalEngine`Uncond`t - 1]) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     ComputationalEngine`Uncond`t] + 
                    FernandoDuarte`LongRunRisk`Model`Parameters`phip 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t]^2)), 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`mup 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    ComputationalEngine`Uncond`t]^2)), (
+                  FernandoDuarte`LongRunRisk`Model`Parameters`mup 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop) 
                  FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                   ComputationalEngine`Uncond`t]]], 
               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
@@ -6328,30 +6354,30 @@ ComputeUnconditionalExpectations`uncondE[
                 FernandoDuarte`LongRunRisk`Model`Parameters`mud[
                    ComputationalEngine`Uncond`i] 
                   FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                   ComputationalEngine`Uncond`t] + (
-                  FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                   ComputationalEngine`Uncond`t] + ((
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     ComputationalEngine`Uncond`t - 1] 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[
-                    ComputationalEngine`Uncond`i] 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[
+                    ComputationalEngine`Uncond`i]) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t] + (
-                   FernandoDuarte`LongRunRisk`Model`Parameters`phidc[
+                    ComputationalEngine`Uncond`t] + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`phidc[
                     ComputationalEngine`Uncond`i] 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][
-                    ComputationalEngine`Uncond`t] 
+                    ComputationalEngine`Uncond`t]) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t] + 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    ComputationalEngine`Uncond`t] + ((
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     ComputationalEngine`Uncond`t - 2] 
                     FernandoDuarte`LongRunRisk`Model`Parameters`xid[
-                    ComputationalEngine`Uncond`i] 
+                    ComputationalEngine`Uncond`i]) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t - 1] 
+                    ComputationalEngine`Uncond`t - 1]) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t])), 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`mup 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[
-                  ComputationalEngine`Uncond`i] 
+                    ComputationalEngine`Uncond`t])), (
+                  FernandoDuarte`LongRunRisk`Model`Parameters`mup 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[
+                   ComputationalEngine`Uncond`i]) 
                  FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                   ComputationalEngine`Uncond`t]]], 
               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
@@ -6398,12 +6424,14 @@ ComputeUnconditionalExpectations`uncondE[
               Map[MatchQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]& , 
                DeleteDuplicates[
                 Cases[
-                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                 ComputationalEngine`Uncond`pi[
-                   ComputationalEngine`Uncond`t - 1] 
-                  ComputationalEngine`Uncond`dd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                 
+                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                   ComputationalEngine`Uncond`pi[
+                    ComputationalEngine`Uncond`t - 1] 
+                   ComputationalEngine`Uncond`dd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1], 
                   ComputationalEngine`Uncond`model, 
                   Append[
@@ -6422,12 +6450,12 @@ ComputeUnconditionalExpectations`uncondE[
                 Cases[
                  ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
                  ComputationalEngine`Uncond`pi[
-                   ComputationalEngine`Uncond`t - 1] (
-                   ComputationalEngine`Uncond`dd[
+                   ComputationalEngine`Uncond`t - 1] ((
+                    ComputationalEngine`Uncond`dd[
                     ComputationalEngine`Uncond`t, 
                     ComputationalEngine`Uncond`i] 
-                   ComputationalEngine`Uncond`eps["pi"][
-                    ComputationalEngine`Uncond`t] 
+                    ComputationalEngine`Uncond`eps["pi"][
+                    ComputationalEngine`Uncond`t]) 
                    ComputationalEngine`Uncond`eps["pi"][
                     ComputationalEngine`Uncond`t - 1]), 
                   ComputationalEngine`Uncond`model, 
@@ -6445,13 +6473,16 @@ ComputeUnconditionalExpectations`uncondE[
               Map[MatchQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]& , 
                DeleteDuplicates[
                 Cases[
-                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                 ComputationalEngine`Uncond`pi[
-                   ComputationalEngine`Uncond`t - 1] 
-                  ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t] 
-                  ComputationalEngine`Uncond`dd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                 
+                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[((
+                    ComputationalEngine`Uncond`pi[
+                    ComputationalEngine`Uncond`t - 1] 
+                    ComputationalEngine`Uncond`sg[
+                    ComputationalEngine`Uncond`t]) 
+                   ComputationalEngine`Uncond`dd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1], 
                   ComputationalEngine`Uncond`model, 
                   Append[
@@ -6582,11 +6613,12 @@ ComputeUnconditionalExpectations`uncondE[
                ComputationalEngine`Uncond`t] 
               ComputationalEngine`Uncond`foo[
                ComputationalEngine`Uncond`t - 1], ExpandAll[
-               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-               ComputationalEngine`Uncond`eps["pi"][
-                 ComputationalEngine`Uncond`t + 1] 
-                ComputationalEngine`Uncond`eps["pi"][
-                 ComputationalEngine`Uncond`t] 
+               
+               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                 ComputationalEngine`Uncond`eps["pi"][
+                  ComputationalEngine`Uncond`t + 1] 
+                 ComputationalEngine`Uncond`eps["pi"][
+                  ComputationalEngine`Uncond`t]) 
                 ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t], 
                 ComputationalEngine`Uncond`model, 
                 ComputationalEngine`Uncond`stateVarsNoEps]] === 
@@ -6640,17 +6672,17 @@ ComputeUnconditionalExpectations`uncondE[
                 ComputationalEngine`Uncond`irrelevantVar]] === 
              FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
               ComputationalEngine`Uncond`t], 
-             ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-              ComputationalEngine`Uncond`anotherIrrelevantVar 
-               ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] 
+             ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                ComputationalEngine`Uncond`anotherIrrelevantVar 
+                ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t]) 
                ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t], 
                ComputationalEngine`Uncond`model, 
                Append[
                ComputationalEngine`Uncond`stateVarsNoEps, 
-                ComputationalEngine`Uncond`anotherIrrelevantVar]] === 
-             ComputationalEngine`Uncond`anotherIrrelevantVar 
-              FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-               ComputationalEngine`Uncond`t] 
+                ComputationalEngine`Uncond`anotherIrrelevantVar]] === (
+               ComputationalEngine`Uncond`anotherIrrelevantVar 
+               FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                ComputationalEngine`Uncond`t]) 
               FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                ComputationalEngine`Uncond`t]}]], "ExpectedMessages" -> 
          HoldForm[{}], "ActualOutput" -> HoldForm[True], 
@@ -6697,10 +6729,12 @@ ComputeUnconditionalExpectations`uncondE[
                Blank[Symbol], MatchQ[
                 SymbolName[#], "pi"]& ][ComputationalEngine`Uncond`t]], 
              FreeQ[
-              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-              ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1] 
-               ComputationalEngine`Uncond`dd[
-                ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i] 
+              
+              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                ComputationalEngine`Uncond`pi[
+                 ComputationalEngine`Uncond`t - 1] 
+                ComputationalEngine`Uncond`dd[
+                 ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]) 
                ComputationalEngine`Uncond`eps["pi"][
                 ComputationalEngine`Uncond`t - 1], 
                ComputationalEngine`Uncond`model, 
@@ -6714,11 +6748,13 @@ ComputeUnconditionalExpectations`uncondE[
                ComputationalEngine`Uncond`i]], 
              Not[
               FreeQ[
-               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-               ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1]
-                  ComputationalEngine`Uncond`dd[
-                 ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i] 
-                ComputationalEngine`Uncond`eps["pi"][
+               
+               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                 ComputationalEngine`Uncond`pi[
+                  ComputationalEngine`Uncond`t - 1] 
+                 ComputationalEngine`Uncond`dd[
+                  ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i])
+                  ComputationalEngine`Uncond`eps["pi"][
                  ComputationalEngine`Uncond`t - 1], 
                 ComputationalEngine`Uncond`model, 
                 Append[
@@ -6729,11 +6765,12 @@ ComputeUnconditionalExpectations`uncondE[
                  SymbolName[#], "eps"]& ]["pi"][
                ComputationalEngine`Uncond`t - 1]]], 
              FreeQ[
-              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-              ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] 
-               ComputationalEngine`Uncond`dd[
-                ComputationalEngine`Uncond`t - 1, 
-                 ComputationalEngine`Uncond`i] 
+              
+              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] 
+                ComputationalEngine`Uncond`dd[
+                 ComputationalEngine`Uncond`t - 1, 
+                  ComputationalEngine`Uncond`i]) 
                ComputationalEngine`Uncond`eps["pi"][
                 ComputationalEngine`Uncond`t - 1], 
                ComputationalEngine`Uncond`model, 
@@ -6745,10 +6782,12 @@ ComputeUnconditionalExpectations`uncondE[
                 SymbolName[#], "pi"]& ][
               ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]], 
              FreeQ[
-              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-              ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1] 
-               ComputationalEngine`Uncond`dd[
-                ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i] 
+              
+              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                ComputationalEngine`Uncond`pi[
+                 ComputationalEngine`Uncond`t - 1] 
+                ComputationalEngine`Uncond`dd[
+                 ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]) 
                ComputationalEngine`Uncond`eps["dd"][
                 ComputationalEngine`Uncond`t - 1, 
                  ComputationalEngine`Uncond`i], 
@@ -6763,11 +6802,13 @@ ComputeUnconditionalExpectations`uncondE[
                ComputationalEngine`Uncond`i]], 
              Not[
               FreeQ[
-               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-               ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1]
-                  ComputationalEngine`Uncond`dd[
-                 ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i] 
-                ComputationalEngine`Uncond`eps["dd"][
+               
+               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                 ComputationalEngine`Uncond`pi[
+                  ComputationalEngine`Uncond`t - 1] 
+                 ComputationalEngine`Uncond`dd[
+                  ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i])
+                  ComputationalEngine`Uncond`eps["dd"][
                  ComputationalEngine`Uncond`t - 1, 
                   ComputationalEngine`Uncond`i], 
                 ComputationalEngine`Uncond`model, 
@@ -6863,16 +6904,17 @@ ComputeUnconditionalExpectations`uncondE[
                 ComputationalEngine`Uncond`model, {
                 ComputationalEngine`Uncond`wc}], 
                FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-               ComputationalEngine`Uncond`t - 1]] === 
-             FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-              FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[1] 
+               ComputationalEngine`Uncond`t - 1]] === (
+               FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+               FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[1]) 
               FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                ComputationalEngine`Uncond`t], DeleteDuplicates[
                Cases[
-                ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] 
-                 ComputationalEngine`Uncond`wc[ComputationalEngine`Uncond`t] 
-                 ComputationalEngine`Uncond`eps["pi"][
+                
+                ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                  ComputationalEngine`Uncond`A[0] 
+                  ComputationalEngine`Uncond`wc[ComputationalEngine`Uncond`t])
+                   ComputationalEngine`Uncond`eps["pi"][
                   ComputationalEngine`Uncond`t - 1], 
                  ComputationalEngine`Uncond`model, 
                  ComputationalEngine`Uncond`stateVarsNoEps], PatternTest[
@@ -6884,10 +6926,11 @@ ComputeUnconditionalExpectations`uncondE[
               "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"}, 
              DeleteDuplicates[
                Cases[
-                ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] 
-                 ComputationalEngine`Uncond`wc[ComputationalEngine`Uncond`t] 
-                 ComputationalEngine`Uncond`eps["pi"][
+                
+                ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                  ComputationalEngine`Uncond`A[0] 
+                  ComputationalEngine`Uncond`wc[ComputationalEngine`Uncond`t])
+                   ComputationalEngine`Uncond`eps["pi"][
                   ComputationalEngine`Uncond`t - 1], 
                  ComputationalEngine`Uncond`model, {
                  ComputationalEngine`Uncond`wc}], PatternTest[
@@ -6916,19 +6959,21 @@ ComputeUnconditionalExpectations`uncondE[
                 ComputationalEngine`Uncond`model, {
                 ComputationalEngine`Uncond`pd}], 
                FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-               ComputationalEngine`Uncond`t - 1]] === 
-             FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-              FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
-               ComputationalEngine`Uncond`i][1] 
+               ComputationalEngine`Uncond`t - 1]] === (
+               FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+               FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
+                ComputationalEngine`Uncond`i][1]) 
               FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                ComputationalEngine`Uncond`t], DeleteDuplicates[
                Cases[
                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] (
-                  ComputationalEngine`Uncond`B[ComputationalEngine`Uncond`i][
-                   1] ComputationalEngine`Uncond`pd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                ComputationalEngine`Uncond`A[
+                  0] ((ComputationalEngine`Uncond`B[
+                    ComputationalEngine`Uncond`i][1] 
+                   ComputationalEngine`Uncond`pd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1]), 
                  ComputationalEngine`Uncond`model, 
                  ComputationalEngine`Uncond`stateVarsNoEps], PatternTest[
@@ -6941,11 +6986,13 @@ ComputeUnconditionalExpectations`uncondE[
              DeleteDuplicates[
                Cases[
                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] (
-                  ComputationalEngine`Uncond`B[ComputationalEngine`Uncond`i][
-                   1] ComputationalEngine`Uncond`pd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                ComputationalEngine`Uncond`A[
+                  0] ((ComputationalEngine`Uncond`B[
+                    ComputationalEngine`Uncond`i][1] 
+                   ComputationalEngine`Uncond`pd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1]), 
                  ComputationalEngine`Uncond`model, 
                  ComputationalEngine`Uncond`stateVarsNoEps], PatternTest[
@@ -6959,11 +7006,13 @@ ComputeUnconditionalExpectations`uncondE[
              DeleteDuplicates[
                Cases[
                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] (
-                  ComputationalEngine`Uncond`B[ComputationalEngine`Uncond`i][
-                   1] ComputationalEngine`Uncond`pd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                ComputationalEngine`Uncond`A[
+                  0] ((ComputationalEngine`Uncond`B[
+                    ComputationalEngine`Uncond`i][1] 
+                   ComputationalEngine`Uncond`pd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1]), 
                  ComputationalEngine`Uncond`model, {
                  ComputationalEngine`Uncond`pd}], PatternTest[
@@ -6976,11 +7025,13 @@ ComputeUnconditionalExpectations`uncondE[
              DeleteDuplicates[
                Cases[
                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] (
-                  ComputationalEngine`Uncond`B[ComputationalEngine`Uncond`i][
-                   1] ComputationalEngine`Uncond`pd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                ComputationalEngine`Uncond`A[
+                  0] ((ComputationalEngine`Uncond`B[
+                    ComputationalEngine`Uncond`i][1] 
+                   ComputationalEngine`Uncond`pd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1]), 
                  ComputationalEngine`Uncond`model, {
                  ComputationalEngine`Uncond`pd}], PatternTest[
@@ -7049,9 +7100,9 @@ ComputeUnconditionalExpectations`uncondE[
                  FernandoDuarte`LongRunRisk`Model`Parameters`mup 
                  Subtract[FernandoDuarte`LongRunRisk`Model`Parameters`mup^2, 
                    Divide[
-                   3 (FernandoDuarte`LongRunRisk`Model`Parameters`phip^2 + 
-                    2 FernandoDuarte`LongRunRisk`Model`Parameters`phip 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                   3 (FernandoDuarte`LongRunRisk`Model`Parameters`phip^2 + ((
+                    2 FernandoDuarte`LongRunRisk`Model`Parameters`phip) 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop) 
                     FernandoDuarte`LongRunRisk`Model`Parameters`xip + 
                     FernandoDuarte`LongRunRisk`Model`Parameters`xip^2), 
                     FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 - 
@@ -7073,19 +7124,19 @@ ComputeUnconditionalExpectations`uncondE[
                   ComputationalEngine`Uncond`modNRC]]]] === FullSimplify[
                Expand[
                ComputationalEngine`Uncond`muc^2 + (
-                 ComputationalEngine`Uncond`phic^2 + (
-                  2 ComputationalEngine`Uncond`Esg 
-                   ComputationalEngine`Uncond`phip 
-                   ComputationalEngine`Uncond`rhocp 
+                 ComputationalEngine`Uncond`phic^2 + ((((2 
+                    ComputationalEngine`Uncond`Esg) 
+                    ComputationalEngine`Uncond`phip) 
+                    ComputationalEngine`Uncond`rhocp) 
                    ComputationalEngine`Uncond`xic + (
                    ComputationalEngine`Uncond`xic^2 (
                     ComputationalEngine`Uncond`Esg^2 + 
                     ComputationalEngine`Uncond`phig^2/(1 - 
                     ComputationalEngine`Uncond`rhog^2)) + 
                    Divide[ComputationalEngine`Uncond`rhocp^2 (
-                    ComputationalEngine`Uncond`phip^2 + 
-                    2 ComputationalEngine`Uncond`phip 
-                    ComputationalEngine`Uncond`rhop 
+                    ComputationalEngine`Uncond`phip^2 + ((2 
+                    ComputationalEngine`Uncond`phip) 
+                    ComputationalEngine`Uncond`rhop) 
                     ComputationalEngine`Uncond`xip + 
                     ComputationalEngine`Uncond`xip^2), 1 - 
                     ComputationalEngine`Uncond`rhop^2])))]], FullSimplify[
@@ -7099,22 +7150,22 @@ ComputeUnconditionalExpectations`uncondE[
                    ComputationalEngine`Uncond`modNRC]]]] === FullSimplify[
                Expand[
                ComputationalEngine`Uncond`muc 
-                 ComputationalEngine`Uncond`mup + (
-                 ComputationalEngine`Uncond`rhocp 
-                  ComputationalEngine`Uncond`xip 
-                  ComputationalEngine`Uncond`phip + (
-                  ComputationalEngine`Uncond`xic 
-                   ComputationalEngine`Uncond`rhop 
-                   ComputationalEngine`Uncond`phip 
-                   ComputationalEngine`Uncond`Esg + (
-                   ComputationalEngine`Uncond`xic 
-                    ComputationalEngine`Uncond`xip 
+                 ComputationalEngine`Uncond`mup + ((
+                   ComputationalEngine`Uncond`rhocp 
+                   ComputationalEngine`Uncond`xip) 
+                  ComputationalEngine`Uncond`phip + (((
+                    ComputationalEngine`Uncond`xic 
+                    ComputationalEngine`Uncond`rhop) 
+                    ComputationalEngine`Uncond`phip) 
+                   ComputationalEngine`Uncond`Esg + ((
+                    ComputationalEngine`Uncond`xic 
+                    ComputationalEngine`Uncond`xip) 
                     ComputationalEngine`Uncond`Esg + 
                    Divide[(ComputationalEngine`Uncond`rhocp 
                     ComputationalEngine`Uncond`rhop) (
-                    ComputationalEngine`Uncond`xip^2 + 
-                    2 ComputationalEngine`Uncond`rhop 
-                    ComputationalEngine`Uncond`xip 
+                    ComputationalEngine`Uncond`xip^2 + ((2 
+                    ComputationalEngine`Uncond`rhop) 
+                    ComputationalEngine`Uncond`xip) 
                     ComputationalEngine`Uncond`phip + 
                     ComputationalEngine`Uncond`phip^2), 1 - 
                     ComputationalEngine`Uncond`rhop^2])))]], FullSimplify[
@@ -7171,9 +7222,9 @@ ComputeUnconditionalExpectations`uncondE[
                  ComputationalEngine`Uncond`phip 
                   ComputationalEngine`Uncond`xip + 
                  Divide[ComputationalEngine`Uncond`rhop (
-                    ComputationalEngine`Uncond`phip^2 + 
-                    2 ComputationalEngine`Uncond`rhop 
-                    ComputationalEngine`Uncond`xip 
+                    ComputationalEngine`Uncond`phip^2 + ((2 
+                    ComputationalEngine`Uncond`rhop) 
+                    ComputationalEngine`Uncond`xip) 
                     ComputationalEngine`Uncond`phip + 
                     ComputationalEngine`Uncond`xip^2), 1 - 
                    ComputationalEngine`Uncond`rhop^2])]], FullSimplify[
@@ -7191,9 +7242,9 @@ ComputeUnconditionalExpectations`uncondE[
                  ComputationalEngine`Uncond`phip 
                   ComputationalEngine`Uncond`xip + 
                  Divide[ComputationalEngine`Uncond`rhop (
-                    ComputationalEngine`Uncond`phip^2 + 
-                    2 ComputationalEngine`Uncond`rhop 
-                    ComputationalEngine`Uncond`xip 
+                    ComputationalEngine`Uncond`phip^2 + ((2 
+                    ComputationalEngine`Uncond`rhop) 
+                    ComputationalEngine`Uncond`xip) 
                     ComputationalEngine`Uncond`phip + 
                     ComputationalEngine`Uncond`xip^2), 1 - 
                    ComputationalEngine`Uncond`rhop^2])]], FullSimplify[
@@ -7220,14 +7271,14 @@ ComputeUnconditionalExpectations`uncondE[
                    ComputationalEngine`Uncond`modNRC]]]] === FullSimplify[
                Expand[
                ComputationalEngine`Uncond`muc 
-                 ComputationalEngine`Uncond`mup + (
-                 ComputationalEngine`Uncond`Esg 
-                  ComputationalEngine`Uncond`phip 
+                 ComputationalEngine`Uncond`mup + ((
+                   ComputationalEngine`Uncond`Esg 
+                   ComputationalEngine`Uncond`phip) 
                   ComputationalEngine`Uncond`xic + 
                  Divide[ComputationalEngine`Uncond`rhocp (
-                    ComputationalEngine`Uncond`phip^2 + 
-                    2 ComputationalEngine`Uncond`phip 
-                    ComputationalEngine`Uncond`rhop 
+                    ComputationalEngine`Uncond`phip^2 + ((2 
+                    ComputationalEngine`Uncond`phip) 
+                    ComputationalEngine`Uncond`rhop) 
                     ComputationalEngine`Uncond`xip + 
                     ComputationalEngine`Uncond`xip^2), 1 - 
                    ComputationalEngine`Uncond`rhop^2])]]}]], 
@@ -11231,6 +11282,14 @@ Private`checks, "largeresid"], 2.799177515852174*^-14, 1.*^-20]]},
    3.905096974672638*^9}, 3.9050971296952753`*^9},
  CellLabel->"Out[5]=",ExpressionUUID->"2aa3659c-2223-4316-b2fc-896298438da4"]
 }, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"tr", "=", 
+  RowBox[{
+  "TestReport", "[", 
+   "\"\</Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/TimeAggregation.wlt\>\"", 
+   "]"}]}]], "Input",ExpressionUUID->"7c47fece-e37b-46a8-a1f5-f66cb52faf00"],
 
 Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]"}]], "Input",
@@ -18118,63 +18177,65 @@ Cell[3162, 72, 821, 12, 42, "Output",ExpressionUUID->"e1785497-7ae2-44a8-ab89-bd
 Cell[3986, 86, 2089, 36, 329, "Output",ExpressionUUID->"d0b6aaea-87b3-4ce3-b6e9-454d93eb1704"],
 Cell[6078, 124, 837, 13, 42, "Output",ExpressionUUID->"95df616f-c613-4d69-8aff-2df5b4b17385"]
 }, Open  ]],
+Cell[6930, 140, 152, 3, 37, "Input",ExpressionUUID->"0fb4bc80-b5a1-4dd6-a563-6bd71e7ef9ce"],
 Cell[CellGroupData[{
-Cell[6952, 142, 262, 6, 37, "Input",ExpressionUUID->"a02079b6-dc93-4662-a435-00398ad5c39a"],
-Cell[7217, 150, 30344, 568, 76, "Output",ExpressionUUID->"9503a873-c2c3-4864-9ef9-62d315a94bcb"]
+Cell[7107, 147, 262, 6, 37, "Input",ExpressionUUID->"a02079b6-dc93-4662-a435-00398ad5c39a"],
+Cell[7372, 155, 30344, 568, 76, "Output",ExpressionUUID->"9503a873-c2c3-4864-9ef9-62d315a94bcb"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[37598, 723, 1062, 25, 90, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0"],
-Cell[38663, 750, 36800, 673, 76, "Output",ExpressionUUID->"c19a1363-8232-46c8-bdf2-52f9669d8b52"],
-Cell[75466, 1425, 22696, 463, 76, "Output",ExpressionUUID->"23226036-9e0e-4501-9dba-1364baa8edfc"],
-Cell[98165, 1890, 29606, 605, 76, "Output",ExpressionUUID->"7187e23d-51a9-49a5-b03e-efd25a5fe54b"]
+Cell[37753, 728, 1062, 25, 90, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0"],
+Cell[38818, 755, 36800, 673, 76, "Output",ExpressionUUID->"c19a1363-8232-46c8-bdf2-52f9669d8b52"],
+Cell[75621, 1430, 22696, 463, 76, "Output",ExpressionUUID->"23226036-9e0e-4501-9dba-1364baa8edfc"],
+Cell[98320, 1895, 29606, 605, 76, "Output",ExpressionUUID->"7187e23d-51a9-49a5-b03e-efd25a5fe54b"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[127808, 2500, 744, 14, 37, "Input",ExpressionUUID->"16b4a727-0558-4183-a2f8-e2e1a7b3a611"],
-Cell[128555, 2516, 168345, 3154, 76, "Output",ExpressionUUID->"b181f30a-7703-4dc8-94f1-2a750149a41c"]
+Cell[127963, 2505, 744, 14, 37, "Input",ExpressionUUID->"16b4a727-0558-4183-a2f8-e2e1a7b3a611"],
+Cell[128710, 2521, 168967, 3175, 76, "Output",ExpressionUUID->"b181f30a-7703-4dc8-94f1-2a750149a41c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[296937, 5675, 290, 7, 37, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684"],
-Cell[297230, 5684, 85644, 1569, 76, "Output",ExpressionUUID->"d65a25e1-141e-4a09-a470-b01a7e476aea"]
+Cell[297714, 5701, 290, 7, 37, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684"],
+Cell[298007, 5710, 86326, 1594, 76, "Output",ExpressionUUID->"d65a25e1-141e-4a09-a470-b01a7e476aea"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[382911, 7258, 273, 7, 37, "Input",ExpressionUUID->"5a7b1be5-0bb0-47d8-8966-c6eaeeeabe17"],
-Cell[383187, 7267, 40390, 782, 76, "Output",ExpressionUUID->"d79a1195-f6d0-4f45-81fa-7ae8857f1686"]
+Cell[384370, 7309, 273, 7, 37, "Input",ExpressionUUID->"5a7b1be5-0bb0-47d8-8966-c6eaeeeabe17"],
+Cell[384646, 7318, 40390, 782, 76, "Output",ExpressionUUID->"d79a1195-f6d0-4f45-81fa-7ae8857f1686"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[423614, 8054, 968, 28, 64, "Input",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4"],
-Cell[424585, 8084, 138016, 3147, 76, "Output",ExpressionUUID->"2aa3659c-2223-4316-b2fc-896298438da4"]
+Cell[425073, 8105, 968, 28, 64, "Input",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4"],
+Cell[426044, 8135, 138016, 3147, 76, "Output",ExpressionUUID->"2aa3659c-2223-4316-b2fc-896298438da4"]
 }, Open  ]],
-Cell[562616, 11234, 454, 8, 90, "Input",ExpressionUUID->"84c78bb2-8e0f-4b6f-ae00-0d2abae7a844"],
-Cell[563073, 11244, 461, 11, 64, "Input",ExpressionUUID->"5121ffd6-f567-4da8-bdc7-b02da924ab5e"],
-Cell[563537, 11257, 271, 5, 64, "Input",ExpressionUUID->"7f4ea337-0076-4787-aac5-76cf6f1f79da"],
-Cell[563811, 11264, 150, 3, 37, "Input",ExpressionUUID->"e19bde9e-a625-488e-9cf4-b74f7c4fcb22"],
-Cell[563964, 11269, 1261, 26, 220, "Input",ExpressionUUID->"6d80ab2b-2576-4050-b521-9cae711fed04"],
-Cell[565228, 11297, 289, 7, 37, "Input",ExpressionUUID->"2ebef7d6-d331-419f-a64e-ead93d146e3f"],
-Cell[565520, 11306, 174, 2, 37, "Input",ExpressionUUID->"cd632827-fda3-49db-ba6c-c16c6cd48a28"],
-Cell[565697, 11310, 314, 8, 37, "Input",ExpressionUUID->"d38c1461-d4f4-423b-8b82-09b784289135"],
-Cell[566014, 11320, 155, 3, 37, "Input",ExpressionUUID->"74fa26f9-abc6-4219-a123-f978597737ff"],
-Cell[566172, 11325, 295, 5, 37, "Input",ExpressionUUID->"8a9c9e85-8cbf-4e1c-870c-0a5ec229dd8b"],
-Cell[566470, 11332, 177, 3, 37, "Input",ExpressionUUID->"89327c75-70af-4b75-adfd-86608c4fe806"],
+Cell[564075, 11285, 251, 6, 37, "Input",ExpressionUUID->"7c47fece-e37b-46a8-a1f5-f66cb52faf00"],
+Cell[564329, 11293, 454, 8, 90, "Input",ExpressionUUID->"84c78bb2-8e0f-4b6f-ae00-0d2abae7a844"],
+Cell[564786, 11303, 461, 11, 64, "Input",ExpressionUUID->"5121ffd6-f567-4da8-bdc7-b02da924ab5e"],
+Cell[565250, 11316, 271, 5, 64, "Input",ExpressionUUID->"7f4ea337-0076-4787-aac5-76cf6f1f79da"],
+Cell[565524, 11323, 150, 3, 37, "Input",ExpressionUUID->"e19bde9e-a625-488e-9cf4-b74f7c4fcb22"],
+Cell[565677, 11328, 1261, 26, 220, "Input",ExpressionUUID->"6d80ab2b-2576-4050-b521-9cae711fed04"],
+Cell[566941, 11356, 289, 7, 37, "Input",ExpressionUUID->"2ebef7d6-d331-419f-a64e-ead93d146e3f"],
+Cell[567233, 11365, 174, 2, 37, "Input",ExpressionUUID->"cd632827-fda3-49db-ba6c-c16c6cd48a28"],
+Cell[567410, 11369, 314, 8, 37, "Input",ExpressionUUID->"d38c1461-d4f4-423b-8b82-09b784289135"],
+Cell[567727, 11379, 155, 3, 37, "Input",ExpressionUUID->"74fa26f9-abc6-4219-a123-f978597737ff"],
+Cell[567885, 11384, 295, 5, 37, "Input",ExpressionUUID->"8a9c9e85-8cbf-4e1c-870c-0a5ec229dd8b"],
+Cell[568183, 11391, 177, 3, 37, "Input",ExpressionUUID->"89327c75-70af-4b75-adfd-86608c4fe806"],
 Cell[CellGroupData[{
-Cell[566672, 11339, 164, 2, 37, "Input",ExpressionUUID->"f1d84011-dcfc-4f83-98b5-d531ed681557"],
-Cell[566839, 11343, 145958, 3090, 1284, "Output",ExpressionUUID->"232ea0b6-949c-435f-b65d-eca16698bbb2"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[712834, 14438, 206, 3, 37, "Input",ExpressionUUID->"72b3648a-0cee-4dc9-be71-a2ec78ccaeb6"],
-Cell[713043, 14443, 40205, 878, 78, "Output",ExpressionUUID->"28c1af9d-f9a3-44bc-89a8-691f7d78fa3f"]
+Cell[568385, 11398, 164, 2, 37, "Input",ExpressionUUID->"f1d84011-dcfc-4f83-98b5-d531ed681557"],
+Cell[568552, 11402, 145958, 3090, 1284, "Output",ExpressionUUID->"232ea0b6-949c-435f-b65d-eca16698bbb2"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[753285, 15326, 220, 3, 37, "Input",ExpressionUUID->"281bd614-8e68-4b51-a25c-d118be0d8280"],
-Cell[753508, 15331, 128789, 2554, 305, "Output",ExpressionUUID->"58df5f91-7142-499f-80c7-85e64fa7f1d6"]
+Cell[714547, 14497, 206, 3, 37, "Input",ExpressionUUID->"72b3648a-0cee-4dc9-be71-a2ec78ccaeb6"],
+Cell[714756, 14502, 40205, 878, 78, "Output",ExpressionUUID->"28c1af9d-f9a3-44bc-89a8-691f7d78fa3f"]
 }, Open  ]],
-Cell[882312, 17888, 225, 3, 37, "Input",ExpressionUUID->"a6c5e524-ea19-4388-b400-11e7955f8ea5"],
-Cell[882540, 17893, 2104, 62, 194, "Input",ExpressionUUID->"76cb4ed9-01ec-476a-a9e9-6b94634d9568"],
-Cell[884647, 17957, 2013, 59, 194, "Input",ExpressionUUID->"3618d278-2bdc-4117-943a-ec2c4120cbb3"],
-Cell[886663, 18018, 481, 10, 64, "Input",ExpressionUUID->"6969c719-aae4-437c-b901-af76b3071aca"],
-Cell[887147, 18030, 1143, 29, 168, "Input",ExpressionUUID->"145c4020-2b7b-424d-be26-24a62efb7eb2"],
-Cell[888293, 18061, 165, 3, 37, "Input",ExpressionUUID->"5ee11ed9-1b48-4a05-b95e-bf6433e60297"],
-Cell[888461, 18066, 155, 2, 37, "Input",ExpressionUUID->"7eacb08d-7f5b-464e-af3c-e1f85d1ec65e"],
-Cell[888619, 18070, 769, 21, 90, "Input",ExpressionUUID->"86c4bf81-c4ec-4e81-9ee4-eb2a9bac87a8"]
+Cell[CellGroupData[{
+Cell[754998, 15385, 220, 3, 37, "Input",ExpressionUUID->"281bd614-8e68-4b51-a25c-d118be0d8280"],
+Cell[755221, 15390, 128789, 2554, 285, "Output",ExpressionUUID->"58df5f91-7142-499f-80c7-85e64fa7f1d6"]
+}, Open  ]],
+Cell[884025, 17947, 225, 3, 37, "Input",ExpressionUUID->"a6c5e524-ea19-4388-b400-11e7955f8ea5"],
+Cell[884253, 17952, 2104, 62, 194, "Input",ExpressionUUID->"76cb4ed9-01ec-476a-a9e9-6b94634d9568"],
+Cell[886360, 18016, 2013, 59, 194, "Input",ExpressionUUID->"3618d278-2bdc-4117-943a-ec2c4120cbb3"],
+Cell[888376, 18077, 481, 10, 64, "Input",ExpressionUUID->"6969c719-aae4-437c-b901-af76b3071aca"],
+Cell[888860, 18089, 1143, 29, 168, "Input",ExpressionUUID->"145c4020-2b7b-424d-be26-24a62efb7eb2"],
+Cell[890006, 18120, 165, 3, 37, "Input",ExpressionUUID->"5ee11ed9-1b48-4a05-b95e-bf6433e60297"],
+Cell[890174, 18125, 155, 2, 37, "Input",ExpressionUUID->"7eacb08d-7f5b-464e-af3c-e1f85d1ec65e"],
+Cell[890332, 18129, 769, 21, 90, "Input",ExpressionUUID->"86c4bf81-c4ec-4e81-9ee4-eb2a9bac87a8"]
 }
 ]
 *)

@@ -1962,7 +1962,7 @@ modelsExtraInfo = <|
 	"NRCStochVol" -> <|
 		"initialGuess" -> <| 
 			"Ewc" -> {4.6}, 
-			"Epd" -> {{7},{3},{3}}
+			"Epd" -> {{5.5},{5.5},{5.5}}
 		|>
 	|>
 |>;(*end modelsExtraInfo*)

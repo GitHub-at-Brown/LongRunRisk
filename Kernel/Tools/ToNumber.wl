@@ -44,9 +44,9 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
 
 (*uses starting point from modelsExtraInfo in Catalog.wl if available and initial guess is passed by user*)
-toNum["Rules",model_Association,rest__]:= ((*Echo[{rest},"rest"]; *)toNumRules[model,rest,{},ReleaseHold@If[KeyExistsQ[model["extraInfo"],"initialGuess"],"initialGuess"->model["extraInfo"]["initialGuess"],Hold@Sequence[] ] ]);
+toNum["Rules",model_Association,rest__]:= (toNumRules[model,rest,{},ReleaseHold@If[KeyExistsQ[model["extraInfo"],"initialGuess"],"initialGuess"->model["extraInfo"]["initialGuess"],Hold@Sequence[] ] ]);
 
-(*convenience forms that apply rules to expr or allow for infix notation expr//toNum*)
+(*convenience forms that apply rules to expr or allow for postfix notation expr//toNum*)
 toNum[expr_/;Not@AssociationQ[expr],model_Association,rest__]:= ReplaceRepeated[expr, toNum["Rules", model, rest] ] 
 toNum[model_Association,rest__]:=Function[{expr}, toNum[expr,model,rest]]
 
@@ -160,7 +160,7 @@ processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=If[
 						Append[newParametersSplit,{"Global`","theta"}->thetaNew],		
 					2,
 						(*when 2 of {gamma, psi, theta} are provided, solve for the third and add to newParameters*)
-						system = (1-ToExpression@("gamma"/.newParametersString))/(1-1/ToExpression@("psi"/.newParametersString)) == ToExpression@("theta"/.newParametersString);
+						system = ( (1-ToExpression@("gamma"/.newParametersString))/(1-1/ToExpression@("psi"/.newParametersString)) == (ToExpression@("theta"/.newParametersString)) );
 						Append[newParametersSplit,KeyMap[{"Context`",SymbolName@#}&,Association@SolveAlways[system,Reals]]],
 					1,
 						(*if theta provided without gamma or psi, abort*)
