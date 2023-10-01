@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[   1044635,      20810]
-NotebookOptionsPosition[   1038909,      20720]
-NotebookOutlinePosition[   1039379,      20738]
-CellTagsIndexPosition[   1039336,      20735]
+NotebookDataLength[   1067446,      21253]
+NotebookOptionsPosition[   1061487,      21159]
+NotebookOutlinePosition[   1061958,      21177]
+CellTagsIndexPosition[   1061915,      21174]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -21,7 +21,7 @@ Notebook[{
 Cell[BoxData[
  RowBox[{"Quit", "[", "]"}]], "Input",
  CellChangeTimes->{{3.8899684458207283`*^9, 3.889968446659306*^9}},
- CellLabel->"In[25]:=",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
+ CellLabel->"In[32]:=",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
 
 Cell[CellGroupData[{
 
@@ -69,8 +69,8 @@ Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
   3.905081216330208*^9, 3.90508219684044*^9, 3.905095537960334*^9, 
   3.905096100849764*^9, 3.9050966578385*^9, 3.905097113256054*^9, 
   3.905135787677824*^9, 3.905136271972547*^9, 3.905136415668992*^9, 
-  3.9051552683773746`*^9},
- CellLabel->"Out[1]=",ExpressionUUID->"81ad47b7-6b3e-4eb6-92a5-91aab4426ec7"],
+  3.9051552683773746`*^9, 3.905175307064724*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"972a7346-e7a4-45bc-9238-4e6f94a5ec9d"],
 
 Cell[BoxData[
  RowBox[{"{", "\<\"/Users/fernandoduarte/Dropbox \
@@ -85,8 +85,8 @@ Cell[BoxData[
   3.905081216330208*^9, 3.90508219684044*^9, 3.905095537960334*^9, 
   3.905096100849764*^9, 3.9050966578385*^9, 3.905097113256054*^9, 
   3.905135787677824*^9, 3.905136271972547*^9, 3.905136415668992*^9, 
-  3.905155268417758*^9},
- CellLabel->"Out[2]=",ExpressionUUID->"fb72fc96-eb5e-454c-ae33-c67ee6f3edb3"],
+  3.9051552683773746`*^9, 3.9051753071094923`*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"d72ba0b4-177a-478f-a1b0-ceb8412da11b"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -125,8 +125,8 @@ Cell[BoxData[
   3.905081216330208*^9, 3.90508219684044*^9, 3.905095537960334*^9, 
   3.905096100849764*^9, 3.9050966578385*^9, 3.905097113256054*^9, 
   3.905135787677824*^9, 3.905136271972547*^9, 3.905136415668992*^9, 
-  3.905155268418537*^9},
- CellLabel->"Out[3]=",ExpressionUUID->"bb6056be-0f34-4a15-aae1-48634dbaec33"],
+  3.9051552683773746`*^9, 3.9051753071103697`*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"b306909b-8450-417b-b205-bde2c1135513"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -142,8 +142,8 @@ Cell[BoxData[
   3.905081216330208*^9, 3.90508219684044*^9, 3.905095537960334*^9, 
   3.905096100849764*^9, 3.9050966578385*^9, 3.905097113256054*^9, 
   3.905135787677824*^9, 3.905136271972547*^9, 3.905136415668992*^9, 
-  3.905155268419455*^9},
- CellLabel->"Out[4]=",ExpressionUUID->"9d375438-afd4-4b92-94c2-eda1e8463efd"]
+  3.9051552683773746`*^9, 3.9051753071114197`*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"c25b3dc4-2a1c-468d-8998-1a459e6813c8"]
 }, Open  ]],
 
 Cell[BoxData[""], "Input",
@@ -13859,6 +13859,445 @@ Cell[BoxData[
  CellLabel->"Out[5]=",ExpressionUUID->"d715fbae-91c1-43e8-8052-b459e614790c"]
 }, Open  ]],
 
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tr", "=", 
+  RowBox[{
+  "TestReport", "[", 
+   "\"\</Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\>\"", "]"}]}]], "Input",\
+
+ CellChangeTimes->{3.905175313001898*^9},
+ CellLabel->"In[5]:=",ExpressionUUID->"479fb483-095c-47a5-b63a-afec0a7f6185"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["TestReportObject",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              InsetBox[
+               BoxData[
+                FormBox[
+                 PaneBox[
+                  DynamicBox[
+                   FEPrivate`FrontEndResource[
+                   "MUnitExpressions", "SuccessIcon"]], Alignment -> Center, 
+                  ImageSize -> 
+                  Dynamic[{
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], TraditionalForm]]]}, 
+             PlotRange -> {{0, 1}, {0, 1}}, Background -> GrayLevel[0.93], 
+             Axes -> False, AspectRatio -> 1, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], Frame -> True, FrameTicks -> None, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.55]]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Title: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"Test Report: NiceOutput.wlt\"", "SummaryItem"]}], 
+               "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Success rate: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   InterpretationBox[
+                    StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
+                    AutoDelete -> True], PercentForm], "SummaryItem"]}], 
+               RowBox[{
+                 TagBox["\"Tests count: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["9", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              InsetBox[
+               BoxData[
+                FormBox[
+                 PaneBox[
+                  DynamicBox[
+                   FEPrivate`FrontEndResource[
+                   "MUnitExpressions", "SuccessIcon"]], Alignment -> Center, 
+                  ImageSize -> 
+                  Dynamic[{
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], TraditionalForm]]]}, 
+             PlotRange -> {{0, 1}, {0, 1}}, Background -> GrayLevel[0.93], 
+             Axes -> False, AspectRatio -> 1, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], Frame -> True, FrameTicks -> None, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.55]]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Title: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"Test Report: NiceOutput.wlt\"", "SummaryItem"]}], 
+               "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Success rate: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   InterpretationBox[
+                    StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
+                    AutoDelete -> True], PercentForm], "SummaryItem"]}], 
+               RowBox[{
+                 TagBox["\"Tests count: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["9", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Succeeded: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["9", "SummaryItem"]}], "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Time elapsed: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  
+                  TemplateBox[{
+                   "5.5994460000000000001`5.944417549140864", "\"s\"", 
+                    "seconds", "\"Seconds\""}, "Quantity", SyntaxForm -> Mod],
+                   "SummaryItem"]}], "\[SpanFromLeft]"}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  TestReportObject[<|
+   "Title" -> "Test Report: NiceOutput.wlt", "Aborted" -> False, 
+    "TestResults" -> <|
+     7539885375377225897 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905175314971533*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "97183a15-c926-47a6-afe6-623ae1f6cb12", "TestID" -> 
+         "NiceOutput_20231001-RXB3TW", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
+         "82248974-2042-479e-b320-112c055c8ed7", "Input" -> HoldForm[Get[
+             Get[
+              FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]]; 
+           Tools`NiceOutput`msp = FernandoDuarte`LongRunRisk`Models; 
+           Tools`NiceOutput`modBY = Tools`NiceOutput`msp["BY"]; 
+           Tools`NiceOutput`modBKY = Tools`NiceOutput`msp["BKY"]; 
+           Tools`NiceOutput`modNRC = Tools`NiceOutput`msp["NRC"]; 
+           Tools`NiceOutput`modDES = Tools`NiceOutput`msp["DES"]; 
+           Tools`NiceOutput`modNRCStochVol = 
+            Tools`NiceOutput`msp["NRCStochVol"]; Null], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[Null], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.357463`5.703746093682585, "CPUTimeUsed" -> 0.3528750000000005, 
+         "MemoryUsed" -> 23170208, "ExpectedOutput" -> HoldForm[Null], 
+         "Outcome" -> "Success"|>], 6488361261547136079 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905175315329395*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "c87ee72f-898c-4b62-a475-e3b5054f3609", "TestID" -> 
+         "NiceOutput_20231001-RU2NOW", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
+         "ca06e7b6-7be0-408c-8d67-888efbc50a86", "Input" -> 
+         HoldForm[
+          Needs["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]; $ContextPath = 
+            DeleteDuplicates[
+              Prepend[$ContextPath, 
+               "FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`"]]; 
+           Null], "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> 
+         HoldForm[Null], "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         2.981643`6.624970640835111, "CPUTimeUsed" -> 1.6966030000000005`, 
+         "MemoryUsed" -> 73846192, "ExpectedOutput" -> HoldForm[Null], 
+         "Outcome" -> "Success"|>], 5778985441980369017 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905175318311523*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "e09601ce-ec41-4236-b3ef-9611e1323459", "TestID" -> 
+         "NiceOutput_20231001-2IQXAA", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
+         "8bc05b81-260b-4082-92c4-1d2c5a37b1a6", "Input" -> HoldForm[
+           Apply[And, {
+             
+             MemberQ[$ContextPath, 
+              "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]}]], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000026`1.5654883458028073, "CPUTimeUsed" -> 
+         0.000026000000000081513`, "MemoryUsed" -> 2760, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 327881674381089694 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905175318311891*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "8a0c5a3f-ac4e-4f53-9b4d-f6c7ef135de9", "TestID" -> 
+         "NiceOutput_20231001-VFQ7MU", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
+         "e7b78ee5-225a-4c0b-b806-45a909fa1bee", "Input" -> HoldForm[
+           Not[Names["*info"] === {}]], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
+         "AbsoluteTimeUsed" -> 0.028673`4.607988132539351, "CPUTimeUsed" -> 
+         0.028669999999999973`, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 8111915232749757448 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905175318340972*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "9732c749-bd8c-4ce7-b659-ee447024bfa5", "TestID" -> 
+         "NiceOutput_20231001-ZQZFWJ", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
+         "1c2c6792-b4ce-4ec2-b935-3b3a2b19ad52", "Input" -> 
+         HoldForm[
+          Tools`NiceOutput`myModelsInfo = 
+            PacletizedResourceFunctions`SetSymbolsContext[
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`info[
+              Tools`NiceOutput`msp]]; 
+           Apply[And, {Head[Tools`NiceOutput`myModelsInfo] === Column, Head[
+                Part[Tools`NiceOutput`myModelsInfo, 1]] === List, Head[
+                Part[Tools`NiceOutput`myModelsInfo, 1, 1]] === OpenerView, 
+              Apply[And, 
+               Map[MatchQ[#, Grid]& , 
+                Map[Head, 
+                 Part[Tools`NiceOutput`myModelsInfo, 1, 
+                  Span[1, All], 1, 2]]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         2.000489`6.451651165517797, "CPUTimeUsed" -> 0.8522660000000002, 
+         "MemoryUsed" -> 3128512, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 3442950174826487287 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905175320342121*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "e5138e51-6207-4d4a-bc2f-443649ebe2d7", "TestID" -> 
+         "NiceOutput_20231001-HU1XDD", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
+         "046e5f99-28a0-457b-b2e0-8a43fc676da7", "Input" -> 
+         HoldForm[
+          Tools`NiceOutput`justBY = <|"BY" -> Tools`NiceOutput`msp["BY"]|>; 
+           Tools`NiceOutput`infoBY = 
+            PacletizedResourceFunctions`SetSymbolsContext[
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`info[
+              Tools`NiceOutput`justBY]]; 
+           Tools`NiceOutput`newBY = <|
+             "myModel" -> Tools`NiceOutput`msp["BY"]|>; 
+           Tools`NiceOutput`infoNewBY = 
+            PacletizedResourceFunctions`SetSymbolsContext[
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`info[
+              Tools`NiceOutput`newBY]]; 
+           Apply[And, {
+             Part[Tools`NiceOutput`infoBY, 1, 1, 1, 1] == "BY", 
+              Part[Tools`NiceOutput`infoBY, 1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 
+                1, 1] === Tools`NiceOutput`x[Tools`NiceOutput`t], 
+              Part[Tools`NiceOutput`infoNewBY, 1, 1, 1, 1] == "BY", 
+              Part[Tools`NiceOutput`infoNewBY, 1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 
+                1, 1, 1] === Tools`NiceOutput`x[Tools`NiceOutput`t]}]], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.230279`5.512769332670044, "CPUTimeUsed" -> 0.23048500000000072`, 
+         "MemoryUsed" -> 60408, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 3926278760041228580 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905175320572909*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "ca97f8bb-a53e-480b-b256-83dab9a88f56", "TestID" -> 
+         "NiceOutput_20231001-MARUEP", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
+         "74320786-15a4-4ef4-a149-67b6fa6bda47", "Input" -> HoldForm[
+           Apply[And, {Head[Tools`NiceOutput`infoBY] === Column, Head[
+               Part[Tools`NiceOutput`infoBY, 1]] === List, Head[
+               Part[Tools`NiceOutput`infoBY, 1, 1]] === OpenerView, 
+             Apply[And, 
+              Map[MatchQ[#, Grid]& , 
+               Map[Head, 
+                Part[Tools`NiceOutput`infoBY, 1, 
+                 Span[1, All], 1, 2]]]], Head[Tools`NiceOutput`infoNewBY] === 
+             Column, Head[
+               Part[Tools`NiceOutput`infoNewBY, 1]] === List, Head[
+               Part[Tools`NiceOutput`infoNewBY, 1, 1]] === OpenerView, 
+             Apply[And, 
+              Map[MatchQ[#, Grid]& , 
+               Map[Head, 
+                Part[Tools`NiceOutput`infoNewBY, 1, 
+                 Span[1, All], 1, 2]]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000081`2.0590000167106415, "CPUTimeUsed" -> 0.00008100000000066387,
+          "MemoryUsed" -> 8096, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 4163760634035139020 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905175320573312*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "9f2c5865-d6f5-413f-9c1c-ccb68ef1bf63", "TestID" -> 
+         "NiceOutput_20231001-J5CLZ0", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
+         "3186b5ed-d3ab-4ad3-bc69-e4d4e4ddc831", "Input" -> 
+         HoldForm[With[{Tools`NiceOutput`localPi = 3.14}, {
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[3.14], 
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[3.14, NumberMarks -> True], 
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[3.14, NumberMarks -> False], 
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[Tools`NiceOutput`localPi], 
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[Tools`NiceOutput`localPi, NumberMarks -> True], 
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[Tools`NiceOutput`localPi, NumberMarks -> False], 
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[Tools`NiceOutput`\[CapitalPi]], 
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[
+              Tools`NiceOutput`\[CapitalPi], CharacterEncoding -> "ASCII"], 
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[Pi], 
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[
+               N[Pi]], 
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[3.14 10^(-7)], 
+              
+              FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+numberFormattingTemplate[
+               Flatten[{
+                 ReplaceAll[
+                 FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+stripContext[Tools`NiceOutput`delta]/2, 
+                  
+                  FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+stripContext[{Tools`NiceOutput`delta -> 0.99}]]}]]}] == {
+            "3.14", "3.14`", "3.14", "3.14", "3.14`", "3.14", "\[CapitalPi]", 
+             "\\[CapitalPi]", "3.141592653589793", "3.141592653589793", 
+             "3.14*^-7", "{0.495}"}], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
+         "AbsoluteTimeUsed" -> 0.00013`2.2644583501388285, "CPUTimeUsed" -> 
+         0.00013100000000054735`, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 1394318034848827425 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905175320573665*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "3a5e0d7a-eb55-4f86-ac6d-f5fa650d83a3", "TestID" -> 
+         "NiceOutput_20231001-UBCTDN", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
+         "22179880-e8dd-4472-a395-48feafc2c435", "Input" -> HoldForm[
+           Not[
+            StringFreeQ[
+             
+             FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
+stringFormattingTemplate[
+             "Long-run risk model with stochastic volatility in the original \
+2004 paper by Bansal and Yaron"], 
+             Alternatives["\t", "\n"]]]], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
+         "AbsoluteTimeUsed" -> 0.000662`2.971372987271694, "CPUTimeUsed" -> 
+         0.0006639999999995538, "MemoryUsed" -> 22440, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>]|>, 
+    "FailureResults" -> <||>, "TestsNotEvaluatedKeys" -> {}, 
+    "TestsFailedWrongResultsKeys" -> {}, "TestsFailedWithMessagesKeys" -> {}, 
+    "TestsFailedWithErrorsKeys" -> {}, 
+    "TestsSucceededKeys" -> {7539885375377225897, 6488361261547136079, 
+     5778985441980369017, 327881674381089694, 8111915232749757448, 
+     3442950174826487287, 3926278760041228580, 4163760634035139020, 
+     1394318034848827425}|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.905175320594846*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"247beb3d-9db4-44a5-bce3-a27be67298d9"]
+}, Open  ]],
+
 Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]"}]], "Input",
  CellChangeTimes->{
@@ -20719,7 +21158,7 @@ Cell[BoxData[
 eb2a9bac87a8"]
 },
 WindowSize->{1551, 843},
-WindowMargins->{{101, Automatic}, {-208, Automatic}},
+WindowMargins->{{Automatic, -1774}, {-16, Automatic}},
 TaggingRules-><|"TryRealOnly" -> False|>,
 Magnification:>1.25 Inherited,
 FrontEndVersion->"13.3 for Mac OS X ARM (64-bit) (July 24, 2023)",
@@ -20740,78 +21179,82 @@ Notebook[{
 Cell[558, 20, 199, 3, 37, "Input",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
 Cell[CellGroupData[{
 Cell[782, 27, 1575, 30, 116, "Input",ExpressionUUID->"b9f2d453-3e98-41bc-b67a-28793e860800"],
-Cell[2360, 59, 895, 13, 42, "Output",ExpressionUUID->"81ad47b7-6b3e-4eb6-92a5-91aab4426ec7"],
-Cell[3258, 74, 915, 14, 42, "Output",ExpressionUUID->"fb72fc96-eb5e-454c-ae33-c67ee6f3edb3"],
-Cell[4176, 90, 2183, 38, 329, "Output",ExpressionUUID->"bb6056be-0f34-4a15-aae1-48634dbaec33"],
-Cell[6362, 130, 931, 15, 42, "Output",ExpressionUUID->"9d375438-afd4-4b92-94c2-eda1e8463efd"]
+Cell[2360, 59, 917, 13, 42, "Output",ExpressionUUID->"972a7346-e7a4-45bc-9238-4e6f94a5ec9d"],
+Cell[3280, 74, 941, 14, 42, "Output",ExpressionUUID->"d72ba0b4-177a-478f-a1b0-ceb8412da11b"],
+Cell[4224, 90, 2209, 38, 349, "Output",ExpressionUUID->"b306909b-8450-417b-b205-bde2c1135513"],
+Cell[6436, 130, 957, 15, 42, "Output",ExpressionUUID->"c25b3dc4-2a1c-468d-8998-1a459e6813c8"]
 }, Open  ]],
-Cell[7308, 148, 152, 3, 37, "Input",ExpressionUUID->"0fb4bc80-b5a1-4dd6-a563-6bd71e7ef9ce"],
-Cell[7463, 153, 152, 3, 37, "Input",ExpressionUUID->"b059a4ab-9df4-4b13-a81b-d02b448a18a5"],
+Cell[7408, 148, 152, 3, 37, "Input",ExpressionUUID->"0fb4bc80-b5a1-4dd6-a563-6bd71e7ef9ce"],
+Cell[7563, 153, 152, 3, 37, "Input",ExpressionUUID->"b059a4ab-9df4-4b13-a81b-d02b448a18a5"],
 Cell[CellGroupData[{
-Cell[7640, 160, 262, 6, 37, "Input",ExpressionUUID->"a02079b6-dc93-4662-a435-00398ad5c39a"],
-Cell[7905, 168, 30344, 568, 76, "Output",ExpressionUUID->"9503a873-c2c3-4864-9ef9-62d315a94bcb"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[38286, 741, 1062, 25, 90, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0"],
-Cell[39351, 768, 36871, 673, 76, "Output",ExpressionUUID->"72bb2422-5604-4f20-b084-1eb07681e570"],
-Cell[76225, 1443, 22728, 463, 76, "Output",ExpressionUUID->"015b64c3-5efd-413f-aa7e-157add3ac040"],
-Cell[98956, 1908, 29636, 605, 76, "Output",ExpressionUUID->"e3f9725a-e8ff-45a0-b03b-4d2165484adb"]
+Cell[7740, 160, 262, 6, 37, "Input",ExpressionUUID->"a02079b6-dc93-4662-a435-00398ad5c39a"],
+Cell[8005, 168, 30344, 568, 76, "Output",ExpressionUUID->"9503a873-c2c3-4864-9ef9-62d315a94bcb"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[128629, 2518, 744, 14, 37, "Input",ExpressionUUID->"16b4a727-0558-4183-a2f8-e2e1a7b3a611"],
-Cell[129376, 2534, 168967, 3175, 76, "Output",ExpressionUUID->"b181f30a-7703-4dc8-94f1-2a750149a41c"]
+Cell[38386, 741, 1062, 25, 90, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0"],
+Cell[39451, 768, 36871, 673, 76, "Output",ExpressionUUID->"72bb2422-5604-4f20-b084-1eb07681e570"],
+Cell[76325, 1443, 22728, 463, 76, "Output",ExpressionUUID->"015b64c3-5efd-413f-aa7e-157add3ac040"],
+Cell[99056, 1908, 29636, 605, 76, "Output",ExpressionUUID->"e3f9725a-e8ff-45a0-b03b-4d2165484adb"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[298380, 5714, 290, 7, 37, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684"],
-Cell[298673, 5723, 86326, 1594, 76, "Output",ExpressionUUID->"d65a25e1-141e-4a09-a470-b01a7e476aea"]
+Cell[128729, 2518, 744, 14, 37, "Input",ExpressionUUID->"16b4a727-0558-4183-a2f8-e2e1a7b3a611"],
+Cell[129476, 2534, 168967, 3175, 76, "Output",ExpressionUUID->"b181f30a-7703-4dc8-94f1-2a750149a41c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[385036, 7322, 273, 7, 37, "Input",ExpressionUUID->"5a7b1be5-0bb0-47d8-8966-c6eaeeeabe17"],
-Cell[385312, 7331, 40390, 782, 76, "Output",ExpressionUUID->"d79a1195-f6d0-4f45-81fa-7ae8857f1686"]
+Cell[298480, 5714, 290, 7, 37, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684"],
+Cell[298773, 5723, 86326, 1594, 76, "Output",ExpressionUUID->"d65a25e1-141e-4a09-a470-b01a7e476aea"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[425739, 8118, 968, 28, 64, "Input",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4"],
-Cell[426710, 8148, 138016, 3147, 76, "Output",ExpressionUUID->"2aa3659c-2223-4316-b2fc-896298438da4"]
+Cell[385136, 7322, 273, 7, 37, "Input",ExpressionUUID->"5a7b1be5-0bb0-47d8-8966-c6eaeeeabe17"],
+Cell[385412, 7331, 40390, 782, 76, "Output",ExpressionUUID->"d79a1195-f6d0-4f45-81fa-7ae8857f1686"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[564763, 11300, 274, 7, 37, "Input",ExpressionUUID->"7c47fece-e37b-46a8-a1f5-f66cb52faf00"],
-Cell[565040, 11309, 136705, 2328, 76, "Output",ExpressionUUID->"2113b39c-7035-489f-b376-699dfdbc567b"]
+Cell[425839, 8118, 968, 28, 64, "Input",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4"],
+Cell[426810, 8148, 138016, 3147, 76, "Output",ExpressionUUID->"2aa3659c-2223-4316-b2fc-896298438da4"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[701782, 13642, 277, 7, 37, "Input",ExpressionUUID->"ad7fda5b-fb52-4ad1-8d3f-dceb74f45182"],
-Cell[702062, 13651, 10056, 207, 76, "Output",ExpressionUUID->"d715fbae-91c1-43e8-8052-b459e614790c"]
-}, Open  ]],
-Cell[712133, 13861, 454, 8, 90, "Input",ExpressionUUID->"84c78bb2-8e0f-4b6f-ae00-0d2abae7a844"],
-Cell[712590, 13871, 461, 11, 64, "Input",ExpressionUUID->"5121ffd6-f567-4da8-bdc7-b02da924ab5e"],
-Cell[713054, 13884, 271, 5, 64, "Input",ExpressionUUID->"7f4ea337-0076-4787-aac5-76cf6f1f79da"],
-Cell[713328, 13891, 150, 3, 37, "Input",ExpressionUUID->"e19bde9e-a625-488e-9cf4-b74f7c4fcb22"],
-Cell[713481, 13896, 1261, 26, 220, "Input",ExpressionUUID->"6d80ab2b-2576-4050-b521-9cae711fed04"],
-Cell[714745, 13924, 289, 7, 37, "Input",ExpressionUUID->"2ebef7d6-d331-419f-a64e-ead93d146e3f"],
-Cell[715037, 13933, 174, 2, 37, "Input",ExpressionUUID->"cd632827-fda3-49db-ba6c-c16c6cd48a28"],
-Cell[715214, 13937, 314, 8, 37, "Input",ExpressionUUID->"d38c1461-d4f4-423b-8b82-09b784289135"],
-Cell[715531, 13947, 155, 3, 37, "Input",ExpressionUUID->"74fa26f9-abc6-4219-a123-f978597737ff"],
-Cell[715689, 13952, 295, 5, 37, "Input",ExpressionUUID->"8a9c9e85-8cbf-4e1c-870c-0a5ec229dd8b"],
-Cell[715987, 13959, 177, 3, 37, "Input",ExpressionUUID->"89327c75-70af-4b75-adfd-86608c4fe806"],
-Cell[CellGroupData[{
-Cell[716189, 13966, 164, 2, 37, "Input",ExpressionUUID->"f1d84011-dcfc-4f83-98b5-d531ed681557"],
-Cell[716356, 13970, 145958, 3090, 1284, "Output",ExpressionUUID->"232ea0b6-949c-435f-b65d-eca16698bbb2"]
+Cell[564863, 11300, 274, 7, 37, "Input",ExpressionUUID->"7c47fece-e37b-46a8-a1f5-f66cb52faf00"],
+Cell[565140, 11309, 136705, 2328, 76, "Output",ExpressionUUID->"2113b39c-7035-489f-b376-699dfdbc567b"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[862351, 17065, 206, 3, 37, "Input",ExpressionUUID->"72b3648a-0cee-4dc9-be71-a2ec78ccaeb6"],
-Cell[862560, 17070, 40205, 878, 78, "Output",ExpressionUUID->"28c1af9d-f9a3-44bc-89a8-691f7d78fa3f"]
+Cell[701882, 13642, 277, 7, 37, "Input",ExpressionUUID->"ad7fda5b-fb52-4ad1-8d3f-dceb74f45182"],
+Cell[702162, 13651, 10056, 207, 76, "Output",ExpressionUUID->"d715fbae-91c1-43e8-8052-b459e614790c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[902802, 17953, 220, 3, 37, "Input",ExpressionUUID->"281bd614-8e68-4b51-a25c-d118be0d8280"],
-Cell[903025, 17958, 128789, 2554, 285, "Output",ExpressionUUID->"58df5f91-7142-499f-80c7-85e64fa7f1d6"]
+Cell[712255, 13863, 309, 8, 37, "Input",ExpressionUUID->"479fb483-095c-47a5-b63a-afec0a7f6185"],
+Cell[712567, 13873, 22129, 424, 96, "Output",ExpressionUUID->"247beb3d-9db4-44a5-bce3-a27be67298d9"]
 }, Open  ]],
-Cell[1031829, 20515, 225, 3, 37, "Input",ExpressionUUID->"a6c5e524-ea19-4388-b400-11e7955f8ea5"],
-Cell[1032057, 20520, 2104, 62, 194, "Input",ExpressionUUID->"76cb4ed9-01ec-476a-a9e9-6b94634d9568"],
-Cell[1034164, 20584, 2013, 59, 194, "Input",ExpressionUUID->"3618d278-2bdc-4117-943a-ec2c4120cbb3"],
-Cell[1036180, 20645, 481, 10, 64, "Input",ExpressionUUID->"6969c719-aae4-437c-b901-af76b3071aca"],
-Cell[1036664, 20657, 1143, 29, 168, "Input",ExpressionUUID->"145c4020-2b7b-424d-be26-24a62efb7eb2"],
-Cell[1037810, 20688, 165, 3, 37, "Input",ExpressionUUID->"5ee11ed9-1b48-4a05-b95e-bf6433e60297"],
-Cell[1037978, 20693, 155, 2, 37, "Input",ExpressionUUID->"7eacb08d-7f5b-464e-af3c-e1f85d1ec65e"],
-Cell[1038136, 20697, 769, 21, 90, "Input",ExpressionUUID->"86c4bf81-c4ec-4e81-9ee4-eb2a9bac87a8"]
+Cell[734711, 14300, 454, 8, 90, "Input",ExpressionUUID->"84c78bb2-8e0f-4b6f-ae00-0d2abae7a844"],
+Cell[735168, 14310, 461, 11, 64, "Input",ExpressionUUID->"5121ffd6-f567-4da8-bdc7-b02da924ab5e"],
+Cell[735632, 14323, 271, 5, 64, "Input",ExpressionUUID->"7f4ea337-0076-4787-aac5-76cf6f1f79da"],
+Cell[735906, 14330, 150, 3, 37, "Input",ExpressionUUID->"e19bde9e-a625-488e-9cf4-b74f7c4fcb22"],
+Cell[736059, 14335, 1261, 26, 220, "Input",ExpressionUUID->"6d80ab2b-2576-4050-b521-9cae711fed04"],
+Cell[737323, 14363, 289, 7, 37, "Input",ExpressionUUID->"2ebef7d6-d331-419f-a64e-ead93d146e3f"],
+Cell[737615, 14372, 174, 2, 37, "Input",ExpressionUUID->"cd632827-fda3-49db-ba6c-c16c6cd48a28"],
+Cell[737792, 14376, 314, 8, 37, "Input",ExpressionUUID->"d38c1461-d4f4-423b-8b82-09b784289135"],
+Cell[738109, 14386, 155, 3, 37, "Input",ExpressionUUID->"74fa26f9-abc6-4219-a123-f978597737ff"],
+Cell[738267, 14391, 295, 5, 37, "Input",ExpressionUUID->"8a9c9e85-8cbf-4e1c-870c-0a5ec229dd8b"],
+Cell[738565, 14398, 177, 3, 37, "Input",ExpressionUUID->"89327c75-70af-4b75-adfd-86608c4fe806"],
+Cell[CellGroupData[{
+Cell[738767, 14405, 164, 2, 37, "Input",ExpressionUUID->"f1d84011-dcfc-4f83-98b5-d531ed681557"],
+Cell[738934, 14409, 145958, 3090, 1284, "Output",ExpressionUUID->"232ea0b6-949c-435f-b65d-eca16698bbb2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[884929, 17504, 206, 3, 37, "Input",ExpressionUUID->"72b3648a-0cee-4dc9-be71-a2ec78ccaeb6"],
+Cell[885138, 17509, 40205, 878, 78, "Output",ExpressionUUID->"28c1af9d-f9a3-44bc-89a8-691f7d78fa3f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[925380, 18392, 220, 3, 37, "Input",ExpressionUUID->"281bd614-8e68-4b51-a25c-d118be0d8280"],
+Cell[925603, 18397, 128789, 2554, 285, "Output",ExpressionUUID->"58df5f91-7142-499f-80c7-85e64fa7f1d6"]
+}, Open  ]],
+Cell[1054407, 20954, 225, 3, 37, "Input",ExpressionUUID->"a6c5e524-ea19-4388-b400-11e7955f8ea5"],
+Cell[1054635, 20959, 2104, 62, 194, "Input",ExpressionUUID->"76cb4ed9-01ec-476a-a9e9-6b94634d9568"],
+Cell[1056742, 21023, 2013, 59, 194, "Input",ExpressionUUID->"3618d278-2bdc-4117-943a-ec2c4120cbb3"],
+Cell[1058758, 21084, 481, 10, 64, "Input",ExpressionUUID->"6969c719-aae4-437c-b901-af76b3071aca"],
+Cell[1059242, 21096, 1143, 29, 168, "Input",ExpressionUUID->"145c4020-2b7b-424d-be26-24a62efb7eb2"],
+Cell[1060388, 21127, 165, 3, 37, "Input",ExpressionUUID->"5ee11ed9-1b48-4a05-b95e-bf6433e60297"],
+Cell[1060556, 21132, 155, 2, 37, "Input",ExpressionUUID->"7eacb08d-7f5b-464e-af3c-e1f85d1ec65e"],
+Cell[1060714, 21136, 769, 21, 90, "Input",ExpressionUUID->"86c4bf81-c4ec-4e81-9ee4-eb2a9bac87a8"]
 }
 ]
 *)

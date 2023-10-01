@@ -12,20 +12,37 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]
 
 
 info
-createEqTables
 
 
 (* ::Subsubsection:: *)
 (*Usage*)
 
 
-modelToTeX::usage = "Association between the Mathematica variables that represent parameters of the model and their L AT EX representation";
+info::usage = "info[models] displays a table with information for each model in the association models.";
+
+
+(* ::Section:: *)
+(*Code*)
+
+
+Begin["`Private`"]
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
+modelToTeX::usage = "Association between the Mathematica variables that represent parameters of the model and their LATEX representation";
 TeXToModel::usage = "Association of LATEX strings for parameters of the model and the name of the corresponding Mathematica variable";
 
-allParamTable::usage = "allParamTable[m]";
-paramTable::usage = "paramTable[m]";
-info::usage = "info[m] is nice";
-
+formatModels::usage = "formatModels[models] Re-writes an association of models as a Cell object with nice formatting
+	that can be directly pasted into a notebook. \n
+	To automatically write the output of formatModels[models] into a cell in a new notebook that can be copied and pasted,
+	run 
+		nb=CreateNotebook[];
+		modelsRaw = toCatalog[models,{\"name\",\"shortname\",\"bibRef\",\"desc\",\"stateVars\",\"parameters\"}];\[IndentingNewLine]		content=formatModels[modelsRaw];\[IndentingNewLine]		NotebookWrite[nb, content];\[IndentingNewLine]\[IndentingNewLine]		SelectionMove[nb, All, Notebook];\[IndentingNewLine]		FrontEndTokenExecute[nb, \"ClearCellOptions\"];
+	The last two lines clear all cell formatting (needed to make the cell executable for some reason).
+"
 modelFormattingTemplate::usage = "modelFormattingTemplate[model] Re-writes model as a Cell object with nice formatting.
 	To automatically write the output of modelFormattingTemplate[model] into a cell that can be copied and pasted,
 	run 
@@ -36,32 +53,10 @@ modelFormattingTemplate::usage = "modelFormattingTemplate[model] Re-writes model
 		NotebookWrite[nb,modelFormattingTemplate[models[#]]]&/@Keys[models];
 "
 
-formatModels::usage = "formatModels[models] Re-writes an association of models as a Cell object with nice formatting
-	that can be directly pasted into a notebook. \n
-	To automatically write the output of formatModels[models] into a cell in a new notebook that can be copied and pasted,
-	run 
-		nb=CreateNotebook[];\[IndentingNewLine]		content=formatModels[models];\[IndentingNewLine]		NotebookWrite[nb,content];\[IndentingNewLine]\[IndentingNewLine]		SelectionMove[nb,All,Notebook];\[IndentingNewLine]		FrontEndTokenExecute[nb,\"ClearCellOptions\"];
-	The last two lines clear all cell formatting (needed to make the cell executable for some reason).
-"
 toCatalog::usage = "toCatalog[models, {key_1, key_2, ...}] re-writes an association of models so that each model contains only 
 	the elements with keys `keys_i` and, if `key_i` is \"stateVars\" and has head Function, 
-	replace its value `val_i` by `val_i[t]`
+	replace its value `val_i` by `val_i[t]`.
 "
-
-
-(* ::Section:: *)
-(*Code*)
-
-
-Begin["`Private`"]
-
-
-(*Check out*)
-(*ResourceFunction["PrintDefinitions"][ParallelTable];*)
-(*ResourceFunction["SetContextStyle"][
-  "MyContext`", {Green, FontFamily -> "Comic Sans MS"}];
-MyContext`test;*)
-Get["PacletizedResourceFunctions`"];
 
 
 (* ::Subsection:: *)
@@ -75,40 +70,24 @@ $ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq
 <<FernandoDuarte`LongRunRisk`Model`Catalog`;
 <<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
 <<FernandoDuarte`LongRunRisk`Model`ProcessModels`;
+<<FernandoDuarte`LongRunRisk`Tools`WriteToMatlab`;
+<<PacletizedResourceFunctions`;
 <<MaTeX`;
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Helper functions*)
 
 
-(*resource functions*)
-
-
-(*(*coloring of formal symbols*)
-MakeBoxes[\[FormalX],_]:=TagBox["x",\[FormalX]&,AutoDelete->True,BaseStyle->{FontColor->RGBColor[.6,.4,.2],ShowSyntaxStyles->False}]
-MakeBoxes[\[FormalY],_]:=TagBox["y",\[FormalY]&,AutoDelete->True,BaseStyle->{FontColor->RGBColor[.6,.4,.2],ShowSyntaxStyles->False}]
-(*restore formal symbols coloring to previous state*)
-FormatValues@MakeBoxes={};*)
-
-
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Usage*)
 
 
-MakeBoxes::usage="MakeBoxes[] ."<>"\n"<>
-				"MakeBoxes[] .";
 
 
-(* ::Subsubsection:: *)
+
+(* ::Subsubsection::Closed:: *)
 (*createEqTables*)
-
-
-(*SetAttributes[{ContextFreeForm,ContextFreeInformation},HoldAll]
-
-ContextFreeForm/:MakeBoxes[ContextFreeForm[expr_],form_]:=Block[{Internal`$ContextMarks=False},MakeBoxes[expr,form]]
-
-ContextFreeInformation[expr_]:=With[{name=ToString[Unevaluated@expr,InputForm]},Block[{Internal`$ContextMarks=False},Information[name]]]*)
 
 
 createEqTables[m_]:=Module[
@@ -122,15 +101,6 @@ createEqTables[m_]:=Module[
 		exoNiceOutput,
 		exoNiceOutputN
 	},
-	
-(*	<<FernandoDuarte`LongRunRisk`Model`Parameters`;
-<<FernandoDuarte`LongRunRisk`Model`Shocks`;
-<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
-$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
-<<FernandoDuarte`LongRunRisk`Model`Catalog`;
-<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
-$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`"];*)
-
 	(*functions to extract and format left-hand side and right-hand side of equations for exogenous variables*)
 	lhs[model_]:=Join[
 		Evaluate[Symbol[StringDrop[#,-2]][t]&/@Cases[model["exogenousVars"],Except["ddeq"]]]
@@ -174,35 +144,29 @@ $ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Tools`NiceOutput`
 
 	(*restore original keys and output models*)
 	KeyMap[Replace[#,Thread[Keys[models]->keys]]&,models]
-
 ];
-
 
 
 (* ::Subsection:: *)
 (*info*)
 
 
-(*infoLocal[m_]:= {xeq[t],x,rhox,m};
-info[m_]:= ResourceFunction["SetSymbolsContext"][Evaluate@infoLocal[m]];*)
+info[m_Association] := Column[(infoTable@#&)/@(Values@createEqTables[m])];
 
 
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];
-pacletBibDir = {"Resources","BibTeX","references.bib"};
-bibFile=FileNameJoin[Prepend[pacletBibDir,pacletBaseDir]];
-*)
+(* ::Subsubsection:: *)
+(*infoTable*)
+
+
 bibFile="FernandoDuarte/LongRunRisk/BibTeX/references.bib";
 
 
-
-
-info[m_]:=OpenerView[
+infoTable[m_]:=OpenerView[
 	{
 		m["shortname"],
 		Grid[
 			Join[
 				{{"Model: "<>StringDelete[StringReplace[m["name"],"\n"->" "],"\t"|"  "],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
-				(*{{TextGrid[{{TextCell[Row[{"Reference: ","\\textcite{"<>m["bibRef"]<>"} in ", If[Not[$Failed===FindFile[bibFile]],Hyperlink[FileNameJoin[pacletBibDir],File[bibFile]],FileNameJoin[pacletBibDir]]}]]}}],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},(*MaTeX["\\text{\\textcite{"<>m["bibRef"]<>"}}","Preamble"->preambleTeX,"DisplayStyle"->True,FontSize->14]*)*)
 				{{Row[{"Reference: ","\\textcite{"<>m["bibRef"]<>"} in ", If[Not[$Failed===FindFile[bibFile]],Hyperlink["references.bib",File@FindFile@bibFile],"Resources/BibTeX/references.bib"  ]}],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},(*MaTeX["\\text{\\textcite{"<>m["bibRef"]<>"}}","Preamble"->preambleTeX,"DisplayStyle"->True,FontSize->14]*)
 				{{"Description: "<>StringDelete[StringReplace[m["desc"],"\n"->" "],"\t"|"  "],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
 				{{m["exogenousEqTable"],SpanFromLeft,SpanFromLeft,SpanFromLeft,SpanFromLeft}},
@@ -246,9 +210,6 @@ info[m_]:=OpenerView[
 (*paramTable*)
 
 
-paramToMatlab[x_]:= x
-
-<<MaTeX`
 paramTable[m_]:=Module[
 	{
 		keysNoStocks,
@@ -326,7 +287,7 @@ paramTable[m_]:=Module[
 ](*module*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*allParamTable*)
 
 
@@ -402,7 +363,7 @@ allParamTable[m_]:=OpenerView[
 ](*OpenerView*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*iToNum*)
 
 
@@ -426,7 +387,7 @@ iToNum[s : <|(_String -> _String)..|>, numStocks_Integer:1] :=
 	Map[iToNum[#, numStocks]&, (Normal @ s)]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*modelToTeX*)
 
 
@@ -512,18 +473,7 @@ modelToTeX=<|
 		"phidcd[i]"->"\\phi_{d,cd}^{(i)}",
 		"phidpd[i]"->"\\phi_{d,pd}^{(i)}",
 		"taugd[i]"->"\\tau_{gd}^{(i)}"
-	(*"Shocks"*)
-	(*"eps" -> "\\varepsilon",*)
-	(*Exogenous variables*)
-	(*"dc" -> "\\Delta c"*)
 |>;
-(*
-{
-	eps[x_String][t__]:>("eps"/.Normal@modelToTeX)<>"_{"<>x<>"}("<>ToString[t]<>")",
-	x_Symbol[t_.]:>(SymbolName[x]/.Normal@modelToTeX)<>"("<>ToString[t]<>")",
-	x_Symbol/;MemberQ[Keys@modelToTeX,SymbolName@x]:>(SymbolName[x]/.Normal@modelToTeX)
-}
-*)
 
 
 (* ::Subsubsection:: *)
@@ -533,7 +483,7 @@ modelToTeX=<|
 TeXToModel=Association@Reverse[Normal[modelToTeX],{2}];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*modelToTeXStocks*)
 
 
@@ -553,46 +503,45 @@ modelToTeXStocks=Association@Thread[
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*modelToTeXNoStocks*)
 
 
 modelToTeXNoStocks=Complement[modelToTeX,modelToTeXStocks];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*formatModels*)
 
 
-formatModels[m_Association/; MemberQ[Values[m], _Association]]:=
-	Module[
-		{
-			modelsMerged,
-			notebookContent
-		},
-		
-		modelsMerged=Append[
-			modelFormattingTemplate[m[#],True]&/@Most[Keys[m]],
-			modelFormattingTemplate[m[Last[Keys[m]]],False]
-		]/.Cell[BoxData[contents__],style_]:>contents;
+formatModels[m_Association/; MemberQ[Values[m], _Association]]:=Module[
+	{
+		modelsMerged,
+		notebookContent
+	},
 	
-		notebookContent=BoxData[
+	modelsMerged=Append[
+		modelFormattingTemplate[m[#],True]&/@Most[Keys[m]],
+		modelFormattingTemplate[m[Last[Keys[m]]],False]
+	]/.Cell[BoxData[contents__],style_]:>contents;
+	
+	notebookContent=BoxData[
+		RowBox[{
 			RowBox[{
+				"models", " ", "=", " ",
 				RowBox[{
-					"models", " ", "=", " ",
-					RowBox[{
-						"<|", "\n", "\t", RowBox[modelsMerged], "|>"
-					}],
-					";"
+					"<|", "\n", "\t", RowBox[modelsMerged], "|>"
 				}],
-				RowBox[{"(*", RowBox[{"end", " ", "models"}], "*)"}],
-				" ", "\n"
-			}]
-			]
-	];
+				";"
+			}],
+			RowBox[{"(*", RowBox[{"end", " ", "models"}], "*)"}],
+			" ", "\n"
+		}]
+	]
+];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*modelFormattingTemplate*)
 
 
@@ -761,25 +710,34 @@ modelFormattingTemplate[
 ](*close With*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*stringFormattingTemplate*)
 
 
 stringFormattingTemplate[str_String,lineLength_Number:40]:=StringReplace[InsertLinebreaks[StringDelete[str,"\n"],lineLength],"\n"->"\n\t\t\t"];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*numberFormattingTemplate*)
 
 
 numberFormattingTemplate[num_,opts:OptionsPattern[]]:=ToString[Evaluate[N[num]],InputForm,FilterRules[{opts},Options[ToString]],NumberMarks->False];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*stripContext*)
 
 
-stripContext[x:(_Rule|{_Rule..})]:= Module[{v,i,n,q}, Cases[x,Rule[(v_Symbol[i_Integer]|v_Symbol),n_]:>Rule[If[i===Sequence,SymbolName[v],SymbolName[v][i]],If[NumberQ[n],n,n/.q_Symbol:>Symbol@SymbolName@q]],{0,Infinity}]]
+stripContext[x:(_Rule|{_Rule..})]:= Module[
+	{v,i,n,q},
+	Cases[
+		x
+		,
+		Rule[(v_Symbol[i_Integer]|v_Symbol),n_] :> Rule[If[i===Sequence,SymbolName[v],SymbolName[v][i]],If[NumberQ[n],n,n/.q_Symbol:>Symbol@SymbolName@q]]
+		,
+		{0,Infinity}
+	]
+]
 stripContext[x_]:= Module[
 	{v,i},
 	Cases[
@@ -793,14 +751,14 @@ stripContext[x_]:= Module[
 stripContext[x_?AtomQ]:=stripContext[{x}][[1]]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*separator*)
 
 
 separator[lineLength_Number:60] := RowBox[{"(*", StringRepeat["*",lineLength-4]<>"*)"}];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*toCatalog*)
 
 
