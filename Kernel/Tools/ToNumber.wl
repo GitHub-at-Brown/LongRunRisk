@@ -13,16 +13,22 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`ToNumber`"]
 
 toNum
 processNewParameters
+toEquation
+toExogenousVars
+toStateVars
 
 
 (* ::Subsubsection:: *)
 (*Usage*)
 
 
-processNewParameters::usage = "";
 toNum::usage = "toNum[model] gives a list of rules to evaluate expressions numerically."<>"\n"<>
 			   "toNum[model, parameters] uses the parameters provided in the list of rules parameters."<>"\n"<>
 			   "toNum[\"Rules\", model] and toNum[\"Rules\", model, parameters] give substitution rules that can be used to evaluate expressions numerically.";
+toEquation::usage = ""
+toExogenousVars::usage = ""
+toStateVars::usage = ""
+processNewParameters::usage = "processNewParameters[newParameters,parameters] returns a validated list of rules to substitute  ";
 
 
 (* ::Section:: *)
@@ -40,7 +46,7 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
 
 (* ::Subsection:: *)
-(*ToNumber*)
+(*toNum*)
 
 
 (*uses starting point from modelsExtraInfo in Catalog.wl if available and initial guess is passed by user*)
@@ -61,7 +67,7 @@ toNumRules[
 	Longest[newParameters_List : {}, 1],
 	Longest[guessCoeffsSolution_List : {}, 2],
 	maxMaturity_Integer: 120,
-	opts : OptionsPattern[{updateCoeffsSol,checks,FindRoot,RecurrenceTable}]
+	opts : OptionsPattern[{updateCoeffsSol, checks, FindRoot, RecurrenceTable}]
 ]:=With[
 	{
 		params = model["params"],
@@ -69,40 +75,58 @@ toNumRules[
 		uncondEwc = model["ratioUncondE"]["wc"],
 		uncondEpd = model["ratioUncondE"]["pd"],
 		optsUpdateCoeffsSol = Flatten@{
-			FilterRules[Flatten@{opts},Flatten[Options/@{updateCoeffsSol,checks,FindRoot}]]
+			FilterRules[Flatten@{opts},Flatten[Options/@{updateCoeffsSol, checks, FindRoot}]]
 		},
 		optsUpdateCoeffsBond = Flatten@{
 			FilterRules[Flatten@{opts},Flatten[Options/@{RecurrenceTable}]]
 		}
 	},
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
-(*	Echo[params,"params"];
-	Echo[newParameters,"newParameters"];
-	Echo[guessCoeffsSolution,"guessCoeffsSolution"];
-	Echo[{opts},"opts"];*)
 	With[{newParams=processNewParameters[newParameters,params]},
-		(*Echo[newParams,"newParams"];*)
-		Module[{solRatios,solBond,solNomBond,allParams},
-			solRatios=updateCoeffsSol[model,Normal@Join[Association@params,Association@newParams],guessCoeffsSolution,optsUpdateCoeffsSol];	
-			solBond=updateCoeffsBond[model["coeffsSolution"]["bond"],params,newParams,maxMaturity,solRatios];
-			solNomBond=updateCoeffsBond[model["coeffsSolution"]["nombond"],params,newParams,maxMaturity,solRatios,optsUpdateCoeffsBond];
-			allParams=Normal@Join[Association@params,Association@newParams];
-			(*Echo[allParams,"allParams"];*)
-			Join[
-				solRatios,
-				solBond,
-				solNomBond,
-				allParams,
-				{
-					FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc ->
-						(uncondEwc/.solRatios/.allParams),
-					FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[ind_] :>
-						(uncondEpd/.FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j->ind/.solRatios/.allParams)
-				}
-			]
-		]
-	]
-]
+		With[{allParams=Normal@Join[Association@params,Association@newParams]},
+			With[{sol=updateCoeffs[model,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,"MaxMaturity"->maxMaturity,optsUpdateCoeffsSol,optsUpdateCoeffsBond]},
+				Join[
+					sol,
+					allParams,
+					{
+						FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc ->
+							(uncondEwc/.sol//.allParams),
+						FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[ind_] :>
+							(uncondEpd/.(FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j->ind)/.sol//.allParams)
+					}
+				](*Join*)
+			](*With*)
+		](*With*)
+	](*With*)
+](*With*)
+
+
+(* ::Subsection:: *)
+(*toEquation*)
+
+
+toEquation[expr_,model_Association]:= ReplaceAll[expr, Normal@Join[model["exogenousEq"],model["endogenousEq"]] ]
+toEquation[model_Association]:=Function[{expr}, toEquation[expr,model]]
+
+(*ToEquation[expr_,model_Association, n_Integer?Positive]:= Nest[ToEquation[#,model]&,expr,n];
+ToEquation[model_Association, n_Integer?Positive]:=Function[{expr}, Nest[ToEquation[#,model]&,expr,n]];*)
+(*ReplaceAll[expr_,ToEquation[model_]]^:=ToEquation[expr,model]*)
+
+
+(* ::Subsection:: *)
+(*toExogenousVars*)
+
+
+toExogenousVars[expr_,model_Association]:= ReplaceRepeated[expr, Normal@model["endogenousEq"]] 
+toExogenousVars[model_Association]:=Function[{expr}, toExogenousVars[expr,model]]
+
+
+(* ::Subsection:: *)
+(*toStateVars*)
+
+
+toStateVars[expr_,model_Association]:= ReplaceRepeated[expr, Normal@model["toStateVars"]] 
+toStateVars[model_Association]:=Function[{expr}, toStateVars[expr,model]]
 
 
 (* ::Subsection:: *)
@@ -112,7 +136,7 @@ toNumRules[
 processNewParameters::psi="psi=1 implies a constant wealth-consumption ratio, please choose a different psi.";
 processNewParameters::param="theta must equal (1-gamma)/(1-1/psi), replacing theta by (1-gamma)/(1-1/psi)=`1`.";
 processNewParameters::theta="Plase provide psi or gamma with theta.";
-processNewParameters::subsetparam="Parameters `1` in newParameters are not a subset of model[\"parameters\"].";
+processNewParameters::subsetparam="Parameters `1` in newParameters are not a subset of parameters.";
 
 
 processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=If[
@@ -147,7 +171,7 @@ processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=If[
 			];
 			(*process gamma, psi, theta*)
 			newParametersString = Normal@KeyMap[#[[2]]&,newParametersSplit];
-			If[1===("psi"/.newParametersString), Message[processNewParameters::psi]; Abort[]; ]; (*psi=1 aborts*)
+			If[1.===N@("psi"/.newParametersString), Message[processNewParameters::psi]; Abort[]; ]; (*psi=1 aborts*)
 			processedParameters = Switch[
 				Count[MemberQ[Keys@newParametersString,#]&/@{"gamma","psi","theta"},True],
 					3,
