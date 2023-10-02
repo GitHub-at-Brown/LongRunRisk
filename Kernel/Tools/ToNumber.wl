@@ -43,6 +43,8 @@ Begin["`Private`"];
 
 
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 
 
 (* ::Subsection:: *)
@@ -53,7 +55,7 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 toNum["Rules",model_Association,rest__]:= (toNumRules[model,rest,{},ReleaseHold@If[KeyExistsQ[model["extraInfo"],"initialGuess"],"initialGuess"->model["extraInfo"]["initialGuess"],Hold@Sequence[] ] ]);
 
 (*convenience forms that apply rules to expr or allow for postfix notation expr//toNum*)
-toNum[expr_/;Not@AssociationQ[expr],model_Association,rest__]:= ReplaceRepeated[expr, toNum["Rules", model, rest] ] 
+toNum[expr_/;Not@AssociationQ[expr],model_Association,rest__]:= ReplaceRepeated[toEquation[expr,model], toNum["Rules", model, rest] ] 
 toNum[model_Association,rest__]:=Function[{expr}, toNum[expr,model,rest]]
 
 (*if rest not provided, use model["params"]*)
@@ -105,7 +107,17 @@ toNumRules[
 (*toEquation*)
 
 
-toEquation[expr_,model_Association]:= ReplaceAll[expr, Normal@Join[model["exogenousEq"],model["endogenousEq"]] ]
+toEquation[
+	expr_,
+	model_Association
+]:=ReplaceAll[
+		ReplaceRepeated[
+			modelEval[expr, model],
+			Normal@model["endogenousEq"]
+		],
+		Normal@model["exogenousEq"]
+	]
+
 toEquation[model_Association]:=Function[{expr}, toEquation[expr,model]]
 
 (*ToEquation[expr_,model_Association, n_Integer?Positive]:= Nest[ToEquation[#,model]&,expr,n];
@@ -117,7 +129,14 @@ ToEquation[model_Association, n_Integer?Positive]:=Function[{expr}, Nest[ToEquat
 (*toExogenousVars*)
 
 
-toExogenousVars[expr_,model_Association]:= ReplaceRepeated[expr, Normal@model["endogenousEq"]] 
+toExogenousVars[
+	expr_,
+	model_Association
+]:= ReplaceRepeated[
+			modelEval[expr, model],
+			Normal@model["endogenousEq"]
+		];
+
 toExogenousVars[model_Association]:=Function[{expr}, toExogenousVars[expr,model]]
 
 
@@ -125,8 +144,93 @@ toExogenousVars[model_Association]:=Function[{expr}, toExogenousVars[expr,model]
 (*toStateVars*)
 
 
-toStateVars[expr_,model_Association]:= ReplaceRepeated[expr, Normal@model["toStateVars"]] 
+toStateVars[
+	expr_,
+	model_Association
+]:= ReplaceAll[
+		modelEval[expr, model],
+		Normal@model["toStateVars"]
+	]
+
 toStateVars[model_Association]:=Function[{expr}, toStateVars[expr,model]]
+
+
+(* ::Subsubsection:: *)
+(*GlobalProperties*)
+
+
+GlobalProperties[] :={
+    OwnValues, DownValues, SubValues, UpValues, NValues, FormatValues,
+    Options, DefaultValues, Attributes
+};
+
+
+(* ::Subsubsection:: *)
+(*clone*)
+
+
+Attributes[clone] = {HoldAll};
+
+
+clone[s_Symbol, new_Symbol] :=
+	With[
+	    {
+	    clone = new, sopts = Options[Unevaluated[s]]
+	    },
+        With[{setProp = (#[clone] = (#[s] /. HoldPattern[s] :> clone)
+            )&},
+            Map[setProp, DeleteCases[GlobalProperties[], Options]];
+            If[sopts =!= {},
+                Options[clone] = (sopts /. HoldPattern[s] :> clone)
+            ];
+            HoldPattern[s] :> clone
+        ]
+    ]
+
+
+(* ::Subsubsection:: *)
+(*withUserDefs*)
+
+
+SetAttributes[withUserDefs, HoldAll];
+
+
+withUserDefs[sym_Symbol, {defs__}, code_] :=
+    Module[{s, inSym},
+        clone[sym, s];
+        Block[{sym},
+            defs;
+            sym[args___] /; !TrueQ[inSym] :=
+                Block[{sym, inSym = True},
+                    clone[s, sym];
+                    With[{result = sym[args]},
+                        result /; result =!= Unevaluated[sym[args]]
+                    ]
+                ];
+            code
+        ]
+    ];
+
+
+(* ::Subsubsection:: *)
+(*moms*)
+
+
+moms[fun_, expr_, model_] :=
+    withUserDefs[fun, {fun[x___] := fun[x, model]}, expr];
+
+
+(* ::Subsubsection:: *)
+(*modelEval*)
+
+
+modelEval::usage = "modelEval[expr, model] evaluates all the moments in expr using model.
+	For exmaple,
+		modelEval[\[IndentingNewLine]			uncondE[dc[t]]+uncondCov[x[t],x[t+1]]+cov[dc[t+1],dc[t+2],t],\[IndentingNewLine]			model\[IndentingNewLine]		]\[IndentingNewLine]	gives the same as\[IndentingNewLine]		uncondE[dc[t],model]+uncondCov[x[t],x[t+1],model]+cov[dc[t+1],dc[t+2],t,model]
+"
+
+
+modelEval[expr_, model_] := Fold[ReverseApplied[moms[#1, #2, model]&], expr, {uncondE, uncondVar,uncondCov, uncondCorr, ev, var, cov, corr}];
 
 
 (* ::Subsection:: *)
