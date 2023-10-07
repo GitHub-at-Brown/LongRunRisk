@@ -68,6 +68,9 @@ Ev; Var; Cov; Corr;
 ToNum;
 Growth;
 
+(*temporary public to create documentation*)
+(*toNumRules*)
+
 
 (* ::Subsubsection:: *)
 (*Usage*)
@@ -131,7 +134,7 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Models*)
 
 
@@ -143,7 +146,7 @@ Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];
 
 
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
-Info[models_Association] := PacletizedResourceFunctions`SetSymbolsContext@Column[(FernandoDuarte`LongRunRisk`Tools`NiceOutput`info@#&)/@(Values@FernandoDuarte`LongRunRisk`Tools`NiceOutput`createEqTables[models])];
+Info[models_Association] :=PacletizedResourceFunctions`SetSymbolsContext@FernandoDuarte`LongRunRisk`Tools`NiceOutput`info[models]; (*PacletizedResourceFunctions`SetSymbolsContext@Column[(FernandoDuarte`LongRunRisk`Tools`NiceOutput`info@#&)/@(Values@FernandoDuarte`LongRunRisk`Tools`NiceOutput`createEqTables[models])];*)
 Info::usage = StringReplace[Information[FernandoDuarte`LongRunRisk`Tools`NiceOutput`info,"Usage"],"info" -> "Info"];
 
 
@@ -183,14 +186,14 @@ ToStateVars[model_Association]:=Function[{expr}, ToStateVars[expr,model]]
 (*Unconditional moments*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*UncondE*)
 
 
 reExport[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE,FernandoDuarte`LongRunRisk`UncondE];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*UncondCov*)
 
 
@@ -222,21 +225,21 @@ covLongFileNames=Map[StringJoin["FernandoDuarte/LongRunRisk/MomentsLookupTables/
 Map[(Get@Get@#) &,covLongFileNames];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*UncondVar*)
 
 
 UncondVar[x_, model_]:=UncondCov[x,x, model];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*UncondCorr*)
 
 
 UncondCorr[x_,y_,model_]:=UncondCov[x,y,model]/(Sqrt[UncondVar[x,model]]Sqrt[UncondVar[y,model]]);
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Conditional moments*)
 
 
@@ -255,7 +258,7 @@ reExport[#]&/@{
 }
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Growth*)
 
 
@@ -307,10 +310,9 @@ EndPackage[];
 (*useMaTeX*)
 
 
-(*Get[FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
-(*Needs["MaTeX`",FileNameJoin[{pacletMaTeX["Location"],"MaTeX.m"}]]*)
+(*Needs["MaTeX`"]
 (*automatically use MaTeX instead of built-in LaTeX in inline/displayed formula cells*)
-(*UsingFrontEnd[
+UsingFrontEnd[
 	$useMaTeXMag=1;
 	$useMaTeXBaselineShift=0;
 	$useMaTeXMag=1.44; (*x^2 and x have the~same size in a Text cell*)
@@ -318,9 +320,11 @@ EndPackage[];
 	$useMaTeXQ=True;
 	Module[{$s},
 	Quiet[
+	(*clear any existing customizations*)
 	InputAssistant`TeXStringToBoxes//Unprotect;
 	InputAssistant`TeXStringToBoxes[$s_String]/;TrueQ@$useMaTeXQ=.;
 	InputAssistant`TeXStringToBoxes//Protect;
+	(*use MaTeX*)
 	InputAssistant`TeXStringToBoxes//Unprotect;
 	InputAssistant`TeXStringToBoxes[$s_String]/;TrueQ@$useMaTeXQ:=AdjustmentBox[ToBoxes@MaTeX[$s,Magnification->$useMaTeXMag],BoxBaselineShift->$useMaTeXBaselineShift];
 	InputAssistant`TeXStringToBoxes//Protect;
@@ -330,5 +334,5 @@ EndPackage[];
 	"\\usepackage{color}",
 	"\\usepackage{microtype}"
 	};
-]*)
-
+]
+*)

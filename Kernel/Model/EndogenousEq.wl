@@ -186,7 +186,7 @@ nombondreteq[t_,m_,h_:1] := nombond[t,m-h]-nombond[t-h,m]
 
 (*log forward rate spread*)
 bondfwspreadeq[t_,m_,h_:1] := bondfw[t,m,h]-bondyield[t,h] 
-nombondfwspreadeq[t_,m_,h_:1] := nombond[t,m,h]-nombondyield[t,h]
+nombondfwspreadeq[t_,m_,h_:1] := nombondfw[t,m,h]-nombondyield[t,h]
 
 (*excess bond returns*)
 bondexcreteq[t_,m_,h_:1] := bondret[t,m,h]-bondyield[t-h,h]

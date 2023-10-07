@@ -52,7 +52,7 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectat
 
 
 (*uses starting point from modelsExtraInfo in Catalog.wl if available and initial guess is passed by user*)
-toNum["Rules",model_Association,rest__]:= (toNumRules[model,rest,{},ReleaseHold@If[KeyExistsQ[model["extraInfo"],"initialGuess"],"initialGuess"->model["extraInfo"]["initialGuess"],Hold@Sequence[] ] ]);
+toNum["Rules",model_Association,rest__]:= toNumRules[model,rest,{},ReleaseHold@If[KeyExistsQ[model["extraInfo"],"initialGuess"],"initialGuess"->model["extraInfo"]["initialGuess"],Hold@Sequence[] ] ];
 
 (*convenience forms that apply rules to expr or allow for postfix notation expr//toNum*)
 toNum[expr_/;Not@AssociationQ[expr],model_Association,rest__]:= ReplaceRepeated[toEquation[expr,model], toNum["Rules", model, rest] ] 
@@ -66,9 +66,8 @@ toNum[model_Association]:=toNum[model,model["params"],{}]
 
 toNumRules[
 	model_Association,
-	Longest[newParameters_List : {}, 1],
+	Longest[newParameters : {(_Rule)...} : {}, 1],
 	Longest[guessCoeffsSolution_List : {}, 2],
-	maxMaturity_Integer: 120,
 	opts : OptionsPattern[{updateCoeffsSol, checks, FindRoot, RecurrenceTable}]
 ]:=With[
 	{
@@ -76,17 +75,17 @@ toNumRules[
 		numStocks = model["numStocks"],
 		uncondEwc = model["ratioUncondE"]["wc"],
 		uncondEpd = model["ratioUncondE"]["pd"],
-		optsUpdateCoeffsSol = Flatten@{
+		optsUpdateCoeffsSol = Sequence@@Flatten@{
 			FilterRules[Flatten@{opts},Flatten[Options/@{updateCoeffsSol, checks, FindRoot}]]
 		},
-		optsUpdateCoeffsBond = Flatten@{
+		optsUpdateCoeffsRecurrenceTable = Sequence@@Flatten@{
 			FilterRules[Flatten@{opts},Flatten[Options/@{RecurrenceTable}]]
 		}
 	},
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 	With[{newParams=processNewParameters[newParameters,params]},
 		With[{allParams=Normal@Join[Association@params,Association@newParams]},
-			With[{sol=updateCoeffs[model,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,"MaxMaturity"->maxMaturity,optsUpdateCoeffsSol,optsUpdateCoeffsBond]},
+			With[{sol=updateCoeffs[model,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,optsUpdateCoeffsSol,optsUpdateCoeffsRecurrenceTable]},
 				Join[
 					sol,
 					allParams,
@@ -285,11 +284,16 @@ processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=If[
 							RealAbs[("theta"/.newParametersString)-thetaNew]>=$MachineEpsilon,
 							Message[processNewParameters::param,thetaNew]
 						];
-						Append[newParametersSplit,{"Global`","theta"}->thetaNew],		
+						Prepend[
+							(*remove old theta*)
+							KeySelect[newParametersSplit,Not@StringMatchQ["theta",#[[2]]]&],
+							(*insert new theta with context Global*)
+							{"Global`","theta"}->thetaNew
+						],		
 					2,
 						(*when 2 of {gamma, psi, theta} are provided, solve for the third and add to newParameters*)
 						system = ( (1-ToExpression@("gamma"/.newParametersString))/(1-1/ToExpression@("psi"/.newParametersString)) == (ToExpression@("theta"/.newParametersString)) );
-						Append[newParametersSplit,KeyMap[{"Context`",SymbolName@#}&,Association@SolveAlways[system,Reals]]],
+						Prepend[newParametersSplit,KeyMap[{"Context`",SymbolName@#}&,Association@SolveAlways[system,Reals]]],
 					1,
 						(*if theta provided without gamma or psi, abort*)
 						If[

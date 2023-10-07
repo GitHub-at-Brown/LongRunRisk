@@ -52,7 +52,7 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 processModels[
 	modelsCatalog_Association,
 	modelsExtraInfo_Association:<||>,
-	opts:OptionsPattern[{(*processModels,*) updateCoeffsSol, getStartingValues, FindRoot, RecurrenceTable}]
+	opts:OptionsPattern[{(*processModels,*) updateCoeffs, getStartingValues, FindRoot, RecurrenceTable}]
 ]:=
 	Module[
 	{
@@ -288,7 +288,7 @@ createExogenous[m_]:=Module[
 ]	
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*createEndogenous*)
 
 
@@ -358,7 +358,7 @@ createEndogenous[mod_]:=Module[
 ]	
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*addToStateVars*)
 
 
@@ -436,7 +436,7 @@ addCoeffsSystem[model_]:=Module[
 addCoeffsSolution[
 	model_,
 	ratio_String,
-	opts : OptionsPattern[{updateCoeffsSol, getStartingValues, FindRoot, RecurrenceTable}]]:=With[
+	opts : OptionsPattern[{updateCoeffs, getStartingValues, FindRoot, RecurrenceTable}]]:=With[
 	{
 		cs = model["coeffsSystem"][ratio],
 		shortname = model["shortname"],
@@ -455,10 +455,10 @@ addCoeffsSolution[
 					]
 				],
 				Evaluate[
-					First@OptionValue[updateCoeffsSol,Flatten@{opts}, {"FindRootOptions"}]
+					First@OptionValue[updateCoeffs,Flatten@{opts}, {"FindRootOptions"}]
 				],
 				Evaluate[
-					First@OptionValue[updateCoeffsSol, {"FindRootOptions"}]
+					First@OptionValue[updateCoeffs, {"FindRootOptions"}]
 				]
 			}],
 			system=cs[[1]],
@@ -972,10 +972,10 @@ addCoeffsSolutionN[model_]:=With[
 	Ewc0 = getStartingValues["wc",modelInfo,"initialGuess" -> {}];
 	Epd0 = getStartingValues["pd",modelInfo,"initialGuess" -> {}];
 	Epd0j=Table["Epd0["<>IntegerString[j]<>"]"->First@(Epd0[[j]]),{j,1,numStocks}]/.Table->Sequence;
-	solWc=updateCoeffsWc[model["coeffsSolution"]["wc"],params,{},"Ewc0"->Sequence[First@Ewc0],MaxIterations->1000];
-	solPd=updateCoeffsPd[model["coeffsSolution"]["pd"],params,{},solWc,Epd0j,MaxIterations->1000];
-	solBond=updateCoeffsBond[model["coeffsSolution"]["bond"],params,{},maxMaturity,solWc];
-	solNomBond=updateCoeffsBond[model["coeffsSolution"]["nombond"],params,{},maxMaturity,solWc];
+	solWc=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsWc[model["coeffsSolution"]["wc"],params,{},"Ewc0"->Sequence[First@Ewc0],MaxIterations->1000];
+	solPd=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsPd[model["coeffsSolution"]["pd"],params,{},solWc,Epd0j,MaxIterations->1000];
+	solBond=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsBond[model["coeffsSolution"]["bond"],params,{},maxMaturity,solWc];
+	solNomBond=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsBond[model["coeffsSolution"]["nombond"],params,{},maxMaturity,solWc];
 	Flatten@Join[solWc,solPd,solBond,solNomBond]
 ]
 

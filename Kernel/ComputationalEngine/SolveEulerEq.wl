@@ -434,7 +434,7 @@ updateCoeffs[args__]:=Module[
 	{posArgs,optArgs}=ArgumentsOptions[
 		updateCoeffsSol[args],
 		{1,3},
-		<|"OptionsMode"->"Shortest","ExtraOptions"->{checks,FindRoot}|>
+		<|"OptionsMode"->"Shortest","ExtraOptions"->{checks,FindRoot,RecurrenceTable}|>
 	];
 	posArgsLength3=PadRight[posArgs,3,{{}}];
 	updateCoeffsSol[Sequence@@Join[posArgsLength3,optArgs,Options@updateCoeffs]]
