@@ -17,7 +17,7 @@ jobs:
     name: Check
     runs-on: ubuntu-latest
     container:
-      image: wolframresearch/wolframengine:13.3
+      image: wolframresearch/wolframengine:13.1
       options: --user root
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
@@ -46,7 +46,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     container:
-      image: wolframresearch/wolframengine:13.3
+      image: wolframresearch/wolframengine:13.1
       options: --user root
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
