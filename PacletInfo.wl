@@ -9,14 +9,13 @@ PacletObject[
     "License" -> "MIT",
     "PublisherID" -> "FernandoDuarte",
     "Version" -> "1.0.0",
-    "WolframVersion" -> "13.0+",
+    "WolframVersion" -> "13.1+",
     "Extensions" -> {
       {
         "Kernel",
         "Root" -> "Kernel",
         "Context" -> {"FernandoDuarte`LongRunRisk`"},
-        "Symbols" -> {
-        }
+        "Symbols" -> {}
       },
       {
         "Documentation",
@@ -24,7 +23,7 @@ PacletObject[
         "Language" -> "English"
       },
       {"Asset", "Assets" -> {{"License", "./LICENSE"}}},
-      {"Path","Root"->"Resources"}
+      {"Path", "Root" -> "Resources"}
     }
   |>
 ]
