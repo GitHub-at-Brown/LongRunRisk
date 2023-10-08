@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     45475,       1000]
-NotebookOptionsPosition[     41524,        927]
-NotebookOutlinePosition[     41992,        945]
-CellTagsIndexPosition[     41949,        942]
+NotebookDataLength[     52705,       1163]
+NotebookOptionsPosition[     47856,       1079]
+NotebookOutlinePosition[     48326,       1097]
+CellTagsIndexPosition[     48283,       1094]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -22,7 +22,7 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.889964198656839*^9, 3.889964203363894*^9}},
- CellLabel->"In[6]:=",ExpressionUUID->"0234f268-ab77-4fe5-a57c-11e020f4f587"],
+ CellLabel->"In[26]:=",ExpressionUUID->"0234f268-ab77-4fe5-a57c-11e020f4f587"],
 
 Cell[CellGroupData[{
 
@@ -38,23 +38,18 @@ Cell[BoxData[{
       RowBox[{"FileBaseName", "[", 
        RowBox[{"NotebookFileName", "[", "]"}], "]"}], "<>", 
       "\"\<.wlt\>\""}]}], "}"}], "]"}]}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"pacletDir", "=", 
-   RowBox[{"DirectoryName", "[", 
-    RowBox[{"testFileName", ",", "2"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"PacletDirectoryLoad", "[", "pacletDir", "]"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"testContextBase", "=", 
-   RowBox[{"FileBaseName", "[", "testFileName", "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"$ContextPath", "=", 
-   RowBox[{"Cases", "[", 
-    RowBox[{"$ContextPath", ",", 
-     RowBox[{"Except", "[", "\"\<PacletizedResourceFunctions`\>\"", "]"}]}], 
-    "]"}]}], ";"}], "\[IndentingNewLine]"}], "Input",
+ RowBox[{"pacletDir", "=", 
+  RowBox[{"DirectoryName", "[", 
+   RowBox[{"testFileName", ",", "2"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"PacletDirectoryLoad", "[", "pacletDir", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"testContextBase", "=", 
+  RowBox[{"FileBaseName", "[", "testFileName", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"$ContextPath", "=", 
+  RowBox[{"Cases", "[", 
+   RowBox[{"$ContextPath", ",", 
+    RowBox[{"Except", "[", "\"\<PacletizedResourceFunctions`\>\"", "]"}]}], 
+   "]"}]}]}], "Input",
  CellChangeTimes->{{3.8890661685133457`*^9, 3.889066220685074*^9}, {
    3.8890662555512333`*^9, 3.889066299901951*^9}, {3.889066581166473*^9, 
    3.8890665847967653`*^9}, {3.889066731765956*^9, 3.889066745674687*^9}, {
@@ -66,14 +61,47 @@ Cell[BoxData[{
    3.8908255374530487`*^9}, {3.891021675325671*^9, 3.891021675545487*^9}, {
    3.8911588731924877`*^9, 3.891158877904397*^9}, {3.8911592499395514`*^9, 
    3.8911592502376633`*^9}, {3.89124517308853*^9, 3.891245207264389*^9}, 
-   3.891247933220352*^9, 3.89176493741186*^9},
+   3.891247933220352*^9, 3.89176493741186*^9, 3.9057711288659353`*^9, 
+   3.905771195887855*^9},
  CellLabel->"In[1]:=",ExpressionUUID->"cb870035-059e-407b-b59b-ca2d2d097b78"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>"], "Output",\
 
- CellChangeTimes->{3.905155099239468*^9, 3.905155293205697*^9},
- CellLabel->"Out[1]=",ExpressionUUID->"b518d2d0-502e-491b-ba34-80fc7571bd38"]
+ CellChangeTimes->{
+  3.905155099239468*^9, 3.905155293205697*^9, {3.905771196543195*^9, 
+   3.905771218362685*^9}},
+ CellLabel->"Out[1]=",ExpressionUUID->"afa182c9-9e20-405c-b38b-8a808685765d"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/\"\>"], "Output",
+ CellChangeTimes->{
+  3.905155099239468*^9, 3.905155293205697*^9, {3.905771196543195*^9, 
+   3.905771218363408*^9}},
+ CellLabel->"Out[2]=",ExpressionUUID->"82387de8-5c5b-4b33-91d4-85d8ebc59f17"],
+
+Cell[BoxData[
+ RowBox[{"{", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/\"\>", "}"}]], "Output",
+ CellChangeTimes->{
+  3.905155099239468*^9, 3.905155293205697*^9, {3.905771196543195*^9, 
+   3.9057712183955383`*^9}},
+ CellLabel->"Out[3]=",ExpressionUUID->"de1f88c2-8808-43b3-9cc8-e026d8b86f25"],
+
+Cell[BoxData["\<\"PacletizeResources\"\>"], "Output",
+ CellChangeTimes->{
+  3.905155099239468*^9, 3.905155293205697*^9, {3.905771196543195*^9, 
+   3.905771218396212*^9}},
+ CellLabel->"Out[4]=",ExpressionUUID->"62b1520e-664a-4172-9a9c-1f33412f0ad4"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Wolfram`Chatbook`\"\>", ",", "\<\"System`\"\>", 
+   ",", "\<\"Global`\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.905155099239468*^9, 3.905155293205697*^9, {3.905771196543195*^9, 
+   3.905771218396755*^9}},
+ CellLabel->"Out[5]=",ExpressionUUID->"6bcfa231-3930-4bd2-b5ee-e6a137f4f0db"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -93,7 +121,7 @@ Cell[BoxData[
      RowBox[{"{", "}"}]}], ",", "Nothing", ",", 
     RowBox[{"DeleteFile", "[", "testFileName", "]"}]}], "]"}], ";"}]], "Input",\
 
- CellLabel->"In[7]:=",ExpressionUUID->"d8bdb421-571d-4635-a4c4-9dd0a1cf0489"],
+ CellLabel->"In[6]:=",ExpressionUUID->"d8bdb421-571d-4635-a4c4-9dd0a1cf0489"],
 
 Cell[BoxData[
  RowBox[{
@@ -104,7 +132,7 @@ Cell[BoxData[
    3.89115778716877*^9, 3.8911577875972347`*^9}, {3.891158046655726*^9, 
    3.8911580470847473`*^9}, 3.8912179247147303`*^9, 3.8912444327432823`*^9, {
    3.891765075139277*^9, 3.8917650755749073`*^9}},
- CellLabel->"In[8]:=",ExpressionUUID->"6a80d1f9-cb5b-4867-9c32-9d30e1a5d262"],
+ CellLabel->"In[7]:=",ExpressionUUID->"6a80d1f9-cb5b-4867-9c32-9d30e1a5d262"],
 
 Cell[CellGroupData[{
 
@@ -113,11 +141,11 @@ Cell[BoxData[
  CellChangeTimes->{{3.890680288696157*^9, 3.8906802887021513`*^9}, 
    3.891157128406151*^9, 3.891216110719902*^9, {3.8912445519087954`*^9, 
    3.891244552302359*^9}, {3.891246735898472*^9, 3.89124673615982*^9}},
- CellLabel->"In[9]:=",ExpressionUUID->"69aa53d3-023c-4a66-9d28-ce90729a6072"],
+ CellLabel->"In[8]:=",ExpressionUUID->"69aa53d3-023c-4a66-9d28-ce90729a6072"],
 
 Cell[BoxData["\<\"PacletizeResources`\"\>"], "Output",
- CellChangeTimes->{3.905155141911614*^9},
- CellLabel->"Out[9]=",ExpressionUUID->"668678ad-032d-4e4a-b534-63b451e0aeef"]
+ CellChangeTimes->{3.905155141911614*^9, 3.905771200864188*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"d8bce8a9-2ad4-4de5-ab94-9daf86a5e90f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -128,13 +156,15 @@ Cell[BoxData[
   RowBox[{"testFileName", ",", "\[IndentingNewLine]", 
    RowBox[{"{", "\[IndentingNewLine]", 
     RowBox[{
-     RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}], 
-     ";"}], 
-    RowBox[{"(*", 
-     RowBox[{",", 
-      RowBox[{"Needs", "[", "\"\<MaTeX`\>\"", "]"}]}], "*)"}], 
-    "\[IndentingNewLine]", "}"}], "\[IndentingNewLine]", ",", 
-   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "False"}]}], "]"}]], "Input",
+     RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}], ";", 
+     
+     RowBox[{"(*", 
+      RowBox[{",", 
+       RowBox[{"Needs", "[", "\"\<MaTeX`\>\"", "]"}]}], "*)"}], 
+     "\[IndentingNewLine]", "True"}], "\[IndentingNewLine]", "}"}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"\"\<ConfirmResults\>\"", "\[Rule]", "confirm"}]}], "]"}]], "Input",\
+
  CellChangeTimes->{{3.890446336323517*^9, 3.8904463515749817`*^9}, 
    3.8904472289643927`*^9, 3.8904474628884*^9, {3.890494725287332*^9, 
    3.8904947455115223`*^9}, {3.8904949406911163`*^9, 3.890494955441378*^9}, {
@@ -143,54 +173,55 @@ Cell[BoxData[
    3.891764997579405*^9, 3.891765034136771*^9}, {3.891765139801202*^9, 
    3.891765149232245*^9}, {3.8917653019939003`*^9, 3.891765308603771*^9}, {
    3.891848395913671*^9, 3.891848397610365*^9}, {3.891848679948903*^9, 
-   3.891848686368594*^9}},
- CellLabel->"In[10]:=",ExpressionUUID->"7f884c07-c995-4c3e-9a6e-679e72ceaa4f"],
+   3.891848686368594*^9}, {3.9057711615264273`*^9, 3.9057711681233664`*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"7f884c07-c995-4c3e-9a6e-679e72ceaa4f"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"PacletizeResources_20231001-0KYR5O\"\>"}],
-  SequenceForm["Adding test: ", "PacletizeResources_20231001-0KYR5O"],
+   "\[InvisibleSpace]", "\<\"PacletizeResources_20231008-U7OMIY\"\>"}],
+  SequenceForm["Adding test: ", "PacletizeResources_20231008-U7OMIY"],
   Editable->False]], "Print",
- CellChangeTimes->{3.9051551498994493`*^9},
+ CellChangeTimes->{3.9051551498994493`*^9, 3.905771206448957*^9},
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"60042d3f-2f78-4127-8916-da8d6aae4215"],
+In[9]:=",ExpressionUUID->"7e30c1d0-6d5c-4d3e-b620-cf63ddad8d03"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>"], "Print",\
 
- CellChangeTimes->{3.905155149928521*^9},
+ CellChangeTimes->{3.9051551498994493`*^9, 3.905771206468066*^9},
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"2e8b971b-423a-433e-9887-e96311a407ab"]
+In[9]:=",ExpressionUUID->"71504684-dc4e-4cdd-92ca-f0e3264f7d33"]
 }, Open  ]],
 
 Cell[BoxData[
  DynamicModuleBox[{
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`inputString$$ = 
-  "{Needs @ \"FernandoDuarte`LongRunRisk`\";}", 
+  "{\n\t\tNeeds @ \"FernandoDuarte`LongRunRisk`\";\n\t\tTrue\n\t}", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`writeToFile$$, 
-  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = {Null}, 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = {True}, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
-  "VerificationTest[\n\t{Needs @ \"FernandoDuarte`LongRunRisk`\";}\n\t,\n\t\
-{Null}\n\t,\n\t{}\n\t,\n\tTestID->\"PacletizeResources_20231001-0KYR5O\"\n]\n\
-\n", FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$ = True, 
+  "VerificationTest[\n\t{\n\t\tNeeds @ \"FernandoDuarte`LongRunRisk`\";\n\t\t\
+True\n\t}\n\t,\n\t{True}\n\t,\n\t{}\n\t,\n\t\
+TestID->\"PacletizeResources_20231008-U7OMIY\"\n]\n\n", 
+  FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$ = True, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
-  "Result" :> {Null}, "Success" -> True, "FailureType" -> None, 
+  "Result" :> {True}, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 3.7640000000000002`, 
-   "AbsoluteTiming" -> 5.8660000000000005`, "InputString" :> ToString[
-     Unevaluated[{Needs["FernandoDuarte`LongRunRisk`"]; Null}], InputForm]|>, 
+   "MessagesExpressions" -> {}, "Timing" -> 3.83, "AbsoluteTiming" -> 5.313, 
+   "InputString" :> ToString[
+     Unevaluated[{Needs["FernandoDuarte`LongRunRisk`"]; True}], InputForm]|>, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
-  "BeginTestSection[\"PacletizeResources\"]\n\n\nVerificationTest[\n\t{Needs \
-@ \"FernandoDuarte`LongRunRisk`\";}\n\t,\n\t{Null}\n\t,\n\t{}\n\t,\n\t\
-TestID->\"PacletizeResources_20231001-0KYR5O\"\n]\n\n\nEndTestSection[]\n"}, \
-"\<\"/Users/fernandoduarte/Dropbox \
+  "BeginTestSection[\"PacletizeResources\"]\n\n\nVerificationTest[\n\t{\n\t\t\
+Needs @ \"FernandoDuarte`LongRunRisk`\";\n\t\tTrue\n\t}\n\t,\n\t{True}\n\t,\n\
+\t{}\n\t,\n\tTestID->\"PacletizeResources_20231008-U7OMIY\"\n]\n\n\n\
+EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>",
   DynamicModuleValues:>{{
     DownValues[
@@ -255,8 +286,8 @@ outputString$$];
         SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.905155149937852*^9},
- CellLabel->"Out[10]=",ExpressionUUID->"81cc2cd3-85b0-48b9-b0bb-1b51da289758"]
+ CellChangeTimes->{3.905155149937852*^9, 3.9057712064808187`*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"5eb0f6f5-8d6d-430b-bb0d-37e3b7c8e4f3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -321,28 +352,28 @@ Cell[BoxData[
    3.891765288713862*^9, 3.891765297589549*^9}, 3.891848370835496*^9, {
    3.891848404769883*^9, 3.891848405034886*^9}, {3.8918486923913403`*^9, 
    3.891848694927402*^9}},
- CellLabel->"In[11]:=",ExpressionUUID->"782376cb-6c6d-48d4-a1c7-153c92066845"],
+ CellLabel->"In[10]:=",ExpressionUUID->"782376cb-6c6d-48d4-a1c7-153c92066845"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"PacletizeResources_20231001-U9IMSB\"\>"}],
-  SequenceForm["Adding test: ", "PacletizeResources_20231001-U9IMSB"],
+   "\[InvisibleSpace]", "\<\"PacletizeResources_20231008-FOD064\"\>"}],
+  SequenceForm["Adding test: ", "PacletizeResources_20231008-FOD064"],
   Editable->False]], "Print",
- CellChangeTimes->{3.905155151891242*^9},
+ CellChangeTimes->{3.905155151891242*^9, 3.9057712067275267`*^9},
  CellLabel->
   "During evaluation of \
-In[11]:=",ExpressionUUID->"93417341-bf64-4db4-a815-89e980a080cf"],
+In[10]:=",ExpressionUUID->"64b461f8-c703-4dab-81ac-0ebc5ab83ede"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>"], "Print",\
 
- CellChangeTimes->{3.905155151892373*^9},
+ CellChangeTimes->{3.905155151891242*^9, 3.905771206733218*^9},
  CellLabel->
   "During evaluation of \
-In[11]:=",ExpressionUUID->"2d7b52ba-fe2a-49ca-8594-e423411685d8"]
+In[10]:=",ExpressionUUID->"696e1b01-47c6-49ab-9384-4b7d9c26b213"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -363,12 +394,12 @@ MemberQ[$Packages, \"MaTeX`\"],\n\t\t\tSameQ[Part[PacletFind @ \"MaTeX\", 1][\
 \"MaTeX\", 1][\"Version\"], \"1.7.9\"],\n\t\t\t!SameQ[PacletFind @ Names @ \
 \"*NeedsDefinitions\", {}],\n\t\t\t!SameQ[PacletFind @ Names @ \
 \"*SetSymbolsContext\", {}]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"PacletizeResources_20231001-U9IMSB\"\n]\n\n", 
+TestID->\"PacletizeResources_20231008-FOD064\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.062, "AbsoluteTiming" -> 0.062, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.056, "AbsoluteTiming" -> 0.056, 
    "InputString" :> ToString[
      Unevaluated[
       Apply[And, {
@@ -383,16 +414,16 @@ TestID->\"PacletizeResources_20231001-U9IMSB\"\n]\n\n",
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messages$$ = {}, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`messageString$$ = "{}",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
-  "BeginTestSection[\"PacletizeResources\"]\n\n\nVerificationTest[\n\t{Needs \
-@ \"FernandoDuarte`LongRunRisk`\";}\n\t,\n\t{Null}\n\t,\n\t{}\n\t,\n\t\
-TestID->\"PacletizeResources_20231001-0KYR5O\"\n]\n\n\nVerificationTest[\n\t\
-Apply[And,\n\t\t{\n\t\t\t!SameQ[PacletFind @ \"MaTeX\", {}],\n\t\t\t\
-!SameQ[PacletFind @ \"PacletizedResourceFunctions\", {}],\n\t\t\t\
+  "BeginTestSection[\"PacletizeResources\"]\n\n\nVerificationTest[\n\t{\n\t\t\
+Needs @ \"FernandoDuarte`LongRunRisk`\";\n\t\tTrue\n\t}\n\t,\n\t{True}\n\t,\n\
+\t{}\n\t,\n\tTestID->\"PacletizeResources_20231008-U7OMIY\"\n]\n\n\n\
+VerificationTest[\n\tApply[And,\n\t\t{\n\t\t\t!SameQ[PacletFind @ \"MaTeX\", \
+{}],\n\t\t\t!SameQ[PacletFind @ \"PacletizedResourceFunctions\", {}],\n\t\t\t\
 MemberQ[$Packages, \"MaTeX`\"],\n\t\t\tSameQ[Part[PacletFind @ \"MaTeX\", 1][\
 \"Version\"], \"1.7.9\"],\n\t\t\t!SameQ[PacletFind @ Names @ \
 \"*NeedsDefinitions\", {}],\n\t\t\t!SameQ[PacletFind @ Names @ \
 \"*SetSymbolsContext\", {}]\n\t\t}\n\t]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"PacletizeResources_20231001-U9IMSB\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"PacletizeResources_20231008-FOD064\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>",
   DynamicModuleValues:>{{
@@ -458,8 +489,8 @@ outputString$$];
         SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.905155151907754*^9},
- CellLabel->"Out[11]=",ExpressionUUID->"9f0ac589-8172-4cfc-bfa4-ef57b7a7d675"]
+ CellChangeTimes->{3.905155151907754*^9, 3.9057712067438097`*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"2f0632f9-883b-4ee1-aef8-ae9df2e01d69"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -467,14 +498,12 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"End", "[", "]"}]], "Input",
  CellChangeTimes->{{3.890680295645965*^9, 3.89068029650622*^9}},
- CellLabel->"In[12]:=",ExpressionUUID->"7a3cfc36-0757-459e-8114-2d76f6d795ac"],
+ CellLabel->"In[11]:=",ExpressionUUID->"7a3cfc36-0757-459e-8114-2d76f6d795ac"],
 
 Cell[BoxData["\<\"PacletizeResources`\"\>"], "Output",
- CellChangeTimes->{3.905155153611313*^9},
- CellLabel->"Out[12]=",ExpressionUUID->"2a436d2f-e5c2-4816-be86-7b49ddd9f9a1"]
+ CellChangeTimes->{3.905155153611313*^9, 3.905771206751564*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"d69f4c3d-d2a4-4444-9ca2-1f1a0be7c0ac"]
 }, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -486,85 +515,98 @@ Cell[BoxData[
   RowBox[{"(*", 
    RowBox[{"helper", " ", "functions"}], "*)"}], "\[IndentingNewLine]", 
   RowBox[{
-   RowBox[{"ClearAll", "[", "countLines", "]"}], "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{"countLines", "[", "file_String", "]"}], ":=", 
-    RowBox[{"Module", "[", "\[IndentingNewLine]", 
-     RowBox[{
-      RowBox[{"{", "\[IndentingNewLine]", 
-       RowBox[{
-        RowBox[{"readStream", "=", 
-         RowBox[{"OpenRead", "[", "file", "]"}]}], ",", "\[IndentingNewLine]", 
-        RowBox[{"n", "=", "1"}], ",", "\[IndentingNewLine]", "temp"}], 
-       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"countLines", "[", "file_String", "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
       RowBox[{
-       RowBox[{"While", "[", "\[IndentingNewLine]", 
-        RowBox[{
-         RowBox[{"temp", "=!=", "EndOfFile"}], ",", "\[IndentingNewLine]", 
-         RowBox[{
-          RowBox[{"temp", "=", 
-           RowBox[{"ReadLine", "[", "readStream", "]"}]}], ";", 
-          "\[IndentingNewLine]", 
-          RowBox[{"n", "=", 
-           RowBox[{"n", "+", "1"}]}], ";"}]}], "\[IndentingNewLine]", "]"}], 
-       ";", "\[IndentingNewLine]", 
-       RowBox[{"Close", "/@", 
-        RowBox[{"{", "readStream", "}"}]}], ";", "\[IndentingNewLine]", 
-       "n"}]}], "\[IndentingNewLine]", "]"}]}], "\n", 
-   RowBox[{"ClearAll", "[", "replaceNthRecord", "]"}], "\[IndentingNewLine]", 
-   
-   RowBox[{
-    RowBox[{"replaceNthRecord", "[", 
-     RowBox[{"file_String", ",", "n_Integer", ",", "replaceWith_"}], "]"}], ":=", 
-    RowBox[{"Module", "[", "\[IndentingNewLine]", 
+       RowBox[{"readStream", "=", 
+        RowBox[{"OpenRead", "[", "file", "]"}]}], ",", "\[IndentingNewLine]", 
+       
+       RowBox[{"n", "=", "1"}], ",", "\[IndentingNewLine]", "temp"}], 
+      "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
      RowBox[{
-      RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"While", "[", "\[IndentingNewLine]", 
        RowBox[{
-        RowBox[{"readStream", "=", 
-         RowBox[{"OpenRead", "[", "file", "]"}]}], ",", "\[IndentingNewLine]", 
-        RowBox[{"writeStream", "=", 
-         RowBox[{"OpenWrite", "[", 
-          RowBox[{"file", "<>", "\"\<temp\>\""}], "]"}]}], ",", 
-        "\[IndentingNewLine]", "temp"}], "\[IndentingNewLine]", "}"}], ",", 
-      "\[IndentingNewLine]", 
-      RowBox[{
-       RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{"temp", "=!=", "EndOfFile"}], ",", "\[IndentingNewLine]", 
         RowBox[{
-         RowBox[{"WriteLine", "[", 
-          RowBox[{"writeStream", ",", 
-           RowBox[{"ReadLine", "[", "readStream", "]"}]}], "]"}], ",", 
+         RowBox[{"temp", "=", 
+          RowBox[{"ReadLine", "[", "readStream", "]"}]}], ";", 
          "\[IndentingNewLine]", 
-         RowBox[{"{", 
-          RowBox[{"n", "-", "1"}], "}"}]}], "\[IndentingNewLine]", "]"}], ";",
-        "\[IndentingNewLine]", 
+         RowBox[{"n", "=", 
+          RowBox[{"n", "+", "1"}]}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"Close", "/@", 
+       RowBox[{"{", "readStream", "}"}]}], ";", "\[IndentingNewLine]", 
+      "n"}]}], "\[IndentingNewLine]", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.890686194230386*^9, 3.890686228283702*^9}, 
+   3.8911593195689373`*^9, 3.891244813725857*^9, {3.9057710476193943`*^9, 
+   3.905771050165823*^9}, {3.905771103222946*^9, 3.9057711056606207`*^9}},
+ CellLabel->"In[12]:=",ExpressionUUID->"6d03b1c3-61b7-4e04-93f6-99261ec4b37c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"replaceNthRecord", "[", 
+   RowBox[{"file_String", ",", "n_Integer", ",", "replaceWith_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"readStream", "=", 
+       RowBox[{"OpenRead", "[", "file", "]"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{"writeStream", "=", 
+       RowBox[{"OpenWrite", "[", 
+        RowBox[{"file", "<>", "\"\<temp\>\""}], "]"}]}], ",", 
+      "\[IndentingNewLine]", "temp"}], "\[IndentingNewLine]", "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
        RowBox[{"WriteLine", "[", 
         RowBox[{"writeStream", ",", 
-         RowBox[{
-          RowBox[{"ReadLine", "[", "readStream", "]"}], "<>", 
-          "\"\< \\r\\n\>\"", "<>", "replaceWith"}]}], "]"}], ";", 
+         RowBox[{"ReadLine", "[", "readStream", "]"}]}], "]"}], ",", 
        "\[IndentingNewLine]", 
-       RowBox[{"While", "[", "\[IndentingNewLine]", 
-        RowBox[{
-         RowBox[{"temp", "=!=", "EndOfFile"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"n", "-", "1"}], "}"}]}], "\[IndentingNewLine]", "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"WriteLine", "[", 
+      RowBox[{"writeStream", ",", 
+       RowBox[{
+        RowBox[{"ReadLine", "[", "readStream", "]"}], "<>", "\"\< \\r\\n\>\"",
+         "<>", "replaceWith"}]}], "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"While", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"temp", "=!=", "EndOfFile"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"temp", "=", 
+         RowBox[{"ReadLine", "[", "readStream", "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"If", "[", "\[IndentingNewLine]", 
          RowBox[{
-          RowBox[{"temp", "=", 
-           RowBox[{"ReadLine", "[", "readStream", "]"}]}], ";", 
+          RowBox[{"UnsameQ", "[", 
+           RowBox[{"temp", ",", "EndOfFile"}], "]"}], ",", 
           "\[IndentingNewLine]", 
-          RowBox[{"If", "[", "\[IndentingNewLine]", 
-           RowBox[{
-            RowBox[{"UnsameQ", "[", 
-             RowBox[{"temp", ",", "EndOfFile"}], "]"}], ",", 
-            "\[IndentingNewLine]", 
-            RowBox[{"WriteLine", "[", 
-             RowBox[{"writeStream", ",", "temp"}], "]"}]}], 
-           "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", 
-        "]"}], ";", 
-       RowBox[{"Close", "/@", 
-        RowBox[{"{", 
-         RowBox[{"readStream", ",", "writeStream"}], "}"}]}]}]}], "]"}]}], 
-   "\[IndentingNewLine]", 
-   RowBox[{"(*", 
-    RowBox[{"insert", " ", "into", " ", "wlt", " ", "file"}], "*)"}], "\n", 
+          RowBox[{"WriteLine", "[", 
+           RowBox[{"writeStream", ",", "temp"}], "]"}]}], 
+         "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+     ";", 
+     RowBox[{"Close", "/@", 
+      RowBox[{"{", 
+       RowBox[{"readStream", ",", "writeStream"}], "}"}]}]}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.890686194230386*^9, 3.890686228283702*^9}, 
+   3.8911593195689373`*^9, 3.891244813725857*^9, {3.9057710476193943`*^9, 
+   3.905771050165823*^9}, {3.905771103222946*^9, 3.9057711099418297`*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"f2820dba-ffc2-4412-bd23-4e014ffb3a37"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"insert", " ", "into", " ", "wlt", " ", "file"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
    RowBox[{"replaceNthRecord", "[", 
     RowBox[{
     "testFileName", ",", "1", ",", 
@@ -594,8 +636,9 @@ Cell[BoxData[
    RowBox[{"DeleteFile", "[", 
     RowBox[{"testFileName", "<>", "\"\<temp\>\""}], "]"}]}]}]], "Input",
  CellChangeTimes->{{3.890686194230386*^9, 3.890686228283702*^9}, 
-   3.8911593195689373`*^9, 3.891244813725857*^9},
- CellLabel->"In[13]:=",ExpressionUUID->"6d03b1c3-61b7-4e04-93f6-99261ec4b37c"],
+   3.8911593195689373`*^9, 3.891244813725857*^9, {3.9057710476193943`*^9, 
+   3.905771050165823*^9}, {3.905771103222946*^9, 3.9057711099418297`*^9}},
+ CellLabel->"In[14]:=",ExpressionUUID->"eaac17e9-3994-4d83-9c53-f2037f7ef8b9"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -604,12 +647,12 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlttemp\"\>"}], 
   "}"}]], "Output",
- CellChangeTimes->{3.9051551552146606`*^9},
- CellLabel->"Out[17]=",ExpressionUUID->"e03ca483-66da-4513-952d-d3c513160b28"],
+ CellChangeTimes->{3.9051551552146606`*^9, 3.905771206767961*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"6d7dd884-0ee8-47ee-9568-186d90b7b71f"],
 
-Cell[BoxData["32"], "Output",
- CellChangeTimes->{3.905155155216195*^9},
- CellLabel->"Out[20]=",ExpressionUUID->"1c4a9ac9-08d4-4fa7-862a-ae0e99188362"],
+Cell[BoxData["35"], "Output",
+ CellChangeTimes->{3.9051551552146606`*^9, 3.9057712067764482`*^9},
+ CellLabel->"Out[17]=",ExpressionUUID->"49291456-94f3-44aa-b5c6-7ffe4a27ad0a"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -618,8 +661,8 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlttemp\"\>"}], 
   "}"}]], "Output",
- CellChangeTimes->{3.905155155216922*^9},
- CellLabel->"Out[21]=",ExpressionUUID->"ab564ca6-2b76-4537-ba6e-884f7bc504d1"]
+ CellChangeTimes->{3.9051551552146606`*^9, 3.9057712067770977`*^9},
+ CellLabel->"Out[18]=",ExpressionUUID->"2e7f0e71-e2de-4336-83a7-85c1cb08075e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -627,7 +670,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"tr", "=", 
   RowBox[{"TestReport", "[", "testFileName", "]"}]}]], "Input",
- CellLabel->"In[24]:=",ExpressionUUID->"84daf157-bda2-4838-ba95-028b7c28d467"],
+ CellLabel->"In[21]:=",ExpressionUUID->"84daf157-bda2-4838-ba95-028b7c28d467"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -765,7 +808,7 @@ Cell[BoxData[
                  TagBox[
                   
                   TemplateBox[{
-                   "0.053965`4.581597183564656", "\"s\"", "seconds", 
+                   "0.048211`4.532631141947589", "\"s\"", "seconds", 
                     "\"Seconds\""}, "Quantity", SyntaxForm -> Mod], 
                   "SummaryItem"]}], "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
@@ -787,33 +830,33 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: PacletizeResources.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     7990660627469410090 -> 
+     1823989281557599007 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.905155217962985*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905771206848337*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "d935c1cc-99fb-40e8-b32d-5d90a1a82874", "TestID" -> 
-         "PacletizeResources_20231001-0KYR5O", "TestFileName" -> 
+         "da11e995-4a04-4737-99a1-f01cd225db3e", "TestID" -> 
+         "PacletizeResources_20231008-U7OMIY", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", 
-         "EvaluationID" -> "6c87b4bb-08df-4b8a-9659-cedbb7d78739", "Input" -> 
-         HoldForm[{Needs["FernandoDuarte`LongRunRisk`"]; Null}], 
+         "EvaluationID" -> "2d83e6ac-9887-4ab2-bcc1-aaa85dc1c139", "Input" -> 
+         HoldForm[{Needs["FernandoDuarte`LongRunRisk`"]; True}], 
          "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> 
-         HoldForm[{Null}], "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.000034`1.6819939148742489, "CPUTimeUsed" -> 0.00003499999999956316,
-          "MemoryUsed" -> 2808, "ExpectedOutput" -> HoldForm[{Null}], 
-         "Outcome" -> "Success"|>], 4686331080472151140 -> 
+         HoldForm[{True}], "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000039`1.741579604858491, "CPUTimeUsed" -> 0.00003799999999998249, 
+         "MemoryUsed" -> 2808, "ExpectedOutput" -> HoldForm[{True}], 
+         "Outcome" -> "Success"|>], 7060381516682095696 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.905155217963328*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9057712068487206`*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "f449dbce-c9da-491a-9709-758593923de9", "TestID" -> 
-         "PacletizeResources_20231001-U9IMSB", "TestFileName" -> 
+         "a6b9d519-8081-42e4-9d73-05d2d012e5ba", "TestID" -> 
+         "PacletizeResources_20231008-FOD064", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt", 
-         "EvaluationID" -> "a49e6d6b-e378-420a-9963-fc0c8660fa63", "Input" -> 
+         "EvaluationID" -> "5b26b97f-9440-4a0d-9b0f-80a3793c0b4c", "Input" -> 
          HoldForm[
            Apply[And, {
              Not[PacletFind["MaTeX"] === {}], 
@@ -826,19 +869,128 @@ Cell[BoxData[
                 Names["*SetSymbolsContext"]] === {}]}]], "ExpectedMessages" -> 
          HoldForm[{}], "ActualOutput" -> HoldForm[True], 
          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.053931`4.882353470974885, "CPUTimeUsed" -> 0.0539909999999999, 
+         0.048172`4.833309675513095, "CPUTimeUsed" -> 0.04821999999999971, 
          "MemoryUsed" -> 3144, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
          "Success"|>]|>, "FailureResults" -> <||>, 
     "TestsNotEvaluatedKeys" -> {}, "TestsFailedWrongResultsKeys" -> {}, 
     "TestsFailedWithMessagesKeys" -> {}, "TestsFailedWithErrorsKeys" -> {}, 
-    "TestsSucceededKeys" -> {7990660627469410090, 4686331080472151140}|>],
+    "TestsSucceededKeys" -> {1823989281557599007, 7060381516682095696}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellChangeTimes->{3.9051552180330267`*^9},
- CellLabel->"Out[24]=",ExpressionUUID->"91085705-4659-4c7f-a3c8-cb78848dc272"]
-}, Open  ]]
+ CellChangeTimes->{3.9051552180330267`*^9, 3.90577120691055*^9},
+ CellLabel->"Out[21]=",ExpressionUUID->"ce5d6904-87c4-4f43-8b10-b7d871575728"]
 }, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"actual", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "@", 
+      RowBox[{"{", 
+       RowBox[{"(", 
+        RowBox[{"ReleaseHold", "@", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"tr", "[", "\"\<Results\>\"", "]"}], "[", 
+            RowBox[{"[", 
+             RowBox[{"jj", ",", "1"}], "]"}], "]"}], "[", 
+           RowBox[{"[", "\"\<ActualOutput\>\"", "]"}], "]"}], ")"}]}], ")"}], 
+       "}"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"jj", ",", "1", ",", 
+       RowBox[{"Length", "[", 
+        RowBox[{"tr", "[", "\"\<Results\>\"", "]"}], "]"}]}], "}"}]}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"expected", "=", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Flatten", "@", 
+       RowBox[{"{", 
+        RowBox[{"(", 
+         RowBox[{"ReleaseHold", "@", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"tr", "[", "\"\<Results\>\"", "]"}], "[", 
+             RowBox[{"[", 
+              RowBox[{"jj", ",", "1"}], "]"}], "]"}], "[", 
+            RowBox[{"[", "\"\<ExpectedOutput\>\"", "]"}], "]"}], ")"}]}], 
+         ")"}], "}"}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"jj", ",", "1", ",", 
+        RowBox[{"Length", "[", 
+         RowBox[{"tr", "[", "\"\<Results\>\"", "]"}], "]"}]}], "}"}]}], 
+     "]"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "value", " ", "of", " ", "next", " ", "two", " ", "lines", " ", "should", 
+    " ", "be", " ", "true"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"And", "@@", 
+  RowBox[{"Flatten", "@", "actual"}]}], "\[IndentingNewLine]", 
+ RowBox[{"And", "@@", 
+  RowBox[{"Flatten", "@", "expected"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"numEntries", "=", 
+     RowBox[{
+      RowBox[{"Dimensions", "[", "actual", "]"}], "[", 
+      RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"numCol", "=", "5"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"numRows", "=", 
+     RowBox[{
+      RowBox[{"Floor", "[", 
+       RowBox[{"numEntries", "/", "numCol"}], "]"}], "+", "1"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"TableForm", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"ArrayReshape", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{"MapThread", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"TableForm", "[", 
+              RowBox[{"{", 
+               RowBox[{"#1", ",", "#2"}], "}"}], "]"}], "&"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{"actual", ",", "\[IndentingNewLine]", "expected"}], 
+             "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}], 
+          "\[IndentingNewLine]", "}"}], "\[Transpose]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"numRows", ",", "numCol"}], "}"}], ",", "\"\<--\>\""}], 
+       "]"}], "\[IndentingNewLine]", ",", 
+      RowBox[{"TableDepth", "\[Rule]", "1"}]}], " ", "]"}]}], 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.905694462163437*^9, 3.905694478942039*^9}, {
+   3.905697309999281*^9, 3.905697352099519*^9}, {3.905698637086853*^9, 
+   3.905698637247707*^9}, {3.9056993097841167`*^9, 3.905699372508963*^9}, {
+   3.905701884187395*^9, 3.905701885054824*^9}, {3.905767492744175*^9, 
+   3.9057674935249777`*^9}, 3.9057678324661016`*^9},
+ CellLabel->"In[22]:=",ExpressionUUID->"e903aa36-6c2f-48ed-89e9-10298ef525c0"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{
+  3.9057691493663607`*^9, {3.9057709225921717`*^9, 3.9057709419447327`*^9}, 
+   3.905771206979733*^9},
+ CellLabel->"Out[24]=",ExpressionUUID->"76698513-870e-4a3e-a814-512aabb7cf29"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{
+  3.9057691493663607`*^9, {3.9057709225921717`*^9, 3.9057709419447327`*^9}, 
+   3.90577120698031*^9},
+ CellLabel->"Out[25]=",ExpressionUUID->"f9163287-cf68-454a-9333-84f8efc5983e"]
+}, Open  ]]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -889,44 +1041,44 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"PacletFind", "[", 
      RowBox[{"Names", "[", "\"\<*SetSymbolsContext\>\"", "]"}], "]"}], ",", 
-    RowBox[{"{", "}"}]}], "]"}]}], "\[IndentingNewLine]"}], "Input",
+    RowBox[{"{", "}"}]}], "]"}]}]}], "Input",
  CellChangeTimes->{{3.89049326620848*^9, 3.8904932792269497`*^9}, {
-  3.891244668260336*^9, 3.891244677348711*^9}, {3.891244709399273*^9, 
-  3.891244715663413*^9}},
+   3.891244668260336*^9, 3.891244677348711*^9}, {3.891244709399273*^9, 
+   3.891244715663413*^9}, 3.905771184742223*^9},
  CellLabel->"In[7]:=",ExpressionUUID->"dbe518b4-21b5-4324-9aa1-27bbc8711ea8"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.905155303898609*^9},
- CellLabel->"Out[7]=",ExpressionUUID->"e36ad867-e30d-4baa-88dd-c7b83cfaa243"],
+ CellChangeTimes->{3.905155303898609*^9, 3.905771229002248*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"bd2d5497-7de6-4016-b27b-d28aa584f7a1"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.905155303899461*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"f44491ff-bbb5-4ab7-b9a1-a44b5c1b7081"],
+ CellChangeTimes->{3.905155303898609*^9, 3.9057712290029*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"c278baf8-961d-4f04-b22a-0ff5b73768aa"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.905155303900002*^9},
- CellLabel->"Out[9]=",ExpressionUUID->"6aa64fff-7245-48b5-9a88-711493a7cacb"],
+ CellChangeTimes->{3.905155303898609*^9, 3.90577122900346*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"f2be4c20-bb02-49b1-970b-89a0bcf36440"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.9051553039005117`*^9},
- CellLabel->"Out[10]=",ExpressionUUID->"6868696f-786a-4d4f-9a41-fc38830754f0"],
+ CellChangeTimes->{3.905155303898609*^9, 3.905771229004026*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"fc54189f-2e49-4462-8950-71a112bea95c"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.9051553039010077`*^9},
- CellLabel->"Out[11]=",ExpressionUUID->"0eff55ef-966d-4887-a8ba-49a642274d5a"],
+ CellChangeTimes->{3.905155303898609*^9, 3.905771229004581*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"ade71d85-8a9d-4939-bbe7-a35eb23b737b"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.905155303917056*^9},
- CellLabel->"Out[12]=",ExpressionUUID->"5e89f379-2f65-4f59-aaf7-4fac63d15c53"],
+ CellChangeTimes->{3.905155303898609*^9, 3.905771229033194*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"3b4b059b-aa06-41bc-b084-a6270670b359"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.905155303945405*^9},
- CellLabel->"Out[13]=",ExpressionUUID->"4de6e5ff-4109-4316-948e-d906a6c37966"]
+ CellChangeTimes->{3.905155303898609*^9, 3.9057712290605288`*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"cefc181a-2e91-4ede-a7d4-bd78edc9001b"]
 }, Open  ]]
-}, Open  ]]
+}, Closed]]
 },
 WindowSize->{1192, 646},
-WindowMargins->{{294, Automatic}, {70, Automatic}},
+WindowMargins->{{Automatic, -1585}, {Automatic, 69}},
 TaggingRules-><|"TryRealOnly" -> False|>,
 Magnification:>1.25 Inherited,
 FrontEndVersion->"13.3 for Mac OS X ARM (64-bit) (July 24, 2023)",
@@ -944,64 +1096,75 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 214, 4, 37, "Input",ExpressionUUID->"0234f268-ab77-4fe5-a57c-11e020f4f587"],
+Cell[558, 20, 215, 4, 37, "Input",ExpressionUUID->"0234f268-ab77-4fe5-a57c-11e020f4f587"],
 Cell[CellGroupData[{
-Cell[797, 28, 1965, 41, 194, "Input",ExpressionUUID->"cb870035-059e-407b-b59b-ca2d2d097b78"],
-Cell[2765, 71, 273, 4, 42, "Output",ExpressionUUID->"b518d2d0-502e-491b-ba34-80fc7571bd38"]
+Cell[798, 28, 1910, 37, 168, "Input",ExpressionUUID->"cb870035-059e-407b-b59b-ca2d2d097b78"],
+Cell[2711, 67, 326, 6, 42, "Output",ExpressionUUID->"afa182c9-9e20-405c-b38b-8a808685765d"],
+Cell[3040, 75, 296, 5, 42, "Output",ExpressionUUID->"82387de8-5c5b-4b33-91d4-85d8ebc59f17"],
+Cell[3339, 82, 320, 6, 42, "Output",ExpressionUUID->"de1f88c2-8808-43b3-9cc8-e026d8b86f25"],
+Cell[3662, 90, 248, 4, 42, "Output",ExpressionUUID->"62b1520e-664a-4172-9a9c-1f33412f0ad4"],
+Cell[3913, 96, 334, 7, 42, "Output",ExpressionUUID->"6bcfa231-3930-4bd2-b5ee-e6a137f4f0db"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3075, 80, 255, 4, 67, "Subsection",ExpressionUUID->"1949af63-fe02-4207-847c-e2b3dbe297cc"],
-Cell[3333, 86, 341, 9, 37, "Input",ExpressionUUID->"d8bdb421-571d-4635-a4c4-9dd0a1cf0489"],
-Cell[3677, 97, 576, 9, 37, "Input",ExpressionUUID->"6a80d1f9-cb5b-4867-9c32-9d30e1a5d262"],
+Cell[4284, 108, 255, 4, 67, "Subsection",ExpressionUUID->"1949af63-fe02-4207-847c-e2b3dbe297cc"],
+Cell[4542, 114, 341, 9, 37, "Input",ExpressionUUID->"d8bdb421-571d-4635-a4c4-9dd0a1cf0489"],
+Cell[4886, 125, 576, 9, 37, "Input",ExpressionUUID->"6a80d1f9-cb5b-4867-9c32-9d30e1a5d262"],
 Cell[CellGroupData[{
-Cell[4278, 110, 375, 5, 37, "Input",ExpressionUUID->"69aa53d3-023c-4a66-9d28-ce90729a6072"],
-Cell[4656, 117, 174, 2, 42, "Output",ExpressionUUID->"668678ad-032d-4e4a-b534-63b451e0aeef"]
+Cell[5487, 138, 375, 5, 37, "Input",ExpressionUUID->"69aa53d3-023c-4a66-9d28-ce90729a6072"],
+Cell[5865, 145, 196, 2, 42, "Output",ExpressionUUID->"d8bce8a9-2ad4-4de5-ab94-9daf86a5e90f"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4867, 124, 1223, 22, 142, "Input",ExpressionUUID->"7f884c07-c995-4c3e-9a6e-679e72ceaa4f"],
+Cell[6098, 152, 1315, 24, 168, "Input",ExpressionUUID->"7f884c07-c995-4c3e-9a6e-679e72ceaa4f"],
 Cell[CellGroupData[{
-Cell[6115, 150, 391, 9, 29, "Print",ExpressionUUID->"60042d3f-2f78-4127-8916-da8d6aae4215"],
-Cell[6509, 161, 277, 6, 29, "Print",ExpressionUUID->"2e8b971b-423a-433e-9887-e96311a407ab"]
+Cell[7438, 180, 412, 9, 29, "Print",ExpressionUUID->"7e30c1d0-6d5c-4d3e-b620-cf63ddad8d03"],
+Cell[7853, 191, 300, 6, 29, "Print",ExpressionUUID->"71504684-dc4e-4cdd-92ca-f0e3264f7d33"]
 }, Open  ]],
-Cell[6801, 170, 4928, 88, 42, "Output",ExpressionUUID->"81cc2cd3-85b0-48b9-b0bb-1b51da289758"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[11766, 263, 2811, 60, 298, "Input",ExpressionUUID->"782376cb-6c6d-48d4-a1c7-153c92066845"],
-Cell[CellGroupData[{
-Cell[14602, 327, 389, 9, 29, "Print",ExpressionUUID->"93417341-bf64-4db4-a815-89e980a080cf"],
-Cell[14994, 338, 277, 6, 29, "Print",ExpressionUUID->"2d7b52ba-fe2a-49ca-8594-e423411685d8"]
-}, Open  ]],
-Cell[15286, 347, 6397, 114, 42, "Output",ExpressionUUID->"9f0ac589-8172-4cfc-bfa4-ef57b7a7d675"]
+Cell[8168, 200, 4985, 89, 42, "Output",ExpressionUUID->"5eb0f6f5-8d6d-430b-bb0d-37e3b7c8e4f3"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[21720, 466, 195, 3, 37, "Input",ExpressionUUID->"7a3cfc36-0757-459e-8114-2d76f6d795ac"],
-Cell[21918, 471, 175, 2, 42, "Output",ExpressionUUID->"2a436d2f-e5c2-4816-be86-7b49ddd9f9a1"]
+Cell[13190, 294, 2811, 60, 298, "Input",ExpressionUUID->"782376cb-6c6d-48d4-a1c7-153c92066845"],
+Cell[CellGroupData[{
+Cell[16026, 358, 413, 9, 29, "Print",ExpressionUUID->"64b461f8-c703-4dab-81ac-0ebc5ab83ede"],
+Cell[16442, 369, 299, 6, 29, "Print",ExpressionUUID->"696e1b01-47c6-49ab-9384-4b7d9c26b213"]
+}, Open  ]],
+Cell[16756, 378, 6441, 114, 42, "Output",ExpressionUUID->"2f0632f9-883b-4ee1-aef8-ae9df2e01d69"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[22130, 478, 5081, 119, 1208, "Input",ExpressionUUID->"6d03b1c3-61b7-4e04-93f6-99261ec4b37c"],
-Cell[27214, 599, 409, 8, 69, "Output",ExpressionUUID->"e03ca483-66da-4513-952d-d3c513160b28"],
-Cell[27626, 609, 150, 2, 42, "Output",ExpressionUUID->"1c4a9ac9-08d4-4fa7-862a-ae0e99188362"],
-Cell[27779, 613, 407, 8, 69, "Output",ExpressionUUID->"ab564ca6-2b76-4537-ba6e-884f7bc504d1"]
+Cell[23234, 497, 195, 3, 37, "Input",ExpressionUUID->"7a3cfc36-0757-459e-8114-2d76f6d795ac"],
+Cell[23432, 502, 197, 2, 42, "Output",ExpressionUUID->"d69f4c3d-d2a4-4444-9ca2-1f1a0be7c0ac"]
+}, Open  ]],
+Cell[23644, 507, 1658, 37, 428, "Input",ExpressionUUID->"6d03b1c3-61b7-4e04-93f6-99261ec4b37c"],
+Cell[25305, 546, 2307, 53, 532, "Input",ExpressionUUID->"f2820dba-ffc2-4412-bd23-4e014ffb3a37"],
+Cell[CellGroupData[{
+Cell[27637, 603, 1574, 37, 246, "Input",ExpressionUUID->"eaac17e9-3994-4d83-9c53-f2037f7ef8b9"],
+Cell[29214, 642, 431, 8, 69, "Output",ExpressionUUID->"6d7dd884-0ee8-47ee-9568-186d90b7b71f"],
+Cell[29648, 652, 176, 2, 42, "Output",ExpressionUUID->"49291456-94f3-44aa-b5c6-7ffe4a27ad0a"],
+Cell[29827, 656, 433, 8, 69, "Output",ExpressionUUID->"2e7f0e71-e2de-4336-83a7-85c1cb08075e"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[28223, 626, 177, 3, 37, "Input",ExpressionUUID->"84daf157-bda2-4838-ba95-028b7c28d467"],
-Cell[28403, 631, 10060, 207, 76, "Output",ExpressionUUID->"91085705-4659-4c7f-a3c8-cb78848dc272"]
+Cell[30297, 669, 177, 3, 37, "Input",ExpressionUUID->"84daf157-bda2-4838-ba95-028b7c28d467"],
+Cell[30477, 674, 10083, 207, 76, "Output",ExpressionUUID->"ce5d6904-87c4-4f43-8b10-b7d871575728"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40597, 886, 3577, 92, 532, "Input",ExpressionUUID->"e903aa36-6c2f-48ed-89e9-10298ef525c0"],
+Cell[44177, 980, 233, 4, 42, "Output",ExpressionUUID->"76698513-870e-4a3e-a814-512aabb7cf29"],
+Cell[44413, 986, 232, 4, 62, "Output",ExpressionUUID->"f9163287-cf68-454a-9333-84f8efc5983e"]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[38512, 844, 214, 4, 67, "Subsection",ExpressionUUID->"c71e7ca5-9a7c-47a7-83b6-07aaff59a42e"],
-Cell[38729, 850, 172, 3, 37, "Input",ExpressionUUID->"c72637c0-f554-4b96-8347-c5de4f51337d"],
+Cell[44694, 996, 214, 4, 46, "Subsection",ExpressionUUID->"c71e7ca5-9a7c-47a7-83b6-07aaff59a42e"],
+Cell[44911, 1002, 172, 3, 37, "Input",ExpressionUUID->"c72637c0-f554-4b96-8347-c5de4f51337d"],
 Cell[CellGroupData[{
-Cell[38926, 857, 1484, 38, 220, "Input",ExpressionUUID->"dbe518b4-21b5-4324-9aa1-27bbc8711ea8"],
-Cell[40413, 897, 151, 2, 42, "Output",ExpressionUUID->"e36ad867-e30d-4baa-88dd-c7b83cfaa243"],
-Cell[40567, 901, 151, 2, 42, "Output",ExpressionUUID->"f44491ff-bbb5-4ab7-b9a1-a44b5c1b7081"],
-Cell[40721, 905, 151, 2, 42, "Output",ExpressionUUID->"6aa64fff-7245-48b5-9a88-711493a7cacb"],
-Cell[40875, 909, 154, 2, 42, "Output",ExpressionUUID->"6868696f-786a-4d4f-9a41-fc38830754f0"],
-Cell[41032, 913, 154, 2, 42, "Output",ExpressionUUID->"0eff55ef-966d-4887-a8ba-49a642274d5a"],
-Cell[41189, 917, 152, 2, 42, "Output",ExpressionUUID->"5e89f379-2f65-4f59-aaf7-4fac63d15c53"],
-Cell[41344, 921, 152, 2, 62, "Output",ExpressionUUID->"4de6e5ff-4109-4316-948e-d906a6c37966"]
+Cell[45108, 1009, 1485, 38, 194, "Input",ExpressionUUID->"dbe518b4-21b5-4324-9aa1-27bbc8711ea8"],
+Cell[46596, 1049, 173, 2, 42, "Output",ExpressionUUID->"bd2d5497-7de6-4016-b27b-d28aa584f7a1"],
+Cell[46772, 1053, 171, 2, 42, "Output",ExpressionUUID->"c278baf8-961d-4f04-b22a-0ff5b73768aa"],
+Cell[46946, 1057, 172, 2, 42, "Output",ExpressionUUID->"f2be4c20-bb02-49b1-970b-89a0bcf36440"],
+Cell[47121, 1061, 174, 2, 42, "Output",ExpressionUUID->"fc54189f-2e49-4462-8950-71a112bea95c"],
+Cell[47298, 1065, 174, 2, 42, "Output",ExpressionUUID->"ade71d85-8a9d-4939-bbe7-a35eb23b737b"],
+Cell[47475, 1069, 174, 2, 42, "Output",ExpressionUUID->"3b4b059b-aa06-41bc-b084-a6270670b359"],
+Cell[47652, 1073, 176, 2, 62, "Output",ExpressionUUID->"cefc181a-2e91-4ede-a7d4-bd78edc9001b"]
 }, Open  ]]
-}, Open  ]]
+}, Closed]]
 }
 ]
 *)

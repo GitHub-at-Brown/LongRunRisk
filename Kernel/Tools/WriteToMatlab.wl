@@ -431,20 +431,20 @@ letters = {"\[Alpha]","\[Beta]","\[Gamma]","\[Delta]","\[Epsilon]","\[CurlyEpsil
 letters=DeleteCases[letters,"\[Pi]"|"\[Element]"];(*reserved Symbols*)names=StringTake[ToString@FullForm@#,{4,-3}]&/@letters;
 greekToMatlab=MapThread[Symbol@#->Symbol@ToLowerCase@#2&,{letters,names}];
 
-subscriptToMatlab:=Subscript[a_,b__]->Hold[ToString[a]<>"_"<>ToString[b]];
+subscriptToMatlab:=Subscript[a_,b__]:>Hold[ToString[a]<>"_"<>ToString[b]];
 
-iToMatlab[x_]:=x/.(c_[i_Integer]->Hold[ToString[c]<>ToString[i]]);
+iToMatlab[x_]:=x/.(c_[i_Integer]:>Hold[ToString[c]<>ToString[i]]);
 toMatlabSignsReplace[s_]:=StringReplace[s,"signs"~~a:DigitCharacter..:>"signs("~~ToString[a]~~")"]
 
 (*apply rules greekToMatlab,  subscriptToMAtlab, iToMatlab in that order"*)
 paramToMatlab[x_]:=ReleaseHold[iToMatlab[(x/.kappaToMatlab/.subscriptToMatlab /.greekToMatlab/.Sign->sign//ReleaseHold)]];
 
 (* adapt ToMatlab to cell arrays *)
-toMatlabCell[x_,numLines_:8000]:=StringReplace[ToMatlab[x,numLines],"["~~a__~~"]"->"{"~~a~~"}"];
+toMatlabCell[x_,numLines_:8000]:=StringReplace[ToMatlab[x,numLines],"["~~a__~~"]":>"{"~~a~~"}"];
 toMatlabStringCell[x_,numLines_:8000]:=StringReplace[toMatlabCell[x,numLines],{"\n"->"","..."->"",Whitespace->"",","->"','","{"->"{'","}"->"'}"}];
 
 (* rule to write kappas in Matlab friendly way *)
-kappaToMatlab={Subscript[\[Kappa],B_,C_][D_.]:>StringJoin@@ToString/@{kappa,B,C,D},Subscript[\[Kappa],B_]:>StringJoin@@ToString/@{kappa,B}};
+kappaToMatlab={Subscript[\[Kappa],X_,Y_][Z_.]:>StringJoin@@ToString/@{kappa,X,Y,Z},Subscript[\[Kappa],X_]:>StringJoin@@ToString/@{kappa,X}};
 kappaDef:=(toParameters/.kappaToMatlab)/.Rule->Equal;
 
 (* rule to write coefficients wtih subscripts in Matlab vector notation *)
