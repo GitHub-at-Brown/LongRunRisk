@@ -31,7 +31,7 @@ jobs:
         uses: WolframResearch/check-paclet@v1.10.2
         with:
           target: Submit
-          paclet_cicd_version: 0.34.0
+          paclet_cicd_version: 0.35.0
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
       - name: UploadWorkflowValues
@@ -75,7 +75,7 @@ jobs:
         with:
           target: Submit
           debug: "false"
-          paclet_cicd_version: 0.34.0
+          paclet_cicd_version: 0.35.0
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
       - name: UploadWorkflowValues
