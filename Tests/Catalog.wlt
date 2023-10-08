@@ -1,5 +1,6 @@
-BeginTestSection["Catalog"] 
-Begin["Model`Catalog`"]
+BeginTestSection["Catalog"]
+
+
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`"
 	,
@@ -7,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230409-1N009Y"
+	TestID->"Catalog_20230415-O5SYS6"
 ]
 
 
@@ -18,327 +19,145 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20230409-DXJURD"
+	TestID->"Catalog_20230415-Z1XY80"
 ]
+
+
 VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`Model`Catalog`";
-	True
+	Needs @ "FernandoDuarte`LongRunRisk`Model`Catalog`"
+	,
+	Null
+	,
+	{}
+	,
+	TestID->"Catalog_20230415-75CEP6"
+]
+
+
+VerificationTest[
+	!SameQ[Names @ "*models", {}]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"Catalog_20231007-WMCGR2"
+	TestID->"Catalog_20230415-OU7EMA"
 ]
+
+
 VerificationTest[
-	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"]
+	Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]
 	,
-	True
+	{True, True, True, True, True, True, True, True, True, True, True, True, True, True, True}
 	,
 	{}
 	,
-	TestID->"Catalog_20231007-9OYMAA"
+	TestID->"Catalog_20230415-NYR54B"
 ]
+
+
 VerificationTest[
-	Apply[And, Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-4PW9Q8"
-]
-VerificationTest[
-	Apply[And,
-		Map[StringQ,
-			Flatten[
-				Map[
-					Function @ {
-						FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["name"],
-						FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["shortname"],
-						FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["bibRef"],
-						FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["desc"]
-					},
-					Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
-				]
-			]
-		]
-	]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-KBDRFP"
-]
-VerificationTest[
-	Apply[And,
-		Map[NumberQ,
-			Flatten[
-				Map[
-					Function[
-						Part[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"], 1;;, 2] //. FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"]
-					],
-					Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
-				]
-			]
-		]
-	]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-L6CURG"
-]
-VerificationTest[
-	SameQ[FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]["stateVars"], {FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-OTAOFY"
-]
-VerificationTest[
-	Apply[And, Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {"BY", "BKY"}]]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-G5R6EN"
-]
-VerificationTest[
-	Apply[And,
-		Map[MatchQ[Association, #]&,
-			Flatten[
-				{
-					Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models,
-					Map[Function @ Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]
-				}
-			]
-		]
-	]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-ADRCW8"
-]
-VerificationTest[
-	Apply[And,
-		Map[
-			Function[
-				Apply[And,
-					Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"]&,
-						Map[Context,
-							Cases[
-								FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["stateVars"],
-								RuleDelayed[
-									PatternTest[
-										Model`Catalog`var_Symbol,
-										Function[
-											MemberQ[
-												Map[Function[StringDrop[#, -2]], FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars],
-												SymbolName[#]
-											]
-										]
-									][__],
-									Model`Catalog`var
-								],
-								Infinity
-							]
-						]
-					]
-				]
-			],
-			Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
-		]
-	]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-UR77BA"
-]
-VerificationTest[
-	Apply[And,
-		Map[
-			Function[
-				Apply[And,
-					Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]&,
-						Map[Context,
-							Cases[
-								FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["stateVars"],
-								RuleDelayed[
-									PatternTest[Model`Catalog`var_Symbol, Function[MatchQ[SymbolName[#], "eps"]]][__][__],
-									Model`Catalog`var
-								],
-								Infinity
-							]
-						]
-					]
-				]
-			],
-			Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
-		]
-	]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-M9817Y"
-]
-VerificationTest[
-	Apply[And,
-		Map[
-			Function[
-				Apply[And,
-					Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`Parameters`"]&,
-						Map[Context,
-							Cases[
-								FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"],
-								RuleDelayed[
-									PatternTest[Model`Catalog`var_Symbol, Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, SymbolName[#]]]],
-									Model`Catalog`var
-								],
-								Infinity
-							]
-						]
-					]
-				]
-			],
-			Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
-		]
-	]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-SYKS8I"
-]
-VerificationTest[
-	Apply[And,
-		Map[
-			Function[
-				Apply[And,
-					Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`Parameters`"]&,
-						Map[Context,
-							Cases[
-								FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["stateVars"],
-								RuleDelayed[
-									PatternTest[Model`Catalog`var_Symbol, Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, SymbolName[#]]]],
-									Model`Catalog`var
-								],
-								Infinity
-							]
-						]
-					]
-				]
-			],
-			Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
-		]
-	]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-202AXM"
-]
-VerificationTest[
-	Apply[And,
-		Map[MatchQ[{}, #]&,
+	Map[StringQ,
+		Flatten[
 			Map[
-				Function[
-					Cases[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["stateVars"],
-						RuleDelayed[
-							PatternTest[
-								Model`Catalog`var_Symbol,
-								Function[
-									MemberQ[
-										Map[Function[StringDrop[#, -2]], FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars],
-										SymbolName[#]
-									]
-								]
-							][__],
-							Model`Catalog`var
-						],
-						Infinity
-					]
-				],
+				Function @ {
+					FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["name"],
+					FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["shortname"],
+					FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["bibRef"],
+					FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["desc"]
+				},
 				Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models
 			]
 		]
 	]
 	,
-	True
+	{
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True
+	}
 	,
 	{}
 	,
-	TestID->"Catalog_20231007-B84UK6"
+	TestID->"Catalog_20230415-NSW847"
 ]
+
+
 VerificationTest[
-	Apply[And,
-		{
-			AllTrue[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo, AssociationQ],
-			AllTrue[Map[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]&, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo],
-				AssociationQ
-			]
-		}
-	]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-GX0TLL"
-]
-VerificationTest[
-	Apply[And, {SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]}]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20231007-ET7U5Q"
-]
-VerificationTest[
-	Apply[And,
+	Map[NumberQ,
 		Flatten[
 			Map[
 				Function[
-					If[KeyExistsQ[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo @ #, "initialGuess"],
-						{
-							If[
-								KeyExistsQ[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]["initialGuess"], "Ewc"],
-								VectorQ["Ewc" /. FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]["initialGuess"]],
-								True
-							],
-							If[
-								KeyExistsQ[FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]["initialGuess"], "Epd"],
-								ArrayQ["Epd" /. FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo[#]["initialGuess"], 2],
-								True
-							]
-						},
-						True
-					]
+					Values[FilterRules[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]["parameters"], Except[gamma | theta]]]
 				],
-				Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo
+				{"BY", "BKY"}
 			]
 		]
 	]
 	,
-	True
+	{
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True, True, True, True, True, True, True, True, True,
+		True, True, True, True
+	}
 	,
 	{}
 	,
-	TestID->"Catalog_20231007-7BZ2P8"
-] 
-End[]
+	TestID->"Catalog_20230415-C16HFL"
+]
+
+
+VerificationTest[
+	FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]["stateVars"]
+	,
+	{x @ t, sx @ t}
+	,
+	{}
+	,
+	TestID->"Catalog_20230415-V9KZ88"
+]
+
+
+VerificationTest[
+	Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {"BY", "BKY"}]
+	,
+	{True, True}
+	,
+	{}
+	,
+	TestID->"Catalog_20230415-YNYG75"
+]
+
+
+VerificationTest[
+	Flatten[
+		{
+			Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models,
+			Map[Function @ Head @ FernandoDuarte`LongRunRisk`Model`Catalog`models @ #, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]
+		}
+	]
+	,
+	{
+		Association, Association, Association, Association, Association, Association,
+		Association, Association, Association, Association, Association, Association,
+		Association, Association, Association, Association
+	}
+	,
+	{}
+	,
+	TestID->"Catalog_20230415-QGC35Z"
+]
+
+
 EndTestSection[]
