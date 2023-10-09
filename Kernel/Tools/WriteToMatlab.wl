@@ -30,7 +30,7 @@ Begin["`Private`"]
 
 ToMatlab::usage ="ToMatlab[expr] converts the expression  expr  into matlab syntax and returns it as a String.\nToMatlab[expr, name]  returns an assignment of  expr  into  name as a String. name can be also a more complicated string, e.g., ToMatlab[If[t,a,b],\"function y=iffun(t,a,b)\\ny\"].\nThe special symbol Colon can be used to denote the matlab colon operator :, and Colon[a,b] for a:b, Colon[a,b,c] for a:b:c.\nSee also  WriteMatlab  and  PrintMatlab.\nAll functions accept an optional last argument that is the maximum line width."
 WriteMatlab::usage ="WriteMatlab[expr, file] or WriteMatlab[expr, file, name] Writes the  expr  in matlab form into the given file. The second form makes this an assignment into the variable  name.\nExample: f = OpenWrite[\"file.m\"]; WriteMatlab[Cos[x]-x, f, y]; Close[f];\nThe file argument can also be a String that gives the name of the file: WriteMatlab[Cos[x]-x, \"file.m\", y]; achieves the same result as the previous example (but this limits one expression per file).\nSee also  ToMatlab  and  PrintMatlab."
-PrintMatlab::usage ="PrintMatlab[expr] or PrintMatlab[expr, name] is like  ToMatlab but instead of returning the String, it is printed on the screen. See also  ToMatlab  and  WriteMatlab."
+(*PrintMatlab::usage ="PrintMatlab[expr] or PrintMatlab[expr, name] is like  ToMatlab but instead of returning the String, it is printed on the screen. See also  ToMatlab  and  WriteMatlab."*)
 RulesToMatlab::usage ="RulesToMatlab[rules] where rules is from Solve or NSolve converts the rules into individual assignment statements."
 
 
@@ -72,7 +72,7 @@ WriteMatlab[e_, file_String, name_, margin_Integer] :=
 
 
 
-PrintMatlab[e_] := 
+(*PrintMatlab[e_] := 
     (Print[ToMatlab[e, 60]];)
 
 PrintMatlab[e_, name_] := 
@@ -83,7 +83,7 @@ PrintMatlab[e_, margin_Integer] :=
 
 PrintMatlab[e_, name_, margin_Integer] := 
     (Print[ToMatlab[e, name, margin]];)
-
+*)
 
 
 ToMatlab[e_] := foldlines[ToMatlabaux[e] <> ";\n"]
