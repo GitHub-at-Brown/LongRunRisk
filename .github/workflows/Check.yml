@@ -26,12 +26,6 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v3
-      - name: Cache Wolfram Engine
-        id: cache-wolf
-        uses: actions/cache@v3
-        with:
-            key: cache-wolf
-            path: cachewolf
       - name: Install perl, ghostscript, tinytex
         run: |
           apt-get update -y
