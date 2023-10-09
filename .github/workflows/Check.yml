@@ -43,9 +43,10 @@ jobs:
       - name: Cache docker
         uses: actions/cache@v3
         with:
-        path: |
-          ~/.docker/caches
-          ~/.docker/wrapper     
+          key: test
+          path: |
+            ~/.docker/caches
+            ~/.docker/wrapper     
       - name: Test
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.10.2
