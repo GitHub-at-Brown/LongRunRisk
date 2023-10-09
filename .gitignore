@@ -4,3 +4,10 @@
 /ToProcess/
 /Tests/SolveEulerEq.wlt
 /Tests/ToNumber.wlt
+/Tests/ProcessModels.wlt
+/Tests/PacletizeResources.wlt
+/Tests/CreateEulerEq.wlt
+/Tests/ComputeConditionalExpectations.wlt
+/Tests/ComputeUnconditionalExpectations.wlt
+/Tests/NiceOutput.wlt
+/Tests/TimeAggregation.wlt
