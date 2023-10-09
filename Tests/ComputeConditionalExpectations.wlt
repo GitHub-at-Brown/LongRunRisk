@@ -1,6 +1,7 @@
 BeginTestSection["ComputeConditionalExpectations"] 
 Begin["ComputationalEngine`Cond`"]
 VerificationTest[
+	Needs @ "FernandoDuarte`LongRunRisk`";
 	Needs @ "PacletizedResourceFunctions`";
 	True
 	,
@@ -8,7 +9,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-LPQ17C"
+	TestID->"ComputeConditionalExpectations_20231009-D0TBST"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`";
@@ -19,7 +20,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-HQ2WRT"
+	TestID->"ComputeConditionalExpectations_20231009-JWMJDA"
 ]
 VerificationTest[
 	Apply[And, {MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"]}]
@@ -28,7 +29,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-1COH46"
+	TestID->"ComputeConditionalExpectations_20231009-80KMEI"
 ]
 VerificationTest[
 	Apply[And,
@@ -42,7 +43,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-ZHS71V"
+	TestID->"ComputeConditionalExpectations_20231009-1QW6RG"
 ]
 VerificationTest[
 	Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
@@ -55,10 +56,10 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-Y73JOT"
+	TestID->"ComputeConditionalExpectations_20231009-2MME05"
 ]
 VerificationTest[
-	SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
+	SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
 		FernandoDuarte`LongRunRisk`Model`Parameters`phip
 	]
 	,
@@ -66,7 +67,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-BGG0CR"
+	TestID->"ComputeConditionalExpectations_20231009-WLC7ZF"
 ]
 VerificationTest[
 	Apply[And,
@@ -75,16 +76,16 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`i] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]
 						],
 						Times[
 							Plus[
-								ComputationalEngine`Cond`mup,
-								(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							],
 							Plus[
-								ComputationalEngine`Cond`mud @ ComputationalEngine`Cond`i,
-								(ComputationalEngine`Cond`rhodp[ComputationalEngine`Cond`i] * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xid[ComputationalEngine`Cond`i] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mud @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i,
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xid[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							]
 						]
 					]
@@ -94,20 +95,20 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`i] * ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]
 						],
 						Plus[
 							Times[
 								Plus[
-									ComputationalEngine`Cond`mud @ ComputationalEngine`Cond`i,
-									(ComputationalEngine`Cond`rhodp[ComputationalEngine`Cond`i] * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xid[ComputationalEngine`Cond`i] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+									FernandoDuarte`LongRunRisk`Model`Parameters`mud @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i,
+									(FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xid[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 								],
 								Plus[
-									ComputationalEngine`Cond`muc,
-									(ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+									FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+									(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 								]
 							],
-							ComputationalEngine`Cond`phic * ComputationalEngine`Cond`phidc[ComputationalEngine`Cond`i]
+							FernandoDuarte`LongRunRisk`Model`Parameters`phic * FernandoDuarte`LongRunRisk`Model`Parameters`phidc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i]
 						]
 					]
 				]
@@ -117,23 +118,23 @@ VerificationTest[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
 							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[
-								ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 3] * ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1],
-								ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC
+								FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 3] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1],
+								FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC
 							]
 						],
-						Times[ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 3) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg),
+						Times[FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 3) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg),
 							Plus[
 								Times[
 									Plus[
-										ComputationalEngine`Cond`mup,
-										(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+										FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+										(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 									],
 									Plus[
-										ComputationalEngine`Cond`muc,
-										(ComputationalEngine`Cond`rhocp * ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`rhocp * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+										FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+										(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 									]
 								],
-								(ComputationalEngine`Cond`rhocp * ComputationalEngine`Cond`phip ^ 2) + ComputationalEngine`Cond`xic * ComputationalEngine`Cond`phip * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t]
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * FernandoDuarte`LongRunRisk`Model`Parameters`phip ^ 2) + FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							]
 						]
 					]
@@ -142,19 +143,19 @@ VerificationTest[
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
 						Plus[
 							Times[
 								Plus[
-									ComputationalEngine`Cond`mup,
-									(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+									FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+									(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 								],
 								Plus[
-									ComputationalEngine`Cond`mup,
-									((ComputationalEngine`Cond`rhop ^ 2) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+									FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+									((FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 								]
 							],
-							(ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`phip ^ 2) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`phip
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`phip ^ 2) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Parameters`phip
 						]
 					]
 				]
@@ -163,28 +164,28 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]
 						],
-						ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1] * PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]]
+						FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
 						Plus[
 							Times[
 								Plus[
-									ComputationalEngine`Cond`mup,
-									(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+									FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+									(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 								],
 								Plus[
-									ComputationalEngine`Cond`muc,
-									(ComputationalEngine`Cond`rhocp * ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`rhocp * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+									FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+									(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 								]
 							],
-							(ComputationalEngine`Cond`rhocp * ComputationalEngine`Cond`phip ^ 2) + ComputationalEngine`Cond`xic * ComputationalEngine`Cond`phip * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t]
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * FernandoDuarte`LongRunRisk`Model`Parameters`phip ^ 2) + FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
@@ -192,15 +193,15 @@ VerificationTest[
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
 						Times[
 							Plus[
-								ComputationalEngine`Cond`mup,
-								(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							],
 							Plus[
-								ComputationalEngine`Cond`muc,
-								(ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+								FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							]
 						]
 					]
@@ -208,13 +209,13 @@ VerificationTest[
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						Times[ComputationalEngine`Cond`pi @ ComputationalEngine`Cond`t,
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						Times[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t,
 							Plus[
-								ComputationalEngine`Cond`muc,
+								FernandoDuarte`LongRunRisk`Model`Parameters`muc,
 								Plus[
-									ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`mup),
-									(ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 2] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1]) + ComputationalEngine`Cond`phic * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t]
+									FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
+									(FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]) + FernandoDuarte`LongRunRisk`Model`Parameters`phic * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 								]
 							]
 						]
@@ -224,13 +225,13 @@ VerificationTest[
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						Times[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						Times[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1],
 							Plus[
-								ComputationalEngine`Cond`muc,
+								FernandoDuarte`LongRunRisk`Model`Parameters`muc,
 								Plus[
-									ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2] - ComputationalEngine`Cond`mup),
-									(ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 3] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2]) + ComputationalEngine`Cond`phic * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t - 1]
+									FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
+									(FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 3] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]) + FernandoDuarte`LongRunRisk`Model`Parameters`phic * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 								]
 							]
 						]
@@ -240,13 +241,13 @@ VerificationTest[
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t - 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						Times[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						Times[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2],
 							Plus[
-								ComputationalEngine`Cond`muc,
+								FernandoDuarte`LongRunRisk`Model`Parameters`muc,
 								Plus[
-									ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 3] - ComputationalEngine`Cond`mup),
-									(ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 4] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 3]) + ComputationalEngine`Cond`phic * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t - 2]
+									FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 3] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
+									(FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 4] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 3]) + FernandoDuarte`LongRunRisk`Model`Parameters`phic * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
 								]
 							]
 						]
@@ -257,11 +258,11 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 2] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]
 						],
 						Plus[
-							(1 - ComputationalEngine`Cond`rhog) * ComputationalEngine`Cond`Esg * PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-							ComputationalEngine`Cond`rhog * PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 3, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]]
+							(1 - FernandoDuarte`LongRunRisk`Model`Parameters`rhog) * FernandoDuarte`LongRunRisk`Model`Parameters`Esg * PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+							FernandoDuarte`LongRunRisk`Model`Parameters`rhog * PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 3, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]]
 						]
 					]
 				]
@@ -270,23 +271,23 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 2] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]
 						],
 						Plus[
 							Times[
-								1 - ComputationalEngine`Cond`rhog,
+								1 - FernandoDuarte`LongRunRisk`Model`Parameters`rhog,
 								Times[
-									ComputationalEngine`Cond`Esg,
-									((ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg)) ^ 2) + ComputationalEngine`Cond`phig ^ 2
+									FernandoDuarte`LongRunRisk`Model`Parameters`Esg,
+									((FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)) ^ 2) + FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2
 								]
 							],
 							Times[
-								ComputationalEngine`Cond`rhog,
+								FernandoDuarte`LongRunRisk`Model`Parameters`rhog,
 								Plus[
-									(ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg)) ^ 3,
+									(FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)) ^ 3,
 									Times[
 										3,
-										(ComputationalEngine`Cond`phig ^ 2) * (ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg))
+										(FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2) * (FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg))
 									]
 								]
 							]
@@ -298,11 +299,11 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 3] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 3] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]
 						],
 						Plus[
-							(1 - ComputationalEngine`Cond`rhog ^ 2) * ComputationalEngine`Cond`Esg * PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-							(ComputationalEngine`Cond`rhog ^ 2) * PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 3, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]]
+							(1 - FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) * FernandoDuarte`LongRunRisk`Model`Parameters`Esg * PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) * PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 3, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]]
 						]
 					]
 				]
@@ -311,23 +312,23 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 3] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 3] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]
 						],
 						Plus[
 							Times[
-								1 - ComputationalEngine`Cond`rhog ^ 2,
+								1 - FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2,
 								Times[
-									ComputationalEngine`Cond`Esg,
-									((ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg)) ^ 2) + ComputationalEngine`Cond`phig ^ 2
+									FernandoDuarte`LongRunRisk`Model`Parameters`Esg,
+									((FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)) ^ 2) + FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2
 								]
 							],
 							Times[
-								ComputationalEngine`Cond`rhog ^ 2,
+								FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2,
 								Plus[
-									(ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg)) ^ 3,
+									(FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)) ^ 3,
 									Times[
 										3,
-										(ComputationalEngine`Cond`phig ^ 2) * (ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg))
+										(FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2) * (FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg))
 									]
 								]
 							]
@@ -338,10 +339,10 @@ VerificationTest[
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 2] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
 						Plus[
-							(ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 2) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg)) * (ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg)),
-							ComputationalEngine`Cond`rhog * ComputationalEngine`Cond`phig ^ 2
+							(FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)) * (FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)),
+							FernandoDuarte`LongRunRisk`Model`Parameters`rhog * FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2
 						]
 					]
 				]
@@ -349,10 +350,10 @@ VerificationTest[
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 3] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 3] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
 						Plus[
-							(ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 3) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg)) * (ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg)),
-							(ComputationalEngine`Cond`rhog ^ 2) * ComputationalEngine`Cond`phig ^ 2
+							(FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 3) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)) * (FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)),
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) * FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2
 						]
 					]
 				]
@@ -361,14 +362,14 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 2] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
 						Plus[
 							Times[
-								ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 3) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`Esg),
-								ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 2) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`Esg)
+								FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 3) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg),
+								FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)
 							],
-							((ComputationalEngine`Cond`rhog ^ 3) * ComputationalEngine`Cond`phig ^ 2) + ComputationalEngine`Cond`rhog * ComputationalEngine`Cond`phig ^ 2
+							((FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 3) * FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2) + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2
 						]
 					]
 				]
@@ -377,14 +378,14 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 3] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 3] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
 						Plus[
 							Times[
-								ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 4) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`Esg),
-								ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 2) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`Esg)
+								FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 4) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg),
+								FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)
 							],
-							((ComputationalEngine`Cond`rhog ^ 4) * ComputationalEngine`Cond`phig ^ 2) + (ComputationalEngine`Cond`rhog ^ 2) * ComputationalEngine`Cond`phig ^ 2
+							((FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 4) * FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2) + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) * FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2
 						]
 					]
 				]
@@ -392,11 +393,11 @@ VerificationTest[
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						Times[ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg),
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						Times[FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg),
 							Plus[
-								ComputationalEngine`Cond`mup,
-								(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							]
 						]
 					]
@@ -404,45 +405,22 @@ VerificationTest[
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t]
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 				]
 			],
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1]
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2]
-					]
-				]
-			],
-			SameQ[0,
-				Simplify[
-					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]
-						],
-						ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1]
-					]
-				]
-			],
-			SameQ[0,
-				Simplify[
-					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						Times[ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg),
-							Plus[
-								ComputationalEngine`Cond`mup,
-								(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
-							]
-						]
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
 					]
 				]
 			],
@@ -450,12 +428,20 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]
 						],
-						Times[ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 2) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`Esg),
+						FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1]
+					]
+				]
+			],
+			SameQ[0,
+				Simplify[
+					Subtract[
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						Times[FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg),
 							Plus[
-								ComputationalEngine`Cond`mup,
-								((ComputationalEngine`Cond`rhop ^ 2) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							]
 						]
 					]
@@ -465,12 +451,12 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 2, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
-						Times[ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 3) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 2] - ComputationalEngine`Cond`Esg),
+						Times[FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg),
 							Plus[
-								ComputationalEngine`Cond`mup,
-								((ComputationalEngine`Cond`rhop ^ 3) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2] - ComputationalEngine`Cond`mup)) + (ComputationalEngine`Cond`rhop ^ 2) * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								((FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 							]
 						]
 					]
@@ -478,48 +464,63 @@ VerificationTest[
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						((ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg)) ^ 2) + ComputationalEngine`Cond`phig ^ 2
+					Subtract[
+						PacletizedResourceFunctions`SetSymbolsContext[
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2, ComputationalEngine`Cond`modNRC]
+						],
+						Times[FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 3) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg),
+							Plus[
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								((FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 3) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + (FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
+							]
+						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] ^ 2
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						((FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)) ^ 2) + FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2
+					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] ^ 2
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2
 				]
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 2] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 2] ^ 2
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] ^ 2
 				]
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] ^ 2
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						((ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg)) ^ 2) + ComputationalEngine`Cond`phig ^ 2
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2
+				]
+			],
+			SameQ[0,
+				Simplify[
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						((FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)) ^ 2) + FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]],
 						Plus[
 							Power[
-								ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 2) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`Esg),
+								FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg),
 								2
 							],
-							((ComputationalEngine`Cond`rhog ^ 2) + 1) * ComputationalEngine`Cond`phig ^ 2
+							((FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) + 1) * FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2
 						]
 					]
 				]
@@ -527,64 +528,64 @@ VerificationTest[
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 2, ComputationalEngine`Cond`modNRC]],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2, ComputationalEngine`Cond`modNRC]],
 						Plus[
 							Power[
-								ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 3) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 2] - ComputationalEngine`Cond`Esg),
+								FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 3) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg),
 								2
 							],
-							((ComputationalEngine`Cond`rhog ^ 4) + (ComputationalEngine`Cond`rhog ^ 2) + 1) * ComputationalEngine`Cond`phig ^ 2
+							((FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 4) + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) + 1) * FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - (ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg))
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - (FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg))
 				]
 			],
-			SameQ[0, Simplify[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t]]],
+			SameQ[0, Simplify[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]]],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1]
-				]
-			],
-			SameQ[0,
-				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 2]
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1]
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - (ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg))
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]],
-						ComputationalEngine`Cond`Esg + (ComputationalEngine`Cond`rhog ^ 2) * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`Esg)
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - (FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg))
+				]
+			],
+			SameQ[0,
+				Simplify[
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]],
+						FernandoDuarte`LongRunRisk`Model`Parameters`Esg + (FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`muc,
-							(ComputationalEngine`Cond`rhocp * ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`rhocp * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`muc,
-							(ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 2] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 						]
 					]
 				]
@@ -596,29 +597,29 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-8P6VH6"
+	TestID->"ComputeConditionalExpectations_20231009-9YTG4G"
 ]
 VerificationTest[
-	ComputationalEngine`Cond`dc1 = PacletizedResourceFunctions`SetSymbolsContext[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t - 1] /. Normal[ComputationalEngine`Cond`modNRC["exogenousEq"]]];
-	ComputationalEngine`Cond`dc2 = PacletizedResourceFunctions`SetSymbolsContext[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t - 2] /. Normal[ComputationalEngine`Cond`modNRC["exogenousEq"]]];
+	ComputationalEngine`Cond`dc1 = PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] /. Normal[ComputationalEngine`Cond`modNRC["exogenousEq"]]];
+	ComputationalEngine`Cond`dc2 = PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] /. Normal[ComputationalEngine`Cond`modNRC["exogenousEq"]]];
 	Apply[And,
 		{
 			Simplify[
 				SameQ[ComputationalEngine`Cond`dc1,
-					Plus[ComputationalEngine`Cond`muc,
-						Plus[ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2] - ComputationalEngine`Cond`mup),
-							(ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 3] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2]) + ComputationalEngine`Cond`phic * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t - 1]
+					Plus[FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
+							(FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 3] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]) + FernandoDuarte`LongRunRisk`Model`Parameters`phic * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t - 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`muc,
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`muc,
 							Plus[
-								ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2] - ComputationalEngine`Cond`mup),
-								(ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 3] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2]) + ComputationalEngine`Cond`phic * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t - 1]
+								FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
+								(FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 3] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]) + FernandoDuarte`LongRunRisk`Model`Parameters`phic * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 							]
 						]
 					]
@@ -626,20 +627,20 @@ VerificationTest[
 			],
 			Simplify[
 				SameQ[ComputationalEngine`Cond`dc2,
-					Plus[ComputationalEngine`Cond`muc,
-						Plus[ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 3] - ComputationalEngine`Cond`mup),
-							(ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 4] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 3]) + ComputationalEngine`Cond`phic * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t - 2]
+					Plus[FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 3] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
+							(FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 4] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 3]) + FernandoDuarte`LongRunRisk`Model`Parameters`phic * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t - 2], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`muc,
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`muc,
 							Plus[
-								ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 3] - ComputationalEngine`Cond`mup),
-								(ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 4] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 3]) + ComputationalEngine`Cond`phic * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t - 2]
+								FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 3] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
+								(FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 4] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 3]) + FernandoDuarte`LongRunRisk`Model`Parameters`phic * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
 							]
 						]
 					]
@@ -647,29 +648,29 @@ VerificationTest[
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`muc,
-							(ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`muc,
-							(ComputationalEngine`Cond`rhocp * ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`rhocp * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 2, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`muc,
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`muc,
 							Plus[
-								ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`rhop ^ 2) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2] - ComputationalEngine`Cond`mup),
-								ComputationalEngine`Cond`rhocp * ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2]
+								FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
+								FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
 							]
 						]
 					]
@@ -679,7 +680,7 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
 						0
 					]
@@ -689,9 +690,9 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
-						ComputationalEngine`Cond`phip
+						FernandoDuarte`LongRunRisk`Model`Parameters`phip
 					]
 				]
 			],
@@ -699,9 +700,9 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
-						(ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`phip) + ComputationalEngine`Cond`xip
+						(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`phip) + FernandoDuarte`LongRunRisk`Model`Parameters`xip
 					]
 				]
 			],
@@ -709,14 +710,14 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
 						Times[
 							Plus[
-								ComputationalEngine`Cond`mup,
-								((ComputationalEngine`Cond`rhop ^ 2) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								((FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 							],
-							ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1]
+							FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 						]
 					]
 				]
@@ -725,14 +726,14 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
 						Times[
 							Plus[
-								ComputationalEngine`Cond`mup,
-								((ComputationalEngine`Cond`rhop ^ 2) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								((FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 							],
-							ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2]
+							FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
 						]
 					]
 				]
@@ -741,7 +742,7 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]
 						],
 						0
 					]
@@ -751,22 +752,22 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]
 						],
-						ComputationalEngine`Cond`phip
+						FernandoDuarte`LongRunRisk`Model`Parameters`phip
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
 						Times[
 							Plus[
-								ComputationalEngine`Cond`mup,
-								(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							],
-							ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+							FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
@@ -775,14 +776,14 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]
 						],
 						Times[
 							Plus[
-								ComputationalEngine`Cond`mup,
-								(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							],
-							ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1]
+							FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 						]
 					]
 				]
@@ -791,14 +792,14 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]
 						],
 						Times[
 							Plus[
-								ComputationalEngine`Cond`mup,
-								(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							],
-							ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2]
+							FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
 						]
 					]
 				]
@@ -807,7 +808,7 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]
 						],
 						0
 					]
@@ -817,9 +818,9 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]
 						],
-						ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1]
+						FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1]
 					]
 				]
 			],
@@ -827,9 +828,9 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]
 						],
-						ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1]
+						FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1]
 					]
 				]
 			],
@@ -837,9 +838,9 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]
 						],
-						ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1]
+						FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1]
 					]
 				]
 			],
@@ -847,9 +848,9 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]
 						],
-						ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1]
+						FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1]
 					]
 				]
 			],
@@ -857,9 +858,9 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t - 2, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2, ComputationalEngine`Cond`modNRC]
 						],
-						ComputationalEngine`Cond`rhop * ((ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`phip) + ComputationalEngine`Cond`xip)
+						FernandoDuarte`LongRunRisk`Model`Parameters`rhop * ((FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`phip) + FernandoDuarte`LongRunRisk`Model`Parameters`xip)
 					]
 				]
 			],
@@ -867,17 +868,17 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 2, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2, ComputationalEngine`Cond`modNRC]
 						],
-						(ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`phip) + ComputationalEngine`Cond`xip
+						(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`phip) + FernandoDuarte`LongRunRisk`Model`Parameters`xip
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t], ComputationalEngine`Cond`t - 2, ComputationalEngine`Cond`modNRC]],
-						ComputationalEngine`Cond`phip
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2, ComputationalEngine`Cond`modNRC]],
+						FernandoDuarte`LongRunRisk`Model`Parameters`phip
 					]
 				]
 			],
@@ -885,7 +886,7 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1], ComputationalEngine`Cond`t - 2, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2, ComputationalEngine`Cond`modNRC]
 						],
 						0
 					]
@@ -895,7 +896,7 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2], ComputationalEngine`Cond`t - 2, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2, ComputationalEngine`Cond`modNRC]
 						],
 						0
 					]
@@ -905,9 +906,9 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
-						ComputationalEngine`Cond`rhop * ((ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`phip) + ComputationalEngine`Cond`xip)
+						FernandoDuarte`LongRunRisk`Model`Parameters`rhop * ((FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`phip) + FernandoDuarte`LongRunRisk`Model`Parameters`xip)
 					]
 				]
 			],
@@ -915,17 +916,17 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
-						(ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`phip) + ComputationalEngine`Cond`xip
+						(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`phip) + FernandoDuarte`LongRunRisk`Model`Parameters`xip
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]],
-						ComputationalEngine`Cond`phip
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]],
+						FernandoDuarte`LongRunRisk`Model`Parameters`phip
 					]
 				]
 			],
@@ -933,7 +934,7 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
 						0
 					]
@@ -943,7 +944,7 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 						],
 						0
 					]
@@ -952,13 +953,13 @@ VerificationTest[
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
 						Times[
 							Plus[
-								ComputationalEngine`Cond`mup,
-								((ComputationalEngine`Cond`rhop ^ 2) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								((FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							],
-							ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+							FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
@@ -966,35 +967,35 @@ VerificationTest[
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
 						Times[
 							Plus[
-								ComputationalEngine`Cond`mup,
-								(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 							],
-							ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+							FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t]
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 				]
 			],
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1]
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2]
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
 					]
 				]
 			],
@@ -1002,14 +1003,14 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]
 						],
 						Times[
 							Plus[
-								ComputationalEngine`Cond`mup,
-								(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1]
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+								(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1]
 							],
-							ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+							FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
@@ -1018,27 +1019,17 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]
 						],
-						ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1]
+						FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]],
-						ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t]
-					]
-				]
-			],
-			SameQ[0,
-				Simplify[
-					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]
-						],
-						ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1]
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]],
+						FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 					]
 				]
 			],
@@ -1046,180 +1037,190 @@ VerificationTest[
 				Simplify[
 					Subtract[
 						PacletizedResourceFunctions`SetSymbolsContext[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]
 						],
-						ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2]
+						FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t + 2, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 2]
+					Subtract[
+						PacletizedResourceFunctions`SetSymbolsContext[
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]
+						],
+						FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
+					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`mup,
-							(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1]
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2]
+				]
+			],
+			SameQ[0,
+				Simplify[
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`mup,
-							((ComputationalEngine`Cond`rhop ^ 2) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+							((FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`mup,
-							((ComputationalEngine`Cond`rhop ^ 3) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`mup)) + (ComputationalEngine`Cond`rhop ^ 2) * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+							((FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 3) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + (FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t - 2, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`mup,
-							((ComputationalEngine`Cond`rhop ^ 4) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2] - ComputationalEngine`Cond`mup)) + (ComputationalEngine`Cond`rhop ^ 3) * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+							((FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 4) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + (FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 3) * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`mup,
-							(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`mup,
-							((ComputationalEngine`Cond`rhop ^ 2) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 1] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`rhop * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 1]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+							((FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 2, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`mup,
-							((ComputationalEngine`Cond`rhop ^ 3) * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t - 2] - ComputationalEngine`Cond`mup)) + (ComputationalEngine`Cond`rhop ^ 2) * ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t - 2]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+							((FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 3) * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + (FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`mup,
-							(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`muc,
-							(ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - (ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg))
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - (FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg))
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`i], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						Plus[ComputationalEngine`Cond`mud @ ComputationalEngine`Cond`i,
-							(ComputationalEngine`Cond`rhodp[ComputationalEngine`Cond`i] * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xid[ComputationalEngine`Cond`i] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mud @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i,
+							(FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xid[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
 						Plus[
 							Power[
 								Plus[
-									ComputationalEngine`Cond`mup,
-									(ComputationalEngine`Cond`rhop * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xip * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+									FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+									(FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 								],
 								2
 							],
-							ComputationalEngine`Cond`phip ^ 2
+							FernandoDuarte`LongRunRisk`Model`Parameters`phip ^ 2
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
 						Plus[
 							Power[
 								Plus[
-									ComputationalEngine`Cond`muc,
-									(ComputationalEngine`Cond`rhocp * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xic * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+									FernandoDuarte`LongRunRisk`Model`Parameters`muc,
+									(FernandoDuarte`LongRunRisk`Model`Parameters`rhocp * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xic * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 								],
 								2
 							],
-							ComputationalEngine`Cond`phic ^ 2
+							FernandoDuarte`LongRunRisk`Model`Parameters`phic ^ 2
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
-						((ComputationalEngine`Cond`Esg + ComputationalEngine`Cond`rhog * (ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`Esg)) ^ 2) + ComputationalEngine`Cond`phig ^ 2
+					Subtract[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
+						((FernandoDuarte`LongRunRisk`Model`Parameters`Esg + FernandoDuarte`LongRunRisk`Model`Parameters`rhog * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)) ^ 2) + FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
 					Subtract[
-						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`i] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]],
+						PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]],
 						Plus[
 							Power[
 								Plus[
-									ComputationalEngine`Cond`mud @ ComputationalEngine`Cond`i,
-									(ComputationalEngine`Cond`rhodp[ComputationalEngine`Cond`i] * (ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] - ComputationalEngine`Cond`mup)) + ComputationalEngine`Cond`xid[ComputationalEngine`Cond`i] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t - 1] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t]
+									FernandoDuarte`LongRunRisk`Model`Parameters`mud @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i,
+									(FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup)) + FernandoDuarte`LongRunRisk`Model`Parameters`xid[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 								],
 								2
 							],
-							ComputationalEngine`Cond`phidc[ComputationalEngine`Cond`i] ^ 2
+							FernandoDuarte`LongRunRisk`Model`Parameters`phidc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] ^ 2
 						]
 					]
 				]
 			],
 			SameQ[0,
-				Simplify[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`var[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`phip ^ 2]
+				Simplify[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`var[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`Parameters`phip ^ 2]
 			],
 			SameQ[0,
-				Simplify[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`var[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`phic ^ 2]
+				Simplify[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`var[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`Parameters`phic ^ 2]
 			],
 			SameQ[0,
-				Simplify[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`var[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`phig ^ 2]
+				Simplify[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`var[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2]
 			],
 			SameQ[0,
 				Simplify[
-					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`var[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`i], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]] - ComputationalEngine`Cond`phidc[ComputationalEngine`Cond`i] ^ 2
+					PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`var[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]] - FernandoDuarte`LongRunRisk`Model`Parameters`phidc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] ^ 2
 				]
 			]
 		}
@@ -1229,267 +1230,267 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-7QBJX7"
+	TestID->"ComputeConditionalExpectations_20231009-K1TX8C"
 ]
 VerificationTest[
 	Apply[And,
 		{
 			SameQ[0,
 				Simplify[
-					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`i], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`i], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-							ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+							FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t + 1] * ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-							ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+							FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 						]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 					]
 				]
 			],
 			SameQ[0,
 				Simplify[
-					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t + 2, ComputationalEngine`Cond`i], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t + 2, ComputationalEngine`Cond`i], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 					]
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 2],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 2],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 2],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 2],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 2],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
 			SameQ[0,
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 2],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] ^ 2) * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2) * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`sg[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dc[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2,
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2,
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2,
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2,
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i] * ComputationalEngine`Cond`eps["sg"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2,
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2,
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`dd[ComputationalEngine`Cond`t, ComputationalEngine`Cond`i] * ComputationalEngine`Cond`eps["dc"][ComputationalEngine`Cond`t + 1] ^ 2, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-					ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC
 				]
 			]
 		}
@@ -1499,21 +1500,21 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-S4Q3QG"
+	TestID->"ComputeConditionalExpectations_20231009-YSFBG5"
 ]
 VerificationTest[
 	Apply[And,
 		{
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[foo`t + 1], foo`t, ComputationalEngine`Cond`modNRC] /. foo`t -> ComputationalEngine`Cond`t
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[foo`t + 1], foo`t, ComputationalEngine`Cond`modNRC] /. foo`t -> FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[foo`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + foo`t]],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], foo`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + ComputationalEngine`Cond`t]],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[foo`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + foo`t]],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[ComputationalEngine`Cond`t + 1], foo`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + ComputationalEngine`Cond`t]],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[bar`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + bar`t]],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[ComputationalEngine`Cond`t + 1], bar`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + ComputationalEngine`Cond`t]],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[foo`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + foo`t]],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], foo`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[foo`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + foo`t]],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], foo`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[bar`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + bar`t]],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], bar`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]],
 			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[foo`pi[bar`t + 1], goo`t, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1 + bar`t]]
 		}
 	]
@@ -1522,82 +1523,82 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-EGCETZ"
+	TestID->"ComputeConditionalExpectations_20231009-PO8NUC"
 ]
 VerificationTest[
 	Apply[And,
 		{
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
 				Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup,
-					Plus[FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[ComputationalEngine`Cond`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
-						(FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][ComputationalEngine`Cond`t - 1]) + FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][ComputationalEngine`Cond`t]
+					Plus[FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
+						(FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]) + FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 					]
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC] /. ComputationalEngine`Cond`t -> (ComputationalEngine`Cond`t + 1)
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC] /. FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t -> (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1)
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t + 1], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
 				Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup,
-					Plus[FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][ComputationalEngine`Cond`t],
+					Plus[FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t],
 						Plus[
 							Times[
 								FernandoDuarte`LongRunRisk`Model`Parameters`rhop,
 								Plus[
-									FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[ComputationalEngine`Cond`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
-									(FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][ComputationalEngine`Cond`t - 1]) + FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][ComputationalEngine`Cond`t]
+									FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
+									(FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]) + FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 								]
 							],
-							FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][1 + ComputationalEngine`Cond`t]
+							FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][1 + FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t + 2], ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[ComputationalEngine`Cond`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][2 + ComputationalEngine`Cond`t]
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][2 + FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				Times[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][ComputationalEngine`Cond`t],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				Times[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t],
 					Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup,
-						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[ComputationalEngine`Cond`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
-							(FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][ComputationalEngine`Cond`t - 1]) + FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][ComputationalEngine`Cond`t]
+						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`rhop * (FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup),
+							(FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1]) + FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 						]
 					]
 				]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`delta, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`Parameters`delta],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`A @ 0, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A @ 0],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`R[ComputationalEngine`Cond`m - 1][0], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`R[ComputationalEngine`Cond`m - 1][0]
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`Parameters`delta, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`Parameters`delta],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A @ 0, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A @ 0],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`R[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`m - 1][0], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`R[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`m - 1][0]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pieq[ComputationalEngine`Cond`t, ComputationalEngine`Cond`m], ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC], ComputationalEngine`Cond`pieq[ComputationalEngine`Cond`t, ComputationalEngine`Cond`m]],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`wceq @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t + 1, ComputationalEngine`Cond`modNRC], ComputationalEngine`Cond`wceq @ ComputationalEngine`Cond`t],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[{ComputationalEngine`Cond`pi @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`sg @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`dc @ ComputationalEngine`Cond`t}, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`pieq[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`m], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`pieq[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`m]],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`EndogenousEq`wceq @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`EndogenousEq`wceq @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
 				{
-					FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-					FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`sg @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-					FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`dc @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t, ComputationalEngine`Cond`modNRC]
+					FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+					FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, ComputationalEngine`Cond`modNRC]
 				}
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[foo`pi @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[foo`pi @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[foo`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t], ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[foo`pi[ComputationalEngine`Cond`t] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] ^ 2, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[foo`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[foo`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] ^ 2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[foo`pi[ComputationalEngine`Cond`t] * ComputationalEngine`Cond`eps["pi"][ComputationalEngine`Cond`t] * bar`delta, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t] * foo`eps["pi"][ComputationalEngine`Cond`t] * ComputationalEngine`Cond`delta, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC]
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[foo`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * bar`delta, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * foo`eps["pi"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`Model`Parameters`delta, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi @ foo`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ foo`t],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi @ ComputationalEngine`Cond`t, ComputationalEngine`Cond`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi[foo`t], foo`t - 1, ComputationalEngine`Cond`modNRC] /. foo`t -> ComputationalEngine`Cond`t
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ foo`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ foo`t],
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[foo`t], foo`t - 1, ComputationalEngine`Cond`modNRC] /. foo`t -> FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t
 			],
-			SameQ[ExpandAll[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi[foo`t] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t], foo`t - 1, ComputationalEngine`Cond`modNRC]],
-				ExpandAll[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[ComputationalEngine`Cond`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi[foo`t], foo`t - 1, ComputationalEngine`Cond`modNRC]]
+			SameQ[ExpandAll[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[foo`t] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], foo`t - 1, ComputationalEngine`Cond`modNRC]],
+				ExpandAll[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[foo`t], foo`t - 1, ComputationalEngine`Cond`modNRC]]
 			],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[ComputationalEngine`Cond`pi[foo`t - 1] * ComputationalEngine`Cond`pi[ComputationalEngine`Cond`t], foo`t - 1, ComputationalEngine`Cond`modNRC],
-				FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[foo`t - 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[ComputationalEngine`Cond`t]
+			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[foo`t - 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], foo`t - 1, ComputationalEngine`Cond`modNRC],
+				FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[foo`t - 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
 			]
 		}
 	]
@@ -1606,7 +1607,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-NUQC6A"
+	TestID->"ComputeConditionalExpectations_20231009-BJF97S"
 ]
 VerificationTest[
 	Unset @ $ContextAliases @ "ce`";
@@ -1616,7 +1617,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231007-QUYTI0"
+	TestID->"ComputeConditionalExpectations_20231009-PLM37U"
 ] 
 End[]
 EndTestSection[]
