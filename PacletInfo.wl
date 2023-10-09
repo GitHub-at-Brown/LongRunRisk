@@ -9,8 +9,7 @@ PacletObject[
     "License" -> "MIT",
     "PublisherID" -> "FernandoDuarte",
     "Version" -> "1.0.0",
-    "WolframVersion" -> "13.1+",
-    "PrimaryContext" -> "FernandoDuarte`LongRunRisk`",
+    "WolframVersion" -> "13.0+",
     "Extensions" -> {
       {
         "Kernel",
