@@ -13,11 +13,6 @@ env:
   WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
   WLPR_PACLET_SITE: https://resources.wolframcloud.com/PacletRepository/pacletsite
 jobs:
-  Cache:
-    name: Cache Docker images
-    uses: ScribeMD/docker-cache@0.3.6
-    with:
-      key: docker-cache-wolframengine-13-0-1
   Test:
     name: Test
     runs-on: ubuntu-latest
