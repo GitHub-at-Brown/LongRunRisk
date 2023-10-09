@@ -1,27 +1,6 @@
 BeginTestSection["Catalog"] 
 Begin["Model`Catalog`"]
 VerificationTest[
-	Needs @ "FernandoDuarte`LongRunRisk`";
-	True
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20230409-1N009Y"
-]
-
-
-VerificationTest[
-	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`"]
-	,
-	True
-	,
-	{}
-	,
-	TestID->"Catalog_20230409-DXJURD"
-]
-VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`Catalog`";
 	True
 	,
