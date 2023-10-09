@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    828732,      16310]
-NotebookOptionsPosition[    822132,      16206]
-NotebookOutlinePosition[    822602,      16224]
-CellTagsIndexPosition[    822559,      16221]
+NotebookDataLength[    900943,      17734]
+NotebookOptionsPosition[    893913,      17624]
+NotebookOutlinePosition[    894381,      17642]
+CellTagsIndexPosition[    894338,      17639]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -22,7 +22,8 @@ Cell[BoxData[
  RowBox[{"Quit", "[", "]"}]], "Input",
  CellChangeTimes->{{3.8899684458207283`*^9, 3.889968446659306*^9}, 
    3.905687785878962*^9, 3.905697493964726*^9},
- CellLabel->"In[1]:=",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
+ CellLabel->
+  "In[108]:=",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
 
 Cell[CellGroupData[{
 
@@ -65,8 +66,8 @@ Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
   3.905699459136881*^9, 3.905700763948822*^9, 3.9057677871784554`*^9, 
   3.905768105398779*^9, 3.905770427149537*^9, 3.905770995419491*^9, 
   3.9057712428916397`*^9, 3.905771721405154*^9, 3.9057734257647142`*^9, 
-  3.905773776563641*^9},
- CellLabel->"Out[1]=",ExpressionUUID->"3e60d630-bd14-4c8d-8d05-d8fef78ad01c"],
+  3.905773776563641*^9, 3.9058266524678707`*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"663a0116-4e99-4a0f-a179-b4a4180290d3"],
 
 Cell[BoxData[
  RowBox[{"{", "\<\"/Users/fernandoduarte/Dropbox \
@@ -76,8 +77,8 @@ Cell[BoxData[
   3.905699459136881*^9, 3.905700763948822*^9, 3.9057677871784554`*^9, 
   3.905768105398779*^9, 3.905770427149537*^9, 3.905770995419491*^9, 
   3.9057712428916397`*^9, 3.905771721405154*^9, 3.9057734257647142`*^9, 
-  3.9057737765985117`*^9},
- CellLabel->"Out[2]=",ExpressionUUID->"22833840-f2de-4fe6-bbbf-269f58a4d5aa"],
+  3.905773776563641*^9, 3.9058266525077333`*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"4dbee539-4c7a-45bc-9555-086ed60355df"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -98,6 +99,8 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>", 
    ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt\"\>", 
+   ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt\"\>", 
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/SolveEulerEq.wlt\"\>", 
@@ -111,8 +114,8 @@ Cell[BoxData[
   3.905699459136881*^9, 3.905700763948822*^9, 3.9057677871784554`*^9, 
   3.905768105398779*^9, 3.905770427149537*^9, 3.905770995419491*^9, 
   3.9057712428916397`*^9, 3.905771721405154*^9, 3.9057734257647142`*^9, 
-  3.9057737765992193`*^9},
- CellLabel->"Out[3]=",ExpressionUUID->"19d9b494-2f20-4afc-aaed-dc2bc60bec5f"],
+  3.905773776563641*^9, 3.905826652508453*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"24ffe403-e628-4e92-bd3a-7d1b89c7ecc9"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -123,8 +126,8 @@ Cell[BoxData[
   3.905699459136881*^9, 3.905700763948822*^9, 3.9057677871784554`*^9, 
   3.905768105398779*^9, 3.905770427149537*^9, 3.905770995419491*^9, 
   3.9057712428916397`*^9, 3.905771721405154*^9, 3.9057734257647142`*^9, 
-  3.905773776600065*^9},
- CellLabel->"Out[4]=",ExpressionUUID->"c3b20972-1a55-4bc5-9757-5c1cba14073d"]
+  3.905773776563641*^9, 3.905826652509342*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"878ae2b3-dc0d-432c-88c9-ac3be2d0a8d3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -11910,8 +11913,9 @@ Cell[BoxData[
             Function[{
               Tools`TimeAggregation`t, Tools`TimeAggregation`j, 
                Tools`TimeAggregation`h, Tools`TimeAggregation`k, 
-               Tools`TimeAggregation`v}, (-Tools`TimeAggregation`h) 
-              Tools`TimeAggregation`t Tools`TimeAggregation`k]; Apply[And, {
+               Tools`TimeAggregation`v}, ((-Tools`TimeAggregation`h) 
+               Tools`TimeAggregation`t) Tools`TimeAggregation`k]; 
+           Apply[And, {
               N[
                ReplaceAll[0 === FullSimplify[
                   Coefficient[
@@ -14708,9 +14712,9 @@ ComputeConditionalExpectations`"];
               Tools`ToNumber`dc, Tools`ToNumber`t, "TimeAggregation" -> 2, 
                "numPeriods" -> 1], 
               Tools`ToNumber`growth[
-              Tools`ToNumber`dd, Tools`ToNumber`t, 1, "TimeAggregation" -> 2],
-               Tools`ToNumber`AA Tools`ToNumber`dc[Tools`ToNumber`t + 1] 
-              Tools`ToNumber`excret[Tools`ToNumber`t, 1], 
+              Tools`ToNumber`dd, Tools`ToNumber`t, 1, "TimeAggregation" -> 
+               2], (Tools`ToNumber`AA Tools`ToNumber`dc[Tools`ToNumber`t + 1])
+                Tools`ToNumber`excret[Tools`ToNumber`t, 1], 
               Tools`ToNumber`AA Tools`ToNumber`excret[Tools`ToNumber`t, 1] + 
               Tools`ToNumber`BB 
                Tools`ToNumber`nombondyield[Tools`ToNumber`t, 2]}; 
@@ -16202,10 +16206,1424 @@ Cell[BoxData["True"], "Output",
 Cell[BoxData["True"], "Output",
  CellChangeTimes->{3.905688212312258*^9, 3.905773706823359*^9},
  CellLabel->"Out[9]=",ExpressionUUID->"5be593d9-a970-4782-aace-88009f0bab5f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"tr", "=", 
+  RowBox[{
+  "TestReport", "[", 
+   "\"\</Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt\>\"", 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"actual", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "@", 
+      RowBox[{"{", 
+       RowBox[{"(", 
+        RowBox[{"ReleaseHold", "@", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"tr", "[", "\"\<Results\>\"", "]"}], "[", 
+            RowBox[{"[", 
+             RowBox[{"jj", ",", "1"}], "]"}], "]"}], "[", 
+           RowBox[{"[", "\"\<ActualOutput\>\"", "]"}], "]"}], ")"}]}], ")"}], 
+       "}"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"jj", ",", "1", ",", 
+       RowBox[{"Length", "[", 
+        RowBox[{"tr", "[", "\"\<Results\>\"", "]"}], "]"}]}], "}"}]}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"expected", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "@", 
+      RowBox[{"{", 
+       RowBox[{"(", 
+        RowBox[{"ReleaseHold", "@", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"tr", "[", "\"\<Results\>\"", "]"}], "[", 
+            RowBox[{"[", 
+             RowBox[{"jj", ",", "1"}], "]"}], "]"}], "[", 
+           RowBox[{"[", "\"\<ExpectedOutput\>\"", "]"}], "]"}], ")"}]}], 
+        ")"}], "}"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"jj", ",", "1", ",", 
+       RowBox[{"Length", "[", 
+        RowBox[{"tr", "[", "\"\<Results\>\"", "]"}], "]"}]}], "}"}]}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"And", "@@", 
+  RowBox[{"Flatten", "@", "actual"}]}], "\[IndentingNewLine]", 
+ RowBox[{"And", "@@", 
+  RowBox[{"Flatten", "@", "expected"}]}]}], "Input",
+ CellChangeTimes->{3.9058266712878733`*^9},
+ CellLabel->"In[5]:=",ExpressionUUID->"ab5399e2-3070-4f2a-b018-73caa2bee83c"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["TestReportObject",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              InsetBox[
+               BoxData[
+                FormBox[
+                 PaneBox[
+                  DynamicBox[
+                   FEPrivate`FrontEndResource[
+                   "MUnitExpressions", "SuccessIcon"]], Alignment -> Center, 
+                  ImageSize -> 
+                  Dynamic[{
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], TraditionalForm]]]}, 
+             PlotRange -> {{0, 1}, {0, 1}}, Background -> GrayLevel[0.93], 
+             Axes -> False, AspectRatio -> 1, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], Frame -> True, FrameTicks -> None, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.55]]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Title: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"Test Report: ProcessModels.wlt\"", "SummaryItem"]}], 
+               "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Success rate: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   InterpretationBox[
+                    StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
+                    AutoDelete -> True], PercentForm], "SummaryItem"]}], 
+               RowBox[{
+                 TagBox["\"Tests count: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["25", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              InsetBox[
+               BoxData[
+                FormBox[
+                 PaneBox[
+                  DynamicBox[
+                   FEPrivate`FrontEndResource[
+                   "MUnitExpressions", "SuccessIcon"]], Alignment -> Center, 
+                  ImageSize -> 
+                  Dynamic[{
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], TraditionalForm]]]}, 
+             PlotRange -> {{0, 1}, {0, 1}}, Background -> GrayLevel[0.93], 
+             Axes -> False, AspectRatio -> 1, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], Frame -> True, FrameTicks -> None, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.55]]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Title: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"Test Report: ProcessModels.wlt\"", "SummaryItem"]}], 
+               "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Success rate: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   InterpretationBox[
+                    StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
+                    AutoDelete -> True], PercentForm], "SummaryItem"]}], 
+               RowBox[{
+                 TagBox["\"Tests count: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["25", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Succeeded: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["25", "SummaryItem"]}], "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Time elapsed: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  
+                  TemplateBox[{
+                   "16.628326`5.9734235194644985", "\"s\"", "seconds", 
+                    "\"Seconds\""}, "Quantity", SyntaxForm -> Mod], 
+                  "SummaryItem"]}], "\[SpanFromLeft]"}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  TestReportObject[<|
+   "Title" -> "Test Report: ProcessModels.wlt", "Aborted" -> False, 
+    "TestResults" -> <|
+     4419106042138892528 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826676504911*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "4b75f1c0-0f43-41e7-9d02-ed4cf89cbeff", "TestID" -> 
+         "ProcessModels_20231009-RWZJ5E", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "585e32ef-33ad-4d3d-8cdc-4dd7d92c0d76", "Input" -> 
+         HoldForm[
+          Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"]; 
+           Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"]; True], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.061004`4.935873310235768, "CPUTimeUsed" -> 0.060989000000000626`, 
+         "MemoryUsed" -> 7635528, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 7266212599705945323 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826676566286*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "bd5a3393-7c5e-4a8e-bbb9-2c20eb283d75", "TestID" -> 
+         "ProcessModels_20231009-8R5BB3", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "2541d742-0da4-4348-b610-d7d9a261278a", "Input" -> HoldForm[
+           Apply[And, {
+             
+             MemberQ[$ContextPath, 
+              "FernandoDuarte`LongRunRisk`Model`Catalog`"], 
+             
+             MemberQ[$ContextPath, 
+              "FernandoDuarte`LongRunRisk`Model`ProcessModels`"]}]], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000039`1.741579604858491, "CPUTimeUsed" -> 0.00003999999999981796, 
+         "MemoryUsed" -> 11968, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 7165069358247758515 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826676566578*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "fd485a44-dc00-4635-950f-5ff8de99ef34", "TestID" -> 
+         "ProcessModels_20231009-PYXU62", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "27954384-e348-4318-b757-9b1fb36dd71d", "Input" -> HoldForm[
+           Apply[And, {
+             Not[Names["*processModels"] === {}], 
+             Not[Names["*models"] === {}]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.032102`4.657047088240169, "CPUTimeUsed" -> 0.03215400000000068, 
+         "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 564414360524707205 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.90582667659901*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "de909e36-f559-4521-83ec-e7b1416a2e54", "TestID" -> 
+         "ProcessModels_20231009-9QO166", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "2dc050f5-7e60-4b83-92b5-d08a709d7e6d", "Input" -> HoldForm[Get[
+             Get[
+              FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]]; 
+           FernandoDuarte`LongRunRisk`Model`Catalog`models = 
+            FernandoDuarte`LongRunRisk`Model`Catalog`models; 
+           Model`ProcessModels`modelsP = FernandoDuarte`LongRunRisk`Models; 
+           True], "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> 
+         HoldForm[True], "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.423142`5.777001132269793, "CPUTimeUsed" -> 0.422269, "MemoryUsed" -> 
+         32057008, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 2194776254070521639 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677022516*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "1d34aef9-5ecc-4f0d-89d7-9e4c34e87295", "TestID" -> 
+         "ProcessModels_20231009-XWY8XC", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "93f36a9f-5683-498b-a459-4b9b67c24ba7", "Input" -> HoldForm[
+           Apply[And, 
+            Map[StringQ, 
+             Keys[Model`ProcessModels`modelsP]]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000027`1.5818787619909769, "CPUTimeUsed" -> 
+         0.000026999999999777202`, "MemoryUsed" -> 2560, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 2806971611149233930 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677022813*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "7fafefa3-37a9-4d78-bea5-1f6c37577644", "TestID" -> 
+         "ProcessModels_20231009-34IF7D", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "5bd954dd-ce84-4ac6-a401-7ff65f3c5ab3", "Input" -> HoldForm[
+           Apply[And, 
+            Map[StringQ, 
+             Flatten[
+              Map[{
+                Model`ProcessModels`modelsP[#]["name"], 
+                Model`ProcessModels`modelsP[#]["shortname"], 
+                Model`ProcessModels`modelsP[#]["bibRef"], 
+                Model`ProcessModels`modelsP[#]["desc"], 
+                Model`ProcessModels`modelsP[#]["exogenousVars"], 
+                Model`ProcessModels`modelsP[#]["endogenousVars"]}& , 
+               Keys[Model`ProcessModels`modelsP]]]]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000065`1.9634283544748472, "CPUTimeUsed" -> 0.0000649999999997597, 
+         "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 6933960501187676057 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677023109*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "01b5e2aa-e6b6-4885-9ce5-b18985cec509", "TestID" -> 
+         "ProcessModels_20231009-SMYVH5", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "0ff4c605-f071-47f2-be29-6bd1448d54b4", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[NumberQ, 
+               Flatten[
+                Map[Values[
+                  N[
+                   ReplaceRepeated[<|
+                    FernandoDuarte`LongRunRisk`Model`Catalog`models[#][
+                    "parameters"]|>, 
+                    FernandoDuarte`LongRunRisk`Model`Catalog`models[#][
+                    "parameters"]]]]& , 
+                 Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]]]]], 
+             Apply[And, 
+              Map[NumberQ, 
+               Flatten[
+                Map[Values[
+                  N[
+                   ReplaceRepeated[<|
+                    Model`ProcessModels`modelsP[#]["parameters"]|>, 
+                    Model`ProcessModels`modelsP[#]["parameters"]]]]& , 
+                 Keys[Model`ProcessModels`modelsP]]]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.005443`3.8863533321490658, "CPUTimeUsed" -> 0.005443999999999782, 
+         "MemoryUsed" -> 213928, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 8690149166901172254 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677028781*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "9d1fc101-5829-4e15-8803-1f11ee8409a4", "TestID" -> 
+         "ProcessModels_20231009-C9IRRD", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "b14b29ee-6d65-466e-994c-ed74cf17eba5", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[MemberQ[
+                Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]& , {
+               "BY", "BKY"}]], 
+             Apply[And, 
+              Map[MemberQ[
+                Keys[Model`ProcessModels`modelsP], #]& , 
+               Keys[Model`ProcessModels`modelsP]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000033`1.6690289377098768, "CPUTimeUsed" -> 0.00003399999999986747,
+          "MemoryUsed" -> 3480, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 657967501291847883 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677029035*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "573bbe64-694c-4ee9-aa9d-0b492bcfd43f", "TestID" -> 
+         "ProcessModels_20231009-Y06BJ2", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "f07bf9ac-c53e-45f5-85f6-30d16dfbb7e3", "Input" -> HoldForm[
+           Apply[And, {
+             AllTrue[
+             FernandoDuarte`LongRunRisk`Model`Catalog`models, AssociationQ], 
+             AllTrue[Model`ProcessModels`modelsP, AssociationQ], 
+             AllTrue[
+              Map[FernandoDuarte`LongRunRisk`Model`Catalog`models[#]& , 
+               Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]], 
+              AssociationQ], 
+             AllTrue[
+              Map[Model`ProcessModels`modelsP[#]& , 
+               Keys[Model`ProcessModels`modelsP]], AssociationQ]}]], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000034`1.6819939148742489, "CPUTimeUsed" -> 0.00003500000000000725,
+          "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 1455713152727971539 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677029373*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "09ede49f-e3e9-49ba-aa18-99f4a7076b07", "TestID" -> 
+         "ProcessModels_20231009-LS54ZU", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "eebe1083-a206-49fd-8d70-bde9c45c5baa", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[Apply[And, 
+                
+                Map[# === 
+                 "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["stateVars"], PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`$\
+exogenousVars], 
+                    SymbolName[#]]& ][
+                    BlankSequence[]] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]], 
+             Apply[And, 
+              Map[Apply[And, 
+                
+                Map[# === 
+                 "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["modelAssumptions"], 
+                   PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`$\
+exogenousVars], 
+                    SymbolName[#]]& ][
+                    BlankSequence[]] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]], 
+             Apply[And, 
+              Map[Apply[And, 
+                
+                Map[# === 
+                 "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["exogenousEq"], 
+                   PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`$\
+exogenousVars], 
+                    SymbolName[#]]& ][
+                    BlankSequence[]] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]], 
+             Apply[And, 
+              Map[Apply[And, 
+                
+                Map[# === 
+                 "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["endogenousEq"], PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`$\
+exogenousVars], 
+                    SymbolName[#]]& ][
+                    BlankSequence[]] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.008419`4.0757755073514295, "CPUTimeUsed" -> 0.00841899999999951, 
+         "MemoryUsed" -> 11144, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 7250380994852125813 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677038068*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "dba5ff09-4f0f-4b11-83fe-d17ac4b79022", "TestID" -> 
+         "ProcessModels_20231009-X0148M", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "e9b0bb15-72eb-40f4-bd99-2e5a1101b707", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[Apply[And, 
+                Map[# === "FernandoDuarte`LongRunRisk`Model`Shocks`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["stateVars"], PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MatchQ[
+                    SymbolName[#], "eps"]& ][
+                    BlankSequence[]][
+                    BlankSequence[]] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]], 
+             Apply[And, 
+              Map[Apply[And, 
+                Map[# === "FernandoDuarte`LongRunRisk`Model`Shocks`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["modelAssumptions"], 
+                   PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MatchQ[
+                    SymbolName[#], "eps"]& ][
+                    BlankSequence[]][
+                    BlankSequence[]] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]], 
+             Apply[And, 
+              Map[Apply[And, 
+                Map[# === "FernandoDuarte`LongRunRisk`Model`Shocks`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["exogenousEq"], 
+                   PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MatchQ[
+                    SymbolName[#], "eps"]& ][
+                    BlankSequence[]][
+                    BlankSequence[]] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]], 
+             Apply[And, 
+              Map[Apply[And, 
+                Map[# === "FernandoDuarte`LongRunRisk`Model`Shocks`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["endogenousEq"], PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MatchQ[
+                    SymbolName[#], "eps"]& ][
+                    BlankSequence[]][
+                    BlankSequence[]] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000315`2.6488255516215924, "CPUTimeUsed" -> 0.000316000000000205, 
+         "MemoryUsed" -> 4992, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 5634082156548335924 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.90582667703868*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "65dfacd5-1b95-4a01-a3c0-03d4b87e3244", "TestID" -> 
+         "ProcessModels_20231009-F0AJCH", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "fa7b1553-05e3-4ab1-98dc-1bddfdcb54dd", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[Apply[And, 
+                Map[# === "FernandoDuarte`LongRunRisk`Model`Parameters`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["parameters"], PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, 
+                    SymbolName[#]]& ] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]], 
+             Apply[And, 
+              Map[Apply[And, 
+                Map[# === "FernandoDuarte`LongRunRisk`Model`Parameters`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["stateVars"], PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, 
+                    SymbolName[#]]& ] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]], 
+             Apply[And, 
+              Map[Apply[And, 
+                Map[# === "FernandoDuarte`LongRunRisk`Model`Parameters`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["modelAssumptions"], 
+                   PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, 
+                    SymbolName[#]]& ] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]], 
+             Apply[And, 
+              Map[Apply[And, 
+                Map[# === "FernandoDuarte`LongRunRisk`Model`Parameters`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["exogenousEq"], 
+                   PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, 
+                    SymbolName[#]]& ] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]], 
+             Apply[And, 
+              Map[Apply[And, 
+                Map[# === "FernandoDuarte`LongRunRisk`Model`Parameters`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["endogenousEq"], PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, 
+                    SymbolName[#]]& ] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.002437`3.537370527016716, "CPUTimeUsed" -> 0.0024439999999996687`, 
+         "MemoryUsed" -> 19776, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 7485940269962235568 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677041362*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "ef0d9a26-ba7f-44be-b492-19f1cf7bc852", "TestID" -> 
+         "ProcessModels_20231009-UXOKX8", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "7d674783-fdd6-456f-a721-a113107054a6", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[Apply[And, 
+                
+                Map[# === 
+                 "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["modelAssumptions"], 
+                   PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`EndogenousEq`$\
+endogenousVars], 
+                    SymbolName[#]]& ][
+                    BlankSequence[]] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]], 
+             Apply[And, 
+              Map[Apply[And, 
+                
+                Map[# === 
+                 "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"& , 
+                 Map[Context, 
+                  Cases[
+                   Model`ProcessModels`modelsP[#]["endogenousEq"], PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`EndogenousEq`$\
+endogenousVars], 
+                    SymbolName[#]]& ][
+                    BlankSequence[]] :> Model`ProcessModels`var, 
+                   Infinity]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.014927`4.324487530649954, "CPUTimeUsed" -> 0.01492699999999969, 
+         "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 2338173266043852093 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677056521*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "903fbc90-6751-4564-8edf-4319911459a0", "TestID" -> 
+         "ProcessModels_20231009-51KD31", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "76ca0541-6b74-4b40-9d3c-92ac83adeb43", "Input" -> 
+         HoldForm[Model`ProcessModels`coefs = Apply[Alternatives, 
+              Map[
+              SymbolName, {
+               FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc, 
+                Head[
+                FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], 
+                Head[
+                FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb], 
+                
+                Head[
+                FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb]}\
+]]; Apply[And, 
+             
+             Map[# === 
+              "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"& , 
+              Flatten[
+               Map[Cases[
+                 Model`ProcessModels`modelsP[#]["modelAssumptions"], 
+                 Alternatives[
+                   PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MatchQ[
+                    SymbolName[#], Model`ProcessModels`coefs]& ], 
+                   PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MatchQ[
+                    SymbolName[#], Model`ProcessModels`coefs]& ][
+                    BlankSequence[]]] :> Context[Model`ProcessModels`var], 
+                 Infinity]& , 
+                Keys[Model`ProcessModels`modelsP]]]]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000231`2.514126977724134, "CPUTimeUsed" -> 0.0002309999999998702, 
+         "MemoryUsed" -> 2808, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 1560292977023677356 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677056983*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "c04b695f-2d08-46c0-b2a1-322a4123d828", "TestID" -> 
+         "ProcessModels_20231009-X4714J", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "52f20187-a40c-4791-8511-9e87373fd5d8", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[MatchQ[{}, #]& , 
+               Map[Cases[
+                 Model`ProcessModels`modelsP[#]["stateVars"], PatternTest[
+                   Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`EndogenousEq`$\
+endogenousVars], 
+                    SymbolName[#]]& ][
+                   BlankSequence[]] :> Model`ProcessModels`var, Infinity]& , 
+                Keys[Model`ProcessModels`modelsP]]]], 
+             Apply[And, 
+              Map[MatchQ[{}, #]& , 
+               Map[Cases[
+                 Model`ProcessModels`modelsP[#]["exogenousEq"], PatternTest[
+                   Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`EndogenousEq`$\
+endogenousVars], 
+                    SymbolName[#]]& ][
+                   BlankSequence[]] :> Model`ProcessModels`var, Infinity]& , 
+                Keys[Model`ProcessModels`modelsP]]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.003926`3.7444652930959794, "CPUTimeUsed" -> 0.003927000000000014, 
+         "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 3083771861124829408 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677061111*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "bfeb495f-3f63-490d-b34f-f4ed265be459", "TestID" -> 
+         "ProcessModels_20231009-7HDX12", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "17d335be-33d8-45f5-be8e-4a3cbca91f18", "Input" -> HoldForm[
+           Apply[And, {
+             SubsetQ[
+              Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], 
+              Keys[Model`ProcessModels`modelsP]], 
+             SubsetQ[
+              Map[
+              FernandoDuarte`LongRunRisk`Model`Catalog`models[#][
+               "shortname"]& , 
+               Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models]], 
+              Map[Model`ProcessModels`modelsP[#]["shortname"]& , 
+               Keys[Model`ProcessModels`modelsP]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000101`2.154836371614632, "CPUTimeUsed" -> 0.00010300000000018628`,
+          "MemoryUsed" -> 6576, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 1897777988687738300 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677061467*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "5eb4a46f-9f53-4b8b-b3ed-da8c0faccc7b", "TestID" -> 
+         "ProcessModels_20231009-OMD0EK", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "edfe866b-2f23-4365-b271-43294551f8a6", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[MatchQ[Function, #]& , 
+               Map[Head, 
+                Map[Model`ProcessModels`modelsP[#]["stateVars"]& , 
+                 Keys[Model`ProcessModels`modelsP]]]]], 
+             Apply[And, 
+              Map[MatchQ[List, #]& , 
+               Map[Head, 
+                Map[
+                Model`ProcessModels`modelsP[#]["stateVars"][
+                 Model`ProcessModels`t]& , 
+                 Keys[Model`ProcessModels`modelsP]]]]], 
+             Apply[And, 
+              Map[MatchQ[1, #]& , 
+               Map[Length, 
+                Map[Part[
+                  Model`ProcessModels`modelsP[#]["stateVars"], 1]& , 
+                 Keys[Model`ProcessModels`modelsP]]]]], 
+             Apply[And, 
+              Map[MatchQ["t", #]& , 
+               Map[Apply[SymbolName, 
+                 Part[
+                  Model`ProcessModels`modelsP[#]["stateVars"], 1]]& , 
+                Keys[Model`ProcessModels`modelsP]]]], 
+             Map[Model`ProcessModels`modelsP[#]["stateVars"][
+               FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]& , 
+               Keys[Model`ProcessModels`modelsP]] === 
+             Map[FernandoDuarte`LongRunRisk`Model`Catalog`models[#][
+               "stateVars"]& , 
+               Keys[Model`ProcessModels`modelsP]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.0001`2.150514997831994, "CPUTimeUsed" -> 0.00009999999999976694, 
+         "MemoryUsed" -> 3304, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 3015304632046676988 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677061765*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "96e630ae-073c-48b7-859c-feaca6237877", "TestID" -> 
+         "ProcessModels_20231009-K9FT9W", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "003bf6f0-8cf4-468d-ab5b-425142c3de31", "Input" -> HoldForm[
+           Apply[And, 
+            Map[NumberQ, 
+             Map[Model`ProcessModels`modelsP[#]["numStocks"]& , 
+              Keys[Model`ProcessModels`modelsP]]]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000021`1.4727342925659115, "CPUTimeUsed" -> 
+         0.000019999999999686935`, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 8307175674024339811 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058266770622168`*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "0eeea117-f641-404c-8153-60bd51facbeb", "TestID" -> 
+         "ProcessModels_20231009-8N9NBK", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "0feaf24f-bd71-48f5-a980-b2e07a05fbb5", "Input" -> 
+         HoldForm[
+          Model`ProcessModels`model = Model`ProcessModels`modelsP["NRC"]; 
+           Apply[And, {ReplaceAll[
+                Model`ProcessModels`pi[myContext`t], 
+                Normal[
+                 Model`ProcessModels`model["exogenousEq"]]] === 
+              FernandoDuarte`LongRunRisk`Model`Parameters`mup + (
+                FernandoDuarte`LongRunRisk`Model`Parameters`rhop (
+                  FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                   myContext`t - 1] - 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                 FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                  FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                   myContext`t - 1] + 
+                 FernandoDuarte`LongRunRisk`Model`Parameters`phip 
+                  FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                   myContext`t])), ReplaceAll[
+                Model`ProcessModels`eps["dc"][Model`ProcessModels`t], 
+                Model`ProcessModels`model["exogenousEq"]] === 
+              Model`ProcessModels`eps["dc"][Model`ProcessModels`t], ReplaceAll[
+                Model`ProcessModels`dd[
+                Model`ProcessModels`t, Model`ProcessModels`i], 
+                Normal[
+                 Model`ProcessModels`model["exogenousEq"]]] === 
+              FernandoDuarte`LongRunRisk`Model`Parameters`mud[
+                Model`ProcessModels`i] + ((
+                  FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                   Model`ProcessModels`t - 1] - 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`mup) 
+                 FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[
+                  Model`ProcessModels`i] + (
+                 FernandoDuarte`LongRunRisk`Model`Parameters`phidc[
+                   Model`ProcessModels`i] 
+                  FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][
+                   Model`ProcessModels`t] + 
+                 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                   Model`ProcessModels`t - 2] 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`xid[
+                   Model`ProcessModels`i] 
+                  FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                   Model`ProcessModels`t - 1])), ReplaceAll[
+                Model`ProcessModels`wc[Model`ProcessModels`t], 
+                Normal[
+                 Model`ProcessModels`model["endogenousEq"]]] === 
+              FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[0] + (
+                FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[1] (
+                  FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                   Model`ProcessModels`t] - 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                 FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[4] (
+                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    Model`ProcessModels`t] - 
+                   FernandoDuarte`LongRunRisk`Model`Parameters`Esg) + (
+                  FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[5] 
+                   Subtract[
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    Model`ProcessModels`t]^2 - 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`phig^2/(1 - 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhog^2), 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`Esg^2] + (
+                   FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[3] 
+                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    Model`ProcessModels`t] + 
+                   FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[2] 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    Model`ProcessModels`t - 1] 
+                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    Model`ProcessModels`t])))), ReplaceAll[
+                Model`ProcessModels`pd[
+                Model`ProcessModels`t, Model`ProcessModels`i], 
+                Normal[
+                 Model`ProcessModels`model["endogenousEq"]]] === 
+              FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
+                Model`ProcessModels`i][
+                0] + ((FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\
+pi[Model`ProcessModels`t] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) 
+                 FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
+                  Model`ProcessModels`i][
+                  1] + ((FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\
+sg[Model`ProcessModels`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg) 
+                  FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
+                   Model`ProcessModels`i][4] + (
+                  Subtract[
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    Model`ProcessModels`t]^2 - 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`phig^2/(1 - 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhog^2), 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`Esg^2] 
+                   FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
+                    Model`ProcessModels`i][5] + (
+                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    Model`ProcessModels`t - 1] 
+                    FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
+                    Model`ProcessModels`i][2] 
+                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    Model`ProcessModels`t] + 
+                   FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
+                    Model`ProcessModels`i][3] 
+                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    Model`ProcessModels`t])))), ReplaceAll[
+                Model`ProcessModels`bondexcret[
+                Model`ProcessModels`t, Model`ProcessModels`i], 
+                Normal[
+                 Model`ProcessModels`model["endogenousEq"]]] === 
+              FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bondret[
+                Model`ProcessModels`t, Model`ProcessModels`i, 1] - 
+               FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`\
+bondyield[Model`ProcessModels`t - 1, 1], ReplaceAll[
+                ReplaceAll[
+                 Model`ProcessModels`bondexcret[
+                 Model`ProcessModels`t, Model`ProcessModels`i], 
+                 Normal[
+                  Model`ProcessModels`model["endogenousEq"]]], 
+                Normal[
+                 Model`ProcessModels`model["endogenousEq"]]] === (
+                FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bond[
+                 Model`ProcessModels`t - 1, 1] + 
+                FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bond[
+                 Model`ProcessModels`t, Model`ProcessModels`i - 1]) - 
+               FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bond[
+               Model`ProcessModels`t - 1, Model`ProcessModels`i]}]], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
+          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000419`2.772729020798285, "CPUTimeUsed" -> 0.00042000000000008697`,
+          "MemoryUsed" -> 5824, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 6222314792268763634 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677062936*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "63b4492d-64e2-4a4c-b6e8-3c50f2690332", "TestID" -> 
+         "ProcessModels_20231009-AYAKZE", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "38e1a913-c1c1-427b-8493-aca86a9eebae", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[MatchQ[{}, #]& , 
+               Map[Cases[
+                 ReplaceRepeated[
+                  Model`ProcessModels`wc[Model`ProcessModels`t], 
+                  Normal[
+                   Model`ProcessModels`modelsP[#]["endogenousEq"]]], 
+                 PatternTest[
+                   Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`EndogenousEq`$\
+endogenousVars], 
+                    SymbolName[#]]& ][
+                   BlankSequence[]] :> Model`ProcessModels`var, Infinity]& , 
+                Keys[Model`ProcessModels`modelsP]]]], 
+             Apply[And, 
+              Map[
+              MatchQ[#, 
+                "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"]& , 
+               Flatten[
+                Map[Cases[
+                  ReplaceRepeated[
+                   Model`ProcessModels`wc[Model`ProcessModels`t], 
+                   Normal[
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]], 
+                  PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`$\
+exogenousVars], 
+                    SymbolName[#]]& ][
+                    BlankSequence[]] :> Context[Model`ProcessModels`var], 
+                  Infinity]& , 
+                 Keys[Model`ProcessModels`modelsP]]]]], 
+             Apply[And, 
+              Map[MatchQ[#, "FernandoDuarte`LongRunRisk`Model`Parameters`"]& , 
+               Flatten[
+                Map[Cases[
+                  ReplaceRepeated[
+                   Model`ProcessModels`wc[Model`ProcessModels`t], 
+                   Normal[
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]], 
+                  PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, 
+                    SymbolName[#]]& ] :> Context[Model`ProcessModels`var], 
+                  Infinity]& , 
+                 Keys[Model`ProcessModels`modelsP]]]]], 
+             Apply[And, 
+              Map[MatchQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]& , 
+               Flatten[
+                Map[Cases[
+                  ReplaceRepeated[
+                   Model`ProcessModels`wc[Model`ProcessModels`t], 
+                   Normal[
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]], 
+                  PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MatchQ[
+                    SymbolName[#], "eps"]& ][
+                    BlankSequence[]][
+                    BlankSequence[]] :> Context[Model`ProcessModels`var], 
+                  Infinity]& , 
+                 Keys[Model`ProcessModels`modelsP]]]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.008117`4.059910543799098, "CPUTimeUsed" -> 0.008118999999999765, 
+         "MemoryUsed" -> 45416, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 3990703508638022749 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677071359*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "9249d98a-72a5-4d3a-9509-e97a9edbd0d3", "TestID" -> 
+         "ProcessModels_20231009-USIQ90", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "0443bc20-be31-4df1-b8c4-4410b351b78a", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[MatchQ[{}, #]& , 
+               Map[Cases[
+                 ReplaceRepeated[
+                  Model`ProcessModels`bondexcret[
+                  Model`ProcessModels`t, Model`ProcessModels`i], 
+                  Normal[
+                   Model`ProcessModels`modelsP[#]["endogenousEq"]]], 
+                 PatternTest[
+                   Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`EndogenousEq`$\
+endogenousVars], 
+                    SymbolName[#]]& ][
+                   BlankSequence[]] :> Model`ProcessModels`var, Infinity]& , 
+                Keys[Model`ProcessModels`modelsP]]]], 
+             Apply[And, 
+              Map[
+              MatchQ[#, 
+                "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"]& , 
+               Flatten[
+                Map[Cases[
+                  ReplaceRepeated[
+                   Model`ProcessModels`bondexcret[
+                   Model`ProcessModels`t, Model`ProcessModels`i], 
+                   Normal[
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]], 
+                  PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    Map[
+                    StringDrop[#, -2]& , 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`$\
+exogenousVars], 
+                    SymbolName[#]]& ][
+                    BlankSequence[]] :> Context[Model`ProcessModels`var], 
+                  Infinity]& , 
+                 Keys[Model`ProcessModels`modelsP]]]]], 
+             Apply[And, 
+              Map[MatchQ[#, "FernandoDuarte`LongRunRisk`Model`Parameters`"]& , 
+               Flatten[
+                Map[Cases[
+                  ReplaceRepeated[
+                   Model`ProcessModels`bondexcret[
+                   Model`ProcessModels`t, Model`ProcessModels`i], 
+                   Normal[
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]], 
+                  PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MemberQ[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, 
+                    SymbolName[#]]& ] :> Context[Model`ProcessModels`var], 
+                  Infinity]& , 
+                 Keys[Model`ProcessModels`modelsP]]]]], 
+             Apply[And, 
+              Map[MatchQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]& , 
+               Flatten[
+                Map[Cases[
+                  ReplaceRepeated[
+                   Model`ProcessModels`bondexcret[
+                   Model`ProcessModels`t, Model`ProcessModels`i], 
+                   Normal[
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]], 
+                  PatternTest[
+                    Pattern[Model`ProcessModels`var, 
+                    Blank[Symbol]], MatchQ[
+                    SymbolName[#], "eps"]& ][
+                    BlankSequence[]][
+                    BlankSequence[]] :> Context[Model`ProcessModels`var], 
+                  Infinity]& , 
+                 Keys[Model`ProcessModels`modelsP]]]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.030678`4.637342040942173, "CPUTimeUsed" -> 0.030694, "MemoryUsed" -> 
+         12792, "ExpectedOutput" -> HoldForm[True], "Outcome" -> "Success"|>],
+       8983221435429827595 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.90582667710227*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "7a779c8d-640c-4abe-9a3e-339989546e45", "TestID" -> 
+         "ProcessModels_20231009-01ILTG", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "9913c2cc-9f9c-47e5-b642-3d424deaf7f5", "Input" -> HoldForm[
+           Apply[And, {
+             AllTrue[
+              Map[Head, 
+               Keys[
+                Model`ProcessModels`modelsP["BKY"]["exogenousEq"]]], 
+              MatchQ[#, PatternTest]& ], 
+             AllTrue[
+              Map[Head, 
+               Keys[
+                Model`ProcessModels`modelsP["BKY"]["endogenousEq"]]], 
+              MatchQ[#, PatternTest]& ]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000034`1.6819939148742447, "CPUTimeUsed" -> 0.00003400000000031156,
+          "MemoryUsed" -> 2664, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 7302970543985097583 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677102602*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "7ba6639b-f634-48cf-acfe-806ad40fbf8d", "TestID" -> 
+         "ProcessModels_20231009-WT9V0J", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "d6b4ab60-881c-4780-9a43-f3e8e1379450", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[Not, 
+               Map[Head[
+                  Model`ProcessModels`dc[Model`ProcessModels`t]] === Head[
+                  ReplaceAll[
+                   Model`ProcessModels`dc[Model`ProcessModels`t], 
+                   Normal[
+                    Join[
+                    Model`ProcessModels`modelsP[#]["exogenousEq"], 
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]]]]& , 
+                Keys[Model`ProcessModels`modelsP]]]], 
+             Apply[And, 
+              Map[Not, 
+               Map[Head[
+                  Model`ProcessModels`dd[
+                  Model`ProcessModels`t, Model`ProcessModels`i]] === Head[
+                  ReplaceAll[
+                   Model`ProcessModels`dd[
+                   Model`ProcessModels`t, Model`ProcessModels`i], 
+                   Normal[
+                    Join[
+                    Model`ProcessModels`modelsP[#]["exogenousEq"], 
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]]]]& , 
+                Keys[Model`ProcessModels`modelsP]]]], 
+             Apply[And, 
+              Map[Not, 
+               Map[Head[
+                  Model`ProcessModels`wc[Model`ProcessModels`t]] === Head[
+                  ReplaceAll[
+                   Model`ProcessModels`wc[Model`ProcessModels`t], 
+                   Normal[
+                    Join[
+                    Model`ProcessModels`modelsP[#]["exogenousEq"], 
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]]]]& , 
+                Keys[Model`ProcessModels`modelsP]]]], 
+             Apply[And, 
+              Map[Not, 
+               Map[Head[
+                  Model`ProcessModels`sdf[Model`ProcessModels`t]] === Head[
+                  ReplaceAll[
+                   Model`ProcessModels`sdf[Model`ProcessModels`t], 
+                   Normal[
+                    Join[
+                    Model`ProcessModels`modelsP[#]["exogenousEq"], 
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]]]]& , 
+                Keys[Model`ProcessModels`modelsP]]]], 
+             Apply[And, 
+              Map[Not, 
+               Map[Head[
+                  Model`ProcessModels`bondyield[Model`ProcessModels`t]] === 
+                Head[
+                  ReplaceAll[
+                   Model`ProcessModels`bondyield[Model`ProcessModels`t], 
+                   Normal[
+                    Join[
+                    Model`ProcessModels`modelsP[#]["exogenousEq"], 
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]]]]& , 
+                Keys[Model`ProcessModels`modelsP]]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.001215`3.235091275766325, "CPUTimeUsed" -> 0.001214999999999744, 
+         "MemoryUsed" -> 13104, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 5099976301645283398 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677104033*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "c0382f15-3d24-4138-9522-3a26f094417b", "TestID" -> 
+         "ProcessModels_20231009-CET43T", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "f015eb78-94a8-416b-beb3-7d268a575a4b", "Input" -> HoldForm[
+           Apply[And, {
+             Apply[And, 
+              Map[Head[
+                 Model`ProcessModels`notVar[Model`ProcessModels`t]] === Head[
+                 ReplaceAll[
+                  Model`ProcessModels`notVar[Model`ProcessModels`t], 
+                  Normal[
+                   Join[
+                    Model`ProcessModels`modelsP[#]["exogenousEq"], 
+                    Model`ProcessModels`modelsP[#]["endogenousEq"]]]]]& , 
+               Keys[Model`ProcessModels`modelsP]]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         0.000254`2.5553487144519296, "CPUTimeUsed" -> 
+         0.00025399999999997647`, "MemoryUsed" -> 8064, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 2098129910327282807 -> 
+      TestObject[<|
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905826677104549*^9, 
+         "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "CreationID" -> 
+         "9ecea483-b947-4863-bd29-3ce3fd5be8cb", "TestID" -> 
+         "ProcessModels_20231009-41WCOQ", "TestFileName" -> 
+         "/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt", "EvaluationID" -> 
+         "5e17699d-73bf-4d61-8fc5-77e792aec607", "Input" -> 
+         HoldForm[
+          Model`ProcessModels`modelBY = 
+            FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]; 
+           Model`ProcessModels`modelBKY = 
+            FernandoDuarte`LongRunRisk`Model`Catalog`models["BKY"]; 
+           Model`ProcessModels`modelBKYP = 
+            FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[<|
+              "BKY" -> Model`ProcessModels`modelBKY|>]; 
+           Model`ProcessModels`modelBYP = 
+            FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[<|
+              "BY" -> Model`ProcessModels`modelBY|>]; 
+           Model`ProcessModels`newModels = <|
+             "myModel" -> Model`ProcessModels`modelBKY, "BY" -> 
+              Model`ProcessModels`modelBY|>; 
+           Model`ProcessModels`newModelsSameName = <|
+             "BY" -> Model`ProcessModels`modelBY|>; 
+           Model`ProcessModels`newModelsRename = <|
+             "myModel" -> Model`ProcessModels`modelBY|>; 
+           Model`ProcessModels`newModelsP = 
+            FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
+             Model`ProcessModels`newModels]; 
+           Model`ProcessModels`newModelsSameNameP = 
+            FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
+             Model`ProcessModels`newModelsSameName]; 
+           Model`ProcessModels`newModelsRenameP = 
+            FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
+             Model`ProcessModels`newModelsRename]; Apply[And, {
+              ((KeyDrop[#, "coeffsSolution"]& )[
+                Model`ProcessModels`newModelsP["myModel"]] === 
+              KeyDrop[#, "coeffsSolution"]& )[
+               Model`ProcessModels`modelBKYP["BKY"]], 
+              ((KeyDrop[#, "coeffsSolution"]& )[
+                Model`ProcessModels`newModelsP["BY"]] === 
+              KeyDrop[#, "coeffsSolution"]& )[
+               Model`ProcessModels`modelBYP["BY"]], 
+              ((KeyDrop[#, "coeffsSolution"]& )[
+                Model`ProcessModels`newModelsSameNameP["BY"]] === 
+              KeyDrop[#, "coeffsSolution"]& )[
+               Model`ProcessModels`modelBYP["BY"]], 
+              ((KeyDrop[#, "coeffsSolution"]& )[
+                Model`ProcessModels`newModelsRenameP["myModel"]] === 
+              KeyDrop[#, "coeffsSolution"]& )[
+               Model`ProcessModels`modelBYP["BY"]]}]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         16.035243`7.3555905434971045, "CPUTimeUsed" -> 16.475589000000003`, 
+         "MemoryUsed" -> 35262816, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>]|>, "FailureResults" -> <||>, 
+    "TestsNotEvaluatedKeys" -> {}, "TestsFailedWrongResultsKeys" -> {}, 
+    "TestsFailedWithMessagesKeys" -> {}, "TestsFailedWithErrorsKeys" -> {}, 
+    "TestsSucceededKeys" -> {4419106042138892528, 7266212599705945323, 
+     7165069358247758515, 564414360524707205, 2194776254070521639, 
+     2806971611149233930, 6933960501187676057, 8690149166901172254, 
+     657967501291847883, 1455713152727971539, 7250380994852125813, 
+     5634082156548335924, 7485940269962235568, 2338173266043852093, 
+     1560292977023677356, 3083771861124829408, 1897777988687738300, 
+     3015304632046676988, 8307175674024339811, 6222314792268763634, 
+     3990703508638022749, 8983221435429827595, 7302970543985097583, 
+     5099976301645283398, 2098129910327282807}|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.9058266933335447`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"f8800308-8ed4-480e-abb7-c5244a535146"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.9058266933372097`*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"c90e0e07-1096-4a41-a6f7-eb5f48bedebf"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.9058266933376617`*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"34e4a14e-1c32-472f-9678-b61b658e0ad6"]
 }, Open  ]]
 },
 WindowSize->{1551, 843},
-WindowMargins->{{Automatic, -1920}, {Automatic, 48}},
+WindowMargins->{{Automatic, 156}, {Automatic, 38}},
 TaggingRules-><|"TryRealOnly" -> False|>,
 Magnification:>1.25 Inherited,
 FrontEndVersion->"13.3 for Mac OS X ARM (64-bit) (July 24, 2023)",
@@ -16223,94 +17641,100 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 246, 4, 37, "Input",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
+Cell[558, 20, 251, 5, 37, "Input",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
 Cell[CellGroupData[{
-Cell[829, 28, 1575, 30, 116, "Input",ExpressionUUID->"b9f2d453-3e98-41bc-b67a-28793e860800"],
-Cell[2407, 60, 552, 8, 42, "Output",ExpressionUUID->"3e60d630-bd14-4c8d-8d05-d8fef78ad01c"],
-Cell[2962, 70, 576, 9, 42, "Output",ExpressionUUID->"22833840-f2de-4fe6-bbbf-269f58a4d5aa"],
-Cell[3541, 81, 1838, 33, 329, "Output",ExpressionUUID->"19d9b494-2f20-4afc-aaed-dc2bc60bec5f"],
-Cell[5382, 116, 590, 10, 42, "Output",ExpressionUUID->"c3b20972-1a55-4bc5-9757-5c1cba14073d"]
+Cell[834, 29, 1575, 30, 116, "Input",ExpressionUUID->"b9f2d453-3e98-41bc-b67a-28793e860800"],
+Cell[2412, 61, 576, 8, 42, "Output",ExpressionUUID->"663a0116-4e99-4a0f-a179-b4a4180290d3"],
+Cell[2991, 71, 598, 9, 42, "Output",ExpressionUUID->"4dbee539-4c7a-45bc-9555-086ed60355df"],
+Cell[3592, 82, 1968, 35, 355, "Output",ExpressionUUID->"24ffe403-e628-4e92-bd3a-7d1b89c7ecc9"],
+Cell[5563, 119, 612, 10, 42, "Output",ExpressionUUID->"878ae2b3-dc0d-432c-88c9-ac3be2d0a8d3"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6009, 131, 243, 4, 37, "Input",ExpressionUUID->"89327c75-70af-4b75-adfd-86608c4fe806"],
-Cell[6255, 137, 9774, 202, 103, "Output",ExpressionUUID->"6d9f3fe6-fe17-49be-8e8f-f359717d35b9"]
+Cell[6212, 134, 243, 4, 37, "Input",ExpressionUUID->"89327c75-70af-4b75-adfd-86608c4fe806"],
+Cell[6458, 140, 9774, 202, 103, "Output",ExpressionUUID->"6d9f3fe6-fe17-49be-8e8f-f359717d35b9"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[16066, 344, 224, 3, 37, "Input",ExpressionUUID->"a1384358-6bbe-4f41-bc0a-a9f74fea10c1"],
-Cell[16293, 349, 176, 2, 42, "Output",ExpressionUUID->"867e3e10-43f1-4f22-b2b4-d51571d609e9"]
+Cell[16269, 347, 224, 3, 37, "Input",ExpressionUUID->"a1384358-6bbe-4f41-bc0a-a9f74fea10c1"],
+Cell[16496, 352, 176, 2, 42, "Output",ExpressionUUID->"867e3e10-43f1-4f22-b2b4-d51571d609e9"]
 }, Open  ]],
-Cell[16484, 354, 436, 9, 142, "Input",ExpressionUUID->"f1d84011-dcfc-4f83-98b5-d531ed681557"],
-Cell[16923, 365, 4418, 120, 454, "Input",ExpressionUUID->"6221cad6-36a4-4248-80ca-185024e4de01"],
+Cell[16687, 357, 436, 9, 142, "Input",ExpressionUUID->"f1d84011-dcfc-4f83-98b5-d531ed681557"],
+Cell[17126, 368, 4418, 120, 454, "Input",ExpressionUUID->"6221cad6-36a4-4248-80ca-185024e4de01"],
 Cell[CellGroupData[{
-Cell[21366, 489, 1939, 55, 142, "Input",ExpressionUUID->"a02079b6-dc93-4662-a435-00398ad5c39a"],
-Cell[23308, 546, 30007, 566, 76, "Output",ExpressionUUID->"57d01980-f4e2-4fd3-b9fa-99d0e6377dd7"],
-Cell[53318, 1114, 313, 4, 42, "Output",ExpressionUUID->"ab80e1a8-f08c-454d-89d1-1284274daf7a"],
-Cell[53634, 1120, 313, 4, 42, "Output",ExpressionUUID->"bf2cf179-04de-40ae-8048-0a975adbcb28"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[53984, 1129, 2330, 60, 142, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0"],
-Cell[56317, 1191, 32848, 615, 76, "Output",ExpressionUUID->"4e8f3e95-7cc9-44f4-837d-226d2ae78e1a"],
-Cell[89168, 1808, 270, 4, 42, "Output",ExpressionUUID->"18136333-4913-4ebf-a808-618f0ef17dda"],
-Cell[89441, 1814, 272, 4, 42, "Output",ExpressionUUID->"0f899501-78f1-4fbb-9c76-b01ff2fad92e"]
+Cell[21569, 492, 1939, 55, 142, "Input",ExpressionUUID->"a02079b6-dc93-4662-a435-00398ad5c39a"],
+Cell[23511, 549, 30007, 566, 76, "Output",ExpressionUUID->"57d01980-f4e2-4fd3-b9fa-99d0e6377dd7"],
+Cell[53521, 1117, 313, 4, 42, "Output",ExpressionUUID->"ab80e1a8-f08c-454d-89d1-1284274daf7a"],
+Cell[53837, 1123, 313, 4, 42, "Output",ExpressionUUID->"bf2cf179-04de-40ae-8048-0a975adbcb28"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[89750, 1823, 2335, 60, 142, "Input",ExpressionUUID->"07d47c72-3650-48cf-bae5-d9151c59339e"],
-Cell[92088, 1885, 22835, 465, 76, "Output",ExpressionUUID->"9e85cd85-9a7e-45d9-ab44-0c00600f5ebe"],
-Cell[114926, 2352, 245, 3, 42, "Output",ExpressionUUID->"21ad07b9-c0e2-45bd-b80c-e430ce6810df"],
-Cell[115174, 2357, 245, 3, 42, "Output",ExpressionUUID->"0da7268d-bfeb-4196-854a-dd4d7758fc84"]
+Cell[54187, 1132, 2330, 60, 142, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0"],
+Cell[56520, 1194, 32848, 615, 76, "Output",ExpressionUUID->"4e8f3e95-7cc9-44f4-837d-226d2ae78e1a"],
+Cell[89371, 1811, 270, 4, 42, "Output",ExpressionUUID->"18136333-4913-4ebf-a808-618f0ef17dda"],
+Cell[89644, 1817, 272, 4, 42, "Output",ExpressionUUID->"0f899501-78f1-4fbb-9c76-b01ff2fad92e"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[115456, 2365, 2336, 60, 142, "Input",ExpressionUUID->"a92fbc3b-b353-4e75-8ee9-b61e11404d6b"],
-Cell[117795, 2427, 30688, 612, 76, "Output",ExpressionUUID->"d0d36a92-89ec-44ae-a072-ffa1f81d3a83"],
-Cell[148486, 3041, 224, 3, 42, "Output",ExpressionUUID->"735abc56-9c38-4460-98f9-68474cac99e8"],
-Cell[148713, 3046, 222, 3, 42, "Output",ExpressionUUID->"9294ab13-0791-486c-8d60-f19c72e3aedc"]
+Cell[89953, 1826, 2335, 60, 142, "Input",ExpressionUUID->"07d47c72-3650-48cf-bae5-d9151c59339e"],
+Cell[92291, 1888, 22835, 465, 76, "Output",ExpressionUUID->"9e85cd85-9a7e-45d9-ab44-0c00600f5ebe"],
+Cell[115129, 2355, 245, 3, 42, "Output",ExpressionUUID->"21ad07b9-c0e2-45bd-b80c-e430ce6810df"],
+Cell[115377, 2360, 245, 3, 42, "Output",ExpressionUUID->"0da7268d-bfeb-4196-854a-dd4d7758fc84"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[148972, 3054, 2400, 61, 142, "Input",ExpressionUUID->"16b4a727-0558-4183-a2f8-e2e1a7b3a611"],
-Cell[151375, 3117, 168584, 3169, 76, "Output",ExpressionUUID->"1b688ec7-62aa-4f84-9f31-1e3bc9eda8e1"],
-Cell[319962, 6288, 201, 3, 42, "Output",ExpressionUUID->"363b6495-31f2-43fb-a58a-0a0cd1d37b14"],
-Cell[320166, 6293, 201, 3, 42, "Output",ExpressionUUID->"c92518bb-0a90-499f-96d8-0af66f423859"]
+Cell[115659, 2368, 2336, 60, 142, "Input",ExpressionUUID->"a92fbc3b-b353-4e75-8ee9-b61e11404d6b"],
+Cell[117998, 2430, 30688, 612, 76, "Output",ExpressionUUID->"d0d36a92-89ec-44ae-a072-ffa1f81d3a83"],
+Cell[148689, 3044, 224, 3, 42, "Output",ExpressionUUID->"735abc56-9c38-4460-98f9-68474cac99e8"],
+Cell[148916, 3049, 222, 3, 42, "Output",ExpressionUUID->"9294ab13-0791-486c-8d60-f19c72e3aedc"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[320404, 6301, 1956, 55, 142, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684"],
-Cell[322363, 6358, 86607, 1600, 76, "Output",ExpressionUUID->"43573582-81e7-4d22-98f2-eff3cc83d653"],
-Cell[408973, 7960, 201, 3, 42, "Output",ExpressionUUID->"6a1ae683-8c21-46a9-83d1-2cde089bd922"],
-Cell[409177, 7965, 201, 3, 42, "Output",ExpressionUUID->"72dd1bbf-5fc1-4aa0-a5fe-b2943e8c786c"]
+Cell[149175, 3057, 2400, 61, 142, "Input",ExpressionUUID->"16b4a727-0558-4183-a2f8-e2e1a7b3a611"],
+Cell[151578, 3120, 168584, 3169, 76, "Output",ExpressionUUID->"1b688ec7-62aa-4f84-9f31-1e3bc9eda8e1"],
+Cell[320165, 6291, 201, 3, 42, "Output",ExpressionUUID->"363b6495-31f2-43fb-a58a-0a0cd1d37b14"],
+Cell[320369, 6296, 201, 3, 42, "Output",ExpressionUUID->"c92518bb-0a90-499f-96d8-0af66f423859"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[409415, 7973, 1949, 56, 142, "Input",ExpressionUUID->"ab52a8a9-6ba0-4c63-83a5-96864da8b71f"],
-Cell[411367, 8031, 198, 3, 42, "Output",ExpressionUUID->"b286ddec-4b5a-4c70-adec-f24fdc08de7e"],
-Cell[411568, 8036, 199, 3, 42, "Output",ExpressionUUID->"e7a43eea-8082-4268-92fa-b226ac336fe1"]
+Cell[320607, 6304, 1956, 55, 142, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684"],
+Cell[322566, 6361, 86607, 1600, 76, "Output",ExpressionUUID->"43573582-81e7-4d22-98f2-eff3cc83d653"],
+Cell[409176, 7963, 201, 3, 42, "Output",ExpressionUUID->"6a1ae683-8c21-46a9-83d1-2cde089bd922"],
+Cell[409380, 7968, 201, 3, 42, "Output",ExpressionUUID->"72dd1bbf-5fc1-4aa0-a5fe-b2943e8c786c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[411804, 8044, 1986, 55, 142, "Input",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4"],
-Cell[413793, 8101, 137788, 3143, 76, "Output",ExpressionUUID->"e29dc5a2-796d-49a0-9267-dd8012feb918"],
-Cell[551584, 11246, 175, 2, 42, "Output",ExpressionUUID->"dbb86417-86c6-478e-af42-40177a169c0d"],
-Cell[551762, 11250, 174, 2, 42, "Output",ExpressionUUID->"bca05209-a17f-4f02-b790-b228739ee79f"]
+Cell[409618, 7976, 1949, 56, 142, "Input",ExpressionUUID->"ab52a8a9-6ba0-4c63-83a5-96864da8b71f"],
+Cell[411570, 8034, 198, 3, 42, "Output",ExpressionUUID->"b286ddec-4b5a-4c70-adec-f24fdc08de7e"],
+Cell[411771, 8039, 199, 3, 42, "Output",ExpressionUUID->"e7a43eea-8082-4268-92fa-b226ac336fe1"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[551973, 11257, 1943, 55, 142, "Input",ExpressionUUID->"7c47fece-e37b-46a8-a1f5-f66cb52faf00"],
-Cell[553919, 11314, 135049, 2301, 76, "Output",ExpressionUUID->"6395794d-5f6a-4362-8cf0-5cb848880710"],
-Cell[688971, 13617, 172, 2, 42, "Output",ExpressionUUID->"d843177c-13e2-4cd1-94fe-a12fad3385cd"],
-Cell[689146, 13621, 172, 2, 42, "Output",ExpressionUUID->"f0569a1c-7ca7-4b2b-9f52-1dad341b6b2e"]
+Cell[412007, 8047, 1986, 55, 142, "Input",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4"],
+Cell[413996, 8104, 137788, 3143, 76, "Output",ExpressionUUID->"e29dc5a2-796d-49a0-9267-dd8012feb918"],
+Cell[551787, 11249, 175, 2, 42, "Output",ExpressionUUID->"dbb86417-86c6-478e-af42-40177a169c0d"],
+Cell[551965, 11253, 174, 2, 42, "Output",ExpressionUUID->"bca05209-a17f-4f02-b790-b228739ee79f"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[689355, 13628, 1944, 55, 142, "Input",ExpressionUUID->"ad7fda5b-fb52-4ad1-8d3f-dceb74f45182"],
-Cell[691302, 13685, 10081, 207, 76, "Output",ExpressionUUID->"faf272f4-1f73-4923-8374-355bce3e9ea2"],
-Cell[701386, 13894, 173, 2, 42, "Output",ExpressionUUID->"2f5eeabc-c18a-4dff-b861-2141f7ed746d"],
-Cell[701562, 13898, 173, 2, 42, "Output",ExpressionUUID->"a021286e-07d5-46d7-ad81-a57bf8aaf62c"]
+Cell[552176, 11260, 1943, 55, 142, "Input",ExpressionUUID->"7c47fece-e37b-46a8-a1f5-f66cb52faf00"],
+Cell[554122, 11317, 135064, 2302, 76, "Output",ExpressionUUID->"6395794d-5f6a-4362-8cf0-5cb848880710"],
+Cell[689189, 13621, 172, 2, 42, "Output",ExpressionUUID->"d843177c-13e2-4cd1-94fe-a12fad3385cd"],
+Cell[689364, 13625, 172, 2, 42, "Output",ExpressionUUID->"f0569a1c-7ca7-4b2b-9f52-1dad341b6b2e"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[701772, 13905, 1961, 56, 142, "Input",ExpressionUUID->"479fb483-095c-47a5-b63a-afec0a7f6185"],
-Cell[703736, 13963, 22141, 424, 76, "Output",ExpressionUUID->"5cda5875-5226-4189-b44c-1f671643d893"],
-Cell[725880, 14389, 173, 2, 42, "Output",ExpressionUUID->"263e6f76-6294-44d9-8dc2-5cd0f729c404"],
-Cell[726056, 14393, 173, 2, 42, "Output",ExpressionUUID->"d55440ee-dc59-40e6-a14f-ef5c989c8756"]
+Cell[689573, 13632, 1944, 55, 142, "Input",ExpressionUUID->"ad7fda5b-fb52-4ad1-8d3f-dceb74f45182"],
+Cell[691520, 13689, 10081, 207, 76, "Output",ExpressionUUID->"faf272f4-1f73-4923-8374-355bce3e9ea2"],
+Cell[701604, 13898, 173, 2, 42, "Output",ExpressionUUID->"2f5eeabc-c18a-4dff-b861-2141f7ed746d"],
+Cell[701780, 13902, 173, 2, 42, "Output",ExpressionUUID->"a021286e-07d5-46d7-ad81-a57bf8aaf62c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[726266, 14400, 1960, 56, 142, "Input",ExpressionUUID->"afbf4542-7cc1-4920-8238-b47d7922799b"],
-Cell[728229, 14458, 93535, 1737, 76, "Output",ExpressionUUID->"286dfd69-1b64-41dd-ab71-bf848d0a8c31"],
-Cell[821767, 16197, 173, 2, 42, "Output",ExpressionUUID->"4b583b5b-0176-4730-ac95-2bdef450339e"],
-Cell[821943, 16201, 173, 2, 42, "Output",ExpressionUUID->"5be593d9-a970-4782-aace-88009f0bab5f"]
+Cell[701990, 13909, 1961, 56, 142, "Input",ExpressionUUID->"479fb483-095c-47a5-b63a-afec0a7f6185"],
+Cell[703954, 13967, 22141, 424, 76, "Output",ExpressionUUID->"5cda5875-5226-4189-b44c-1f671643d893"],
+Cell[726098, 14393, 173, 2, 42, "Output",ExpressionUUID->"263e6f76-6294-44d9-8dc2-5cd0f729c404"],
+Cell[726274, 14397, 173, 2, 42, "Output",ExpressionUUID->"d55440ee-dc59-40e6-a14f-ef5c989c8756"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[726484, 14404, 1960, 56, 142, "Input",ExpressionUUID->"afbf4542-7cc1-4920-8238-b47d7922799b"],
+Cell[728447, 14462, 93539, 1737, 76, "Output",ExpressionUUID->"286dfd69-1b64-41dd-ab71-bf848d0a8c31"],
+Cell[821989, 16201, 173, 2, 42, "Output",ExpressionUUID->"4b583b5b-0176-4730-ac95-2bdef450339e"],
+Cell[822165, 16205, 173, 2, 42, "Output",ExpressionUUID->"5be593d9-a970-4782-aace-88009f0bab5f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[822375, 16212, 1891, 54, 142, "Input",ExpressionUUID->"ab5399e2-3070-4f2a-b018-73caa2bee83c"],
+Cell[824269, 16268, 69316, 1345, 76, "Output",ExpressionUUID->"f8800308-8ed4-480e-abb7-c5244a535146"],
+Cell[893588, 17615, 153, 2, 42, "Output",ExpressionUUID->"c90e0e07-1096-4a41-a6f7-eb5f48bedebf"],
+Cell[893744, 17619, 153, 2, 62, "Output",ExpressionUUID->"34e4a14e-1c32-472f-9678-b61b658e0ad6"]
 }, Open  ]]
 }
 ]
