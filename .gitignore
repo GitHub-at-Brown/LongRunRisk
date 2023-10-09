@@ -2,3 +2,5 @@
 *.json
 /build/
 /ToProcess/
+/Tests/SolveEulerEq.wlt
+/Tests/ToNumber.wlt
