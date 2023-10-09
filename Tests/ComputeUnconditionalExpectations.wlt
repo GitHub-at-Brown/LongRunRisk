@@ -1,6 +1,16 @@
 BeginTestSection["ComputeUnconditionalExpectations"] 
 Begin["ComputationalEngine`Uncond`"]
 VerificationTest[
+	ComputationalEngine`Uncond`longTest = False;
+	True
+	,
+	True
+	,
+	{}
+	,
+	TestID->"ComputeUnconditionalExpectations_20231009-Y2A1M0"
+]
+VerificationTest[
 	Needs @ "PacletizedResourceFunctions`";
 	True
 	,
@@ -8,7 +18,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-CN914G"
+	TestID->"ComputeUnconditionalExpectations_20231009-XOPJLC"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`";
@@ -19,7 +29,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-71XUHO"
+	TestID->"ComputeUnconditionalExpectations_20231009-GZ2YXW"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"]
@@ -28,7 +38,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-AK6ZI1"
+	TestID->"ComputeUnconditionalExpectations_20231009-NYWY1X"
 ]
 VerificationTest[
 	!SameQ[Names @ "*uncondE", {}]
@@ -37,7 +47,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-ZD8YR6"
+	TestID->"ComputeUnconditionalExpectations_20231009-JS79WS"
 ]
 VerificationTest[
 	Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
@@ -53,104 +63,111 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-JJQ298"
+	TestID->"ComputeUnconditionalExpectations_20231009-4BGZH4"
 ]
 VerificationTest[
-	{ComputationalEngine`Uncond`nameRules1, ComputationalEngine`Uncond`system1, ComputationalEngine`Uncond`unknowns1} = ComputationalEngine`Uncond`createSystem[1, ComputationalEngine`Uncond`modNRC];
-	{ComputationalEngine`Uncond`nameRules2, ComputationalEngine`Uncond`system2, ComputationalEngine`Uncond`unknowns2} = ComputationalEngine`Uncond`createSystem[2, ComputationalEngine`Uncond`modNRC];
-	{ComputationalEngine`Uncond`nameRules3, ComputationalEngine`Uncond`system3, ComputationalEngine`Uncond`unknowns3} = ComputationalEngine`Uncond`createSystem[3, ComputationalEngine`Uncond`modNRC];
-	{ComputationalEngine`Uncond`nameRules4, ComputationalEngine`Uncond`system4, ComputationalEngine`Uncond`unknowns4} = ComputationalEngine`Uncond`createSystem[4, ComputationalEngine`Uncond`modNRC];
-	ComputationalEngine`Uncond`sol1 = Flatten @ Solve[ComputationalEngine`Uncond`system1, ComputationalEngine`Uncond`unknowns1];
-	ComputationalEngine`Uncond`sol2 = Flatten @ Solve[ComputationalEngine`Uncond`system2, ComputationalEngine`Uncond`unknowns2];
-	ComputationalEngine`Uncond`sol3 = Flatten @ Solve[ComputationalEngine`Uncond`system3, ComputationalEngine`Uncond`unknowns3];
-	ComputationalEngine`Uncond`sol4 = Flatten @ Solve[ComputationalEngine`Uncond`system4, ComputationalEngine`Uncond`unknowns4];
-	Apply[And,
-		{
-			Apply[And,
-				{
-					!SameQ[ComputationalEngine`Uncond`nameRules1, $Failed],
-					!SameQ[ComputationalEngine`Uncond`system1, $Failed],
-					!SameQ[ComputationalEngine`Uncond`unknowns1, $Failed]
-				}
-			],
-			Apply[And,
-				{
-					!SameQ[ComputationalEngine`Uncond`nameRules2, $Failed],
-					!SameQ[ComputationalEngine`Uncond`system2, $Failed],
-					!SameQ[ComputationalEngine`Uncond`unknowns2, $Failed]
-				}
-			],
-			Apply[And,
-				{
-					!SameQ[ComputationalEngine`Uncond`nameRules3, $Failed],
-					!SameQ[ComputationalEngine`Uncond`system3, $Failed],
-					!SameQ[ComputationalEngine`Uncond`unknowns3, $Failed]
-				}
-			],
-			Apply[And,
-				{
-					!SameQ[ComputationalEngine`Uncond`nameRules4, $Failed],
-					!SameQ[ComputationalEngine`Uncond`system4, $Failed],
-					!SameQ[ComputationalEngine`Uncond`unknowns4, $Failed]
-				}
-			],
-			Apply[And,
-				{
-					!SameQ[ComputationalEngine`Uncond`sol1, {}],
-					!SameQ[ComputationalEngine`Uncond`sol2, {}],
-					!SameQ[ComputationalEngine`Uncond`sol3, {}],
-					!SameQ[ComputationalEngine`Uncond`sol4, {}]
-				}
-			],
-			Apply[And,
-				{
-					Apply[MatchQ, Intersection[ComputationalEngine`Uncond`unknowns1, ComputationalEngine`Uncond`unknowns3] /. {ComputationalEngine`Uncond`sol1, ComputationalEngine`Uncond`sol3}],
-					Apply[MatchQ, Intersection[ComputationalEngine`Uncond`unknowns2, ComputationalEngine`Uncond`unknowns3] /. {ComputationalEngine`Uncond`sol2, ComputationalEngine`Uncond`sol3}],
-					Apply[MatchQ, Intersection[ComputationalEngine`Uncond`unknowns1, ComputationalEngine`Uncond`unknowns4] /. {ComputationalEngine`Uncond`sol1, ComputationalEngine`Uncond`sol4}],
-					Apply[MatchQ, Intersection[ComputationalEngine`Uncond`unknowns2, ComputationalEngine`Uncond`unknowns4] /. {ComputationalEngine`Uncond`sol2, ComputationalEngine`Uncond`sol4}],
-					Apply[MatchQ, Intersection[ComputationalEngine`Uncond`unknowns3, ComputationalEngine`Uncond`unknowns4] /. {ComputationalEngine`Uncond`sol3, ComputationalEngine`Uncond`sol4}]
-				}
-			]
-		}
+	If[ComputationalEngine`Uncond`longTest,
+		{ComputationalEngine`Uncond`nameRules1, ComputationalEngine`Uncond`system1, ComputationalEngine`Uncond`unknowns1} = ComputationalEngine`Uncond`createSystem[1, ComputationalEngine`Uncond`modNRC];
+		{ComputationalEngine`Uncond`nameRules2, ComputationalEngine`Uncond`system2, ComputationalEngine`Uncond`unknowns2} = ComputationalEngine`Uncond`createSystem[2, ComputationalEngine`Uncond`modNRC];
+		{ComputationalEngine`Uncond`nameRules3, ComputationalEngine`Uncond`system3, ComputationalEngine`Uncond`unknowns3} = ComputationalEngine`Uncond`createSystem[3, ComputationalEngine`Uncond`modNRC];
+		{ComputationalEngine`Uncond`nameRules4, ComputationalEngine`Uncond`system4, ComputationalEngine`Uncond`unknowns4} = ComputationalEngine`Uncond`createSystem[4, ComputationalEngine`Uncond`modNRC];
+		ComputationalEngine`Uncond`sol1 = Flatten @ Solve[ComputationalEngine`Uncond`system1, ComputationalEngine`Uncond`unknowns1];
+		ComputationalEngine`Uncond`sol2 = Flatten @ Solve[ComputationalEngine`Uncond`system2, ComputationalEngine`Uncond`unknowns2];
+		ComputationalEngine`Uncond`sol3 = Flatten @ Solve[ComputationalEngine`Uncond`system3, ComputationalEngine`Uncond`unknowns3];
+		ComputationalEngine`Uncond`sol4 = Flatten @ Solve[ComputationalEngine`Uncond`system4, ComputationalEngine`Uncond`unknowns4];
+		Apply[And,
+			{
+				Apply[And,
+					{
+						!SameQ[ComputationalEngine`Uncond`nameRules1, $Failed],
+						!SameQ[ComputationalEngine`Uncond`system1, $Failed],
+						!SameQ[ComputationalEngine`Uncond`unknowns1, $Failed]
+					}
+				],
+				Apply[And,
+					{
+						!SameQ[ComputationalEngine`Uncond`nameRules2, $Failed],
+						!SameQ[ComputationalEngine`Uncond`system2, $Failed],
+						!SameQ[ComputationalEngine`Uncond`unknowns2, $Failed]
+					}
+				],
+				Apply[And,
+					{
+						!SameQ[ComputationalEngine`Uncond`nameRules3, $Failed],
+						!SameQ[ComputationalEngine`Uncond`system3, $Failed],
+						!SameQ[ComputationalEngine`Uncond`unknowns3, $Failed]
+					}
+				],
+				Apply[And,
+					{
+						!SameQ[ComputationalEngine`Uncond`nameRules4, $Failed],
+						!SameQ[ComputationalEngine`Uncond`system4, $Failed],
+						!SameQ[ComputationalEngine`Uncond`unknowns4, $Failed]
+					}
+				],
+				Apply[And,
+					{
+						!SameQ[ComputationalEngine`Uncond`sol1, {}],
+						!SameQ[ComputationalEngine`Uncond`sol2, {}],
+						!SameQ[ComputationalEngine`Uncond`sol3, {}],
+						!SameQ[ComputationalEngine`Uncond`sol4, {}]
+					}
+				],
+				Apply[And,
+					{
+						Apply[MatchQ, Intersection[ComputationalEngine`Uncond`unknowns1, ComputationalEngine`Uncond`unknowns3] /. {ComputationalEngine`Uncond`sol1, ComputationalEngine`Uncond`sol3}],
+						Apply[MatchQ, Intersection[ComputationalEngine`Uncond`unknowns2, ComputationalEngine`Uncond`unknowns3] /. {ComputationalEngine`Uncond`sol2, ComputationalEngine`Uncond`sol3}],
+						Apply[MatchQ, Intersection[ComputationalEngine`Uncond`unknowns1, ComputationalEngine`Uncond`unknowns4] /. {ComputationalEngine`Uncond`sol1, ComputationalEngine`Uncond`sol4}],
+						Apply[MatchQ, Intersection[ComputationalEngine`Uncond`unknowns2, ComputationalEngine`Uncond`unknowns4] /. {ComputationalEngine`Uncond`sol2, ComputationalEngine`Uncond`sol4}],
+						Apply[MatchQ, Intersection[ComputationalEngine`Uncond`unknowns3, ComputationalEngine`Uncond`unknowns4] /. {ComputationalEngine`Uncond`sol3, ComputationalEngine`Uncond`sol4}]
+					}
+				]
+			}
+		],
+		True
 	]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-2H9YIE"
+	TestID->"ComputeUnconditionalExpectations_20231009-CZ0GQY"
 ]
 VerificationTest[
-	Apply[And,
-		{
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi1 /. ComputationalEngine`Uncond`sol1, FernandoDuarte`LongRunRisk`Model`Parameters`mup],
-			SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sg1 /. ComputationalEngine`Uncond`sol1, FernandoDuarte`LongRunRisk`Model`Parameters`Esg],
-			SameQ[FullSimplify[ExpandAll[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi2 /. ComputationalEngine`Uncond`sol2]],
-				FullSimplify[
-					ExpandAll[
-						Plus[FernandoDuarte`LongRunRisk`Model`Parameters`mup ^ 2,
-							Divide[
-								(FernandoDuarte`LongRunRisk`Model`Parameters`xip ^ 2) + (2 * FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Parameters`phip) + FernandoDuarte`LongRunRisk`Model`Parameters`phip ^ 2,
-								1 - FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2
+	If[ComputationalEngine`Uncond`longTest,
+		Apply[And,
+			{
+				SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi1 /. ComputationalEngine`Uncond`sol1, FernandoDuarte`LongRunRisk`Model`Parameters`mup],
+				SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sg1 /. ComputationalEngine`Uncond`sol1, FernandoDuarte`LongRunRisk`Model`Parameters`Esg],
+				SameQ[FullSimplify[ExpandAll[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi2 /. ComputationalEngine`Uncond`sol2]],
+					FullSimplify[
+						ExpandAll[
+							Plus[
+								FernandoDuarte`LongRunRisk`Model`Parameters`mup ^ 2,
+								Divide[
+									(FernandoDuarte`LongRunRisk`Model`Parameters`xip ^ 2) + (2 * FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip * FernandoDuarte`LongRunRisk`Model`Parameters`phip) + FernandoDuarte`LongRunRisk`Model`Parameters`phip ^ 2,
+									1 - FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2
+								]
 							]
 						]
 					]
-				]
-			],
-			SameQ[Simplify[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sg2 /. ComputationalEngine`Uncond`sol2],
-				Simplify[
-					(FernandoDuarte`LongRunRisk`Model`Parameters`Esg ^ 2) + (FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2) / (1 - FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2)
-				]
-			],
-			SameQ[Simplify[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi1sg1 /. ComputationalEngine`Uncond`sol2], Simplify[FernandoDuarte`LongRunRisk`Model`Parameters`Esg * FernandoDuarte`LongRunRisk`Model`Parameters`mup]]
-		}
+				],
+				SameQ[Simplify[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sg2 /. ComputationalEngine`Uncond`sol2],
+					Simplify[
+						(FernandoDuarte`LongRunRisk`Model`Parameters`Esg ^ 2) + (FernandoDuarte`LongRunRisk`Model`Parameters`phig ^ 2) / (1 - FernandoDuarte`LongRunRisk`Model`Parameters`rhog ^ 2)
+					]
+				],
+				SameQ[Simplify[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi1sg1 /. ComputationalEngine`Uncond`sol2], Simplify[FernandoDuarte`LongRunRisk`Model`Parameters`Esg * FernandoDuarte`LongRunRisk`Model`Parameters`mup]]
+			}
+		],
+		True
 	]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-07D8K1"
+	TestID->"ComputeUnconditionalExpectations_20231009-FMB7IM"
 ]
 VerificationTest[
 	Apply[And,
@@ -182,23 +199,26 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-8JVM8C"
+	TestID->"ComputeUnconditionalExpectations_20231009-WPV4HG"
 ]
 VerificationTest[
-	Apply[And,
-		{
-			Apply[And, Map[NumberQ, Values[ComputationalEngine`Uncond`sol1] //. ComputationalEngine`Uncond`modNRC["parameters"]]],
-			Apply[And, Map[NumberQ, Values[ComputationalEngine`Uncond`sol2] //. ComputationalEngine`Uncond`modNRC["parameters"]]],
-			Apply[And, Map[NumberQ, Values[ComputationalEngine`Uncond`sol3] //. ComputationalEngine`Uncond`modNRC["parameters"]]],
-			Apply[And, Map[NumberQ, Values[ComputationalEngine`Uncond`sol4] //. ComputationalEngine`Uncond`modNRC["parameters"]]]
-		}
+	If[ComputationalEngine`Uncond`longTest,
+		Apply[And,
+			{
+				Apply[And, Map[NumberQ, Values[ComputationalEngine`Uncond`sol1] //. ComputationalEngine`Uncond`modNRC["parameters"]]],
+				Apply[And, Map[NumberQ, Values[ComputationalEngine`Uncond`sol2] //. ComputationalEngine`Uncond`modNRC["parameters"]]],
+				Apply[And, Map[NumberQ, Values[ComputationalEngine`Uncond`sol3] //. ComputationalEngine`Uncond`modNRC["parameters"]]],
+				Apply[And, Map[NumberQ, Values[ComputationalEngine`Uncond`sol4] //. ComputationalEngine`Uncond`modNRC["parameters"]]]
+			}
+		],
+		True
 	]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-3RVDTA"
+	TestID->"ComputeUnconditionalExpectations_20231009-G55C7S"
 ]
 VerificationTest[
 	ComputationalEngine`Uncond`stateVarsNoEps = {ComputationalEngine`Uncond`sg, ComputationalEngine`Uncond`pi};
@@ -288,7 +308,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-CSQIKZ"
+	TestID->"ComputeUnconditionalExpectations_20231009-9SGNLF"
 ]
 VerificationTest[
 	Apply[And,
@@ -357,7 +377,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-X7QRK6"
+	TestID->"ComputeUnconditionalExpectations_20231009-85XFHY"
 ]
 VerificationTest[
 	Apply[And,
@@ -429,7 +449,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-QD5R66"
+	TestID->"ComputeUnconditionalExpectations_20231009-PB4F7D"
 ]
 VerificationTest[
 	Apply[And,
@@ -458,7 +478,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-BRRBF2"
+	TestID->"ComputeUnconditionalExpectations_20231009-30WGEQ"
 ]
 VerificationTest[
 	Apply[And,
@@ -488,7 +508,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-GPADHK"
+	TestID->"ComputeUnconditionalExpectations_20231009-BCBWDO"
 ]
 VerificationTest[
 	Apply[And,
@@ -580,7 +600,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-YG20Z4"
+	TestID->"ComputeUnconditionalExpectations_20231009-TW8KR1"
 ]
 VerificationTest[
 	Apply[And,
@@ -718,197 +738,211 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-SRG6D6"
+	TestID->"ComputeUnconditionalExpectations_20231009-4TOWYI"
 ]
 VerificationTest[
-	Apply[And,
-		{
-			SameQ[Simplify @ FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`wc @ ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`modNRC], FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A @ 0],
-			SameQ[Simplify @ FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`wc @ ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`modBY], FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A @ 0],
-			SameQ[0,
-				Simplify[
-					Subtract[
-						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] ^ 3, ComputationalEngine`Uncond`modNRC] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC],
-						FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[(ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] ^ 3) * ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC]
+	If[ComputationalEngine`Uncond`longTest,
+		Apply[And,
+			{
+				SameQ[Simplify @ FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`wc @ ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`modNRC], FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A @ 0],
+				SameQ[Simplify @ FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`wc @ ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`modBY], FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A @ 0],
+				SameQ[0,
+					Simplify[
+						Subtract[
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] ^ 3, ComputationalEngine`Uncond`modNRC] * FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC],
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[(ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] ^ 3) * ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC]
+						]
 					]
-				]
-			],
-			SameQ[0,
-				Simplify[
-					Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[(ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] ^ 3) * ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC],
-						Times[FernandoDuarte`LongRunRisk`Model`Parameters`Esg,
+				],
+				SameQ[0,
+					Simplify[
+						Subtract[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[(ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] ^ 3) * ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC],
 							Times[
-								FernandoDuarte`LongRunRisk`Model`Parameters`mup,
-								Subtract[
-									FernandoDuarte`LongRunRisk`Model`Parameters`mup ^ 2,
+								FernandoDuarte`LongRunRisk`Model`Parameters`Esg,
+								Times[
+									FernandoDuarte`LongRunRisk`Model`Parameters`mup,
+									Subtract[
+										FernandoDuarte`LongRunRisk`Model`Parameters`mup ^ 2,
+										Divide[
+											Times[
+												3,
+												(FernandoDuarte`LongRunRisk`Model`Parameters`phip ^ 2) + (2 * FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip) + FernandoDuarte`LongRunRisk`Model`Parameters`xip ^ 2
+											],
+											(FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) - 1
+										]
+									]
+								]
+							]
+						]
+					]
+				],
+				SameQ[Simplify @ PacletizedResourceFunctions`SetSymbolsContext @ FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`dc @ ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`modNRC], ComputationalEngine`Uncond`muc],
+				SameQ[
+					FullSimplify[Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`dc[ComputationalEngine`Uncond`t] ^ 2, ComputationalEngine`Uncond`modNRC]]]],
+					FullSimplify[
+						Expand[
+							Plus[
+								ComputationalEngine`Uncond`muc ^ 2,
+								Plus[
+									ComputationalEngine`Uncond`phic ^ 2,
+									Plus[
+										2 * ComputationalEngine`Uncond`Esg * ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`rhocp * ComputationalEngine`Uncond`xic,
+										Plus[
+											Times[
+												ComputationalEngine`Uncond`xic ^ 2,
+												(ComputationalEngine`Uncond`Esg ^ 2) + (ComputationalEngine`Uncond`phig ^ 2) / (1 - ComputationalEngine`Uncond`rhog ^ 2)
+											],
+											Divide[
+												Times[
+													ComputationalEngine`Uncond`rhocp ^ 2,
+													(ComputationalEngine`Uncond`phip ^ 2) + (2 * ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`xip) + ComputationalEngine`Uncond`xip ^ 2
+												],
+												1 - ComputationalEngine`Uncond`rhop ^ 2
+											]
+										]
+									]
+								]
+							]
+						]
+					]
+				],
+				SameQ[
+					FullSimplify[Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`dc[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC]]]],
+					FullSimplify[
+						Expand[
+							Plus[
+								ComputationalEngine`Uncond`muc * ComputationalEngine`Uncond`mup,
+								Plus[
+									ComputationalEngine`Uncond`rhocp * ComputationalEngine`Uncond`xip * ComputationalEngine`Uncond`phip,
+									Plus[
+										ComputationalEngine`Uncond`xic * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`Esg,
+										Plus[
+											ComputationalEngine`Uncond`xic * ComputationalEngine`Uncond`xip * ComputationalEngine`Uncond`Esg,
+											Divide[
+												Times[
+													ComputationalEngine`Uncond`rhocp * ComputationalEngine`Uncond`rhop,
+													(ComputationalEngine`Uncond`xip ^ 2) + (2 * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`xip * ComputationalEngine`Uncond`phip) + ComputationalEngine`Uncond`phip ^ 2
+												],
+												1 - ComputationalEngine`Uncond`rhop ^ 2
+											]
+										]
+									]
+								]
+							]
+						]
+					]
+				],
+				SameQ[
+					FullSimplify[Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`dc[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC]]]],
+					FullSimplify[Expand[ComputationalEngine`Uncond`muc * ComputationalEngine`Uncond`Esg]]
+				],
+				SameQ[
+					FullSimplify[
+						Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t + 1], ComputationalEngine`Uncond`modNRC]]]
+					],
+					FullSimplify[
+						Expand[
+							(ComputationalEngine`Uncond`Esg ^ 2) + (ComputationalEngine`Uncond`rhog / (1 - ComputationalEngine`Uncond`rhog ^ 2)) * ComputationalEngine`Uncond`phig ^ 2
+						]
+					]
+				],
+				SameQ[
+					FullSimplify[
+						Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t - 1], ComputationalEngine`Uncond`modNRC]]]
+					],
+					FullSimplify[
+						Expand[
+							(ComputationalEngine`Uncond`Esg ^ 2) + (ComputationalEngine`Uncond`rhog / (1 - ComputationalEngine`Uncond`rhog ^ 2)) * ComputationalEngine`Uncond`phig ^ 2
+						]
+					]
+				],
+				SameQ[
+					FullSimplify[
+						Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t + 1], ComputationalEngine`Uncond`modNRC]]]
+					],
+					FullSimplify[
+						Expand[
+							Plus[
+								ComputationalEngine`Uncond`mup ^ 2,
+								Plus[
+									ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`xip,
 									Divide[
 										Times[
-											3,
-											(FernandoDuarte`LongRunRisk`Model`Parameters`phip ^ 2) + (2 * FernandoDuarte`LongRunRisk`Model`Parameters`phip * FernandoDuarte`LongRunRisk`Model`Parameters`rhop * FernandoDuarte`LongRunRisk`Model`Parameters`xip) + FernandoDuarte`LongRunRisk`Model`Parameters`xip ^ 2
+											ComputationalEngine`Uncond`rhop,
+											(ComputationalEngine`Uncond`phip ^ 2) + (2 * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`xip * ComputationalEngine`Uncond`phip) + ComputationalEngine`Uncond`xip ^ 2
 										],
-										(FernandoDuarte`LongRunRisk`Model`Parameters`rhop ^ 2) - 1
+										1 - ComputationalEngine`Uncond`rhop ^ 2
 									]
 								]
 							]
 						]
 					]
-				]
-			],
-			SameQ[Simplify @ PacletizedResourceFunctions`SetSymbolsContext @ FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`dc @ ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`modNRC], ComputationalEngine`Uncond`muc],
-			SameQ[
-				FullSimplify[Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`dc[ComputationalEngine`Uncond`t] ^ 2, ComputationalEngine`Uncond`modNRC]]]],
-				FullSimplify[
-					Expand[
-						Plus[ComputationalEngine`Uncond`muc ^ 2,
+				],
+				SameQ[
+					FullSimplify[
+						Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1], ComputationalEngine`Uncond`modNRC]]]
+					],
+					FullSimplify[
+						Expand[
 							Plus[
-								ComputationalEngine`Uncond`phic ^ 2,
+								ComputationalEngine`Uncond`mup ^ 2,
 								Plus[
-									2 * ComputationalEngine`Uncond`Esg * ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`rhocp * ComputationalEngine`Uncond`xic,
-									Plus[
+									ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`xip,
+									Divide[
 										Times[
-											ComputationalEngine`Uncond`xic ^ 2,
-											(ComputationalEngine`Uncond`Esg ^ 2) + (ComputationalEngine`Uncond`phig ^ 2) / (1 - ComputationalEngine`Uncond`rhog ^ 2)
+											ComputationalEngine`Uncond`rhop,
+											(ComputationalEngine`Uncond`phip ^ 2) + (2 * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`xip * ComputationalEngine`Uncond`phip) + ComputationalEngine`Uncond`xip ^ 2
 										],
-										Divide[
-											Times[
-												ComputationalEngine`Uncond`rhocp ^ 2,
-												(ComputationalEngine`Uncond`phip ^ 2) + (2 * ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`xip) + ComputationalEngine`Uncond`xip ^ 2
-											],
-											1 - ComputationalEngine`Uncond`rhop ^ 2
-										]
+										1 - ComputationalEngine`Uncond`rhop ^ 2
 									]
 								]
 							]
 						]
 					]
-				]
-			],
-			SameQ[
-				FullSimplify[Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`dc[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC]]]],
-				FullSimplify[
-					Expand[
-						Plus[ComputationalEngine`Uncond`muc * ComputationalEngine`Uncond`mup,
+				],
+				SameQ[
+					FullSimplify[
+						Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t + 1], ComputationalEngine`Uncond`modNRC]]]
+					],
+					FullSimplify[Expand[ComputationalEngine`Uncond`Esg * ComputationalEngine`Uncond`mup]]
+				],
+				SameQ[
+					FullSimplify[
+						Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1] * ComputationalEngine`Uncond`dc[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC]]]
+					],
+					FullSimplify[
+						Expand[
 							Plus[
-								ComputationalEngine`Uncond`rhocp * ComputationalEngine`Uncond`xip * ComputationalEngine`Uncond`phip,
+								ComputationalEngine`Uncond`muc * ComputationalEngine`Uncond`mup,
 								Plus[
-									ComputationalEngine`Uncond`xic * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`Esg,
-									Plus[
-										ComputationalEngine`Uncond`xic * ComputationalEngine`Uncond`xip * ComputationalEngine`Uncond`Esg,
-										Divide[
-											Times[
-												ComputationalEngine`Uncond`rhocp * ComputationalEngine`Uncond`rhop,
-												(ComputationalEngine`Uncond`xip ^ 2) + (2 * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`xip * ComputationalEngine`Uncond`phip) + ComputationalEngine`Uncond`phip ^ 2
-											],
-											1 - ComputationalEngine`Uncond`rhop ^ 2
-										]
+									ComputationalEngine`Uncond`Esg * ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`xic,
+									Divide[
+										Times[
+											ComputationalEngine`Uncond`rhocp,
+											(ComputationalEngine`Uncond`phip ^ 2) + (2 * ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`xip) + ComputationalEngine`Uncond`xip ^ 2
+										],
+										1 - ComputationalEngine`Uncond`rhop ^ 2
 									]
 								]
 							]
 						]
 					]
 				]
-			],
-			SameQ[
-				FullSimplify[Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`dc[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC]]]],
-				FullSimplify[Expand[ComputationalEngine`Uncond`muc * ComputationalEngine`Uncond`Esg]]
-			],
-			SameQ[
-				FullSimplify[
-					Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t + 1], ComputationalEngine`Uncond`modNRC]]]
-				],
-				FullSimplify[
-					Expand[
-						(ComputationalEngine`Uncond`Esg ^ 2) + (ComputationalEngine`Uncond`rhog / (1 - ComputationalEngine`Uncond`rhog ^ 2)) * ComputationalEngine`Uncond`phig ^ 2
-					]
-				]
-			],
-			SameQ[
-				FullSimplify[
-					Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t - 1], ComputationalEngine`Uncond`modNRC]]]
-				],
-				FullSimplify[
-					Expand[
-						(ComputationalEngine`Uncond`Esg ^ 2) + (ComputationalEngine`Uncond`rhog / (1 - ComputationalEngine`Uncond`rhog ^ 2)) * ComputationalEngine`Uncond`phig ^ 2
-					]
-				]
-			],
-			SameQ[
-				FullSimplify[
-					Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t + 1], ComputationalEngine`Uncond`modNRC]]]
-				],
-				FullSimplify[
-					Expand[
-						Plus[ComputationalEngine`Uncond`mup ^ 2,
-							Plus[
-								ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`xip,
-								Divide[
-									Times[
-										ComputationalEngine`Uncond`rhop,
-										(ComputationalEngine`Uncond`phip ^ 2) + (2 * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`xip * ComputationalEngine`Uncond`phip) + ComputationalEngine`Uncond`xip ^ 2
-									],
-									1 - ComputationalEngine`Uncond`rhop ^ 2
-								]
-							]
-						]
-					]
-				]
-			],
-			SameQ[
-				FullSimplify[
-					Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1], ComputationalEngine`Uncond`modNRC]]]
-				],
-				FullSimplify[
-					Expand[
-						Plus[ComputationalEngine`Uncond`mup ^ 2,
-							Plus[
-								ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`xip,
-								Divide[
-									Times[
-										ComputationalEngine`Uncond`rhop,
-										(ComputationalEngine`Uncond`phip ^ 2) + (2 * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`xip * ComputationalEngine`Uncond`phip) + ComputationalEngine`Uncond`xip ^ 2
-									],
-									1 - ComputationalEngine`Uncond`rhop ^ 2
-								]
-							]
-						]
-					]
-				]
-			],
-			SameQ[
-				FullSimplify[
-					Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] * ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t + 1], ComputationalEngine`Uncond`modNRC]]]
-				],
-				FullSimplify[Expand[ComputationalEngine`Uncond`Esg * ComputationalEngine`Uncond`mup]]
-			],
-			SameQ[
-				FullSimplify[
-					Expand[PacletizedResourceFunctions`SetSymbolsContext[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1] * ComputationalEngine`Uncond`dc[ComputationalEngine`Uncond`t], ComputationalEngine`Uncond`modNRC]]]
-				],
-				FullSimplify[
-					Expand[
-						Plus[ComputationalEngine`Uncond`muc * ComputationalEngine`Uncond`mup,
-							Plus[
-								ComputationalEngine`Uncond`Esg * ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`xic,
-								Divide[
-									Times[
-										ComputationalEngine`Uncond`rhocp,
-										(ComputationalEngine`Uncond`phip ^ 2) + (2 * ComputationalEngine`Uncond`phip * ComputationalEngine`Uncond`rhop * ComputationalEngine`Uncond`xip) + ComputationalEngine`Uncond`xip ^ 2
-									],
-									1 - ComputationalEngine`Uncond`rhop ^ 2
-								]
-							]
-						]
-					]
-				]
-			]
-		}
+			}
+		],
+		Apply[And,
+			{
+				SameQ[Simplify @ FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`wc @ ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`modNRC], FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A @ 0],
+				SameQ[Simplify @ FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[ComputationalEngine`Uncond`wc @ ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`modBY], FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A @ 0]
+			}
+		]
 	]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231007-YVCN6D"
+	TestID->"ComputeUnconditionalExpectations_20231009-2MEZC4"
 ] 
 End[]
 EndTestSection[]
