@@ -75,18 +75,15 @@ $ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq
 <<MaTeX`;
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Helper functions*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Usage*)
 
 
-
-
-
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*createEqTables*)
 
 
@@ -227,7 +224,7 @@ paramTable[m_]:=Module[
 		{
 		"Parameters in this model",
 			Grid[
-				Transpose@{
+				Transpose @ {
 					Join[
 						{"Mathematica"},
 						Keys[mtom]
@@ -238,7 +235,7 @@ paramTable[m_]:=Module[
 					],
 					Join[
 						{"Symbol"},
-						MaTeX[Values[mtom],FontSize->16]
+						If[$Notebooks,MaTeX[Values[mtom],FontSize->16],Values[mtom]]
 					],
 					Join[
 						{"Initial value"},
@@ -287,7 +284,7 @@ paramTable[m_]:=Module[
 ](*module*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*allParamTable*)
 
 
@@ -307,7 +304,7 @@ allParamTable[m_]:=OpenerView[
 				],
 				Join[
 					{"Symbol"},
-					MaTeX[Values[modelToTeX],FontSize->16]
+					If[$Notebooks,MaTeX[Values[modelToTeX],FontSize->16],Values[modelToTeX]]
 				],
 				Join[
 					{"Fixed value"},
@@ -363,7 +360,7 @@ allParamTable[m_]:=OpenerView[
 ](*OpenerView*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*iToNum*)
 
 
@@ -387,7 +384,7 @@ iToNum[s : <|(_String -> _String)..|>, numStocks_Integer:1] :=
 	Map[iToNum[#, numStocks]&, (Normal @ s)]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*modelToTeX*)
 
 
@@ -483,7 +480,7 @@ modelToTeX=<|
 TeXToModel=Association@Reverse[Normal[modelToTeX],{2}];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*modelToTeXStocks*)
 
 
@@ -503,14 +500,14 @@ modelToTeXStocks=Association@Thread[
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*modelToTeXNoStocks*)
 
 
 modelToTeXNoStocks=Complement[modelToTeX,modelToTeXStocks];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*formatModels*)
 
 
@@ -541,7 +538,7 @@ formatModels[m_Association/; MemberQ[Values[m], _Association]]:=Module[
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*modelFormattingTemplate*)
 
 
@@ -710,21 +707,21 @@ modelFormattingTemplate[
 ](*close With*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*stringFormattingTemplate*)
 
 
 stringFormattingTemplate[str_String,lineLength_Number:40]:=StringReplace[InsertLinebreaks[StringDelete[str,"\n"],lineLength],"\n"->"\n\t\t\t"];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*numberFormattingTemplate*)
 
 
 numberFormattingTemplate[num_,opts:OptionsPattern[]]:=ToString[Evaluate[N[num]],InputForm,FilterRules[{opts},Options[ToString]],NumberMarks->False];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*stripContext*)
 
 
@@ -751,14 +748,14 @@ stripContext[x_]:= Module[
 stripContext[x_?AtomQ]:=stripContext[{x}][[1]]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*separator*)
 
 
 separator[lineLength_Number:60] := RowBox[{"(*", StringRepeat["*",lineLength-4]<>"*)"}];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*toCatalog*)
 
 

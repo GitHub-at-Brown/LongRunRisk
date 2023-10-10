@@ -10,7 +10,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20231009-J0EJJE"
+	TestID->"SolveEulerEq_20231010-MLR2IR"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -620,7 +620,7 @@ VerificationTest[
 			];
 			ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
 		];
-		ComputationalEngine`SolveEulerEq`maxMaturity = If[ComputationalEngine`SolveEulerEq`longTest, 12, 2];
+		ComputationalEngine`SolveEulerEq`maxMaturity = 12;
 		ComputationalEngine`SolveEulerEq`solBond = ComputationalEngine`SolveEulerEq`updateCoeffsBond[ComputationalEngine`SolveEulerEq`model["coeffsSolution"]["bond"],
 			ComputationalEngine`SolveEulerEq`model @ "params", {}, ComputationalEngine`SolveEulerEq`maxMaturity, ComputationalEngine`SolveEulerEq`solWc
 		];
@@ -847,7 +847,7 @@ VerificationTest[
  HoldForm[Message[checks::largeresid, 1.1383179045888502*^-12, 1.*^-20]], 
  HoldForm[Message[FindRoot::cvmit, HoldForm[100]]]}
 	,
-	TestID->"SolveEulerEq_20231009-1PZFOB"
+	TestID->"SolveEulerEq_20231010-PEFY87"
 ] 
 End[]
 EndTestSection[]

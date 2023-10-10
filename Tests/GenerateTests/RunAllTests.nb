@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    962487,      17696]
-NotebookOptionsPosition[    952446,      17549]
-NotebookOutlinePosition[    952914,      17567]
-CellTagsIndexPosition[    952871,      17564]
+NotebookDataLength[    966462,      17788]
+NotebookOptionsPosition[    956005,      17635]
+NotebookOutlinePosition[    956473,      17653]
+CellTagsIndexPosition[    956430,      17650]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -29,7 +29,7 @@ Cell[BoxData[
  RowBox[{"Quit", "[", "]"}]], "Input",
  CellChangeTimes->{{3.8899684458207283`*^9, 3.889968446659306*^9}, 
    3.905687785878962*^9, 3.905697493964726*^9},
- CellLabel->"In[75]:=",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
+ CellLabel->"In[7]:=",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
 
 Cell[CellGroupData[{
 
@@ -68,15 +68,17 @@ Cell[BoxData[{
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/\"\>"], "Output",
  CellChangeTimes->{
-  3.905876869513242*^9, {3.905876986465622*^9, 3.905877013964843*^9}},
- CellLabel->"Out[1]=",ExpressionUUID->"c12fb191-1b41-4aa7-b373-5f0ac5479054"],
+  3.905876869513242*^9, {3.905876986465622*^9, 3.905877013964843*^9}, 
+   3.90590135292181*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"f0461080-b8f0-4951-b6f2-1231af50aaa5"],
 
 Cell[BoxData[
  RowBox[{"{", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/\"\>", "}"}]], "Output",
  CellChangeTimes->{
-  3.905876869513242*^9, {3.905876986465622*^9, 3.9058770140006723`*^9}},
- CellLabel->"Out[2]=",ExpressionUUID->"004e97a1-2250-4b25-8fca-db85cb446930"],
+  3.905876869513242*^9, {3.905876986465622*^9, 3.905877013964843*^9}, 
+   3.905901352958118*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"8d31b7e2-a278-4a25-a9d5-42bcbd036b1a"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -108,16 +110,18 @@ Cell[BoxData[
 (Personal)/MyPackages/LongRunRisk/Tests/ToNumber.wlt\"\>"}], "}"}]], "Output",\
 
  CellChangeTimes->{
-  3.905876869513242*^9, {3.905876986465622*^9, 3.905877014001512*^9}},
- CellLabel->"Out[3]=",ExpressionUUID->"b97fd7fb-5855-4a06-8181-c218aadc4e62"],
+  3.905876869513242*^9, {3.905876986465622*^9, 3.905877013964843*^9}, 
+   3.905901352958894*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"afd55ddb-14b0-4c68-9038-e208862619f9"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{"\<\"Wolfram`Chatbook`\"\>", ",", "\<\"System`\"\>", 
    ",", "\<\"Global`\"\>"}], "}"}]], "Output",
  CellChangeTimes->{
-  3.905876869513242*^9, {3.905876986465622*^9, 3.905877014002445*^9}},
- CellLabel->"Out[4]=",ExpressionUUID->"a40fabeb-972c-4a70-b771-61b6d1b0cd72"]
+  3.905876869513242*^9, {3.905876986465622*^9, 3.905877013964843*^9}, 
+   3.905901352959778*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"fe7a633d-ab25-4ddf-8df9-bbf871baad73"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -490,8 +494,9 @@ Cell[BoxData[
  RowBox[{"Quit", "[", "]"}]], "Input",
  CellChangeTimes->{{3.8899684458207283`*^9, 3.889968446659306*^9}, 
    3.905687785878962*^9, 3.905697493964726*^9},
- CellLabel->
-  "In[120]:=",ExpressionUUID->"b7145b60-97f2-4c82-a22d-4a857448917d"],
+ CellLabel->"In[28]:=",ExpressionUUID->"b7145b60-97f2-4c82-a22d-4a857448917d"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{"pacletBaseDir", "=", 
@@ -524,6 +529,57 @@ Cell[BoxData[{
    3.8905556405146093`*^9}, {3.8905942747634373`*^9, 3.890594276210952*^9}, {
    3.891158085135849*^9, 3.891158137208028*^9}},
  CellLabel->"In[1]:=",ExpressionUUID->"b694159f-2a88-4f10-b86e-66a9ab5899ad"],
+
+Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/\"\>"], "Output",
+ CellChangeTimes->{3.905902356646802*^9, 3.9059033147968693`*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"d30685e3-3b2f-4d79-b4d1-1f7a2e1371b6"],
+
+Cell[BoxData[
+ RowBox[{"{", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/\"\>", "}"}]], "Output",
+ CellChangeTimes->{3.905902356646802*^9, 3.905903314835949*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"56d1d15d-499b-4fee-9bfb-c870618b42e7"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt\"\>", 
+   ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt\"\>\
+", ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ComputeUnconditionalExpectations.wlt\"\
+\>", ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt\"\>", 
+   ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt\"\>", 
+   ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ExogenousEq.wlt\"\>", 
+   ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>", 
+   ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt\"\>", 
+   ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt\"\>", 
+   ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt\"\>", 
+   ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/SolveEulerEq.wlt\"\>", 
+   ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/TimeAggregation.wlt\"\>", 
+   ",", "\<\"/Users/fernandoduarte/Dropbox \
+(Personal)/MyPackages/LongRunRisk/Tests/ToNumber.wlt\"\>"}], "}"}]], "Output",\
+
+ CellChangeTimes->{3.905902356646802*^9, 3.905903314837708*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"3de08457-1f6a-4031-9123-31ea07fac907"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Wolfram`Chatbook`\"\>", ",", "\<\"System`\"\>", 
+   ",", "\<\"Global`\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.905902356646802*^9, 3.905903314838747*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"33753bab-922b-47c8-a424-700d04df4a42"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3463,12 +3519,12 @@ t, ComputationalEngine`Cond`modNRC]], (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`xid[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xid[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    1]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]))]\
 ], 0 === Simplify[
                Subtract[
@@ -3489,22 +3545,22 @@ t, ComputationalEngine`Cond`modNRC]], (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xid[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xid[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] 
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    1]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])) \
 (FernandoDuarte`LongRunRisk`Model`Parameters`muc + (
                    FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    1]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])) + 
                 FernandoDuarte`LongRunRisk`Model`Parameters`phic 
                  FernandoDuarte`LongRunRisk`Model`Parameters`phidc[
@@ -3514,12 +3570,12 @@ t, ComputationalEngine`Cond`modNRC]], (
                 PacletizedResourceFunctions`SetSymbolsContext[
                  
                  FernandoDuarte`LongRunRisk`ComputationalEngine`\
-ComputeConditionalExpectations`ev[
-                 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 3]
-                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2]
-                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+ComputeConditionalExpectations`ev[(
+                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 
+                    3] FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\
+dc[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 2]) 
+                  FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 
                     1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\
 t, ComputationalEngine`Cond`modNRC]], (
@@ -3536,20 +3592,20 @@ t, ComputationalEngine`Cond`modNRC]], (
                     FernandoDuarte`LongRunRisk`Model`Parameters`xip 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])) \
-(FernandoDuarte`LongRunRisk`Model`Parameters`muc + (
+(FernandoDuarte`LongRunRisk`Model`Parameters`muc + ((
                     FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop) (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
                     FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])) + \
 (FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`phip^2 + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`xic 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`phip 
+                   FernandoDuarte`LongRunRisk`Model`Parameters`phip^2 + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`phip) 
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]))]\
 ], 0 === Simplify[
@@ -3576,9 +3632,9 @@ t, ComputationalEngine`Cond`modNRC]], (
                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])) + \
 (FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
@@ -3626,20 +3682,20 @@ t, ComputationalEngine`Cond`modNRC]], (
                    FernandoDuarte`LongRunRisk`Model`Parameters`xip 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])) \
-(FernandoDuarte`LongRunRisk`Model`Parameters`muc + (
-                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop (
+(FernandoDuarte`LongRunRisk`Model`Parameters`muc + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop) (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])) + \
 (FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`phip^2 + 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`xic 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`phip 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`phip^2 + (
+                   FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                   FernandoDuarte`LongRunRisk`Model`Parameters`phip) 
                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])]],
               0 === Simplify[
@@ -3666,11 +3722,11 @@ t, ComputationalEngine`Cond`modNRC]], (
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`xic 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    1]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]))]\
 ], 0 === Simplify[
                Subtract[
@@ -3690,11 +3746,11 @@ ComputeConditionalExpectations`ev[
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    2] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    2]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     1] + FernandoDuarte`LongRunRisk`Model`Parameters`phic 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][
@@ -3717,11 +3773,11 @@ t, ComputationalEngine`Cond`modNRC]],
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    3] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    3]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     2] + FernandoDuarte`LongRunRisk`Model`Parameters`phic 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][
@@ -3744,11 +3800,11 @@ t, ComputationalEngine`Cond`modNRC]],
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    3] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    3] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    4] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    4]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     3] + FernandoDuarte`LongRunRisk`Model`Parameters`phic 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][
@@ -3764,9 +3820,9 @@ ComputeConditionalExpectations`ev[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 
                     1]^2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`\
-Private`t, ComputationalEngine`Cond`modNRC]], (1 - 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhog) 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`Esg 
+Private`t, ComputationalEngine`Cond`modNRC]], ((1 - 
+                   FernandoDuarte`LongRunRisk`Model`Parameters`rhog) 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`Esg) 
                  PacletizedResourceFunctions`SetSymbolsContext[
                    
                    FernandoDuarte`LongRunRisk`ComputationalEngine`\
@@ -3826,9 +3882,9 @@ ComputeConditionalExpectations`ev[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 
                     1]^2, FernandoDuarte`LongRunRisk`Model`ExogenousEq`\
-Private`t, ComputationalEngine`Cond`modNRC]], (1 - 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhog^2) 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`Esg 
+Private`t, ComputationalEngine`Cond`modNRC]], ((1 - 
+                   FernandoDuarte`LongRunRisk`Model`Parameters`rhog^2) 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`Esg) 
                  PacletizedResourceFunctions`SetSymbolsContext[
                    
                    FernandoDuarte`LongRunRisk`ComputationalEngine`\
@@ -4110,9 +4166,9 @@ t - 1, ComputationalEngine`Cond`modNRC]], (
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     1]))]], 0 === Simplify[
@@ -4136,9 +4192,9 @@ t - 2, ComputationalEngine`Cond`modNRC]], (
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop^3 (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     2]))]], 0 === Simplify[
@@ -4341,14 +4397,14 @@ ComputeConditionalExpectations`ev[
                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1],
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1,
                    ComputationalEngine`Cond`modNRC]], 
-                FernandoDuarte`LongRunRisk`Model`Parameters`muc + (
-                 FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop (
+                FernandoDuarte`LongRunRisk`Model`Parameters`muc + ((
+                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
+                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop) (
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
+                   FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                   FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     1])]], 0 === Simplify[
@@ -4365,11 +4421,11 @@ ComputeConditionalExpectations`ev[
                  FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`xic 
-                  FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 2]
-                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                   FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
+                    2]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     1])]]}]], "ExpectedMessages" -> HoldForm[{}], 
          "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
@@ -4407,11 +4463,11 @@ ComputeConditionalExpectations`ev[
                  FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
-                  FernandoDuarte`LongRunRisk`Model`Parameters`xic 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    3] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    3]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     2] + FernandoDuarte`LongRunRisk`Model`Parameters`phic 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][
@@ -4430,11 +4486,11 @@ t - 1, ComputationalEngine`Cond`modNRC]],
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    3] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    3]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     2] + FernandoDuarte`LongRunRisk`Model`Parameters`phic 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][
@@ -4446,11 +4502,11 @@ t - 1, ComputationalEngine`Cond`modNRC]],
                  FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    3] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
-                  FernandoDuarte`LongRunRisk`Model`Parameters`xic 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    3] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    4] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    4]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     3] + FernandoDuarte`LongRunRisk`Model`Parameters`phic 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][
@@ -4469,11 +4525,11 @@ t - 1, ComputationalEngine`Cond`modNRC]],
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    3] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    3] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    4] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    4]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     3] + FernandoDuarte`LongRunRisk`Model`Parameters`phic 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][
@@ -4492,11 +4548,11 @@ t, ComputationalEngine`Cond`modNRC]],
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`xic 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    1]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])]]\
 , 0 === Simplify[
                 Subtract[
@@ -4508,14 +4564,14 @@ ComputeConditionalExpectations`ev[
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 
                     1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\
 t - 1, ComputationalEngine`Cond`modNRC]], 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`muc + (
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop (
+                 FernandoDuarte`LongRunRisk`Model`Parameters`muc + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop) (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     1])]], 0 === Simplify[
@@ -4528,15 +4584,15 @@ ComputeConditionalExpectations`ev[
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 
                     1], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`\
 t - 2, ComputationalEngine`Cond`modNRC]], 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`muc + (
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 (
+                 FernandoDuarte`LongRunRisk`Model`Parameters`muc + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2) (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhocp 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop) 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     2])]], 0 === Simplify[
@@ -4594,9 +4650,9 @@ pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1],
                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     1])) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
@@ -4617,9 +4673,9 @@ pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t + 1],
                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     1])) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
@@ -4937,9 +4993,9 @@ t, ComputationalEngine`Cond`modNRC]], (
                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])) 
                  FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
@@ -5141,9 +5197,9 @@ t, ComputationalEngine`Cond`modNRC]],
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])]]\
 , 0 === Simplify[
@@ -5160,9 +5216,9 @@ t - 1, ComputationalEngine`Cond`modNRC]],
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop^3 (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     1])]], 0 === Simplify[
@@ -5179,9 +5235,9 @@ t - 2, ComputationalEngine`Cond`modNRC]],
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop^4 (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop^3 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop^3 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     2])]], 0 === Simplify[
@@ -5216,9 +5272,9 @@ t - 1, ComputationalEngine`Cond`modNRC]],
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    1] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     1])]], 0 === Simplify[
@@ -5235,9 +5291,9 @@ t - 2, ComputationalEngine`Cond`modNRC]],
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop^3 (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    2] - FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
                     2])]], 0 === Simplify[
@@ -5272,11 +5328,11 @@ t, ComputationalEngine`Cond`modNRC]],
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`xic 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xic 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    1]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])]]\
 , 0 === Simplify[PacletizedResourceFunctions`SetSymbolsContext[
                   
@@ -5308,12 +5364,12 @@ ComputeConditionalExpectations`ev[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`xid[
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xid[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    1]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t])]]\
 , 0 === Simplify[
                 Subtract[
@@ -5347,11 +5403,11 @@ Private`t, ComputationalEngine`Cond`modNRC]], (
                     FernandoDuarte`LongRunRisk`Model`Parameters`rhocp (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
                     FernandoDuarte`LongRunRisk`Model`Parameters`xic 
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    1]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]))^\
 2 + FernandoDuarte`LongRunRisk`Model`Parameters`phic^2]], 0 === Simplify[
                 Subtract[
@@ -5386,12 +5442,12 @@ ComputeConditionalExpectations`ev[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] (
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] - 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`mup) + (
                     FernandoDuarte`LongRunRisk`Model`Parameters`xid[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i] 
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 
-                    1] FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                    1]) FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]))^\
 2 + FernandoDuarte`LongRunRisk`Model`Parameters`phidc[
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`i]^2]]\
@@ -6642,19 +6698,19 @@ ComputeConditionalExpectations`Private`lagStateVarst[
                FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, 
                ComputationalEngine`Cond`modNRC], 
              FernandoDuarte`LongRunRisk`ComputationalEngine`\
-ComputeConditionalExpectations`Private`lagStateVarst[
-              foo`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] 
-               FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] 
+ComputeConditionalExpectations`Private`lagStateVarst[(
+                foo`pi[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
+                  FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
+                 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]) 
                bar`delta, 
                FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, 
                ComputationalEngine`Cond`modNRC] === 
              FernandoDuarte`LongRunRisk`ComputationalEngine`\
-ComputeConditionalExpectations`Private`lagStateVarst[
-              FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-                FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] 
-               foo`eps["pi"][
-                FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] 
+ComputeConditionalExpectations`Private`lagStateVarst[(
+                FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t] 
+                foo`eps["pi"][
+                 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]) 
                FernandoDuarte`LongRunRisk`Model`Parameters`delta, 
                FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t - 1, 
                ComputationalEngine`Cond`modNRC], 
@@ -7226,9 +7282,9 @@ ComputeUnconditionalExpectations`Private`pi2,
                   ComputationalEngine`Uncond`sol2]]] === FullSimplify[
                 ExpandAll[
                 FernandoDuarte`LongRunRisk`Model`Parameters`mup^2 + 
-                 Divide[FernandoDuarte`LongRunRisk`Model`Parameters`xip^2 + 
-                   2 FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                 Divide[FernandoDuarte`LongRunRisk`Model`Parameters`xip^2 + ((
+                    2 FernandoDuarte`LongRunRisk`Model`Parameters`rhop) 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                     FernandoDuarte`LongRunRisk`Model`Parameters`phip + 
                    FernandoDuarte`LongRunRisk`Model`Parameters`phip^2, 1 - 
                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2]]], 
@@ -7284,9 +7340,9 @@ ComputeUnconditionalExpectations`uncondE[
                   ComputationalEngine`Uncond`modNRC]]] === FullSimplify[
                ExpandAll[
                FernandoDuarte`LongRunRisk`Model`Parameters`mup^2 + 
-                Divide[FernandoDuarte`LongRunRisk`Model`Parameters`xip^2 + 
-                  2 FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                Divide[FernandoDuarte`LongRunRisk`Model`Parameters`xip^2 + ((
+                    2 FernandoDuarte`LongRunRisk`Model`Parameters`rhop) 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip) 
                    FernandoDuarte`LongRunRisk`Model`Parameters`phip + 
                   FernandoDuarte`LongRunRisk`Model`Parameters`phip^2, 1 - 
                   FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2]]], 
@@ -7404,19 +7460,19 @@ ComputeUnconditionalExpectations`uncondE[
                 Subtract[
                 FernandoDuarte`LongRunRisk`Model`Parameters`Esg 
                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-                   ComputationalEngine`Uncond`t - 1] + (
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhog 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-                    ComputationalEngine`Uncond`t - 1] 
+                   ComputationalEngine`Uncond`t - 1] + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhog 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                    ComputationalEngine`Uncond`t - 1]) 
                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
-                    ComputationalEngine`Uncond`t - 1] + 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`phig 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-                    ComputationalEngine`Uncond`t - 1] 
+                    ComputationalEngine`Uncond`t - 1] + (
+                    FernandoDuarte`LongRunRisk`Model`Parameters`phig 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                    ComputationalEngine`Uncond`t - 1]) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"][
-                    ComputationalEngine`Uncond`t]), 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`Esg 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`rhog 
+                    ComputationalEngine`Uncond`t]), (
+                  FernandoDuarte`LongRunRisk`Model`Parameters`Esg 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`rhog) 
                  FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                   ComputationalEngine`Uncond`t - 1]]], ExpandAll[
                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
@@ -7428,22 +7484,22 @@ ComputeUnconditionalExpectations`uncondE[
                 Subtract[
                 FernandoDuarte`LongRunRisk`Model`Parameters`mup 
                   FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                   ComputationalEngine`Uncond`t] + (
-                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-                    ComputationalEngine`Uncond`t - 1] 
+                   ComputationalEngine`Uncond`t] + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                    ComputationalEngine`Uncond`t - 1]) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t] + (
-                   FernandoDuarte`LongRunRisk`Model`Parameters`xip 
+                    ComputationalEngine`Uncond`t] + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`xip 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t - 1] 
+                    ComputationalEngine`Uncond`t - 1]) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     ComputationalEngine`Uncond`t] + 
                    FernandoDuarte`LongRunRisk`Model`Parameters`phip 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t]^2)), 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`mup 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    ComputationalEngine`Uncond`t]^2)), (
+                  FernandoDuarte`LongRunRisk`Model`Parameters`mup 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`rhop) 
                  FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                   ComputationalEngine`Uncond`t]]], 
               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
@@ -7481,30 +7537,30 @@ ComputeUnconditionalExpectations`uncondE[
                 FernandoDuarte`LongRunRisk`Model`Parameters`mud[
                    ComputationalEngine`Uncond`i] 
                   FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                   ComputationalEngine`Uncond`t] + (
-                  FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                   ComputationalEngine`Uncond`t] + ((
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
                     ComputationalEngine`Uncond`t - 1] 
-                   FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[
-                    ComputationalEngine`Uncond`i] 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[
+                    ComputationalEngine`Uncond`i]) 
                    FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t] + (
-                   FernandoDuarte`LongRunRisk`Model`Parameters`phidc[
+                    ComputationalEngine`Uncond`t] + ((
+                    FernandoDuarte`LongRunRisk`Model`Parameters`phidc[
                     ComputationalEngine`Uncond`i] 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][
-                    ComputationalEngine`Uncond`t] 
+                    ComputationalEngine`Uncond`t]) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t] + 
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    ComputationalEngine`Uncond`t] + ((
+                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                     ComputationalEngine`Uncond`t - 2] 
                     FernandoDuarte`LongRunRisk`Model`Parameters`xid[
-                    ComputationalEngine`Uncond`i] 
+                    ComputationalEngine`Uncond`i]) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t - 1] 
+                    ComputationalEngine`Uncond`t - 1]) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    ComputationalEngine`Uncond`t])), 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`mup 
-                 FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[
-                  ComputationalEngine`Uncond`i] 
+                    ComputationalEngine`Uncond`t])), (
+                  FernandoDuarte`LongRunRisk`Model`Parameters`mup 
+                  FernandoDuarte`LongRunRisk`Model`Parameters`rhodp[
+                   ComputationalEngine`Uncond`i]) 
                  FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                   ComputationalEngine`Uncond`t]]], 
               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
@@ -7551,12 +7607,14 @@ ComputeUnconditionalExpectations`uncondE[
               Map[MatchQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]& , 
                DeleteDuplicates[
                 Cases[
-                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                 ComputationalEngine`Uncond`pi[
-                   ComputationalEngine`Uncond`t - 1] 
-                  ComputationalEngine`Uncond`dd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                 
+                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                   ComputationalEngine`Uncond`pi[
+                    ComputationalEngine`Uncond`t - 1] 
+                   ComputationalEngine`Uncond`dd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1], 
                   ComputationalEngine`Uncond`model, 
                   Append[
@@ -7575,12 +7633,12 @@ ComputeUnconditionalExpectations`uncondE[
                 Cases[
                  ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
                  ComputationalEngine`Uncond`pi[
-                   ComputationalEngine`Uncond`t - 1] (
-                   ComputationalEngine`Uncond`dd[
+                   ComputationalEngine`Uncond`t - 1] ((
+                    ComputationalEngine`Uncond`dd[
                     ComputationalEngine`Uncond`t, 
                     ComputationalEngine`Uncond`i] 
-                   ComputationalEngine`Uncond`eps["pi"][
-                    ComputationalEngine`Uncond`t] 
+                    ComputationalEngine`Uncond`eps["pi"][
+                    ComputationalEngine`Uncond`t]) 
                    ComputationalEngine`Uncond`eps["pi"][
                     ComputationalEngine`Uncond`t - 1]), 
                   ComputationalEngine`Uncond`model, 
@@ -7598,13 +7656,16 @@ ComputeUnconditionalExpectations`uncondE[
               Map[MatchQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]& , 
                DeleteDuplicates[
                 Cases[
-                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                 ComputationalEngine`Uncond`pi[
-                   ComputationalEngine`Uncond`t - 1] 
-                  ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t] 
-                  ComputationalEngine`Uncond`dd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                 
+                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[((
+                    ComputationalEngine`Uncond`pi[
+                    ComputationalEngine`Uncond`t - 1] 
+                    ComputationalEngine`Uncond`sg[
+                    ComputationalEngine`Uncond`t]) 
+                   ComputationalEngine`Uncond`dd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1], 
                   ComputationalEngine`Uncond`model, 
                   Append[
@@ -7735,11 +7796,12 @@ ComputeUnconditionalExpectations`uncondE[
                ComputationalEngine`Uncond`t] 
               ComputationalEngine`Uncond`foo[
                ComputationalEngine`Uncond`t - 1], ExpandAll[
-               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-               ComputationalEngine`Uncond`eps["pi"][
-                 ComputationalEngine`Uncond`t + 1] 
-                ComputationalEngine`Uncond`eps["pi"][
-                 ComputationalEngine`Uncond`t] 
+               
+               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                 ComputationalEngine`Uncond`eps["pi"][
+                  ComputationalEngine`Uncond`t + 1] 
+                 ComputationalEngine`Uncond`eps["pi"][
+                  ComputationalEngine`Uncond`t]) 
                 ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t], 
                 ComputationalEngine`Uncond`model, 
                 ComputationalEngine`Uncond`stateVarsNoEps]] === 
@@ -7793,17 +7855,17 @@ ComputeUnconditionalExpectations`uncondE[
                 ComputationalEngine`Uncond`irrelevantVar]] === 
              FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
               ComputationalEngine`Uncond`t], 
-             ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-              ComputationalEngine`Uncond`anotherIrrelevantVar 
-               ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] 
+             ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                ComputationalEngine`Uncond`anotherIrrelevantVar 
+                ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t]) 
                ComputationalEngine`Uncond`sg[ComputationalEngine`Uncond`t], 
                ComputationalEngine`Uncond`model, 
                Append[
                ComputationalEngine`Uncond`stateVarsNoEps, 
-                ComputationalEngine`Uncond`anotherIrrelevantVar]] === 
-             ComputationalEngine`Uncond`anotherIrrelevantVar 
-              FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-               ComputationalEngine`Uncond`t] 
+                ComputationalEngine`Uncond`anotherIrrelevantVar]] === (
+               ComputationalEngine`Uncond`anotherIrrelevantVar 
+               FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
+                ComputationalEngine`Uncond`t]) 
               FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
                ComputationalEngine`Uncond`t]}]], "ExpectedMessages" -> 
          HoldForm[{}], "ActualOutput" -> HoldForm[True], 
@@ -7850,10 +7912,11 @@ ComputeUnconditionalExpectations`uncondE[
                Blank[Symbol], MatchQ[
                 SymbolName[#], "pi"]& ][ComputationalEngine`Uncond`t]], 
              FreeQ[
-              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-              ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1] 
-               ComputationalEngine`Uncond`dd[
-                ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i] 
+              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                ComputationalEngine`Uncond`pi[
+                 ComputationalEngine`Uncond`t - 1] 
+                ComputationalEngine`Uncond`dd[
+                 ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]) 
                ComputationalEngine`Uncond`eps["pi"][
                 ComputationalEngine`Uncond`t - 1], 
                ComputationalEngine`Uncond`model, 
@@ -7867,11 +7930,13 @@ ComputeUnconditionalExpectations`uncondE[
                ComputationalEngine`Uncond`i]], 
              Not[
               FreeQ[
-               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-               ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1]
-                  ComputationalEngine`Uncond`dd[
-                 ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i] 
-                ComputationalEngine`Uncond`eps["pi"][
+               
+               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                 ComputationalEngine`Uncond`pi[
+                  ComputationalEngine`Uncond`t - 1] 
+                 ComputationalEngine`Uncond`dd[
+                  ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i])
+                  ComputationalEngine`Uncond`eps["pi"][
                  ComputationalEngine`Uncond`t - 1], 
                 ComputationalEngine`Uncond`model, 
                 Append[
@@ -7882,11 +7947,12 @@ ComputeUnconditionalExpectations`uncondE[
                  SymbolName[#], "eps"]& ]["pi"][
                ComputationalEngine`Uncond`t - 1]]], 
              FreeQ[
-              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-              ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] 
-               ComputationalEngine`Uncond`dd[
-                ComputationalEngine`Uncond`t - 1, 
-                 ComputationalEngine`Uncond`i] 
+              
+              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t] 
+                ComputationalEngine`Uncond`dd[
+                 ComputationalEngine`Uncond`t - 1, 
+                  ComputationalEngine`Uncond`i]) 
                ComputationalEngine`Uncond`eps["pi"][
                 ComputationalEngine`Uncond`t - 1], 
                ComputationalEngine`Uncond`model, 
@@ -7898,10 +7964,12 @@ ComputeUnconditionalExpectations`uncondE[
                 SymbolName[#], "pi"]& ][
               ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]], 
              FreeQ[
-              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-              ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1] 
-               ComputationalEngine`Uncond`dd[
-                ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i] 
+              
+              ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                ComputationalEngine`Uncond`pi[
+                 ComputationalEngine`Uncond`t - 1] 
+                ComputationalEngine`Uncond`dd[
+                 ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]) 
                ComputationalEngine`Uncond`eps["dd"][
                 ComputationalEngine`Uncond`t - 1, 
                  ComputationalEngine`Uncond`i], 
@@ -7916,11 +7984,13 @@ ComputeUnconditionalExpectations`uncondE[
                ComputationalEngine`Uncond`i]], 
              Not[
               FreeQ[
-               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-               ComputationalEngine`Uncond`pi[ComputationalEngine`Uncond`t - 1]
-                  ComputationalEngine`Uncond`dd[
-                 ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i] 
-                ComputationalEngine`Uncond`eps["dd"][
+               
+               ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                 ComputationalEngine`Uncond`pi[
+                  ComputationalEngine`Uncond`t - 1] 
+                 ComputationalEngine`Uncond`dd[
+                  ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i])
+                  ComputationalEngine`Uncond`eps["dd"][
                  ComputationalEngine`Uncond`t - 1, 
                   ComputationalEngine`Uncond`i], 
                 ComputationalEngine`Uncond`model, 
@@ -8016,16 +8086,17 @@ ComputeUnconditionalExpectations`uncondE[
                 ComputationalEngine`Uncond`model, {
                 ComputationalEngine`Uncond`wc}], 
                FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-               ComputationalEngine`Uncond`t - 1]] === 
-             FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-              FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[1] 
+               ComputationalEngine`Uncond`t - 1]] === (
+               FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+               FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[1]) 
               FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                ComputationalEngine`Uncond`t], DeleteDuplicates[
                Cases[
-                ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] 
-                 ComputationalEngine`Uncond`wc[ComputationalEngine`Uncond`t] 
-                 ComputationalEngine`Uncond`eps["pi"][
+                
+                ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                  ComputationalEngine`Uncond`A[0] 
+                  ComputationalEngine`Uncond`wc[ComputationalEngine`Uncond`t])
+                   ComputationalEngine`Uncond`eps["pi"][
                   ComputationalEngine`Uncond`t - 1], 
                  ComputationalEngine`Uncond`model, 
                  ComputationalEngine`Uncond`stateVarsNoEps], PatternTest[
@@ -8037,10 +8108,11 @@ ComputeUnconditionalExpectations`uncondE[
               "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"}, 
              DeleteDuplicates[
                Cases[
-                ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] 
-                 ComputationalEngine`Uncond`wc[ComputationalEngine`Uncond`t] 
-                 ComputationalEngine`Uncond`eps["pi"][
+                
+                ComputationalEngine`Uncond`evNoEpsStateVarsProduct[(
+                  ComputationalEngine`Uncond`A[0] 
+                  ComputationalEngine`Uncond`wc[ComputationalEngine`Uncond`t])
+                   ComputationalEngine`Uncond`eps["pi"][
                   ComputationalEngine`Uncond`t - 1], 
                  ComputationalEngine`Uncond`model, {
                  ComputationalEngine`Uncond`wc}], PatternTest[
@@ -8069,19 +8141,21 @@ ComputeUnconditionalExpectations`uncondE[
                 ComputationalEngine`Uncond`model, {
                 ComputationalEngine`Uncond`pd}], 
                FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[
-               ComputationalEngine`Uncond`t - 1]] === 
-             FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
-              FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
-               ComputationalEngine`Uncond`i][1] 
+               ComputationalEngine`Uncond`t - 1]] === (
+               FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+               FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
+                ComputationalEngine`Uncond`i][1]) 
               FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                ComputationalEngine`Uncond`t], DeleteDuplicates[
                Cases[
                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] (
-                  ComputationalEngine`Uncond`B[ComputationalEngine`Uncond`i][
-                   1] ComputationalEngine`Uncond`pd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                ComputationalEngine`Uncond`A[
+                  0] ((ComputationalEngine`Uncond`B[
+                    ComputationalEngine`Uncond`i][1] 
+                   ComputationalEngine`Uncond`pd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1]), 
                  ComputationalEngine`Uncond`model, 
                  ComputationalEngine`Uncond`stateVarsNoEps], PatternTest[
@@ -8094,11 +8168,13 @@ ComputeUnconditionalExpectations`uncondE[
              DeleteDuplicates[
                Cases[
                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] (
-                  ComputationalEngine`Uncond`B[ComputationalEngine`Uncond`i][
-                   1] ComputationalEngine`Uncond`pd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                ComputationalEngine`Uncond`A[
+                  0] ((ComputationalEngine`Uncond`B[
+                    ComputationalEngine`Uncond`i][1] 
+                   ComputationalEngine`Uncond`pd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1]), 
                  ComputationalEngine`Uncond`model, 
                  ComputationalEngine`Uncond`stateVarsNoEps], PatternTest[
@@ -8112,11 +8188,13 @@ ComputeUnconditionalExpectations`uncondE[
              DeleteDuplicates[
                Cases[
                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] (
-                  ComputationalEngine`Uncond`B[ComputationalEngine`Uncond`i][
-                   1] ComputationalEngine`Uncond`pd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                ComputationalEngine`Uncond`A[
+                  0] ((ComputationalEngine`Uncond`B[
+                    ComputationalEngine`Uncond`i][1] 
+                   ComputationalEngine`Uncond`pd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1]), 
                  ComputationalEngine`Uncond`model, {
                  ComputationalEngine`Uncond`pd}], PatternTest[
@@ -8129,11 +8207,13 @@ ComputeUnconditionalExpectations`uncondE[
              DeleteDuplicates[
                Cases[
                 ComputationalEngine`Uncond`evNoEpsStateVarsProduct[
-                ComputationalEngine`Uncond`A[0] (
-                  ComputationalEngine`Uncond`B[ComputationalEngine`Uncond`i][
-                   1] ComputationalEngine`Uncond`pd[
-                   ComputationalEngine`Uncond`t, ComputationalEngine`Uncond`i]
-                    ComputationalEngine`Uncond`eps["pi"][
+                ComputationalEngine`Uncond`A[
+                  0] ((ComputationalEngine`Uncond`B[
+                    ComputationalEngine`Uncond`i][1] 
+                   ComputationalEngine`Uncond`pd[
+                    ComputationalEngine`Uncond`t, 
+                    ComputationalEngine`Uncond`i]) 
+                  ComputationalEngine`Uncond`eps["pi"][
                    ComputationalEngine`Uncond`t - 1]), 
                  ComputationalEngine`Uncond`model, {
                  ComputationalEngine`Uncond`pd}], PatternTest[
@@ -8207,9 +8287,9 @@ ComputeUnconditionalExpectations`uncondE[
                   Subtract[
                    FernandoDuarte`LongRunRisk`Model`Parameters`mup^2, 
                     Divide[
-                    3 (FernandoDuarte`LongRunRisk`Model`Parameters`phip^2 + 
-                    2 FernandoDuarte`LongRunRisk`Model`Parameters`phip 
-                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop 
+                    3 (FernandoDuarte`LongRunRisk`Model`Parameters`phip^2 + ((
+                    2 FernandoDuarte`LongRunRisk`Model`Parameters`phip) 
+                    FernandoDuarte`LongRunRisk`Model`Parameters`rhop) 
                     FernandoDuarte`LongRunRisk`Model`Parameters`xip + 
                     FernandoDuarte`LongRunRisk`Model`Parameters`xip^2), 
                     FernandoDuarte`LongRunRisk`Model`Parameters`rhop^2 - 
@@ -8231,19 +8311,19 @@ ComputeUnconditionalExpectations`uncondE[
                    ComputationalEngine`Uncond`modNRC]]]] === FullSimplify[
                 Expand[
                 ComputationalEngine`Uncond`muc^2 + (
-                  ComputationalEngine`Uncond`phic^2 + (
-                   2 ComputationalEngine`Uncond`Esg 
-                    ComputationalEngine`Uncond`phip 
-                    ComputationalEngine`Uncond`rhocp 
+                  ComputationalEngine`Uncond`phic^2 + ((((2 
+                    ComputationalEngine`Uncond`Esg) 
+                    ComputationalEngine`Uncond`phip) 
+                    ComputationalEngine`Uncond`rhocp) 
                     ComputationalEngine`Uncond`xic + (
                     ComputationalEngine`Uncond`xic^2 (
                     ComputationalEngine`Uncond`Esg^2 + 
                     ComputationalEngine`Uncond`phig^2/(1 - 
                     ComputationalEngine`Uncond`rhog^2)) + 
                     Divide[ComputationalEngine`Uncond`rhocp^2 (
-                    ComputationalEngine`Uncond`phip^2 + 
-                    2 ComputationalEngine`Uncond`phip 
-                    ComputationalEngine`Uncond`rhop 
+                    ComputationalEngine`Uncond`phip^2 + ((2 
+                    ComputationalEngine`Uncond`phip) 
+                    ComputationalEngine`Uncond`rhop) 
                     ComputationalEngine`Uncond`xip + 
                     ComputationalEngine`Uncond`xip^2), 1 - 
                     ComputationalEngine`Uncond`rhop^2])))]], FullSimplify[
@@ -8258,22 +8338,22 @@ ComputeUnconditionalExpectations`uncondE[
                    ComputationalEngine`Uncond`modNRC]]]] === FullSimplify[
                 Expand[
                 ComputationalEngine`Uncond`muc 
-                  ComputationalEngine`Uncond`mup + (
-                  ComputationalEngine`Uncond`rhocp 
-                   ComputationalEngine`Uncond`xip 
-                   ComputationalEngine`Uncond`phip + (
-                   ComputationalEngine`Uncond`xic 
-                    ComputationalEngine`Uncond`rhop 
-                    ComputationalEngine`Uncond`phip 
-                    ComputationalEngine`Uncond`Esg + (
+                  ComputationalEngine`Uncond`mup + ((
+                    ComputationalEngine`Uncond`rhocp 
+                    ComputationalEngine`Uncond`xip) 
+                   ComputationalEngine`Uncond`phip + (((
                     ComputationalEngine`Uncond`xic 
-                    ComputationalEngine`Uncond`xip 
+                    ComputationalEngine`Uncond`rhop) 
+                    ComputationalEngine`Uncond`phip) 
+                    ComputationalEngine`Uncond`Esg + ((
+                    ComputationalEngine`Uncond`xic 
+                    ComputationalEngine`Uncond`xip) 
                     ComputationalEngine`Uncond`Esg + 
                     Divide[(ComputationalEngine`Uncond`rhocp 
                     ComputationalEngine`Uncond`rhop) (
-                    ComputationalEngine`Uncond`xip^2 + 
-                    2 ComputationalEngine`Uncond`rhop 
-                    ComputationalEngine`Uncond`xip 
+                    ComputationalEngine`Uncond`xip^2 + ((2 
+                    ComputationalEngine`Uncond`rhop) 
+                    ComputationalEngine`Uncond`xip) 
                     ComputationalEngine`Uncond`phip + 
                     ComputationalEngine`Uncond`phip^2), 1 - 
                     ComputationalEngine`Uncond`rhop^2])))]], FullSimplify[
@@ -8331,9 +8411,9 @@ ComputeUnconditionalExpectations`uncondE[
                   ComputationalEngine`Uncond`phip 
                    ComputationalEngine`Uncond`xip + 
                   Divide[ComputationalEngine`Uncond`rhop (
-                    ComputationalEngine`Uncond`phip^2 + 
-                    2 ComputationalEngine`Uncond`rhop 
-                    ComputationalEngine`Uncond`xip 
+                    ComputationalEngine`Uncond`phip^2 + ((2 
+                    ComputationalEngine`Uncond`rhop) 
+                    ComputationalEngine`Uncond`xip) 
                     ComputationalEngine`Uncond`phip + 
                     ComputationalEngine`Uncond`xip^2), 1 - 
                     ComputationalEngine`Uncond`rhop^2])]], FullSimplify[
@@ -8351,9 +8431,9 @@ ComputeUnconditionalExpectations`uncondE[
                   ComputationalEngine`Uncond`phip 
                    ComputationalEngine`Uncond`xip + 
                   Divide[ComputationalEngine`Uncond`rhop (
-                    ComputationalEngine`Uncond`phip^2 + 
-                    2 ComputationalEngine`Uncond`rhop 
-                    ComputationalEngine`Uncond`xip 
+                    ComputationalEngine`Uncond`phip^2 + ((2 
+                    ComputationalEngine`Uncond`rhop) 
+                    ComputationalEngine`Uncond`xip) 
                     ComputationalEngine`Uncond`phip + 
                     ComputationalEngine`Uncond`xip^2), 1 - 
                     ComputationalEngine`Uncond`rhop^2])]], FullSimplify[
@@ -8381,14 +8461,14 @@ ComputeUnconditionalExpectations`uncondE[
                    ComputationalEngine`Uncond`modNRC]]]] === FullSimplify[
                 Expand[
                 ComputationalEngine`Uncond`muc 
-                  ComputationalEngine`Uncond`mup + (
-                  ComputationalEngine`Uncond`Esg 
-                   ComputationalEngine`Uncond`phip 
+                  ComputationalEngine`Uncond`mup + ((
+                    ComputationalEngine`Uncond`Esg 
+                    ComputationalEngine`Uncond`phip) 
                    ComputationalEngine`Uncond`xic + 
                   Divide[ComputationalEngine`Uncond`rhocp (
-                    ComputationalEngine`Uncond`phip^2 + 
-                    2 ComputationalEngine`Uncond`phip 
-                    ComputationalEngine`Uncond`rhop 
+                    ComputationalEngine`Uncond`phip^2 + ((2 
+                    ComputationalEngine`Uncond`phip) 
+                    ComputationalEngine`Uncond`rhop) 
                     ComputationalEngine`Uncond`xip + 
                     ComputationalEngine`Uncond`xip^2), 1 - 
                     ComputationalEngine`Uncond`rhop^2])]]}], 
@@ -9371,7 +9451,7 @@ Cell[BoxData[{
  CellChangeTimes->{{3.905097131309546*^9, 3.905097132763056*^9}, {
    3.905687546464522*^9, 3.905687548255028*^9}, 3.9057687992907124`*^9, 
    3.905876631915248*^9},
- CellLabel->"In[40]:=",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4"],
+ CellLabel->"In[5]:=",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -9507,7 +9587,7 @@ Cell[BoxData[
                  TagBox[
                   
                   TemplateBox[{
-                   "1.181374`5.921872410723986", "\"s\"", "seconds", 
+                   "1.486958`6.021783703961086", "\"s\"", "seconds", 
                     "\"Seconds\""}, "Quantity", SyntaxForm -> Mod], 
                   "SummaryItem"]}], "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
@@ -9529,33 +9609,33 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: SolveEulerEq.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     7588570515141446916 -> 
+     8697635370190765278 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058768959799523`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9059033249501424`*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "1b67c56a-f317-4ac3-ba81-51c744d84ae9", "TestID" -> 
-         "SolveEulerEq_20231009-J0EJJE", "TestFileName" -> 
+         "fe1e0bf9-a9f6-44b9-8705-507c0d50144a", "TestID" -> 
+         "SolveEulerEq_20231010-MLR2IR", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/SolveEulerEq.wlt", "EvaluationID" -> 
-         "c15fa5a3-ec02-4a4c-bec4-3b919f7cbfd5", "Input" -> 
+         "344a04c4-3535-47b6-8928-9194f75a1acf", "Input" -> 
          HoldForm[ComputationalEngine`SolveEulerEq`longTest = False; True], 
          "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
           "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.000031`1.6418766916662664, "CPUTimeUsed" -> 0.00003199999999736747,
-          "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
-         "Success"|>], 8386797084122285705 -> 
+         0.000041`1.7632988545517252, "CPUTimeUsed" -> 0.00004099999999995774,
+          "MemoryUsed" -> 2760, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 9110433409207070581 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.905876895982499*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9059033249523983`*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "f85a4c9b-aae9-431e-98c6-75863d011b8c", "TestID" -> 
-         "SolveEulerEq_20231009-1PZFOB", "TestFileName" -> 
+         "075d6f74-c97a-4f44-b4b7-3911283988ce", "TestID" -> 
+         "SolveEulerEq_20231010-PEFY87", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/SolveEulerEq.wlt", "EvaluationID" -> 
-         "fe55ffda-ccb5-423d-ad6d-af4cbf355f9e", "Input" -> HoldForm[Off[
+         "5fd9eeef-4db5-4336-9222-19c29f86c035", "Input" -> HoldForm[Off[
              MessageName[General, "stop"]]; 
            Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
 "]; $ContextPath = DeleteDuplicates[
@@ -10460,8 +10540,7 @@ withFindRootOptionDefault,
                     "initialGuess" -> <|"Ewc" -> {4, 1, 8}|>]]}]; 
                ComputationalEngine`SolveEulerEq`ind = 
                 ComputationalEngine`SolveEulerEq`ind + 1; Null]; 
-             ComputationalEngine`SolveEulerEq`maxMaturity = 
-              If[ComputationalEngine`SolveEulerEq`longTest, 12, 2]; 
+             ComputationalEngine`SolveEulerEq`maxMaturity = 12; 
              ComputationalEngine`SolveEulerEq`solBond = 
               ComputationalEngine`SolveEulerEq`updateCoeffsBond[
                 ComputationalEngine`SolveEulerEq`model["coeffsSolution"][
@@ -10890,28 +10969,31 @@ Private`checks, "largeresid"], 1.1383179045888502`*^-12, 1.*^-20]],
             Message[
              MessageName[FindRoot, "cvmit"], 
              HoldForm[100]]]}, "AbsoluteTimeUsed" -> 
-         1.181343`6.222891010076906, "CPUTimeUsed" -> 1.1902539999999995`, 
-         "MemoryUsed" -> 108975280, "ExpectedOutput" -> HoldForm[True], 
+         1.486917`6.322801724626952, "CPUTimeUsed" -> 1.4928620000000006`, 
+         "MemoryUsed" -> 126643744, "ExpectedOutput" -> HoldForm[True], 
          "Outcome" -> "Success"|>]|>, "FailureResults" -> <||>, 
     "TestsNotEvaluatedKeys" -> {}, "TestsFailedWrongResultsKeys" -> {}, 
     "TestsFailedWithMessagesKeys" -> {}, "TestsFailedWithErrorsKeys" -> {}, 
-    "TestsSucceededKeys" -> {7588570515141446916, 8386797084122285705}|>],
+    "TestsSucceededKeys" -> {8697635370190765278, 9110433409207070581}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.},
- CellChangeTimes->{3.905876839784266*^9, 3.905876897172636*^9},
- CellLabel->"Out[40]=",ExpressionUUID->"5c6c0c6f-e837-46a0-8b4c-20f4c0363f2e"],
+ CellChangeTimes->{3.905876839784266*^9, 3.905876897172636*^9, 
+  3.90590332662742*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"bab5fd3b-2eaa-46af-b3a2-2ceb2da8d999"],
 
 Cell[BoxData["True"], "Output",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.},
- CellChangeTimes->{3.905876839784266*^9, 3.90587689717589*^9},
- CellLabel->"Out[43]=",ExpressionUUID->"8fc6cdd5-4d6a-4f11-8696-8c5b8ea5bdf2"],
+ CellChangeTimes->{3.905876839784266*^9, 3.905876897172636*^9, 
+  3.905903326630848*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"2d72a4ef-2a55-4ea9-b491-ccdfa39e2250"],
 
 Cell[BoxData["True"], "Output",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.},
- CellChangeTimes->{3.905876839784266*^9, 3.905876897176403*^9},
- CellLabel->"Out[44]=",ExpressionUUID->"65cc71c2-1a41-4271-87f6-a6e2ca202c7e"],
+ CellChangeTimes->{3.905876839784266*^9, 3.905876897172636*^9, 
+  3.9059033266314287`*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"0a31b8e2-77f0-478a-8d04-50ee78896686"],
 
 Cell[BoxData[{
  RowBox[{"tr", "=", 
@@ -11585,8 +11667,9 @@ Cell[BoxData[
             Function[{
               Tools`TimeAggregation`t, Tools`TimeAggregation`j, 
                Tools`TimeAggregation`h, Tools`TimeAggregation`k, 
-               Tools`TimeAggregation`v}, (-Tools`TimeAggregation`h) 
-              Tools`TimeAggregation`t Tools`TimeAggregation`k]; Apply[And, {
+               Tools`TimeAggregation`v}, ((-Tools`TimeAggregation`h) 
+               Tools`TimeAggregation`t) Tools`TimeAggregation`k]; 
+           Apply[And, {
               N[
                ReplaceAll[0 === FullSimplify[
                   Coefficient[
@@ -13636,7 +13719,7 @@ Cell[BoxData[{
  CellChangeTimes->{
   3.905175313001898*^9, {3.905687553635509*^9, 3.905687553886095*^9}, 
    3.905768806011248*^9, 3.905876807415263*^9},
- CellLabel->"In[55]:=",ExpressionUUID->"479fb483-095c-47a5-b63a-afec0a7f6185"],
+ CellLabel->"In[5]:=",ExpressionUUID->"479fb483-095c-47a5-b63a-afec0a7f6185"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -13772,9 +13855,9 @@ Cell[BoxData[
                  TagBox[
                   
                   TemplateBox[{
-                   "3.2150679999999999999`5.6577051606948645", "\"s\"", 
-                    "seconds", "\"Seconds\""}, "Quantity", SyntaxForm -> Mod],
-                   "SummaryItem"]}], "\[SpanFromLeft]"}}, 
+                   "6.435534`5.95909958693275", "\"s\"", "seconds", 
+                    "\"Seconds\""}, "Quantity", SyntaxForm -> Mod], 
+                  "SummaryItem"]}], "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
               "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
              False, GridBoxItemSize -> {
@@ -13794,33 +13877,33 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: NiceOutput.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     61212296528265465 -> 
+     5583627844603177603 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058769017497163`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902363325683*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "db8bcdcb-97b3-4ac9-8377-b96f29ac5950", "TestID" -> 
-         "NiceOutput_20231009-8ZHU0Y", "TestFileName" -> 
+         "9eadcc37-66e5-4954-be64-4c0c3b7b7a9c", "TestID" -> 
+         "NiceOutput_20231010-CSDOMC", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "2882dce5-8485-4f1f-83f8-a9cf950cd921", "Input" -> 
+         "03735ac7-59eb-4440-902c-9e387ade5792", "Input" -> 
          HoldForm[Tools`NiceOutput`longTest = False; True], 
          "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
           "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.000046`1.8132728295135683, "CPUTimeUsed" -> 0.000045999999997548, 
-         "MemoryUsed" -> 2528, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
-         "Success"|>], 6349338778720965489 -> 
+         0.00003`1.627636252551654, "CPUTimeUsed" -> 0.000030000000000196536`,
+          "MemoryUsed" -> 2760, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 4273995173578002822 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058769017501063`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902363326011*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "4d887ce9-9dac-4961-a6ae-525ecfb09469", "TestID" -> 
-         "NiceOutput_20231009-9O40UD", "TestFileName" -> 
+         "5ac33b3c-818d-460b-91a1-7e3f444b7550", "TestID" -> 
+         "NiceOutput_20231010-SZ1YXW", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "8d74b3cb-2bcd-4101-8294-8ba0472eea67", "Input" -> HoldForm[Get[
+         "8de57a2f-caf8-4aad-bd53-048c1d953ee4", "Input" -> HoldForm[Get[
              Get[
               FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]]; 
            Tools`NiceOutput`msp = 
@@ -13836,19 +13919,19 @@ Cell[BoxData[
             Tools`NiceOutput`msp["NRCStochVol"]; True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualOutput" -> HoldForm[True], 
          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.939139`6.123244873873794, "CPUTimeUsed" -> 0.9476719999999972, 
-         "MemoryUsed" -> 107898176, "ExpectedOutput" -> HoldForm[True], 
-         "Outcome" -> "Success"|>], 5024162557367701153 -> 
+         1.23915`6.243638879050065, "CPUTimeUsed" -> 1.2440290000000003`, 
+         "MemoryUsed" -> 125493008, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 3352551398069747843 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.90587690268964*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902364565511*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "55fec80e-f319-45fb-974b-3510420891a8", "TestID" -> 
-         "NiceOutput_20231009-79JIPG", "TestFileName" -> 
+         "ccd2ef92-debd-4428-b2fa-e538654193a9", "TestID" -> 
+         "NiceOutput_20231010-W3EDPT", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "e6c52980-03f0-481e-9547-2dbe381c4cdc", "Input" -> 
+         "836b680b-db9c-4457-872e-e17898ab46df", "Input" -> 
          HoldForm[
           Needs["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]; $ContextPath = 
             DeleteDuplicates[
@@ -13857,53 +13940,53 @@ Cell[BoxData[
                "FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`"]]; 
            True], "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> 
          HoldForm[True], "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.000032`1.6556649761518993, "CPUTimeUsed" -> 
-         0.000030999999999892225`, "MemoryUsed" -> 3040, "ExpectedOutput" -> 
-         HoldForm[True], "Outcome" -> "Success"|>], 1968710016289509944 -> 
+         2.918928`6.615738380388233, "CPUTimeUsed" -> 1.6272069999999998`, 
+         "MemoryUsed" -> 74151560, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 2524053312824594692 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.90587690268993*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902367484972*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "8d20e721-3f30-452d-83a8-d3acc69ec379", "TestID" -> 
-         "NiceOutput_20231009-LS92LV", "TestFileName" -> 
+         "675bc284-bb38-4910-a7b5-c295c23265e4", "TestID" -> 
+         "NiceOutput_20231010-XBKBUS", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "50d4a4bf-6002-441c-bf56-0ff975c1fd1d", "Input" -> HoldForm[
+         "e858e413-5f5c-46ad-9fc9-dbf873975e7a", "Input" -> HoldForm[
            Apply[And, {
              
              MemberQ[$ContextPath, 
               "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]}]], 
          "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
           "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.000021`1.4727342925659135, "CPUTimeUsed" -> 
-         0.000021000000000270802`, "MemoryUsed" -> 2760, "ExpectedOutput" -> 
-         HoldForm[True], "Outcome" -> "Success"|>], 1061528320667065636 -> 
+         0.000028`1.5976730291742114, "CPUTimeUsed" -> 0.00002799999999947289,
+          "MemoryUsed" -> 2760, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 7006634315744856903 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058769026901603`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902367485353*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "b7683e53-433f-424c-a793-f5ca1a616e25", "TestID" -> 
-         "NiceOutput_20231009-YU9AG1", "TestFileName" -> 
+         "5b69db3b-9ce1-4432-8764-5f5cea440676", "TestID" -> 
+         "NiceOutput_20231010-BFL7AF", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "c5f15fc7-9bed-4aeb-b525-9c0f5d882fae", "Input" -> HoldForm[
+         "4d06b323-3be6-4e31-8236-6d975ccc5f02", "Input" -> HoldForm[
            Not[Names["*info"] === {}]], "ExpectedMessages" -> HoldForm[{}], 
          "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
-         "AbsoluteTimeUsed" -> 0.029245`4.616566623531335, "CPUTimeUsed" -> 
-         0.029258999999999702`, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
-         HoldForm[True], "Outcome" -> "Success"|>], 2445191314288468851 -> 
+         "AbsoluteTimeUsed" -> 0.029432`4.61933477265506, "CPUTimeUsed" -> 
+         0.02940100000000001, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 5552220702215414426 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.905876902719755*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902367515213*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "95db8154-487e-4e28-b719-ac24e38f7f86", "TestID" -> 
-         "NiceOutput_20231009-5NAW00", "TestFileName" -> 
+         "8002db71-4724-4fb3-9719-b43075cb1581", "TestID" -> 
+         "NiceOutput_20231010-08E57N", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "5625d413-a151-4c24-8873-b98b5e471dee", "Input" -> 
+         "a2aa24c4-4bbb-44ab-9ad3-e18bb07c6563", "Input" -> 
          HoldForm[
           Tools`NiceOutput`myModelsInfo = 
             PacletizedResourceFunctions`SetSymbolsContext[
@@ -13919,19 +14002,19 @@ Cell[BoxData[
                   Span[1, All], 1, 2]]]]}]], "ExpectedMessages" -> 
          HoldForm[{}], "ActualOutput" -> HoldForm[True], 
          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         2.015593`6.454917839246895, "CPUTimeUsed" -> 0.8806389999999986, 
-         "MemoryUsed" -> 3142136, "ExpectedOutput" -> HoldForm[True], 
-         "Outcome" -> "Success"|>], 5004600803608847237 -> 
+         2.015405`6.45487732949588, "CPUTimeUsed" -> 0.8597770000000002, 
+         "MemoryUsed" -> 3131840, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 3923831081934713553 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.90587690473604*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902369531349*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "3295c15f-7361-4ca4-9e15-48318632d45f", "TestID" -> 
-         "NiceOutput_20231009-GIIQB0", "TestFileName" -> 
+         "8d7172a9-d79b-4d13-9e49-80f0dbf19ef9", "TestID" -> 
+         "NiceOutput_20231010-2ALCRK", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "18ec0979-fdcc-4087-8de1-d7f60ad09ad4", "Input" -> 
+         "785c8e2c-0d4c-43c5-9848-6a18239e2cbb", "Input" -> 
          HoldForm[
           Tools`NiceOutput`justBY = <|"BY" -> Tools`NiceOutput`msp["BY"]|>; 
            Tools`NiceOutput`infoBY = 
@@ -13953,19 +14036,19 @@ Cell[BoxData[
                 1, 1, 1] === Tools`NiceOutput`x[Tools`NiceOutput`t]}]], 
          "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
           "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.229922`5.512095526393483, "CPUTimeUsed" -> 0.2299919999999993, 
-         "MemoryUsed" -> 59280, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
-         "Success"|>], 2175661968026579602 -> 
+         0.231549`5.5151579075608685, "CPUTimeUsed" -> 0.2317910000000003, 
+         "MemoryUsed" -> 59632, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 1629881821200695586 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058769049665494`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9059023697634993`*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "f4559fb3-f33c-4353-9fe0-71ae82de53cf", "TestID" -> 
-         "NiceOutput_20231009-TR2QZ3", "TestFileName" -> 
+         "5252044f-0940-4a70-985b-0d6e65770ae6", "TestID" -> 
+         "NiceOutput_20231010-WRGBND", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "e8200aa8-843e-458c-a116-7c371823c392", "Input" -> HoldForm[
+         "e481e945-e8ce-4d28-9405-49038e68c555", "Input" -> HoldForm[
            Apply[And, {Head[Tools`NiceOutput`infoBY] === Column, Head[
                Part[Tools`NiceOutput`infoBY, 1]] === List, Head[
                Part[Tools`NiceOutput`infoBY, 1, 1]] === OpenerView, 
@@ -13984,19 +14067,19 @@ Cell[BoxData[
                  Span[1, All], 1, 2]]]]}]], "ExpectedMessages" -> 
          HoldForm[{}], "ActualOutput" -> HoldForm[True], 
          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.000091`2.1095563901530876, "CPUTimeUsed" -> 0.00009400000000070463,
+         0.000087`2.0900342504506106, "CPUTimeUsed" -> 0.00008700000000061436,
           "MemoryUsed" -> 8096, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
-         "Success"|>], 2223412152079412271 -> 
+         "Success"|>], 5040927162311263976 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058769049670343`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.9059023697639422`*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "5e6fb0be-005f-4c8e-ba05-bd3a67a030a7", "TestID" -> 
-         "NiceOutput_20231009-JQ9GNZ", "TestFileName" -> 
+         "52e1faee-ef20-44b3-8dfa-d912ca33e82c", "TestID" -> 
+         "NiceOutput_20231010-MIKOL2", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "cd90ed67-ebc6-41c9-9af6-48e38e768d6e", "Input" -> 
+         "10b7eae3-88a8-47e1-b062-ca89ae9d294b", "Input" -> 
          HoldForm[With[{Tools`NiceOutput`localPi = 3.14}, {
               
               FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
@@ -14047,19 +14130,19 @@ stripContext[{Tools`NiceOutput`delta -> 0.99}]]}]]}] === {
              "\\[CapitalPi]", "3.141592653589793", "3.141592653589793", 
              "3.14*^-7", "{0.495}"}], "ExpectedMessages" -> HoldForm[{}], 
          "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
-         "AbsoluteTimeUsed" -> 0.000152`2.3323585857767664, "CPUTimeUsed" -> 
-         0.000150999999998902, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
-         HoldForm[True], "Outcome" -> "Success"|>], 6932479186570401026 -> 
+         "AbsoluteTimeUsed" -> 0.000149`2.323701266244266, "CPUTimeUsed" -> 
+         0.0001500000000005386, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 657280856926906934 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058769049674373`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902369764318*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "c1c984f1-1dc5-4c57-933d-e1aeaec48f5a", "TestID" -> 
-         "NiceOutput_20231009-11K3F8", "TestFileName" -> 
+         "a32309cf-aef2-4c97-b00f-f498d2ca27d1", "TestID" -> 
+         "NiceOutput_20231010-BCSCQH", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "30bbe96a-1367-45ce-aa55-7f515a26ad6e", "Input" -> HoldForm[
+         "4df3fd91-4007-4c75-8dee-1b83506e20bc", "Input" -> HoldForm[
            Not[
             StringFreeQ[
              
@@ -14069,32 +14152,35 @@ stringFormattingTemplate[
 2004 paper by Bansal and Yaron"], 
              Alternatives["\t", "\n"]]]], "ExpectedMessages" -> HoldForm[{}], 
          "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
-         "AbsoluteTimeUsed" -> 0.000827`3.068020507384541, "CPUTimeUsed" -> 
-         0.0008279999999984966, "MemoryUsed" -> 22440, "ExpectedOutput" -> 
-         HoldForm[True], "Outcome" -> "Success"|>]|>, 
+         "AbsoluteTimeUsed" -> 0.0007760000000000001`3.04037671909018, 
+         "CPUTimeUsed" -> 0.0007770000000002497, "MemoryUsed" -> 22440, 
+         "ExpectedOutput" -> HoldForm[True], "Outcome" -> "Success"|>]|>, 
     "FailureResults" -> <||>, "TestsNotEvaluatedKeys" -> {}, 
     "TestsFailedWrongResultsKeys" -> {}, "TestsFailedWithMessagesKeys" -> {}, 
     "TestsFailedWithErrorsKeys" -> {}, 
-    "TestsSucceededKeys" -> {61212296528265465, 6349338778720965489, 
-     5024162557367701153, 1968710016289509944, 1061528320667065636, 
-     2445191314288468851, 5004600803608847237, 2175661968026579602, 
-     2223412152079412271, 6932479186570401026}|>],
+    "TestsSucceededKeys" -> {5583627844603177603, 4273995173578002822, 
+     3352551398069747843, 2524053312824594692, 7006634315744856903, 
+     5552220702215414426, 3923831081934713553, 1629881821200695586, 
+     5040927162311263976, 657280856926906934}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.},
- CellChangeTimes->{3.9058768460003967`*^9, 3.9058769049893007`*^9},
- CellLabel->"Out[55]=",ExpressionUUID->"cab1b11b-c9a0-4074-9b9f-2ea5f42cec4b"],
+ CellChangeTimes->{3.9058768460003967`*^9, 3.9058769049893007`*^9, 
+  3.905901367878785*^9, 3.905902369782295*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"2b7841db-fe0e-41eb-94ad-32593cb93d63"],
 
 Cell[BoxData["True"], "Output",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.},
- CellChangeTimes->{3.9058768460003967`*^9, 3.905876904993177*^9},
- CellLabel->"Out[58]=",ExpressionUUID->"61a90c61-9309-4e75-8397-ad261a6949ef"],
+ CellChangeTimes->{3.9058768460003967`*^9, 3.9058769049893007`*^9, 
+  3.905901367878785*^9, 3.9059023697923517`*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"59aeed5f-6fe5-4812-bd22-acc9601ded98"],
 
 Cell[BoxData["True"], "Output",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.},
- CellChangeTimes->{3.9058768460003967`*^9, 3.905876904993849*^9},
- CellLabel->"Out[59]=",ExpressionUUID->"de614473-7084-42ab-b564-03ccf61c0f50"],
+ CellChangeTimes->{3.9058768460003967`*^9, 3.9058769049893007`*^9, 
+  3.905901367878785*^9, 3.905902369792913*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"54982e96-0c58-4656-9dbe-25b6e2cb3310"],
 
 Cell[BoxData[{
  RowBox[{"tr", "=", 
@@ -14424,9 +14510,9 @@ ComputeConditionalExpectations`"];
               Tools`ToNumber`dc, Tools`ToNumber`t, "TimeAggregation" -> 2, 
                "numPeriods" -> 1], 
               Tools`ToNumber`growth[
-              Tools`ToNumber`dd, Tools`ToNumber`t, 1, "TimeAggregation" -> 2],
-               Tools`ToNumber`AA Tools`ToNumber`dc[Tools`ToNumber`t + 1] 
-              Tools`ToNumber`excret[Tools`ToNumber`t, 1], 
+              Tools`ToNumber`dd, Tools`ToNumber`t, 1, "TimeAggregation" -> 
+               2], (Tools`ToNumber`AA Tools`ToNumber`dc[Tools`ToNumber`t + 1])
+                Tools`ToNumber`excret[Tools`ToNumber`t, 1], 
               Tools`ToNumber`AA Tools`ToNumber`excret[Tools`ToNumber`t, 1] + 
               Tools`ToNumber`BB 
                Tools`ToNumber`nombondyield[Tools`ToNumber`t, 2]}; 
@@ -17066,11 +17152,11 @@ endogenousVars],
                  FernandoDuarte`LongRunRisk`Model`Parameters`phidc[
                    Model`ProcessModels`i] 
                   FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][
-                   Model`ProcessModels`t] + 
-                 FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
-                   Model`ProcessModels`t - 2] 
-                  FernandoDuarte`LongRunRisk`Model`Parameters`xid[
-                   Model`ProcessModels`i] 
+                   Model`ProcessModels`t] + (
+                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    Model`ProcessModels`t - 2] 
+                   FernandoDuarte`LongRunRisk`Model`Parameters`xid[
+                    Model`ProcessModels`i]) 
                   FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                    Model`ProcessModels`t - 1])), ReplaceAll[
                 Model`ProcessModels`wc[Model`ProcessModels`t], 
@@ -17094,10 +17180,10 @@ endogenousVars],
                     FernandoDuarte`LongRunRisk`Model`Parameters`Esg^2] + (
                    FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[3] 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
-                    Model`ProcessModels`t] + 
-                   FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[2] 
-                    FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
-                    Model`ProcessModels`t - 1] 
+                    Model`ProcessModels`t] + (
+                    FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[2]
+                     FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
+                    Model`ProcessModels`t - 1]) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     Model`ProcessModels`t])))), ReplaceAll[
                 Model`ProcessModels`pd[
@@ -17121,11 +17207,11 @@ sg[Model`ProcessModels`t] - FernandoDuarte`LongRunRisk`Model`Parameters`Esg)
                     FernandoDuarte`LongRunRisk`Model`Parameters`rhog^2), 
                     FernandoDuarte`LongRunRisk`Model`Parameters`Esg^2] 
                    FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
-                    Model`ProcessModels`i][5] + (
-                   FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg[
-                    Model`ProcessModels`t - 1] 
+                    Model`ProcessModels`i][
+                    5] + ((FernandoDuarte`LongRunRisk`Model`ExogenousEq`\
+Private`sg[Model`ProcessModels`t - 1] 
                     FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
-                    Model`ProcessModels`i][2] 
+                    Model`ProcessModels`i][2]) 
                     FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][
                     Model`ProcessModels`t] + 
                    FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B[
@@ -17568,133 +17654,139 @@ CellTagsIndex->{}
 Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 163, 3, 84, "Section",ExpressionUUID->"78e49db9-cc4f-4fd7-843c-0d52d841f43e"],
-Cell[746, 27, 247, 4, 37, "Input",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
+Cell[746, 27, 246, 4, 37, "Input",ExpressionUUID->"4a4e2e24-fcb6-4e5b-a6de-9a788f0ea471"],
 Cell[CellGroupData[{
-Cell[1018, 35, 1575, 30, 116, "Input",ExpressionUUID->"b9f2d453-3e98-41bc-b67a-28793e860800"],
-Cell[2596, 67, 270, 4, 42, "Output",ExpressionUUID->"c12fb191-1b41-4aa7-b373-5f0ac5479054"],
-Cell[2869, 73, 294, 5, 42, "Output",ExpressionUUID->"004e97a1-2250-4b25-8fca-db85cb446930"],
-Cell[3166, 80, 1664, 31, 355, "Output",ExpressionUUID->"b97fd7fb-5855-4a06-8181-c218aadc4e62"],
-Cell[4833, 113, 308, 6, 42, "Output",ExpressionUUID->"a40fabeb-972c-4a70-b771-61b6d1b0cd72"]
+Cell[1017, 35, 1575, 30, 116, "Input",ExpressionUUID->"b9f2d453-3e98-41bc-b67a-28793e860800"],
+Cell[2595, 67, 295, 5, 42, "Output",ExpressionUUID->"f0461080-b8f0-4951-b6f2-1231af50aaa5"],
+Cell[2893, 74, 318, 6, 42, "Output",ExpressionUUID->"8d31b7e2-a278-4a25-a9d5-42bcbd036b1a"],
+Cell[3214, 82, 1690, 32, 355, "Output",ExpressionUUID->"afd55ddb-14b0-4c68-9038-e208862619f9"],
+Cell[4907, 116, 334, 7, 42, "Output",ExpressionUUID->"fe7a633d-ab25-4ddf-8df9-bbf871baad73"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5178, 124, 243, 4, 37, "Input",ExpressionUUID->"89327c75-70af-4b75-adfd-86608c4fe806"],
-Cell[5424, 130, 9780, 202, 103, "Output",ExpressionUUID->"83617de6-811c-4523-8da4-108b3f55bdae"]
+Cell[5278, 128, 243, 4, 37, "Input",ExpressionUUID->"89327c75-70af-4b75-adfd-86608c4fe806"],
+Cell[5524, 134, 9780, 202, 103, "Output",ExpressionUUID->"83617de6-811c-4523-8da4-108b3f55bdae"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[15241, 337, 223, 3, 37, "Input",ExpressionUUID->"a1384358-6bbe-4f41-bc0a-a9f74fea10c1"],
-Cell[15467, 342, 151, 2, 62, "Output",ExpressionUUID->"3078577c-f250-431c-83d3-fede15a5a703"]
+Cell[15341, 341, 223, 3, 37, "Input",ExpressionUUID->"a1384358-6bbe-4f41-bc0a-a9f74fea10c1"],
+Cell[15567, 346, 151, 2, 42, "Output",ExpressionUUID->"3078577c-f250-431c-83d3-fede15a5a703"]
 }, Open  ]],
-Cell[15633, 347, 436, 9, 142, "Input",ExpressionUUID->"f1d84011-dcfc-4f83-98b5-d531ed681557"],
-Cell[16072, 358, 4418, 120, 454, "Input",ExpressionUUID->"6221cad6-36a4-4248-80ca-185024e4de01"]
+Cell[15733, 351, 436, 9, 142, "Input",ExpressionUUID->"f1d84011-dcfc-4f83-98b5-d531ed681557"],
+Cell[16172, 362, 4418, 120, 454, "Input",ExpressionUUID->"6221cad6-36a4-4248-80ca-185024e4de01"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[20527, 483, 160, 3, 84, "Section",ExpressionUUID->"d25c25c5-91e4-4db4-8d5d-ffff3c9dd8e9"],
-Cell[20690, 488, 251, 5, 37, "Input",ExpressionUUID->"b7145b60-97f2-4c82-a22d-4a857448917d"],
-Cell[20944, 495, 1575, 30, 116, "Input",ExpressionUUID->"b694159f-2a88-4f10-b86e-66a9ab5899ad"],
+Cell[20627, 487, 160, 3, 84, "Section",ExpressionUUID->"d25c25c5-91e4-4db4-8d5d-ffff3c9dd8e9"],
+Cell[20790, 492, 247, 4, 37, "Input",ExpressionUUID->"b7145b60-97f2-4c82-a22d-4a857448917d"],
 Cell[CellGroupData[{
-Cell[22544, 529, 2016, 56, 142, "Input",ExpressionUUID->"a02079b6-dc93-4662-a435-00398ad5c39a",
+Cell[21062, 500, 1575, 30, 116, "Input",ExpressionUUID->"b694159f-2a88-4f10-b86e-66a9ab5899ad"],
+Cell[22640, 532, 245, 3, 42, "Output",ExpressionUUID->"d30685e3-3b2f-4d79-b4d1-1f7a2e1371b6"],
+Cell[22888, 537, 265, 4, 42, "Output",ExpressionUUID->"56d1d15d-499b-4fee-9bfb-c870618b42e7"],
+Cell[23156, 543, 1637, 30, 355, "Output",ExpressionUUID->"3de08457-1f6a-4031-9123-31ea07fac907"],
+Cell[24796, 575, 281, 5, 62, "Output",ExpressionUUID->"33753bab-922b-47c8-a424-700d04df4a42"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25114, 585, 2016, 56, 142, "Input",ExpressionUUID->"a02079b6-dc93-4662-a435-00398ad5c39a",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[24563, 587, 29914, 564, 76, "Output",ExpressionUUID->"e4396594-1207-4563-9185-d785fd402ca0",
+Cell[27133, 643, 29914, 564, 76, "Output",ExpressionUUID->"e4396594-1207-4563-9185-d785fd402ca0",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[54480, 1153, 228, 3, 42, "Output",ExpressionUUID->"2a37bc9c-691e-4a18-ae4c-a1e2fb528abb",
+Cell[57050, 1209, 228, 3, 42, "Output",ExpressionUUID->"2a37bc9c-691e-4a18-ae4c-a1e2fb528abb",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[54711, 1158, 228, 3, 42, "Output",ExpressionUUID->"6f009d0b-2ea6-4227-aae7-be0ff49cf959",
+Cell[57281, 1214, 228, 3, 42, "Output",ExpressionUUID->"6f009d0b-2ea6-4227-aae7-be0ff49cf959",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[54942, 1163, 2407, 61, 142, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0",
+Cell[57512, 1219, 2407, 61, 142, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[57352, 1226, 32851, 614, 76, "Output",ExpressionUUID->"3ed2fcad-7777-45ec-a5f8-7f2fc3664d92",
+Cell[59922, 1282, 32851, 614, 76, "Output",ExpressionUUID->"3ed2fcad-7777-45ec-a5f8-7f2fc3664d92",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[90206, 1842, 231, 3, 42, "Output",ExpressionUUID->"753e4419-9c8a-4d2c-ba16-2d1d239dcf0d",
+Cell[92776, 1898, 231, 3, 42, "Output",ExpressionUUID->"753e4419-9c8a-4d2c-ba16-2d1d239dcf0d",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[90440, 1847, 229, 3, 42, "Output",ExpressionUUID->"d9318813-72e8-426d-92bb-5b3d97386b5c",
+Cell[93010, 1903, 229, 3, 42, "Output",ExpressionUUID->"d9318813-72e8-426d-92bb-5b3d97386b5c",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[90672, 1852, 2414, 61, 142, "Input",ExpressionUUID->"07d47c72-3650-48cf-bae5-d9151c59339e",
+Cell[93242, 1908, 2414, 61, 142, "Input",ExpressionUUID->"07d47c72-3650-48cf-bae5-d9151c59339e",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[93089, 1915, 22842, 465, 76, "Output",ExpressionUUID->"62c13107-6d79-4e28-aaaf-7c9eaad7277d",
+Cell[95659, 1971, 22842, 465, 76, "Output",ExpressionUUID->"62c13107-6d79-4e28-aaaf-7c9eaad7277d",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[115934, 2382, 230, 3, 42, "Output",ExpressionUUID->"32ff1fb0-6167-475c-a888-aa825ade7201",
+Cell[118504, 2438, 230, 3, 42, "Output",ExpressionUUID->"32ff1fb0-6167-475c-a888-aa825ade7201",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[116167, 2387, 231, 3, 42, "Output",ExpressionUUID->"a48a3b6f-f9d7-45ec-81ea-9ad319415fb2",
+Cell[118737, 2443, 231, 3, 42, "Output",ExpressionUUID->"a48a3b6f-f9d7-45ec-81ea-9ad319415fb2",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[116401, 2392, 2412, 61, 142, "Input",ExpressionUUID->"a92fbc3b-b353-4e75-8ee9-b61e11404d6b",
+Cell[118971, 2448, 2412, 61, 142, "Input",ExpressionUUID->"a92fbc3b-b353-4e75-8ee9-b61e11404d6b",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[118816, 2455, 30686, 612, 76, "Output",ExpressionUUID->"f0c9d610-c417-41f0-a800-8a8a5dfcb2ca",
+Cell[121386, 2511, 30686, 612, 76, "Output",ExpressionUUID->"f0c9d610-c417-41f0-a800-8a8a5dfcb2ca",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[149505, 3069, 229, 3, 42, "Output",ExpressionUUID->"74a50bbe-7cfb-49f6-a9cd-f8466ec77257",
+Cell[152075, 3125, 229, 3, 42, "Output",ExpressionUUID->"74a50bbe-7cfb-49f6-a9cd-f8466ec77257",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[149737, 3074, 229, 3, 42, "Output",ExpressionUUID->"32d7b3f7-bfbe-4a5b-8582-6afff05193ac",
+Cell[152307, 3130, 229, 3, 42, "Output",ExpressionUUID->"32d7b3f7-bfbe-4a5b-8582-6afff05193ac",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[149969, 3079, 2479, 62, 142, "Input",ExpressionUUID->"16b4a727-0558-4183-a2f8-e2e1a7b3a611",
+Cell[152539, 3135, 2479, 62, 142, "Input",ExpressionUUID->"16b4a727-0558-4183-a2f8-e2e1a7b3a611",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[152451, 3143, 219925, 3596, 76, "Output",ExpressionUUID->"f650b332-37a7-4e78-9747-24f0c5362836",
+Cell[155021, 3199, 220101, 3596, 76, "Output",ExpressionUUID->"f650b332-37a7-4e78-9747-24f0c5362836",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[372379, 6741, 231, 3, 42, "Output",ExpressionUUID->"2a5e7e6b-76cf-4912-a538-ed81f263c4a9",
+Cell[375125, 6797, 231, 3, 42, "Output",ExpressionUUID->"2a5e7e6b-76cf-4912-a538-ed81f263c4a9",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[372613, 6746, 229, 3, 42, "Output",ExpressionUUID->"c4c72f08-9d40-48de-93f8-b687a2f67462",
+Cell[375359, 6802, 229, 3, 42, "Output",ExpressionUUID->"c4c72f08-9d40-48de-93f8-b687a2f67462",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[372845, 6751, 2033, 56, 142, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684",
+Cell[375591, 6807, 2033, 56, 142, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[374881, 6809, 88459, 1618, 76, "Output",ExpressionUUID->"b3bb5f7a-13f0-4f80-bd9f-eb9241d25e79",
+Cell[377627, 6865, 89117, 1642, 76, "Output",ExpressionUUID->"b3bb5f7a-13f0-4f80-bd9f-eb9241d25e79",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[463343, 8429, 228, 3, 42, "Output",ExpressionUUID->"a2928624-f9fb-4c59-a1d5-058851b75208",
+Cell[466747, 8509, 228, 3, 42, "Output",ExpressionUUID->"a2928624-f9fb-4c59-a1d5-058851b75208",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[463574, 8434, 230, 3, 42, "Output",ExpressionUUID->"938f16b0-7798-4103-af88-21fae26197fd",
+Cell[466978, 8514, 230, 3, 42, "Output",ExpressionUUID->"938f16b0-7798-4103-af88-21fae26197fd",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[463807, 8439, 2046, 56, 142, "Input",ExpressionUUID->"ab52a8a9-6ba0-4c63-83a5-96864da8b71f",
+Cell[467211, 8519, 2046, 56, 142, "Input",ExpressionUUID->"ab52a8a9-6ba0-4c63-83a5-96864da8b71f",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[465856, 8497, 42123, 807, 76, "Output",ExpressionUUID->"45d29583-e6e9-405b-9389-f6764bf908e0",
+Cell[469260, 8577, 42123, 807, 76, "Output",ExpressionUUID->"45d29583-e6e9-405b-9389-f6764bf908e0",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[507982, 9306, 231, 3, 42, "Output",ExpressionUUID->"b26bf99f-ef14-48f3-9f08-d1ba3d9e50ef",
+Cell[511386, 9386, 231, 3, 42, "Output",ExpressionUUID->"b26bf99f-ef14-48f3-9f08-d1ba3d9e50ef",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[508216, 9311, 231, 3, 42, "Output",ExpressionUUID->"8955a267-5f1c-4522-a398-2cf03e65b17b",
+Cell[511620, 9391, 231, 3, 42, "Output",ExpressionUUID->"8955a267-5f1c-4522-a398-2cf03e65b17b",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[508450, 9316, 2068, 57, 142, "Input",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4",
+Cell[511854, 9396, 2067, 57, 142, "Input",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[510521, 9375, 83842, 1528, 76, "Output",ExpressionUUID->"5c6c0c6f-e837-46a0-8b4c-20f4c0363f2e",
+Cell[513924, 9455, 83802, 1528, 76, "Output",ExpressionUUID->"bab5fd3b-2eaa-46af-b3a2-2ceb2da8d999",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[594366, 10905, 228, 3, 42, "Output",ExpressionUUID->"8fc6cdd5-4d6a-4f11-8696-8c5b8ea5bdf2",
+Cell[597729, 10985, 253, 4, 42, "Output",ExpressionUUID->"2d72a4ef-2a55-4ea9-b491-ccdfa39e2250",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[594597, 10910, 229, 3, 42, "Output",ExpressionUUID->"65cc71c2-1a41-4271-87f6-a6e2ca202c7e",
+Cell[597985, 10991, 255, 4, 42, "Output",ExpressionUUID->"0a31b8e2-77f0-478a-8d04-50ee78896686",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[594829, 10915, 2023, 56, 142, "Input",ExpressionUUID->"7c47fece-e37b-46a8-a1f5-f66cb52faf00",
+Cell[598243, 10997, 2023, 56, 142, "Input",ExpressionUUID->"7c47fece-e37b-46a8-a1f5-f66cb52faf00",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[596855, 10973, 136205, 2318, 76, "Output",ExpressionUUID->"dfc994d2-860a-4c74-b4bf-e1fc5d32c2c9",
+Cell[600269, 11055, 136220, 2319, 76, "Output",ExpressionUUID->"dfc994d2-860a-4c74-b4bf-e1fc5d32c2c9",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[733063, 13293, 229, 3, 42, "Output",ExpressionUUID->"c2d13972-7f44-4ad6-a49f-eb4eeb1a2598",
+Cell[736492, 13376, 229, 3, 42, "Output",ExpressionUUID->"c2d13972-7f44-4ad6-a49f-eb4eeb1a2598",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[733295, 13298, 229, 3, 42, "Output",ExpressionUUID->"7aee93b3-cca8-4ce9-8bcf-02c8100e0cc8",
+Cell[736724, 13381, 229, 3, 42, "Output",ExpressionUUID->"7aee93b3-cca8-4ce9-8bcf-02c8100e0cc8",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[733527, 13303, 2022, 56, 142, "Input",ExpressionUUID->"ad7fda5b-fb52-4ad1-8d3f-dceb74f45182",
+Cell[736956, 13386, 2022, 56, 142, "Input",ExpressionUUID->"ad7fda5b-fb52-4ad1-8d3f-dceb74f45182",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[735552, 13361, 10136, 208, 76, "Output",ExpressionUUID->"f53b708b-a5f4-42bc-b508-aa4b9579ed42",
+Cell[738981, 13444, 10136, 208, 76, "Output",ExpressionUUID->"f53b708b-a5f4-42bc-b508-aa4b9579ed42",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[745691, 13571, 231, 3, 42, "Output",ExpressionUUID->"a3940690-a310-4790-af1a-1759671c358b",
+Cell[749120, 13654, 231, 3, 42, "Output",ExpressionUUID->"a3940690-a310-4790-af1a-1759671c358b",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[745925, 13576, 229, 3, 42, "Output",ExpressionUUID->"6c8e2266-e28a-4605-ad58-0b7a891a57a2",
+Cell[749354, 13659, 229, 3, 42, "Output",ExpressionUUID->"6c8e2266-e28a-4605-ad58-0b7a891a57a2",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[746157, 13581, 2039, 57, 142, "Input",ExpressionUUID->"479fb483-095c-47a5-b63a-afec0a7f6185",
+Cell[749586, 13664, 2038, 57, 142, "Input",ExpressionUUID->"479fb483-095c-47a5-b63a-afec0a7f6185",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[748199, 13640, 23426, 446, 76, "Output",ExpressionUUID->"cab1b11b-c9a0-4074-9b9f-2ea5f42cec4b",
+Cell[751627, 13723, 23461, 447, 76, "Output",ExpressionUUID->"2b7841db-fe0e-41eb-94ad-32593cb93d63",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[771628, 14088, 231, 3, 42, "Output",ExpressionUUID->"61a90c61-9309-4e75-8397-ad261a6949ef",
+Cell[775091, 14172, 281, 4, 42, "Output",ExpressionUUID->"59aeed5f-6fe5-4812-bd22-acc9601ded98",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[771862, 14093, 231, 3, 42, "Output",ExpressionUUID->"de614473-7084-42ab-b564-03ccf61c0f50",
+Cell[775375, 14178, 279, 4, 42, "Output",ExpressionUUID->"54982e96-0c58-4656-9dbe-25b6e2cb3310",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[772096, 14098, 2038, 57, 142, "Input",ExpressionUUID->"afbf4542-7cc1-4920-8238-b47d7922799b",
+Cell[775657, 14184, 2038, 57, 142, "Input",ExpressionUUID->"afbf4542-7cc1-4920-8238-b47d7922799b",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[774137, 14157, 103929, 1927, 76, "Output",ExpressionUUID->"aee6a225-0bb2-4d7e-a340-ed3de5242c89",
+Cell[777698, 14243, 103933, 1927, 76, "Output",ExpressionUUID->"aee6a225-0bb2-4d7e-a340-ed3de5242c89",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[878069, 16086, 228, 3, 42, "Output",ExpressionUUID->"3b885dd0-7bd5-48fe-bb43-3b481f8e7436",
+Cell[881634, 16172, 228, 3, 42, "Output",ExpressionUUID->"3b885dd0-7bd5-48fe-bb43-3b481f8e7436",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[878300, 16091, 230, 3, 42, "Output",ExpressionUUID->"e70961a1-ece7-4541-a465-430e3b76ac1f",
+Cell[881865, 16177, 230, 3, 42, "Output",ExpressionUUID->"e70961a1-ece7-4541-a465-430e3b76ac1f",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[878533, 16096, 1969, 55, 142, "Input",ExpressionUUID->"ab5399e2-3070-4f2a-b018-73caa2bee83c",
+Cell[882098, 16182, 1969, 55, 142, "Input",ExpressionUUID->"ab5399e2-3070-4f2a-b018-73caa2bee83c",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[880505, 16153, 71449, 1382, 76, "Output",ExpressionUUID->"16db66b8-f764-41e8-88dd-475816a0666d",
+Cell[884070, 16239, 71443, 1382, 76, "Output",ExpressionUUID->"16db66b8-f764-41e8-88dd-475816a0666d",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[951957, 17537, 229, 3, 42, "Output",ExpressionUUID->"9d4d3be7-f551-4ab8-9297-44f79d9a3dc8",
+Cell[955516, 17623, 229, 3, 42, "Output",ExpressionUUID->"9d4d3be7-f551-4ab8-9297-44f79d9a3dc8",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[952189, 17542, 229, 3, 42, "Output",ExpressionUUID->"dc85bea2-d14c-4fe0-a1a9-dc7da921497e",
+Cell[955748, 17628, 229, 3, 42, "Output",ExpressionUUID->"dc85bea2-d14c-4fe0-a1a9-dc7da921497e",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}]
 }, Open  ]]
 }, Open  ]]
