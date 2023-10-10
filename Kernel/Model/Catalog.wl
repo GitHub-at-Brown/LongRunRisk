@@ -98,6 +98,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0078,
@@ -191,6 +193,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0078,
@@ -284,6 +288,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0078,
@@ -377,6 +383,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0072,
@@ -470,6 +478,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0072,
@@ -563,6 +573,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0072,
@@ -657,6 +669,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 7.83587415060296*^-23,
@@ -751,6 +765,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> -0.00624,
 				rhog -> 0.996289,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0.002927236529485,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0,
@@ -878,6 +894,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> -0.00624,
 				rhog -> 0.996289,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0.002927236529485,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0072,
@@ -1006,6 +1024,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.004*Esc,
@@ -1099,6 +1119,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.004*Esc,
@@ -1194,6 +1216,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0072,
@@ -1288,6 +1312,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0012,
@@ -1382,6 +1408,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> -0.213776184026323,
 				rhog -> 0.999320612198705,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> -0.00284672153301256,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.00170641799681817,
@@ -1477,6 +1505,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> 0,
 				rhog -> 0,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.00109,
@@ -1568,6 +1598,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> -0.2138,
 				rhog -> 0.9993,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> -0.0035,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0.0017,
@@ -1663,6 +1695,8 @@ models = <|
 			(*"Nominal-real covariance (NRC)"*)
 			Esg -> -0.00624,
 				rhog -> 0.996289,
+				rhogp -> 0,
+				rhogpbar -> 0,
 				phig -> 0.002927236529485,
 			(*"Stochastic volatility of long-run risk"*)
 			Esx -> 0,

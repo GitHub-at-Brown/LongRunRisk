@@ -438,6 +438,8 @@ modelToTeX=<|
 	(*"Nominal-real covariance (NRC)"*)
 	"Esg"->"\\bar{\\sigma}_{g}",
 		"rhog"->"\\rho_{g}",
+		"rhogp"->"\rho_{g,\pi}",
+		"rhogpbar"->"\rho_{g,\bar{\pi}}",
 		"phig"->"\\phi_{g}",
 	(*"Stochastic volatility of long-run risk"*)
 	"Esx"->"\\bar{\\sigma}_{x}",
@@ -654,6 +656,8 @@ modelFormattingTemplate[
 									"\t\t\t",RowBox[{"(*","\"\<Nominal-real covariance (NRC)\>\"","*)"}],"\n",
 									"\t\t\t",RowBox[{"Esg"," ","->"," ",  formatLocal[Esg]}],  ",","\n",
 									"\t\t\t\t",RowBox[{"rhog"," ","->"," ",formatLocal[rhog]}],",","\n",
+									"\t\t\t\t",RowBox[{"rhogp"," ","->"," ",formatLocal[rhogp]}],",","\n",
+									"\t\t\t\t",RowBox[{"rhogpbar"," ","->"," ",formatLocal[rhogpbar]}],",","\n",
 									"\t\t\t\t",RowBox[{"phig"," ","->"," ",formatLocal[phig]}],",","\n",
 									
 									"\t\t\t",RowBox[{"(*","\"\<Stochastic volatility of long-run risk\>\"","*)"}],"\n",

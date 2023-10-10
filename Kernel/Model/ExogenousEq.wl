@@ -152,6 +152,8 @@ dceq[t_]:=
 sgeq[t_]:= 
 	Esg + 
 	rhog * (sg[t-1]-Esg)+
+	rhogp (pi[t-1]-mup)+
+	rhogpbar (pibar[t-1]-mupbar)+
 	phig eps["sg"][t]
 
 

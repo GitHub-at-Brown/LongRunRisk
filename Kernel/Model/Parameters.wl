@@ -59,6 +59,8 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 (*nominal-real covariance (NRC)*)
 	Esg::usage = "Mean of nominal-real covariance.";
 	rhog::usage = "Persistence of nominal-real covariance, AR(1) coefficient.";
+	rhogp::usage = "Exposure of nominal-real covariance to lagged inflation.";
+	rhogpbar::usage = "Exposure of nominal-real covariance to lagged expected inflation.";
 	phig::usage = "Volatility of nominal-real covariance.";
 (*stochastic volatility of long-run risk*)
 	Esx::usage = "Mean of stochastic volatility of long-run risk.";
@@ -115,7 +117,7 @@ paramList={
 {"Inflation",{mup,rhoppbar,rhop,phip,xip,phipc,phipcx,phipx,phipp,phipxp}},
 {"Expected inflation",{mupbar,rhopbar,rhopbarx,phipbarc,phipbarcx,phipbarx,phipbarp,phipbarxb,phipbarpb,phipbarxp}},
 {"Real consumption growth",{muc,rhocx,rhocp,phics,phicx,phicc,phicpp,phicpc,phic,phicsp,xic,phicp}},
-{"Nominal-real covariance (NRC)",{Esg,rhog,phig}},
+{"Nominal-real covariance (NRC)",{Esg,rhog,rhogp,rhogpbar,phig}},
 {"Stochastic volatility of long-run risk",{Esx,vx,phisxs}},
 {"Stochastic volatility of consumption growth",{Esc,vc,phiscv}},
 {"Stochastic volatility of inflation",{Esp,vp,vpp,vppbar,phispw}},
