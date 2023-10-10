@@ -14,7 +14,7 @@ env:
   WLPR_PACLET_SITE: https://resources.wolframcloud.com/PacletRepository/pacletsite
 jobs:
   Check-Test:
-    name: Test
+    name: Check-Test
     runs-on: ubuntu-latest
     container:
       image: wolframresearch/wolframengine:13.0.1
