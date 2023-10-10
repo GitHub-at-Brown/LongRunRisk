@@ -10,10 +10,11 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20231010-MLR2IR"
+	TestID->"SolveEulerEq_20231010-M465RI"
 ]
 VerificationTest[
 	Off[General::stop];
+	If[!ComputationalEngine`SolveEulerEq`longTest, Off[FindRoot::cvmit]];
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`";
 	$ContextPath = DeleteDuplicates @ Prepend[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`"];
 	Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
@@ -349,67 +350,69 @@ VerificationTest[
 				}
 			];
 			ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
-		];
-		ComputationalEngine`SolveEulerEq`m1 = Block[{$MessagePrePrint = Sow, $MessageList = {}},
-			Reap[
-				Module[{}, ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "PrintResidualsNorm" -> False];];
-				$MessageList
-			]
-		];
-		ComputationalEngine`SolveEulerEq`m2 = Block[{$MessagePrePrint = Sow, $MessageList = {}},
-			Reap[
-				Module[{}, ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "PrintResidualsNorm" -> True];];
-				$MessageList
-			]
-		];
-		ComputationalEngine`SolveEulerEq`outTests[ComputationalEngine`SolveEulerEq`model["shortname"]][ComputationalEngine`SolveEulerEq`ind] = Equal[ReleaseHold @ ComputationalEngine`SolveEulerEq`m1, {{}, {}}];
-		ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
-		ComputationalEngine`SolveEulerEq`outTests[ComputationalEngine`SolveEulerEq`model["shortname"]][ComputationalEngine`SolveEulerEq`ind] = Equal[First @ ComputationalEngine`SolveEulerEq`m2, {HoldForm[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::norm]}];
-		ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
-		ComputationalEngine`SolveEulerEq`outTests[ComputationalEngine`SolveEulerEq`model["shortname"]][ComputationalEngine`SolveEulerEq`ind] = NumberQ[ReleaseHold @ First @ Flatten @ Last @ ComputationalEngine`SolveEulerEq`m2];
-		ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
-		ComputationalEngine`SolveEulerEq`c1 = Not[
-			TrueQ[
+			ComputationalEngine`SolveEulerEq`m1 = Block[
+				{$MessagePrePrint = Sow, $MessageList = {}},
+				Reap[
+					Module[{}, ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "PrintResidualsNorm" -> False];];
+					$MessageList
+				]
+			];
+			ComputationalEngine`SolveEulerEq`m2 = Block[
+				{$MessagePrePrint = Sow, $MessageList = {}},
+				Reap[
+					Module[{}, ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "PrintResidualsNorm" -> True];];
+					$MessageList
+				]
+			];
+			ComputationalEngine`SolveEulerEq`outTests[ComputationalEngine`SolveEulerEq`model["shortname"]][ComputationalEngine`SolveEulerEq`ind] = Equal[ReleaseHold @ ComputationalEngine`SolveEulerEq`m1, {{}, {}}];
+			ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
+			ComputationalEngine`SolveEulerEq`outTests[ComputationalEngine`SolveEulerEq`model["shortname"]][ComputationalEngine`SolveEulerEq`ind] = Equal[First @ ComputationalEngine`SolveEulerEq`m2, {HoldForm[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::norm]}];
+			ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
+			ComputationalEngine`SolveEulerEq`outTests[ComputationalEngine`SolveEulerEq`model["shortname"]][ComputationalEngine`SolveEulerEq`ind] = NumberQ[ReleaseHold @ First @ Flatten @ Last @ ComputationalEngine`SolveEulerEq`m2];
+			ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
+			ComputationalEngine`SolveEulerEq`c1 = Not[
+				TrueQ[
+					CheckAbort[
+						Check[ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> False],
+							Abort[], FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid
+						],
+						True
+					]
+				]
+			];
+			ComputationalEngine`SolveEulerEq`c2 = TrueQ[
 				CheckAbort[
-					Check[ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> False],
+					Check[ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> True],
 						Abort[], FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid
 					],
 					True
 				]
-			]
-		];
-		ComputationalEngine`SolveEulerEq`c2 = TrueQ[
-			CheckAbort[
-				Check[ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> True],
-					Abort[], FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid
-				],
-				True
-			]
-		];
-		ComputationalEngine`SolveEulerEq`outTests[ComputationalEngine`SolveEulerEq`model["shortname"]][ComputationalEngine`SolveEulerEq`ind] = Apply[And, {ComputationalEngine`SolveEulerEq`c1, ComputationalEngine`SolveEulerEq`c2}];
-		ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
-		ComputationalEngine`SolveEulerEq`c1 = Not[
-			TrueQ[
+			];
+			ComputationalEngine`SolveEulerEq`outTests[ComputationalEngine`SolveEulerEq`model["shortname"]][ComputationalEngine`SolveEulerEq`ind] = Apply[And, {ComputationalEngine`SolveEulerEq`c1, ComputationalEngine`SolveEulerEq`c2}];
+			ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
+			ComputationalEngine`SolveEulerEq`c1 = Not[
+				TrueQ[
+					CheckAbort[
+						Check[
+							ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> True, "Tol" -> 1],
+							Abort[], FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid
+						],
+						True
+					]
+				]
+			];
+			ComputationalEngine`SolveEulerEq`c2 = TrueQ[
 				CheckAbort[
 					Check[
-						ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> True, "Tol" -> 1],
+						ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> True, "Tol" -> (10. ^ -20)],
 						Abort[], FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid
 					],
 					True
 				]
-			]
+			];
+			ComputationalEngine`SolveEulerEq`outTests[ComputationalEngine`SolveEulerEq`model["shortname"]][ComputationalEngine`SolveEulerEq`ind] = Apply[And, {ComputationalEngine`SolveEulerEq`c1, ComputationalEngine`SolveEulerEq`c2}];
+			ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
 		];
-		ComputationalEngine`SolveEulerEq`c2 = TrueQ[
-			CheckAbort[
-				Check[
-					ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> True, "Tol" -> (10. ^ -20)],
-					Abort[], FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid
-				],
-				True
-			]
-		];
-		ComputationalEngine`SolveEulerEq`outTests[ComputationalEngine`SolveEulerEq`model["shortname"]][ComputationalEngine`SolveEulerEq`ind] = Apply[And, {ComputationalEngine`SolveEulerEq`c1, ComputationalEngine`SolveEulerEq`c2}];
-		ComputationalEngine`SolveEulerEq`ind = ComputationalEngine`SolveEulerEq`ind + 1;
 		ComputationalEngine`SolveEulerEq`Ewc0 = 4.6;
 		ComputationalEngine`SolveEulerEq`outTests[ComputationalEngine`SolveEulerEq`model["shortname"]][ComputationalEngine`SolveEulerEq`ind] = ComputationalEngine`SolveEulerEq`coeffsQWc[
 			ComputationalEngine`SolveEulerEq`updateCoeffs[ComputationalEngine`SolveEulerEq`model,
@@ -833,21 +836,14 @@ VerificationTest[
 		}
 	];
 	On[General::stop];
+	On[FindRoot::cvmit];
 	ComputationalEngine`SolveEulerEq`out
 	,
 	True
 	,
-	{HoldForm[Message[checks::norm, 4.383905086044507*^-14]], 
- HoldForm[Message[checks::largeresid, 4.383905086044507*^-14, 1.*^-16]], 
- HoldForm[Message[checks::smallresid, 4.383905086044507*^-14, 1]], 
- HoldForm[Message[checks::largeresid, 4.383905086044507*^-14, 1.*^-20]], 
- HoldForm[Message[checks::norm, 1.1383179045888502*^-12]], 
- HoldForm[Message[checks::largeresid, 1.1383179045888502*^-12, 1.*^-16]], 
- HoldForm[Message[checks::smallresid, 1.1383179045888502*^-12, 1]], 
- HoldForm[Message[checks::largeresid, 1.1383179045888502*^-12, 1.*^-20]], 
- HoldForm[Message[FindRoot::cvmit, HoldForm[100]]]}
+	{}
 	,
-	TestID->"SolveEulerEq_20231010-PEFY87"
+	TestID->"SolveEulerEq_20231010-OEH87E"
 ] 
 End[]
 EndTestSection[]

@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    230156,       4597]
-NotebookOptionsPosition[    174975,       3593]
-NotebookOutlinePosition[    221514,       4451]
-CellTagsIndexPosition[    221471,       4448]
+NotebookDataLength[    231098,       4597]
+NotebookOptionsPosition[    175917,       3593]
+NotebookOutlinePosition[    222456,       4451]
+CellTagsIndexPosition[    222413,       4448]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -23,7 +23,7 @@ Cell[BoxData[
   RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.890031566462019*^9, 3.890031568811056*^9}, 
    3.891753377415228*^9},
- CellLabel->"In[20]:=",ExpressionUUID->"57a3a6b7-5ed1-4642-9045-f2f5b9fe3ba7"],
+ CellLabel->"In[17]:=",ExpressionUUID->"57a3a6b7-5ed1-4642-9045-f2f5b9fe3ba7"],
 
 Cell[CellGroupData[{
 
@@ -77,8 +77,8 @@ Cell[BoxData[
  CellChangeTimes->{3.905771670966997*^9, 3.905876533618599*^9, 
   3.905901381669629*^9, 3.905901464091708*^9, 3.90590153737281*^9, 
   3.90590158382732*^9, 3.90590165671677*^9, 3.905901939537641*^9, 
-  3.905902289047567*^9},
- CellLabel->"Out[5]=",ExpressionUUID->"df8f899e-b48d-46a1-a1a2-42c2c162b654"]
+  3.905902289047567*^9, 3.905902329751622*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"f644f909-e830-46b4-8c32-760d7e3526d7"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -121,8 +121,8 @@ Cell[BoxData[{
  CellLabel->"In[7]:=",ExpressionUUID->"d1369107-4139-4dd1-97c7-29279f71e417"],
 
 Cell[BoxData["\<\"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\"\>"], "Output",
- CellChangeTimes->{3.9058765359531937`*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"b0859949-dbc7-4a40-8b4a-b87a99a1d0fb"]
+ CellChangeTimes->{3.9058765359531937`*^9, 3.905902333996954*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"77100aa6-1068-4c85-a235-f73685ae7409"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -135,8 +135,8 @@ Cell[BoxData[
  CellLabel->"In[9]:=",ExpressionUUID->"f503f936-1917-49c3-9e41-605f2ccd4426"],
 
 Cell[BoxData["\<\"Tools`NiceOutput`\"\>"], "Output",
- CellChangeTimes->{3.9058765359590054`*^9},
- CellLabel->"Out[9]=",ExpressionUUID->"a70541dd-1e69-4068-b9be-e4b7b33d5ff9"]
+ CellChangeTimes->{3.9058765359590054`*^9, 3.905902334011796*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"1fc5850d-7387-4f00-a039-ed47ad0815c5"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -162,20 +162,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"NiceOutput_20231009-8ZHU0Y\"\>"}],
-  SequenceForm["Adding test: ", "NiceOutput_20231009-8ZHU0Y"],
+   "\[InvisibleSpace]", "\<\"NiceOutput_20231010-CSDOMC\"\>"}],
+  SequenceForm["Adding test: ", "NiceOutput_20231010-CSDOMC"],
   Editable->False]], "Print",
- CellChangeTimes->{3.905876536221157*^9},
+ CellChangeTimes->{3.905876536221157*^9, 3.905902334287513*^9},
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"995a6253-b618-4fa9-9d0c-924ec26c9258"],
+In[10]:=",ExpressionUUID->"ff31a9a1-28dd-4472-ade6-883f29167e8b"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>"], "Print",
- CellChangeTimes->{3.905876536238579*^9},
+ CellChangeTimes->{3.905876536221157*^9, 3.9059023343099337`*^9},
  CellLabel->
   "During evaluation of \
-In[10]:=",ExpressionUUID->"c31d0507-9b63-44ae-a07f-1e3c2a4ff07c"]
+In[10]:=",ExpressionUUID->"12471470-5780-4eb9-bc9a-d8481a0e481d"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -186,7 +186,7 @@ Cell[BoxData[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
   "VerificationTest[\n\tTools`NiceOutput`longTest = False;\n\tTrue\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n", 
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-CSDOMC\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$ = True, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -199,7 +199,7 @@ True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"NiceOutput\"]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`longTest = False;\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"NiceOutput_20231010-CSDOMC\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>",
   DynamicModuleValues:>{{
@@ -264,8 +264,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.905876536249176*^9},
- CellLabel->"Out[10]=",ExpressionUUID->"25012034-1dab-48ce-8338-60848f090222"]
+ CellChangeTimes->{3.905876536249176*^9, 3.905902334313715*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"744e9162-a01c-48dc-9a2a-b4ddef431787"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -318,20 +318,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"NiceOutput_20231009-9O40UD\"\>"}],
-  SequenceForm["Adding test: ", "NiceOutput_20231009-9O40UD"],
+   "\[InvisibleSpace]", "\<\"NiceOutput_20231010-SZ1YXW\"\>"}],
+  SequenceForm["Adding test: ", "NiceOutput_20231010-SZ1YXW"],
   Editable->False]], "Print",
- CellChangeTimes->{3.9058765373512*^9},
+ CellChangeTimes->{3.9058765373512*^9, 3.905902335450164*^9},
  CellLabel->
   "During evaluation of \
-In[11]:=",ExpressionUUID->"a6e1bf12-6e73-4280-92df-b7472552763d"],
+In[11]:=",ExpressionUUID->"13a4838c-f03a-457e-bebe-de0d88d7f7c7"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>"], "Print",
- CellChangeTimes->{3.9058765373521767`*^9},
+ CellChangeTimes->{3.9058765373512*^9, 3.905902335451169*^9},
  CellLabel->
   "During evaluation of \
-In[11]:=",ExpressionUUID->"923145b8-1ccc-46ee-954f-226d1463f12e"]
+In[11]:=",ExpressionUUID->"966a161f-056b-4d89-adc9-e1f396284c9c"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -359,12 +359,12 @@ Tools`NiceOutput`msp @ \"BKY\";\n\tTools`NiceOutput`modNRC = \
 Tools`NiceOutput`msp @ \"NRC\";\n\tTools`NiceOutput`modDES = \
 Tools`NiceOutput`msp @ \"DES\";\n\tTools`NiceOutput`modNRCStochVol = \
 Tools`NiceOutput`msp @ \"NRCStochVol\";\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\
-\tTestID->\"NiceOutput_20231009-9O40UD\"\n]\n\n", 
+\tTestID->\"NiceOutput_20231010-SZ1YXW\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 1.09, "AbsoluteTiming" -> 1.08, 
+   "MessagesExpressions" -> {}, "Timing" -> 1.107, "AbsoluteTiming" -> 1.1, 
    "InputString" :> ToString[
      Unevaluated[Get[
         Get[
@@ -385,7 +385,7 @@ Tools`NiceOutput`msp @ \"NRCStochVol\";\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"NiceOutput\"]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`longTest = False;\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
+TestID->\"NiceOutput_20231010-CSDOMC\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
 @ FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 Tools`NiceOutput`msp = If[\n\t\tTools`NiceOutput`longTest, \
 FernandoDuarte`LongRunRisk`Models, KeyTake[FernandoDuarte`LongRunRisk`Models, \
@@ -395,7 +395,7 @@ Tools`NiceOutput`modBKY = Tools`NiceOutput`msp @ \"BKY\";\n\t\
 Tools`NiceOutput`modNRC = Tools`NiceOutput`msp @ \"NRC\";\n\t\
 Tools`NiceOutput`modDES = Tools`NiceOutput`msp @ \"DES\";\n\t\
 Tools`NiceOutput`modNRCStochVol = Tools`NiceOutput`msp @ \"NRCStochVol\";\n\t\
-True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-9O40UD\"\n\
+True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-SZ1YXW\"\n\
 ]\n\n\nEndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>",
   DynamicModuleValues:>{{
@@ -460,8 +460,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.905876537368723*^9},
- CellLabel->"Out[11]=",ExpressionUUID->"59323f82-3d28-4091-80ad-0a53f084051e"]
+ CellChangeTimes->{3.905876537368723*^9, 3.905902335466425*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"271a00cc-b9c4-45f5-a3db-b4b1ff2f22fa"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -501,20 +501,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"NiceOutput_20231009-79JIPG\"\>"}],
-  SequenceForm["Adding test: ", "NiceOutput_20231009-79JIPG"],
+   "\[InvisibleSpace]", "\<\"NiceOutput_20231010-W3EDPT\"\>"}],
+  SequenceForm["Adding test: ", "NiceOutput_20231010-W3EDPT"],
   Editable->False]], "Print",
- CellChangeTimes->{3.9058765416550837`*^9},
+ CellChangeTimes->{3.9058765416550837`*^9, 3.9059023385001793`*^9},
  CellLabel->
   "During evaluation of \
-In[12]:=",ExpressionUUID->"3c15f850-ed64-4a4a-b34d-3a88df876caf"],
+In[12]:=",ExpressionUUID->"8fa02a13-47e7-42b2-84ce-74a23a8acd57"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>"], "Print",
- CellChangeTimes->{3.9058765416712017`*^9},
+ CellChangeTimes->{3.9058765416550837`*^9, 3.905902338501335*^9},
  CellLabel->
   "During evaluation of \
-In[12]:=",ExpressionUUID->"efc2d7b1-c3d5-4834-897f-6880ab29a1f4"]
+In[12]:=",ExpressionUUID->"535c3c35-c31f-420c-8dfe-659d6592af74"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -530,13 +530,13 @@ Cell[BoxData[
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\";\n\t$ContextPath = \
 DeleteDuplicates @ Prepend[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\"];\n\tTrue\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-79JIPG\"\n]\n\n", 
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-W3EDPT\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 1.612, "AbsoluteTiming" -> 4.219, 
-   "InputString" :> ToString[
+   "MessagesExpressions" -> {}, "Timing" -> 1.6420000000000001`, 
+   "AbsoluteTiming" -> 2.955, "InputString" :> ToString[
      Unevaluated[
      Needs["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]; $ContextPath = 
        DeleteDuplicates[
@@ -548,7 +548,7 @@ True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-79JIPG\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"NiceOutput\"]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`longTest = False;\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
+TestID->\"NiceOutput_20231010-CSDOMC\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
 @ FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 Tools`NiceOutput`msp = If[\n\t\tTools`NiceOutput`longTest, \
 FernandoDuarte`LongRunRisk`Models, KeyTake[FernandoDuarte`LongRunRisk`Models, \
@@ -558,12 +558,12 @@ Tools`NiceOutput`modBKY = Tools`NiceOutput`msp @ \"BKY\";\n\t\
 Tools`NiceOutput`modNRC = Tools`NiceOutput`msp @ \"NRC\";\n\t\
 Tools`NiceOutput`modDES = Tools`NiceOutput`msp @ \"DES\";\n\t\
 Tools`NiceOutput`modNRCStochVol = Tools`NiceOutput`msp @ \"NRCStochVol\";\n\t\
-True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-9O40UD\"\n\
+True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-SZ1YXW\"\n\
 ]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\";\n\t$ContextPath = \
 DeleteDuplicates @ Prepend[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\"];\n\tTrue\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-79JIPG\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-W3EDPT\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>",
   DynamicModuleValues:>{{
@@ -628,8 +628,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.905876541678562*^9},
- CellLabel->"Out[12]=",ExpressionUUID->"a0c17a6c-30e4-44da-b379-354418a8a156"]
+ CellChangeTimes->{3.905876541678562*^9, 3.905902338520975*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"55211160-17a3-45e5-8fe0-43b130245fb9"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -659,20 +659,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"NiceOutput_20231009-LS92LV\"\>"}],
-  SequenceForm["Adding test: ", "NiceOutput_20231009-LS92LV"],
+   "\[InvisibleSpace]", "\<\"NiceOutput_20231010-XBKBUS\"\>"}],
+  SequenceForm["Adding test: ", "NiceOutput_20231010-XBKBUS"],
   Editable->False]], "Print",
- CellChangeTimes->{3.90587654183318*^9},
+ CellChangeTimes->{3.90587654183318*^9, 3.905902338707067*^9},
  CellLabel->
   "During evaluation of \
-In[13]:=",ExpressionUUID->"44deba9a-aee0-46db-9788-cf44b669b28f"],
+In[13]:=",ExpressionUUID->"94b77442-6ff0-441f-9ba3-1c24b6e37d0b"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>"], "Print",
- CellChangeTimes->{3.90587654185168*^9},
+ CellChangeTimes->{3.90587654183318*^9, 3.905902338816465*^9},
  CellLabel->
   "During evaluation of \
-In[13]:=",ExpressionUUID->"990c49bc-b137-4f92-bf78-d3482ec0a607"]
+In[13]:=",ExpressionUUID->"5408ae7f-f157-4cfd-8845-164782a0f3a1"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -685,7 +685,7 @@ Cell[BoxData[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
   "VerificationTest[\n\tApply[And, {MemberQ[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\"]}]\n\t,\n\tTrue\n\t,\n\t{}\n\
-\t,\n\tTestID->\"NiceOutput_20231009-LS92LV\"\n]\n\n", 
+\t,\n\tTestID->\"NiceOutput_20231010-XBKBUS\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -701,7 +701,7 @@ Cell[BoxData[
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"NiceOutput\"]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`longTest = False;\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
+TestID->\"NiceOutput_20231010-CSDOMC\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
 @ FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 Tools`NiceOutput`msp = If[\n\t\tTools`NiceOutput`longTest, \
 FernandoDuarte`LongRunRisk`Models, KeyTake[FernandoDuarte`LongRunRisk`Models, \
@@ -711,15 +711,15 @@ Tools`NiceOutput`modBKY = Tools`NiceOutput`msp @ \"BKY\";\n\t\
 Tools`NiceOutput`modNRC = Tools`NiceOutput`msp @ \"NRC\";\n\t\
 Tools`NiceOutput`modDES = Tools`NiceOutput`msp @ \"DES\";\n\t\
 Tools`NiceOutput`modNRCStochVol = Tools`NiceOutput`msp @ \"NRCStochVol\";\n\t\
-True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-9O40UD\"\n\
+True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-SZ1YXW\"\n\
 ]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\";\n\t$ContextPath = \
 DeleteDuplicates @ Prepend[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\"];\n\tTrue\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-79JIPG\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-W3EDPT\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, {MemberQ[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\"]}]\n\t,\n\tTrue\n\t,\n\t{}\n\
-\t,\n\tTestID->\"NiceOutput_20231009-LS92LV\"\n]\n\n\nEndTestSection[]\n"}, "\
+\t,\n\tTestID->\"NiceOutput_20231010-XBKBUS\"\n]\n\n\nEndTestSection[]\n"}, "\
 \<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>",
   DynamicModuleValues:>{{
@@ -785,8 +785,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.905876541855*^9},
- CellLabel->"Out[13]=",ExpressionUUID->"85cd6976-827e-4b0c-a1de-14c7dcfbc284"]
+ CellChangeTimes->{3.905876541855*^9, 3.905902338825632*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"3133eccf-ad20-4ec4-afd2-fa8ddae47910"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -816,20 +816,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"NiceOutput_20231009-YU9AG1\"\>"}],
-  SequenceForm["Adding test: ", "NiceOutput_20231009-YU9AG1"],
+   "\[InvisibleSpace]", "\<\"NiceOutput_20231010-BFL7AF\"\>"}],
+  SequenceForm["Adding test: ", "NiceOutput_20231010-BFL7AF"],
   Editable->False]], "Print",
- CellChangeTimes->{3.905876541919463*^9},
+ CellChangeTimes->{3.905876541919463*^9, 3.905902338892415*^9},
  CellLabel->
   "During evaluation of \
-In[14]:=",ExpressionUUID->"3db45011-a96d-48a4-bb48-5ca13b83fcc7"],
+In[14]:=",ExpressionUUID->"87936915-9893-4279-9cf6-b5aeb3982871"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>"], "Print",
- CellChangeTimes->{3.905876541935054*^9},
+ CellChangeTimes->{3.905876541919463*^9, 3.905902338893578*^9},
  CellLabel->
   "During evaluation of \
-In[14]:=",ExpressionUUID->"de50918c-c5e5-45a9-a4d6-d7b60ce27a52"]
+In[14]:=",ExpressionUUID->"3ccef2a6-d922-4cc3-a1f8-fc2001ea0200"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -840,7 +840,7 @@ Cell[BoxData[
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`output$$ = True, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`outputString$$ = 
   "VerificationTest[\n\t!SameQ[Names @ \"*info\", {}]\n\t,\n\tTrue\n\t,\n\t{}\
-\n\t,\n\tTestID->\"NiceOutput_20231009-YU9AG1\"\n]\n\n", 
+\n\t,\n\tTestID->\"NiceOutput_20231010-BFL7AF\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -854,7 +854,7 @@ Cell[BoxData[
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"NiceOutput\"]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`longTest = False;\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
+TestID->\"NiceOutput_20231010-CSDOMC\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
 @ FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 Tools`NiceOutput`msp = If[\n\t\tTools`NiceOutput`longTest, \
 FernandoDuarte`LongRunRisk`Models, KeyTake[FernandoDuarte`LongRunRisk`Models, \
@@ -864,17 +864,17 @@ Tools`NiceOutput`modBKY = Tools`NiceOutput`msp @ \"BKY\";\n\t\
 Tools`NiceOutput`modNRC = Tools`NiceOutput`msp @ \"NRC\";\n\t\
 Tools`NiceOutput`modDES = Tools`NiceOutput`msp @ \"DES\";\n\t\
 Tools`NiceOutput`modNRCStochVol = Tools`NiceOutput`msp @ \"NRCStochVol\";\n\t\
-True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-9O40UD\"\n\
+True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-SZ1YXW\"\n\
 ]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\";\n\t$ContextPath = \
 DeleteDuplicates @ Prepend[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\"];\n\tTrue\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-79JIPG\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-W3EDPT\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, {MemberQ[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\"]}]\n\t,\n\tTrue\n\t,\n\t{}\n\
-\t,\n\tTestID->\"NiceOutput_20231009-LS92LV\"\n]\n\n\nVerificationTest[\n\t\
+\t,\n\tTestID->\"NiceOutput_20231010-XBKBUS\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*info\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-YU9AG1\"\n]\n\n\nEndTestSection[]\n"}, \
+TestID->\"NiceOutput_20231010-BFL7AF\"\n]\n\n\nEndTestSection[]\n"}, \
 "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>",
   DynamicModuleValues:>{{
@@ -939,8 +939,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.9058765419435787`*^9},
- CellLabel->"Out[14]=",ExpressionUUID->"2cbe62a8-5451-4a58-ad06-2b98fdb8ecb6"]
+ CellChangeTimes->{3.9058765419435787`*^9, 3.905902338908915*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"a72caf48-c31c-4bcc-894f-d04d3235fedd"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -999,20 +999,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"NiceOutput_20231009-5NAW00\"\>"}],
-  SequenceForm["Adding test: ", "NiceOutput_20231009-5NAW00"],
+   "\[InvisibleSpace]", "\<\"NiceOutput_20231010-08E57N\"\>"}],
+  SequenceForm["Adding test: ", "NiceOutput_20231010-08E57N"],
   Editable->False]], "Print",
- CellChangeTimes->{3.905876544017391*^9},
+ CellChangeTimes->{3.905876544017391*^9, 3.905902340979698*^9},
  CellLabel->
   "During evaluation of \
-In[15]:=",ExpressionUUID->"2df03e05-b5a9-47a3-9276-8ca4bc46bbc9"],
+In[15]:=",ExpressionUUID->"30a854a3-8521-4750-9bfe-26eab38760ba"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>"], "Print",
- CellChangeTimes->{3.905876544033608*^9},
+ CellChangeTimes->{3.905876544017391*^9, 3.905902340980953*^9},
  CellLabel->
   "During evaluation of \
-In[15]:=",ExpressionUUID->"4ec0b8fd-765c-41f2-8d66-6dce85438227"]
+In[15]:=",ExpressionUUID->"afe88438-98b7-4d71-aea3-1f492209d2d7"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1037,12 +1037,12 @@ Apply[And,\n\t\t{\n\t\t\tSameQ[Head @ Tools`NiceOutput`myModelsInfo, Column],\
 SameQ[Head[Tools`NiceOutput`myModelsInfo[[1, 1]]], OpenerView],\n\t\t\t\
 Apply[And,\n\t\t\t\tMap[MatchQ[#, Grid]&,\n\t\t\t\t\tMap[Head, \
 Tools`NiceOutput`myModelsInfo[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-5NAW00\"\n]\n\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-08E57N\"\n]\n\
 \n", FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.84, "AbsoluteTiming" -> 2.052, 
+   "MessagesExpressions" -> {}, "Timing" -> 0.863, "AbsoluteTiming" -> 2.047, 
    "InputString" :> ToString[
      Unevaluated[
      Tools`NiceOutput`myModelsInfo = 
@@ -1062,7 +1062,7 @@ Tools`NiceOutput`myModelsInfo[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t\
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"NiceOutput\"]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`longTest = False;\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
+TestID->\"NiceOutput_20231010-CSDOMC\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
 @ FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 Tools`NiceOutput`msp = If[\n\t\tTools`NiceOutput`longTest, \
 FernandoDuarte`LongRunRisk`Models, KeyTake[FernandoDuarte`LongRunRisk`Models, \
@@ -1072,17 +1072,17 @@ Tools`NiceOutput`modBKY = Tools`NiceOutput`msp @ \"BKY\";\n\t\
 Tools`NiceOutput`modNRC = Tools`NiceOutput`msp @ \"NRC\";\n\t\
 Tools`NiceOutput`modDES = Tools`NiceOutput`msp @ \"DES\";\n\t\
 Tools`NiceOutput`modNRCStochVol = Tools`NiceOutput`msp @ \"NRCStochVol\";\n\t\
-True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-9O40UD\"\n\
+True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-SZ1YXW\"\n\
 ]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\";\n\t$ContextPath = \
 DeleteDuplicates @ Prepend[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\"];\n\tTrue\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-79JIPG\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-W3EDPT\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, {MemberQ[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\"]}]\n\t,\n\tTrue\n\t,\n\t{}\n\
-\t,\n\tTestID->\"NiceOutput_20231009-LS92LV\"\n]\n\n\nVerificationTest[\n\t\
+\t,\n\tTestID->\"NiceOutput_20231010-XBKBUS\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*info\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-YU9AG1\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"NiceOutput_20231010-BFL7AF\"\n]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`myModelsInfo = PacletizedResourceFunctions`SetSymbolsContext \
 @ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ Tools`NiceOutput`msp;\n\t\
 Apply[And,\n\t\t{\n\t\t\tSameQ[Head @ Tools`NiceOutput`myModelsInfo, Column],\
@@ -1090,7 +1090,7 @@ Apply[And,\n\t\t{\n\t\t\tSameQ[Head @ Tools`NiceOutput`myModelsInfo, Column],\
 SameQ[Head[Tools`NiceOutput`myModelsInfo[[1, 1]]], OpenerView],\n\t\t\t\
 Apply[And,\n\t\t\t\tMap[MatchQ[#, Grid]&,\n\t\t\t\t\tMap[Head, \
 Tools`NiceOutput`myModelsInfo[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-5NAW00\"\n]\n\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-08E57N\"\n]\n\
 \n\nEndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1155,8 +1155,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.9058765440382223`*^9},
- CellLabel->"Out[15]=",ExpressionUUID->"68727d4e-0d71-406f-a722-8c9691f8ad08"]
+ CellChangeTimes->{3.9058765440382223`*^9, 3.9059023410084257`*^9},
+ CellLabel->"Out[15]=",ExpressionUUID->"90672775-5d9f-4676-a334-543c0a44c594"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1236,20 +1236,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"NiceOutput_20231009-GIIQB0\"\>"}],
-  SequenceForm["Adding test: ", "NiceOutput_20231009-GIIQB0"],
+   "\[InvisibleSpace]", "\<\"NiceOutput_20231010-2ALCRK\"\>"}],
+  SequenceForm["Adding test: ", "NiceOutput_20231010-2ALCRK"],
   Editable->False]], "Print",
- CellChangeTimes->{3.9058765443390303`*^9},
+ CellChangeTimes->{3.9058765443390303`*^9, 3.9059023413107862`*^9},
  CellLabel->
   "During evaluation of \
-In[16]:=",ExpressionUUID->"d5af3d26-9682-4532-a6aa-e67c442387a8"],
+In[16]:=",ExpressionUUID->"9f365288-b901-425d-a6ad-e3b37a7228ab"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>"], "Print",
- CellChangeTimes->{3.90587654435489*^9},
+ CellChangeTimes->{3.9058765443390303`*^9, 3.9059023413119307`*^9},
  CellLabel->
   "During evaluation of \
-In[16]:=",ExpressionUUID->"e2d739a1-2825-4d91-826d-a24caa8bbd4a"]
+In[16]:=",ExpressionUUID->"1b665346-fe40-486c-b89d-ac29f8952fae"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1283,13 +1283,13 @@ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ Tools`NiceOutput`justBY;\n\
 Equal[Tools`NiceOutput`infoNewBY[[1, 1, 1, 1]], \"BY\"],\n\t\t\t\
 SameQ[Tools`NiceOutput`infoNewBY[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]],\n\t\
 \t\t\tTools`NiceOutput`x @ Tools`NiceOutput`t\n\t\t\t]\n\t\t}\n\t]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-GIIQB0\"\n]\n\n", 
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-2ALCRK\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
    "OutputLog" -> {}, "Messages" -> {}, "MessagesText" -> {}, 
-   "MessagesExpressions" -> {}, "Timing" -> 0.231, "AbsoluteTiming" -> 0.231, 
-   "InputString" :> ToString[
+   "MessagesExpressions" -> {}, "Timing" -> 0.23500000000000001`, 
+   "AbsoluteTiming" -> 0.23600000000000002`, "InputString" :> ToString[
      Unevaluated[
      Tools`NiceOutput`justBY = <|"BY" -> Tools`NiceOutput`msp["BY"]|>; 
       Tools`NiceOutput`infoBY = 
@@ -1313,7 +1313,7 @@ True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-GIIQB0\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"NiceOutput\"]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`longTest = False;\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
+TestID->\"NiceOutput_20231010-CSDOMC\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
 @ FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 Tools`NiceOutput`msp = If[\n\t\tTools`NiceOutput`longTest, \
 FernandoDuarte`LongRunRisk`Models, KeyTake[FernandoDuarte`LongRunRisk`Models, \
@@ -1323,17 +1323,17 @@ Tools`NiceOutput`modBKY = Tools`NiceOutput`msp @ \"BKY\";\n\t\
 Tools`NiceOutput`modNRC = Tools`NiceOutput`msp @ \"NRC\";\n\t\
 Tools`NiceOutput`modDES = Tools`NiceOutput`msp @ \"DES\";\n\t\
 Tools`NiceOutput`modNRCStochVol = Tools`NiceOutput`msp @ \"NRCStochVol\";\n\t\
-True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-9O40UD\"\n\
+True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-SZ1YXW\"\n\
 ]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\";\n\t$ContextPath = \
 DeleteDuplicates @ Prepend[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\"];\n\tTrue\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-79JIPG\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-W3EDPT\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, {MemberQ[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\"]}]\n\t,\n\tTrue\n\t,\n\t{}\n\
-\t,\n\tTestID->\"NiceOutput_20231009-LS92LV\"\n]\n\n\nVerificationTest[\n\t\
+\t,\n\tTestID->\"NiceOutput_20231010-XBKBUS\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*info\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-YU9AG1\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"NiceOutput_20231010-BFL7AF\"\n]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`myModelsInfo = PacletizedResourceFunctions`SetSymbolsContext \
 @ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ Tools`NiceOutput`msp;\n\t\
 Apply[And,\n\t\t{\n\t\t\tSameQ[Head @ Tools`NiceOutput`myModelsInfo, Column],\
@@ -1341,7 +1341,7 @@ Apply[And,\n\t\t{\n\t\t\tSameQ[Head @ Tools`NiceOutput`myModelsInfo, Column],\
 SameQ[Head[Tools`NiceOutput`myModelsInfo[[1, 1]]], OpenerView],\n\t\t\t\
 Apply[And,\n\t\t\t\tMap[MatchQ[#, Grid]&,\n\t\t\t\t\tMap[Head, \
 Tools`NiceOutput`myModelsInfo[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-5NAW00\"\n]\n\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-08E57N\"\n]\n\
 \n\nVerificationTest[\n\tTools`NiceOutput`justBY = <|\"BY\" -> \
 Tools`NiceOutput`msp[\"BY\"]|>;\n\tTools`NiceOutput`infoBY = \
 PacletizedResourceFunctions`SetSymbolsContext @ \
@@ -1355,7 +1355,7 @@ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ Tools`NiceOutput`justBY;\n\
 Equal[Tools`NiceOutput`infoNewBY[[1, 1, 1, 1]], \"BY\"],\n\t\t\t\
 SameQ[Tools`NiceOutput`infoNewBY[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]],\n\t\
 \t\t\tTools`NiceOutput`x @ Tools`NiceOutput`t\n\t\t\t]\n\t\t}\n\t]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-GIIQB0\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-2ALCRK\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1420,8 +1420,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.90587654436178*^9},
- CellLabel->"Out[16]=",ExpressionUUID->"8a40f72a-42c1-4fac-b730-700d2e876d43"]
+ CellChangeTimes->{3.90587654436178*^9, 3.905902341331263*^9},
+ CellLabel->"Out[16]=",ExpressionUUID->"3a960a57-5438-443d-b7ef-92900c285d83"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1502,20 +1502,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"NiceOutput_20231009-TR2QZ3\"\>"}],
-  SequenceForm["Adding test: ", "NiceOutput_20231009-TR2QZ3"],
+   "\[InvisibleSpace]", "\<\"NiceOutput_20231010-WRGBND\"\>"}],
+  SequenceForm["Adding test: ", "NiceOutput_20231010-WRGBND"],
   Editable->False]], "Print",
- CellChangeTimes->{3.905876544398912*^9},
+ CellChangeTimes->{3.905876544398912*^9, 3.905902341375547*^9},
  CellLabel->
   "During evaluation of \
-In[17]:=",ExpressionUUID->"f78975e1-00b8-450c-bd7d-28f5f05a3710"],
+In[17]:=",ExpressionUUID->"661d2632-2ad5-4a8e-93f1-19703314e6f0"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>"], "Print",
- CellChangeTimes->{3.9058765443998413`*^9},
+ CellChangeTimes->{3.905876544398912*^9, 3.905902341376588*^9},
  CellLabel->
   "During evaluation of \
-In[17]:=",ExpressionUUID->"06c51768-09c6-401b-a27d-ae1b19863d33"]
+In[17]:=",ExpressionUUID->"e08ce31b-c1ac-4064-abab-39177863deef"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1545,7 +1545,7 @@ SameQ[Head[Tools`NiceOutput`infoNewBY[[1]]], List],\n\t\t\t\
 SameQ[Head[Tools`NiceOutput`infoNewBY[[1, 1]]], OpenerView],\n\t\t\t\
 Apply[And,\n\t\t\t\tMap[MatchQ[#, Grid]&,\n\t\t\t\t\tMap[Head, \
 Tools`NiceOutput`infoNewBY[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t]\n\
-\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-TR2QZ3\"\n]\n\n",
+\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-WRGBND\"\n]\n\n",
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -1574,7 +1574,7 @@ Tools`NiceOutput`infoNewBY[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t]\n\
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"NiceOutput\"]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`longTest = False;\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
+TestID->\"NiceOutput_20231010-CSDOMC\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
 @ FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 Tools`NiceOutput`msp = If[\n\t\tTools`NiceOutput`longTest, \
 FernandoDuarte`LongRunRisk`Models, KeyTake[FernandoDuarte`LongRunRisk`Models, \
@@ -1584,17 +1584,17 @@ Tools`NiceOutput`modBKY = Tools`NiceOutput`msp @ \"BKY\";\n\t\
 Tools`NiceOutput`modNRC = Tools`NiceOutput`msp @ \"NRC\";\n\t\
 Tools`NiceOutput`modDES = Tools`NiceOutput`msp @ \"DES\";\n\t\
 Tools`NiceOutput`modNRCStochVol = Tools`NiceOutput`msp @ \"NRCStochVol\";\n\t\
-True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-9O40UD\"\n\
+True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-SZ1YXW\"\n\
 ]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\";\n\t$ContextPath = \
 DeleteDuplicates @ Prepend[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\"];\n\tTrue\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-79JIPG\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-W3EDPT\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, {MemberQ[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\"]}]\n\t,\n\tTrue\n\t,\n\t{}\n\
-\t,\n\tTestID->\"NiceOutput_20231009-LS92LV\"\n]\n\n\nVerificationTest[\n\t\
+\t,\n\tTestID->\"NiceOutput_20231010-XBKBUS\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*info\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-YU9AG1\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"NiceOutput_20231010-BFL7AF\"\n]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`myModelsInfo = PacletizedResourceFunctions`SetSymbolsContext \
 @ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ Tools`NiceOutput`msp;\n\t\
 Apply[And,\n\t\t{\n\t\t\tSameQ[Head @ Tools`NiceOutput`myModelsInfo, Column],\
@@ -1602,7 +1602,7 @@ Apply[And,\n\t\t{\n\t\t\tSameQ[Head @ Tools`NiceOutput`myModelsInfo, Column],\
 SameQ[Head[Tools`NiceOutput`myModelsInfo[[1, 1]]], OpenerView],\n\t\t\t\
 Apply[And,\n\t\t\t\tMap[MatchQ[#, Grid]&,\n\t\t\t\t\tMap[Head, \
 Tools`NiceOutput`myModelsInfo[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-5NAW00\"\n]\n\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-08E57N\"\n]\n\
 \n\nVerificationTest[\n\tTools`NiceOutput`justBY = <|\"BY\" -> \
 Tools`NiceOutput`msp[\"BY\"]|>;\n\tTools`NiceOutput`infoBY = \
 PacletizedResourceFunctions`SetSymbolsContext @ \
@@ -1616,7 +1616,7 @@ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ Tools`NiceOutput`justBY;\n\
 Equal[Tools`NiceOutput`infoNewBY[[1, 1, 1, 1]], \"BY\"],\n\t\t\t\
 SameQ[Tools`NiceOutput`infoNewBY[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]],\n\t\
 \t\t\tTools`NiceOutput`x @ Tools`NiceOutput`t\n\t\t\t]\n\t\t}\n\t]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-GIIQB0\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-2ALCRK\"\n]\n\n\n\
 VerificationTest[\n\tApply[And,\n\t\t{\n\t\t\tSameQ[Head @ \
 Tools`NiceOutput`infoBY, Column],\n\t\t\t\
 SameQ[Head[Tools`NiceOutput`infoBY[[1]]], List],\n\t\t\t\
@@ -1628,7 +1628,7 @@ SameQ[Head[Tools`NiceOutput`infoNewBY[[1]]], List],\n\t\t\t\
 SameQ[Head[Tools`NiceOutput`infoNewBY[[1, 1]]], OpenerView],\n\t\t\t\
 Apply[And,\n\t\t\t\tMap[MatchQ[#, Grid]&,\n\t\t\t\t\tMap[Head, \
 Tools`NiceOutput`infoNewBY[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t]\n\
-\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-TR2QZ3\"\n]\n\n\n\
+\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-WRGBND\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>",
   DynamicModuleValues:>{{
@@ -1693,8 +1693,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.905876544406312*^9},
- CellLabel->"Out[17]=",ExpressionUUID->"1e1489c9-8f77-4616-9afc-7451a4a3aa27"]
+ CellChangeTimes->{3.905876544406312*^9, 3.905902341393817*^9},
+ CellLabel->"Out[17]=",ExpressionUUID->"70c99110-d0a9-40d9-83fc-cb661f6821a2"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1819,20 +1819,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"NiceOutput_20231009-JQ9GNZ\"\>"}],
-  SequenceForm["Adding test: ", "NiceOutput_20231009-JQ9GNZ"],
+   "\[InvisibleSpace]", "\<\"NiceOutput_20231010-MIKOL2\"\>"}],
+  SequenceForm["Adding test: ", "NiceOutput_20231010-MIKOL2"],
   Editable->False]], "Print",
- CellChangeTimes->{3.905876544442293*^9},
+ CellChangeTimes->{3.905876544442293*^9, 3.90590234143889*^9},
  CellLabel->
   "During evaluation of \
-In[18]:=",ExpressionUUID->"7de502d6-8073-47aa-a159-24fe321e469c"],
+In[18]:=",ExpressionUUID->"db2caf44-e9fc-441e-af97-fdae0f1f63c1"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>"], "Print",
- CellChangeTimes->{3.905876544456476*^9},
+ CellChangeTimes->{3.905876544442293*^9, 3.905902341447729*^9},
  CellLabel->
   "During evaluation of \
-In[18]:=",ExpressionUUID->"0ce097c3-3741-49a8-8a97-984d7d24bc46"]
+In[18]:=",ExpressionUUID->"34f68866-d124-4a9c-b791-f1a80e618141"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1906,7 +1906,7 @@ NiceOutput`delta -> 0.99}]]}\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t}\n\t\t],\n\t\t{\n\
 \t\t\t\"3.14\", \"3.14`\", \"3.14\", \"3.14\", \"3.14`\", \"3.14\", \
 \"\\[CapitalPi]\", \"\\\\[CapitalPi]\", \"3.141592653589793\",\n\t\t\t\
 \"3.141592653589793\", \"3.14*^-7\", \"{0.495}\"\n\t\t}\n\t]\n\t,\n\tTrue\n\t\
-,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-JQ9GNZ\"\n]\n\n", 
+,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-MIKOL2\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -1955,7 +1955,7 @@ numberFormattingTemplate[
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"NiceOutput\"]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`longTest = False;\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
+TestID->\"NiceOutput_20231010-CSDOMC\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
 @ FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 Tools`NiceOutput`msp = If[\n\t\tTools`NiceOutput`longTest, \
 FernandoDuarte`LongRunRisk`Models, KeyTake[FernandoDuarte`LongRunRisk`Models, \
@@ -1965,17 +1965,17 @@ Tools`NiceOutput`modBKY = Tools`NiceOutput`msp @ \"BKY\";\n\t\
 Tools`NiceOutput`modNRC = Tools`NiceOutput`msp @ \"NRC\";\n\t\
 Tools`NiceOutput`modDES = Tools`NiceOutput`msp @ \"DES\";\n\t\
 Tools`NiceOutput`modNRCStochVol = Tools`NiceOutput`msp @ \"NRCStochVol\";\n\t\
-True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-9O40UD\"\n\
+True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-SZ1YXW\"\n\
 ]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\";\n\t$ContextPath = \
 DeleteDuplicates @ Prepend[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\"];\n\tTrue\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-79JIPG\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-W3EDPT\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, {MemberQ[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\"]}]\n\t,\n\tTrue\n\t,\n\t{}\n\
-\t,\n\tTestID->\"NiceOutput_20231009-LS92LV\"\n]\n\n\nVerificationTest[\n\t\
+\t,\n\tTestID->\"NiceOutput_20231010-XBKBUS\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*info\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-YU9AG1\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"NiceOutput_20231010-BFL7AF\"\n]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`myModelsInfo = PacletizedResourceFunctions`SetSymbolsContext \
 @ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ Tools`NiceOutput`msp;\n\t\
 Apply[And,\n\t\t{\n\t\t\tSameQ[Head @ Tools`NiceOutput`myModelsInfo, Column],\
@@ -1983,7 +1983,7 @@ Apply[And,\n\t\t{\n\t\t\tSameQ[Head @ Tools`NiceOutput`myModelsInfo, Column],\
 SameQ[Head[Tools`NiceOutput`myModelsInfo[[1, 1]]], OpenerView],\n\t\t\t\
 Apply[And,\n\t\t\t\tMap[MatchQ[#, Grid]&,\n\t\t\t\t\tMap[Head, \
 Tools`NiceOutput`myModelsInfo[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-5NAW00\"\n]\n\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-08E57N\"\n]\n\
 \n\nVerificationTest[\n\tTools`NiceOutput`justBY = <|\"BY\" -> \
 Tools`NiceOutput`msp[\"BY\"]|>;\n\tTools`NiceOutput`infoBY = \
 PacletizedResourceFunctions`SetSymbolsContext @ \
@@ -1997,7 +1997,7 @@ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ Tools`NiceOutput`justBY;\n\
 Equal[Tools`NiceOutput`infoNewBY[[1, 1, 1, 1]], \"BY\"],\n\t\t\t\
 SameQ[Tools`NiceOutput`infoNewBY[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]],\n\t\
 \t\t\tTools`NiceOutput`x @ Tools`NiceOutput`t\n\t\t\t]\n\t\t}\n\t]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-GIIQB0\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-2ALCRK\"\n]\n\n\n\
 VerificationTest[\n\tApply[And,\n\t\t{\n\t\t\tSameQ[Head @ \
 Tools`NiceOutput`infoBY, Column],\n\t\t\t\
 SameQ[Head[Tools`NiceOutput`infoBY[[1]]], List],\n\t\t\t\
@@ -2009,7 +2009,7 @@ SameQ[Head[Tools`NiceOutput`infoNewBY[[1]]], List],\n\t\t\t\
 SameQ[Head[Tools`NiceOutput`infoNewBY[[1, 1]]], OpenerView],\n\t\t\t\
 Apply[And,\n\t\t\t\tMap[MatchQ[#, Grid]&,\n\t\t\t\t\tMap[Head, \
 Tools`NiceOutput`infoNewBY[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t]\n\
-\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-TR2QZ3\"\n]\n\n\n\
+\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-WRGBND\"\n]\n\n\n\
 VerificationTest[\n\tSameQ[\n\t\tWith[{Tools`NiceOutput`localPi = 3.14},\n\t\t\
 \t{\n\t\t\t\t\
 FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate \
@@ -2043,7 +2043,7 @@ NiceOutput`delta -> 0.99}]]}\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t}\n\t\t],\n\t\t{\n\
 \t\t\t\"3.14\", \"3.14`\", \"3.14\", \"3.14\", \"3.14`\", \"3.14\", \
 \"\\[CapitalPi]\", \"\\\\[CapitalPi]\", \"3.141592653589793\",\n\t\t\t\
 \"3.141592653589793\", \"3.14*^-7\", \"{0.495}\"\n\t\t}\n\t]\n\t,\n\tTrue\n\t\
-,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-JQ9GNZ\"\n]\n\n\n\
+,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-MIKOL2\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>",
   DynamicModuleValues:>{{
@@ -2108,8 +2108,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.90587654446091*^9},
- CellLabel->"Out[18]=",ExpressionUUID->"899bb9b2-d47e-4bda-a403-1a28a2b3b672"]
+ CellChangeTimes->{3.90587654446091*^9, 3.905902341461297*^9},
+ CellLabel->"Out[18]=",ExpressionUUID->"1e136e14-a3ef-4268-a5ae-eccdf622daf9"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2150,20 +2150,20 @@ Cell[CellGroupData[{
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Adding test: \"\>", 
-   "\[InvisibleSpace]", "\<\"NiceOutput_20231009-11K3F8\"\>"}],
-  SequenceForm["Adding test: ", "NiceOutput_20231009-11K3F8"],
+   "\[InvisibleSpace]", "\<\"NiceOutput_20231010-BCSCQH\"\>"}],
+  SequenceForm["Adding test: ", "NiceOutput_20231010-BCSCQH"],
   Editable->False]], "Print",
- CellChangeTimes->{3.905876544493993*^9},
+ CellChangeTimes->{3.905876544493993*^9, 3.905902341502442*^9},
  CellLabel->
   "During evaluation of \
-In[19]:=",ExpressionUUID->"75efccdb-5f07-4e5d-b0a4-d9ad449daf24"],
+In[19]:=",ExpressionUUID->"63b9827c-fec8-494a-bb53-273693b4abf0"],
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>"], "Print",
- CellChangeTimes->{3.905876544508994*^9},
+ CellChangeTimes->{3.905876544493993*^9, 3.9059023415046663`*^9},
  CellLabel->
   "During evaluation of \
-In[19]:=",ExpressionUUID->"fab45e81-32c5-4d75-846e-cfdb54bf10c3"]
+In[19]:=",ExpressionUUID->"a6dc643d-437c-42f2-ade5-92d5fdf1ee6e"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -2180,7 +2180,7 @@ by Bansal and Yaron\",\n\t\t\t\"\\t\" | \"\\n\"\n\t\t]\n\t]",
 FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`stringFormattingTemplate \
 @ \"Long-run risk model with stochastic volatility in the original 2004 paper \
 by Bansal and Yaron\",\n\t\t\t\"\\t\" | \"\\n\"\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\
-\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-11K3F8\"\n]\n\n", 
+\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-BCSCQH\"\n]\n\n", 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`newFile$$, 
   FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`evaluationData$$ = <|
   "Result" :> True, "Success" -> True, "FailureType" -> None, 
@@ -2200,7 +2200,7 @@ paper by Bansal and Yaron"],
    FunctionRepository`$87c594a82e7747e7937a43b61bd90d72`fileText$$ = 
   "BeginTestSection[\"NiceOutput\"]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`longTest = False;\n\tTrue\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-8ZHU0Y\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
+TestID->\"NiceOutput_20231010-CSDOMC\"\n]\n\n\nVerificationTest[\n\tGet @ Get \
 @ FileNameJoin @ {\"FernandoDuarte/LongRunRisk\", \"Models.wl\"};\n\t\
 Tools`NiceOutput`msp = If[\n\t\tTools`NiceOutput`longTest, \
 FernandoDuarte`LongRunRisk`Models, KeyTake[FernandoDuarte`LongRunRisk`Models, \
@@ -2210,17 +2210,17 @@ Tools`NiceOutput`modBKY = Tools`NiceOutput`msp @ \"BKY\";\n\t\
 Tools`NiceOutput`modNRC = Tools`NiceOutput`msp @ \"NRC\";\n\t\
 Tools`NiceOutput`modDES = Tools`NiceOutput`msp @ \"DES\";\n\t\
 Tools`NiceOutput`modNRCStochVol = Tools`NiceOutput`msp @ \"NRCStochVol\";\n\t\
-True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-9O40UD\"\n\
+True\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-SZ1YXW\"\n\
 ]\n\n\nVerificationTest[\n\tNeeds @ \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\";\n\t$ContextPath = \
 DeleteDuplicates @ Prepend[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\"];\n\tTrue\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-79JIPG\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-W3EDPT\"\n]\n\n\n\
 VerificationTest[\n\tApply[And, {MemberQ[$ContextPath, \
 \"FernandoDuarte`LongRunRisk`Tools`NiceOutput`\"]}]\n\t,\n\tTrue\n\t,\n\t{}\n\
-\t,\n\tTestID->\"NiceOutput_20231009-LS92LV\"\n]\n\n\nVerificationTest[\n\t\
+\t,\n\tTestID->\"NiceOutput_20231010-XBKBUS\"\n]\n\n\nVerificationTest[\n\t\
 !SameQ[Names @ \"*info\", {}]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\t\
-TestID->\"NiceOutput_20231009-YU9AG1\"\n]\n\n\nVerificationTest[\n\t\
+TestID->\"NiceOutput_20231010-BFL7AF\"\n]\n\n\nVerificationTest[\n\t\
 Tools`NiceOutput`myModelsInfo = PacletizedResourceFunctions`SetSymbolsContext \
 @ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ Tools`NiceOutput`msp;\n\t\
 Apply[And,\n\t\t{\n\t\t\tSameQ[Head @ Tools`NiceOutput`myModelsInfo, Column],\
@@ -2228,7 +2228,7 @@ Apply[And,\n\t\t{\n\t\t\tSameQ[Head @ Tools`NiceOutput`myModelsInfo, Column],\
 SameQ[Head[Tools`NiceOutput`myModelsInfo[[1, 1]]], OpenerView],\n\t\t\t\
 Apply[And,\n\t\t\t\tMap[MatchQ[#, Grid]&,\n\t\t\t\t\tMap[Head, \
 Tools`NiceOutput`myModelsInfo[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t\
-]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-5NAW00\"\n]\n\
+]\n\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-08E57N\"\n]\n\
 \n\nVerificationTest[\n\tTools`NiceOutput`justBY = <|\"BY\" -> \
 Tools`NiceOutput`msp[\"BY\"]|>;\n\tTools`NiceOutput`infoBY = \
 PacletizedResourceFunctions`SetSymbolsContext @ \
@@ -2242,7 +2242,7 @@ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ Tools`NiceOutput`justBY;\n\
 Equal[Tools`NiceOutput`infoNewBY[[1, 1, 1, 1]], \"BY\"],\n\t\t\t\
 SameQ[Tools`NiceOutput`infoNewBY[[1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 1, 1]],\n\t\
 \t\t\tTools`NiceOutput`x @ Tools`NiceOutput`t\n\t\t\t]\n\t\t}\n\t]\n\t,\n\t\
-True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-GIIQB0\"\n]\n\n\n\
+True\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-2ALCRK\"\n]\n\n\n\
 VerificationTest[\n\tApply[And,\n\t\t{\n\t\t\tSameQ[Head @ \
 Tools`NiceOutput`infoBY, Column],\n\t\t\t\
 SameQ[Head[Tools`NiceOutput`infoBY[[1]]], List],\n\t\t\t\
@@ -2254,7 +2254,7 @@ SameQ[Head[Tools`NiceOutput`infoNewBY[[1]]], List],\n\t\t\t\
 SameQ[Head[Tools`NiceOutput`infoNewBY[[1, 1]]], OpenerView],\n\t\t\t\
 Apply[And,\n\t\t\t\tMap[MatchQ[#, Grid]&,\n\t\t\t\t\tMap[Head, \
 Tools`NiceOutput`infoNewBY[[1, 1;;, 1, 2]]]\n\t\t\t\t]\n\t\t\t]\n\t\t}\n\t]\n\
-\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-TR2QZ3\"\n]\n\n\n\
+\t,\n\tTrue\n\t,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-WRGBND\"\n]\n\n\n\
 VerificationTest[\n\tSameQ[\n\t\tWith[{Tools`NiceOutput`localPi = 3.14},\n\t\t\
 \t{\n\t\t\t\t\
 FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate \
@@ -2288,12 +2288,12 @@ NiceOutput`delta -> 0.99}]]}\n\t\t\t\t\t]\n\t\t\t\t]\n\t\t\t}\n\t\t],\n\t\t{\n\
 \t\t\t\"3.14\", \"3.14`\", \"3.14\", \"3.14\", \"3.14`\", \"3.14\", \
 \"\\[CapitalPi]\", \"\\\\[CapitalPi]\", \"3.141592653589793\",\n\t\t\t\
 \"3.141592653589793\", \"3.14*^-7\", \"{0.495}\"\n\t\t}\n\t]\n\t,\n\tTrue\n\t\
-,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-JQ9GNZ\"\n]\n\n\n\
+,\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-MIKOL2\"\n]\n\n\n\
 VerificationTest[\n\tNot[\n\t\tStringFreeQ[\n\t\t\t\
 FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`stringFormattingTemplate \
 @ \"Long-run risk model with stochastic volatility in the original 2004 paper \
 by Bansal and Yaron\",\n\t\t\t\"\\t\" | \"\\n\"\n\t\t]\n\t]\n\t,\n\tTrue\n\t,\
-\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231009-11K3F8\"\n]\n\n\n\
+\n\t{}\n\t,\n\tTestID->\"NiceOutput_20231010-BCSCQH\"\n]\n\n\n\
 EndTestSection[]\n"}, "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt\"\>",
   DynamicModuleValues:>{{
@@ -2358,8 +2358,8 @@ outputString$$];
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt"]; SelectionMove[
           ButtonNotebook[], All, ButtonCell]; NotebookDelete[
           ButtonNotebook[]]; Null)}}}]], "Output",
- CellChangeTimes->{3.9058765445138073`*^9},
- CellLabel->"Out[19]=",ExpressionUUID->"b717d4b5-fb05-46a5-beb1-6dd9c21694da"]
+ CellChangeTimes->{3.9058765445138073`*^9, 3.9059023415133533`*^9},
+ CellLabel->"Out[19]=",ExpressionUUID->"5db50d26-bd1b-42b7-b3ad-f7daf0eb7eba"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2370,8 +2370,8 @@ Cell[BoxData[
  CellLabel->"In[20]:=",ExpressionUUID->"4df9fc3e-cf2d-4170-a830-f3a2f16ad1e2"],
 
 Cell[BoxData["\<\"Tools`NiceOutput`\"\>"], "Output",
- CellChangeTimes->{3.905876544529119*^9},
- CellLabel->"Out[20]=",ExpressionUUID->"3d6f781f-412f-4393-9836-a3b288d941aa"]
+ CellChangeTimes->{3.905876544529119*^9, 3.9059023415392723`*^9},
+ CellLabel->"Out[20]=",ExpressionUUID->"42fa2513-565c-4d0b-9225-2f18c6316240"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -2516,12 +2516,12 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlttemp\"\>"}], 
   "}"}]], "Output",
- CellChangeTimes->{3.905876544552919*^9},
- CellLabel->"Out[23]=",ExpressionUUID->"6a00e5fc-a8f6-42f7-9c4b-027949cbd817"],
+ CellChangeTimes->{3.905876544552919*^9, 3.905902341568277*^9},
+ CellLabel->"Out[23]=",ExpressionUUID->"d9e95040-8dd5-413f-976c-f1396f96f943"],
 
 Cell[BoxData["183"], "Output",
- CellChangeTimes->{3.90587654455586*^9},
- CellLabel->"Out[26]=",ExpressionUUID->"61155a24-e05a-4fcc-b378-cf1af5adf6db"],
+ CellChangeTimes->{3.905876544552919*^9, 3.9059023415692673`*^9},
+ CellLabel->"Out[26]=",ExpressionUUID->"6074b3b8-759c-4b98-b59f-f6f9aa5d8bdd"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2530,8 +2530,8 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlttemp\"\>"}], 
   "}"}]], "Output",
- CellChangeTimes->{3.905876544562797*^9},
- CellLabel->"Out[27]=",ExpressionUUID->"27cf00d9-7dd3-4eff-a58e-0033faf4cba2"]
+ CellChangeTimes->{3.905876544552919*^9, 3.905902341577634*^9},
+ CellLabel->"Out[27]=",ExpressionUUID->"250aaa93-30d6-4190-9aad-accaaf0d2cf0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2675,7 +2675,7 @@ Cell[BoxData[
                  TagBox[
                   
                   TemplateBox[{
-                   "1.9184939999999999999`5.43347544313283", "\"s\"", 
+                   "1.9678460000000000001`5.44450610617165", "\"s\"", 
                     "seconds", "\"Seconds\""}, "Quantity", SyntaxForm -> Mod],
                    "SummaryItem"]}], "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
@@ -2697,33 +2697,33 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: NiceOutput.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     9115985206477238957 -> 
+     6727891768694585852 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058765446368237`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902341657248*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "18f976e8-0b39-4db6-8ada-59a57ad9b53e", "TestID" -> 
-         "NiceOutput_20231009-8ZHU0Y", "TestFileName" -> 
+         "59659955-4ffe-4774-931f-7749dbea3aba", "TestID" -> 
+         "NiceOutput_20231010-CSDOMC", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "c1fb52e5-d60a-49a8-8442-742bf06e924e", "Input" -> 
+         "f333cae0-ed16-4f10-bd39-7fa23e4334b5", "Input" -> 
          HoldForm[Tools`NiceOutput`longTest = False; True], 
          "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
           "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.000028`1.5976730291742125, "CPUTimeUsed" -> 
-         0.000029000000000500847`, "MemoryUsed" -> 2760, "ExpectedOutput" -> 
-         HoldForm[True], "Outcome" -> "Success"|>], 6328603340180921640 -> 
+         0.000029`1.6129129957309458, "CPUTimeUsed" -> 
+         0.000029999999999752447`, "MemoryUsed" -> 2760, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 2484844224753538675 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058765446371536`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902341657593*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "71c20ee7-4de9-4f5b-8541-8420ad72e9af", "TestID" -> 
-         "NiceOutput_20231009-9O40UD", "TestFileName" -> 
+         "9a80fb36-062c-42eb-a4cf-fb6445b9f9c7", "TestID" -> 
+         "NiceOutput_20231010-SZ1YXW", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "ef445479-2db2-4925-b9de-71845da0db7f", "Input" -> HoldForm[Get[
+         "2a682cc9-5da5-472a-a41a-596248bf3f28", "Input" -> HoldForm[Get[
              Get[
               FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]]; 
            Tools`NiceOutput`msp = 
@@ -2739,19 +2739,19 @@ Cell[BoxData[
             Tools`NiceOutput`msp["NRCStochVol"]; True], "ExpectedMessages" -> 
          HoldForm[{}], "ActualOutput" -> HoldForm[True], 
          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         1.003583`6.152068293889548, "CPUTimeUsed" -> 1.0199420000000003`, 
-         "MemoryUsed" -> 551824, "ExpectedOutput" -> HoldForm[True], 
-         "Outcome" -> "Success"|>], 2869162995939127137 -> 
+         1.035324`6.165591279404965, "CPUTimeUsed" -> 1.0481959999999981`, 
+         "MemoryUsed" -> 561944, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 8189704113964965765 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.905876545641142*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902342701316*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "76544650-6baf-4037-b842-8e9277c019ed", "TestID" -> 
-         "NiceOutput_20231009-79JIPG", "TestFileName" -> 
+         "df569a5b-372b-412c-8060-0cc8553ebad3", "TestID" -> 
+         "NiceOutput_20231010-W3EDPT", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "dd136f2a-b561-4682-8447-d355373f4730", "Input" -> 
+         "aa960723-4182-4e92-8dde-8d831c0057e3", "Input" -> 
          HoldForm[
           Needs["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]; $ContextPath = 
             DeleteDuplicates[
@@ -2760,53 +2760,53 @@ Cell[BoxData[
                "FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`"]]; 
            True], "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> 
          HoldForm[True], "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.000031`1.6418766916662664, "CPUTimeUsed" -> 
-         0.000030999999999892225`, "MemoryUsed" -> 2640, "ExpectedOutput" -> 
-         HoldForm[True], "Outcome" -> "Success"|>], 5856914278246254183 -> 
+         0.000039`1.7415796048584933, "CPUTimeUsed" -> 0.00003900000000101045,
+          "MemoryUsed" -> 2640, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 1505950437041380357 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.90587654564143*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902342701639*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "a9707a6f-376b-4588-990a-6cfe9046c5fe", "TestID" -> 
-         "NiceOutput_20231009-LS92LV", "TestFileName" -> 
+         "dfa272d2-c1c1-444d-9ed8-1fa2954bfe58", "TestID" -> 
+         "NiceOutput_20231010-XBKBUS", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "564ed3a6-0178-41d5-96b2-0896db379671", "Input" -> HoldForm[
+         "7fb53a1d-2aa6-4726-b0c7-6c60713aa014", "Input" -> HoldForm[
            Apply[And, {
              
              MemberQ[$ContextPath, 
               "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]}]], 
          "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
           "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.00002`1.451544993495975, "CPUTimeUsed" -> 0.000021000000000270802`,
-          "MemoryUsed" -> 2760, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
-         "Success"|>], 1001359889092824985 -> 
+         0.000025`1.5484550065040283, "CPUTimeUsed" -> 
+         0.000023999999999801958`, "MemoryUsed" -> 2760, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 4177829514430240306 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.905876545641659*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902342701892*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "2297addb-3a9f-44eb-8965-af867347e595", "TestID" -> 
-         "NiceOutput_20231009-YU9AG1", "TestFileName" -> 
+         "16765325-8767-46b8-b65a-5a30466145d3", "TestID" -> 
+         "NiceOutput_20231010-BFL7AF", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "376b7b2f-c8e7-4b03-87e6-e47c622c775f", "Input" -> HoldForm[
+         "9c64b5ed-5055-4815-a177-01ec670fac5f", "Input" -> HoldForm[
            Not[Names["*info"] === {}]], "ExpectedMessages" -> HoldForm[{}], 
          "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
-         "AbsoluteTimeUsed" -> 0.027471`4.589389466738439, "CPUTimeUsed" -> 
-         0.027497000000000327`, "MemoryUsed" -> 2528, "ExpectedOutput" -> 
-         HoldForm[True], "Outcome" -> "Success"|>], 6141964070430225153 -> 
+         "AbsoluteTimeUsed" -> 0.037912`4.7292916935233364, "CPUTimeUsed" -> 
+         0.037567000000001016`, "MemoryUsed" -> 7288, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 7140550042153882451 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058765456694727`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902342740239*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "6365f3fd-d9a1-4260-b24a-1695bf1c9fa5", "TestID" -> 
-         "NiceOutput_20231009-5NAW00", "TestFileName" -> 
+         "1c392aa9-7c99-4520-bef1-d7b6d1ca0247", "TestID" -> 
+         "NiceOutput_20231010-08E57N", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "c9d40649-8d20-4993-92a2-864fef2174dc", "Input" -> 
+         "69a9a377-bbb9-4272-af90-c4608f3877c0", "Input" -> 
          HoldForm[
           Tools`NiceOutput`myModelsInfo = 
             PacletizedResourceFunctions`SetSymbolsContext[
@@ -2822,19 +2822,19 @@ Cell[BoxData[
                   Span[1, All], 1, 2]]]]}]], "ExpectedMessages" -> 
          HoldForm[{}], "ActualOutput" -> HoldForm[True], 
          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.65844`5.969031204075698, "CPUTimeUsed" -> 0.6581299999999999, 
-         "MemoryUsed" -> -80752, "ExpectedOutput" -> HoldForm[True], 
-         "Outcome" -> "Success"|>], 2985100691871511142 -> 
+         0.660518`5.970399655049996, "CPUTimeUsed" -> 0.6601689999999998, 
+         "MemoryUsed" -> -82744, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 5318461723444139424 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.905876546328374*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902343401252*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "e6dfc148-0a15-47f8-aa03-a55275514c0a", "TestID" -> 
-         "NiceOutput_20231009-GIIQB0", "TestFileName" -> 
+         "aef03313-fdb9-4ca7-80ae-5f943c443abe", "TestID" -> 
+         "NiceOutput_20231010-2ALCRK", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "d438e390-a6c2-482e-91d0-65d4054a803a", "Input" -> 
+         "bc92be30-db64-4bd1-b721-e1338c429533", "Input" -> 
          HoldForm[
           Tools`NiceOutput`justBY = <|"BY" -> Tools`NiceOutput`msp["BY"]|>; 
            Tools`NiceOutput`infoBY = 
@@ -2856,19 +2856,19 @@ Cell[BoxData[
                 1, 1, 1] === Tools`NiceOutput`x[Tools`NiceOutput`t]}]], 
          "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
           "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.228624`5.509636816719171, "CPUTimeUsed" -> 0.22864900000000077`, 
-         "MemoryUsed" -> -586392, "ExpectedOutput" -> HoldForm[True], 
-         "Outcome" -> "Success"|>], 8999845896306563596 -> 
+         0.233674`5.519125390649141, "CPUTimeUsed" -> 0.23359499999999933`, 
+         "MemoryUsed" -> -586456, "ExpectedOutput" -> HoldForm[True], 
+         "Outcome" -> "Success"|>], 8652759150335746504 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.905876546557395*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902343635379*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "9f5b0b0b-df47-42d9-b803-0164f9ee3f4c", "TestID" -> 
-         "NiceOutput_20231009-TR2QZ3", "TestFileName" -> 
+         "9bf57775-b773-44f7-b14d-aac1c7c3c0e8", "TestID" -> 
+         "NiceOutput_20231010-WRGBND", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "1c7f6881-db9c-4d62-8711-9ad7b38904be", "Input" -> HoldForm[
+         "5c93f6c7-9f8f-467c-94aa-369e7f871209", "Input" -> HoldForm[
            Apply[And, {Head[Tools`NiceOutput`infoBY] === Column, Head[
                Part[Tools`NiceOutput`infoBY, 1]] === List, Head[
                Part[Tools`NiceOutput`infoBY, 1, 1]] === OpenerView, 
@@ -2887,19 +2887,19 @@ Cell[BoxData[
                  Span[1, All], 1, 2]]]]}]], "ExpectedMessages" -> 
          HoldForm[{}], "ActualOutput" -> HoldForm[True], 
          "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.000087`2.0900342504506124, "CPUTimeUsed" -> 0.00008700000000239072,
+         0.000093`2.1189979463859268, "CPUTimeUsed" -> 0.00009300000000145303,
           "MemoryUsed" -> 8096, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
-         "Success"|>], 5566691516415795325 -> 
+         "Success"|>], 887383512641192511 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.905876546557829*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902343635821*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "5138b2d2-b498-4e14-8443-87bf8e9fc1f5", "TestID" -> 
-         "NiceOutput_20231009-JQ9GNZ", "TestFileName" -> 
+         "49555b75-1f59-4137-ae9f-39cbb3c66a11", "TestID" -> 
+         "NiceOutput_20231010-MIKOL2", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "e3f82a52-5e3b-4b7d-babc-b01668948c89", "Input" -> 
+         "dc93a8be-d6cb-4641-ab28-d810a0e60721", "Input" -> 
          HoldForm[With[{Tools`NiceOutput`localPi = 3.14}, {
               
               FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`\
@@ -2950,19 +2950,19 @@ stripContext[{Tools`NiceOutput`delta -> 0.99}]]}]]}] === {
              "\\[CapitalPi]", "3.141592653589793", "3.141592653589793", 
              "3.14*^-7", "{0.495}"}], "ExpectedMessages" -> HoldForm[{}], 
          "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
-         "AbsoluteTimeUsed" -> 0.000137`2.2872355649884004, "CPUTimeUsed" -> 
-         0.00013799999999974943`, "MemoryUsed" -> 2920, "ExpectedOutput" -> 
-         HoldForm[True], "Outcome" -> "Success"|>], 9043111658355787984 -> 
+         "AbsoluteTimeUsed" -> 0.000148`2.3207767132269512, "CPUTimeUsed" -> 
+         0.0001490000000003988, "MemoryUsed" -> 2920, "ExpectedOutput" -> 
+         HoldForm[True], "Outcome" -> "Success"|>], 8846166875662623570 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9058765465582*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905902343636212*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "d9ec3739-d309-4d82-8621-8339c15b5969", "TestID" -> 
-         "NiceOutput_20231009-11K3F8", "TestFileName" -> 
+         "dd63af7b-4ea2-4480-a10a-a571b773dc96", "TestID" -> 
+         "NiceOutput_20231010-BCSCQH", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt", "EvaluationID" -> 
-         "4d3acf07-abb9-4d73-9975-c2ac684a16dc", "Input" -> HoldForm[
+         "3a57aff2-6ea6-4d9b-bb2d-57d0e388422d", "Input" -> HoldForm[
            Not[
             StringFreeQ[
              
@@ -2972,21 +2972,21 @@ stringFormattingTemplate[
 2004 paper by Bansal and Yaron"], 
              Alternatives["\t", "\n"]]]], "ExpectedMessages" -> HoldForm[{}], 
          "ActualOutput" -> HoldForm[True], "ActualMessages" -> {}, 
-         "AbsoluteTimeUsed" -> 0.000073`2.01383785795245, "CPUTimeUsed" -> 
-         0.00007499999999893703, "MemoryUsed" -> 2664, "ExpectedOutput" -> 
+         "AbsoluteTimeUsed" -> 0.000084`2.074794283893873, "CPUTimeUsed" -> 
+         0.00008399999999930685, "MemoryUsed" -> 2664, "ExpectedOutput" -> 
          HoldForm[True], "Outcome" -> "Success"|>]|>, 
     "FailureResults" -> <||>, "TestsNotEvaluatedKeys" -> {}, 
     "TestsFailedWrongResultsKeys" -> {}, "TestsFailedWithMessagesKeys" -> {}, 
     "TestsFailedWithErrorsKeys" -> {}, 
-    "TestsSucceededKeys" -> {9115985206477238957, 6328603340180921640, 
-     2869162995939127137, 5856914278246254183, 1001359889092824985, 
-     6141964070430225153, 2985100691871511142, 8999845896306563596, 
-     5566691516415795325, 9043111658355787984}|>],
+    "TestsSucceededKeys" -> {6727891768694585852, 2484844224753538675, 
+     8189704113964965765, 1505950437041380357, 4177829514430240306, 
+     7140550042153882451, 5318461723444139424, 8652759150335746504, 
+     887383512641192511, 8846166875662623570}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
- CellChangeTimes->{3.9058765465725107`*^9},
- CellLabel->"Out[30]=",ExpressionUUID->"e4ec27e6-9c2c-4353-b9f2-5e434fb4a965"]
+ CellChangeTimes->{3.9058765465725107`*^9, 3.9059023436534348`*^9},
+ CellLabel->"Out[30]=",ExpressionUUID->"64c940cd-5dbb-46c6-b9d5-f87b337121af"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3086,12 +3086,12 @@ Cell[BoxData[{
  CellLabel->"In[31]:=",ExpressionUUID->"6b95acc6-d4b4-4124-a58e-667c15c5744a"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.9058765466792107`*^9},
- CellLabel->"Out[33]=",ExpressionUUID->"7161cf11-65af-418d-9ec1-8889067e5699"],
+ CellChangeTimes->{3.9058765466792107`*^9, 3.9059023437146597`*^9},
+ CellLabel->"Out[33]=",ExpressionUUID->"d0105400-c38f-4ca4-8117-2d230db5d1ad"],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.9058765466799707`*^9},
- CellLabel->"Out[34]=",ExpressionUUID->"3b3fe38a-c7f2-4f96-9e97-d60ef9bf59cd"]
+ CellChangeTimes->{3.9058765466792107`*^9, 3.9059023437155857`*^9},
+ CellLabel->"Out[34]=",ExpressionUUID->"92ca3cfb-fd42-4198-aaf8-61ddaf7404d1"]
 }, Open  ]]
 }, Closed]],
 
@@ -3589,7 +3589,7 @@ Cell[BoxData[
    3.90517395713421*^9, {3.9057715547125893`*^9, 3.905771561273679*^9}, {
    3.905771625545314*^9, 3.9057716304048147`*^9}},
  CellLabel->"In[26]:=",ExpressionUUID->"acd3cbc9-69ea-418c-b887-28d34b1d6cb4"]
-}, Open  ]]
+}, Closed]]
 },
 WindowSize->{1529, 867},
 WindowMargins->{{-1685, Automatic}, {-38, Automatic}},
@@ -4453,152 +4453,152 @@ Notebook[{
 Cell[558, 20, 241, 5, 37, "Input",ExpressionUUID->"57a3a6b7-5ed1-4642-9045-f2f5b9fe3ba7"],
 Cell[CellGroupData[{
 Cell[824, 29, 1930, 41, 142, "Input",ExpressionUUID->"146e60d1-374f-4bd7-9d1b-a786a21a5c6c"],
-Cell[2757, 72, 441, 8, 42, "Output",ExpressionUUID->"df8f899e-b48d-46a1-a1a2-42c2c162b654"]
+Cell[2757, 72, 463, 8, 42, "Output",ExpressionUUID->"f644f909-e830-46b4-8c32-760d7e3526d7"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3235, 85, 255, 4, 67, "Subsection",ExpressionUUID->"6b6a8cf6-4a55-4c0b-835d-5f3e6c853d88"],
-Cell[3493, 91, 341, 9, 37, "Input",ExpressionUUID->"c5649f08-7498-4fc9-9c42-3f33698c0a72"],
+Cell[3257, 85, 255, 4, 67, "Subsection",ExpressionUUID->"6b6a8cf6-4a55-4c0b-835d-5f3e6c853d88"],
+Cell[3515, 91, 341, 9, 37, "Input",ExpressionUUID->"c5649f08-7498-4fc9-9c42-3f33698c0a72"],
 Cell[CellGroupData[{
-Cell[3859, 104, 966, 16, 64, "Input",ExpressionUUID->"d1369107-4139-4dd1-97c7-29279f71e417"],
-Cell[4828, 122, 201, 2, 42, "Output",ExpressionUUID->"b0859949-dbc7-4a40-8b4a-b87a99a1d0fb"]
+Cell[3881, 104, 966, 16, 64, "Input",ExpressionUUID->"d1369107-4139-4dd1-97c7-29279f71e417"],
+Cell[4850, 122, 223, 2, 42, "Output",ExpressionUUID->"77100aa6-1068-4c85-a235-f73685ae7409"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5066, 129, 328, 5, 37, "Input",ExpressionUUID->"f503f936-1917-49c3-9e41-605f2ccd4426"],
-Cell[5397, 136, 174, 2, 42, "Output",ExpressionUUID->"a70541dd-1e69-4068-b9be-e4b7b33d5ff9"]
+Cell[5110, 129, 328, 5, 37, "Input",ExpressionUUID->"f503f936-1917-49c3-9e41-605f2ccd4426"],
+Cell[5441, 136, 196, 2, 42, "Output",ExpressionUUID->"1fc5850d-7387-4f00-a039-ed47ad0815c5"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5608, 143, 700, 14, 116, "Input",ExpressionUUID->"ef31a243-f4a9-4065-97c9-93852360dfdf"],
+Cell[5674, 143, 700, 14, 116, "Input",ExpressionUUID->"ef31a243-f4a9-4065-97c9-93852360dfdf"],
 Cell[CellGroupData[{
-Cell[6333, 161, 373, 9, 29, "Print",ExpressionUUID->"995a6253-b618-4fa9-9d0c-924ec26c9258"],
-Cell[6709, 172, 267, 5, 29, "Print",ExpressionUUID->"c31d0507-9b63-44ae-a07f-1e3c2a4ff07c"]
+Cell[6399, 161, 395, 9, 29, "Print",ExpressionUUID->"ff31a9a1-28dd-4472-ade6-883f29167e8b"],
+Cell[6797, 172, 291, 5, 29, "Print",ExpressionUUID->"12471470-5780-4eb9-bc9a-d8481a0e481d"]
 }, Open  ]],
-Cell[6991, 180, 4793, 87, 42, "Output",ExpressionUUID->"25012034-1dab-48ce-8338-60848f090222"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[11821, 272, 1969, 41, 350, "Input",ExpressionUUID->"cb235074-df95-44d7-a0ca-7e5ab21c0383"],
-Cell[CellGroupData[{
-Cell[13815, 317, 371, 9, 29, "Print",ExpressionUUID->"a6e1bf12-6e73-4280-92df-b7472552763d"],
-Cell[14189, 328, 269, 5, 29, "Print",ExpressionUUID->"923145b8-1ccc-46ee-954f-226d1463f12e"]
-}, Open  ]],
-Cell[14473, 336, 7273, 127, 42, "Output",ExpressionUUID->"59323f82-3d28-4091-80ad-0a53f084051e"]
+Cell[7103, 180, 4815, 87, 42, "Output",ExpressionUUID->"744e9162-a01c-48dc-9a2a-b4ddef431787"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[21783, 468, 1458, 28, 142, "Input",ExpressionUUID->"d6de8f4f-599d-4b42-a087-537080fe3553"],
+Cell[11955, 272, 1969, 41, 350, "Input",ExpressionUUID->"cb235074-df95-44d7-a0ca-7e5ab21c0383"],
 Cell[CellGroupData[{
-Cell[23266, 500, 375, 9, 29, "Print",ExpressionUUID->"3c15f850-ed64-4a4a-b34d-3a88df876caf"],
-Cell[23644, 511, 269, 5, 29, "Print",ExpressionUUID->"efc2d7b1-c3d5-4834-897f-6880ab29a1f4"]
+Cell[13949, 317, 393, 9, 29, "Print",ExpressionUUID->"13a4838c-f03a-457e-bebe-de0d88d7f7c7"],
+Cell[14345, 328, 287, 5, 29, "Print",ExpressionUUID->"966a161f-056b-4d89-adc9-e1f396284c9c"]
 }, Open  ]],
-Cell[23928, 519, 6274, 112, 42, "Output",ExpressionUUID->"a0c17a6c-30e4-44da-b379-354418a8a156"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[30239, 636, 900, 18, 142, "Input",ExpressionUUID->"f6fe5571-8f1b-4149-81a8-2903abb09f6a"],
-Cell[CellGroupData[{
-Cell[31164, 658, 372, 9, 29, "Print",ExpressionUUID->"44deba9a-aee0-46db-9788-cf44b669b28f"],
-Cell[31539, 669, 266, 5, 29, "Print",ExpressionUUID->"990c49bc-b137-4f92-bf78-d3482ec0a607"]
-}, Open  ]],
-Cell[31820, 677, 6164, 111, 42, "Output",ExpressionUUID->"85cd6976-827e-4b0c-a1de-14c7dcfbc284"]
+Cell[14647, 336, 7295, 127, 42, "Output",ExpressionUUID->"271a00cc-b9c4-45f5-a3db-b4b1ff2f22fa"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[38021, 793, 905, 18, 116, "Input",ExpressionUUID->"729fb818-89ae-4dc4-96fd-b3db7ca4ec6b"],
+Cell[21979, 468, 1458, 28, 142, "Input",ExpressionUUID->"d6de8f4f-599d-4b42-a087-537080fe3553"],
 Cell[CellGroupData[{
-Cell[38951, 815, 373, 9, 29, "Print",ExpressionUUID->"3db45011-a96d-48a4-bb48-5ca13b83fcc7"],
-Cell[39327, 826, 267, 5, 29, "Print",ExpressionUUID->"de50918c-c5e5-45a9-a4d6-d7b60ce27a52"]
+Cell[23462, 500, 399, 9, 29, "Print",ExpressionUUID->"8fa02a13-47e7-42b2-84ce-74a23a8acd57"],
+Cell[23864, 511, 291, 5, 29, "Print",ExpressionUUID->"535c3c35-c31f-420c-8dfe-659d6592af74"]
 }, Open  ]],
-Cell[39609, 834, 6105, 108, 42, "Output",ExpressionUUID->"2cbe62a8-5451-4a58-ad06-2b98fdb8ecb6"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[45751, 947, 1967, 47, 272, "Input",ExpressionUUID->"f1399781-59ac-4844-856a-2b42e20a062f"],
-Cell[CellGroupData[{
-Cell[47743, 998, 373, 9, 29, "Print",ExpressionUUID->"2df03e05-b5a9-47a3-9276-8ca4bc46bbc9"],
-Cell[48119, 1009, 267, 5, 29, "Print",ExpressionUUID->"4ec0b8fd-765c-41f2-8d66-6dce85438227"]
-}, Open  ]],
-Cell[48401, 1017, 8263, 141, 42, "Output",ExpressionUUID->"68727d4e-0d71-406f-a722-8c9691f8ad08"]
+Cell[24170, 519, 6310, 112, 42, "Output",ExpressionUUID->"55211160-17a3-45e5-8fe0-43b130245fb9"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[56701, 1163, 3186, 68, 350, "Input",ExpressionUUID->"eeebd2b0-bfe9-4792-9fd6-98614b1bc6b9"],
+Cell[30517, 636, 900, 18, 142, "Input",ExpressionUUID->"f6fe5571-8f1b-4149-81a8-2903abb09f6a"],
 Cell[CellGroupData[{
-Cell[59912, 1235, 375, 9, 29, "Print",ExpressionUUID->"d5af3d26-9682-4532-a6aa-e67c442387a8"],
-Cell[60290, 1246, 266, 5, 29, "Print",ExpressionUUID->"e2d739a1-2825-4d91-826d-a24caa8bbd4a"]
+Cell[31442, 658, 394, 9, 29, "Print",ExpressionUUID->"94b77442-6ff0-441f-9ba3-1c24b6e37d0b"],
+Cell[31839, 669, 288, 5, 29, "Print",ExpressionUUID->"5408ae7f-f157-4cfd-8845-164782a0f3a1"]
 }, Open  ]],
-Cell[60571, 1254, 10419, 169, 42, "Output",ExpressionUUID->"8a40f72a-42c1-4fac-b730-700d2e876d43"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[71027, 1428, 2676, 69, 376, "Input",ExpressionUUID->"af41c96d-a57c-4a73-b8bc-431ba8de9158"],
-Cell[CellGroupData[{
-Cell[73728, 1501, 373, 9, 29, "Print",ExpressionUUID->"f78975e1-00b8-450c-bd7d-28f5f05a3710"],
-Cell[74104, 1512, 269, 5, 29, "Print",ExpressionUUID->"06c51768-09c6-401b-a27d-ae1b19863d33"]
-}, Open  ]],
-Cell[74388, 1520, 10476, 176, 42, "Output",ExpressionUUID->"1e1489c9-8f77-4616-9afc-7451a4a3aa27"]
+Cell[32142, 677, 6186, 111, 42, "Output",ExpressionUUID->"3133eccf-ad20-4ec4-afd2-fa8ddae47910"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[84901, 1701, 5334, 113, 558, "Input",ExpressionUUID->"24e75f0e-c203-42b9-b7ec-cafef50368ed"],
+Cell[38365, 793, 905, 18, 116, "Input",ExpressionUUID->"729fb818-89ae-4dc4-96fd-b3db7ca4ec6b"],
 Cell[CellGroupData[{
-Cell[90260, 1818, 373, 9, 29, "Print",ExpressionUUID->"7de502d6-8073-47aa-a159-24fe321e469c"],
-Cell[90636, 1829, 267, 5, 29, "Print",ExpressionUUID->"0ce097c3-3741-49a8-8a97-984d7d24bc46"]
+Cell[39295, 815, 395, 9, 29, "Print",ExpressionUUID->"87936915-9893-4279-9cf6-b5aeb3982871"],
+Cell[39693, 826, 289, 5, 29, "Print",ExpressionUUID->"3ccef2a6-d922-4cc3-a1f8-fc2001ea0200"]
 }, Open  ]],
-Cell[90918, 1837, 16356, 274, 42, "Output",ExpressionUUID->"899bb9b2-d47e-4bda-a403-1a28a2b3b672"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[107311, 2116, 1486, 29, 143, "Input",ExpressionUUID->"51059a36-3376-434a-afec-57a2920c91f1"],
-Cell[CellGroupData[{
-Cell[108822, 2149, 373, 9, 29, "Print",ExpressionUUID->"75efccdb-5f07-4e5d-b0a4-d9ad449daf24"],
-Cell[109198, 2160, 267, 5, 29, "Print",ExpressionUUID->"fab45e81-32c5-4d75-846e-cfdb54bf10c3"]
-}, Open  ]],
-Cell[109480, 2168, 11634, 193, 42, "Output",ExpressionUUID->"b717d4b5-fb05-46a5-beb1-6dd9c21694da"]
+Cell[39997, 834, 6127, 108, 42, "Output",ExpressionUUID->"a72caf48-c31c-4bcc-894f-d04d3235fedd"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[121151, 2366, 195, 3, 37, "Input",ExpressionUUID->"4df9fc3e-cf2d-4170-a830-f3a2f16ad1e2"],
-Cell[121349, 2371, 173, 2, 42, "Output",ExpressionUUID->"3d6f781f-412f-4393-9836-a3b288d941aa"]
-}, Open  ]],
-Cell[121537, 2376, 1657, 37, 428, "Input",ExpressionUUID->"7cb55225-35b3-473e-8878-a5e3dda406d2"],
-Cell[123197, 2415, 2308, 53, 532, "Input",ExpressionUUID->"39040be4-d00b-4950-835c-895457c013a2"],
+Cell[46161, 947, 1967, 47, 272, "Input",ExpressionUUID->"f1399781-59ac-4844-856a-2b42e20a062f"],
 Cell[CellGroupData[{
-Cell[125530, 2472, 1573, 37, 246, "Input",ExpressionUUID->"a687239e-d3c8-4e10-b6b9-c91a3e1da4ba"],
-Cell[127106, 2511, 391, 8, 69, "Output",ExpressionUUID->"6a00e5fc-a8f6-42f7-9c4b-027949cbd817"],
-Cell[127500, 2521, 150, 2, 42, "Output",ExpressionUUID->"61155a24-e05a-4fcc-b378-cf1af5adf6db"],
-Cell[127653, 2525, 391, 8, 69, "Output",ExpressionUUID->"27cf00d9-7dd3-4eff-a58e-0033faf4cba2"]
+Cell[48153, 998, 395, 9, 29, "Print",ExpressionUUID->"30a854a3-8521-4750-9bfe-26eab38760ba"],
+Cell[48551, 1009, 289, 5, 29, "Print",ExpressionUUID->"afe88438-98b7-4d71-aea3-1f492209d2d7"]
+}, Open  ]],
+Cell[48855, 1017, 8288, 141, 42, "Output",ExpressionUUID->"90672775-5d9f-4676-a334-543c0a44c594"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[128081, 2538, 177, 3, 37, "Input",ExpressionUUID->"ab382fa0-c0d9-4cc8-8ad6-26c3aab6ba85"],
-Cell[128261, 2543, 23347, 445, 76, "Output",ExpressionUUID->"e4ec27e6-9c2c-4353-b9f2-5e434fb4a965"]
+Cell[57180, 1163, 3186, 68, 350, "Input",ExpressionUUID->"eeebd2b0-bfe9-4792-9fd6-98614b1bc6b9"],
+Cell[CellGroupData[{
+Cell[60391, 1235, 399, 9, 29, "Print",ExpressionUUID->"9f365288-b901-425d-a6ad-e3b37a7228ab"],
+Cell[60793, 1246, 293, 5, 29, "Print",ExpressionUUID->"1b665346-fe40-486c-b89d-ac29f8952fae"]
+}, Open  ]],
+Cell[61101, 1254, 10471, 169, 42, "Output",ExpressionUUID->"3a960a57-5438-443d-b7ef-92900c285d83"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[151645, 2993, 3577, 92, 480, "Input",ExpressionUUID->"6b95acc6-d4b4-4124-a58e-667c15c5744a"],
-Cell[155225, 3087, 154, 2, 42, "Output",ExpressionUUID->"7161cf11-65af-418d-9ec1-8889067e5699"],
-Cell[155382, 3091, 154, 2, 62, "Output",ExpressionUUID->"3b3fe38a-c7f2-4f96-9e97-d60ef9bf59cd"]
+Cell[71609, 1428, 2676, 69, 376, "Input",ExpressionUUID->"af41c96d-a57c-4a73-b8bc-431ba8de9158"],
+Cell[CellGroupData[{
+Cell[74310, 1501, 395, 9, 29, "Print",ExpressionUUID->"661d2632-2ad5-4a8e-93f1-19703314e6f0"],
+Cell[74708, 1512, 289, 5, 29, "Print",ExpressionUUID->"e08ce31b-c1ac-4064-abab-39177863deef"]
+}, Open  ]],
+Cell[75012, 1520, 10498, 176, 42, "Output",ExpressionUUID->"70c99110-d0a9-40d9-83fc-cb661f6821a2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[85547, 1701, 5334, 113, 558, "Input",ExpressionUUID->"24e75f0e-c203-42b9-b7ec-cafef50368ed"],
+Cell[CellGroupData[{
+Cell[90906, 1818, 394, 9, 29, "Print",ExpressionUUID->"db2caf44-e9fc-441e-af97-fdae0f1f63c1"],
+Cell[91303, 1829, 289, 5, 29, "Print",ExpressionUUID->"34f68866-d124-4a9c-b791-f1a80e618141"]
+}, Open  ]],
+Cell[91607, 1837, 16378, 274, 42, "Output",ExpressionUUID->"1e136e14-a3ef-4268-a5ae-eccdf622daf9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[108022, 2116, 1486, 29, 143, "Input",ExpressionUUID->"51059a36-3376-434a-afec-57a2920c91f1"],
+Cell[CellGroupData[{
+Cell[109533, 2149, 395, 9, 29, "Print",ExpressionUUID->"63b9827c-fec8-494a-bb53-273693b4abf0"],
+Cell[109931, 2160, 291, 5, 29, "Print",ExpressionUUID->"a6dc643d-437c-42f2-ade5-92d5fdf1ee6e"]
+}, Open  ]],
+Cell[110237, 2168, 11658, 193, 42, "Output",ExpressionUUID->"5db50d26-bd1b-42b7-b3ad-f7daf0eb7eba"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[121932, 2366, 195, 3, 37, "Input",ExpressionUUID->"4df9fc3e-cf2d-4170-a830-f3a2f16ad1e2"],
+Cell[122130, 2371, 197, 2, 42, "Output",ExpressionUUID->"42fa2513-565c-4d0b-9225-2f18c6316240"]
+}, Open  ]],
+Cell[122342, 2376, 1657, 37, 428, "Input",ExpressionUUID->"7cb55225-35b3-473e-8878-a5e3dda406d2"],
+Cell[124002, 2415, 2308, 53, 532, "Input",ExpressionUUID->"39040be4-d00b-4950-835c-895457c013a2"],
+Cell[CellGroupData[{
+Cell[126335, 2472, 1573, 37, 246, "Input",ExpressionUUID->"a687239e-d3c8-4e10-b6b9-c91a3e1da4ba"],
+Cell[127911, 2511, 413, 8, 69, "Output",ExpressionUUID->"d9e95040-8dd5-413f-976c-f1396f96f943"],
+Cell[128327, 2521, 175, 2, 42, "Output",ExpressionUUID->"6074b3b8-759c-4b98-b59f-f6f9aa5d8bdd"],
+Cell[128505, 2525, 413, 8, 69, "Output",ExpressionUUID->"250aaa93-30d6-4190-9aad-accaaf0d2cf0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[128955, 2538, 177, 3, 37, "Input",ExpressionUUID->"ab382fa0-c0d9-4cc8-8ad6-26c3aab6ba85"],
+Cell[129135, 2543, 23367, 445, 76, "Output",ExpressionUUID->"64c940cd-5dbb-46c6-b9d5-f87b337121af"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[152539, 2993, 3577, 92, 480, "Input",ExpressionUUID->"6b95acc6-d4b4-4124-a58e-667c15c5744a"],
+Cell[156119, 3087, 178, 2, 42, "Output",ExpressionUUID->"d0105400-c38f-4ca4-8117-2d230db5d1ad"],
+Cell[156300, 3091, 178, 2, 42, "Output",ExpressionUUID->"92ca3cfb-fd42-4198-aaf8-61ddaf7404d1"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[155585, 3099, 214, 4, 46, "Subsection",ExpressionUUID->"48305ff8-83b9-4d5a-8570-85b25d4a4a26"],
+Cell[156527, 3099, 214, 4, 46, "Subsection",ExpressionUUID->"48305ff8-83b9-4d5a-8570-85b25d4a4a26"],
 Cell[CellGroupData[{
-Cell[155824, 3107, 1579, 34, 90, "Input",ExpressionUUID->"762e418e-ce0c-4b3f-bc5c-39e5a850b017"],
-Cell[157406, 3143, 409, 5, 42, "Output",ExpressionUUID->"1dee32aa-cb36-486d-95ff-87645c65daec"],
-Cell[157818, 3150, 561, 9, 42, "Output",ExpressionUUID->"187cad3a-f541-4915-a9db-f627ac9ee346"]
+Cell[156766, 3107, 1579, 34, 90, "Input",ExpressionUUID->"762e418e-ce0c-4b3f-bc5c-39e5a850b017"],
+Cell[158348, 3143, 409, 5, 42, "Output",ExpressionUUID->"1dee32aa-cb36-486d-95ff-87645c65daec"],
+Cell[158760, 3150, 561, 9, 42, "Output",ExpressionUUID->"187cad3a-f541-4915-a9db-f627ac9ee346"]
 }, Open  ]],
-Cell[158394, 3162, 1619, 42, 220, "Input",ExpressionUUID->"71bc6bd0-682a-416d-a9b9-326354ff7381"],
-Cell[160016, 3206, 934, 17, 90, "Input",ExpressionUUID->"fa66d102-52e8-47ef-a717-4581b18664c3"],
+Cell[159336, 3162, 1619, 42, 220, "Input",ExpressionUUID->"71bc6bd0-682a-416d-a9b9-326354ff7381"],
+Cell[160958, 3206, 934, 17, 90, "Input",ExpressionUUID->"fa66d102-52e8-47ef-a717-4581b18664c3"],
 Cell[CellGroupData[{
-Cell[160975, 3227, 1204, 32, 168, "Input",ExpressionUUID->"de4d8b00-e488-4f08-9a8c-39ba3fa2970e"],
-Cell[162182, 3261, 152, 2, 42, "Output",ExpressionUUID->"0e794e4f-5a93-46ce-9ba9-bfd67fc976d3"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[162371, 3268, 2964, 67, 350, "Input",ExpressionUUID->"edb52da4-30c0-4d74-9e45-a6904b3356f4"],
-Cell[165338, 3337, 152, 2, 42, "Output",ExpressionUUID->"7efb3722-9333-4c1b-99df-c76d4b07dd01"]
+Cell[161917, 3227, 1204, 32, 168, "Input",ExpressionUUID->"de4d8b00-e488-4f08-9a8c-39ba3fa2970e"],
+Cell[163124, 3261, 152, 2, 42, "Output",ExpressionUUID->"0e794e4f-5a93-46ce-9ba9-bfd67fc976d3"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[165527, 3344, 2393, 65, 324, "Input",ExpressionUUID->"109cf052-9257-409b-9a7a-09066bdd590e"],
-Cell[167923, 3411, 152, 2, 42, "Output",ExpressionUUID->"bc07579d-e9b8-4d4d-b195-d2c3af8609b7"]
+Cell[163313, 3268, 2964, 67, 350, "Input",ExpressionUUID->"edb52da4-30c0-4d74-9e45-a6904b3356f4"],
+Cell[166280, 3337, 152, 2, 42, "Output",ExpressionUUID->"7efb3722-9333-4c1b-99df-c76d4b07dd01"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[168112, 3418, 3647, 88, 480, "Input",ExpressionUUID->"ddd0a12f-6c8b-43f7-b520-acdc598da555"],
-Cell[171762, 3508, 152, 2, 42, "Output",ExpressionUUID->"e9a18db5-56a0-4163-ab47-175178600eb2"]
+Cell[166469, 3344, 2393, 65, 324, "Input",ExpressionUUID->"109cf052-9257-409b-9a7a-09066bdd590e"],
+Cell[168865, 3411, 152, 2, 42, "Output",ExpressionUUID->"bc07579d-e9b8-4d4d-b195-d2c3af8609b7"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[171951, 3515, 706, 16, 90, "Input",ExpressionUUID->"4cf153e5-011d-4984-8223-9fd6d39018ea"],
-Cell[172660, 3533, 154, 2, 42, "Output",ExpressionUUID->"a02645ea-a3e5-4a5b-ba93-726e3a908a55"]
+Cell[169054, 3418, 3647, 88, 480, "Input",ExpressionUUID->"ddd0a12f-6c8b-43f7-b520-acdc598da555"],
+Cell[172704, 3508, 152, 2, 42, "Output",ExpressionUUID->"e9a18db5-56a0-4163-ab47-175178600eb2"]
 }, Open  ]],
-Cell[172829, 3538, 2130, 52, 301, "Input",ExpressionUUID->"acd3cbc9-69ea-418c-b887-28d34b1d6cb4"]
-}, Open  ]]
+Cell[CellGroupData[{
+Cell[172893, 3515, 706, 16, 90, "Input",ExpressionUUID->"4cf153e5-011d-4984-8223-9fd6d39018ea"],
+Cell[173602, 3533, 154, 2, 42, "Output",ExpressionUUID->"a02645ea-a3e5-4a5b-ba93-726e3a908a55"]
+}, Open  ]],
+Cell[173771, 3538, 2130, 52, 301, "Input",ExpressionUUID->"acd3cbc9-69ea-418c-b887-28d34b1d6cb4"]
+}, Closed]]
 }
 ]
 *)
