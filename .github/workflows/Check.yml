@@ -27,8 +27,8 @@ jobs:
         id: checkout-code-step
         uses: actions/checkout@v3
       - name: Check
-        id: check-paclet-step
-        uses: WolframResearch/check-paclet@v1
+        id: check-paclet
+        uses: WolframResearch/check-paclet@v1.11.0
         with:
           target: Submit
           paclet_cicd_version: latest
@@ -50,7 +50,7 @@ jobs:
           tlmgr list --only-installed
       - name: Test
         id: test-paclet-step
-        uses: WolframResearch/test-paclet@v1
+        uses: WolframResearch/test-paclet@v1.11.0
         with:
           target: Submit
           debug: "false"
