@@ -65,14 +65,6 @@ jobs:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
           if-no-files-found: ignore
-      - name: Build paclet
-        uses: WolframResearch/build-paclet@v1.11.0
-        with:
-          check: false
-          paclet_cicd_version: latest
-      - name: UploadArtifact
-        uses: actions/upload-artifact@v3
-        with: 
           path: ${{ env.PACLET_BUILD_DIR }} # set during the build-paclet step
       - name: Setup tmate session
         if: ${{ failure() }}
