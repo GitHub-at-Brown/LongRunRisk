@@ -1,4 +1,4 @@
-name: Check
+name: Check-Test
 on:
   workflow_dispatch:
   push:
@@ -13,7 +13,7 @@ env:
   WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
   WLPR_PACLET_SITE: https://resources.wolframcloud.com/PacletRepository/pacletsite
 jobs:
-  Test:
+  Check-Test:
     name: Test
     runs-on: ubuntu-latest
     container:
@@ -26,6 +26,22 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v3
+      - name: Check
+        id: check-paclet-step
+        uses: WolframResearch/check-paclet@v1.10.2
+        with:
+          target: Submit
+          paclet_cicd_version: 0.34.0
+          definition_notebook: ./ResourceDefinition.nb
+          resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
+      - name: UploadWorkflowValues
+        id: upload-workflow-values-step
+        if: always() && env.PACLET_WORKFLOW_VALUES
+        uses: actions/upload-artifact@v3
+        with:
+          name: paclet-workflow-values
+          path: ${{ env.PACLET_WORKFLOW_VALUES }}
+          if-no-files-found: ignore
       - name: Install perl, ghostscript, tinytex
         run: |
           apt-get update -y
@@ -40,13 +56,6 @@ jobs:
           tlmgr install latex standalone lm svn-prov
           tlmgr path add
           tlmgr list --only-installed
-      # - uses: docker/setup-qemu-action@v3
-      # - uses: docker/setup-buildx-action@v3
-      # - uses: docker/build-push-action@v5
-      #   with:
-      #     context: .
-      #     push: true
-      #     tags: user/app:latest
       - name: Test
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.10.2
