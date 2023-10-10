@@ -288,7 +288,7 @@ createExogenous[m_]:=Module[
 ]	
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*createEndogenous*)
 
 
@@ -358,7 +358,7 @@ createEndogenous[mod_]:=Module[
 ]	
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*addToStateVars*)
 
 
@@ -477,8 +477,6 @@ addCoeffsSolution[
 				x,
 				coeffInfoSol
 			},
-(*			Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
-			Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];*)
 			If[
 				(*infoModel has coefficients in closed form*)
 				KeyExistsQ[infoModel,"coeffs"] && KeyExistsQ[infoModel["coeffs"],ratio]
@@ -565,14 +563,16 @@ addCoeffsSolution[
 					Module[
 						{
 							checkFindRoot,
-							mapFindRoot
+							mapFindRoot,
+							dropTrue
 						},
 						checkFindRoot[x___]:= Quiet[Check[FindRoot[x],Nothing, {FindRoot::reged}],{FindRoot::reged}];
 						mapFindRoot[x1_,x2_,x3___]:=checkFindRoot[x1,#,x3]&/@x2;
+						dropTrue[expr_]:=Select[expr,Not[TrueQ[#]]&];
 						{
 							Inactive[MapThread][
 								Inactive[mapFindRoot][
-									Inactive[N][#1],
+									Inactive[dropTrue][Inactive[N][#1]],
 									Inactive[N][#2],
 									Evaluate@findRootOpts
 								]&,

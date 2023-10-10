@@ -898,12 +898,12 @@ models = <|
 				mud[1] -> 0.000344066546708281,
 					rhodx[1] -> 2.5,
 					rhodp[1] -> -0.234446726759537,
-					phidc[1] -> 0.031806774038977,
+					phidc[1] -> 0,
 					phidp[1] -> 0,
 					phidsp[1] -> 0,
 					xid[1] -> 0.194175986681852,
 					phids[1] -> 0,
-					phidxc[1] -> 0,
+					phidxc[1] -> 0.031806774038977,
 					phidcc[1] -> 0,
 					phidpc[1] -> 0,
 					phidpp[1] -> 0,
@@ -915,12 +915,12 @@ models = <|
 				mud[2] -> 0.005964299279041,
 					rhodx[2] -> 2,
 					rhodp[2] -> 0.698934055063512,
-					phidc[2] -> -0.051654152930244,
+					phidc[2] -> 0,
 					phidp[2] -> 0,
 					phidsp[2] -> 0,
 					xid[2] -> 0.108236851752829,
 					phids[2] -> 0,
-					phidxc[2] -> 0,
+					phidxc[2] -> -0.051654152930244,
 					phidcc[2] -> 0,
 					phidpc[2] -> 0,
 					phidpp[2] -> 0,
@@ -932,12 +932,12 @@ models = <|
 				mud[3] -> 0.000171798971158204,
 					rhodx[3] -> 0.5,
 					rhodp[3] -> 0.709922405282179,
-					phidc[3] -> 0.033700231996206,
+					phidc[3] -> 0,
 					phidp[3] -> 0,
 					phidsp[3] -> 0,
 					xid[3] -> -0.307616182414513,
 					phids[3] -> 0,
-					phidxc[3] -> 0,
+					phidxc[3] -> 0.033700231996206,
 					phidcc[3] -> 0,
 					phidpc[3] -> 0,
 					phidpp[3] -> 0,
@@ -1144,7 +1144,7 @@ models = <|
 		"desc" -> "Volatility of inflation is different				
 			from volatility of long-run risk and				
 			depends on inflation levels",
-		"stateVars" -> {x[t],sx[t],-mup+pi[t],sp[x]},
+		"stateVars" -> {x[t],sx[t],-mup+pi[t],sp[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9989,
@@ -1165,7 +1165,7 @@ models = <|
 				phipc -> 0,
 				phipx -> 0,
 				phipcx -> 0,
-				phipp -> 0,
+				phipp -> 0.1,
 				phipxp -> 0,
 			(*"Expected inflation"*)
 			mupbar -> 0,
@@ -1206,8 +1206,8 @@ models = <|
 			(*"Stochastic volatility of inflation"*)
 			Esp -> 0.01,
 				vp -> 0.995,
-				vpp -> 0.5,
-				vppbar -> 1/2,
+				vpp -> 0.1,
+				vppbar -> 0,
 				phispw -> 0.000028,
 			(*"Real dividend growth"*)
 				(* stock 1 *)
@@ -1759,13 +1759,27 @@ modelsExtraInfo = <|
 				},
 				{}
 			],
-			"bond" -> {
-				R1[n]->((-1 + rhox^n)*(-((1 + E^A[0])*theta) + psi*(-1 + theta)*(1 - A[1] + E^A[0]*(1 + (-1 + rhox)*A[1]))))/((1 + E^A[0])*psi*(-1 + rhox)),
-				R2[n]->((1 + E^A[0])^2*theta^2*(-2*phix^2*rhox^(2 + n)*(-1 + vx) + phix^2*rhox^(1 + 2*n)*(-1 + vx) + 2*phix^2*rhox^n*(-1 + vx)*vx - phix^2*rhox^(2*n)*(-1 + vx)*vx + rhox^5*(-1 + vx^n) - rhox^4*(2 + vx)*(-1 + vx^n) + rhox^3*(1 + phix^2 + vx)*(-1 + vx^n) + vx*(-((1 + phix^2)*vx) + phix^2*vx^n + vx^(1 + n)) + rhox*((1 + phix^2)*vx + 2*vx^2 + phix^2*vx^n - (1 + 2*phix^2)*vx^(1 + n) -   2*vx^(2 + n)) + rhox^2*((-1 + phix^2)*vx - vx^2 - 2*phix^2*vx^n + (1 + phix^2)*vx^(1 + n) + vx^(2 + n))) - 2*(1 + E^A[0])*psi*(-1 + theta)*theta*((1 + E^A[0])*rhox^5*(-1 + vx^n) - (1 + E^A[0])*rhox^4*(2 + vx)*(-1 + vx^n) + phix^2*rhox^(2 + n)*(-1 + vx)*(E^A[0]*(-2 + A[1]) + 2*(-1 + A[1])) - phix^2*rhox^n*(-1 + vx)*vx*(E^A[0]*(-2 + A[1]) + 2*(-1 + A[1])) + rhox*(2*(1 + E^A[0])*vx^2 - 2*(1 + E^A[0])*vx^(2 + n) + vx*(1 + E^A[0]*(1 + phix^2) - phix^2*(-1 + A[1])) + vx^(1 + n)*(-1 + E^A[0]*(-1 + phix^2*(-2 + A[1])) + 2*phix^2*(-1 + A[1])) - (1 + E^A[0])*phix^2*vx^n*(-1 + A[1])) + (1 + E^A[0])*phix^2*rhox^(2*n)*(-1 + vx)*vx*(-1 + A[1]) - E^A[0]*phix^2*rhox^(3 + n)*(-1 + vx)*A[1] + E^A[0]*phix^2*rhox^(2 + 2*n)*(-1 + vx)*A[1] + E^A[0]*phix^2*rhox^(1 + n)*(-1 + vx)*vx*A[1] + vx*((1 + E^A[0])*vx^(1 + n) + phix^2*vx^n*(1 + E^A[0] - A[1]) - vx*(1 + phix^2 + E^A[0]*(1 + phix^2) - phix^2*A[1])) - phix^2*rhox^(1 + 2*n)*(-1 + vx)*(-1 + A[1] + E^A[0]*(-1 + (1 + vx)*A[1])) + rhox^2*(-((1 + E^A[0])*vx^2) + (1 + E^A[0])*vx^(2 + n) + 2*(1 + E^A[0])*phix^2*vx^n*(-1 + A[1]) + vx*(-1 + phix^2 + E^A[0]*(-1 + phix^2) - phix^2*A[1]) + vx^(1 + n)*(1 + phix^2 - phix^2*A[1] + E^A[0]*(1 + phix^2 - 2*phix^2*A[1]))) + rhox^3*((-1 + vx^n)*(1 + vx - phix^2*(-1 + A[1])) + E^A[0]*((1 + vx)*(-1 + vx^n) + phix^2*(-1 + vx^n - vx^n*A[1] + vx^(1 + n)*A[1])))) + psi^2*(-1 + theta)*(2*(1 + E^A[0])*phix^2*rhox^(2 + n)*(-1 + theta)*(-1 + vx)*(1 + E^A[0] - A[1])*(-1 + A[1]) - 2*(1 + E^A[0])*phix^2*rhox^n*(-1 + theta)*(-1 + vx)*vx*(1 + E^A[0] - A[1])*(-1 + A[1]) - (1 + E^A[0])^2*phix^2*rhox^(2*n)*(-1 + theta)*(-1 + vx)*vx*(-1 + A[1])^2 - 2*E^A[0]*phix^2*rhox^(3 + n)*(-1 + theta)*(-1 + vx)*(1 + E^A[0] - A[1])*A[1] + 2*E^A[0]*phix^2*rhox^(1 + n)*(-1 + theta)*(-1 + vx)*vx*(1 + E^A[0] - A[1])*A[1] + E^(2*A[0])*phix^2*rhox^(3 + 2*n)*(-1 + theta)*(-1 + vx)*A[1]^2 + (1 + E^A[0])*phix^2*rhox^(1 + 2*n)*(-1 + theta)*(-1 + vx)*(-1 + A[1])*(-1 + A[1] + E^A[0]*(-1 + A[1] + 2*vx*A[1])) - E^A[0]*phix^2*rhox^(2 + 2*n)*(-1 + theta)*(-1 + vx)*A[1]*(2*(-1 + A[1]) + E^A[0]*(-2 + (2 + vx)*A[1])) + (1 + E^A[0])*rhox^5*(-1 + vx^n)*(-1 + theta - 2*A[2] + E^A[0]*(-1 + theta + 2*(-1 + vx)*A[2])) - (1 + E^A[0])*rhox^4*(2 + vx)*(-1 + vx^n)*(-1 + theta - 2*A[2] + E^A[0]*(-1 + theta + 2*(-1 + vx)*A[2])) + rhox^2*(-2*(1 + E^A[0])^2*phix^2*(-1 + theta)*vx^n*(-1 + A[1])^2 - (1 + E^A[0])*vx^2*(-1 + E^A[0]*(-1 + theta) + theta - 2*A[2]) + vx^(1 + n)*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1])^2 + E^(2*A[0])*(-1 + theta + phix^2*(-1 + theta)*(1 - 4*A[1] + A[1]^2) - 2*A[2]) + 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(1 - 3*A[1] + 2*A[1]^2) - 2*A[2]) - 2*A[2]) + vx^(2 + n)*(-1 + theta + E^(2*A[0])*(-1 + theta)*(1 + phix^2*A[1]^2) + 2*E^A[0]*(-1 + theta - A[2]) - 2*A[2]) - 2*E^A[0]*(1 + E^A[0])*vx^3*A[2] + 2*E^A[0]*(1 + E^A[0])*vx^(3 + n)*A[2] + vx*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1])^2 - 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1]) - 2*A[2]) + 2*A[2] + E^(2*A[0])*(1 + phix^2*(-1 + theta) - theta + 2*A[2]))) + vx*(-((1 + E^A[0])*phix^2*(-1 + theta)*vx^n*(-1 + A[1])*(1 - A[1] + E^A[0]*(1 + A[1]))) + vx^(1 + n)*(-1 + theta + 2*E^A[0]*(-1 + theta - 2*A[2]) + E^(2*A[0])*(-1 + theta - phix^2*A[1]^2 + phix^2*theta*A[1]^2 - 2*A[2]) - 2*A[2]) - 2*E^A[0]*(1 + E^A[0])*vx^2*A[2] + 2*E^A[0]*(1 + E^A[0])*vx^(2 + n)*A[2] + vx*(1 - theta - phix^2*(-1 + theta)*(-1 + A[1])^2 + 2*A[2] + E^(2*A[0])*(1 - phix^2*(-1 + theta) - theta + 2*A[2]) + 2*E^A[0]*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1]) + 2*A[2]))) + rhox*((1 + E^A[0])^2*phix^2*(-1 + theta)*vx^n*(-1 + A[1])^2 + 2*(1 + E^A[0])*vx^2*(-1 + theta + E^A[0]*(-1 + theta - A[2]) - 2*A[2]) + 4*E^A[0]*(1 + E^A[0])*vx^3*A[2] - 4*E^A[0]*(1 + E^A[0])*vx^(3 + n)*A[2] + vx*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1])^2 + E^(2*A[0])*(-1 + phix^2*(-1 + theta) + theta - 2*A[2]) - 2*A[2] - 2*E^A[0]*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1]) + 2*A[2])) + vx^(1 + n)*(1 - theta - 2*phix^2*(-1 + theta)*(-1 + A[1])^2 - 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(2 - 3*A[1] + A[1]^2) - 2*A[2]) + 2*A[2] + E^(2*A[0])*(1 - theta + phix^2*(-1 + theta)*(-2 + 2*A[1] + A[1]^2) + 2*A[2])) + 2*vx^(2 + n)*(1 - theta + 2*A[2] + E^(2*A[0])*(1 + phix^2*A[1]^2 - theta*(1 + phix^2*A[1]^2) + A[2]) + E^A[0]*(2 - 2*theta + 3*A[2]))) + rhox^3*((-1 + vx^n)*(phix^2*(-1 + theta)*(-1 + A[1])^2 + (1 + vx)*(-1 + theta - 2*A[2])) - 2*E^A[0]*(phix^2*(-1 + theta)*(-1 + A[1])*(-1 - vx^n*(-1 + A[1]) + vx^(1 + n)*A[1]) - (1 + vx)*(-1 + vx^n)*(-1 + theta + (-2 + vx)*A[2])) + E^(2*A[0])*((-phix^2)*(-1 + theta)*(1 - vx^n*(-1 + A[1])^2 + vx^(1 + n)*(-2 + A[1])*A[1]) + (1 + vx)*(-1 + vx^n)*(-1 + theta + 2*(-1 + vx)*A[2])))))/(2*(1 + E^A[0])^2*psi^2*(-1 + rhox)^2*(rhox - vx)*(rhox^2 - vx)*(-1 + vx))
-			},
-			"nombond" -> {
-				P1[n]->((-1 + rhox^n)*(-((1 + E^A[0])*theta) + psi*(-1 + theta)*(1 - A[1] + E^A[0]*(1 + (-1 + rhox)*A[1]))))/((1 + E^A[0])*psi*(-1 + rhox))
-			}	
+			"bond" -> With[
+				{
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+					R = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb[[0]],
+					n = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`n
+				},
+				{
+					R[n_][1] :> ((-1 + rhox^n)*(-((1 + E^A[0])*theta) + psi*(-1 + theta)*(1 - A[1] + E^A[0]*(1 + (-1 + rhox)*A[1]))))/((1 + E^A[0])*psi*(-1 + rhox)),
+					R[n_][2] :> ((1 + E^A[0])^2*theta^2*(-2*phix^2*rhox^(2 + n)*(-1 + vx) + phix^2*rhox^(1 + 2*n)*(-1 + vx) + 2*phix^2*rhox^n*(-1 + vx)*vx - phix^2*rhox^(2*n)*(-1 + vx)*vx + rhox^5*(-1 + vx^n) - rhox^4*(2 + vx)*(-1 + vx^n) + rhox^3*(1 + phix^2 + vx)*(-1 + vx^n) + vx*(-((1 + phix^2)*vx) + phix^2*vx^n + vx^(1 + n)) + rhox*((1 + phix^2)*vx + 2*vx^2 + phix^2*vx^n - (1 + 2*phix^2)*vx^(1 + n) -   2*vx^(2 + n)) + rhox^2*((-1 + phix^2)*vx - vx^2 - 2*phix^2*vx^n + (1 + phix^2)*vx^(1 + n) + vx^(2 + n))) - 2*(1 + E^A[0])*psi*(-1 + theta)*theta*((1 + E^A[0])*rhox^5*(-1 + vx^n) - (1 + E^A[0])*rhox^4*(2 + vx)*(-1 + vx^n) + phix^2*rhox^(2 + n)*(-1 + vx)*(E^A[0]*(-2 + A[1]) + 2*(-1 + A[1])) - phix^2*rhox^n*(-1 + vx)*vx*(E^A[0]*(-2 + A[1]) + 2*(-1 + A[1])) + rhox*(2*(1 + E^A[0])*vx^2 - 2*(1 + E^A[0])*vx^(2 + n) + vx*(1 + E^A[0]*(1 + phix^2) - phix^2*(-1 + A[1])) + vx^(1 + n)*(-1 + E^A[0]*(-1 + phix^2*(-2 + A[1])) + 2*phix^2*(-1 + A[1])) - (1 + E^A[0])*phix^2*vx^n*(-1 + A[1])) + (1 + E^A[0])*phix^2*rhox^(2*n)*(-1 + vx)*vx*(-1 + A[1]) - E^A[0]*phix^2*rhox^(3 + n)*(-1 + vx)*A[1] + E^A[0]*phix^2*rhox^(2 + 2*n)*(-1 + vx)*A[1] + E^A[0]*phix^2*rhox^(1 + n)*(-1 + vx)*vx*A[1] + vx*((1 + E^A[0])*vx^(1 + n) + phix^2*vx^n*(1 + E^A[0] - A[1]) - vx*(1 + phix^2 + E^A[0]*(1 + phix^2) - phix^2*A[1])) - phix^2*rhox^(1 + 2*n)*(-1 + vx)*(-1 + A[1] + E^A[0]*(-1 + (1 + vx)*A[1])) + rhox^2*(-((1 + E^A[0])*vx^2) + (1 + E^A[0])*vx^(2 + n) + 2*(1 + E^A[0])*phix^2*vx^n*(-1 + A[1]) + vx*(-1 + phix^2 + E^A[0]*(-1 + phix^2) - phix^2*A[1]) + vx^(1 + n)*(1 + phix^2 - phix^2*A[1] + E^A[0]*(1 + phix^2 - 2*phix^2*A[1]))) + rhox^3*((-1 + vx^n)*(1 + vx - phix^2*(-1 + A[1])) + E^A[0]*((1 + vx)*(-1 + vx^n) + phix^2*(-1 + vx^n - vx^n*A[1] + vx^(1 + n)*A[1])))) + psi^2*(-1 + theta)*(2*(1 + E^A[0])*phix^2*rhox^(2 + n)*(-1 + theta)*(-1 + vx)*(1 + E^A[0] - A[1])*(-1 + A[1]) - 2*(1 + E^A[0])*phix^2*rhox^n*(-1 + theta)*(-1 + vx)*vx*(1 + E^A[0] - A[1])*(-1 + A[1]) - (1 + E^A[0])^2*phix^2*rhox^(2*n)*(-1 + theta)*(-1 + vx)*vx*(-1 + A[1])^2 - 2*E^A[0]*phix^2*rhox^(3 + n)*(-1 + theta)*(-1 + vx)*(1 + E^A[0] - A[1])*A[1] + 2*E^A[0]*phix^2*rhox^(1 + n)*(-1 + theta)*(-1 + vx)*vx*(1 + E^A[0] - A[1])*A[1] + E^(2*A[0])*phix^2*rhox^(3 + 2*n)*(-1 + theta)*(-1 + vx)*A[1]^2 + (1 + E^A[0])*phix^2*rhox^(1 + 2*n)*(-1 + theta)*(-1 + vx)*(-1 + A[1])*(-1 + A[1] + E^A[0]*(-1 + A[1] + 2*vx*A[1])) - E^A[0]*phix^2*rhox^(2 + 2*n)*(-1 + theta)*(-1 + vx)*A[1]*(2*(-1 + A[1]) + E^A[0]*(-2 + (2 + vx)*A[1])) + (1 + E^A[0])*rhox^5*(-1 + vx^n)*(-1 + theta - 2*A[2] + E^A[0]*(-1 + theta + 2*(-1 + vx)*A[2])) - (1 + E^A[0])*rhox^4*(2 + vx)*(-1 + vx^n)*(-1 + theta - 2*A[2] + E^A[0]*(-1 + theta + 2*(-1 + vx)*A[2])) + rhox^2*(-2*(1 + E^A[0])^2*phix^2*(-1 + theta)*vx^n*(-1 + A[1])^2 - (1 + E^A[0])*vx^2*(-1 + E^A[0]*(-1 + theta) + theta - 2*A[2]) + vx^(1 + n)*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1])^2 + E^(2*A[0])*(-1 + theta + phix^2*(-1 + theta)*(1 - 4*A[1] + A[1]^2) - 2*A[2]) + 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(1 - 3*A[1] + 2*A[1]^2) - 2*A[2]) - 2*A[2]) + vx^(2 + n)*(-1 + theta + E^(2*A[0])*(-1 + theta)*(1 + phix^2*A[1]^2) + 2*E^A[0]*(-1 + theta - A[2]) - 2*A[2]) - 2*E^A[0]*(1 + E^A[0])*vx^3*A[2] + 2*E^A[0]*(1 + E^A[0])*vx^(3 + n)*A[2] + vx*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1])^2 - 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1]) - 2*A[2]) + 2*A[2] + E^(2*A[0])*(1 + phix^2*(-1 + theta) - theta + 2*A[2]))) + vx*(-((1 + E^A[0])*phix^2*(-1 + theta)*vx^n*(-1 + A[1])*(1 - A[1] + E^A[0]*(1 + A[1]))) + vx^(1 + n)*(-1 + theta + 2*E^A[0]*(-1 + theta - 2*A[2]) + E^(2*A[0])*(-1 + theta - phix^2*A[1]^2 + phix^2*theta*A[1]^2 - 2*A[2]) - 2*A[2]) - 2*E^A[0]*(1 + E^A[0])*vx^2*A[2] + 2*E^A[0]*(1 + E^A[0])*vx^(2 + n)*A[2] + vx*(1 - theta - phix^2*(-1 + theta)*(-1 + A[1])^2 + 2*A[2] + E^(2*A[0])*(1 - phix^2*(-1 + theta) - theta + 2*A[2]) + 2*E^A[0]*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1]) + 2*A[2]))) + rhox*((1 + E^A[0])^2*phix^2*(-1 + theta)*vx^n*(-1 + A[1])^2 + 2*(1 + E^A[0])*vx^2*(-1 + theta + E^A[0]*(-1 + theta - A[2]) - 2*A[2]) + 4*E^A[0]*(1 + E^A[0])*vx^3*A[2] - 4*E^A[0]*(1 + E^A[0])*vx^(3 + n)*A[2] + vx*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1])^2 + E^(2*A[0])*(-1 + phix^2*(-1 + theta) + theta - 2*A[2]) - 2*A[2] - 2*E^A[0]*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1]) + 2*A[2])) + vx^(1 + n)*(1 - theta - 2*phix^2*(-1 + theta)*(-1 + A[1])^2 - 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(2 - 3*A[1] + A[1]^2) - 2*A[2]) + 2*A[2] + E^(2*A[0])*(1 - theta + phix^2*(-1 + theta)*(-2 + 2*A[1] + A[1]^2) + 2*A[2])) + 2*vx^(2 + n)*(1 - theta + 2*A[2] + E^(2*A[0])*(1 + phix^2*A[1]^2 - theta*(1 + phix^2*A[1]^2) + A[2]) + E^A[0]*(2 - 2*theta + 3*A[2]))) + rhox^3*((-1 + vx^n)*(phix^2*(-1 + theta)*(-1 + A[1])^2 + (1 + vx)*(-1 + theta - 2*A[2])) - 2*E^A[0]*(phix^2*(-1 + theta)*(-1 + A[1])*(-1 - vx^n*(-1 + A[1]) + vx^(1 + n)*A[1]) - (1 + vx)*(-1 + vx^n)*(-1 + theta + (-2 + vx)*A[2])) + E^(2*A[0])*((-phix^2)*(-1 + theta)*(1 - vx^n*(-1 + A[1])^2 + vx^(1 + n)*(-2 + A[1])*A[1]) + (1 + vx)*(-1 + vx^n)*(-1 + theta + 2*(-1 + vx)*A[2])))))/(2*(1 + E^A[0])^2*psi^2*(-1 + rhox)^2*(rhox - vx)*(rhox^2 - vx)*(-1 + vx))
+				}
+			],
+			"nombond" -> With[
+				{
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+					P = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb[[0]],
+					n = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`n
+				},
+				{
+					P[n_][1] :> ((-1 + rhox^n)*(-((1 + E^A[0])*theta) + psi*(-1 + theta)*(1 - A[1] + E^A[0]*(1 + (-1 + rhox)*A[1]))))/((1 + E^A[0])*psi*(-1 + rhox))
+				}
+			]	
 		|>,
 		"initialGuess" -> <| 
 			"Ewc"-> {6.25},
@@ -1790,13 +1804,27 @@ modelsExtraInfo = <|
 				},
 				{}
 			],
-			"bond" -> {
-				R1[n]->((-1 + rhox^n)*(-((1 + E^A[0])*theta) + psi*(-1 + theta)*(1 - A[1] + E^A[0]*(1 + (-1 + rhox)*A[1]))))/((1 + E^A[0])*psi*(-1 + rhox)),
-				R2[n]->((1 + E^A[0])^2*theta^2*(-2*phix^2*rhox^(2 + n)*(-1 + vx) + phix^2*rhox^(1 + 2*n)*(-1 + vx) + 2*phix^2*rhox^n*(-1 + vx)*vx - phix^2*rhox^(2*n)*(-1 + vx)*vx + rhox^5*(-1 + vx^n) - rhox^4*(2 + vx)*(-1 + vx^n) + rhox^3*(1 + phix^2 + vx)*(-1 + vx^n) + vx*(-((1 + phix^2)*vx) + phix^2*vx^n + vx^(1 + n)) + rhox*((1 + phix^2)*vx + 2*vx^2 + phix^2*vx^n - (1 + 2*phix^2)*vx^(1 + n) -   2*vx^(2 + n)) + rhox^2*((-1 + phix^2)*vx - vx^2 - 2*phix^2*vx^n + (1 + phix^2)*vx^(1 + n) + vx^(2 + n))) - 2*(1 + E^A[0])*psi*(-1 + theta)*theta*((1 + E^A[0])*rhox^5*(-1 + vx^n) - (1 + E^A[0])*rhox^4*(2 + vx)*(-1 + vx^n) + phix^2*rhox^(2 + n)*(-1 + vx)*(E^A[0]*(-2 + A[1]) + 2*(-1 + A[1])) - phix^2*rhox^n*(-1 + vx)*vx*(E^A[0]*(-2 + A[1]) + 2*(-1 + A[1])) + rhox*(2*(1 + E^A[0])*vx^2 - 2*(1 + E^A[0])*vx^(2 + n) + vx*(1 + E^A[0]*(1 + phix^2) - phix^2*(-1 + A[1])) + vx^(1 + n)*(-1 + E^A[0]*(-1 + phix^2*(-2 + A[1])) + 2*phix^2*(-1 + A[1])) - (1 + E^A[0])*phix^2*vx^n*(-1 + A[1])) + (1 + E^A[0])*phix^2*rhox^(2*n)*(-1 + vx)*vx*(-1 + A[1]) - E^A[0]*phix^2*rhox^(3 + n)*(-1 + vx)*A[1] + E^A[0]*phix^2*rhox^(2 + 2*n)*(-1 + vx)*A[1] + E^A[0]*phix^2*rhox^(1 + n)*(-1 + vx)*vx*A[1] + vx*((1 + E^A[0])*vx^(1 + n) + phix^2*vx^n*(1 + E^A[0] - A[1]) - vx*(1 + phix^2 + E^A[0]*(1 + phix^2) - phix^2*A[1])) - phix^2*rhox^(1 + 2*n)*(-1 + vx)*(-1 + A[1] + E^A[0]*(-1 + (1 + vx)*A[1])) + rhox^2*(-((1 + E^A[0])*vx^2) + (1 + E^A[0])*vx^(2 + n) + 2*(1 + E^A[0])*phix^2*vx^n*(-1 + A[1]) + vx*(-1 + phix^2 + E^A[0]*(-1 + phix^2) - phix^2*A[1]) + vx^(1 + n)*(1 + phix^2 - phix^2*A[1] + E^A[0]*(1 + phix^2 - 2*phix^2*A[1]))) + rhox^3*((-1 + vx^n)*(1 + vx - phix^2*(-1 + A[1])) + E^A[0]*((1 + vx)*(-1 + vx^n) + phix^2*(-1 + vx^n - vx^n*A[1] + vx^(1 + n)*A[1])))) + psi^2*(-1 + theta)*(2*(1 + E^A[0])*phix^2*rhox^(2 + n)*(-1 + theta)*(-1 + vx)*(1 + E^A[0] - A[1])*(-1 + A[1]) - 2*(1 + E^A[0])*phix^2*rhox^n*(-1 + theta)*(-1 + vx)*vx*(1 + E^A[0] - A[1])*(-1 + A[1]) - (1 + E^A[0])^2*phix^2*rhox^(2*n)*(-1 + theta)*(-1 + vx)*vx*(-1 + A[1])^2 - 2*E^A[0]*phix^2*rhox^(3 + n)*(-1 + theta)*(-1 + vx)*(1 + E^A[0] - A[1])*A[1] + 2*E^A[0]*phix^2*rhox^(1 + n)*(-1 + theta)*(-1 + vx)*vx*(1 + E^A[0] - A[1])*A[1] + E^(2*A[0])*phix^2*rhox^(3 + 2*n)*(-1 + theta)*(-1 + vx)*A[1]^2 + (1 + E^A[0])*phix^2*rhox^(1 + 2*n)*(-1 + theta)*(-1 + vx)*(-1 + A[1])*(-1 + A[1] + E^A[0]*(-1 + A[1] + 2*vx*A[1])) - E^A[0]*phix^2*rhox^(2 + 2*n)*(-1 + theta)*(-1 + vx)*A[1]*(2*(-1 + A[1]) + E^A[0]*(-2 + (2 + vx)*A[1])) + (1 + E^A[0])*rhox^5*(-1 + vx^n)*(-1 + theta - 2*A[2] + E^A[0]*(-1 + theta + 2*(-1 + vx)*A[2])) - (1 + E^A[0])*rhox^4*(2 + vx)*(-1 + vx^n)*(-1 + theta - 2*A[2] + E^A[0]*(-1 + theta + 2*(-1 + vx)*A[2])) + rhox^2*(-2*(1 + E^A[0])^2*phix^2*(-1 + theta)*vx^n*(-1 + A[1])^2 - (1 + E^A[0])*vx^2*(-1 + E^A[0]*(-1 + theta) + theta - 2*A[2]) + vx^(1 + n)*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1])^2 + E^(2*A[0])*(-1 + theta + phix^2*(-1 + theta)*(1 - 4*A[1] + A[1]^2) - 2*A[2]) + 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(1 - 3*A[1] + 2*A[1]^2) - 2*A[2]) - 2*A[2]) + vx^(2 + n)*(-1 + theta + E^(2*A[0])*(-1 + theta)*(1 + phix^2*A[1]^2) + 2*E^A[0]*(-1 + theta - A[2]) - 2*A[2]) - 2*E^A[0]*(1 + E^A[0])*vx^3*A[2] + 2*E^A[0]*(1 + E^A[0])*vx^(3 + n)*A[2] + vx*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1])^2 - 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1]) - 2*A[2]) + 2*A[2] + E^(2*A[0])*(1 + phix^2*(-1 + theta) - theta + 2*A[2]))) + vx*(-((1 + E^A[0])*phix^2*(-1 + theta)*vx^n*(-1 + A[1])*(1 - A[1] + E^A[0]*(1 + A[1]))) + vx^(1 + n)*(-1 + theta + 2*E^A[0]*(-1 + theta - 2*A[2]) + E^(2*A[0])*(-1 + theta - phix^2*A[1]^2 + phix^2*theta*A[1]^2 - 2*A[2]) - 2*A[2]) - 2*E^A[0]*(1 + E^A[0])*vx^2*A[2] + 2*E^A[0]*(1 + E^A[0])*vx^(2 + n)*A[2] + vx*(1 - theta - phix^2*(-1 + theta)*(-1 + A[1])^2 + 2*A[2] + E^(2*A[0])*(1 - phix^2*(-1 + theta) - theta + 2*A[2]) + 2*E^A[0]*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1]) + 2*A[2]))) + rhox*((1 + E^A[0])^2*phix^2*(-1 + theta)*vx^n*(-1 + A[1])^2 + 2*(1 + E^A[0])*vx^2*(-1 + theta + E^A[0]*(-1 + theta - A[2]) - 2*A[2]) + 4*E^A[0]*(1 + E^A[0])*vx^3*A[2] - 4*E^A[0]*(1 + E^A[0])*vx^(3 + n)*A[2] + vx*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1])^2 + E^(2*A[0])*(-1 + phix^2*(-1 + theta) + theta - 2*A[2]) - 2*A[2] - 2*E^A[0]*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1]) + 2*A[2])) + vx^(1 + n)*(1 - theta - 2*phix^2*(-1 + theta)*(-1 + A[1])^2 - 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(2 - 3*A[1] + A[1]^2) - 2*A[2]) + 2*A[2] + E^(2*A[0])*(1 - theta + phix^2*(-1 + theta)*(-2 + 2*A[1] + A[1]^2) + 2*A[2])) + 2*vx^(2 + n)*(1 - theta + 2*A[2] + E^(2*A[0])*(1 + phix^2*A[1]^2 - theta*(1 + phix^2*A[1]^2) + A[2]) + E^A[0]*(2 - 2*theta + 3*A[2]))) + rhox^3*((-1 + vx^n)*(phix^2*(-1 + theta)*(-1 + A[1])^2 + (1 + vx)*(-1 + theta - 2*A[2])) - 2*E^A[0]*(phix^2*(-1 + theta)*(-1 + A[1])*(-1 - vx^n*(-1 + A[1]) + vx^(1 + n)*A[1]) - (1 + vx)*(-1 + vx^n)*(-1 + theta + (-2 + vx)*A[2])) + E^(2*A[0])*((-phix^2)*(-1 + theta)*(1 - vx^n*(-1 + A[1])^2 + vx^(1 + n)*(-2 + A[1])*A[1]) + (1 + vx)*(-1 + vx^n)*(-1 + theta + 2*(-1 + vx)*A[2])))))/(2*(1 + E^A[0])^2*psi^2*(-1 + rhox)^2*(rhox - vx)*(rhox^2 - vx)*(-1 + vx))
-			},
-			"nombond" -> {
-				P1[n]->((-1 + rhox^n)*(-((1 + E^A[0])*theta) + psi*(-1 + theta)*(1 - A[1] + E^A[0]*(1 + (-1 + rhox)*A[1]))))/((1 + E^A[0])*psi*(-1 + rhox))
-			}	
+			"bond" -> With[
+				{
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+					R = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb[[0]],
+					n = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`n
+				},
+				{
+					R[n_][1] :> ((-1 + rhox^n)*(-((1 + E^A[0])*theta) + psi*(-1 + theta)*(1 - A[1] + E^A[0]*(1 + (-1 + rhox)*A[1]))))/((1 + E^A[0])*psi*(-1 + rhox)),
+					R[n_][2] :> ((1 + E^A[0])^2*theta^2*(-2*phix^2*rhox^(2 + n)*(-1 + vx) + phix^2*rhox^(1 + 2*n)*(-1 + vx) + 2*phix^2*rhox^n*(-1 + vx)*vx - phix^2*rhox^(2*n)*(-1 + vx)*vx + rhox^5*(-1 + vx^n) - rhox^4*(2 + vx)*(-1 + vx^n) + rhox^3*(1 + phix^2 + vx)*(-1 + vx^n) + vx*(-((1 + phix^2)*vx) + phix^2*vx^n + vx^(1 + n)) + rhox*((1 + phix^2)*vx + 2*vx^2 + phix^2*vx^n - (1 + 2*phix^2)*vx^(1 + n) -   2*vx^(2 + n)) + rhox^2*((-1 + phix^2)*vx - vx^2 - 2*phix^2*vx^n + (1 + phix^2)*vx^(1 + n) + vx^(2 + n))) - 2*(1 + E^A[0])*psi*(-1 + theta)*theta*((1 + E^A[0])*rhox^5*(-1 + vx^n) - (1 + E^A[0])*rhox^4*(2 + vx)*(-1 + vx^n) + phix^2*rhox^(2 + n)*(-1 + vx)*(E^A[0]*(-2 + A[1]) + 2*(-1 + A[1])) - phix^2*rhox^n*(-1 + vx)*vx*(E^A[0]*(-2 + A[1]) + 2*(-1 + A[1])) + rhox*(2*(1 + E^A[0])*vx^2 - 2*(1 + E^A[0])*vx^(2 + n) + vx*(1 + E^A[0]*(1 + phix^2) - phix^2*(-1 + A[1])) + vx^(1 + n)*(-1 + E^A[0]*(-1 + phix^2*(-2 + A[1])) + 2*phix^2*(-1 + A[1])) - (1 + E^A[0])*phix^2*vx^n*(-1 + A[1])) + (1 + E^A[0])*phix^2*rhox^(2*n)*(-1 + vx)*vx*(-1 + A[1]) - E^A[0]*phix^2*rhox^(3 + n)*(-1 + vx)*A[1] + E^A[0]*phix^2*rhox^(2 + 2*n)*(-1 + vx)*A[1] + E^A[0]*phix^2*rhox^(1 + n)*(-1 + vx)*vx*A[1] + vx*((1 + E^A[0])*vx^(1 + n) + phix^2*vx^n*(1 + E^A[0] - A[1]) - vx*(1 + phix^2 + E^A[0]*(1 + phix^2) - phix^2*A[1])) - phix^2*rhox^(1 + 2*n)*(-1 + vx)*(-1 + A[1] + E^A[0]*(-1 + (1 + vx)*A[1])) + rhox^2*(-((1 + E^A[0])*vx^2) + (1 + E^A[0])*vx^(2 + n) + 2*(1 + E^A[0])*phix^2*vx^n*(-1 + A[1]) + vx*(-1 + phix^2 + E^A[0]*(-1 + phix^2) - phix^2*A[1]) + vx^(1 + n)*(1 + phix^2 - phix^2*A[1] + E^A[0]*(1 + phix^2 - 2*phix^2*A[1]))) + rhox^3*((-1 + vx^n)*(1 + vx - phix^2*(-1 + A[1])) + E^A[0]*((1 + vx)*(-1 + vx^n) + phix^2*(-1 + vx^n - vx^n*A[1] + vx^(1 + n)*A[1])))) + psi^2*(-1 + theta)*(2*(1 + E^A[0])*phix^2*rhox^(2 + n)*(-1 + theta)*(-1 + vx)*(1 + E^A[0] - A[1])*(-1 + A[1]) - 2*(1 + E^A[0])*phix^2*rhox^n*(-1 + theta)*(-1 + vx)*vx*(1 + E^A[0] - A[1])*(-1 + A[1]) - (1 + E^A[0])^2*phix^2*rhox^(2*n)*(-1 + theta)*(-1 + vx)*vx*(-1 + A[1])^2 - 2*E^A[0]*phix^2*rhox^(3 + n)*(-1 + theta)*(-1 + vx)*(1 + E^A[0] - A[1])*A[1] + 2*E^A[0]*phix^2*rhox^(1 + n)*(-1 + theta)*(-1 + vx)*vx*(1 + E^A[0] - A[1])*A[1] + E^(2*A[0])*phix^2*rhox^(3 + 2*n)*(-1 + theta)*(-1 + vx)*A[1]^2 + (1 + E^A[0])*phix^2*rhox^(1 + 2*n)*(-1 + theta)*(-1 + vx)*(-1 + A[1])*(-1 + A[1] + E^A[0]*(-1 + A[1] + 2*vx*A[1])) - E^A[0]*phix^2*rhox^(2 + 2*n)*(-1 + theta)*(-1 + vx)*A[1]*(2*(-1 + A[1]) + E^A[0]*(-2 + (2 + vx)*A[1])) + (1 + E^A[0])*rhox^5*(-1 + vx^n)*(-1 + theta - 2*A[2] + E^A[0]*(-1 + theta + 2*(-1 + vx)*A[2])) - (1 + E^A[0])*rhox^4*(2 + vx)*(-1 + vx^n)*(-1 + theta - 2*A[2] + E^A[0]*(-1 + theta + 2*(-1 + vx)*A[2])) + rhox^2*(-2*(1 + E^A[0])^2*phix^2*(-1 + theta)*vx^n*(-1 + A[1])^2 - (1 + E^A[0])*vx^2*(-1 + E^A[0]*(-1 + theta) + theta - 2*A[2]) + vx^(1 + n)*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1])^2 + E^(2*A[0])*(-1 + theta + phix^2*(-1 + theta)*(1 - 4*A[1] + A[1]^2) - 2*A[2]) + 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(1 - 3*A[1] + 2*A[1]^2) - 2*A[2]) - 2*A[2]) + vx^(2 + n)*(-1 + theta + E^(2*A[0])*(-1 + theta)*(1 + phix^2*A[1]^2) + 2*E^A[0]*(-1 + theta - A[2]) - 2*A[2]) - 2*E^A[0]*(1 + E^A[0])*vx^3*A[2] + 2*E^A[0]*(1 + E^A[0])*vx^(3 + n)*A[2] + vx*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1])^2 - 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1]) - 2*A[2]) + 2*A[2] + E^(2*A[0])*(1 + phix^2*(-1 + theta) - theta + 2*A[2]))) + vx*(-((1 + E^A[0])*phix^2*(-1 + theta)*vx^n*(-1 + A[1])*(1 - A[1] + E^A[0]*(1 + A[1]))) + vx^(1 + n)*(-1 + theta + 2*E^A[0]*(-1 + theta - 2*A[2]) + E^(2*A[0])*(-1 + theta - phix^2*A[1]^2 + phix^2*theta*A[1]^2 - 2*A[2]) - 2*A[2]) - 2*E^A[0]*(1 + E^A[0])*vx^2*A[2] + 2*E^A[0]*(1 + E^A[0])*vx^(2 + n)*A[2] + vx*(1 - theta - phix^2*(-1 + theta)*(-1 + A[1])^2 + 2*A[2] + E^(2*A[0])*(1 - phix^2*(-1 + theta) - theta + 2*A[2]) + 2*E^A[0]*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1]) + 2*A[2]))) + rhox*((1 + E^A[0])^2*phix^2*(-1 + theta)*vx^n*(-1 + A[1])^2 + 2*(1 + E^A[0])*vx^2*(-1 + theta + E^A[0]*(-1 + theta - A[2]) - 2*A[2]) + 4*E^A[0]*(1 + E^A[0])*vx^3*A[2] - 4*E^A[0]*(1 + E^A[0])*vx^(3 + n)*A[2] + vx*(-1 + theta + phix^2*(-1 + theta)*(-1 + A[1])^2 + E^(2*A[0])*(-1 + phix^2*(-1 + theta) + theta - 2*A[2]) - 2*A[2] - 2*E^A[0]*(1 - theta + phix^2*(-1 + theta)*(-1 + A[1]) + 2*A[2])) + vx^(1 + n)*(1 - theta - 2*phix^2*(-1 + theta)*(-1 + A[1])^2 - 2*E^A[0]*(-1 + theta + phix^2*(-1 + theta)*(2 - 3*A[1] + A[1]^2) - 2*A[2]) + 2*A[2] + E^(2*A[0])*(1 - theta + phix^2*(-1 + theta)*(-2 + 2*A[1] + A[1]^2) + 2*A[2])) + 2*vx^(2 + n)*(1 - theta + 2*A[2] + E^(2*A[0])*(1 + phix^2*A[1]^2 - theta*(1 + phix^2*A[1]^2) + A[2]) + E^A[0]*(2 - 2*theta + 3*A[2]))) + rhox^3*((-1 + vx^n)*(phix^2*(-1 + theta)*(-1 + A[1])^2 + (1 + vx)*(-1 + theta - 2*A[2])) - 2*E^A[0]*(phix^2*(-1 + theta)*(-1 + A[1])*(-1 - vx^n*(-1 + A[1]) + vx^(1 + n)*A[1]) - (1 + vx)*(-1 + vx^n)*(-1 + theta + (-2 + vx)*A[2])) + E^(2*A[0])*((-phix^2)*(-1 + theta)*(1 - vx^n*(-1 + A[1])^2 + vx^(1 + n)*(-2 + A[1])*A[1]) + (1 + vx)*(-1 + vx^n)*(-1 + theta + 2*(-1 + vx)*A[2])))))/(2*(1 + E^A[0])^2*psi^2*(-1 + rhox)^2*(rhox - vx)*(rhox^2 - vx)*(-1 + vx))
+				}
+			],
+			"nombond" -> With[
+				{
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+					P = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb[[0]],
+					n = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`n
+				},
+				{
+					P[n_][1] :> ((-1 + rhox^n)*(-((1 + E^A[0])*theta) + psi*(-1 + theta)*(1 - A[1] + E^A[0]*(1 + (-1 + rhox)*A[1]))))/((1 + E^A[0])*psi*(-1 + rhox))
+				}
+			]	
 		|>,
 		"initialGuess" -> <| 
 			"Ewc"-> {1,15},
@@ -1895,6 +1923,100 @@ modelsExtraInfo = <|
 		|>
 	|>,
 (**********************************************************)
+	"NRCLLR" -> <|
+		"coeffs" -><|
+			"wc"-> With[
+				{
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+					sign = -1
+				},
+				{
+					A[1]->-(((1+E^A[0]) (-1+psi) rhocp)/(psi (-1+E^A[0] (-1+rhop)))),
+					A[2]->((-1+psi) xic)/psi,
+					A[3]->-((E^A[0] (-1+psi) rhocp xip)/(psi (-1+E^A[0] (-1+rhop)))),
+					A[4]->(E^(-2 A[0]) (1-gamma) (-1+psi) rhog ((4 E^(4 A[0]) (1+E^A[0]) (-1+gamma)^4 phip rhocp xic)/(-1+E^A[0] (-1+rhop))-1/(phig^2 rhog) 2 E^A[0] (1+E^A[0])^2 Esg (-1+gamma) (-1+rhog) (1-gamma+E^A[0] (-1+gamma) (-1+rhog^2)+sign \[Sqrt](-(1/(1+E^A[0])^2) (-1+gamma)^2 (-1+2 E^A[0] (-2+rhog^2)-E^(2 A[0]) (6-6 rhog^2+rhog^4)-2 E^(3 A[0]) (2-3 rhog^2+rhog^4)-E^(4 A[0]) (1+rhog^4-2 rhog^2 (1+2 (-1+gamma)^2 phig^2 xic^2)))))+1/(phig^2 rhog^3) (1+E^A[0])^2 Esg (-1+rhog) (1-gamma+E^A[0] (-1+gamma) (-1+rhog^2)+sign \[Sqrt](-1/(1+E^A[0])^2 (-1+gamma)^2 (-1+2 E^A[0] (-2+rhog^2)-E^(2 A[0]) (6-6 rhog^2+rhog^4)-2 E^(3 A[0]) (2-3 rhog^2+rhog^4)-E^(4 A[0]) (1+rhog^4-2 rhog^2 (1+2 (-1+gamma)^2 phig^2 xic^2)))))^2+(4 E^(5 A[0]) (-1+gamma)^4 rhocp xic xip)/(-1+E^A[0] (-1+rhop))))/(2 (1+E^A[0]) (-1+gamma)^3 psi (-1+gamma+E^A[0] (-1+gamma) (-1+rhog)^2+2 rhog-2 gamma rhog-sign \[Sqrt](-(1/(1+E^A[0])^2) (-1+gamma)^2 (-1+2 E^A[0] (-2+rhog^2)-E^(2 A[0]) (6-6 rhog^2+rhog^4)-2 E^(3 A[0]) (2-3 rhog^2+rhog^4)-E^(4 A[0]) (1+rhog^4-2 rhog^2 (1+2 (-1+gamma)^2 phig^2 xic^2)))))),
+					A[5]->1/(4 (-1+gamma)^2 phig^2 psi rhog^2) E^(-2 A[0]) (1+E^A[0]) (-1+psi) (1-gamma+E^A[0] (-1+gamma) (-1+rhog^2)+sign \[Sqrt](-(1/(1+E^A[0])^2) (-1+gamma)^2 (-1+2 E^A[0] (-2+rhog^2)-E^(2 A[0]) (6-6 rhog^2+rhog^4)-2 E^(3 A[0]) (2-3 rhog^2+rhog^4)-E^(4 A[0]) (1+rhog^4-2 rhog^2 (1+2 (-1+gamma)^2 phig^2 xic^2))))),
+					A[6]->-(((1+E^A[0]) (-1+psi) rhocx)/(psi (-1+E^A[0] (-1+rhox)))),
+					A[7]->((1+E^A[0]) (-1+gamma) (-1+psi) (E^(2 A[0]) phix^2 rhocx^2+phicx^2 (-1+E^A[0] (-1+rhox))^2))/(2 psi (-1+E^A[0] (-1+rhox))^2 (-1+E^A[0] (-1+vx)))
+				}
+			],
+			"pd" -> With[
+				{
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+					B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
+					j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
+					sign = 1
+				},
+				{
+					B[j][1] -> ((1 + E^B[j][0])*((1 + E^A[0])*gamma*(-1 + psi)*rhocp + A[1] + gamma*psi*(-1 + E^A[0]*(-1 + rhop))*A[1] - E^A[0]*(-1 + rhop)*A[1] - (1 + E^A[0])*(-1 + psi)*rhodp[j]))/((1 + E^A[0])*(-1 + psi)*(-1 + E^B[j][0]*(-1 + rhop))),
+					B[j][2] -> (-A[2] + gamma*(xic - psi*xic + psi*A[2]) + (-1 + psi)*xid[j])/(-1 + psi),
+					B[j][3] -> (1/((1 + E^A[0])*(-1 + psi)*(-1 + E^B[j][0]*(-1 + rhop))))*(E^A[0]*(-1 + gamma*psi)*(xip*A[1] - A[3]) + A[3] - gamma*psi*A[3] + E^(A[0] + B[j][0])*(gamma*(-1 + psi)*rhocp*xip - (-1 + rhop)*A[3] + gamma*psi*(-1 + rhop)*A[3]) + E^B[j][0]*(gamma*(-1 + psi)*rhocp*xip + xip*A[1] + A[3] - rhop*A[3] - gamma*psi*(xip*A[1] + A[3] - rhop*A[3])) - E^B[j][0]*(1 + E^A[0])*(-1 + psi)*xip*rhodp[j]),
+					B[j][4] -> -(((1 + E^B[j][0])^2*((1/((1 + E^A[0])^2*(-1 + psi)^2))*((-1 + gamma*psi)*((-1 + psi)*A[4] - E^A[0]*(-1 + psi)*((-2 + rhog)*A[4] - 2*Esg*(-1 + rhog)*rhog*A[5]) + E^(2*A[0])*(phip*(-1 + gamma*psi)*A[1]*A[2] + (-1 + gamma*psi)*A[2]*A[3] - A[4] + psi*A[4] + rhog*A[4] - psi*rhog*A[4] + 2*Esg*rhog*A[5] - 2*Esg*psi*rhog*A[5] - 2*Esg*rhog^2*A[5] + 2*Esg*psi*rhog^2*A[5] - 2*phig^2*rhog*A[4]*A[5] + 2*gamma*phig^2*psi*rhog*A[4]*A[5] - 4*Esg*phig^2*rhog*A[5]^2 + 4*Esg*gamma*phig^2*psi*rhog*A[5]^2 + 4*Esg*phig^2*rhog^2*A[5]^2 - 4*Esg*gamma*phig^2*psi*rhog^2*A[5]^2))) + (E^B[j][0]*phip*B[j][1]*(-((E^A[0]*(1 + E^B[j][0])*(-1 + gamma*psi)*A[2])/((1 + E^A[0])*(-1 + psi))) + E^B[j][0]*B[j][2]))/(1 + E^B[j][0])^2 - (E^(A[0] + B[j][0])*(-1 + gamma*psi)*A[2]*B[j][3])/((1 + E^A[0])*(1 + E^B[j][0])*(-1 + psi)) + (E^B[j][0]*B[j][2]*(-((E^A[0]*(1 + E^B[j][0])*(-1 + gamma*psi)*(phip*A[1] + A[3]))/((1 + E^A[0])*(-1 + psi))) + E^B[j][0]*B[j][3]))/(1 + E^B[j][0])^2 + (2*E^B[j][0]*rhog*((-E^A[0])*phig^2*(-1 + gamma*psi)*A[4] + Esg*(-1 + rhog)*(1 - psi + E^A[0]*(1 - 4*phig^2*A[5] + psi*(-1 + 4*gamma*phig^2*A[5]))))*B[j][5])/((1 + E^A[0])*(1 + E^B[j][0])*(-1 + psi)) - (4*E^(2*B[j][0])*Esg*phig^2*(-1 + rhog)*rhog*B[j][5]^2)/(1 + E^B[j][0])^2))/(((1 + E^B[j][0])*(-1 - E^A[0] + E^B[j][0]*(-1 + rhog) + E^(A[0] + B[j][0])*(-1 + rhog - (2*phig^2*(-1 + gamma*psi)*rhog*A[5])/(-1 + psi))))/(1 + E^A[0]) + 2*E^(2*B[j][0])*phig^2*rhog*B[j][5])),
+					B[j][5] -> (1/(4*(1 + E^A[0])^2*phig^2*(-1 + psi)*rhog^2))*((-1 - 2*E^A[0] - E^(2*A[0]) - 2*E^B[j][0] - E^(2*B[j][0]) - 4*E^(A[0] + B[j][0]) - E^(2*(A[0] + B[j][0])) - 2*E^(2*A[0] + B[j][0]) - 2*E^(A[0] + 2*B[j][0]) + psi + 2*E^A[0]*psi + E^(2*A[0])*psi + 2*E^B[j][0]*psi + E^(2*B[j][0])*psi + 4*E^(A[0] + B[j][0])*psi + E^(2*(A[0] + B[j][0]))*psi + 2*E^(2*A[0] + B[j][0])*psi + 2*E^(A[0] + 2*B[j][0])*psi + E^B[j][0]*rhog^2 + E^(2*B[j][0])*rhog^2 + 2*E^(A[0] + B[j][0])*rhog^2 + E^(2*(A[0] + B[j][0]))*rhog^2 + E^(2*A[0] + B[j][0])*rhog^2 + 2*E^(A[0] + 2*B[j][0])*rhog^2 - E^B[j][0]*psi*rhog^2 - E^(2*B[j][0])*psi*rhog^2 - 2*E^(A[0] + B[j][0])*psi*rhog^2 - E^(2*(A[0] + B[j][0]))*psi*rhog^2 - E^(2*A[0] + B[j][0])*psi*rhog^2 - 2*E^(A[0] + 2*B[j][0])*psi*rhog^2 - 4*E^(A[0] + B[j][0])*phig^2*rhog^2*A[5] - 4*E^(2*(A[0] + B[j][0]))*phig^2*rhog^2*A[5] - 4*E^(2*A[0] + B[j][0])*phig^2*rhog^2*A[5] - 4*E^(A[0] + 2*B[j][0])*phig^2*rhog^2*A[5] + 4*E^(A[0] + B[j][0])*gamma*phig^2*psi*rhog^2*A[5] + 4*E^(2*(A[0] + B[j][0]))*gamma*phig^2*psi*rhog^2*A[5] + 4*E^(2*A[0] + B[j][0])*gamma*phig^2*psi*rhog^2*A[5] + 4*E^(A[0] + 2*B[j][0])*gamma*phig^2*psi*rhog^2*A[5] - sign * Sqrt[(1/(-1 + psi)^2)*((1 + E^A[0])^2*((1 + E^B[j][0])^2*(-1 + E^A[0]*(-1 + psi) + psi - E^B[j][0]*(-1 + psi)*(-1 + rhog^2) + E^(A[0] + B[j][0])*(-1 + psi + rhog^2*(1 - 4*phig^2*A[5]) + psi*rhog^2*(-1 + 4*gamma*phig^2*A[5])))^2 - 4*E^(2*B[j][0])*phig^2*rhog^2*(2*(-1 + psi)*(-1 + gamma*psi)*A[5] + 4*E^B[j][0]*(-1 + psi)*(-1 + gamma*psi)*A[5] - 2*E^A[0]*(-1 + psi)*(-1 + gamma*psi)*(-2 + rhog^2)*A[5] + 2*E^(A[0] + B[j][0])*(-1 + gamma*psi)*(A[2]^2 - gamma*A[2]*(xic - psi*xic + psi*A[2]) - 2*(-1 + psi)*(-2 + rhog^2)*A[5]) + E^(2*B[j][0])*(A[2]^2 + gamma^2*(xic - psi*xic + psi*A[2])^2 + 2*A[5] - 2*psi*A[5] + 2*gamma*((-1 + psi)*xic*A[2] - psi*A[2]^2 + (-1 + psi)*psi*A[5])) + 2*E^(A[0] + 2*B[j][0])*(-1 + psi)*(gamma^2*xic*((-1 + psi)*xic - psi*A[2]) + (-2 + rhog^2)*A[5] +  gamma*(xic*A[2] - psi*(-2 + rhog^2)*A[5])) + 2*E^(2*A[0] + B[j][0])*(-1 + gamma*psi)*(gamma*((-1 + psi)*xic*A[2] + 4*phig^2*psi*rhog^2*A[5]^2) - 2*A[5]*(1 + psi*(-1 + rhog^2) + rhog^2*(-1 + 2*phig^2*A[5]))) + E^(2*(A[0] + B[j][0]))*(gamma^2*((-1 + psi)^2*xic^2 + 4*phig^2*psi^2*rhog^2*A[5]^2) + 2*A[5]*(1 + psi*(-1 + rhog^2) + rhog^2*(-1 + 2*phig^2*A[5])) - 2*gamma*psi*A[5]*(1 + psi*(-1 + rhog^2) + rhog^2*(-1 + 4*phig^2*A[5]))) + E^(2*A[0])*(-1 + gamma*psi)*((-1 + gamma*psi)*A[2]^2 + 2*A[5]*(-1 + psi + rhog^2*(1 - 2*phig^2*A[5]) + psi*rhog^2*(-1 + 2*gamma*phig^2*A[5]))) - 2*E^B[j][0]*(1 + E^A[0])*(-1 + psi)*(E^(A[0] + B[j][0])*gamma*(-1 + psi)*xic +  E^A[0]*(-1 + gamma*psi)*A[2] + E^B[j][0]*(gamma*(-1 + psi)*xic + A[2] - gamma*psi*A[2]))*xid[j] + E^(2*B[j][0])*(1 + E^A[0])^2*(-1 + psi)^2*xid[j]^2)))] + psi* sign * Sqrt[(1/(-1 + psi)^2)*((1 + E^A[0])^2*((1 + E^B[j][0])^2*(-1 + E^A[0]*(-1 + psi) + psi - E^B[j][0]*(-1 + psi)*(-1 + rhog^2) +  E^(A[0] + B[j][0])*(-1 + psi + rhog^2*(1 - 4*phig^2*A[5]) + psi*rhog^2*(-1 + 4*gamma*phig^2*A[5])))^2 - 4*E^(2*B[j][0])*phig^2*rhog^2*(2*(-1 + psi)*(-1 + gamma*psi)*A[5] + 4*E^B[j][0]*(-1 + psi)*(-1 + gamma*psi)*A[5] - 2*E^A[0]*(-1 + psi)*(-1 + gamma*psi)*(-2 + rhog^2)*A[5] + 2*E^(A[0] + B[j][0])*(-1 + gamma*psi)*(A[2]^2 - gamma*A[2]*(xic - psi*xic + psi*A[2]) - 2*(-1 + psi)*(-2 + rhog^2)*A[5]) + E^(2*B[j][0])*(A[2]^2 + gamma^2*(xic - psi*xic + psi*A[2])^2 + 2*A[5] - 2*psi*A[5] + 2*gamma*((-1 + psi)*xic*A[2] - psi*A[2]^2 + (-1 + psi)*psi*A[5])) + 2*E^(A[0] + 2*B[j][0])*(-1 + psi)*(gamma^2*xic*((-1 + psi)*xic - psi*A[2]) + (-2 + rhog^2)*A[5] + gamma*(xic*A[2] - psi*(-2 + rhog^2)*A[5])) + 2*E^(2*A[0] + B[j][0])*(-1 + gamma*psi)*(gamma*((-1 + psi)*xic*A[2] + 4*phig^2*psi*rhog^2*A[5]^2) - 2*A[5]*(1 + psi*(-1 + rhog^2) + rhog^2*(-1 + 2*phig^2*A[5]))) + E^(2*(A[0] + B[j][0]))*(gamma^2*((-1 + psi)^2*xic^2 + 4*phig^2*psi^2*rhog^2*A[5]^2) + 2*A[5]*(1 + psi*(-1 + rhog^2) + rhog^2*(-1 + 2*phig^2*A[5])) - 2*gamma*psi*A[5]*(1 + psi*(-1 + rhog^2) + rhog^2*(-1 + 4*phig^2*A[5]))) + E^(2*A[0])*(-1 + gamma*psi)*((-1 + gamma*psi)*A[2]^2 + 2*A[5]*(-1 + psi + rhog^2*(1 - 2*phig^2*A[5]) + psi*rhog^2*(-1 + 2*gamma*phig^2*A[5]))) - 2*E^B[j][0]*(1 + E^A[0])*(-1 + psi)*(E^(A[0] + B[j][0])*gamma*(-1 + psi)*xic +   E^A[0]*(-1 + gamma*psi)*A[2] + E^B[j][0]*(gamma*(-1 + psi)*xic + A[2] - gamma*psi*A[2]))*xid[j] + E^(2*B[j][0])*(1 + E^A[0])^2*(-1 + psi)^2*xid[j]^2)))])/E^(2*B[j][0]))
+				}
+			],
+			"bond" -> With[
+				{
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+					R = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb[[0]],
+					n = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`n
+				},
+				{
+					R[n_][1] :> -(((-1 + rhop^n)*(gamma*(-1 + psi)*rhocp + A[1] -      gamma*psi*A[1] + E^A[0]*(gamma*(-1 + psi)*rhocp +        (-1 + gamma*psi)*(-1 + rhop)*A[1])))/   ((1 + E^A[0])*(-1 + psi)*(-1 + rhop))),
+					R[n_][2] :> UnitStep[-1+n]*(-((theta*xic)/psi)+(-1+theta)*(xic-A[2])),
+					R[n_][3] :> (-(1/((1 + E^A[0])*(-1 + psi)*(-1 + rhop)*rhop)))*  (rhop^n*xip*(gamma*(-1 + psi)*rhocp + A[1] - gamma*psi*A[1] + E^A[0]*(gamma*(-1 + psi)*rhocp + (-1 + gamma*psi)*(-1 + rhop)*A[1]))*UnitStep[-1 + n] + rhop*(xip*A[1] - (1 + E^A[0])*(-1 + rhop)*A[3] + gamma*((1 + E^A[0])*(-1 + psi)*rhocp*xip - psi*xip*A[1] + (1 + E^A[0])*psi*(-1 + rhop)*A[3]))*(-1 + UnitStep[-n]))
+				}
+			],
+			"nombond" -> With[
+				{
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+					P = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb[[0]],
+					n = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`n
+				},
+				{
+					P[n_][1] :> -(((-1 + rhop^n)*((-gamma)*rhocp + gamma*psi*rhocp - rhop + psi*rhop + A[1] - gamma*psi*A[1] + E^A[0]*((-1 + psi)*(gamma*rhocp + rhop) + (-1 + gamma*psi)*(-1 + rhop)*A[1])))/((1 + E^A[0])*(-1 + psi)*(-1 + rhop))),
+					P[n_][2] :> UnitStep[-1+n]*(-((theta*xic)/psi)+(-1+theta)*(xic-A[2])),
+					P[n_][3] :> (-(1/((1 + E^A[0])*(-1 + psi)*(-1 + rhop)*rhop)))*(rhop^n*xip*((-gamma)*rhocp + gamma*psi*rhocp - rhop + psi*rhop + A[1] - gamma*psi*A[1] + E^A[0]*((-1 + psi)*(gamma*rhocp + rhop) + (-1 + gamma*psi)*(-1 + rhop)*A[1]))*UnitStep[-1 + n] + rhop*(xip*(-1 + psi - gamma*rhocp + E^A[0]*(-1 + psi)*(1 + gamma*rhocp) + gamma*psi*(rhocp - A[1]) + A[1]) + (1 + E^A[0])*(-1 + gamma*psi)*(-1 + rhop)*A[3])*(-1 + UnitStep[-n]))
+				}
+			]
+		|>,
+		"modelAssumptions" -> <|
+			"Ewc" ->  
+				With[{A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc},
+					(*
+					the assumption needed to get real roots for coefficients of the wealth consumption ratio is
+					(2-2 \[ExponentialE]^A[0] (-1+rhog^2))^2-(16 \[ExponentialE]^(4 A[0]) phig^2 (-1+psi)^2 rhog^2 theta^2 xic^2)/((1+\[ExponentialE]^A[0])^2 psi^2)>=0,
+					which simplifies to the expression in the next line
+					*)
+					A[0] > $MachineEpsilon && (gamma == 1 || phig == 0 || rhog == 0 || (rhog == Sqrt[2*(-1 + Sqrt[2])] && ((A[0] <= Log[Max[$MachineEpsilon,Root[-1 + (-8 + 4*Sqrt[2])*#1 + (-30 + 20*Sqrt[2])*#1^2 + (-40 + 28*Sqrt[2])*#1^3 + (-17 + 12*Sqrt[2] - 8*phig^2*xic^2 + 8*Sqrt[2]*phig^2*xic^2 + 16*gamma*phig^2*xic^2 - 16*Sqrt[2]*gamma*phig^2*xic^2 - 8*gamma^2*phig^2*xic^2 + 8*Sqrt[2]*gamma^2*phig^2*xic^2)*#1^4 & , 2]]] && (Sqrt[-(7/8) + 5/(4*Sqrt[2])] < (-1 + gamma)*phig*xic < 2*Sqrt[-1 + Sqrt[2]] || (2*Sqrt[-1 + Sqrt[2]] + gamma*phig*xic > phig*xic &&  Sqrt[2*(-7 + 5*Sqrt[2])] + 4*(-1 + gamma)*phig*xic < 0)) && gamma != 1) || (4*xic + (Sqrt[2*(-7 + 5*Sqrt[2])]*Sqrt[1/phig^2])/Abs[-1 + gamma] >= 0 && Sqrt[2*(-7 + 5*Sqrt[2])]/Abs[phig - gamma*phig] >= 4*xic))) || (2*xic + (-1 + rhog^2)*Abs[1/((-1 + gamma)*phig*rhog)] <= 0 && 2*xic >= (Sqrt[1/phig^2]*(-1 + rhog^2))/Abs[rhog - gamma*rhog] && (rhog > Sqrt[2*(-1 + Sqrt[2])] || Sqrt[2*(-1 + Sqrt[2])] + rhog < 0 || (rhog < Sqrt[2*(-1 + Sqrt[2])] && Sqrt[2*(-1 + Sqrt[2])] + rhog > 0))) || (Sqrt[2*(-1 + Sqrt[2])] + rhog == 0 && (((Sqrt[2*(-7 + 5*Sqrt[2])]*Sqrt[1/phig^2])/Abs[-1 + gamma] >= 4*xic && 4*xic + Sqrt[2*(-7 + 5*Sqrt[2])]/Abs[phig - gamma*phig] >= 0) || (A[0] <= Log[Max[$MachineEpsilon, Root[-1 + (-8 + 4*Sqrt[2])*#1 + (-30 + 20*Sqrt[2])*#1^2 + (-40 + 28*Sqrt[2])*#1^3 + (-17 + 12*Sqrt[2] - 8*phig^2*xic^2 + 8*Sqrt[2]*phig^2*xic^2 + 16*gamma*phig^2*xic^2 - 16*Sqrt[2]*gamma*phig^2*xic^2 - 8*gamma^2*phig^2*xic^2 + 8*Sqrt[2]*gamma^2*phig^2*xic^2)*#1^4 & , 2]]] && ((Sqrt[2*(-7 + 5*Sqrt[2])]/(phig - gamma*phig) > 4*xic && (-1 + gamma)*phig*(4 - 2*Sqrt[2] + Sqrt[2*(-1 + Sqrt[2])]*(-1 + gamma)*phig*xic) > 0) || (4*(-1 + gamma)*phig*xic > Sqrt[2*(-7 + 5*Sqrt[2])] && Sqrt[2]*(2 + Sqrt[-1 + Sqrt[2]]*(-1 + gamma)*phig*xic) < 4) || (Sqrt[2*(-7 + 5*Sqrt[2])] + 4*(-1 + gamma)*phig*xic < 0 && 4 + Sqrt[2*(-1 + Sqrt[2])]*(-1 + gamma)*phig*xic > 2*Sqrt[2] &&  ((gamma > 1 && phig < 0) || (gamma < 1 && phig > 0))))))) || (rhog > Sqrt[2*(-1 + Sqrt[2])] && ((A[0] <= Log[Max[$MachineEpsilon,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 4]]] && ((rhog^3 + 8*(-1 + gamma)*phig*xic >= 0 && 1 + 2*(-1 + gamma)*phig*rhog*xic < rhog^2) || (8*(-1 + gamma)*phig*xic <= rhog^3 &&  rhog*(rhog + 2*(-1 + gamma)*phig*xic) > 1))) || (A[0] <= Log[Max[$MachineEpsilon,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 2]]] && ((rhog^3 + 8*(-1 + gamma)*phig*xic < 0 && 2 + (-1 + gamma)*phig*rhog*xic > rhog^2) || (8*(-1 + gamma)*phig*xic > rhog^3 &&  rhog*(rhog + (-1 + gamma)*phig*xic) < 2))))) || (Sqrt[2*(-1 + Sqrt[2])] + rhog < 0 && ((A[0] <= Log[Max[$MachineEpsilon,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 2]]] && ((rhog^3 + 8*(-1 + gamma)*phig*xic > 0 && 2 + (-1 + gamma)*phig*rhog*xic > rhog^2) || (8*(-1 + gamma)*phig*xic < rhog^3 &&  rhog*(rhog + (-1 + gamma)*phig*xic) < 2))) || (A[0] <= Log[Max[$MachineEpsilon,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 4]]] && ((8*(-1 + gamma)*phig*xic >= rhog^3 && rhog*(rhog + 2*(-1 + gamma)*phig*xic) > 1) || (rhog^3 + 8*(-1 + gamma)*phig*xic <= 0 &&  1 + 2*(-1 + gamma)*phig*rhog*xic < rhog^2))))) || (rhog < Sqrt[2*(-1 + Sqrt[2])] && Sqrt[2*(-1 + Sqrt[2])] + rhog > 0 && A[0] <= Log[Max[$MachineEpsilon,Root[1 + (4 - 2*rhog^2)*#1 + (6 - 6*rhog^2 + rhog^4)*#1^2 + (4 - 6*rhog^2 + 2*rhog^4)*#1^3 + (1 - 2*rhog^2 + rhog^4 - 4*phig^2*rhog^2*xic^2 + 8*gamma*phig^2*rhog^2*xic^2 - 4*gamma^2*phig^2*rhog^2*xic^2)*#1^4 & , 2]]] && ((2 + (-1 + gamma)*phig*rhog*xic > rhog^2 && 1 + 2*(-1 + gamma)*phig*rhog*xic < rhog^2) || (rhog*(rhog + (-1 + gamma)*phig*xic) < 2 && rhog*(rhog + 2*(-1 + gamma)*phig*xic) > 1))))
+				],
+			"Epd" -> 
+				With[
+					{
+						A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+						B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
+						j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
+						sign = 1
+					},
+					(*assumption needed to get real roots for coefficients of the price dividend ratio is:*)
+					(1/(1 + E^B[j][0])^2)*((1 + E^A[0] - E^B[j][0]*(-1 + rhog^2 + E^A[0]*(-1 + rhog^2*(1 + 4*phig^2*(-1 + theta)*A[5]))))^2/(1 + E^A[0])^2 + 8*E^(2*B[j][0])*phig^2*rhog^2*(-(((-1 + theta)*(-2*A[5] + 2*E^A[0]*(-2 + rhog^2)*A[5] + E^(2*A[0])*((-1 + theta)*A[2]^2 + 2*A[5]*(-1 + rhog^2*(1 + 2*phig^2*(-1 + theta)*A[5])))))/(2*(1 + E^A[0])^2)) - (E^(A[0] + B[j][0])*(-1 + theta)*A[2]*(-A[2] + gamma*(xic - psi*xic + psi*A[2]) + (-1 + psi)*xid[j]))/((1 + E^A[0])*(1 + E^B[j][0])*(-1 + psi)) - (E^(2*B[j][0])*(-A[2] + gamma*(xic - psi*xic + psi*A[2]) + (-1 + psi)*xid[j])^2)/(2*(1 + E^B[j][0])^2*(-1 + psi)^2))) >= $MachineEpsilon
+				],
+			"nombond" -> 
+				With[
+					{
+						A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+						P = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb[[0]],
+						n = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`n
+					},
+					n>0
+				]
+		|>,
+		"initialGuess" -> <| 
+			"Ewc" -> {4.6}, 
+			"Epd" -> {{6},{7},{4.6}}
+		|>
+	|>,
+(**********************************************************)
 	"BS" -> <|
 		"initialGuess" -> <| 
 				"Ewc" -> {5.2},
@@ -1906,26 +2028,42 @@ modelsExtraInfo = <|
 		"coeffs" -><|
 			"wc"-> With[
 				{
-					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc
+					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
+					sign = 1
 				},
 				{
-					A[3] -> 0,
-					A[4] -> 0,
-					A[6] -> 0
+					A[1]->-(((1+E^A[0]) (-1+psi))/(psi (-1+E^A[0] (-1+rhox)))),
+					A[2]->((1+E^A[0]) (-1+gamma) (-1+psi) (1+E^(2 A[0]) (phix^2+(-1+rhox)^2)-2 E^A[0] (-1+rhox)))/(2 psi (-1+E^A[0] (-1+rhox))^2 (-1+E^A[0] (-1+vx))),
+					A[3]->0,
+					A[4]->0,
+					A[5]->((-1+psi) xic)/psi,
+					A[6]->0,
+					A[7]->(E^(-2 A[0]) (1+E^A[0]) Esg (-1+psi) (-1+rhog) (-1+gamma+E^A[0] (-1+gamma) (1+rhog^2)-sign \[Sqrt](-(1/(1+E^A[0])^2) (-1+gamma)^2 (-1+2 E^A[0] (-2+rhog^2)-E^(2 A[0]) (6-6 rhog^2+rhog^4)-2 E^(3 A[0]) (2-3 rhog^2+rhog^4)-E^(4 A[0]) (1+rhog^4-2 rhog^2 (1+2 (-1+gamma)^2 phig^2 xic^2))))) (1-gamma+E^A[0] (-1+gamma) (-1+rhog^2)+sign \[Sqrt](-(1/(1+E^A[0])^2) (-1+gamma)^2 (-1+2 E^A[0] (-2+rhog^2)-E^(2 A[0]) (6-6 rhog^2+rhog^4)-2 E^(3 A[0]) (2-3 rhog^2+rhog^4)-E^(4 A[0]) (1+rhog^4-2 rhog^2 (1+2 (-1+gamma)^2 phig^2 xic^2))))))/(2 (-1+gamma)^2 phig^2 psi rhog^2 (-1+gamma+E^A[0] (-1+gamma) (-1+rhog)^2+2 rhog-2 gamma rhog-sign \[Sqrt](-(1/(1+E^A[0])^2) (-1+gamma)^2 (-1+2 E^A[0] (-2+rhog^2)-E^(2 A[0]) (6-6 rhog^2+rhog^4)-2 E^(3 A[0]) (2-3 rhog^2+rhog^4)-E^(4 A[0]) (1+rhog^4-2 rhog^2 (1+2 (-1+gamma)^2 phig^2 xic^2)))))),
+					A[8]->1/(4 (-1+gamma)^2 phig^2 psi rhog^2) E^(-2 A[0]) (1+E^A[0]) (-1+psi) (1-gamma+E^A[0] (-1+gamma) (-1+rhog^2)+sign \[Sqrt](-(1/(1+E^A[0])^2) (-1+gamma)^2 (-1+2 E^A[0] (-2+rhog^2)-E^(2 A[0]) (6-6 rhog^2+rhog^4)-2 E^(3 A[0]) (2-3 rhog^2+rhog^4)-E^(4 A[0]) (1+rhog^4-2 rhog^2 (1+2 (-1+gamma)^2 phig^2 xic^2)))))
 				}
 			],
 			"pd" -> With[
 				{
 					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
 					B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
-					j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j
+					j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
+					sign = 1
 				},
 				{
-					B[j][3] -> 0,
-					B[j][4] -> 0,
-					B[j][6] -> 0
+					B[j][1]->((1+E^B[j][0]) ((1-E^A[0] (-1+rhox)) A[1]+gamma (-1+psi-psi A[1]+E^A[0] (-1+psi+psi (-1+rhox) A[1]))-(1+E^A[0]) (-1+psi) rhodx[j]))/((1+E^A[0]) (-1+psi) (-1+E^B[j][0] (-1+rhox))),
+					B[j][2]->-(1/(-2+2 E^B[j][0] (-1+vx)))(gamma^2+E^B[j][0] gamma^2+phix^2 A[1]^2+E^B[j][0] phix^2 A[1]^2+(phix^2 A[1]^2)/(1+E^A[0])^2+(E^B[j][0] phix^2 A[1]^2)/(1+E^A[0])^2-(2 phix^2 A[1]^2)/(1+E^A[0])-(2 E^B[j][0] phix^2 A[1]^2)/(1+E^A[0])-(2 phix^2 psi A[1]^2)/(-1+psi)-(2 E^B[j][0] phix^2 psi A[1]^2)/(-1+psi)-(2 phix^2 psi A[1]^2)/((1+E^A[0])^2 (-1+psi))-(2 E^B[j][0] phix^2 psi A[1]^2)/((1+E^A[0])^2 (-1+psi))+(4 phix^2 psi A[1]^2)/((1+E^A[0]) (-1+psi))+(4 E^B[j][0] phix^2 psi A[1]^2)/((1+E^A[0]) (-1+psi))+(2 gamma phix^2 psi A[1]^2)/(-1+psi)+(2 E^B[j][0] gamma phix^2 psi A[1]^2)/(-1+psi)+(2 gamma phix^2 psi A[1]^2)/((1+E^A[0])^2 (-1+psi))+(2 E^B[j][0] gamma phix^2 psi A[1]^2)/((1+E^A[0])^2 (-1+psi))-(4 gamma phix^2 psi A[1]^2)/((1+E^A[0]) (-1+psi))-(4 E^B[j][0] gamma phix^2 psi A[1]^2)/((1+E^A[0]) (-1+psi))+(phix^2 psi^2 A[1]^2)/(-1+psi)^2+(E^B[j][0] phix^2 psi^2 A[1]^2)/(-1+psi)^2+(phix^2 psi^2 A[1]^2)/((1+E^A[0])^2 (-1+psi)^2)+(E^B[j][0] phix^2 psi^2 A[1]^2)/((1+E^A[0])^2 (-1+psi)^2)-(2 phix^2 psi^2 A[1]^2)/((1+E^A[0]) (-1+psi)^2)-(2 E^B[j][0] phix^2 psi^2 A[1]^2)/((1+E^A[0]) (-1+psi)^2)-(2 gamma phix^2 psi^2 A[1]^2)/(-1+psi)^2-(2 E^B[j][0] gamma phix^2 psi^2 A[1]^2)/(-1+psi)^2-(2 gamma phix^2 psi^2 A[1]^2)/((1+E^A[0])^2 (-1+psi)^2)-(2 E^B[j][0] gamma phix^2 psi^2 A[1]^2)/((1+E^A[0])^2 (-1+psi)^2)+(4 gamma phix^2 psi^2 A[1]^2)/((1+E^A[0]) (-1+psi)^2)+(4 E^B[j][0] gamma phix^2 psi^2 A[1]^2)/((1+E^A[0]) (-1+psi)^2)+(gamma^2 phix^2 psi^2 A[1]^2)/(-1+psi)^2+(E^B[j][0] gamma^2 phix^2 psi^2 A[1]^2)/(-1+psi)^2+(gamma^2 phix^2 psi^2 A[1]^2)/((1+E^A[0])^2 (-1+psi)^2)+(E^B[j][0] gamma^2 phix^2 psi^2 A[1]^2)/((1+E^A[0])^2 (-1+psi)^2)-(2 gamma^2 phix^2 psi^2 A[1]^2)/((1+E^A[0]) (-1+psi)^2)-(2 E^B[j][0] gamma^2 phix^2 psi^2 A[1]^2)/((1+E^A[0]) (-1+psi)^2)+2 A[2]+2 E^B[j][0] A[2]-(2 psi A[2])/(-1+psi)-(2 E^B[j][0] psi A[2])/(-1+psi)+(2 gamma psi A[2])/(-1+psi)+(2 E^B[j][0] gamma psi A[2])/(-1+psi)-2 vx A[2]-2 E^B[j][0] vx A[2]+(2 vx A[2])/(1+E^A[0])+(2 E^B[j][0] vx A[2])/(1+E^A[0])+(2 psi vx A[2])/(-1+psi)+(2 E^B[j][0] psi vx A[2])/(-1+psi)-(2 psi vx A[2])/((1+E^A[0]) (-1+psi))-(2 E^B[j][0] psi vx A[2])/((1+E^A[0]) (-1+psi))-(2 gamma psi vx A[2])/(-1+psi)-(2 E^B[j][0] gamma psi vx A[2])/(-1+psi)+(2 gamma psi vx A[2])/((1+E^A[0]) (-1+psi))+(2 E^B[j][0] gamma psi vx A[2])/((1+E^A[0]) (-1+psi))-2 gamma phidxc[j]-2 E^B[j][0] gamma phidxc[j]+phidxc[j]^2+E^B[j][0] phidxc[j]^2-(2 E^(A[0]+B[j][0]) (1+E^B[j][0]) phix^2 A[1] ((1-E^A[0] (-1+rhox)) A[1]+gamma (-1+psi-psi A[1]+E^A[0] (-1+psi+psi (-1+rhox) A[1]))-(1+E^A[0]) (-1+psi) rhodx[j]))/((1+E^A[0])^2 (-1+psi) (-1+E^B[j][0] (-1+rhox)))+(2 E^(A[0]+B[j][0]) (1+E^B[j][0]) phix^2 psi A[1] ((1-E^A[0] (-1+rhox)) A[1]+gamma (-1+psi-psi A[1]+E^A[0] (-1+psi+psi (-1+rhox) A[1]))-(1+E^A[0]) (-1+psi) rhodx[j]))/((1+E^A[0])^2 (-1+psi)^2 (-1+E^B[j][0] (-1+rhox)))-(2 E^(A[0]+B[j][0]) (1+E^B[j][0]) gamma phix^2 psi A[1] ((1-E^A[0] (-1+rhox)) A[1]+gamma (-1+psi-psi A[1]+E^A[0] (-1+psi+psi (-1+rhox) A[1]))-(1+E^A[0]) (-1+psi) rhodx[j]))/((1+E^A[0])^2 (-1+psi)^2 (-1+E^B[j][0] (-1+rhox)))+((1+E^B[j][0]) phix^2 ((1-E^A[0] (-1+rhox)) A[1]+gamma (-1+psi-psi A[1]+E^A[0] (-1+psi+psi (-1+rhox) A[1]))-(1+E^A[0]) (-1+psi) rhodx[j])^2)/((1+E^A[0])^2 (-1+psi)^2 (-1+E^B[j][0] (-1+rhox))^2)-((1+E^B[j][0])^2 phix^2 ((1-E^A[0] (-1+rhox)) A[1]+gamma (-1+psi-psi A[1]+E^A[0] (-1+psi+psi (-1+rhox) A[1]))-(1+E^A[0]) (-1+psi) rhodx[j])^2)/((1+E^A[0])^2 (-1+psi)^2 (-1+E^B[j][0] (-1+rhox))^2)+(E^B[j][0] (1+E^B[j][0])^2 phix^2 ((1-E^A[0] (-1+rhox)) A[1]+gamma (-1+psi-psi A[1]+E^A[0] (-1+psi+psi (-1+rhox) A[1]))-(1+E^A[0]) (-1+psi) rhodx[j])^2)/((1+E^A[0])^2 (-1+psi)^2 (-1+E^B[j][0] (-1+rhox))^2)-(2 E^(A[0]+B[j][0]) phipbarx phix A[1] B[j][3])/(1+E^A[0])+(2 E^(A[0]+B[j][0]) phipbarx phix psi A[1] B[j][3])/((1+E^A[0]) (-1+psi))-(2 E^(A[0]+B[j][0]) gamma phipbarx phix psi A[1] B[j][3])/((1+E^A[0]) (-1+psi))+(2 phipbarx phix ((1-E^A[0] (-1+rhox)) A[1]+gamma (-1+psi-psi A[1]+E^A[0] (-1+psi+psi (-1+rhox) A[1]))-(1+E^A[0]) (-1+psi) rhodx[j]) B[j][3])/((1+E^A[0]) (-1+psi) (-1+E^B[j][0] (-1+rhox)))-(2 (1+E^B[j][0]) phipbarx phix ((1-E^A[0] (-1+rhox)) A[1]+gamma (-1+psi-psi A[1]+E^A[0] (-1+psi+psi (-1+rhox) A[1]))-(1+E^A[0]) (-1+psi) rhodx[j]) B[j][3])/((1+E^A[0]) (-1+psi) (-1+E^B[j][0] (-1+rhox)))+(2 E^B[j][0] (1+E^B[j][0]) phipbarx phix ((1-E^A[0] (-1+rhox)) A[1]+gamma (-1+psi-psi A[1]+E^A[0] (-1+psi+psi (-1+rhox) A[1]))-(1+E^A[0]) (-1+psi) rhodx[j]) B[j][3])/((1+E^A[0]) (-1+psi) (-1+E^B[j][0] (-1+rhox)))-phipbarx^2 B[j][3]^2+E^B[j][0] phipbarx^2 B[j][3]^2+(phipbarx^2 B[j][3]^2)/(1+E^B[j][0])),
+					B[j][3]->0,
+					B[j][4]->0,
+					B[j][5]->-(xic/psi)+xid[j],
+					B[j][6]->0,
+					B[j][7]->-(((1+E^B[j][0])^2 (1-gamma psi) (-((-1+psi) A[7])+E^A[0] (-1+psi) ((-2+rhog) A[7]-2 Esg (-1+rhog) rhog A[8])+E^(2 A[0]) (2 Esg (-1+rhog) rhog A[8] (1-2 phig^2 A[8]+psi (-1+2 gamma phig^2 A[8]))-A[7] (-1+psi+rhog-2 phig^2 rhog A[8]+psi rhog (-1+2 gamma phig^2 A[8]))))-2 E^B[j][0] (1+E^A[0]) (1+E^B[j][0]) (1-psi) rhog (-E^A[0] phig^2 (-1+gamma psi) A[7]+Esg (-1+rhog) (1-psi+E^A[0] (1-4 phig^2 A[8]+psi (-1+4 gamma phig^2 A[8])))) B[j][8]-4 E^(2 B[j][0]) (1+E^A[0])^2 Esg phig^2 (-1+psi)^2 (-1+rhog) rhog B[j][8]^2)/((1+E^A[0])^2 (-1+psi)^2 (((1+E^B[j][0]) (-1-E^A[0]+E^B[j][0] (-1+rhog)+E^(A[0]+B[j][0]) (-1+rhog-(2 phig^2 (-1+gamma psi) rhog A[8])/(-1+psi))))/(1+E^A[0])+2 E^(2 B[j][0]) phig^2 rhog B[j][8]))),
+					B[j][8]->-(1/(4 phig^2 rhog^2)) E^(-2 B[j][0]) (1+E^B[j][0])^2 ((-1-E^A[0]+E^B[j][0] (-1+rhog^2)+E^(A[0]+B[j][0]) (-1+(rhog^2 (-1+psi+4 phig^2 A[8]-4 gamma phig^2 psi A[8]))/(-1+psi)))/((1+E^A[0]) (1+E^B[j][0]))-sign \[Sqrt](1/(1+E^B[j][0])^2 ((1+E^A[0]-E^B[j][0] (-1+rhog^2)+E^(A[0]+B[j][0]) (1+(rhog^2 (1-4 phig^2 A[8]+psi (-1+4 gamma phig^2 A[8])))/(-1+psi)))^2/(1+E^A[0])^2-1/(-1+psi)^2 4 E^(2 B[j][0]) phig^2 rhog^2 (1/(1+E^A[0])^2 (-1+gamma psi) (2 (-1+psi) A[8]-2 E^A[0] (-1+psi) (-2+rhog^2) A[8]+E^(2 A[0]) (((-1+psi)^2 (-1+gamma psi) xic^2)/psi^2+2 A[8] (-1+psi+rhog^2 (1-2 phig^2 A[8])+psi rhog^2 (-1+2 gamma phig^2 A[8]))))+(E^(2 B[j][0]) (-1+psi)^2 (xic-psi xid[j])^2)/((1+E^B[j][0])^2 psi^2)-(2 E^(A[0]+B[j][0]) (-1+psi)^2 (-1+gamma psi) xic (-xic+psi xid[j]))/((1+E^A[0]) (1+E^B[j][0]) psi^2)))))
 				}
 			]
+		|>,
+		"initialGuess" -> <| 
+			"Ewc" -> {7.0}, 
+			"Epd" -> {{6.0}}
 		|>
 	|>,
 (**********************************************************)
@@ -1933,22 +2071,20 @@ modelsExtraInfo = <|
 		"coeffs" -><|
 			"wc"-> With[
 				{
-					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc
-				},
-				{
-					A[4] -> 0
-				}
-			],
-			"pd" -> With[
-				{
 					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
-					B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
-					j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j
+					sign = 1
 				},
 				{
-					B[j][4] -> 0
+					A[1] -> -(((1 + E^A[0])*(-1 + psi))/(psi*(-1 - E^A[0] + E^A[0]*rhox))),
+					A[2] -> ((1 + E^A[0])*(-1 + gamma)*(-1 + psi)*(phics + E^A[0]*phix - E^A[0]*phics*(-1 + rhox))^2)/(2*psi*(-1 + E^A[0]*(-1 + rhox))^2*(-1 + E^A[0]*(-1 + vx))),
+					A[3] -> -(((1 + E^A[0])*(-1 + psi)*(-1 + E^A[0]*(-1 + rhop))*(-1 + E^A[0]*(-1 + vp)))/(E^(3*A[0])*((-1 + gamma)*phipp^2*psi*vpp))) - (1/(2*(-1 + gamma)^2*phipp^2*psi*vpp))*(((1 + E^A[0])^2*(-1 + psi)*sign*(-1 + E^A[0]*(-1 + vp))*Sqrt[(2/(1 + E^A[0]) + (2*E^A[0])/(1 + E^A[0]) - (2*gamma)/(1 + E^A[0]) - (2*E^A[0]*gamma)/(1 + E^A[0]) - (2*E^A[0]*rhop)/(1 + E^A[0]) + (2*E^A[0]*gamma*rhop)/(1 + E^A[0]))^2 - 4*(-2*rhocp + 2*gamma*rhocp + (2*rhocp)/psi - (2*gamma*rhocp)/psi)*((E^(3*A[0])*phipp^2*psi*vpp)/((1 + E^A[0])^2*(1 - psi)*(1 + E^A[0] - E^A[0]*vp)) - (2*E^(3*A[0])*gamma*phipp^2*psi*vpp)/((1 + E^A[0])^2*(1 - psi)*(1 + E^A[0] - E^A[0]*vp)) + (E^(3*A[0])*gamma^2*phipp^2*psi*vpp)/((1 + E^A[0])^2*(1 - psi)*(1 + E^A[0] - E^A[0]*vp)))])/E^(3*A[0])),
+					A[4] -> (E^(2*A[0])*(-1 + gamma)*phipp^2*psi*A[3]^2)/(2*(1 + E^A[0])*(-1 + psi)*(-1 - E^A[0] + E^A[0]*vp))
 				}
 			]
+		|>,
+		"initialGuess" -> <| 
+			"Ewc" -> {6.5}, 
+			"Epd" -> {{6.0}}
 		|>
 	|>,
 (**********************************************************)

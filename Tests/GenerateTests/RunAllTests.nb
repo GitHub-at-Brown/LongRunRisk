@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    966462,      17788]
-NotebookOptionsPosition[    956005,      17635]
-NotebookOutlinePosition[    956473,      17653]
-CellTagsIndexPosition[    956430,      17650]
+NotebookDataLength[    963404,      17709]
+NotebookOptionsPosition[    952947,      17556]
+NotebookOutlinePosition[    953415,      17574]
+CellTagsIndexPosition[    953372,      17571]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -532,14 +532,16 @@ Cell[BoxData[{
 
 Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/\"\>"], "Output",
- CellChangeTimes->{3.905902356646802*^9, 3.9059033147968693`*^9},
- CellLabel->"Out[1]=",ExpressionUUID->"d30685e3-3b2f-4d79-b4d1-1f7a2e1371b6"],
+ CellChangeTimes->{3.905902356646802*^9, 3.9059033147968693`*^9, 
+  3.905904638579575*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"29948ab4-6fed-4083-ae6f-cac135957c9f"],
 
 Cell[BoxData[
  RowBox[{"{", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/\"\>", "}"}]], "Output",
- CellChangeTimes->{3.905902356646802*^9, 3.905903314835949*^9},
- CellLabel->"Out[2]=",ExpressionUUID->"56d1d15d-499b-4fee-9bfb-c870618b42e7"],
+ CellChangeTimes->{3.905902356646802*^9, 3.9059033147968693`*^9, 
+  3.905904638621961*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"803bde79-e36b-466a-87cf-181af8cb347e"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -570,15 +572,17 @@ Cell[BoxData[
    ",", "\<\"/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/ToNumber.wlt\"\>"}], "}"}]], "Output",\
 
- CellChangeTimes->{3.905902356646802*^9, 3.905903314837708*^9},
- CellLabel->"Out[3]=",ExpressionUUID->"3de08457-1f6a-4031-9123-31ea07fac907"],
+ CellChangeTimes->{3.905902356646802*^9, 3.9059033147968693`*^9, 
+  3.905904638622715*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"0f4fef74-9be4-418a-bbe1-73f19c205093"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{"\<\"Wolfram`Chatbook`\"\>", ",", "\<\"System`\"\>", 
    ",", "\<\"Global`\"\>"}], "}"}]], "Output",
- CellChangeTimes->{3.905902356646802*^9, 3.905903314838747*^9},
- CellLabel->"Out[4]=",ExpressionUUID->"33753bab-922b-47c8-a424-700d04df4a42"]
+ CellChangeTimes->{3.905902356646802*^9, 3.9059033147968693`*^9, 
+  3.905904638623599*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"587596b5-5466-4f64-ac7e-0b59c6a19995"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -9587,7 +9591,7 @@ Cell[BoxData[
                  TagBox[
                   
                   TemplateBox[{
-                   "1.486958`6.021783703961086", "\"s\"", "seconds", 
+                   "1.413368`5.999740256416601", "\"s\"", "seconds", 
                     "\"Seconds\""}, "Quantity", SyntaxForm -> Mod], 
                   "SummaryItem"]}], "\[SpanFromLeft]"}}, 
              GridBoxAlignment -> {
@@ -9609,34 +9613,37 @@ Cell[BoxData[
   TestReportObject[<|
    "Title" -> "Test Report: SolveEulerEq.wlt", "Aborted" -> False, 
     "TestResults" -> <|
-     8697635370190765278 -> 
+     6794615700785760804 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9059033249501424`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.90590464710232*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "fe1e0bf9-a9f6-44b9-8705-507c0d50144a", "TestID" -> 
-         "SolveEulerEq_20231010-MLR2IR", "TestFileName" -> 
+         "713673cb-0366-4c5a-a350-ab5daa88906c", "TestID" -> 
+         "SolveEulerEq_20231010-M465RI", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/SolveEulerEq.wlt", "EvaluationID" -> 
-         "344a04c4-3535-47b6-8928-9194f75a1acf", "Input" -> 
+         "53d7e405-052f-4d56-9810-e6047ec84ba0", "Input" -> 
          HoldForm[ComputationalEngine`SolveEulerEq`longTest = False; True], 
          "ExpectedMessages" -> HoldForm[{}], "ActualOutput" -> HoldForm[True],
           "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
-         0.000041`1.7632988545517252, "CPUTimeUsed" -> 0.00004099999999995774,
-          "MemoryUsed" -> 2760, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
-         "Success"|>], 9110433409207070581 -> 
+         0.000038`1.730298594448804, "CPUTimeUsed" -> 0.00003899999999967818, 
+         "MemoryUsed" -> 2760, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>], 6771516488851705289 -> 
       TestObject[<|
-        "MetaInformation" -> None, "AbsoluteTime" -> 3.9059033249523983`*^9, 
+        "MetaInformation" -> None, "AbsoluteTime" -> 3.905904647104528*^9, 
          "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
          "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
          DirectedInfinity[1], "CreationID" -> 
-         "075d6f74-c97a-4f44-b4b7-3911283988ce", "TestID" -> 
-         "SolveEulerEq_20231010-PEFY87", "TestFileName" -> 
+         "088fc529-2131-49bb-9696-75e93aeb850b", "TestID" -> 
+         "SolveEulerEq_20231010-OEH87E", "TestFileName" -> 
          "/Users/fernandoduarte/Dropbox \
 (Personal)/MyPackages/LongRunRisk/Tests/SolveEulerEq.wlt", "EvaluationID" -> 
-         "5fd9eeef-4db5-4336-9222-19c29f86c035", "Input" -> HoldForm[Off[
-             MessageName[General, "stop"]]; 
+         "975dbaa8-e24b-48ec-8190-b44a33e4fdb1", "Input" -> HoldForm[Off[
+             MessageName[General, "stop"]]; If[
+             Not[ComputationalEngine`SolveEulerEq`longTest], 
+             Off[
+              MessageName[FindRoot, "cvmit"]]]; 
            Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
 "]; $ContextPath = DeleteDuplicates[
               
@@ -9898,7 +9905,8 @@ Private`updateCoeffsBond;
                     ComputationalEngine`SolveEulerEq`guessCoeffsSolution]}]; 
                ComputationalEngine`SolveEulerEq`ind = 
                 ComputationalEngine`SolveEulerEq`ind + 1; Null]; 
-             If[ComputationalEngine`SolveEulerEq`longTest, 
+             If[
+              ComputationalEngine`SolveEulerEq`longTest, 
                ComputationalEngine`SolveEulerEq`outTests[
                   ComputationalEngine`SolveEulerEq`model["shortname"]][
                  ComputationalEngine`SolveEulerEq`ind] = Quiet[
@@ -10122,104 +10130,104 @@ Private`updateCoeffsBond;
                    ReleaseHold[
                     Last[ComputationalEngine`SolveEulerEq`m4]] == {{1}}}]; 
                ComputationalEngine`SolveEulerEq`ind = 
-                ComputationalEngine`SolveEulerEq`ind + 1; Null]; 
-             ComputationalEngine`SolveEulerEq`m1 = 
-              Block[{$MessagePrePrint = Sow, $MessageList = {}}, 
-                Reap[
-                Module[{}, 
-                   ComputationalEngine`SolveEulerEq`updateCoeffs[
+                ComputationalEngine`SolveEulerEq`ind + 1; 
+               ComputationalEngine`SolveEulerEq`m1 = 
+                Block[{$MessagePrePrint = Sow, $MessageList = {}}, 
+                  Reap[
+                  Module[{}, 
+                    ComputationalEngine`SolveEulerEq`updateCoeffs[
                     ComputationalEngine`SolveEulerEq`model, 
                     "PrintResidualsNorm" -> False]; Null]; $MessageList]]; 
-             ComputationalEngine`SolveEulerEq`m2 = 
-              Block[{$MessagePrePrint = Sow, $MessageList = {}}, 
-                Reap[
-                Module[{}, 
-                   ComputationalEngine`SolveEulerEq`updateCoeffs[
+               ComputationalEngine`SolveEulerEq`m2 = 
+                Block[{$MessagePrePrint = Sow, $MessageList = {}}, 
+                  Reap[
+                  Module[{}, 
+                    ComputationalEngine`SolveEulerEq`updateCoeffs[
                     ComputationalEngine`SolveEulerEq`model, 
                     "PrintResidualsNorm" -> True]; Null]; $MessageList]]; 
-             ComputationalEngine`SolveEulerEq`outTests[
-                ComputationalEngine`SolveEulerEq`model["shortname"]][
-               ComputationalEngine`SolveEulerEq`ind] = 
-              ReleaseHold[ComputationalEngine`SolveEulerEq`m1] == {{}, {}}; 
-             ComputationalEngine`SolveEulerEq`ind = 
-              ComputationalEngine`SolveEulerEq`ind + 1; 
-             ComputationalEngine`SolveEulerEq`outTests[
-                ComputationalEngine`SolveEulerEq`model["shortname"]][
-               ComputationalEngine`SolveEulerEq`ind] = 
-              First[ComputationalEngine`SolveEulerEq`m2] == {
-                 HoldForm[
-                  MessageName[
-                  FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "norm"]]}; 
-             ComputationalEngine`SolveEulerEq`ind = 
-              ComputationalEngine`SolveEulerEq`ind + 1; 
-             ComputationalEngine`SolveEulerEq`outTests[
-                ComputationalEngine`SolveEulerEq`model["shortname"]][
-               ComputationalEngine`SolveEulerEq`ind] = NumberQ[
-                ReleaseHold[
-                 First[
-                  Flatten[
-                   Last[ComputationalEngine`SolveEulerEq`m2]]]]]; 
-             ComputationalEngine`SolveEulerEq`ind = 
-              ComputationalEngine`SolveEulerEq`ind + 1; 
-             ComputationalEngine`SolveEulerEq`c1 = Not[
-                TrueQ[
-                 CheckAbort[
-                  Check[
-                   ComputationalEngine`SolveEulerEq`updateCoeffs[
-                   ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> 
+               ComputationalEngine`SolveEulerEq`outTests[
+                  ComputationalEngine`SolveEulerEq`model["shortname"]][
+                 ComputationalEngine`SolveEulerEq`ind] = 
+                ReleaseHold[ComputationalEngine`SolveEulerEq`m1] == {{}, {}}; 
+               ComputationalEngine`SolveEulerEq`ind = 
+                ComputationalEngine`SolveEulerEq`ind + 1; 
+               ComputationalEngine`SolveEulerEq`outTests[
+                  ComputationalEngine`SolveEulerEq`model["shortname"]][
+                 ComputationalEngine`SolveEulerEq`ind] = 
+                First[ComputationalEngine`SolveEulerEq`m2] == {
+                   HoldForm[
+                    MessageName[
+                    FernandoDuarte`LongRunRisk`ComputationalEngine`\
+SolveEulerEq`Private`checks, "norm"]]}; 
+               ComputationalEngine`SolveEulerEq`ind = 
+                ComputationalEngine`SolveEulerEq`ind + 1; 
+               ComputationalEngine`SolveEulerEq`outTests[
+                  ComputationalEngine`SolveEulerEq`model["shortname"]][
+                 ComputationalEngine`SolveEulerEq`ind] = NumberQ[
+                  ReleaseHold[
+                   First[
+                    Flatten[
+                    Last[ComputationalEngine`SolveEulerEq`m2]]]]]; 
+               ComputationalEngine`SolveEulerEq`ind = 
+                ComputationalEngine`SolveEulerEq`ind + 1; 
+               ComputationalEngine`SolveEulerEq`c1 = Not[
+                  TrueQ[
+                   CheckAbort[
+                    Check[
+                    ComputationalEngine`SolveEulerEq`updateCoeffs[
+                    ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> 
                     False], 
-                   Abort[], 
-                   MessageName[
-                   FernandoDuarte`LongRunRisk`ComputationalEngine`\
+                    Abort[], 
+                    MessageName[
+                    FernandoDuarte`LongRunRisk`ComputationalEngine`\
 SolveEulerEq`Private`checks, "largeresid"]], True]]]; 
-             ComputationalEngine`SolveEulerEq`c2 = TrueQ[
-                CheckAbort[
-                 Check[
-                  ComputationalEngine`SolveEulerEq`updateCoeffs[
-                  ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> 
-                   True], 
-                  Abort[], 
-                  MessageName[
-                  FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "largeresid"]], True]]; 
-             ComputationalEngine`SolveEulerEq`outTests[
-                ComputationalEngine`SolveEulerEq`model["shortname"]][
-               ComputationalEngine`SolveEulerEq`ind] = 
-              Apply[And, {
-                ComputationalEngine`SolveEulerEq`c1, 
-                 ComputationalEngine`SolveEulerEq`c2}]; 
-             ComputationalEngine`SolveEulerEq`ind = 
-              ComputationalEngine`SolveEulerEq`ind + 1; 
-             ComputationalEngine`SolveEulerEq`c1 = Not[
-                TrueQ[
-                 CheckAbort[
-                  Check[
-                   ComputationalEngine`SolveEulerEq`updateCoeffs[
-                   ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> 
+               ComputationalEngine`SolveEulerEq`c2 = TrueQ[
+                  CheckAbort[
+                   Check[
+                    ComputationalEngine`SolveEulerEq`updateCoeffs[
+                    ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> 
+                    True], 
+                    Abort[], 
+                    MessageName[
+                    FernandoDuarte`LongRunRisk`ComputationalEngine`\
+SolveEulerEq`Private`checks, "largeresid"]], True]]; 
+               ComputationalEngine`SolveEulerEq`outTests[
+                  ComputationalEngine`SolveEulerEq`model["shortname"]][
+                 ComputationalEngine`SolveEulerEq`ind] = 
+                Apply[And, {
+                  ComputationalEngine`SolveEulerEq`c1, 
+                   ComputationalEngine`SolveEulerEq`c2}]; 
+               ComputationalEngine`SolveEulerEq`ind = 
+                ComputationalEngine`SolveEulerEq`ind + 1; 
+               ComputationalEngine`SolveEulerEq`c1 = Not[
+                  TrueQ[
+                   CheckAbort[
+                    Check[
+                    ComputationalEngine`SolveEulerEq`updateCoeffs[
+                    ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> 
                     True, "Tol" -> 1], 
-                   Abort[], 
-                   MessageName[
-                   FernandoDuarte`LongRunRisk`ComputationalEngine`\
+                    Abort[], 
+                    MessageName[
+                    FernandoDuarte`LongRunRisk`ComputationalEngine`\
 SolveEulerEq`Private`checks, "largeresid"]], True]]]; 
-             ComputationalEngine`SolveEulerEq`c2 = TrueQ[
-                CheckAbort[
-                 Check[
-                  ComputationalEngine`SolveEulerEq`updateCoeffs[
-                  ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> 
-                   True, "Tol" -> 10.^(-20)], 
-                  Abort[], 
-                  MessageName[
-                  FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "largeresid"]], True]]; 
-             ComputationalEngine`SolveEulerEq`outTests[
-                ComputationalEngine`SolveEulerEq`model["shortname"]][
-               ComputationalEngine`SolveEulerEq`ind] = 
-              Apply[And, {
-                ComputationalEngine`SolveEulerEq`c1, 
-                 ComputationalEngine`SolveEulerEq`c2}]; 
-             ComputationalEngine`SolveEulerEq`ind = 
-              ComputationalEngine`SolveEulerEq`ind + 1; 
+               ComputationalEngine`SolveEulerEq`c2 = TrueQ[
+                  CheckAbort[
+                   Check[
+                    ComputationalEngine`SolveEulerEq`updateCoeffs[
+                    ComputationalEngine`SolveEulerEq`model, "CheckResiduals" -> 
+                    True, "Tol" -> 10.^(-20)], 
+                    Abort[], 
+                    MessageName[
+                    FernandoDuarte`LongRunRisk`ComputationalEngine`\
+SolveEulerEq`Private`checks, "largeresid"]], True]]; 
+               ComputationalEngine`SolveEulerEq`outTests[
+                  ComputationalEngine`SolveEulerEq`model["shortname"]][
+                 ComputationalEngine`SolveEulerEq`ind] = 
+                Apply[And, {
+                  ComputationalEngine`SolveEulerEq`c1, 
+                   ComputationalEngine`SolveEulerEq`c2}]; 
+               ComputationalEngine`SolveEulerEq`ind = 
+                ComputationalEngine`SolveEulerEq`ind + 1; Null]; 
              ComputationalEngine`SolveEulerEq`Ewc0 = 4.6; 
              ComputationalEngine`SolveEulerEq`outTests[
                 ComputationalEngine`SolveEulerEq`model["shortname"]][
@@ -10877,123 +10885,36 @@ SolveEulerEq`Private`checks, "largeresid"]], True]];
                 Values[
                  SubValues[ComputationalEngine`SolveEulerEq`outTests]]]}]; 
            On[
-             MessageName[General, "stop"]]; 
+             MessageName[General, "stop"]]; On[
+             MessageName[FindRoot, "cvmit"]]; 
            ComputationalEngine`SolveEulerEq`out], "ExpectedMessages" -> 
-         HoldForm[{
-            HoldForm[
-             Message[
-              MessageName[
-              FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "norm"], 4.383905086044507*^-14]], 
-            HoldForm[
-             Message[
-              MessageName[
-              FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "largeresid"], 4.383905086044507*^-14, 1.*^-16]], 
-            HoldForm[
-             Message[
-              MessageName[
-              FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "smallresid"], 4.383905086044507*^-14, 1]], 
-            HoldForm[
-             Message[
-              MessageName[
-              FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "largeresid"], 4.383905086044507*^-14, 1.*^-20]], 
-            HoldForm[
-             Message[
-              MessageName[
-              FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "norm"], 1.1383179045888502`*^-12]], 
-            HoldForm[
-             Message[
-              MessageName[
-              FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "largeresid"], 1.1383179045888502`*^-12, 1.*^-16]], 
-            HoldForm[
-             Message[
-              MessageName[
-              FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "smallresid"], 1.1383179045888502`*^-12, 1]], 
-            HoldForm[
-             Message[
-              MessageName[
-              FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "largeresid"], 1.1383179045888502`*^-12, 1.*^-20]], 
-            HoldForm[
-             Message[
-              MessageName[FindRoot, "cvmit"], 
-              HoldForm[100]]]}], "ActualOutput" -> HoldForm[True], 
-         "ActualMessages" -> {
-           HoldForm[
-            Message[
-             MessageName[
-             FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "norm"], 4.383905086044507*^-14]], 
-           HoldForm[
-            Message[
-             MessageName[
-             FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "largeresid"], 4.383905086044507*^-14, 1.*^-16]], 
-           HoldForm[
-            Message[
-             MessageName[
-             FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "smallresid"], 4.383905086044507*^-14, 1]], 
-           HoldForm[
-            Message[
-             MessageName[
-             FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "largeresid"], 4.383905086044507*^-14, 1.*^-20]], 
-           HoldForm[
-            Message[
-             MessageName[
-             FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "norm"], 1.1383179045888502`*^-12]], 
-           HoldForm[
-            Message[
-             MessageName[
-             FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "largeresid"], 1.1383179045888502`*^-12, 1.*^-16]], 
-           HoldForm[
-            Message[
-             MessageName[
-             FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "smallresid"], 1.1383179045888502`*^-12, 1]], 
-           HoldForm[
-            Message[
-             MessageName[
-             FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\
-Private`checks, "largeresid"], 1.1383179045888502`*^-12, 1.*^-20]], 
-           HoldForm[
-            Message[
-             MessageName[FindRoot, "cvmit"], 
-             HoldForm[100]]]}, "AbsoluteTimeUsed" -> 
-         1.486917`6.322801724626952, "CPUTimeUsed" -> 1.4928620000000006`, 
-         "MemoryUsed" -> 126643744, "ExpectedOutput" -> HoldForm[True], 
-         "Outcome" -> "Success"|>]|>, "FailureResults" -> <||>, 
+         HoldForm[{}], "ActualOutput" -> HoldForm[True], 
+         "ActualMessages" -> {}, "AbsoluteTimeUsed" -> 
+         1.41333`6.300758575424418, "CPUTimeUsed" -> 1.418637, "MemoryUsed" -> 
+         126628784, "ExpectedOutput" -> HoldForm[True], "Outcome" -> 
+         "Success"|>]|>, "FailureResults" -> <||>, 
     "TestsNotEvaluatedKeys" -> {}, "TestsFailedWrongResultsKeys" -> {}, 
     "TestsFailedWithMessagesKeys" -> {}, "TestsFailedWithErrorsKeys" -> {}, 
-    "TestsSucceededKeys" -> {8697635370190765278, 9110433409207070581}|>],
+    "TestsSucceededKeys" -> {6794615700785760804, 6771516488851705289}|>],
   Editable->False,
   SelectWithContents->True,
   Selectable->False]], "Output",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.},
  CellChangeTimes->{3.905876839784266*^9, 3.905876897172636*^9, 
-  3.90590332662742*^9},
- CellLabel->"Out[5]=",ExpressionUUID->"bab5fd3b-2eaa-46af-b3a2-2ceb2da8d999"],
+  3.90590332662742*^9, 3.905904648694932*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"257e00c5-740d-47cf-9016-de95ef04e7f1"],
 
 Cell[BoxData["True"], "Output",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.},
  CellChangeTimes->{3.905876839784266*^9, 3.905876897172636*^9, 
-  3.905903326630848*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"2d72a4ef-2a55-4ea9-b491-ccdfa39e2250"],
+  3.90590332662742*^9, 3.905904648698213*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"822ae4e2-d2f9-4361-b08e-baebcefe7385"],
 
 Cell[BoxData["True"], "Output",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.},
  CellChangeTimes->{3.905876839784266*^9, 3.905876897172636*^9, 
-  3.9059033266314287`*^9},
- CellLabel->"Out[9]=",ExpressionUUID->"0a31b8e2-77f0-478a-8d04-50ee78896686"],
+  3.90590332662742*^9, 3.905904648698771*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"0c59fa45-a4e6-4ffd-b823-bf4247e1527c"],
 
 Cell[BoxData[{
  RowBox[{"tr", "=", 
@@ -17634,7 +17555,7 @@ Cell[BoxData["True"], "Output",
 }, Open  ]]
 },
 WindowSize->{1551, 843},
-WindowMargins->{{Automatic, 156}, {Automatic, 38}},
+WindowMargins->{{Automatic, 156}, {Automatic, 37}},
 TaggingRules-><|"TryRealOnly" -> False|>,
 Magnification:>1.25 Inherited,
 FrontEndVersion->"13.3 for Mac OS X ARM (64-bit) (July 24, 2023)",
@@ -17678,115 +17599,115 @@ Cell[20627, 487, 160, 3, 84, "Section",ExpressionUUID->"d25c25c5-91e4-4db4-8d5d-
 Cell[20790, 492, 247, 4, 37, "Input",ExpressionUUID->"b7145b60-97f2-4c82-a22d-4a857448917d"],
 Cell[CellGroupData[{
 Cell[21062, 500, 1575, 30, 116, "Input",ExpressionUUID->"b694159f-2a88-4f10-b86e-66a9ab5899ad"],
-Cell[22640, 532, 245, 3, 42, "Output",ExpressionUUID->"d30685e3-3b2f-4d79-b4d1-1f7a2e1371b6"],
-Cell[22888, 537, 265, 4, 42, "Output",ExpressionUUID->"56d1d15d-499b-4fee-9bfb-c870618b42e7"],
-Cell[23156, 543, 1637, 30, 355, "Output",ExpressionUUID->"3de08457-1f6a-4031-9123-31ea07fac907"],
-Cell[24796, 575, 281, 5, 62, "Output",ExpressionUUID->"33753bab-922b-47c8-a424-700d04df4a42"]
+Cell[22640, 532, 270, 4, 42, "Output",ExpressionUUID->"29948ab4-6fed-4083-ae6f-cac135957c9f"],
+Cell[22913, 538, 292, 5, 42, "Output",ExpressionUUID->"803bde79-e36b-466a-87cf-181af8cb347e"],
+Cell[23208, 545, 1664, 31, 355, "Output",ExpressionUUID->"0f4fef74-9be4-418a-bbe1-73f19c205093"],
+Cell[24875, 578, 308, 6, 62, "Output",ExpressionUUID->"587596b5-5466-4f64-ac7e-0b59c6a19995"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[25114, 585, 2016, 56, 142, "Input",ExpressionUUID->"a02079b6-dc93-4662-a435-00398ad5c39a",
+Cell[25220, 589, 2016, 56, 142, "Input",ExpressionUUID->"a02079b6-dc93-4662-a435-00398ad5c39a",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[27133, 643, 29914, 564, 76, "Output",ExpressionUUID->"e4396594-1207-4563-9185-d785fd402ca0",
+Cell[27239, 647, 29914, 564, 76, "Output",ExpressionUUID->"e4396594-1207-4563-9185-d785fd402ca0",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[57050, 1209, 228, 3, 42, "Output",ExpressionUUID->"2a37bc9c-691e-4a18-ae4c-a1e2fb528abb",
+Cell[57156, 1213, 228, 3, 42, "Output",ExpressionUUID->"2a37bc9c-691e-4a18-ae4c-a1e2fb528abb",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[57281, 1214, 228, 3, 42, "Output",ExpressionUUID->"6f009d0b-2ea6-4227-aae7-be0ff49cf959",
+Cell[57387, 1218, 228, 3, 42, "Output",ExpressionUUID->"6f009d0b-2ea6-4227-aae7-be0ff49cf959",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[57512, 1219, 2407, 61, 142, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0",
+Cell[57618, 1223, 2407, 61, 142, "Input",ExpressionUUID->"1153a7e3-a4a9-44e1-a1d1-2c85ee2d32e0",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[59922, 1282, 32851, 614, 76, "Output",ExpressionUUID->"3ed2fcad-7777-45ec-a5f8-7f2fc3664d92",
+Cell[60028, 1286, 32851, 614, 76, "Output",ExpressionUUID->"3ed2fcad-7777-45ec-a5f8-7f2fc3664d92",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[92776, 1898, 231, 3, 42, "Output",ExpressionUUID->"753e4419-9c8a-4d2c-ba16-2d1d239dcf0d",
+Cell[92882, 1902, 231, 3, 42, "Output",ExpressionUUID->"753e4419-9c8a-4d2c-ba16-2d1d239dcf0d",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[93010, 1903, 229, 3, 42, "Output",ExpressionUUID->"d9318813-72e8-426d-92bb-5b3d97386b5c",
+Cell[93116, 1907, 229, 3, 42, "Output",ExpressionUUID->"d9318813-72e8-426d-92bb-5b3d97386b5c",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[93242, 1908, 2414, 61, 142, "Input",ExpressionUUID->"07d47c72-3650-48cf-bae5-d9151c59339e",
+Cell[93348, 1912, 2414, 61, 142, "Input",ExpressionUUID->"07d47c72-3650-48cf-bae5-d9151c59339e",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[95659, 1971, 22842, 465, 76, "Output",ExpressionUUID->"62c13107-6d79-4e28-aaaf-7c9eaad7277d",
+Cell[95765, 1975, 22842, 465, 76, "Output",ExpressionUUID->"62c13107-6d79-4e28-aaaf-7c9eaad7277d",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[118504, 2438, 230, 3, 42, "Output",ExpressionUUID->"32ff1fb0-6167-475c-a888-aa825ade7201",
+Cell[118610, 2442, 230, 3, 42, "Output",ExpressionUUID->"32ff1fb0-6167-475c-a888-aa825ade7201",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[118737, 2443, 231, 3, 42, "Output",ExpressionUUID->"a48a3b6f-f9d7-45ec-81ea-9ad319415fb2",
+Cell[118843, 2447, 231, 3, 42, "Output",ExpressionUUID->"a48a3b6f-f9d7-45ec-81ea-9ad319415fb2",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[118971, 2448, 2412, 61, 142, "Input",ExpressionUUID->"a92fbc3b-b353-4e75-8ee9-b61e11404d6b",
+Cell[119077, 2452, 2412, 61, 142, "Input",ExpressionUUID->"a92fbc3b-b353-4e75-8ee9-b61e11404d6b",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[121386, 2511, 30686, 612, 76, "Output",ExpressionUUID->"f0c9d610-c417-41f0-a800-8a8a5dfcb2ca",
+Cell[121492, 2515, 30686, 612, 76, "Output",ExpressionUUID->"f0c9d610-c417-41f0-a800-8a8a5dfcb2ca",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[152075, 3125, 229, 3, 42, "Output",ExpressionUUID->"74a50bbe-7cfb-49f6-a9cd-f8466ec77257",
+Cell[152181, 3129, 229, 3, 42, "Output",ExpressionUUID->"74a50bbe-7cfb-49f6-a9cd-f8466ec77257",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[152307, 3130, 229, 3, 42, "Output",ExpressionUUID->"32d7b3f7-bfbe-4a5b-8582-6afff05193ac",
+Cell[152413, 3134, 229, 3, 42, "Output",ExpressionUUID->"32d7b3f7-bfbe-4a5b-8582-6afff05193ac",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[152539, 3135, 2479, 62, 142, "Input",ExpressionUUID->"16b4a727-0558-4183-a2f8-e2e1a7b3a611",
+Cell[152645, 3139, 2479, 62, 142, "Input",ExpressionUUID->"16b4a727-0558-4183-a2f8-e2e1a7b3a611",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[155021, 3199, 220101, 3596, 76, "Output",ExpressionUUID->"f650b332-37a7-4e78-9747-24f0c5362836",
+Cell[155127, 3203, 220101, 3596, 76, "Output",ExpressionUUID->"f650b332-37a7-4e78-9747-24f0c5362836",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[375125, 6797, 231, 3, 42, "Output",ExpressionUUID->"2a5e7e6b-76cf-4912-a538-ed81f263c4a9",
+Cell[375231, 6801, 231, 3, 42, "Output",ExpressionUUID->"2a5e7e6b-76cf-4912-a538-ed81f263c4a9",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[375359, 6802, 229, 3, 42, "Output",ExpressionUUID->"c4c72f08-9d40-48de-93f8-b687a2f67462",
+Cell[375465, 6806, 229, 3, 42, "Output",ExpressionUUID->"c4c72f08-9d40-48de-93f8-b687a2f67462",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[375591, 6807, 2033, 56, 142, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684",
+Cell[375697, 6811, 2033, 56, 142, "Input",ExpressionUUID->"e330a50a-d51d-4861-9e79-8ecbadd6a684",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[377627, 6865, 89117, 1642, 76, "Output",ExpressionUUID->"b3bb5f7a-13f0-4f80-bd9f-eb9241d25e79",
+Cell[377733, 6869, 89117, 1642, 76, "Output",ExpressionUUID->"b3bb5f7a-13f0-4f80-bd9f-eb9241d25e79",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[466747, 8509, 228, 3, 42, "Output",ExpressionUUID->"a2928624-f9fb-4c59-a1d5-058851b75208",
+Cell[466853, 8513, 228, 3, 42, "Output",ExpressionUUID->"a2928624-f9fb-4c59-a1d5-058851b75208",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[466978, 8514, 230, 3, 42, "Output",ExpressionUUID->"938f16b0-7798-4103-af88-21fae26197fd",
+Cell[467084, 8518, 230, 3, 42, "Output",ExpressionUUID->"938f16b0-7798-4103-af88-21fae26197fd",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[467211, 8519, 2046, 56, 142, "Input",ExpressionUUID->"ab52a8a9-6ba0-4c63-83a5-96864da8b71f",
+Cell[467317, 8523, 2046, 56, 142, "Input",ExpressionUUID->"ab52a8a9-6ba0-4c63-83a5-96864da8b71f",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[469260, 8577, 42123, 807, 76, "Output",ExpressionUUID->"45d29583-e6e9-405b-9389-f6764bf908e0",
+Cell[469366, 8581, 42123, 807, 76, "Output",ExpressionUUID->"45d29583-e6e9-405b-9389-f6764bf908e0",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[511386, 9386, 231, 3, 42, "Output",ExpressionUUID->"b26bf99f-ef14-48f3-9f08-d1ba3d9e50ef",
+Cell[511492, 9390, 231, 3, 42, "Output",ExpressionUUID->"b26bf99f-ef14-48f3-9f08-d1ba3d9e50ef",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[511620, 9391, 231, 3, 42, "Output",ExpressionUUID->"8955a267-5f1c-4522-a398-2cf03e65b17b",
+Cell[511726, 9395, 231, 3, 42, "Output",ExpressionUUID->"8955a267-5f1c-4522-a398-2cf03e65b17b",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[511854, 9396, 2067, 57, 142, "Input",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4",
+Cell[511960, 9400, 2067, 57, 142, "Input",ExpressionUUID->"2f5705e2-54a0-49dc-bed2-96972ce91fe4",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[513924, 9455, 83802, 1528, 76, "Output",ExpressionUUID->"bab5fd3b-2eaa-46af-b3a2-2ceb2da8d999",
+Cell[514030, 9459, 80598, 1445, 76, "Output",ExpressionUUID->"257e00c5-740d-47cf-9016-de95ef04e7f1",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[597729, 10985, 253, 4, 42, "Output",ExpressionUUID->"2d72a4ef-2a55-4ea9-b491-ccdfa39e2250",
+Cell[594631, 10906, 274, 4, 42, "Output",ExpressionUUID->"822ae4e2-d2f9-4361-b08e-baebcefe7385",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[597985, 10991, 255, 4, 42, "Output",ExpressionUUID->"0a31b8e2-77f0-478a-8d04-50ee78896686",
+Cell[594908, 10912, 274, 4, 42, "Output",ExpressionUUID->"0c59fa45-a4e6-4ffd-b823-bf4247e1527c",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[598243, 10997, 2023, 56, 142, "Input",ExpressionUUID->"7c47fece-e37b-46a8-a1f5-f66cb52faf00",
+Cell[595185, 10918, 2023, 56, 142, "Input",ExpressionUUID->"7c47fece-e37b-46a8-a1f5-f66cb52faf00",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[600269, 11055, 136220, 2319, 76, "Output",ExpressionUUID->"dfc994d2-860a-4c74-b4bf-e1fc5d32c2c9",
+Cell[597211, 10976, 136220, 2319, 76, "Output",ExpressionUUID->"dfc994d2-860a-4c74-b4bf-e1fc5d32c2c9",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[736492, 13376, 229, 3, 42, "Output",ExpressionUUID->"c2d13972-7f44-4ad6-a49f-eb4eeb1a2598",
+Cell[733434, 13297, 229, 3, 42, "Output",ExpressionUUID->"c2d13972-7f44-4ad6-a49f-eb4eeb1a2598",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[736724, 13381, 229, 3, 42, "Output",ExpressionUUID->"7aee93b3-cca8-4ce9-8bcf-02c8100e0cc8",
+Cell[733666, 13302, 229, 3, 42, "Output",ExpressionUUID->"7aee93b3-cca8-4ce9-8bcf-02c8100e0cc8",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[736956, 13386, 2022, 56, 142, "Input",ExpressionUUID->"ad7fda5b-fb52-4ad1-8d3f-dceb74f45182",
+Cell[733898, 13307, 2022, 56, 142, "Input",ExpressionUUID->"ad7fda5b-fb52-4ad1-8d3f-dceb74f45182",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[738981, 13444, 10136, 208, 76, "Output",ExpressionUUID->"f53b708b-a5f4-42bc-b508-aa4b9579ed42",
+Cell[735923, 13365, 10136, 208, 76, "Output",ExpressionUUID->"f53b708b-a5f4-42bc-b508-aa4b9579ed42",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[749120, 13654, 231, 3, 42, "Output",ExpressionUUID->"a3940690-a310-4790-af1a-1759671c358b",
+Cell[746062, 13575, 231, 3, 42, "Output",ExpressionUUID->"a3940690-a310-4790-af1a-1759671c358b",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[749354, 13659, 229, 3, 42, "Output",ExpressionUUID->"6c8e2266-e28a-4605-ad58-0b7a891a57a2",
+Cell[746296, 13580, 229, 3, 42, "Output",ExpressionUUID->"6c8e2266-e28a-4605-ad58-0b7a891a57a2",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[749586, 13664, 2038, 57, 142, "Input",ExpressionUUID->"479fb483-095c-47a5-b63a-afec0a7f6185",
+Cell[746528, 13585, 2038, 57, 142, "Input",ExpressionUUID->"479fb483-095c-47a5-b63a-afec0a7f6185",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[751627, 13723, 23461, 447, 76, "Output",ExpressionUUID->"2b7841db-fe0e-41eb-94ad-32593cb93d63",
+Cell[748569, 13644, 23461, 447, 76, "Output",ExpressionUUID->"2b7841db-fe0e-41eb-94ad-32593cb93d63",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[775091, 14172, 281, 4, 42, "Output",ExpressionUUID->"59aeed5f-6fe5-4812-bd22-acc9601ded98",
+Cell[772033, 14093, 281, 4, 42, "Output",ExpressionUUID->"59aeed5f-6fe5-4812-bd22-acc9601ded98",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[775375, 14178, 279, 4, 42, "Output",ExpressionUUID->"54982e96-0c58-4656-9dbe-25b6e2cb3310",
+Cell[772317, 14099, 279, 4, 42, "Output",ExpressionUUID->"54982e96-0c58-4656-9dbe-25b6e2cb3310",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[775657, 14184, 2038, 57, 142, "Input",ExpressionUUID->"afbf4542-7cc1-4920-8238-b47d7922799b",
+Cell[772599, 14105, 2038, 57, 142, "Input",ExpressionUUID->"afbf4542-7cc1-4920-8238-b47d7922799b",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[777698, 14243, 103933, 1927, 76, "Output",ExpressionUUID->"aee6a225-0bb2-4d7e-a340-ed3de5242c89",
+Cell[774640, 14164, 103933, 1927, 76, "Output",ExpressionUUID->"aee6a225-0bb2-4d7e-a340-ed3de5242c89",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[881634, 16172, 228, 3, 42, "Output",ExpressionUUID->"3b885dd0-7bd5-48fe-bb43-3b481f8e7436",
+Cell[878576, 16093, 228, 3, 42, "Output",ExpressionUUID->"3b885dd0-7bd5-48fe-bb43-3b481f8e7436",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[881865, 16177, 230, 3, 42, "Output",ExpressionUUID->"e70961a1-ece7-4541-a465-430e3b76ac1f",
+Cell[878807, 16098, 230, 3, 42, "Output",ExpressionUUID->"e70961a1-ece7-4541-a465-430e3b76ac1f",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[882098, 16182, 1969, 55, 142, "Input",ExpressionUUID->"ab5399e2-3070-4f2a-b018-73caa2bee83c",
+Cell[879040, 16103, 1969, 55, 142, "Input",ExpressionUUID->"ab5399e2-3070-4f2a-b018-73caa2bee83c",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[884070, 16239, 71443, 1382, 76, "Output",ExpressionUUID->"16db66b8-f764-41e8-88dd-475816a0666d",
+Cell[881012, 16160, 71443, 1382, 76, "Output",ExpressionUUID->"16db66b8-f764-41e8-88dd-475816a0666d",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[955516, 17623, 229, 3, 42, "Output",ExpressionUUID->"9d4d3be7-f551-4ab8-9297-44f79d9a3dc8",
+Cell[952458, 17544, 229, 3, 42, "Output",ExpressionUUID->"9d4d3be7-f551-4ab8-9297-44f79d9a3dc8",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[955748, 17628, 229, 3, 42, "Output",ExpressionUUID->"dc85bea2-d14c-4fe0-a1a9-dc7da921497e",
+Cell[952690, 17549, 229, 3, 42, "Output",ExpressionUUID->"dc85bea2-d14c-4fe0-a1a9-dc7da921497e",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}]
 }, Open  ]]
 }, Open  ]]
