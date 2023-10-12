@@ -427,7 +427,7 @@ vectorize::usage= "vectorize[list,symbolsToVectorize,repMat] for expressions in 
 (*nb=Get[FindFile[File["FernandoDuarte/LongRunRisk/LettersAndLetterLikeForms.nb"]]];(*Get@"LettersAndLetterLikeForms.nb";*)
 letters=Cases[nb,StyleBox[s_String,"TR"]:>s,{-2}];
 *)
-letters = {"\[Alpha]","\[Beta]","\[Gamma]","\[Delta]","\[Epsilon]","\[CurlyEpsilon]","\[Zeta]","\[Eta]","\[Theta]","\[CurlyTheta]","\[Iota]","\[Kappa]","\[CurlyKappa]","\[Lambda]","\[Mu]","\[Nu]","\[Xi]","\[Omicron]","\[Pi]","\[CurlyPi]","\[Rho]","\[CurlyRho]","\[Sigma]","\[FinalSigma]","\[Tau]","\[Upsilon]","\[Phi]","\[CurlyPhi]","\[Chi]","\[Psi]","\[Omega]","\[Digamma]","\[Koppa]","\[Stigma]","\[Sampi]","\[CapitalAlpha]","\[CapitalBeta]","\[CapitalGamma]","\[CapitalDelta]","\[CapitalEpsilon]","\[CapitalZeta]","\[CapitalEta]","\[CapitalTheta]","\[CapitalIota]","\[CapitalKappa]","\[CapitalLambda]","\[CapitalMu]","\[CapitalNu]","\[CapitalXi]","\[CapitalOmicron]","\[CapitalPi]","\[CapitalRho]","\[CapitalSigma]","\[CapitalTau]","\[CapitalUpsilon]","\[CurlyCapitalUpsilon]","\[CapitalPhi]","\[CapitalChi]","\[CapitalPsi]","\[CapitalOmega]","\[CapitalDigamma]","\[CapitalKoppa]","\[CapitalStigma]","\[CapitalSampi]","\[Pi]","\[Pi]","\[Pi]","\[Pi]","\[CapitalSigma]","\[CapitalPi]","\[Epsilon]","\[Element]","\[Mu]","\[CapitalUpsilon]","\[FinalSigma]","\[Digamma]","\[Koppa]","\[Stigma]","\[Sampi]"};
+letters = Join[Alphabet["Greek"],ToUpperCase@Alphabet["Greek"],{"\[CurlyEpsilon]","\[CurlyTheta]","\[CurlyKappa]","\[CurlyPi]","\[CurlyRho]","\[FinalSigma]","\[CurlyPhi]","\[CurlyCapitalUpsilon]"}];
 letters=DeleteCases[letters,"\[Pi]"|"\[Element]"];(*reserved Symbols*)names=StringTake[ToString@FullForm@#,{4,-3}]&/@letters;
 greekToMatlab=MapThread[Symbol@#->Symbol@ToLowerCase@#2&,{letters,names}];
 
