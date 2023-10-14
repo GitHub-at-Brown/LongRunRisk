@@ -245,17 +245,17 @@ createDatabase[
 		},
 		(*shocks*)
 		shocksList = {
-			FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"](*,
+			FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"],
 			FernandoDuarte`LongRunRisk`Model`Shocks`eps["x"],
 			FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"],
 			FernandoDuarte`LongRunRisk`Model`Shocks`eps["pibar"],
 			FernandoDuarte`LongRunRisk`Model`Shocks`eps["sg"],
 			FernandoDuarte`LongRunRisk`Model`Shocks`eps["sx"],
 			FernandoDuarte`LongRunRisk`Model`Shocks`eps["sc"],
-			FernandoDuarte`LongRunRisk`Model`Shocks`eps["sp"]*)
+			FernandoDuarte`LongRunRisk`Model`Shocks`eps["sp"]
 		},
 		(*covariance with pd12lag*)
-		vars1={"dc","dd"(*,"pd","rf","excret","pdpd","dcdc","dddd","excretexcret","rfrf","dcpd","ddpd","excretpd","rfpd"*)},
+		vars1={"dc","dd","pd","rf","excret","pdpd","dcdc","dddd","excretexcret","rfrf","dcpd","ddpd","excretpd","rfpd"},
 		vars2={"pd12lag"}
 	},
 	
@@ -733,8 +733,8 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 		DownValues[Evaluate@covLong]=DeleteDuplicates[Flatten[ParallelEvaluate[DownValues[Evaluate@covLong]]]];
 		
 		(*covariance with pd12lag*)
-		(*
-		hor=ToString/@{12,24(*,36,48,60,72*)};
+		
+		hor=ToString/@{12,24,36,48,60,72};
 		vars1cov=Flatten[Outer[{StringJoin[#1,#2],StringJoin[#1,#1,#2],StringJoin[#1,"pd",#2]}&,vars1,hor],1];
 		vars1cov=Flatten@LexicographicSort@Transpose[vars1cov];
 		Do[
@@ -753,7 +753,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 			{qq,1,Length[vars2]}
 		];
 		(*retrieve from parallel kernels*)
-		DownValues[Evaluate@covLong]=DeleteDuplicates[Flatten[ParallelEvaluate[DownValues[Evaluate@covLong]]]];*)
+		DownValues[Evaluate@covLong]=DeleteDuplicates[Flatten[ParallelEvaluate[DownValues[Evaluate@covLong]]]];
 		
 		(*remove function evaluation condition in memoized DownValues of covLong*)
 		DownValues[Evaluate@covLong]=Replace[#,(\!\(\*
