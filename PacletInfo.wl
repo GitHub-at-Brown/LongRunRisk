@@ -10,6 +10,7 @@ PacletObject[
     "PublisherID" -> "FernandoDuarte",
     "Version" -> "1.0.0",
     "WolframVersion" -> "13.1+",
+    "PrimaryContext" -> "FernandoDuarte`LongRunRisk`",
     "Extensions" -> {
       {
         "Kernel",
