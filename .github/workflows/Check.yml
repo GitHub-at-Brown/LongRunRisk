@@ -17,7 +17,7 @@ jobs:
     name: Check-Test
     runs-on: ubuntu-latest
     container:
-      image: wolframresearch/wolframengine:13.0.1
+      image: wolframresearch/wolframengine:latest
       options: --user root
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
@@ -31,7 +31,7 @@ jobs:
       #   uses: WolframResearch/check-paclet@v1.11.0
       #   with:
       #     target: Submit
-      #     paclet_cicd_version: 0.34.0
+      #     paclet_cicd_version: latest
       #     definition_notebook: ./ResourceDefinition.nb
       #     resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
       - name: Install perl, ghostscript, tinytex
@@ -53,7 +53,7 @@ jobs:
         uses: WolframResearch/test-paclet@v1.11.0
         with:
           debug: "false"
-          paclet_cicd_version: 0.34.0
+          paclet_cicd_version: latest
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
