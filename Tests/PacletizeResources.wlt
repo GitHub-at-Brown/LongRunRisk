@@ -1,16 +1,14 @@
 BeginTestSection["PacletizeResources"] 
-Begin["PacletizeResources`"]
+Begin["FernandoDuarte`LongRunRisk`Tests`PacletizeResources`"]
 VerificationTest[
-	{
-		Needs @ "FernandoDuarte`LongRunRisk`";
-		True
-	}
+	Needs @ "FernandoDuarte`LongRunRisk`";
+	True
 	,
-	{True}
+	True
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20231008-U7OMIY"
+	TestID->"PacletizeResources_20231014-FRRRWF@@Tests/PacletizeResources.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -28,7 +26,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20231008-FOD064"
+	TestID->"PacletizeResources_20231014-YM8Y33@@Tests/PacletizeResources.wlt:13,1-30,2"
 ] 
 End[]
 EndTestSection[]

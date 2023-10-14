@@ -438,8 +438,8 @@ modelToTeX=<|
 	(*"Nominal-real covariance (NRC)"*)
 	"Esg"->"\\bar{\\sigma}_{g}",
 		"rhog"->"\\rho_{g}",
-		"rhogp"->"\rho_{g,\\pi}",
-		"rhogpbar"->"\rho_{g,\bar{\\pi}}",
+		"rhogp"->"\\rho_{g,\\pi}",
+		"rhogpbar"->"\\rho_{g,\\bar{\\pi}}",
 		"phig"->"\\phi_{g}",
 	(*"Stochastic volatility of long-run risk"*)
 	"Esx"->"\\bar{\\sigma}_{x}",

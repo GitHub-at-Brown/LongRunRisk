@@ -103,6 +103,72 @@ Variance ratios over horizons*)
 
 
 
+(* ::Subsection:: *)
+(*To Do*)
+
+
+(* ::Code::Initialization:: *)
+(*plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts: OptionsPattern[]] :=
+	With[
+		{
+			activateLast = {MapThread}, system = model["coeffsSolution"]["wc"]
+		},
+		With[
+			{
+				inactiveFunctions = DeleteDuplicates @ Cases[system, Inactive[fun_] :> fun, Infinity, Heads -> True],
+				alternativesActivateLast = Alternatives@@ activateLast
+			},
+			With[
+				{
+					activateFirst = Cases[inactiveFunctions, Except[alternativesActivateLast | FindRoot]]
+				},
+				With[
+					{
+						coeffSystem = Activate[Activate[system //. parameters//. model["parameters"] /. FernandoDuarte`LongRunRisk`Ewc0 -> Sequence @@ Ewc0, Alternatives @@ activateFirst], alternativesActivateLast],
+						indexToSymbol = x_[i_Integer] :> Symbol[SymbolName[x] <> IntegerString[i]],
+						solWithout0 = KeySelect[sol, Not @ MatchQ[#, x_[0]]&]
+					},
+					With[
+						{
+							eq0 = First @ Select[coeffSystem[[1, 1, 1]] /. solWithout0, Not @ FreeQ[#, _[0]]&] /. indexToSymbol // N,
+							ic0 =  First @ Select[coeffSystem[[1, 1, 2]], Not @ FreeQ[#, _[0]]&] /. indexToSymbol
+						},
+						Echo[ic0, "ic0"];
+						ResourceFunction["FindRootPlot"][Subtract @@\.10 eq0, ic0, Flatten @ {opts}]
+					](*With*)
+				](*With*)
+			](*With*)
+		](*With*)
+	](*With*) *)
+
+
+(* ::Code::Initialization:: *)
+(*opts={"MaxIterations"->100};
+initialGuess={4.35};(*{5,6}*)
+newParams = {(*FernandoDuarte`LongRunRisk`Model`Parameters`psi->1.5,FernandoDuarte`LongRunRisk`Model`Parameters`gamma->8*)}
+solWc=updateCoeffs[model,newParams,opts,"PrintResidualsNorm"->True,"initialGuess" -> <|"Ewc"->initialGuess|>]
+plotCoeffs[model,solWc,newParams,initialGuess,opts(*,PlotLegends->Automatic*)]
+plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]*)
+
+
+(* ::Code::Initialization:: *)
+(*opts={"MaxIterations"->100};
+initialGuess={4.6};(*{5,6}*)
+newParams = {(*FernandoDuarte`LongRunRisk`Model`Parameters`psi->1.5,FernandoDuarte`LongRunRisk`Model`Parameters`gamma->8*)}
+solWc=updateCoeffs[model,newParams,opts,"PrintResidualsNorm"->True,"initialGuess" -> <|"Ewc"->initialGuess|>]
+plotCoeffs[model,solWc,newParams,initialGuess,opts(*,PlotLegends->Automatic*)]
+plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]*)
+
+
+(* ::Code::Initialization:: *)
+(*opts={"MaxIterations"->100};
+initialGuess={3};
+newParams = {(*FernandoDuarte`LongRunRisk`Model`Parameters`psi->1.5,FernandoDuarte`LongRunRisk`Model`Parameters`gamma->8*)}
+solWc=updateCoeffs[model,newParams,opts,"PrintResidualsNorm"->True,"initialGuess" -> <|"Ewc"->initialGuess|>]
+plotCoeffs[model,solWc,newParams,initialGuess,opts(*,PlotLegends->Automatic*)]
+plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]*)
+
+
 (* ::Section:: *)
 (*End package*)
 
