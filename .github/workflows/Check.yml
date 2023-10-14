@@ -31,7 +31,7 @@ jobs:
       #   uses: WolframResearch/check-paclet@v1.10.2
       #   with:
       #     target: Submit
-      #     paclet_cicd_version: latest
+      #     paclet_cicd_version: 0.34.0
       #     definition_notebook: ./ResourceDefinition.nb
       #     resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
       - name: Install perl, ghostscript, tinytex
@@ -50,7 +50,7 @@ jobs:
           tlmgr list --only-installed
       - name: Test
         id: test-paclet-step
-        uses: WolframResearch/test-paclet@v1.10.2
+        uses: WolframResearch/test-paclet@v1.11.0
         with:
           target: Submit
           debug: "false"
