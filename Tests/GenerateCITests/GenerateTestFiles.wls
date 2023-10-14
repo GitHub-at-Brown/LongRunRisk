@@ -56,7 +56,7 @@ DeleteFile[testFilePath<>"temp"];
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*replaceNthRecord*)*)*)
+(*(*(*(*replaceNthRecord*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -85,7 +85,7 @@ Close /@ {readStream, writeStream}
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*countLines*)*)*)
+(*(*(*(*countLines*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -129,7 +129,7 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*tableActualVsExpeected*)*)*)
+(*(*(*(*tableActualVsExpeected*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -197,7 +197,7 @@ Protect[$Packages];
 (*Generate Tests*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Catalog`*)
 
 
@@ -361,7 +361,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`EndogenousEq`*)
 
 
@@ -591,7 +591,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ExogenousEq`*)
 
 
@@ -695,7 +695,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ProcessModels`*)
 
 
@@ -1117,7 +1117,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Shocks`*)
 
 
@@ -1395,7 +1395,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeConditionalExpectations`*)
 
 
@@ -1707,7 +1707,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -2080,7 +2080,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateEulerEq`*)
 
 
@@ -2274,7 +2274,7 @@ Protect[$Packages];
 (*ComputationalEngine`CreateMomentsDatabase`*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`SolveEulerEq`*)
 
 
@@ -2871,7 +2871,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`NiceOutput`*)
 
 
@@ -3022,7 +3022,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`TimeAggregation`*)
 
 
@@ -3466,7 +3466,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`ToNumber`*)
 
 
@@ -4219,7 +4219,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*PacletizeResources*)
 
 
