@@ -35,7 +35,32 @@ Begin["`Private`"];
 
 
 (* ::Subsection:: *)
+(*Helper functions*)
+
+
+(*functions not available before Mathematica 13*)
+If[$VersionNumber<13,
+	(*LexicographicSort*)
+	ClearAll[LexicographicSort];
+	LexicographicSort[{},_:None]:={};
+	LexicographicSort[{x_},_:None]:={x};
+	LexicographicSort[l_List]:=LexicographicSort[l,1];
+	LexicographicSort[l_List,lev_]:=With[{min=Min[Length/@l]},Composition[Flatten[#,1]&,Map[If[Length[#]==1,#,With[{smallest=LengthWhile[#,Length[#]==lev&]},Take[#,smallest]~Join~LexicographicSort[Drop[#,smallest],lev+1]]]&],SplitBy[#,Take[#,{lev,min}]&]&,SortBy[Take[#,{lev,min}]&]]@l];
+	(*ReplaceAt*)
+	ReplaceAt[expr_,rules_,part_]:=MapAt[Replace[#,rules]&,expr,part];
+	(*protect so that save does not save functions to file, which will clash with built-in definitions in version +13*)
+	Protect[ReplaceAt];
+	Protect[LexicographicSort];
+	(*ResourceFunction["ReplaceAt"]
+	LexicographicSort[list,p] is equivalent to Sort[list,LexicographicOrder[p]]*)
+];
+
+
+(* ::Subsection:: *)
 (*uncondCovLong*)
+
+
+SetAttributes[uncondVarLongExo,HoldRest]
 
 
 SetAttributes[uncondCovLongExo,HoldRest]
@@ -61,9 +86,10 @@ uncondCovLongExo[
 		groups
 	},
 	(*convert sums to lists*)
-		p1=plusToList[Expand[expression1//.toExogenous]];
-		p2=plusToList[Expand[expression2//.toExogenous]];
-			If[p1=={} || p2=={},
+	p1=plusToList[Expand[expression1//.toExogenous]];
+	p2=plusToList[Expand[expression2//.toExogenous]];
+		If[
+			p1=={} || p2=={},
 			(*if expression1 or expression2 is constant, return 0*)
 			0,
 			(*if expression1 and expression2 are not constant, compute covariance*) 
@@ -88,16 +114,11 @@ uncondCovLongExo[
 			(*collect terms that only differ by their coefficient*)
 				groups=GroupBy[collect,Last->First,Total];
 			(*compute covfun of each term*)
-
-(*\[p1,"p1"];Echo[p2,"p2"];Echo[split1,"split1"];Echo[split2,"split2"];Echo[coeff1,"coeff1"];Echo[coeff2,"coeff2"];Echo[e1,"e1"];Echo[e2,"e2"];
-Echo[perm,"perm"];Echo[times,"times"];Echo[first,"first"];Echo[rest,"rest"];
-Echo[lags,"lags"];Echo[vars,"vars"];Echo[stocks,"stocks"];Echo[collect,"collect"];Echo[groups,"groups"];Z*)
-			
 				Plus@@((covfun@@@Keys[groups])*Values[groups])
-			]
+		]
 ]
 
-SetAttributes[uncondVarLongExo,HoldRest]
+
 uncondVarLongExo[toExogenous_, expression_, covfun_]:=uncondCovLongExo[toExogenous, expression, expression, covfun]
 
 
@@ -109,7 +130,6 @@ powerToProduct[expr_, t_]:= Module[
 	{a,z},
 	Hold[expr]/. a_. * (z_^n_Integer?Positive)/;(!FreeQ[z,t] && FreeQ[a,t]):>RuleCondition@(Prepend[Table[z,n],a])/. List->Times
 ];
-
 (*powerToProduct[expr_, stateVarsNoEps_]:= Module[
 	{a,z},
 	ReplaceAll[
@@ -163,9 +183,7 @@ plusToList[expr_]:= With[
 (*split*)
 
 
-(*split[expr_,t_]:= Cases[expr, vv_[(b_.)+t, i___] :> {{b, vv, {i}}, vv[b+t, i]}, Infinity]*)
-
- split[expr_]:=With[
+split[expr_]:=With[
 	{
 		(*find all time indices, pick first one*)
 		timeIndex=First@Cases[expr,t_Symbol/;SameQ[SymbolName[t],"t"],Infinity]
@@ -179,24 +197,11 @@ plusToList[expr_]:= With[
 	]
 ];
 (*split[expr_]:= Cases[expr,v_[e_Symbol?(MatchQ[SymbolName[#], "t"]&)+b_., i___] :> {{b, v, {i}}, v[e+b, i]}, Infinity]*)
+(*split[expr_,t_]:= Cases[expr, vv_[(b_.)+t, i___] :> {{b, vv, {i}}, vv[b+t, i]}, Infinity]*)
 
 
-(*functions not available before Mathematica 13*)
-If[$VersionNumber<13,
-	(*LexicographicSort*)
-	ClearAll[LexicographicSort];
-	LexicographicSort[{},_:None]:={};
-	LexicographicSort[{x_},_:None]:={x};
-	LexicographicSort[l_List]:=LexicographicSort[l,1];
-	LexicographicSort[l_List,lev_]:=With[{min=Min[Length/@l]},Composition[Flatten[#,1]&,Map[If[Length[#]==1,#,With[{smallest=LengthWhile[#,Length[#]==lev&]},Take[#,smallest]~Join~LexicographicSort[Drop[#,smallest],lev+1]]]&],SplitBy[#,Take[#,{lev,min}]&]&,SortBy[Take[#,{lev,min}]&]]@l];
-	(*ReplaceAt*)
-	ReplaceAt[expr_,rules_,part_]:=MapAt[Replace[#,rules]&,expr,part];
-	(*protect so that save does not save functions to file, which will clash with built-in definitions in version +13*)
-	Protect[ReplaceAt];
-	Protect[LexicographicSort];
-	(*ResourceFunction["ReplaceAt"]
-	LexicographicSort[list,p] is equivalent to Sort[list,LexicographicOrder[p]]*)
-];
+(* ::Subsection:: *)
+(*createDatabase*)
 
 
 createDatabase//Options ={
