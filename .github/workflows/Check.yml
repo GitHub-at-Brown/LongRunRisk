@@ -54,7 +54,7 @@ jobs:
         with:
           target: Submit
           debug: "false"
-          paclet_cicd_version: latest
+          paclet_cicd_version: 0.34.0
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
       - name: UploadWorkflowValues
