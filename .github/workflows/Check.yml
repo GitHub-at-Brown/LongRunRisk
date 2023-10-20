@@ -46,12 +46,12 @@ jobs:
         with:
           debug: "false"
           paclet_cicd_version: latest
-      # - name: Check
-      #   id: check-paclet
-      #   uses: WolframResearch/check-paclet@v1.11.0
-      #   with:
-      #     debug: "false"
-      #     paclet_cicd_version: latest
+      - name: Check
+        id: check-paclet
+        uses: WolframResearch/check-paclet@v1.11.0
+        with:
+          debug: "false"
+          paclet_cicd_version: latest
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
