@@ -46,13 +46,10 @@ jobs:
       - name: Check
         id: check-paclet
         uses: WolframResearch/check-paclet@v1.11.0
-      # - name: UploadWorkflowValues
-      #   if: always() && env.PACLET_WORKFLOW_VALUES
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: paclet-workflow-values
-      #     path: ${{ env.PACLET_WORKFLOW_VALUES }}
-      #     if-no-files-found: ignore
-      # - name: Setup tmate session
-      #   if: ${{ failure() }}
-      #   uses: mxschmitt/action-tmate@v3
+      - name: UploadWorkflowValues
+        if: always() && env.PACLET_WORKFLOW_VALUES
+        uses: actions/upload-artifact@v3
+        with:
+          name: paclet-workflow-values
+          path: ${{ env.PACLET_WORKFLOW_VALUES }}
+          if-no-files-found: ignore
