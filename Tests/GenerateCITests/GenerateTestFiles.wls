@@ -56,7 +56,7 @@ DeleteFile[testFilePath<>"temp"];
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*replaceNthRecord*)*)*)*)
+(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -85,7 +85,7 @@ Close /@ {readStream, writeStream}
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*countLines*)*)*)*)
+(*(*(*(*(*(*countLines*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -129,7 +129,7 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*tableActualVsExpeected*)*)*)*)
+(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -193,7 +193,7 @@ Protect[$Packages];
 ]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Generate Tests*)
 
 
@@ -3466,7 +3466,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Tools`ToNumber`*)
 
 
@@ -4273,7 +4273,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Results*)
 
 
@@ -4298,11 +4298,15 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];*)
 (*PacletUninstall["Wolfram/PacletCICD"];*)
-(*PacletInstall["Wolfram/PacletCICD"->"0.35.0"];*)
+(*PacletInstall[ResourceObject["Wolfram/PacletCICD"]];*)
+(*PacletFind["Wolfram/PacletCICD"]*)
+
+
+(* ::Input:: *)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];*)
 (*Needs["Wolfram`PacletCICD`"];*)
-(*testResults=TestPaclet[pacletBaseDir,"MarkdownSummary"->False]*)
+(*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir]*)
 (*And@@Values@((#["ReportSucceeded"])&/@testResults["Result"])*)
 
 

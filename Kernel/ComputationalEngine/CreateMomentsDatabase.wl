@@ -740,12 +740,12 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 		Do[
 			Do[
 				memo=uncondCovLong[Symbol[vars1cov[[jj]]],Symbol[vars2[[qq]]],Inactive[covLong]];
-				memovec=DeleteDuplicates[Cases[Expand[memo],a_. Inactive[covLong][x__]->Inactive[covLong][x],{1}]];
+				memovec=DeleteDuplicates[Cases[Expand[memo],a_. * Inactive[covLong][x__]:>Inactive[covLong][x],{1}]];
 				ParallelMap[Activate,memovec];
 				(*retrieve from parallel kernels*)
 				DownValues[Evaluate@covLong]=DeleteDuplicates[Flatten[ParallelEvaluate[DownValues[Evaluate@covLong]]]];
 				(*remove function evaluation condition in memoized DownValues of covLong*)
-				DownValues[Evaluate@covLong]=Replace[#,(RuleDelayed[HoldPattern[Verbatim[HoldPattern][Verbatim[Condition][a__,b__]]],c__])/;(!FreeQ[HoldPattern[b],countStockVars] && FreeQ[HoldPattern[c],Module])->HoldPattern[a]:>c,{0,Infinity}]&/@DownValues[Evaluate@covLong];
+				DownValues[Evaluate@covLong]=Replace[#,(RuleDelayed[HoldPattern[Verbatim[HoldPattern][Verbatim[Condition][a__,b__]]],c__])/;(!FreeQ[HoldPattern[b],countStockVars] && FreeQ[HoldPattern[c],Module]):>HoldPattern[a]:>c,{0,Infinity}]&/@DownValues[Evaluate@covLong];
 				,
 				{jj,1,Length[vars1cov]}
 			];
