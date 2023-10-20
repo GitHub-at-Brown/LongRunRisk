@@ -18,10 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: wolframresearch/wolframengine:latest
-      options: --user root
+      options: --user root --privileged
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
-    timeout-minutes: 360
+    timeout-minutes: 20
     steps:
       - name: Checkout
         id: checkout-code-step
