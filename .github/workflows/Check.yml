@@ -26,40 +26,40 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v3
+
       - name: Install perl, ghostscript, tinytex
         run: |
           apt-get update -y
           apt-get install perl -y
           apt-get install ghostscript -y
           wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+
       - name: Add latex to path
         run: echo "$HOME/bin" >> $GITHUB_PATH
+
       - name: Install LaTeX packages for MaTeX
         run: |
           tlmgr --version
           tlmgr install latex standalone lm svn-prov
           tlmgr path add
           tlmgr list --only-installed
+
       - name: Test
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.11.0
-        with:
-          debug: "false"
-          paclet_cicd_version: latest
+
       - name: Check
         id: check-paclet
         uses: WolframResearch/check-paclet@v1.11.0
-        with:
-          debug: "false"
-          paclet_cicd_version: latest
+
       - name: UploadWorkflowValues
-        id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
         uses: actions/upload-artifact@v3
         with:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
           if-no-files-found: ignore
+          
       - name: Setup tmate session
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3
