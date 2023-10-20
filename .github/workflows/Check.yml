@@ -52,14 +52,14 @@ jobs:
       #   with:
       #     debug: "false"
       #     paclet_cicd_version: latest
-      # - name: UploadWorkflowValues
-      #   id: upload-workflow-values-step
-      #   if: always() && env.PACLET_WORKFLOW_VALUES
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: paclet-workflow-values
-      #     path: ${{ env.PACLET_WORKFLOW_VALUES }}
-      #     if-no-files-found: ignore
+      - name: UploadWorkflowValues
+        id: upload-workflow-values-step
+        if: always() && env.PACLET_WORKFLOW_VALUES
+        uses: actions/upload-artifact@v3
+        with:
+          name: paclet-workflow-values
+          path: ${{ env.PACLET_WORKFLOW_VALUES }}
+          if-no-files-found: ignore
       # - name: Setup tmate session
       #   if: ${{ failure() }}
       #   uses: mxschmitt/action-tmate@v3
