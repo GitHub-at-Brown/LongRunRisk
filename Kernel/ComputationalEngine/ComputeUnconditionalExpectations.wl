@@ -126,7 +126,7 @@ lagStateVarsProduct[model_, variablesToLag_] :=Module[
 uncondVar[x_,model_]:=uncondE[(x-uncondE[x,model])^2,model]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*uncondCov*)
 
 
@@ -152,7 +152,7 @@ createSystem::nomom = "Unconditional moments cannot be computed for state variab
 
 
 (*unconditional moments of state variables are found  by solving a system of equations*)
-createSystem[n_,model_]:=Block[{t},With[
+createSystem[n_, model_]:=Block[{t},With[
 	{
 		stateVars=DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"][t] ],x_[_]:>x],0]],
 		mapAll = Normal[Join[model["exogenousEq"],model["endogenousEq"]]]
@@ -234,6 +234,51 @@ createSystem[n_,model_]:=Block[{t},With[
 		]
 	]
 ]
+]
+
+
+solveSystem[n_Integer, model_Association, Optional[maxSolveTime_?NumberQ, 60], sys_List:{}]:=With[
+	{
+		(*create sys if not passed by user*)
+		sysLocal=If[sys==={}, createSystem[n, model], sys]
+	},
+	Join[
+		First@sysLocal,
+		TimeConstrained[
+			Flatten@(Solve@@(Rest@sysLocal)),
+			maxSolveTime,
+			sol[n, model, Rest@sysLocal]
+		]
+	]
+]
+
+
+(*base case for recursion*)
+sol[2, model_, sys_:{}] := With[
+	{
+		sysLocal=If[sys==={}, Rest@createSystem[2, model], sys]
+	},
+	Flatten@(Solve@@sysLocal)
+]
+
+(*solve for n given solution to n-1*)
+sol[n_Integer?((#>2) &), model_, sys_]:=With[
+	{
+		(*create systems with moments of state variables up to order n-1*)
+		sys1 = Rest@createSystem[n-1, model]
+	},
+	(*combine with solution to sys1*)
+	With[
+		{
+			(*create system for n-1*)
+			sol1=sol[n-1, model, sys1],
+			(*solve system of equations in sys that are not in sys1*)
+			sysNot1=Flatten@Solve[Complement[First@sys, First@sys1],Complement[Last@sys, Last@sys1]]
+			
+		},
+		(*Join[sol1, sysNot1/.sol1]*)
+		Join[sol1, sysNot1]
+	]
 ]
 
 
