@@ -297,7 +297,7 @@ processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=If[
 					1,
 						(*if theta provided without gamma or psi, abort*)
 						If[
-							MemberQ[SymbolName/@(Keys@newParameters),"theta"],
+							MemberQ[Keys[newParametersSplit][[;;,2]],"theta"],
 							Message[processNewParameters::theta];Abort[];,
 							newParametersSplit
 						],
