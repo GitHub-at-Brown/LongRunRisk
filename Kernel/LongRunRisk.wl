@@ -61,25 +61,19 @@ BeginPackage["FernandoDuarte`LongRunRisk`"]
 
 Models;
 Info;
-ToEquation;ToExogenousVars;ToStateVars;
+ToNum;ToEquation;ToExogenousVars;ToStateVars;
 UncondE; UncondCov; UncondVar; UncondCorr;
-covLongBY;covLongNRC;covLongDES;
 Ev; Var; Cov; Corr;
-ToNum;
 Growth;
 
-(*temporary public to create documentation*)
-(*toNumRules*)
+(*covLongBY;covLongNRC;covLongDES;*)
 
 
 (* ::Subsubsection:: *)
 (*Usage*)
 
 
-ToEquation::usage = "";
-ToExogenousVars::usage = "";
-ToStateVars::usage = "";
-(*other symbols automatically inherit usage messages from the package in which they were first introduced*)
+(*symbols automatically inherit usage messages from the package in which they are first introduced*)
 
 
 (*Symbol/@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`$exogenousVarsPrivate
@@ -135,65 +129,37 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 
 
 (* ::Subsection:: *)
-(*Models*)
+(*Model*)
 
 
 Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];
 
 
 (* ::Subsection:: *)
-(*Info*)
+(*ComputationalEngine*)
 
 
-(*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
-Info[models_Association] :=PacletizedResourceFunctions`SetSymbolsContext@FernandoDuarte`LongRunRisk`Tools`NiceOutput`info[models]; (*PacletizedResourceFunctions`SetSymbolsContext@Column[(FernandoDuarte`LongRunRisk`Tools`NiceOutput`info@#&)/@(Values@FernandoDuarte`LongRunRisk`Tools`NiceOutput`createEqTables[models])];*)
-Info::usage = StringReplace[Information[FernandoDuarte`LongRunRisk`Tools`NiceOutput`info,"Usage"],"info" -> "Info"];*)
+(* ::Subsubsection::Closed:: *)
+(*Conditional moments*)
 
 
-(* ::Subsection:: *)
-(*ToEquation and ToVars*)
+(*reExport[#]&/@{
+	"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"
+}*)
 
 
-(* ::Subsubsection:: *)
-(*ToEquation*)
-
-
-(*ToEquation[expr_,model_Association]:= ReplaceAll[expr, Normal@Join[model["exogenousEq"],model["endogenousEq"]] ]
-ToEquation[model_Association]:=Function[{expr}, ToEquation[expr,model]]*)
-
-(*ToEquation[expr_,model_Association, n_Integer?Positive]:= Nest[ToEquation[#,model]&,expr,n];
-ToEquation[model_Association, n_Integer?Positive]:=Function[{expr}, Nest[ToEquation[#,model]&,expr,n]];*)
-(*ReplaceAll[expr_,ToEquation[model_]]^:=ToEquation[expr,model]*)
-
-
-(* ::Subsubsection:: *)
-(*ToExogenousVars*)
-
-
-(*ToExogenousVars[expr_,model_Association]:= ReplaceRepeated[expr, Normal@model["endogenousEq"]] 
-ToExogenousVars[model_Association]:=Function[{expr}, ToExogenousVars[expr,model]]*)
-
-
-(* ::Subsubsection:: *)
-(*ToStateVars*)
-
-
-(*ToStateVars[expr_,model_Association]:= ReplaceRepeated[expr, Normal@model["toStateVars"]] 
-ToStateVars[model_Association]:=Function[{expr}, ToStateVars[expr,model]]*)
-
-
-(* ::Subsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Unconditional moments*)
 
 
-(* ::Subsubsection:: *)
+(* ::Text:: *)
 (*UncondE*)
 
 
 (*reExport[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE,FernandoDuarte`LongRunRisk`UncondE];*)
 
 
-(* ::Subsubsection:: *)
+(* ::Text:: *)
 (*UncondCov*)
 
 
@@ -217,7 +183,7 @@ ToStateVars[model_Association]:=Function[{expr}, ToStateVars[expr,model]]*)
 ](*With*)*)
 
 
-(* ::Subsubsection:: *)
+(* ::Text:: *)
 (*covLong*)
 
 
@@ -225,14 +191,14 @@ ToStateVars[model_Association]:=Function[{expr}, ToStateVars[expr,model]]*)
 Map[(Get@Get@#) &,covLongFileNames];*)
 
 
-(* ::Subsubsection:: *)
+(* ::Text:: *)
 (*UncondVar*)
 
 
 (*UncondVar[x_, model_]:=UncondCov[x,x, model];*)
 
 
-(* ::Subsubsection:: *)
+(* ::Text:: *)
 (*UncondCorr*)
 
 
@@ -240,38 +206,19 @@ Map[(Get@Get@#) &,covLongFileNames];*)
 
 
 (* ::Subsection:: *)
-(*Conditional moments*)
+(*Tools*)
 
 
-(*reExport[#]&/@{
-	"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"
-}*)
+(* ::Subsubsection::Closed:: *)
+(*NiceOutput*)
 
 
-(* ::Subsection:: *)
-(*ToNum*)
+(*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
+Info[models_Association] :=PacletizedResourceFunctions`SetSymbolsContext@FernandoDuarte`LongRunRisk`Tools`NiceOutput`info[models]; (*PacletizedResourceFunctions`SetSymbolsContext@Column[(FernandoDuarte`LongRunRisk`Tools`NiceOutput`info@#&)/@(Values@FernandoDuarte`LongRunRisk`Tools`NiceOutput`createEqTables[models])];*)
+Info::usage = StringReplace[Information[FernandoDuarte`LongRunRisk`Tools`NiceOutput`info,"Usage"],"info" -> "Info"];*)
 
 
-(*(*reExport["FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum",FernandoDuarte`LongRunRisk`ToNum];*)
-reExport[#]&/@{
-	"FernandoDuarte`LongRunRisk`Tools`ToNumber`"
-}*)
-
-
-(* ::Subsection:: *)
-(*Growth*)
-
-
-(*reExport[#]&/@{
-	"FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"
-}*)
-
-
-(* ::Subsection:: *)
-(*Plots and tables*)
-
-
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*NicePlots*)
 
 
@@ -280,13 +227,31 @@ reExport[#]&/@{
 }*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*NiceTables*)
 
 
 (*reExport[#]&/@{
 	"FernandoDuarte`LongRunRisk`Tools`NiceTables`"
 }*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*TimeAggregation*)
+
+
+(*reExport[#]&/@{
+	"FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"
+}*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*ToNumber*)
+
+
+reExport[#]&/@{
+	"FernandoDuarte`LongRunRisk`Tools`ToNumber`"
+}
 
 
 (* ::Section:: *)

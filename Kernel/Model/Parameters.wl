@@ -130,7 +130,7 @@ paramList={
 
 
 paramAssumptions = 
-	(*preferences*)delta>0 && delta<1 && psi>0 && gamma>0 && theta!=0 &&
+	(*preferences*)delta>0 && delta<1 && psi>0 && gamma>0 &&(theta<0||theta>0) &&
 	(*process for x*)rhox>-1 && rhox<1 && 
 	(*process for pi*) rhop>-1 && rhop<1 && 
 	(*process for pibar*)rhopbar>-1 && rhopbar<1 && 
