@@ -62,7 +62,8 @@ processModels[
 		i,
 		modelAssumptions,
 		(*optsSol,*)
-		maxMomentOrder
+		maxMomentOrder,
+		maxSolveTime
 	},
 	(*replace stateVars by a function t |-> stateVars[t] *)
 	models = Append[
@@ -142,14 +143,13 @@ processModels[
 
 	(*add unconditional moments of state variables*)
 	maxMomentOrder=4;
+	maxSolveTime = 20; (*try Solve for maxSolveTime seconds before switching to solveSystemRecursively*)
 	models = Append[#,
 		"uncondMomOfStateVars"-> 
-				Join[
-					First@#,
-					Flatten@(Solve@@(Rest@#))
-				]&@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`createSystem[maxMomentOrder,#]
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`solveSystem[maxMomentOrder, #, maxSolveTime]
 	]&/@models; (*leaks global t*)
-		
+Echo["uncondMomOfStateVars","Done"];
+
 	(*add expressions for some unconditional moments*)
 	models = Append[
 		#,
@@ -160,13 +160,15 @@ processModels[
 			"nombond"->Simplify@uncondE[nombond[t,m],#]
 		|>
 	]& /@ models;
+Echo["uncondE","Done"];
 
 	(*add Euler equations*)
 	models=Append[
 		#,
 		addCoeffsSystem[#]
 	]&/@models;
-	
+Echo["addCoeffsSystem","Done"];
+
 	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
 	models = Append[
 		#,
@@ -182,13 +184,15 @@ processModels[
 			"nombond" -> addCoeffsSolution[#,"nombond", opts]
 		|>
 	]& /@ models;
+Echo["addCoeffsSolution","Done"];
 
 	(*add numerical solution to coeffsSolution when using model["params"]*)
 	models = Append[
 		#,
 		"coeffsSolutionN" -> addCoeffsSolutionN[#]
 	]& /@ models;
-	
+Echo["addCoeffsSolutionN","Done"];
+		
 	(*add a list of existing Keys called Properties*)
 	models=Append[
 		#,
@@ -483,7 +487,22 @@ addCoeffsSolution[
 				,
 				(*use the closed form to make the system of equations smaller*)
 				coeffInfo=infoModel["coeffs"][ratio];(*Join[infoModel["coeffs"][ratio],If[ratio==="wc",{},infoModel["coeffs"]["wc"]]];*)
-				solvedQ=Quiet[Simplify[#,Assumptions->n>=1 && Element[n,Integers],TimeConstraint->{1,2}]&/@(system[[2;;-1]]//.coeffInfo/.dependentParameters),Simplify::gtime];
+				solvedQ=Quiet[Simplify[#,Assumptions->n>=1 && Element[n,Integers],TimeConstraint->{5,15}]&/@(system[[2;;-1]]//.coeffInfo/.dependentParameters),Simplify::gtime];
+				notSolvedQ=Not/@(BooleanQ/@solvedQ);
+				If[
+					(*if not all equations are solved*)
+					Not@(And@@(TrueQ/@solvedQ))
+					,
+					(*try again for unsolved equations by substituting out gamma*)
+					solvedQ=With[
+						{
+							solvedQgamma=Quiet[Simplify[#,Assumptions->n>=1 && Element[n,Integers],TimeConstraint->{5,15}]&/@(Pick[system[[2;;-1]],notSolvedQ]//.coeffInfo//.FernandoDuarte`LongRunRisk`Model`Parameters`gamma->(1+(-1+1/FernandoDuarte`LongRunRisk`Model`Parameters`psi) FernandoDuarte`LongRunRisk`Model`Parameters`theta)),Simplify::gtime]
+						},
+						ReplacePart[solvedQ,Thread[Position[notSolvedQ,True]->solvedQgamma]]
+					];
+					notSolvedQ=Not/@(BooleanQ/@solvedQ);
+				];
+				
 				If[
 					(*if the closed form coefficients from infoModel make some equation not hold*)
 					AnyTrue[Not/@solvedQ,TrueQ]
@@ -493,16 +512,48 @@ addCoeffsSolution[
 					solveNumericQ = True;
 					,
 					(*incorporate closed form into system of equations*)
-					(*remove equations that are already solved when plugging in closed form coefficients*)
-					notSolvedQ=Not/@(BooleanQ/@solvedQ);
-					eq=Flatten@{(First@system)//.coeffInfo,Pick[solvedQ,notSolvedQ]};
-					(*find coefficients without a closed form solution that still need to be solved for*)
-					coefficientNames=DeleteDuplicates@Cases[eq,unknowns[[1]][[0]][_Integer],{-2}];
-				] 
+					{eq,coefficientNames,coeffInfo}=With[
+						{
+							(*remove equations that are already solved when plugging in closed form coefficients*)
+							eqLocal=Flatten@{(First@system)//.coeffInfo,Pick[solvedQ,notSolvedQ]}
+						}
+						,
+						With[
+							{
+								(*find coefficients without a closed form solution that still need to be solved for*)
+								coefficientNamesLocal=DeleteDuplicates@Cases[eqLocal,unknowns[[1]][[0]][_Integer],{-2}],
+								unknownsNotSolved=Pick[Rest@unknowns,notSolvedQ]
+							},
+							 With[
+								{
+									coeffInfoLocal=Normal@KeyDrop[coeffInfo,unknownsNotSolved]
+								},
+								If[
+									(*number of eq and number of remaining unknowns not equal*)
+									Length[eqLocal]==Length[coefficientNamesLocal]
+									,
+									(*use closed form*)
+									{
+										eqLocal,
+										coefficientNamesLocal,
+										coeffInfoLocal
+									}
+									,
+									(*don't use the closed form for equations that cannot be symbollically verified to be solved*)
+									{
+										Flatten@{(First@system)//.coeffInfo,Pick[Rest@system,notSolvedQ]//.coeffInfoLocal},
+										Prepend[unknownsNotSolved, First@unknowns],
+										coeffInfoLocal
+									}
+								](*If*)
+							](*With*)
+						](*With*)
+					](*With*)
+				](*If*)
 				,
 				(*solve entire system numerically*)
 				solveNumericQ = True;
-			];
+			](*If*);
 			x = If[
 				solveNumericQ,
 				(*solve entire system numerically*)
@@ -888,7 +939,7 @@ formatStartingValues[
 
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*formatStartingValuesRest*)
 
 

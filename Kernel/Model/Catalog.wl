@@ -1667,7 +1667,7 @@ models = <|
 				phixc -> 0,
 			(*"Inflation"*)
 			mup -> 0.0033,
-				rhoppbar -> 1.0,
+				rhoppbar -> 1.05,
 				rhop -> 0,
 				phip -> 1.1,
 				xip -> 1.1,
@@ -1722,13 +1722,13 @@ models = <|
 				phispw -> 1.81*^-7,
 			(*"Real dividend growth"*)
 				(* stock 1 *)
-				mud[1] -> 0.0002,
+				mud[1] -> 0.0016,
 					rhodx[1] -> 0,
-					rhodp[1] -> 0.71,
-					phidc[1] -> 0.034,
-					phidp[1] -> 0.002,
+					rhodp[1] -> 0.2,
+					phidc[1] -> 0.0021,
+					phidp[1] ->  0.002,
 					phidsp[1] -> 0,
-					xid[1] -> 0.31,
+					xid[1] -> -0.198,
 					phids[1] -> 0,
 					phidxc[1] -> 0,
 					phidcc[1] -> 0,
@@ -1927,7 +1927,7 @@ modelsExtraInfo = <|
 		|>,
 		"initialGuess" -> <| 
 			"Ewc" -> {4.6}, 
-			"Epd" -> {{5.5},{6},{7}}
+			"Epd" -> {{4.7},{6},{7}}
 		|>
 	|>,
 (**********************************************************)
@@ -2108,7 +2108,7 @@ modelsExtraInfo = <|
 			"wc"-> With[
 				{
 					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
-					sign1 = -1,
+					sign1 = 1,
 					sign2 = -1
 				},
 				{
