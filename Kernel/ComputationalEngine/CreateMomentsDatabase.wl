@@ -27,7 +27,7 @@ uncondCovLongExo::usage = "uncondCovLong[toExogenous, expression1, expression2] 
 createDatabase::usage = "createDatabase[model_Association, covLongFilename_String] computes moments for model, memoizes the results, and stores them in covLongFilename.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Code*)
 
 
@@ -374,7 +374,8 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				covLong[x_,v,q_]:=covLong[v,x,-q];
 			,
 			{mm,1,Length[shocksList]}
-		];	
+		];
+		Echo["Computing moments of dc, pi"];
 		(*state vars, dc and pi*)
 		ParallelDo[
 			v1=varList[[kk]];
@@ -430,6 +431,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 			DistributedContexts->All
 		];
 		DownValues[Evaluate@covLong]=DeleteDuplicates[Flatten[ParallelEvaluate[DownValues[Evaluate@covLong]]]];
+		Echo["Computing moments of dd"];
 		(* dd *)
 		Do[
 			(* one stock *)
@@ -510,7 +512,8 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 			,
 			{jj,1,Length[varListdd]}
 		];
-			
+		
+		Echo["Computing moments of equations that do not depend on stocks or bonds"];
 		(* equations that do not depend on stocks or bonds *)
 		Parallelize[
 			Do[
@@ -557,7 +560,8 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 			DistributedContexts->All
 		];
 		DownValues[Evaluate@covLong]=DeleteDuplicates[Flatten[ParallelEvaluate[DownValues[Evaluate@covLong]]]];
-			
+		
+		Echo["Computing stock moments"];
 		(* stocks *)
 		Parallelize[
 			Do[
@@ -608,7 +612,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				,
 				{kk,1,Length[expandListStocks]}
 			];
-			
+			Echo["Computing bond moments"];
 			(* bonds *)
 			Do[
 				v1=expandListBond[[kk]];
@@ -666,7 +670,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 			DistributedContexts->All
 		];
 		DownValues[Evaluate@covLong]=DeleteDuplicates[Flatten[ParallelEvaluate[DownValues[Evaluate@covLong]]]];
-			
+		Echo["Computing risk-free rate moments"];	
 		(* risk free rates are yields on one-period bonds *)
 		Parallelize[
 			covLong[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`rf,q_Integer]=covLong[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bondyield,q,1];
@@ -742,7 +746,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 		DownValues[Evaluate@covLong]=DeleteDuplicates[Flatten[ParallelEvaluate[DownValues[Evaluate@covLong]]]];
 		
 		(*covariance with pd12lag*)
-		
+		Echo["Computing covariance with pd12lag"];
 		hor=ToString/@{12,24,36,48,60,72};
 		vars1cov=Flatten[Outer[{StringJoin[#1,#2],StringJoin[#1,#1,#2],StringJoin[#1,"pd",#2]}&,vars1,hor],1];
 		vars1cov=Flatten@LexicographicSort@Transpose[vars1cov];
