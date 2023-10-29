@@ -11,40 +11,48 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"]
 (*Public symbols*)
 
 
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
 wceq::usage = "wceq[t] gives the log wealth-consumption ratio at time t.";
-pdeq::usage = "pdeq[t,i] gives the log price-dividend ratio of stock i at time t.";
-bondeq::usage = "bondeq[t,m] gives the log price of a real m -month maturity discount (zero-coupon) riskless bond at time t.";
-nombondeq::usage = "nombondeq[t,m] gives the log price of a nominal m -month maturity discount (zero-coupon) riskless bond at time t.";
+pdeq::usage = "pdeq[t, i] gives the log price-dividend ratio of stock i at time t.";
+bondeq::usage = "bondeq[t, m] gives the log price of a real m -month maturity discount (zero-coupon) riskless bond at time t.";
+nombondeq::usage = "nombondeq[t, m] gives the log price of a nominal m -month maturity discount (zero-coupon) riskless bond at time t.";
 sdfeq::usage = "sdfeq[t] gives the (real) stochastic discount factor at time t.";
 nomsdfeq::usage = "nomsdfeq[t] gives the nominal stochastic discount factor at time t.";
 retceq::usage = "retceq[t] gives the return for the asset that pays consumption as dividends each period.";
-reteq::usage = "reteq[t,i] gives the return for stock i. Stock i is defined as the asset that pays dividends ddeq[i].";
+reteq::usage = "reteq[t, i] gives the return for stock i. Stock i is defined as the asset that pays dividends ddeq[i].";
 kappa1eq::usage = "kappa1eq[mu] is the Campbell-Shiller approximation constant kappa1=Exp[ mu ]/(Exp[ mu ]-1) where mu is the unconditional mean of the log of the approximated variable.";
 kappa0eq::usage = "kappa0eq[mu] is the Campbell-Shiller approximation constant kappa0=-Log[Exp[ mu ]-1]+Ewc Exp[ mu ]/(Exp[ mu ]-1) where mu is the unconditional mean of the log of the approximated variable.";
 excretceq::usage = "excretceq[t] gives the return for the asset that pays consumption as dividends each period in excess of the risk-free rate.";
-excreteq::usage = "excreteq[t,i] gives the return for stock i in excess of the risk-free rate.";
-bondyieldeq::usage = "bondyieldeq[t,m] gives the log yield of a real m -month maturity discount (zero-coupon) riskless bond at time t.";
-nombondyieldeq::usage = "nombondyieldeq[t,m] gives the log yield of a nominal m -month maturity discount (zero-coupon) riskless bond at time t.";
-bondfweq::usage = "bondfweq[t,m] gives the real log forward rate at time t for riskless loansbetween times t + m -1 and t + m."<>"\n"<>
-				  "bondfweq[t,m,h] gives the real log forward rate at time t for riskless loansbetween times t + m - h and t + m.";
-nombondfweq::usage = "nombondfweq[t,m] gives the nominal log forward rate at time t for riskless loans between times t + m - 1 and t + m."<>"\n"<>
-					 "nombondfweq[t,m,h] gives the nominal log forward rate at time t for riskless loans between times t + m - h and t + m.";
-bondreteq::usage = "bondreteq[t,m] gives the log holding period return from buying a real m -month maturity discount (zero-coupon) riskless bond at time t -1 and selling it as an (m - 1)-month maturity bond at time t."<>"\n"<>
-				   "bondreteq[t,m,h] gives the log h - period return from buying a real m -month maturity discount (zero-coupon) riskless bond at time t - h and selling it as an (m - h)-month maturity bond at time t.";
-nombondreteq::usage = "nombondreteq[t,m] gives the log holding period return from buying a nominal m -month maturity discount (zero-coupon) riskless bond at time t -1 and selling it as an (m -1)-month maturity bond at time t."<>"\n"<>
-					  "nombondreteq[t,m,h] gives the log h - period return from buying a nominal m -month maturity discount (zero-coupon) riskless bond at time t - h and selling it as an (m - h)-month maturity bond at time t.";
-bondfwspreadeq::usage = "bondfwspreadeq[t,m] gives the real log forward rate at time t for riskless loans between times t + m -1 and t + m, in excess of the one-period risk-free rate."<>"\n"<>
-						"bondfwspreadeq[t,m,h] gives the real log forward rate at time t for riskless loans between times t + m - h and t + m, in excess of the h - period risk-free rate earned by investing in an h-month maturity real discount (zero-coupon) riskless bond between times t and t + h.";
-nombondfwspreadeq::usage = "nombondfwspreadeq[t,m] gives the nominal log forward rate at time t for riskless loans between times t + m -1 and t + m, in excess of the one-period nominal risk-free rate."<>"\n"<>
-						   "nombondfwspreadeq[t,m,h] gives the nominal log forward rate at time t for riskless loans between times t + m - h and t + m, in excess of the h - period risk-free rate earned by investing in an h-month maturity nominal discount (zero-coupon) riskless bond between times t and t + h.";
-bondexcreteq::usage = "bondexcreteq[t,m] gives the log holding period excess return from buying a real m -month maturity discount (zero-coupon) riskless bond at time t -1 and selling it as an (m -1)-month maturity riskless bond at time t, in excess of the one-period risk-free rate."<>"\n"<>
-				  	"bondexcreteq[t,m,h] gives the log h - period excess return from buying a real m -month maturity discount (zero-coupon) riskless bond at time t - h and selling it as an (m - h)-month maturity riskless bond at time t, in excess of the h - period risk-free rate earned by investing in an h-month maturity real discount (zero-coupon) riskless bond between times t - h and t.";
-nombondexcreteq::usage = "nombondexcreteq[t,m] gives the log holding period excess return from buying a nominal m -month maturity discount (zero-coupon) riskless bond at time t -1 and selling it as an (m -1)-month maturity riskless bond at time t, in excess of the one-period nominal risk-free rate."<>"\n"<>
-						 "nombondexcreteq[t,m,h] gives the log h - period excess return from buying a nominal m -month maturity discount (zero-coupon) riskless bond at time t - h and selling it as an (m - h)-month maturity riskless bond at time t, in excess of the h - period risk-free rate earned by investing in an h-month maturity nominal discount (zero-coupon) riskless bond between times t - h and t.";
+excreteq::usage = "excreteq[t, i] gives the return for stock i in excess of the risk-free rate.";
+bondyieldeq::usage = "bondyieldeq[t, m] gives the log yield of a real m -month maturity discount (zero-coupon) riskless bond at time t.";
+nombondyieldeq::usage = "nombondyieldeq[t, m] gives the log yield of a nominal m -month maturity discount (zero-coupon) riskless bond at time t.";
+bondfweq::usage = "bondfweq[t, m] gives the real log forward rate at time t for riskless loansbetween times t + m -1 and t + m."<>"\n"<>
+				  "bondfweq[t, m, h] gives the real log forward rate at time t for riskless loansbetween times t + m - h and t + m.";
+nombondfweq::usage = "nombondfweq[t, m] gives the nominal log forward rate at time t for riskless loans between times t + m - 1 and t + m."<>"\n"<>
+					 "nombondfweq[t, m, h] gives the nominal log forward rate at time t for riskless loans between times t + m - h and t + m.";
+bondreteq::usage = "bondreteq[t, m] gives the log holding period return from buying a real m -month maturity discount (zero-coupon) riskless bond at time t -1 and selling it as an (m - 1)-month maturity bond at time t."<>"\n"<>
+				   "bondreteq[t, m, h] gives the log h - period return from buying a real m -month maturity discount (zero-coupon) riskless bond at time t - h and selling it as an (m - h)-month maturity bond at time t.";
+nombondreteq::usage = "nombondreteq[t, m] gives the log holding period return from buying a nominal m -month maturity discount (zero-coupon) riskless bond at time t -1 and selling it as an (m -1)-month maturity bond at time t."<>"\n"<>
+					  "nombondreteq[t, m, h] gives the log h - period return from buying a nominal m -month maturity discount (zero-coupon) riskless bond at time t - h and selling it as an (m - h)-month maturity bond at time t.";
+bondfwspreadeq::usage = "bondfwspreadeq[t, m] gives the real log forward rate at time t for riskless loans between times t + m -1 and t + m, in excess of the one-period risk-free rate."<>"\n"<>
+						"bondfwspreadeq[t, m, h] gives the real log forward rate at time t for riskless loans between times t + m - h and t + m, in excess of the h - period risk-free rate earned by investing in an h-month maturity real discount (zero-coupon) riskless bond between times t and t + h.";
+nombondfwspreadeq::usage = "nombondfwspreadeq[t, m] gives the nominal log forward rate at time t for riskless loans between times t + m -1 and t + m, in excess of the one-period nominal risk-free rate."<>"\n"<>
+						   "nombondfwspreadeq[t, m, h] gives the nominal log forward rate at time t for riskless loans between times t + m - h and t + m, in excess of the h - period risk-free rate earned by investing in an h-month maturity nominal discount (zero-coupon) riskless bond between times t and t + h.";
+bondexcreteq::usage = "bondexcreteq[t, m] gives the log holding period excess return from buying a real m -month maturity discount (zero-coupon) riskless bond at time t -1 and selling it as an (m -1)-month maturity riskless bond at time t, in excess of the one-period risk-free rate."<>"\n"<>
+				  	"bondexcreteq[t, m, h] gives the log h - period excess return from buying a real m -month maturity discount (zero-coupon) riskless bond at time t - h and selling it as an (m - h)-month maturity riskless bond at time t, in excess of the h - period risk-free rate earned by investing in an h-month maturity real discount (zero-coupon) riskless bond between times t - h and t.";
+nombondexcreteq::usage = "nombondexcreteq[t, m] gives the log holding period excess return from buying a nominal m -month maturity discount (zero-coupon) riskless bond at time t -1 and selling it as an (m -1)-month maturity riskless bond at time t, in excess of the one-period nominal risk-free rate."<>"\n"<>
+						 "nombondexcreteq[t, m, h] gives the log h - period excess return from buying a nominal m -month maturity discount (zero-coupon) riskless bond at time t - h and selling it as an (m - h)-month maturity riskless bond at time t, in excess of the h - period risk-free rate earned by investing in an h-month maturity nominal discount (zero-coupon) riskless bond between times t - h and t.";
 rfeq::usage = "rfeq[t] gives the one-period real risk-free rate at time t for loans between t and t + 1."<>"\n"<>
-			  "rfeq[t,h] gives the h - period real risk-free rate at time t for loans between t and t + h. rfeq[t,h] is the same as bondyield[t,h].";
+			  "rfeq[t, h] gives the h - period real risk-free rate at time t for loans between t and t + h. rfeq[t, h] is the same as bondyield[t, h].";
 nomrfeq::usage = "nomrfeq[t] gives the one-period nominal risk-free rate at time t for loans between t and t + 1."<>"\n"<>
-				 "nomrfeq[t,h] gives the h - period nominal risk-free rate at time t for loans between t and t + h. nomrfeq[t,h] is the same as nombondyield[t,h].";
+				 "nomrfeq[t, h] gives the h - period nominal risk-free rate at time t for loans between t and t + h. nomrfeq[t, h] is the same as nombondyield[t, h].";
+
+
+(* ::Subsubsection::Closed:: *)
+(*Shared global symbols*)
 
 
 $endogenousVars=SortBy[Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&],PositionIndex[{"wceq","pdeq","bondeq","nombondeq"}]];(*SortBy have exogenous variables in a given canonical order*)
@@ -249,7 +257,7 @@ endogEqAssumptions=
 	(*linearization constants*)kappa0[__]>0 && kappa0[_]<1 && kappa1[__]>0 && kappa1[__]<1;
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End package*)
 
 

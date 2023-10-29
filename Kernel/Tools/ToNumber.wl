@@ -12,7 +12,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`ToNumber`"]
 
 
 toNum
-processNewParameters
+processNewParameters (*make private*)
 toEquation
 toExogenousVars
 toStateVars
@@ -22,16 +22,21 @@ toStateVars
 (*Usage*)
 
 
-toNum::usage = "toNum[model] gives a list of rules to evaluate expressions numerically."<>"\n"<>
-			   "toNum[model, parameters] uses the parameters provided in the list of rules parameters."<>"\n"<>
-			   "toNum[\"Rules\", model] and toNum[\"Rules\", model, parameters] give substitution rules that can be used to evaluate expressions numerically.";
-toEquation::usage = ""
-toExogenousVars::usage = ""
-toStateVars::usage = ""
-processNewParameters::usage = "processNewParameters[newParameters,parameters] returns a validated list of rules to substitute  ";
+toNum::usage = "toNum[model] gives a pure (or \"anonymous\") function that evaluates its argument numerically using the solution to model."<>"\n"<>
+			   "toNum[expr, model] evaluates expr numerically using the solution to model."<>"\n"<>
+			   "toNum[\"Rules\", model] gives substitution rules that can be used to evaluate expressions numerically."<>"\n"<>
+			   "toNum[..., parameters] uses the parameters provided in the list of rules parameters."<>"\n"<>
+			   "toNum[..., parameters, initialGuess] provides an initial estimate for the solution of the model.";
+toEquation::usage = "toEquation[model] gives a pure (or \"anonymous\") function that re-writes its argument in terms of lagged exogenous variables and shocks of model."<>"\n"<>
+					"toEquation[expr, model] re-writes expr in terms of lagged exogenous variables and shocks of model.";
+toExogenousVars::usage = "toExogenousVars[model] gives a pure (or \"anonymous\") function that re-writes its argument in terms of the exogenous variables of model."<>"\n"<>
+						 "toExogenousVars[expr, model] re-writes its first argument in terms of the exogenous variables of model.";
+toStateVars::usage = "toStateVars[model] gives a pure (or \"anonymous\") function that re-writes its argument in terms of the state variables of model."<>"\n"<>
+					 "toStateVars[expr, model] re-writes expr in terms of the state variables of model.";
+(*processNewParameters::usage = "processNewParameters[newParameters,parameters] returns a validated list of rules to substitute  ";*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Code*)
 
 
@@ -314,7 +319,7 @@ processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=If[
 ](*If*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End package*)
 
 

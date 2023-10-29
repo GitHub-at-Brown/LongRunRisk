@@ -34,29 +34,24 @@ Begin["`Private`"]
 
 modelToTeX::usage = "Association between the Mathematica variables that represent parameters of the model and their LATEX representation";
 TeXToModel::usage = "Association of LATEX strings for parameters of the model and the name of the corresponding Mathematica variable";
-
 formatModels::usage = "formatModels[models] Re-writes an association of models as a Cell object with nice formatting
 	that can be directly pasted into a notebook. \n
 	To automatically write the output of formatModels[models] into a cell in a new notebook that can be copied and pasted,
 	run 
 		nb=CreateNotebook[];
-		modelsRaw = toCatalog[models,{\"name\",\"shortname\",\"bibRef\",\"desc\",\"stateVars\",\"parameters\"}];\[IndentingNewLine]		content=formatModels[modelsRaw];\[IndentingNewLine]		NotebookWrite[nb, content];\[IndentingNewLine]\[IndentingNewLine]		SelectionMove[nb, All, Notebook];\[IndentingNewLine]		FrontEndTokenExecute[nb, \"ClearCellOptions\"];
-	The last two lines clear all cell formatting (needed to make the cell executable for some reason).
-"
+		modelsRaw = toCatalog[models, {\"name\", \"shortname\", \"bibRef\", \"desc\", \"stateVars\", \"parameters\"}];\[IndentingNewLine]		content=formatModels[modelsRaw];\[IndentingNewLine]		NotebookWrite[nb, content];\[IndentingNewLine]\[IndentingNewLine]		SelectionMove[nb, All, Notebook];\[IndentingNewLine]		FrontEndTokenExecute[nb, \"ClearCellOptions\"];
+	The last two lines clear all cell formatting (needed to make the cell executable for some reason).";
 modelFormattingTemplate::usage = "modelFormattingTemplate[model] Re-writes model as a Cell object with nice formatting.
 	To automatically write the output of modelFormattingTemplate[model] into a cell that can be copied and pasted,
 	run 
 		nb=CreateNotebook[];
-		NotebookWrite[nb,modelFormattingTemplate[model]];
+		NotebookWrite[nb, modelFormattingTemplate[model]];
 	To write all models in Kernel/Model/Catalog.wl using the nice formatting, run
 		nb=CreateNotebook[];
-		NotebookWrite[nb,modelFormattingTemplate[models[#]]]&/@Keys[models];
-"
-
+		NotebookWrite[nb, modelFormattingTemplate[models[#]]]&/@Keys[models];";
 toCatalog::usage = "toCatalog[models, {key_1, key_2, ...}] re-writes an association of models so that each model contains only 
 	the elements with keys `keys_i` and, if `key_i` is \"stateVars\" and has head Function, 
-	replace its value `val_i` by `val_i[t]`.
-"
+	replace its value `val_i` by `val_i[t]`.";
 
 
 (* ::Subsection:: *)

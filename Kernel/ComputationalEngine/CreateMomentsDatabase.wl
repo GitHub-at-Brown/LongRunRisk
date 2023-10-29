@@ -11,14 +11,23 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDataba
 (*Public symbols*)
 
 
-uncondVarLongExo::usage = "uncondVarLong[toExogenous, expression ] computes the unconditional variance of expression using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
-					      "uncondVarLong[toExogenous, expression, covfun] uses the covariance function covfun."
+uncondVarLongExo
+uncondCovLongExo
+createDatabase
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
+uncondVarLongExo::usage = "uncondVarLong[toExogenous, expression] computes the unconditional variance of expression using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
+					      "uncondVarLong[toExogenous, expression, covfun] uses the covariance function covfun.";
 uncondCovLongExo::usage = "uncondCovLong[toExogenous, expression1, expression2] computes the unconditional covariance of expression1 and expression2 using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
 					      "uncondCovLong[toExogenous, expression1, expression2, covfun] computes the unconditional covariance of expression1 and expression2 using the covariance function covfun.";
-createDatabase::usage = "createDatabase[model_Association,covLongFilename_String]"
+createDatabase::usage = "createDatabase[model_Association, covLongFilename_String] computes moments for model, memoizes the results, and stores them in covLongFilename.";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Code*)
 
 
@@ -781,7 +790,7 @@ FullForm]\))/;(!FreeQ[HoldPattern[b],countStockVars] && FreeQ[HoldPattern[c],Mod
 ](*With*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End package*)
 
 

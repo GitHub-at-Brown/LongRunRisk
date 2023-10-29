@@ -11,10 +11,24 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditiona
 (*Public symbols*)
 
 
-uncondE::usage = "uncondE[expr,model] gives the unconditional expectation of expr for model ."; 
-uncondVar::usage = "uncondVar[expr,model] gives the unconditional variance of expr for model ."; 
-uncondCov::usage = "uncondCov[expr1,expr2,model] gives the unconditional covariance of expr1 and expr2 for model ."; 
-uncondCorr::usage = "uncondCorr[expr1,expr2,model] gives the unconditional correlation of expr1 and expr2 for model ."; 
+uncondE
+uncondVar
+uncondCov
+uncondCorr
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
+uncondE::usage = "uncondE[expr, model] gives the unconditional expectation of expr for model."; 
+uncondVar::usage = "uncondVar[expr, model] gives the unconditional variance of expr for model."; 
+uncondCov::usage = "uncondCov[expr1, expr2, model] gives the unconditional covariance of expr1 and expr2 for model."; 
+uncondCorr::usage = "uncondCorr[expr1, expr2, model] gives the unconditional correlation of expr1 and expr2 for model."; 
+
+
+(* ::Section:: *)
+(*Code*)
 
 
 Begin["`Private`"];

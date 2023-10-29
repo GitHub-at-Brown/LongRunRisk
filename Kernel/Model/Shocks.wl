@@ -11,15 +11,23 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Shocks`"]
 (*Public symbols*)
 
 
-rulesE::usage = "rulesE[t] defines the distribution of exogenous shocks by giving replacement rules that compute the unconditional expectation of products of powers of exogenous shocks."
-eps::usage = "Exogenous shocks."
+rulesE
+eps
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
+rulesE::usage = "rulesE[t] defines the distribution of exogenous shocks by giving replacement rules that compute the unconditional expectation of products of powers of exogenous shocks.";
+eps::usage = "Exogenous shocks.";
 
 
 (*globals to share across packages*)
 $shocks=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Code*)
 
 
@@ -72,7 +80,7 @@ rulesE[t_]:=With[
 SetAttributes[$shocks,NHoldAll]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End package*)
 
 

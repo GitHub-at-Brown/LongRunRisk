@@ -11,8 +11,18 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"];
 (*Public symbols*)
 
 
-eulereq::usage = "eulereq[x[t], s, model] or eulereq[x[t,i], s, model] give the Euler equation for an asset with real return x[t] or x[t, i] conditional on time s for model."
-nomeulereq::usage = "nomeulereq[x[t], s, model] or nomeulereq[x[t,i], s, model] give the Euler equation for an asset with nominal return x[t] or x[t, i] conditional on time s for model."
+eulereq
+nomeulereq
+findEulerEqConstants
+findBondRecursion
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
+eulereq::usage = "eulereq[x[t], s, model] or eulereq[x[t,i], s, model] give the Euler equation for an asset with real return x[t] or x[t, i] conditional on time s for model.";
+nomeulereq::usage = "nomeulereq[x[t], s, model] or nomeulereq[x[t,i], s, model] give the Euler equation for an asset with nominal return x[t] or x[t, i] conditional on time s for model.";
 findEulerEqConstants::usage = "findEulerEqConstants[x[t], model] or findEulerEqConstants[x[t,i], model] gives a system of equations whose unknowns are the coefficients in front of the state variables for the wealth-consumption or price-dividend ratios, where x[t] is the real return on the wealth portfolio (for the wealth-consumption ratio) and x[t,i] is the real return on stock i for the price-dividend ratio."<>"\n"<>
 							  "findEulerEqConstants[x[t], model, True] or findEulerEqConstants[x[t,i], model, True] assume x[t] or x[t,i] are nominal returns.";
 findBondRecursion::usage = "findBondRecursion[t, n, model] finds the recursions satisfied by the coefficients in front of the state variables for a bond price with maturity n at time t for model."; 

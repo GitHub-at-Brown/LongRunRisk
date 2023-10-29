@@ -18,7 +18,7 @@ yieldCurve
 (*Usage*)
 
 
-yieldCurve::usage = "real/nom"
+yieldCurve::usage = "real/nom";
 
 
 (* ::Section:: *)
@@ -107,7 +107,6 @@ Variance ratios over horizons*)
 (*To Do*)
 
 
-(* ::Code::Initialization:: *)
 (*plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts: OptionsPattern[]] :=
 	With[
 		{
@@ -142,7 +141,6 @@ Variance ratios over horizons*)
 	](*With*) *)
 
 
-(* ::Code::Initialization:: *)
 (*opts={"MaxIterations"->100};
 initialGuess={4.35};(*{5,6}*)
 newParams = {(*FernandoDuarte`LongRunRisk`Model`Parameters`psi->1.5,FernandoDuarte`LongRunRisk`Model`Parameters`gamma->8*)}
@@ -151,7 +149,6 @@ plotCoeffs[model,solWc,newParams,initialGuess,opts(*,PlotLegends->Automatic*)]
 plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]*)
 
 
-(* ::Code::Initialization:: *)
 (*opts={"MaxIterations"->100};
 initialGuess={4.6};(*{5,6}*)
 newParams = {(*FernandoDuarte`LongRunRisk`Model`Parameters`psi->1.5,FernandoDuarte`LongRunRisk`Model`Parameters`gamma->8*)}
@@ -160,7 +157,6 @@ plotCoeffs[model,solWc,newParams,initialGuess,opts(*,PlotLegends->Automatic*)]
 plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]*)
 
 
-(* ::Code::Initialization:: *)
 (*opts={"MaxIterations"->100};
 initialGuess={3};
 newParams = {(*FernandoDuarte`LongRunRisk`Model`Parameters`psi->1.5,FernandoDuarte`LongRunRisk`Model`Parameters`gamma->8*)}

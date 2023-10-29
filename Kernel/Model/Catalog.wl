@@ -11,6 +11,14 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"]
 (*Public symbols*)
 
 
+models
+modelsExtraInfo
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
 models::usage= "Association with the definition and properties of models.";
 modelsExtraInfo::usage= "Additional optional information about model solution, constraints, initial guesses for numerical solvers.";
 

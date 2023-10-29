@@ -11,6 +11,10 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 (*Public symbols*)
 
 
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
 (*preferences*)
 	delta::usage = "Discount factor.";
 	psi::usage = "Elasticity of intertemporal substitution.";
@@ -95,11 +99,15 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 	taugd::usage = "Correlation between shocks to consumption growth and dividend growth.";
 
 
+(* ::Subsubsection:: *)
+(*Shared global symbols*)
+
+
 (*globals to share across packages*)
 $parameters=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Code*)
 
 
@@ -140,7 +148,7 @@ paramAssumptions =
 	(*process for sp*)vp>-1 && vp<1 && Esp>=0 && phispw>=0;
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End package*)
 
 

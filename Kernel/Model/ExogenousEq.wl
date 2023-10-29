@@ -11,6 +11,10 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"]
 (*Public symbols*)
 
 
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
 (*public symbols declared here that end in "eq" define exogenous variables*)
 xeq::usage = "xeq[t] gives the exogenous dynamics of long-run risk.";
 pieq::usage = "pieq[t] gives the exogenous dynamics of inflation.";
@@ -20,7 +24,11 @@ sgeq::usage = "sgeq[t] gives the exogenous dynamics of the nominal-real covarian
 sxeq::usage = "sxeq[t] gives the exogenous dynamics of stochastic volatility of long-run risk.";
 sceq::usage = "sceq[t] gives the exogenous dynamics of stochastic volatility of real consumption growth.";
 speq::usage = "speq[t] gives the exogenous dynamics of long-run risk stochastic volatility of inflation.";
-ddeq::usage = "ddeq[t,i] gives the exogenous dynamics of real dividend growth for stock i.";
+ddeq::usage = "ddeq[t, i] gives the exogenous dynamics of real dividend growth for stock i.";
+
+
+(* ::Subsubsection:: *)
+(*Shared global symbols*)
 
 
 (*globals to share across packages*)
@@ -29,7 +37,7 @@ $exogenousVarsStocks={"ddeq"};
 $exogenousVarsNoStocks=SortBy[Complement[$exogenousVars,$exogenousVarsStocks],PositionIndex[$exogenousVars]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Code*)
 
 
@@ -208,7 +216,7 @@ ddeq[t_,i_]:=
 	phidpd[i] Sqrt[sp[t-1]+Esp^2] eps["dd"][t,i]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End package*)
 
 

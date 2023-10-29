@@ -18,10 +18,11 @@ processModels
 (*Usage*)
 
 
-processModels::usage = "";
+processModels::usage = "processModels[modelsCatalog] adds convenience tools to solve and work with each model in modelsCatalog."<>"\n"<>
+					   "processModels[modelsCatalog, modelsExtraInfo] uses modelsExtraInfo to pre-solve parts of the model and to provide bounds or initial estimates for parts of the model that are not pre-solved.";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Code*)
 
 
@@ -1031,7 +1032,7 @@ addCoeffsSolutionN[model_]:=With[
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End package*)
 
 

@@ -11,9 +11,16 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 (*Public symbols*)
 
 
-updateCoeffs::usage = "updateCoeffs[model] gives a list of rules to evaluate expressions numerically."<>"\n"<>
-			          "updateCoeffs[model, newParameters] uses the parameters provided in the list of rules parameters."<>"\n"<>
-			          "updateCoeffs[model, newParameters, guessCoeffsSolution] uses the parameters provided in the list of rules parameters."
+updateCoeffs
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
+updateCoeffs::usage = "updateCoeffs[model] solves for the coefficients of the wealth-consumption ratio, price-dividend ratio, real bonds, and nominal bonds, and returns a list of rules to evaluate the coefficients numerically."<>"\n"<>
+			          "updateCoeffs[model, newParameters] uses the parameters in the list of rules newParameters instead of the ones specified in model."<>"\n"<>
+			          "updateCoeffs[model, newParameters, guessCoeffsSolution] uses initial solution estimates in guessCoeffsSolution.";
 
 
 (* ::Section:: *)
@@ -441,7 +448,7 @@ updateCoeffs[args__]:=Module[
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End package*)
 
 
