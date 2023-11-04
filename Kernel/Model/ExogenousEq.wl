@@ -37,7 +37,7 @@ $exogenousVarsStocks={"ddeq"};
 $exogenousVarsNoStocks=SortBy[Complement[$exogenousVars,$exogenousVarsStocks],PositionIndex[$exogenousVars]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Code*)
 
 
@@ -83,7 +83,7 @@ Function[sym,
 
 
 (*make index variables be maintained as exact integers, rather than being converted by N to approximate numbers*)
-SetAttributes[$exogenousVarsPrivate,NHoldAll]
+SetAttributes[$exogenousVarsPrivate, NHoldAll]
 
 
 (* ::Subsection:: *)
@@ -216,7 +216,7 @@ ddeq[t_,i_]:=
 	phidpd[i] Sqrt[sp[t-1]+Esp^2] eps["dd"][t,i]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End package*)
 
 

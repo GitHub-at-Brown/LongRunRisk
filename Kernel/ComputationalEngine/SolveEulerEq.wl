@@ -37,6 +37,10 @@ Begin["`Private`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 
+Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
+$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
+
 
 (* ::Subsection:: *)
 (*updateCoeffsSol*)

@@ -58,16 +58,16 @@ toCatalog::usage = "toCatalog[models, {key_1, key_2, ...}] re-writes an associat
 (*Load packages*)
 
 
-<<FernandoDuarte`LongRunRisk`Model`Parameters`;
-<<FernandoDuarte`LongRunRisk`Model`Shocks`;
-<<FernandoDuarte`LongRunRisk`Model`ExogenousEq`;
+Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
+Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 $ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
-<<FernandoDuarte`LongRunRisk`Model`Catalog`;
-<<FernandoDuarte`LongRunRisk`Model`EndogenousEq`;
-<<FernandoDuarte`LongRunRisk`Model`ProcessModels`;
-<<FernandoDuarte`LongRunRisk`Tools`WriteToMatlab`;
-<<PacletizedResourceFunctions`;
-<<MaTeX`;
+Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`WriteToMatlab`"];
+Needs["PacletizedResourceFunctions`"];
+Needs["MaTeX`"];
 
 
 (* ::Subsection:: *)

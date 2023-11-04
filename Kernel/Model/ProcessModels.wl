@@ -22,7 +22,7 @@ processModels::usage = "processModels[modelsCatalog] adds convenience tools to s
 					   "processModels[modelsCatalog, modelsExtraInfo] uses modelsExtraInfo to pre-solve parts of the model and to provide bounds or initial estimates for parts of the model that are not pre-solved.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Code*)
 
 
@@ -41,6 +41,9 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpect
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+
+$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
+$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
 
 
 (* ::Subsection:: *)

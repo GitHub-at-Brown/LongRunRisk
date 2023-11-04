@@ -264,7 +264,7 @@ createDatabase[
 			FernandoDuarte`LongRunRisk`Model`Shocks`eps["sp"]
 		},
 		(*covariance with pd12lag*)
-		vars1={"dc","dd","pd","rf","excret","pdpd","dcdc","dddd","excretexcret","rfrf","dcpd","ddpd","excretpd","rfpd"},
+		vars1={"dc","dd","pd"(*,"rf","excret","pdpd","dcdc","dddd","excretexcret","rfrf","dcpd","ddpd","excretpd","rfpd"*)},
 		vars2={"pd12lag"}
 	},
 	
@@ -745,9 +745,32 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 		];
 		DownValues[Evaluate@covLong]=DeleteDuplicates[Flatten[ParallelEvaluate[DownValues[Evaluate@covLong]]]];
 		
+		(*********************************************)
+
+		(*retrieve from parallel kernels*)
+		(*remove function evaluation condition in memoized DownValues of covLong*)
+		DownValues[Evaluate@covLong]=Replace[#,(\!\(\*
+TagBox[
+StyleBox[
+RowBox[{"RuleDelayed", "[", 
+RowBox[{
+RowBox[{"HoldPattern", "[", 
+RowBox[{
+RowBox[{"Verbatim", "[", "HoldPattern", "]"}], "[", 
+RowBox[{
+RowBox[{"Verbatim", "[", "Condition", "]"}], "[", 
+RowBox[{"a__", ",", "b__"}], "]"}], "]"}], "]"}], ",", "c__"}], "]"}],
+ShowSpecialCharacters->False,
+ShowStringCharacters->True,
+NumberMarks->True],
+FullForm]\))/;(!FreeQ[HoldPattern[b],countStockVars] && FreeQ[HoldPattern[c],Module]):>(RuleDelayed[HoldPattern[a],c]),{0,Infinity}]&/@DownValues[Evaluate@covLong];
+		dataCovLong=ResourceFunction["DefinitionData"][covLong];
+		Put[dataCovLong,covLongFilename];
+
+		(*********************************************)
 		(*covariance with pd12lag*)
 		Echo["Computing covariance with pd12lag"];
-		hor=ToString/@{12,24,36,48,60,72};
+		hor=ToString/@{12(*,24,36,48,60,72*)};
 		vars1cov=Flatten[Outer[{StringJoin[#1,#2],StringJoin[#1,#1,#2],StringJoin[#1,"pd",#2]}&,vars1,hor],1];
 		vars1cov=Flatten@LexicographicSort@Transpose[vars1cov];
 		Do[

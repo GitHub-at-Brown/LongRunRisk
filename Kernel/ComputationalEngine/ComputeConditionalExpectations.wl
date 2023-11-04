@@ -42,6 +42,7 @@ Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+(*$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];*)
 
 
 (* ::Subsection:: *)
@@ -57,7 +58,7 @@ ev[expr_,conditionalTime_,model_]:=With[
 	{
 		assignParam=model["assignParam"],
 		assignParamStocks=model["assignParamStocks"],
-		rulesEfun = t |-> FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t]		
+		rulesEfun = t |-> FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[t]
 	},
 	Module[{rulesE},
 		rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;

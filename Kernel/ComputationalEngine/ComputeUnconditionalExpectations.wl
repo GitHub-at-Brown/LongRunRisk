@@ -38,7 +38,8 @@ Begin["`Private`"];
 (*Package dependencies*)
 
 
-Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"->"cond`"]
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"->"cond`"];
+$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 
 
 (* ::Subsection:: *)
@@ -101,7 +102,7 @@ evNoEpsStateVarsProduct[expr_,model_,variablesToLag_]:= Module[
 (*evNoEps*)
 
 
-evNoEps[model_, variablesToLag_] :=Module[
+evNoEps[model_, variablesToLag_] := Module[
 	{e, i, r, M, q, x, t, j, p, rest}
 	,
 	rest_. * (
@@ -133,7 +134,7 @@ lagStateVarsProduct[model_, variablesToLag_] :=Module[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*uncondVar*)
 
 
@@ -147,7 +148,7 @@ uncondVar[x_,model_]:=uncondE[(x-uncondE[x,model])^2,model]
 uncondCov[x_,y_,model_]:=uncondE[(x-uncondE[x,model])(y-uncondE[y,model]),model]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*uncondCorr*)
 
 
