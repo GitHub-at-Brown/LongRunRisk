@@ -1,7 +1,7 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-numKernels=24;
+numKernels=46;
 Unprotect[$ProcessorCount];$ProcessorCount=numKernels;
 CloseKernels[];LaunchKernels[numKernels];Kernels[];
 
