@@ -79,24 +79,21 @@ toNumRules[
 	model_Association,
 	Longest[newParameters : {(_Rule)...} : {}, 1],
 	Longest[guessCoeffsSolution_List : {}, 2],
-	opts : OptionsPattern[{updateCoeffsSol, checks, FindRoot, RecurrenceTable}]
+	opts : OptionsPattern[{updateCoeffs}]
 ]:=With[
 	{
 		params = model["params"],
 		numStocks = model["numStocks"],
 		uncondEwc = model["ratioUncondE"]["wc"],
 		uncondEpd = model["ratioUncondE"]["pd"],
-		optsUpdateCoeffsSol = Sequence@@Flatten@{
-			FilterRules[Flatten@{opts},Flatten[Options/@{updateCoeffsSol, checks, FindRoot}]]
-		},
-		optsUpdateCoeffsRecurrenceTable = Sequence@@Flatten@{
-			FilterRules[Flatten@{opts},Flatten[Options/@{RecurrenceTable}]]
+		optsUpdateCoeffs = Sequence@@Flatten@{
+			FilterRules[Flatten@{opts},Flatten[Options/@{updateCoeffs}]]
 		}
 	},
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 	With[{newParams=processNewParameters[newParameters,params]},
 		With[{allParams=Normal@Join[Association@params,Association@newParams]},
-			With[{sol=updateCoeffs[model,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,optsUpdateCoeffsSol,optsUpdateCoeffsRecurrenceTable]},
+			With[{sol=updateCoeffs[model,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,optsUpdateCoeffs]},
 				Join[
 					sol,
 					allParams,
@@ -234,13 +231,30 @@ moms[fun_, expr_, model_] :=
 (*modelEval*)
 
 
-modelEval::usage = "modelEval[expr, model] evaluates all the moments in expr using model.
+modelEval::usage = "modelEval[expr, model] evaluates moments in expr using model.
 	For exmaple,
 		modelEval[\[IndentingNewLine]			uncondE[dc[t]]+uncondCov[x[t],x[t+1]]+cov[dc[t+1],dc[t+2],t],\[IndentingNewLine]			model\[IndentingNewLine]		]\[IndentingNewLine]	gives the same as\[IndentingNewLine]		uncondE[dc[t],model]+uncondCov[x[t],x[t+1],model]+cov[dc[t+1],dc[t+2],t,model]
 "
 
 
-modelEval[expr_, model_] := Fold[ReverseApplied[moms[#1, #2, model]&], expr, {uncondE, uncondVar,uncondCov, uncondCorr, ev, var, cov, corr}];
+modelEval[expr_, model_] := Fold[
+	ReverseApplied[moms[#1, #2, model]&]
+	,
+	expr
+	,
+	{
+		uncondE, uncondVar,uncondCov,
+		uncondCorr, ev, var, cov, corr,
+		FernandoDuarte`LongRunRisk`UncondE,
+		FernandoDuarte`LongRunRisk`UncondVar,
+		FernandoDuarte`LongRunRisk`UncondCov,
+		FernandoDuarte`LongRunRisk`UncondCorr,
+		FernandoDuarte`LongRunRisk`Ev,
+		FernandoDuarte`LongRunRisk`Var,
+		FernandoDuarte`LongRunRisk`Cov,
+		FernandoDuarte`LongRunRisk`Corr
+	}
+];
 
 
 (* ::Subsection:: *)
