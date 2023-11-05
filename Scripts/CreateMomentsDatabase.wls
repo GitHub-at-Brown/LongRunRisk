@@ -1,7 +1,6 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-(* ::Code::Initialization:: *)
 numKernels=24;
 Unprotect[$ProcessorCount];$ProcessorCount=numKernels;
 CloseKernels[];LaunchKernels[numKernels];Kernels[];
@@ -24,7 +23,7 @@ createDatabase[
 	fileName
 ];
 ,
-{key,{"DES"}(*Keys@FernandoDuarte`LongRunRisk`Models*)}
+{key,{"NRCStochVol"}(*Keys@FernandoDuarte`LongRunRisk`Models*)}
 ];
 ];
 Echo[out,"out"];

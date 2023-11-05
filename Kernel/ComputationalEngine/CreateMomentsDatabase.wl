@@ -215,7 +215,8 @@ split[expr_]:=With[
 
 createDatabase//Options ={
 	(*"numParallelProcessors" -> 4,*)
-	"maxMomentsLagsToCreate" -> 4
+	"maxMomentsLagsToCreate" -> 4,
+	"startSequenceAtLag" -> 3
 }
 
 
@@ -229,6 +230,7 @@ createDatabase[
 		toExogenous = Normal@model["endogenousEq"],
 		(*nproc=OptionValue["numParallelProcessors"],*)
 		maxLag=OptionValue["maxMomentsLagsToCreate"],
+		seqStart=OptionValue["startSequenceAtLag"],
 		stateVars=DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"][t] ],x_[_]:>x],0]],
 		(* dd *)
 		varListdd={FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd},
@@ -381,28 +383,36 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 			v1=varList[[kk]];
 			With[
 				{
-					tempNeg=Table[{T,uncondCov[v1[t],v1[t+T], model  ]},{T,-maxLag-1,-2}],
-					tempPos=Table[{T,uncondCov[v1[t],v1[t+T]  , model ]},{T,2,maxLag+1}]
+					tempNeg=Table[{T,uncondCov[v1[t],v1[t+T], model ]},{T, -maxLag-1, -seqStart}],
+					tempPos=Table[{T,uncondCov[v1[t],v1[t+T], model ]},{T, seqStart, maxLag+1}]
 				},
-				covLong[v1,q_/;q < -1]=FindSequenceFunction[tempNeg,q];
-				covLong[v1,-1]=uncondCov[v1[t],v1[t-1], model];
-				covLong[v1,0]=uncondVar[v1[t], model];
-				covLong[v1,1]=uncondCov[v1[t],v1[t+1], model];
-				covLong[v1,q_/;q > 1]=FindSequenceFunction[tempPos,q];
+				covLong[v1, q_/;q <= (-seqStart)]=FindSequenceFunction[tempNeg, q];
+				covLong[v1, 0]=uncondVar[v1[t], model];
+				covLong[v1, q_/;q >= seqStart]=FindSequenceFunction[tempPos,q];
+				Do[
+					covLong[v1, -qInd]=uncondCov[v1[t],v1[t-qInd], model];
+					covLong[v1, qInd]=uncondCov[v1[t],v1[t+qInd], model];
+					,
+					{qInd, seqStart-1}
+				];
 				covLong[v1,v1,q_]=covLong[v1,q];
 			];
 			Do[
 				v2=varList[[qq]];
 				With[
 					{
-						tempNeg=Table[{T,uncondCov[v1[t],v2[t+T], model]},{T,-maxLag-1,-2}],
-						tempPos=Table[{T,uncondCov[v1[t],v2[t+T], model]},{T,2,maxLag+1}]
+						tempNeg=Table[{T,uncondCov[v1[t],v2[t+T], model]},{T,-maxLag-1,-seqStart}],
+						tempPos=Table[{T,uncondCov[v1[t],v2[t+T], model]},{T,seqStart,maxLag+1}]
 					},
-					covLong[v1,v2,q_/;q < -1]=FindSequenceFunction[tempNeg,q];
-					covLong[v1,v2,-1]=uncondCov[v1[t],v2[t-1], model];
+					covLong[v1,v2,q_/;q <= (-seqStart)]=FindSequenceFunction[tempNeg,q];
 					covLong[v1,v2,0]=uncondCov[v1[t],v2[t], model];
-					covLong[v1,v2,1]=uncondCov[v1[t],v2[t+1], model];
-					covLong[v1,v2,q_/;q > 1]=FindSequenceFunction[tempPos,q];
+					covLong[v1,v2,q_/;q >= seqStart]=FindSequenceFunction[tempPos,q];
+					Do[
+						covLong[v1,v2,-qInd]=uncondCov[v1[t],v2[t-qInd], model];
+						covLong[v1,v2,qInd]=uncondCov[v1[t],v2[t+qInd], model];
+						,
+						{qInd, seqStart-1}
+					];
 					covLong[v2,v1,q_]=covLong[v1,v2,-q];
 				];
 				(*shocks*)
@@ -410,13 +420,16 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					v3=shocksList[[mm]];
 					With[
 						{
-							tempPos=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,3,maxLag+2}]
+							tempPos=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,seqStart+1,maxLag+2}]
 						},
 						covLong[v1,v3,q_/;q < 0]=0;
 						covLong[v1,v3,0]=uncondCov[v1[t],v3[t], model];
-						covLong[v1,v3,1]=uncondCov[v1[t],v3[t+1], model];
-						covLong[v1,v3,2]=uncondCov[v1[t],v3[t+2], model];
-						covLong[v1,v3,q_/;q > 2]=FindSequenceFunction[tempPos,q];
+						covLong[v1,v3,q_/;q > seqStart]=FindSequenceFunction[tempPos,q];
+						Do[
+							covLong[v1,v3,qInd]=uncondCov[v1[t],v3[t+qInd], model];
+							,
+							{qInd, seqStart}
+						];
 						(*covLong[v3,v1,q_]=covLong[v1,v3,-q];*)
 					];
 					,
@@ -441,16 +454,17 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					tempNeg,
 					tempPos
 				},
-				tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i] , model ]},{T,-maxLag-2,-3}];
-				tempPos[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i], model]},{T,3,maxLag+2}];
-				covLong[v1,q_/;q < -1,i_]=FindSequenceFunction[tempNeg[i],q];
-				covLong[v1,-2,i_]=uncondCov[v1[t,i],v1[t-2,i], model];
-				covLong[v1,-1,i_]=uncondCov[v1[t,i],v1[t-1,i], model];
+				tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i] , model ]},{T,-maxLag-2,-seqStart-1}];
+				tempPos[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i], model]},{T,seqStart+1,maxLag+2}];
+				covLong[v1,q_/;q < (-seqStart),i_]=FindSequenceFunction[tempNeg[i],q];
 				covLong[v1,0,i_]=uncondVar[v1[t,i], model];
-				covLong[v1,1,i_]=uncondCov[v1[t,i],v1[t+1,i], model];
-				covLong[v1,2,i_]=uncondCov[v1[t,i],v1[t+2,i], model];
-				covLong[v1,q_/;q > 1,i_]=FindSequenceFunction[tempPos[i],q];
-				
+				covLong[v1,q_/;q > seqStart,i_]=FindSequenceFunction[tempPos[i],q];
+				Do[
+					covLong[v1,-qInd,i_]=uncondCov[v1[t,i],v1[t-qInd,i], model];
+					covLong[v1,qInd,i_]=uncondCov[v1[t,i],v1[t+qInd,i], model];
+					,
+					{qInd, seqStart}
+				];
 				covLong[v1,q_,i_,i_]=covLong[v1,q,i];
 				covLong[v1,v1,q_,i_]=covLong[v1,q,i];
 				covLong[v1,v1,q_,i_,i_]=covLong[v1,q,i];
@@ -461,13 +475,17 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					tempNeg,
 					tempPos
 				},
-				tempNeg[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j], model   ]},{T,-maxLag-1,-2}];
-				tempPos[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j], model  ]},{T,2,maxLag+1}];
-				covLong[v1,q_/;q < -1,i_,j_]/;Not[MatchQ[i,j]]=FindSequenceFunction[tempNeg[i,j],q];
-				covLong[v1,-1,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t-1,j], model];
+				tempNeg[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j], model   ]},{T,-maxLag-1,-seqStart}];
+				tempPos[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j], model  ]},{T,seqStart,maxLag+1}];
+				covLong[v1,q_/;q <= (-seqStart),i_,j_]/;Not[MatchQ[i,j]]=FindSequenceFunction[tempNeg[i,j],q];
 				covLong[v1,0,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t,j], model];
-				covLong[v1,1,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t+1,j], model];
-				covLong[v1,q_/;q > 1,i_,j_]/;Not[MatchQ[i,j]]=FindSequenceFunction[tempPos[i,j],q];
+				covLong[v1,q_/;q >= seqStart,i_,j_]/;Not[MatchQ[i,j]]=FindSequenceFunction[tempPos[i,j],q];
+				Do[
+					covLong[v1,-qInd,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t-qInd,j], model];
+					covLong[v1,qInd,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t+qInd,j], model];
+					,
+					{qInd, seqStart-1}
+				];
 				covLong[v1,v1,q_,i_,j_]/;Not[MatchQ[i,j]]=covLong[v1,q,i,j];
 			];
 			(*shocks*)
@@ -475,13 +493,16 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				v3=shocksList[[mm]];
 				With[
 					{
-						tempPos=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,3,maxLag+2}]
+						tempPos=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,seqStart+1,maxLag+2}]
 					},
 					covLong[v1,v3,q_/;q < 0]=0;
 					covLong[v1,v3,0,i_]=uncondCov[v1[t,i],v3[t], model];
-					covLong[v1,v3,1,i_]=uncondCov[v1[t,i],v3[t+1], model];
-					covLong[v1,v3,2,i_]=uncondCov[v1[t,i],v3[t+2], model];
-					covLong[v1,v3,q_/;q > 2,i_]=FindSequenceFunction[tempPos,q];
+					covLong[v1,v3,q_/;q > seqStart,i_]=FindSequenceFunction[tempPos,q];
+					Do[
+						covLong[v1,v3,qInd,i_]=uncondCov[v1[t,i],v3[t+qInd], model];
+						,
+						{qInd, seqStart}
+					];
 					(*covLong[v3,v1,q_]=covLong[v1,v3,-q];*)
 				];
 				,
@@ -494,13 +515,17 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 						tempNeg,
 						tempPos
 					},
-					tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T], model]},{T,-maxLag-1,-2}];
-					tempPos[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T], model]},{T,2,maxLag+1}];
-					covLong[v1,v2,q_/;q < -1,i_]=FindSequenceFunction[tempNeg[i],q];
-					covLong[v1,v2,-1,i_]=uncondCov[v1[t,i],v2[t-1], model];
+					tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T], model]},{T,-maxLag-1,-seqStart}];
+					tempPos[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T], model]},{T,seqStart,maxLag+1}];
+					covLong[v1,v2,q_/;q <= (-seqStart),i_]=FindSequenceFunction[tempNeg[i],q];
 					covLong[v1,v2,0,i_]=uncondCov[v1[t,i],v2[t], model];
-					covLong[v1,v2,1,i_]=uncondCov[v1[t,i],v2[t+1], model];
-					covLong[v1,v2,q_/;q > 1,i_]=FindSequenceFunction[tempPos[i],q];
+					covLong[v1,v2,q_/;q >= seqStart,i_]=FindSequenceFunction[tempPos[i],q];
+					Do[
+						covLong[v1,v2,-qInd,i_]=uncondCov[v1[t,i],v2[t-qInd], model];
+						covLong[v1,v2,qInd,i_]=uncondCov[v1[t,i],v2[t+qInd], model];
+						,
+						{qInd, seqStart-1}
+					];
 					covLong[v2,v1,q_,i_]=covLong[v1,v2,-q,i];
 				]
 				,
