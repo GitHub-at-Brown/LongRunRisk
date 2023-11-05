@@ -420,13 +420,13 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					v3=shocksList[[mm]];
 					With[
 						{
-							tempPos=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,seqStart+1,maxLag+2}]
+							tempNeg=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,-maxLag-2,-seqStart-1}]
 						},
-						covLong[v1,v3,q_/;q < 0]=0;
+						covLong[v1,v3,q_/;q < (-seqStart)]=FindSequenceFunction[tempNeg,q];
 						covLong[v1,v3,0]=uncondCov[v1[t],v3[t], model];
-						covLong[v1,v3,q_/;q > seqStart]=FindSequenceFunction[tempPos,q];
+						covLong[v1,v3,q_/;q > 0]=0;
 						Do[
-							covLong[v1,v3,qInd]=uncondCov[v1[t],v3[t+qInd], model];
+							covLong[v1,v3,-qInd]=uncondCov[v1[t],v3[t-qInd], model];
 							,
 							{qInd, seqStart}
 						];
@@ -493,13 +493,15 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				v3=shocksList[[mm]];
 				With[
 					{
-						tempPos=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,seqStart+1,maxLag+2}]
+						tempNeg
 					},
-					covLong[v1,v3,q_/;q < 0]=0;
+					tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v3[t+T], model]},{T,-maxLag-2,-seqStart-1}];
+					
+					covLong[v1,v3,q_/;q < (-seqStart),i_]=FindSequenceFunction[tempNeg[i],q];
 					covLong[v1,v3,0,i_]=uncondCov[v1[t,i],v3[t], model];
-					covLong[v1,v3,q_/;q > seqStart,i_]=FindSequenceFunction[tempPos,q];
+					covLong[v1,v3,q_/;q > 0,i_]=0;
 					Do[
-						covLong[v1,v3,qInd,i_]=uncondCov[v1[t,i],v3[t+qInd], model];
+						covLong[v1,v3,-qInd,i_]=uncondCov[v1[t,i],v3[t-qInd], model];
 						,
 						{qInd, seqStart}
 					];
@@ -573,8 +575,8 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				Do[
 					v5=shocksList[[mm]];
 					covLong[v5,v1,q_/;q < 0]=0;
-					covLong[v5,v1,q_/;q > 0]=uncondCov[v5[t],v1[t+q], model];
-					(*covLong[v1,v5,q_]=covLong[v5,v1,-q];*)
+					covLong[v5,v1,q_/;q >= 0]=uncondCov[v5[t],v1[t+q], model];
+					covLong[v1,v5,q_]=covLong[v5,v1,-q];
 					,
 					{mm,1,Length[shocksList]}
 				];
@@ -629,8 +631,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				];
 				Do[
 					v6=shocksList[[mm]];
-					covLong[v1,v6,q_Integer,i_]=uncondCovLong[v1[t,i],v6[t+q],covLong];
-					covLong[v6,v1,q_,i_]=covLong[v1,v6,-q,i];
+					covLong[v6,v1,q_/;q < 0,i_]=0;
+					covLong[v6,v1,q_/;q >= 0,i_]=uncondCovLong[v6[t],v1[t+q,i],covLong];
+					covLong[v1,v6,q_,i_]=covLong[v6,v1,-q,i];
 					,
 					{mm,1,Length[shocksList]}
 				];
