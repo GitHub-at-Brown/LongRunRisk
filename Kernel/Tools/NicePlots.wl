@@ -18,7 +18,7 @@ yieldCurve
 (*Usage*)
 
 
-yieldCurve::usage = "real/nom";
+yieldCurve::usage = "yieldCurve[model, newParameters, coeffsWc, bondType, opts] plots the yield curve";
 
 
 (* ::Section:: *)
@@ -49,10 +49,10 @@ yieldCurve//Options={
 
 yieldCurve[
 	model_,
-	newParameters_,
-	coeffsWc_,
+	newParameters_:{},
+	coeffsWc_:{},
 	bondType : "bond"|"nombond" : "nombond",
-	opts : OptionsPattern[{yieldCurve, FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution, FindRoot, RecurrenceTable}]
+	opts : OptionsPattern[{yieldCurve, updateCoeffsSol, FindRoot, RecurrenceTable}]
 ]:= With[
 	{
 		params = model["params"],

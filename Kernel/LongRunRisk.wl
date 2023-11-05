@@ -49,6 +49,9 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousE
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
 
 
+SetOptions[$FrontEndSession,AutoStyleOptions->{"SymbolShadowingStyle"->{FontColor->Black}}]
+
+
 (* Unprotect package symbols in case it is double-loaded *)
 (*Unprotect[
 	"FernandoDuarte`LongRunRisk`*",
@@ -78,6 +81,7 @@ ToNum;ToEquation;ToExogenousVars;ToStateVars;
 UncondE; UncondCov; UncondVar; UncondCorr;
 Ev; Var; Cov; Corr;
 Growth;
+YieldCurve;
 (*t;*)
 (*covLongBY;covLongNRC;covLongDES;*)
 
@@ -255,9 +259,12 @@ Info::usage = StringReplace[Information[FernandoDuarte`LongRunRisk`Tools`NiceOut
 (*NicePlots*)
 
 
-(*reExport[#]&/@{
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];
+
+
+reExport[#]&/@{
 	"FernandoDuarte`LongRunRisk`Tools`NicePlots`"
-}*)
+}
 
 
 (* ::Subsubsection:: *)
