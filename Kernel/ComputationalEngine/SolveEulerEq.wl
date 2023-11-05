@@ -355,8 +355,8 @@ updateCoeffsWc[modelCoeffsSolution_, modelParameters_, newParameters_List, opts 
 
 updateCoeffsPd//Options ={
 	"Epd0[1]" -> Sequence[0,15],
-	"Epd0[2]" -> Sequence[6],
-	"Epd0[3]" -> Sequence[7]
+	"Epd0[2]" -> Sequence[0,15],
+	"Epd0[3]" -> Sequence[5.5]
 };
 
 
