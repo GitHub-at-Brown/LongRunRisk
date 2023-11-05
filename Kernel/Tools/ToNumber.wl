@@ -36,6 +36,12 @@ toStateVars::usage = "toStateVars[model] gives a pure (or \"anonymous\") functio
 (*processNewParameters::usage = "processNewParameters[newParameters,parameters] returns a validated list of rules to substitute  ";*)
 
 
+(*Get["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+Get["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
+$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];*)
+
+
 (* ::Section:: *)
 (*Code*)
 
@@ -50,10 +56,6 @@ Begin["`Private`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
-
-Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
-$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
-
 
 
 (* ::Subsection:: *)

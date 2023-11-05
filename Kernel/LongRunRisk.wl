@@ -40,7 +40,7 @@ MaTeX`Developer`ResetConfiguration[];
 (*Load sub-contexts*)
 
 
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Parameters`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
@@ -50,9 +50,15 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 
 
 (* Unprotect package symbols in case it is double-loaded *)
-(*Unprotect["FernandoDuarte`LongRunRisk`*", "FernandoDuarte`LongRunRisk`Model`Parameters`*", "FernandoDuarte`LongRunRisk`Model`Shocks`*"];*)
-
-
+(*Unprotect[
+	"FernandoDuarte`LongRunRisk`*",
+	(*"FernandoDuarte`LongRunRisk`Model`Parameters`*",
+	"FernandoDuarte`LongRunRisk`Model`Shocks`*",
+	"FernandoDuarte`LongRunRisk`Model`ExogenousEq`*",
+	"FernandoDuarte`LongRunRisk`Model`EndogenousEq`*",
+	"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`*",*)
+	"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`t"
+];*)
 
 
 (* ::Section:: *)
@@ -146,9 +152,6 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 ]
 
 
-(*reExport[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t,FernandoDuarte`LongRunRisk`t];*)
-
-
 (* ::Subsection:: *)
 (*Model*)
 
@@ -164,35 +167,41 @@ Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];
 (*Conditional moments*)
 
 
-(*reExport[#]&/@{
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
+
+
+reExport[#]&/@{
 	"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"
-}*)
+}
 
 
 (* ::Subsubsection:: *)
 (*Unconditional moments*)
 
 
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+
+
 (* ::Text:: *)
 (*UncondE*)
 
 
-(*reExport[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE,FernandoDuarte`LongRunRisk`UncondE];*)
+reExport[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE,FernandoDuarte`LongRunRisk`UncondE];
 
 
 (* ::Text:: *)
 (*UncondCov*)
 
 
-(*UncondCov[x_,y_,model_]:=With[
+UncondCov[x_,y_,model_]:=With[
 	{
 		toExogenous = Normal@model["endogenousEq"],
 		covLong=Symbol["FernandoDuarte`LongRunRisk`covLong"<>model["shortname"]]
 	},
 	Module[
 		{cExo},
-		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
-		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+		(*Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
+		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];*)
 
 		cExo=FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`uncondCovLongExo[toExogenous, x, y, covLong];
 		If[
@@ -201,29 +210,30 @@ Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];
 			FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov[x, y, model]
 		]
 	](*Module*)
-](*With*)*)
+](*With*)
 
 
 (* ::Text:: *)
 (*covLong*)
 
 
-(*covLongFileNames=Map[StringJoin["FernandoDuarte/LongRunRisk/MomentsLookupTables/covLong",#, ".wl"]&,Keys@Models];
-Map[(Get@Get@#) &,covLongFileNames];*)
+modelsWithMoments = {"BKY", "DES", "NRC", "NRCStochVol"};(*Keys@Models*)
+covLongFileNames=Map[StringJoin["FernandoDuarte/LongRunRisk/MomentsLookupTables/covLong",#, ".wl"]&, modelsWithMoments];
+Map[(Get@Get@#) &,covLongFileNames];
 
 
 (* ::Text:: *)
 (*UncondVar*)
 
 
-(*UncondVar[x_, model_]:=UncondCov[x,x, model];*)
+UncondVar[x_, model_]:=UncondCov[x,x, model];
 
 
 (* ::Text:: *)
 (*UncondCorr*)
 
 
-(*UncondCorr[x_,y_,model_]:=UncondCov[x,y,model]/(Sqrt[UncondVar[x,model]]Sqrt[UncondVar[y,model]]);*)
+UncondCorr[x_,y_,model_]:=UncondCov[x,y,model]/(Sqrt[UncondVar[x,model]]Sqrt[UncondVar[y,model]]);
 
 
 (* ::Subsection:: *)
@@ -263,9 +273,12 @@ Info::usage = StringReplace[Information[FernandoDuarte`LongRunRisk`Tools`NiceOut
 (*TimeAggregation*)
 
 
-(*reExport[#]&/@{
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
+
+
+reExport[#]&/@{
 	"FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"
-}*)
+}
 
 
 (* ::Subsubsection:: *)
@@ -292,9 +305,51 @@ EndPackage[];
 
 (* Protect all package symbols after EndPackage[]; *)
 (*SetAttributes[
-  Evaluate@Names["FernandoDuarte`LongRunRisk`*"],
+ Evaluate@Names["FernandoDuarte`LongRunRisk`*"]
+  ,
+  {Protected, ReadProtected}
+]
+
+SetAttributes[
+ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t
+  ,
   {Protected, ReadProtected}
 ]*)
+
+(*SetAttributes[
+ Evaluate@Names["FernandoDuarte`LongRunRisk`Model`Parameters`*"]
+  ,
+  {Protected, ReadProtected}
+]
+
+SetAttributes[
+  Evaluate@Names["FernandoDuarte`LongRunRisk`Model`Shocks`*"]
+  ,
+  {Protected, ReadProtected}
+]
+
+SetAttributes[
+ Evaluate@Names["FernandoDuarte`LongRunRisk`Model`EndogenousEq`*"]
+  ,
+  {Protected, ReadProtected}
+]
+
+SetAttributes[
+ Evaluate@Names["FernandoDuarte`LongRunRisk`Model`ExogenousEq`*"]
+  ,
+  {Protected, ReadProtected}
+]
+
+
+
+SetAttributes[
+ Evaluate@Names["FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`*"]
+  ,
+  {Protected, ReadProtected}
+]
+
+*)
+
 
 
 (* ::Subsection:: *)
