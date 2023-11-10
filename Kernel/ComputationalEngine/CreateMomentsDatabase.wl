@@ -215,9 +215,12 @@ split[expr_]:=With[
 
 createDatabase//Options ={
 	(*"numParallelProcessors" -> 4,*)
-	"maxMomentsLagsToCreate" -> 4,
+	"maxMomentsLagsToCreate" -> 8,
 	"startSequenceAtLag" -> 3
 }
+
+
+createDatabase::seqfun="Sequence function not found for uncondCov[`1`[t], `2`[t+T]].";
 
 
 createDatabase[
@@ -386,9 +389,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					tempNeg=Table[{T,uncondCov[v1[t],v1[t+T], model ]},{T, -maxLag-1, -seqStart}],
 					tempPos=Table[{T,uncondCov[v1[t],v1[t+T], model ]},{T, seqStart, maxLag+1}]
 				},
-				covLong[v1, q_/;q <= (-seqStart)]=FindSequenceFunction[tempNeg, q];
+				covLong[v1, q_/;q <= (-seqStart)]=seqfun[tempNeg, q];
 				covLong[v1, 0]=uncondVar[v1[t], model];
-				covLong[v1, q_/;q >= seqStart]=FindSequenceFunction[tempPos,q];
+				covLong[v1, q_/;q >= seqStart]=seqfun[tempPos,q];
 				Do[
 					covLong[v1, -qInd]=uncondCov[v1[t],v1[t-qInd], model];
 					covLong[v1, qInd]=uncondCov[v1[t],v1[t+qInd], model];
@@ -404,9 +407,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 						tempNeg=Table[{T,uncondCov[v1[t],v2[t+T], model]},{T,-maxLag-1,-seqStart}],
 						tempPos=Table[{T,uncondCov[v1[t],v2[t+T], model]},{T,seqStart,maxLag+1}]
 					},
-					covLong[v1,v2,q_/;q <= (-seqStart)]=FindSequenceFunction[tempNeg,q];
+					covLong[v1,v2,q_/;q <= (-seqStart)]=seqfun[tempNeg,q];
 					covLong[v1,v2,0]=uncondCov[v1[t],v2[t], model];
-					covLong[v1,v2,q_/;q >= seqStart]=FindSequenceFunction[tempPos,q];
+					covLong[v1,v2,q_/;q >= seqStart]=seqfun[tempPos,q];
 					Do[
 						covLong[v1,v2,-qInd]=uncondCov[v1[t],v2[t-qInd], model];
 						covLong[v1,v2,qInd]=uncondCov[v1[t],v2[t+qInd], model];
@@ -422,7 +425,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 						{
 							tempNeg=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,-maxLag-2,-seqStart-1}]
 						},
-						covLong[v1,v3,q_/;q < (-seqStart)]=FindSequenceFunction[tempNeg,q];
+						covLong[v1,v3,q_/;q < (-seqStart)]=seqfun[tempNeg,q];
 						covLong[v1,v3,0]=uncondCov[v1[t],v3[t], model];
 						covLong[v1,v3,q_/;q > 0]=0;
 						Do[
@@ -456,9 +459,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				},
 				tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i] , model ]},{T,-maxLag-2,-seqStart-1}];
 				tempPos[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i], model]},{T,seqStart+1,maxLag+2}];
-				covLong[v1,q_/;q < (-seqStart),i_]=FindSequenceFunction[tempNeg[i],q];
+				covLong[v1,q_/;q < (-seqStart),i_]=seqfun[tempNeg[i],q];
 				covLong[v1,0,i_]=uncondVar[v1[t,i], model];
-				covLong[v1,q_/;q > seqStart,i_]=FindSequenceFunction[tempPos[i],q];
+				covLong[v1,q_/;q > seqStart,i_]=seqfun[tempPos[i],q];
 				Do[
 					covLong[v1,-qInd,i_]=uncondCov[v1[t,i],v1[t-qInd,i], model];
 					covLong[v1,qInd,i_]=uncondCov[v1[t,i],v1[t+qInd,i], model];
@@ -477,9 +480,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				},
 				tempNeg[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j], model   ]},{T,-maxLag-1,-seqStart}];
 				tempPos[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j], model  ]},{T,seqStart,maxLag+1}];
-				covLong[v1,q_/;q <= (-seqStart),i_,j_]/;Not[MatchQ[i,j]]=FindSequenceFunction[tempNeg[i,j],q];
+				covLong[v1,q_/;q <= (-seqStart),i_,j_]/;Not[MatchQ[i,j]]=seqfun[tempNeg[i,j],q];
 				covLong[v1,0,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t,j], model];
-				covLong[v1,q_/;q >= seqStart,i_,j_]/;Not[MatchQ[i,j]]=FindSequenceFunction[tempPos[i,j],q];
+				covLong[v1,q_/;q >= seqStart,i_,j_]/;Not[MatchQ[i,j]]=seqfun[tempPos[i,j],q];
 				Do[
 					covLong[v1,-qInd,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t-qInd,j], model];
 					covLong[v1,qInd,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t+qInd,j], model];
@@ -491,13 +494,13 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 			(*shocks*)
 			Do[
 				v3=shocksList[[mm]];
-				With[
+				Module[
 					{
 						tempNeg
 					},
 					tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v3[t+T], model]},{T,-maxLag-2,-seqStart-1}];
 					
-					covLong[v1,v3,q_/;q < (-seqStart),i_]=FindSequenceFunction[tempNeg[i],q];
+					covLong[v1,v3,q_/;q < (-seqStart),i_]=seqfun[tempNeg[i],q];
 					covLong[v1,v3,0,i_]=uncondCov[v1[t,i],v3[t], model];
 					covLong[v1,v3,q_/;q > 0,i_]=0;
 					Do[
@@ -519,9 +522,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					},
 					tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T], model]},{T,-maxLag-1,-seqStart}];
 					tempPos[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T], model]},{T,seqStart,maxLag+1}];
-					covLong[v1,v2,q_/;q <= (-seqStart),i_]=FindSequenceFunction[tempNeg[i],q];
+					covLong[v1,v2,q_/;q <= (-seqStart),i_]=seqfun[tempNeg[i],q];
 					covLong[v1,v2,0,i_]=uncondCov[v1[t,i],v2[t], model];
-					covLong[v1,v2,q_/;q >= seqStart,i_]=FindSequenceFunction[tempPos[i],q];
+					covLong[v1,v2,q_/;q >= seqStart,i_]=seqfun[tempPos[i],q];
 					Do[
 						covLong[v1,v2,-qInd,i_]=uncondCov[v1[t,i],v2[t-qInd], model];
 						covLong[v1,v2,qInd,i_]=uncondCov[v1[t,i],v2[t+qInd], model];
@@ -843,6 +846,83 @@ FullForm]\))/;(!FreeQ[HoldPattern[b],countStockVars] && FreeQ[HoldPattern[c],Mod
 		](*Block*)
 	](*Module*)
 ](*With*)
+
+
+(* ::Subsubsection:: *)
+(*partitionBy*)
+
+
+(*split expr by presence/absence of certain parameters*)
+partitionBy[expr_] := {
+	{Not @ Inactive @ FreeQ[expr, rhopbar] && Inactive @ FreeQ[expr, vp] && Inactive @ FreeQ[expr, phispw]},
+	{Inactive @ FreeQ[expr, rhopbar] && Inactive @ FreeQ[expr, phipbarpb]},
+	{Inactive @ FreeQ[expr, rhopbar] && Inactive @ FreeQ[expr, phispw]},
+	{Inactive @ FreeQ[expr, rhopbar] && Inactive @ Not @ FreeQ[expr, vp]},
+	{Inactive @ FreeQ[expr, rhopbar] && Inactive @ Not @ FreeQ[expr, phispw]},
+	{Not @ Inactive@ FreeQ[expr, rhopbar] && Inactive @ FreeQ[expr, Esp]},
+	{Not @ Inactive @ FreeQ[expr, rhopbar] && Inactive @ Not @ FreeQ[expr, Esp]},
+	{Inactive@ FreeQ[expr, vppbar]}
+};
+(*number of cases in partitionBy*)
+numCond = (Dimensions @ Values @ DownValues @ partitionBy)[[2]];
+(*create function with different value for each case*)
+dv = DownValues @ partitionBy;
+partitionWithValue = Values @ First @ Fold[Insert[#1, #2[[3]], #2]&, dv, Table[{1, 2, n, 1}, {n, 1, numCond}]];
+categorize[expr_] := Evaluate @ Piecewise[partitionWithValue, -99];(*-99 for cases not in partitionBy*)
+DownValues[categorize] = Activate @ DownValues @ categorize;
+
+
+(* ::Subsubsection:: *)
+(*splitAndFindSequenceFunction*)
+
+
+(*split additive terms of expr based on categorize, use FindSequenceFunction for each category, combine terms*)
+(*splitAndFindSequenceFunction can be used like FindSequenceFunction*)
+splitAndFindSequenceFunction[expr_, q_] :=
+	Module[
+		{denTempPos, numTempPos, categorizedTempPos, tempPosSeqFun, out, pos}
+		,
+		denTempPos = MapAt[Denominator, Together @ expr, {;;, 2}]; (*denominator*)
+		numTempPos = Numerator @ Together @ expr; (*numerator*)
+		categorizedTempPos = Table[
+			GroupBy[
+				List @@ numTempPos[[kk, 2]],
+				categorize,
+				{2 + kk, Simplify[Plus @@ #]}&
+			], 
+			{kk, 1, Length[numTempPos]}
+		];
+		tempPosSeqFun = Table[
+			FindSequenceFunction[#[n]& /@ categorizedTempPos,q],
+			{n, Join[Range[numCond], {-99}]}
+		];
+		tempPosSeqFun = DeleteCases[tempPosSeqFun, Missing[__], {0, Infinity}]; (*remove categories that are empty*)
+		denTempPos = FindSequenceFunction[denTempPos, q]; 
+		pos = PositionIndex[expr[[;;, 1]]]; (*q is number of lags, not index in expr*)
+		(Plus @@ tempPosSeqFun) / denTempPos
+	]
+
+
+(* ::Subsubsection:: *)
+(*seqfun*)
+
+
+(*seqfun tries FindSequenceFunction, then splitAndFindSequenceFunction, then fails with a message*)
+seqfun[list_, q_] :=
+	With[{sf = FindSequenceFunction[list, q]},
+		If[
+			FreeQ[sf, FindSequenceFunction],
+			sf,
+			With[{ssf = splitAndFindSequenceFunction[list, q]},
+				If[
+					FreeQ[ssf, FindSequenceFunction],
+					ssf,
+					Message[createDatabase::seqfun, ToString @ v1, ToString @ v2];
+					Abort[];
+				]
+			]
+		]
+	]
 
 
 (* ::Section::Closed:: *)
