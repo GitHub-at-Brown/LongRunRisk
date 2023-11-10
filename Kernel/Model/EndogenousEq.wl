@@ -29,8 +29,8 @@ excretceq::usage = "excretceq[t] gives the return for the asset that pays consum
 excreteq::usage = "excreteq[t, i] gives the return for stock i in excess of the risk-free rate.";
 bondyieldeq::usage = "bondyieldeq[t, m] gives the log yield of a real m -month maturity discount (zero-coupon) riskless bond at time t.";
 nombondyieldeq::usage = "nombondyieldeq[t, m] gives the log yield of a nominal m -month maturity discount (zero-coupon) riskless bond at time t.";
-bondfweq::usage = "bondfweq[t, m] gives the real log forward rate at time t for riskless loansbetween times t + m -1 and t + m."<>"\n"<>
-				  "bondfweq[t, m, h] gives the real log forward rate at time t for riskless loansbetween times t + m - h and t + m.";
+bondfweq::usage = "bondfweq[t, m] gives the real log forward rate at time t for riskless loans between times t + m -1 and t + m."<>"\n"<>
+				  "bondfweq[t, m, h] gives the real log forward rate at time t for riskless loans between times t + m - h and t + m.";
 nombondfweq::usage = "nombondfweq[t, m] gives the nominal log forward rate at time t for riskless loans between times t + m - 1 and t + m."<>"\n"<>
 					 "nombondfweq[t, m, h] gives the nominal log forward rate at time t for riskless loans between times t + m - h and t + m.";
 bondreteq::usage = "bondreteq[t, m] gives the log holding period return from buying a real m -month maturity discount (zero-coupon) riskless bond at time t -1 and selling it as an (m - 1)-month maturity bond at time t."<>"\n"<>

@@ -18,7 +18,7 @@ $ContextPath=initialContextPath = Cases[$ContextPath,Except["PacletizedResourceF
 confirm=False;(*True pauses after every test to manually accept/reject test, False accepts all tests*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*helper functions*)
 
 
@@ -56,7 +56,7 @@ DeleteFile[testFilePath<>"temp"];
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)
+(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -85,7 +85,7 @@ Close /@ {readStream, writeStream}
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*countLines*)*)*)*)*)*)
+(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -129,7 +129,7 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)
+(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -193,7 +193,7 @@ Protect[$Packages];
 ]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Generate Tests*)
 
 
@@ -3466,7 +3466,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`ToNumber`*)
 
 
@@ -4273,7 +4273,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Results*)
 
 
@@ -4285,7 +4285,7 @@ Protect[$Packages];
 (*}*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Paclet Test*)
 
 
@@ -4298,7 +4298,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*PacletUninstall["Wolfram/PacletCICD"];*)
+(*Quiet[PacletUninstall["Wolfram/PacletCICD"]];*)
 (*PacletInstall[ResourceObject["Wolfram/PacletCICD"]];*)
 (*PacletFind["Wolfram/PacletCICD"]*)
 
@@ -4310,7 +4310,7 @@ Protect[$Packages];
 (*And@@Values@((#["ReportSucceeded"])&/@testResults["Result"])*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Run All Tests Together*)
 
 
@@ -4352,7 +4352,7 @@ Protect[$Packages];
 (**)*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Run Individual Tests Separately*)
 
 

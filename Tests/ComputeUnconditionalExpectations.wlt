@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-TL3YPK@@Tests/ComputeUnconditionalExpectations.wlt:3,1-12,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-7FBQ9D"
 ]
 VerificationTest[
 	Needs @ "PacletizedResourceFunctions`";
@@ -18,7 +18,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-I6SYPM@@Tests/ComputeUnconditionalExpectations.wlt:13,1-22,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-7AJ8JH"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`";
@@ -31,7 +31,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-BA6XDF@@Tests/ComputeUnconditionalExpectations.wlt:23,1-35,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-6KEJ26"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"]
@@ -40,7 +40,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-W7FH6K@@Tests/ComputeUnconditionalExpectations.wlt:36,1-44,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-ZF6QWI"
 ]
 VerificationTest[
 	!SameQ[Names @ "*uncondE", {}]
@@ -49,7 +49,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-TNFD18@@Tests/ComputeUnconditionalExpectations.wlt:45,1-53,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-4CFQV5"
 ]
 VerificationTest[
 	Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
@@ -62,7 +62,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-28C48S@@Tests/ComputeUnconditionalExpectations.wlt:54,1-66,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-54DFQU"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`longTest,
@@ -70,7 +70,7 @@ VerificationTest[
 		{FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`nameRules2, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`system2, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns2} = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`createSystem[2, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`modNRC];
 		{FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`nameRules3, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`system3, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns3} = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`createSystem[3, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`modNRC];
 		{FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`nameRules4, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`system4, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns4} = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`createSystem[4, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`modNRC];
-		FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol1 = Flatten @ Solve[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`system1, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns1];
+		FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sol1 = Flatten @ Solve[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`system1, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns1];
 		FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol2 = Flatten @ Solve[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`system2, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns2];
 		FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol3 = Flatten @ Solve[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`system3, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns3];
 		FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol4 = Flatten @ Solve[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`system4, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns4];
@@ -106,7 +106,7 @@ VerificationTest[
 				],
 				Apply[And,
 					{
-						!SameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol1, {}],
+						!SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sol1, {}],
 						!SameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol2, {}],
 						!SameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol3, {}],
 						!SameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol4, {}]
@@ -114,9 +114,9 @@ VerificationTest[
 				],
 				Apply[And,
 					{
-						Apply[MatchQ, Intersection[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns1, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns3] /. {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol1, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol3}],
+						Apply[MatchQ, Intersection[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns1, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns3] /. {FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sol1, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol3}],
 						Apply[MatchQ, Intersection[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns2, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns3] /. {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol2, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol3}],
-						Apply[MatchQ, Intersection[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns1, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns4] /. {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol1, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol4}],
+						Apply[MatchQ, Intersection[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns1, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns4] /. {FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sol1, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol4}],
 						Apply[MatchQ, Intersection[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns2, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns4] /. {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol2, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol4}],
 						Apply[MatchQ, Intersection[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns3, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`unknowns4] /. {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol3, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol4}]
 					}
@@ -130,14 +130,14 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-OUYG6V@@Tests/ComputeUnconditionalExpectations.wlt:67,1-134,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-HUNBS2"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`longTest,
 		Apply[And,
 			{
-				SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi1 /. FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol1, FernandoDuarte`LongRunRisk`Model`Parameters`mup],
-				SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sg1 /. FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol1, FernandoDuarte`LongRunRisk`Model`Parameters`Esg],
+				SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi1 /. FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sol1, FernandoDuarte`LongRunRisk`Model`Parameters`mup],
+				SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sg1 /. FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sol1, FernandoDuarte`LongRunRisk`Model`Parameters`Esg],
 				SameQ[FullSimplify[ExpandAll[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi2 /. FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol2]],
 					FullSimplify[
 						ExpandAll[
@@ -166,7 +166,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-HEN8MQ@@Tests/ComputeUnconditionalExpectations.wlt:135,1-170,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-HIDDM5"
 ]
 VerificationTest[
 	Apply[And,
@@ -198,13 +198,13 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-E525UO@@Tests/ComputeUnconditionalExpectations.wlt:171,1-202,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-CLBL9I"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`longTest,
 		Apply[And,
 			{
-				Apply[And, Map[NumberQ, Values[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol1] //. FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`modNRC["parameters"]]],
+				Apply[And, Map[NumberQ, Values[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sol1] //. FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`modNRC["parameters"]]],
 				Apply[And, Map[NumberQ, Values[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol2] //. FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`modNRC["parameters"]]],
 				Apply[And, Map[NumberQ, Values[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol3] //. FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`modNRC["parameters"]]],
 				Apply[And, Map[NumberQ, Values[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sol4] //. FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`modNRC["parameters"]]]
@@ -217,7 +217,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-M9TNGW@@Tests/ComputeUnconditionalExpectations.wlt:203,1-221,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-HKO3CR"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`stateVarsNoEps = {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sg, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`pi};
@@ -307,7 +307,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-XRDS2Y@@Tests/ComputeUnconditionalExpectations.wlt:222,1-311,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-IYD9F2"
 ]
 VerificationTest[
 	Apply[And,
@@ -376,7 +376,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-ZJTKAF@@Tests/ComputeUnconditionalExpectations.wlt:312,1-380,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-D5ARNF"
 ]
 VerificationTest[
 	Apply[And,
@@ -448,7 +448,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-G6WS73@@Tests/ComputeUnconditionalExpectations.wlt:381,1-452,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-3IO6S7"
 ]
 VerificationTest[
 	Apply[And,
@@ -477,7 +477,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-QS7QS0@@Tests/ComputeUnconditionalExpectations.wlt:453,1-481,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-3DWFVL"
 ]
 VerificationTest[
 	Apply[And,
@@ -507,7 +507,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-JV6JVJ@@Tests/ComputeUnconditionalExpectations.wlt:482,1-511,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-2CM04F"
 ]
 VerificationTest[
 	Apply[And,
@@ -599,7 +599,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-DPYYLQ@@Tests/ComputeUnconditionalExpectations.wlt:512,1-603,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-0HRRJQ"
 ]
 VerificationTest[
 	Apply[And,
@@ -737,7 +737,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-WXR6MQ@@Tests/ComputeUnconditionalExpectations.wlt:604,1-741,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-1LYAFR"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`longTest,
@@ -920,7 +920,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20231014-CCJG7J@@Tests/ComputeUnconditionalExpectations.wlt:742,1-924,2"
+	TestID->"ComputeUnconditionalExpectations_20231109-D46RB7"
 ] 
 End[]
 EndTestSection[]

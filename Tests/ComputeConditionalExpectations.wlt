@@ -9,7 +9,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-CIF8V3@@Tests/ComputeConditionalExpectations.wlt:3,1-13,2"
+	TestID->"ComputeConditionalExpectations_20231109-DXZRTD"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`";
@@ -20,7 +20,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-CRHW8P@@Tests/ComputeConditionalExpectations.wlt:14,1-24,2"
+	TestID->"ComputeConditionalExpectations_20231109-HBPG94"
 ]
 VerificationTest[
 	Apply[And, {MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"]}]
@@ -29,7 +29,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-MOWWIE@@Tests/ComputeConditionalExpectations.wlt:25,1-33,2"
+	TestID->"ComputeConditionalExpectations_20231109-LJ3Y94"
 ]
 VerificationTest[
 	Apply[And,
@@ -43,7 +43,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-WAJ9XJ@@Tests/ComputeConditionalExpectations.wlt:34,1-47,2"
+	TestID->"ComputeConditionalExpectations_20231109-APZOTD"
 ]
 VerificationTest[
 	Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
@@ -56,7 +56,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-EYKJRI@@Tests/ComputeConditionalExpectations.wlt:48,1-60,2"
+	TestID->"ComputeConditionalExpectations_20231109-WIK1S9"
 ]
 VerificationTest[
 	SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev[FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t + 1] * FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t + 1], FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t - 1, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeConditionalExpectations`modNRC],
@@ -67,7 +67,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-2BNCSJ@@Tests/ComputeConditionalExpectations.wlt:61,1-71,2"
+	TestID->"ComputeConditionalExpectations_20231109-0OI9OW"
 ]
 VerificationTest[
 	Apply[And,
@@ -534,7 +534,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-2YVVQY@@Tests/ComputeConditionalExpectations.wlt:72,1-538,2"
+	TestID->"ComputeConditionalExpectations_20231109-FIMNTE"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeConditionalExpectations`dc1 = FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t - 1] /. Normal[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeConditionalExpectations`modNRC["exogenousEq"]];
@@ -1064,7 +1064,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-N0MDB0@@Tests/ComputeConditionalExpectations.wlt:539,1-1068,2"
+	TestID->"ComputeConditionalExpectations_20231109-L2B2QL"
 ]
 VerificationTest[
 	Apply[And,
@@ -1334,7 +1334,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-9IFRWB@@Tests/ComputeConditionalExpectations.wlt:1069,1-1338,2"
+	TestID->"ComputeConditionalExpectations_20231109-MA71UF"
 ]
 VerificationTest[
 	Apply[And,
@@ -1357,7 +1357,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-QI8Q0X@@Tests/ComputeConditionalExpectations.wlt:1339,1-1361,2"
+	TestID->"ComputeConditionalExpectations_20231109-3ZDJMR"
 ]
 VerificationTest[
 	Apply[And,
@@ -1441,7 +1441,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-JURY22@@Tests/ComputeConditionalExpectations.wlt:1362,1-1445,2"
+	TestID->"ComputeConditionalExpectations_20231109-7BD1R6"
 ]
 VerificationTest[
 	True
@@ -1450,7 +1450,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20231014-UEZZTL@@Tests/ComputeConditionalExpectations.wlt:1446,1-1454,2"
+	TestID->"ComputeConditionalExpectations_20231109-4W3UR7"
 ] 
 End[]
 EndTestSection[]

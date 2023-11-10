@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20231014-DV7Z0A@@Tests/SolveEulerEq.wlt:3,1-12,2"
+	TestID->"SolveEulerEq_20231109-CRXGOH"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`";
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20231014-ZQXSBE@@Tests/SolveEulerEq.wlt:13,1-23,2"
+	TestID->"SolveEulerEq_20231109-SK9L82"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -46,18 +46,18 @@ VerificationTest[
 						Tuples[{Range[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`numAssets] - FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`bond, Range[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`numStateVars + 1] - 1}]
 					],
 					Sort[
-						Cases[Map[Keys, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol], FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffName[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_Integer][FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`j_Integer] :> {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`j}]
+						Cases[Map[Keys, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol], FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffName[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_Integer][FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`j_Integer] :> {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`j}]
 					]
 				]
 			],
 			Apply[And,
 				Map[MatchQ[#, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffName]&,
-					Cases[Map[Keys, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol], FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var_[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_Integer][FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`j_Integer] :> FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var]
+					Cases[Map[Keys, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol], FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var_[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_Integer][FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`j_Integer] :> FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var]
 				]
 			],
 			Apply[And,
 				Map[Function @ MatchQ[#, StringDrop[ToString @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffName, -1]],
-					Cases[Map[Keys, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol], FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var_[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_Integer][FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`j_Integer] :> Context[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var]]
+					Cases[Map[Keys, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol], FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var_[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_Integer][FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`j_Integer] :> Context[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var]]
 				]
 			],
 			Apply[And, Map[NumberQ, Map[Values, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol]]]
@@ -674,10 +674,10 @@ VerificationTest[
 				FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffsQBond[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`solBond, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`maxMaturity],
 				FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffsQNomBond[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`solNomBond, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`maxMaturity],
 				Equal[Range[0, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`maxMaturity],
-					Sort[DeleteDuplicates[Cases[Keys @ FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`solBond, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`x_[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_][FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`j_] :> FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i]]]
+					Sort[DeleteDuplicates[Cases[Keys @ FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`solBond, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`x_[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_][FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`j_] :> FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i]]]
 				],
 				Equal[Range[0, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`maxMaturity],
-					Sort[DeleteDuplicates[Cases[Keys @ FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`solNomBond, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`x_[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_][FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`j_] :> FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i]]]
+					Sort[DeleteDuplicates[Cases[Keys @ FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`solNomBond, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`x_[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_][FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`j_] :> FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i]]]
 				]
 			}
 		];
@@ -850,7 +850,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20231014-3WPEY0@@Tests/SolveEulerEq.wlt:24,1-854,2"
+	TestID->"SolveEulerEq_20231109-TIT2UL"
 ] 
 End[]
 EndTestSection[]

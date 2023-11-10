@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-N657II@@Tests/Shocks.wlt:3,1-12,2"
+	TestID->"Shocks_20231109-B2I5BS"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Shocks`"]
@@ -17,7 +17,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-CX5R21@@Tests/Shocks.wlt:13,1-21,2"
+	TestID->"Shocks_20231109-EPSCCY"
 ]
 VerificationTest[
 	!SameQ[Names @ "*rulesE", {}]
@@ -26,7 +26,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-B2WF61@@Tests/Shocks.wlt:22,1-30,2"
+	TestID->"Shocks_20231109-5N5NAT"
 ]
 VerificationTest[
 	Apply[And,
@@ -46,7 +46,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-RA65RR@@Tests/Shocks.wlt:31,1-50,2"
+	TestID->"Shocks_20231109-J3D89R"
 ]
 VerificationTest[
 	Apply[And,
@@ -66,7 +66,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-BSR71M@@Tests/Shocks.wlt:51,1-70,2"
+	TestID->"Shocks_20231109-GL2COS"
 ]
 VerificationTest[
 	Apply[And,
@@ -86,7 +86,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-RWL1EN@@Tests/Shocks.wlt:71,1-90,2"
+	TestID->"Shocks_20231109-NW209E"
 ]
 VerificationTest[
 	Apply[And,
@@ -106,7 +106,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-X5M2LW@@Tests/Shocks.wlt:91,1-110,2"
+	TestID->"Shocks_20231109-XAV967"
 ]
 VerificationTest[
 	Apply[And,
@@ -137,7 +137,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-0XHQ5Z@@Tests/Shocks.wlt:111,1-141,2"
+	TestID->"Shocks_20231109-9GBXVE"
 ]
 VerificationTest[
 	SameQ[
@@ -156,7 +156,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-K786MH@@Tests/Shocks.wlt:142,1-160,2"
+	TestID->"Shocks_20231109-ZVXADB"
 ]
 VerificationTest[
 	Apply[And,
@@ -192,7 +192,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-LD3DK5@@Tests/Shocks.wlt:161,1-196,2"
+	TestID->"Shocks_20231109-C2UUYA"
 ]
 VerificationTest[
 	Apply[And,
@@ -217,7 +217,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-8IGL8Q@@Tests/Shocks.wlt:197,1-221,2"
+	TestID->"Shocks_20231109-EYA3YA"
 ]
 VerificationTest[
 	Apply[And,
@@ -245,7 +245,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-G08GSH@@Tests/Shocks.wlt:222,1-249,2"
+	TestID->"Shocks_20231109-SHLW47"
 ]
 VerificationTest[
 	Apply[And,
@@ -280,7 +280,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-PTM59Z@@Tests/Shocks.wlt:250,1-284,2"
+	TestID->"Shocks_20231109-HIDBT3"
 ]
 VerificationTest[
 	Apply[And,
@@ -300,7 +300,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-Y42M8W@@Tests/Shocks.wlt:285,1-304,2"
+	TestID->"Shocks_20231109-DQBEFP"
 ]
 VerificationTest[
 	Apply[And,
@@ -320,7 +320,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20231014-YU8AEV@@Tests/Shocks.wlt:305,1-324,2"
+	TestID->"Shocks_20231109-P3KQP6"
 ] 
 End[]
 EndTestSection[]
