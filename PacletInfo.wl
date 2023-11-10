@@ -16,7 +16,23 @@ PacletObject[
         "Kernel",
         "Root" -> "Kernel",
         "Context" -> {"FernandoDuarte`LongRunRisk`"},
-        "Symbols" -> {}
+        "Symbols" -> {
+          "FernandoDuarte`LongRunRisk`Corr",
+          "FernandoDuarte`LongRunRisk`Cov",
+          "FernandoDuarte`LongRunRisk`Growth",
+          "FernandoDuarte`LongRunRisk`Info",
+          "FernandoDuarte`LongRunRisk`Models",
+          "FernandoDuarte`LongRunRisk`t",
+          "FernandoDuarte`LongRunRisk`ToEquation",
+          "FernandoDuarte`LongRunRisk`ToExogenousVars",
+          "FernandoDuarte`LongRunRisk`ToNum",
+          "FernandoDuarte`LongRunRisk`ToStateVars",
+          "FernandoDuarte`LongRunRisk`UncondCorr",
+          "FernandoDuarte`LongRunRisk`UncondCov",
+          "FernandoDuarte`LongRunRisk`UncondE",
+          "FernandoDuarte`LongRunRisk`UncondVar",
+          "FernandoDuarte`LongRunRisk`Var"
+        }
       },
       {
         "Documentation",
