@@ -49,7 +49,7 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousE
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
 
 
-SetOptions[$FrontEndSession,AutoStyleOptions->{"SymbolShadowingStyle"->{FontColor->Black}}]
+If[Not[$FrontEnd===Null],SetOptions[$FrontEndSession,AutoStyleOptions->{"SymbolShadowingStyle"->{FontColor->Black}}]];
 
 
 (* Unprotect package symbols in case it is double-loaded *)
@@ -197,6 +197,9 @@ reExport[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpe
 (*UncondCov*)
 
 
+UncondCov::usage = StringReplace[Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov,"Usage"],"uncondCov" -> "UncondCov"];
+
+
 UncondCov[x_,y_,model_]:=With[
 	{
 		toExogenous = Normal@model["endogenousEq"],
@@ -230,11 +233,17 @@ Map[(Get@Get@#) &,covLongFileNames];
 (*UncondVar*)
 
 
+UncondVar::usage = StringReplace[Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondVar,"Usage"],"uncondVar" -> "UncondVar"];
+
+
 UncondVar[x_, model_]:=UncondCov[x,x, model];
 
 
 (* ::Text:: *)
 (*UncondCorr*)
+
+
+UncondCorr::usage = StringReplace[Information[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCorr,"Usage"],"uncondCorr" -> "UncondCorr"];
 
 
 UncondCorr[x_,y_,model_]:=UncondCov[x,y,model]/(Sqrt[UncondVar[x,model]]Sqrt[UncondVar[y,model]]);
@@ -251,8 +260,10 @@ UncondCorr[x_,y_,model_]:=UncondCov[x,y,model]/(Sqrt[UncondVar[x,model]]Sqrt[Unc
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
 
 
-Info[models_Association] :=PacletizedResourceFunctions`SetSymbolsContext@FernandoDuarte`LongRunRisk`Tools`NiceOutput`info[models]; (*PacletizedResourceFunctions`SetSymbolsContext@Column[(FernandoDuarte`LongRunRisk`Tools`NiceOutput`info@#&)/@(Values@FernandoDuarte`LongRunRisk`Tools`NiceOutput`createEqTables[models])];*)
 Info::usage = StringReplace[Information[FernandoDuarte`LongRunRisk`Tools`NiceOutput`info,"Usage"],"info" -> "Info"];
+
+
+Info[models_Association] :=PacletizedResourceFunctions`SetSymbolsContext@FernandoDuarte`LongRunRisk`Tools`NiceOutput`info[models]; (*PacletizedResourceFunctions`SetSymbolsContext@Column[(FernandoDuarte`LongRunRisk`Tools`NiceOutput`info@#&)/@(Values@FernandoDuarte`LongRunRisk`Tools`NiceOutput`createEqTables[models])];*)
 
 
 (* ::Subsubsection:: *)
