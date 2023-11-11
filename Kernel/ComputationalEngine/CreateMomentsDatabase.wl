@@ -281,7 +281,8 @@ createDatabase[
 			totCovLong,notAllZero,rp,
 			countStockVars,positionStockVars,
 			tup1,tup2,tup3,tup4,tup5,
-			varlistWithEps
+			varlistWithEps,
+			dv,dvValuesSimplify,dvNew
 		},
 		
 		Block[
@@ -837,6 +838,15 @@ NumberMarks->True],
 FullForm]\))/;(!FreeQ[HoldPattern[b],countStockVars] && FreeQ[HoldPattern[c],Module]):>(RuleDelayed[HoldPattern[a],c]),{0,Infinity}]&/@DownValues[Evaluate@covLong];
 		dataCovLong=ResourceFunction["DefinitionData"][covLong];
 		Put[dataCovLong,covLongFilename];
+		
+		(*simplify downvalues*)
+		dv=DownValues[Evaluate@covLong];
+		dvValuesSimplify=ParallelMap[Simplify,Values@(dv),{1}];
+		dvNew=Thread[(Keys@dv):>Evaluate@dvValuesSimplify];
+		DownValues[Evaluate@covLong]=dvNew;
+		dataCovLong=ResourceFunction["DefinitionData"][covLong];
+		Put[dataCovLong,covLongFilename];
+		
 		ToString[covLong] (*full name with context*)
 		](*With*)
 		](*With*)
