@@ -266,7 +266,7 @@ createDatabase[
 			FernandoDuarte`LongRunRisk`Model`Shocks`eps["sp"]
 		},
 		(*covariance with pd12lag*)
-		vars1={"dc","dd","pd"(*,"rf","excret","pdpd","dcdc","dddd","excretexcret","rfrf","dcpd","ddpd","excretpd","rfpd"*)},
+		vars1={"dc","dd","pd","rf","excret","pdpd","dcdc","dddd","excretexcret","rfrf","dcpd","ddpd","excretpd","rfpd"},
 		vars2={"pd12lag"}
 	},
 	
@@ -798,7 +798,7 @@ FullForm]\))/;(!FreeQ[HoldPattern[b],countStockVars] && FreeQ[HoldPattern[c],Mod
 		(*********************************************)
 		(*covariance with pd12lag*)
 		Echo["Computing covariance with pd12lag"];
-		hor=ToString/@{12(*,24,36,48,60,72*)};
+		hor=ToString/@{12,24,36,48,60,72};
 		vars1cov=Flatten[Outer[{StringJoin[#1,#2],StringJoin[#1,#1,#2],StringJoin[#1,"pd",#2]}&,vars1,hor],1];
 		vars1cov=Flatten@LexicographicSort@Transpose[vars1cov];
 		Do[
