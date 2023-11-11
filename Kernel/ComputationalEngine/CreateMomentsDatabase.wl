@@ -220,9 +220,6 @@ createDatabase//Options ={
 }
 
 
-createDatabase::seqfun="Sequence function not found for uncondCov[`1`[t], `2`[t+T]].";
-
-
 createDatabase[
 	model_Association,
 	covLongFilename_String,
@@ -269,7 +266,7 @@ createDatabase[
 			FernandoDuarte`LongRunRisk`Model`Shocks`eps["sp"]
 		},
 		(*covariance with pd12lag*)
-		vars1={"dc","dd","pd","rf","excret","pdpd","dcdc","dddd","excretexcret","rfrf","dcpd","ddpd","excretpd","rfpd"},
+		vars1={"dc","dd","pd"(*,"rf","excret","pdpd","dcdc","dddd","excretexcret","rfrf","dcpd","ddpd","excretpd","rfpd"*)},
 		vars2={"pd12lag"}
 	},
 	
@@ -389,9 +386,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					tempNeg=Table[{T,uncondCov[v1[t],v1[t+T], model ]},{T, -maxLag-1, -seqStart}],
 					tempPos=Table[{T,uncondCov[v1[t],v1[t+T], model ]},{T, seqStart, maxLag+1}]
 				},
-				covLong[v1, q_/;q <= (-seqStart)]=seqfun[tempNeg, q];
+				covLong[v1, q_/;q <= (-seqStart)]=seqfun[tempNeg, q, v1, v1];
 				covLong[v1, 0]=uncondVar[v1[t], model];
-				covLong[v1, q_/;q >= seqStart]=seqfun[tempPos,q];
+				covLong[v1, q_/;q >= seqStart]=seqfun[tempPos,q, v1, v1];
 				Do[
 					covLong[v1, -qInd]=uncondCov[v1[t],v1[t-qInd], model];
 					covLong[v1, qInd]=uncondCov[v1[t],v1[t+qInd], model];
@@ -407,9 +404,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 						tempNeg=Table[{T,uncondCov[v1[t],v2[t+T], model]},{T,-maxLag-1,-seqStart}],
 						tempPos=Table[{T,uncondCov[v1[t],v2[t+T], model]},{T,seqStart,maxLag+1}]
 					},
-					covLong[v1,v2,q_/;q <= (-seqStart)]=seqfun[tempNeg,q];
+					covLong[v1,v2,q_/;q <= (-seqStart)]=seqfun[tempNeg,q,v1,v2];
 					covLong[v1,v2,0]=uncondCov[v1[t],v2[t], model];
-					covLong[v1,v2,q_/;q >= seqStart]=seqfun[tempPos,q];
+					covLong[v1,v2,q_/;q >= seqStart]=seqfun[tempPos,q,v1,v2];
 					Do[
 						covLong[v1,v2,-qInd]=uncondCov[v1[t],v2[t-qInd], model];
 						covLong[v1,v2,qInd]=uncondCov[v1[t],v2[t+qInd], model];
@@ -425,7 +422,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 						{
 							tempNeg=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,-maxLag-2,-seqStart-1}]
 						},
-						covLong[v1,v3,q_/;q < (-seqStart)]=seqfun[tempNeg,q];
+						covLong[v1,v3,q_/;q < (-seqStart)]=seqfun[tempNeg,q,v1,v3];
 						covLong[v1,v3,0]=uncondCov[v1[t],v3[t], model];
 						covLong[v1,v3,q_/;q > 0]=0;
 						Do[
@@ -459,9 +456,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				},
 				tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i] , model ]},{T,-maxLag-2,-seqStart-1}];
 				tempPos[i_]=Table[{T,uncondCov[v1[t,i],v1[t+T,i], model]},{T,seqStart+1,maxLag+2}];
-				covLong[v1,q_/;q < (-seqStart),i_]=seqfun[tempNeg[i],q];
+				covLong[v1,q_/;q < (-seqStart),i_]=seqfun[tempNeg[i],q,v1,v1];
 				covLong[v1,0,i_]=uncondVar[v1[t,i], model];
-				covLong[v1,q_/;q > seqStart,i_]=seqfun[tempPos[i],q];
+				covLong[v1,q_/;q > seqStart,i_]=seqfun[tempPos[i],q,v1,v1];
 				Do[
 					covLong[v1,-qInd,i_]=uncondCov[v1[t,i],v1[t-qInd,i], model];
 					covLong[v1,qInd,i_]=uncondCov[v1[t,i],v1[t+qInd,i], model];
@@ -480,9 +477,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				},
 				tempNeg[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j], model   ]},{T,-maxLag-1,-seqStart}];
 				tempPos[i_,j_]=Table[{T,uncondCov[v1[t,i],v1[t+T,j], model  ]},{T,seqStart,maxLag+1}];
-				covLong[v1,q_/;q <= (-seqStart),i_,j_]/;Not[MatchQ[i,j]]=seqfun[tempNeg[i,j],q];
+				covLong[v1,q_/;q <= (-seqStart),i_,j_]/;Not[MatchQ[i,j]]=seqfun[tempNeg[i,j],q,v1,v1];
 				covLong[v1,0,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t,j], model];
-				covLong[v1,q_/;q >= seqStart,i_,j_]/;Not[MatchQ[i,j]]=seqfun[tempPos[i,j],q];
+				covLong[v1,q_/;q >= seqStart,i_,j_]/;Not[MatchQ[i,j]]=seqfun[tempPos[i,j],q,v1,v1];
 				Do[
 					covLong[v1,-qInd,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t-qInd,j], model];
 					covLong[v1,qInd,i_,j_]/;Not[MatchQ[i,j]]=uncondCov[v1[t,i],v1[t+qInd,j], model];
@@ -500,7 +497,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					},
 					tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v3[t+T], model]},{T,-maxLag-2,-seqStart-1}];
 					
-					covLong[v1,v3,q_/;q < (-seqStart),i_]=seqfun[tempNeg[i],q];
+					covLong[v1,v3,q_/;q < (-seqStart),i_]=seqfun[tempNeg[i],q,v1,v3];
 					covLong[v1,v3,0,i_]=uncondCov[v1[t,i],v3[t], model];
 					covLong[v1,v3,q_/;q > 0,i_]=0;
 					Do[
@@ -522,9 +519,9 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					},
 					tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T], model]},{T,-maxLag-1,-seqStart}];
 					tempPos[i_]=Table[{T,uncondCov[v1[t,i],v2[t+T], model]},{T,seqStart,maxLag+1}];
-					covLong[v1,v2,q_/;q <= (-seqStart),i_]=seqfun[tempNeg[i],q];
+					covLong[v1,v2,q_/;q <= (-seqStart),i_]=seqfun[tempNeg[i],q,v1,v2];
 					covLong[v1,v2,0,i_]=uncondCov[v1[t,i],v2[t], model];
-					covLong[v1,v2,q_/;q >= seqStart,i_]=seqfun[tempPos[i],q];
+					covLong[v1,v2,q_/;q >= seqStart,i_]=seqfun[tempPos[i],q,v1,v2];
 					Do[
 						covLong[v1,v2,-qInd,i_]=uncondCov[v1[t,i],v2[t-qInd], model];
 						covLong[v1,v2,qInd,i_]=uncondCov[v1[t,i],v2[t+qInd], model];
@@ -801,7 +798,7 @@ FullForm]\))/;(!FreeQ[HoldPattern[b],countStockVars] && FreeQ[HoldPattern[c],Mod
 		(*********************************************)
 		(*covariance with pd12lag*)
 		Echo["Computing covariance with pd12lag"];
-		hor=ToString/@{12,24,36,48,60,72};
+		hor=ToString/@{12(*,24,36,48,60,72*)};
 		vars1cov=Flatten[Outer[{StringJoin[#1,#2],StringJoin[#1,#1,#2],StringJoin[#1,"pd",#2]}&,vars1,hor],1];
 		vars1cov=Flatten@LexicographicSort@Transpose[vars1cov];
 		Do[
@@ -854,14 +851,14 @@ FullForm]\))/;(!FreeQ[HoldPattern[b],countStockVars] && FreeQ[HoldPattern[c],Mod
 
 (*split expr by presence/absence of certain parameters*)
 partitionBy[expr_] := {
-	{Not @ Inactive @ FreeQ[expr, rhopbar] && Inactive @ FreeQ[expr, vp] && Inactive @ FreeQ[expr, phispw]},
-	{Inactive @ FreeQ[expr, rhopbar] && Inactive @ FreeQ[expr, phipbarpb]},
-	{Inactive @ FreeQ[expr, rhopbar] && Inactive @ FreeQ[expr, phispw]},
-	{Inactive @ FreeQ[expr, rhopbar] && Inactive @ Not @ FreeQ[expr, vp]},
-	{Inactive @ FreeQ[expr, rhopbar] && Inactive @ Not @ FreeQ[expr, phispw]},
-	{Not @ Inactive@ FreeQ[expr, rhopbar] && Inactive @ FreeQ[expr, Esp]},
-	{Not @ Inactive @ FreeQ[expr, rhopbar] && Inactive @ Not @ FreeQ[expr, Esp]},
-	{Inactive@ FreeQ[expr, vppbar]}
+	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`vp] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phispw]},
+	{Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarpb]},
+	{Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phispw]},
+	{Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ Not @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`vp]},
+	{Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ Not @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phispw]},
+	{Not @ Inactive@ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`Esp]},
+	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ Not @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`Esp]},
+	{Inactive@ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`vppbar]}
 };
 (*number of cases in partitionBy*)
 numCond = (Dimensions @ Values @ DownValues @ partitionBy)[[2]];
@@ -907,8 +904,11 @@ splitAndFindSequenceFunction[expr_, q_] :=
 (*seqfun*)
 
 
+seqfun::seqfun="Sequence function not found for uncondCov[`1`[t], `2`[t+T]].";
+
+
 (*seqfun tries FindSequenceFunction, then splitAndFindSequenceFunction, then fails with a message*)
-seqfun[list_, q_] :=
+seqfun[list_, q_, v1_:v1, v2_:v2] :=
 	With[{sf = FindSequenceFunction[list, q]},
 		If[
 			FreeQ[sf, FindSequenceFunction],
@@ -917,7 +917,7 @@ seqfun[list_, q_] :=
 				If[
 					FreeQ[ssf, FindSequenceFunction],
 					ssf,
-					Message[createDatabase::seqfun, ToString @ v1, ToString @ v2];
+					Message[seqfun::seqfun, ToString @ v1, ToString @ v2];
 					Abort[];
 				]
 			]
