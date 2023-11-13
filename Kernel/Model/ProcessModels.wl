@@ -178,7 +178,8 @@ Echo["addCoeffsSystem","Done"];
 		#,
 		"extraInfo" -> If[KeyExistsQ[modelsExtraInfo,#["shortname"]],modelsExtraInfo[#["shortname"]],<||>]
 	]& /@ models;
-	
+Echo["extraInfo","Done"];
+
 	models = Append[
 		#,
 		"coeffsSolution" -> <| 
@@ -211,7 +212,7 @@ Echo["addCoeffsSolutionN","Done"];
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*createExogenous*)
 
 
@@ -296,7 +297,7 @@ createExogenous[m_]:=Module[
 ]	
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*createEndogenous*)
 
 
@@ -366,7 +367,7 @@ createEndogenous[mod_]:=Module[
 ]	
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*addToStateVars*)
 
 
@@ -943,7 +944,7 @@ formatStartingValues[
 
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*formatStartingValuesRest*)
 
 

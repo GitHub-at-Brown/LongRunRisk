@@ -103,18 +103,20 @@ updateCoeffsSol[
 				FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[0]/.guessCoeffsSolution,
 				First@(Evaluate[OptionValue["initialGuess"]]["Ewc"])
 			],
-			guessCoeffsSolutionPd=Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]][j][0],{j,1,numStocks}]/.guessCoeffsSolution,
+			guessCoeffsSolutionPd=Module[{j},Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]][j][0],{j,1,numStocks}]]/.guessCoeffsSolution,
 			igNumStocks=If[(First@Dimensions[ig])!=numStocks,ConstantArray[First@ig,numStocks],ig]
 		},
 		With[
 			{
-				initialGuessEpd = Table[
-					"Epd0["<>IntegerString[j]<>"]"->
-						If[
-							NumberQ[guessCoeffsSolutionPd[[j]]],
-							guessCoeffsSolutionPd[[j]],igNumStocks[[j]]/.List->Sequence
-						],
-					{j,1,numStocks}
+				initialGuessEpd = Module[{j},
+					Table[
+						"Epd0["<>IntegerString[j]<>"]"->
+							If[
+								NumberQ[guessCoeffsSolutionPd[[j]]],
+								guessCoeffsSolutionPd[[j]],igNumStocks[[j]]/.List->Sequence
+							],
+						{j,1,numStocks}
+					]
 				]
 			},
 			Module[

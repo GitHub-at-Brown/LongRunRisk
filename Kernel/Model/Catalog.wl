@@ -1866,7 +1866,7 @@ modelsExtraInfo = <|
 				{
 					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
 					B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
-					j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
+					j = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j,
 					sign = 1
 				},
 				{
@@ -1917,7 +1917,7 @@ modelsExtraInfo = <|
 					{
 						A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
 						B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
-						j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
+						j = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j,
 						sign = 1
 					},
 					(*assumption needed to get real roots for coefficients of the price dividend ratio is:*)
@@ -1960,7 +1960,7 @@ modelsExtraInfo = <|
 				{
 					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
 					B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
-					j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
+					j = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j,
 					sign = 1
 				},
 				{
@@ -2011,7 +2011,7 @@ modelsExtraInfo = <|
 					{
 						A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
 						B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
-						j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
+						j = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j,
 						sign = 1
 					},
 					(*assumption needed to get real roots for coefficients of the price dividend ratio is:*)
@@ -2062,7 +2062,7 @@ modelsExtraInfo = <|
 				{
 					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
 					B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
-					j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
+					j = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j,
 					sign = 1
 				},
 				{
@@ -2133,7 +2133,7 @@ modelsExtraInfo = <|
 				{
 					A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
 					B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
-					j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j,
+					j = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j,
 					sign1 = 1,
 					sign2 = 1
 				},
@@ -2159,7 +2159,7 @@ modelsExtraInfo = <|
 					{
 						A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc,
 						B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]],
-						j = FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j
+						j = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j
 					},
 					(*assumptions needed to get real roots for coefficients of the wealth consumption ratio and positive B[j][0]*)
 					((-1 + psi)^2*((1 + E^A[0] + E^(2*B[j][0])*(3 + rhopbar*(-2 + vp) - 2*vp) + E^(3*B[j][0])*(-1 + rhopbar)*(-1 + vp) - E^B[j][0]*(-3 + rhopbar + vp) - E^(A[0] + B[j][0])*(-3 + rhopbar + vp) + E^(A[0] + 2*B[j][0])*(3 + rhopbar*(-2 + vp) - 2*vp + phipbarpb^2*vppbar*A[6] - phipbarpb^2*theta*vppbar*A[6]) + E^(A[0] + 3*B[j][0])*(1 + rhopbar*(-1 + vp) - vp + phipbarpb^2*rhoppbar*vpp*A[6] - phipbarpb^2*rhoppbar*theta*vpp*A[6] + phipbarpb^2*vppbar*A[6] - phipbarpb^2*theta*vppbar*A[6]))^2 - (E^(3*B[j][0])*phipbarpb^2*(vppbar + E^B[j][0]*(rhoppbar*vpp + vppbar))*(-2*psi*(-1 + theta)*A[6] + E^(2*(A[0] + B[j][0]))*(2*rhocp*rhoppbar*theta*(-1 + vp) + psi*(-1 + theta)*(-2*rhocp*rhoppbar*(-1 + vp) + A[6]*(-2 - 2*rhopbar*(-1 + vp) + 2*vp - phipbarpb^2*rhoppbar*vpp*A[6] + phipbarpb^2*rhoppbar*theta*vpp*A[6] - phipbarpb^2*vppbar*A[6] + phipbarpb^2*theta*vppbar*A[6]))) + 2*E^A[0]*psi*(-1 + theta)*(rhoppbar*A[1] + (-2 + rhopbar)*A[6] + vppbar*A[7]) + 2*E^(2*A[0])*psi*(-1 + theta)*(rhoppbar*A[1] + (-1 + rhopbar)*A[6] + vppbar*A[7]) + 2*E^B[j][0]*(-(rhocp*rhoppbar*theta) + psi*(-1 + theta)*(rhocp*rhoppbar - rhoppbar*A[1] - 2*A[6] + vp*A[6] - vppbar*A[7])) + 2*E^(A[0] + B[j][0])*(-2*rhocp*rhoppbar*theta + psi*(-1 + theta)*(2*rhocp*rhoppbar - (-2 + rhopbar)*(-2 + vp)*A[6] + rhoppbar*(-(vp*A[1]) + vpp*A[7]))) - 2*E^(2*B[j][0])*(-(rhocp*rhoppbar*theta*(-1 + vp)) + psi*(-1 + theta)*(rhocp*rhoppbar*(-1 + vp) + A[6] - vp*A[6] + vppbar*A[7] + rhoppbar*(A[1] - vp*A[1] + vpp*A[7]))) - 2*E^(A[0] + 2*B[j][0])*(-2*rhocp*rhoppbar*theta*(-1 + vp) + psi*(-1 + theta)*(2*rhocp*rhoppbar*(-1 + vp) + 2*A[6] - rhopbar*A[6] - 2*vp*A[6] + rhopbar*vp*A[6] + vppbar*A[7] + rhoppbar*(A[1] - vp*A[1] + vpp*A[7]))) + E^(2*A[0] + B[j][0])*(-2*rhocp*rhoppbar*theta + psi*(-1 + theta)*(2*rhocp*rhoppbar - 4*A[6] + 4*rhopbar*A[6] + 2*vp*A[6] - 2*rhopbar*vp*A[6] - phipbarpb^2*vppbar*A[6]^2 + phipbarpb^2*theta*vppbar*A[6]^2 + 2*vppbar*A[7] + 2*rhoppbar*(A[1] - vp*A[1] + vpp*A[7]))) - 2*E^B[j][0]*(1 + E^A[0])^2*psi*rhoppbar*(-1 + E^B[j][0]*(-1 + vp))*rhodp[j]))/psi))/E^(2*B[j][0]) >= $MachineEpsilon && ((1 + E^A[0] + E^B[j][0]*(1 - rhog^2 + E^A[0]*(1 - rhog^2*(1 + 4*phig^2*(-1 + theta)*A[5]))))^2 - (4*E^(2*B[j][0])*phig^2*rhog^2*((1 + E^B[j][0])^2*(1 - theta)*(2*A[5] - 2*E^A[0]*(-2 + rhog^2)*A[5] - E^(2*A[0])*((-1 + theta)*A[2]^2 + 2*A[5]*(-1 + rhog^2*(1 + 2*phig^2*(-1 + theta)*A[5])))) + 2*E^(A[0] + B[j][0])*(1 + E^A[0])*(1 + E^B[j][0])*(-1 + theta)*A[2]*( -(gamma*xic) + A[2] - theta*A[2] + xid[j]) + E^(2*B[j][0])*(1 + E^A[0])^2*( -(gamma*xic) + A[2] - theta*A[2] + xid[j])^2))/(1 + E^B[j][0])^2)/((1 + E^A[0])^2*(1 + E^B[j][0])^2) >= $MachineEpsilon
