@@ -126,9 +126,9 @@ t::usage = "t denotes time.";
 
 (*the wealth-consumption ratio, the price-dividend ratios for stocks and bond prices are linear in stateVars*)
 wceq /: stateVars_Function[wceq] := ({t_} :> linearInStateVars[stateVars[t],A])/. dv
-pdeq /: stateVars_Function[pdeq] := ({t_,i_}:>linearInStateVars[stateVars[t],B[i]])/. dv
-bondeq /: stateVars_Function[bondeq] := ({t_,m_}:>linearInStateVars[stateVars[t],R[m]])/. dv
-nombondeq /: stateVars_Function[nombondeq] := ({t_,m_}:>linearInStateVars[stateVars[t],P[m]])/. dv
+pdeq /: stateVars_Function[pdeq] := ({t_,i_} :> linearInStateVars[stateVars[t],B[i]])/. dv
+bondeq /: stateVars_Function[bondeq] := ({t_,m_} :> linearInStateVars[stateVars[t],R[m]])/. dv
+nombondeq /: stateVars_Function[nombondeq] := ({t_,m_} :> linearInStateVars[stateVars[t],P[m]])/. dv
 
 
 (* ::Subsubsection:: *)
@@ -138,7 +138,7 @@ nombondeq /: stateVars_Function[nombondeq] := ({t_,m_}:>linearInStateVars[stateV
 linearInStateVars[stateVars_,coeff_]:= Module[
 	{
 		stateVarsWith1=Prepend[stateVars,1],
-		coeffs=Table[coeff[j],{j,0,Length[stateVars]}]
+		coeffs=Module[{j},Table[coeff[j],{j,0,Length[stateVars]}]]
 	},	
 		Dot[coeffs,stateVarsWith1]
 ]

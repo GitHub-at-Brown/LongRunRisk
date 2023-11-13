@@ -76,8 +76,13 @@ uncondEStep[expr_,model_]:=With[
 			{
 				stateVarsNoEps = Complement[stateVars,Cases[stateVars,x_Symbol?(MatchQ[SymbolName[#],"eps"]&)[y___]:>x[y],Infinity,Heads->True]]
 			},
-			rulesE[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;
-			FixedPoint[evNoEpsStateVarsProduct[#,model,stateVarsNoEps]&,(expr/.cond`Private`modelContextRules)//.Normal@model["endogenousEq"]/.model["toStateVars"]]/.rulesE[_]	
+			Module[
+				{
+					rulesElocal
+				},
+				rulesElocal[t_]:=rulesEfun[t]//.assignParam//.assignParamStocks;
+				FixedPoint[evNoEpsStateVarsProduct[#,model,stateVarsNoEps]&,(expr/.cond`Private`modelContextRules)//.Normal@model["endogenousEq"]/.model["toStateVars"]]/.rulesElocal[_]
+			]
 		]
 	]
 ]
