@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20231109-4Z7RYM"
+	TestID->"NiceOutput_20231113-VLDBU0@@Tests/NiceOutput.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
@@ -26,7 +26,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20231109-VJQXIA"
+	TestID->"NiceOutput_20231113-GD6CIW@@Tests/NiceOutput.wlt:13,1-30,2"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Tools`NiceOutput`";
@@ -37,7 +37,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20231109-MYOB68"
+	TestID->"NiceOutput_20231113-H85BO1@@Tests/NiceOutput.wlt:31,1-41,2"
 ]
 VerificationTest[
 	Apply[And, {MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]}]
@@ -46,7 +46,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20231109-5NNMUY"
+	TestID->"NiceOutput_20231113-EKKE1V@@Tests/NiceOutput.wlt:42,1-50,2"
 ]
 VerificationTest[
 	!SameQ[Names @ "*info", {}]
@@ -55,7 +55,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20231109-J3QV9W"
+	TestID->"NiceOutput_20231113-ILD59Y@@Tests/NiceOutput.wlt:51,1-59,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`myModelsInfo = PacletizedResourceFunctions`SetSymbolsContext @ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`msp;
@@ -76,7 +76,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20231109-3A35JA"
+	TestID->"NiceOutput_20231113-MW12YZ@@Tests/NiceOutput.wlt:60,1-80,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`justBY = <|"BY" -> FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`msp["BY"]|>;
@@ -106,7 +106,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20231109-O9TNP8"
+	TestID->"NiceOutput_20231113-7MERPZ@@Tests/NiceOutput.wlt:81,1-110,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -134,7 +134,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20231109-KO928N"
+	TestID->"NiceOutput_20231113-1D6WNH@@Tests/NiceOutput.wlt:111,1-138,2"
 ]
 VerificationTest[
 	SameQ[
@@ -168,7 +168,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20231109-SZZTU8"
+	TestID->"NiceOutput_20231113-IZLY49@@Tests/NiceOutput.wlt:139,1-172,2"
 ]
 VerificationTest[
 	Not[
@@ -182,7 +182,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20231109-DD1AHQ"
+	TestID->"NiceOutput_20231113-4F9760@@Tests/NiceOutput.wlt:173,1-186,2"
 ] 
 End[]
 EndTestSection[]

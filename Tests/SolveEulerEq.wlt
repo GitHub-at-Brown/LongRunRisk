@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20231109-CRXGOH"
+	TestID->"SolveEulerEq_20231113-J872F7@@Tests/SolveEulerEq.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`";
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20231109-SK9L82"
+	TestID->"SolveEulerEq_20231113-YD5IIH@@Tests/SolveEulerEq.wlt:13,1-23,2"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -850,7 +850,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20231109-TIT2UL"
+	TestID->"SolveEulerEq_20231113-U2HJDV@@Tests/SolveEulerEq.wlt:24,1-854,2"
 ] 
 End[]
 EndTestSection[]
