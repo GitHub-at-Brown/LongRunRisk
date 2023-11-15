@@ -20,12 +20,7 @@ growth
 
 growth::usage = "growth[variable, t] gives the growth rate at time t of variable."<>"\n"<>
 				"growth[variable, t, i] specify the stock identifier i when variable is a stock-related variable such as dividends."<>"\n"<>
-				"growth[variable, t, m] specify the maturity m in months when variable is a bond-related variable such as bond yields."<>"\n"<>
-				"growth[variable, t, Options] allows options to specify time aggregation periods in months and number of time-aggregated periods over which approximate growth rates are calculated."<>"\n"<>
-				"Examples:"<>"\n"<>
-					"growth[dc, t, \"TimeAggregation\"->3] gives the growth rate of time-aggregated consumption, with time aggregation done over 3 months."<>"\n"<>
-					"growth[dd, t, 1, \"TimeAggregation\"->3] gives the growth rate of time-aggregated dividends for stock 1, with time aggregation done over 3 months."<>"\n"<>
-					"growth[dc, t, \"TimeAggregation\"->12, \"numPeriods\"->2] gives the growth rate over 2 years of time-aggregated consumption, with time aggregation done over 12 months.";
+				"growth[variable, t, m] specify the maturity m in months when variable is a bond-related variable such as bond yields.";
 
 
 (* ::Section:: *)
@@ -57,23 +52,45 @@ growth[
 		k=OptionValue["numPeriods"],
 		n=OptionValue["Order"],
 		v0=OptionValue["v0"],
+		type=OptionValue["Variable"],
 		optsgt=FilterRules[{opts},Except[Options[growth]]],
 		imR=im//ReleaseHold,
 		tau,
 		d,
 		j,
 		v0args,
-		v0eval
+		v0eval,
+		flowvar
 	},
 
 	v0args[j_]:= Function[Null,v0[##1],Listable]@@{t,j,h,k,v,im}; (*allow v0 to have any number of arguments smaller than the maximum of six*)
-		
-	Normal[
-		(
-			ReplaceAll[gt[v, t,im,optsgt],v[t+tau_Integer:0,imR]:>d*(v[t+tau,imR]-v0args[-tau])+v0args[-tau]]
-		) + O[d]^(n + 1)  //ReleaseHold
-	]/. d -> 1
-]/; (OptionValue["flowVariable"]==True)
+	Switch[type,
+		"Flow",	
+			Normal[
+				(
+					ReplaceAll[gt[v, t, im, optsgt],v[t+tau_Integer:0,imR]:>d*(v[t+tau,imR]-v0args[-tau])+v0args[-tau]]
+				) + O[d]^(n + 1)  //ReleaseHold
+			]/. d -> 1,
+		"Ratio",
+			(*create flow variable in the same context as the variable that has the ratio*)
+			flowvar=Switch[
+				SymbolName[v],
+				"wc",
+				Symbol[Context[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`v]<>"dc"],
+				"pd",
+				Symbol[Context[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`v]<>"dd"]	
+			];
+			(*must use numPeriods->1 for ratio*)
+			optsgt=Normal@Append[Association@optsgt,"numPeriods"->1];
+			var[t,imR]-(
+				Normal[
+					(
+						ReplaceAll[gt[flowvar, t, im, optsgt],v[t+tau_Integer:0,imR]:>d*(v[t+tau,imR]-v0args[-tau])+v0args[-tau]]
+					) + O[d]^(n + 1)  //ReleaseHold
+				]/. d -> 1
+			)
+	]
+]/; ( (OptionValue["Variable"]==="Flow") || (OptionValue["Variable"]==="Ratio"))
 
 (*for stock variables, growth rate is already linear, return gt unchanged*)
 growth[
@@ -86,7 +103,7 @@ growth[
 		optsgt=FilterRules[{opts},Except[Options[growth]]]
 	},
 	gt[v, t,im,optsgt]
-]/;(OptionValue["flowVariable"]==False)
+]/;(OptionValue["Variable"]==="Stock")
 
 
 (* ::Subsubsection:: *)
@@ -126,7 +143,7 @@ s[x_List]:=Plus@@x
 
 
 g//Options = {
-	"flowVariable"->True (*specify if variable is a flow variable ("flowVariable"->True) or a stock variable ("flowVariable"->False)*)
+	"Variable"->"Flow" (*specify if variable is a flow variable ("Variable"->"Flow"), a stock variable ("Variable"->"Stock"), or the ratio of a stock and a flow variable ("Variable"->"Ratio")*)
 };
 
 
@@ -139,7 +156,7 @@ g[
 ]:=g[{x},h,k,opts]
 
 (*if argument is a list*)
-(** if computing growth of a stock variable, x must have length k*h **)
+(** when computing growth of a stock variable, x must have length k*h **)
 g[
 	x_List,
 	h:_Integer?Positive,(*time-aggregate over `h` months*)
@@ -147,13 +164,14 @@ g[
 	opts:OptionsPattern[g]
 ]:=With[
 	{
-		flowVariable=OptionValue["flowVariable"]
+		type=OptionValue["Variable"]
 	},
 	s[x]
-	]/; ((Length[x]==k*h) && (OptionValue["flowVariable"]==False))
+	]/; ((Length[x]==k*h) && (OptionValue["Variable"]==="Stock"))
 	
-(** if computing growth of a flow variable, x must have length (1+k)*h-1 **)
-(** if computing growth of a stock variable, allow length of x to be (1+k)*h-1 
+(** when computing growth of a flow variable or time-aggregation of a ratio of a 
+stock and a flow variable, x must have length (1+k)*h-1 **)
+(** when computing growth of a stock variable, allow length of x to be (1+k)*h-1 
 but then evaluate using only first h*k entries of x,
  discarding entries k*h+1, k*h+2, ..., (1+k)*h-1 **)
 g[
@@ -163,18 +181,20 @@ g[
 	opts:OptionsPattern[g]
 ]:=With[
 	{
-		flowVariable=OptionValue["flowVariable"],
+		type=OptionValue["Variable"],
 		x1=x[[;;k*h]],(*first k*h months*)
-		x2=x[[;;h-1]],(*first k-1 months*)
+		x2=x[[;;h-1]],(*first h-1 months*)
 		x3=x[[k*h+1;;]] (*months k*h+1 until end*)
 	},
-	If[flowVariable,
-		s[x1]+f[x2]-f[x3],
+	Switch[type,
+		"Flow",
+		s[x1]+f[x2]-f[x3]
+		"Stock",
 		g[x1,h,k,opts]
-	]
+		"Ratio",
+		-f[x2]
+	];
 ]/;(Length[x]==(1+k)*h-1)
-	
-
 
 
 (* ::Subsubsection:: *)
@@ -224,7 +244,7 @@ gt[
 	optsTs=FilterRules[{opts},Options[timeSeriesVector]],
 	optsg=FilterRules[{opts},Options[g]]
 },
-	g[timeSeriesVector[variable,t,im,optsTs],h,k, optsg]
+	g[timeSeriesVector[variable,t,im,optsTs],h,k,optsg]
 ]/; Implies[NumberQ[t],t>=0];
 
 
