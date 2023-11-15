@@ -55,11 +55,8 @@ growth[
 		type=OptionValue["Variable"],
 		optsgt=FilterRules[{opts},Except[Options[growth]]],
 		imR=im//ReleaseHold,
-		tau,
 		d,
-		j,
 		v0args,
-		v0eval,
 		flowvar
 	},
 
@@ -82,7 +79,7 @@ growth[
 			];
 			(*must use numPeriods->1 for ratio*)
 			optsgt=Normal@Append[Association@optsgt,"numPeriods"->1];
-			var[t,imR]-(
+			v[t,imR]-(
 				Normal[
 					(
 						ReplaceAll[gt[flowvar, t, im, optsgt],v[t+tau_Integer:0,imR]:>d*(v[t+tau,imR]-v0args[-tau])+v0args[-tau]]
@@ -103,7 +100,7 @@ growth[
 		optsgt=FilterRules[{opts},Except[Options[growth]]]
 	},
 	gt[v, t,im,optsgt]
-]/;(OptionValue["Variable"]==="Stock")
+]/;(OptionValue["Variable"]=="Stock")
 
 
 (* ::Subsubsection:: *)
@@ -114,7 +111,7 @@ growth[
 f[x:__?(!ListQ[##]&)]:=f[{x}]
 
 (*if argumenet is a list*)
-f[x_List]:=Module[{h=Length[x]+1,i,j},
+f[x_List]:=Module[{h=Length[x]+1},
 	Log[
 		1 + Sum[
 				Exp[
@@ -188,12 +185,12 @@ g[
 	},
 	Switch[type,
 		"Flow",
-		s[x1]+f[x2]-f[x3]
+			s[x1]+f[x2]-f[x3],
 		"Stock",
-		g[x1,h,k,opts]
+			g[x1,h,k,opts],
 		"Ratio",
-		-f[x2]
-	];
+			-f[x2]
+	]
 ]/;(Length[x]==(1+k)*h-1)
 
 
@@ -215,11 +212,9 @@ timeSeriesVector[
 	{
 		h=OptionValue["TimeAggregation"],
 		k=OptionValue["numPeriods"],
-		lastPeriod,
-		tau
+		lastPeriod
 	},
 	lastPeriod=(1+k)*h-2;
-	(*Echo["timeSeries opts"->{opts}];*)
 	Table[
 		variable[t-tau,im//ReleaseHold],
 		{tau,0,lastPeriod}

@@ -18,7 +18,7 @@ $ContextPath=initialContextPath = Cases[$ContextPath,Except["PacletizedResourceF
 confirm=False;(*True pauses after every test to manually accept/reject test, False accepts all tests*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*helper functions*)
 
 
@@ -56,7 +56,7 @@ DeleteFile[testFilePath<>"temp"];
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -85,7 +85,7 @@ Close /@ {readStream, writeStream}
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -129,7 +129,7 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -3294,14 +3294,14 @@ Protect[$Packages];
 (*h=3;k=2;*)
 (*And@@{*)
 (*gt[dc,t]==dc[t],*)
-(*gt[dc,t,"flowVariable"->False]==dc[t],*)
-(*gt[dc,t,"TimeAggregation"->3,"flowVariable"->False]==dc[-2+t]+dc[-1+t]+dc[t],*)
+(*gt[dc,t,"Variable"->"Stock"]==dc[t],*)
+(*gt[dc,t,"TimeAggregation"->3,"Variable"->"Stock"]==dc[-2+t]+dc[-1+t]+dc[t],*)
 (**)
-(*gt[dd,t,i,{"numPeriods"->k},"flowVariable"->False]==dd[-1+t,i]+dd[t,i],*)
-(*gt[dd,t,i,"flowVariable"->False]==dd[t,i],*)
+(*gt[dd,t,i,{"numPeriods"->k},"Variable"->"Stock"]==dd[-1+t,i]+dd[t,i],*)
+(*gt[dd,t,i,"Variable"->"Stock"]==dd[t,i],*)
 (**)
-(*gt[dd,t,1,{"TimeAggregation"->3},"flowVariable"->False]==dd[-2+t,1]+dd[-1+t,1]+dd[t,1],*)
-(*gt[dd,t,2,"flowVariable"->False]==dd[t,2]*)
+(*gt[dd,t,1,{"TimeAggregation"->3},"Variable"->"Stock"]==dd[-2+t,1]+dd[-1+t,1]+dd[t,1],*)
+(*gt[dd,t,2,"Variable"->"Stock"]==dd[t,2]*)
 (*}*)
 (*,"ConfirmResults"->confirm];*)
 
@@ -3311,14 +3311,14 @@ Protect[$Packages];
 (*h=3;k=2;*)
 (*And@@{*)
 (*gt[dc,t]==dc[t],*)
-(*gt[dc,t,{"TimeAggregation"->h,"numPeriods"->k},"flowVariable"->False]==dc[-5+t]+dc[-4+t]+dc[-3+t]+dc[-2+t]+dc[-1+t]+dc[t],*)
-(*gt[dc,t,"TimeAggregation"->h,"numPeriods"->k,"flowVariable"->False]==dc[-5+t]+dc[-4+t]+dc[-3+t]+dc[-2+t]+dc[-1+t]+dc[t],*)
+(*gt[dc,t,{"TimeAggregation"->h,"numPeriods"->k},"Variable"->"Stock"]==dc[-5+t]+dc[-4+t]+dc[-3+t]+dc[-2+t]+dc[-1+t]+dc[t],*)
+(*gt[dc,t,"TimeAggregation"->h,"numPeriods"->k,"Variable"->"Stock"]==dc[-5+t]+dc[-4+t]+dc[-3+t]+dc[-2+t]+dc[-1+t]+dc[t],*)
 (**)
-(*gt[dd,t,i,{"TimeAggregation"->h,"numPeriods"->k},"flowVariable"->False]==dd[-5+t,i]+dd[-4+t,i]+dd[-3+t,i]+dd[-2+t,i]+dd[-1+t,i]+dd[t,i],*)
-(*gt[dd,t,i,"TimeAggregation"->h,"numPeriods"->k,"flowVariable"->False]==dd[-5+t,i]+dd[-4+t,i]+dd[-3+t,i]+dd[-2+t,i]+dd[-1+t,i]+dd[t,i],*)
+(*gt[dd,t,i,{"TimeAggregation"->h,"numPeriods"->k},"Variable"->"Stock"]==dd[-5+t,i]+dd[-4+t,i]+dd[-3+t,i]+dd[-2+t,i]+dd[-1+t,i]+dd[t,i],*)
+(*gt[dd,t,i,"TimeAggregation"->h,"numPeriods"->k,"Variable"->"Stock"]==dd[-5+t,i]+dd[-4+t,i]+dd[-3+t,i]+dd[-2+t,i]+dd[-1+t,i]+dd[t,i],*)
 (**)
-(*gt[dd,t,1,{"TimeAggregation"->h,"numPeriods"->k},"flowVariable"->False]==dd[-5+t,1]+dd[-4+t,1]+dd[-3+t,1]+dd[-2+t,1]+dd[-1+t,1]+dd[t,1],*)
-(*gt[dd,t,2,"TimeAggregation"->h,"numPeriods"->k,"flowVariable"->False]==dd[-5+t,2]+dd[-4+t,2]+dd[-3+t,2]+dd[-2+t,2]+dd[-1+t,2]+dd[t,2]*)
+(*gt[dd,t,1,{"TimeAggregation"->h,"numPeriods"->k},"Variable"->"Stock"]==dd[-5+t,1]+dd[-4+t,1]+dd[-3+t,1]+dd[-2+t,1]+dd[-1+t,1]+dd[t,1],*)
+(*gt[dd,t,2,"TimeAggregation"->h,"numPeriods"->k,"Variable"->"Stock"]==dd[-5+t,2]+dd[-4+t,2]+dd[-3+t,2]+dd[-2+t,2]+dd[-1+t,2]+dd[t,2]*)
 (*}*)
 (*,"ConfirmResults"->confirm];*)
 
@@ -3356,10 +3356,10 @@ Protect[$Packages];
 (*ResourceFunction["WriteUnitTest"][testFilePath,*)
 (*h=3;k=1;*)
 (*And@@{*)
-(*g[timeSeriesVector[dc,t,"TimeAggregation"->h],h,"flowVariable"->True]==dc[-2+t]+dc[-1+t]+dc[t]-Log[1+E^(-dc[-4+t]-dc[-3+t])+E^-dc[-3+t]]+Log[1+E^(-dc[-1+t]-dc[t])+E^-dc[t]],*)
-(*g[timeSeriesVector[dc,t,"numPeriods"->k],1,k,"flowVariable"->True]==dc[t],*)
-(*g[timeSeriesVector[dc,t,{"TimeAggregation"->h,"numPeriods"->k}],h,k,"flowVariable"->True]==dc[-2+t]+dc[-1+t]+dc[t]-Log[1+E^(-dc[-4+t]-dc[-3+t])+E^-dc[-3+t]]+Log[1+E^(-dc[-1+t]-dc[t])+E^-dc[t]],*)
-(*g[timeSeriesVector[dc,t,"TimeAggregation"->h,"numPeriods"->k],h,k,"flowVariable"->True]==dc[-2+t]+dc[-1+t]+dc[t]-Log[1+E^(-dc[-4+t]-dc[-3+t])+E^-dc[-3+t]]+Log[1+E^(-dc[-1+t]-dc[t])+E^-dc[t]]*)
+(*g[timeSeriesVector[dc,t,"TimeAggregation"->h],h,"Variable"->"Flow"]==dc[-2+t]+dc[-1+t]+dc[t]-Log[1+E^(-dc[-4+t]-dc[-3+t])+E^-dc[-3+t]]+Log[1+E^(-dc[-1+t]-dc[t])+E^-dc[t]],*)
+(*g[timeSeriesVector[dc,t,"numPeriods"->k],1,k,"Variable"->"Flow"]==dc[t],*)
+(*g[timeSeriesVector[dc,t,{"TimeAggregation"->h,"numPeriods"->k}],h,k,"Variable"->"Flow"]==dc[-2+t]+dc[-1+t]+dc[t]-Log[1+E^(-dc[-4+t]-dc[-3+t])+E^-dc[-3+t]]+Log[1+E^(-dc[-1+t]-dc[t])+E^-dc[t]],*)
+(*g[timeSeriesVector[dc,t,"TimeAggregation"->h,"numPeriods"->k],h,k,"Variable"->"Flow"]==dc[-2+t]+dc[-1+t]+dc[t]-Log[1+E^(-dc[-4+t]-dc[-3+t])+E^-dc[-3+t]]+Log[1+E^(-dc[-1+t]-dc[t])+E^-dc[t]]*)
 (*}*)
 (*,"ConfirmResults"->confirm];*)
 
@@ -3369,10 +3369,10 @@ Protect[$Packages];
 (*ResourceFunction["WriteUnitTest"][testFilePath,*)
 (*h=3;k=1;*)
 (*And@@{*)
-(*g[timeSeriesVector[dc,t,"TimeAggregation"->h],h,"flowVariable"->False]==dc[-2+t]+dc[-1+t]+dc[t],*)
-(*g[timeSeriesVector[dc,t,"numPeriods"->k],1,k,"flowVariable"->False]==dc[t],*)
-(*g[timeSeriesVector[dc,t,{"TimeAggregation"->h,"numPeriods"->k}],h,k,"flowVariable"->False]==dc[-2+t]+dc[-1+t]+dc[t],*)
-(*g[timeSeriesVector[dc,t,"TimeAggregation"->h,"numPeriods"->k],h,k,"flowVariable"->False]==dc[-2+t]+dc[-1+t]+dc[t]*)
+(*g[timeSeriesVector[dc,t,"TimeAggregation"->h],h,"Variable"->"Stock"]==dc[-2+t]+dc[-1+t]+dc[t],*)
+(*g[timeSeriesVector[dc,t,"numPeriods"->k],1,k,"Variable"->"Stock"]==dc[t],*)
+(*g[timeSeriesVector[dc,t,{"TimeAggregation"->h,"numPeriods"->k}],h,k,"Variable"->"Stock"]==dc[-2+t]+dc[-1+t]+dc[t],*)
+(*g[timeSeriesVector[dc,t,"TimeAggregation"->h,"numPeriods"->k],h,k,"Variable"->"Stock"]==dc[-2+t]+dc[-1+t]+dc[t]*)
 (*}*)
 (*,"ConfirmResults"->confirm];*)
 
@@ -3381,11 +3381,11 @@ Protect[$Packages];
 (*ResourceFunction["WriteUnitTest"][testFilePath,*)
 (*h=3;k=1;*)
 (*And@@{*)
-(*g[timeSeriesVector[dc,t],1,"flowVariable"->False]==dc[t],*)
-(*g[timeSeriesVector[dc,t,"TimeAggregation"->h][[;;h*k]],h,"flowVariable"->False]==dc[-2+t]+dc[-1+t]+dc[t],*)
-(*g[timeSeriesVector[dc,t,"numPeriods"->k],1,k,"flowVariable"->False]==dc[t],*)
-(*g[timeSeriesVector[dc,t,{"TimeAggregation"->h,"numPeriods"->k}][[;;h*k]],h,k,"flowVariable"->False]==dc[-2+t]+dc[-1+t]+dc[t],*)
-(*g[timeSeriesVector[dc,t,"TimeAggregation"->h,"numPeriods"->k][[;;h*k]],h,k,"flowVariable"->False]==dc[-2+t]+dc[-1+t]+dc[t]*)
+(*g[timeSeriesVector[dc,t],1,"Variable"->"Stock"]==dc[t],*)
+(*g[timeSeriesVector[dc,t,"TimeAggregation"->h][[;;h*k]],h,"Variable"->"Stock"]==dc[-2+t]+dc[-1+t]+dc[t],*)
+(*g[timeSeriesVector[dc,t,"numPeriods"->k],1,k,"Variable"->"Stock"]==dc[t],*)
+(*g[timeSeriesVector[dc,t,{"TimeAggregation"->h,"numPeriods"->k}][[;;h*k]],h,k,"Variable"->"Stock"]==dc[-2+t]+dc[-1+t]+dc[t],*)
+(*g[timeSeriesVector[dc,t,"TimeAggregation"->h,"numPeriods"->k][[;;h*k]],h,k,"Variable"->"Stock"]==dc[-2+t]+dc[-1+t]+dc[t]*)
 (*}*)
 (*,"ConfirmResults"->confirm];*)
 
@@ -3395,10 +3395,10 @@ Protect[$Packages];
 (*ResourceFunction["WriteUnitTest"][testFilePath,*)
 (*h=3;k=1;*)
 (*And@@{*)
-(*g[timeSeriesVector[dc,t],"flowVariable"->False]==FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc[t]},"flowVariable"->False],*)
-(*g[timeSeriesVector[dc,t,"TimeAggregation"->h][[;;h*k+1]],h,"flowVariable"->False]==FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc[t],dc[-1+t],dc[-2+t],dc[-3+t]},3,"flowVariable"->False],*)
-(*g[timeSeriesVector[dc,t,{"TimeAggregation"->h,"numPeriods"->k}][[;;h*k+1]],h,k,"flowVariable"->False]==FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc[t],dc[-1+t],dc[-2+t],dc[-3+t]},3,1,"flowVariable"->False],*)
-(*g[timeSeriesVector[dc,t,"TimeAggregation"->h,"numPeriods"->k][[;;h*k+1]],h,k,"flowVariable"->False]==FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc[t],dc[-1+t],dc[-2+t],dc[-3+t]},3,1,"flowVariable"->False]*)
+(*g[timeSeriesVector[dc,t],"Variable"->"Stock"]==FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc[t]},"Variable"->"Stock"],*)
+(*g[timeSeriesVector[dc,t,"TimeAggregation"->h][[;;h*k+1]],h,"Variable"->"Stock"]==FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc[t],dc[-1+t],dc[-2+t],dc[-3+t]},3,"Variable"->"Stock"],*)
+(*g[timeSeriesVector[dc,t,{"TimeAggregation"->h,"numPeriods"->k}][[;;h*k+1]],h,k,"Variable"->"Stock"]==FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc[t],dc[-1+t],dc[-2+t],dc[-3+t]},3,1,"Variable"->"Stock"],*)
+(*g[timeSeriesVector[dc,t,"TimeAggregation"->h,"numPeriods"->k][[;;h*k+1]],h,k,"Variable"->"Stock"]==FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc[t],dc[-1+t],dc[-2+t],dc[-3+t]},3,1,"Variable"->"Stock"]*)
 (*}*)
 (*,"ConfirmResults"->confirm];*)
 
@@ -4285,7 +4285,7 @@ Protect[$Packages];
 (*}*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Paclet Test*)
 
 
@@ -4310,7 +4310,7 @@ Protect[$Packages];
 (*And@@Values@((#["ReportSucceeded"])&/@testResults["Result"])*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Run All Tests Together*)
 
 
@@ -4352,7 +4352,7 @@ Protect[$Packages];
 (**)*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Run Individual Tests Separately*)
 
 
