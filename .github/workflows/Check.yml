@@ -39,6 +39,9 @@ jobs:
           tlmgr --version
           tlmgr install latex standalone lm svn-prov
           tlmgr path add
+          tlmgr update --self --all
+          tlmgr path add
+          fmtutil-sys --all
           tlmgr list --only-installed
       - name: Test
         id: test-paclet-step
