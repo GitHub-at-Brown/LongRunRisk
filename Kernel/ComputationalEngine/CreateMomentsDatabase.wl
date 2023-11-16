@@ -237,6 +237,7 @@ createDatabase[
 		(* equations that do not depend on stocks or bonds *)
 		expandList={
 			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`wc,
+			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`retc,
 			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`sdf,
 			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nomsdf
 		},
@@ -252,7 +253,9 @@ createDatabase[
 			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bondret,
 			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombondret,
 			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bondyield,
-			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombondyield
+			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombondyield,
+			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bondfw,
+			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombondfw
 		},
 		(*shocks*)
 		shocksList = {
@@ -298,7 +301,19 @@ createDatabase[
 		With[
 		{
 			(*state vars, dc and pi*)
-			varList=Union[stateVarsNoEps,{FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc,FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi}],
+			varList=Union[
+				stateVarsNoEps,
+				{
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc,
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi,
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pibar,
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x,
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg,
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx,
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sc,
+					FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sp
+				}
+			],
 			covLong=Symbol["FernandoDuarte`LongRunRisk`covLong"<>modelShortName]
 		},
 		

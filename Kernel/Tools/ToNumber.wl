@@ -101,7 +101,7 @@ toNumRules[
 						FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc ->
 							(uncondEwc/.sol//.allParams),
 						FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[ind_] :>
-							(uncondEpd/.(FernandoDuarte`LongRunRisk`Model`ProcessModels`Private`j->ind)/.sol//.allParams)
+							(uncondEpd/.(FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j->ind)/.sol//.allParams)
 					}
 				](*Join*)
 			](*With*)
@@ -240,11 +240,20 @@ modelEval::usage = "modelEval[expr, model] evaluates moments in expr using model
 modelEval[expr_, model_] := Fold[
 	ReverseApplied[moms[#1, #2, model]&]
 	,
-	expr
+	expr/.{
+		FernandoDuarte`LongRunRisk`UncondE -> uncondE,
+		FernandoDuarte`LongRunRisk`UncondVar -> uncondVar,
+		FernandoDuarte`LongRunRisk`UncondCov -> uncondCov,
+		FernandoDuarte`LongRunRisk`UncondCorr -> uncondCorr,
+		FernandoDuarte`LongRunRisk`Ev -> ev,
+		FernandoDuarte`LongRunRisk`Var -> var,
+		FernandoDuarte`LongRunRisk`Cov -> cov,
+		FernandoDuarte`LongRunRisk`Corr -> corr
+	}
 	,
 	{
-		uncondE, uncondVar,uncondCov,
-		uncondCorr, ev, var, cov, corr,
+		uncondE, uncondVar, uncondCov, uncondCorr,
+		ev, var, cov, corr(*,
 		FernandoDuarte`LongRunRisk`UncondE,
 		FernandoDuarte`LongRunRisk`UncondVar,
 		FernandoDuarte`LongRunRisk`UncondCov,
@@ -252,7 +261,7 @@ modelEval[expr_, model_] := Fold[
 		FernandoDuarte`LongRunRisk`Ev,
 		FernandoDuarte`LongRunRisk`Var,
 		FernandoDuarte`LongRunRisk`Cov,
-		FernandoDuarte`LongRunRisk`Corr
+		FernandoDuarte`LongRunRisk`Corr*)
 	}
 ];
 
