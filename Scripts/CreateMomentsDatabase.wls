@@ -1,7 +1,7 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-numKernels=40;
+numKernels=20;
 Unprotect[$ProcessorCount];$ProcessorCount=numKernels;
 CloseKernels[];LaunchKernels[numKernels];Kernels[];
 
@@ -23,7 +23,7 @@ createDatabase[
 	fileName
 ];
 ,
-{key,{"NRCStochVol"}(*Keys@FernandoDuarte`LongRunRisk`Models*)}
+{key,{"BKY"}(*Keys@FernandoDuarte`LongRunRisk`Models*)}
 ];
 ];
 Echo[out,"out"];
