@@ -36,12 +36,12 @@ jobs:
         run: echo "$HOME/bin" >> $GITHUB_PATH
       - name: Install LaTeX packages for MaTeX
         run: |
-          tlmgr --version
-          tlmgr install latex standalone lm svn-prov
-          tlmgr path add
           tlmgr update --self --all
           tlmgr path add
           fmtutil-sys --all
+          tlmgr --version
+          tlmgr install latex standalone lm svn-prov
+          tlmgr path add
           tlmgr list --only-installed
       - name: Test
         id: test-paclet-step
