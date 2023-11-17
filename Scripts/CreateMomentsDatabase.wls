@@ -23,7 +23,7 @@ createDatabase[
 	fileName
 ];
 ,
-{key,{"NRC","DES"}(*Keys@FernandoDuarte`LongRunRisk`Models*)}
+{key,{"NRCStochVol"}(*Keys@FernandoDuarte`LongRunRisk`Models*)}
 ];
 ];
 Echo[out,"out"];
