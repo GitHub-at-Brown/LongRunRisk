@@ -321,7 +321,16 @@ createDatabase[
 		uncondVarLong[expr_, covfun_:covLong]:= FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`uncondVarLongExo[toExogenous, expr,  covfun];
 
 		(*law of total variance*)
-		totCovLong[x_,y_,s_,fun_:covLong]:=uncondE[cov[x,y,s, model], model]+uncondCovLong[ev[x,s, model],ev[y,s, model],fun];
+		totCovLong[x_,y_,s_,fun_:covLong]:=
+			uncondE[cov[x,y,s, model], model]+(*uncondCovLong[ev[x,s, model],ev[y,s, model],fun]*)
+			Module[
+				{mom},
+				mom=Block[
+					{$RecursionLimit=20},
+					uncondCovLong[ev[x,s, model],ev[y,s, model],fun]
+				];
+				If[mom===TerminatedEvaluation["RecursionLimit"],uncondCov[ev[x,s, model],ev[y,s, model]],mom]
+			];
 		notAllZero[q___]:=Or@@(\!\(\*
 TagBox[
 StyleBox[
