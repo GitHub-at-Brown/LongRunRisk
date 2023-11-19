@@ -340,7 +340,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 		(covLong[OrderlessPatternSequence[#[[1]],#[[2]]],0,0]=uncondCov[#[[1]][t],#[[2,1]][t]*#[[2,2]][t], model ])&/@tup1;
 		(covLong[OrderlessPatternSequence[#[[1]],{OrderlessPatternSequence[#[[2,1]] ,#[[2,2]]]}],0,0]=uncondCov[#[[1]][t],#[[2,1]][t]*#[[2,2]][t] , model])&/@tup2;
 		
-		With[{tupVarList=Tuples[{varList,Subsets[varList,{2}]}]},
+		With[{tupVarList=Tuples[{varlistWithEps,Subsets[varlistWithEps,{2}]}]},
 			Do[
 				Do[
 					(covLong[#[[1]],{#[[2,1]] ,#[[2,2]]},tt1,tt2]=uncondCov[#[[1]][t],#[[2,1]][t+tt1]*#[[2,2]][t+tt2], model])&/@tupVarList;
