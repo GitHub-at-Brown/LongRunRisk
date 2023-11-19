@@ -269,7 +269,7 @@ createDatabase[
 			FernandoDuarte`LongRunRisk`Model`Shocks`eps["sp"]
 		},
 		(*covariance with pd12lag*)
-		vars1={"dc","dd","pd","rf","excret","pdpd","dcdc","dddd","excretexcret","rfrf","dcpd","ddpd","excretpd","rfpd"},
+		vars1={"dc","dd","pd"(*,"rf","excret","pdpd","dcdc","dddd","excretexcret","rfrf","dcpd","ddpd","excretpd","rfpd"*)},
 		vars2={"pd12lag"}
 	},
 	
@@ -322,15 +322,7 @@ createDatabase[
 
 		(*law of total variance*)
 		totCovLong[x_,y_,s_,fun_:covLong]:=
-			uncondE[cov[x,y,s, model], model]+(*uncondCovLong[ev[x,s, model],ev[y,s, model],fun]*)
-			Module[
-				{mom},
-				mom=Block[
-					{$RecursionLimit=20},
-					uncondCovLong[ev[x,s, model],ev[y,s, model],fun]
-				];
-				If[mom===TerminatedEvaluation["RecursionLimit"],uncondCov[ev[x,s, model],ev[y,s, model]],mom]
-			];
+			uncondE[cov[x,y,s, model], model]+uncondCovLong[ev[x,s, model],ev[y,s, model],fun];
 		notAllZero[q___]:=Or@@(\!\(\*
 TagBox[
 StyleBox[
@@ -348,9 +340,24 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 		(covLong[OrderlessPatternSequence[#[[1]],#[[2]]],0,0]=uncondCov[#[[1]][t],#[[2,1]][t]*#[[2,2]][t], model ])&/@tup1;
 		(covLong[OrderlessPatternSequence[#[[1]],{OrderlessPatternSequence[#[[2,1]] ,#[[2,2]]]}],0,0]=uncondCov[#[[1]][t],#[[2,1]][t]*#[[2,2]][t] , model])&/@tup2;
 		
+		With[{tupVarList=Tuples[{varList,Subsets[varList,{2}]}]},
+			Do[
+				Do[
+					(covLong[#[[1]],{#[[2,1]] ,#[[2,2]]},tt1,tt2]=uncondCov[#[[1]][t],#[[2,1]][t+tt1]*#[[2,2]][t+tt2], model])&/@tupVarList;
+					(covLong[#[[1]],{#[[2,1]] ,#[[2,2]]},-tt1,tt2]=uncondCov[#[[1]][t],#[[2,1]][t-tt1]*#[[2,2]][t+tt2], model])&/@tupVarList;
+					(covLong[#[[1]],{#[[2,1]] ,#[[2,2]]},tt1,-tt2]=uncondCov[#[[1]][t],#[[2,1]][t+tt1]*#[[2,2]][t-tt2], model])&/@tupVarList;
+					(covLong[#[[1]],{#[[2,1]] ,#[[2,2]]},-tt1,-tt2]=uncondCov[#[[1]][t],#[[2,1]][t-tt1]*#[[2,2]][t-tt2], model])&/@tupVarList;
+					,
+					{tt1,1,maxLag}
+				];
+				,
+				{tt2,1,maxLag}
+			];
+		];
+		
 		covLong[v1_,{v2_ ,v3_},q1_Integer,q2_Integer]/;(notAllZero[q1,q2]):=covLong[v1,{v2 ,v3},q1,q2]=totCovLong[v1[t],v2[t+q1]*v3[t+q2],t+Min[{0,q1,q2}]-1];
 		covLong[{v1_,v2_},v3_,q1_Integer,q2_Integer]/;(notAllZero[q1,q2]):= covLong[{v1,v2},v3,q1,q2]=totCovLong[v1[t]*v2[t+q1], v3[t+q2],t+Min[{0,q1,q2}]-1];
-		
+
 		rp[expr_,{pos_,i_}]:=ReplaceAt[expr,vv_[t+q_.]:>vv[t+q,i],pos];
 		
 		countStockVars[vars_List,patt_]:=Count[If[ResourceFunction["SymbolQ"][#],SymbolName[#], Nothing]&/@vars,patt];
@@ -402,7 +409,7 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 			,
 			{mm,1,Length[shocksList]}
 		];
-		Echo["Computing moments of dc, pi"];
+		Echo["Computing moments of state vars, dc, pi"];
 		(*state vars, dc and pi*)
 		ParallelDo[
 			v1=varList[[kk]];
@@ -440,28 +447,28 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 					];
 					covLong[v2,v1,q_]=covLong[v1,v2,-q];
 				];
-				(*shocks*)
-				Do[
-					v3=shocksList[[mm]];
-					With[
-						{
-							tempNeg=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,-maxLag-2,-seqStart-1}]
-						},
-						covLong[v1,v3,q_/;q < (-seqStart)]=seqfun[tempNeg,q,v1,v3];
-						covLong[v1,v3,0]=uncondCov[v1[t],v3[t], model];
-						covLong[v1,v3,q_/;q > 0]=0;
-						Do[
-							covLong[v1,v3,-qInd]=uncondCov[v1[t],v3[t-qInd], model];
-							,
-							{qInd, seqStart}
-						];
-						(*covLong[v3,v1,q_]=covLong[v1,v3,-q];*)
-					];
-					,
-					{mm,1,Length[shocksList]}
-				];
 				,
 				{qq,kk+1,Length[varList]}
+			];
+			(*shocks*)
+			Do[
+				v3=shocksList[[mm]];
+				With[
+					{
+						tempNeg=Table[{T,uncondCov[v1[t],v3[t+T], model]},{T,-maxLag-2,-seqStart-1}]
+					},
+					covLong[v1,v3,q_/;q < (-seqStart)]=seqfun[tempNeg,q,v1,v3];
+					covLong[v1,v3,0]=uncondCov[v1[t],v3[t], model];
+					covLong[v1,v3,q_/;q > 0]=0;
+					Do[
+						covLong[v1,v3,-qInd]=uncondCov[v1[t],v3[t-qInd], model];
+						,
+						{qInd, seqStart}
+					];
+					(*covLong[v3,v1,q_]=covLong[v1,v3,-q];*)
+				];
+				,
+				{mm,1,Length[shocksList]}
 			];
 			,
 			{kk,1,Length[varList]}
@@ -513,28 +520,6 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				];
 				covLong[v1,v1,q_,i_,j_]/;Not[MatchQ[i,j]]=covLong[v1,q,i,j];
 			];
-			(*shocks*)
-			Do[
-				v3=shocksList[[mm]];
-				Module[
-					{
-						tempNeg
-					},
-					tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v3[t+T], model]},{T,-maxLag-2,-seqStart-1}];
-					
-					covLong[v1,v3,q_/;q < (-seqStart),i_]=seqfun[tempNeg[i],q,v1,v3];
-					covLong[v1,v3,0,i_]=uncondCov[v1[t,i],v3[t], model];
-					covLong[v1,v3,q_/;q > 0,i_]=0;
-					Do[
-						covLong[v1,v3,-qInd,i_]=uncondCov[v1[t,i],v3[t-qInd], model];
-						,
-						{qInd, seqStart}
-					];
-					(*covLong[v3,v1,q_]=covLong[v1,v3,-q];*)
-				];
-				,
-				{mm,1,Length[shocksList]}
-			];
 			ParallelDo[
 				v2=varList[[kk]];
 				Module[
@@ -559,6 +544,28 @@ FullForm]\)&/@{q}) ;(*at least one input argument is non-zero*)
 				{kk,1,Length[varList]}
 				,
 				DistributedContexts->All
+			];
+			(*shocks*)
+			Do[
+				v3=shocksList[[mm]];
+				Module[
+					{
+						tempNeg
+					},
+					tempNeg[i_]=Table[{T,uncondCov[v1[t,i],v3[t+T], model]},{T,-maxLag-2,-seqStart-1}];
+					
+					covLong[v1,v3,q_/;q < (-seqStart),i_]=seqfun[tempNeg[i],q,v1,v3];
+					covLong[v1,v3,0,i_]=uncondCov[v1[t,i],v3[t], model];
+					covLong[v1,v3,q_/;q > 0,i_]=0;
+					Do[
+						covLong[v1,v3,-qInd,i_]=uncondCov[v1[t,i],v3[t-qInd], model];
+						,
+						{qInd, seqStart}
+					];
+					(*covLong[v3,v1,q_]=covLong[v1,v3,-q];*)
+				];
+				,
+				{mm,1,Length[shocksList]}
 			];
 			DownValues[Evaluate@covLong]=DeleteDuplicates[Flatten[ParallelEvaluate[DownValues[Evaluate@covLong]]]];
 			,
