@@ -114,13 +114,6 @@ SetAttributes[$endogenousVarsPrivate,NHoldAll]
 
 
 (* ::Subsection:: *)
-(*time variable*)
-
-
-t::usage = "t denotes time.";
-
-
-(* ::Subsection:: *)
 (*wceq, pdeq, bondeq, nombondeq*)
 
 

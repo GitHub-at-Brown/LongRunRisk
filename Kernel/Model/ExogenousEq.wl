@@ -86,6 +86,13 @@ Function[sym,
 SetAttributes[$exogenousVarsPrivate, NHoldAll]
 
 
+(* ::Subsubsection:: *)
+(*time variable*)
+
+
+t::usage = "t denotes time.";
+
+
 (* ::Subsection:: *)
 (*Exogenous processes*)
 

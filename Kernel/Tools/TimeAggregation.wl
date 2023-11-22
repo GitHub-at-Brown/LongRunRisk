@@ -82,7 +82,7 @@ growth[
 			v[t,imR]-(
 				Normal[
 					(
-						ReplaceAll[gt[flowvar, t, im, optsgt],v[t+tau_Integer:0,imR]:>d*(v[t+tau,imR]-v0args[-tau])+v0args[-tau]]
+						ReplaceAll[gt[flowvar, t, im, optsgt],flowvar[t+tau_Integer:0,imR]:>d*(flowvar[t+tau,imR]-v0args[-tau])+v0args[-tau]]
 					) + O[d]^(n + 1)  //ReleaseHold
 				]/. d -> 1
 			)
