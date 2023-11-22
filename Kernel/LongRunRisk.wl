@@ -209,8 +209,14 @@ UncondCov[x_,y_,model_]:=With[
 		{cExo},
 		(*Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
 		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];*)
-
-		cExo=FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`uncondCovLongExo[toExogenous, x, y, covLong];
+		
+		cExo=Quiet[
+			Check[
+				FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`uncondCovLongExo[toExogenous, x, y, covLong],
+				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov[x, y, model],
+				$IterationLimit::itlim
+			]
+		];
 		If[
 			FreeQ[cExo,covLong],
 			cExo,
@@ -218,6 +224,18 @@ UncondCov[x_,y_,model_]:=With[
 		]
 	](*Module*)
 ](*With*)
+
+
+(*totCovLong[x_,y_,s_,fun_:covLong]:=
+			uncondE[cov[x,y,s, model], model]+(*uncondCovLong[ev[x,s, model],ev[y,s, model],fun]*)
+			Module[
+				{mom},
+				mom=Block[
+					{$RecursionLimit=$RecursionLimit},
+					uncondCovLong[ev[x,s, model],ev[y,s, model],fun]
+				];
+				If[mom===TerminatedEvaluation["RecursionLimit"],uncondCov[ev[x,s, model],ev[y,s, model]],mom]
+			];*)
 
 
 (* ::Text:: *)
