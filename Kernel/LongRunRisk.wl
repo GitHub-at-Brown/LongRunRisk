@@ -165,7 +165,8 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 
 
 (*load file with pre-processed models and pre-computed moments*)
-pacletObj=PacletObject["FernandoDuarte/LongRunRisk"];
+Needs["PacletTools`"];
+pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
 filesInResources = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources"|>}];
 Map[Get@Get@#&,Flatten@StringCases[filesInResources,__~~".wl"]];
 
