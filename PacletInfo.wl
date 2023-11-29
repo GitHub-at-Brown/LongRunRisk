@@ -19,6 +19,7 @@ PacletObject[
         "Symbols" -> {
           "FernandoDuarte`LongRunRisk`Corr",
           "FernandoDuarte`LongRunRisk`Cov",
+          "FernandoDuarte`LongRunRisk`Ev",
           "FernandoDuarte`LongRunRisk`Growth",
           "FernandoDuarte`LongRunRisk`Info",
           "FernandoDuarte`LongRunRisk`Models",
@@ -31,7 +32,8 @@ PacletObject[
           "FernandoDuarte`LongRunRisk`UncondCov",
           "FernandoDuarte`LongRunRisk`UncondE",
           "FernandoDuarte`LongRunRisk`UncondVar",
-          "FernandoDuarte`LongRunRisk`Var"
+          "FernandoDuarte`LongRunRisk`Var",
+          "FernandoDuarte`LongRunRisk`YieldCurve"
         }
       },
       {

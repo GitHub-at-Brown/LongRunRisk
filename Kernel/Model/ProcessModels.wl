@@ -53,6 +53,9 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 (*processModels//Options = {};*)
 
 
+processModels::progress = "Finished `1`.";
+
+
 processModels[
 	modelsCatalog_Association,
 	modelsExtraInfo_Association:<||>,
@@ -160,8 +163,8 @@ processModels[
 		"uncondMomOfStateVars"-> 
 				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`solveSystem[maxMomentOrder, #, maxSolveTime]
 	]&/@models; (*leaks global t*)
-Echo["uncondMomOfStateVars","Done"];
-
+	Message[processModels::progress,"uncondMomOfStateVars"];
+	
 	(*add expressions for some unconditional moments*)
 	models = Append[
 		#,
@@ -172,22 +175,22 @@ Echo["uncondMomOfStateVars","Done"];
 			"nombond"->Simplify@uncondE[nombond[t,m],#]
 		|>
 	]& /@ models;
-Echo["uncondE","Done"];
-
+	Message[processModels::progress,"uncondE"];
+	
 	(*add Euler equations*)
 	models=Append[
 		#,
 		addCoeffsSystem[#]
 	]&/@models;
-Echo["addCoeffsSystem","Done"];
-
+	Message[processModels::progress,"addCoeffsSystem"];
+	
 	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
 	models = Append[
 		#,
 		"extraInfo" -> If[KeyExistsQ[modelsExtraInfo,#["shortname"]],modelsExtraInfo[#["shortname"]],<||>]
 	]& /@ models;
-Echo["extraInfo","Done"];
-
+	Message[processModels::progress,"extraInfo"];
+	
 	models = Append[
 		#,
 		"coeffsSolution" -> <| 
@@ -197,15 +200,15 @@ Echo["extraInfo","Done"];
 			"nombond" -> addCoeffsSolution[#,"nombond", opts]
 		|>
 	]& /@ models;
-Echo["addCoeffsSolution","Done"];
-
+	Message[processModels::progress,"addCoeffsSolution"];
+	
 	(*add numerical solution to coeffsSolution when using model["params"]*)
 	models = Append[
 		#,
 		"coeffsSolutionN" -> addCoeffsSolutionN[#]
 	]& /@ models;
-Echo["addCoeffsSolutionN","Done"];
-		
+	Message[processModels::progress,"addCoeffsSolutionN"];
+	
 	(*add a list of existing Keys called Properties*)
 	models=Append[
 		#,

@@ -748,7 +748,7 @@ rp[expr_,{pos_,i_}]:=ReplaceAt[expr,vv_[t+q_.]:>vv[t+q,i],pos];
 
 (*split expr by presence/absence of certain parameters*)
 partitionBy[expr_] := {
-	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phix] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhoxpbar]},
+	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phix] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhoxpbar]},
 	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phix] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx^2] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhox]},
 	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phix] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx^2] },
 	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhox] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar]},
@@ -826,11 +826,6 @@ seqfun[list_, q_, v1_:v1, v2_:v2] :=
 					FreeQ[ssf, FindSequenceFunction],
 					ssf,
 					Message[seqfun::seqfun, ToString @ v1, ToString @ v2, ToString @ q];
-					Echo[list,"list"];
-					Echo[q,"q"];
-					Echo[v1,"v1"];
-					Echo[v2,"v2"];
-					Echo[ssf,"ssf"];
 					Abort[];
 				]
 			]

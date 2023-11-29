@@ -12,7 +12,6 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`ToNumber`"]
 
 
 toNum
-processNewParameters (*make private*)
 toEquation
 toExogenousVars
 toStateVars
