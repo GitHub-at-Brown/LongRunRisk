@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-6XR6PR@@Tests/ToNumber.wlt:3,1-12,2"
+	TestID->"ToNumber_20231129-YIRKQM"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Tools`ToNumber`";
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-JCI59L@@Tests/ToNumber.wlt:13,1-23,2"
+	TestID->"ToNumber_20231129-L9A6B6"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -127,7 +127,7 @@ VerificationTest[
 			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toEquation = FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation;
 			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toExogenousVars = FernandoDuarte`LongRunRisk`Tools`ToNumber`toExogenousVars;
 			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toStateVars = FernandoDuarte`LongRunRisk`Tools`ToNumber`toStateVars;
-			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters;
 			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE;
 			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondVar;
 			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCov = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov;
@@ -771,10 +771,10 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-I6PUZW@@Tests/ToNumber.wlt:24,1-775,2"
+	TestID->"ToNumber_20231129-8SGC1Q"
 ]
 VerificationTest[
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters;
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters;
 	SetAttributes[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt, HoldAll];
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`expr_] := TrueQ[Quiet @ AbortProtect @ CheckAbort[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`expr, True]];
 	SetAttributes[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkMsg, HoldAll];
@@ -801,13 +801,13 @@ VerificationTest[
 	};
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn = KeyValueMap[Function[# -> (#2 /. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p)], Association @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn = KeyValueMap[Function[# -> (#2 /. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP)], Association @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn1 = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn2 = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn1 = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn2 = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg = Block[{$MessagePrePrint = Sow, $MessageList = {}},
 		Reap[
-			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
+			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
 			$MessageList
 		]
 	];
@@ -818,7 +818,7 @@ VerificationTest[
 			SameQ[Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP, Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP],
 			SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP],
 			Equal[ReleaseHold @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg, {{}, {}}],
-			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p]
+			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p]
 		}
 	]
 	,
@@ -826,7 +826,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-H3FPF7@@Tests/ToNumber.wlt:776,1-830,2"
+	TestID->"ToNumber_20231129-634HJM"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -839,13 +839,13 @@ VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP = {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`delta -> 0.9, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`Esx -> 1};
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn = KeyValueMap[Function[# -> (#2 /. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p)], Association @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn = KeyValueMap[Function[# -> (#2 /. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP)], Association @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn1 = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn2 = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn1 = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn2 = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg = Block[{$MessagePrePrint = Sow, $MessageList = {}},
 		Reap[
-			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
+			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
 			$MessageList
 		]
 	];
@@ -856,7 +856,7 @@ VerificationTest[
 			SameQ[Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP, Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP],
 			SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP],
 			Equal[ReleaseHold @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg, {{}, {}}],
-			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p]
+			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p]
 		}
 	]
 	,
@@ -864,7 +864,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-ZERTJ2@@Tests/ToNumber.wlt:831,1-868,2"
+	TestID->"ToNumber_20231129-TZFAX8"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -877,13 +877,13 @@ VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP = {};
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn = KeyValueMap[Function[# -> (#2 /. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p)], Association @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn = KeyValueMap[Function[# -> (#2 /. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP)], Association @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn1 = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn2 = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn1 = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pn];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procPn2 = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newPn, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg = Block[{$MessagePrePrint = Sow, $MessageList = {}},
 		Reap[
-			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
+			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
 			$MessageList
 		]
 	];
@@ -894,7 +894,7 @@ VerificationTest[
 			SameQ[Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP, Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP],
 			SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP],
 			Equal[ReleaseHold @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg, {{}, {}}],
-			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p]
+			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p]
 		}
 	]
 	,
@@ -902,7 +902,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-CH96RN@@Tests/ToNumber.wlt:869,1-906,2"
+	TestID->"ToNumber_20231129-UBJT1T"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -915,9 +915,9 @@ VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP = {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`delta -> 0.9, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`Esx -> 1, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`phip -> 3};
 	Apply[And,
 		{
-			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
-			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkMsg[FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
-				FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::subsetparam
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkMsg[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
+				FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::subsetparam
 			]
 		}
 	]
@@ -926,7 +926,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-JAWNID@@Tests/ToNumber.wlt:907,1-930,2"
+	TestID->"ToNumber_20231129-A4KI4S"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -939,8 +939,8 @@ VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP = {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`delta -> 0.9, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`Esx -> 1, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`psi -> 1};
 	Apply[And,
 		{
-			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
-			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkMsg[FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p], FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::psi]
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkMsg[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p], FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::psi]
 		}
 	]
 	,
@@ -948,7 +948,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-W0BV2J@@Tests/ToNumber.wlt:931,1-952,2"
+	TestID->"ToNumber_20231129-EZJUZV"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -961,8 +961,8 @@ VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP = {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`delta -> 0.9, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`Esx -> 1, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`psi -> 1.};
 	Apply[And,
 		{
-			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
-			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkMsg[FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p], FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::psi]
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkMsg[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p], FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::psi]
 		}
 	]
 	,
@@ -970,7 +970,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-5ZRZFG@@Tests/ToNumber.wlt:953,1-974,2"
+	TestID->"ToNumber_20231129-QTN2AU"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -985,10 +985,10 @@ VerificationTest[
 		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`theta -> ((1 - FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`gamma) / (1 - 1 / FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`psi)),
 		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`psi -> 1.5
 	};
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg = Block[{$MessagePrePrint = Sow, $MessageList = {}},
 		Reap[
-			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
+			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
 			$MessageList
 		]
 	];
@@ -998,7 +998,7 @@ VerificationTest[
 			SameQ[Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP, Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP],
 			SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP],
 			Equal[ReleaseHold @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg, {{}, {}}],
-			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p]
+			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p]
 		}
 	]
 	,
@@ -1006,7 +1006,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-3VUB1U@@Tests/ToNumber.wlt:975,1-1010,2"
+	TestID->"ToNumber_20231129-2S1LWV"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1017,14 +1017,14 @@ VerificationTest[
 		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`rhodx[1] -> 3
 	};
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP = {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`gamma -> 10, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`theta -> 3.23, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`psi -> 1.5};
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = Quiet[FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p], FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::param];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = Quiet[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p], FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::param];
 	Apply[And,
 		{
 			Apply[And, Map[NumberQ, Values @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP]],
 			SameQ[Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP, Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP],
 			SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP],
-			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
-			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkMsg[FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p], FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::param],
+			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkMsg[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p], FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::param],
 			Less[Chop[RealAbs[(FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`theta /. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP) - -27.]], $MachineEpsilon]
 		}
 	]
@@ -1033,7 +1033,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-LACTY8@@Tests/ToNumber.wlt:1011,1-1037,2"
+	TestID->"ToNumber_20231129-33JHZW"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1044,10 +1044,10 @@ VerificationTest[
 		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`rhodx[1] -> 3
 	};
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP = {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`psi -> 2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`theta -> -3.};
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg = Block[{$MessagePrePrint = Sow, $MessageList = {}},
 		Reap[
-			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
+			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
 			$MessageList
 		]
 	];
@@ -1056,7 +1056,7 @@ VerificationTest[
 			Apply[And, Map[NumberQ, Values @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP]],
 			SameQ[Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP, Sort @ Join[{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`gamma}, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP]],
 			SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP],
-			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
+			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
 			Equal[ReleaseHold @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg, {{}, {}}],
 			Less[Chop[RealAbs[(FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`gamma /. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP) - 2.5]], $MachineEpsilon]
 		}
@@ -1066,7 +1066,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-6I7HJU@@Tests/ToNumber.wlt:1038,1-1070,2"
+	TestID->"ToNumber_20231129-6I4JIL"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1077,10 +1077,10 @@ VerificationTest[
 		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`rhodx[1] -> 3
 	};
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP = {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`psi -> 2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`gamma -> 2.5};
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg = Block[{$MessagePrePrint = Sow, $MessageList = {}},
 		Reap[
-			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
+			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
 			$MessageList
 		]
 	];
@@ -1089,7 +1089,7 @@ VerificationTest[
 			Apply[And, Map[NumberQ, Values @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP]],
 			SameQ[Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP, Sort @ Join[{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`theta}, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP]],
 			SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP],
-			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
+			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
 			Equal[ReleaseHold @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg, {{}, {}}],
 			Less[RealAbs[(FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`theta /. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP) - -3], $MachineEpsilon]
 		}
@@ -1099,7 +1099,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-B9R0ZZ@@Tests/ToNumber.wlt:1071,1-1103,2"
+	TestID->"ToNumber_20231129-C8G876"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1110,10 +1110,10 @@ VerificationTest[
 		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`rhodx[1] -> 3
 	};
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP = {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`gamma -> 2.5, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`theta -> -3.};
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg = Block[{$MessagePrePrint = Sow, $MessageList = {}},
 		Reap[
-			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
+			Module[{}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];];
 			$MessageList
 		]
 	];
@@ -1122,7 +1122,7 @@ VerificationTest[
 			Apply[And, Map[NumberQ, Values @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP]],
 			SameQ[Sort @ Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP, Sort @ Join[{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`psi}, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP]],
 			SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP],
-			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
+			!FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
 			Equal[ReleaseHold @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msg, {{}, {}}],
 			Less[RealAbs[(FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`psi /. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP) - 2], $MachineEpsilon]
 		}
@@ -1132,7 +1132,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-CHWDHH@@Tests/ToNumber.wlt:1104,1-1136,2"
+	TestID->"ToNumber_20231129-9OYREC"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1145,8 +1145,8 @@ VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP = {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`delta -> 0.9, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`Esx -> 1, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`theta -> 1.};
 	Apply[And,
 		{
-			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
-			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkMsg[FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p], FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::theta]
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkAbrt @ FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p],
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`checkMsg[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p], FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::theta]
 		}
 	]
 	,
@@ -1154,7 +1154,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-EOO22N@@Tests/ToNumber.wlt:1137,1-1158,2"
+	TestID->"ToNumber_20231129-61REOC"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1165,7 +1165,7 @@ VerificationTest[
 		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`rhodx[1] -> 3
 	};
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP = {context2`delta -> 0.9, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`Esx -> 1, bar`gamma -> 2};
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`procP = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p];
 	Apply[And,
 		{
 			SameQ[KeyTake[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p, Keys @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`newP], <||>],
@@ -1179,7 +1179,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231129-R4OEVH@@Tests/ToNumber.wlt:1159,1-1183,2"
+	TestID->"ToNumber_20231129-PB722T"
 ] 
 End[]
 EndTestSection[]

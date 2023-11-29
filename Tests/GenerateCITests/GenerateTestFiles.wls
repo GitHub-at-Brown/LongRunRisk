@@ -24,7 +24,7 @@ $ContextPath=initialContextPath = Cases[$ContextPath,Except["PacletizedResourceF
 confirm=False;(*True pauses after every test to manually accept/reject test, False accepts all tests*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*helper functions*)
 
 
@@ -62,7 +62,7 @@ DeleteFile[testFilePath<>"temp"];
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -91,7 +91,7 @@ Close /@ {readStream, writeStream}
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -135,7 +135,7 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -203,7 +203,7 @@ Protect[$Packages];
 (*Generate Tests*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Catalog`*)
 
 
@@ -367,7 +367,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`EndogenousEq`*)
 
 
@@ -597,7 +597,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ExogenousEq`*)
 
 
@@ -701,7 +701,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ProcessModels`*)
 
 
@@ -1123,7 +1123,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Shocks`*)
 
 
@@ -3717,7 +3717,7 @@ Protect[$Packages];
 (*FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toEquation=FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation;*)
 (*FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toExogenousVars=FernandoDuarte`LongRunRisk`Tools`ToNumber`toExogenousVars;*)
 (*FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toStateVars=FernandoDuarte`LongRunRisk`Tools`ToNumber`toStateVars;*)
-(*FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters=FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters;*)
+(*FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters=FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters;*)
 (**)
 (*FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE=FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE;*)
 (*FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar=FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondVar;*)
@@ -4008,7 +4008,7 @@ Protect[$Packages];
 
 (* ::Input:: *)
 (*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters=FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters;*)
+(*FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters=FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters;*)
 (*(*helper functions*)*)
 (*(*returns True if evaluation of expr returns $Aborted*)*)
 (*SetAttributes[checkAbrt,HoldAll];*)
@@ -4159,7 +4159,7 @@ Protect[$Packages];
 (*(*aborts*)*)
 (*checkAbrt[processNewParameters[newP,p]],*)
 (*(*with message subsetparam*)*)
-(*checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::subsetparam]*)
+(*checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::subsetparam]*)
 (*}*)
 (*,"ConfirmResults"->confirm];*)
 
@@ -4174,7 +4174,7 @@ Protect[$Packages];
 (*(*aborts*)*)
 (*checkAbrt[processNewParameters[newP,p]],*)
 (*(*with message subsetparam*)*)
-(*checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::psi]*)
+(*checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::psi]*)
 (*}*)
 (*,"ConfirmResults"->confirm];*)
 
@@ -4189,7 +4189,7 @@ Protect[$Packages];
 (*(*aborts*)*)
 (*checkAbrt[processNewParameters[newP,p]],*)
 (*(*with message subsetparam*)*)
-(*checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::psi]*)
+(*checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::psi]*)
 (*}*)
 (*,"ConfirmResults"->confirm];*)
 
@@ -4224,7 +4224,7 @@ Protect[$Packages];
 (*(*case: theta is not exactly (1-gamma)/(1-1/psi)*)*)
 (*p={delta->0.998`,Esx->0.0078`,gamma->10,muc->0.0015`,phisxs->2.3`*^-6,phix->0.044`,psi->1.5`,rhox->0.979`,theta->(1-gamma)/(1-1/psi),vx->0.987`,mud[1]->0.0015`,phidxd[1]->4.5`,rhodx[1]->3};*)
 (*newP={gamma->10,theta->3.23`,psi->1.5`};*)
-(*procP=Quiet[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::param];*)
+(*procP=Quiet[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::param];*)
 (*And@@{*)
 (*(*values are numbers*)*)
 (*And@@(NumberQ/@Values@procP),*)
@@ -4235,7 +4235,7 @@ Protect[$Packages];
 (*(*not aborted*)*)
 (*Not@checkAbrt[processNewParameters[newP,p]],*)
 (*(*with message subsetparam*)*)
-(*checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::param],*)
+(*checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::param],*)
 (*(*theta has correct value*)*)
 (*Chop@RealAbs[(theta/.procP)-(-27.)]<$MachineEpsilon*)
 (*}*)
@@ -4336,7 +4336,7 @@ Protect[$Packages];
 (*(*aborts*)*)
 (*checkAbrt[processNewParameters[newP,p]],*)
 (*(*with message subsetparam*)*)
-(*checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::theta]*)
+(*checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::theta]*)
 (*}*)
 (*,"ConfirmResults"->confirm];*)
 
