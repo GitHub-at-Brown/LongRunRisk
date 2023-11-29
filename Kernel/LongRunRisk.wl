@@ -98,11 +98,11 @@ Symbol/@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`$endogenousVarsPr
 
 
 (*
-
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"]
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
-$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];*)
+$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
+*)
 
 
 (* ::Section:: *)
@@ -157,10 +157,17 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 
 
 (* ::Subsection:: *)
-(*Model*)
+(*Models*)
 
 
-Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];
+(*load file with pre-processed models*)
+(*Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];*)
+
+
+(*load file with pre-processed models and pre-computed moments*)
+pacletObj=PacletObject["FernandoDuarte/LongRunRisk"];
+filesInResources = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources"|>}];
+Map[Get@Get@#&,Flatten@StringCases[filesInResources,__~~".wl"]];
 
 
 (* ::Subsection:: *)
@@ -207,44 +214,9 @@ UncondCov[x_,y_,model_]:=With[
 	},
 	Module[
 		{cExo},
-		(*Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
-		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];*)
-		
-		cExo=Quiet[
-			Check[
-				FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`uncondCovLongExo[toExogenous, x, y, covLong],
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov[x, y, model],
-				$IterationLimit::itlim
-			]
-		];
-		If[
-			FreeQ[cExo,covLong],
-			cExo,
-			FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov[x, y, model]
-		]
+		cExo=FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`uncondCovLongExo[model, x, y, covLong]
 	](*Module*)
 ](*With*)
-
-
-(*totCovLong[x_,y_,s_,fun_:covLong]:=
-			uncondE[cov[x,y,s, model], model]+(*uncondCovLong[ev[x,s, model],ev[y,s, model],fun]*)
-			Module[
-				{mom},
-				mom=Block[
-					{$RecursionLimit=$RecursionLimit},
-					uncondCovLong[ev[x,s, model],ev[y,s, model],fun]
-				];
-				If[mom===TerminatedEvaluation["RecursionLimit"],uncondCov[ev[x,s, model],ev[y,s, model]],mom]
-			];*)
-
-
-(* ::Text:: *)
-(*covLong*)
-
-
-modelsWithMoments = {"BKY", "DES", "NRC", "NRCStochVol"};(*Keys@Models*)
-covLongFileNames=Map[StringJoin["FernandoDuarte/LongRunRisk/MomentsLookupTables/covLong",#, ".wl"]&, modelsWithMoments];
-Map[(Get@Get@#) &,covLongFileNames];
 
 
 (* ::Text:: *)

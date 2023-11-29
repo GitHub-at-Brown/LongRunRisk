@@ -82,8 +82,16 @@ Function[sym,
 ]@@@(Hold /@ Symbol /@ $exogenousVars);
 
 
+$exogenousVarsStocksPrivate = ((StringDrop[#,-2]&) /@ $exogenousVarsStocks)
+Symbol/@ $exogenousVarsStocksPrivate;
+$exogenousVarsNoStocksPrivate = ((StringDrop[#,-2]&) /@ $exogenousVarsNoStocks)
+Symbol/@ $exogenousVarsNoStocksPrivate;
+
+
 (*make index variables be maintained as exact integers, rather than being converted by N to approximate numbers*)
 SetAttributes[$exogenousVarsPrivate, NHoldAll]
+SetAttributes[$exogenousVarsStocksPrivate, NHoldAll]
+SetAttributes[$exogenousVarsNoStocksPrivate, NHoldAll]
 
 
 (* ::Subsubsection:: *)

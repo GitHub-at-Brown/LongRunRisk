@@ -95,11 +95,11 @@ createEqTables[m_]:=Module[
 	},
 	(*functions to extract and format left-hand side and right-hand side of equations for exogenous variables*)
 	lhs[model_]:=Join[
-		Evaluate[Symbol[StringDrop[#,-2]][t]&/@Cases[model["exogenousVars"],Except["ddeq"]]]
+		Evaluate[Symbol[StringDrop[#,-2]][t]&/@Cases[model["exogenousVarsNonZero"],Except["ddeq"]]]
 		,
 		Table[dd[t,j],{j,1,model["numStocks"]}]
 	];
-	rhs[model_]:=lhs[model]/.Normal@model["exogenousEq"];
+	rhs[model_]:=lhs[model]/.Normal@model["exogenousEqNonZero"];
 	exoNiceOutput=OpenerView[
 		{
 			"Exogenous variables", 

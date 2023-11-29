@@ -125,18 +125,26 @@ processModels[
 	(*add "exogenousVars","exogenousEq" to each model*)
 	models = createExogenous[models];
 	
+	(*add "exogenousVarsNonZero","exogenousEqNonZero" to each model*)
+	models = createExogenousNonZero[models];
+	
 	(*add "endogenousVars","endogenousEq" to each model*)
 	models = createEndogenous[models];
 	
 	(*add lists of endogenous and exogenous variables that do not end in "eq" for convenience of end user*)
 	models = Append[
 		#,
-		"exogenousVarNames" -> Map[(StringDrop[#,-2]&),#["exogenousVars"]]
+		"exogenousVarsNames" -> Map[(StringDrop[#,-2]&),#["exogenousVars"]]
 	]& /@ models;
 	
 	models = Append[
 		#,
-		"endogenousVarNames" -> Map[(StringDrop[#,-2]&),#["endogenousVars"]]
+		"exogenousVarsNonZeroNames" -> Map[(StringDrop[#,-2]&),#["exogenousVarsNonZero"]]
+	]& /@ models;
+	
+	models = Append[
+		#,
+		"endogenousVarsNames" -> Map[(StringDrop[#,-2]&),#["endogenousVars"]]
 	]& /@ models;
 	
 	(*add mapping to make expressions only a function of state variables*)
@@ -217,83 +225,117 @@ Echo["addCoeffsSolutionN","Done"];
 
 
 createExogenous[m_]:=Module[
+	(*adds exogenous variables and equations to each model in m*)
+	{
+		models=m,
+		exoExprAssignParam,
+		funTemplate,
+		matchSymbol,
+		exoExprMatchSymbol,
+		exo
+	},
+	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+	With[
+		{
+			argsPattern = Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[Symbol@#][vars__]]:>vars]&/@$exogenousVars,
+			funs = DownValues[#][[;;,2]][[1]]&/@$exogenousVars
+		}
+		,
+		(*plug in parameters that are assumed fixed (most are fixed to 0 or 1)*)
+		exoExprAssignParam=(funs//.#["assignParam"]//.#["assignParamStocks"])& /@models;
+		
+		(*arrange as anonymous function with the right arguments*)
+		funTemplate[fun_,argPatt_] := ( {##} /. (argPatt :> fun) )&;
+		Attributes[matchSymbol]={Listable};
+		matchSymbol[var_String]:= (_Symbol?((SymbolName[#]===var)&)); (*pattern to match symbols in any Context*)
+		exoExprMatchSymbol = matchSymbol/@FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`$exogenousVarsPrivate;
+		exo[shortname_String]:=Association@MapThread[#1->funTemplate[##2]&,{exoExprMatchSymbol,exoExprAssignParam[shortname],argsPattern}];
+
+		(*append to models*)
+		models=Append[
+			#,
+			"exogenousVars"->$exogenousVars
+		]& /@ models;
+		
+		models=Append[
+			#,
+			"exogenousEq"->exo[#["shortname"]]
+		]& /@models
+	]
+]	
+
+
+(* ::Subsection:: *)
+(*createExogenousNonZero*)
+
+
+createExogenousNonZero[m_]:=Module[
 	(*adds exogenous variables and equations to each model in m after removing those that are always 0*)
 	{
 		models=m,
-(*		contextPath=$ContextPath,*)
-		argsPattern,
-		funs,
 		exoExprAssignParam,
-		posPi,
 		indicesKeep,
 		argsPatternKeep,
 		funsKeepList,
 		funsKeep,
-		exoExpr,
 		exoExprKeep,
 		exoVarKeep,
 		funTemplate,
 		exo,
 		matchSymbol,
 		exoExprMatchSymbol
-		(*,vars,fun,argPatt*)
 	},
 	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+	With[
+		{
+			argsPattern = Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[Symbol@#][vars__]]:>vars]&/@$exogenousVars,
+			funs = DownValues[#][[;;,2]][[1]]&/@$exogenousVars(*,
+			posPi=Position[$exogenousVars,"pieq"]*)
+		}
+		,
 	
-	argsPattern = Cases[DownValues[#][[;;,1]],Verbatim[HoldPattern][Verbatim[ToExpression@#][vars__]]:>vars]&/@$exogenousVars;
-	funs = DownValues[#][[;;,2]][[1]]&/@(ToExpression/@$exogenousVars);
-	
-	(*plug in parameters that are assumed fixed (most are fixed to 0 or 1)*)
-	(*exoExprAssignParam=(funs//.SetSymbolsContext[#["assignParam"]]//.SetSymbolsContext[#["assignParamStocks"]])& /@models;*)
-	exoExprAssignParam=(funs//.#["assignParam"]//.#["assignParamStocks"])& /@models;
-	
-	(*find indices of exogenous variables that are not identically 0, except for inflation, which is needed to compute nominal variables even if always zero*)
-	posPi=Position[$exogenousVars,"pieq"];
-	indicesKeep=Union[posPi,
-		Complement[
+		(*plug in parameters that are assumed fixed (most are fixed to 0 or 1)*)
+		exoExprAssignParam=(funs//.#["assignParam"]//.#["assignParamStocks"])& /@models;
+		
+		(*find indices of exogenous variables that are not identically 0, except for inflation, which is needed to compute nominal variables even if always zero*)
+		(*indicesKeep=Union[posPi,
+			Complement[
+				Thread[{Range @ Length @ #}],
+				Position[#,0]
+			]
+		]& /@exoExprAssignParam;*)
+		
+		indicesKeep=Complement[
 			Thread[{Range @ Length @ #}],
 			Position[#,0]
-		]
-	]& /@exoExprAssignParam;
-	
-(*	indicesKeep=Complement[
-		Thread[{Range @ Length @ #}],
-		Position[#,0]
-	]& /@exoExprAssignParam;*)
-	(*keep args, funs for variables with position indicesKeep*)
-	argsPatternKeep=Extract[argsPattern,#]&/@indicesKeep;
-	funsKeepList=MapApply[Extract,{Values@exoExprAssignParam,Values@indicesKeep}\[Transpose]];
-	funsKeep=Association@Thread[Keys@exoExprAssignParam->funsKeepList];
-	
-	(*get names of all exogenous variables and keep those not identically 0*)
-(*	exoExpr=ToExpression@(StringDrop[#,-2]&/@$exogenousVars);
-	exoExprKeep=Extract[exoExpr,#]&/@indicesKeep;*)
-	exoExpr=StringDrop[#,-2]&/@$exogenousVars;
-	exoExprKeep=Extract[exoExpr,#]&/@indicesKeep;
-	
-	exoVarKeep=Extract[$exogenousVars,#]&/@indicesKeep;
-	
-	(*arrange as anonymous function with the right arguments*)
-	funTemplate[fun_,argPatt_] := ( {##} /. (argPatt :> fun) )&;
-	Attributes[matchSymbol]={Listable};
-	matchSymbol[var_String]:= (_Symbol?((SymbolName[#]===var)&)); (*pattern to match symbols in any Context*)
-	exoExprMatchSymbol = matchSymbol/@exoExprKeep;
-	exo=MapThread[Association@Thread[#1->MapThread[funTemplate,{##2}]]&,{exoExprMatchSymbol,funsKeep,argsPatternKeep}];
-
-	(*append to models*)
-	models=Append[
-		#,
-		"exogenousVars"->exoVarKeep[#["shortname"]]
-	]& /@ models;
-	models=Append[
-		#,
-		"exogenousEq"->exo[#["shortname"]]
-	]& /@models;
-
-	(*restore $ContextPath to initial state*)
-	(*$ContextPath=contextPath;*)
+		]& /@exoExprAssignParam;
 		
-	models
+		(*keep args, funs for variables with position indicesKeep*)
+		argsPatternKeep=Extract[argsPattern,#]&/@indicesKeep;
+		funsKeepList=MapApply[Extract,{Values@exoExprAssignParam,Values@indicesKeep}\[Transpose]];
+		funsKeep=Association@Thread[Keys@exoExprAssignParam->funsKeepList];
+		
+		(*get names of all exogenous variables and keep those not identically 0*)
+		exoExprKeep=Extract[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`$exogenousVarsPrivate,#]&/@indicesKeep;
+		exoVarKeep=Extract[$exogenousVars,#]&/@indicesKeep;
+		
+		(*arrange as anonymous function with the right arguments*)
+		funTemplate[fun_,argPatt_] := ( {##} /. (argPatt :> fun) )&;
+		Attributes[matchSymbol]={Listable};
+		matchSymbol[var_String]:= (_Symbol?((SymbolName[#]===var)&)); (*pattern to match symbols in any Context*)
+		exoExprMatchSymbol = matchSymbol/@exoExprKeep;
+		exo=MapThread[Association@Thread[#1->MapThread[funTemplate,{##2}]]&,{exoExprMatchSymbol,funsKeep,argsPatternKeep}];
+	
+		(*append to models*)
+		models=Append[
+			#,
+			"exogenousVarsNonZero"->exoVarKeep[#["shortname"]]
+		]& /@ models;
+		models=Append[
+			#,
+			"exogenousEqNonZero"->exo[#["shortname"]]
+		]& /@models
+	]
 ]	
 
 
@@ -302,7 +344,7 @@ createExogenous[m_]:=Module[
 
 
 createEndogenous[mod_]:=Module[
-	(*adds exogenous variables and equations to each model in m after removing those that are always 0*)
+	(*adds $endogenous variables and equations to each model in m*)
 	{
 		models=mod,
 		endogenousVarsExpr,

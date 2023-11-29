@@ -27,7 +27,7 @@ eps::usage = "Exogenous shocks.";
 $shocks=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Code*)
 
 
@@ -57,12 +57,15 @@ eps["sc"]
 eps["sp"]
 eps["dd"]
 *)
+shockNames={"x","dc","pi","pibar","sg","sx","sc","sp","dd"};
+shockNamesStocks={"dd"};
+shockNamesNoStocks=SortBy[Complement[shockNames,shockNamesStocks],PositionIndex[shockNames]];
 
 (*distribution of exogenous shocks*)
 (*for a normal distribution, we only need rules for how to compute expectations of products of shocks*)
 rulesE[t_]:=With[
 	{
-		shockNames={"x","dc","pi","pibar","sg","sx","sc","sp"},
+		shockNames=shockNames,
 		epsPattern=(_Symbol?((SymbolName[#]==="eps")&))
 	},
 
