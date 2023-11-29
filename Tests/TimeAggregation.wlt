@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-W8ON38"
+	TestID->"TimeAggregation_20231129-G1MBIO@@Tests/TimeAggregation.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-0PNJO5"
+	TestID->"TimeAggregation_20231129-M9LZA0@@Tests/TimeAggregation.wlt:13,1-23,2"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
@@ -29,7 +29,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-D59EHX"
+	TestID->"TimeAggregation_20231129-HHW7EU@@Tests/TimeAggregation.wlt:24,1-33,2"
 ]
 VerificationTest[
 	!SameQ[Names @ "*growth", {}]
@@ -38,14 +38,14 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-5BSTWQ"
+	TestID->"TimeAggregation_20231129-7OOBD9@@Tests/TimeAggregation.wlt:34,1-42,2"
 ]
 VerificationTest[
 	Apply[And,
 		{
-			Equal[FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc, t], dc @ t],
-			Equal[FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc, t, "TimeAggregation" -> 1, "numPeriods" -> 1],
-				dc @ t
+			Equal[FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t],
+			Equal[FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 1, "numPeriods" -> 1],
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t
 			]
 		}
 	]
@@ -54,16 +54,16 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-E4C3YS"
+	TestID->"TimeAggregation_20231129-XXMQ9G@@Tests/TimeAggregation.wlt:43,1-58,2"
 ]
 VerificationTest[
 	Apply[And,
 		{
-			Equal[FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1],
+			Equal[FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1],
 				Times[1 / 3,
-					Plus[dc[t - 4],
-						Plus[2 * dc[t - 3],
-							(3 * dc[t - 2]) + (2 * dc[t - 1]) + dc[t]
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+						Plus[2 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
+							(3 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2]) + (2 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1]) + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 						]
 					]
 				]
@@ -72,12 +72,12 @@ VerificationTest[
 				ReplaceAll[
 					ReplaceAll[
 						ReplaceAll[
-							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc, t, "TimeAggregation" -> 12, "numPeriods" -> 1] /. Plus -> List,
+							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 12, "numPeriods" -> 1] /. Plus -> List,
 							Times -> List
 						],
-						dc[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`x__, t}] -> (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`x)
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`x__, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t}] -> (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`x)
 					],
-					dc[t] -> 0
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t] -> 0
 				],
 				{
 					{1 / 12, 22},
@@ -112,111 +112,111 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-ZIROF9"
+	TestID->"TimeAggregation_20231129-CM8V2T@@Tests/TimeAggregation.wlt:59,1-116,2"
 ]
 VerificationTest[
 	Apply[And,
 		{
 			Equal[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-					t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, 0.0015]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, 0.0015]
 				],
 				Plus[0.,
-					Plus[0.3328334585207629 * dc[t - 4],
-						Plus[0.6661665418542368 * dc[t - 3],
+					Plus[0.3328334585207629 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+						Plus[0.6661665418542368 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
 							Plus[
-								dc[t - 2],
-								(0.6671665414792372 * dc[t - 1]) + 0.33383345814576315 * dc[t]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+								(0.6671665414792372 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1]) + 0.33383345814576315 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 							]
 						]
 					]
 				]
 			],
 			Equal[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-					t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v}, 0.0015]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v}, 0.0015]
 				],
 				Plus[0.,
-					Plus[0.3328334585207629 * dc[t - 4],
-						Plus[0.6661665418542368 * dc[t - 3],
+					Plus[0.3328334585207629 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+						Plus[0.6661665418542368 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
 							Plus[
-								dc[t - 2],
-								(0.6671665414792372 * dc[t - 1]) + 0.33383345814576315 * dc[t]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+								(0.6671665414792372 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1]) + 0.33383345814576315 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 							]
 						]
 					]
 				]
 			],
 			Equal[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-					t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k}, 0.0015]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}, 0.0015]
 				],
 				Plus[0.,
-					Plus[0.3328334585207629 * dc[t - 4],
-						Plus[0.6661665418542368 * dc[t - 3],
+					Plus[0.3328334585207629 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+						Plus[0.6661665418542368 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
 							Plus[
-								dc[t - 2],
-								(0.6671665414792372 * dc[t - 1]) + 0.33383345814576315 * dc[t]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+								(0.6671665414792372 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1]) + 0.33383345814576315 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 							]
 						]
 					]
 				]
 			],
 			Equal[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-					t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h}, 0.0015]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h}, 0.0015]
 				],
 				Plus[0.,
-					Plus[0.3328334585207629 * dc[t - 4],
-						Plus[0.6661665418542368 * dc[t - 3],
+					Plus[0.3328334585207629 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+						Plus[0.6661665418542368 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
 							Plus[
-								dc[t - 2],
-								(0.6671665414792372 * dc[t - 1]) + 0.33383345814576315 * dc[t]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+								(0.6671665414792372 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1]) + 0.33383345814576315 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 							]
 						]
 					]
 				]
 			],
 			Equal[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-					t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j}, 0.0015]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j}, 0.0015]
 				],
 				Plus[0.,
-					Plus[0.3328334585207629 * dc[t - 4],
-						Plus[0.6661665418542368 * dc[t - 3],
+					Plus[0.3328334585207629 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+						Plus[0.6661665418542368 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
 							Plus[
-								dc[t - 2],
-								(0.6671665414792372 * dc[t - 1]) + 0.33383345814576315 * dc[t]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+								(0.6671665414792372 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1]) + 0.33383345814576315 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 							]
 						]
 					]
 				]
 			],
 			Equal[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-					t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t}, 0.0015]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t}, 0.0015]
 				],
 				Plus[0.,
-					Plus[0.3328334585207629 * dc[t - 4],
-						Plus[0.6661665418542368 * dc[t - 3],
+					Plus[0.3328334585207629 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+						Plus[0.6661665418542368 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
 							Plus[
-								dc[t - 2],
-								(0.6671665414792372 * dc[t - 1]) + 0.33383345814576315 * dc[t]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+								(0.6671665414792372 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1]) + 0.33383345814576315 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 							]
 						]
 					]
 				]
 			],
 			Equal[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-					t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{}, 0.0015]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{}, 0.0015]
 				],
 				Plus[0.,
-					Plus[0.3328334585207629 * dc[t - 4],
-						Plus[0.6661665418542368 * dc[t - 3],
+					Plus[0.3328334585207629 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+						Plus[0.6661665418542368 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
 							Plus[
-								dc[t - 2],
-								(0.6671665414792372 * dc[t - 1]) + 0.33383345814576315 * dc[t]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+								(0.6671665414792372 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1]) + 0.33383345814576315 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 							]
 						]
 					]
@@ -229,29 +229,29 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-25EQY9"
+	TestID->"TimeAggregation_20231129-I62G8B@@Tests/TimeAggregation.wlt:117,1-233,2"
 ]
 VerificationTest[
 	Apply[And,
 		{
 			Equal[
 				Simplify[
-					FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-						t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, t]
+					FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 					]
 				],
-				Times[1 / (1 + (E ^ t) + E ^ (2 * t)),
-					Plus[dc[t - 4],
-						Plus[(1 + E ^ t) * dc[t - 3],
+				Times[1 / (1 + (E ^ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t) + E ^ (2 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t)),
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+						Plus[(1 + E ^ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t) * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
 							Plus[
-								dc[t - 2],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
 								Plus[
-									(E ^ t) * dc[t - 2],
+									(E ^ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t) * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
 									Plus[
-										(E ^ (2 * t)) * dc[t - 2],
+										(E ^ (2 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t)) * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
 										Plus[
-											(E ^ t) * dc[t - 1],
-											((E ^ (2 * t)) * dc[t - 1]) + (E ^ (2 * t)) * dc[t]
+											(E ^ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t) * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
+											((E ^ (2 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t)) * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1]) + (E ^ (2 * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t)) * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 										]
 									]
 								]
@@ -267,28 +267,28 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-CWZX0J"
+	TestID->"TimeAggregation_20231129-9M2TFJ@@Tests/TimeAggregation.wlt:234,1-271,2"
 ]
 VerificationTest[
 	Apply[And,
 		{
 			FreeQ[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-					t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
-						{t, j, h, k, v, im},
-						If[Equal[h, 12], h12, hnot12]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
+						{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im},
+						If[Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, 12], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h12, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`hnot12]
 					]
 				],
-				h12
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h12
 			],
 			FreeQ[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-					t, "TimeAggregation" -> 12, "numPeriods" -> 1, "v0" -> Function[
-						{t, j, h, k, v, im},
-						If[Equal[h, 12], h12, hnot12]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 12, "numPeriods" -> 1, "v0" -> Function[
+						{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im},
+						If[Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, 12], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h12, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`hnot12]
 					]
 				],
-				hnot12
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`hnot12
 			]
 		}
 	]
@@ -297,7 +297,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-0603ZH"
+	TestID->"TimeAggregation_20231129-S8RYU8@@Tests/TimeAggregation.wlt:272,1-301,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -307,14 +307,14 @@ VerificationTest[
 					Coefficient[
 						ReplaceAll[
 							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-								dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
-									{t, j, h, k, v, im},
-									-((h + 1) ^ -1)
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
+									{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im},
+									-((FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h + 1) ^ -1)
 								]
 							],
-							dc[__] -> dcX
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 						],
-						dcX, 0
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 					]
 				]
 			],
@@ -323,11 +323,11 @@ VerificationTest[
 					Coefficient[
 						ReplaceAll[
 							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-								dc, t, "TimeAggregation" -> 3, "numPeriods" -> 3, "v0" -> Function[{t, j, h, k, v, im}, h ^ 2]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 3, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h ^ 2]
 							],
-							dc[__] -> dcX
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 						],
-						dcX, 0
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 					]
 				]
 			],
@@ -336,11 +336,11 @@ VerificationTest[
 					Coefficient[
 						ReplaceAll[
 							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-								dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, im]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im]
 							],
-							dc[__] -> dcX
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 						],
-						dcX, 0
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 					]
 				]
 			],
@@ -349,11 +349,11 @@ VerificationTest[
 					Coefficient[
 						ReplaceAll[
 							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-								dc, t, "TimeAggregation" -> 3, "numPeriods" -> 3, "v0" -> Function[{t, j, h, k, v, im}, v]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 3, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v]
 							],
-							dc[__] -> dcX
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 						],
-						dcX, 0
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 					]
 				]
 			],
@@ -362,11 +362,11 @@ VerificationTest[
 					Coefficient[
 						ReplaceAll[
 							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-								dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, im]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im]
 							],
-							dd[__, i] -> ddX
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[__, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`ddX
 						],
-						ddX, 0
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`ddX, 0
 					]
 				]
 			]
@@ -377,24 +377,24 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-J5NVH4"
+	TestID->"TimeAggregation_20231129-LUP5QZ@@Tests/TimeAggregation.wlt:302,1-381,2"
 ]
 VerificationTest[
-	arbitraryFun1 = Function[{t, j, h, k, v}, Sqrt @ h];
-	arbitraryFun2 = Function[{t, j, h, k, v},
-		If[Equal[v, dd], Sqrt @ h, Cos @ h]
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun1 = Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v}, Sqrt @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h];
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun2 = Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v},
+		If[Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd], Sqrt @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, Cos @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h]
 	];
-	arbitraryFun3 = Function[{t, j, h, k, v}, -h];
-	arbitraryFun4 = Function[{t, j, h, k, v},
-		(Sqrt[h] * t) - k ^ 2
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun3 = Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v}, -FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h];
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun4 = Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v},
+		(Sqrt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h] * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k ^ 2
 	];
-	arbitraryFun5 = Function[{t, j, h, k, v},
-		If[Equal[v, dd],
-			Sqrt[h] * Sqrt[t],
-			Exp[t] * Cos[h]
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun5 = Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v},
+		If[Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd],
+			Sqrt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h] * Sqrt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t],
+			Exp[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t] * Cos[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h]
 		]
 	];
-	arbitraryFun6 = Function[{t, j, h, k, v}, (-h) * t * k];
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun6 = Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v}, (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h) * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k];
 	Apply[And,
 		{
 			N[
@@ -404,15 +404,15 @@ VerificationTest[
 							Coefficient[
 								ReplaceAll[
 									FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-										dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, F[h, v, im]]
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im]]
 									],
-									dc[__] -> dcX
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 								],
-								dcX, 0
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 							]
 						]
 					],
-					F -> arbitraryFun1
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun1
 				]
 			],
 			N[
@@ -422,15 +422,15 @@ VerificationTest[
 							Coefficient[
 								ReplaceAll[
 									FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-										dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, F[h, v, im]]
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im]]
 									],
-									dc[__] -> dcX
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 								],
-								dcX, 0
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 							]
 						]
 					],
-					F -> arbitraryFun2
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun2
 				]
 			],
 			N[
@@ -440,15 +440,15 @@ VerificationTest[
 							Coefficient[
 								ReplaceAll[
 									FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-										dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, F[h, v, im]]
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im]]
 									],
-									dc[__] -> dcX
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 								],
-								dcX, 0
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 							]
 						]
 					],
-					F -> arbitraryFun3
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun3
 				]
 			],
 			N[
@@ -458,15 +458,15 @@ VerificationTest[
 							Coefficient[
 								ReplaceAll[
 									FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-										dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, F[h, v, im]]
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im]]
 									],
-									dc[__] -> dcX
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 								],
-								dcX, 0
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 							]
 						]
 					],
-					F -> arbitraryFun4
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun4
 				]
 			],
 			N[
@@ -476,15 +476,15 @@ VerificationTest[
 							Coefficient[
 								ReplaceAll[
 									FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-										dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, F[h, v, im]]
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im]]
 									],
-									dc[__] -> dcX
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 								],
-								dcX, 0
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 							]
 						]
 					],
-					F -> arbitraryFun5
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun5
 				]
 			],
 			N[
@@ -494,15 +494,15 @@ VerificationTest[
 							Coefficient[
 								ReplaceAll[
 									FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-										dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, F[h, v, im]]
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im]]
 									],
-									dc[__] -> dcX
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 								],
-								dcX, 0
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 							]
 						]
 					],
-					F -> arbitraryFun6
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun6
 				]
 			]
 		}
@@ -512,7 +512,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-KHBHWB"
+	TestID->"TimeAggregation_20231129-CDS42C@@Tests/TimeAggregation.wlt:382,1-516,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -523,11 +523,11 @@ VerificationTest[
 						Coefficient[
 							ReplaceAll[
 								FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-									dc, t, "TimeAggregation" -> 3, "numPeriods" -> 3, "v0" -> Function[{t, j, h, k, v, im}, j]
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 3, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j]
 								],
-								dc[__] -> dcX
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 							],
-							dcX, 0
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 						]
 					]
 				]
@@ -539,35 +539,35 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-D1SPUQ"
+	TestID->"TimeAggregation_20231129-LCIZMC@@Tests/TimeAggregation.wlt:517,1-543,2"
 ]
 VerificationTest[
 	Apply[And,
 		{
 			Equal[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-					t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j}, j]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j]
 				],
 				Subtract[
 					Plus[
 						Divide[
 							Subtract[
 								Subtract[
-									dc[t - 4] + dc[t - 3] + (E ^ 4) * dc[t - 3],
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3] + (E ^ 4) * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
 									7
 								],
 								3 * E ^ 4
 							],
 							1 + (E ^ 4) + E ^ 7
 						],
-						Plus[dc[t - 2],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
 							Plus[
-								dc[t - 1],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
 								Plus[
-									dc @ t,
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
 									Plus[
 										Divide[
-											((1 - E * dc[t]) - dc[t]) - dc[t - 1],
+											((1 - E * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
 											1 + 2 * E
 										],
 										Log[2 + 1 / E]
@@ -586,50 +586,50 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-KMLM1K"
+	TestID->"TimeAggregation_20231129-CCD4RB@@Tests/TimeAggregation.wlt:544,1-590,2"
 ]
 VerificationTest[
 	Apply[And,
 		{
 			Not[
 				FreeQ[
-					FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-						t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
-							{t, j, h, k, v, im},
-							If[SameQ[v, dc], Edc, 0]
+					FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
+							{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im},
+							If[SameQ[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`Edc, 0]
 						]
 					],
-					Edc
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`Edc
 				]
 			],
 			FreeQ[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[pi,
-					t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
-						{t, j, h, k, v, im},
-						If[SameQ[v, dc], Edc, 0]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`pi,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[
+						{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im},
+						If[SameQ[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`Edc, 0]
 					]
 				],
-				Edc
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`Edc
 			],
 			Not[
 				FreeQ[
-					FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dd,
-						t, i, "TimeAggregation" -> 12, "numPeriods" -> 1, "v0" -> Function[
-							{t, j, h, k, v, im},
-							If[SameQ[v, dd], Edd, 0]
+					FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd,
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "TimeAggregation" -> 12, "numPeriods" -> 1, "v0" -> Function[
+							{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im},
+							If[SameQ[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`Edd, 0]
 						]
 					],
-					Edd
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`Edd
 				]
 			],
 			FreeQ[
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-					t, "TimeAggregation" -> 12, "numPeriods" -> 1, "v0" -> Function[
-						{t, j, h, k, v, im},
-						If[SameQ[v, dd], Edd, 0]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 12, "numPeriods" -> 1, "v0" -> Function[
+						{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im},
+						If[SameQ[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`Edd, 0]
 					]
 				],
-				Edd
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`Edd
 			]
 		}
 	]
@@ -638,19 +638,19 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-TP9WOS"
+	TestID->"TimeAggregation_20231129-291J4P@@Tests/TimeAggregation.wlt:591,1-642,2"
 ]
 VerificationTest[
 	Apply[And,
 		{
 			Equal[
 				ReplaceAll[
-					FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc,
-						t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{t, j, h, k, v, im}, Evaluate[uncondE[dc[t]]]]
+					FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, Evaluate[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`uncondE[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]]]]
 					],
-					uncondE[dc[t]] -> 0
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`uncondE[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]] -> 0
 				],
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1]
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1]
 			]
 		}
 	]
@@ -659,11 +659,11 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-ZSA0OV"
+	TestID->"TimeAggregation_20231129-NUOMZV@@Tests/TimeAggregation.wlt:643,1-663,2"
 ]
 VerificationTest[
-	h = 1;
-	k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
 	Apply[And,
 		{
 			Simplify[
@@ -671,11 +671,11 @@ VerificationTest[
 					Coefficient[
 						ReplaceAll[
 							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-								dc, t, "TimeAggregation" -> h, "numPeriods" -> k, "v0" -> Function[{t, j, h, k, v, im}, F[t]]
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]]
 							],
-							dc[__] -> dcX
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 						],
-						dcX, 0
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 					]
 				]
 			]
@@ -686,13 +686,13 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-MGBZVI"
+	TestID->"TimeAggregation_20231129-2W4E5Z@@Tests/TimeAggregation.wlt:664,1-690,2"
 ]
 VerificationTest[
-	h = 2;
-	k = 1;
-	rulej = Table[F[i] -> F[(h * k) + i],
-		{i, 0, h - 2}
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 2;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`rulej = Table[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[(FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k) + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+		{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, 0, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h - 2}
 	];
 	Apply[And,
 		{
@@ -702,13 +702,13 @@ VerificationTest[
 						ReplaceAll[
 							ReplaceAll[
 								FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-									dc, t, "TimeAggregation" -> h, "numPeriods" -> k, "v0" -> Function[{t, j, h, k, v, im}, F[j]]
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j]]
 								],
-								rulej
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`rulej
 							],
-							dc[__] -> dcX
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 						],
-						dcX, 0
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 					]
 				]
 			]
@@ -719,13 +719,13 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-THJZ4H"
+	TestID->"TimeAggregation_20231129-OHBRR7@@Tests/TimeAggregation.wlt:691,1-723,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 1;
-	rulej = Table[F[i] -> F[(h * k) + i],
-		{i, 0, h - 2}
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`rulej = Table[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[(FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k) + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+		{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, 0, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h - 2}
 	];
 	Apply[And,
 		{
@@ -735,13 +735,13 @@ VerificationTest[
 						ReplaceAll[
 							ReplaceAll[
 								FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-									dc, t, "TimeAggregation" -> h, "numPeriods" -> k, "v0" -> Function[{t, j, h, k, v, im}, F[j]]
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j]]
 								],
-								rulej
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`rulej
 							],
-							dc[__] -> dcX
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 						],
-						dcX, 0
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 					]
 				]
 			]
@@ -752,13 +752,13 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-EV6LIL"
+	TestID->"TimeAggregation_20231129-39VUEC@@Tests/TimeAggregation.wlt:724,1-756,2"
 ]
 VerificationTest[
-	h = 4;
-	k = 1;
-	rulej = Table[F[i] -> F[(h * k) + i],
-		{i, 0, h - 2}
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 4;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`rulej = Table[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[(FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k) + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+		{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, 0, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h - 2}
 	];
 	Apply[And,
 		{
@@ -768,13 +768,13 @@ VerificationTest[
 						ReplaceAll[
 							ReplaceAll[
 								FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[
-									dc, t, "TimeAggregation" -> h, "numPeriods" -> k, "v0" -> Function[{t, j, h, k, v, im}, F[j]]
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "v0" -> Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`v, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`im}, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`F[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j]]
 								],
-								rulej
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`rulej
 							],
-							dc[__] -> dcX
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__] -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX
 						],
-						dcX, 0
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dcX, 0
 					]
 				]
 			]
@@ -785,7 +785,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-W9MCKG"
+	TestID->"TimeAggregation_20231129-6WZ6SC@@Tests/TimeAggregation.wlt:757,1-789,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -793,9 +793,9 @@ VerificationTest[
 			SameQ[
 				Cases[
 					Expand[
-						FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 0]
+						FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 0]
 					],
-					Times[Optional[coef_], Power[dc[__], Optional[p_]]] :> p
+					Times[Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`coef_], Power[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__], Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p_]]] :> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p
 				],
 				{}
 			],
@@ -803,9 +803,9 @@ VerificationTest[
 				Max[
 					Cases[
 						Expand[
-							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 1]
+							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 1]
 						],
-						Times[Optional[coef_], Power[dc[__], Optional[p_]]] :> p
+						Times[Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`coef_], Power[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__], Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p_]]] :> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p
 					]
 				],
 				1
@@ -814,9 +814,9 @@ VerificationTest[
 				Max[
 					Cases[
 						Expand[
-							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 2]
+							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 2]
 						],
-						Times[Optional[coef_], Power[dc[__], Optional[p_]]] :> p
+						Times[Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`coef_], Power[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__], Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p_]]] :> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p
 					]
 				],
 				2
@@ -825,9 +825,9 @@ VerificationTest[
 				Max[
 					Cases[
 						Expand[
-							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 3]
+							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 3]
 						],
-						Times[Optional[coef_], Power[dc[__], Optional[p_]]] :> p
+						Times[Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`coef_], Power[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[__], Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p_]]] :> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p
 					]
 				],
 				3
@@ -839,7 +839,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-G12P01"
+	TestID->"TimeAggregation_20231129-FCVFCC@@Tests/TimeAggregation.wlt:790,1-843,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -847,9 +847,9 @@ VerificationTest[
 			SameQ[
 				Cases[
 					Expand[
-						FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 0]
+						FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 0]
 					],
-					Times[Optional[coef_], Power[dd[__, i], Optional[p_]]] :> p
+					Times[Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`coef_], Power[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[__, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i], Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p_]]] :> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p
 				],
 				{}
 			],
@@ -857,9 +857,9 @@ VerificationTest[
 				Max[
 					Cases[
 						Expand[
-							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 1]
+							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 1]
 						],
-						Times[Optional[coef_], Power[dd[__, i], Optional[p_]]] :> p
+						Times[Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`coef_], Power[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[__, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i], Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p_]]] :> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p
 					]
 				],
 				1
@@ -868,9 +868,9 @@ VerificationTest[
 				Max[
 					Cases[
 						Expand[
-							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 2]
+							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 2]
 						],
-						Times[Optional[coef_], Power[dd[__, i], Optional[p_]]] :> p
+						Times[Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`coef_], Power[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[__, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i], Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p_]]] :> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p
 					]
 				],
 				2
@@ -879,9 +879,9 @@ VerificationTest[
 				Max[
 					Cases[
 						Expand[
-							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 3]
+							FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 3]
 						],
-						Times[Optional[coef_], Power[dd[__, i], Optional[p_]]] :> p
+						Times[Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`coef_], Power[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[__, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i], Optional[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p_]]] :> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`p
 					]
 				],
 				3
@@ -893,44 +893,44 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-EQ8DR8"
+	TestID->"TimeAggregation_20231129-5M56LY@@Tests/TimeAggregation.wlt:844,1-897,2"
 ]
 VerificationTest[
-	f = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`f;
-	g = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g;
-	s = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`s;
-	timeSeriesVector = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`timeSeriesVector;
-	gt = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`gt;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`f = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`f;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`s = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`s;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`timeSeriesVector;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`gt;
 	True
 	,
 	True
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-HSN4JG"
+	TestID->"TimeAggregation_20231129-MDPBSV@@Tests/TimeAggregation.wlt:898,1-911,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 2;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 2;
 	Apply[And,
 		{
-			Equal[gt[dc, t], dc @ t],
-			Equal[gt[dc, t, {"TimeAggregation" -> 3, "numPeriods" -> k}],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, {"TimeAggregation" -> 3, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}],
 				Subtract[
-					Plus[dc[t - 5],
-						Plus[dc[t - 4],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
 							Plus[
-								dc[t - 3],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
 								Plus[
-									dc[t - 2],
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
 									Plus[
-										dc[t - 1],
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
 										Plus[
-											dc @ t,
+											FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
 											Log[
 												Plus[
 													1,
-													(E ^ ((-dc[t]) - dc[t - 1])) + E ^ (-dc[t])
+													(E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1])) + E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t])
 												]
 											]
 										]
@@ -942,29 +942,29 @@ VerificationTest[
 					Log[
 						Plus[1,
 							Plus[
-								E ^ ((-dc[t - 6]) - dc[t - 7]),
-								E ^ (-dc[t - 6])
+								E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 7]),
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6])
 							]
 						]
 					]
 				]
 			],
-			Equal[gt[dc, t, "TimeAggregation" -> 3, "numPeriods" -> k],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
 				Subtract[
-					Plus[dc[t - 5],
-						Plus[dc[t - 4],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
 							Plus[
-								dc[t - 3],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
 								Plus[
-									dc[t - 2],
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
 									Plus[
-										dc[t - 1],
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
 										Plus[
-											dc @ t,
+											FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
 											Log[
 												Plus[
 													1,
-													(E ^ ((-dc[t]) - dc[t - 1])) + E ^ (-dc[t])
+													(E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1])) + E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t])
 												]
 											]
 										]
@@ -976,31 +976,31 @@ VerificationTest[
 					Log[
 						Plus[1,
 							Plus[
-								E ^ ((-dc[t - 6]) - dc[t - 7]),
-								E ^ (-dc[t - 6])
+								E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 7]),
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6])
 							]
 						]
 					]
 				]
 			],
-			Equal[gt[dd, t, i, {"TimeAggregation" -> 3, "numPeriods" -> k}],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, {"TimeAggregation" -> 3, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}],
 				Subtract[
-					Plus[dd[t - 5, i],
-						Plus[dd[t - 4, i],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 							Plus[
-								dd[t - 3, i],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 								Plus[
-									dd[t - 2, i],
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 									Plus[
-										dd[t - 1, i],
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 										Plus[
-											dd[t, i],
+											FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 											Log[
 												Plus[
 													1,
 													Plus[
-														E ^ ((-dd[t, i]) - dd[t - 1, i]),
-														E ^ (-dd[t, i])
+														E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]),
+														E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i])
 													]
 												]
 											]
@@ -1015,32 +1015,32 @@ VerificationTest[
 							Plus[
 								Power[
 									E,
-									(-dd[t - 6, i]) - dd[t - 7, i]
+									(-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 7, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]
 								],
-								E ^ (-dd[t - 6, i])
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i])
 							]
 						]
 					]
 				]
 			],
-			Equal[gt[dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> k],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "TimeAggregation" -> 3, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
 				Subtract[
-					Plus[dd[t - 5, i],
-						Plus[dd[t - 4, i],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 							Plus[
-								dd[t - 3, i],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 								Plus[
-									dd[t - 2, i],
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 									Plus[
-										dd[t - 1, i],
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 										Plus[
-											dd[t, i],
+											FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 											Log[
 												Plus[
 													1,
 													Plus[
-														E ^ ((-dd[t, i]) - dd[t - 1, i]),
-														E ^ (-dd[t, i])
+														E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]),
+														E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i])
 													]
 												]
 											]
@@ -1055,32 +1055,32 @@ VerificationTest[
 							Plus[
 								Power[
 									E,
-									(-dd[t - 6, i]) - dd[t - 7, i]
+									(-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 7, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]
 								],
-								E ^ (-dd[t - 6, i])
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i])
 							]
 						]
 					]
 				]
 			],
-			Equal[gt[dd, t, 1, {"TimeAggregation" -> 3, "numPeriods" -> k}],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 1, {"TimeAggregation" -> 3, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}],
 				Subtract[
-					Plus[dd[t - 5, 1],
-						Plus[dd[t - 4, 1],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5, 1],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, 1],
 							Plus[
-								dd[t - 3, 1],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, 1],
 								Plus[
-									dd[t - 2, 1],
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, 1],
 									Plus[
-										dd[t - 1, 1],
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, 1],
 										Plus[
-											dd[t, 1],
+											FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 1],
 											Log[
 												Plus[
 													1,
 													Plus[
-														E ^ ((-dd[t, 1]) - dd[t - 1, 1]),
-														E ^ (-dd[t, 1])
+														E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 1]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, 1]),
+														E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 1])
 													]
 												]
 											]
@@ -1095,32 +1095,32 @@ VerificationTest[
 							Plus[
 								Power[
 									E,
-									(-dd[t - 6, 1]) - dd[t - 7, 1]
+									(-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6, 1]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 7, 1]
 								],
-								E ^ (-dd[t - 6, 1])
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6, 1])
 							]
 						]
 					]
 				]
 			],
-			Equal[gt[dd, t, 2, "TimeAggregation" -> 3, "numPeriods" -> k],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 2, "TimeAggregation" -> 3, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
 				Subtract[
-					Plus[dd[t - 5, 2],
-						Plus[dd[t - 4, 2],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5, 2],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, 2],
 							Plus[
-								dd[t - 3, 2],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, 2],
 								Plus[
-									dd[t - 2, 2],
+									FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, 2],
 									Plus[
-										dd[t - 1, 2],
+										FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, 2],
 										Plus[
-											dd[t, 2],
+											FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 2],
 											Log[
 												Plus[
 													1,
 													Plus[
-														E ^ ((-dd[t, 2]) - dd[t - 1, 2]),
-														E ^ (-dd[t, 2])
+														E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 2]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, 2]),
+														E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 2])
 													]
 												]
 											]
@@ -1135,9 +1135,9 @@ VerificationTest[
 							Plus[
 								Power[
 									E,
-									(-dd[t - 6, 2]) - dd[t - 7, 2]
+									(-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6, 2]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 7, 2]
 								],
-								E ^ (-dd[t - 6, 2])
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6, 2])
 							]
 						]
 					]
@@ -1150,26 +1150,26 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-4PO5OJ"
+	TestID->"TimeAggregation_20231129-2GH09Z@@Tests/TimeAggregation.wlt:912,1-1154,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 2;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 2;
 	Apply[And,
 		{
-			Equal[gt[dc, t], dc @ t],
-			Equal[gt[dc, t, "Variable" -> "Stock"], dc @ t],
-			Equal[gt[dc, t, "TimeAggregation" -> 3, "Variable" -> "Stock"],
-				dc[t - 2] + dc[t - 1] + dc[t]
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "Variable" -> "Stock"], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3, "Variable" -> "Stock"],
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 			],
-			Equal[gt[dd, t, i, {"numPeriods" -> k}, "Variable" -> "Stock"],
-				dd[t - 1, i] + dd[t, i]
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, {"numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}, "Variable" -> "Stock"],
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]
 			],
-			Equal[gt[dd, t, i, "Variable" -> "Stock"], dd[t, i]],
-			Equal[gt[dd, t, 1, {"TimeAggregation" -> 3}, "Variable" -> "Stock"],
-				dd[t - 2, 1] + dd[t - 1, 1] + dd[t, 1]
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "Variable" -> "Stock"], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 1, {"TimeAggregation" -> 3}, "Variable" -> "Stock"],
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 1]
 			],
-			Equal[gt[dd, t, 2, "Variable" -> "Stock"], dd[t, 2]]
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 2, "Variable" -> "Stock"], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 2]]
 		}
 	]
 	,
@@ -1177,80 +1177,80 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-7Y1W4O"
+	TestID->"TimeAggregation_20231129-RZPIF0@@Tests/TimeAggregation.wlt:1155,1-1181,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 2;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 2;
 	Apply[And,
 		{
-			Equal[gt[dc, t], dc @ t],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t],
 			Equal[
-				gt[dc,
-					t,
-					{"TimeAggregation" -> h, "numPeriods" -> k},
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
+					{"TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k},
 					"Variable" -> "Stock"
 				],
-				Plus[dc[t - 5],
-					Plus[dc[t - 4],
-						dc[t - 3] + dc[t - 2] + dc[t - 1] + dc[t]
+				Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 					]
 				]
 			],
 			Equal[
-				gt[dc, t, "TimeAggregation" -> h, "numPeriods" -> k, "Variable" -> "Stock"],
-				Plus[dc[t - 5],
-					Plus[dc[t - 4],
-						dc[t - 3] + dc[t - 2] + dc[t - 1] + dc[t]
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Stock"],
+				Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 					]
 				]
 			],
 			Equal[
-				gt[dd,
-					t, i, {"TimeAggregation" -> h, "numPeriods" -> k},
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, {"TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k},
 					"Variable" -> "Stock"
 				],
-				Plus[dd[t - 5, i],
-					Plus[dd[t - 4, i],
-						Plus[dd[t - 3, i],
-							dd[t - 2, i] + dd[t - 1, i] + dd[t, i]
+				Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]
 						]
 					]
 				]
 			],
 			Equal[
-				gt[dd,
-					t, i, "TimeAggregation" -> h, "numPeriods" -> k, "Variable" -> "Stock"
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Stock"
 				],
-				Plus[dd[t - 5, i],
-					Plus[dd[t - 4, i],
-						Plus[dd[t - 3, i],
-							dd[t - 2, i] + dd[t - 1, i] + dd[t, i]
+				Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]
 						]
 					]
 				]
 			],
 			Equal[
-				gt[dd,
-					t, 1, {"TimeAggregation" -> h, "numPeriods" -> k},
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 1, {"TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k},
 					"Variable" -> "Stock"
 				],
-				Plus[dd[t - 5, 1],
-					Plus[dd[t - 4, 1],
-						Plus[dd[t - 3, 1],
-							dd[t - 2, 1] + dd[t - 1, 1] + dd[t, 1]
+				Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5, 1],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, 1],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, 1],
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 1]
 						]
 					]
 				]
 			],
 			Equal[
-				gt[dd,
-					t, 2, "TimeAggregation" -> h, "numPeriods" -> k, "Variable" -> "Stock"
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`gt[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 2, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Stock"
 				],
-				Plus[dd[t - 5, 2],
-					Plus[dd[t - 4, 2],
-						Plus[dd[t - 3, 2],
-							dd[t - 2, 2] + dd[t - 1, 2] + dd[t, 2]
+				Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5, 2],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, 2],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, 2],
+							FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, 2] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, 2] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, 2]
 						]
 					]
 				]
@@ -1262,23 +1262,23 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-X96JPO"
+	TestID->"TimeAggregation_20231129-QYPWYJ@@Tests/TimeAggregation.wlt:1182,1-1266,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
 	Apply[And,
 		{
-			Equal[g[timeSeriesVector[dc, t, "TimeAggregation" -> h], h],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h],
 				Subtract[
-					Plus[dc[t - 2],
-						Plus[dc[t - 1],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
 							Plus[
-								dc @ t,
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
 								Log[
 									Plus[
 										1,
-										(E ^ ((-dc[t]) - dc[t - 1])) + E ^ (-dc[t])
+										(E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1])) + E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t])
 									]
 								]
 							]
@@ -1287,28 +1287,28 @@ VerificationTest[
 					Log[
 						Plus[1,
 							Plus[
-								E ^ ((-dc[t - 3]) - dc[t - 4]),
-								E ^ (-dc[t - 3])
+								E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4]),
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3])
 							]
 						]
 					]
 				]
 			],
-			Equal[g[timeSeriesVector[dc, t, "numPeriods" -> k], 1, k], dc @ t],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k], 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t],
 			Equal[
-				g[
-					timeSeriesVector[dc, t, {"TimeAggregation" -> h, "numPeriods" -> k}],
-					h, k
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, {"TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k
 				],
 				Subtract[
-					Plus[dc[t - 2],
-						Plus[dc[t - 1],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
 							Plus[
-								dc @ t,
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
 								Log[
 									Plus[
 										1,
-										(E ^ ((-dc[t]) - dc[t - 1])) + E ^ (-dc[t])
+										(E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1])) + E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t])
 									]
 								]
 							]
@@ -1317,27 +1317,27 @@ VerificationTest[
 					Log[
 						Plus[1,
 							Plus[
-								E ^ ((-dc[t - 3]) - dc[t - 4]),
-								E ^ (-dc[t - 3])
+								E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4]),
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3])
 							]
 						]
 					]
 				]
 			],
 			Equal[
-				g[
-					timeSeriesVector[dc, t, "TimeAggregation" -> h, "numPeriods" -> k],
-					h, k
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k
 				],
 				Subtract[
-					Plus[dc[t - 2],
-						Plus[dc[t - 1],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
 							Plus[
-								dc @ t,
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
 								Log[
 									Plus[
 										1,
-										(E ^ ((-dc[t]) - dc[t - 1])) + E ^ (-dc[t])
+										(E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1])) + E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t])
 									]
 								]
 							]
@@ -1346,8 +1346,8 @@ VerificationTest[
 					Log[
 						Plus[1,
 							Plus[
-								E ^ ((-dc[t - 3]) - dc[t - 4]),
-								E ^ (-dc[t - 3])
+								E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4]),
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3])
 							]
 						]
 					]
@@ -1360,47 +1360,47 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-BKUGKQ"
+	TestID->"TimeAggregation_20231129-5V9ZSS@@Tests/TimeAggregation.wlt:1267,1-1364,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
 	Apply[And,
 		{
-			Equal[g[timeSeriesVector[dc, t], h], FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc @ t}, 3]],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h], FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t}, 3]],
 			Equal[
-				g[Part[timeSeriesVector[dc, t, "TimeAggregation" -> h], 1;;-2],
-					h
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[Part[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h], 1;;-2],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h
 				],
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc @ t, dc[t - 1], dc[t - 2], dc[t - 3]},
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]},
 					3
 				]
 			],
 			Equal[
-				g[Part[timeSeriesVector[dc, t, "numPeriods" -> k], 1;;-2], 1, k],
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[Part[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k], 1;;-2], 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
 				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{}, 1, 1]
 			],
 			Equal[
-				g[
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
 					Part[
-						timeSeriesVector[dc, t, {"TimeAggregation" -> h, "numPeriods" -> k}],
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, {"TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}],
 						1;;-2
 					],
-					h, k
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k
 				],
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc @ t, dc[t - 1], dc[t - 2], dc[t - 3]},
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]},
 					3, 1
 				]
 			],
 			Equal[
-				g[
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
 					Part[
-						timeSeriesVector[dc, t, "TimeAggregation" -> h, "numPeriods" -> k],
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
 						1;;-2
 					],
-					h, k
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k
 				],
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc @ t, dc[t - 1], dc[t - 2], dc[t - 3]},
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]},
 					3, 1
 				]
 			]
@@ -1411,26 +1411,26 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-L83FCW"
+	TestID->"TimeAggregation_20231129-ASL132@@Tests/TimeAggregation.wlt:1365,1-1415,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
 	Apply[And,
 		{
 			Equal[
-				g[timeSeriesVector[dc, t, "TimeAggregation" -> h],
-					h, "Variable" -> "Flow"
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "Variable" -> "Flow"
 				],
 				Subtract[
-					Plus[dc[t - 2],
-						Plus[dc[t - 1],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
 							Plus[
-								dc @ t,
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
 								Log[
 									Plus[
 										1,
-										(E ^ ((-dc[t]) - dc[t - 1])) + E ^ (-dc[t])
+										(E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1])) + E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t])
 									]
 								]
 							]
@@ -1439,33 +1439,33 @@ VerificationTest[
 					Log[
 						Plus[1,
 							Plus[
-								E ^ ((-dc[t - 3]) - dc[t - 4]),
-								E ^ (-dc[t - 3])
+								E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4]),
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3])
 							]
 						]
 					]
 				]
 			],
 			Equal[
-				g[timeSeriesVector[dc, t, "numPeriods" -> k],
-					1, k, "Variable" -> "Flow"
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+					1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Flow"
 				],
-				dc @ t
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t
 			],
 			Equal[
-				g[
-					timeSeriesVector[dc, t, {"TimeAggregation" -> h, "numPeriods" -> k}],
-					h, k, "Variable" -> "Flow"
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, {"TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Flow"
 				],
 				Subtract[
-					Plus[dc[t - 2],
-						Plus[dc[t - 1],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
 							Plus[
-								dc @ t,
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
 								Log[
 									Plus[
 										1,
-										(E ^ ((-dc[t]) - dc[t - 1])) + E ^ (-dc[t])
+										(E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1])) + E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t])
 									]
 								]
 							]
@@ -1474,27 +1474,27 @@ VerificationTest[
 					Log[
 						Plus[1,
 							Plus[
-								E ^ ((-dc[t - 3]) - dc[t - 4]),
-								E ^ (-dc[t - 3])
+								E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4]),
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3])
 							]
 						]
 					]
 				]
 			],
 			Equal[
-				g[
-					timeSeriesVector[dc, t, "TimeAggregation" -> h, "numPeriods" -> k],
-					h, k, "Variable" -> "Flow"
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Flow"
 				],
 				Subtract[
-					Plus[dc[t - 2],
-						Plus[dc[t - 1],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
 							Plus[
-								dc @ t,
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
 								Log[
 									Plus[
 										1,
-										(E ^ ((-dc[t]) - dc[t - 1])) + E ^ (-dc[t])
+										(E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1])) + E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t])
 									]
 								]
 							]
@@ -1503,8 +1503,8 @@ VerificationTest[
 					Log[
 						Plus[1,
 							Plus[
-								E ^ ((-dc[t - 3]) - dc[t - 4]),
-								E ^ (-dc[t - 3])
+								E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4]),
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3])
 							]
 						]
 					]
@@ -1517,38 +1517,38 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-385D6O"
+	TestID->"TimeAggregation_20231129-8K5AIS@@Tests/TimeAggregation.wlt:1416,1-1521,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
 	Apply[And,
 		{
 			Equal[
-				g[timeSeriesVector[dc, t, "TimeAggregation" -> h],
-					h, "Variable" -> "Stock"
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "Variable" -> "Stock"
 				],
-				dc[t - 2] + dc[t - 1] + dc[t]
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 			],
 			Equal[
-				g[timeSeriesVector[dc, t, "numPeriods" -> k],
-					1, k, "Variable" -> "Stock"
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+					1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Stock"
 				],
-				dc @ t
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t
 			],
 			Equal[
-				g[
-					timeSeriesVector[dc, t, {"TimeAggregation" -> h, "numPeriods" -> k}],
-					h, k, "Variable" -> "Stock"
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, {"TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Stock"
 				],
-				dc[t - 2] + dc[t - 1] + dc[t]
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 			],
 			Equal[
-				g[
-					timeSeriesVector[dc, t, "TimeAggregation" -> h, "numPeriods" -> k],
-					h, k, "Variable" -> "Stock"
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Stock"
 				],
-				dc[t - 2] + dc[t - 1] + dc[t]
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 			]
 		}
 	]
@@ -1557,48 +1557,48 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-62V5T6"
+	TestID->"TimeAggregation_20231129-SQ902S@@Tests/TimeAggregation.wlt:1522,1-1561,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
 	Apply[And,
 		{
-			Equal[g[timeSeriesVector[dc, t], 1, "Variable" -> "Stock"], dc @ t],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t], 1, "Variable" -> "Stock"], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t],
 			Equal[
-				g[
-					Part[timeSeriesVector[dc, t, "TimeAggregation" -> h],
-						Span[1, h * k]
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					Part[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h],
+						Span[1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k]
 					],
-					h, "Variable" -> "Stock"
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "Variable" -> "Stock"
 				],
-				dc[t - 2] + dc[t - 1] + dc[t]
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 			],
 			Equal[
-				g[timeSeriesVector[dc, t, "numPeriods" -> k],
-					1, k, "Variable" -> "Stock"
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+					1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Stock"
 				],
-				dc @ t
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t
 			],
 			Equal[
-				g[
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
 					Part[
-						timeSeriesVector[dc, t, {"TimeAggregation" -> h, "numPeriods" -> k}],
-						Span[1, h * k]
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, {"TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}],
+						Span[1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k]
 					],
-					h, k, "Variable" -> "Stock"
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Stock"
 				],
-				dc[t - 2] + dc[t - 1] + dc[t]
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 			],
 			Equal[
-				g[
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
 					Part[
-						timeSeriesVector[dc, t, "TimeAggregation" -> h, "numPeriods" -> k],
-						Span[1, h * k]
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+						Span[1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k]
 					],
-					h, k, "Variable" -> "Stock"
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Stock"
 				],
-				dc[t - 2] + dc[t - 1] + dc[t]
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1] + FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t]
 			]
 		}
 	]
@@ -1607,48 +1607,48 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-S8Q48A"
+	TestID->"TimeAggregation_20231129-8FAPMG@@Tests/TimeAggregation.wlt:1562,1-1611,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
 	Apply[And,
 		{
-			Equal[g[timeSeriesVector[dc, t], "Variable" -> "Stock"],
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc @ t}, "Variable" -> "Stock"]
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t], "Variable" -> "Stock"],
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t}, "Variable" -> "Stock"]
 			],
 			Equal[
-				g[
-					Part[timeSeriesVector[dc, t, "TimeAggregation" -> h],
-						Span[1, (h * k) + 1]
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					Part[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h],
+						Span[1, (FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k) + 1]
 					],
-					h, "Variable" -> "Stock"
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "Variable" -> "Stock"
 				],
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc @ t, dc[t - 1], dc[t - 2], dc[t - 3]},
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]},
 					3, "Variable" -> "Stock"
 				]
 			],
 			Equal[
-				g[
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
 					Part[
-						timeSeriesVector[dc, t, {"TimeAggregation" -> h, "numPeriods" -> k}],
-						Span[1, (h * k) + 1]
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, {"TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}],
+						Span[1, (FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k) + 1]
 					],
-					h, k, "Variable" -> "Stock"
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Stock"
 				],
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc @ t, dc[t - 1], dc[t - 2], dc[t - 3]},
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]},
 					3, 1, "Variable" -> "Stock"
 				]
 			],
 			Equal[
-				g[
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
 					Part[
-						timeSeriesVector[dc, t, "TimeAggregation" -> h, "numPeriods" -> k],
-						Span[1, (h * k) + 1]
+						FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+						Span[1, (FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h * FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k) + 1]
 					],
-					h, k, "Variable" -> "Stock"
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, "Variable" -> "Stock"
 				],
-				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc @ t, dc[t - 1], dc[t - 2], dc[t - 3]},
+				FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3]},
 					3, 1, "Variable" -> "Stock"
 				]
 			]
@@ -1659,26 +1659,26 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-XHS940"
+	TestID->"TimeAggregation_20231129-ZMJM7O@@Tests/TimeAggregation.wlt:1612,1-1663,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
 	Apply[And,
 		{
-			Equal[g[timeSeriesVector[dd, t, i], 1], dd[t, i]],
-			Equal[g[timeSeriesVector[dd, t, i, "TimeAggregation" -> h], h],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i], 1], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h],
 				Subtract[
-					Plus[dd[t - 2, i],
-						Plus[dd[t - 1, i],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 							Plus[
-								dd[t, i],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 								Log[
 									Plus[
 										1,
 										Plus[
-											E ^ ((-dd[t, i]) - dd[t - 1, i]),
-											E ^ (-dd[t, i])
+											E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]),
+											E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i])
 										]
 									]
 								]
@@ -1690,33 +1690,33 @@ VerificationTest[
 							Plus[
 								Power[
 									E,
-									(-dd[t - 3, i]) - dd[t - 4, i]
+									(-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]
 								],
-								E ^ (-dd[t - 3, i])
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i])
 							]
 						]
 					]
 				]
 			],
-			Equal[g[timeSeriesVector[dd, t, i, "numPeriods" -> k], 1, k],
-				dd[t, i]
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k], 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]
 			],
 			Equal[
-				g[
-					timeSeriesVector[dd, t, i, {"TimeAggregation" -> h, "numPeriods" -> k}],
-					h, k
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, {"TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k
 				],
 				Subtract[
-					Plus[dd[t - 2, i],
-						Plus[dd[t - 1, i],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 							Plus[
-								dd[t, i],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 								Log[
 									Plus[
 										1,
 										Plus[
-											E ^ ((-dd[t, i]) - dd[t - 1, i]),
-											E ^ (-dd[t, i])
+											E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]),
+											E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i])
 										]
 									]
 								]
@@ -1728,30 +1728,30 @@ VerificationTest[
 							Plus[
 								Power[
 									E,
-									(-dd[t - 3, i]) - dd[t - 4, i]
+									(-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]
 								],
-								E ^ (-dd[t - 3, i])
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i])
 							]
 						]
 					]
 				]
 			],
 			Equal[
-				g[
-					timeSeriesVector[dd, t, i, "TimeAggregation" -> h, "numPeriods" -> k],
-					h, k
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k
 				],
 				Subtract[
-					Plus[dd[t - 2, i],
-						Plus[dd[t - 1, i],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 							Plus[
-								dd[t, i],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i],
 								Log[
 									Plus[
 										1,
 										Plus[
-											E ^ ((-dd[t, i]) - dd[t - 1, i]),
-											E ^ (-dd[t, i])
+											E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]),
+											E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i])
 										]
 									]
 								]
@@ -1763,9 +1763,9 @@ VerificationTest[
 							Plus[
 								Power[
 									E,
-									(-dd[t - 3, i]) - dd[t - 4, i]
+									(-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i]
 								],
-								E ^ (-dd[t - 3, i])
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dd[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`i])
 							]
 						]
 					]
@@ -1778,26 +1778,26 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-A885RZ"
+	TestID->"TimeAggregation_20231129-QC3NYH@@Tests/TimeAggregation.wlt:1664,1-1782,2"
 ]
 VerificationTest[
-	h = 3;
-	k = 1;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
+	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k = 1;
 	Apply[And,
 		{
 			Equal[
-				g[timeSeriesVector[bondret, t, m, "TimeAggregation" -> h], h],
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h], FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h],
 				Subtract[
-					Plus[bondret[t - 2, m],
-						Plus[bondret[t - 1, m],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m],
 							Plus[
-								bondret[t, m],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m],
 								Log[
 									Plus[
 										1,
 										Plus[
-											E ^ ((-bondret[t, m]) - bondret[t - 1, m]),
-											E ^ (-bondret[t, m])
+											E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]),
+											E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m])
 										]
 									]
 								]
@@ -1809,33 +1809,33 @@ VerificationTest[
 							Plus[
 								Power[
 									E,
-									(-bondret[t - 3, m]) - bondret[t - 4, m]
+									(-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]
 								],
-								E ^ (-bondret[t - 3, m])
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m])
 							]
 						]
 					]
 				]
 			],
-			Equal[g[timeSeriesVector[bondret, t, m, "numPeriods" -> k], 1, k],
-				bondret[t, m]
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k], 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]
 			],
 			Equal[
-				g[
-					timeSeriesVector[bondret, t, m, {"TimeAggregation" -> h, "numPeriods" -> k}],
-					h, k
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m, {"TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k}],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k
 				],
 				Subtract[
-					Plus[bondret[t - 2, m],
-						Plus[bondret[t - 1, m],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m],
 							Plus[
-								bondret[t, m],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m],
 								Log[
 									Plus[
 										1,
 										Plus[
-											E ^ ((-bondret[t, m]) - bondret[t - 1, m]),
-											E ^ (-bondret[t, m])
+											E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]),
+											E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m])
 										]
 									]
 								]
@@ -1847,30 +1847,30 @@ VerificationTest[
 							Plus[
 								Power[
 									E,
-									(-bondret[t - 3, m]) - bondret[t - 4, m]
+									(-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]
 								],
-								E ^ (-bondret[t - 3, m])
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m])
 							]
 						]
 					]
 				]
 			],
 			Equal[
-				g[
-					timeSeriesVector[bondret, t, m, "TimeAggregation" -> h, "numPeriods" -> k],
-					h, k
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`g[
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m, "TimeAggregation" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, "numPeriods" -> FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k
 				],
 				Subtract[
-					Plus[bondret[t - 2, m],
-						Plus[bondret[t - 1, m],
+					Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m],
+						Plus[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m],
 							Plus[
-								bondret[t, m],
+								FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m],
 								Log[
 									Plus[
 										1,
 										Plus[
-											E ^ ((-bondret[t, m]) - bondret[t - 1, m]),
-											E ^ (-bondret[t, m])
+											E ^ ((-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]),
+											E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m])
 										]
 									]
 								]
@@ -1882,9 +1882,9 @@ VerificationTest[
 							Plus[
 								Power[
 									E,
-									(-bondret[t - 3, m]) - bondret[t - 4, m]
+									(-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]) - FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m]
 								],
-								E ^ (-bondret[t - 3, m])
+								E ^ (-FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`m])
 							]
 						]
 					]
@@ -1897,133 +1897,133 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-B932Q5"
+	TestID->"TimeAggregation_20231129-84PETM@@Tests/TimeAggregation.wlt:1783,1-1901,2"
 ]
 VerificationTest[
 	Apply[And,
 		{
-			Equal[timeSeriesVector[dc, t], {dc @ t}],
-			Equal[timeSeriesVector[dc, t, "TimeAggregation" -> 3],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t], {FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t}],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 3],
 				{
-					dc @ t,
-					dc[t - 1],
-					dc[t - 2],
-					dc[t - 3],
-					dc[t - 4]
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4]
 				}
 			],
-			Equal[timeSeriesVector[dc, t, "numPeriods" -> 6],
+			Equal[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "numPeriods" -> 6],
 				{
-					dc @ t,
-					dc[t - 1],
-					dc[t - 2],
-					dc[t - 3],
-					dc[t - 4],
-					dc[t - 5]
-				}
-			],
-			Equal[
-				timeSeriesVector[dc, t, {"TimeAggregation" -> 12, "numPeriods" -> 3}],
-				{
-					dc @ t,
-					dc[t - 1],
-					dc[t - 2],
-					dc[t - 3],
-					dc[t - 4],
-					dc[t - 5],
-					dc[t - 6],
-					dc[t - 7],
-					dc[t - 8],
-					dc[t - 9],
-					dc[t - 10],
-					dc[t - 11],
-					dc[t - 12],
-					dc[t - 13],
-					dc[t - 14],
-					dc[t - 15],
-					dc[t - 16],
-					dc[t - 17],
-					dc[t - 18],
-					dc[t - 19],
-					dc[t - 20],
-					dc[t - 21],
-					dc[t - 22],
-					dc[t - 23],
-					dc[t - 24],
-					dc[t - 25],
-					dc[t - 26],
-					dc[t - 27],
-					dc[t - 28],
-					dc[t - 29],
-					dc[t - 30],
-					dc[t - 31],
-					dc[t - 32],
-					dc[t - 33],
-					dc[t - 34],
-					dc[t - 35],
-					dc[t - 36],
-					dc[t - 37],
-					dc[t - 38],
-					dc[t - 39],
-					dc[t - 40],
-					dc[t - 41],
-					dc[t - 42],
-					dc[t - 43],
-					dc[t - 44],
-					dc[t - 45],
-					dc[t - 46]
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5]
 				}
 			],
 			Equal[
-				timeSeriesVector[dc, t, "TimeAggregation" -> 12, "numPeriods" -> 3],
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, {"TimeAggregation" -> 12, "numPeriods" -> 3}],
 				{
-					dc @ t,
-					dc[t - 1],
-					dc[t - 2],
-					dc[t - 3],
-					dc[t - 4],
-					dc[t - 5],
-					dc[t - 6],
-					dc[t - 7],
-					dc[t - 8],
-					dc[t - 9],
-					dc[t - 10],
-					dc[t - 11],
-					dc[t - 12],
-					dc[t - 13],
-					dc[t - 14],
-					dc[t - 15],
-					dc[t - 16],
-					dc[t - 17],
-					dc[t - 18],
-					dc[t - 19],
-					dc[t - 20],
-					dc[t - 21],
-					dc[t - 22],
-					dc[t - 23],
-					dc[t - 24],
-					dc[t - 25],
-					dc[t - 26],
-					dc[t - 27],
-					dc[t - 28],
-					dc[t - 29],
-					dc[t - 30],
-					dc[t - 31],
-					dc[t - 32],
-					dc[t - 33],
-					dc[t - 34],
-					dc[t - 35],
-					dc[t - 36],
-					dc[t - 37],
-					dc[t - 38],
-					dc[t - 39],
-					dc[t - 40],
-					dc[t - 41],
-					dc[t - 42],
-					dc[t - 43],
-					dc[t - 44],
-					dc[t - 45],
-					dc[t - 46]
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 7],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 8],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 9],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 10],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 11],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 12],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 13],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 14],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 15],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 16],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 17],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 18],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 19],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 20],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 21],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 22],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 23],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 24],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 25],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 26],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 27],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 28],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 29],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 30],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 31],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 32],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 33],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 34],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 35],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 36],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 37],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 38],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 39],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 40],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 41],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 42],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 43],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 44],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 45],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 46]
+				}
+			],
+			Equal[
+				FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`timeSeriesVector[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, "TimeAggregation" -> 12, "numPeriods" -> 3],
+				{
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t,
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 1],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 2],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 3],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 4],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 5],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 6],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 7],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 8],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 9],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 10],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 11],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 12],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 13],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 14],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 15],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 16],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 17],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 18],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 19],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 20],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 21],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 22],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 23],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 24],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 25],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 26],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 27],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 28],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 29],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 30],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 31],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 32],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 33],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 34],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 35],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 36],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 37],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 38],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 39],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 40],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 41],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 42],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 43],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 44],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 45],
+					FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`dc[FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t - 46]
 				}
 			]
 		}
@@ -2033,7 +2033,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-XRPGDA"
+	TestID->"TimeAggregation_20231129-2RT0Y8@@Tests/TimeAggregation.wlt:1902,1-2037,2"
 ]
 VerificationTest[
 	On[General::stop];
@@ -2043,7 +2043,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20231114-F57LY7"
+	TestID->"TimeAggregation_20231129-QNA59G@@Tests/TimeAggregation.wlt:2038,1-2047,2"
 ] 
 End[]
 EndTestSection[]

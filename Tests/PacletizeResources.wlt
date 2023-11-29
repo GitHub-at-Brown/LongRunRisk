@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20231113-P4E2WB@@Tests/PacletizeResources.wlt:3,1-12,2"
+	TestID->"PacletizeResources_20231129-X7A7EP@@Tests/PacletizeResources.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -26,7 +26,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20231113-SI4Z7M@@Tests/PacletizeResources.wlt:13,1-30,2"
+	TestID->"PacletizeResources_20231129-1C4E6R@@Tests/PacletizeResources.wlt:13,1-30,2"
 ] 
 End[]
 EndTestSection[]

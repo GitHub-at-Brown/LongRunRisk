@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-1MIUO0@@Tests/ToNumber.wlt:3,1-12,2"
+	TestID->"ToNumber_20231129-6XR6PR@@Tests/ToNumber.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Tools`ToNumber`";
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-CW4J07@@Tests/ToNumber.wlt:13,1-23,2"
+	TestID->"ToNumber_20231129-JCI59L@@Tests/ToNumber.wlt:13,1-23,2"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -771,7 +771,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-T0CCJM@@Tests/ToNumber.wlt:24,1-775,2"
+	TestID->"ToNumber_20231129-I6PUZW@@Tests/ToNumber.wlt:24,1-775,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters;
@@ -826,7 +826,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-Z0PKFE@@Tests/ToNumber.wlt:776,1-830,2"
+	TestID->"ToNumber_20231129-H3FPF7@@Tests/ToNumber.wlt:776,1-830,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -864,7 +864,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-SGPER8@@Tests/ToNumber.wlt:831,1-868,2"
+	TestID->"ToNumber_20231129-ZERTJ2@@Tests/ToNumber.wlt:831,1-868,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -902,7 +902,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-0QAG0B@@Tests/ToNumber.wlt:869,1-906,2"
+	TestID->"ToNumber_20231129-CH96RN@@Tests/ToNumber.wlt:869,1-906,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -926,7 +926,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-NU4GLK@@Tests/ToNumber.wlt:907,1-930,2"
+	TestID->"ToNumber_20231129-JAWNID@@Tests/ToNumber.wlt:907,1-930,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -948,7 +948,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-Y88RLD@@Tests/ToNumber.wlt:931,1-952,2"
+	TestID->"ToNumber_20231129-W0BV2J@@Tests/ToNumber.wlt:931,1-952,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -970,7 +970,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-W1J0FI@@Tests/ToNumber.wlt:953,1-974,2"
+	TestID->"ToNumber_20231129-5ZRZFG@@Tests/ToNumber.wlt:953,1-974,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1006,7 +1006,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-FVKAQ4@@Tests/ToNumber.wlt:975,1-1010,2"
+	TestID->"ToNumber_20231129-3VUB1U@@Tests/ToNumber.wlt:975,1-1010,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1033,7 +1033,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-BGRVWV@@Tests/ToNumber.wlt:1011,1-1037,2"
+	TestID->"ToNumber_20231129-LACTY8@@Tests/ToNumber.wlt:1011,1-1037,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1066,7 +1066,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-ABIL06@@Tests/ToNumber.wlt:1038,1-1070,2"
+	TestID->"ToNumber_20231129-6I7HJU@@Tests/ToNumber.wlt:1038,1-1070,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1099,7 +1099,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-4ILOB8@@Tests/ToNumber.wlt:1071,1-1103,2"
+	TestID->"ToNumber_20231129-B9R0ZZ@@Tests/ToNumber.wlt:1071,1-1103,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1132,7 +1132,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-Z9ZZDM@@Tests/ToNumber.wlt:1104,1-1136,2"
+	TestID->"ToNumber_20231129-CHWDHH@@Tests/ToNumber.wlt:1104,1-1136,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1154,7 +1154,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-X3KGN2@@Tests/ToNumber.wlt:1137,1-1158,2"
+	TestID->"ToNumber_20231129-EOO22N@@Tests/ToNumber.wlt:1137,1-1158,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1179,7 +1179,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20231113-SI0ORA@@Tests/ToNumber.wlt:1159,1-1183,2"
+	TestID->"ToNumber_20231129-R4OEVH@@Tests/ToNumber.wlt:1159,1-1183,2"
 ] 
 End[]
 EndTestSection[]
