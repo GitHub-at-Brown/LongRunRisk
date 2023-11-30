@@ -141,30 +141,6 @@ plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts: Option
 	](*With*) 
 
 
-opts={"MaxIterations"->100};
-initialGuess={4.35};(*{5,6}*)
-newParams = {(*FernandoDuarte`LongRunRisk`Model`Parameters`psi->1.5,FernandoDuarte`LongRunRisk`Model`Parameters`gamma->8*)}
-solWc=updateCoeffs[model,newParams,opts,"PrintResidualsNorm"->True,"initialGuess" -> <|"Ewc"->initialGuess|>]
-plotCoeffs[model,solWc,newParams,initialGuess,opts(*,PlotLegends->Automatic*)]
-plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]
-
-
-(*opts={"MaxIterations"->100};
-initialGuess={4.6};(*{5,6}*)
-newParams = {(*FernandoDuarte`LongRunRisk`Model`Parameters`psi->1.5,FernandoDuarte`LongRunRisk`Model`Parameters`gamma->8*)}
-solWc=updateCoeffs[model,newParams,opts,"PrintResidualsNorm"->True,"initialGuess" -> <|"Ewc"->initialGuess|>]
-plotCoeffs[model,solWc,newParams,initialGuess,opts(*,PlotLegends->Automatic*)]
-plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]*)
-
-
-opts={"MaxIterations"->100};
-initialGuess={3};
-newParams = {(*FernandoDuarte`LongRunRisk`Model`Parameters`psi->1.5,FernandoDuarte`LongRunRisk`Model`Parameters`gamma->8*)}
-solWc=updateCoeffs[model,newParams,opts,"PrintResidualsNorm"->True,"initialGuess" -> <|"Ewc"->initialGuess|>]
-plotCoeffs[model,solWc,newParams,initialGuess,opts(*,PlotLegends->Automatic*)]
-plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]
-
-
 (* ::Section:: *)
 (*End package*)
 
