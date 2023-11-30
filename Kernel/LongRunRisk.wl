@@ -81,7 +81,7 @@ ToNum;ToEquation;ToExogenousVars;ToStateVars;
 UncondE; UncondCov; UncondVar; UncondCorr;
 Ev; Var; Cov; Corr;
 Growth;
-YieldCurve;
+YieldCurve;PlotCoeffs
 (*t;*)
 (*covLongBY;covLongNRC;covLongDES;*)
 

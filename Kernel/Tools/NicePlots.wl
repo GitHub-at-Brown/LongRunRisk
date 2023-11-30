@@ -12,6 +12,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`NicePlots`"]
 
 
 yieldCurve
+plotCoeffs
 
 
 (* ::Subsubsection:: *)
@@ -19,6 +20,7 @@ yieldCurve
 
 
 yieldCurve::usage = "yieldCurve[model, newParameters, coeffsWc, bondType, opts] plots the yield curve";
+plotCoeffs::usage = "plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts: OptionsPattern[]] plots the steps that FindRoot takes to solve for A[0]";
 
 
 (* ::Section:: *)
@@ -103,14 +105,11 @@ Variance ratios over horizons*)
 
 
 
-(* ::Subsection:: *)
-(*To Do*)
-
-
-(*plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts: OptionsPattern[]] :=
+plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts: OptionsPattern[]] :=
 	With[
 		{
-			activateLast = {MapThread}, system = model["coeffsSolution"]["wc"]
+			activateLast = {MapThread},
+			system = model["coeffsSolution"]["wc"]
 		},
 		With[
 			{
@@ -123,7 +122,7 @@ Variance ratios over horizons*)
 				},
 				With[
 					{
-						coeffSystem = Activate[Activate[system //. parameters//. model["parameters"] /. FernandoDuarte`LongRunRisk`Ewc0 -> Sequence @@ Ewc0, Alternatives @@ activateFirst], alternativesActivateLast],
+						coeffSystem = Quiet[Activate[Activate[system //. parameters//. model["parameters"] /. FernandoDuarte`LongRunRisk`Ewc0 -> Sequence @@ Ewc0, Alternatives @@ activateFirst], alternativesActivateLast],Reduce::ratnz],
 						indexToSymbol = x_[i_Integer] :> Symbol[SymbolName[x] <> IntegerString[i]],
 						solWithout0 = KeySelect[sol, Not @ MatchQ[#, x_[0]]&]
 					},
@@ -133,20 +132,21 @@ Variance ratios over horizons*)
 							ic0 =  First @ Select[coeffSystem[[1, 1, 2]], Not @ FreeQ[#, _[0]]&] /. indexToSymbol
 						},
 						Echo[ic0, "ic0"];
-						ResourceFunction["FindRootPlot"][Subtract @@\.10 eq0, ic0, Flatten @ {opts}]
+						
+						{Show@DeleteCases[FullForm[ResourceFunction["FindRootPlot"][Last@eq0, ic0, Flatten @ {opts}]]/.TraditionalForm[x__]->"function",FullForm,Heads->True],Last@eq0, ic0[[{1,3,4}]]}
 					](*With*)
 				](*With*)
 			](*With*)
 		](*With*)
-	](*With*) *)
+	](*With*) 
 
 
-(*opts={"MaxIterations"->100};
+opts={"MaxIterations"->100};
 initialGuess={4.35};(*{5,6}*)
 newParams = {(*FernandoDuarte`LongRunRisk`Model`Parameters`psi->1.5,FernandoDuarte`LongRunRisk`Model`Parameters`gamma->8*)}
 solWc=updateCoeffs[model,newParams,opts,"PrintResidualsNorm"->True,"initialGuess" -> <|"Ewc"->initialGuess|>]
 plotCoeffs[model,solWc,newParams,initialGuess,opts(*,PlotLegends->Automatic*)]
-plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]*)
+plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]
 
 
 (*opts={"MaxIterations"->100};
@@ -157,12 +157,12 @@ plotCoeffs[model,solWc,newParams,initialGuess,opts(*,PlotLegends->Automatic*)]
 plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]*)
 
 
-(*opts={"MaxIterations"->100};
+opts={"MaxIterations"->100};
 initialGuess={3};
 newParams = {(*FernandoDuarte`LongRunRisk`Model`Parameters`psi->1.5,FernandoDuarte`LongRunRisk`Model`Parameters`gamma->8*)}
 solWc=updateCoeffs[model,newParams,opts,"PrintResidualsNorm"->True,"initialGuess" -> <|"Ewc"->initialGuess|>]
 plotCoeffs[model,solWc,newParams,initialGuess,opts(*,PlotLegends->Automatic*)]
-plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]*)
+plotCoeffs[model,solWc,newParams,initialGuess,opts,PlotLegends->Automatic]
 
 
 (* ::Section:: *)
