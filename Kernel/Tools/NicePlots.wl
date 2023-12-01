@@ -105,11 +105,12 @@ Variance ratios over horizons*)
 
 
 
-plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts: OptionsPattern[]] :=
+plotCoeffs[model_Association, sol_List, params_List, Ewc0_List, opts: OptionsPattern[]] :=
 	With[
 		{
 			activateLast = {MapThread},
-			system = model["coeffsSolution"]["wc"]
+			system = model["coeffsSolution"]["wc"],
+			parameters = Quiet[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[params,model["params"]]]
 		},
 		With[
 			{
@@ -131,14 +132,13 @@ plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts: Option
 							eq0 = First @ Select[coeffSystem[[1, 1, 1]] /. solWithout0, Not @ FreeQ[#, _[0]]&] /. indexToSymbol // N,
 							ic0 =  First @ Select[coeffSystem[[1, 1, 2]], Not @ FreeQ[#, _[0]]&] /. indexToSymbol
 						},
-						Echo[ic0, "ic0"];
-						
 						{Show@DeleteCases[FullForm[ResourceFunction["FindRootPlot"][Last@eq0, ic0, Flatten @ {opts}]]/.TraditionalForm[x__]->"function",FullForm,Heads->True],Last@eq0, ic0[[{1,3,4}]]}
 					](*With*)
 				](*With*)
 			](*With*)
 		](*With*)
 	](*With*) 
+
 
 
 (* ::Section:: *)

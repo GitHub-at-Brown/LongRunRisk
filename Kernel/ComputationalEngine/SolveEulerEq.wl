@@ -346,7 +346,7 @@ updateCoeffsWc[modelCoeffsSolution_, modelParameters_, newParameters_List, opts 
 				(x_Symbol?(MatchQ[SymbolName[#],"Ewc0"]&)->OptionValue["Ewc0"])
 		];
 		On[Reduce::ratnz];
-	Flatten@Join[solFirst,solRest/.solFirst,2]
+		Flatten@Join[solFirst,solRest/.solFirst,2]
 	]
 ]
 
