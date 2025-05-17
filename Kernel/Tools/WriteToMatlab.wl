@@ -447,7 +447,7 @@ toMatlabStringCell[x_,numLines_:8000]:=StringReplace[toMatlabCell[x,numLines],{"
 kappaToMatlab={Subscript[\[Kappa],X_,Y_][Z_.]:>StringJoin@@ToString/@{kappa,X,Y,Z},Subscript[\[Kappa],X_]:>StringJoin@@ToString/@{kappa,X}};
 kappaDef:=(toParameters/.kappaToMatlab)/.Rule->Equal;
 
-(* rule to write coefficients wtih subscripts in Matlab vector notation *)
+(* rule to write coefficients with subscripts in Matlab vector notation *)
 coeffToMatlab[coeff_,index_] ={Subscript[coeff,a_][index+lag_]:>ToString[coeff]<>"_vector("<>ToString[a+1]<>",1:end" <>ToString[lag]<>")",Subscript[coeff,a_][index]:>ToString[coeff]<>"_vector("<>ToString[a+1]<>",2:end)"};
 nToMatlab[x_String]:=StringReplace[x,RegularExpression["\\b[n]\\b"]->"(1:max_maturity.real)"];
 nomnToMatlab[x_String]:=StringReplace[x,RegularExpression["\\b[n]\\b"]->"(1:max_maturity.nom)"];
