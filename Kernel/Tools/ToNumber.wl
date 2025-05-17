@@ -271,7 +271,7 @@ modelEval[expr_, model_] := Fold[
 
 processNewParameters::psi="psi=1 implies a constant wealth-consumption ratio, please choose a different psi.";
 processNewParameters::param="theta must equal (1-gamma)/(1-1/psi), replacing theta by (1-gamma)/(1-1/psi)=`1`.";
-processNewParameters::theta="Plase provide psi or gamma with theta.";
+processNewParameters::theta="Please provide psi or gamma with theta.";
 processNewParameters::subsetparam="Parameters `1` in newParameters are not a subset of parameters.";
 
 
