@@ -404,7 +404,7 @@ findcut[s_String] :=
 
 
 greekToMatlab::usage = "greekToMatlab is a list of rules that changes Greek letters into strings suitable for a Matlab variable name.";
-subscriptToMAtlab::usage = "subscriptToMAtlab is a list of rules that changes subscripts into strings suitable for a Matlab variable name.";
+subscriptToMatlab::usage = "subscriptToMatlab is a list of rules that changes subscripts into strings suitable for a Matlab variable name.";
 iToMatlab::usage = "iToMatlab[x] gives a list of rules that replaces variable in x with subindex [i] into a string suitable for a Matlab variable name.";
 toMatlabCell::usage = "toMatlabCell[x] converts brackets of x into curly brackets after applying ToMatlab.
 					   toMatlabCell[x,numLines] inserts a linebreak after writing numLines characters, default value is 8000.
@@ -436,7 +436,7 @@ subscriptToMatlab:=Subscript[a_,b__]:>Hold[ToString[a]<>"_"<>ToString[b]];
 iToMatlab[x_]:=x/.(c_[i_Integer]:>Hold[ToString[c]<>ToString[i]]);
 toMatlabSignsReplace[s_]:=StringReplace[s,"signs"~~a:DigitCharacter..:>"signs("~~ToString[a]~~")"]
 
-(*apply rules greekToMatlab,  subscriptToMAtlab, iToMatlab in that order"*)
+(*apply rules greekToMatlab,  subscriptToMatlab, iToMatlab in that order"*)
 paramToMatlab[x_]:=ReleaseHold[iToMatlab[(x/.kappaToMatlab/.subscriptToMatlab /.greekToMatlab/.Sign->sign//ReleaseHold)]];
 
 (* adapt ToMatlab to cell arrays *)
@@ -447,7 +447,7 @@ toMatlabStringCell[x_,numLines_:8000]:=StringReplace[toMatlabCell[x,numLines],{"
 kappaToMatlab={Subscript[\[Kappa],X_,Y_][Z_.]:>StringJoin@@ToString/@{kappa,X,Y,Z},Subscript[\[Kappa],X_]:>StringJoin@@ToString/@{kappa,X}};
 kappaDef:=(toParameters/.kappaToMatlab)/.Rule->Equal;
 
-(* rule to write coefficients wtih subscripts in Matlab vector notation *)
+(* rule to write coefficients with subscripts in Matlab vector notation *)
 coeffToMatlab[coeff_,index_] ={Subscript[coeff,a_][index+lag_]:>ToString[coeff]<>"_vector("<>ToString[a+1]<>",1:end" <>ToString[lag]<>")",Subscript[coeff,a_][index]:>ToString[coeff]<>"_vector("<>ToString[a+1]<>",2:end)"};
 nToMatlab[x_String]:=StringReplace[x,RegularExpression["\\b[n]\\b"]->"(1:max_maturity.real)"];
 nomnToMatlab[x_String]:=StringReplace[x,RegularExpression["\\b[n]\\b"]->"(1:max_maturity.nom)"];
