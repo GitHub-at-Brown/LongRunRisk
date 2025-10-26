@@ -31,6 +31,7 @@ jobs:
           apt-get update -y
           apt-get install perl -y
           apt-get install ghostscript -y
+          apt-get install wget -y
           wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
       - name: Add latex to path
         run: echo "$HOME/bin" >> $GITHUB_PATH
