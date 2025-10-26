@@ -19,10 +19,10 @@ jobs:
     steps:
       - name: Checkout
         id: checkout-code-step
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
       - name: Check
         id: check-paclet-step
-        uses: WolframResearch/check-paclet@v1.10.2
+        uses: WolframResearch/check-paclet@v1.11.0
         with:
           target: Submit
           paclet_cicd_version: 0.34.0
@@ -31,7 +31,7 @@ jobs:
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
@@ -47,10 +47,10 @@ jobs:
     steps:
       - name: Checkout
         id: checkout-code-step
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
       - name: Test
         id: test-paclet-step
-        uses: WolframResearch/test-paclet@v1.10.2
+        uses: WolframResearch/test-paclet@v1.11.0
         with:
           target: Submit
           paclet_cicd_version: 0.34.0
@@ -59,7 +59,7 @@ jobs:
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
@@ -77,16 +77,16 @@ jobs:
     steps:
       - name: Checkout
         id: checkout-code-step
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
       - name: DownloadWorkflowValues
         id: download-workflow-values-step
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v5
         with:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
       - name: Build
         id: build-paclet-step
-        uses: WolframResearch/build-paclet@v1.10.2
+        uses: WolframResearch/build-paclet@v1.11.0
         with:
           target: Submit
           paclet_cicd_version: 0.34.0
@@ -94,34 +94,23 @@ jobs:
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
       - name: UploadArtifact
         id: upload-build-artifacts-step
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: ${{ env.PACLET_BUILD_DIR }}
           if-no-files-found: ignore
       - name: CreateRelease
         id: create-release-step
-        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.PACLET_RELEASE_TAG }}
-          release_name: Release ${{ env.PACLET_RELEASE_TAG }}
-          draft: true
-          prerelease: false
-      - name: UploadRelease
-        id: upload-release-asset-step
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create-release-step.outputs.upload_url }}
-          asset_path: ${{ env.PACLET_PATH }}
-          asset_name: ${{ env.PACLET_FILE }}
-          asset_content_type: application/zip
+        run: |
+          gh release create "${{ env.PACLET_RELEASE_TAG }}" \
+            --title "Release ${{ env.PACLET_RELEASE_TAG }}" \
+            --draft \
+            "${{ env.PACLET_PATH }}#${{ env.PACLET_FILE }}"
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
