@@ -17,7 +17,7 @@ installed=PacletInstall[built["PacletArchive"]];
 
 testsDir = FileNameJoin[{pacletDir,"Tests"}];
 PacletDirectoryLoad[pacletDir];
-$ContextPath=initialContextPath = Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];
+$ContextPath=initialContextPath = Cases[$ContextPath,Except["PacletizedResourceFunctions`"]]
 
 
 (* ::Input::Initialization:: *)
@@ -28,7 +28,7 @@ confirm=False;(*True pauses after every test to manually accept/reject test, Fal
 (*helper functions*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*makeDefinitions*)
 
 
@@ -62,7 +62,7 @@ DeleteFile[testFilePath<>"temp"];
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -91,7 +91,7 @@ Close /@ {readStream, writeStream}
 
 
 (* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -112,7 +112,7 @@ n
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*runTests*)
 
 
@@ -134,8 +134,8 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 ]
 
 
-(* ::Subsubsection::Initialization::Closed:: *)
-(*(*(*(*(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)*)*)*)*)
+(* ::Subsubsection::Initialization:: *)
+(*tableActualVsExpeected*)
 
 
 (* ::Input::Initialization:: *)
@@ -170,7 +170,7 @@ tableActualVsExpeected[testName_String,numCol_:5] := With[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*cleanUp*)
 
 
@@ -194,6 +194,7 @@ $ContextPath=DeleteElements[$ContextPath,cp];
 Unprotect[$Packages];
 $Packages=DeleteElements[$Packages,pp];
 Protect[$Packages];
+ClearSystemCache[];
 ]
 ]
 ]
@@ -1401,7 +1402,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeConditionalExpectations`*)
 
 
@@ -1713,7 +1714,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -2086,7 +2087,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateEulerEq`*)
 
 
@@ -2276,7 +2277,7 @@ Protect[$Packages];
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateMomentsDatabase`*)
 
 
@@ -4468,14 +4469,14 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*(*Quit[]*)*)
+(*Quit[]*)
 
 
 (* ::Input:: *)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];*)
-(*PacletDirectoryLoad[pacletBaseDir];*)
-(*testFileNames = FileNames[FileNameJoin[{pacletBaseDir,"Tests","*.wlt"}]];*)
-(*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];*)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
+(*PacletDirectoryLoad[pacletBaseDir]*)
+(*testFileNames = FileNames[FileNameJoin[{pacletBaseDir,"Tests","*.wlt"}]]*)
+(*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]]*)
 
 
 (* ::Input:: *)
@@ -4514,14 +4515,14 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];*)
-(*PacletDirectoryLoad[pacletBaseDir];*)
-(*testFileNames = FileNames[FileNameJoin[{pacletBaseDir,"Tests","*.wlt"}]];*)
-(*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];*)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
+(*PacletDirectoryLoad[pacletBaseDir]*)
+(*testFileNames = FileNames[FileNameJoin[{pacletBaseDir,"Tests","*.wlt"}]]*)
+(*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]]*)
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/Catalog.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","Catalog.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4529,7 +4530,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/Shocks.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","Shocks.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4537,7 +4538,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/ExogenousEq.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","ExogenousEq.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4545,7 +4546,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/EndogenousEq.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","EndogenousEq.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4553,7 +4554,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/ComputeConditionalExpectations.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","ComputeConditionalExpectations.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4561,7 +4562,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/ComputeUnconditionalExpectations.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","ComputeUnconditionalExpectations.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4569,7 +4570,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/CreateEulerEq.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","CreateEulerEq.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4577,7 +4578,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/CreateMomentsDatabase.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","CreateMomentsDatabase.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4585,7 +4586,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/SolveEulerEq.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","SolveEulerEq.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4593,7 +4594,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/TimeAggregation.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","TimeAggregation.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4601,7 +4602,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/PacletizeResources.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","PacletizeResources.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4609,7 +4610,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/NiceOutput.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","NiceOutput.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4617,7 +4618,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/ToNumber.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","ToNumber.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
@@ -4625,7 +4626,7 @@ Protect[$Packages];
 
 
 (* ::Input:: *)
-(*trInd=TestReport["/Users/fernandoduarte/Dropbox (Personal)/MyPackages/LongRunRisk/Tests/ProcessModels.wlt"]*)
+(*trInd=TestReport[FileNameJoin[{pacletBaseDir,"Tests","ProcessModels.wlt"}]];*)
 (*actual=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ActualOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
