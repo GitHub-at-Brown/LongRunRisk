@@ -21,19 +21,21 @@ Get["PacletizedResourceFunctions`"];
 
 (*install local version of MaTeX provided with LongRunRisk paclet if not already installed*)
 If[
-	{}===PacletFind["MaTeX"->"1.7.9"],
+	{}===PacletFind["MaTeXInstall"->"1.0.0"],
 	PacletInstall[
 		File[
 			FindFile[
-				"FernandoDuarte/LongRunRisk/MaTeX-1.7.9.paclet"
+				"FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"
 			]
 		],
 		KeepExistingVersion->True,
 		ForceVersionInstall->True
 	]
 ]
-Quiet@Get[FileNameJoin[{(First@PacletFind["MaTeX"->"1.7.9"])["Location"],"MaTeX.m"}]];
-MaTeX`Developer`ResetConfiguration[];
+Quiet@Get[FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],"Kernel","MaTeXInstall.wl"}]];
+MaTeXInstall[];
+Needs["MaTeX`"];
+(*MaTeX`Developer`ResetConfiguration[];*)
 
 
 (* ::Section:: *)

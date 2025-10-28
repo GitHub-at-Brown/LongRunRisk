@@ -43,6 +43,10 @@ PacletObject[
       },
       {"Asset", "Assets" -> {{"License", "./LICENSE"}}},
       {"Path", "Root" -> "Resources"}
+    },
+    "Dependencies" -> {
+      "MaTeX" -> ">=1.7.9",
+      "PacletizedResourceFunctions" -> ">=1.0.0"
     }
   |>
 ]

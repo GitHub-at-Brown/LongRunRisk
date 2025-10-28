@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     52453,       1020]
-NotebookOptionsPosition[      5573,        158]
-NotebookOutlinePosition[     51919,       1012]
-CellTagsIndexPosition[     51876,       1009]
+NotebookDataLength[     51955,       1009]
+NotebookOptionsPosition[      5171,        149]
+NotebookOutlinePosition[     51547,       1004]
+CellTagsIndexPosition[     51504,       1001]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -25,9 +25,9 @@ Cell[BoxData[
    "resources", " ", 
    RowBox[{"(", 
     RowBox[{
-    "like", " ", "paclets", " ", "or", " ", "\n", "functions", " ", "from", 
-     " ", "ResourceFunction"}], ")"}], " ", "that", " ", "are", " ", "used", 
-   " ", "by", " ", 
+    "like", " ", "paclets", " ", "or", " ", "\n", "functions", " ", "from", " ",
+      "ResourceFunction"}], ")"}], " ", "that", " ", "are", " ", "used", " ", 
+   "by", " ", 
    RowBox[{"FernandoDuarte", "/", "LongRunRisk"}], "\n", " ", "into", " ", 
    "local", " ", "paclets", " ", "that", " ", "can", " ", "be", " ", 
    "ported"}], "*)"}]], "Code",
@@ -36,67 +36,58 @@ Cell[BoxData[
   3.895948925208488*^9}},ExpressionUUID->"6a7bb44c-d1eb-4284-84ef-\
 3975bdd20a45"],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[{
  RowBox[{"pacletDir", "=", 
   RowBox[{"DirectoryName", "[", 
    RowBox[{
-    RowBox[{"NotebookDirectory", "[", "]"}], ",", "1"}], 
-   "]"}]}], "\[IndentingNewLine]", 
+    RowBox[{"NotebookDirectory", "[", "]"}], ",", "1"}], "]"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"PacletDirectoryLoad", "[", "pacletDir", "]"}], ";"}]}], "Input",
  CellChangeTimes->{3.895934710708529*^9},
- CellLabel->"In[20]:=",ExpressionUUID->"b73a8bd4-e296-485c-863d-2cb42c5a730e"],
+ CellLabel->
+  "In[162]:=",ExpressionUUID->"b73a8bd4-e296-485c-863d-2cb42c5a730e"],
 
-Cell[BoxData["\<\"/Users/fernandoduarte/Dropbox \
-(Personal)/MyPackages/LongRunRisk/\"\>"], "Output",
- CellChangeTimes->{3.895934711033964*^9, 3.8959352555694838`*^9, 
-  3.8959392540246277`*^9, 3.8959395579428663`*^9, 3.89593971832721*^9, 
-  3.8959399527780743`*^9, 3.895940087718381*^9},
- CellLabel->"Out[20]=",ExpressionUUID->"064b5321-07c1-46ee-af66-30900d01c415"]
-}, Open  ]],
-
-Cell[BoxData[
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"findPacletDir", "=", 
+   RowBox[{"NameQ", "[", "\"\<pacletDir\>\"", "]"}]}], ";"}], "\n", 
  RowBox[{" ", 
   RowBox[{
-   RowBox[{
-    RowBox[{"findPacletDir", "=", 
-     RowBox[{"NameQ", "[", "\"\<pacletDir\>\"", "]"}]}], ";"}], "\n", " ", 
-   RowBox[{
-    RowBox[{"If", "[", "\n", "\t ", 
-     RowBox[{"findPacletDir", "\n", "\t ", ",", "\n", "\t ", 
-      RowBox[{
-       RowBox[{"thisFile", " ", "=", " ", 
-        RowBox[{"FindFile", "[", 
-         RowBox[{"FileNameJoin", "[", 
-          RowBox[{"{", 
-           RowBox[{
-           "pacletDir", ",", "\"\<Scripts\>\"", ",", 
-            "\"\<PacletizeResources.nb\>\""}], "}"}], "]"}], "]"}]}], ";", 
+   RowBox[{"If", "[", "\n", "\t ", 
+    RowBox[{"findPacletDir", "\n", "\t ", ",", "\n", "\t ", 
+     RowBox[{
+      RowBox[{"thisFile", " ", "=", " ", 
+       RowBox[{"FindFile", "[", 
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{
+          "pacletDir", ",", "\"\<Scripts\>\"", 
+           ",", "\"\<PacletizeResources.nb\>\""}], "}"}], "]"}], "]"}]}], ";",
        "\n", "\t ", 
-       RowBox[{"resourceDir", " ", "=", " ", 
-        RowBox[{"FileNameJoin", "[", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"DirectoryName", "[", 
-            RowBox[{"thisFile", ",", "2"}], "]"}], ",", "\"\<Resources\>\""}],
-           "}"}], "]"}]}], ";"}], "\n", "\t ", ",", "\n", "\t ", 
-      RowBox[{
-       RowBox[{"resourceDir", " ", "=", " ", 
-        RowBox[{"FileNameJoin", "[", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"DirectoryName", "[", 
-            RowBox[{
-             RowBox[{"NotebookDirectory", "[", "]"}], ",", "1"}], "]"}], ",", 
-           "\"\<Resources\>\""}], "}"}], "]"}]}], " ", ";", "\n", "\t ", 
-       RowBox[{"Remove", "[", "\"\<pacletDir\>\"", "]"}], ";"}]}], "\n", " ", 
-     "]"}], ";"}]}]}]], "Code",
+      RowBox[{"resourceDir", " ", "=", " ", 
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"DirectoryName", "[", 
+           RowBox[{"thisFile", ",", "2"}], "]"}], ",", "\"\<Resources\>\""}], 
+         "}"}], "]"}]}], ";"}], "\n", "\t ", ",", "\n", "\t ", 
+     RowBox[{
+      RowBox[{"resourceDir", " ", "=", " ", 
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"DirectoryName", "[", 
+           RowBox[{
+            RowBox[{"NotebookDirectory", "[", "]"}], ",", "1"}], "]"}], 
+          ",", "\"\<Resources\>\""}], "}"}], "]"}]}], " ", ";", "\n", "\t ", 
+      RowBox[{"Remove", "[", "\"\<pacletDir\>\"", "]"}], ";"}]}], "\n", " ", 
+    "]"}], ";"}]}]}], "Code",
  InitializationCell->False,
  CellChangeTimes->{
-  3.895934676888627*^9, {3.895934777660798*^9, 3.8959347890600147`*^9}},
- CellLabel->"In[22]:=",ExpressionUUID->"2df46d50-1546-4ebc-929d-87b81de3e715"],
+  3.895934676888627*^9, {3.895934777660798*^9, 3.8959347890600147`*^9}, 
+   3.9706483918985786`*^9},
+ CellLabel->
+  "In[167]:=",ExpressionUUID->"2df46d50-1546-4ebc-929d-87b81de3e715"],
 
 Cell[BoxData[{
  RowBox[{
@@ -142,9 +133,9 @@ Cell[BoxData[{
  CellChangeTimes->{{3.895939540752411*^9, 3.895939544403268*^9}, {
    3.895939693858141*^9, 3.895939703160502*^9}, {3.895939935065097*^9, 
    3.8959399394897127`*^9}, {3.895940075431197*^9, 3.895940078246407*^9}, {
-   3.895948902838142*^9, 3.895948921287302*^9}, 
-   3.910010901250699*^9},ExpressionUUID->"2965ddf1-e00b-4fb8-bb00-\
-de31b2970169"],
+   3.895948902838142*^9, 3.895948921287302*^9}, 3.910010901250699*^9},
+ CellLabel->
+  "In[170]:=",ExpressionUUID->"2965ddf1-e00b-4fb8-bb00-de31b2970169"],
 
 Cell[BoxData[
  RowBox[{"(*", 
@@ -157,7 +148,7 @@ Cell[BoxData[
 62f5ef12ed7d"]
 },
 WindowSize->{1070, 842},
-WindowMargins->{{318, Automatic}, {11, Automatic}},
+WindowMargins->{{Automatic, -1248}, {8, Automatic}},
 DockedCells->{
   Cell[
    BoxData[
@@ -996,7 +987,8 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
    CellFrameColor -> GrayLevel[0.85], Background -> GrayLevel[0.97], CellTags -> 
    "CodeAnalysisDockedCell"]},
 TaggingRules-><|"CodeFormatter" -> <|"ToolbarState" -> False|>|>,
-FrontEndVersion->"13.3 for Mac OS X ARM (64-bit) (July 24, 2023)",
+Magnification:>1.5 Inherited,
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"5e064556-2acb-433c-a219-0443f7b89ec8"
 ]
@@ -1011,17 +1003,14 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 677, 16, 75, "Code",ExpressionUUID->"6a7bb44c-d1eb-4284-84ef-3975bdd20a45",
+Cell[558, 20, 677, 16, 109, "Code",ExpressionUUID->"6a7bb44c-d1eb-4284-84ef-3975bdd20a45",
  InitializationCell->False],
-Cell[CellGroupData[{
-Cell[1260, 40, 388, 9, 52, "Input",ExpressionUUID->"b73a8bd4-e296-485c-863d-2cb42c5a730e"],
-Cell[1651, 51, 367, 5, 34, "Output",ExpressionUUID->"064b5321-07c1-46ee-af66-30900d01c415"]
-}, Open  ]],
-Cell[2033, 59, 1580, 39, 208, "Code",ExpressionUUID->"2df46d50-1546-4ebc-929d-87b81de3e715",
+Cell[1238, 38, 388, 9, 74, "Input",ExpressionUUID->"b73a8bd4-e296-485c-863d-2cb42c5a730e"],
+Cell[1629, 49, 1560, 40, 307, "Code",ExpressionUUID->"2df46d50-1546-4ebc-929d-87b81de3e715",
  InitializationCell->False],
-Cell[3616, 100, 1629, 46, 227, "Code",ExpressionUUID->"2965ddf1-e00b-4fb8-bb00-de31b2970169",
+Cell[3192, 91, 1651, 46, 335, "Code",ExpressionUUID->"2965ddf1-e00b-4fb8-bb00-de31b2970169",
  InitializationCell->False],
-Cell[5248, 148, 321, 8, 30, "Input",ExpressionUUID->"c07ccaa6-64db-4ced-889b-62f5ef12ed7d"]
+Cell[4846, 139, 321, 8, 44, "Input",ExpressionUUID->"c07ccaa6-64db-4ced-889b-62f5ef12ed7d"]
 }
 ]
 *)
