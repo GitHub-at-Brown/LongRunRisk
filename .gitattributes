@@ -1,0 +1,6 @@
+*.nb text eol=lf diff
+*.wls text eol=lf
+*.wlt text eol=lf
+*.wl text eol=lf
+*.m text eol=lf
+*.mt text eol=lf
