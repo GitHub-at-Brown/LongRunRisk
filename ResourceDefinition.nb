@@ -3058,8 +3058,8 @@ Cell[BoxData[
  TemplateBox[{},
   "MainGuideChooserTemplate"]], "MainGuideChooser",
  TaggingRules->{
-  "MainGuidePageString" -> "Documentation/English/Guides/Main.nb", 
-   "Refreshing" -> False, "Relative" -> False},
+  "MainGuidePageString" -> "Documentation/English/Guides/MainGuide.nb", 
+   "Refreshing" -> False, "Relative" -> True},
  CellTags->"MainGuidePagePanel",
  CellID->33875805,ExpressionUUID->"d045be8f-1de2-4a76-8400-df83c81a3368"]
 }, Open  ]]
