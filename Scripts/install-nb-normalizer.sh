@@ -17,15 +17,17 @@ git config core.hooksPath .githooks
 
 chmod +x .githooks/pre-commit scripts/nb-clean.wls
 
-if command -v wolframscript >/dev/null 2>&1; then
-  echo "[install-nb-normalizer] caching ResourceFunction[\"SaveReadableNotebook\"]..."
-  if wolframscript -code 'Needs["ResourceFunction`"]; ResourceFunction["SaveReadableNotebook"];' >/dev/null 2>&1; then
-    echo "[install-nb-normalizer] resource cached successfully"
-  else
-    echo "[install-nb-normalizer] WARNING: failed to cache resource; first run may download it" >&2
-  fi
+if ! command -v wolframscript >/dev/null 2>&1; then
+  echo "[install-nb-normalizer] ERROR: wolframscript not found on PATH" >&2
+  echo "[install-nb-normalizer] Install Wolfram Engine/Mathematica or add wolframscript to PATH before continuing." >&2
+  exit 1
+fi
+
+echo "[install-nb-normalizer] caching ResourceFunction[\"SaveReadableNotebook\"]..."
+if wolframscript -code 'Needs["ResourceFunction`"]; ResourceFunction["SaveReadableNotebook"];' >/dev/null 2>&1; then
+  echo "[install-nb-normalizer] resource cached successfully"
 else
-  echo "[install-nb-normalizer] wolframscript not found; skipping resource cache" >&2
+  echo "[install-nb-normalizer] WARNING: failed to cache resource; first run may download it" >&2
 fi
 
 echo "[install-nb-normalizer] Notebook normalization hook installed."
