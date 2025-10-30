@@ -19,7 +19,7 @@ jobs:
     name: Check-Test
     runs-on: ubuntu-latest
     container:
-      image: wolframresearch/wolframengine:${{ env.ENGINE_TAG }}
+      image: wolframresearch/wolframengine:14.3.0
       options: --user root --privileged --init
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
