@@ -31,14 +31,14 @@ jobs:
         resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
     - name: UploadArtifact
       id: upload-build-artifacts-step
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         path: ${{ env.PACLET_BUILD_DIR }}
         if-no-files-found: ignore
     - name: UploadWorkflowValues
       id: upload-workflow-values-step
       if: always() && env.PACLET_WORKFLOW_VALUES
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: paclet-workflow-values
         path: ${{ env.PACLET_WORKFLOW_VALUES }}
