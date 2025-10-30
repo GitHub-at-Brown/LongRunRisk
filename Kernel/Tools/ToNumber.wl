@@ -204,16 +204,18 @@ SetAttributes[withUserDefs, HoldAll];
 withUserDefs[sym_Symbol, {defs__}, code_] :=
     Module[{s, inSym},
         clone[sym, s];
-        Block[{sym},
-            defs;
-            sym[args___] /; !TrueQ[inSym] :=
-                Block[{sym, inSym = True},
-                    clone[s, sym];
-                    With[{result = sym[args]},
-                        result /; result =!= Unevaluated[sym[args]]
-                    ]
-                ];
-            code
+        With[{evalSym = sym},
+            Block[{evalSym},
+                defs;
+                evalSym[args___] /; !TrueQ[inSym] :=
+                    Block[{evalSym, inSym = True},
+                        clone[s, evalSym];
+                        With[{result = evalSym[args]},
+                            result /; result =!= Unevaluated[evalSym[args]]
+                        ]
+                    ];
+                code
+            ]
         ]
     ];
 

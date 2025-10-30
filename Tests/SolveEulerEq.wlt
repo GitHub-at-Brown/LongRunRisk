@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20251030-JQ4RAT@@Tests/SolveEulerEq.wlt:3,1-12,2"
+	TestID->"SolveEulerEq_20251030-QIFQ7H@@Tests/SolveEulerEq.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`";
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20251030-W3RDJ6@@Tests/SolveEulerEq.wlt:13,1-23,2"
+	TestID->"SolveEulerEq_20251030-0SITPN@@Tests/SolveEulerEq.wlt:13,1-23,2"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -848,7 +848,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20251030-QHINS9@@Tests/SolveEulerEq.wlt:24,1-852,2"
+	TestID->"SolveEulerEq_20251030-SCJPRL@@Tests/SolveEulerEq.wlt:24,1-852,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
