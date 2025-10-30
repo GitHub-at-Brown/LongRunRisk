@@ -61,7 +61,7 @@ jobs:
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
