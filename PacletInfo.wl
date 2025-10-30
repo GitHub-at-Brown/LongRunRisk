@@ -8,7 +8,7 @@ PacletObject[
     "SourceControlURL" -> "https://github.com/GitHub-at-Brown/LongRunRisk",
     "License" -> "MIT",
     "PublisherID" -> "FernandoDuarte",
-    "Version" -> "1.0.0",
+    "Version" -> "1.0.1",
     "WolframVersion" -> "13.1+",
     "PrimaryContext" -> "FernandoDuarte`LongRunRisk`",
     "Extensions" -> {
