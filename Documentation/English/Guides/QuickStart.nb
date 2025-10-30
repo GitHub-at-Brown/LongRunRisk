@@ -2402,7 +2402,7 @@ Cell["Related Guides", "TutorialMoreAboutSection",
 Cell[TextData[ButtonBox["Main Guide",
  BaseStyle->"Link",
  ButtonData->
-  "paclet:FernandoDuarte/LongRunRisk/guide/MainGuide"]], "TutorialMoreAbout",
+  "paclet:FernandoDuarte/LongRunRisk/guide/Main"]], "TutorialMoreAbout",
  PageWidth->WindowWidth,
  CellChangeTimes->{{3.895981722995*^9, 3.895981736387435*^9}},
  CellID->687582157,ExpressionUUID->"a1f77be4-f070-4a7f-ad09-bd9da20d3435"]

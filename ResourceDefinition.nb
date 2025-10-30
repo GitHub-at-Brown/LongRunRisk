@@ -153,16 +153,16 @@ Cell[TextData[Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"MainGuide.nb\"", 
+   TemplateBox[{"\"Main.nb\"", 
      FileNameJoin[{
        NotebookDirectory[], "Documentation", "English", "Guides", 
-       "MainGuide.nb"}]},
+       "Main.nb"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[3]]& ],
   FileNameJoin[{
     NotebookDirectory[], "Documentation", "English", "Guides", 
-    "MainGuide.nb"}],
+    "Main.nb"}],
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile",
  CellMargins->{{69 + Inherited, Inherited}, {Inherited, Inherited}},
@@ -2524,14 +2524,14 @@ Cell[TextData[Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"MainGuide.nb\"", 
+   TemplateBox[{"\"Main.nb\"", 
      FileNameJoin[{
-       NotebookDirectory[], "ToProcess", "Guides", "MainGuide.nb"}]},
+       NotebookDirectory[], "ToProcess", "Guides", "Main.nb"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[2]]& ],
   FileNameJoin[{
-    NotebookDirectory[], "ToProcess", "Guides", "MainGuide.nb"}],
+    NotebookDirectory[], "ToProcess", "Guides", "Main.nb"}],
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile", "Excluded",
  CellMargins->{{46 + Inherited, Inherited}, {Inherited, Inherited}},
@@ -3058,7 +3058,7 @@ Cell[BoxData[
  TemplateBox[{},
   "MainGuideChooserTemplate"]], "MainGuideChooser",
  TaggingRules->{
-  "MainGuidePageString" -> "Documentation/English/Guides/MainGuide.nb", 
+  "MainGuidePageString" -> "Documentation/English/Guides/Main.nb", 
    "Refreshing" -> False, "Relative" -> True},
  CellTags->"MainGuidePagePanel",
  CellID->33875805,ExpressionUUID->"d045be8f-1de2-4a76-8400-df83c81a3368"]
@@ -6164,7 +6164,7 @@ elFAdzKgVDWErBHIGliXklmSWVaUzFLEGlOanFXMGVeSWJFW75RbnFzL75KQD7UiJV"},
                     TemplateBox[{"5.044635`", "\"s\"", "seconds", 
                     "\"Seconds\""}, "Quantity", SyntaxForm -> Mod], ",", 
                     "\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/\
-MyPackages/LongRunRisk/Documentation/English/Guides/MainGuide.nb\""}], "}"}], 
+MyPackages/LongRunRisk/Documentation/English/Guides/Main.nb\""}], "}"}], 
                     "SummaryItem"]}]}, {
                     RowBox[{
                     TagBox[
@@ -6178,7 +6178,7 @@ MyPackages/LongRunRisk/Documentation/English/Guides/MainGuide.nb\""}], "}"}],
                     
                     RowBox[{
                     "\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/\
-MyPackages/LongRunRisk/Documentation/English/Guides/MainGuide.nb\"", 
+MyPackages/LongRunRisk/Documentation/English/Guides/Main.nb\"", 
                     "\[Rule]", 
                     RowBox[{
                     TagBox["Success", "SummaryHead"], "[", 
@@ -7639,7 +7639,7 @@ elFAdzKgVDWErBHIGliXklmSWVaUzFLEGlOanFXMGVeSWJFW75RbnFzL75KQD7UiJV"},
                     TemplateBox[{"5.044635`", "\"s\"", "seconds", 
                     "\"Seconds\""}, "Quantity", SyntaxForm -> Mod], ",", 
                     "\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/\
-MyPackages/LongRunRisk/Documentation/English/Guides/MainGuide.nb\""}], "}"}], 
+MyPackages/LongRunRisk/Documentation/English/Guides/Main.nb\""}], "}"}], 
                     "SummaryItem"]}]}, {
                     RowBox[{
                     TagBox[
@@ -7653,7 +7653,7 @@ MyPackages/LongRunRisk/Documentation/English/Guides/MainGuide.nb\""}], "}"}],
                     
                     RowBox[{
                     "\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/\
-MyPackages/LongRunRisk/Documentation/English/Guides/MainGuide.nb\"", 
+MyPackages/LongRunRisk/Documentation/English/Guides/Main.nb\"", 
                     "\[Rule]", 
                     RowBox[{
                     TagBox["Success", "SummaryHead"], "[", 

@@ -159,7 +159,7 @@ Cell[CellGroupData[{
 Cell["Related Guides", "MoreAboutSection",
  CellID->944252795,ExpressionUUID->"a7945606-fa36-4730-a211-a2b5533f8282"],
 
-Cell[TextData[ButtonBox["Main Guide", BaseStyle->"Link", ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/MainGuide"]], "MoreAbout",
+Cell[TextData[ButtonBox["Main Guide", BaseStyle->"Link", ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/Main"]], "MoreAbout",
  CellID->152574235,ExpressionUUID->"127d1971-e1a2-4651-b03d-1be73969f84a"]
 }, Open  ]],
 

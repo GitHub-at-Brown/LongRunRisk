@@ -250,7 +250,7 @@ Cell["FernandoDuarte`LongRunRisk`", "Categorization",
  CellLabel->"Context",
  CellID->1526136984,ExpressionUUID->"472c69dd-0880-44cc-9b96-992eaf8c50cc"],
 
-Cell["FernandoDuarte/LongRunRisk/guide/MainGuide", "Categorization",
+Cell["FernandoDuarte/LongRunRisk/guide/Main", "Categorization",
  CellLabel->"URI",
  CellID->239610320,ExpressionUUID->"af2271ef-77b3-4d09-a9ac-5e628a074a27"]
 }, Open  ]],
