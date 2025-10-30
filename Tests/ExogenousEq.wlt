@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20231129-O5C7V6@@Tests/ExogenousEq.wlt:3,1-12,2"
+	TestID->"ExogenousEq_20251030-AKYX5Q@@Tests/ExogenousEq.wlt:3,1-12,2"
 ]
 VerificationTest[
 	!SameQ[Names @ "*xeq", {}]
@@ -17,7 +17,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20231129-SGR312@@Tests/ExogenousEq.wlt:13,1-21,2"
+	TestID->"ExogenousEq_20251030-FH48F7@@Tests/ExogenousEq.wlt:13,1-21,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -177,7 +177,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20231129-ZR6R3J@@Tests/ExogenousEq.wlt:22,1-181,2"
+	TestID->"ExogenousEq_20251030-CC9I2C@@Tests/ExogenousEq.wlt:22,1-181,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -206,7 +206,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20231129-V5KOIH@@Tests/ExogenousEq.wlt:182,1-210,2"
+	TestID->"ExogenousEq_20251030-3RRRDC@@Tests/ExogenousEq.wlt:182,1-210,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -227,7 +227,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20231129-YEUB0K@@Tests/ExogenousEq.wlt:211,1-231,2"
+	TestID->"ExogenousEq_20251030-GE4QAR@@Tests/ExogenousEq.wlt:211,1-231,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -248,7 +248,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20231129-7V1GBO@@Tests/ExogenousEq.wlt:232,1-252,2"
+	TestID->"ExogenousEq_20251030-NWDSSR@@Tests/ExogenousEq.wlt:232,1-252,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -266,7 +266,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20231129-NFSBT4@@Tests/ExogenousEq.wlt:253,1-270,2"
+	TestID->"ExogenousEq_20251030-U1KBB9@@Tests/ExogenousEq.wlt:253,1-270,2"
 ] 
+VerificationTest[
+  $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
+  True,
+  TestID -> "Untitled-14@@Tests/ExogenousEq.wlt:271,1-279,8"
+]
 End[]
 EndTestSection[]

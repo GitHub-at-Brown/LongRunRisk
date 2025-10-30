@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20251029-ZCLRDJ@@Tests/PacletizeResources.wlt:3,1-12,2"
+	TestID->"PacletizeResources_20251030-9EMLIL@@Tests/PacletizeResources.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -28,10 +28,10 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20251029-B7ZPCF@@Tests/PacletizeResources.wlt:13,1-32,2"
+	TestID->"PacletizeResources_20251030-VTQFZH@@Tests/PacletizeResources.wlt:13,1-32,2"
 ] 
 VerificationTest[
-  Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
+  $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
   True,
   TestID -> "Untitled-18@@Tests/PacletizeResources.wlt:33,1-41,8"
 ]

@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateMomentsDatabase_20231129-62AN1L@@Tests/CreateMomentsDatabase.wlt:3,1-12,2"
+	TestID->"CreateMomentsDatabase_20251030-RDDTO1@@Tests/CreateMomentsDatabase.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`";
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateMomentsDatabase_20231129-K494U9@@Tests/CreateMomentsDatabase.wlt:13,1-23,2"
+	TestID->"CreateMomentsDatabase_20251030-ZP0YEN@@Tests/CreateMomentsDatabase.wlt:13,1-23,2"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -177,7 +177,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateMomentsDatabase_20231129-5KZXM6@@Tests/CreateMomentsDatabase.wlt:24,1-181,2"
+	TestID->"CreateMomentsDatabase_20251030-4TCWMY@@Tests/CreateMomentsDatabase.wlt:24,1-181,2"
 ] 
+VerificationTest[
+  $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
+  True,
+  TestID -> "Untitled-10@@Tests/CreateMomentsDatabase.wlt:182,1-190,8"
+]
 End[]
 EndTestSection[]
