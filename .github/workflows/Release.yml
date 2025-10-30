@@ -82,7 +82,7 @@ jobs:
         uses: actions/checkout@v5
       - name: DownloadWorkflowValues
         id: download-workflow-values-step
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
