@@ -2505,7 +2505,7 @@ ClearSystemCache[];
 (*(*names match coeffName*)*)
 (*And@@(MatchQ[#,coeffName]&/@Cases[Keys/@sol,var_[i_Integer][j_Integer]:>var]),*)
 (*(*context is same as context of coeffName*)*)
-(*And@@(MatchQ[#,StringDrop[ToString[coeffName],-1]]&/@Cases[Keys/@sol,var_[i_Integer][j_Integer]:>Context[var]]),*)
+(*And@@(Map[Function@(#===Context[coeffName]),Cases[Keys/@sol,var_[i_Integer][j_Integer]:>Context[var]]]),*)
 (*(*values are numbers*)*)
 (*And@@(NumberQ/@(Values/@sol))*)
 (*};*)

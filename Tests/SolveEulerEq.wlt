@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20251030-XH8AWQ@@Tests/SolveEulerEq.wlt:3,1-12,2"
+	TestID->"SolveEulerEq_20251030-JQ4RAT@@Tests/SolveEulerEq.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`";
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20251030-IAS44B@@Tests/SolveEulerEq.wlt:13,1-23,2"
+	TestID->"SolveEulerEq_20251030-W3RDJ6@@Tests/SolveEulerEq.wlt:13,1-23,2"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -56,7 +56,7 @@ VerificationTest[
 				]
 			],
 			Apply[And,
-				Map[Function @ MatchQ[#, StringDrop[ToString @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffName, -1]],
+				Map[SameQ[#, Context @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffName]&,
 					Cases[Map[Keys, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol], FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var_[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_Integer][FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`j_Integer] :> Context[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var]]
 				]
 			],
@@ -848,7 +848,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20251030-EJDC7P@@Tests/SolveEulerEq.wlt:24,1-852,2"
+	TestID->"SolveEulerEq_20251030-QHINS9@@Tests/SolveEulerEq.wlt:24,1-852,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
