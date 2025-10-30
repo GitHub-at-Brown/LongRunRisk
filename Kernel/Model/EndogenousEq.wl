@@ -213,7 +213,6 @@ coefnb = Cases[UpValues[nombondeq], HoldPattern[linearInStateVars[_,x_[m__]]]:>x
 (*make index variable be exact integer rather than approximate number, e.g., A[0.] and N[A[0]] both return A[0]*)
 (*wc has one index*)
 coefwc[j_/;InexactNumberQ[j]]:=coefwc[IntegerPart@j];
-(*N[coefwc[j_/;InexactNumberQ[j]]]:=coefwc[IntegerPart@j];*) (*prefer upvalue of coefwc to downvalue of system symbol N*)
 coefwc /: N[coefwc[j_?InexactNumberQ], n_.] := coefwc[IntegerPart @ j];
 	
 (*pd, b, nb have two indices*)	
@@ -231,7 +230,7 @@ Do[
 			
 			(*hc[j][k] behaves as having NHoldAll in both j and k*)
 			hc[j_/;InexactNumberQ[j]][k_/;InexactNumberQ[k]]:=hc[IntegerPart@j][IntegerPart@k];
-			N[hc[j_/;InexactNumberQ[j]][k_/;InexactNumberQ[k]]]:=hc[IntegerPart@j][IntegerPart@k]
+			hc /: N[hc[j_?InexactNumberQ][k_?InexactNumberQ], n_.] := hc[IntegerPart @ j][IntegerPart @ k];
 		](*With*)
 	](*Block*)
 	,

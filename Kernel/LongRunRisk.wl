@@ -36,6 +36,11 @@ Quiet@Get[FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],
 MaTeXInstall[];
 Needs["MaTeX`"];
 (*MaTeX`Developer`ResetConfiguration[];*)
+(*configure MaTeX if pdflatex and Ghostscript are installed with Homebrew*)
+(*ConfigureMaTeX[
+  "pdfLaTeX"   -> "/opt/homebrew/bin/pdflatex",
+  "Ghostscript" -> "/opt/homebrew/bin/gs"
+]*)
 
 
 (* ::Section:: *)
