@@ -204,10 +204,10 @@ Cell["Related Guides", "GuideMoreAboutSection",
  CellChangeTimes->{{3.8430423939366693`*^9, 3.843042395176153*^9}},
  CellID->717441212,ExpressionUUID->"6b305af2-e63a-40b3-a44f-ad4637a7600a"],
 
-Cell["XXXX", "GuideMoreAbout",
+Cell[TextData[ButtonBox["Quick Start", BaseStyle->"Link", ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/QuickStart"]], "GuideMoreAbout",
  CellID->2061255826,ExpressionUUID->"232f631e-cab4-4e8e-b22d-516cb25ee8e5"],
 
-Cell["XXXX", "GuideMoreAbout",
+Cell[TextData[ButtonBox["Interacting with Models", BaseStyle->"Link", ButtonData->"paclet:FernandoDuarte/LongRunRisk/tutorial/InteractingwithModels"]], "GuideMoreAbout",
  CellID->320474178,ExpressionUUID->"51e10a9a-6d3b-4936-acfd-83be754529a9"]
 }, Open  ]],
 
@@ -221,13 +221,13 @@ Cell["Metadata", "MetadataSection",
 
 Cell[TextData[{
  "New in: ",
- Cell["XX", "HistoryData",
+ Cell["1.0.0", "HistoryData",
   CellTags->"New",ExpressionUUID->"cc102c6c-1eae-4a80-88a2-fcc2c3d74d28"],
  " | Modified in: ",
- Cell[" ", "HistoryData",
+ Cell["-", "HistoryData",
   CellTags->"Modified",ExpressionUUID->"c11c86cf-709e-478c-9180-3c39ab8a2b3c"],
  " | Obsolete in: ",
- Cell[" ", "HistoryData",
+ Cell["-", "HistoryData",
   CellTags->"Obsolete",ExpressionUUID->
   "315b1c63-8d67-4ea3-901c-901b6eae4ca9"]
 }], "History",
@@ -260,7 +260,7 @@ Cell[CellGroupData[{
 Cell["Keywords", "KeywordsSection",
  CellID->598810115,ExpressionUUID->"a7f85b1e-df93-4348-8eac-fdf7a629ef9a"],
 
-Cell["XXXX", "Keywords",
+Cell["asset pricing, long-run risk, paclet guide", "Keywords",
  CellID->1093232963,ExpressionUUID->"2d61676b-3dba-4176-bb2d-78c3ba99eaec"]
 }, Closed]]
 }, Open  ]]

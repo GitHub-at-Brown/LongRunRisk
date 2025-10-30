@@ -22,6 +22,10 @@ excludes=("ResourceDefinition.nb" "Tests/InteractiveTests/longRunRisk.nb")
 filtered=()
 for f in "${nb_files[@]}"; do
   skip=0
+  if [[ "$f" == Documentation/* ]]; then
+    skip=1
+    echo "[pre-commit] skipping $f (documentation)"
+  fi
   for ex in "${excludes[@]}"; do
     if [ "$f" = "$ex" ]; then
       skip=1

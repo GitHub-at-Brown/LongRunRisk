@@ -47,7 +47,7 @@ Cell[TextData[{
  CellChangeTimes->{{3.9085782188863897`*^9, 3.908578228964241*^9}},
  CellID->858657283,ExpressionUUID->"7455d47c-0305-41a4-b9b2-d2e1a03a8f3f"],
 
-Cell["XXXX", "Notes",
+Cell["Returns the unconditional variance from the paclet's moments database.", "Notes",
  CellID->362847541,ExpressionUUID->"b8ce38fc-89af-41e3-a547-e6097500a2cb"]
 }, Open  ]],
 
@@ -139,7 +139,7 @@ Cell[TextData[{
 }], "TechNotesSection",
  CellID->268393642,ExpressionUUID->"07fa0d8d-ed7b-4483-8eb3-af525b87cd36"],
 
-Cell["XXXX", "Tutorials",
+Cell[TextData[ButtonBox["Interacting with Models", BaseStyle->"Link", ButtonData->"paclet:FernandoDuarte/LongRunRisk/tutorial/InteractingwithModels"]], "Tutorials",
  CellID->1176282394,ExpressionUUID->"e8817b95-8453-40cc-bd71-085736f650db"]
 }, Open  ]],
 
@@ -148,7 +148,7 @@ Cell[CellGroupData[{
 Cell["Related Guides", "MoreAboutSection",
  CellID->43741676,ExpressionUUID->"656d81a7-071b-439c-a4b4-7f47c4a94c85"],
 
-Cell["XXXX", "MoreAbout",
+Cell[TextData[ButtonBox["Main Guide", BaseStyle->"Link", ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/MainGuide"]], "MoreAbout",
  CellID->726941258,ExpressionUUID->"718c0409-84d7-41de-b7fc-9980b4602c57"]
 }, Open  ]],
 
@@ -169,7 +169,7 @@ Cell[TextData[{
 }], "RelatedLinksSection",
  CellID->667255423,ExpressionUUID->"6cdef5a4-842b-42db-a10b-6e954a3bc4e1"],
 
-Cell["XXXX", "RelatedLinks",
+Cell[TextData[ButtonBox["Quick Start", BaseStyle->"Link", ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/QuickStart"]], "RelatedLinks",
  CellID->402289727,ExpressionUUID->"04d8b8e7-8bd3-4d5b-95a7-bffad35e3fda"]
 }, Open  ]],
 
@@ -333,14 +333,14 @@ Cell[BoxData[
 
 Cell[BoxData[
  InterpretationBox[Cell[
-  "XXXX", "ExampleSubsection",ExpressionUUID->
+  "Moments lookup tables", "ExampleSubsection",ExpressionUUID->
    "acb90989-6935-4ce9-bb90-024e1ce7e19a"],
   $Line = 0; Null]], "ExampleSubsection",
  CellID->1329052559,ExpressionUUID->"bc2231f1-f965-416b-b236-be000a2ee248"],
 
 Cell[BoxData[
  InterpretationBox[Cell[
-  "XXXX", "ExampleSubsection",ExpressionUUID->
+  "Custom sample ranges", "ExampleSubsection",ExpressionUUID->
    "4916fe09-9c50-423e-b1fe-10fd047a1c34"],
   $Line = 0; Null]], "ExampleSubsection",
  CellID->1408946666,ExpressionUUID->"7562b22c-79a3-46fe-aaa7-2d93c4a9a01d"]
@@ -389,13 +389,13 @@ Cell["Metadata", "MetadataSection",
 
 Cell[TextData[{
  "New in: ",
- Cell["XX", "HistoryData",
+ Cell["1.0.0", "HistoryData",
   CellTags->"New",ExpressionUUID->"0c2ea3fc-769f-4f50-8f4d-179c311e3eff"],
  " | Modified in: ",
- Cell[" ", "HistoryData",
+ Cell["-", "HistoryData",
   CellTags->"Modified",ExpressionUUID->"57a89aa6-4c80-4da7-aa39-2c2d21f0ff85"],
  " | Obsolete in: ",
- Cell[" ", "HistoryData",
+ Cell["-", "HistoryData",
   CellTags->"Obsolete",ExpressionUUID->
   "25d8831f-c7cf-48a7-9d7e-88e212b61679"]
 }], "History",
