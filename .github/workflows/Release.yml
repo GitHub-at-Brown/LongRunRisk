@@ -125,6 +125,10 @@ jobs:
           echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list
           apt-get update -y
           apt-get install -y gh
+      - name: Configure Git Safe Directory
+        shell: bash
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: CreateRelease
         id: create-release-step
         env:
