@@ -1306,7 +1306,7 @@ VerificationTest[
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
   True,
-  TestID -> "Untitled-20@@Tests/ProcessModels.wlt:1306,1-1314,8"
+  TestID -> "Untitled-20@@Tests/ProcessModels.wlt:1306,1-1310,2"
 ]
 End[]
 EndTestSection[]
