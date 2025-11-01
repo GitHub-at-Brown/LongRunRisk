@@ -103,6 +103,7 @@ jobs:
           path: ${{ env.PACLET_BUILD_DIR }}
           if-no-files-found: ignore
       - name: Install GitHub CLI
+        shell: bash
         run: |
           set -euo pipefail
           apt-get update -y
@@ -115,7 +116,7 @@ jobs:
       - name: CreateRelease
         id: create-release-step
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "${{ env.PACLET_RELEASE_TAG }}" \
             --title "Release ${{ env.PACLET_RELEASE_TAG }}" \
