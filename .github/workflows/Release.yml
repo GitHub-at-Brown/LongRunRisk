@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: wolframresearch/wolframengine:14.3.0
-      options: --user root
+      options: --user root --privileged --init
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
     steps:
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: wolframresearch/wolframengine:14.3.0
-      options: --user root
+      options: --user root --privileged --init
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
     steps:
@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: wolframresearch/wolframengine:14.3.0
-      options: --user root
+      options: --user root --privileged --init
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
     timeout-minutes: 360
@@ -82,12 +82,12 @@ jobs:
         uses: actions/checkout@v5
       - name: DownloadWorkflowValues
         id: download-workflow-values-step
+        if: env.PACLET_WORKFLOW_VALUES
         uses: actions/download-artifact@v6
         with:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
           merge-multiple: true
-        continue-on-error: true
       - name: Build
         id: build-paclet-step
         uses: WolframResearch/build-paclet@v1.11.0
