@@ -52,12 +52,18 @@ jobs:
         with:
           debug: "false"
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
+        env:
+          WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
+          RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
       - name: Check
         id: check-paclet
         uses: WolframResearch/check-paclet@v1.11.0
         with:
           debug: "false"
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
+        env:
+          WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
+          RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
