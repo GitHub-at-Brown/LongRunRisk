@@ -8,9 +8,13 @@ PacletObject[
     "SourceControlURL" -> "https://github.com/GitHub-at-Brown/LongRunRisk",
     "License" -> "MIT",
     "PublisherID" -> "FernandoDuarte",
-    "Version" -> "1.0.1",
+    "Version" -> "1.0.0",
     "WolframVersion" -> "13.1+",
     "PrimaryContext" -> "FernandoDuarte`LongRunRisk`",
+    "Dependencies" -> {
+      "MaTeX" -> ">=1.7.9",
+      "PacletizedResourceFunctions" -> ">=1.0.0"
+    },
     "Extensions" -> {
       {
         "Kernel",
@@ -43,10 +47,6 @@ PacletObject[
       },
       {"Asset", "Assets" -> {{"License", "./LICENSE"}}},
       {"Path", "Root" -> "Resources"}
-    },
-    "Dependencies" -> {
-      "MaTeX" -> ">=1.7.9",
-      "PacletizedResourceFunctions" -> ">=1.0.0"
     }
   |>
 ]
