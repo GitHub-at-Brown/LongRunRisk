@@ -86,6 +86,8 @@ jobs:
         with:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
+          merge-multiple: true
+        continue-on-error: true
       - name: Build
         id: build-paclet-step
         uses: WolframResearch/build-paclet@v1.11.0
