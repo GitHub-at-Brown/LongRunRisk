@@ -51,6 +51,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 	muc::usage = "Mean of consumption growth.";
 	rhocx::usage = "Exposure of consumption growth to lagged long-run risk.";
 	rhocp::usage = "Exposure of consumption growth to lagged inflation.";
+	rhocpbar::usage = "Exposure of consumption growth to lagged expected inflation.";
 	phic::usage = "Exposure of consumption growth to consumption growth shocks.";
 	phicp::usage = "Exposure of consumption growth to inflation shocks.";
 	phicsp::usage = "Exposure of consumption growth to lagged nominal-real covariance and inflation shocks.";

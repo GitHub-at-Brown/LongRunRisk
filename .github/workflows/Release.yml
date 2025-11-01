@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: wolframresearch/wolframengine:14.3.0
-      options: --user root --privileged --init
+      options: --user root
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
     steps:
@@ -30,6 +30,9 @@ jobs:
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
+        env:
+          WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
+          RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
@@ -43,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: wolframresearch/wolframengine:14.3.0
-      options: --user root --privileged --init
+      options: --user root
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
     steps:
@@ -58,6 +61,9 @@ jobs:
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
+        env:
+          WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
+          RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
@@ -70,19 +76,49 @@ jobs:
     name: Release
     needs: [Check, Test]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     container:
       image: wolframresearch/wolframengine:14.3.0
-      options: --user root --privileged --init
+      options: --user root
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
+      GIT_DISCOVERY_ACROSS_FILESYSTEM: 1
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ github.workspace }}
     timeout-minutes: 360
     steps:
+      - name: Install Git and GitHub CLI
+        shell: bash
+        run: |
+          set -euo pipefail
+          apt-get update -y
+          apt-get install -y wget ca-certificates apt-transport-https
+          mkdir -p -m 755 /etc/apt/keyrings
+          wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg > /etc/apt/keyrings/githubcli-archive-keyring.gpg
+          chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list
+          apt-get update -y
+          apt-get install -y gh git
+      - name: Check Workflow Values Artifact
+        id: check-workflow-values
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts" --jq '.artifacts[].name' | grep -Fx 'paclet-workflow-values' >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v5
       - name: DownloadWorkflowValues
         id: download-workflow-values-step
-        if: env.PACLET_WORKFLOW_VALUES
+        if: steps.check-workflow-values.outputs.exists == 'true'
         uses: actions/download-artifact@v6
         with:
           name: paclet-workflow-values
@@ -96,17 +132,25 @@ jobs:
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
+        env:
+          WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
+          RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
       - name: UploadArtifact
         id: upload-build-artifacts-step
         uses: actions/upload-artifact@v5
         with:
           path: ${{ env.PACLET_BUILD_DIR }}
           if-no-files-found: ignore
+      - name: Configure Git Safe Directory
+        shell: bash
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: CreateRelease
         id: create-release-step
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           gh release create "${{ env.PACLET_RELEASE_TAG }}" \
             --title "Release ${{ env.PACLET_RELEASE_TAG }}" \
             --draft \

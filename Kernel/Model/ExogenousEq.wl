@@ -157,6 +157,7 @@ dceq[t_]:=
 	muc+
 	rhocx x[t-1]+
 	rhocp * (pi[t-1]-mup)+
+	rhocpbar * (pibar[t-1]-mupbar)+
 	phic eps["dc"][t]+
 	phicp eps["pi"][t]+
 	phicsp sg[t-1] eps["pi"][t]+
