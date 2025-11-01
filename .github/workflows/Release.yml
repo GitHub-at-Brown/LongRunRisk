@@ -102,17 +102,28 @@ jobs:
           echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list
           apt-get update -y
           apt-get install -y gh git
+      - name: Check Workflow Values Artifact
+        id: check-workflow-values
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts" --jq '.artifacts[].name' | grep -Fx 'paclet-workflow-values' >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v5
       - name: DownloadWorkflowValues
         id: download-workflow-values-step
+        if: steps.check-workflow-values.outputs.exists == 'true'
         uses: actions/download-artifact@v6
         with:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
           merge-multiple: true
-        continue-on-error: true
       - name: Build
         id: build-paclet-step
         uses: WolframResearch/build-paclet@v1.11.0
