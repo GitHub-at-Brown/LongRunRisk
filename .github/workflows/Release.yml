@@ -80,6 +80,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    concurrency:
+      group: release-${{ github.repository }}
+      cancel-in-progress: true
     container:
       image: wolframresearch/wolframengine:14.3.0
       options: --user root
@@ -211,6 +214,23 @@ jobs:
           if ! gh release view "$tag" --repo "$repo" --json assets -q '.assets[].name' | grep -Fx "$asset_name" >/dev/null; then
             echo "::error::Asset $asset_name not found on release $tag" ; exit 1
           fi
+      - name: Cleanup Old Draft Releases For Tag
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          tag="${PACLET_RELEASE_TAG}"
+          # Find draft releases with the same tag and delete them by release ID
+          mapfile -t ids < <(gh api \
+            -H "Accept: application/vnd.github+json" \
+            "repos/${repo}/releases" --paginate \
+            --jq ".[] | select(.draft == true and .tag_name == \"${tag}\") | .id")
+          for id in "${ids[@]:-}"; do
+            echo "Deleting old draft release id=${id} for tag ${tag}"
+            gh api -X DELETE "repos/${repo}/releases/${id}"
+          done
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
