@@ -22,11 +22,13 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Check
         id: check-paclet-step
         uses: WolframResearch/check-paclet@v1.11.0
         with:
-          target: Submit
+          target: Update
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
@@ -57,7 +59,7 @@ jobs:
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.11.0
         with:
-          target: Submit
+          target: Update
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
@@ -78,6 +80,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    concurrency:
+      group: release-${{ github.repository }}
+      cancel-in-progress: true
     container:
       image: wolframresearch/wolframengine:14.3.0
       options: --user root
@@ -128,7 +133,7 @@ jobs:
         id: build-paclet-step
         uses: WolframResearch/build-paclet@v1.11.0
         with:
-          target: Submit
+          target: Update
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
@@ -145,16 +150,113 @@ jobs:
         shell: bash
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-      - name: CreateRelease
-        id: create-release-step
+      - name: Enforce Immutable Tag
+        id: enforce-immutable-tag
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          gh release create "${{ env.PACLET_RELEASE_TAG }}" \
-            --title "Release ${{ env.PACLET_RELEASE_TAG }}" \
-            --draft \
-            "${{ env.PACLET_PATH }}#${{ env.PACLET_FILE }}"
+          repo="${GITHUB_REPOSITORY}"
+          tag="${PACLET_RELEASE_TAG}"
+          # If tag exists, ensure it points to this commit
+          if gh api "repos/${repo}/git/ref/tags/${tag}" >/dev/null 2>&1; then
+            type=$(gh api "repos/${repo}/git/ref/tags/${tag}" -q .object.type)
+            refsha=$(gh api "repos/${repo}/git/ref/tags/${tag}" -q .object.sha)
+            if [ "$type" = "tag" ]; then
+              refsha=$(gh api "repos/${repo}/git/tags/${refsha}" -q .object.sha)
+            fi
+            if [ "$refsha" != "$GITHUB_SHA" ]; then
+              echo "::error::Immutable tag policy: tag ${tag} exists at ${refsha}, current commit is ${GITHUB_SHA}. Bump Version in PacletInfo.wl (e.g., 1.0.1) to create a new release." ; exit 1
+            fi
+          fi
+      - name: Prepare Release
+        id: prepare-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          tag="${PACLET_RELEASE_TAG}"
+          asset_name="${PACLET_FILE}"
+          if gh release view "$tag" --repo "$repo" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            # Check if asset already present
+            if gh release view "$tag" --repo "$repo" --json assets -q '.assets[].name' | grep -Fx "$asset_name" >/dev/null 2>&1; then
+              echo "asset_present=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "asset_present=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "asset_present=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create Or Update Release
+        id: create-or-update-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          tag="${PACLET_RELEASE_TAG}"
+          title="Release ${PACLET_RELEASE_TAG}"
+          asset_spec="${PACLET_PATH}#${PACLET_FILE}"
+          if [ "${{ steps.prepare-release.outputs.exists }}" = "true" ]; then
+            echo "Release $tag exists; uploading asset (clobber)."
+            gh release upload "$tag" "$asset_spec" --repo "$repo" --clobber
+          else
+            echo "Creating new published release $tag targeting $GITHUB_SHA."
+            gh release create "$tag" "$asset_spec" \
+              --repo "$repo" \
+              --title "$title" \
+              --target "$GITHUB_SHA"
+          fi
+          # Ensure release is published (not draft)
+          is_draft=$(gh release view "$tag" --repo "$repo" --json isDraft -q '.isDraft')
+          if [ "$is_draft" = "true" ]; then
+            echo "Publishing draft release $tag."
+            gh release edit "$tag" --repo "$repo" --draft=false --target "$GITHUB_SHA"
+          fi
+
+      - name: Verify Release Assets
+        id: verify-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          tag="${PACLET_RELEASE_TAG}"
+          asset_name="${PACLET_FILE}"
+          # Verify release exists
+          gh release view "$tag" --repo "$repo" --json tagName >/dev/null
+          # Verify asset present
+          if ! gh release view "$tag" --repo "$repo" --json assets -q '.assets[].name' | grep -Fx "$asset_name" >/dev/null; then
+            echo "::error::Asset $asset_name not found on release $tag" ; exit 1
+          fi
+      - name: Cleanup Old Draft Releases For Tag
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          tag="${PACLET_RELEASE_TAG}"
+          # Gather draft releases matching the tag (may return empty/blank lines)
+          ids=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            "repos/${repo}/releases" --paginate \
+            --jq ".[] | select(.draft == true and .tag_name == \"${tag}\") | .id" || true)
+          # If nothing but whitespace, exit cleanly
+          if [ -z "${ids//[[:space:]]/}" ]; then
+            echo "No draft releases to delete for tag ${tag}"
+            exit 0
+          fi
+          # Delete each non-empty id
+          while IFS= read -r id; do
+            [ -n "$id" ] || continue
+            echo "Deleting old draft release id=${id} for tag ${tag}"
+            gh api -X DELETE "repos/${repo}/releases/${id}"
+          done <<< "$ids"
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
