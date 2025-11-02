@@ -30,8 +30,6 @@ jobs:
         with:
           target: Update
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
-          definition_notebook: ./ResourceDefinition.nb
-          resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
         env:
           WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
           RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
@@ -135,8 +133,6 @@ jobs:
         with:
           target: Update
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
-          definition_notebook: ./ResourceDefinition.nb
-          resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
         env:
           WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
           RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
