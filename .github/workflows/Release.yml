@@ -28,7 +28,7 @@ jobs:
         id: check-paclet-step
         uses: WolframResearch/check-paclet@v1.11.0
         with:
-          target: Submit
+          target: Update
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
@@ -59,7 +59,7 @@ jobs:
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.11.0
         with:
-          target: Submit
+          target: Update
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
@@ -133,7 +133,7 @@ jobs:
         id: build-paclet-step
         uses: WolframResearch/build-paclet@v1.11.0
         with:
-          target: Submit
+          target: Update
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
           definition_notebook: ./ResourceDefinition.nb
           resource_system_base: https://www.wolframcloud.com/obj/resourcesystem/api/1.0
