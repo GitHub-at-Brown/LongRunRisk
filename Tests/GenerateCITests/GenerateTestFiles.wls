@@ -73,7 +73,7 @@ DeleteFile[testFilePath<>"temp"];
 
 
 (* ::Subsection::Initialization:: *)
-(*(*replaceNthRecord*)*)
+(*(*(*replaceNthRecord*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -102,7 +102,7 @@ Close /@ {readStream, writeStream}
 
 
 (* ::Subsection::Initialization:: *)
-(*(*countLines*)*)
+(*(*(*countLines*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -146,7 +146,7 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 
 
 (* ::Subsection::Initialization:: *)
-(*(*tableActualVsExpeected*)*)
+(*(*(*tableActualVsExpeected*)*)*)
 
 
 (* ::Input::Initialization:: *)

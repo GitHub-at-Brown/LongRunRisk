@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-U1SUOF@@Tests/ToNumber.wlt:3,1-12,2"
+	TestID->"ToNumber_20251102-CH25WS@@Tests/ToNumber.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Tools`ToNumber`";
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-OX8QHZ@@Tests/ToNumber.wlt:13,1-23,2"
+	TestID->"ToNumber_20251102-58PIMH@@Tests/ToNumber.wlt:13,1-23,2"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -782,7 +782,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-OP2N6I@@Tests/ToNumber.wlt:24,1-786,2"
+	TestID->"ToNumber_20251102-4ZVS5Y@@Tests/ToNumber.wlt:24,1-786,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters;
@@ -839,7 +839,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-UD2NZ1@@Tests/ToNumber.wlt:787,1-843,2"
+	TestID->"ToNumber_20251102-XJVRFE@@Tests/ToNumber.wlt:787,1-843,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -879,7 +879,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-BDEY8N@@Tests/ToNumber.wlt:844,1-883,2"
+	TestID->"ToNumber_20251102-5JMJTG@@Tests/ToNumber.wlt:844,1-883,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -919,7 +919,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-UPYCMP@@Tests/ToNumber.wlt:884,1-923,2"
+	TestID->"ToNumber_20251102-SDHH5X@@Tests/ToNumber.wlt:884,1-923,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -945,7 +945,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-U6XDL7@@Tests/ToNumber.wlt:924,1-949,2"
+	TestID->"ToNumber_20251102-3MG490@@Tests/ToNumber.wlt:924,1-949,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -969,7 +969,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-PHD5Y1@@Tests/ToNumber.wlt:950,1-973,2"
+	TestID->"ToNumber_20251102-3QPCP7@@Tests/ToNumber.wlt:950,1-973,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -993,7 +993,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-WFZ7YV@@Tests/ToNumber.wlt:974,1-997,2"
+	TestID->"ToNumber_20251102-WHHAGS@@Tests/ToNumber.wlt:974,1-997,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1031,7 +1031,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-56P2RS@@Tests/ToNumber.wlt:998,1-1035,2"
+	TestID->"ToNumber_20251102-S28I3C@@Tests/ToNumber.wlt:998,1-1035,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1060,7 +1060,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-UCW0SO@@Tests/ToNumber.wlt:1036,1-1064,2"
+	TestID->"ToNumber_20251102-F7AN3J@@Tests/ToNumber.wlt:1036,1-1064,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1095,7 +1095,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-UTIQAA@@Tests/ToNumber.wlt:1065,1-1099,2"
+	TestID->"ToNumber_20251102-K99XOM@@Tests/ToNumber.wlt:1065,1-1099,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1130,7 +1130,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-30OZXL@@Tests/ToNumber.wlt:1100,1-1134,2"
+	TestID->"ToNumber_20251102-74TDR1@@Tests/ToNumber.wlt:1100,1-1134,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1165,7 +1165,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-4YT8X7@@Tests/ToNumber.wlt:1135,1-1169,2"
+	TestID->"ToNumber_20251102-OX2YDP@@Tests/ToNumber.wlt:1135,1-1169,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1189,7 +1189,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-RCWEA2@@Tests/ToNumber.wlt:1170,1-1193,2"
+	TestID->"ToNumber_20251102-EPKM0A@@Tests/ToNumber.wlt:1170,1-1193,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`p = {
@@ -1214,12 +1214,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ToNumber_20251030-4GAHTA@@Tests/ToNumber.wlt:1194,1-1218,2"
+	TestID->"ToNumber_20251102-JPVG38@@Tests/ToNumber.wlt:1194,1-1218,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
   True,
-  TestID -> "Untitled-28@@Tests/ToNumber.wlt:1219,1-1223,2"
+  TestID -> "Untitled-28@@Tests/ToNumber.wlt:1219,1-1227,8"
 ]
 End[]
 EndTestSection[]
