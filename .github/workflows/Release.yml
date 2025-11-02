@@ -24,6 +24,8 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
+        with:
+          fetch-depth: 0
       - name: Check
         id: check-paclet-step
         uses: WolframResearch/check-paclet@v1.11.0
@@ -150,6 +152,25 @@ jobs:
         shell: bash
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Enforce Immutable Tag
+        id: enforce-immutable-tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          tag="${PACLET_RELEASE_TAG}"
+          # If tag exists, ensure it points to this commit
+          if gh api "repos/${repo}/git/ref/tags/${tag}" >/dev/null 2>&1; then
+            type=$(gh api "repos/${repo}/git/ref/tags/${tag}" -q .object.type)
+            refsha=$(gh api "repos/${repo}/git/ref/tags/${tag}" -q .object.sha)
+            if [ "$type" = "tag" ]; then
+              refsha=$(gh api "repos/${repo}/git/tags/${refsha}" -q .object.sha)
+            fi
+            if [ "$refsha" != "$GITHUB_SHA" ]; then
+              echo "::error::Immutable tag policy: tag ${tag} exists at ${refsha}, current commit is ${GITHUB_SHA}. Bump Version in PacletInfo.wl (e.g., 1.0.1) to create a new release." ; exit 1
+            fi
+          fi
       - name: Prepare Release
         id: prepare-release
         env:
