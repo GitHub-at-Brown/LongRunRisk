@@ -22,6 +22,8 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Check
         id: check-paclet-step
         uses: WolframResearch/check-paclet@v1.11.0
@@ -145,16 +147,70 @@ jobs:
         shell: bash
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-      - name: CreateRelease
-        id: create-release-step
+      - name: Prepare Release
+        id: prepare-release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          gh release create "${{ env.PACLET_RELEASE_TAG }}" \
-            --title "Release ${{ env.PACLET_RELEASE_TAG }}" \
-            --draft \
-            "${{ env.PACLET_PATH }}#${{ env.PACLET_FILE }}"
+          repo="${GITHUB_REPOSITORY}"
+          tag="${PACLET_RELEASE_TAG}"
+          asset_name="${PACLET_FILE}"
+          if gh release view "$tag" --repo "$repo" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            # Check if asset already present
+            if gh release view "$tag" --repo "$repo" --json assets -q '.assets[].name' | grep -Fx "$asset_name" >/dev/null 2>&1; then
+              echo "asset_present=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "asset_present=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "asset_present=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create Or Update Release
+        id: create-or-update-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          tag="${PACLET_RELEASE_TAG}"
+          title="Release ${PACLET_RELEASE_TAG}"
+          asset_spec="${PACLET_PATH}#${PACLET_FILE}"
+          if [ "${{ steps.prepare-release.outputs.exists }}" = "true" ]; then
+            echo "Release $tag exists; uploading asset (clobber)."
+            gh release upload "$tag" "$asset_spec" --repo "$repo" --clobber
+          else
+            echo "Creating new published release $tag targeting $GITHUB_SHA."
+            gh release create "$tag" "$asset_spec" \
+              --repo "$repo" \
+              --title "$title" \
+              --target "$GITHUB_SHA"
+          fi
+          # Ensure release is published (not draft)
+          is_draft=$(gh release view "$tag" --repo "$repo" --json isDraft -q '.isDraft')
+          if [ "$is_draft" = "true" ]; then
+            echo "Publishing draft release $tag."
+            gh release edit "$tag" --repo "$repo" --draft=false --target "$GITHUB_SHA"
+          fi
+
+      - name: Verify Release Assets
+        id: verify-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          tag="${PACLET_RELEASE_TAG}"
+          asset_name="${PACLET_FILE}"
+          # Verify release exists
+          gh release view "$tag" --repo "$repo" --json tagName >/dev/null
+          # Verify asset present
+          if ! gh release view "$tag" --repo "$repo" --json assets -q '.assets[].name' | grep -Fx "$asset_name" >/dev/null; then
+            echo "::error::Asset $asset_name not found on release $tag" ; exit 1
+          fi
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
