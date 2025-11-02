@@ -222,15 +222,22 @@ jobs:
           set -euo pipefail
           repo="${GITHUB_REPOSITORY}"
           tag="${PACLET_RELEASE_TAG}"
-          # Find draft releases with the same tag and delete them by release ID
-          mapfile -t ids < <(gh api \
+          # Gather draft releases matching the tag (may return empty/blank lines)
+          ids=$(gh api \
             -H "Accept: application/vnd.github+json" \
             "repos/${repo}/releases" --paginate \
-            --jq ".[] | select(.draft == true and .tag_name == \"${tag}\") | .id")
-          for id in "${ids[@]:-}"; do
+            --jq ".[] | select(.draft == true and .tag_name == \"${tag}\") | .id" || true)
+          # If nothing but whitespace, exit cleanly
+          if [ -z "${ids//[[:space:]]/}" ]; then
+            echo "No draft releases to delete for tag ${tag}"
+            exit 0
+          fi
+          # Delete each non-empty id
+          while IFS= read -r id; do
+            [ -n "$id" ] || continue
             echo "Deleting old draft release id=${id} for tag ${tag}"
             gh api -X DELETE "repos/${repo}/releases/${id}"
-          done
+          done <<< "$ids"
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
