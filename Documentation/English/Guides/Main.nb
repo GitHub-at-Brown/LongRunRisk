@@ -3,28 +3,31 @@
 (*** Wolfram Notebook File ***)
 (* http://www.wolfram.com/nb *)
 
-(* CreatedBy='Mathematica 13.2' *)
+(* CreatedBy='Wolfram 14.3' *)
 
 (*CacheID: 234*)
 (* Internal cache information:
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
-NotebookDataPosition[       158,          7]
-NotebookDataLength[     14787,        370]
-NotebookOptionsPosition[      9907,        267]
-NotebookOutlinePosition[     10436,        285]
-CellTagsIndexPosition[     10393,        282]
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     19527,        490]
+NotebookOptionsPosition[     13094,        358]
+NotebookOutlinePosition[     13644,        377]
+CellTagsIndexPosition[     13601,        374]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
 
 Cell[CellGroupData[{
-Cell["Main Guide", "GuideTitle",
+Cell["LongRunRisk", "GuideTitle",
  CellID->1466146433,ExpressionUUID->"f92ef973-0778-4b58-90cd-99c63ac9c523"],
 
-Cell["Long Run Risk", "GuideAbstract",
- CellChangeTimes->{{3.895786363054451*^9, 3.895786366204978*^9}},
+Cell["\<\
+Tools to specify, solve, and compute moments for long-run risk type models.\
+\>", "GuideAbstract",
+ CellChangeTimes->{{3.895786363054451*^9, 3.895786366204978*^9}, {
+  3.9710528415083723`*^9, 3.971052872843581*^9}},
  CellID->1295733753,ExpressionUUID->"5f454f39-103a-455a-a249-568c8994f987"]
 }, Open  ]],
 
@@ -36,27 +39,37 @@ Cell["", "GuideFunctionsSection",
 
 Cell[CellGroupData[{
 
-Cell["Model Information", "GuideFunctionsSubsection",
+Cell["Core Functions", "GuideFunctionsSubsection",
  CellChangeTimes->{3.895981257095003*^9},
  CellID->710596932,ExpressionUUID->"54a35ae8-f57a-46c1-b618-c79e3fe6236c"],
 
 Cell[TextData[{
- Cell[BoxData["Models"], "InlineGuideFunction",
+ Cell[BoxData[
+  ButtonBox["Models",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Models"]],
+  "InlineGuideFunction",
   TaggingRules->{"PageType" -> "Function"},
   CellTags->"c40ac8e4-27e1-4161-a8df-4d4f38357a23",ExpressionUUID->
   "001e715b-ee29-48b2-b1a8-96e07966bc3d"],
- " \[LongDash] An Association with models"
+ " \[LongDash] Association containing all available model specifications and \
+their properties."
 }], "GuideText",
  CellChangeTimes->{{3.8957863761189623`*^9, 3.895786400325235*^9}, {
   3.895936541888239*^9, 3.895936548098803*^9}},
  CellID->1915692200,ExpressionUUID->"295a4a5c-fd77-4592-91f8-d940512aa211"],
 
 Cell[TextData[{
- Cell[BoxData["Info"], "InlineGuideFunction",
+ Cell[BoxData[
+  ButtonBox["Info",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Info"]],
+  "InlineGuideFunction",
   TaggingRules->{"PageType" -> "Function"},
   CellTags->"8cf9d573-76b4-43f3-bee1-a029e6f3f942",ExpressionUUID->
   "767a795c-74c1-4613-887c-c1f8d608dd05"],
- " \[LongDash] Displays nice models"
+ " \[LongDash] Display formatted model specifications with equations and \
+parameters."
 }], "GuideText",
  CellChangeTimes->{{3.8957864147595882`*^9, 3.895786415182057*^9}, {
    3.895936551299988*^9, 3.895936554729055*^9}, 3.895980867033752*^9, {
@@ -69,47 +82,59 @@ Cell["\t", "GuideDelimiter",
 
 Cell[CellGroupData[{
 
-Cell["Moments", "GuideFunctionsSubsection",
+Cell["Conditional Moments", "GuideFunctionsSubsection",
  CellChangeTimes->{{3.8959812394956017`*^9, 3.895981240893559*^9}},
  CellID->1021993343,ExpressionUUID->"5a29dce2-c5cd-4aa6-99eb-47feff3d8269"],
 
 Cell[TextData[{
  Cell[BoxData[
-  RowBox[{
-  "UncondE", ",", " ", "UncondCov", ",", " ", "UncondVar", ",", " ", 
-   "UncondCorr", " "}]], "InlineGuideFunction",
+  ButtonBox["Ev",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Ev"]],
+  "InlineGuideFunction",
   TaggingRules->{"PageType" -> "Function"},
-  CellTags->"33cb81d8-bdd2-4e05-bfac-158caae20fd0",ExpressionUUID->
-  "288bf3f3-295e-48f9-a5ce-bffd0fd1d3c6"],
- " \[LongDash] Compute unconditional expectations"
+  CellTags->"ev-func",ExpressionUUID->
+  "6afc4361-804f-4864-b0d2-20d2d42dcf36"],
+ " \[LongDash] Compute conditional expectations of model variables."
 }], "GuideText",
- CellChangeTimes->{{3.895981207109563*^9, 3.895981223977193*^9}, {
-  3.8959812698254423`*^9, 3.8959812741938953`*^9}, {3.895981374585576*^9, 
-  3.895981376705617*^9}},
  CellID->1841573842,ExpressionUUID->"28472c43-b0af-4e78-aec8-b76f22914abb"],
 
 Cell[TextData[{
  Cell[BoxData[
-  RowBox[{"Ev", ",", " ", "Var", ",", " ", "Cov", ",", " ", "Corr"}]], 
+  ButtonBox["Var",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Var"]],
   "InlineGuideFunction",
   TaggingRules->{"PageType" -> "Function"},
-  CellTags->"33cb81d8-bdd2-4e05-bfac-158caae20fd0",ExpressionUUID->
-  "d452b64b-12bf-4209-b956-73e06fb65e79"],
- " \[LongDash] Compute conditional expectations"
+  CellTags->"var-func",ExpressionUUID->"da8f19c5-2e39-41f0-9044-900e420973eb"],
+ " \[LongDash] Compute conditional variances."
 }], "GuideText",
- CellChangeTimes->{{3.8959812672703323`*^9, 3.895981288268659*^9}},
  CellID->1797241930,ExpressionUUID->"5d930535-725a-438a-9acf-a5a155a8da5e"],
 
 Cell[TextData[{
- Cell[BoxData["Growth"], "InlineGuideFunction",
+ Cell[BoxData[
+  ButtonBox["Cov",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Cov"]],
+  "InlineGuideFunction",
   TaggingRules->{"PageType" -> "Function"},
-  CellTags->"33cb81d8-bdd2-4e05-bfac-158caae20fd0",ExpressionUUID->
-  "76efe1b3-adbf-4087-97f6-6ef1fa4077bc"],
- " \[LongDash] Computes approximation of growth rate of time-aggregate \
-variables"
+  CellTags->"cov-func",ExpressionUUID->"a5fa4292-50c6-46a3-bbf7-bf8c07ef0529"],
+ " \[LongDash] Compute conditional covariances."
 }], "GuideText",
- CellChangeTimes->{{3.895981295689973*^9, 3.895981313831612*^9}},
- CellID->1887622455,ExpressionUUID->"44e982a2-0076-4b2d-bd03-374158aa68ce"]
+ CellID->1887622455,ExpressionUUID->"44e982a2-0076-4b2d-bd03-374158aa68ce"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["Corr",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Corr"]],
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"corr-func",ExpressionUUID->
+  "2f4dd28d-12fc-4dfe-bbff-ddc97d383df2"],
+ " \[LongDash] Compute conditional correlations."
+}], "GuideText",
+ CellID->1887622456,ExpressionUUID->"1fac284e-08e0-49bc-82cb-56640cad7eaa"]
 }, Open  ]],
 
 Cell["\t", "GuideDelimiter",
@@ -117,53 +142,176 @@ Cell["\t", "GuideDelimiter",
 
 Cell[CellGroupData[{
 
-Cell["Converting expressions", "GuideFunctionsSubsection",
+Cell["Unconditional Moments", "GuideFunctionsSubsection",
  CellChangeTimes->{{3.895980979686578*^9, 3.8959809854855747`*^9}},
  CellID->494684054,ExpressionUUID->"5d7b0d32-17fa-4f43-9c1c-ba9533d6c1a8"],
 
 Cell[TextData[{
- Cell[BoxData["ToEquation"], "InlineGuideFunction",
+ Cell[BoxData[
+  ButtonBox["UncondE",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/UncondE"]],
+  "InlineGuideFunction",
   TaggingRules->{"PageType" -> "Function"},
-  CellTags->"33cb81d8-bdd2-4e05-bfac-158caae20fd0",ExpressionUUID->
-  "52c99457-d48d-4532-9531-2a0f45099448"],
- " \[LongDash] Gives the equation that defines a variable "
+  CellTags->"uncond-e-func",ExpressionUUID->
+  "a6052ea7-7e75-434b-8ab7-10063342324a"],
+ " \[LongDash] Compute unconditional expectations of model variables."
 }], "GuideText",
- CellChangeTimes->{{3.895980992165907*^9, 3.895981013222969*^9}, {
-  3.895981059862595*^9, 3.895981095277512*^9}, {3.8959813711232967`*^9, 
-  3.895981371123336*^9}},
  CellID->552913911,ExpressionUUID->"189353a1-edf6-4b38-8466-5d31702e048a"],
 
 Cell[TextData[{
- Cell[BoxData["ToExogenousVars"], "InlineGuideFunction",
+ Cell[BoxData[
+  ButtonBox["UncondVar",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/UncondVar"]],
+  "InlineGuideFunction",
   TaggingRules->{"PageType" -> "Function"},
-  CellTags->"33cb81d8-bdd2-4e05-bfac-158caae20fd0",ExpressionUUID->
-  "aa9150b6-691f-4e62-9108-3d9f2038dc9c"],
- " \[LongDash] Re-write all variables in terms of exogenous variables"
+  CellTags->"uncond-var-func",ExpressionUUID->
+  "7a95419c-298d-498d-b06f-cd3e3e88db5b"],
+ " \[LongDash] Compute unconditional variances."
 }], "GuideText",
- CellChangeTimes->{{3.8959811093300743`*^9, 3.8959811093301067`*^9}, {
-  3.8959811910799637`*^9, 3.8959812009346647`*^9}},
  CellID->556769913,ExpressionUUID->"179f3e5b-95ab-47a2-acad-fd56827a4255"],
 
 Cell[TextData[{
- Cell[BoxData["ToStateVars"], "InlineGuideFunction",
+ Cell[BoxData[
+  ButtonBox["UncondCov",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/UncondCov"]],
+  "InlineGuideFunction",
   TaggingRules->{"PageType" -> "Function"},
-  CellTags->"33cb81d8-bdd2-4e05-bfac-158caae20fd0",ExpressionUUID->
-  "c36500d1-41c2-42a5-845a-d537d79f2084"],
- " \[LongDash] Re-write all variables in terms of state variables"
+  CellTags->"uncond-cov-func",ExpressionUUID->
+  "42c801c1-027f-4f7b-b3e0-f249cb166ea2"],
+ " \[LongDash] Compute unconditional covariances."
 }], "GuideText",
- CellChangeTimes->{{3.89598111358836*^9, 3.8959811135884037`*^9}, {
-  3.895981149774942*^9, 3.895981185919426*^9}},
  CellID->1045677812,ExpressionUUID->"f6699a00-79f9-4d74-bec3-cb97e5f2b4eb"],
 
 Cell[TextData[{
- Cell[BoxData["ToNum"], "InlineGuideFunction",
+ Cell[BoxData[
+  ButtonBox["UncondCorr",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/UncondCorr"]],
+  "InlineGuideFunction",
   TaggingRules->{"PageType" -> "Function"},
-  CellTags->"33cb81d8-bdd2-4e05-bfac-158caae20fd0",ExpressionUUID->
-  "f17e586b-4134-4b3d-83ba-849917ed4e54"],
- " \[LongDash] Evaluates expressions numerically"
+  CellTags->"uncond-corr-func",ExpressionUUID->
+  "a5cdc295-d828-4482-be84-432ea7f28661"],
+ " \[LongDash] Compute unconditional correlations."
 }], "GuideText",
- CellChangeTimes->{{3.895981128211912*^9, 3.8959811471347857`*^9}},
  CellID->1848302883,ExpressionUUID->"4d5caf23-88f6-4f18-808d-6266e1141729"]
+}, Open  ]],
+
+Cell["\t", "GuideDelimiter",
+ CellID->1613009443,ExpressionUUID->"6bc1d047-f398-4c10-993a-1ac4402588c8"],
+
+Cell[CellGroupData[{
+
+Cell["Conversion and Display Tools", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.895980979686578*^9, 3.8959809854855747`*^9}},
+ CellID->494684055,ExpressionUUID->"9fa529ca-f8b5-44b5-b53e-7a7c73120073"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ToNum",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/ToNum"]],
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"to-num-func",ExpressionUUID->
+  "4c7708db-67cb-496d-af77-423045518bae"],
+ " \[LongDash] Evaluate expressions numerically using model parameters and \
+solutions."
+}], "GuideText",
+ CellID->552913912,ExpressionUUID->"c4376546-00da-45e1-8c2f-a104184afdb8"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ToEquation",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/ToEquation"]],
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"to-equation-func",ExpressionUUID->
+  "1f398e1e-bddd-4996-b297-5ba1181ac491"],
+ " \[LongDash] Rewrite expressions in terms of lagged exogenous variables and \
+shocks."
+}], "GuideText",
+ CellID->556769914,ExpressionUUID->"9d0d1517-ebad-44b5-9f2d-0fe2e52c5dc7"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ToExogenousVars",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/ToExogenousVars"]],
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"to-exog-vars-func",ExpressionUUID->
+  "dd001fe2-2025-4319-bee2-f7575091ac1c"],
+ " \[LongDash] Rewrite expressions in terms of exogenous variables."
+}], "GuideText",
+ CellID->1045677813,ExpressionUUID->"730deea3-1174-4b5a-9210-6ca0f8e610d2"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ToStateVars",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/ToStateVars"]],
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"to-state-vars-func",ExpressionUUID->
+  "ca3d3be5-1178-4032-bfe8-404ab751b2c5"],
+ " \[LongDash] Rewrite expressions in terms of state variables."
+}], "GuideText",
+ CellID->1848302885,ExpressionUUID->"d5f1c6d5-0fdb-41d4-844e-7f34d3a9f992"]
+}, Open  ]],
+
+Cell["\t", "GuideDelimiter",
+ CellID->1613009444,ExpressionUUID->"a244ee32-a4e6-41a1-b124-4c9a03f80013"],
+
+Cell[CellGroupData[{
+
+Cell["Analysis and Visualization", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.895980979686578*^9, 3.8959809854855747`*^9}},
+ CellID->494684056,ExpressionUUID->"56c3fa88-164f-41fa-963e-0f181259656a"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["Growth",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Growth"]],
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"growth-func",ExpressionUUID->
+  "73dfe819-04e0-4f18-9499-b5df382fdb9f"],
+ " \[LongDash] Compute growth rates and time-aggregated variables."
+}], "GuideText",
+ CellID->552913913,ExpressionUUID->"7dce4702-92fe-4ca0-83d3-d5946b4e73a0"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["YieldCurve",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/YieldCurve"]],
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"yield-curve-func",ExpressionUUID->
+  "0dca759a-c19e-40fb-910b-4c69529b76ab"],
+ " \[LongDash] Compute and plot bond yields."
+}], "GuideText",
+ CellChangeTimes->{{3.971052924538949*^9, 3.971052931867524*^9}},
+ CellID->556769915,ExpressionUUID->"9454e456-88cc-4be5-aeaa-60837108e7e9"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["PlotCoeffs",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/PlotCoeffs"]],
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"plot-coeffs-func",ExpressionUUID->
+  "7c2c81cc-3651-48c3-b4e0-9ebd4520ac7f"],
+ " \[LongDash] Visualize solution coefficients and numerical solver \
+convergence."
+}], "GuideText",
+ CellID->1045677814,ExpressionUUID->"bcf1000d-c837-4164-8b93-cbd52b21598d"]
 }, Open  ]]
 }, Open  ]],
 
@@ -172,7 +320,7 @@ Cell[CellGroupData[{
 Cell["Tech Notes", "GuideTutorialsSection",
  CellID->547013040,ExpressionUUID->"f2715e69-059e-40a7-942e-dfb3a6efc8f4"],
 
-Cell[TextData[ButtonBox["Quick Start ",
+Cell[TextData[ButtonBox["Quick Start",
  BaseStyle->"Link",
  ButtonData->
   "paclet:FernandoDuarte/LongRunRisk/tutorial/QuickStart"]], "GuideTutorial",
@@ -193,9 +341,25 @@ Cell[TextData[ButtonBox["Interacting with Models",
  ButtonData->
   "paclet:FernandoDuarte/LongRunRisk/tutorial/InteractingwithModels"]], \
 "GuideTutorial",
- CellChangeTimes->{{3.895981324160181*^9, 3.895981328120263*^9}, 
+ CellChangeTimes->{{3.895981324160181*^9, 3.895981328120263*^9},
    3.895981405028359*^9},
- CellID->788275365,ExpressionUUID->"55b3cada-2fea-4a67-8901-d2a98f503748"]
+ CellID->788275365,ExpressionUUID->"55b3cada-2fea-4a67-8901-d2a98f503748"],
+
+Cell[TextData[ButtonBox["Numerical Evaluation",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:FernandoDuarte/LongRunRisk/tutorial/NumericalEvaluation"]], \
+"GuideTutorial",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->999999999,ExpressionUUID->"aa11bb22-cc33-dd44-ee55-ff6677889900"],
+
+Cell[TextData[ButtonBox["Providing Initial Guesses",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:FernandoDuarte/LongRunRisk/tutorial/ProvidingInitialGuesses"]], \
+"GuideTutorial",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->999999998,ExpressionUUID->"bb22cc33-dd44-ee55-ff66-778899aabbcc"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -204,15 +368,20 @@ Cell["Related Guides", "GuideMoreAboutSection",
  CellChangeTimes->{{3.8430423939366693`*^9, 3.843042395176153*^9}},
  CellID->717441212,ExpressionUUID->"6b305af2-e63a-40b3-a44f-ad4637a7600a"],
 
-Cell[TextData[ButtonBox["Quick Start", BaseStyle->"Link", ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/QuickStart"]], "GuideMoreAbout",
+Cell[TextData[ButtonBox["Model Specification and Parameterization",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:FernandoDuarte/LongRunRisk/guide/ModelSpecification"]], \
+"GuideMoreAbout",
  CellID->2061255826,ExpressionUUID->"232f631e-cab4-4e8e-b22d-516cb25ee8e5"],
 
-Cell[TextData[ButtonBox["Interacting with Models", BaseStyle->"Link", ButtonData->"paclet:FernandoDuarte/LongRunRisk/tutorial/InteractingwithModels"]], "GuideMoreAbout",
+Cell[TextData[ButtonBox["Computing Moments and Solutions",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:FernandoDuarte/LongRunRisk/guide/ComputingMoments"]], \
+"GuideMoreAbout",
  CellID->320474178,ExpressionUUID->"51e10a9a-6d3b-4936-acfd-83be754529a9"]
 }, Open  ]],
-
-Cell["Related Links", "GuideRelatedLinksSection",
- CellID->320522970,ExpressionUUID->"ee7c8f8e-128d-442f-9663-d0d1e186cb10"],
 
 Cell[CellGroupData[{
 
@@ -253,18 +422,31 @@ Cell["FernandoDuarte`LongRunRisk`", "Categorization",
 Cell["FernandoDuarte/LongRunRisk/guide/Main", "Categorization",
  CellLabel->"URI",
  CellID->239610320,ExpressionUUID->"af2271ef-77b3-4d09-a9ac-5e628a074a27"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
 Cell["Keywords", "KeywordsSection",
  CellID->598810115,ExpressionUUID->"a7f85b1e-df93-4348-8eac-fdf7a629ef9a"],
 
-Cell["asset pricing, long-run risk, paclet guide", "Keywords",
- CellID->1093232963,ExpressionUUID->"2d61676b-3dba-4176-bb2d-78c3ba99eaec"]
-}, Closed]]
+Cell["asset pricing", "Keywords",
+ CellID->1093232963,ExpressionUUID->"2d61676b-3dba-4176-bb2d-78c3ba99eaec"],
+
+Cell["long-run risk", "Keywords",
+ CellID->1093232964,ExpressionUUID->"3e6ac27f-d5f4-40f5-bf0d-c4ff70b5d7b9"],
+
+Cell["stochastic volatility", "Keywords",
+ CellID->1093232965,ExpressionUUID->"4f5ae6a5-0744-4054-abed-70520b0e5cb6"],
+
+Cell["moments", "Keywords",
+ CellID->1093232966,ExpressionUUID->"5f454f39-103a-455a-a249-568c8994f988"],
+
+Cell["inflation", "Keywords",
+ CellID->1093232967,ExpressionUUID->"6afc4361-804f-4864-b0d2-20d2d42dcf37"]
+}, Open  ]]
 }, Open  ]]
 },
+Evaluator->"Local2",
 WindowSize->{700, 770},
 WindowMargins->{{385, Automatic}, {Automatic, 75}},
 TaggingRules-><|"Paclet" -> "FernandoDuarte/LongRunRisk"|>,
@@ -281,98 +463,5 @@ CellTagsIndex->{}
 *)
 (*CellTagsIndex
 CellTagsIndex->{}
-*)
-(*NotebookFileOutline
-Notebook[{
-Cell[CellGroupData[{
-Cell[580, 22, 108, 1, 86, "GuideTitle",ExpressionUUID->"f92ef973-0778-4b58-90cd-99c63ac9c523",
- CellID->1466146433],
-Cell[691, 25, 180, 2, 28, "GuideAbstract",ExpressionUUID->"5f454f39-103a-455a-a249-568c8994f987",
- CellID->1295733753]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[908, 32, 175, 2, 71, "GuideFunctionsSection",ExpressionUUID->"be4dff9f-0e2a-404f-9aa0-ac23cc82340b",
- CellID->1913006091],
-Cell[CellGroupData[{
-Cell[1108, 38, 170, 2, 36, "GuideFunctionsSubsection",ExpressionUUID->"54a35ae8-f57a-46c1-b618-c79e3fe6236c",
- CellID->710596932],
-Cell[1281, 42, 471, 9, 24, "GuideText",ExpressionUUID->"295a4a5c-fd77-4592-91f8-d940512aa211",
- CellID->1915692200],
-Cell[1755, 53, 537, 10, 24, "GuideText",ExpressionUUID->"67c168b2-9427-46b0-ba35-0038ab1c186d",
- CellID->454675286]
-}, Open  ]],
-Cell[2307, 66, 104, 1, 26, "GuideDelimiter",ExpressionUUID->"30707974-c901-443a-b0cc-5077c78bccdf",
- CellID->1339890255],
-Cell[CellGroupData[{
-Cell[2436, 71, 187, 2, 36, "GuideFunctionsSubsection",ExpressionUUID->"5a29dce2-c5cd-4aa6-99eb-47feff3d8269",
- CellID->1021993343],
-Cell[2626, 75, 626, 13, 40, "GuideText",ExpressionUUID->"28472c43-b0af-4e78-aec8-b76f22914abb",
- CellID->1841573842],
-Cell[3255, 90, 492, 10, 24, "GuideText",ExpressionUUID->"5d930535-725a-438a-9acf-a5a155a8da5e",
- CellID->1797241930],
-Cell[3750, 102, 461, 9, 24, "GuideText",ExpressionUUID->"44e982a2-0076-4b2d-bd03-374158aa68ce",
- CellID->1887622455]
-}, Open  ]],
-Cell[4226, 114, 104, 1, 26, "GuideDelimiter",ExpressionUUID->"989503b8-fde4-4ef3-9450-75ee13037f58",
- CellID->1613009442],
-Cell[CellGroupData[{
-Cell[4355, 119, 201, 2, 36, "GuideFunctionsSubsection",ExpressionUUID->"5d7b0d32-17fa-4f43-9c1c-ba9533d6c1a8",
- CellID->494684054],
-Cell[4559, 123, 540, 10, 24, "GuideText",ExpressionUUID->"189353a1-edf6-4b38-8466-5d31702e048a",
- CellID->552913911],
-Cell[5102, 135, 513, 9, 24, "GuideText",ExpressionUUID->"179f3e5b-95ab-47a2-acad-fd56827a4255",
- CellID->556769913],
-Cell[5618, 146, 499, 9, 24, "GuideText",ExpressionUUID->"f6699a00-79f9-4d74-bec3-cb97e5f2b4eb",
- CellID->1045677812],
-Cell[6120, 157, 428, 8, 24, "GuideText",ExpressionUUID->"4d5caf23-88f6-4f18-808d-6266e1141729",
- CellID->1848302883]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[6597, 171, 118, 1, 73, "GuideTutorialsSection",ExpressionUUID->"f2715e69-059e-40a7-942e-dfb3a6efc8f4",
- CellID->547013040],
-Cell[6718, 174, 322, 6, 23, "GuideTutorial",ExpressionUUID->"d54e1e91-9b78-4f7c-9376-5ef93a0a97a9",
- CellID->270670473],
-Cell[7043, 182, 282, 6, 23, "GuideTutorial",ExpressionUUID->"44a2ecab-e2d2-4dd4-8c9d-ee2562991637",
- CellID->1909057474],
-Cell[7328, 190, 342, 7, 23, "GuideTutorial",ExpressionUUID->"55b3cada-2fea-4a67-8901-d2a98f503748",
- CellID->788275365]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[7707, 202, 190, 2, 73, "GuideMoreAboutSection",ExpressionUUID->"6b305af2-e63a-40b3-a44f-ad4637a7600a",
- CellID->717441212],
-Cell[7900, 206, 106, 1, 23, "GuideMoreAbout",ExpressionUUID->"232f631e-cab4-4e8e-b22d-516cb25ee8e5",
- CellID->2061255826],
-Cell[8009, 209, 105, 1, 23, "GuideMoreAbout",ExpressionUUID->"51e10a9a-6d3b-4936-acfd-83be754529a9",
- CellID->320474178]
-}, Open  ]],
-Cell[8129, 213, 124, 1, 73, "GuideRelatedLinksSection",ExpressionUUID->"ee7c8f8e-128d-442f-9663-d0d1e186cb10",
- CellID->320522970],
-Cell[CellGroupData[{
-Cell[8278, 218, 111, 1, 71, "MetadataSection",ExpressionUUID->"b1dcec02-f47a-494c-a07c-b028f02b92c2",
- CellID->1140570114],
-Cell[8392, 221, 477, 12, 25, "History",ExpressionUUID->"1c21e976-0cf9-4d7a-9f36-e1b38e1b8db4",
- CellID->1122872876],
-Cell[CellGroupData[{
-Cell[8894, 237, 121, 1, 20, "CategorizationSection",ExpressionUUID->"4dd003a2-8db8-4d37-a720-293fb44210a4",
- CellID->38137096],
-Cell[9018, 240, 134, 2, 34, "Categorization",ExpressionUUID->"a25564e8-84e7-4d48-8734-996b77cd19a5",
- CellID->1020045666],
-Cell[9155, 244, 154, 2, 34, "Categorization",ExpressionUUID->"c8a8beed-0a92-4475-8d03-dcdd4bc93878",
- CellID->545554461],
-Cell[9312, 248, 152, 2, 34, "Categorization",ExpressionUUID->"472c69dd-0880-44cc-9b96-992eaf8c50cc",
- CellID->1526136984],
-Cell[9467, 252, 162, 2, 34, "Categorization",ExpressionUUID->"af2271ef-77b3-4d09-a9ac-5e628a074a27",
- CellID->239610320]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[9666, 259, 110, 1, 30, "KeywordsSection",ExpressionUUID->"a7f85b1e-df93-4348-8eac-fdf7a629ef9a",
- CellID->598810115],
-Cell[9779, 262, 100, 1, 70, "Keywords",ExpressionUUID->"2d61676b-3dba-4176-bb2d-78c3ba99eaec",
- CellID->1093232963]
-}, Closed]]
-}, Open  ]]
-}
-]
 *)
 

@@ -1,0 +1,457 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     21098,        559]
+NotebookOptionsPosition[     14258,        417]
+NotebookOutlinePosition[     15041,        443]
+CellTagsIndexPosition[     14962,        438]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Models", "ObjectName",
+ CellID->1335710796,ExpressionUUID->"ef407638-3d2a-4375-aa3a-e424a19c4624"],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo",ExpressionUUID->"655d1ad7-90d2-41e6-8dcf-4c7556609b12"],
+ Cell[BoxData[
+  ButtonBox["Models",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Models"]], 
+  "InlineFormula",ExpressionUUID->"71485c6f-f510-48ae-b59a-d4e7455f0f50"],
+ "\[LineSeparator]is an Association containing all available long-run risk \
+model specifications."
+}], "Usage",
+ CellChangeTimes->{{3.971058279963134*^9, 3.97105832*^9}},
+ CellID->1644786281,ExpressionUUID->"91bd2f51-796d-4a71-851a-a776d9e14bd0"],
+
+Cell["Each model is an Association with the following properties:", "Notes",
+ CellChangeTimes->{{3.97105833*^9, 3.971058345*^9}},
+ CellID->1513520583,ExpressionUUID->"6447d35d-47c0-476c-a519-11ab389398f3"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["name", "TI"]], "InlineFormula",ExpressionUUID->
+  "393f879c-9add-487a-a2cb-bbe8bfbdc49b"],
+ " - full descriptive name of the model."
+}], "Notes",
+ CellChangeTimes->{{3.97105835*^9, 3.97105836*^9}},
+ CellID->1513520584,ExpressionUUID->"5a7f9d69-cf03-4f07-8458-4e3ccf81a02d"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["shortname", "TI"]], "InlineFormula",ExpressionUUID->
+  "3dcd2a23-4b8a-405a-a27a-8496170b0f04"],
+ " - abbreviated identifier used in model names."
+}], "Notes",
+ CellChangeTimes->{{3.971058365*^9, 3.97105838*^9}},
+ CellID->1513520585,ExpressionUUID->"f290765a-8c8b-4bff-a160-98255b593824"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["stateVars", "TI"]], "InlineFormula",ExpressionUUID->
+  "0122b1fd-cbf1-43bf-9656-83a91c554b54"],
+ " - list of state variables in the model."
+}], "Notes",
+ CellChangeTimes->{{3.971058385*^9, 3.9710584*^9}},
+ CellID->1513520586,ExpressionUUID->"60b1752a-4ce6-435f-af23-38de67ae8218"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["parameters", "TI"]], "InlineFormula",ExpressionUUID->
+  "b72b3afe-a6c3-420f-b072-5e2f3b321bf0"],
+ " - list of parameter values as rules."
+}], "Notes",
+ CellChangeTimes->{{3.971058405*^9, 3.97105842*^9}},
+ CellID->1513520587,ExpressionUUID->"ea7b155b-46f5-4a70-ae5a-49dd70e3e3ae"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["coeffsSolution", "TI"]], "InlineFormula",ExpressionUUID->
+  "24af9378-a554-4c06-9860-764e687487d6"],
+ " - solutions for model coefficients including wealth-consumption ratio, \
+price-dividend ratio, bond yields, and nominal bond yields."
+}], "Notes",
+ CellChangeTimes->{{3.971058425*^9, 3.971058465*^9}},
+ CellID->1513520588,ExpressionUUID->"1c9a76dd-a2e6-4f6d-ac78-066e5f1a91af"],
+
+Cell[TextData[{
+ "Use ",
+ Cell[BoxData[
+  ButtonBox["Info",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Info"]], 
+  "InlineFormula",ExpressionUUID->"cbdc754e-acde-4278-8d76-15eac11a00df"],
+ " to display formatted model specifications."
+}], "Notes",
+ CellChangeTimes->{{3.97105847*^9, 3.97105849*^9}},
+ CellID->1513520589,ExpressionUUID->"6dfbe1dd-e9e6-4a77-87f2-990ef21322b9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "See Also",
+ Cell[BoxData[
+  TemplateBox[{"SeeAlso", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Insert links to any related reference (function) pages.", 
+        "MoreInfoText"], BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "a11dc990-37e0-49dd-b7b0-2bfd07974aee"]
+}], "SeeAlsoSection",
+ CellID->796639766,ExpressionUUID->"2875ce4c-a3e6-4996-a780-fbf1481ec544"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["Info",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Info"]], 
+  "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},ExpressionUUID->
+  "7504e946-09d6-41e1-94b7-2d275da134a5"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["ToNum",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/ToNum"]], 
+  "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"tonum-seealso",ExpressionUUID->
+  "2c2e75a4-8be4-46e1-a013-082856c59b62"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["UncondE",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/UncondE"]], 
+  "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"unconde-seealso",ExpressionUUID->
+  "3409d07a-2372-4dfd-95f9-e2304e3cdd9f"]
+}], "SeeAlso",
+ CellChangeTimes->{{3.9710585*^9, 3.97105854*^9}},
+ CellID->1711491764,ExpressionUUID->"f89ae339-0c6a-484f-b187-f3cbee7db9d7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Tech Notes",
+ Cell[BoxData[
+  TemplateBox[{"TechNotes",
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell["Insert links to related tech notes.", "MoreInfoText"], BaseStyle ->
+       "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "fc25e10d-8772-4d5c-908a-f322dc3edc5b"]
+}], "TechNotesSection",
+ CellID->47334556,ExpressionUUID->"067a4488-4b54-4962-a72c-e8da07bd3cca"],
+
+Cell[TextData[ButtonBox["Long-Run Risk Models",
+ BaseStyle->"Link",
+ ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/Main"]], "Tutorials",
+ CellID->982933302,ExpressionUUID->"4f5ae6a5-0744-4054-abed-70520b0e5cb5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "MoreAboutSection",
+ CellID->1656495377,ExpressionUUID->"1a6cac7f-2268-4f23-aa43-68fcfbd162b3"],
+
+Cell[TextData[ButtonBox["Long-Run Risk Models",
+ BaseStyle->"Link",
+ ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/Main"]], "MoreAbout",
+ CellChangeTimes->{{3.97105855*^9, 3.97105856*^9}},
+ CellID->739801531,ExpressionUUID->"c55ae294-c4b1-49a7-8af0-86bd50bfb9f3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Examples Initialization",
+ Cell[BoxData[
+  TemplateBox[{"ExamplesInitialization", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Input that is to be evaluated before any examples are run, e.g. \
+Needs[\[Ellipsis]].", "MoreInfoText"], BaseStyle -> "IFrameBox"]], 
+     "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "f43f9180-2f37-4cf3-bb2c-30b0ff9c903e"]
+}], "ExamplesInitializationSection",
+ CellID->411530585,ExpressionUUID->"fc955bcb-4104-4bf5-a4ef-c1a926a1e45e"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", 
+  "]"}]], "ExampleInitialization",
+ CellID->1697198755,ExpressionUUID->"0ff27d53-3761-4f5b-95df-528599d5be48"],
+
+Cell[BoxData[
+ RowBox[{"model", "=", 
+  RowBox[{"Models", "[", "\"\<BY\>\"", "]"}]}]], "ExampleInitialization",
+ CellID->782803712,ExpressionUUID->"297379b5-7d33-4797-96f6-616ce1b19029"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox[
+      RowBox[{"Basic", " ", "Examples"}], "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->1941675831,ExpressionUUID->"697185e4-d41f-49e9-ad2e-27b941f84f84"],
+
+Cell["Get a list of available models:", "ExampleText",
+ CellChangeTimes->{{3.97105857*^9, 3.97105858*^9}},
+ CellID->1234567890,ExpressionUUID->"94207f9f-9514-4a1b-8706-68e0f9806a5a"],
+
+Cell[BoxData[
+ RowBox[{"Keys", "[", "Models", "]"}]], "Input",
+ CellChangeTimes->{{3.971058585*^9, 3.97105859*^9}},
+ CellLabel->"In[1]:=",
+ CellID->1234567891,ExpressionUUID->"0d84113e-b662-4796-bec6-eeac6a3b9f82"],
+
+Cell["Access a specific model by name:", "ExampleText",
+ CellChangeTimes->{{3.971058595*^9, 3.971058605*^9}},
+ CellID->1234567892,ExpressionUUID->"e99f4e19-44ee-4a8d-a0b8-9f981d6344fe"],
+
+Cell[BoxData[
+ RowBox[{"Models", "[", "\"\<BY\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.97105861*^9, 3.971058615*^9}},
+ CellLabel->"In[2]:=",
+ CellID->1234567893,ExpressionUUID->"6b47989c-5ec5-446d-98d4-2d518980e9a0"],
+
+Cell["Get properties of a model:", "ExampleText",
+ CellChangeTimes->{{3.97105862*^9, 3.97105863*^9}},
+ CellID->1234567894,ExpressionUUID->"d8b6cdc4-81c3-410a-bf93-06a12fd9e531"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Models", "[", "\"\<BY\>\"", "]"}], "[", "\"\<name\>\"", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.971058635*^9, 3.971058645*^9}},
+ CellLabel->"In[3]:=",
+ CellID->1234567895,ExpressionUUID->"99f05a2c-57fe-4e8f-b6a6-89a0160ed86a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "More Examples",
+ Cell[BoxData[
+  TemplateBox[{"MoreExamples", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell["Extended examples in standardized sections.", "MoreInfoText"], 
+       BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "b75fa6e7-60e8-4896-9722-cf4d67246202"]
+}], "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->584191805,ExpressionUUID->"6b9eaf62-0fe1-4c84-8256-92627241a2e8"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Scope", "ExampleSection",ExpressionUUID->
+   "c4918ce9-2f2b-490a-b279-748ee1a19319"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->216432551,ExpressionUUID->"fd69fe08-b010-496c-b54f-d0540b58afc9"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Generalizations & Extensions", "ExampleSection",ExpressionUUID->
+   "9b5c14d0-f2c5-4108-9c19-8ca66fa5e907"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1892070286,ExpressionUUID->"e07a5b78-a5ff-4049-8014-646e51049f4b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Options", "ExampleSection",ExpressionUUID->
+   "5f02076b-0643-43c0-96cc-02e1d88fdac2"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->87452026,ExpressionUUID->"010bf8e1-e21c-463c-8d6c-a52a41fad0f0"]
+}, Open  ]],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Applications", "ExampleSection",ExpressionUUID->
+   "f53695aa-420d-4079-b2f0-9e66ea9cb43f"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->606317146,ExpressionUUID->"d5b7e44d-71a3-4717-a12e-37d82b71cdaa"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Properties & Relations", "ExampleSection",ExpressionUUID->
+   "c1fd324e-3e73-44ae-9d9e-426f92596c1d"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->562367807,ExpressionUUID->"018497ac-c60f-4ed5-bbad-a5bad1e736e3"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Possible Issues", "ExampleSection",ExpressionUUID->
+   "464c77df-7696-4ac5-ae4f-ea571d13fe31"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->640201802,ExpressionUUID->"21f4fe87-2515-4df0-93bd-ab494efe53f5"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Interactive Examples", "ExampleSection",ExpressionUUID->
+   "17cba421-f26e-411f-8ed8-8e5c8178869d"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->978614744,ExpressionUUID->"5685263d-0446-463a-b09f-955de878fda1"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Neat Examples", "ExampleSection",ExpressionUUID->
+   "79ce078e-c133-4318-b078-08d2e0c2fd9f"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->750035,ExpressionUUID->"36c9e6c7-bb13-4cab-b81a-61730b2293ba"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->1868420010,ExpressionUUID->"b441f55a-7beb-48bd-bcb6-539115b621ac"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.0", "HistoryData",
+  CellTags->"New",ExpressionUUID->"da6409cd-8766-4ec5-a169-2608ebc89f66"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"d79468b4-337e-43a0-b4ff-4b41cce4d944"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->
+  "9ac0d781-4809-47e5-880e-5f13590164f6"]
+}], "History",
+ CellChangeTimes->{{3.97105865*^9, 3.971058655*^9}},
+ CellID->2029221636,ExpressionUUID->"83f4b767-a2ac-443f-9082-95fe61de45e4"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Categorization",
+ Cell[BoxData[
+  TemplateBox[{"Metadata", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Metadata such as page URI, context, and type of documentation page.", 
+        "MoreInfoText"], BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "463c3856-6a1d-4fc9-bd87-3957f7e220a7"]
+}], "CategorizationSection",
+ CellID->940238245,ExpressionUUID->"3d93b855-9ce3-445f-a63f-17e8585dba72"],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->1399509089,ExpressionUUID->"8cc61ae3-2d71-4ed3-9d97-1eb06e36f776"],
+
+Cell["FernandoDuarte/LongRunRisk", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->209252139,ExpressionUUID->"8dc8e43f-6246-426d-928a-0d5b4d8f3b4b"],
+
+Cell["FernandoDuarte`LongRunRisk`", "Categorization",
+ CellLabel->"Context",
+ CellID->1469970034,ExpressionUUID->"4e38f52f-cb18-4e2b-9ebf-816e56c8be88"],
+
+Cell["FernandoDuarte/LongRunRisk/ref/Models", "Categorization",
+ CellLabel->"URI",
+ CellID->1134486350,ExpressionUUID->"1f4322d0-45e2-4938-b847-8df00ea437bb"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->639770446,ExpressionUUID->"03ce1ef4-350b-4939-aa55-5271790a9d6c"],
+
+Cell["long-run risk", "Keywords",
+ CellID->171265393,ExpressionUUID->"fdf82801-15a4-485c-8bee-06c17fb7bebe"],
+
+Cell["asset pricing", "Keywords",
+ CellID->171265394,ExpressionUUID->"fdf82801-15a4-485c-8bee-06c17fb7bebf"],
+
+Cell["model catalog", "Keywords",
+ CellID->171265395,ExpressionUUID->"fdf82801-15a4-485c-8bee-06c17fb7bec0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->829373171,ExpressionUUID->"cd7d2396-431d-4bee-a75e-9f3e8aeae3ab"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->2106015967,ExpressionUUID->"82875cab-4fd7-4737-b9a0-1a204b176580"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->984887515,ExpressionUUID->"fa5d9c55-a448-4337-a207-1600ee853bb4"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->200513529,ExpressionUUID->"3aebe8b6-998b-478a-b94a-ea91071acade"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->629039760,ExpressionUUID->"d6a1a17e-9aac-439f-8a80-5853e3cdd687"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{5, Automatic}, {Automatic, 0}},
+TaggingRules-><|"Paclet" -> "FernandoDuarte/LongRunRisk"|>,
+CellContext->"Global`",
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"4c9461ab-2a9c-463d-8158-1d9ed03ccbca"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "ExtendedExamples"->{
+  Cell[8310, 241, 487, 13, 70, "ExtendedExamplesSection",ExpressionUUID->"6b9eaf62-0fe1-4c84-8256-92627241a2e8",
+   CellTags->"ExtendedExamples",
+   CellID->584191805]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"ExtendedExamples", 14769, 431}
+ }
+*)
+
+(* End of internal cache information *)

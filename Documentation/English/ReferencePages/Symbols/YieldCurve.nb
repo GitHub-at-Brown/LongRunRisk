@@ -1,0 +1,483 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     20545,        548]
+NotebookOptionsPosition[     14093,        412]
+NotebookOutlinePosition[     14877,        438]
+CellTagsIndexPosition[     14798,        433]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["YieldCurve", "ObjectName",
+ CellID->38193328,ExpressionUUID->"706a019f-baa8-43d1-b329-7a0a8d8b32a0"],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo",ExpressionUUID->"5dee7b3c-2952-4545-aaaa-8e791c2983e1"],
+ Cell[BoxData[
+  RowBox[{
+   ButtonBox["YieldCurve",
+    BaseStyle->"Link",
+    ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/YieldCurve"], "[",
+   RowBox[{
+    StyleBox["model", "TI"], ",",
+    StyleBox["newParameters", "TI"], ",",
+    StyleBox["coeffsWc", "TI"], ",",
+    StyleBox["bondType", "TI"], ",",
+    StyleBox["opts", "TI"]}], "]"}]], "InlineFormula",ExpressionUUID->
+  "8f0e1157-a3d3-4686-9e39-8d0007d8bb27"],
+ "\[LineSeparator]computes and plots bond yields as a function of maturity."
+}], "Usage",
+ CellChangeTimes->{3.971058283996615*^9},
+ CellID->1965136890,ExpressionUUID->"a5420ddf-1dd3-4146-8c6f-550e059656ec"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["bondType", "TI"]], "InlineFormula",ExpressionUUID->
+  "60c9bf06-951b-443d-aa83-9e971ddcf135"],
+ " specifies whether to compute nominal bond yields (\"nombond\") or real \
+bond yields (\"bond\")."
+}], "Notes",
+ CellID->1904703016,ExpressionUUID->"60c9bf06-951b-443d-aa83-9e971ddcf135"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["newParameters", "TI"]], "InlineFormula",ExpressionUUID->
+  "61c9bf06-951b-443d-aa83-9e971ddcf136"],
+ " allows overriding model parameters for the yield curve calculation."
+}], "Notes",
+ CellID->1904703018,ExpressionUUID->"61c9bf06-951b-443d-aa83-9e971ddcf136"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["coeffsWc", "TI"]], "InlineFormula",ExpressionUUID->
+  "62c9bf06-951b-443d-aa83-9e971ddcf137"],
+ " contains the wealth-consumption ratio coefficients for the model."
+}], "Notes",
+ CellID->1904703019,ExpressionUUID->"62c9bf06-951b-443d-aa83-9e971ddcf137"],
+
+Cell["The following options can be given: ", "Notes",
+ CellID->1904703017,ExpressionUUID->"50c9bf06-951b-443d-aa83-9e971ddcf136"],
+
+Cell[BoxData[GridBox[{
+   {Cell["   ", "ModInfo",ExpressionUUID->
+     "bbaf1c55-d099-4d7c-9ce7-5f2589983cf3"], "\"\<MaxMaturity\>\"", "12", 
+    Cell["Maximum maturity in months for the yield curve plot", "TableText",
+     ExpressionUUID->"497a833e-e062-4229-adfb-327ee5c520a7"]},
+   {Cell["   ", "ModInfo",ExpressionUUID->
+     "a1cc4003-6718-4f32-9c25-5e7c500e264c"], "\"\<MomentFunction\>\"", 
+    "uncondE", Cell["\<\
+Moment function to use (UncondE for unconditional expectation, or Ev for \
+conditional expectation)\
+\>", "TableText",ExpressionUUID->"774e3171-e0ef-480f-b862-1f3949f27861"]}
+  }]], "3ColumnTableMod",
+ CellChangeTimes->{{3.971058555515173*^9, 3.97105856022311*^9}},
+ CellID->1952364537,ExpressionUUID->"f0f3f629-7c75-4573-bb29-9e9de96acb1e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "See Also",
+ Cell[BoxData[
+  TemplateBox[{"SeeAlso", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Insert links to any related reference (function) pages.", 
+        "MoreInfoText"], BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "4f8c5458-66bc-455b-b17a-66e821cf20d0"]
+}], "SeeAlsoSection",
+ CellID->1988130846,ExpressionUUID->"16442182-a19c-48fc-9a4b-c9d802ff783d"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ToNum",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/ToNum"]],
+  "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},ExpressionUUID->
+  "9b0e8522-027f-498c-af75-f8f62b6ea1a7"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "fab76d8a-5e61-44d2-92f2-e04fa96c5dce"], Cell[BoxData[
+    ButtonBox["UncondE",
+     BaseStyle->"Link",
+     ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/UncondE"]],
+    "InlineSeeAlsoFunction",
+    TaggingRules->{"PageType" -> "Function"},ExpressionUUID->
+    "8e91e322-c7d4-4f9b-9534-e04fa96c5dcd"], Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "9ab76d8a-5e61-44d2-92f2-e04fa96c5dce"], Cell[BoxData[
+    ButtonBox["Ev",
+     BaseStyle->"Link",
+     ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Ev"]],
+    "InlineSeeAlsoFunction",
+    TaggingRules->{"PageType" -> "Function"},ExpressionUUID->
+    "7f91e322-c7d4-4f9b-9534-e04fa96c5dcd"], Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "7bb76d8a-5e61-44d2-92f2-e04fa96c5dce"], Cell[BoxData[
+    ButtonBox["PlotCoeffs",
+     BaseStyle->"Link",
+     ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/PlotCoeffs"]],
+    "InlineSeeAlsoFunction",
+    TaggingRules->{"PageType" -> "Function"},ExpressionUUID->
+    "6e91e322-c7d4-4f9b-9534-e04fa96c5dcd"]}]], "InlineSeeAlsoFunction",
+  ExpressionUUID->"29ebd79e-5fb7-4d1b-8934-f027538ccfd7"]
+}], "SeeAlso",
+ CellID->1817065049,ExpressionUUID->"c89ed29e-5013-4f7e-94b1-8d1bea00e4c6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Tech Notes",
+ Cell[BoxData[
+  TemplateBox[{"TechNotes", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell["Insert links to related tech notes.", "MoreInfoText"], BaseStyle -> 
+       "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "fc25e10d-8772-4d5c-908a-f322dc3edc5b"]
+}], "TechNotesSection",
+ CellID->47334556,ExpressionUUID->"067a4488-4b54-4962-a72c-e8da07bd3cca"],
+
+Cell[TextData[ButtonBox["Long-Run Risk Models",
+ BaseStyle->"Link",
+ ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/Main"]], "Tutorials",
+ CellID->982933302,ExpressionUUID->"4f5ae6a5-0744-4054-abed-70520b0e5cb5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "MoreAboutSection",
+ CellID->1715793990,ExpressionUUID->"320cd708-2c98-418e-befa-299e96deab04"],
+
+Cell[TextData[ButtonBox["Long-Run Risk Models",
+ BaseStyle->"Link",
+ ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/Main"]], "MoreAbout",
+ CellID->939178014,ExpressionUUID->"859d7de0-6907-4d74-b2b0-c0641648aef4"]
+}, Open  ]],
+
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Examples Initialization",
+ Cell[BoxData[
+  TemplateBox[{"ExamplesInitialization", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Input that is to be evaluated before any examples are run, e.g. \
+Needs[\[Ellipsis]].", "MoreInfoText"], BaseStyle -> "IFrameBox"]], 
+     "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "38271e81-d7bc-419c-8f9a-b195de02bce3"]
+}], "ExamplesInitializationSection",
+ CellID->1861785487,ExpressionUUID->"f1578be3-ce38-40a7-aeac-46756c08e497"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", 
+  "]"}]], "ExampleInitialization",
+ CellID->44459572,ExpressionUUID->"0498e6ee-dac8-42d8-a6d8-77173a01304d"],
+
+Cell[BoxData[
+ RowBox[{"model", "=",
+  RowBox[{"Models", "[", "\"\<BY\>\"", "]"}]}]], "ExampleInitialization",
+ CellID->544416246,ExpressionUUID->"2c76ab99-82ea-4a59-b6f5-45e80c98ad9e"],
+
+Cell[BoxData[
+ RowBox[{"coeffsWc", "=",
+  RowBox[{
+   RowBox[{"wc", "[", "t", "]"}], "//",
+   RowBox[{"ToEquation", "[", "model", "]"}]}]}]], "ExampleInitialization",
+ CellID->544416247,ExpressionUUID->"3d76ab99-82ea-4a59-b6f5-45e80c98ad9f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox[
+      RowBox[{"Basic", " ", "Examples"}], "PrimaryExamplesSection"],
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->2055201095,ExpressionUUID->"f0211d2c-92d4-4ff8-8542-2d18fb667b17"],
+
+Cell["Plot the unconditional real bond yield curve:", "ExampleText",
+ CellID->100000001,ExpressionUUID->"a1b2c3d4-e5f6-7890-1234-567890abcdef"],
+
+Cell[BoxData[
+ RowBox[{"YieldCurve", "[",
+  RowBox[{"model", ",",
+   RowBox[{"{", "}"}], ",", "coeffsWc", ",", "\"\<bond\>\""}],
+  "]"}]], "Input",
+ CellLabel->"In[1]:=",
+ CellID->100000002,ExpressionUUID->"b2c3d4e5-f6a7-8901-2345-678901abcdef"],
+
+Cell["Plot the nominal bond yield curve:", "ExampleText",
+ CellID->100000003,ExpressionUUID->"c3d4e5f6-a7b8-9012-3456-789012abcdef"],
+
+Cell[BoxData[
+ RowBox[{"YieldCurve", "[",
+  RowBox[{"model", ",",
+   RowBox[{"{", "}"}], ",", "coeffsWc", ",", "\"\<nombond\>\""}],
+  "]"}]], "Input",
+ CellLabel->"In[2]:=",
+ CellID->100000004,ExpressionUUID->"d4e5f6a7-b8c9-0123-4567-890123abcdef"],
+
+Cell["Specify maximum maturity:", "ExampleText",
+ CellID->100000005,ExpressionUUID->"e5f6a7b8-c9d0-1234-5678-901234abcdef"],
+
+Cell[BoxData[
+ RowBox[{"YieldCurve", "[",
+  RowBox[{"model", ",",
+   RowBox[{"{", "}"}], ",", "coeffsWc", ",", "\"\<bond\>\"", ",",
+   RowBox[{"\"\<MaxMaturity\>\"", "->", "24"}]}], "]"}]], "Input",
+ CellLabel->"In[3]:=",
+ CellID->100000006,ExpressionUUID->"f6a7b8c9-d0e1-2345-6789-012345abcdef"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "More Examples",
+ Cell[BoxData[
+  TemplateBox[{"MoreExamples", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell["Extended examples in standardized sections.", "MoreInfoText"], 
+       BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "e0768f4b-7a37-4fbd-9c0e-0308469ae0f5"]
+}], "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1637825317,ExpressionUUID->"09271fc9-00a0-4246-857b-a8457d5be88d"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Scope", "ExampleSection",ExpressionUUID->
+   "805bddae-de64-4c5e-bdf5-f30ed1b687c5"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->484715573,ExpressionUUID->"e1f15b53-51a7-4758-a2f7-1f80aae82279"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Generalizations & Extensions", "ExampleSection",ExpressionUUID->
+   "3fa2ab8a-355d-44d0-adcf-261b121bea0e"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1209162340,ExpressionUUID->"64aaf1ca-4dca-4372-93e7-e5b228daa461"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Options", "ExampleSection",ExpressionUUID->
+   "477caf71-b8cf-4f74-b8bd-1160d3aef001"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1464815435,ExpressionUUID->"852758a8-c9a3-46bd-b594-ff53d87e2736"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "\"MaxMaturity\"", "ExampleSubsection",ExpressionUUID->
+   "20e81a34-c905-4ae0-9d5d-27c27cff0a6e"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->400486837,ExpressionUUID->"244fbfd4-090d-450f-96b3-22ab7045b4f0"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "\"MomentFunction\"", "ExampleSubsection",ExpressionUUID->
+   "30188834-8fd8-4d74-a499-0c9f9d0ca979"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->768519761,ExpressionUUID->"20fa7209-ef12-4c95-ac39-16a1bacad06b"]
+}, Open  ]],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Applications", "ExampleSection",ExpressionUUID->
+   "2fc7a5cd-3a56-4ef8-9750-18c2513d0522"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1627506218,ExpressionUUID->"4e527064-2d67-4cc0-96d3-e175f81745d7"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Properties & Relations", "ExampleSection",ExpressionUUID->
+   "5efb00b1-dde6-4c6d-858d-d7b0b5d8a26c"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->997794087,ExpressionUUID->"e63364ff-a2e9-4342-9de1-29c21fe6b227"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Possible Issues", "ExampleSection",ExpressionUUID->
+   "e3fc8f6e-b440-44d6-9445-567f3c986941"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->225420786,ExpressionUUID->"b6d26429-2a46-4dad-8118-74dc359edaa5"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Interactive Examples", "ExampleSection",ExpressionUUID->
+   "6e324681-5547-4b7f-ba19-2a1216249487"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->485996994,ExpressionUUID->"dfe161f1-c14e-40ac-8563-0cea1298237a"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Neat Examples", "ExampleSection",ExpressionUUID->
+   "e820815b-2207-453b-bb6e-bb92f07df794"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1271168617,ExpressionUUID->"e1f212e7-b4d3-4ae5-8f11-7d464697a8a3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->1363625563,ExpressionUUID->"dc6775b1-29a8-4ab8-bcdc-5475d6f69523"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.0", "HistoryData",
+  CellTags->"New",ExpressionUUID->"1418a151-adab-4ad0-a957-49a6cd43aab6"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"5695a051-8afa-40f6-a99f-66f8b31a97db"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->
+  "399ec067-0343-48a0-8564-923c3189ce5d"]
+}], "History",
+ CellID->509356557,ExpressionUUID->"0b9e6d43-8c40-4fdc-9a12-9b6fde0ae1e7"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Categorization",
+ Cell[BoxData[
+  TemplateBox[{"Metadata", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Metadata such as page URI, context, and type of documentation page.", 
+        "MoreInfoText"], BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "fba8983a-6535-4f89-a1b2-662ebeff5c20"]
+}], "CategorizationSection",
+ CellID->885836557,ExpressionUUID->"8d1d2b0b-40f6-4279-8a00-f092352aa7cd"],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->1898372495,ExpressionUUID->"a5b64b83-f66e-4cfe-bc12-96e56003978d"],
+
+Cell["FernandoDuarte/LongRunRisk", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->1544970069,ExpressionUUID->"21466174-91a2-4fbb-b293-377530205777"],
+
+Cell["FernandoDuarte`LongRunRisk`", "Categorization",
+ CellLabel->"Context",
+ CellID->1087173806,ExpressionUUID->"25ccf2e8-bb6f-4dd7-a669-8246b78d4720"],
+
+Cell["FernandoDuarte/LongRunRisk/ref/YieldCurve", "Categorization",
+ CellLabel->"URI",
+ CellID->1339288766,ExpressionUUID->"2ed683e8-103c-4b50-9a42-94d3c430f0d6"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->583251345,ExpressionUUID->"c85944e2-6507-438e-aaee-2076552f2074"],
+
+Cell["yield curve", "Keywords",
+ CellID->1589990507,ExpressionUUID->"e51aaaf0-6bb5-4046-b76f-3c056f913c70"],
+
+Cell["bond yields", "Keywords",
+ CellID->1589990508,ExpressionUUID->"f1b2c3d4-e5f6-7890-1234-567890abcdef"],
+
+Cell["term structure", "Keywords",
+ CellID->1589990509,ExpressionUUID->"a2b3c4d5-f6a7-8901-2345-678901abcdef"],
+
+Cell["asset pricing", "Keywords",
+ CellID->1589990510,ExpressionUUID->"b3c4d5e6-a7b8-9012-3456-789012abcdef"],
+
+Cell["nominal bonds", "Keywords",
+ CellID->1589990511,ExpressionUUID->"c4d5e6f7-b8c9-0123-4567-890123abcdef"],
+
+Cell["real bonds", "Keywords",
+ CellID->1589990512,ExpressionUUID->"d5e6f7a8-c9d0-1234-5678-901234abcdef"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1831431528,ExpressionUUID->"0ffca934-48a0-4f2d-bd6c-d0fd0f270cc3"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->986578645,ExpressionUUID->"480f9884-744f-429f-a190-7007c370c239"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->706048028,ExpressionUUID->"fcae5386-7c61-4280-b004-93dfe739805c"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1702056921,ExpressionUUID->"759a8021-0e8e-453a-92fb-56fa9743dd74"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->1988493207,ExpressionUUID->"aabb84fa-bba6-4890-a7c5-bccdbbe8d4f1"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{5, Automatic}, {Automatic, 0}},
+TaggingRules-><|"Paclet" -> "FernandoDuarte/LongRunRisk"|>,
+CellContext->"Global`",
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"55743795-8a5f-493a-9dac-420d67529e21"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "ExtendedExamples"->{
+  Cell[8180, 236, 488, 13, 70, "ExtendedExamplesSection",ExpressionUUID->"09271fc9-00a0-4246-857b-a8457d5be88d",
+   CellTags->"ExtendedExamples",
+   CellID->1637825317]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"ExtendedExamples", 14604, 426}
+ }
+*)
+
+(* End of internal cache information *)

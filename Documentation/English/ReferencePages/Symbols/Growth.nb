@@ -1,0 +1,485 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     24567,        634]
+NotebookOptionsPosition[     17789,        496]
+NotebookOutlinePosition[     18573,        522]
+CellTagsIndexPosition[     18494,        517]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Growth", "ObjectName",
+ CellID->200000001,ExpressionUUID->"a1b2c3d4-e5f6-7890-abcd-ef1234567890"],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo",ExpressionUUID->"b1c2d3e4-f5a6-7890-bcde-f12345678901"],
+ Cell[BoxData[
+  RowBox[{
+   ButtonBox["Growth",
+    BaseStyle->"Link",
+    ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Growth"], "[",
+   RowBox[{
+    StyleBox["variable", "TI"], ",",
+    StyleBox["t", "TI"]}], "]"}]], "InlineFormula",ExpressionUUID->
+  "c1d2e3f4-a5b6-7890-cdef-012345678902"],
+ "\[LineSeparator]gives the growth rate at time ",
+ Cell[BoxData[
+  StyleBox["t", "TI"]], "InlineFormula",ExpressionUUID->
+  "d1e2f3a4-b5c6-7890-def0-123456789abc"],
+ " of ",
+ Cell[BoxData[
+  StyleBox["variable", "TI"]], "InlineFormula",ExpressionUUID->
+  "e1f2a3b4-c5d6-7890-ef01-23456789abcd"],
+ ".\n",
+ Cell["   ", "ModInfo",ExpressionUUID->"f1a2b3c4-d5e6-7890-f012-3456789abcde"],
+ Cell[BoxData[
+  RowBox[{
+   ButtonBox["Growth",
+    BaseStyle->"Link",
+    ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Growth"], "[",
+   RowBox[{
+    StyleBox["variable", "TI"], ",",
+    StyleBox["t", "TI"], ",",
+    StyleBox["i", "TI"]}], "]"}]], "InlineFormula",ExpressionUUID->
+  "a2b3c4d5-e6f7-8901-2345-6789abcdef01"],
+ "\[LineSeparator]specifies the stock identifier ",
+ Cell[BoxData[
+  StyleBox["i", "TI"]], "InlineFormula",ExpressionUUID->
+  "b2c3d4e5-f6a7-8901-2345-6789abcdef02"],
+ " when ",
+ Cell[BoxData[
+  StyleBox["variable", "TI"]], "InlineFormula",ExpressionUUID->
+  "c2d3e4f5-a6b7-8901-2345-6789abcdef03"],
+ " is a stock-related variable such as dividends.\n",
+ Cell["   ", "ModInfo",ExpressionUUID->"d2e3f4a5-b6c7-8901-2345-6789abcdef04"],
+ Cell[BoxData[
+  RowBox[{
+   ButtonBox["Growth",
+    BaseStyle->"Link",
+    ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Growth"], "[",
+   RowBox[{
+    StyleBox["variable", "TI"], ",",
+    StyleBox["t", "TI"], ",",
+    StyleBox["m", "TI"]}], "]"}]], "InlineFormula",ExpressionUUID->
+  "e2f3a4b5-c6d7-8901-2345-6789abcdef05"],
+ "\[LineSeparator]specifies the maturity ",
+ Cell[BoxData[
+  StyleBox["m", "TI"]], "InlineFormula",ExpressionUUID->
+  "f2a3b4c5-d6e7-8901-2345-6789abcdef06"],
+ " in months when ",
+ Cell[BoxData[
+  StyleBox["variable", "TI"]], "InlineFormula",ExpressionUUID->
+  "a3b4c5d6-e7f8-9012-3456-789abcdef012"],
+ " is a bond-related variable such as bond yields."
+}], "Usage",
+ CellChangeTimes->{{3.9720*^9, 3.9720001*^9}},
+ CellID->200000002,ExpressionUUID->"b3c4d5e6-f7a8-9012-3456-789abcdef013"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["Growth",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Growth"]],
+  "InlineFormula",ExpressionUUID->"c3d4e5f6-a7b8-9012-3456-789abcdef014"],
+ " computes time-aggregated growth rates for variables in long-run risk \
+models."
+}], "Notes",
+ CellChangeTimes->{{3.9720002*^9, 3.97200021*^9}},
+ CellID->200000003,ExpressionUUID->"d3e4f5a6-b7c8-9012-3456-789abcdef015"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["variable", "TI"]], "InlineFormula",ExpressionUUID->
+  "e3f4a5b6-c7d8-9012-3456-789abcdef016"],
+ " should be a model variable such as consumption growth (dc), dividend \
+growth (dd), or stock returns (rd)."
+}], "Notes",
+ CellChangeTimes->{{3.9720003*^9, 3.97200031*^9}},
+ CellID->200000004,ExpressionUUID->"f3a4b5c6-d7e8-9012-3456-789abcdef017"],
+
+Cell[TextData[{
+ "The function uses power series expansion to approximate growth rates of \
+flow and ratio variables, controlled by the \"Order\" option."
+}], "Notes",
+ CellChangeTimes->{{3.9720004*^9, 3.97200041*^9}},
+ CellID->200000005,ExpressionUUID->"a4b5c6d7-e8f9-0123-4567-89abcdef0123"],
+
+Cell[TextData[{
+ "Common options include ",
+ Cell[BoxData[
+  ButtonBox["\"TimeAggregation\"",
+   BaseStyle->"Link"]], "InlineFormula",ExpressionUUID->
+  "b4c5d6e7-f8a9-0123-4567-89abcdef0124"],
+ " to specify the aggregation period in months, and \"numPeriods\" to \
+specify the number of periods over which to compute growth."
+}], "Notes",
+ CellChangeTimes->{{3.9720005*^9, 3.97200051*^9}},
+ CellID->200000006,ExpressionUUID->"c4d5e6f7-a8b9-0123-4567-89abcdef0125"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->200000007,ExpressionUUID->"d4e5f6a7-b8c9-0123-4567-89abcdef0126"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["Ev",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Ev"]],
+  "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},ExpressionUUID->
+  "e4f5a6b7-c8d9-0123-4567-89abcdef0127"],
+ " ",
+ Cell[BoxData[
+  ButtonBox["Var",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Var"]],
+  "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},ExpressionUUID->
+  "f4a5b6c7-d8e9-0123-4567-89abcdef0128"],
+ " ",
+ Cell[BoxData[
+  ButtonBox["Models",
+   BaseStyle->"Link",
+   ButtonData->"paclet:FernandoDuarte/LongRunRisk/ref/Models"]],
+  "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},ExpressionUUID->
+  "a5b6c7d8-e9f0-1234-5678-9abcdef01234"]
+}], "SeeAlso",
+ CellChangeTimes->{{3.9720006*^9, 3.97200061*^9}},
+ CellID->200000008,ExpressionUUID->"b5c6d7e8-f9a0-1234-5678-9abcdef01235"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Tech Notes",
+ Cell[BoxData[
+  TemplateBox[{"TechNotes",
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell["Insert links to related tech notes.", "MoreInfoText"], BaseStyle ->
+       "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "fc25e10d-8772-4d5c-908a-f322dc3edc5b"]
+}], "TechNotesSection",
+ CellID->47334556,ExpressionUUID->"067a4488-4b54-4962-a72c-e8da07bd3cca"],
+
+Cell[TextData[ButtonBox["Long-Run Risk Models",
+ BaseStyle->"Link",
+ ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/Main"]], "Tutorials",
+ CellID->982933302,ExpressionUUID->"4f5ae6a5-0744-4054-abed-70520b0e5cb5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "MoreAboutSection",
+ CellID->200000009,ExpressionUUID->"c5d6e7f8-a9b0-1234-5678-9abcdef01236"],
+
+Cell[TextData[ButtonBox["Long-Run Risk Models",
+ BaseStyle->"Link",
+ ButtonData->"paclet:FernandoDuarte/LongRunRisk/guide/Main"]], "MoreAbout",
+ CellChangeTimes->{{3.9720007*^9, 3.97200071*^9}},
+ CellID->200000010,ExpressionUUID->"d5e6f7a8-b9c0-1234-5678-9abcdef01237"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Examples Initialization",
+ Cell[BoxData[
+  TemplateBox[{"ExamplesInitialization",
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Input that is to be evaluated before any examples are run, e.g. \
+Needs[\[Ellipsis]].", "MoreInfoText"], BaseStyle -> "IFrameBox"]],
+     "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "e5f6a7b8-c9d0-1234-5678-9abcdef01238"]
+}], "ExamplesInitializationSection",
+ CellID->200000011,ExpressionUUID->"f5a6b7c8-d9e0-1234-5678-9abcdef01239"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"",
+  "]"}]], "ExampleInitialization",
+ CellID->200000012,ExpressionUUID->"a6b7c8d9-e0f1-2345-6789-abcdef012345"],
+
+Cell[BoxData[
+ RowBox[{"model", "=",
+  RowBox[{"Models", "[", "\"\<BY\>\"", "]"}]}]], "ExampleInitialization",
+ CellID->200000013,ExpressionUUID->"b6c7d8e9-f0a1-2345-6789-abcdef012346"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox[
+      RowBox[{"Basic", " ", "Examples"}], "PrimaryExamplesSection"],
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->200000014,ExpressionUUID->"c6d7e8f9-a0b1-2345-6789-abcdef012347"],
+
+Cell["\<\
+Compute the monthly growth rate of consumption:\
+\>", "ExampleText",
+ CellChangeTimes->{{3.9720008*^9, 3.97200081*^9}},
+ CellID->200000015,ExpressionUUID->"d6e7f8a9-b0c1-2345-6789-abcdef012348"],
+
+Cell[BoxData[
+ RowBox[{"Growth", "[",
+  RowBox[{"dc", ",", "t"}], "]"}]], "Input",
+ CellChangeTimes->{{3.9720009*^9, 3.97200091*^9}},
+ CellLabel->"In[1]:=",
+ CellID->200000016,ExpressionUUID->"e6f7a8b9-c0d1-2345-6789-abcdef012349"],
+
+Cell["\<\
+Compute the quarterly growth rate of consumption (3-month time aggregation):\
+\>", "ExampleText",
+ CellChangeTimes->{{3.97200092*^9, 3.97200093*^9}},
+ CellID->200000017,ExpressionUUID->"f6a7b8c9-d0e1-2345-6789-abcdef012350"],
+
+Cell[BoxData[
+ RowBox[{"Growth", "[",
+  RowBox[{"dc", ",", "t", ",",
+   RowBox[{"\"\<TimeAggregation\>\"", "->", "3"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.97200094*^9, 3.97200095*^9}},
+ CellLabel->"In[2]:=",
+ CellID->200000018,ExpressionUUID->"a7b8c9d0-e1f2-3456-789a-bcdef0123456"],
+
+Cell["\<\
+Compute the growth rate of dividends for stock 1:\
+\>", "ExampleText",
+ CellChangeTimes->{{3.97200096*^9, 3.97200097*^9}},
+ CellID->200000019,ExpressionUUID->"b7c8d9e0-f1a2-3456-789a-bcdef0123457"],
+
+Cell[BoxData[
+ RowBox[{"Growth", "[",
+  RowBox[{"dd", ",", "t", ",", "1"}], "]"}]], "Input",
+ CellChangeTimes->{{3.97200098*^9, 3.97200099*^9}},
+ CellLabel->"In[3]:=",
+ CellID->200000020,ExpressionUUID->"c7d8e9f0-a1b2-3456-789a-bcdef0123458"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "More Examples",
+ Cell[BoxData[
+  TemplateBox[{"MoreExamples",
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell["Extended examples in standardized sections.", "MoreInfoText"],
+       BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "d7e8f9a0-b1c2-3456-789a-bcdef0123459"]
+}], "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->200000021,ExpressionUUID->"e7f8a9b0-c1d2-3456-789a-bcdef0123460"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Scope", "ExampleSection",ExpressionUUID->
+   "f7a8b9c0-d1e2-3456-789a-bcdef0123461"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->200000022,ExpressionUUID->"a8b9c0d1-e2f3-4567-89ab-cdef01234567"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Generalizations & Extensions", "ExampleSection",ExpressionUUID->
+   "b8c9d0e1-f2a3-4567-89ab-cdef01234568"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->200000023,ExpressionUUID->"c8d9e0f1-a2b3-4567-89ab-cdef01234569"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Options", "ExampleSection",ExpressionUUID->
+   "d8e9f0a1-b2c3-4567-89ab-cdef01234570"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->200000024,ExpressionUUID->"e8f9a0b1-c2d3-4567-89ab-cdef01234571"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Applications", "ExampleSection",ExpressionUUID->
+   "f8a9b0c1-d2e3-4567-89ab-cdef01234572"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->200000025,ExpressionUUID->"a9b0c1d2-e3f4-5678-9abc-def012345678"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Properties & Relations", "ExampleSection",ExpressionUUID->
+   "b9c0d1e2-f3a4-5678-9abc-def012345679"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->200000026,ExpressionUUID->"c9d0e1f2-a3b4-5678-9abc-def012345680"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Possible Issues", "ExampleSection",ExpressionUUID->
+   "d9e0f1a2-b3c4-5678-9abc-def012345681"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->200000027,ExpressionUUID->"e9f0a1b2-c3d4-5678-9abc-def012345682"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Interactive Examples", "ExampleSection",ExpressionUUID->
+   "f9a0b1c2-d3e4-5678-9abc-def012345683"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->200000028,ExpressionUUID->"a0b1c2d3-e4f5-6789-abcd-ef0123456789"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Neat Examples", "ExampleSection",ExpressionUUID->
+   "b0c1d2e3-f4a5-6789-abcd-ef0123456790"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->200000029,ExpressionUUID->"c0d1e2f3-a4b5-6789-abcd-ef0123456791"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->200000030,ExpressionUUID->"d0e1f2a3-b4c5-6789-abcd-ef0123456792"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.0", "HistoryData",
+  CellTags->"New",ExpressionUUID->"e0f1a2b3-c4d5-6789-abcd-ef0123456793"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"f0a1b2c3-d4e5-6789-abcd-ef0123456794"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->
+  "a1b2c3d4-e5f6-6789-abcd-ef0123456795"]
+}], "History",
+ CellChangeTimes->{{3.97200010*^9, 3.97200011*^9}},
+ CellID->200000031,ExpressionUUID->"b1c2d3e4-f5a6-6789-abcd-ef0123456796"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Categorization",
+ Cell[BoxData[
+  TemplateBox[{"Metadata",
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Metadata such as page URI, context, and type of documentation page.",
+        "MoreInfoText"], BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "c1d2e3f4-a5b6-6789-abcd-ef0123456797"]
+}], "CategorizationSection",
+ CellID->200000032,ExpressionUUID->"d1e2f3a4-b5c6-6789-abcd-ef0123456798"],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->200000033,ExpressionUUID->"e1f2a3b4-c5d6-6789-abcd-ef0123456799"],
+
+Cell["FernandoDuarte/LongRunRisk", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->200000034,ExpressionUUID->"f1a2b3c4-d5e6-6789-abcd-ef0123456800"],
+
+Cell["FernandoDuarte`LongRunRisk`", "Categorization",
+ CellLabel->"Context",
+ CellID->200000035,ExpressionUUID->"a2b3c4d5-e6f7-789a-bcde-f01234567890"],
+
+Cell["FernandoDuarte/LongRunRisk/ref/Growth", "Categorization",
+ CellLabel->"URI",
+ CellID->200000036,ExpressionUUID->"b2c3d4e5-f6a7-789a-bcde-f01234567891"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->200000037,ExpressionUUID->"c2d3e4f5-a6b7-789a-bcde-f01234567892"],
+
+Cell["growth rates", "Keywords",
+ CellChangeTimes->{{3.97200012*^9, 3.97200013*^9}},
+ CellID->200000038,ExpressionUUID->"d2e3f4a5-b6c7-789a-bcde-f01234567893"],
+
+Cell["time aggregation", "Keywords",
+ CellChangeTimes->{{3.97200014*^9, 3.97200015*^9}},
+ CellID->200000039,ExpressionUUID->"e2f3a4b5-c6d7-789a-bcde-f01234567894"],
+
+Cell["asset pricing", "Keywords",
+ CellChangeTimes->{{3.97200016*^9, 3.97200017*^9}},
+ CellID->200000040,ExpressionUUID->"f2a3b4c5-d6e7-789a-bcde-f01234567895"],
+
+Cell["power series", "Keywords",
+ CellChangeTimes->{{3.97200018*^9, 3.97200019*^9}},
+ CellID->200000041,ExpressionUUID->"a3b4c5d6-e7f8-89ab-cdef-012345678901"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->200000042,ExpressionUUID->"b3c4d5e6-f7a8-89ab-cdef-012345678902"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->200000043,ExpressionUUID->"c3d4e5f6-a7b8-89ab-cdef-012345678903"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->200000044,ExpressionUUID->"d3e4f5a6-b7c8-89ab-cdef-012345678904"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->200000045,ExpressionUUID->"e3f4a5b6-c7d8-89ab-cdef-012345678905"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->200000046,ExpressionUUID->"f3a4b5c6-d7e8-89ab-cdef-012345678906"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{5, Automatic}, {Automatic, 0}},
+TaggingRules-><|"Paclet" -> "FernandoDuarte/LongRunRisk"|>,
+CellContext->"Global`",
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStylesExt.nb",
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "ExtendedExamples"->{
+  Cell[12289, 369, 487, 13, 70, "ExtendedExamplesSection",ExpressionUUID->"e7f8a9b0-c1d2-3456-789a-bcdef0123460",
+   CellTags->"ExtendedExamples",
+   CellID->200000021]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"ExtendedExamples", 18301, 510}
+ }
+*)
+
+(* End of internal cache information *)
