@@ -1,0 +1,201 @@
+Notebook[{
+Cell[CellGroupData[{
+Cell["ParamQuadSolver", "GuideTitle",
+ CellID->942062912,ExpressionUUID->"8f2a3c5d-9e41-4f29-b8e2-1a3d5e7f9c4b"],
+
+Cell["Symbolic solver for square systems of polynomial equations with parametric coefficients. Solves systems where each equation is at most quadratic in each variable with no cross-terms.", "GuideAbstract",
+ CellID->123456789,ExpressionUUID->"a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell["Core Functions", "GuideFunctionsSection",
+ CellID->876543210,ExpressionUUID->"b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ParamQuadSolve",
+   BaseStyle->"Link",
+   ButtonData->"paclet:LongRunRisk/ref/ParamQuadSolve"]], "InlineGuideFunction",
+  ExpressionUUID->"c3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"],
+ " \[LongDash] Solve square systems of polynomial equations with parametric coefficients and return solutions with sign variables representing multiple branches."
+}], "GuideText",
+ CellID->234567890,ExpressionUUID->"d4e5f6a7-8b9c-0d1e-2f3a-4b5c6d7e8f9a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell["Sign Variables", "GuideFunctionsSubsection",
+ CellID->345678901,ExpressionUUID->"e5f6a7b8-9c0d-1e2f-3a4b-5c6d7e8f9a0b"],
+
+Cell["\<\
+Sign variables represent the \[PlusMinus] choice in square roots from the \
+quadratic formula. Each sign variable can be +1 or -1.\
+\>", "GuideText",
+ CellID->456789012,ExpressionUUID->"f6a7b8c9-0d1e-2f3a-4b5c-6d7e8f9a0b1c"],
+
+Cell["\<\
+For a system with N independent radicals, there are 2^N solution branches, \
+which can be enumerated using Tuples.\
+\>", "GuideText",
+ CellID->567890123,ExpressionUUID->"a7b8c9d0-1e2f-3a4b-5c6d-7e8f9a0b1c2d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell["Return Value Structure", "GuideFunctionsSubsection",
+ CellID->678901234,ExpressionUUID->"b8c9d0e1-2f3a-4b5c-6d7e-8f9a0b1c2d3e"],
+
+Cell["The solver returns an Association with the following keys:", "GuideText",
+ CellID->789012345,ExpressionUUID->"c9d0e1f2-3a4b-5c6d-7e8f-9a0b1c2d3e4f"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["\"Solution\"", "InlineCode"]], "InlineFormula",
+  ExpressionUUID->"d0e1f2a3-4b5c-6d7e-8f9a-0b1c2d3e4f5a"],
+ " \[LongDash] Replacement rules mapping variables to parametric expressions with sign variables"
+}], "GuideText",
+ CellID->890123456,ExpressionUUID->"e1f2a3b4-5c6d-7e8f-9a0b-1c2d3e4f5a6b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["\"SignRootMap\"", "InlineCode"]], "InlineFormula",
+  ExpressionUUID->"f2a3b4c5-6d7e-8f9a-0b1c-2d3e4f5a6b7c"],
+ " \[LongDash] Association mapping each sign variable to its corresponding square root expression"
+}], "GuideText",
+ CellID->901234567,ExpressionUUID->"a3b4c5d6-7e8f-9a0b-1c2d-3e4f5a6b7c8d"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["\"Conditions\"", "InlineCode"]], "InlineFormula",
+  ExpressionUUID->"b4c5d6e7-8f9a-0b1c-2d3e-4f5a6b7c8d9e"],
+ " \[LongDash] Domain and feasibility conditions (e.g., discriminant \[GreaterEqual] 0 for real solutions)"
+}], "GuideText",
+ CellID->123450987,ExpressionUUID->"c5d6e7f8-9a0b-1c2d-3e4f-5a6b7c8d9e0f"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["\"Verification\"", "InlineCode"]], "InlineFormula",
+  ExpressionUUID->"d6e7f8a9-0b1c-2d3e-4f5a-6b7c8d9e0f1a"],
+ " \[LongDash] Boolean list indicating whether each equation is satisfied"
+}], "GuideText",
+ CellID->234561098,ExpressionUUID->"e7f8a9b0-1c2d-3e4f-5a6b-7c8d9e0f1a2b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["\"CoeffMap\"", "InlineCode"]], "InlineFormula",
+  ExpressionUUID->"f8a9b0c1-2d3e-4f5a-6b7c-8d9e0f1a2b3c"],
+ " \[LongDash] Internal mapping from dummy coefficients to original expressions"
+}], "GuideText",
+ CellID->345672109,ExpressionUUID->"a9b0c1d2-3e4f-5a6b-7c8d-9e0f1a2b3c4d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell["Domain Selection", "GuideFunctionsSubsection",
+ CellID->456783210,ExpressionUUID->"b0c1d2e3-4f5a-6b7c-8d9e-0f1a2b3c4d5e"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["Domain -> Reals", "InlineCode"]], "InlineFormula",
+  ExpressionUUID->"c1d2e3f4-5a6b-7c8d-9e0f-1a2b3c4d5e6f"],
+ " \[LongDash] Adds discriminant conditions (\[CapitalDelta] \[GreaterEqual] 0) for real solutions"
+}], "GuideText",
+ CellID->567894321,ExpressionUUID->"d2e3f4a5-6b7c-8d9e-0f1a-2b3c4d5e6f7a"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["Domain -> Complexes", "InlineCode"]], "InlineFormula",
+  ExpressionUUID->"e3f4a5b6-7c8d-9e0f-1a2b-3c4d5e6f7a8b"],
+ " \[LongDash] No discriminant conditions, allows complex solutions"
+}], "GuideText",
+ CellID->678905432,ExpressionUUID->"f4a5b6c7-8d9e-0f1a-2b3c-4d5e6f7a8b9c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell["Tech Notes", "GuideTutorialsSection",
+ CellID->789016543,ExpressionUUID->"a5b6c7d8-9e0f-1a2b-3c4d-5e6f7a8b9c0d"],
+
+Cell["For detailed technical information, see the markdown documentation in the Documentation folder.", "GuideText",
+ CellID->890127654,ExpressionUUID->"b6c7d8e9-0f1a-2b3c-4d5e-6f7a8b9c0d1e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell["Related Links", "GuideMoreAboutSection",
+ CellID->901238765,ExpressionUUID->"c7d8e9f0-1a2b-3c4d-5e6f-7a8b9c0d1e2f"],
+
+Cell[TextData[ButtonBox["LongRunRisk Package",
+ BaseStyle->"Link",
+ ButtonData->"paclet:LongRunRisk/guide/Main"]], "GuideMoreAbout",
+ CellID->123459876,ExpressionUUID->"d8e9f0a1-2b3c-4d5e-6f7a-8b9c0d1e2f3a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell["Related Guides", "GuideRelatedLinksSection",
+ CellID->234560987,ExpressionUUID->"e9f0a1b2-3c4d-5e6f-7a8b-9c0d1e2f3a4b"],
+
+Cell[TextData[ButtonBox["LongRunRisk",
+ BaseStyle->"Link",
+ ButtonData->"paclet:LongRunRisk/guide/Main"]], "GuideRelatedLinks",
+ CellID->345671098,ExpressionUUID->"f0a1b2c3-4d5e-6f7a-8b9c-0d1e2f3a4b5c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell["Metadata", "MetadataSection",
+ CellID->456782109,ExpressionUUID->"a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d"],
+
+Cell[CellGroupData[{
+Cell["Categorization", "CategorizationSection",
+ CellID->567893210,ExpressionUUID->"b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e"],
+
+Cell["Guide", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->678904321,ExpressionUUID->"c3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"],
+
+Cell["LongRunRisk", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->789015432,ExpressionUUID->"d4e5f6a7-8b9c-0d1e-2f3a-4b5c6d7e8f9a"],
+
+Cell["LongRunRisk`", "Categorization",
+ CellLabel->"Context",
+ CellID->890126543,ExpressionUUID->"e5f6a7b8-9c0d-1e2f-3a4b-5c6d7e8f9a0b"],
+
+Cell["LongRunRisk/guide/ParamQuadSolver", "Categorization",
+ CellLabel->"URI",
+ CellID->901237654,ExpressionUUID->"f6a7b8c9-0d1e-2f3a-4b5c-6d7e8f9a0b1c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell["Keywords", "KeywordsSection",
+ CellID->123458765,ExpressionUUID->"a7b8c9d0-1e2f-3a4b-5c6d-7e8f9a0b1c2d"],
+
+Cell["polynomial equations", "Keywords",
+ CellID->234569876,ExpressionUUID->"b8c9d0e1-2f3a-4b5c-6d7e-8f9a0b1c2d3e"],
+
+Cell["quadratic solver", "Keywords",
+ CellID->345670987,ExpressionUUID->"c9d0e1f2-3a4b-5c6d-7e8f-9a0b1c2d3e4f"],
+
+Cell["parametric solutions", "Keywords",
+ CellID->456781098,ExpressionUUID->"d0e1f2a3-4b5c-6d7e-8f9a-0b1c2d3e4f5a"],
+
+Cell["sign variables", "Keywords",
+ CellID->567892109,ExpressionUUID->"e1f2a3b4-5c6d-7e8f-9a0b-1c2d3e4f5a6b"],
+
+Cell["solution branches", "Keywords",
+ CellID->678903210,ExpressionUUID->"f2a3b4c5-6d7e-8f9a-0b1c-2d3e4f5a6b7c"],
+
+Cell["square roots", "Keywords",
+ CellID->789014321,ExpressionUUID->"a3b4c5d6-7e8f-9a0b-1c2d-3e4f5a6b7c8d"],
+
+Cell["symbolic computation", "Keywords",
+ CellID->890125432,ExpressionUUID->"b4c5d6e7-8f9a-0b1c-2d3e-4f5a6b7c8d9e"],
+
+Cell["Groebner basis", "Keywords",
+ CellID->901236543,ExpressionUUID->"c5d6e7f8-9a0b-1c2d-3e4f-5a6b7c8d9e0f"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{Automatic, 330}, {Automatic, 105}},
+TaggingRules-><|"Paclet" -> "LongRunRisk"|>,
+FrontEndVersion->"14.1 for Mac OS X ARM (64-bit) (July 16, 2024)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStylesExt.nb",
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"
+]
