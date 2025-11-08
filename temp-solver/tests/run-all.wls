@@ -6,7 +6,7 @@ Module[{testsDir, files},
     Directory[]
   ];
   files = Select[Sort@FileNames["*.wls", testsDir], FileBaseName[#] =!= "run-all" &];
-  Print["Running ", Length[files], " test file(s) in ", testsDir, "...\n"]; 
+  Print["Running ", Length[files], " test file(s) in ", testsDir, "...\n"];
   Do[
     Print["==> ", FileNameTake[f]];
     Get[f];
@@ -14,4 +14,3 @@ Module[{testsDir, files},
   ];
   Print["\nAll tests finished."];
 ]
-

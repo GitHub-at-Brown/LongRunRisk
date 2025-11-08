@@ -109,6 +109,27 @@ Cell[TextData[{
 }, Open  ]],
 
 Cell[CellGroupData[{
+Cell["Subsystem Selection", "GuideFunctionsSubsection",
+ CellID->789016544,ExpressionUUID->"a1a2a3a4-b5c6-d7e8-f9a0-b1c2d3e4f5a6"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["OnlyQuadTerms -> False", "InlineCode"]], "InlineFormula",
+  ExpressionUUID->"b1b2b3b4-c5d6-e7f8-a9b0-c1d2e3f4a5b6"],
+ " \[LongDash] Solve for all variables (default behavior)"
+}], "GuideText",
+ CellID->890127655,ExpressionUUID->"c2c3c4c5-d6e7-f8a9-b0c1-d2e3f4a5b6c7"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox["OnlyQuadTerms -> True", "InlineCode"]], "InlineFormula",
+  ExpressionUUID->"d3d4d5d6-e7f8-a9b0-c1d2-e3f4a5b6c7d8"],
+ " \[LongDash] Solve only for variables with degree \[GreaterEqual] 2, treating others as parameters. Returns \"DeferredVariables\" and \"DeferredEquations\" keys."
+}], "GuideText",
+ CellID->901238766,ExpressionUUID->"e4e5e6e7-f8a9-b0c1-d2e3-f4a5b6c7d8e9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 Cell["Tech Notes", "GuideTutorialsSection",
  CellID->789016543,ExpressionUUID->"a5b6c7d8-9e0f-1a2b-3c4d-5e6f7a8b9c0d"],
 
