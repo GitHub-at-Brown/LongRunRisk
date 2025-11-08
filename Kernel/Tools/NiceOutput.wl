@@ -65,7 +65,6 @@ $ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
-Needs["FernandoDuarte`LongRunRisk`Tools`WriteToMatlab`"];
 Needs["PacletizedResourceFunctions`"];
 Needs["MaTeX`"];
 
@@ -232,32 +231,21 @@ paramTable[m_]:=Module[
 						{"Symbol"},
 						If[$Notebooks,MaTeX[Values[mtom],FontSize->16],Values[mtom]]
 					],
-					Join[
-						{"Initial value"},
-						Map[
-							If[
-								NumberQ[#],
-								"-",
-								If[
-									MatchQ[#,_[SetSymbolsContext[i]]],
-									Block[{i=SetSymbolsContext[i]},Table[#/.i->j,{j,1,m["numStocks"]}]],
-									#
-								] //. SetSymbolsContext[m["parameters"]]
-							]&,
-							ToExpression/@Keys[mtom]
-						]
-					],
-					Join[
-						{"Matlab"},
-						Join[
-							paramToMatlab/@(ToExpression/@Keys[mtomNoStocks]),
-							Apply[
-								paramToMatlab[ToExpression[#]]&,
-								iToNum[mtomStocks,m["numStocks"]],
-								{2}
-							]
-						]
-					]
+            Join[
+                {"Initial value"},
+                Map[
+                    If[
+                        NumberQ[#],
+                        "-",
+                        If[
+                            MatchQ[#,_[SetSymbolsContext[i]]],
+                            Block[{i=SetSymbolsContext[i]},Table[#/.i->j,{j,1,m["numStocks"]}]],
+                            #
+                        ] //. SetSymbolsContext[m["parameters"]]
+                    ]&,
+                    ToExpression/@Keys[mtom]
+                ]
+            ]
 				},(*Transposed list*)
 				Alignment->Left,
 				Spacings->{2,1},
@@ -312,32 +300,21 @@ allParamTable[m_]:=OpenerView[
 						ToExpression/@Keys[modelToTeX]
 					]
 				],
-				Join[
-					{"Initial value"},
-					Map[
-						If[
-							NumberQ[#],
-							"-",
-							If[
-								MatchQ[#,_[SetSymbolsContext[i]]],
-								Block[{i=SetSymbolsContext[i]},Table[#/.i->j,{j,1,m["numStocks"]}]],
-								#
-							] //. SetSymbolsContext[m["parameters"]]
-						]&,
-						ToExpression/@Keys[modelToTeX]
-					]
-				],
-				Join[
-					{"Matlab"},
-					Join[
-						paramToMatlab/@(ToExpression/@Keys[modelToTeXNoStocks]),
-						Apply[
-							paramToMatlab[ToExpression[#]]&,
-							iToNum[modelToTeXStocks,m["numStocks"]],
-							{2}
-						]
-					]
-				]
+            Join[
+                {"Initial value"},
+                Map[
+                    If[
+                        NumberQ[#],
+                        "-",
+                        If[
+                            MatchQ[#,_[SetSymbolsContext[i]]],
+                            Block[{i=SetSymbolsContext[i]},Table[#/.i->j,{j,1,m["numStocks"]}]],
+                            #
+                        ] //. SetSymbolsContext[m["parameters"]]
+                    ]&,
+                    ToExpression/@Keys[modelToTeX]
+                ]
+            ]
 			},
 			Alignment->Left,
 			Spacings->{2,1},
