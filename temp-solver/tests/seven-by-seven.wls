@@ -44,8 +44,8 @@ Module[{testDir, pkgPath, vars, sys, params, sysN, res, signKeys, assigns,
 
   (* Package solution and enumeration over signs *)
   res = ParamQuadSolver`ParamQuadSolve[sysN, vars,
-    ParamQuadSolver`Validation -> False,
-    ParamQuadSolver`Domain -> Reals
+    Validation -> False,
+    Domain -> Reals
   ];
   signKeys = Keys[res["SignRootMap"]];
   assigns = Tuples[{-1, 1}, Length[signKeys]];

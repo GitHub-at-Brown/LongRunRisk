@@ -7,7 +7,7 @@ Module[{testDir, pkgPath, eq, vars, r, leftover, ver},
 
   eq = {x == 0, x == 1, y == 0};
   vars = {x, y};
-  r = ParamQuadSolver`ParamQuadSolve[eq, vars, ParamQuadSolver`Validation -> True];
+  r = ParamQuadSolver`ParamQuadSolve[eq, vars, Validation -> True];
   leftover = r["Diagnostics"]["LeftoverEquations"];
   ver = r["Verification"];
 

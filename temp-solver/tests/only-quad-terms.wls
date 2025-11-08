@@ -10,20 +10,25 @@ Module[{testDir, pkgPath, loadRes},
 
   Print @ TestReport @ {
     VerificationTest[
-      Module[{eqns, vars, res, solvedVars, deferredVars, diagnostics},
-        eqns = {x^2 + y^2 + z^2 == 3, x^2 + 2 x - 1 == 0};
+      ParamQuadSolver`ParamQuadSolve[{x^2 + y^2 + z^2 == 3, x^2 + 2 x - 1 == 0}, {x, y, z}, ParamQuadSolver`OnlyQuadTerms -> True],
+      $Failed,
+      SameMessages -> {ParamQuadSolve::nocover},
+      TestID -> "onlyquad-reject-partial"
+    ],
+
+    VerificationTest[
+      Module[{eqns, vars, res, solvedVars, diagnostics},
+        eqns = {x^2 - 1 == 0, y^2 - 4 == 0, z^2 - 9 == 0};
         vars = {x, y, z};
         res = ParamQuadSolver`ParamQuadSolve[eqns, vars, ParamQuadSolver`OnlyQuadTerms -> True];
-        solvedVars = Sort[res["Solution"][[All, 1]]];
-        deferredVars = res["DeferredVariables"];
+        solvedVars = Sort[res["Diagnostics"]["SolvedQuadraticVariables"]];
         diagnostics = res["Diagnostics"];
         AssociationQ[res] &&
-        solvedVars === {x, y} &&
-        deferredVars === {z} &&
-        diagnostics["OnlyQuadTermsApplied"] === True
+        solvedVars === {x, y, z} &&
+        diagnostics["DeferredVariables"] === {}
       ],
       True,
-      TestID -> "onlyquad-selects-subset"
+      TestID -> "onlyquad-all-covered"
     ],
 
     VerificationTest[

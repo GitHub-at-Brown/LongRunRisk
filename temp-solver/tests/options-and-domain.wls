@@ -1,31 +1,36 @@
-(* Options API coverage: qualified/unqualified options parity, SignSymbol rename,
-   Domain effects, and Assumptions override path. *)
+(* Options API coverage: clean load, Method/MonomialOrder wiring, SignSymbol rename,
+   and explicit radicand constraints. *)
 
-Module[{testDir, pkgPath, eq, vars, r1, r2, r3, r4, signHeadOK, geCount},
+Module[{testDir, pkgPath, eq, vars, rBase, rSign, rSeq, rOrder, rRad, signHeadOK,
+  loadMessages, diagMethodOK, diagOrderOK, radCondOK},
   testDir = If[StringQ[$InputFileName] && $InputFileName =!= "", DirectoryName[$InputFileName], Directory[]];
   pkgPath = FileNameJoin[{DirectoryName[testDir], "ParamQuadSolve.wl"}];
-  Get[pkgPath];
+  loadMessages = Block[{$MessageList = {}}, Get[pkgPath]; $MessageList];
 
   (* Base small system *)
   eq = {x^2 - 5 == 0, y + 2 x - 3 == 0};
   vars = {x, y};
 
-  r1 = Quiet[ParamQuadSolver`ParamQuadSolve[eq, vars, Domain -> Reals, Validation -> True], {Power::infy, Infinity::indet}];
-  r2 = Quiet[ParamQuadSolver`ParamQuadSolve[eq, vars, ParamQuadSolver`Domain -> Reals, ParamQuadSolver`Validation -> True], {Power::infy, Infinity::indet}];
+  rBase = Quiet[ParamQuadSolver`ParamQuadSolve[eq, vars, Domain -> Reals, Validation -> True], {Power::infy, Infinity::indet}];
+  rSeq = Quiet[ParamQuadSolver`ParamQuadSolve[eq, vars, Domain -> Reals, Validation -> False, Method -> "Sequential"], {Power::infy, Infinity::indet}];
+  diagMethodOK = rSeq["Diagnostics"]["Method"] === "Sequential";
+  rOrder = Quiet[ParamQuadSolver`ParamQuadSolve[eq, vars, Domain -> Reals, Validation -> False, Method -> "SequentialWithGroebner", MonomialOrder -> DegreeReverseLexicographic], {Power::infy, Infinity::indet}];
+  diagOrderOK = rOrder["Diagnostics"]["GroebnerMonomialOrder"] === DegreeReverseLexicographic;
 
   (* Sign head rename *)
-  r3 = Quiet[ParamQuadSolver`ParamQuadSolve[eq, vars, ParamQuadSolver`SignSymbol -> sg, ParamQuadSolver`Domain -> Reals], {Power::infy, Infinity::indet}];
-  signHeadOK = And @@ (Head /@ Keys[r3["SignRootMap"]] === Table[sg, {Length[Keys[r3["SignRootMap"]]]}]);
+  rSign = Quiet[ParamQuadSolver`ParamQuadSolve[eq, vars, ParamQuadSolver`SignSymbol -> sg, Domain -> Reals], {Power::infy, Infinity::indet}];
+  signHeadOK = And @@ (Head /@ Keys[rSign["SignRootMap"]] === Table[sg, {Length[Keys[rSign["SignRootMap"]]]}]);
 
-  (* Domain effects: parameterized discriminant -> inequality only under Reals *)
-  r4 = Quiet[ParamQuadSolver`ParamQuadSolve[{x^2 - t == 0, z == 0}, {x, z}, ParamQuadSolver`Domain -> Reals, ParamQuadSolver`Validation -> False], {Power::infy, Infinity::indet}];
-  geCount = Count[r4["Conditions"], _GreaterEqual, Infinity];
+  (* Radicand inequality references the sign variable *)
+  rRad = Quiet[ParamQuadSolver`ParamQuadSolve[{x^2 - 1 == 0, y^2 - x == 0}, {x, y}, Domain -> Reals, Validation -> False], {Power::infy, Infinity::indet}];
+  radCondOK = MemberQ[rRad["Conditions"], ParamQuadSolver`signA[1] >= 0];
   
   Print @ TestReport @ {
-    VerificationTest[AssociationQ[r1] && AssociationQ[r2], True, TestID -> "assoc-r1-r2"],
-    VerificationTest[r1["Solution"] === r2["Solution"], True, TestID -> "solution-parity"],
-    VerificationTest[r1["SignRootMap"] === r2["SignRootMap"], True, TestID -> "signmap-parity"],
+    VerificationTest[loadMessages === {}, True, TestID -> "package-load-clean"],
+    VerificationTest[AssociationQ[rBase], True, TestID -> "assoc-r1"],
+    VerificationTest[diagMethodOK, True, TestID -> "method-option-used"],
+    VerificationTest[diagOrderOK, True, TestID -> "monomial-order-recorded"],
     VerificationTest[signHeadOK, True, TestID -> "signsymbol-head"],
-    VerificationTest[geCount >= 1, True, TestID -> "reals-conditions-include-radicand"]
+    VerificationTest[radCondOK, True, TestID -> "radicand-sign-constraint"]
   };
 ]

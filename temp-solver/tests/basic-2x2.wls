@@ -14,7 +14,7 @@ Module[{testDir, pkgPath, loadRes, eqns, vars, res, signSym, rad},
   };
   vars = {x, y};
 
-  res = ParamQuadSolver`ParamQuadSolve[eqns, vars, ParamQuadSolver`Validation -> True, ParamQuadSolver`Domain -> Reals];
+  res = ParamQuadSolver`ParamQuadSolve[eqns, vars, Validation -> True, Domain -> Reals];
   signSym = First[Keys[res["SignRootMap"]]];
   rad = res["SignRootMap"][signSym];
 

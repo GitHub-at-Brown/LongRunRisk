@@ -16,7 +16,7 @@ Module[{testDir, pkgPath, eqns, vars, params, res, signKeys, assigns, ourRules, 
   };
   vars = {x, y};
 
-  res = ParamQuadSolver`ParamQuadSolve[eqns, vars, ParamQuadSolver`Validation -> True, ParamQuadSolver`Domain -> Reals];
+  res = ParamQuadSolver`ParamQuadSolve[eqns, vars, Validation -> True, Domain -> Reals];
   signKeys = Keys[res["SignRootMap"]];
   assigns = Tuples[{-1, 1}, Length[signKeys]];
   ourRules = Map[(res["Solution"] /. Thread[signKeys -> #]) &, assigns];

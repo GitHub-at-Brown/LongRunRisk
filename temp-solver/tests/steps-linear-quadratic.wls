@@ -7,7 +7,7 @@ Module[{testDir, pkgPath, eq, vars, r, steps},
 
   eq = {x^2 - 5 == 0, y + 2 x - 3 == 0};
   vars = {x, y};
-  r = ParamQuadSolver`ParamQuadSolve[eq, vars, ParamQuadSolver`Domain -> Reals, ParamQuadSolver`Validation -> False];
+  r = ParamQuadSolver`ParamQuadSolve[eq, vars, Domain -> Reals, Validation -> False];
   steps = r["Diagnostics"]["Steps"];
 
   Print @ TestReport @ {

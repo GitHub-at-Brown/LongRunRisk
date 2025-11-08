@@ -17,8 +17,8 @@ Module[{testDir, pkgPath, eqns, vars, res, signKeys, radVals, radSq, rulesFor},
   vars = {x, y, z};
 
   res = ParamQuadSolver`ParamQuadSolve[eqns, vars,
-    ParamQuadSolver`Validation -> True,
-    ParamQuadSolver`Domain -> Reals
+    Validation -> True,
+    Domain -> Reals
   ];
 
   signKeys = Keys[res["SignRootMap"]];

@@ -7,7 +7,7 @@ Module[{testDir, pkgPath, eq, vars, r, signs, rules, tuples, uniqueTuples},
 
   eq = {x^2 + 2 x + 1 == 0, y == x + 1};
   vars = {x, y};
-  r = ParamQuadSolver`ParamQuadSolve[eq, vars, ParamQuadSolver`Domain -> Reals, ParamQuadSolver`Validation -> True];
+  r = ParamQuadSolver`ParamQuadSolve[eq, vars, Domain -> Reals, Validation -> True];
   signs = Keys[r["SignRootMap"]];
   rules = If[Length[signs] == 0, {r["Solution"]}, (r["Solution"] /. Thread[signs -> #]) & /@ Tuples[{-1, 1}, Length[signs]]];
   tuples = N[(vars /. #) & /@ rules, 30];

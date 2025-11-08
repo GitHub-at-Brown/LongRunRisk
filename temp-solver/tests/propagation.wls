@@ -7,7 +7,7 @@ Module[{testDir, pkgPath, eq, vars, r, rhs},
 
   eq = {x == 1, y == x + 1, z == y + 1};
   vars = {x, y, z};
-  r = ParamQuadSolver`ParamQuadSolve[eq, vars, ParamQuadSolver`Validation -> False];
+  r = ParamQuadSolver`ParamQuadSolve[eq, vars, Validation -> False];
   rhs = r["Solution"][[All, 2]];
 
   Print @ TestReport @ {

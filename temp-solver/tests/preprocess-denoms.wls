@@ -7,7 +7,7 @@ Module[{testDir, pkgPath, eq, vars, r, conds, hasPsiDen, hasExpDen, coeffKeysOK,
 
   eq = {x == a/(1 - 1/psi), y == b/(1 + Exp[A[0]])};
   vars = {x, y};
-  r = ParamQuadSolver`ParamQuadSolve[eq, vars, ParamQuadSolver`Domain -> Reals, ParamQuadSolver`Validation -> False];
+  r = ParamQuadSolver`ParamQuadSolve[eq, vars, Domain -> Reals, Validation -> False];
   conds = r["Conditions"];
   condExpr = And @@ conds;
   hasPsiDen = Simplify[condExpr /. psi -> 1] === False;
