@@ -12,14 +12,14 @@ ParamQuadSolve::usage =
   "ParamQuadSolve[eqns, vars, opts] returns an Association with keys \"Solution\", \"SignRootMap\", \"CoeffMap\", \"Conditions\", \"Verification\", and \"Diagnostics\".";
 
 Options[ParamQuadSolve] = {
-  ParamQuadSolver`Domain -> Reals,
-  ParamQuadSolver`Assumptions -> Automatic,
-  ParamQuadSolver`Method -> Automatic,
-  ParamQuadSolver`MonomialOrder -> Automatic,
-  ParamQuadSolver`Validation -> True,
-  ParamQuadSolver`Return -> "All",
-  ParamQuadSolver`Timeout -> 300,
-  ParamQuadSolver`Diagnostics -> False,
+  ParamQuadSolver`DomainOption -> Reals,
+  Assumptions -> Automatic,
+  Method -> Automatic,
+  MonomialOrder -> Automatic,
+  ParamQuadSolver`ValidationOption -> True,
+  ParamQuadSolver`ReturnOption -> "All",
+  ParamQuadSolver`TimeoutOption -> 300,
+  ParamQuadSolver`DiagnosticsOption -> False,
   ParamQuadSolver`OnlyQuadTerms -> False,
   ParamQuadSolver`SignSymbol -> signA
 };
