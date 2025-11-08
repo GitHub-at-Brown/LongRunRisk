@@ -35,7 +35,8 @@ Cell[TextData[{
     StyleBox["vars", "TI"]}], "]"}]], "InlineFormula",ExpressionUUID->
   "62d2dfde-3ef4-4928-9440-96095c571bb4"],
  "\[LineSeparator]solves a square system of polynomial equations where each \
-equation is at most quadratic in each variable with no cross-terms.\n",
+equation is at most quadratic in each variable; bilinear cross-terms are \
+permitted because the degree test is per variable.\n",
  Cell["   ", "ModInfo",ExpressionUUID->"5363ec5d-d01d-416a-b2c4-b3d1b2419680"],
  Cell[BoxData[
   RowBox[{
@@ -87,14 +88,24 @@ Cell[TextData[{
  "Sign variables can take values ",
  Cell[BoxData[
   RowBox[{"+", "1"}]], "InlineFormula",ExpressionUUID->
-  "a7b8c9d0-e1f2-3456-7890-123456789abc"],
+ "a7b8c9d0-e1f2-3456-7890-123456789abc"],
  " or ",
  Cell[BoxData[
   RowBox[{"-", "1"}]], "InlineFormula",ExpressionUUID->
-  "b8c9d0e1-f2a3-4567-8901-234567890bcd"],
+ "b8c9d0e1-f2a3-4567-8901-234567890bcd"],
  ", representing the two branches of each square root."
 }], "Notes",
  CellID->103456789,ExpressionUUID->"0ca65932-a04b-428e-b2a0-a2380bd807a4"],
+
+Cell[TextData[{
+ "Bilinear cross-terms such as ",
+ Cell[BoxData[
+  RowBox[{"x", " ", "y"}]], "InlineFormula",ExpressionUUID->
+  "xy789012-3456-7890-abcd-ef1234567890"],
+ " keep each variable's degree at 1, so the solver still treats the system \
+as per-variable-quadratic."
+}], "Notes",
+ CellID->118001234,ExpressionUUID->"deac5c4a-4f9c-4c5a-853d-187fdc0913a2"],
 
 Cell[TextData[{
  "For a system with ",
@@ -130,6 +141,50 @@ The \"DeferredVariables\" and \"DeferredEquations\" keys contain variables and \
 equations not included when OnlyQuadTerms is used.\
 \>", "Notes",
  CellID->116789012,ExpressionUUID->"d2e3f4a5-b6c7-d8e9-f0a1-b2c3d4e5f6a7"],
+
+Cell["The \"Verification\" list reports only the equations that were solved. \
+When OnlyQuadTerms -> True, deferred equations are not automatically \
+validated.", "Notes",
+ CellID->118101235,ExpressionUUID->"fe5cd0fc-10a5-44e7-9ab3-f1460182123a"],
+
+Cell["Options accept both short names (Domain, Assumptions, Method, \
+MonomialOrder, Validation, Return, Timeout, Diagnostics, OnlyQuadTerms, \
+SignSymbol) and their ParamQuadSolver`*Option counterparts.", "Notes",
+ CellID->118889013,ExpressionUUID->"e5cf4b9d-5014-4cba-8d3b-35eab3b11be1"],
+
+Cell["Method accepts Automatic, \"Sequential\", or \
+\"SequentialWithGroebner\". GroebnerBasis is only attempted in the sequential \
+with Groebner mode, and MonomialOrder is honored there.", "Notes",
+ CellID->118201236,ExpressionUUID->"48d3c115-7186-4455-88dd-973e4e9a0077"],
+
+Cell["MonomialOrder can be any order supported by GroebnerBasis (Lexicographic, \
+DegreeReverseLexicographic, etc.) and is ignored when Groebner steps are \
+disabled.", "Notes",
+ CellID->118301237,ExpressionUUID->"9c7a2b9f-2f62-4b43-9da5-1b11da1f8e1b"],
+
+Cell["Return -> list projects the final association onto the requested keys, \
+which is useful for suppressing the default Diagnostics payload.", "Notes",
+ CellID->118401238,ExpressionUUID->"9d5c2fe7-379e-4ba3-8a67-4477f9d1f0ef"],
+
+Cell["Timeout bounds the sequential solve in seconds (values <= 0 are \
+rejected); a timeout returns <|\"Error\" -> \"Timeout or failure during \
+solving\"|>.", "Notes",
+ CellID->118501239,ExpressionUUID->"8cedf6c5-0444-41dd-9c44-5bb6f928875f"],
+
+Cell["SignSymbol -> head lets you pick a different symbol for the \[PlusMinus] \
+choices; each sign still satisfies sign[k]^2 == 1 and is listed in \
+\"SignRootMap\".", "Notes",
+ CellID->118601240,ExpressionUUID->"a501e634-2c31-4f33-8802-9422cbab3146"],
+
+Cell["Diagnostics -> True/False is currently informational; the solver always \
+returns a diagnostics association, but you can omit it via Return -> {...}.", \
+"Notes",
+ CellID->118701241,ExpressionUUID->"c8cec509-793d-4a40-89ed-3b3abe617d40"],
+
+Cell["Assumptions -> expr is combined with the solver\[CloseCurlyQuote]s default economic \
+assumptions; set Assumptions -> True if you need to clear the defaults.", \
+"Notes",
+ CellID->118801242,ExpressionUUID->"6d55cf16-d909-4428-b3bc-8a6a3f2dcf24"],
 
 Cell[TextData[{
  "Error messages include ",
@@ -383,48 +438,16 @@ Cell[BoxData[{
  CellID->214567890,ExpressionUUID->"a1b0c9d8-e7f6-a5b4-c3d2-e1f0a9b8c7d6"],
 
 Cell[BoxData[
- RowBox[{"\[LeftAssociation]",
+ RowBox[{"{",
   RowBox[{
-   RowBox[{"\"\<Solution\>\"", "\[Rule]",
-    RowBox[{"{",
-     RowBox[{
-      RowBox[{"x", "\[Rule]",
-       RowBox[{
-        RowBox[{"signA", "[", "1", "]"}], " ",
-        SqrtBox["5"]}]}], ",",
-      RowBox[{"y", "\[Rule]",
-       RowBox[{"2", " ",
-        RowBox[{"signA", "[", "1", "]"}], " ",
-        SqrtBox["5"]}]}]}], "}"}]}], ",",
-   RowBox[{"\"\<SignRootMap\>\"", "\[Rule]",
-    RowBox[{"\[LeftAssociation]",
-     RowBox[{
-      RowBox[{"signA", "[", "1", "]"}], "\[Rule]",
-      SqrtBox["5"]}], "\[RightAssociation]"}]}], ",",
-   RowBox[{"\"\<Conditions\>\"", "\[Rule]",
-    RowBox[{"{",
-     RowBox[{"5", "\[GreaterEqual]", "0"}], "}"}]}], ",",
-   RowBox[{"\"\<Verification\>\"", "\[Rule]",
-    RowBox[{"{",
-     RowBox[{"True", ",", "True"}], "}"}]}], ",",
-   RowBox[{"\"\<CoeffMap\>\"", "\[Rule]",
-    RowBox[{"\[LeftAssociation]", "\[RightAssociation]"}]}], ",",
-   RowBox[{"\"\<Diagnostics\>\"", "\[Rule]",
-    RowBox[{"\[LeftAssociation]",
-     RowBox[{
-      RowBox[{"\"\<LeftoverEquations\>\"", "\[Rule]",
-       RowBox[{"{", "}"}]}], ",",
-      RowBox[{"\"\<Steps\>\"", "\[Rule]",
-       RowBox[{"{",
-        RowBox[{
-         RowBox[{"{",
-          RowBox[{"\"\<quadratic\>\"", ",", "x"}], "}"}], ",",
-         RowBox[{"{",
-          RowBox[{"\"\<linear\>\"", ",", "y"}], "}"}]}], "}"}]}], ",",
-      RowBox[{"\"\<TimingSeconds\>\"", "\[Rule]", "0.0234`"}], ",",
-      RowBox[{"\"\<Method\>\"", "\[Rule]",
-       "\"\<Sequential+FallbackGB\>\""}]}], "\[RightAssociation]"}]}]}],
-  "\[RightAssociation]"}]], "Output",
+   RowBox[{"x", "\[Rule]",
+    RowBox[{
+     SqrtBox["5"], " ",
+     RowBox[{"signA", "[", "1", "]"}]}]}], ",",
+   RowBox[{"y", "\[Rule]",
+    RowBox[{"2", " ",
+     SqrtBox["5"], " ",
+     RowBox[{"signA", "[", "1", "]"}]}]}]}], "}"}]], "Output",
  CellLabel->"Out[3]=",
  CellID->225678901,ExpressionUUID->"b2c1d0e9-f8a7-b6c5-d4e3-f2a1b0c9d8e7"]
 
@@ -577,238 +600,16 @@ Cell[BoxData[{
  CellID->347890123,ExpressionUUID->"d6e5f4a3-b2c1-d0e9-f8a7-b6c5d4e3f2a1"],
 
 Cell[BoxData[
- RowBox[{"\[LeftAssociation]",
-  RowBox[{
-   RowBox[{"\"\<Solution\>\"", "\[Rule]",
-    RowBox[{"{",
-     RowBox[{
-      RowBox[{"x", "\[Rule]",
-       RowBox[{
-        RowBox[{"signA", "[", "1", "]"}], " ",
-        SqrtBox["5"]}]}], ",",
-      RowBox[{"y", "\[Rule]",
-       RowBox[{
-        RowBox[{"signA", "[", "2", "]"}], " ",
-        SqrtBox["13"]}]}]}], "}"}]}], ",",
-   RowBox[{"\"\<SignRootMap\>\"", "\[Rule]",
-    RowBox[{"\[LeftAssociation]",
-     RowBox[{
-      RowBox[{
-       RowBox[{"signA", "[", "1", "]"}], "\[Rule]",
-       SqrtBox["5"]}], ",",
-      RowBox[{
-       RowBox[{"signA", "[", "2", "]"}], "\[Rule]",
-       SqrtBox["13"]}]}], "\[RightAssociation]"}]}], ",",
-   RowBox[{"\"\<Conditions\>\"", "\[Rule]",
-    RowBox[{"{",
-     RowBox[{
-      RowBox[{"5", "\[GreaterEqual]", "0"}], ",",
-      RowBox[{"13", "\[GreaterEqual]", "0"}]}], "}"}]}], ",",
-   RowBox[{"\"\<Verification\>\"", "\[Rule]",
-    RowBox[{"{",
-     RowBox[{"True", ",", "True"}], "}"}]}]}], "\[RightAssociation]"}]], \
-"Output",
- CellLabel->"Out[2]=",
- CellID->358901234,ExpressionUUID->"e7f6a5b4-c3d2-e1f0-a9b8-c7d6e5f4a3b2"],
-
-Cell[TextData[{
- "With two sign variables, there are ",
- Cell[BoxData[
-  SuperscriptBox["2", "2"]], "InlineFormula",ExpressionUUID->
-  "f8a7b6c5-d4e3-f2a1-b0c9-d8e7f6a5b4c3"],
- " = 4 solution branches."
-}], "ExampleText",
- CellID->369012345,ExpressionUUID->"a9b8c7d6-e5f4-a3b2-c1d0-e9f8a7b6c5d4"]
-
-}, Open  ]],
-
-Cell["Solve a system with bilinear terms:", "ExampleText",
- CellID->369512346,ExpressionUUID->"aa18c7d7-e6f5-a4b3-c2d1-e0f9a8b7c6d6"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[{
- RowBox[{"eqns", "=",
-  RowBox[{"{",
-   RowBox[{
-    RowBox[{
-     RowBox[{
-      SuperscriptBox["x", "2"], "+",
-      RowBox[{"x", " ", "y"}]}], "\[Equal]", "5"}], ",",
-    RowBox[{
-     RowBox[{
-      SuperscriptBox["y", "2"], "-",
-      RowBox[{"x", " ", "y"}]}], "\[Equal]", "3"}]}], "}"}]}], "\n",
- RowBox[{"result", "=",
-  RowBox[{"ParamQuadSolve", "[",
-   RowBox[{"eqns", ",",
-    RowBox[{"{",
-     RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}]}], "Input",
- CellLabel->"In[3]:=",
- CellID->369612347,ExpressionUUID->"ab28c8d8-e7f6-a5b4-c3d2-e1f0a9b8c7d7"],
-
-Cell[BoxData[
- RowBox[{"\[LeftAssociation]",
-  RowBox[{
-   RowBox[{"\"\<Solution\>\"", "\[Rule]",
-    RowBox[{"{",
-     RowBox[{
-      RowBox[{"x", "\[Rule]",
-       RowBox[{
-        FractionBox[
-         RowBox[{"-", "y"}], "2"], "+",
-        FractionBox[
-         RowBox[{
-          RowBox[{"signA", "[", "1", "]"}], " ",
-          SqrtBox[
-           RowBox[{
-            RowBox[{"20", " ", "y"}], "+",
-            SuperscriptBox["y", "2"]}]]}], "2"]}]}], ",",
-      RowBox[{"y", "\[Rule]",
-       RowBox[{
-        RowBox[{"signA", "[", "2", "]"}], " ",
-        SqrtBox["3"]}]}]}], "}"}]}], ",",
-   RowBox[{"\"\<SignRootMap\>\"", "\[Rule]",
-    RowBox[{"\[LeftAssociation]",
-     RowBox[{
-      RowBox[{
-       RowBox[{"signA", "[", "1", "]"}], "\[Rule]",
-       SqrtBox[
-        RowBox[{
-         RowBox[{"20", " ", "y"}], "+",
-         SuperscriptBox["y", "2"]}]]}], ",",
-      RowBox[{
-       RowBox[{"signA", "[", "2", "]"}], "\[Rule]",
-       SqrtBox["3"]}]}], "\[RightAssociation]"}]}], ",",
-   RowBox[{"\"\<Verification\>\"", "\[Rule]",
-    RowBox[{"{",
-     RowBox[{"True", ",", "True"}], "}"}]}]}], "\[RightAssociation]"}]], \
-"Output",
- CellLabel->"Out[4]=",
- CellID->369712348,ExpressionUUID->"ac38c9d9-e8f7-a6b5-c4d3-e2f1a0b9c8d8"]
-
-}, Open  ]],
-
-Cell[TextData[{
- "Each variable has degree 2, not 3, because the ",
- Cell[BoxData[
-  RowBox[{"x", " ", "y"}]], "InlineFormula",ExpressionUUID->
-  "ad48d0da-e9f8-a7b6-c5d4-e3f2a1b0c9d9"],
- " term is degree-1 in each variable separately (per-variable degree)."
-}], "ExampleText",
- CellID->369812349,ExpressionUUID->"ae58d1db-f0a9-b8c7-d6e5-f4a3b2c1d0ea"]
-
-}, Open  ]]
-
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- InterpretationBox[Cell[
-  "Options", "ExampleSection",ExpressionUUID->
-   "b0c9d8e7-f6a5-b4c3-d2e1-f0a9b8c7d6e5"],
-  $Line = 0; Null]], "ExampleSection",
- CellID->370123456,ExpressionUUID->"c1d0e9f8-a7b6-c5d4-e3f2-a1b0c9d8e7f6"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- InterpretationBox[Cell[
-  "Domain", "ExampleSubsection",ExpressionUUID->
-   "d2e1f0a9-b8c7-d6e5-f4a3-b2c1d0e9f8a7"],
-  $Line = 0; Null]], "ExampleSubsection",
- CellID->381234567,ExpressionUUID->"e3f2a1b0-c9d8-e7f6-a5b4-c3d2e1f0a9b8"],
-
-Cell["Solve in the complex domain:", "ExampleText",
- CellID->392345678,ExpressionUUID->"f4a3b2c1-d0e9-f8a7-b6c5-d4e3f2a1b0c9"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"ParamQuadSolve", "[", "\n", "  ",
-  RowBox[{
-   RowBox[{"{",
-    RowBox[{
-     RowBox[{
-      RowBox[{
-       SuperscriptBox["x", "2"], "+", "5"}], "\[Equal]", "0"}], ",",
-     RowBox[{
-      RowBox[{"y", "-", "x"}], "\[Equal]", "0"}]}], "}"}], ",", "\n", "  ",
-
-   RowBox[{"{",
-    RowBox[{"x", ",", "y"}], "}"}], ",", "\n", "  ",
-   RowBox[{"Domain", "\[Rule]", "Complexes"}]}], "\n", "]"}]], "Input",
- CellLabel->"In[1]:=",
- CellID->403456789,ExpressionUUID->"a5b4c3d2-e1f0-a9b8-c7d6-e5f4a3b2c1d0"],
-
-Cell[BoxData[
- RowBox[{"\[LeftAssociation]",
-  RowBox[{
-   RowBox[{"\"\<Solution\>\"", "\[Rule]",
-    RowBox[{"{",
-     RowBox[{
-      RowBox[{"x", "\[Rule]",
-       RowBox[{"\[ImaginaryI]", " ",
-        RowBox[{"signA", "[", "1", "]"}], " ",
-        SqrtBox["5"]}]}], ",",
-      RowBox[{"y", "\[Rule]",
-       RowBox[{"\[ImaginaryI]", " ",
-        RowBox[{"signA", "[", "1", "]"}], " ",
-        SqrtBox["5"]}]}]}], "}"}]}], ",",
-   RowBox[{"\"\<SignRootMap\>\"", "\[Rule]",
-    RowBox[{"\[LeftAssociation]",
-     RowBox[{
-      RowBox[{"signA", "[", "1", "]"}], "\[Rule]",
-      SqrtBox["5"]}], "\[RightAssociation]"}]}], ",",
-   RowBox[{"\"\<Verification\>\"", "\[Rule]",
-    RowBox[{"{",
-     RowBox[{"True", ",", "True"}], "}"}]}]}], "\[RightAssociation]"}]], \
-"Output",
- CellLabel->"Out[1]=",
- CellID->414567890,ExpressionUUID->"b6c5d4e3-f2a1-b0c9-d8e7-f6a5b4c3d2e1"]
-
-}, Open  ]]
-
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- InterpretationBox[Cell[
-  "Validation", "ExampleSubsection",ExpressionUUID->
-   "a1a2b3b4-c5d6-e7f8-a9b0-c1d2e3f4a5b6"],
-  $Line = 0; Null]], "ExampleSubsection",
- CellID->424567890,ExpressionUUID->"b2c3d4e5-f6a7-b8c9-d0e1-f2a3b4c5d6e7"],
-
-Cell["\<\
-The Validation option controls whether solutions are automatically verified by \
-substitution back into the original equations.\
-\>", "ExampleText",
- CellID->425567890,ExpressionUUID->"c3d4e5f6-a7b8-c9d0-e1f2-a3b4c5d6e7f8"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[{
- RowBox[{"result", "=",
-  RowBox[{"ParamQuadSolve", "[",
-   RowBox[{
-    RowBox[{"{",
-     RowBox[{
-      RowBox[{
-       SuperscriptBox["x", "2"], "\[Equal]", "4"}], ",",
-      RowBox[{"y", "\[Equal]",
-       RowBox[{"2", "x"}]}]}], "}"}], ",",
-    RowBox[{"{",
-     RowBox[{"x", ",", "y"}], "}"}], ",",
-    RowBox[{"Validation", "\[Rule]", "True"}]}], "]"}]}], "\n",
- RowBox[{"result", "[", "\"\<Verification\>\"", "]"}]}], "Input",
- CellLabel->"In[1]:=",
- CellID->426567890,ExpressionUUID->"d4e5f6a7-b8c9-d0e1-f2a3-b4c5d6e7f8a9"],
-
-Cell[BoxData[
  RowBox[{"{",
-  RowBox[{"True", ",", "True"}], "}"}]], "Output",
+  RowBox[{
+   RowBox[{"x", "\[Rule]",
+    RowBox[{
+     SqrtBox["5"], " ",
+     RowBox[{"signA", "[", "1", "]"}]}]}], ",",
+   RowBox[{"y", "\[Rule]",
+    RowBox[{
+     SqrtBox["13"], " ",
+     RowBox[{"signA", "[", "2", "]"}]}]}]}], "}"}]], "Output",
  CellLabel->"Out[2]=",
  CellID->427567890,ExpressionUUID->"e5f6a7b8-c9d0-e1f2-a3b4-c5d6e7f8a9b0"]
 
@@ -1204,10 +1005,6 @@ Cell[TextData[{
 }], "ExampleText",
  CellID->471234567,ExpressionUUID->"d1e2f3a4-b5c6-d7e8-f9a0-b1c2d3e4f5a6"]
 
-}, Open  ]]
-
-}, Open  ]]
-
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1219,7 +1016,8 @@ Cell[BoxData[
   $Line = 0; Null]], "ExampleSection",
  CellID->472345678,ExpressionUUID->"b2b3c4d5-e6f7-a8b9-c0d1-e2f3a4b5c6d7"],
 
-Cell["Overdetermined systems may fail:", "ExampleText",
+Cell["Ill-conditioned bilinear systems can trigger singular warnings:", \
+"ExampleText",
  CellID->473456789,ExpressionUUID->"c3d4e5f6-a7b8-c9d0-e1f2-a3b4c5d6e7f8"],
 
 Cell[CellGroupData[{
@@ -1230,27 +1028,41 @@ Cell[BoxData[
    RowBox[{"{",
     RowBox[{
      RowBox[{
-      SuperscriptBox["x", "2"], "\[Equal]", "4"}], ",",
+      RowBox[{
+       SuperscriptBox["x", "2"], "+",
+       RowBox[{"x", " ", "y"}]}], "\[Equal]", "5"}], ",",
      RowBox[{
-      SuperscriptBox["x", "2"], "\[Equal]", "9"}], ",",
-     RowBox[{"y", "\[Equal]", "x"}]}], "}"}], ",",
+      RowBox[{
+       SuperscriptBox["y", "2"], "-",
+       RowBox[{"x", " ", "y"}]}], "\[Equal]", "3"}]}], "}"}], ",",
    RowBox[{"{",
     RowBox[{"x", ",", "y"}], "}"}]}], "]"}]], "Input",
  CellLabel->"In[1]:=",
  CellID->474567890,ExpressionUUID->"d4e5f6a7-b8c9-d0e1-f2a3-b4c5d6e7f8a9"],
 
+Cell[TextData[{
+ "Evaluating this system emits the warnings ",
+ StyleBox["Power::infy: Infinite expression - encountered.", "Program"],
+ " (twice) followed by ",
+ StyleBox["Infinity::indet: Indeterminate expression 0 c$13 \
+ComplexInfinity encountered.", "Program"],
+ " when the solver attempts to normalize a Groebner step whose denominator \
+vanishes."
+}], "ExampleText",
+ CellID->474767890,ExpressionUUID->"16cbab5c-f263-4063-9ee5-3a2d8eb5af52"],
+
 Cell[BoxData[
- RowBox[{"\[LeftAssociation]",
-  RowBox[{"\"\<Error\>\"", "\[Rule]",
-   "\"\<Timeout or failure during solving\>\""}],
-  "\[RightAssociation]"}]], "Output",
+ RowBox[{"{",
+  RowBox[{
+   RowBox[{"y", "\[Rule]", "Indeterminate"}], ",",
+   RowBox[{"x", "\[Rule]", "Indeterminate"}]}], "}"}]], "Output",
  CellLabel->"Out[1]=",
  CellID->475678901,ExpressionUUID->"e5f6a7b8-c9d0-e1f2-a3b4-c5d6e7f8a9b0"]
 
 }, Open  ]],
 
-Cell["Conflicting discriminant conditions return Or expressions:", \
-"ExampleText",
+Cell["Conflicting discriminant checks now return explicit inequalities without \
+warnings:", "ExampleText",
  CellID->476789012,ExpressionUUID->"f6a7b8c9-d0e1-f2a3-b4c5-d6e7f8a9b0c1"],
 
 Cell[CellGroupData[{
@@ -1279,15 +1091,65 @@ Cell[BoxData[
  RowBox[{"{",
   RowBox[{
    RowBox[{
-    RowBox[{
-     SuperscriptBox["a", "2"], "-",
-     RowBox[{"4", " ", "b"}]}], "\[GreaterEqual]", "0"}], "||",
+    SuperscriptBox["a", "2"], "\[GreaterEqual]",
+    RowBox[{"4", " ", "b"}]}], ",",
    RowBox[{
-    RowBox[{
-     SuperscriptBox["c", "2"], "-",
-     RowBox[{"4", " ", "d"}]}], "\[GreaterEqual]", "0"}]}], "}"}]], "Output",
+    SuperscriptBox["c", "2"], "\[GreaterEqual]",
+    RowBox[{"4", " ", "d"}]}]}], "}"}]], "Output",
  CellLabel->"Out[3]=",
  CellID->478901234,ExpressionUUID->"b8c9d0e1-f2a3-a4b5-c6d7-e8f9a0b1c2d3"]
+
+}, Open  ]],
+
+Cell["Earlier builds produced Power::infy messages here; the current solver \
+simplifies each discriminant check separately, so the output is quiet unless \
+you substitute parameter values that violate either inequality.", \
+"ExampleText",
+ CellID->478951235,ExpressionUUID->"c43bb2c1-0c50-4fff-9963-4a8eb7d7a44a"],
+
+Cell["Real-domain requests for complex roots trigger GreaterEqual::nord:", \
+"ExampleText",
+ CellID->478961236,ExpressionUUID->"298541d4-d601-42b1-8e5a-76d18194f7c0"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ParamQuadSolve", "[",
+  RowBox[{
+   RowBox[{"{",
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SuperscriptBox["x", "2"], "+", "5"}], "\[Equal]", "0"}], ",",
+     RowBox[{
+      RowBox[{"y", "-", "x"}], "\[Equal]", "0"}]}], "}"}], ",",
+   RowBox[{"{",
+    RowBox[{"x", ",", "y"}], "}"}]}], "]"}]], "Input",
+ CellLabel->"In[3]:=",
+ CellID->478971237,ExpressionUUID->"73fdc91d-98a6-4b08-9c71-07c566ded040"],
+
+Cell[TextData[{
+ "Evaluating this cell emits ",
+ StyleBox["GreaterEqual::nord: Invalid comparison with 10 I attempted.", \
+"Program"],
+ " because the real-domain discriminant test tries to compare \
+2\[ImaginaryI] Sqrt[5] against 0."
+}], "ExampleText",
+ CellID->478981238,ExpressionUUID->"7c89b73d-32be-424d-87fd-3dc613c8fc8f"],
+
+Cell[BoxData[
+ RowBox[{"{",
+  RowBox[{
+   RowBox[{"x", "\[Rule]",
+    RowBox[{"\[ImaginaryI]", " ",
+     SqrtBox["5"], " ",
+     RowBox[{"signA", "[", "1", "]"}]}]}], ",",
+   RowBox[{"y", "\[Rule]",
+    RowBox[{"\[ImaginaryI]", " ",
+     SqrtBox["5"], " ",
+     RowBox[{"signA", "[", "1", "]"}]}]}]}], "}"}]], "Output",
+ CellLabel->"Out[3]=",
+ CellID->478991239,ExpressionUUID->"ab9581ba-8c27-4f9a-b511-167fd6eaa737"]
 
 }, Open  ]],
 
@@ -1413,174 +1275,3 @@ StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStylesExt.nb",
 ExpressionUUID->"a1b2c3d4-e5f6-7890-abcd-ef1234567890"
 ]
 (* End of Notebook Content *)
-
-(* Internal cache information *)
-(*CellTagsOutline
-CellTagsIndex->{
- "ExtendedExamples"->{
-  Cell[27854, 741, 487, 13, 56, "ExtendedExamplesSection",ExpressionUUID->"f2a1b0c9-d8e7-f6a5-b4c3-d2e1f0a9b8c7",
-   CellTags->"ExtendedExamples",
-   CellID->314567890]}
- }
-*)
-(*CellTagsIndex
-CellTagsIndex->{
- {"ExtendedExamples", 35749, 982}
- }
-*)
-(*NotebookFileOutline
-Notebook[{
-Cell[CellGroupData[{
-Cell[576, 22, 125, 1, 72, "ObjectName",ExpressionUUID->"6e4ab28a-4c84-4cd9-97a0-d1e11ad56c42",
- CellID->184021964],
-Cell[704, 25, 1177, 27, 123, "Usage",ExpressionUUID->"54e04725-50b8-4a3b-97f8-55de39aa5597",
- CellID->51215664],
-Cell[1884, 54, 482, 10, 43, "Notes",ExpressionUUID->"688de85c-019c-4c7e-8d7a-f6b8b20c070c",
- CellID->70234256],
-Cell[2369, 66, 449, 11, 43, "Notes",ExpressionUUID->"d3e4f5a6-b7c8-9012-def1-234567890123",
- CellID->81234567],
-Cell[2821, 79, 201, 4, 41, "Notes",ExpressionUUID->"f5a6b7c8-d9e0-1234-f123-456789012345",
- CellID->92345678],
-Cell[3025, 85, 463, 11, 43, "Notes",ExpressionUUID->"0ca65932-a04b-428e-b2a0-a2380bd807a4",
- CellID->103456789],
-Cell[3491, 98, 445, 11, 43, "Notes",ExpressionUUID->"f5018c7b-43fe-4a65-9bd2-313c5e3d4374",
- CellID->114567890]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[3973, 114, 475, 13, 37, "SeeAlsoSection",ExpressionUUID->"27ad7bac-029b-4316-9787-51101466e479",
- CellID->170139965],
-Cell[4451, 129, 1691, 40, 23, "SeeAlso",ExpressionUUID->"c36d5d4a-b2a1-4ff2-8ecd-3d3f52ec9ad7",
- CellID->125678901],
-Cell[6145, 171, 1703, 41, 23, "SeeAlso",ExpressionUUID->"f7a6b5c4-d3e2-f1a0-b9c8-d7e6f5a4b3c2",
- CellID->136789012],
-Cell[7851, 214, 1717, 41, 23, "SeeAlso",ExpressionUUID->"d2e1f0a9-b8c7-d6e5-f4a3-b2c1d0e9f8a7",
- CellID->147890123]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[9605, 260, 187, 2, 37, "MoreAboutSection",ExpressionUUID->"e3f2a1b0-c9d8-e7f6-a5b4-c3d2e1f0a9b8",
- CellID->158901234],
-Cell[9795, 264, 293, 4, 19, "MoreAbout",ExpressionUUID->"f4a3b2c1-d0e9-f8a7-b6c5-d4e3f2a1b0c9",
- CellID->169012345]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[10125, 273, 551, 14, 37, "ExamplesInitializationSection",ExpressionUUID->"b6c5d4e3-f2a1-b0c9-d8e7-f6a5b4c3d2e1",
- CellID->170123456],
-Cell[10679, 289, 178, 3, 47, "ExampleInitialization",ExpressionUUID->"c7d6e5f4-a3b2-c1d0-e9f8-a7b6c5d4e3f2",
- CellID->181234567]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[10894, 297, 564, 14, 27, "PrimaryExamplesSection",ExpressionUUID->"e9f8a7b6-c5d4-e3f2-a1b0-c9d8e7f6a5b4",
- CellID->192345678],
-Cell[11461, 313, 139, 1, 24, "ExampleText",ExpressionUUID->"f0a9b8c7-d6e5-f4a3-b2c1-d0e9f8a7b6c5",
- CellID->203456789],
-Cell[CellGroupData[{
-Cell[11625, 318, 575, 17, 66, "Input",ExpressionUUID->"a1b0c9d8-e7f6-a5b4-c3d2-e1f0a9b8c7d6",
- CellID->214567890],
-Cell[12203, 337, 1807, 44, 100, "Output",ExpressionUUID->"b2c1d0e9-f8a7-b6c5-d4e3-f2a1b0c9d8e7",
- CellID->225678901]
-}, Open  ]],
-Cell[14025, 384, 123, 1, 24, "ExampleText",ExpressionUUID->"c3d2e1f0-a9b8-c7d6-e5f4-a3b2c1d0e9f8",
- CellID->236789012],
-Cell[CellGroupData[{
-Cell[14173, 389, 179, 3, 27, "Input",ExpressionUUID->"d4e3f2a1-b0c9-d8e7-f6a5-b4c3d2e1f0a9",
- CellID->247890123],
-Cell[14355, 394, 418, 12, 33, "Output",ExpressionUUID->"e5f4a3b2-c1d0-e9f8-a7b6-c5d4e3f2a1b0",
- CellID->258901234]
-}, Open  ]],
-Cell[14788, 409, 133, 1, 24, "ExampleText",ExpressionUUID->"f6a5b4c3-d2e1-f0a9-b8c7-d6e5f4a3b2c1",
- CellID->269012345],
-Cell[CellGroupData[{
-Cell[14946, 414, 802, 22, 105, "Input",ExpressionUUID->"a7b6c5d4-e3f2-a1b0-c9d8-e7f6a5b4c3d2",
- CellID->270123456],
-Cell[15751, 438, 188, 4, 26, "Output",ExpressionUUID->"b8c7d6e5-f4a3-b2c1-d0e9-f8a7b6c5d4e3",
- CellID->281234567],
-Cell[15942, 444, 249, 7, 26, "Output",ExpressionUUID->"c9d8e7f6-a5b4-c3d2-e1f0-a9b8c7d6e5f4",
- CellID->292345678],
-Cell[16194, 453, 591, 20, 51, "Output",ExpressionUUID->"d0e9f8a7-b6c5-d4e3-f2a1-b0c9d8e7f6a5",
- CellID->303456789]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[16834, 479, 519, 13, 57, "ExtendedExamplesSection",ExpressionUUID->"f2a1b0c9-d8e7-f6a5-b4c3-d2e1f0a9b8c7",
- CellTags->"ExtendedExamples",
- CellID->314567890],
-Cell[CellGroupData[{
-Cell[17378, 496, 251, 5, 35, "ExampleSection",ExpressionUUID->"b4c3d2e1-f0a9-b8c7-d6e5-f4a3b2c1d0e9",
- CellID->325678901],
-Cell[17632, 503, 148, 1, 24, "ExampleText",ExpressionUUID->"c5d4e3f2-a1b0-c9d8-e7f6-a5b4c3d2e1f0",
- CellID->336789012],
-Cell[CellGroupData[{
-Cell[17805, 508, 534, 17, 48, "Input",ExpressionUUID->"d6e5f4a3-b2c1-d0e9-f8a7-b6c5d4e3f2a1",
- CellID->347890123],
-Cell[18342, 527, 1188, 33, 73, "Output",ExpressionUUID->"e7f6a5b4-c3d2-e1f0-a9b8-c7d6e5f4a3b2",
- CellID->358901234],
-Cell[19533, 562, 310, 7, 41, "ExampleText",ExpressionUUID->"a9b8c7d6-e5f4-a3b2-c1d0-e9f8a7b6c5d4",
- CellID->369012345]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[19892, 575, 249, 5, 35, "ExampleSection",ExpressionUUID->"c1d0e9f8-a7b6-c5d4-e3f2-a1b0c9d8e7f6",
- CellID->370123456],
-Cell[CellGroupData[{
-Cell[20166, 584, 255, 5, 23, "ExampleSubsection",ExpressionUUID->"e3f2a1b0-c9d8-e7f6-a5b4-c3d2e1f0a9b8",
- CellID->381234567],
-Cell[20424, 591, 132, 1, 24, "ExampleText",ExpressionUUID->"f4a3b2c1-d0e9-f8a7-b6c5-d4e3f2a1b0c9",
- CellID->392345678],
-Cell[CellGroupData[{
-Cell[20581, 596, 551, 15, 86, "Input",ExpressionUUID->"a5b4c3d2-e1f0-a9b8-c7d6-e5f4a3b2c1d0",
- CellID->403456789],
-Cell[21135, 613, 925, 24, 64, "Output",ExpressionUUID->"b6c5d4e3-f2a1-b0c9-d8e7-f6a5b4c3d2e1",
- CellID->414567890]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[22109, 643, 260, 5, 23, "ExampleSubsection",ExpressionUUID->"d8e7f6a5-b4c3-d2e1-f0a9-b8c7d6e5f4a3",
- CellID->425678901],
-Cell[22372, 650, 129, 1, 24, "ExampleText",ExpressionUUID->"e9f8a7b6-c5d4-e3f2-a1b0-c9d8e7f6a5b4",
- CellID->436789012],
-Cell[CellGroupData[{
-Cell[22526, 655, 1076, 29, 125, "Input",ExpressionUUID->"f0a9b8c7-d6e5-f4a3-b2c1-d0e9f8a7b6c5",
- CellID->447890123],
-Cell[23605, 686, 757, 18, 64, "Output",ExpressionUUID->"a1b0c9d8-e7f6-a5b4-c3d2-e1f0a9b8c7d6",
- CellID->458901234]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[24435, 711, 112, 1, 72, "MetadataSection",ExpressionUUID->"b2c1d0e9-f8a7-b6c5-d4e3-f2a1b0c9d8e7",
- CellID->469012345],
-Cell[24550, 714, 495, 12, 26, "History",ExpressionUUID->"f6a5b4c3-d2e1-f0a9-b8c7-d6e5f4a3b2c1",
- CellID->470123456],
-Cell[CellGroupData[{
-Cell[25070, 730, 126, 1, 21, "CategorizationSection",ExpressionUUID->"a7b6c5d4-e3f2-a1b0-c9d8-e7f6a5b4c3d2",
- CellID->481234567],
-Cell[25199, 733, 141, 2, 70, "Categorization",ExpressionUUID->"b8c7d6e5-f4a3-b2c1-d0e9-f8a7b6c5d4e3",
- CellID->492345678],
-Cell[25343, 737, 151, 2, 70, "Categorization",ExpressionUUID->"c9d8e7f6-a5b4-c3d2-e1f0-a9b8c7d6e5f4",
- CellID->503456789],
-Cell[25497, 741, 148, 2, 70, "Categorization",ExpressionUUID->"d0e9f8a7-b6c5-d4e3-f2a1-b0c9d8e7f6a5",
- CellID->514567890],
-Cell[25648, 745, 164, 2, 70, "Categorization",ExpressionUUID->"e1f0a9b8-c7d6-e5f4-a3b2-c1d0e9f8a7b6",
- CellID->525678901]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[25849, 752, 112, 1, 31, "KeywordsSection",ExpressionUUID->"f2a1b0c9-d8e7-f6a5-b4c3-d2e1f0a9b8c7",
- CellID->536789012],
-Cell[25964, 755, 121, 1, 70, "Keywords",ExpressionUUID->"a3b2c1d0-e9f8-a7b6-c5d4-e3f2a1b0c9d8",
- CellID->547890123],
-Cell[26088, 758, 117, 1, 70, "Keywords",ExpressionUUID->"b4c3d2e1-f0a9-b8c7-d6e5-f4a3b2c1d0e9",
- CellID->558901234],
-Cell[26208, 761, 122, 1, 70, "Keywords",ExpressionUUID->"c5d4e3f2-a1b0-c9d8-e7f6-a5b4c3d2e1f0",
- CellID->569012345],
-Cell[26333, 764, 117, 1, 70, "Keywords",ExpressionUUID->"d6e5f4a3-b2c1-d0e9-f8a7-b6c5d4e3f2a1",
- CellID->570123456],
-Cell[26453, 767, 120, 1, 70, "Keywords",ExpressionUUID->"e7f6a5b4-c3d2-e1f0-a9b8-c7d6e5f4a3b2",
- CellID->581234567],
-Cell[26576, 770, 114, 1, 70, "Keywords",ExpressionUUID->"f8a7b6c5-d4e3-f2a1-b0c9-d8e7f6a5b4c3",
- CellID->592345678]
-}, Open  ]]
-}, Open  ]]
-}
-]
-*)
