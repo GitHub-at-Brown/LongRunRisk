@@ -27,6 +27,7 @@ PacletObject[
           "FernandoDuarte`LongRunRisk`Growth",
           "FernandoDuarte`LongRunRisk`Info",
           "FernandoDuarte`LongRunRisk`Models",
+          "FernandoDuarte`LongRunRisk`PlotCoeffs",
           "FernandoDuarte`LongRunRisk`t",
           "FernandoDuarte`LongRunRisk`ToEquation",
           "FernandoDuarte`LongRunRisk`ToExogenousVars",
