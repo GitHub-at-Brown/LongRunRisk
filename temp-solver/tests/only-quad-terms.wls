@@ -12,7 +12,7 @@ Module[{testDir, pkgPath, loadRes},
     VerificationTest[
       ParamQuadSolver`ParamQuadSolve[{x^2 + y^2 + z^2 == 3, x^2 + 2 x - 1 == 0}, {x, y, z}, ParamQuadSolver`OnlyQuadTerms -> True],
       $Failed,
-      SameMessages -> {ParamQuadSolve::nocover},
+      {ParamQuadSolver`ParamQuadSolve::nocover},
       TestID -> "onlyquad-reject-partial"
     ],
 
@@ -50,8 +50,8 @@ Module[{testDir, pkgPath, loadRes},
     VerificationTest[
       ParamQuadSolver`ParamQuadSolve[{x + y == 1}, {x, y}, ParamQuadSolver`OnlyQuadTerms -> True],
       $Failed,
-      SameMessages -> {ParamQuadSolve::noquad},
+      {ParamQuadSolver`ParamQuadSolve::noquad},
       TestID -> "onlyquad-noquadratic"
     ]
-  ];
+  }
 ]

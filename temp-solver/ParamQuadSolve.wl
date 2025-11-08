@@ -1,8 +1,8 @@
 (* ::Package:: *)
 
-(* ParamQuadSolve: Symbolic solver for square systems with per-variable degree ≤ 2.
+(* ParamQuadSolve: Symbolic solver for square systems with per-variable degree <= 2.
    The per-variable degree test means bilinear terms such as x*y are permitted,
-   but they do not classify either variable as “quadratic” on their own.  The solver
+   but they do not classify either variable as "quadratic" on their own.  The solver
    produces parametric solutions with signA[k] for square-root branches, a reversible
    coefficient map, and validation. *)
 
@@ -12,17 +12,20 @@ ParamQuadSolve::usage =
   "ParamQuadSolve[eqns, vars, opts] returns an Association with keys \"Solution\", \"SignRootMap\", \"CoeffMap\", \"Conditions\", \"Verification\", and \"Diagnostics\".";
 
 Options[ParamQuadSolve] = {
-  ParamQuadSolver`DomainOption -> Reals,
+  DomainOption -> Reals,
   Assumptions -> Automatic,
   Method -> Automatic,
   MonomialOrder -> Automatic,
-  ParamQuadSolver`ValidationOption -> True,
-  ParamQuadSolver`ReturnOption -> "All",
-  ParamQuadSolver`TimeoutOption -> 300,
-  ParamQuadSolver`DiagnosticsOption -> False,
-  ParamQuadSolver`OnlyQuadTerms -> False,
-  ParamQuadSolver`SignSymbol -> signA
+  ValidationOption -> True,
+  ReturnOption -> "All",
+  TimeoutOption -> 300,
+  DiagnosticsOption -> False,
+  OnlyQuadTerms -> False,
+  SignSymbol -> signA
 };
+
+ParamQuadSolve::badmethod = "Method -> `1` is not supported. Use Automatic, \"Sequential\", or \"SequentialWithGroebner\".";
+ParamQuadSolve::badorder = "MonomialOrder -> `1` is not supported by GroebnerBasis.";
 
 Begin["`Private`"];
 
@@ -43,7 +46,7 @@ defaultAssumptions[] := And @@ {
 
 (* Utilities *)
 ClearAll[toPolyAndDen];
-toPolyAndDen[eq_, ass_] := Module[{lhs, rhs, expr, num, den},
+toPolyAndDen[eq_] := Module[{lhs, rhs, expr, num, den},
   If[MatchQ[eq, _Equal], lhs = eq[[1]]; rhs = eq[[2]];, lhs = eq; rhs = 0;];
   expr = Together[lhs - rhs];
   num = Numerator[expr];
@@ -102,7 +105,7 @@ linearInVarQ[poly_, v_, ass_] := Module[{deg = varDegree[poly, v], coeff},
 univariateQ[poly_, vars_] := Length[varsInPoly[poly, vars]] == 1;
 
 ClearAll[quadAnalysis];
-quadAnalysis[polys_List, eqVarSets_List, vars_List] := Module[
+quadAnalysis[polys_List, vars_List] := Module[
   {maxDeg},
   maxDeg = AssociationThread[
     vars,
@@ -120,7 +123,7 @@ quadAnalysis[polys_List, eqVarSets_List, vars_List] := Module[
 ];
 
 ClearAll[rankQuadraticVariables];
-rankQuadraticVariables[quadraticVars_List, eqsWithQuad_List, eqQuadVars_Association, eqVarSets_List, vars_List] := Module[
+rankQuadraticVariables[quadraticVars_List, eqsWithQuad_List, eqQuadVars_Association, vars_List] := Module[
   {varPositions, occurrences, minEqSize, usageCount},
   varPositions = AssociationThread[vars, Range[Length[vars]]];
   occurrences = Association@Table[
@@ -142,7 +145,7 @@ rankQuadraticVariables[quadraticVars_List, eqsWithQuad_List, eqQuadVars_Associat
 ];
 
 ClearAll[selectQuadraticSubset];
-selectQuadraticSubset[quadraticVars_List, polysFull_List, eqVarSets_List, eqns_List, vars_List] := Module[
+selectQuadraticSubset[quadraticVars_List, eqVarSets_List, eqns_List, vars_List] := Module[
   {eqsWithQuad, eqQuadVars, ranking, rankAssoc, targetCount,
    varsToSolve, selectedEqIndices, deferredVars, deferredEqIndices, diagBase},
   If[quadraticVars === {},
@@ -154,10 +157,14 @@ selectQuadraticSubset[quadraticVars_List, polysFull_List, eqVarSets_List, eqns_L
     Message[ParamQuadSolve::noquad];
     Return[$Failed];
   ];
+  If[Length[eqsWithQuad] < Length[quadraticVars],
+    Message[ParamQuadSolve::nocover];
+    Return[$Failed];
+  ];
   eqQuadVars = AssociationThread[eqsWithQuad, Intersection[eqVarSets[[#]], quadraticVars] & /@ eqsWithQuad];
-  ranking = rankQuadraticVariables[quadraticVars, eqsWithQuad, eqQuadVars, eqVarSets, vars];
+  ranking = rankQuadraticVariables[quadraticVars, eqsWithQuad, eqQuadVars, vars];
   rankAssoc = ranking["Rank"];
-  targetCount = Min[Length[eqsWithQuad], Length[quadraticVars]];
+  targetCount = Length[quadraticVars];
   Module[{varsOrdered, eqOrder, usedEq = <||>, selectionPairs = {}, extraEqs, eqOptions, eqChosen},
     varsOrdered = SortBy[quadraticVars, rankAssoc];
     varsToSolve = Take[varsOrdered, targetCount];
@@ -207,12 +214,12 @@ solveLinearFor[poly_, v_, ass_] := Module[{a, b, rhs},
   b = Simplify[poly /. v -> 0, Assumptions -> ass];
   If[a === 0 || PossibleZeroQ[a, Assumptions -> ass], $Failed,
     rhs = Simplify[-b/a, Assumptions -> ass];
-    {v -> rhs, <||>}
+    {v -> rhs, <||>, <||>}
   ]
 ];
 
 ClearAll[quadraticSolveParam];
-(* Return {rule, signAssoc} for var; normalize as alpha + sign*beta*Sqrt[Δ] *)
+(* Return {rule, signAssoc, radAssoc} for var; normalize as alpha + sign*beta*Sqrt[\[CapitalDelta]] *)
 quadraticSolveParam[poly_, v_, signGen_, ass_] := Module[{a, b, c, delta, alpha, beta, s, rule},
   a = Coefficient[poly, v, 2];
   b = Coefficient[poly, v, 1];
@@ -223,13 +230,13 @@ quadraticSolveParam[poly_, v_, signGen_, ass_] := Module[{a, b, c, delta, alpha,
   alpha = Simplify[-b/(2 a), Assumptions -> ass];
   beta  = Simplify[1/(2 a), Assumptions -> ass];
   rule = v -> Simplify[(alpha + beta*s*Sqrt[delta]), Assumptions -> ass];
-  {rule, <|s -> Sqrt[delta]|>}
+  {rule, <|s -> Sqrt[delta]|>, <|s -> delta|>}
 ];
 
 ClearAll[quarticSolveParam];
 quarticSolveParam[poly_, v_, signGen_, ass_] := Module[
   {px = Expand[poly], lc, norm, a3, a2, a1, a0, shift, p, q, r,
-   mVar, mSolutions, m, radR, R, sign1, sign2, inner, exprY, exprV, rule, signAssoc,
+   mVar, mSolutions, m, radR, radicalR, sign1, sign2, inner, exprY, exprV, rule, signAssoc, radAssoc,
    wDelta, sW, sY, wExpr},
   lc = Coefficient[px, v, 4];
   If[lc === 0, Return[$Failed]];
@@ -252,7 +259,8 @@ quarticSolveParam[poly_, v_, signGen_, ass_] := Module[
     exprV = Simplify[exprY - shift, Assumptions -> ass];
     rule = v -> exprV;
     signAssoc = <|sW -> Sqrt[wDelta], sY -> Sqrt[wExpr]|>;
-    Return[{rule, signAssoc}];
+    radAssoc  = <|sW -> wDelta,           sY -> wExpr|>;
+    Return[{rule, signAssoc, radAssoc}];
   ];
   mVar = Unique["m"];
   mSolutions = Solve[mVar^3 - (p/2) mVar^2 - r mVar + (p r)/2 - q^2/8 == 0, mVar];
@@ -271,15 +279,16 @@ quarticSolveParam[poly_, v_, signGen_, ass_] := Module[
     radR = Simplify[2 m - p, Assumptions -> ass];
   ];
   If[radR === 0 || PossibleZeroQ[radR, Assumptions -> ass], Return[$Failed]];
-  R = Sqrt[radR];
+  radicalR = Sqrt[radR];
   sign2 = signGen[];
   sign1 = signGen[];
-  inner = Sqrt[Simplify[-2 m - p - (2 q/R) sign2, Assumptions -> ass]];
-  exprY = Simplify[(sign2*R)/2 + (sign1*inner)/2, Assumptions -> ass];
+  inner = Sqrt[Simplify[-2 m - p - (2 q/radicalR) sign2, Assumptions -> ass]];
+  exprY = Simplify[(sign2*radicalR)/2 + (sign1*inner)/2, Assumptions -> ass];
   exprV = Simplify[exprY - shift, Assumptions -> ass];
   rule = v -> exprV;
-  signAssoc = <|sign2 -> R, sign1 -> inner|>;
-  {rule, signAssoc}
+  signAssoc = <|sign2 -> radicalR, sign1 -> inner|>;
+  radAssoc  = <|sign2 -> radR, sign1 -> Simplify[-2 m - p - (2 q/radicalR) sign2, Assumptions -> ass]|>;
+  {rule, signAssoc, radAssoc}
 ];
 
   (* Sign normalization that does not use Simplify. Reduces any even power to 1,
@@ -287,16 +296,16 @@ quarticSolveParam[poly_, v_, signGen_, ass_] := Module[
   ClearAll[normalizeSigns];
   normalizeSigns[expr_, signHead_Symbol] := Module[{rules},
     rules = {
-      Power[signHead[_], n_Integer?EvenQ] :> 1,
+      Power[signHead[_], _Integer?EvenQ] :> 1,
       Power[signHead[i_], n_Integer?OddQ] /; n > 1 :> signHead[i]
     };
-    expr //. rules
+    ReplaceRepeated[expr, rules, MaxIterations -> 10]
   ];
 
 ClearAll[sequentialSolve];
-sequentialSolve[polys_List, vars_List, ass_, signHead_] := Module[
-  {eqs = polys, unsolved = vars, solved = <||>, signMap = <||>, steps = {}, iter = 0,
-   maxIter = 5 Length[vars], signGen = makeSignGenerator[signHead]},
+sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_] := Module[
+  {eqs = polys, unsolved = vars, solved = <||>, signMap = <||>, radMap = <||>, steps = {}, iter = 0,
+   maxIter = 5 Length[vars], signGen = makeSignGenerator[signHead], gbOrderClean = Replace[gbOrder, Automatic -> Lexicographic]},
   While[eqs =!= {} && unsolved =!= {} && iter++ < maxIter,
     Module[{varCounts = varsInPoly[#, unsolved] & /@ eqs, counts, linearFlags, bestIndex, peq, varsIn,
       linearCandidates, v, res, degree, last, gb, uni},
@@ -316,6 +325,7 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_] := Module[
         AppendTo[steps, {"linear", v}];
         solved[v] = res[[1, 2]];
         KeyValueMap[(signMap[#1] = #2) &, res[[2]]];
+        If[Length[res] >= 3, KeyValueMap[(radMap[#1] = #2) &, res[[3]]]];
         unsolved = DeleteCases[unsolved, v];
         eqs = Delete[eqs, bestIndex] /. res[[1]];
         Continue[];
@@ -330,6 +340,7 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_] := Module[
             AppendTo[steps, {"linear", v}];
             solved[v] = res[[1, 2]];
             KeyValueMap[(signMap[#1] = #2) &, res[[2]]];
+            If[Length[res] >= 3, KeyValueMap[(radMap[#1] = #2) &, res[[3]]]];
             unsolved = DeleteCases[unsolved, v];
             eqs = Delete[eqs, bestIndex] /. res[[1]];
             Continue[],
@@ -339,6 +350,7 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_] := Module[
             AppendTo[steps, {"quadratic", v}];
             solved[v] = res[[1, 2]];
             KeyValueMap[(signMap[#1] = #2) &, res[[2]]];
+            If[Length[res] >= 3, KeyValueMap[(radMap[#1] = #2) &, res[[3]]]];
             unsolved = DeleteCases[unsolved, v];
             eqs = Delete[eqs, bestIndex] /. res[[1]];
             Continue[],
@@ -348,14 +360,23 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_] := Module[
             AppendTo[steps, {"quartic", v}];
             solved[v] = res[[1, 2]];
             KeyValueMap[(signMap[#1] = #2) &, res[[2]]];
+            If[Length[res] >= 3, KeyValueMap[(radMap[#1] = #2) &, res[[3]]]];
             unsolved = DeleteCases[unsolved, v];
             eqs = Delete[eqs, bestIndex] /. res[[1]];
             Continue[],
           True, Null
         ]
       ];
+      If[!TrueQ[allowGroebner], Break[]];
       last = Last[unsolved];
-      gb = GroebnerBasis[eqs, unsolved, MonomialOrder -> Lexicographic];
+      gb = Quiet@Check[
+        GroebnerBasis[eqs, unsolved, MonomialOrder -> gbOrderClean],
+        $Failed
+      ];
+      If[gb === $Failed,
+        Message[ParamQuadSolve::badorder, gbOrder];
+        Return[$Failed];
+      ];
       uni = SelectFirst[gb, (varsInPoly[#, unsolved] === {last} && varDegree[#, last] <= 2) & , Missing["NotFound"]];
       If[uni === Missing["NotFound"], Break[]];
       res = quadraticSolveParam[uni, last, signGen, ass];
@@ -363,11 +384,12 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_] := Module[
       AppendTo[steps, {"quadraticGB", last}];
       solved[last] = res[[1, 2]];
       KeyValueMap[(signMap[#1] = #2) &, res[[2]]];
+      If[Length[res] >= 3, KeyValueMap[(radMap[#1] = #2) &, res[[3]]]];
       unsolved = DeleteCases[unsolved, last];
       eqs = (eqs /. res[[1]]);
     ]
   ];
-  {solved, signMap, eqs, steps}
+  {solved, signMap, radMap, eqs, steps}
 ];
 
 ClearAll[buildAssumptions];
@@ -379,20 +401,29 @@ buildAssumptions[userAss_] := Module[{base = defaultAssumptions[]},
 ];
 
 ClearAll[normalizeOptions];
-normalizeOptions[opts___?OptionQ] := Module[{assoc = Association@Flatten@{opts}, get},
-  get[keys_List, def_] := Module[{k = SelectFirst[keys, KeyExistsQ[assoc, #] &, Missing["KeyNotFound"]]}, If[k === Missing["KeyNotFound"], def, assoc[k]]];
+normalizeOptions[opts___?OptionQ] := Module[{assoc = Association@Flatten@{opts}, pick},
+  pick[names_List] := Module[{k = Missing["KeyNotFound"]},
+    Do[
+      k = SelectFirst[Keys[assoc], SymbolName[#] === nm &, Missing["KeyNotFound"]];
+      If[k =!= Missing["KeyNotFound"], Return[k]],
+      {nm, names}
+    ];
+    k
+  ];
+  With[{get = Function[{names, def}, Module[{k = pick[names]}, If[k === Missing["KeyNotFound"], def, assoc[k]]]]},
   <|
-    "Domain" -> get[{ParamQuadSolver`Domain, Domain}, Reals],
-    "Assumptions" -> get[{ParamQuadSolver`Assumptions, Assumptions}, Automatic],
-    "Method" -> get[{ParamQuadSolver`Method, Method}, Automatic],
-    "MonomialOrder" -> get[{ParamQuadSolver`MonomialOrder, MonomialOrder}, Automatic],
-    "Validation" -> get[{ParamQuadSolver`Validation, Validation}, True],
-    "Return" -> get[{ParamQuadSolver`Return, Return}, "All"],
-    "Timeout" -> get[{ParamQuadSolver`Timeout, Timeout}, 300],
-    "Diagnostics" -> get[{ParamQuadSolver`Diagnostics, Diagnostics}, False],
-    "OnlyQuadTerms" -> get[{ParamQuadSolver`OnlyQuadTerms}, False],
-    "SignSymbol" -> get[{ParamQuadSolver`SignSymbol, SignSymbol}, signA]
+    "Domain" -> get[{"DomainOption", "Domain"}, Reals],
+    "Assumptions" -> get[{"Assumptions"}, Automatic],
+    "Method" -> get[{"Method"}, Automatic],
+    "MonomialOrder" -> get[{"MonomialOrder"}, Automatic],
+    "Validation" -> get[{"ValidationOption", "Validation"}, True],
+    "Return" -> get[{"ReturnOption", "Return"}, "All"],
+    "Timeout" -> get[{"TimeoutOption", "Timeout"}, 300],
+    "Diagnostics" -> get[{"DiagnosticsOption", "Diagnostics"}, False],
+    "OnlyQuadTerms" -> get[{"OnlyQuadTerms"}, False],
+    "SignSymbol" -> get[{"SignSymbol"}, signA]
   |>
+  ]
 ];
 
 ClearAll[ParamQuadSolve];
@@ -400,23 +431,35 @@ ParamQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
   {o = normalizeOptions[opts], domain, userAss, doValidate, ret, timeout, signHead, onlyQuadQ,
   ass, pairsFull, polysFull, densFull, eqVarSets, selection, varsToSolve, quadraticVars,
   deferredVarList, selectedEqIndices, deferredEqIndices, eqnsUsed, eqnsDeferred, pairs, eqPolys,
-  dens, denConds, canPolys, coeffMap, seqRes, solved, signMap, leftover, steps, solRules,
-  signRootMap, conditions, verif, out, t0, t1, solRulesDesym, signRootMapDesym, diagExtra,
-  radicandsRaw, uniqueRadicands, signSymbols, radicandConditions, signVars, signAssumptions, fullAss},
+  dens, denConds, canPolys, coeffMap, seqRes, solved, signMap, signRadMap, leftover, steps, solRules,
+  signRootMap, conditions, verif, out, t0, t1, solRulesDesym, signRootMapDesym, signRadMapDesym, diagExtra,
+  radicandsRaw, uniqueRadicands, radicandConditions, signVars, signAssumptions, fullAss,
+  methodChoice, methodTag, allowGroebner, gbOrder, gbOrderUsed},
   domain = o["Domain"]; userAss = o["Assumptions"]; doValidate = o["Validation"]; ret = o["Return"]; timeout = o["Timeout"]; signHead = o["SignSymbol"];
   onlyQuadQ = TrueQ[o["OnlyQuadTerms"]];
+  methodChoice = o["Method"];
+  {methodTag, allowGroebner} = Which[
+    methodChoice === Automatic || methodChoice === "SequentialWithGroebner", {"SequentialWithGroebner", True},
+    methodChoice === "Sequential", {"Sequential", False},
+    True, Message[ParamQuadSolve::badmethod, methodChoice]; Return[$Failed]
+  ];
+  gbOrder = o["MonomialOrder"];
+  gbOrderUsed = Replace[gbOrder, Automatic -> Lexicographic];
   ass = buildAssumptions[userAss];
   If[NumericQ[timeout] && timeout <= 0, Return[<|"Error" -> "Timeout or failure during solving"|>]];
+  (* Input validation *)
+  If[vars === {}, Return[<|"Error" -> "Variables list cannot be empty"|>]];
+  If[eqns === {}, Return[<|"Error" -> "Equations list cannot be empty"|>]];
   t0 = AbsoluteTime[];
-  pairsFull = toPolyAndDen[#, ass] & /@ eqns;
+  pairsFull = toPolyAndDen /@ eqns;
   polysFull = pairsFull[[All, 1]];
   densFull = pairsFull[[All, 2]];
   eqVarSets = varsInPoly[#, vars] & /@ polysFull;
-  With[{analysis = quadAnalysis[polysFull, eqVarSets, vars]},
+  With[{analysis = quadAnalysis[polysFull, vars]},
     quadraticVars = analysis["QuadraticVars"];
   ];
   If[onlyQuadQ,
-    selection = selectQuadraticSubset[quadraticVars, polysFull, eqVarSets, eqns, vars];
+    selection = selectQuadraticSubset[quadraticVars, eqVarSets, eqns, vars];
     If[selection === $Failed, Return[$Failed]];
     varsToSolve = selection["VarsToSolve"];
     deferredVarList = selection["DeferredVars"];
@@ -448,59 +491,58 @@ ParamQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
   ];
   denConds = collectDenominatorConditions[dens];
   {canPolys, coeffMap} = canonicalizeCoefficients[eqPolys, varsToSolve];
-  seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead], N@timeout, $Failed];
+  seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead, gbOrderUsed, allowGroebner], N@timeout, $Failed];
   If[!MatchQ[seqRes, {__}], Return[<|"Error" -> "Timeout or failure during solving"|>]];
-  {solved, signMap, leftover, steps} = seqRes;
+  {solved, signMap, signRadMap, leftover, steps} = seqRes;
   (* Propagate solved dependencies so each var's RHS depends only on parameters/signs *)
   solRules = Normal[solved];
-  solRules = FixedPoint[
-    Function[rules,
-      KeyValueMap[#1 -> (#2 /. rules) &, Association[rules]] // Normal
+  solRules = TimeConstrained[
+    FixedPoint[
+      Function[rules,
+        KeyValueMap[#1 -> (#2 /. rules) &, Association[rules]] // Normal
+      ],
+      solRules,
+      100
     ],
-    solRules
+    N@timeout,
+    $Failed
   ];
+  If[solRules === $Failed, Return[<|"Error" -> "Timeout or failure during solving"|>]];
   signRootMap = Association[signMap];
   (* substitute original coefficient expressions back *)
   solRulesDesym = (solRules /. coeffMap);
   signRootMapDesym = Map[# /. coeffMap &, signRootMap];
-  radicandsRaw = (Values[signRootMapDesym] /. Sqrt[z_] :> z);
+  signRadMapDesym  = Map[# /. coeffMap &, Association[signRadMap]];
+  signVars = Keys[signRootMapDesym];
+  signAssumptions = If[signVars === {}, True, And @@ Thread[(signVars)^2 == 1]];
+  radicandsRaw = Values[signRadMapDesym];
   uniqueRadicands = DeleteDuplicates[radicandsRaw];
-  signSymbols = DeleteDuplicates@Cases[uniqueRadicands, signHead[_], Infinity];
   radicandConditions =
     If[domain === Reals,
-      Which[
-        uniqueRadicands === {}, {},
-        signSymbols === {}, Thread[uniqueRadicands >= 0],
-        True,
-          With[{comb = Tuples[{1, -1}, Length[signSymbols]]},
-            Or @@ Map[
-              Function[vals,
-                With[{rules = Thread[signSymbols -> vals]},
-                  And @@ Thread[(uniqueRadicands /. rules) >= 0]
-                ]
-              ],
-              comb
-            ]
-          ]
+      If[uniqueRadicands === {},
+        {},
+        Flatten@{Simplify[Thread[uniqueRadicands >= 0], Assumptions -> ass && signAssumptions]}
       ],
       {}
     ];
-  conditions = Flatten@{denConds, radicandConditions};
+  conditions = DeleteCases[Flatten@{denConds, radicandConditions}, True];
   verif = If[TrueQ[doValidate],
-    Quiet@Check[
-      Module[{polys0, exprs, zeroQuick, checked},
-        polys0 = Map[If[MatchQ[#, _Equal], #[[1]] - #[[2]], #] &, eqnsUsed];
-        exprs = normalizeSigns[polys0 /. solRulesDesym, signHead];
-        signVars = Keys[signRootMap];
-        signAssumptions = If[signVars === {}, True, And @@ Thread[(signVars)^2 == 1]];
-        fullAss = ass && signAssumptions;
-        zeroQuick = PossibleZeroQ[#, Assumptions -> fullAss] & /@ exprs;
-        checked = MapThread[
-          If[#1 === True, True, Simplify[#2 == 0, Assumptions -> fullAss]] &,
-          {zeroQuick, exprs}
-        ];
-        checked
+    TimeConstrained[
+      Quiet@Check[
+        Module[{polys0, exprs, zeroQuick, checked},
+          polys0 = Map[If[MatchQ[#, _Equal], #[[1]] - #[[2]], #] &, eqnsUsed];
+          exprs = normalizeSigns[polys0 /. solRulesDesym, signHead];
+          fullAss = ass && signAssumptions;
+          zeroQuick = PossibleZeroQ[#, Assumptions -> fullAss] & /@ exprs;
+          checked = MapThread[
+            If[#1 === True, True, Simplify[#2 == 0, Assumptions -> fullAss]] &,
+            {zeroQuick, exprs}
+          ];
+          checked
+        ],
+        $Failed
       ],
+      N@timeout,
       $Failed
     ],
     Missing["NotEvaluated"]
@@ -520,7 +562,9 @@ ParamQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
         "LeftoverEquations" -> leftover,
         "Steps" -> steps,
         "TimingSeconds" -> t1 - t0,
-        "Method" -> "Sequential+FallbackGB"
+        "Method" -> methodTag,
+        "GroebnerMonomialOrder" -> gbOrderUsed,
+        "SignRadicandMap" -> signRadMapDesym
       |>
     ]
   |>;
