@@ -271,16 +271,12 @@ Cell[BoxData[
   $Line = 0; Null]], "ExampleSection",
  CellID->1440173005,ExpressionUUID->"e1787bf7-8ee8-44e6-b777-237f17bca58e"],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[
  InterpretationBox[Cell[
   "Options", "ExampleSection",ExpressionUUID->
    "98de7f42-c15e-4f0e-83cf-54178c01b4b9"],
   $Line = 0; Null]], "ExampleSection",
  CellID->699509698,ExpressionUUID->"2c2ca607-1d13-484b-9238-ca11afa865ce"],
-
-}, Open  ]],
 
 Cell[BoxData[
  InterpretationBox[Cell[

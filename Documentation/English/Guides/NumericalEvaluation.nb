@@ -1,0 +1,566 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     50000,       1200]
+NotebookOptionsPosition[     40000,       1000]
+NotebookOutlinePosition[     40500,       1020]
+CellTagsIndexPosition[     40457,       1017]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Numerical Evaluation", "Title",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->1671110463,ExpressionUUID->"a1b2c3d4-e5f6-7890-abcd-ef1234567890"],
+
+Cell["\<\
+This tutorial shows how to evaluate model expressions numerically using \
+ToNum. The ToNum function solves the model and substitutes numerical values \
+for all parameters and solution coefficients.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->123456789,ExpressionUUID->"b1c2d3e4-f5a6-7890-bcde-f12345678901"],
+
+Cell[CellGroupData[{
+
+Cell["Setup", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000001,ExpressionUUID->"c1d2e3f4-a5b6-7890-cdef-123456789012"],
+
+Cell[CellGroupData[{
+
+Cell["Load the paclet:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000002,ExpressionUUID->"d1e2f3a4-b5c6-7890-def1-234567890123"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}]], "Input",\
+
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[1]:=",
+ CellID->100000003,ExpressionUUID->"e1f2a3b4-c5d6-7890-ef12-345678901234"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Select a model to work with:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000004,ExpressionUUID->"f1a2b3c4-d5e6-7890-f123-456789012345"],
+
+Cell[BoxData[
+ RowBox[{"myModel", "=",
+  RowBox[{"Models", "[", "\"\<BKY\>\"", "]"}]}]], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[2]:=",
+ CellID->100000005,ExpressionUUID->"a1b2c3d4-e5f6-7890-1234-567890123456"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Basic Numerical Evaluation", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000006,ExpressionUUID->"b1c2d3e4-f5a6-7890-2345-678901234567"],
+
+Cell["\<\
+The primary use of ToNum is to evaluate expressions numerically. First \
+convert an expression to a form that depends on solution coefficients using \
+ToEquation, then evaluate numerically with ToNum.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000007,ExpressionUUID->"c1d2e3f4-a5b6-7890-3456-789012345678"],
+
+Cell[CellGroupData[{
+
+Cell["Create an expression and evaluate it numerically:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000008,ExpressionUUID->"d1e2f3a4-b5c6-7890-4567-890123456789"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"myEq", "=",
+  RowBox[{
+   RowBox[{"wc", "[", "t", "]"}], "//",
+   RowBox[{"ToEquation", "[", "myModel", "]"}]}]}], "\[IndentingNewLine]",
+ RowBox[{"ToNum", "[",
+  RowBox[{"myEq", ",", "myModel"}], "]"}]}], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[3]:=",
+ CellID->100000009,ExpressionUUID->"e1f2a3b4-c5d6-7890-5678-901234567890"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"A", "[", "0", "]"}], "+",
+  RowBox[{
+   RowBox[{"A", "[", "2", "]"}], " ",
+   RowBox[{"sx", "[", "t", "]"}]}], "+",
+  RowBox[{
+   RowBox[{"A", "[", "1", "]"}], " ",
+   RowBox[{"x", "[", "t", "]"}]}]}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"Out[3]=",
+ CellID->100000010,ExpressionUUID->"f1a2b3c4-d5e6-7890-6789-012345678901"],
+
+Cell[BoxData[
+ RowBox[{"6.661221374121324`", "\[VeryThinSpace]", "-",
+  RowBox[{"2036.452203590676`", " ",
+   RowBox[{"sx", "[", "t", "]"}]}], "+",
+  RowBox[{"12.700348645580512`", " ",
+   RowBox[{"x", "[", "t", "]"}]}]}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000110000000*^9}},
+ CellLabel->"Out[4]=",
+ CellID->100000011,ExpressionUUID->"a1b2c3d4-e5f6-7890-7890-123456789012"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Using Custom Parameters", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000012,ExpressionUUID->"b1c2d3e4-f5a6-7890-8901-234567890123"],
+
+Cell["\<\
+ToNum uses parameters in model[\"params\"] by default, but you can override \
+them by passing a list of replacement rules.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000013,ExpressionUUID->"c1d2e3f4-a5b6-7890-9012-345678901234"],
+
+Cell[CellGroupData[{
+
+Cell["Change some parameters:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000014,ExpressionUUID->"d1e2f3a4-b5c6-7890-0123-456789012345"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"ToNum", "[",
+  RowBox[{"myEq", ",", "myModel", ",",
+   RowBox[{"{",
+    RowBox[{"delta", "->", "0.99"}], "}"}]}], "]"}], "\[IndentingNewLine]",
+ RowBox[{"ToNum", "[",
+  RowBox[{"myEq", ",", "myModel", ",",
+   RowBox[{"{",
+    RowBox[{
+     RowBox[{"delta", "->", "0.99"}], ",",
+     RowBox[{"muc", "->", "0.001"}]}], "}"}]}], "]"}]}], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[5]:=",
+ CellID->100000015,ExpressionUUID->"e1f2a3b4-c5d6-7890-1234-567890123456"],
+
+Cell[BoxData[
+ RowBox[{"4.627590238751361`", "\[VeryThinSpace]", "-",
+  RowBox[{"308.30081230874885`", " ",
+   RowBox[{"sx", "[", "t", "]"}]}], "+",
+  RowBox[{"9.678242522238842`", " ",
+   RowBox[{"x", "[", "t", "]"}]}]}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"Out[5]=",
+ CellID->100000016,ExpressionUUID->"f1a2b3c4-d5e6-7890-2345-678901234567"],
+
+Cell[BoxData[
+ RowBox[{"4.61065433081511`", "\[VeryThinSpace]", "-",
+  RowBox[{"302.07098083533594`", " ",
+   RowBox[{"sx", "[", "t", "]"}]}], "+",
+  RowBox[{"9.633580276214909`", " ",
+   RowBox[{"x", "[", "t", "]"}]}]}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000110000000*^9}},
+ CellLabel->"Out[6]=",
+ CellID->100000017,ExpressionUUID->"a1b2c3d4-e5f6-7890-3456-789012345678"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Creating Reusable Substitution Rules", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000018,ExpressionUUID->"b1c2d3e4-f5a6-7890-4567-890123456789"],
+
+Cell["\<\
+For efficiency, create a list of substitution rules and use it to evaluate \
+multiple expressions without re-calculating the solution.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000019,ExpressionUUID->"c1d2e3f4-a5b6-7890-5678-901234567890"],
+
+Cell[CellGroupData[{
+
+Cell["Create rules once, use them multiple times:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000020,ExpressionUUID->"d1e2f3a4-b5c6-7890-6789-012345678901"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"parameterRules", "=",
+   RowBox[{"ToNum", "[",
+    RowBox[{"\"\<Rules\>\"", ",", "myModel"}], "]"}]}],
+  ";"}], "\[IndentingNewLine]",
+ RowBox[{
+  RowBox[{"parameterRules", "[",
+   RowBox[{"[",
+    RowBox[{"1", ";;", "3"}], "]"}], "]"}],
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]",
+ RowBox[{"myEq", "//.", "parameterRules"}], "\[IndentingNewLine]",
+ RowBox[{"myEq2", "=",
+  RowBox[{
+   RowBox[{"pd", "[",
+    RowBox[{"t", ",", "1"}], "]"}], "//",
+   RowBox[{"ToEquation", "[", "myModel", "]"}]}]}], "\[IndentingNewLine]",
+ RowBox[{"myEq2", "//.", "parameterRules"}]}], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[7]:=",
+ CellID->100000021,ExpressionUUID->"e1f2a3b4-c5d6-7890-7890-123456789012"],
+
+Cell[BoxData[
+ RowBox[{"{",
+  RowBox[{
+   RowBox[{
+    RowBox[{"A", "[", "0", "]"}], "\[Rule]", "6.661221374121324`"}], ",",
+   RowBox[{
+    RowBox[{"A", "[", "2", "]"}], "\[Rule]",
+    RowBox[{"-", "2036.452203590676`"}]}], ",",
+   RowBox[{
+    RowBox[{"A", "[", "1", "]"}], "\[Rule]", "12.700348645580512`"}]}],
+  "}"}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"Out[8]=",
+ CellID->100000022,ExpressionUUID->"f1a2b3c4-d5e6-7890-8901-234567890123"],
+
+Cell[BoxData[
+ RowBox[{"6.661221374121324`", "\[VeryThinSpace]", "-",
+  RowBox[{"2036.452203590676`", " ",
+   RowBox[{"sx", "[", "t", "]"}]}], "+",
+  RowBox[{"12.700348645580512`", " ",
+   RowBox[{"x", "[", "t", "]"}]}]}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000110000000*^9}},
+ CellLabel->"Out[9]=",
+ CellID->100000023,ExpressionUUID->"a1b2c3d4-e5f6-7890-9012-345678901234"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"B", "[", "1", "]"}], "[", "0", "]"}], "+",
+  RowBox[{
+   RowBox[{"x", "[", "t", "]"}], " ",
+   RowBox[{
+    RowBox[{"B", "[", "1", "]"}], "[", "1", "]"}]}], "+",
+  RowBox[{
+   RowBox[{"sx", "[", "t", "]"}], " ",
+   RowBox[{
+    RowBox[{"B", "[", "1", "]"}], "[", "2", "]"}]}]}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000110000000*^9}},
+ CellLabel->"Out[10]=",
+ CellID->100000024,ExpressionUUID->"b1c2d3e4-f5a6-7890-0123-456789012345"],
+
+Cell[BoxData[
+ RowBox[{"5.635294984901451`", "\[VeryThinSpace]", "-",
+  RowBox[{"5170.496891056436`", " ",
+   RowBox[{"sx", "[", "t", "]"}]}], "+",
+  RowBox[{"64.39978482744715`", " ",
+   RowBox[{"x", "[", "t", "]"}]}]}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000110000000*^9}},
+ CellLabel->"Out[11]=",
+ CellID->100000025,ExpressionUUID->"c1d2e3f4-a5b6-7890-1234-567890123456"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Postfix Notation", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000026,ExpressionUUID->"d1e2f3a4-b5c6-7890-2345-678901234567"],
+
+Cell["ToNum supports postfix notation for convenient evaluation:", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000027,ExpressionUUID->"e1f2a3b4-c5d6-7890-3456-789012345678"],
+
+Cell[CellGroupData[{
+
+Cell["Use postfix notation:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000028,ExpressionUUID->"f1a2b3c4-d5e6-7890-4567-890123456789"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"myEq", "//",
+  RowBox[{"ToNum", "[", "myModel", "]"}]}], "\[IndentingNewLine]",
+ RowBox[{"myEq", "//",
+  RowBox[{"ToNum", "[",
+   RowBox[{"myModel", ",",
+    RowBox[{"{",
+     RowBox[{"delta", "->", "0.9"}], "}"}]}], "]"}]}]}], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[12]:=",
+ CellID->100000029,ExpressionUUID->"a1b2c3d4-e5f6-7890-5678-901234567890"],
+
+Cell[BoxData[
+ RowBox[{"6.661221374121324`", "\[VeryThinSpace]", "-",
+  RowBox[{"2036.452203590676`", " ",
+   RowBox[{"sx", "[", "t", "]"}]}], "+",
+  RowBox[{"12.700348645580512`", " ",
+   RowBox[{"x", "[", "t", "]"}]}]}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"Out[12]=",
+ CellID->100000030,ExpressionUUID->"b1c2d3e4-f5a6-7890-6789-012345678901"],
+
+Cell[BoxData[
+ RowBox[{"2.2013935449121704`", "\[VeryThinSpace]", "-",
+  RowBox[{"16.092521437956975`", " ",
+   RowBox[{"sx", "[", "t", "]"}]}], "+",
+  RowBox[{"2.729225254958773`", " ",
+   RowBox[{"x", "[", "t", "]"}]}]}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000110000000*^9}},
+ CellLabel->"Out[13]=",
+ CellID->100000031,ExpressionUUID->"c1d2e3f4-a5b6-7890-7890-123456789012"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ToNum also evaluates parameters numerically:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000032,ExpressionUUID->"d1e2f3a4-b5c6-7890-8901-234567890123"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"delta", "//",
+  RowBox[{"ToNum", "[", "myModel", "]"}]}], "\[IndentingNewLine]",
+ RowBox[{"delta", "//",
+  RowBox[{"ToNum", "[",
+   RowBox[{"myModel", ",",
+    RowBox[{"{",
+     RowBox[{"delta", "->", "0.9"}], "}"}]}], "]"}]}]}], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[14]:=",
+ CellID->100000033,ExpressionUUID->"e1f2a3b4-c5d6-7890-9012-345678901234"],
+
+Cell[BoxData["0.9989`"], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"Out[14]=",
+ CellID->100000034,ExpressionUUID->"f1a2b3c4-d5e6-7890-0123-456789012345"],
+
+Cell[BoxData["0.9`"], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000110000000*^9}},
+ CellLabel->"Out[15]=",
+ CellID->100000035,ExpressionUUID->"a1b2c3d4-e5f6-7890-1234-567890123456"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Understanding Parameter Relationships", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000036,ExpressionUUID->"b1c2d3e4-f5a6-7890-2345-678901234567"],
+
+Cell["\<\
+The parameters gamma, psi, and theta are related by the equation: theta = \
+(1-gamma)/(1-1/psi). ToNum automatically enforces this relationship.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000037,ExpressionUUID->"c1d2e3f4-a5b6-7890-3456-789012345678"],
+
+Cell[CellGroupData[{
+
+Cell["Verify the relationship:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000038,ExpressionUUID->"d1e2f3a4-b5c6-7890-4567-890123456789"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"{",
+   RowBox[{"theta", ",", "gamma", ",", "psi"}], "}"}], "//",
+  RowBox[{"ToNum", "[", "myModel", "]"}]}], "\[IndentingNewLine]",
+ RowBox[{
+  RowBox[{"theta", "==",
+   RowBox[{
+    RowBox[{"(",
+     RowBox[{"1", "-", "gamma"}], ")"}], "/",
+    RowBox[{"(",
+     RowBox[{"1", "-",
+      RowBox[{"1", "/", "psi"}]}], ")"}]}]}], "//",
+  RowBox[{"ToNum", "[", "myModel", "]"}]}]}], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[16]:=",
+ CellID->100000039,ExpressionUUID->"e1f2a3b4-c5d6-7890-5678-901234567890"],
+
+Cell[BoxData[
+ RowBox[{"{",
+  RowBox[{
+   RowBox[{"-", "26.999999999999996`"}], ",", "10", ",", "1.5`"}],
+  "}"}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"Out[16]=",
+ CellID->100000040,ExpressionUUID->"f1a2b3c4-d5e6-7890-6789-012345678901"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000110000000*^9}},
+ CellLabel->"Out[17]=",
+ CellID->100000041,ExpressionUUID->"a1b2c3d4-e5f6-7890-7890-123456789012"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ToNum enforces the relationship:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000042,ExpressionUUID->"b1c2d3e4-f5a6-7890-8901-234567890123"],
+
+Cell["\<\
+If you change psi, theta will be automatically recalculated to maintain the \
+relationship:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000043,ExpressionUUID->"c1d2e3f4-a5b6-7890-9012-345678901234"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"{",
+   RowBox[{"theta", ",", "gamma", ",", "psi"}], "}"}], "//",
+  RowBox[{"ToNum", "[",
+   RowBox[{"myModel", ",",
+    RowBox[{"{",
+     RowBox[{"psi", "->", "2"}], "}"}]}], "]"}]}]], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[18]:=",
+ CellID->100000044,ExpressionUUID->"d1e2f3a4-b5c6-7890-0123-456789012345"],
+
+Cell[BoxData[
+ RowBox[{"{",
+  RowBox[{
+   RowBox[{"-", "18"}], ",", "10", ",", "2"}], "}"}]], "Output",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"Out[18]=",
+ CellID->100000045,ExpressionUUID->"e1f2a3b4-c5d6-7890-1234-567890123456"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->1140570114,ExpressionUUID->"f1a2b3c4-d5e6-7890-2345-678901234567"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.0", "HistoryData",
+  CellTags->"New",ExpressionUUID->"a1b2c3d4-e5f6-7890-3456-789012345678"],
+ " | Modified in: ",
+ Cell["-", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"b1c2d3e4-f5a6-7890-4567-890123456789"],
+ " | Obsolete in: ",
+ Cell["-", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->"c1d2e3f4-a5b6-7890-5678-901234567890"]
+}], "History",
+ CellID->1122872876,ExpressionUUID->"d1e2f3a4-b5c6-7890-6789-012345678901"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->38137096,ExpressionUUID->"e1f2a3b4-c5d6-7890-7890-123456789012"],
+
+Cell["Tech Note", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->1353845141,ExpressionUUID->"f1a2b3c4-d5e6-7890-8901-234567890123"],
+
+Cell["FernandoDuarte/LongRunRisk", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->1486044822,ExpressionUUID->"a1b2c3d4-e5f6-7890-9012-345678901234"],
+
+Cell["FernandoDuarte`LongRunRisk`", "Categorization",
+ CellLabel->"Context",
+ CellID->720508744,ExpressionUUID->"b1c2d3e4-f5a6-7890-0123-456789012345"],
+
+Cell["FernandoDuarte/LongRunRisk/tutorial/NumericalEvaluation", \
+"Categorization",
+ CellLabel->"URI",
+ CellID->2077658622,ExpressionUUID->"c1d2e3f4-a5b6-7890-1234-567890123456"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->1124359734,ExpressionUUID->"d1e2f3a4-b5c6-7890-2345-678901234567"],
+
+Cell["numerical evaluation", "Keywords",
+ CellID->1938640578,ExpressionUUID->"e1f2a3b4-c5d6-7890-3456-789012345678"],
+
+Cell["ToNum", "Keywords",
+ CellID->1938640579,ExpressionUUID->"f1a2b3c4-d5e6-7890-4567-890123456789"],
+
+Cell["parameters", "Keywords",
+ CellID->1938640580,ExpressionUUID->"a1b2c3d4-e5f6-7890-5678-901234567890"],
+
+Cell["substitution rules", "Keywords",
+ CellID->1938640581,ExpressionUUID->"b1c2d3e4-f5a6-7890-6789-012345678901"]
+}, Open  ]]
+}, Open  ]]
+},
+Evaluator->"Local2",
+WindowSize->{700, 770},
+WindowMargins->{{385, Automatic}, {Automatic, 75}},
+TaggingRules-><|"Paclet" -> "FernandoDuarte/LongRunRisk"|>,
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "TechNotePageStylesExt.nb",
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)

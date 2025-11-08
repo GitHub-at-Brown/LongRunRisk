@@ -1,0 +1,638 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     60000,       1400]
+NotebookOptionsPosition[     50000,       1200]
+NotebookOutlinePosition[     50500,       1220]
+CellTagsIndexPosition[     50457,       1217]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Providing Initial Guesses for Numerical Solvers", "Title",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->1671110463,ExpressionUUID->"a1b2c3d4-e5f6-7890-abcd-ef1234567890"],
+
+Cell["\<\
+This tutorial explains how to provide initial guesses when solving for model \
+coefficients numerically. Good initial guesses can significantly improve \
+convergence and reduce computation time.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->123456789,ExpressionUUID->"b1c2d3e4-f5a6-7890-bcde-f12345678901"],
+
+Cell[CellGroupData[{
+
+Cell["Setup", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000001,ExpressionUUID->"c1d2e3f4-a5b6-7890-cdef-123456789012"],
+
+Cell[CellGroupData[{
+
+Cell["Load the paclet:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000002,ExpressionUUID->"d1e2f3a4-b5c6-7890-def1-234567890123"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`\>\"", "]"}]], "Input",\
+
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[1]:=",
+ CellID->100000003,ExpressionUUID->"e1f2a3b4-c5d6-7890-ef12-345678901234"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Select a model to work with:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000004,ExpressionUUID->"f1a2b3c4-d5e6-7890-f123-456789012345"],
+
+Cell[BoxData[
+ RowBox[{"myModel", "=",
+  RowBox[{"Models", "[", "\"\<BKY\>\"", "]"}]}]], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[2]:=",
+ CellID->100000005,ExpressionUUID->"a1b2c3d4-e5f6-7890-1234-567890123456"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Understanding Initial Guesses", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000006,ExpressionUUID->"b1c2d3e4-f5a6-7890-2345-678901234567"],
+
+Cell["\<\
+The wealth-consumption ratio is linear in the state variables:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000007,ExpressionUUID->"c1d2e3f4-a5b6-7890-3456-789012345678"],
+
+Cell["\<\
+wc = A[0] + A[1]*x[t] + A[2]*sx[t] + ...\
+\>", "DisplayFormula",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000008,ExpressionUUID->"d1e2f3a4-b5c6-7890-4567-890123456789"],
+
+Cell["\<\
+Finding the coefficients A[i] numerically using FindRoot requires providing \
+a starting value for each coefficient. By default:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000009,ExpressionUUID->"e1f2a3b4-c5d6-7890-5678-901234567890"],
+
+Cell["\<\
+\[Bullet] A[0]: starting value is 4
+\[Bullet] A[1], A[2], ...: starting value is 0\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000010,ExpressionUUID->"f1a2b3c4-d5e6-7890-6789-012345678901"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Specifying Initial Guesses", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000011,ExpressionUUID->"a1b2c3d4-e5f6-7890-7890-123456789012"],
+
+Cell["You can specify initial guesses in three ways:", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000012,ExpressionUUID->"b1c2d3e4-f5a6-7890-8901-234567890123"],
+
+Cell["\<\
+1. As an argument to ToNum
+2. In the model's extraInfo[\"initialGuess\"]
+3. In the default Options for updateCoeffs\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000013,ExpressionUUID->"c1d2e3f4-a5b6-7890-9012-345678901234"],
+
+Cell["Priority is given to options specified higher in the list.", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000014,ExpressionUUID->"d1e2f3a4-b5c6-7890-0123-456789012345"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Providing Coefficient Starting Values", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000015,ExpressionUUID->"e1f2a3b4-c5d6-7890-1234-567890123456"],
+
+Cell["\<\
+To provide starting values for specific coefficients, pass a list of rules:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000016,ExpressionUUID->"f1a2b3c4-d5e6-7890-2345-678901234567"],
+
+Cell[CellGroupData[{
+
+Cell["Specify starting values for A[0] and A[2]:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000017,ExpressionUUID->"a1b2c3d4-e5f6-7890-3456-789012345678"],
+
+Cell[BoxData[
+ RowBox[{"ToNum", "[",
+  RowBox[{
+   RowBox[{
+    RowBox[{"wc", "[", "t", "]"}], "//",
+    RowBox[{"ToEquation", "[", "myModel", "]"}]}], ",", "myModel", ",",
+   RowBox[{"{", "}"}], ",",
+   RowBox[{"{",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{
+       RowBox[{"A", "[", "0", "]"}], ",", "8"}], "}"}], ",",
+     RowBox[{"{",
+      RowBox[{
+       RowBox[{"A", "[", "2", "]"}], ",", "3"}], "}"}]}], "}"}]}],
+  "]"}]], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[3]:=",
+ CellID->100000018,ExpressionUUID->"b1c2d3e4-f5a6-7890-4567-890123456789"],
+
+Cell["\<\
+This uses starting values of 8 and 3 for A[0] and A[2], and 0 for other \
+coefficients.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000019,ExpressionUUID->"c1d2e3f4-a5b6-7890-5678-901234567890"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Providing an Expected Value Guess", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000020,ExpressionUUID->"d1e2f3a4-b5c6-7890-6789-012345678901"],
+
+Cell["\<\
+If you provide a single numerical value, it is interpreted as a guess for \
+E[wc], the unconditional expectation of the wealth-consumption ratio:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000021,ExpressionUUID->"e1f2a3b4-c5d6-7890-7890-123456789012"],
+
+Cell["\<\
+E[wc] = A[0] + A[1]*E[x[t]] + A[2]*E[sx[t]] + ...\
+\>", "DisplayFormula",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000022,ExpressionUUID->"f1a2b3c4-d5e6-7890-8901-234567890123"],
+
+Cell["The starting value A0 for A[0] is determined by:", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000023,ExpressionUUID->"a1b2c3d4-e5f6-7890-9012-345678901234"],
+
+Cell["\<\
+A0 = Ewc - A1*E[x[t]] - A2*E[sx[t]] - ...\
+\>", "DisplayFormula",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000024,ExpressionUUID->"b1c2d3e4-f5a6-7890-0123-456789012345"],
+
+Cell["With default starting values A1=A2=...=0, this simplifies to A0=Ewc.", \
+"Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000025,ExpressionUUID->"c1d2e3f4-a5b6-7890-1234-567890123456"],
+
+Cell[CellGroupData[{
+
+Cell["Provide an expected value guess:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000026,ExpressionUUID->"d1e2f3a4-b5c6-7890-2345-678901234567"],
+
+Cell[BoxData[
+ RowBox[{"ToNum", "[",
+  RowBox[{
+   RowBox[{
+    RowBox[{"wc", "[", "t", "]"}], "//",
+    RowBox[{"ToEquation", "[", "myModel", "]"}]}], ",", "myModel", ",",
+   RowBox[{"{", "}"}], ",", "8"}], "]"}]], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[4]:=",
+ CellID->100000027,ExpressionUUID->"e1f2a3b4-c5d6-7890-3456-789012345678"],
+
+Cell["This uses A0=8 and A1=A2=...=0.", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000028,ExpressionUUID->"f1a2b3c4-d5e6-7890-4567-890123456789"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Providing Bounds for FindRoot", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000029,ExpressionUUID->"a1b2c3d4-e5f6-7890-5678-901234567890"],
+
+Cell["\<\
+You can provide bounds for the FindRoot search using a list with three \
+numbers:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000030,ExpressionUUID->"b1c2d3e4-f5a6-7890-6789-012345678901"],
+
+Cell[CellGroupData[{
+
+Cell["Provide lower and upper bounds for E[wc]:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000031,ExpressionUUID->"c1d2e3f4-a5b6-7890-7890-123456789012"],
+
+Cell[BoxData[
+ RowBox[{"ToNum", "[",
+  RowBox[{
+   RowBox[{
+    RowBox[{"wc", "[", "t", "]"}], "//",
+    RowBox[{"ToEquation", "[", "myModel", "]"}]}], ",", "myModel", ",",
+   RowBox[{"{", "}"}], ",",
+   RowBox[{"{",
+    RowBox[{"1", ",", "8", ",", "15"}], "}"}]}], "]"}]], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[5]:=",
+ CellID->100000032,ExpressionUUID->"d1e2f3a4-b5c6-7890-8901-234567890123"],
+
+Cell["This constrains A[0] to the range [1, 15] with starting value 8.", \
+"Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000033,ExpressionUUID->"e1f2a3b4-c5d6-7890-9012-345678901234"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Combining Expected Value and Coefficient Guesses", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000034,ExpressionUUID->"f1a2b3c4-d5e6-7890-0123-456789012345"],
+
+Cell["\<\
+To provide both an expected value guess and specific coefficient starting \
+values, use a list where:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000035,ExpressionUUID->"a1b2c3d4-e5f6-7890-1234-567890123456"],
+
+Cell["\<\
+\[Bullet] First element: number (for Ewc) or {min, start, max} (for bounds)
+\[Bullet] Second element: list of coefficient rules\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000036,ExpressionUUID->"b1c2d3e4-f5a6-7890-2345-678901234567"],
+
+Cell[CellGroupData[{
+
+Cell["Combine expected value with coefficient guess:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000037,ExpressionUUID->"c1d2e3f4-a5b6-7890-3456-789012345678"],
+
+Cell[BoxData[
+ RowBox[{"ToNum", "[",
+  RowBox[{
+   RowBox[{
+    RowBox[{"wc", "[", "t", "]"}], "//",
+    RowBox[{"ToEquation", "[", "myModel", "]"}]}], ",", "myModel", ",",
+   RowBox[{"{", "}"}], ",",
+   RowBox[{"{",
+    RowBox[{"8", ",",
+     RowBox[{"{",
+      RowBox[{
+       RowBox[{"A", "[", "2", "]"}], ",", "3"}], "}"}]}], "}"}]}],
+  "]"}]], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[6]:=",
+ CellID->100000038,ExpressionUUID->"d1e2f3a4-b5c6-7890-4567-890123456789"],
+
+Cell["\<\
+This uses A0 determined by Ewc=8, A[2]=3, and 0 for other coefficients.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000039,ExpressionUUID->"e1f2a3b4-c5d6-7890-5678-901234567890"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Combine bounds with coefficient guess:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000040,ExpressionUUID->"f1a2b3c4-d5e6-7890-6789-012345678901"],
+
+Cell[BoxData[
+ RowBox[{"ToNum", "[",
+  RowBox[{
+   RowBox[{
+    RowBox[{"wc", "[", "t", "]"}], "//",
+    RowBox[{"ToEquation", "[", "myModel", "]"}]}], ",", "myModel", ",",
+   RowBox[{"{", "}"}], ",",
+   RowBox[{"{",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"1", ",", "8", ",", "15"}], "}"}], ",",
+     RowBox[{"{",
+      RowBox[{
+       RowBox[{"A", "[", "2", "]"}], ",", "3"}], "}"}]}], "}"}]}],
+  "]"}]], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[7]:=",
+ CellID->100000041,ExpressionUUID->"a1b2c3d4-e5f6-7890-7890-123456789012"],
+
+Cell["\<\
+This constrains A[0] to [1,15] with starting value 8, uses A[2]=3, and 0 for \
+other coefficients.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000042,ExpressionUUID->"b1c2d3e4-f5a6-7890-8901-234567890123"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Initial Guesses for Price-Dividend Ratios", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000043,ExpressionUUID->"c1d2e3f4-a5b6-7890-9012-345678901234"],
+
+Cell["\<\
+For models with stocks, the price-dividend ratio for stock j has the form:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000044,ExpressionUUID->"d1e2f3a4-b5c6-7890-0123-456789012345"],
+
+Cell["\<\
+pd[t,j] = B[j][0] + B[j][1]*x[t] + B[j][2]*sx[t] + ...\
+\>", "DisplayFormula",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000045,ExpressionUUID->"e1f2a3b4-c5d6-7890-1234-567890123456"],
+
+Cell["\<\
+Initial guesses are provided as a list, with one element per stock. The \
+syntax for each stock is the same as for the wealth-consumption ratio.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000046,ExpressionUUID->"f1a2b3c4-d5e6-7890-2345-678901234567"],
+
+Cell[CellGroupData[{
+
+Cell["Example with a three-stock model:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000047,ExpressionUUID->"a1b2c3d4-e5f6-7890-3456-789012345678"],
+
+Cell["\<\
+Suppose you want to set initial guesses for E[pd] of stocks 1, 2, and 3:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000048,ExpressionUUID->"b1c2d3e4-f5a6-7890-4567-890123456789"],
+
+Cell[BoxData[
+ RowBox[{"{",
+  RowBox[{
+   RowBox[{"{", "8", "}"}], ",",
+   RowBox[{"{", "5", "}"}], ",",
+   RowBox[{"{", "3", "}"}]}], "}"}]], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[8]:=",
+ CellID->100000049,ExpressionUUID->"c1d2e3d4-a5b6-7890-5678-901234567890"],
+
+Cell["This sets E[pd] guesses of 8, 5, and 3 for stocks 1, 2, and 3.", "Text",\
+
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000050,ExpressionUUID->"d1e2f3a4-b5c6-7890-6789-012345678901"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Specify coefficient starting values for stocks:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000051,ExpressionUUID->"e1f2a3b4-c5d6-7890-7890-123456789012"],
+
+Cell[BoxData[
+ RowBox[{"{",
+  RowBox[{
+   RowBox[{"{",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{
+       RowBox[{
+        RowBox[{"B", "[", "1", "]"}], "[", "0", "]"}], ",", "8"}], "}"}], ",",
+     RowBox[{"{",
+      RowBox[{
+       RowBox[{
+        RowBox[{"B", "[", "1", "]"}], "[", "1", "]"}], ",", "5"}], "}"}]}],
+    "}"}], ",",
+   RowBox[{"{",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{
+       RowBox[{
+        RowBox[{"B", "[", "2", "]"}], "[", "0", "]"}], ",", "4"}], "}"}], ",",
+     RowBox[{"{",
+      RowBox[{
+       RowBox[{
+        RowBox[{"B", "[", "2", "]"}], "[", "1", "]"}], ",", "2"}], "}"}]}],
+    "}"}]}], "}"}]], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[9]:=",
+ CellID->100000052,ExpressionUUID->"f1a2b3c4-d5e6-7890-8901-234567890123"],
+
+Cell["\<\
+For stock 1: B[1][0]=8, B[1][1]=5
+For stock 2: B[2][0]=4, B[2][1]=2
+Other coefficients use default values.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000053,ExpressionUUID->"a1b2c3d4-e5f6-7890-9012-345678901234"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["When to Provide Initial Guesses", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000054,ExpressionUUID->"b1c2d3e4-f5a6-7890-0123-456789012345"],
+
+Cell["\<\
+Good initial guesses are particularly important when:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000055,ExpressionUUID->"c1d2e3f4-a5b6-7890-1234-567890123456"],
+
+Cell["\<\
+\[Bullet] Using extreme parameter values
+\[Bullet] The default guess leads to convergence failures
+\[Bullet] You have prior knowledge about reasonable coefficient values
+\[Bullet] Building on solutions from similar models\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000056,ExpressionUUID->"d1e2f3e4-a5b6-7890-2345-678901234567"],
+
+Cell[CellGroupData[{
+
+Cell["Example: improving convergence with better guess:", "MathCaption",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000057,ExpressionUUID->"e1f2a3b4-c5d6-7890-3456-789012345678"],
+
+Cell["\<\
+If default parameters fail to converge, try using information from a related \
+model or economic intuition about expected values:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000058,ExpressionUUID->"f1a2b3c4-d5e6-7890-4567-890123456789"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ",
+  RowBox[{
+  "Use", " ", "economic", " ", "intuition", " ", "or", " ", "results", " ",
+   "from", " ", "similar", " ", "model"}], " ", "*)"}]], "Input",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellLabel->"In[10]:=",
+ CellID->100000059,ExpressionUUID->"a1b2c3d4-e5f6-7890-5678-901234567890"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Summary", "Section",
+ PageWidth->WindowWidth,
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000100000000*^9}},
+ CellID->100000060,ExpressionUUID->"b1c2d3e4-f5a6-7890-6789-012345678901"],
+
+Cell["\<\
+Initial guesses can be provided in several formats:\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000061,ExpressionUUID->"c1d2e3f4-a5b6-7890-7890-123456789012"],
+
+Cell["\<\
+\[Bullet] Single number: guess for E[wc]
+\[Bullet] {start, min, max}: bounds for E[wc]
+\[Bullet] {{A[i], value},...}: specific coefficient values
+\[Bullet] {Ewc_guess, {{A[i], value},...}}: both expected value and \
+coefficient guesses\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000062,ExpressionUUID->"d1e2f3a4-b5c6-7890-8901-234567890123"],
+
+Cell["\<\
+For multi-stock models, provide a list with one element per stock using the \
+same syntax.\
+\>", "Text",
+ CellChangeTimes->{{3.9000000000000000*^9, 3.9000000200000000*^9}},
+ CellID->100000063,ExpressionUUID->"e1f2a3b4-c5d6-7890-9012-345678901234"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->1140570114,ExpressionUUID->"f1a2b3c4-d5e6-7890-0123-456789012345"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.0", "HistoryData",
+  CellTags->"New",ExpressionUUID->"a1b2c3d4-e5f6-7890-1234-567890123456"],
+ " | Modified in: ",
+ Cell["-", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"b1c2d3e4-f5a6-7890-2345-678901234567"],
+ " | Obsolete in: ",
+ Cell["-", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->"c1d2e3f4-a5b6-7890-3456-789012345678"]
+}], "History",
+ CellID->1122872876,ExpressionUUID->"d1e2f3a4-b5c6-7890-4567-890123456789"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->38137096,ExpressionUUID->"e1f2a3b4-c5d6-7890-5678-901234567890"],
+
+Cell["Tech Note", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->1353845141,ExpressionUUID->"f1a2b3c4-d5e6-7890-6789-012345678901"],
+
+Cell["FernandoDuarte/LongRunRisk", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->1486044822,ExpressionUUID->"a1b2c3d4-e5f6-7890-7890-123456789012"],
+
+Cell["FernandoDuarte`LongRunRisk`", "Categorization",
+ CellLabel->"Context",
+ CellID->720508744,ExpressionUUID->"b1c2d3e4-f5a6-7890-8901-234567890123"],
+
+Cell["FernandoDuarte/LongRunRisk/tutorial/ProvidingInitialGuesses", \
+"Categorization",
+ CellLabel->"URI",
+ CellID->2077658622,ExpressionUUID->"c1d2e3f4-a5b6-7890-9012-345678901234"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->1124359734,ExpressionUUID->"d1e2f3a4-b5c6-7890-0123-456789012345"],
+
+Cell["initial guess", "Keywords",
+ CellID->1938640578,ExpressionUUID->"e1f2a3b4-c5d6-7890-1234-567890123456"],
+
+Cell["FindRoot", "Keywords",
+ CellID->1938640579,ExpressionUUID->"f1a2b3c4-d5e6-7890-2345-678901234567"],
+
+Cell["numerical solver", "Keywords",
+ CellID->1938640580,ExpressionUUID->"a1b2c3d4-e5f6-7890-3456-789012345678"],
+
+Cell["convergence", "Keywords",
+ CellID->1938640581,ExpressionUUID->"b1c2d3e4-f5a6-7890-4567-890123456789"],
+
+Cell["coefficients", "Keywords",
+ CellID->1938640582,ExpressionUUID->"c1d2e3f4-a5b6-7890-5678-901234567890"]
+}, Open  ]]
+}, Open  ]]
+},
+Evaluator->"Local2",
+WindowSize->{700, 770},
+WindowMargins->{{385, Automatic}, {Automatic, 75}},
+TaggingRules-><|"Paclet" -> "FernandoDuarte/LongRunRisk"|>,
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "TechNotePageStylesExt.nb",
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
