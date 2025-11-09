@@ -40,7 +40,8 @@ Options[paramQuadSolve] = {
   MonomialOrder -> Automatic,
   ValidationOption -> True,
   ReturnOption -> "All",
-  TimeoutOption -> 300,
+  TimeoutOption -> 60,
+  SimplifyTimeout -> Automatic,
   DiagnosticsOption -> False,
   OnlyQuadTerms -> False,
   SignSymbol -> signA
@@ -54,14 +55,14 @@ paramQuadSolve::nocover = "Unable to select a square subsystem covering the quad
 
 
 paramQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
-  {o = normalizeOptions[opts], domain, userAss, doValidate, ret, timeout, signHead, onlyQuadQ,
+  {o = normalizeOptions[opts], domain, userAss, doValidate, ret, timeout, simplifyTimeout, signHead, onlyQuadQ,
   ass, pairsFull, polysFull, densFull, eqVarSets, selection, varsToSolve, quadraticVars,
   deferredVarList, selectedEqIndices, deferredEqIndices, eqnsUsed, eqnsDeferred, pairs, eqPolys,
   dens, denConds, canPolys, coeffMap, seqRes, solved, signMap, signRadMap, leftover, steps, solRules,
   signRootMap, conditions, verif, out, t0, t1, solRulesDesym, signRootMapDesym, signRadMapDesym, diagExtra,
   radicandsRaw, uniqueRadicands, radicandConditions, signVars, signAssumptions, fullAss,
-  methodChoice, methodTag, allowGroebner, gbOrder, gbOrderUsed},
-  domain = o["Domain"]; userAss = o["Assumptions"]; doValidate = o["Validation"]; ret = o["Return"]; timeout = o["Timeout"]; signHead = o["SignSymbol"];
+  methodChoice, methodTag, allowGroebner, gbOrder, gbOrderUsed, simpBudget},
+  domain = o["Domain"]; userAss = o["Assumptions"]; doValidate = o["Validation"]; ret = o["Return"]; timeout = o["Timeout"]; simplifyTimeout = o["SimplifyTimeout"]; signHead = o["SignSymbol"];
   onlyQuadQ = TrueQ[o["OnlyQuadTerms"]];
   methodChoice = o["Method"];
   {methodTag, allowGroebner} = Which[
@@ -72,6 +73,11 @@ paramQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
   gbOrder = o["MonomialOrder"];
   gbOrderUsed = Replace[gbOrder, Automatic -> Lexicographic];
   ass = buildAssumptions[userAss];
+  simpBudget = Which[
+    NumericQ[simplifyTimeout] && simplifyTimeout >= 0, N@simplifyTimeout,
+    simplifyTimeout === Automatic && NumericQ[timeout] && timeout > 0, Min[5., N@timeout/10.],
+    True, 1.0
+  ];
   If[NumericQ[timeout] && timeout <= 0, Return[<|"Error" -> "Timeout or failure during solving"|>]];
   (* Input validation *)
   If[vars === {}, Return[<|"Error" -> "Variables list cannot be empty"|>]];
@@ -117,6 +123,11 @@ paramQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
   ];
   denConds = collectDenominatorConditions[dens];
   {canPolys, coeffMap} = canonicalizeCoefficients[eqPolys, varsToSolve];
+  coeffMap = TimeConstrained[
+    Map[Simplify[#, Assumptions -> ass] &, coeffMap],
+    simpBudget,
+    coeffMap
+  ];
   seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead, gbOrderUsed, allowGroebner], N@timeout, $Failed];
   If[!MatchQ[seqRes, {__}], Return[<|"Error" -> "Timeout or failure during solving"|>]];
   {solved, signMap, signRadMap, leftover, steps} = seqRes;
@@ -141,6 +152,23 @@ paramQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
   signVars = Keys[signRootMapDesym];
   signAssumptions = If[signVars === {}, True, And @@ Thread[(signVars)^2 == 1]];
   fullAss = ass && signAssumptions;
+  If[TrueQ[doValidate],
+    solRulesDesym = TimeConstrained[
+      (#[[1]] -> Simplify[#[[2]], Assumptions -> fullAss]) & /@ solRulesDesym,
+      simpBudget,
+      solRulesDesym
+    ];
+    signRootMapDesym = TimeConstrained[
+      Map[Simplify[#, Assumptions -> fullAss] &, signRootMapDesym],
+      simpBudget,
+      signRootMapDesym
+    ];
+    signRadMapDesym = TimeConstrained[
+      Map[Simplify[#, Assumptions -> fullAss] &, signRadMapDesym],
+      simpBudget,
+      signRadMapDesym
+    ];
+  ];
   radicandsRaw = Values[signRadMapDesym];
   uniqueRadicands = DeleteDuplicates[radicandsRaw];
   radicandConditions =
@@ -156,11 +184,19 @@ paramQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
     TimeConstrained[
       Quiet@Check[
         Module[{polys0, exprs, zeroQuick, checked},
-          polys0 = Map[If[MatchQ[#, _Equal], #[[1]] - #[[2]], #] &, eqnsUsed];
+          polys0 = Subtract@@@eqnsUsed;
           exprs = normalizeSigns[polys0 /. solRulesDesym, signHead];
           zeroQuick = PossibleZeroQ[#, Assumptions -> fullAss] & /@ exprs;
           checked = MapThread[
-            If[#1 === True, True, Simplify[#2 == 0, Assumptions -> fullAss]] &,
+            If[#1 === True,
+              True,
+              Module[{noAss = Simplify[#2 == 0]},
+                If[TrueQ[noAss],
+                  True,
+                  Simplify[#2 == 0, Assumptions -> fullAss]
+                ]
+              ]
+            ] &,
             {zeroQuick, exprs}
           ];
           checked
@@ -174,7 +210,7 @@ paramQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
   ];
   t1 = AbsoluteTime[];
   out = <|
-    "Solution" -> solRulesDesym,
+    "Solution" -> Sort@solRulesDesym,
     "SignRootMap" -> signRootMapDesym,
     "CoeffMap" -> coeffMap,
     "Conditions" -> conditions,
@@ -575,7 +611,7 @@ quarticSolveParam[poly_, v_, signGen_, ass_] := Module[
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*normalizeSigns*)
 
 
@@ -718,6 +754,7 @@ normalizeOptions[opts___?OptionQ] := Module[{assoc = Association@Flatten@{opts},
     "Validation" -> get[{"ValidationOption", "Validation"}, True],
     "Return" -> get[{"ReturnOption", "Return"}, "All"],
     "Timeout" -> get[{"TimeoutOption", "Timeout"}, 300],
+    "SimplifyTimeout" -> get[{"SimplifyTimeout", "SimplifyTimeoutOption"}, Automatic],
     "Diagnostics" -> get[{"DiagnosticsOption", "Diagnostics"}, False],
     "OnlyQuadTerms" -> get[{"OnlyQuadTerms"}, False],
     "SignSymbol" -> get[{"SignSymbol"}, signA]
