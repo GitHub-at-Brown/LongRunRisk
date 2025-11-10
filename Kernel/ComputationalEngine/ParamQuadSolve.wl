@@ -151,7 +151,7 @@ paramQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
   signRadMapDesym  = Map[# /. coeffMap &, Association[signRadMap]];
   signVars = Keys[signRootMapDesym];
   signAssumptions = If[signVars === {}, True, And @@ Thread[(signVars)^2 == 1]];
-  fullAss = ass && signAssumptions;
+  fullAss = expandPatternAssumptions[eqns,ass && signAssumptions];
   If[TrueQ[doValidate],
     solRulesDesym = TimeConstrained[
       (#[[1]] -> Simplify[#[[2]], Assumptions -> fullAss]) & /@ solRulesDesym,
@@ -238,45 +238,44 @@ paramQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*defaultAssumptions*)
 
 
 defaultAssumptions[] := Module[
-  {paramsRealAss, endogVarsRealAss, endogVarsToMakeReal,
-   endogAss, allEndogVars, varsWithElement},
+  {paramsRealAss, endogVarsRealAss, endogAss, syms, headsApplied, scalars,
+   varsWithElementHeads, funcMissing, scalarMissing, pAssoc, divParamPat, restParam, restScalars},
   (* endogEqAssumptions from EndogenousEq.wl *)
   (* paramAssumptions from Parameters.wl *)
-  (* All parameters in $parameters are Real *)
-  paramsRealAss = And @@ (Element[#, Reals] & /@
-    FernandoDuarte`LongRunRisk`Model`Parameters`$parameters);
-  (* All variables in endogEqAssumptions should be real if not already *)
-  (* Programmatically determine which variables need Element[_, Reals] *)
+
+  (* Base endogenous-equation assumptions *)
   endogAss = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`endogEqAssumptions;
 
-  (* Extract all unique symbols from endogEqAssumptions *)
-  allEndogVars = DeleteDuplicates@Cases[
-    Join[
-      Cases[endogAss, s_Symbol, Infinity],  (* Atomic symbols *)
-      Map[Head, Level[endogAss, {0, Infinity}], {1}]  (* Heads of all expressions *)
-    ],
-    s_Symbol /; !MemberQ[{And, Or, Not, Element, Greater, Less, GreaterEqual, LessEqual,
-                          Unequal, Equal, Integer, Reals, Blank, BlankSequence, BlankNullSequence, Symbol}, s],
-    {1}
+  (* Parameters real-valued: mirror external construction using paramList *)
+  pAssoc = FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList;
+  divParamPat = pAssoc["Real dividend growth"] /. x_[1] :> x[_];
+  restParam = Values@KeyDrop[pAssoc, "Real dividend growth"];
+  restScalars = Select[Flatten@restParam, Head[#] === Symbol &];
+  paramsRealAss = And @@ Join[
+    (Element[#, Reals] & /@ restScalars),
+    (Element[#, Reals] & /@ divParamPat)
   ];
 
-  (* Find which variables already have Element[var, Reals] declarations *)
-  varsWithElement = DeleteDuplicates@Cases[endogAss,
-    Element[var_, Reals] :> Replace[var, {
-      h_[___] :> h,  (* Pattern like B[_] or kappa0[__] -> extract head *)
-      s_Symbol :> s   (* Bare symbol -> keep as is *)
-    }],
-    Infinity
+  (* Symbols from endogenous assumptions: real-valued, distinguishing scalars vs function heads *)
+  syms = DeleteDuplicates @ Cases[endogAss, s_Symbol /; Context[s] =!= "System`", {0, Infinity}];
+  headsApplied = Select[syms, Not@FreeQ[endogAss, HoldPattern[# [___]]] &];
+  scalars = Complement[syms, headsApplied];
+  varsWithElementHeads = DeleteDuplicates@Cases[
+    endogAss,
+    Element[var_, Reals] :> Replace[var, {h_[___] :> h, s_Symbol :> s}],
+    {0, Infinity}
   ];
-
-  (* Variables that need Element declarations are those in endogAss but not already declared *)
-  endogVarsToMakeReal = Complement[allEndogVars, varsWithElement];
-  endogVarsRealAss = And @@ (Element[#, Reals] & /@ endogVarsToMakeReal);
+  funcMissing = Complement[headsApplied, varsWithElementHeads];
+  scalarMissing = Complement[scalars, varsWithElementHeads];
+  endogVarsRealAss = And @@ Join[
+    (Element[#, Reals] & /@ scalarMissing),
+    (Element[#[__], Reals] & /@ funcMissing)
+  ];
 
   (* Combine all assumptions *)
   And[
@@ -611,7 +610,7 @@ quarticSolveParam[poly_, v_, signGen_, ass_] := Module[
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*normalizeSigns*)
 
 
@@ -761,6 +760,14 @@ normalizeOptions[opts___?OptionQ] := Module[{assoc = Association@Flatten@{opts},
   |>
   ]
 ];
+
+
+(* ::Subsubsection:: *)
+(*expandPatternAssumptions*)
+
+
+expandPatternAssumptions[expr_,ass_]:=And@@DeleteCases[If[Head@ass===And,List@@ass,{ass}]/.
+(op:(Element|Greater|GreaterEqual|Less|LessEqual|Equal|Unequal))[p_,v_]/;!FreeQ[p,Blank|BlankSequence|BlankNullSequence]:>Sequence@@(op[#,v]&/@DeleteDuplicates@Cases[expr,p,{0,Infinity}]),True]
 
 
 (* ::Section:: *)

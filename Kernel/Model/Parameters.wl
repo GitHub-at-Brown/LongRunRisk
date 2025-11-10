@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Model`Parameters`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 
 
 (* ::Subsection:: *)
@@ -108,11 +108,11 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 $parameters=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Code*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (*make index variables be maintained as exact integers, rather than being converted by N to approximate numbers*)
@@ -120,18 +120,18 @@ SetAttributes[$parameters,NHoldAll]
 
 
 (*parameters split by categories*)
-paramList={
-{"Preferences",{delta,psi,gamma,theta}},
-{"Long-run risk",{rhox,rhoxpbar,phix,phixc}},
-{"Inflation",{mup,rhoppbar,rhop,phip,xip,phipc,phipcx,phipx,phipp,phipxp}},
-{"Expected inflation",{mupbar,rhopbar,rhopbarx,phipbarc,phipbarcx,phipbarx,phipbarp,phipbarxb,phipbarpb,phipbarxp}},
-{"Real consumption growth",{muc,rhocx,rhocp,phics,phicx,phicc,phicpp,phicpc,phic,phicsp,xic,phicp}},
-{"Nominal-real covariance (NRC)",{Esg,rhog,rhogp,rhogpbar,phig}},
-{"Stochastic volatility of long-run risk",{Esx,vx,phisxs}},
-{"Stochastic volatility of consumption growth",{Esc,vc,phiscv}},
-{"Stochastic volatility of inflation",{Esp,vp,vpp,vppbar,phispw}},
-{"Real dividend growth",{mud[1],rhodx[1],rhodp[1],phidxd[1],phids[1],phidxc[1],phidpp[1],phidpd[1],phidcc[1],phidpc[1],phidcd[1],phidsp[1],xid[1],phidp[1],phidc[1],taugd[1]}}
-};
+paramList=<|
+"Preferences"->{delta,psi,gamma,theta},
+"Long-run risk"->{rhox,rhoxpbar,phix,phixc},
+"Inflation"->{mup,rhoppbar,rhop,phip,xip,phipc,phipcx,phipx,phipp,phipxp},
+"Expected inflation"->{mupbar,rhopbar,rhopbarx,phipbarc,phipbarcx,phipbarx,phipbarp,phipbarxb,phipbarpb,phipbarxp},
+"Real consumption growth"->{muc,rhocx,rhocp,phics,phicx,phicc,phicpp,phicpc,phic,phicsp,xic,phicp},
+"Nominal-real covariance (NRC)"->{Esg,rhog,rhogp,rhogpbar,phig},
+"Stochastic volatility of long-run risk"->{Esx,vx,phisxs},
+"Stochastic volatility of consumption growth"->{Esc,vc,phiscv},
+"Stochastic volatility of inflation"->{Esp,vp,vpp,vppbar,phispw},
+"Real dividend growth"->{mud[1],rhodx[1],rhodp[1],phidxd[1],phids[1],phidxc[1],phidpp[1],phidpd[1],phidcc[1],phidpc[1],phidcd[1],phidsp[1],xid[1],phidp[1],phidc[1],taugd[1]}
+|>;
 
 
 (* ::Subsection:: *)
@@ -149,11 +149,11 @@ paramAssumptions =
 	(*process for sp*)vp>-1 && vp<1 && Esp>=0 && phispw>=0;
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End package*)
 
 
-End[](*"`Private`"*)
+End[];(*"`Private`"*)
 
 
-EndPackage[]
+EndPackage[];

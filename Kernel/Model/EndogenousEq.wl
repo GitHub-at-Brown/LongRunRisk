@@ -62,7 +62,7 @@ $endogenousVars=SortBy[Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&],P
 (*Code*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (* ::Subsection:: *)
@@ -83,7 +83,7 @@ $ContextPath=AppendTo[
 
 
 (*declare symbols*)
-$endogenousVarsPrivate = ((StringDrop[#,-2]&) /@ $endogenousVars)
+$endogenousVarsPrivate = ((StringDrop[#,-2]&) /@ $endogenousVars);
 Symbol/@ $endogenousVarsPrivate;
 
 
@@ -241,10 +241,10 @@ Do[
 
 
 endogEqAssumptions=
-	(*coefficients of wc*)Element[coefwc,Reals]  && coefwc[0]>0 && Ewc>0 &&
-	(*coefficients of pd*)Element[coefpd,Reals] && coefpd[0]>0 && Epd[_]>0 &&
-	(*coefficients of real bond prices*)Element[coefb,Reals] && 
-	(*coefficients of nominal bond prices*)Element[coefnb,Reals] &&
+	(*coefficients of wc*)Element[coefwc[_],Reals]  && coefwc[0]>0 && Ewc>0 &&
+	(*coefficients of pd*)Element[coefpd[_],Reals] && coefpd[0]>0 && Epd[_]>0 &&
+	(*coefficients of real bond prices*)Element[coefb[_],Reals] && 
+	(*coefficients of nominal bond prices*)Element[coefnb[_],Reals] &&
 	(*linearization constants*)kappa0[__]>0 && kappa0[_]<1 && kappa1[__]>0 && kappa1[__]<1;
 
 
