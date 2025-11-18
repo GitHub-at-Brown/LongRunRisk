@@ -259,6 +259,62 @@ FindRootsA0[expr_, param_List, assumeA_, condA_, params_Association, signs_List:
 ];
 
 
+End[];
+EndPackage[];
+
+
+(* load the package *)
+Get["A0RootPack`"];  (* or Get["/full/path/to/A0RootPack.wl"] *)
+
+
+Subtract@@eqAB0/.signB[1]->1/.signB[2]->1/.signA[1]->1/.signA[2]->1/.j->1//.params/.B[1][0]->3/.A[0]->3//N//Simplify
+
+
+expr=Subtract@@eqA0;
+param =  Keys@model["params"];
+assume=assumeA;
+condA=And@@conditionsA;
+paramsAssoc = (Association@model["params"])/.model["params"]//N;
+params = paramsAssoc;
+signs = {1, 1};  (* edit to match your expr; {} if no signA[i] *)
+solsNA0=FindRootsA0[expr, param, assume, condA, params, signs]
+solNA0=FindRootA0[expr, param, assume, condA, params, signs]
+
+
+
+
+
+
+
+exprAB=Subtract@@eqAB0;
+signsA = Thread[{signA[1],signA[2]}->signs];
+paramAB = Join[param,{Keys@solNA0},Keys@signsA];
+paramsAB = Join[params,Association@solNA0,Association@signsA];
+condAB=And@@conditionsB;
+signsAB = {1, 1}; 
+
+
+(* compile once *)
+K = BuildKernel[expr, param, CompilationTarget -> "C"];
+
+(* save it (machine- and version-specific) *)
+filename = FileNameJoin[{DirectoryName[NotebookDirectory[],2],"Resources","CompiledFunctions",model["shortname"]<>".mx"}]
+$SavedKernel = K;
+DumpSave[filename, "$SavedKernel"];
+
+
+
+Get[filename];     (* restores $SavedKernel *)
+K = $SavedKernel;
+
+(* bind params/signs and use *)
+{f, df} = BindUnary[K, paramsAssoc, signs];
+iv = A0Interval[condA, paramsAssoc, signs];
+{L, U} =  {Min@iv,Max@iv};
+root = FindRoot[f[z], {z, (L+U)/2., L, U}] /. z -> A[0];
+
+
+
 ClearAll[fastRoot];
 fastRoot::usage =
   "fastRoot[{a,b}, acc:8, maxit:20] finds a real root of f[x]==0 in [a,b]. \
@@ -433,5 +489,89 @@ scanAndSolve[f_, {a_?NumericQ, b_?NumericQ}, bins_: 32, acc_: 8, opts : OptionsP
 
 
 
-End[];
-EndPackage[];
+fastRoot[Function[x, Cos[x] - x],
+         Function[x, -Sin[x] - 1.0],
+         {0., 1.},
+         10, 30]
+(* -> x -> 0.7390851332... *)
+cf  = Compile[{{x, _Real}},  Cos[x] - x];
+cdf = Compile[{{x, _Real}}, -Sin[x] - 1.0];
+
+fastRoot[cf, cdf, {0., 1.}, 10, 30]                     (* positional *)
+fastRoot[cf, cdf, {0., 1.}, AccuracyGoal->12, PrecisionGoal->12]
+
+fastRoot[cf, cdf, {0., 1.}, "Return" -> "Value"]
+(* -> 0.7390851332... *)
+
+
+cf  = Compile[{{x,_Real}},  Cos[x] - x];
+cdf = Compile[{{x,_Real}}, -Sin[x] - 1.0];
+
+scanAndSolve[cf, cdf, {0., 3.}, 64, 8]
+(* {0.739085...} *)
+
+scanAndSolve[(Cos[#] - #) &, {0., 3.}, 64, 8]
+(* {0.739085...} *)
+
+
+
+
+  ClearAll[K,fC,dFC,f,df,iv,L,U]
+  K = BuildKernel[expr, param, CompilationTarget -> "C"];
+  {fC, dfC} = BindUnary[K, params, signs];
+  f[x_?NumericQ]  := fC[x];
+  df[x_?NumericQ] := dfC[x];
+  iv = A0Interval[condA, params, signs];
+  If[iv === $Failed, Return[$Failed]];
+  {L, U} = {N@Min@iv, N@Max@iv};
+  {f[L],f[U-0.01],df[L],df[U-0.01]}
+    fastRoot[f, df,{L, U-0.01}] 
+
+
+scanAndSolve[f, df,{L, U-0.01}]
+
+
+(* cache/ensure a compiled kernel on disk *)
+Options[EnsureKernelFile] = Options[BuildKernel];
+
+EnsureKernelFile[
+  expr_, param_List,
+  file_: Automatic,
+  OptionsPattern[]
+] := Module[
+  {tgt = OptionValue[CompilationTarget], path = file, dir, key, K},
+
+  (* choose default location when file == Automatic *)
+  path = If[path === Automatic,
+    dir = FileNameJoin[{$UserBaseDirectory, "A0RootPack", "kernels"}];
+    If[!DirectoryQ[dir], CreateDirectory[dir, CreateIntermediateDirectories -> True]];
+    key = IntegerString[Hash @ HoldComplete[expr, param, tgt], 36];
+    FileNameJoin[{dir, "K-" <> key <> ".mx"}],
+    path
+  ];
+
+  (* try to load existing mx *)
+  If[FileExistsQ[path],
+    Quiet @ Check[Get[path]; K = $A0Kernel;, K = $Failed];
+    If[AssociationQ[K] && KeyExistsQ[K, "ParamOrder"] && K["ParamOrder"] === param,
+      Return[{K, path}]
+    ];
+  ];
+
+  (* build and save *)
+  K = BuildKernel[expr, param, CompilationTarget -> tgt];
+  $A0Kernel = K;                                     (* private stash symbol *)
+  DumpSave[path, $A0Kernel];                         (* persist for later reuse *)
+
+  {K, path}
+];
+
+
+
+{K, file} = EnsureKernelFile[expr, param, Automatic, CompilationTarget -> "C"];
+{f, df}   = BindUnary[K, paramsAssoc, signs];
+
+iv = A0Interval[condA, paramsAssoc, signs];
+{L, U} = iv[[1]];
+FindRoot[f[z] == 0, {z, (L + U)/2., L, U}, Method -> "Secant"]
+
