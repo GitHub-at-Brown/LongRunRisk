@@ -121,8 +121,15 @@ processModels[
 	]& /@ models;
 	
 	(*add assumptions*)
-	modelAssumptions = FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramAssumptions && 
-		FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`endogEqAssumptions;
+	modelAssumptions = Module[{divParam, restParam, param},
+	divParam=FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList["Real dividend growth"]/.x_[1]:>x[_];
+	restParam=Values[KeyDrop[FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList,"Real dividend growth"]];
+	param=Flatten@{divParam,restParam};
+	(And @@ (Element[#, Reals] & /@param)) && 
+		FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramAssumptions &&
+		FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`endogEqAssumptions &&
+		psi!=1 && theta!=1 && gamma!=1
+	];
 	models=(Append[#, "modelAssumptions"->(modelAssumptions//.#["assignParam"]//.#["assignParamStocks"]) ]&) /@models;
 
 	(*add "exogenousVars","exogenousEq" to each model*)
@@ -183,6 +190,12 @@ processModels[
 		addCoeffsSystem[#]
 	]&/@models;
 	Message[processModels::progress,"addCoeffsSystem"];
+	
+	(*simplify Euler equations*)
+	
+	(*solve Euler equations*)
+	
+	(*simplify solution to Euler equations*)
 	
 	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
 	models = Append[
@@ -487,6 +500,9 @@ addCoeffsSystem[model_]:=Module[
 (*addCoeffsSolution*)
 
 
+addCoeffsSolution::badextrainfo = "Closed-form coefficients from extra info did not validate; falling back to numerical solve.";
+
+
 addCoeffsSolution[
 	model_,
 	ratio_String,
@@ -558,7 +574,7 @@ addCoeffsSolution[
 					AnyTrue[Not/@solvedQ,TrueQ]
 					,
 					(*don't use the closed form and solve entire system numerically*)
-					coeff::badextrainfo;
+					Message[addCoeffsSolution::badextrainfo];
 					solveNumericQ = True;
 					,
 					(*incorporate closed form into system of equations*)
@@ -1041,11 +1057,11 @@ getStartingValues[
 		(*optional argument in function call or default option, but only if non-empty*)
 		And[
 				KeyExistsQ[ig,iEv],
-				Not[SameQ[ig,{}]] || Not[SameQ[ig[iEv],{}]
-			]
-		]
+				Not[SameQ[ig,{}]] || Not[SameQ[ig[iEv],{}]]
+		](*And*)
 		,
-		ig[iEv],
+		ig[iEv]
+		,
 		(*modelsExtraInfo[modKey]["initialGuess"] in Catalog.wl*)
 		KeyExistsQ[infoModel,"initialGuess"] && KeyExistsQ[infoModel["initialGuess"],iEv]
 		,
@@ -1054,8 +1070,8 @@ getStartingValues[
 		True
 		,
 		Switch[ratio,"wc",{4},"pd",{{4}}]
-	]
-]
+	](*Which*)
+](*With*)
 
 
 (* ::Subsection:: *)
