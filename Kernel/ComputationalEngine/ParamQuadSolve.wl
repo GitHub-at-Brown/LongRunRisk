@@ -152,6 +152,10 @@ paramQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
   signVars = Keys[signRootMapDesym];
   signAssumptions = If[signVars === {}, True, And @@ Thread[(signVars)^2 == 1]];
   fullAss = expandPatternAssumptions[eqns,ass && signAssumptions];
+
+  (* Apply square root simplification *)
+  {signRootMapDesym, signRadMapDesym} = simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss];
+
   If[TrueQ[doValidate],
     solRulesDesym = TimeConstrained[
       (#[[1]] -> Simplify[#[[2]], Assumptions -> fullAss]) & /@ solRulesDesym,
@@ -607,6 +611,87 @@ quarticSolveParam[poly_, v_, signGen_, ass_] := Module[
   signAssoc = <|sign2 -> radicalR, sign1 -> inner|>;
   radAssoc  = <|sign2 -> radR, sign1 -> Simplify[-2 m - p - (2 q/radicalR) sign2, Assumptions -> ass]|>;
   {rule, signAssoc, radAssoc}
+];
+
+
+(* ::Subsubsection::Closed:: *)
+(*simplifySquareRoot*)
+
+
+(* Simplify a square root expression Sqrt[radicand].
+   Uses FullSimplify with FactorTerms to simplify the radicand.
+
+   Single expression form:
+     simplifySquareRoot[radicand, assumptions]
+
+   Multiple transforms form (tries each and picks best by LeafCount):
+     simplifySquareRoot[radicand, {transform1, transform2, ...}, assumptions]
+*)
+simplifySquareRoot[radicand_, ass : Except[_List] : Automatic] := Module[{expr, simplified},
+  expr = Sqrt[radicand];
+
+  (* Apply FullSimplify with FactorTerms on numerator/denominator *)
+  simplified = FullSimplify[
+    expr /. Sqrt[z_] :> Sqrt[FactorTerms[Numerator@z]]/Sqrt[FactorTerms[Denominator@z]],
+    Assumptions -> Replace[ass, Automatic -> defaultAssumptions[]]
+  ];
+
+  simplified
+];
+
+(* Overload that tries multiple parameter transformations and picks the best one *)
+simplifySquareRoot[radicand_, transforms_List /; VectorQ[transforms, ListQ], ass : Except[_List] : Automatic] :=
+  Module[{results},
+    results = Table[
+      simplifySquareRoot[radicand /. transform, ass],
+      {transform, transforms}
+    ];
+    First[MinimalBy[results, LeafCount, 1]]
+  ];
+
+
+(* ::Subsubsection::Closed:: *)
+(*simplifySignMap*)
+
+
+(* Simplify all square roots in a sign map and return:
+   {simplifiedSignMap, simplifiedRadMap}
+   Applies simplifySquareRoot to each radicand and extracts the simplified radicand. *)
+simplifySignMap[signMap_Association, radMap_Association, ass : Except[_List] : Automatic] := Module[
+  {simplifiedSignMap = <||>, simplifiedRadMap = <||>, signVars},
+  signVars = Keys[signMap];
+
+  Do[
+    Module[{radicand, simplified, newRadicand},
+      radicand = radMap[s];
+      simplified = simplifySquareRoot[radicand, ass];
+
+      (* Extract radicand from simplified Sqrt[...] *)
+      newRadicand = Which[
+        MatchQ[simplified, Sqrt[r_]], r,
+        MatchQ[simplified, Times[___, Sqrt[r_]]],
+          (* If simplified is factor*Sqrt[r], reconstruct as Sqrt[factor^2 * r] *)
+          Module[{factors, sqrtPart},
+            factors = Select[List @@ simplified, FreeQ[#, Sqrt] &];
+            sqrtPart = Select[List @@ simplified, !FreeQ[#, Sqrt] &];
+            If[sqrtPart === {} || !MatchQ[First[sqrtPart], Sqrt[_]],
+              radicand,
+              (Times @@ factors)^2 * First[sqrtPart][[1]]
+            ]
+          ],
+        True, radicand  (* Couldn't extract, keep original *)
+      ];
+
+      (* Store the simplified sqrt *)
+      simplifiedSignMap[s] = simplified;
+
+      (* Store the simplified radicand *)
+      simplifiedRadMap[s] = newRadicand;
+    ],
+    {s, signVars}
+  ];
+
+  {simplifiedSignMap, simplifiedRadMap}
 ];
 
 
