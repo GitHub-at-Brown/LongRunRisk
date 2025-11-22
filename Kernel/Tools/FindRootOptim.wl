@@ -20,6 +20,7 @@ Options[FindRootsA0] = {CompilationTarget -> "C", "BracketGrid" -> 512, Accuracy
 
 Begin["`Private`"];
 
+
 normalizeExp[e_] := e //. {
   Power[E, a_?AtomQ][x_] :> Exp[a[x]],
   Power[E, u_] :> Exp[u]
@@ -40,10 +41,13 @@ expCSE[ex_, z_Symbol] := Module[{t = Unique["t$"], e = ex},
   {t, e}
 ];
 
+
 (* fast, robust scalar-args kernel *)
-BuildKernel[expr_, param_List, OptionsPattern[{CompilationTarget -> "C"}]] := Module[
+BuildKernel[expr_, param_List, OptionsPattern[]] := Module[
   {
-    tgt = OptionValue[CompilationTarget], sigSym = OptionValue["SignSymbol"], cn = OptionValue["CoeffName"],
+    tgt = OptionValue[CompilationTarget],
+    coeffName = OptionValue["CoeffName"],
+    signSym = OptionValue["SignSymbol"],
     ex0, z, idx, pSyms, sSyms, body, dbody, fC, dfC, nP, nS, signHead
   },
 
@@ -51,10 +55,10 @@ BuildKernel[expr_, param_List, OptionsPattern[{CompilationTarget -> "C"}]] := Mo
   z   = Unique["z"];
 
   (* A[0] -> z, context-agnostic *)
-  ex0 = ex0 /. (s_Symbol[j_][0] /; SymbolName[s] === cn) :> z /. (s_Symbol[0] /; SymbolName[s] === cn) :> z;
+  ex0 = ex0 /. (s_Symbol[j_][0] /; SymbolName[s] === coeffName) :> z /. (s_Symbol[0] /; SymbolName[s] === coeffName) :> z;
 
   (* detect indices before any N *)
-  idx = signIdxs[ex0, sigSym];
+  idx = signIdxs[ex0, signSym];
 
   nP = Length@param;  nS = Length@idx;
   pSyms = Array[Unique["p$"]&, nP];
@@ -63,8 +67,8 @@ BuildKernel[expr_, param_List, OptionsPattern[{CompilationTarget -> "C"}]] := Mo
   body = ex0 /. Thread[param -> pSyms];
 
   If[nS > 0,
-    signHead = First @ Cases[ex0, s_Symbol[_Integer] /; SymbolName[s] === sigSym :> s, Infinity, 1];
-    body = body /. Thread[(signHead /@ idx) -> (1.0*sSyms)];
+    signHead = First @ Cases[ex0, s_Symbol[_Integer] /; SymbolName[s] === signSym :> s, Infinity, 1];
+    body = body /. Thread[(signHead /@ idx) -> sSyms];
   ];
 
   body  = N[body, MachinePrecision];                   (* numericize after substitutions *)
@@ -72,13 +76,13 @@ BuildKernel[expr_, param_List, OptionsPattern[{CompilationTarget -> "C"}]] := Mo
 
     With[{args = Join[
                   {{z, _Real}},
-                  Table[{pSyms[[i]], _Real},    {i, nP}],
+                  Table[{pSyms[[i]], _Real},    {i, nP}],  (*signA in params is Integer*)
                   Table[{sSyms[[j]], _Integer}, {j, nS}]
-                ],
+                ], 
          b = body, db = dbody, tgt2 = tgt},
     fC = Compile[ Evaluate@args, Evaluate@b,
           CompilationTarget -> tgt2,
-          RuntimeOptions    -> "Speed",
+          RuntimeOptions    -> {"Speed", "EvaluateSymbolically"->False, "CatchMachineUnderflow"->True, "CatchMachineOverflow"->True},
           CompilationOptions -> {
             "ExpressionOptimization"->True,
             "InlineExternalDefinitions"->True,
@@ -87,7 +91,7 @@ BuildKernel[expr_, param_List, OptionsPattern[{CompilationTarget -> "C"}]] := Mo
 
     dfC = Compile[ Evaluate@args, Evaluate@db,
           CompilationTarget -> tgt2,
-          RuntimeOptions    -> "Speed",
+          RuntimeOptions    -> {"Speed", "EvaluateSymbolically"->False, "CatchMachineUnderflow"->True, "CatchMachineOverflow"->True},
           CompilationOptions -> {
             "ExpressionOptimization"->True,
             "InlineExternalDefinitions"->True,
@@ -95,15 +99,29 @@ BuildKernel[expr_, param_List, OptionsPattern[{CompilationTarget -> "C"}]] := Mo
           }];
   ];
 
-  <|"fC"->fC, "dfC"->dfC, "ParamOrder"->param, "SignIndex"->idx|>
+  <|"fC"->fC, "dfC"->dfC, "ParamOrder"->param, "SignIndex"->idx, "CoeffName"->coeffName, "SignSymbol"->signSym|>
 ];
 
 
 (* bind: feed scalars to the scalar-args kernel *)
 BindUnary[k_Association, params_Association, signs_List:{}] := Module[
-  {a, s, idx = k["SignIndex"]},
-  a = Developer`ToPackedArray @ N[Lookup[params, k["ParamOrder"]], MachinePrecision];
-  s = If[idx === {}, {}, Developer`ToPackedArray @ Round @ signs[[idx]]];
+  {paramsj, paramOrder, a, s, idx = k["SignIndex"], maxIdx},
+  
+  paramsj = First[
+     KeySelect[params, MatchQ[#, _Symbol] && SymbolName[#] === "j" &], 
+     Missing["NotFound"]
+  ];
+  If[!MissingQ[paramsj],
+    paramOrder = k["ParamOrder"] /. s_Symbol /; SymbolName[s] === "j" -> paramsj,
+    paramOrder = k["ParamOrder"] 
+ ];
+
+  a = Developer`ToPackedArray @ N[Lookup[params, paramOrder], MachinePrecision];
+  s = If[idx === {}, {},
+    maxIdx = Max[idx];
+    If[Length[signs] < maxIdx, Return[$Failed]];
+    Developer`ToPackedArray @ Round @ signs[[idx]]
+  ];
   {
     Function[{z}, k["fC"][Sequence @@ Join[{z}, a, s]]],
     Function[{z}, k["dfC"][Sequence @@ Join[{z}, a, s]]]
@@ -111,45 +129,128 @@ BindUnary[k_Association, params_Association, signs_List:{}] := Module[
 ];
 
 
-paramValidQ[ass_, params_Association] := Module[
-  {assP = LogicalExpand[ass] //. params, only},
-  only = Select[List @@ assP, FreeQ[#, A[0]] &];
-  TrueQ @ Simplify[If[only === {}, True, Not[False === (And @@ only)]]]
+paramValidQ[ass_, params_Association, coeffName_String:"A"] := Module[
+  {assP = ass //. params, only, rootHead, rootFreeQ, parts, rootClauses, rootFree},
+  Which[
+    assP === True, Return[True],
+    assP === False, Return[False]
+  ];
+  rootHead  = SymbolName @ ToExpression[coeffName];
+  rootFreeQ = FreeQ[#, s_Symbol /; SymbolName[s] === rootHead] &;
+  parts = If[MatchQ[assP, _And | _Or], List @@ assP, {assP}];
+  rootClauses = Select[parts, Not@*rootFreeQ];
+  If[rootClauses =!= {} && TrueQ[Simplify[And @@ rootClauses] === False], Return[False]];
+  only  = Select[parts, rootFreeQ];
+  If[only === {}, Return[True]];
+  rootFree = Simplify[And @@ only];
+  If[rootFree === False, False, True]
 ];
 
-A0Interval[condA_, params_Association, signs_List:{}] := Module[
-  {ineq, red, lexp, ints = {}, lb, ub, L, U, best},
-  ineq = normalizeExp[condA] /. Normal@params /. Table[signA[i] -> signs[[i]], {i, Length@signs}];
-  red = Quiet @ Check[
-    Reduce[ineq && A[0] > 0, A[0], Reals],
-    Reduce[Rationalize[ineq, 0] && A[0] > 0, A[0], Reals]
+
+A0Interval::emptyinterval = "There are no real solutions for `1`. Try changing signs `2` or parameters.";
+
+A0Interval[condA_, params_Association, signs_List:{}, coeffName_String:"A", signSym_String:"signA"] := Module[
+  {condExpr, ineq, red, lexp, ints = {}, lb, ub, l, u, best, rootVar, signHead,
+   paramsRules, rootSym, rootRules, rootVarN, ineqRootVar},
+
+  condExpr = And @@ Flatten[List @ condA];
+
+  (* Create the root variable symbol dynamically based on coeffName *)
+  rootVar = First[
+    Join[
+      Cases[condExpr, s_Symbol[0] /; SymbolName[s] === coeffName :> s[0], Infinity],
+      Cases[condExpr, s_Symbol[i_][0] /; SymbolName[s] === coeffName :> s[i][0], Infinity]
+    ],
+    $Failed
   ];
-  If[red === False, Return[$Failed]];
+  If[rootVar === $Failed,
+    If[coeffName === "A",
+      rootVar = ToExpression["A"][0],
+      Return[$Failed]
+    ]
+  ];
+  signHead = ToExpression[signSym];
+  paramsRules = Normal@params;
 
-  lexp = LogicalExpand @ red;
+  (* fast path for equalities on the root variable *)
+  If[
+  MatchQ[
+     condExpr, 
+     Equal[s_Symbol[___][0], c_?NumericQ] /; SymbolName[s] === coeffName
+  ],
+    Return[With[{c = N @ Last[condA]},
+      Interval[{Max[0., c], c}]
+    ]]
+  ];
+ MatchQ[
+     condExpr, 
+     Equal[s_Symbol[___][0], c_?NumericQ] /; SymbolName[s] === coeffName
+  ];
+normalizeExp[e_] := e //. {
+  Power[E, a_?AtomQ][x_] :> Exp[a[x]],
+  Power[E, u_] :> Exp[u]
+};
+ signsRule = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
 
+ineq = normalizeExp[condExpr] //. paramsRules /. signsRule;
+  
+
+  rootSym = Unique["root$"];
+  rootVarN = (rootVar//. paramsRules);
+    rootRules = rootVarN -> rootSym;
+    ineqRootVar=ineq/. rootRules;
+
+
+  red =  Check[
+ Quiet[
+    Reduce[ineqRootVar && rootSym > 0, rootSym, Reals],
+    Reduce::ratnz
+ ],
+ Reduce[Rationalize[ineqRootVar, 0] && rootSym > 0, rootSym, Reals]
+ ];
+  red = red /. Reverse@rootRules;
+If[red === False,Message[A0Interval::emptyinterval,rootVarN,Keys@signsRule];Return[$Failed]];
+lexp = LogicalExpand @ red;
   ints = Join[
-    Cases[lexp, Inequality[lo_, (Less|LessEqual), A[0], (Less|LessEqual), hi_] :> Interval[{N@lo, N@hi}], Infinity],
-    Cases[lexp, Equal[A[0], c_] :> Interval[{N@c, N@c}], Infinity]
+    Cases[lexp, Inequality[lo_, (Less|LessEqual), rootVarN, (Less|LessEqual), hi_] :> Interval[{N@lo, N@hi}], Infinity],
+    Cases[lexp, Equal[rootVarN, c_] :> Interval[{N@c, N@c}], Infinity]
   ];
-
-  If[ints === {},
+    If[ints === {},
     lb = Cases[lexp,
-          (Less[lo_, A[0]] | LessEqual[lo_, A[0]] | Greater[A[0], lo_] | GreaterEqual[A[0], lo_]) :> N@lo,
+          (Less[lo_, rootVar] | LessEqual[lo_, rootVar] | Greater[rootVar, lo_] | GreaterEqual[rootVar, lo_]) :> N@lo,
           Infinity];
     ub = Cases[lexp,
-          (Less[A[0], hi_] | LessEqual[A[0], hi_] | Greater[hi_, A[0]] | GreaterEqual[hi_, A[0]]) :> N@hi,
+          (Less[rootVar, hi_] | LessEqual[rootVar, hi_] | Greater[hi_, rootVar] | GreaterEqual[hi_, rootVar]) :> N@hi,
           Infinity];
     If[lb =!= {} && ub =!= {},
-      L = Max@lb; U = Min@ub;
-      If[NumericQ[L] && NumericQ[U] && L <= U, ints = {Interval[{L, U}]}];
+      l = Max@lb; u = Min@ub;
+      If[NumericQ[l] && NumericQ[u] && l <= u, ints = {Interval[{l, u}]}];
+    ];
+  ];
+  If[ints === {},
+    ints = Cases[
+      normalizeExp[condA],
+      Equal[s_Symbol[___][0], c_?NumericQ] /; SymbolName[s] === coeffName :> Interval[{N@c, N@c}],
+      Infinity
+    ];
+  ];
+  If[ints === {},
+    With[{vals = Cases[normalizeExp[condA], c_?NumericQ, Infinity]},
+      If[vals =!= {},
+        ints = {Interval[{Max[0., Min@vals], Max@vals}]}
+      ];
     ];
   ];
 
   If[ints === {}, Return[$Failed]];
-  best = First @ SortBy[ints, -IntervalMeasure[#] &];
+  best = First @ SortBy[
+      ints,
+      -((With[{seg = First @ List @@ #}, Last[seg] - First[seg]]) &)
+  ];
   best /. Interval[{l_, u_}] :> Interval[{Max[0., l], u}]
+
 ]
+
 
 bracketSeeds[f_, Interval[{L_,U_}], n_Integer:256] := Module[
   {xs = Subdivide[N@L, N@U, n], ys, i},
@@ -160,9 +261,12 @@ bracketSeeds[f_, Interval[{L_,U_}], n_Integer:256] := Module[
   If[i === Missing["NotFound"], (L + U)/2., Mean[{xs[[i]], xs[[i + 1]]}]]
 ];
 
+
 Options[FindRootA0] = {
   CompilationTarget -> "C",
-  "BracketGrid" -> 256,
+  "CoeffName" -> "A",
+  "SignSymbol" -> "signA",
+  "BracketGrid" -> 16,
   "Seeds" -> Automatic,
   AccuracyGoal -> 8,
   PrecisionGoal -> 8,
@@ -174,21 +278,44 @@ FindRootA0[
   params_Association, signs_List:{},
   OptionsPattern[]
 ] := Module[
-  {tgt = OptionValue[CompilationTarget], grid = OptionValue["BracketGrid"],
+  {tgt = OptionValue[CompilationTarget],
+   coeffName = OptionValue["CoeffName"],
+   signSym = OptionValue["SignSymbol"],
+   grid = OptionValue["BracketGrid"],
    seeds = OptionValue["Seeds"], ag = OptionValue[AccuracyGoal],
    pg = OptionValue[PrecisionGoal], meth = OptionValue[Method],
-   K, f, fN, df, iv, L, U, xs, xsInt, ys, pairs, p, z, res},
+   K, f, fN, df, iv, L, U, Lint, Uint, shrink, span, xs, xsInt, ys, pairs, p, z, res, rootSym, tol, fLeft, fRight},
 
-  If[!paramValidQ[assumeA, params], Return[$Failed]];
-  
-  iv = A0Interval[condA, params, signs];
+  If[!paramValidQ[assumeA, params, coeffName], Return[$Failed]];
+
+  iv = A0Interval[condA, params, signs, coeffName, signSym];
   If[iv === $Failed, Return[$Failed]];
   {L, U} = {Min@iv, Max@iv};
+  span = Max[Abs[U - L], 1.];
+  shrink = Max[10.^-12, 1000. $MachineEpsilon*span];
+  shrink = If[U > L, Min[shrink, (U - L)/10.], shrink];
+  Lint = L + shrink;
+  Uint = U - shrink;
+  If[Lint >= Uint,
+    Lint = L + (U - L)/4.;
+    Uint = U - (U - L)/4.;
+    If[Lint >= Uint, Lint = Uint = (L + U)/2.]
+  ];
 
-  K = BuildKernel[expr, param, CompilationTarget -> tgt];
+  K = BuildKernel[expr, param, CompilationTarget -> tgt, "CoeffName" -> coeffName, "SignSymbol" -> signSym];
   {f, df} = BindUnary[K, params, signs];
+  If[f === $Failed || df === $Failed, Return[$Failed]];
 
-  fN[z_?NumericQ] := f[N[z, MachinePrecision]];
+  rootSym = ToExpression[coeffName];
+  fN[z_?NumericQ] := Module[{x = N[z, MachinePrecision]},
+    If[x <= Lint || x >= Uint, Indeterminate, f[x]]
+  ];
+  tol = 10.^(-ag);
+  If[L === U, Return[rootSym[0] -> L]];
+  fLeft  = Quiet@Check[f[N[Lint, MachinePrecision]], Indeterminate];
+  fRight = Quiet@Check[f[N[Uint, MachinePrecision]], Indeterminate];
+  If[NumericQ[fLeft] && Abs[fLeft] <= tol, Return[rootSym[0] -> Lint]];
+  If[NumericQ[fRight] && Abs[fRight] <= tol, Return[rootSym[0] -> Uint]];
   
   Which[
     MatchQ[seeds, {_?NumericQ, _?NumericQ}],
@@ -199,23 +326,29 @@ FindRootA0[
       ],
     NumericQ[seeds],
       res = Quiet @ Check[
-        First @ FindRoot[fN[z], {z, N@seeds, L, U}, Method -> meth, AccuracyGoal -> ag, PrecisionGoal -> pg],
+        First @ FindRoot[fN[z], {z, N@seeds, Lint, Uint}, Method -> meth, AccuracyGoal -> ag, PrecisionGoal -> pg],
         $Failed
       ],
     True,
-		xs    = N[Subdivide[L, U, grid + 2], MachinePrecision];
-		xsInt = xs[[2 ;; -2]];
-		ys    = f /@ xsInt;  (* f is compiled *)
-      pairs = xsInt[[#]] & /@ signFlipPairsNumericSubseq[ys];
-      If[pairs === {}, Return[$Failed]];
-      p = First @ pairs;
-      res = Quiet @ Check[
-        First @ FindRoot[fN[z], {z, p[[1]], p[[2]]}, Method -> meth, AccuracyGoal -> ag, PrecisionGoal -> pg],
-        $Failed
+      If[L === U,
+        res = If[NumericQ[fN[L]] && Abs[fN[L]] <= 10.^(-ag),
+          {z -> L},
+          Quiet @ Check[FindRoot[fN[z], {z, L}], $Failed]
+        ],
+        xs    = N[Subdivide[Lint, Uint, grid + 2], MachinePrecision];
+        xsInt = xs[[2 ;; -2]];
+        ys    = f /@ xsInt;
+        pairs = xsInt[[#]] & /@ signFlipPairsNumericSubseq[ys];
+        If[pairs === {}, Return[$Failed]];
+        p = First@pairs;
+        res = Quiet @ Check[
+          First @ FindRoot[fN[z], {z, p[[1]], p[[2]]}, Method -> meth, AccuracyGoal -> ag, PrecisionGoal -> pg],
+          $Failed
+        ]
       ]
   ];
 
-  If[res === $Failed, $Failed, res /. z -> A[0]]
+  If[res === $Failed, $Failed, res /. z -> rootSym[0]]
 ];
 
 
@@ -226,36 +359,129 @@ signFlipPairsNumericSubseq[list_List] := Module[{pos, s, k},
   Transpose @ {pos[[k]], pos[[k + 1]]}   (* pairs {i, i+1} in the original list indexing *)
 ];
 
-Options[FindRootsA0] = {CompilationTarget -> "C", "BracketGrid" -> 512, AccuracyGoal -> 8, PrecisionGoal -> 8};
+
+locateBracketInterval[f_, {a_, b_}, grid_Integer?Positive, minSamples_Integer:8] := Module[
+  {levels, xs, xsInt, ys, pairs},
+  If[!NumericQ[a] || !NumericQ[b] || a >= b, Return[$Failed]];
+  levels = NestWhileList[Min[2 #, grid] &, Min[minSamples, grid], # < grid &];
+  Do[
+    xs = Subdivide[a, b, n + 2];
+    xsInt = xs[[2 ;; -2]];
+    If[xsInt === {}, Continue[]];
+    ys = Quiet[f /@ xsInt];
+    pairs = xsInt[[#]] & /@ signFlipPairsNumericSubseq[ys];
+    If[pairs =!= {}, Return[pairs[[1]]]];
+    ,
+    {n, levels}
+  ];
+  $Failed
+];
+
+Options[FindRootsA0] = {CompilationTarget -> "C", "CoeffName" -> "A", "SignSymbol" -> "signA", "BracketGrid" -> 32, AccuracyGoal -> 8, PrecisionGoal -> 8};
 
 FindRootsA0[expr_, param_List, assumeA_, condA_, params_Association, signs_List:{}, OptionsPattern[]] := Module[
-  {tgt = OptionValue[CompilationTarget], grid = OptionValue["BracketGrid"], ag = OptionValue[AccuracyGoal], pg = OptionValue[PrecisionGoal],
-   K, f, fN, df, iv, L, U, xs, xsInt, ys, pairs, roots = {}, z},
+  {tgt = OptionValue[CompilationTarget],
+   coeffName = OptionValue["CoeffName"],
+   signSym = OptionValue["SignSymbol"],
+   grid = OptionValue["BracketGrid"], ag = OptionValue[AccuracyGoal], pg = OptionValue[PrecisionGoal],
+   K, f, fN, df, iv, L, U, Lint, Uint, shrink, span, roots = {}, z, rootSym, tol, fLeft, fRight,
+   segments, br, rootRes, rootRule, rootVal, epsBase, eps, seedPts, res},
 
-  If[!paramValidQ[assumeA, params], Return[{}]];
-  iv = A0Interval[condA, params, signs];
+  If[!paramValidQ[assumeA, params, coeffName], Return[{}]];
+  iv = A0Interval[condA, params, signs, coeffName, signSym];
   If[iv === $Failed, Return[{}]];
   {L, U} =  {Min@iv,Max@iv};
+  span = Max[Abs[U - L], 1.];
+  shrink = Max[10.^-12, 1000. $MachineEpsilon*span];
+  shrink = If[U > L, Min[shrink, (U - L)/10.], shrink];
+  Lint = L + shrink;
+  Uint = U - shrink;
+  If[Lint >= Uint,
+    Lint = L + (U - L)/4.;
+    Uint = U - (U - L)/4.;
+    If[Lint >= Uint, Lint = Uint = (L + U)/2.;]
+  ];
 
-  K = BuildKernel[expr, param, CompilationTarget -> tgt];
+  K = BuildKernel[expr, param, CompilationTarget -> tgt, "CoeffName" -> coeffName, "SignSymbol" -> signSym];
   {f, df} = BindUnary[K, params, signs];
+  If[f === $Failed || df === $Failed, Return[{}]];
  
- fN[z_?NumericQ] := f[N@z];
- 
- xs    = N[Subdivide[L, U, grid + 2], MachinePrecision];
-		xsInt = xs[[2 ;; -2]];
-		ys    = f /@ xsInt;  (* f is compiled *)
-      pairs = xsInt[[#]] & /@ signFlipPairsNumericSubseq[ys];
-      
-  Do[ 
-	Quiet @ Check[
-	   AppendTo[roots, (First @ FindRoot[fN[z], {z, p[[1]], p[[2]]}, Method -> "Secant", AccuracyGoal -> ag, PrecisionGoal -> pg]) /. z -> A[0]],
-	    Null
-  ],
-    {p, pairs}
+ rootSym = ToExpression[coeffName];
+ fN[z_?NumericQ] := Module[{x = N[z, MachinePrecision]},
+    If[x <= Lint || x >= Uint, Indeterminate, f[x]]
   ];
  
-  DeleteDuplicatesBy[roots, Round[Last[#], 10.^-10] &]
+ roots = {};
+ tol = 10.^(-ag);
+ fLeft  = Quiet@Check[f[N[Lint, MachinePrecision]], Indeterminate];
+ fRight = Quiet@Check[f[N[Uint, MachinePrecision]], Indeterminate];
+ If[NumericQ[fLeft] && Abs[fLeft] <= tol, AppendTo[roots, rootSym[0] -> Lint]];
+ If[NumericQ[fRight] && Abs[fRight] <= tol, AppendTo[roots, rootSym[0] -> Uint]];
+ 
+ segments = {{Lint, Uint}};
+ epsBase = Max[10.^(-ag), (Uint - Lint)/1000.];
+
+  While[segments =!= {},
+    {Lseg, Useg} = First[segments];
+    segments = Rest[segments];
+    If[!NumericQ[Lseg] || !NumericQ[Useg] || Lseg >= Useg, Continue[]];
+    br = locateBracketInterval[f, {Lseg, Useg}, grid];
+    If[br === $Failed, Continue[]];
+   rootRes = Quiet @ Check[
+     First @ FindRoot[fN[z], {z, br[[1]], br[[2]]}, Method -> "Secant", AccuracyGoal -> ag, PrecisionGoal -> ag],
+     $Failed
+   ];
+   If[rootRes === $Failed, Continue[]];
+   rootRule = rootRes /. z -> rootSym[0];
+   rootVal = rootRule[[2]];
+   If[!NumericQ[rootVal], Continue[]];
+   AppendTo[roots, rootRule];
+   eps = Max[epsBase, 10.^(-ag) Abs[rootVal]];
+   segments = Join[
+     {
+       {Lseg, Max[Lseg, rootVal - eps]},
+       {Min[rootVal + eps, Useg], Useg}
+     },
+     segments
+   ];
+ ];
+ 
+  If[roots === {},
+    xs    = N[Subdivide[Lint, Uint, Max[256, 4 grid] + 2], MachinePrecision];
+    xsInt = xs[[2 ;; -2]];
+    ys    = f /@ xsInt;
+    pairs = xsInt[[#]] & /@ signFlipPairsNumericSubseq[ys];
+    Do[
+      Quiet @ Check[
+        AppendTo[
+          roots,
+          (First @ FindRoot[fN[z], {z, p[[1]], p[[2]]}, Method -> "Secant", AccuracyGoal -> ag, PrecisionGoal -> pg]) /. z -> rootSym[0]
+        ],
+        Null
+      ],
+      {p, pairs}
+    ];
+  ];
+
+  If[roots === {},
+    seedPts = N @ Subdivide[Lint, Uint, Max[8, grid]];
+    Do[
+      res = Quiet @ Check[
+        FindRoot[fN[z], {z, seed}, Method -> meth, AccuracyGoal -> ag, PrecisionGoal -> pg],
+        $Failed
+      ];
+      If[res =!= $Failed,
+        AppendTo[roots, (res /. z -> rootSym[0])]
+      ];
+      ,
+      {seed, seedPts}
+    ];
+  ];
+ 
+  DeleteDuplicatesBy[
+    Select[roots, NumericQ[Last[#]] &],
+    Round[Last[#], 10.^-10] &
+  ]
 ];
 
 
