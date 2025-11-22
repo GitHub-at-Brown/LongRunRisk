@@ -7,11 +7,13 @@
 
 BeginPackage["A0RootPack`"];
 
-BuildKernel::usage = "BuildKernel[expr, param, OptionsPattern[]] compiles expr with A[0] as the variable. Returns <|\"fC\",\"dfC\",\"ParamOrder\",\"SignIndex\"|>.";
-BindUnary::usage  = "BindUnary[kernel, paramsAssoc, signsList] binds numeric params and signs, returning {f, df} unary functions of A[0].";
-A0Interval::usage = "A0Interval[condA, paramsAssoc, signsList] returns Interval[{L,U}] (A[0]>0) from condA or $Failed.";
-FindRootA0::usage = "FindRootA0[expr, param, assumeA, condA, paramsAssoc, signsList, opts] returns a single rule A[0]->root or $Failed.";
-FindRootsA0::usage= "FindRootsA0[expr, param, assumeA, condA, paramsAssoc, signsList, opts] returns a list of rules A[0]->root.";
+BuildKernel::usage = "BuildKernel[expr, params] compiles expr into a C-kernel optimized for root-finding with respect to A[0] (or specified \"CoeffName\").";
+BindUnary::usage   = "BindUnary[kernel, paramValues, signs] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.";
+A0Interval::usage  = "A0Interval[conds, paramValues, signs] determines the search interval Interval[{min, max}] for the root variable based on constraints.";
+FindRootA0::usage  = "FindRootA0[expr, params, assumptions, conds, paramValues, signs] finds a single root of expr == 0.\nReturns a rule A[0] -> value.";
+FindRootsA0::usage = "FindRootsA0[expr, params, assumptions, conds, paramValues, signs] finds all roots of expr == 0 in the valid interval.";
+scanAndSolve::usage = "scanAndSolve[f, {min, max}, bins] finds roots of f[x] in the range by grid subdivision.\nscanAndSolve[f, df, {min, max}, bins] uses derivative df for Newton steps.";
+
 
 
 Options[BuildKernel] = {CompilationTarget -> "C", "CoeffName" -> "A", "SignSymbol" -> "signA"};
@@ -31,14 +33,6 @@ signIdxs[ex_, sigSym_String] := Sort @ DeleteDuplicates @ Cases[
   ex,
   s_Symbol[i_Integer] /; SymbolName[s] === sigSym :> i,
   Infinity
-];
-
-
-(* small CSE: hoist t = Exp[z] and map Exp[k z] with integer k to t^k *)
-expCSE[ex_, z_Symbol] := Module[{t = Unique["t$"], e = ex},
-  e = e /. Exp[z] :> t;
-  e = e /. Exp[k_Integer z] :> t^k;
-  {t, e}
 ];
 
 
@@ -250,16 +244,6 @@ lexp = LogicalExpand @ red;
   best /. Interval[{l_, u_}] :> Interval[{Max[0., l], u}]
 
 ]
-
-
-bracketSeeds[f_, Interval[{L_,U_}], n_Integer:256] := Module[
-  {xs = Subdivide[N@L, N@U, n], ys, i},
-  ys = f /@ xs;
-  i = SelectFirst[Range[Length@xs - 1],
-       NumericQ[ys[[#]]] && NumericQ[ys[[#+1]]] && ys[[#]]*ys[[#+1]] <= 0. &,
-       Missing["NotFound"]];
-  If[i === Missing["NotFound"], (L + U)/2., Mean[{xs[[i]], xs[[i + 1]]}]]
-];
 
 
 Options[FindRootA0] = {
@@ -486,11 +470,7 @@ FindRootsA0[expr_, param_List, assumeA_, condA_, params_Association, signs_List:
 
 
 ClearAll[fastRoot];
-fastRoot::usage =
-  "fastRoot[{a,b}, acc:8, maxit:20] finds a real root of f[x]==0 in [a,b]. \
-Tries fast Newton with df from a false-position seed; \
-falls back to Brent if the ends bracket a sign change, otherwise to a two-point secant. \
-Returns the rule x->root.";
+fastRoot::usage = "fastRoot[f, df, {a, b}] finds a root using a hybrid Newton/Brent/Secant strategy.";
 
 
 Options[fastRoot] = {
@@ -587,7 +567,7 @@ fastRoot[f_, {a_?NumericQ, b_?NumericQ}, opts:OptionsPattern[]] /; a < b := Modu
 
 
 
-ClearAll[scanAndSolve];
+
 
 (* Near-zero on the scan grid counts as a root; Automatic -> 10^-acc *)
 Options[scanAndSolve] = {
