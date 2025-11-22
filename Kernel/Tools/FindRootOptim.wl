@@ -273,33 +273,33 @@ lexp = LogicalExpand @ red;
 (*FindRootA0*)
 
 
-FindRootA0//Options = {
-  CompilationTarget -> "C",
-  "CoeffName" -> "A",
-  "SignSymbol" -> "signA",
-  "BracketGrid" -> 16,
-  "Seeds" -> Automatic,
-  AccuracyGoal -> 8,
-  PrecisionGoal -> 8,
-  Method -> "Secant"
-};
+FindRootA0//Options = Join[
+  Options[FindRoot],
+  {
+    CompilationTarget -> "C",
+    "CoeffName" -> "A",
+    "SignSymbol" -> "signA",
+    "BracketGrid" -> 32,
+    "Seeds" -> Automatic
+  }
+];
 
 
 FindRootA0[
-  expr_, 
-  params_List, 
-  assumptions_, 
+  expr_,
+  params_List,
+  assumptions_,
   conds_,
-  paramValues_Association, 
+  paramValues_Association,
   signs_List:{},
-  OptionsPattern[]
+  opts:OptionsPattern[]
 ] := Module[
   {tgt = OptionValue[CompilationTarget],
    coeffName = OptionValue["CoeffName"],
    signSym = OptionValue["SignSymbol"],
    grid = OptionValue["BracketGrid"],
-   seeds = OptionValue["Seeds"], ag = OptionValue[AccuracyGoal],
-   pg = OptionValue[PrecisionGoal], meth = OptionValue[Method],
+   seeds = OptionValue["Seeds"],
+   findRootOpts = FilterRules[{opts}, Options[FindRoot]],
    K, f, fN, df, iv, L, U, Lint, Uint, shrink, span, xs, xsInt, ys, pairs, p, z, res, rootSym, tol, fLeft, fRight},
 
   If[!paramValidQ[assumptions, paramValues, coeffName], Return[$Failed]];
@@ -326,30 +326,30 @@ FindRootA0[
   fN[z_?NumericQ] := Module[{x = N[z, MachinePrecision]},
     If[x <= Lint || x >= Uint, Indeterminate, f[x]]
   ];
-  tol = 10.^(-ag);
+  tol = 10.^(-OptionValue[AccuracyGoal]);
   If[L === U, Return[rootSym[0] -> L]];
   fLeft  = Quiet@Check[f[N[Lint, MachinePrecision]], Indeterminate];
   fRight = Quiet@Check[f[N[Uint, MachinePrecision]], Indeterminate];
   If[NumericQ[fLeft] && Abs[fLeft] <= tol, Return[rootSym[0] -> Lint]];
   If[NumericQ[fRight] && Abs[fRight] <= tol, Return[rootSym[0] -> Uint]];
-  
+
   Which[
     MatchQ[seeds, {_?NumericQ, _?NumericQ}],
       p = N@seeds;
       res = Quiet @ Check[
-        First @ FindRoot[fN[z], {z, p[[1]], p[[2]]}, Method -> meth, AccuracyGoal -> ag, PrecisionGoal -> pg],
+        First @ FindRoot[fN[z], {z, p[[1]], p[[2]]}, Evaluate[Sequence @@ findRootOpts]],
         $Failed
       ],
     NumericQ[seeds],
       res = Quiet @ Check[
-        First @ FindRoot[fN[z], {z, N@seeds, Lint, Uint}, Method -> meth, AccuracyGoal -> ag, PrecisionGoal -> pg],
+        First @ FindRoot[fN[z], {z, N@seeds, Lint, Uint}, Evaluate[Sequence @@ findRootOpts]],
         $Failed
       ],
     True,
       If[L === U,
-        res = If[NumericQ[fN[L]] && Abs[fN[L]] <= 10.^(-ag),
+        res = If[NumericQ[fN[L]] && Abs[fN[L]] <= tol,
           {z -> L},
-          Quiet @ Check[FindRoot[fN[z], {z, L}], $Failed]
+          Quiet @ Check[FindRoot[fN[z], {z, L}, Evaluate[Sequence @@ findRootOpts]], $Failed]
         ],
         xs    = N[Subdivide[Lint, Uint, grid + 2], MachinePrecision];
         xsInt = xs[[2 ;; -2]];
@@ -358,7 +358,7 @@ FindRootA0[
         If[pairs === {}, Return[$Failed]];
         p = First@pairs;
         res = Quiet @ Check[
-          First @ FindRoot[fN[z], {z, p[[1]], p[[2]]}, Method -> meth, AccuracyGoal -> ag, PrecisionGoal -> pg],
+          First @ FindRoot[fN[z], {z, p[[1]], p[[2]]}, Evaluate[Sequence @@ findRootOpts]],
           $Failed
         ]
       ]
@@ -372,29 +372,23 @@ FindRootA0[
 (*FindRootsA0*)
 
 
-FindRootsA0//Options = {
-	CompilationTarget -> "C", 
-	"CoeffName" -> "A", 
-	"SignSymbol" -> "signA", 
-	"BracketGrid" -> 32, 
-	AccuracyGoal -> 8, 
-	PrecisionGoal -> 8
-};
+FindRootsA0//Options = Options[FindRootA0];
 
 
 FindRootsA0[
-	expr_, 
-	params_List, 
-	assumptions_, 
-	conds_, 
-	paramValues_Association, 
-	signs_List:{}, 
-	OptionsPattern[]
+	expr_,
+	params_List,
+	assumptions_,
+	conds_,
+	paramValues_Association,
+	signs_List:{},
+	opts:OptionsPattern[]
 ] := Module[
   {tgt = OptionValue[CompilationTarget],
    coeffName = OptionValue["CoeffName"],
    signSym = OptionValue["SignSymbol"],
-   grid = OptionValue["BracketGrid"], ag = OptionValue[AccuracyGoal], pg = OptionValue[PrecisionGoal],
+   grid = OptionValue["BracketGrid"],
+   findRootOpts = FilterRules[{opts}, Options[FindRoot]],
    K, f, fN, df, iv, L, U, Lint, Uint, shrink, span, roots = {}, z, rootSym, tol, fLeft, fRight,
    segments, br, rootRes, rootRule, rootVal, epsBase, eps, seedPts, res},
 
@@ -423,14 +417,14 @@ FindRootsA0[
   ];
  
  roots = {};
- tol = 10.^(-ag);
+ tol = 10.^(-OptionValue[AccuracyGoal]);
  fLeft  = Quiet@Check[f[N[Lint, MachinePrecision]], Indeterminate];
  fRight = Quiet@Check[f[N[Uint, MachinePrecision]], Indeterminate];
  If[NumericQ[fLeft] && Abs[fLeft] <= tol, AppendTo[roots, rootSym[0] -> Lint]];
  If[NumericQ[fRight] && Abs[fRight] <= tol, AppendTo[roots, rootSym[0] -> Uint]];
- 
+
  segments = {{Lint, Uint}};
- epsBase = Max[10.^(-ag), (Uint - Lint)/1000.];
+ epsBase = Max[tol, (Uint - Lint)/1000.];
 
   While[segments =!= {},
     {Lseg, Useg} = First[segments];
@@ -439,7 +433,7 @@ FindRootsA0[
     br = locateBracketInterval[f, {Lseg, Useg}, grid];
     If[br === $Failed, Continue[]];
    rootRes = Quiet @ Check[
-     First @ FindRoot[fN[z], {z, br[[1]], br[[2]]}, Method -> "Secant", AccuracyGoal -> ag, PrecisionGoal -> ag],
+     First @ FindRoot[fN[z], {z, br[[1]], br[[2]]}, Evaluate[Sequence @@ findRootOpts], Method -> "Secant"],
      $Failed
    ];
    If[rootRes === $Failed, Continue[]];
@@ -466,7 +460,7 @@ FindRootsA0[
       Quiet @ Check[
         AppendTo[
           roots,
-          (First @ FindRoot[fN[z], {z, p[[1]], p[[2]]}, Method -> "Secant", AccuracyGoal -> ag, PrecisionGoal -> pg]) /. z -> rootSym[0]
+          (First @ FindRoot[fN[z], {z, p[[1]], p[[2]]}, Evaluate[Sequence @@ findRootOpts], Method -> "Secant"]) /. z -> rootSym[0]
         ],
         Null
       ],
@@ -478,7 +472,7 @@ FindRootsA0[
     seedPts = N @ Subdivide[Lint, Uint, Max[8, grid]];
     Do[
       res = Quiet @ Check[
-        FindRoot[fN[z], {z, seed}, Method -> meth, AccuracyGoal -> ag, PrecisionGoal -> pg],
+        FindRoot[fN[z], {z, seed}, Evaluate[Sequence @@ findRootOpts]],
         $Failed
       ];
       If[res =!= $Failed,
