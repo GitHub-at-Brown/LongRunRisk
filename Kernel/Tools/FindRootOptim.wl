@@ -11,10 +11,11 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 (*Public symbols*)
 
 
-BuildKernel
-BindUnary
-A0Interval
-FindRootA0
+buildKernel
+bindUnary
+findRootInterval
+extractIntervalsFromReduce
+findRootCoeff0
 scanAndSolve
 fastRoot
 
@@ -23,12 +24,13 @@ fastRoot
 (*Usage*)
 
 
-BuildKernel::usage = "BuildKernel[expr, params] compiles expr into a C-kernel optimized for root-finding with respect to A[0] (or specified \"CoeffName\").";
-BindUnary::usage   = "BindUnary[kernel, paramValues, signs] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.";
- BindUnary::insufficientsigns = "Expected at least `1` sign values, but got `2`.";
-A0Interval::usage  = "A0Interval[conds, paramValues, signs] determines the search interval Interval[{min, max}] for the root variable based on constraints.";
-FindRootA0::usage  = "FindRootA0[expr, params, assumptions, conds, paramValues, signs] finds a single root of expr == 0.\nReturns a rule A[0] -> value.";
-FindRootsA0::usage = "FindRootsA0[expr, params, assumptions, conds, paramValues, signs] finds all roots of expr == 0 in the valid interval.";
+buildKernel::usage = "buildKernel[expr, params] compiles expr into a C-kernel optimized for root-finding with respect to A[0] (or specified \"CoeffName\").";
+bindUnary::usage   = "bindUnary[kernel, paramValues, signs] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.";
+bindUnary::insufficientsigns = "Expected at least `1` sign values, but got `2`.";
+findRootInterval::usage  = "findRootInterval[conds, paramValues, signs] determines the search interval Interval[{min, max}] for the root variable based on constraints.";
+extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.";
+findRootCoeff0::usage  = "findRootCoeff0[expr, params, assumptions, conds, paramValues, signs] finds a single root of expr == 0.\nReturns a rule A[0] -> value.";
+findRootsCoeff0::usage = "findRootsCoeff0[expr, params, assumptions, conds, paramValues, signs] finds all roots of expr == 0 in the valid interval.";
 scanAndSolve::usage = "scanAndSolve[f, {min, max}] finds roots of f[x] in the range by grid subdivision.\nscanAndSolve[f, df, {min, max}] uses derivative df for Newton steps.";
 fastRoot::usage = "fastRoot[f, df, {a, b}] finds a root using a hybrid Newton/Brent/Secant strategy.";
 
@@ -41,10 +43,10 @@ Begin["`Private`"];
 
 
 (* ::Subsection:: *)
-(*BuildKernel*)
+(*buildKernel*)
 
 
-BuildKernel//Options = {
+buildKernel//Options = {
 	CompilationTarget -> "C",
 	"CoeffName" -> "A",
 	"SignSymbol" -> "signA"
@@ -52,7 +54,7 @@ BuildKernel//Options = {
 
 
 (* fast, robust scalar-args kernel *)
-BuildKernel[
+buildKernel[
 	expr_, 
 	params_List, 
 	OptionsPattern[]
@@ -125,11 +127,11 @@ BuildKernel[
 
 
 (* ::Subsection:: *)
-(*BindUnary*)
+(*bindUnary*)
 
 
 (* bind: feed scalars to the scalar-args kernel *)
-BindUnary[
+bindUnary[
 	k_Association, 
 	paramValues_Association, 
 	signs_List:{}
@@ -155,7 +157,7 @@ BindUnary[
   s = If[idx === {}, {},
     maxIdx = Max[idx];
     If[Length[signs] < maxIdx,
-      Message[BindUnary::insufficientsigns, maxIdx, Length[signs]];
+      Message[bindUnary::insufficientsigns, maxIdx, Length[signs]];
       Return[$Failed]
     ];
     Developer`ToPackedArray @ Round @ signs[[idx]]
@@ -169,32 +171,31 @@ BindUnary[
 
 
 (* ::Subsection:: *)
-(*A0Interval*)
+(*findRootInterval*)
 
 
-A0Interval::emptyinterval = "There are no real solutions for `1`. Try changing signs `2` or parameters.";
+findRootInterval::emptyinterval = "There are no real solutions for `1`. Try changing signs `2` or parameters.";
 
 
-A0Interval//Options = {
+findRootInterval//Options = {
     "CoeffName" -> "A",
     "SignSymbol" -> "signA"
 };
 
 
-A0Interval[
-	conds_, 
-	paramValues_Association, 
-	signs_List:{}, 
+findRootInterval[
+	conds_,
+	paramValues_Association,
+	signs_List:{},
 	OptionsPattern[]
 ] := Module[
   {coeffName = OptionValue["CoeffName"], signSym = OptionValue["SignSymbol"],
-   condExpr, condNorm, condsNorm, ineq, red, lexp, ints = {}, lb, ub, l, u, best, rootVar, signHead,
+   condExpr, condNorm, ineq, red, rootVar, signHead,
    signsRule, paramsRules, rootSym, rootRules, rootVarN, ineqRootVar},
 
   (*normalize form*)
   condExpr = And @@ Flatten[List @ conds];
   condNorm = normalizeExp[condExpr];
-  condsNorm = normalizeExp[conds];
 
   (* Create symbol based on coeffName *)
   rootVar = First[
@@ -234,10 +235,10 @@ A0Interval[
 
 
 (* ::Subsection:: *)
-(*FindRootA0*)
+(*findRootCoeff0*)
 
 
-FindRootA0//Options = Join[
+findRootCoeff0//Options = Join[
   Options[FindRoot],
   Options[fastRoot],
   Options[extractIntervalsFromReduce],
@@ -249,7 +250,7 @@ FindRootA0//Options = Join[
 ];
 
 
-FindRootA0[
+findRootCoeff0[
   expr_,
   params_List,
   assumptions_,
@@ -261,18 +262,27 @@ FindRootA0[
   {tgt = OptionValue[CompilationTarget],
    coeffName = OptionValue["CoeffName"],
    signSym = OptionValue["SignSymbol"],
-   K, f, df, reduceExpr, intervals, rootSym, rootVal, fastRootOpts, extractOpts},
+   kernel, f, df, reduceExpr, intervals, rootSym, rootVal, fastRootOpts, extractOpts},
 
   (* Validate parameters *)
   If[!paramValidQ[assumptions, paramValues, coeffName], Return[$Failed]];
 
-  (* Get reduced constraints from A0Interval *)
-  reduceExpr = A0Interval[conds, paramValues, signs,
+  (* Get reduced constraints from findRootInterval *)
+  reduceExpr = findRootInterval[conds, paramValues, signs,
     "CoeffName" -> coeffName, "SignSymbol" -> signSym];
   If[reduceExpr === False || reduceExpr === $Failed, Return[$Failed]];
 
   (* Determine root variable symbol *)
-  rootSym = ToExpression[coeffName][0];
+  rootSym = Module[{paramsj},
+    paramsj = First[
+      KeySelect[paramValues, MatchQ[#, _Symbol] && SymbolName[#] === "j" &],
+      Missing["NotFound"]
+    ];
+    If[!MissingQ[paramsj],
+      ToExpression[coeffName][paramsj][0],
+      ToExpression[coeffName][0]
+    ]
+  ];
 
   (* Extract intervals from Reduce output *)
   extractOpts = FilterRules[{opts}, Options[extractIntervalsFromReduce]];
@@ -280,11 +290,11 @@ FindRootA0[
   If[intervals === $Failed || intervals === {}, Return[$Failed]];
 
   (* Build compiled kernel and bind to numeric values *)
-  K = BuildKernel[expr, params, CompilationTarget -> tgt,
+  kernel = buildKernel[expr, params, CompilationTarget -> tgt,
     "CoeffName" -> coeffName, "SignSymbol" -> signSym];
 
-    
-  {f, df} = BindUnary[K, paramValues, signs];
+
+  {f, df} = bindUnary[kernel, paramValues, signs];
 
   If[f === $Failed || df === $Failed, Return[$Failed]];
 
@@ -406,10 +416,10 @@ fastRoot[f_, {a_?NumericQ, b_?NumericQ}, opts:OptionsPattern[]] /; a < b := Modu
 
 
 (* ::Subsection:: *)
-(*FindRootsA0*)
+(*findRootsCoeff0*)
 
 
-FindRootsA0//Options = Join[
+findRootsCoeff0//Options = Join[
   Options[FindRoot],
   Options[scanAndSolve],
   Options[extractIntervalsFromReduce],
@@ -421,7 +431,7 @@ FindRootsA0//Options = Join[
 ];
 
 
-FindRootsA0[
+findRootsCoeff0[
   expr_,
   params_List,
   assumptions_,
@@ -433,18 +443,27 @@ FindRootsA0[
   {tgt = OptionValue[CompilationTarget],
    coeffName = OptionValue["CoeffName"],
    signSym = OptionValue["SignSymbol"],
-   K, f, df, reduceExpr, intervals, rootSym, rootVals, scanOpts, extractOpts},
+   kernel, f, df, reduceExpr, intervals, rootSym, rootVals, scanOpts, extractOpts},
 
   (* Validate parameters *)
   If[!paramValidQ[assumptions, paramValues, coeffName], Return[{}]];
 
-  (* Get reduced constraints from A0Interval *)
-  reduceExpr = A0Interval[conds, paramValues, signs,
+  (* Get reduced constraints from findRootInterval *)
+  reduceExpr = findRootInterval[conds, paramValues, signs,
     "CoeffName" -> coeffName, "SignSymbol" -> signSym];
   If[reduceExpr === False || reduceExpr === $Failed, Return[{}]];
 
   (* Determine root variable symbol *)
-  rootSym = ToExpression[coeffName][0];
+  rootSym = Module[{paramsj},
+    paramsj = First[
+      KeySelect[paramValues, MatchQ[#, _Symbol] && SymbolName[#] === "j" &],
+      Missing["NotFound"]
+    ];
+    If[!MissingQ[paramsj],
+      ToExpression[coeffName][paramsj][0],
+      ToExpression[coeffName][0]
+    ]
+  ];
 
   (* Extract intervals from Reduce output *)
   extractOpts = FilterRules[{opts}, Options[extractIntervalsFromReduce]];
@@ -452,9 +471,9 @@ FindRootsA0[
   If[intervals === $Failed || intervals === {}, Return[{}]];
 
   (* Build compiled kernel and bind to numeric values *)
-  K = BuildKernel[expr, params, CompilationTarget -> tgt,
+  kernel = buildKernel[expr, params, CompilationTarget -> tgt,
     "CoeffName" -> coeffName, "SignSymbol" -> signSym];
-  {f, df} = BindUnary[K, paramValues, signs];
+  {f, df} = bindUnary[kernel, paramValues, signs];
   If[f === $Failed || df === $Failed, Return[{}]];
 
   (* Find all roots across all intervals *)
