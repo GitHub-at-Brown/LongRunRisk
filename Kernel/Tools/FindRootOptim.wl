@@ -48,7 +48,7 @@ Begin["`Private`"];
 
 
 buildKernel//Options = {
-	CompilationTarget -> "C",
+	"CompilationTarget" -> "C",
 	"CoeffName" -> "A",
 	"SignSymbol" -> "signA"
 };
@@ -56,74 +56,84 @@ buildKernel//Options = {
 
 (* fast, robust scalar-args kernel *)
 buildKernel[
-	expr_, 
-	params_List, 
-	OptionsPattern[]
-] := Module[
+	expr_,
+	params_List,
+	opts : OptionsPattern[{buildKernel}]
+] := With[
   {
-    tgt = OptionValue[CompilationTarget],
+    tgt = OptionValue["CompilationTarget"],
     coeffName = OptionValue["CoeffName"],
-    signSym = OptionValue["SignSymbol"],
-    ex0, z, idx, pSyms, sSyms, body, dbody, fC, dfC, nP, nS, signHead
+    signSym = OptionValue["SignSymbol"]
   },
+  Module[
+    {ex0, z, idx, pSyms, sSyms, body, dbody, fC, dfC, nP, nS, signHead},
 
-  ex0 = normalizeExp[expr];
-  z   = Unique["z"];
+    ex0 = normalizeExp[expr];
+    z   = Unique["z"];
 
-  (* Replace A[0] or B[j][0] with z, regardless of context *)
-  ex0 = ex0 /. {
-    (s_Symbol[j_][0] /; SymbolName[s] === coeffName) :> z,
-    (s_Symbol[0] /; SymbolName[s] === coeffName) :> z
-  };
+    (* Replace A[0] or B[j][0] with z, regardless of context *)
+    ex0 = ex0 /. {
+      (s_Symbol[j_][0] /; SymbolName[s] === coeffName) :> z,
+      (s_Symbol[0] /; SymbolName[s] === coeffName) :> z
+    };
 
-  (* detect indices before any N *)
-  idx = signIdxs[ex0, signSym];
+    (* detect indices before any N *)
+    idx = signIdxs[ex0, signSym];
 
- (* create unique simple names *)
-  nP = Length@params;  nS = Length@idx;
-  pSyms = Array[Unique["p$"]&, nP];
-  sSyms = Array[Unique["s$"]&, nS];
+   (* create unique simple names *)
+    nP = Length@params;  nS = Length@idx;
+    pSyms = Array[Unique["p$"]&, nP];
+    sSyms = Array[Unique["s$"]&, nS];
 
-  body = ex0 /. Thread[params -> pSyms];
+    body = ex0 /. Thread[params -> pSyms];
 
-  If[nS > 0,
-    signHead = First @ Cases[ex0, s_Symbol[_Integer] /; SymbolName[s] === signSym :> s, Infinity, 1];
-    body = body /. Thread[(signHead /@ idx) -> sSyms];
-  ];
+    If[nS > 0,
+      signHead = First @ Cases[ex0, s_Symbol[_Integer] /; SymbolName[s] === signSym :> s, Infinity, 1];
+      body = body /. Thread[(signHead /@ idx) -> sSyms];
+    ];
 
-  (* numericize after substitutions *)
-  body  = N[body, MachinePrecision];
-  dbody = N[D[body, z], MachinePrecision];
+    (* numericize after substitutions *)
+    body  = N[body, MachinePrecision];
+    dbody = N[D[body, z], MachinePrecision];
 
-  With[{
-    args = Join[
-      {{z, _Real}},
-      Table[{pSyms[[i]], _Real}, {i, nP}],
-      Table[{sSyms[[j]], _Integer}, {j, nS}]
-    ],
-    b = body,
-    db = dbody,
-    tgt2 = tgt
-  },
-  With[{
-    (* Common compilation options *)
-    compileOpts = Sequence[
-      CompilationTarget -> tgt2,
-      RuntimeOptions -> {"Speed", "EvaluateSymbolically" -> False,
-                        "CatchMachineUnderflow" -> True, "CatchMachineOverflow" -> True},
-      CompilationOptions -> {
-        "ExpressionOptimization" -> True,
-        "InlineExternalDefinitions" -> True,
-        "InlineCompiledFunctions" -> True
-      }
-    ]
-  },
-    fC = Compile[Evaluate@args, Evaluate@b, compileOpts];
-    dfC = Compile[Evaluate@args, Evaluate@db, compileOpts];
-  ];
-  ];
+    With[{
+      args = Join[
+        {{z, _Real}},
+        Table[{pSyms[[i]], _Real}, {i, nP}],
+        Table[{sSyms[[j]], _Integer}, {j, nS}]
+      ],
+      b = body,
+      db = dbody,
+      tgt2 = tgt
+    },
+      fC = Compile[
+        Evaluate@args,
+        Evaluate@b,
+        CompilationTarget -> tgt2,
+        RuntimeOptions -> {"Speed", "EvaluateSymbolically" -> False,
+                          "CatchMachineUnderflow" -> True, "CatchMachineOverflow" -> True},
+        CompilationOptions -> {
+          "ExpressionOptimization" -> True,
+          "InlineExternalDefinitions" -> True,
+          "InlineCompiledFunctions" -> True
+        }
+      ];
+      dfC = Compile[
+        Evaluate@args,
+        Evaluate@db,
+        CompilationTarget -> tgt2,
+        RuntimeOptions -> {"Speed", "EvaluateSymbolically" -> False,
+                          "CatchMachineUnderflow" -> True, "CatchMachineOverflow" -> True},
+        CompilationOptions -> {
+          "ExpressionOptimization" -> True,
+          "InlineExternalDefinitions" -> True,
+          "InlineCompiledFunctions" -> True
+        }
+      ];
+    ];
 
-  <|"fC"->fC, "dfC"->dfC, "ParamOrder"->params, "SignIndex"->idx, "CoeffName"->coeffName, "SignSymbol"->signSym|>
+    <|"fC"->fC, "dfC"->dfC, "ParamOrder"->params, "SignIndex"->idx, "CoeffName"->coeffName, "SignSymbol"->signSym|>
+  ]
 ];
 
 
@@ -151,8 +161,6 @@ bindUnary[
  ];
 
  (*pack parameters and signs*)
-
-
   a = Developer`ToPackedArray @ N[Lookup[paramValues, paramOrder], MachinePrecision];
 
   s = If[idx === {}, {},
@@ -188,61 +196,63 @@ findRootInterval//Options = {
 findRootInterval[
 	conds_,
 	paramValues_Association,
-	signs_List:{},
-	OptionsPattern[]
-] := Module[
-  {coeffName = OptionValue["CoeffName"], signSym = OptionValue["SignSymbol"],
-   condExpr, condNorm, ineq, red, rootVar, signHead,
-   signsRule, paramsRules, rootSym, rootRules, rootVarN, ineqRootVar},
+	signs_List : {},
+	opts : OptionsPattern[{findRootInterval}]
+] := With[
+  {
+    coeffName = OptionValue["CoeffName"],
+    signSym = OptionValue["SignSymbol"]
+  },
+  Module[
+    {condExpr, condNorm, ineq, red, rootVar, signHead,
+     signsRule, paramsRules, rootSym, rootRules, rootVarN, ineqRootVar},
 
-  (*normalize form*)
-  condExpr = And @@ Flatten[List @ conds];
-  condNorm = normalizeExp[condExpr];
+    (*normalize form*)
+    condExpr = And @@ Flatten[List @ conds];
+    condNorm = normalizeExp[condExpr];
 
-  (* Create symbol based on coeffName *)
-  rootVar = First[
-    Join[
-      Cases[condExpr, s_Symbol[0] /; SymbolName[s] === coeffName :> s[0], Infinity],
-      Cases[condExpr, s_Symbol[i_][0] /; SymbolName[s] === coeffName :> s[i][0], Infinity]
+    (* Create symbol based on coeffName *)
+    rootVar = First[
+      Join[
+        Cases[condExpr, s_Symbol[0] /; SymbolName[s] === coeffName :> s[0], Infinity],
+        Cases[condExpr, s_Symbol[i_][0] /; SymbolName[s] === coeffName :> s[i][0], Infinity]
+      ],
+      $Failed
+    ];
+    If[rootVar === $Failed,
+      Message[findRootInterval::nocoeff, coeffName];
+      Return[$Failed]
+    ];
+
+    (*evaluate conditions numerically*)
+    signHead = ToExpression[signSym];
+    signsRule = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
+    paramsRules = Normal@paramValues;
+    ineq = condNorm //. paramsRules /. signsRule;
+
+    rootSym = Unique["root$"];
+    rootVarN = (rootVar//. paramsRules);
+    rootRules = rootVarN -> rootSym;
+    ineqRootVar=ineq/. rootRules;
+
+
+    red =  Check[
+    Quiet[
+      Reduce[ineqRootVar && rootSym > 0, rootSym, Reals],
+      Reduce::ratnz (*ignore warning about solving exact system and numericizing the result*)
     ],
-    $Failed
-  ];
-  If[rootVar === $Failed,
-    Message[findRootInterval::nocoeff, coeffName];
-    Return[$Failed]
-  ];
-  
-  (*evaluate conditions numerically*)
-  signHead = ToExpression[signSym];
-  signsRule = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
-  paramsRules = Normal@paramValues;
-  ineq = condNorm //. paramsRules /. signsRule;
+      (*try Rationalize if last attempt fails*)
+      Reduce[Rationalize[ineqRootVar, 0] && rootSym > 0, rootSym, Reals]
+    ];
 
-  rootSym = Unique["root$"];
-  rootVarN = (rootVar//. paramsRules);
-  rootRules = rootVarN -> rootSym;
-  ineqRootVar=ineq/. rootRules;
+    If[red === False,
+      Message[findRootInterval::emptyinterval, coeffName, signSym];
+      Return[$Failed]
+    ];
 
-
-  red =  Check[
-  Quiet[
-    Reduce[ineqRootVar && rootSym > 0, rootSym, Reals],
-    Reduce::ratnz (*ignore warning about solving exact system and numericizing the result*)
-  ],
-    (*try Rationalize if last attempt fails*)
-    Reduce[Rationalize[ineqRootVar, 0] && rootSym > 0, rootSym, Reals]
-  ];
-
-  If[red === False,
-    Message[findRootInterval::emptyinterval, coeffName, signSym];
-    Return[$Failed]
-  ];
-
-  (*restore original variable names*)
-  red = red /. Reverse@rootRules
-
-
-
+    (*restore original variable names*)
+    red = red /. Reverse@rootRules
+  ]
 ];
 
 
@@ -252,16 +262,14 @@ findRootInterval[
 
 findRootCoeff0::badparams = "Parameter values violate the supplied assumptions.";
 
-findRootCoeff0//Options = Join[
-  Options[FindRoot],
-  Options[fastRoot],
-  Options[extractIntervalsFromReduce],
-  {
-    CompilationTarget -> "C",
-    "CoeffName" -> "A",
-    "SignSymbol" -> "signA"
-  }
-];
+findRootCoeff0//Options = {
+  "CompilationTarget" -> "C",
+  "CoeffName" -> "A",
+  "SignSymbol" -> "signA",
+  "FindRootOptions" -> {AccuracyGoal -> 8, PrecisionGoal -> 8},
+  "FastRootOptions" -> {},
+  "ExtractIntervalsOptions" -> {}
+};
 
 
 findRootCoeff0[
@@ -270,57 +278,71 @@ findRootCoeff0[
   assumptions_,
   conds_,
   paramValues_Association,
-  signs_List:{},
-  opts:OptionsPattern[]
-] := Module[
-  {tgt = OptionValue[CompilationTarget],
-   coeffName = OptionValue["CoeffName"],
-   signSym = OptionValue["SignSymbol"],
-   kernel, f, df, reduceExpr, intervals, rootSym, rootVal, fastRootOpts, extractOpts},
+  signs_List : {},
+  opts : OptionsPattern[{findRootCoeff0, FindRoot, fastRoot, extractIntervalsFromReduce}]
+] := With[
+  {
+    tgt = OptionValue["CompilationTarget"],
+    coeffName = OptionValue["CoeffName"],
+    signSym = OptionValue["SignSymbol"],
+    fastRootOpts = DeleteDuplicatesBy[
+      Flatten[{
+      Evaluate @ FilterRules[Flatten@{opts}, Options[fastRoot]],
+      Evaluate @ FilterRules[Flatten@{opts}, Options[FindRoot]],
+      Evaluate @ OptionValue["FastRootOptions"],
+      Evaluate @ OptionValue["FindRootOptions"]
+      }],
+      First
+    ],
+    extractOpts = Flatten[{
+      Evaluate @ FilterRules[Flatten@{opts}, Options[extractIntervalsFromReduce]],
+      Evaluate @ OptionValue["ExtractIntervalsOptions"]
+    }]
+  },
+  Module[
+    {kernel, f, df, reduceExpr, intervals, rootSym, rootVal},
 
-  (* Validate parameters *)
-  If[!paramValidQ[assumptions, paramValues, coeffName],
-    Message[findRootCoeff0::badparams];
-    Return[$Failed]
-  ];
-
-  (* Get reduced constraints from findRootInterval *)
-  reduceExpr = findRootInterval[conds, paramValues, signs,
-    "CoeffName" -> coeffName, "SignSymbol" -> signSym];
-  If[reduceExpr === False || reduceExpr === $Failed, Return[$Failed]];
-
-  (* Determine root variable symbol *)
-  rootSym = Module[{paramsj},
-    paramsj = First[
-      KeySelect[paramValues, MatchQ[#, _Symbol] && SymbolName[#] === "j" &],
-      Missing["NotFound"]
+    (* Validate parameters *)
+    If[!paramValidQ[assumptions, paramValues, coeffName],
+      Message[findRootCoeff0::badparams];
+      Return[$Failed]
     ];
-    If[!MissingQ[paramsj],
-      ToExpression[coeffName][paramsj][0],
-      ToExpression[coeffName][0]
-    ]
-  ];
 
-  (* Extract intervals from Reduce output *)
-  extractOpts = FilterRules[{opts}, Options[extractIntervalsFromReduce]];
-  intervals = extractIntervalsFromReduce[reduceExpr, rootSym, Sequence @@ extractOpts];
-  If[intervals === $Failed || intervals === {}, Return[$Failed]];
+    (* Get reduced constraints from findRootInterval *)
+    reduceExpr = findRootInterval[conds, paramValues, signs,
+      "CoeffName" -> coeffName, "SignSymbol" -> signSym];
+    If[reduceExpr === False || reduceExpr === $Failed, Return[$Failed]];
 
-  (* Build compiled kernel and bind to numeric values *)
-  kernel = buildKernel[expr, params, CompilationTarget -> tgt,
-    "CoeffName" -> coeffName, "SignSymbol" -> signSym];
+    (* Determine root variable symbol *)
+    rootSym = Module[{paramsj},
+      paramsj = First[
+        KeySelect[paramValues, MatchQ[#, _Symbol] && SymbolName[#] === "j" &],
+        Missing["NotFound"]
+      ];
+      If[!MissingQ[paramsj],
+        ToExpression[coeffName][paramsj][0],
+        ToExpression[coeffName][0]
+      ]
+    ];
+
+    (* Extract intervals from Reduce output *)
+    intervals = extractIntervalsFromReduce[reduceExpr, rootSym, Sequence @@ extractOpts];
+    If[intervals === $Failed || intervals === {}, Return[$Failed]];
+
+    (* Build compiled kernel and bind to numeric values *)
+    kernel = buildKernel[expr, params, "CompilationTarget" -> tgt,
+      "CoeffName" -> coeffName, "SignSymbol" -> signSym];
 
 
-  {f, df} = bindUnary[kernel, paramValues, signs];
+    {f, df} = bindUnary[kernel, paramValues, signs];
 
-  If[f === $Failed || df === $Failed, Return[$Failed]];
+    If[f === $Failed || df === $Failed, Return[$Failed]];
 
-  (* Find first root across all intervals *)
-  fastRootOpts = FilterRules[{opts}, Options[fastRoot]];
+    (* Find first root across all intervals *)
+    rootVal = findFirstRootInIntervals[f, df, intervals, Sequence @@ fastRootOpts];
 
-  rootVal = findFirstRootInIntervals[f, df, intervals, Sequence @@ fastRootOpts];
-
-  If[rootVal =!= $Failed, rootSym -> rootVal, $Failed]
+    If[rootVal =!= $Failed, rootSym -> rootVal, $Failed]
+  ]
 ];
 
 
@@ -329,88 +351,86 @@ findRootCoeff0[
 (*fastRoot*)
 
 
-fastRoot//Options = With[
-  {
-    frOpts = Options[FindRoot] /. (Rule|RuleDelayed)[AccuracyGoal, _] :> AccuracyGoal -> 8
-  },
-  Join[
-    frOpts,
-    {
-      "NewtonFirst" -> True,      (* try Newton with df before fallback *)
-      "Return" -> "Rule"          (* "Rule" | "Value" *)
-    }
-  ]
-];
+fastRoot//Options = {
+  "NewtonFirst" -> True,          (* try Newton with df before fallback *)
+  "Return" -> "Rule",             (* "Rule" | "Value" *)
+  "FindRootOptions" -> {AccuracyGoal -> 8, PrecisionGoal -> 8}         (* Additional FindRoot options bundle *)
+};
 
 
 (* --- explicit f, df --- *)
 fastRoot[
-	f_, 
-	df_, 
-	{a_?NumericQ, b_?NumericQ}, 
-	opts:OptionsPattern[]
-] /; a < b := Module[
+	f_,
+	df_,
+	{a_?NumericQ, b_?NumericQ},
+  opts : OptionsPattern[{fastRoot, FindRoot}]
+] /; a < b := With[
   {
-    ff = f, dff = df, fnum, dfnum, fa, fb, x0, bracketedQ,
-    acc = OptionValue[AccuracyGoal],
-    prec = OptionValue[PrecisionGoal],
-    maxit = OptionValue[MaxIterations],
-    wp = OptionValue[WorkingPrecision],
     ret = OptionValue["Return"],
-    res, newtonRes
-  },
-
-  (* numeric-only wrappers *)
-  fnum[x_?NumericQ]  := ff[x];
-  dfnum[x_?NumericQ] := dff[x];
-
-  fa = fnum[N@a]; fb = fnum[N@b];
-  If[!(NumericQ[fa] && NumericQ[fb]), Return[$Failed]];
-  bracketedQ = Sign[fa] =!= Sign[fb];
-
-  (* regula-falsi seed, else midpoint *)
-  x0 = If[Abs[fb - fa] > 1.0*^-10, a - fa (b - a)/(fb - fa), (a + b)/2.];
-
-  (* Newton attempt (bounded to [a,b]) using your derivative *)
-  newtonRes = If[TrueQ@OptionValue["NewtonFirst"],
-    Quiet@Check[
-      FindRoot[
-        fnum[x] == 0.,
-        {x, x0, a, b},
-        Method -> "Newton",
-        Jacobian -> {{dfnum[x]}},      (* explicit 1\[Times]1 Jacobian *)
-        WorkingPrecision -> wp,
-        AccuracyGoal -> acc, PrecisionGoal -> prec,
-        MaxIterations -> maxit
-      ],
-      $Failed
-    ],
-    $Failed
-  ];
-
-  (* Fallback: Brent if bracketed; otherwise Secant *)
-  res = If[newtonRes =!= $Failed, newtonRes,
-    Quiet@Check[
-      If[bracketedQ,
-        FindRoot[
-          fnum[x] == 0., {x, a, b},
-          Method -> "Brent",
-          WorkingPrecision -> wp,
-          AccuracyGoal -> acc, PrecisionGoal -> prec
-        ],
-        FindRoot[
-          fnum[x] == 0., {x, a, b},
-          Method -> "Secant",
-          WorkingPrecision -> wp,
-          AccuracyGoal -> acc, PrecisionGoal -> prec,
-          MaxIterations -> 2 maxit
-        ]
-      ],
-      $Failed
+    newtonFirst = OptionValue["NewtonFirst"],
+    findRootOpts = DeleteDuplicatesBy[
+      Flatten[{
+        Evaluate @ FilterRules[Flatten@{opts}, Options[FindRoot]],
+        Evaluate @ OptionValue["FindRootOptions"]
+      }],
+      First
     ]
-  ];
+  },
+  Module[
+    {ff = f, dff = df, fnum, dfnum, fa, fb, x0, bracketedQ, res, newtonRes, maxit},
 
-  If[res === $Failed, $Failed, If[ret === "Value", x /. res, res]]
+    maxit = Replace[
+      MaxIterations /. findRootOpts,
+      MaxIterations -> (MaxIterations /. Options[FindRoot])
+    ];
+
+    (* numeric-only wrappers *)
+    fnum[x_?NumericQ]  := ff[x];
+    dfnum[x_?NumericQ] := dff[x];
+
+    fa = fnum[N@a]; fb = fnum[N@b];
+    If[!(NumericQ[fa] && NumericQ[fb]), Return[$Failed]];
+    bracketedQ = Sign[fa] =!= Sign[fb];
+
+    (* regula-falsi seed, else midpoint *)
+    x0 = If[Abs[fb - fa] > 1.0*^-10, a - fa (b - a)/(fb - fa), (a + b)/2.];
+
+    (* Newton attempt (bounded to [a,b]) using your derivative *)
+    newtonRes = If[TrueQ@newtonFirst,
+      Quiet@Check[
+        FindRoot[
+          fnum[x] == 0.,
+          {x, x0, a, b},
+          Method -> "Newton",
+          Jacobian -> {{dfnum[x]}},      (* explicit 1\[Times]1 Jacobian *)
+          Evaluate[Sequence @@ findRootOpts]
+        ],
+        $Failed
+      ],
+      $Failed
+    ];
+
+    (* Fallback: Brent if bracketed; otherwise Secant *)
+    res = If[newtonRes =!= $Failed, newtonRes,
+      Quiet@Check[
+        If[bracketedQ,
+          FindRoot[
+            fnum[x] == 0., {x, a, b},
+            Method -> "Brent",
+            Evaluate[Sequence @@ findRootOpts]
+          ],
+          FindRoot[
+            fnum[x] == 0., {x, a, b},
+            Method -> "Secant",
+            Evaluate[Sequence @@ findRootOpts]
+          ]
+        ],
+        $Failed
+      ]
+    ];
+
+    If[res === $Failed, $Failed, If[ret === "Value", x /. res, res]]
+  ]
 ];
 
 (* --- positional convenience, same as before --- *)
@@ -421,13 +441,21 @@ fastRoot[f_, df_, {a_?NumericQ, b_?NumericQ}, acc_Integer?NonNegative, maxit_Int
   fastRoot[f, df, {a, b}, AccuracyGoal -> acc, PrecisionGoal -> acc, MaxIterations -> maxit];
 
 (* --- optional: bracket-only version without df --- *)
-fastRoot[f_, {a_?NumericQ, b_?NumericQ}, opts:OptionsPattern[]] /; a < b := Module[
-  {ff = f, fnum, fa, fb, bracket, acc = OptionValue[AccuracyGoal], prec = OptionValue[PrecisionGoal], wp = OptionValue[WorkingPrecision]},
-  fnum[x_?NumericQ] := ff[x];
-  fa = fnum[N@a]; fb = fnum[N@b]; bracket = NumericQ[fa] && NumericQ[fb] && Sign[fa] =!= Sign[fb];
-  If[bracket,
-    FindRoot[fnum[x] == 0., {x, a, b}, Method -> "Brent", WorkingPrecision -> wp, AccuracyGoal -> acc, PrecisionGoal -> prec],
-    FindRoot[fnum[x] == 0., {x, a, b}, Method -> "Secant", WorkingPrecision -> wp, AccuracyGoal -> acc, PrecisionGoal -> prec]
+fastRoot[f_, {a_?NumericQ, b_?NumericQ}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; a < b := With[
+  {
+    findRootOpts = Flatten[{
+      Evaluate @ FilterRules[Flatten@{opts}, Options[FindRoot]],
+      Evaluate @ OptionValue["FindRootOptions"]
+    }]
+  },
+  Module[
+    {ff = f, fnum, fa, fb, bracket},
+    fnum[x_?NumericQ] := ff[x];
+    fa = fnum[N@a]; fb = fnum[N@b]; bracket = NumericQ[fa] && NumericQ[fb] && Sign[fa] =!= Sign[fb];
+    If[bracket,
+      FindRoot[fnum[x] == 0., {x, a, b}, Method -> "Brent", Evaluate[Sequence @@ findRootOpts]],
+      FindRoot[fnum[x] == 0., {x, a, b}, Method -> "Secant", Evaluate[Sequence @@ findRootOpts]]
+    ]
   ]
 ];
 
@@ -438,16 +466,14 @@ fastRoot[f_, {a_?NumericQ, b_?NumericQ}, opts:OptionsPattern[]] /; a < b := Modu
 
 findRootsCoeff0::badparams = "Parameter values violate the supplied assumptions.";
 
-findRootsCoeff0//Options = Join[
-  Options[FindRoot],
-  Options[scanAndSolve],
-  Options[extractIntervalsFromReduce],
-  {
-    CompilationTarget -> "C",
-    "CoeffName" -> "A",
-    "SignSymbol" -> "signA"
-  }
-];
+findRootsCoeff0//Options = {
+  "CompilationTarget" -> "C",
+  "CoeffName" -> "A",
+  "SignSymbol" -> "signA",
+  "FindRootOptions" -> {AccuracyGoal -> 8, PrecisionGoal -> 8},
+  "ScanAndSolveOptions" -> {},
+  "ExtractIntervalsOptions" -> {}
+};
 
 
 findRootsCoeff0[
@@ -456,54 +482,69 @@ findRootsCoeff0[
   assumptions_,
   conds_,
   paramValues_Association,
-  signs_List:{},
-  opts:OptionsPattern[]
-] := Module[
-  {tgt = OptionValue[CompilationTarget],
-   coeffName = OptionValue["CoeffName"],
-   signSym = OptionValue["SignSymbol"],
-   kernel, f, df, reduceExpr, intervals, rootSym, rootVals, scanOpts, extractOpts},
+  signs_List : {},
+  opts : OptionsPattern[{findRootsCoeff0, FindRoot, scanAndSolve, extractIntervalsFromReduce}]
+] := With[
+  {
+    tgt = OptionValue["CompilationTarget"],
+    coeffName = OptionValue["CoeffName"],
+    signSym = OptionValue["SignSymbol"],
+    scanOpts = DeleteDuplicatesBy[
+      Flatten[{
+      Evaluate @ FilterRules[Flatten@{opts}, Options[scanAndSolve]],
+      Evaluate @ FilterRules[Flatten@{opts}, Options[FindRoot]],
+      Evaluate @ OptionValue["ScanAndSolveOptions"],
+      Evaluate @ OptionValue["FindRootOptions"]
+      }],
+      First
+    ],
+    extractOpts = Flatten[{
+      Evaluate @ FilterRules[Flatten@{opts}, Options[extractIntervalsFromReduce]],
+      Evaluate @ OptionValue["ExtractIntervalsOptions"]
+    }]
+  },
+  Module[
+    {kernel, f, df, reduceExpr, intervals, rootSym, rootVals},
 
-  (* Validate parameters *)
-  If[!paramValidQ[assumptions, paramValues, coeffName],
-    Message[findRootsCoeff0::badparams];
-    Return[{}]
-  ];
-
-  (* Get reduced constraints from findRootInterval *)
-  reduceExpr = findRootInterval[conds, paramValues, signs,
-    "CoeffName" -> coeffName, "SignSymbol" -> signSym];
-  If[reduceExpr === False || reduceExpr === $Failed, Return[{}]];
-
-  (* Determine root variable symbol *)
-  rootSym = Module[{paramsj},
-    paramsj = First[
-      KeySelect[paramValues, MatchQ[#, _Symbol] && SymbolName[#] === "j" &],
-      Missing["NotFound"]
+    (* Validate parameters *)
+    If[!paramValidQ[assumptions, paramValues, coeffName],
+      Message[findRootsCoeff0::badparams];
+      Return[{}]
     ];
-    If[!MissingQ[paramsj],
-      ToExpression[coeffName][paramsj][0],
-      ToExpression[coeffName][0]
-    ]
-  ];
 
-  (* Extract intervals from Reduce output *)
-  extractOpts = FilterRules[{opts}, Options[extractIntervalsFromReduce]];
-  intervals = extractIntervalsFromReduce[reduceExpr, rootSym, Sequence @@ extractOpts];
-  If[intervals === $Failed || intervals === {}, Return[{}]];
+    (* Get reduced constraints from findRootInterval *)
+    reduceExpr = findRootInterval[conds, paramValues, signs,
+      "CoeffName" -> coeffName, "SignSymbol" -> signSym];
+    If[reduceExpr === False || reduceExpr === $Failed, Return[{}]];
 
-  (* Build compiled kernel and bind to numeric values *)
-  kernel = buildKernel[expr, params, CompilationTarget -> tgt,
-    "CoeffName" -> coeffName, "SignSymbol" -> signSym];
-  {f, df} = bindUnary[kernel, paramValues, signs];
-  If[f === $Failed || df === $Failed, Return[{}]];
+    (* Determine root variable symbol *)
+    rootSym = Module[{paramsj},
+      paramsj = First[
+        KeySelect[paramValues, MatchQ[#, _Symbol] && SymbolName[#] === "j" &],
+        Missing["NotFound"]
+      ];
+      If[!MissingQ[paramsj],
+        ToExpression[coeffName][paramsj][0],
+        ToExpression[coeffName][0]
+      ]
+    ];
 
-  (* Find all roots across all intervals *)
-  scanOpts = FilterRules[{opts}, Options[scanAndSolve]];
-  rootVals = findAllRootsInIntervals[f, df, intervals, Sequence @@ scanOpts];
+    (* Extract intervals from Reduce output *)
+    intervals = extractIntervalsFromReduce[reduceExpr, rootSym, Sequence @@ extractOpts];
+    If[intervals === $Failed || intervals === {}, Return[{}]];
 
-  (* Return as list of rules *)
-  (rootSym -> #) & /@ rootVals
+    (* Build compiled kernel and bind to numeric values *)
+    kernel = buildKernel[expr, params, "CompilationTarget" -> tgt,
+      "CoeffName" -> coeffName, "SignSymbol" -> signSym];
+    {f, df} = bindUnary[kernel, paramValues, signs];
+    If[f === $Failed || df === $Failed, Return[{}]];
+
+    (* Find all roots across all intervals *)
+    rootVals = findAllRootsInIntervals[f, df, intervals, Sequence @@ scanOpts];
+
+    (* Return as list of rules *)
+    (rootSym -> #) & /@ rootVals
+  ]
 ];
 
 
@@ -512,88 +553,121 @@ findRootsCoeff0[
 
 
 (* Near-zero on the scan grid counts as a root; Automatic -> 10^-acc *)
-scanAndSolve//Options = Join[
-  Options[fastRoot],
-  {
-    "BracketGrid" -> 32,
-    "Tolerance" -> Automatic
-  }
-];
+scanAndSolve//Options = {
+  "BracketGrid" -> 32,
+  "Tolerance" -> Automatic,
+  "FastRootOptions" -> {},
+  "FindRootOptions" -> ("FindRootOptions" /. Options[fastRoot])
+};
 
 
 (* -------- With derivative -------- *)
 scanAndSolve[
-	f_, 
-	df_, 
-	{a_?NumericQ, b_?NumericQ}, 
-	opts : OptionsPattern[]
-] /; a < b :=
- Module[{ff = f, dff = df, fnum, dfnum, xs, ys, tol, zeroRoots, signs, ints, roots, fastOpts,
-         bins = OptionValue["BracketGrid"], acc = OptionValue[AccuracyGoal]},
-  fnum[x_?NumericQ]  := ff[x];
-  dfnum[x_?NumericQ] := dff[x];
+	f_,
+	df_,
+	{a_?NumericQ, b_?NumericQ},
+	opts : OptionsPattern[{scanAndSolve, FindRoot, fastRoot}]
+] /; a < b := With[
+  {
+    bins = OptionValue["BracketGrid"],
+    tolOpt = OptionValue["Tolerance"],
+    findRootOpts = DeleteDuplicatesBy[
+      Flatten[{
+        Evaluate @ FilterRules[Flatten@{opts}, Options[FindRoot]],
+        Evaluate @ OptionValue["FindRootOptions"]
+      }],
+      First
+    ]
+  },
+  Module[
+    {ff = f, dff = df, fnum, dfnum, xs, ys, tol, zeroRoots, signs, ints, roots, fastOpts, acc},
+    acc = Replace[
+      AccuracyGoal /. findRootOpts,
+      AccuracyGoal -> (AccuracyGoal /. Options[FindRoot])
+    ];
+    fastOpts = Flatten[{
+      Evaluate @ FilterRules[Flatten@{opts}, Options[fastRoot]],
+      Evaluate @ OptionValue["FastRootOptions"],
+      Evaluate @ findRootOpts
+    }];
+    fnum[x_?NumericQ]  := ff[x];
+    dfnum[x_?NumericQ] := dff[x];
 
-  xs = N @ Subdivide[a, b, bins];        (* length = bins + 1 *)
-  ys = fnum /@ xs;
+    xs = N @ Subdivide[a, b, bins];        (* length = bins + 1 *)
+    ys = fnum /@ xs;
 
-  tol = Replace[OptionValue["Tolerance"], Automatic -> 10.^(-acc)];
+    tol = Replace[tolOpt, Automatic -> 10.^(-acc)];
 
-  (* grid hits: use a listable selector *)
-  zeroRoots = Pick[xs, UnitStep[tol - Abs[ys]], 1];
+    (* grid hits: use a listable selector *)
+    zeroRoots = Pick[xs, UnitStep[tol - Abs[ys]], 1];
 
-  signs = Sign[ys];
-  (* sign-change subintervals; selector length == bins *)
-  ints  = Pick[Partition[xs, 2, 1], Most[signs]*Rest[signs], -1];
+    signs = Sign[ys];
+    (* sign-change subintervals; selector length == bins *)
+    ints  = Pick[Partition[xs, 2, 1], Most[signs]*Rest[signs], -1];
 
-  fastOpts = FilterRules[{opts}, Options[fastRoot]];
+    roots = Quiet @ Select[
+      (Quiet @ Check[
+         x /. fastRoot[fnum, dfnum, #, Sequence @@ fastOpts],
+                       $Failed
+       ]) & /@ ints,
+      NumericQ
+    ];
 
-  roots = Quiet @ Select[
-    (Quiet @ Check[
-       x /. fastRoot[fnum, dfnum, #,
-                     AccuracyGoal -> acc, PrecisionGoal -> acc,
-                     Sequence @@ fastOpts],
-       $Failed
-     ]) & /@ ints,
-    NumericQ
-  ];
-
-  Union[Join[zeroRoots, roots], SameTest -> (Abs[#1 - #2] <= tol &)]
+    Union[Join[zeroRoots, roots], SameTest -> (Abs[#1 - #2] <= tol &)]
+  ]
 ];
 
 
 (* -------- Without derivative -------- *)
 scanAndSolve[
-	f_, 
-	{a_?NumericQ, b_?NumericQ}, 
-	opts : OptionsPattern[]
-] /; a < b :=
- Module[{ff = f, fnum, xs, ys, tol, zeroRoots, signs, ints, roots, fastOpts,
-         bins = OptionValue["BracketGrid"], acc = OptionValue[AccuracyGoal]},
-  fnum[x_?NumericQ] := ff[x];
+	f_,
+	{a_?NumericQ, b_?NumericQ},
+	opts : OptionsPattern[{scanAndSolve, FindRoot, fastRoot}]
+] /; a < b := With[
+  {
+    bins = OptionValue["BracketGrid"],
+    tolOpt = OptionValue["Tolerance"],
+    findRootOpts = DeleteDuplicatesBy[
+      Flatten[{
+        Evaluate @ FilterRules[Flatten@{opts}, Options[FindRoot]],
+        Evaluate @ OptionValue["FindRootOptions"]
+      }],
+      First
+    ]
+  },
+  Module[
+    {ff = f, fnum, xs, ys, tol, zeroRoots, signs, ints, roots, fastOpts, acc},
+    acc = Replace[
+      AccuracyGoal /. findRootOpts,
+      AccuracyGoal -> (AccuracyGoal /. Options[FindRoot])
+    ];
+    fastOpts = Flatten[{
+      Evaluate @ FilterRules[Flatten@{opts}, Options[fastRoot]],
+      Evaluate @ OptionValue["FastRootOptions"],
+      Evaluate @ findRootOpts
+    }];
+    fnum[x_?NumericQ] := ff[x];
 
-  xs = N @ Subdivide[a, b, bins];
-  ys = fnum /@ xs;
+    xs = N @ Subdivide[a, b, bins];
+    ys = fnum /@ xs;
 
-  tol = Replace[OptionValue["Tolerance"], Automatic -> 10.^(-acc)];
+    tol = Replace[tolOpt, Automatic -> 10.^(-acc)];
 
-  zeroRoots = Pick[xs, UnitStep[tol - Abs[ys]], 1];
+    zeroRoots = Pick[xs, UnitStep[tol - Abs[ys]], 1];
 
-  signs = Sign[ys];
-  ints  = Pick[Partition[xs, 2, 1], Most[signs]*Rest[signs], -1];
+    signs = Sign[ys];
+    ints  = Pick[Partition[xs, 2, 1], Most[signs]*Rest[signs], -1];
 
-  fastOpts = FilterRules[{opts}, Options[fastRoot]];
+    roots = Quiet @ Select[
+      (Quiet @ Check[
+         x /. fastRoot[fnum, #, Sequence @@ fastOpts],
+                       $Failed
+       ]) & /@ ints,
+      NumericQ
+    ];
 
-  roots = Quiet @ Select[
-    (Quiet @ Check[
-       x /. fastRoot[fnum, #,
-                     AccuracyGoal -> acc, PrecisionGoal -> acc,
-                     Sequence @@ fastOpts],
-       $Failed
-     ]) & /@ ints,
-    NumericQ
-  ];
-
-  Union[Join[zeroRoots, roots], SameTest -> (Abs[#1 - #2] <= tol &)]
+    Union[Join[zeroRoots, roots], SameTest -> (Abs[#1 - #2] <= tol &)]
+  ]
 ];
 
 
@@ -663,88 +737,93 @@ signFlipPairsNumericSubseq[list_List] := Module[{pos, s, k},
 
 extractIntervalsFromReduce::nointervals = "Could not extract any valid intervals from reduced expression `1`.";
 
-Options[extractIntervalsFromReduce] = {
+extractIntervalsFromReduce // Options = {
   "InteriorShrink" -> 0.001,
   "RootUpperBound" -> 15
 };
 
-extractIntervalsFromReduce[reduceExpr_, rootVar_, opts:OptionsPattern[]] := Module[
-  {lexp, shrink = OptionValue["InteriorShrink"], maxBound = OptionValue["RootUpperBound"],
-   disjuncts, intervals, intervalFromClause, rSym, rExpr},
+extractIntervalsFromReduce[reduceExpr_, rootVar_, opts : OptionsPattern[{extractIntervalsFromReduce}]] := With[
+  {
+    shrink = OptionValue["InteriorShrink"],
+    maxBound = OptionValue["RootUpperBound"]
+  },
+  Module[
+    {lexp, disjuncts, intervals, intervalFromClause, rSym, rExpr},
 
-  Which[
-    reduceExpr === False, Return[{}],
-    reduceExpr === True, Return[{{shrink, maxBound - shrink}}]
-  ];
-
-  (* Normalize root variable to a simple symbol if needed *)
-  rSym = If[MatchQ[rootVar, _Symbol], rootVar, Unique["root$"]];
-  rExpr = reduceExpr /. rootVar -> rSym;
-
-  lexp = LogicalExpand[rExpr];
-  disjuncts = If[Head[lexp] === Or, List @@ lexp, {lexp}];
-
-  intervalFromClause[cl_] := Module[{direct, single, lower, upper, lo, hi},
-    direct = Cases[cl,
-      Inequality[loP_, (Less|LessEqual), rSym, (Less|LessEqual), hiP_] /;
-        NumericQ[N@loP] && NumericQ[N@hiP] :> {N@loP, N@hiP},
-      {0, Infinity}, Heads -> True
-    ];
-    If[direct =!= {}, Return[First[direct]]];
-
-    single = Cases[cl,
-      Equal[rSym, cP_] /; NumericQ[N@cP] :> {N@cP, N@cP},
-      {0, Infinity}, Heads -> True
-    ];
-    If[single =!= {}, Return[First[single]]];
-
-    lower = Cases[cl,
-      (Greater[rSym, loP_] | GreaterEqual[rSym, loP_] |
-       Less[loP_, rSym] | LessEqual[loP_, rSym]) /; NumericQ[N@loP] :> N@loP,
-      {0, Infinity}, Heads -> True
-    ];
-    upper = Cases[cl,
-      (Less[rSym, hiP_] | LessEqual[rSym, hiP_] |
-       Greater[hiP_, rSym] | GreaterEqual[hiP_, rSym]) /; NumericQ[N@hiP] :> N@hiP,
-      {0, Infinity}, Heads -> True
+    Which[
+      reduceExpr === False, Return[{}],
+      reduceExpr === True, Return[{{shrink, maxBound - shrink}}]
     ];
 
-    lo = N[If[lower === {}, 0., Max[lower]], MachinePrecision];
-    hi = N[If[upper === {}, maxBound, Min[upper]], MachinePrecision];
-    {lo, hi}
-  ];
+    (* Normalize root variable to a simple symbol if needed *)
+    rSym = If[MatchQ[rootVar, _Symbol], rootVar, Unique["root$"]];
+    rExpr = reduceExpr /. rootVar -> rSym;
 
-  intervals = intervalFromClause /@ disjuncts;
-  intervals = Select[intervals, NumericQ[#[[1]]] && NumericQ[#[[2]]] &];
+    lexp = LogicalExpand[rExpr];
+    disjuncts = If[Head[lexp] === Or, List @@ lexp, {lexp}];
 
-  intervals = Map[
-    Function[{interval},
-      Module[{lo, hi, width, mid},
-        lo = Max[interval[[1]], 0.];
-        hi = Min[interval[[2]], maxBound];
-        lo = N[lo, MachinePrecision]; hi = N[hi, MachinePrecision];
-        If[hi < lo,
-          Nothing,
-          width = hi - lo;
-          Which[
-            width <= 2*shrink, mid = (lo + hi)/2.; {mid, mid},  (* single-point or very narrow -> collapse *)
-            True, {lo + shrink, hi - shrink}
+    intervalFromClause[cl_] := Module[{direct, single, lower, upper, lo, hi},
+      direct = Cases[cl,
+        Inequality[loP_, (Less|LessEqual), rSym, (Less|LessEqual), hiP_] /;
+          NumericQ[N@loP] && NumericQ[N@hiP] :> {N@loP, N@hiP},
+        {0, Infinity}, Heads -> True
+      ];
+      If[direct =!= {}, Return[First[direct]]];
+
+      single = Cases[cl,
+        Equal[rSym, cP_] /; NumericQ[N@cP] :> {N@cP, N@cP},
+        {0, Infinity}, Heads -> True
+      ];
+      If[single =!= {}, Return[First[single]]];
+
+      lower = Cases[cl,
+        (Greater[rSym, loP_] | GreaterEqual[rSym, loP_] |
+         Less[loP_, rSym] | LessEqual[loP_, rSym]) /; NumericQ[N@loP] :> N@loP,
+        {0, Infinity}, Heads -> True
+      ];
+      upper = Cases[cl,
+        (Less[rSym, hiP_] | LessEqual[rSym, hiP_] |
+         Greater[hiP_, rSym] | GreaterEqual[hiP_, rSym]) /; NumericQ[N@hiP] :> N@hiP,
+        {0, Infinity}, Heads -> True
+      ];
+
+      lo = N[If[lower === {}, 0., Max[lower]], MachinePrecision];
+      hi = N[If[upper === {}, maxBound, Min[upper]], MachinePrecision];
+      {lo, hi}
+    ];
+
+    intervals = intervalFromClause /@ disjuncts;
+    intervals = Select[intervals, NumericQ[#[[1]]] && NumericQ[#[[2]]] &];
+
+    intervals = Map[
+      Function[{interval},
+        Module[{lo, hi, width, mid},
+          lo = Max[interval[[1]], 0.];
+          hi = Min[interval[[2]], maxBound];
+          lo = N[lo, MachinePrecision]; hi = N[hi, MachinePrecision];
+          If[hi < lo,
+            Nothing,
+            width = hi - lo;
+            Which[
+              width <= 2*shrink, mid = (lo + hi)/2.; {mid, mid},  (* single-point or very narrow -> collapse *)
+              True, {lo + shrink, hi - shrink}
+            ]
           ]
         ]
-      ]
-    ],
+      ],
+      intervals
+    ];
+
+    intervals = Select[intervals, #[[1]] <= #[[2]] &];
+    intervals = SortBy[intervals, First];
+
+    If[intervals === {},
+      Message[extractIntervalsFromReduce::nointervals, reduceExpr];
+      Return[{}]
+    ];
+
     intervals
-  ];
-
-  intervals = Select[intervals, #[[1]] <= #[[2]] &];
-  intervals = SortBy[intervals, First];
-
-  If[intervals === {},
-    Message[extractIntervalsFromReduce::nointervals, reduceExpr];
-    Return[{}]
-  ];
-
-  intervals
+  ]
 ];
 
 
@@ -752,31 +831,58 @@ extractIntervalsFromReduce[reduceExpr_, rootVar_, opts:OptionsPattern[]] := Modu
 (*findFirstRootInIntervals*)
 
 
-findFirstRootInIntervals[f_, df_, intervals_List, opts___] := Module[
-  {result, tol},
+findFirstRootInIntervals // Options = {
+  "FastRootOptions" -> {},
+  "FindRootOptions" -> ("FindRootOptions" /. Options[fastRoot])
+};
 
-  tol = 10.^(-OptionValue[fastRoot, Join[Options[fastRoot], {opts}], AccuracyGoal]);
+findFirstRootInIntervals[f_, df_, intervals_List, opts : OptionsPattern[{findFirstRootInIntervals, FindRoot, fastRoot}]] := With[
+  {
+    findRootOpts = DeleteDuplicatesBy[
+      Flatten[{
+        Evaluate @ FilterRules[Flatten@{opts}, Options[FindRoot]],
+        Evaluate @ OptionValue["FindRootOptions"]
+      }],
+      First
+    ]
+  },
+  Module[
+    {result, tol, fastOpts, acc},
 
-  Do[
-    (* Handle single-point intervals *)
-    If[interval[[1]] == interval[[2]],
-      If[Abs[f[interval[[1]]]] < tol, Return[interval[[1]], Module]];
-      Continue[]
+    acc = Replace[
+      AccuracyGoal /. findRootOpts,
+      AccuracyGoal -> (AccuracyGoal /. Options[FindRoot])
     ];
 
-    (* Normal interval - use fastRoot *)
-    result = Quiet@Check[
-      fastRoot[f, df, interval, opts],
-      $Failed
+    fastOpts = Flatten[{
+      Evaluate @ FilterRules[Flatten@{opts}, Options[fastRoot]],
+      Evaluate @ OptionValue["FastRootOptions"],
+      Evaluate @ findRootOpts
+    }];
+
+    tol = 10.^(-acc);
+
+    Do[
+      (* Handle single-point intervals *)
+      If[interval[[1]] == interval[[2]],
+        If[Abs[f[interval[[1]]]] < tol, Return[interval[[1]], Module]];
+        Continue[]
+      ];
+
+      (* Normal interval - use fastRoot *)
+      result = Quiet@Check[
+        fastRoot[f, df, interval, Sequence @@ fastOpts],
+        $Failed
+      ];
+
+      result = First@Flatten@{result /. Rule[_, v_] :> v};
+
+      If[result =!= $Failed && NumericQ[result], Return[result, Module]],
+      {interval, intervals}
     ];
 
-    result = First@Flatten@{result /. Rule[_, v_] :> v};
-
-    If[result =!= $Failed && NumericQ[result], Return[result, Module]],
-    {interval, intervals}
-  ];
-
-  $Failed
+    $Failed
+  ]
 ];
 
 
@@ -784,32 +890,59 @@ findFirstRootInIntervals[f_, df_, intervals_List, opts___] := Module[
 (*findAllRootsInIntervals*)
 
 
-findAllRootsInIntervals[f_, df_, intervals_List, opts___] := Module[
-  {allRoots = {}, roots, tol},
+findAllRootsInIntervals // Options = {
+  "ScanAndSolveOptions" -> {},
+  "FindRootOptions" -> ("FindRootOptions" /. Options[scanAndSolve])
+};
 
-  tol = 10.^(-OptionValue[scanAndSolve, {opts}, AccuracyGoal]);
+findAllRootsInIntervals[f_, df_, intervals_List, opts : OptionsPattern[{findAllRootsInIntervals, FindRoot, scanAndSolve}]] := With[
+  {
+    findRootOpts = DeleteDuplicatesBy[
+      Flatten[{
+      Evaluate @ FilterRules[Flatten@{opts}, Options[FindRoot]],
+      Evaluate @ OptionValue["FindRootOptions"]
+      }],
+      First
+    ]
+  },
+  Module[
+    {allRoots = {}, roots, tol, scanOpts, acc},
 
-  Do[
-    (* Handle single-point intervals *)
-    If[interval[[1]] == interval[[2]],
-      If[Abs[f[interval[[1]]]] < tol,
-        AppendTo[allRoots, interval[[1]]]
+    acc = Replace[
+      AccuracyGoal /. findRootOpts,
+      AccuracyGoal -> (AccuracyGoal /. Options[FindRoot])
+    ];
+
+    scanOpts = Flatten[{
+      Evaluate @ FilterRules[Flatten@{opts}, Options[scanAndSolve]],
+      Evaluate @ OptionValue["ScanAndSolveOptions"],
+      Evaluate @ findRootOpts
+    }];
+
+    tol = 10.^(-acc);
+
+    Do[
+      (* Handle single-point intervals *)
+      If[interval[[1]] == interval[[2]],
+        If[Abs[f[interval[[1]]]] < tol,
+          AppendTo[allRoots, interval[[1]]]
+        ];
+        Continue[]
       ];
-      Continue[]
+
+      (* Normal interval - use scanAndSolve *)
+      roots = Quiet@Check[
+        scanAndSolve[f, df, interval, Sequence @@ scanOpts],
+        {}
+      ];
+
+      allRoots = Join[allRoots, roots],
+      {interval, intervals}
     ];
 
-    (* Normal interval - use scanAndSolve *)
-    roots = Quiet@Check[
-      scanAndSolve[f, df, interval, opts],
-      {}
-    ];
-
-    allRoots = Join[allRoots, roots],
-    {interval, intervals}
-  ];
-
-  (* Deduplicate roots at interval boundaries *)
-  Union[allRoots, SameTest -> (Abs[#1 - #2] <= tol &)]
+    (* Deduplicate roots at interval boundaries *)
+    Union[allRoots, SameTest -> (Abs[#1 - #2] <= tol &)]
+  ]
 ];
 
 
