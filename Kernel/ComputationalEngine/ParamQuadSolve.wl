@@ -7,6 +7,13 @@
 BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
 
 
+paramQuadSolve::usage =
+  "paramQuadSolve[eqns, vars, opts] returns an Association with keys \"Solution\", \"SignRootMap\", \"CoeffMap\", \"Conditions\", \"Assumptions\", \"Verification\", and \"Diagnostics\".\n\n\
+paramQuadSolve is a symbolic solver for square systems with per-variable degree <= 2. The per-variable degree test means bilinear terms such as x*y are permitted, \
+but they do not classify either variable as \"quadratic\" on their own. The solver produces parametric solutions with signA[k] for square-root branches, \
+a reversible coefficient map, and validation.";
+
+
 (* ::Section:: *)
 (*Code*)
 
@@ -26,13 +33,6 @@ Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 (*paramQuadSolve*)
 
 
-paramQuadSolve::usage =
-  "paramQuadSolve[eqns, vars, opts] returns an Association with keys \"Solution\", \"SignRootMap\", \"CoeffMap\", \"Conditions\", \"Assumptions\", \"Verification\", and \"Diagnostics\".\n\n\
-paramQuadSolve is a symbolic solver for square systems with per-variable degree <= 2. The per-variable degree test means bilinear terms such as x*y are permitted, \
-but they do not classify either variable as \"quadratic\" on their own. The solver produces parametric solutions with signA[k] for square-root branches, \
-a reversible coefficient map, and validation.";
-
-
 Options[paramQuadSolve] = {
   DomainOption -> Reals,
   Assumptions -> Automatic,
@@ -44,7 +44,7 @@ Options[paramQuadSolve] = {
   SimplifyTimeout -> Automatic,
   DiagnosticsOption -> False,
   OnlyQuadTerms -> False,
-  SignSymbol -> signA
+  "SignSymbol" -> signA
 };
 
 
@@ -816,7 +816,7 @@ buildAssumptions[userAss_] := Module[{base = defaultAssumptions[]},
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*normalizeOptions*)
 
 
