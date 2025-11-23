@@ -737,7 +737,7 @@ findFirstRootInIntervals[f_, df_, intervals_List, opts___] := Module[
   Do[
     (* Handle single-point intervals *)
     If[interval[[1]] == interval[[2]],
-      If[Abs[f[interval[[1]]]] < tol, Return[interval[[1]]]],
+      If[Abs[f[interval[[1]]]] < tol, Return[interval[[1]], Module]];
       Continue[]
     ];
 
@@ -749,7 +749,7 @@ findFirstRootInIntervals[f_, df_, intervals_List, opts___] := Module[
 
     result = First@Flatten@{result /. Rule[_, v_] :> v};
 
-    If[result =!= $Failed && NumericQ[result], Return[result]],
+    If[result =!= $Failed && NumericQ[result], Return[result, Module]],
     {interval, intervals}
   ];
 
