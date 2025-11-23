@@ -670,38 +670,42 @@ Options[extractIntervalsFromReduce] = {
 
 extractIntervalsFromReduce[reduceExpr_, rootVar_, opts:OptionsPattern[]] := Module[
   {lexp, shrink = OptionValue["InteriorShrink"], maxBound = OptionValue["RootUpperBound"],
-   disjuncts, intervals, intervalFromClause},
+   disjuncts, intervals, intervalFromClause, rSym, rExpr},
 
   Which[
     reduceExpr === False, Return[{}],
     reduceExpr === True, Return[{{shrink, maxBound - shrink}}]
   ];
 
-  lexp = LogicalExpand[reduceExpr];
+  (* Normalize root variable to a simple symbol if needed *)
+  rSym = If[MatchQ[rootVar, _Symbol], rootVar, Unique["root$"]];
+  rExpr = reduceExpr /. rootVar -> rSym;
+
+  lexp = LogicalExpand[rExpr];
   disjuncts = If[Head[lexp] === Or, List @@ lexp, {lexp}];
 
   intervalFromClause[cl_] := Module[{direct, single, lower, upper, lo, hi},
     direct = Cases[cl,
-      Inequality[loP_, (Less|LessEqual), rootVar, (Less|LessEqual), hiP_] /;
+      Inequality[loP_, (Less|LessEqual), rSym, (Less|LessEqual), hiP_] /;
         NumericQ[N@loP] && NumericQ[N@hiP] :> {N@loP, N@hiP},
       {0, Infinity}, Heads -> True
     ];
     If[direct =!= {}, Return[First[direct]]];
 
     single = Cases[cl,
-      Equal[rootVar, cP_] /; NumericQ[N@cP] :> {N@cP, N@cP},
+      Equal[rSym, cP_] /; NumericQ[N@cP] :> {N@cP, N@cP},
       {0, Infinity}, Heads -> True
     ];
     If[single =!= {}, Return[First[single]]];
 
     lower = Cases[cl,
-      (Greater[rootVar, loP_] | GreaterEqual[rootVar, loP_] |
-       Less[loP_, rootVar] | LessEqual[loP_, rootVar]) /; NumericQ[N@loP] :> N@loP,
+      (Greater[rSym, loP_] | GreaterEqual[rSym, loP_] |
+       Less[loP_, rSym] | LessEqual[loP_, rSym]) /; NumericQ[N@loP] :> N@loP,
       {0, Infinity}, Heads -> True
     ];
     upper = Cases[cl,
-      (Less[rootVar, hiP_] | LessEqual[rootVar, hiP_] |
-       Greater[hiP_, rootVar] | GreaterEqual[hiP_, rootVar]) /; NumericQ[N@hiP] :> N@hiP,
+      (Less[rSym, hiP_] | LessEqual[rSym, hiP_] |
+       Greater[hiP_, rSym] | GreaterEqual[hiP_, rSym]) /; NumericQ[N@hiP] :> N@hiP,
       {0, Infinity}, Heads -> True
     ];
 
