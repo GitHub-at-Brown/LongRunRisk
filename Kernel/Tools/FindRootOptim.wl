@@ -14,6 +14,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 buildKernel
 bindUnary
 findRootInterval
+findRootsCoeff0
 extractIntervalsFromReduce
 findRootCoeff0
 scanAndSolve
@@ -175,6 +176,7 @@ bindUnary[
 
 
 findRootInterval::emptyinterval = "There are no real solutions for `1`. Try changing signs `2` or parameters.";
+findRootInterval::nocoeff = "Could not locate a root variable for coefficient head `1` in the conditions.";
 
 
 findRootInterval//Options = {
@@ -205,6 +207,10 @@ findRootInterval[
     ],
     $Failed
   ];
+  If[rootVar === $Failed,
+    Message[findRootInterval::nocoeff, coeffName];
+    Return[$Failed]
+  ];
   
   (*evaluate conditions numerically*)
   signHead = ToExpression[signSym];
@@ -226,6 +232,12 @@ findRootInterval[
     (*try Rationalize if last attempt fails*)
     Reduce[Rationalize[ineqRootVar, 0] && rootSym > 0, rootSym, Reals]
   ];
+
+  If[red === False,
+    Message[findRootInterval::emptyinterval, coeffName, signSym];
+    Return[$Failed]
+  ];
+
   (*restore original variable names*)
   red = red /. Reverse@rootRules
 
@@ -237,6 +249,8 @@ findRootInterval[
 (* ::Subsection:: *)
 (*findRootCoeff0*)
 
+
+findRootCoeff0::badparams = "Parameter values violate the supplied assumptions.";
 
 findRootCoeff0//Options = Join[
   Options[FindRoot],
@@ -265,7 +279,10 @@ findRootCoeff0[
    kernel, f, df, reduceExpr, intervals, rootSym, rootVal, fastRootOpts, extractOpts},
 
   (* Validate parameters *)
-  If[!paramValidQ[assumptions, paramValues, coeffName], Return[$Failed]];
+  If[!paramValidQ[assumptions, paramValues, coeffName],
+    Message[findRootCoeff0::badparams];
+    Return[$Failed]
+  ];
 
   (* Get reduced constraints from findRootInterval *)
   reduceExpr = findRootInterval[conds, paramValues, signs,
@@ -419,6 +436,8 @@ fastRoot[f_, {a_?NumericQ, b_?NumericQ}, opts:OptionsPattern[]] /; a < b := Modu
 (*findRootsCoeff0*)
 
 
+findRootsCoeff0::badparams = "Parameter values violate the supplied assumptions.";
+
 findRootsCoeff0//Options = Join[
   Options[FindRoot],
   Options[scanAndSolve],
@@ -446,7 +465,10 @@ findRootsCoeff0[
    kernel, f, df, reduceExpr, intervals, rootSym, rootVals, scanOpts, extractOpts},
 
   (* Validate parameters *)
-  If[!paramValidQ[assumptions, paramValues, coeffName], Return[{}]];
+  If[!paramValidQ[assumptions, paramValues, coeffName],
+    Message[findRootsCoeff0::badparams];
+    Return[{}]
+  ];
 
   (* Get reduced constraints from findRootInterval *)
   reduceExpr = findRootInterval[conds, paramValues, signs,
@@ -632,28 +654,6 @@ signFlipPairsNumericSubseq[list_List] := Module[{pos, s, k},
   s   = Sign[list[[pos]]];
   k   = Flatten @ Position[Partition[s, 2, 1], {a_, b_} /; a b < 0];
   Transpose @ {pos[[k]], pos[[k + 1]]}   (* pairs {i, i+1} in the original list indexing *)
-];
-
-
-(* ::Subsubsection:: *)
-(*locateBracketInterval*)
-
-
-locateBracketInterval[f_, {a_, b_}, grid_Integer?Positive, minSamples_Integer:8] := Module[
-  {levels, xs, xsInt, ys, pairs},
-  If[!NumericQ[a] || !NumericQ[b] || a >= b, Return[$Failed]];
-  levels = NestWhileList[Min[2 #, grid] &, Min[minSamples, grid], # < grid &];
-  Do[
-    xs = Subdivide[a, b, n + 2];
-    xsInt = xs[[2 ;; -2]];
-    If[xsInt === {}, Continue[]];
-    ys = Quiet[f /@ xsInt];
-    pairs = xsInt[[#]] & /@ signFlipPairsNumericSubseq[ys];
-    If[pairs =!= {}, Return[pairs[[1]]]];
-    ,
-    {n, levels}
-  ];
-  $Failed
 ];
 
 
