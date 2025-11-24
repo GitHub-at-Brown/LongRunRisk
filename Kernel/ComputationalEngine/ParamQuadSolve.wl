@@ -34,40 +34,17 @@ Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
 
 Options[paramQuadSolve] = {
-  "Domain" -> Reals,
-  "Assumptions" -> Automatic,
-  "Method" -> Automatic,
-  "MonomialOrder" -> Automatic,
-  "Validation" -> True,
-  "Return" -> "All",
-  "Timeout" -> 300,
-  "SimplifyTimeout" -> Automatic,
-  "Diagnostics" -> False,
-  "OnlyQuadTerms" -> False,
-  "SignSymbol" -> signA,
-  Domain -> Inherited,
-  "DomainOption" -> Inherited,
-  DomainOption -> Inherited,
-  Assumptions -> Inherited,
-  Method -> Inherited,
-  MonomialOrder -> Inherited,
-  Validation -> Inherited,
-  "ValidationOption" -> Inherited,
-  ValidationOption -> Inherited,
-  Return -> Inherited,
-  "ReturnOption" -> Inherited,
-  ReturnOption -> Inherited,
-  Timeout -> Inherited,
-  "TimeoutOption" -> Inherited,
-  TimeoutOption -> Inherited,
-  SimplifyTimeout -> Inherited,
-  "SimplifyTimeoutOption" -> Inherited,
-  SimplifyTimeoutOption -> Inherited,
-  Diagnostics -> Inherited,
-  "DiagnosticsOption" -> Inherited,
-  DiagnosticsOption -> Inherited,
-  OnlyQuadTerms -> Inherited,
-  SignSymbol -> Inherited
+  DomainOption -> Reals,
+  Assumptions -> Automatic,
+  Method -> Automatic,
+  MonomialOrder -> Automatic,
+  ValidationOption -> True,
+  ReturnOption -> "All",
+  TimeoutOption -> 60,
+  SimplifyTimeout -> Automatic,
+  DiagnosticsOption -> False,
+  OnlyQuadTerms -> False,
+  "SignSymbol" -> signA
 };
 
 
@@ -77,211 +54,190 @@ paramQuadSolve::noquad = "No quadratic variables detected in the given system; O
 paramQuadSolve::nocover = "Unable to select a square subsystem covering the quadratic variables.";
 
 
-paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] := Module[
-  {optsList = Flatten@{opts}, optAssoc, resolveOpt},
-  optAssoc = Association@optsList;
-  resolveOpt = Function[{key, aliases},
-    Module[{selected = SelectFirst[Prepend[aliases, key], KeyExistsQ[optAssoc, #] &, key]},
-      Replace[
-        OptionValue[paramQuadSolve, optsList, selected],
-        Inherited :> OptionValue[paramQuadSolve, optsList, key]
-      ]
-    ]
+paramQuadSolve[eqns_List, vars_List, opts___?OptionQ] := Module[
+  {o = normalizeOptions[opts], domain, userAss, doValidate, ret, timeout, simplifyTimeout, signHead, onlyQuadQ,
+  ass, pairsFull, polysFull, densFull, eqVarSets, selection, varsToSolve, quadraticVars,
+  deferredVarList, selectedEqIndices, deferredEqIndices, eqnsUsed, eqnsDeferred, pairs, eqPolys,
+  dens, denConds, canPolys, coeffMap, seqRes, solved, signMap, signRadMap, leftover, steps, solRules,
+  signRootMap, conditions, verif, out, t0, t1, solRulesDesym, signRootMapDesym, signRadMapDesym, diagExtra,
+  radicandsRaw, uniqueRadicands, radicandConditions, signVars, signAssumptions, fullAss,
+  methodChoice, methodTag, allowGroebner, gbOrder, gbOrderUsed, simpBudget},
+  domain = o["Domain"]; userAss = o["Assumptions"]; doValidate = o["Validation"]; ret = o["Return"]; timeout = o["Timeout"]; simplifyTimeout = o["SimplifyTimeout"]; signHead = o["SignSymbol"];
+  onlyQuadQ = TrueQ[o["OnlyQuadTerms"]];
+  methodChoice = o["Method"];
+  {methodTag, allowGroebner} = Which[
+    methodChoice === Automatic || methodChoice === "SequentialWithGroebner", {"SequentialWithGroebner", True},
+    methodChoice === "Sequential", {"Sequential", False},
+    True, Message[paramQuadSolve::badmethod, methodChoice]; Return[$Failed]
   ];
-  With[
-    {
-      domain = resolveOpt["Domain", {"DomainOption", DomainOption, Domain}],
-      userAss = resolveOpt["Assumptions", {Assumptions}],
-      doValidate = resolveOpt["Validation", {"ValidationOption", ValidationOption, Validation}],
-      ret = resolveOpt["Return", {"ReturnOption", ReturnOption, Return}],
-      timeout = resolveOpt["Timeout", {"TimeoutOption", TimeoutOption, Timeout}],
-      simplifyTimeout = resolveOpt["SimplifyTimeout", {"SimplifyTimeoutOption", SimplifyTimeoutOption, SimplifyTimeout}],
-      signHead = resolveOpt["SignSymbol", {SignSymbol}],
-      onlyQuadQ = TrueQ[resolveOpt["OnlyQuadTerms", {OnlyQuadTerms}]],
-      methodChoice = resolveOpt["Method", {Method}],
-      gbOrder = resolveOpt["MonomialOrder", {MonomialOrder}]
-    },
-    Module[
-      {ass, pairsFull, polysFull, densFull, eqVarSets, selection, varsToSolve, quadraticVars,
-      deferredVarList, selectedEqIndices, deferredEqIndices, eqnsUsed, eqnsDeferred, pairs, eqPolys,
-      dens, denConds, canPolys, coeffMap, seqRes, solved, signMap, signRadMap, leftover, steps, solRules,
-      signRootMap, conditions, verif, out, t0, t1, solRulesDesym, signRootMapDesym, signRadMapDesym, diagExtra,
-      radicandsRaw, uniqueRadicands, radicandConditions, signVars, signAssumptions, fullAss,
-      methodTag, allowGroebner, gbOrderUsed, simpBudget},
-      {methodTag, allowGroebner} = Which[
-        methodChoice === Automatic || methodChoice === "SequentialWithGroebner", {"SequentialWithGroebner", True},
-        methodChoice === "Sequential", {"Sequential", False},
-        True, Message[paramQuadSolve::badmethod, methodChoice]; Return[$Failed]
-      ];
-      gbOrderUsed = Replace[gbOrder, Automatic -> Lexicographic];
-      ass = buildAssumptions[userAss];
-      simpBudget = Which[
-        NumericQ[simplifyTimeout] && simplifyTimeout >= 0, N@simplifyTimeout,
-        simplifyTimeout === Automatic && NumericQ[timeout] && timeout > 0, Min[5., N@timeout/10.],
-        True, 1.0
-      ];
-      If[NumericQ[timeout] && timeout <= 0, Return[<|"Error" -> "Timeout or failure during solving"|>]];
-      (* Input validation *)
-      If[vars === {}, Return[<|"Error" -> "Variables list cannot be empty"|>]];
-      If[eqns === {}, Return[<|"Error" -> "Equations list cannot be empty"|>]];
-      t0 = AbsoluteTime[];
-      pairsFull = toPolyAndDen /@ eqns;
-      polysFull = pairsFull[[All, 1]];
-      densFull = pairsFull[[All, 2]];
-      eqVarSets = varsInPoly[#, vars] & /@ polysFull;
-      With[{analysis = quadAnalysis[polysFull, vars]},
-        quadraticVars = analysis["QuadraticVars"];
-      ];
-      If[onlyQuadQ,
-        selection = selectQuadraticSubset[quadraticVars, eqVarSets, eqns, vars];
-        If[selection === $Failed, Return[$Failed]];
-        varsToSolve = selection["VarsToSolve"];
-        deferredVarList = selection["DeferredVars"];
-        selectedEqIndices = selection["SelectedEqIndices"];
-        deferredEqIndices = selection["DeferredEqIndices"];
-        eqnsUsed = eqns[[selectedEqIndices]];
-        eqnsDeferred = eqns[[deferredEqIndices]];
-        pairs = pairsFull[[selectedEqIndices]];
-        eqPolys = pairs[[All, 1]];
-        dens = pairs[[All, 2]];
-        diagExtra = selection["Diagnostics"];
-      ,
-        varsToSolve = vars;
-        deferredVarList = {};
-        selectedEqIndices = Range[Length[eqns]];
-        deferredEqIndices = {};
-        eqnsUsed = eqns;
-        eqnsDeferred = {};
-        pairs = pairsFull;
-        eqPolys = polysFull;
-        dens = densFull;
-        diagExtra = <|
-          "OnlyQuadTermsApplied" -> False,
-          "QuadraticVariables" -> quadraticVars,
-          "SolvedQuadraticVariables" -> varsToSolve,
-          "DeferredVariables" -> {},
-          "DeferredEquationsIndices" -> {}
-        |>;
-      ];
-      denConds = collectDenominatorConditions[dens];
-      {canPolys, coeffMap} = canonicalizeCoefficients[eqPolys, varsToSolve];
-      coeffMap = TimeConstrained[
-        Map[Simplify[#, Assumptions -> ass] &, coeffMap],
-        simpBudget,
-        coeffMap
-      ];
-      seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead, gbOrderUsed, allowGroebner], N@timeout, $Failed];
-      If[!MatchQ[seqRes, {__}], Return[<|"Error" -> "Timeout or failure during solving"|>]];
-      {solved, signMap, signRadMap, leftover, steps} = seqRes;
-      solRules = Normal[solved];
-      solRules = TimeConstrained[
-        FixedPoint[
-          Function[rules,
-            KeyValueMap[#1 -> (#2 /. rules) &, Association[rules]] // Normal
-          ],
-          solRules,
-          100
-        ],
-        N@timeout,
-        $Failed
-      ];
-      If[solRules === $Failed, Return[<|"Error" -> "Timeout or failure during solving"|>]];
-      signRootMap = Association[signMap];
-      (* substitute original coefficient expressions back *)
-      solRulesDesym = (solRules /. coeffMap);
-      signRootMapDesym = Map[# /. coeffMap &, signRootMap];
-      signRadMapDesym  = Map[# /. coeffMap &, Association[signRadMap]];
-      signVars = Keys[signRootMapDesym];
-      signAssumptions = If[signVars === {}, True, And @@ Thread[(signVars)^2 == 1]];
-      fullAss = expandPatternAssumptions[eqns,ass && signAssumptions];
+  gbOrder = o["MonomialOrder"];
+  gbOrderUsed = Replace[gbOrder, Automatic -> Lexicographic];
+  ass = buildAssumptions[userAss];
+  simpBudget = Which[
+    NumericQ[simplifyTimeout] && simplifyTimeout >= 0, N@simplifyTimeout,
+    simplifyTimeout === Automatic && NumericQ[timeout] && timeout > 0, Min[5., N@timeout/10.],
+    True, 1.0
+  ];
+  If[NumericQ[timeout] && timeout <= 0, Return[<|"Error" -> "Timeout or failure during solving"|>]];
+  (* Input validation *)
+  If[vars === {}, Return[<|"Error" -> "Variables list cannot be empty"|>]];
+  If[eqns === {}, Return[<|"Error" -> "Equations list cannot be empty"|>]];
+  t0 = AbsoluteTime[];
+  pairsFull = toPolyAndDen /@ eqns;
+  polysFull = pairsFull[[All, 1]];
+  densFull = pairsFull[[All, 2]];
+  eqVarSets = varsInPoly[#, vars] & /@ polysFull;
+  With[{analysis = quadAnalysis[polysFull, vars]},
+    quadraticVars = analysis["QuadraticVars"];
+  ];
+  If[onlyQuadQ,
+    selection = selectQuadraticSubset[quadraticVars, eqVarSets, eqns, vars];
+    If[selection === $Failed, Return[$Failed]];
+    varsToSolve = selection["VarsToSolve"];
+    deferredVarList = selection["DeferredVars"];
+    selectedEqIndices = selection["SelectedEqIndices"];
+    deferredEqIndices = selection["DeferredEqIndices"];
+    eqnsUsed = eqns[[selectedEqIndices]];
+    eqnsDeferred = eqns[[deferredEqIndices]];
+    pairs = pairsFull[[selectedEqIndices]];
+    eqPolys = pairs[[All, 1]];
+    dens = pairs[[All, 2]];
+    diagExtra = selection["Diagnostics"];
+  ,
+    varsToSolve = vars;
+    deferredVarList = {};
+    selectedEqIndices = Range[Length[eqns]];
+    deferredEqIndices = {};
+    eqnsUsed = eqns;
+    eqnsDeferred = {};
+    pairs = pairsFull;
+    eqPolys = polysFull;
+    dens = densFull;
+    diagExtra = <|
+      "OnlyQuadTermsApplied" -> False,
+      "QuadraticVariables" -> quadraticVars,
+      "SolvedQuadraticVariables" -> varsToSolve,
+      "DeferredVariables" -> {},
+      "DeferredEquationsIndices" -> {}
+    |>;
+  ];
+  denConds = collectDenominatorConditions[dens];
+  {canPolys, coeffMap} = canonicalizeCoefficients[eqPolys, varsToSolve];
+  coeffMap = TimeConstrained[
+    Map[Simplify[#, Assumptions -> ass] &, coeffMap],
+    simpBudget,
+    coeffMap
+  ];
+  seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead, gbOrderUsed, allowGroebner], N@timeout, $Failed];
+  If[!MatchQ[seqRes, {__}], Return[<|"Error" -> "Timeout or failure during solving"|>]];
+  {solved, signMap, signRadMap, leftover, steps} = seqRes;
+  solRules = Normal[solved];
+  solRules = TimeConstrained[
+    FixedPoint[
+      Function[rules,
+        KeyValueMap[#1 -> (#2 /. rules) &, Association[rules]] // Normal
+      ],
+      solRules,
+      100
+    ],
+    N@timeout,
+    $Failed
+  ];
+  If[solRules === $Failed, Return[<|"Error" -> "Timeout or failure during solving"|>]];
+  signRootMap = Association[signMap];
+  (* substitute original coefficient expressions back *)
+  solRulesDesym = (solRules /. coeffMap);
+  signRootMapDesym = Map[# /. coeffMap &, signRootMap];
+  signRadMapDesym  = Map[# /. coeffMap &, Association[signRadMap]];
+  signVars = Keys[signRootMapDesym];
+  signAssumptions = If[signVars === {}, True, And @@ Thread[(signVars)^2 == 1]];
+  fullAss = expandPatternAssumptions[eqns,ass && signAssumptions];
 
-      (* Apply square root simplification *)
-      {signRootMapDesym, signRadMapDesym} = simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss];
+  (* Apply square root simplification *)
+  {signRootMapDesym, signRadMapDesym} = simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss];
 
-      If[TrueQ[doValidate],
-        solRulesDesym = TimeConstrained[
-          (#[[1]] -> Simplify[#[[2]], Assumptions -> fullAss]) & /@ solRulesDesym,
-          simpBudget,
-          solRulesDesym
-        ];
-        signRootMapDesym = TimeConstrained[
-          Map[Simplify[#, Assumptions -> fullAss] &, signRootMapDesym],
-          simpBudget,
-          signRootMapDesym
-        ];
-        signRadMapDesym = TimeConstrained[
-          Map[Simplify[#, Assumptions -> fullAss] &, signRadMapDesym],
-          simpBudget,
-          signRadMapDesym
-        ];
-      ];
-      radicandsRaw = Values[signRadMapDesym];
-      uniqueRadicands = DeleteDuplicates[radicandsRaw];
-      radicandConditions =
-        If[domain === Reals,
-          If[uniqueRadicands === {},
-            {},
-            Flatten@{Simplify[Thread[uniqueRadicands >= 0], Assumptions -> fullAss]}
-          ],
-          {}
-        ];
-      conditions = DeleteCases[Flatten@{denConds, radicandConditions}, True];
-      verif = If[TrueQ[doValidate],
-        TimeConstrained[
-          Quiet@Check[
-            Module[{polys0, exprs, zeroQuick, checked},
-              polys0 = Subtract@@@eqnsUsed;
-              exprs = normalizeSigns[polys0 /. solRulesDesym, signHead];
-              zeroQuick = PossibleZeroQ[#, Assumptions -> fullAss] & /@ exprs;
-              checked = MapThread[
-                If[#1 === True,
+  If[TrueQ[doValidate],
+    solRulesDesym = TimeConstrained[
+      (#[[1]] -> Simplify[#[[2]], Assumptions -> fullAss]) & /@ solRulesDesym,
+      simpBudget,
+      solRulesDesym
+    ];
+    signRootMapDesym = TimeConstrained[
+      Map[Simplify[#, Assumptions -> fullAss] &, signRootMapDesym],
+      simpBudget,
+      signRootMapDesym
+    ];
+    signRadMapDesym = TimeConstrained[
+      Map[Simplify[#, Assumptions -> fullAss] &, signRadMapDesym],
+      simpBudget,
+      signRadMapDesym
+    ];
+  ];
+  radicandsRaw = Values[signRadMapDesym];
+  uniqueRadicands = DeleteDuplicates[radicandsRaw];
+  radicandConditions =
+    If[domain === Reals,
+      If[uniqueRadicands === {},
+        {},
+        Flatten@{Simplify[Thread[uniqueRadicands >= 0], Assumptions -> fullAss]}
+      ],
+      {}
+    ];
+  conditions = DeleteCases[Flatten@{denConds, radicandConditions}, True];
+  verif = If[TrueQ[doValidate],
+    TimeConstrained[
+      Quiet@Check[
+        Module[{polys0, exprs, zeroQuick, checked},
+          polys0 = Subtract@@@eqnsUsed;
+          exprs = normalizeSigns[polys0 /. solRulesDesym, signHead];
+          zeroQuick = PossibleZeroQ[#, Assumptions -> fullAss] & /@ exprs;
+          checked = MapThread[
+            If[#1 === True,
+              True,
+              Module[{noAss = Simplify[#2 == 0]},
+                If[TrueQ[noAss],
                   True,
-                  Module[{noAss = Simplify[#2 == 0]},
-                    If[TrueQ[noAss],
-                      True,
-                      Simplify[#2 == 0, Assumptions -> fullAss]
-                    ]
-                  ]
-                ] &,
-                {zeroQuick, exprs}
-              ];
-              checked
-            ],
-            $Failed
-          ],
-          N@timeout,
-          $Failed
+                  Simplify[#2 == 0, Assumptions -> fullAss]
+                ]
+              ]
+            ] &,
+            {zeroQuick, exprs}
+          ];
+          checked
         ],
-        Missing["NotEvaluated"]
-      ];
-      t1 = AbsoluteTime[];
-      out = <|
-        "Solution" -> Sort@solRulesDesym,
-        "SignRootMap" -> signRootMapDesym,
-        "CoeffMap" -> coeffMap,
-        "Conditions" -> conditions,
-        "Assumptions" -> fullAss,
-        "Verification" -> verif,
-        "DeferredVariables" -> deferredVarList,
-        "DeferredEquations" -> eqnsDeferred,
-        "Diagnostics" -> Join[
-          diagExtra,
-          <|
-            "LeftoverEquations" -> leftover,
-            "Steps" -> steps,
-            "TimingSeconds" -> t1 - t0,
-            "Method" -> methodTag,
-            "GroebnerMonomialOrder" -> gbOrderUsed,
-            "SignRadicandMap" -> signRadMapDesym
-          |>
-        ]
-      |>;
-      Which[
-        ret === "All", out,
-        ListQ[ret], KeyTake[out, Intersection[Keys[out], ret]],
-        True, out
-      ]
+        $Failed
+      ],
+      N@timeout,
+      $Failed
+    ],
+    Missing["NotEvaluated"]
+  ];
+  t1 = AbsoluteTime[];
+  out = <|
+    "Solution" -> Sort@solRulesDesym,
+    "SignRootMap" -> signRootMapDesym,
+    "CoeffMap" -> coeffMap,
+    "Conditions" -> conditions,
+    "Assumptions" -> fullAss,
+    "Verification" -> verif,
+    "DeferredVariables" -> deferredVarList,
+    "DeferredEquations" -> eqnsDeferred,
+    "Diagnostics" -> Join[
+      diagExtra,
+      <|
+        "LeftoverEquations" -> leftover,
+        "Steps" -> steps,
+        "TimingSeconds" -> t1 - t0,
+        "Method" -> methodTag,
+        "GroebnerMonomialOrder" -> gbOrderUsed,
+        "SignRadicandMap" -> signRadMapDesym
+      |>
     ]
+  |>;
+  Which[
+    ret === "All", out,
+    ListQ[ret], KeyTake[out, Intersection[Keys[out], ret]],
+    True, out
   ]
 ];
 
@@ -856,6 +812,37 @@ buildAssumptions[userAss_] := Module[{base = defaultAssumptions[]},
   Which[
     userAss === Automatic, base,
     True, base && userAss
+  ]
+];
+
+
+(* ::Subsubsection:: *)
+(*normalizeOptions*)
+
+
+normalizeOptions[opts___?OptionQ] := Module[{assoc = Association@Flatten@{opts}, pick},
+  pick[names_List] := Module[{k = Missing["KeyNotFound"]},
+    Do[
+      k = SelectFirst[Keys[assoc], SymbolName[#] === nm &, Missing["KeyNotFound"]];
+      If[k =!= Missing["KeyNotFound"], Return[k]],
+      {nm, names}
+    ];
+    k
+  ];
+  With[{get = Function[{names, def}, Module[{k = pick[names]}, If[k === Missing["KeyNotFound"], def, assoc[k]]]]},
+  <|
+    "Domain" -> get[{"DomainOption", "Domain"}, Reals],
+    "Assumptions" -> get[{"Assumptions"}, Automatic],
+    "Method" -> get[{"Method"}, Automatic],
+    "MonomialOrder" -> get[{"MonomialOrder"}, Automatic],
+    "Validation" -> get[{"ValidationOption", "Validation"}, True],
+    "Return" -> get[{"ReturnOption", "Return"}, "All"],
+    "Timeout" -> get[{"TimeoutOption", "Timeout"}, 300],
+    "SimplifyTimeout" -> get[{"SimplifyTimeout", "SimplifyTimeoutOption"}, Automatic],
+    "Diagnostics" -> get[{"DiagnosticsOption", "Diagnostics"}, False],
+    "OnlyQuadTerms" -> get[{"OnlyQuadTerms"}, False],
+    "SignSymbol" -> get[{"SignSymbol"}, signA]
+  |>
   ]
 ];
 
