@@ -13,7 +13,7 @@ eqns$ = {
 };
 vars$ = {x, y};
 
-r$ = Quiet@Check[pqs[eqns$, vars$, Validation -> True, Domain -> Reals], "fail", GreaterEqual::nord];
+r$ = Quiet@Check[pqs[eqns$, vars$, "ValidationOption" -> True, "DomainOption" -> Reals], "fail", GreaterEqual::nord];
 conds$ = If[r$ === "fail", {}, r$["Conditions"]];
 radMap$ = If[r$ === "fail", <||>, r$["Diagnostics"]["SignRadicandMap"]];
 

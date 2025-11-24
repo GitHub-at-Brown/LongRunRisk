@@ -11,7 +11,7 @@ VerificationTest[
   Module[{eqns, vars, res},
     eqns = {x^2 == 1, y == x + 1};
     vars = {x, y};
-    res = pqs[eqns, vars, Validation -> False];
+    res = pqs[eqns, vars, "ValidationOption" -> False];
     KeyExistsQ[res, "Assumptions"]
   ],
   True,
@@ -23,7 +23,7 @@ VerificationTest[
   Module[{eqns, vars, res, ass},
     eqns = {x^2 == 1, y == x + 1};
     vars = {x, y};
-    res = pqs[eqns, vars, Assumptions -> Automatic, Validation -> False];
+    res = pqs[eqns, vars, "Assumptions" -> Automatic, "ValidationOption" -> False];
     ass = res["Assumptions"];
     (* Check that default assumptions are included *)
     StringContainsQ[ToString[ass, InputForm], "delta"] &&
@@ -39,7 +39,7 @@ VerificationTest[
   Module[{eqns, vars, res, ass},
     eqns = {x^2 == 1, y == x + 1};
     vars = {x, y};
-    res = pqs[eqns, vars, Validation -> False];
+    res = pqs[eqns, vars, "ValidationOption" -> False];
     ass = res["Assumptions"];
     (* Check that default assumptions are included *)
     StringContainsQ[ToString[ass, InputForm], "delta"] &&
@@ -55,7 +55,7 @@ VerificationTest[
   Module[{eqns, vars, res, ass},
     eqns = {x^2 == a, y == x + b};
     vars = {x, y};
-    res = pqs[eqns, vars, Validation -> False];
+    res = pqs[eqns, vars, "ValidationOption" -> False];
     ass = res["Assumptions"];
     (* Check that sign constraints are included *)
     StringContainsQ[ToString[ass, InputForm], "signA[1]^2 == 1"]
@@ -70,7 +70,7 @@ VerificationTest[
     eqns = {x^2 == a, y == x + b};
     vars = {x, y};
     customAss = a > 0 && b > 0;
-    res = pqs[eqns, vars, Assumptions -> customAss, Validation -> False];
+    res = pqs[eqns, vars, "Assumptions" -> customAss, "ValidationOption" -> False];
     ass = res["Assumptions"];
     (* Check that both custom and default assumptions are included *)
     StringContainsQ[ToString[ass, InputForm], "a > 0"] &&
@@ -87,7 +87,7 @@ VerificationTest[
   Module[{eqns, vars, res, ass},
     eqns = {x == 1, y == x + 1};
     vars = {x, y};
-    res = pqs[eqns, vars, Validation -> False];
+    res = pqs[eqns, vars, "ValidationOption" -> False];
     ass = res["Assumptions"];
     (* Should not contain sign constraints *)
     !StringContainsQ[ToString[ass, InputForm], "signA"]
@@ -101,7 +101,7 @@ VerificationTest[
   Module[{eqns, vars, res, ass},
     eqns = {x^2 == a, y^2 == b, z == x + y};
     vars = {x, y, z};
-    res = pqs[eqns, vars, Validation -> False];
+    res = pqs[eqns, vars, "ValidationOption" -> False];
     ass = res["Assumptions"];
     (* Should contain multiple sign constraints *)
     StringContainsQ[ToString[ass, InputForm], "signA[1]^2 == 1"] &&
@@ -117,7 +117,7 @@ VerificationTest[
     eqns = {x^2 == a, y == x + b};
     vars = {x, y};
     customAss = a > 0 && Element[a, Reals] && Element[b, Reals];
-    res = pqs[eqns, vars, Assumptions -> customAss, Validation -> True];
+    res = pqs[eqns, vars, "Assumptions" -> customAss, "ValidationOption" -> True];
     (* Verification should succeed if assumptions are properly used *)
     AssociationQ[res] && KeyExistsQ[res, "Verification"]
   ],
@@ -134,7 +134,7 @@ VerificationTest[
       z == 5
     };
     vars = {x, y, z};
-    res = pqs[eqns, vars, OnlyQuadTerms -> True, Validation -> False];
+    res = pqs[eqns, vars, "OnlyQuadTerms" -> True, "ValidationOption" -> False];
     ass = res["Assumptions"];
     (* Should have assumptions key even with OnlyQuadTerms *)
     AssociationQ[res] &&

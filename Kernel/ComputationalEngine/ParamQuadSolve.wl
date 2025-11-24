@@ -34,16 +34,16 @@ Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
 
 Options[paramQuadSolve] = {
-  DomainOption -> Reals,
-  Assumptions -> Automatic,
-  Method -> Automatic,
-  MonomialOrder -> Automatic,
-  ValidationOption -> True,
-  ReturnOption -> "All",
-  TimeoutOption -> 60,
-  SimplifyTimeout -> Automatic,
-  DiagnosticsOption -> False,
-  OnlyQuadTerms -> False,
+  "DomainOption" -> Reals,
+  "Assumptions" -> Automatic,
+  "Method" -> Automatic,
+  "MonomialOrder" -> Automatic,
+  "ValidationOption" -> True,
+  "ReturnOption" -> "All",
+  "TimeoutOption" -> 60,
+  "SimplifyTimeout" -> Automatic,
+  "DiagnosticsOption" -> False,
+  "OnlyQuadTerms" -> False,
   "SignSymbol" -> signA
 };
 
@@ -823,7 +823,7 @@ buildAssumptions[userAss_] := Module[{base = defaultAssumptions[]},
 normalizeOptions[opts___?OptionQ] := Module[{assoc = Association@Flatten@{opts}, pick},
   pick[names_List] := Module[{k = Missing["KeyNotFound"]},
     Do[
-      k = SelectFirst[Keys[assoc], SymbolName[#] === nm &, Missing["KeyNotFound"]];
+      k = SelectFirst[Keys[assoc], If[Head[#] === Symbol, SymbolName[#] === nm, # === nm] &, Missing["KeyNotFound"]];
       If[k =!= Missing["KeyNotFound"], Return[k]],
       {nm, names}
     ];

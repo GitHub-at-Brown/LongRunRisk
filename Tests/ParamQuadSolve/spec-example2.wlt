@@ -12,7 +12,7 @@ eqns$ = {
 };
 vars$ = {x, y};
 
-res$ = pqs[eqns$, vars$, Validation -> True, Domain -> Reals];
+res$ = pqs[eqns$, vars$, "ValidationOption" -> True, "DomainOption" -> Reals];
 signKeys$ = Keys[res$["SignRootMap"]];
 assigns$ = Tuples[{-1, 1}, Length[signKeys$]];
 ourRules$ = Map[(res$["Solution"] /. Thread[signKeys$ -> #]) &, assigns$];

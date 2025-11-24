@@ -7,7 +7,7 @@ pqs = FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSol
 
 eq$ = {x == a/(1 - 1/psi), y == b/(1 + Exp[A[0]])};
 vars$ = {x, y};
-r$ = pqs[eq$, vars$, Domain -> Reals, Validation -> False];
+r$ = pqs[eq$, vars$, "DomainOption" -> Reals, "ValidationOption" -> False];
 conds$ = r$["Conditions"];
 condExpr$ = And @@ conds$;
 hasPsiDen$ = Simplify[condExpr$ /. psi -> 1] === False;

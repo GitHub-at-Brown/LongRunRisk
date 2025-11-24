@@ -7,7 +7,7 @@ pqs = FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSol
 
 eq$ = {x^2 + 2 x + 1 == 0, y == x + 1};
 vars$ = {x, y};
-r$ = pqs[eq$, vars$, Domain -> Reals, Validation -> True];
+r$ = pqs[eq$, vars$, "DomainOption" -> Reals, "ValidationOption" -> True];
 signs$ = Keys[r$["SignRootMap"]];
 rules$ = If[Length[signs$] == 0, {r$["Solution"]}, (r$["Solution"] /. Thread[signs$ -> #]) & /@ Tuples[{-1, 1}, Length[signs$]]];
 tuples$ = N[(vars$ /. #) & /@ rules$, 30];

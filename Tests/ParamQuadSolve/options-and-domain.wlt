@@ -12,18 +12,18 @@ vars$ = {x, y};
 (* Clean load: suppress shadow warnings during load and collect messages *)
 loadMessages$ = Block[{$MessageList = {}}, Off[General::shdw]; On[General::shdw]; $MessageList];
 
-rBase$ = Quiet[pqs[eq$, vars$, Domain -> Reals, Validation -> True], {Power::infy, Infinity::indet}];
-rSeq$ = Quiet[pqs[eq$, vars$, Domain -> Reals, Validation -> False, Method -> "Sequential"], {Power::infy, Infinity::indet}];
+rBase$ = Quiet[pqs[eq$, vars$, "DomainOption" -> Reals, "ValidationOption" -> True], {Power::infy, Infinity::indet}];
+rSeq$ = Quiet[pqs[eq$, vars$, "DomainOption" -> Reals, "ValidationOption" -> False, "Method" -> "Sequential"], {Power::infy, Infinity::indet}];
 diagMethodOK$ = rSeq$["Diagnostics"]["Method"] === "Sequential";
-rOrder$ = Quiet[pqs[eq$, vars$, Domain -> Reals, Validation -> False, Method -> "SequentialWithGroebner", MonomialOrder -> DegreeReverseLexicographic], {Power::infy, Infinity::indet}];
+rOrder$ = Quiet[pqs[eq$, vars$, "DomainOption" -> Reals, "ValidationOption" -> False, "Method" -> "SequentialWithGroebner", "MonomialOrder" -> DegreeReverseLexicographic], {Power::infy, Infinity::indet}];
 diagOrderOK$ = rOrder$["Diagnostics"]["GroebnerMonomialOrder"] === DegreeReverseLexicographic;
 
 (* Sign head rename *)
-rSign$ = Quiet[pqs[eq$, vars$, SignSymbol -> sg, Domain -> Reals], {Power::infy, Infinity::indet}];
+rSign$ = Quiet[pqs[eq$, vars$, "SignSymbol" -> sg, "DomainOption" -> Reals], {Power::infy, Infinity::indet}];
 signHeadOK$ = And @@ (Head /@ Keys[rSign$["SignRootMap"]] === Table[sg, {Length[Keys[rSign$["SignRootMap"]]]}]);
 
 (* Radicand inequality references the sign variable *)
-rRad$ = Quiet[pqs[{x^2 - 1 == 0, y^2 - x == 0}, {x, y}, Domain -> Reals, Validation -> False], {Power::infy, Infinity::indet}];
+rRad$ = Quiet[pqs[{x^2 - 1 == 0, y^2 - x == 0}, {x, y}, "DomainOption" -> Reals, "ValidationOption" -> False], {Power::infy, Infinity::indet}];
 radCondOK$ = Module[{sk = Keys[rRad$["SignRootMap"]]}, MemberQ[rRad$["Conditions"], First[sk] >= 0]];
 
 VerificationTest[loadMessages$ === {}, True, TestID -> "package-load-clean@@Tests/ParamQuadSolve/options-and-domain.wlt:39,1-39,134"]

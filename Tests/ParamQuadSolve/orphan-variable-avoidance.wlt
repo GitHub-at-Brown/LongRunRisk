@@ -16,7 +16,7 @@ VerificationTest[
       z == 5              (* eq 4: has z *)
     };
     vars = {x, y, z, w};
-    res = pqs[eqns, vars, OnlyQuadTerms -> True];
+    res = pqs[eqns, vars, "OnlyQuadTerms" -> True];
     deferredEqs = res["Diagnostics"]["DeferredEquationsIndices"];
     selectedEqs = Complement[Range[4], deferredEqs];
 
@@ -41,7 +41,7 @@ VerificationTest[
       d == 4            (* eq 4: linear in d *)
     };
     vars = {a, b, c, d};
-    res = pqs[eqns, vars, OnlyQuadTerms -> True];
+    res = pqs[eqns, vars, "OnlyQuadTerms" -> True];
     selectedEqs = Complement[Range[4], res["Diagnostics"]["DeferredEquationsIndices"]];
     deferredEqs = res["Diagnostics"]["DeferredEquationsIndices"];
 
@@ -86,7 +86,7 @@ VerificationTest[
     };
     vars = {A[1], A[2], A[3], A[4], A[5], A[6], A[7]};
 
-    res = pqs[sys, vars, OnlyQuadTerms -> True];
+    res = pqs[sys, vars, "OnlyQuadTerms" -> True];
     deferredEqs = res["Diagnostics"]["DeferredEquationsIndices"];
 
     (* Equation 4 contains A[4] which appears nowhere else *)
@@ -131,7 +131,7 @@ VerificationTest[
     };
     vars = {A[1], A[2], A[3], A[4], A[5], A[6], A[7]};
 
-    res = pqs[sys, vars, OnlyQuadTerms -> True];
+    res = pqs[sys, vars, "OnlyQuadTerms" -> True];
     deferredEqs = res["DeferredEquations"];
     deferredVars = res["DeferredVariables"];
 

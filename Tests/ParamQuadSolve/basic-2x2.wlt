@@ -9,7 +9,7 @@ eqns$ = {
   y + 2 x - 3 == 0
 };
 vars$ = {x, y};
-res$ = pqs[eqns$, vars$, Validation -> True, Domain -> Reals];
+res$ = pqs[eqns$, vars$, "ValidationOption" -> True, "DomainOption" -> Reals];
 signSym$ = First[Keys[res$["SignRootMap"]]];
 rad$ = res$["SignRootMap"][signSym$];
 

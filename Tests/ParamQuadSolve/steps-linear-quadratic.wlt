@@ -7,7 +7,7 @@ pqs = FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSol
 
 eq$ = {x^2 - 5 == 0, y + 2 x - 3 == 0};
 vars$ = {x, y};
-r$ = pqs[eq$, vars$, Domain -> Reals, Validation -> False];
+r$ = pqs[eq$, vars$, "DomainOption" -> Reals, "ValidationOption" -> False];
 steps$ = r$["Diagnostics"]["Steps"];
 
 VerificationTest[MemberQ[steps$, {"quadratic", x}], True, TestID -> "has-quadratic-x@@Tests/ParamQuadSolve/steps-linear-quadratic.wlt:23,1-23,148"]

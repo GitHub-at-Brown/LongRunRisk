@@ -7,7 +7,7 @@ pqs = FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSol
 
 eq$ = {x^2 + y^2 == 1, x^2 + 2 y^2 == 2};
 vars$ = {x, y};
-r$ = pqs[eq$, vars$, Domain -> Reals, Validation -> False];
+r$ = pqs[eq$, vars$, "DomainOption" -> Reals, "ValidationOption" -> False];
 steps$ = r$["Diagnostics"]["Steps"];
 lastVar$ = vars$[[-1]];
 

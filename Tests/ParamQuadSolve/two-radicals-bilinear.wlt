@@ -12,7 +12,7 @@ eqns$ = {
 };
 vars$ = {x, y, z};
 
-res$ = pqs[eqns$, vars$, Validation -> True, Domain -> Reals];
+res$ = pqs[eqns$, vars$, "ValidationOption" -> True, "DomainOption" -> Reals];
 
 signKeys$ = Keys[res$["SignRootMap"]];
 radVals$ = Values[res$["SignRootMap"]];

@@ -32,7 +32,7 @@ params$ = {
 };
 
 sysN$ = (sys$ /. params$);
-res$ = pqs[sysN$, vars$, Validation -> False, Domain -> Reals];
+res$ = pqs[sysN$, vars$, "ValidationOption" -> False, "DomainOption" -> Reals];
 signKeys$ = Keys[res$["SignRootMap"]];
 assigns$ = Tuples[{-1, 1}, Length[signKeys$]];
 pkgSolRules$ = Map[(res$["Solution"] /. Thread[signKeys$ -> #]) &, assigns$];
