@@ -25,7 +25,7 @@ Module[
   {
     testDir, testFiles, report, startTime, endTime,
     totalTests, totalPassed, totalFailed,
-    verbose, specificFiles, testsFromFile
+    verbose, specificFiles, testsFromFile, pacletRoot, paclet
   },
 
   (* Load MUnit for test reporting *)
@@ -36,6 +36,29 @@ Module[
   specificFiles = Select[$ScriptCommandLine, StringEndsQ[#, ".wlt"] &];
 
   testDir = DirectoryName[$InputFileName];
+
+  (* Find and load the paclet using PacletDirectoryLoad *)
+  pacletRoot = testDir;
+  While[! FileExistsQ@FileNameJoin[{pacletRoot, "PacletInfo.wl"}] && pacletRoot =!= DirectoryName[pacletRoot],
+    pacletRoot = DirectoryName[pacletRoot]
+  ];
+
+  If[! FileExistsQ@FileNameJoin[{pacletRoot, "PacletInfo.wl"}],
+    Print["ERROR: Could not find PacletInfo.wl in parent directories!"];
+    Quit[1];
+  ];
+
+  (* Load the paclet - this makes all contexts available including dependencies *)
+  paclet = PacletDirectoryLoad[pacletRoot];
+  If[FailureQ[paclet],
+    Print["ERROR: Failed to load paclet from ", pacletRoot];
+    Quit[1];
+  ];
+
+  If[verbose,
+    Print["Loaded paclet: ", paclet["Name"], " v", paclet["Version"]];
+    Print[""];
+  ];
 
   (* Get test files *)
   testFiles = If[Length[specificFiles] > 0,

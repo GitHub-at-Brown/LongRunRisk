@@ -4,7 +4,7 @@ Off[General::shdw];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
 On[General::shdw];
 
-pqs = ToExpression["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`Private`paramQuadSolve"];
+pqs = FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSolve;
 
 (* Test: Assumptions key exists when no assumptions provided *)
 VerificationTest[

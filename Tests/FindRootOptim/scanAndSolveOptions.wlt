@@ -1,17 +1,7 @@
 Begin["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`"];
 
-Module[{start, d, pacletRoot},
-  start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-    DirectoryName[$InputFileName],
-    Directory[]
-  ];
-  d = start;
-  While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d], d = DirectoryName[d]];
-  pacletRoot = d;
-  Off[General::shdw];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "FindRootOptim.wl"}]];
-  On[General::shdw];
-];
+Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+
 
 sas = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`scanAndSolve"];
 tolSameTest = Function[{actual, expected},

@@ -1,19 +1,12 @@
-Module[{start, d, pacletRoot, testDir, binaryFile, sourceFile, loadStart, loadEnd, isCI},
-  start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-    DirectoryName[$InputFileName],
-    Directory[]
-  ];
-  d = start;
-  While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d], d = DirectoryName[d]];
-  pacletRoot = d;
+Module[{testDir, binaryFile, sourceFile, loadStart, loadEnd, isCI},
   testDir = DirectoryName[$InputFileName];
   binaryFile = FileNameJoin[{testDir, "TestData.mx"}];
   sourceFile = FileNameJoin[{testDir, "TestDataSource.wl"}];
 
   Off[General::shdw];
 
-  (* Load the FindRootOptim code *)
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "FindRootOptim.wl"}]];
+  (* Load the FindRootOptim code via Needs *)
+  Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 
   (* Load test data: prefer binary, fall back to source *)
   (* On CI, always use source to avoid platform issues with .mx files *)
