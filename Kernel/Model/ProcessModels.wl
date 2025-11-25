@@ -41,6 +41,8 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpect
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"]
 
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
@@ -164,64 +166,91 @@ processModels[
 	]& /@ models;
 
 	(*add unconditional moments of state variables*)
-	maxMomentOrder=4;
-	maxSolveTime = 20; (*try Solve for maxSolveTime seconds before switching to solveSystemRecursively*)
-	models = Append[#,
-		"uncondMomOfStateVars"-> 
-				FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`solveSystem[maxMomentOrder, #, maxSolveTime]
-	]&/@models; (*leaks global t*)
-	Message[processModels::progress,"uncondMomOfStateVars"];
+	maxMomentOrder=4;(*4;*)
+	maxSolveTime = 2;(*20;*) (*try Solve for maxSolveTime seconds before switching to solveSystemRecursively*)
+	models = EchoTiming[
+		Append[#,
+			"uncondMomOfStateVars"-> 
+					FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`solveSystem[maxMomentOrder, #, maxSolveTime]
+		]&/@models,
+		"uncondMomOfStateVars"
+	]; (*leaks global t*)
 	
 	(*add expressions for some unconditional moments*)
-	models = Append[
-		#,
-		"ratioUncondE" -> <| 
-			"wc"->Simplify@uncondE[wc[t],#],
-			"pd"->Simplify@uncondE[pd[t,j],#],
-			"bond"->Simplify@uncondE[bond[t,m],#],
-			"nombond"->Simplify@uncondE[nombond[t,m],#]
-		|>
-	]& /@ models;
-	Message[processModels::progress,"uncondE"];
+	models = EchoTiming[
+		Append[
+			#,
+			"ratioUncondE" -> <| 
+				"wc"->Simplify@uncondE[wc[t],#],
+				"pd"->Simplify@uncondE[pd[t,j],#],
+				"bond"->Simplify@uncondE[bond[t,m],#],
+				"nombond"->Simplify@uncondE[nombond[t,m],#]
+			|>
+		]& /@ models,
+		"uncondE"
+	];
 	
 	(*add Euler equations*)
-	models=Append[
-		#,
-		addCoeffsSystem[#]
-	]&/@models;
-	Message[processModels::progress,"addCoeffsSystem"];
+	models = EchoTiming[
+		Append[
+			#,
+			addCoeffsSystem[#]
+		]&/@models,
+		"addCoeffsSystem"
+	];
 	
-	(*simplify Euler equations*)
+	(* simplify Euler equations *)
+	models = EchoTiming[
+	  (
+	    Module[{m = #, simpl = simplifyCoeffsSystem[#, TimeConstraint -> {1,1}]},
+	      m[["coeffsSystem", "wc", 1, 2 ;; -1]] = simpl[[1]];
+	      m[["coeffsSystem", "pd", 1, 2 ;; -1]] = simpl[[2]];
+	      m
+	    ]
+	  ) & /@ models,
+	  "simplifyCoeffsSystem"
+	];
+
+	(*solve, simplify solution, create nonlinear equations for mean of wc and pd*)
+	models = EchoTiming[
+		Append[
+			#,
+			solveCoeffsSystem[#, TimeConstraint->{1,1}]
+		]&/@models,
+		"solveCoeffsSystem"
+	];
 	
-	(*solve Euler equations*)
+(*	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
+	models = EchoTiming[
+		Append[
+			#,
+			"extraInfo" -> If[KeyExistsQ[modelsExtraInfo,#["shortname"]],modelsExtraInfo[#["shortname"]],<||>]
+		]& /@ models,
+		"extraInfo"
+	];
 	
-	(*simplify solution to Euler equations*)
-	
-	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
-	models = Append[
-		#,
-		"extraInfo" -> If[KeyExistsQ[modelsExtraInfo,#["shortname"]],modelsExtraInfo[#["shortname"]],<||>]
-	]& /@ models;
-	Message[processModels::progress,"extraInfo"];
-	
-	models = Append[
-		#,
-		"coeffsSolution" -> <| 
-			"wc" -> addCoeffsSolution[#,"wc",opts],
-			"pd" -> addCoeffsSolution[#,"pd", opts],
-			"bond" -> addCoeffsSolution[#,"bond", opts],
-			"nombond" -> addCoeffsSolution[#,"nombond", opts]
-		|>
-	]& /@ models;
-	Message[processModels::progress,"addCoeffsSolution"];
+	models = EchoTiming[
+		Append[
+			#,
+			"coeffsSolution" -> <| 
+				"wc" -> addCoeffsSolution[#,"wc",opts],
+				"pd" -> addCoeffsSolution[#,"pd", opts],
+				"bond" -> addCoeffsSolution[#,"bond", opts],
+				"nombond" -> addCoeffsSolution[#,"nombond", opts]
+			|>
+		]& /@ models,
+		"addCoeffsSolution"
+	];
 	
 	(*add numerical solution to coeffsSolution when using model["params"]*)
-	models = Append[
-		#,
-		"coeffsSolutionN" -> addCoeffsSolutionN[#]
-	]& /@ models;
-	Message[processModels::progress,"addCoeffsSolutionN"];
-	
+	models = EchoTiming[
+		Append[
+			#,
+			"coeffsSolutionN" -> addCoeffsSolutionN[#]
+		]& /@ models,
+		"addCoeffsSolutionN"
+	];
+	*)
 	(*add a list of existing Keys called Properties*)
 	models=Append[
 		#,
@@ -374,7 +403,7 @@ createEndogenous[mod_]:=Module[
 		funTemplate
 	},
 	Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-	
+
 	endogenousVarsExpr=ToExpression/@$endogenousVars;
 	(*separate endogenous equations and variables with and without UpValues*)
 	
@@ -469,7 +498,7 @@ addCoeffsSystem[model_]:=Module[
 	},
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"];
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
-	
+
 	(*rules that re-write Ewc, Epd in terms of the coefficients of wc[t] or pd[t,j]*)
 	ratiosUncondERuleWc={FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc :>
 		Simplify@FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE[wc[t],model]};
@@ -494,6 +523,352 @@ addCoeffsSystem[model_]:=Module[
 		"nombond" -> {systemNomBond,unknownsNomBond,initialCondNomBond,nNomBond,nameNomBond}
 	|>
 ]
+
+
+(* ::Subsection:: *)
+(*simplifyCoeffsSystem*)
+
+
+simplifyCoeffsSystem[model_, opts : OptionsPattern[Simplify]]:=With[
+	{
+		simplifyOpts = FilterRules[{opts}, Options[Simplify]],
+		modelCoeffsSys=model["coeffsSystem"]
+	},
+		With[
+		{
+			sysA = modelCoeffsSys["wc"][[1]][[2;;-1]],
+			sysB = modelCoeffsSys["pd"][[1]][[2;;-1]],
+			modelAssumptions=model["modelAssumptions"]
+		},
+		With[
+		{
+			assumeA=expandPatternAssumptions[sysA,modelAssumptions],
+			assumeB=expandPatternAssumptions[sysB,modelAssumptions]
+		},
+				{
+					Quiet[Assuming[assumeA, FullSimplify[sysA/. (1-gamma)/(1-1/psi)->theta, Sequence @@ simplifyOpts]],{FullSimplify::time}],
+					Quiet[Assuming[assumeB, FullSimplify[sysB/. (1-gamma)/(1-1/psi)->theta, Sequence @@ simplifyOpts]],{FullSimplify::time}]
+				}
+		](*With*)
+	] (*With*)
+] (*With*)
+
+
+(* ::Subsection:: *)
+(*solveCoeffsSystem*)
+
+
+solveCoeffsSystem // Options = {
+	"SimplifyOptions" -> {TimeConstraint -> {30, 600}}
+};
+
+
+solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:=With[
+	{
+		simplifyOpts = Flatten[{
+          Evaluate @ FilterRules[Flatten@{opts}, Options[Simplify]],
+          Evaluate @ OptionValue["SimplifyOptions"]
+        }],
+        modelCoeffsSys=model["coeffsSystem"]
+	},
+	With[
+		{
+			modelCoeffsSysWc = modelCoeffsSys["wc"],
+			modelCoeffsSysPd = modelCoeffsSys["pd"]
+		},
+		With[
+			{
+				sysA = modelCoeffsSysWc[[1]][[2;;-1]],
+				sysB = modelCoeffsSysPd[[1]][[2;;-1]],
+				modelAssumptions=model["modelAssumptions"]
+			},
+			With[
+				{
+					assumeA=expandPatternAssumptions[sysA,modelAssumptions],
+					assumeB=expandPatternAssumptions[sysB,modelAssumptions]
+				},
+				With[
+					{
+						varsA = modelCoeffsSysWc[[2]][[2;;-1]],
+						varsB = modelCoeffsSysPd[[2]][[2;;-1]]
+					},
+					Module[
+						{
+							solA,
+							solB,
+							conditionsA,
+							conditionsB
+						},
+						(*solve system of linear-quadratic equations for wc and pd coefficients*)
+						(*Echo[sysA[[1]],"sysA1"];*)
+						solA=paramQuadSolve[
+							sysA,
+							varsA,
+							"SignSymbol" -> Symbol[
+								"sign"<>SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc]
+							],
+							Assumptions->assumeA
+						];
+						(*Echo[solA[[1]],"solA1"];*)
+						solB=paramQuadSolve[
+							sysB,
+							varsB,
+							"SignSymbol" -> Symbol[
+								"sign"<>SymbolName[Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd]
+							],
+							Assumptions->assumeB
+						];
+						(*Echo[solB[[1]],"solB1"];*)
+						(*simplify conditions that guarantee real solutions*)
+						conditionsA=Assuming[assumeA,FullSimplify[solA["Conditions"],Sequence @@ simplifyOpts]];
+						conditionsB=Assuming[assumeB,FullSimplify[solB["Conditions"],Sequence @@ simplifyOpts]];
+						solA["Conditions"]=assumeA && (And@@conditionsA);
+						solB["Conditions"]=assumeB && (And@@conditionsB);
+
+						(*Echo[solA["Conditions"][[1]],"solAConditions"];*)
+						(*Echo[solB["Conditions"][[1]],"solBConditions"];*)
+						(*simplify using assumptions*)
+						solA["Solution"]=Quiet[Assuming[solA["Conditions"],Simplify[solA["Solution"],Sequence @@ simplifyOpts]],{Simplify::time}];
+					    solB["Solution"]=Quiet[Assuming[solB["Conditions"],Simplify[solB["Solution"],Sequence @@ simplifyOpts]],{Simplify::time}];
+						(*Echo[solA["Solution"][[1]],"solASolution"];*)
+						(*Echo[solB["Solution"][[1]],"solBSolution"];*)
+						(*try eliminating one of gamma, theta, psi and keep shortest expressions*)
+						solA["Solution"]=tryTransforms[#,assumeA,Sequence @@ simplifyOpts]&/@solA["Solution"];
+						solB["Solution"]=tryTransforms[#,assumeB,Sequence @@ simplifyOpts]&/@solB["Solution"];
+						
+						(*create non-linear equation for unconditional mean of wc and pd*)
+						With[
+							{
+								wcCoeffEq = modelCoeffsSysWc[[1,1]],
+								pdCoeffEq = modelCoeffsSysPd[[1,1]]
+							},
+							(*wc*)
+							solA["eqA0"] = Assuming[
+								assumeA,
+								Quiet[FullSimplify[wcCoeffEq/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
+							];
+							(*pd without plugging in wc coeffs*)
+							solB["eqB0"] = Assuming[
+								assumeB,
+								Quiet[FullSimplify[pdCoeffEq/.solB["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
+							];
+							(*pd plugging in wc coeffs*)
+							solB["eqAB0"] = Assuming[
+								assumeB,
+								Quiet[FullSimplify[pdCoeffEq/.solB["Solution"]/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
+							];
+						]; (*With*)
+						(*Echo[solA["eqA0"],"eqA0"];*)
+						(*Echo[solB["eqB0"],"eqB0"];*)
+						(*Echo[solB["eqAB0"],"eqAB0"];*)
+						Echo[model["shortname"],"finishedcoeffsParamQuadSolve"]; 
+						"coeffsParamQuadSolve" -> <| 
+							"wc" -> solA,
+							"pd" -> solB
+						|>
+					](*Module*)
+				](*With*)
+			](*With*)
+		] (*With*)
+	] (*With*)
+] (*With*)
+
+
+(* ::Subsubsection:: *)
+(*tryTransforms*)
+
+
+tryTransforms // Options = {
+	"SimplifyOptions" -> {TimeConstraint -> {5,300}}
+};
+
+
+tryTransforms[
+	expr_,
+	ass : Except[_List] : True,
+	transforms : _List | Automatic : Automatic,
+	opts : OptionsPattern[{tryTransforms, Simplify}]
+] := Module[
+	{
+		actualTransforms,
+		results
+	},
+	actualTransforms = If[
+		transforms === Automatic,
+		Flatten[Solve[(1-gamma)/(1-1/psi)==theta, #] & /@ {psi, gamma, theta}, 1],
+		transforms
+	];
+	With[
+		{
+			simplifyOpts = Flatten[{
+	          Evaluate @ FilterRules[Flatten@{opts}, Options[Simplify]],
+	          Evaluate @ OptionValue["SimplifyOptions"]
+	        }]
+		},
+		(*Echo[{opts},"tryTransformsopts"];
+		Echo[simplifyOpts,"tryTransformssimplifyOpts"];
+		Echo[actualTransforms,"tryTransformsactualTransforms"];
+		Echo[expr,"tryTransformsexpr"];
+		Echo[ass[[1]],"tryTransformsass"];*)
+		results = Quiet[
+			Table[
+				Assuming[ass,Simplify[expr /. transform, Sequence @@ simplifyOpts]],
+				{transform, actualTransforms}
+			]
+			,
+			{Simplify::time}
+		];
+	];(*With*)
+	(*Echo[results,"tryTransformsresults"];*)
+	First[MinimalBy[results, LeafCount, 1]]
+](*Module*)
+
+
+(* ::Subsection:: *)
+(*createCompiledEq*)
+
+
+createCompiledEq // Options = {
+	"buildKernelOptions" -> {
+		"CompilationTarget" -> "C"
+	}
+};
+
+
+createCompiledEq[
+	model_,
+	opts : OptionsPattern[{createCompiledEq, buildKernel}]
+]:=With[
+	{
+		quadSol = Subtract @@ model["coeffsParamQuadSolve"],
+        modelParamsKeys = Keys @ model["params"],
+        shortname = model["shortname"],
+        buildKernelOpts = Flatten[
+           {
+              Evaluate @ FilterRules[Flatten @ {opts}, Options[buildKernel]],
+              Evaluate @ OptionValue["buildKernelOptions"]
+           }
+        ]
+    },
+	(*split parameters into stock and non-stock*)
+	ddHeads=Alternatives@@FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList["Real dividend growth"][[All,0]];
+	paramsA=DeleteCases[modelParamsKeys,ddHeads[_]];
+	paramsStocks=Cases[modelParamsKeys,x:ddHeads[_]:>Head[x][FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j]];
+Echo[buildKernelOpts,"buildKernelOpts"];
+		(*wc*)
+	exprA = Subtract @@ quadSol[ "wc" ][ "eqA0" ];
+	$savedKernelA = 
+	    buildKernel[
+	        exprA,
+	        paramsA,
+	        Apply[
+	            Sequence,
+	            Join[
+	                {
+	                    "CoeffName" -> SymbolName @ Head @ model["coeffsSystem"]["wc"][[2,1]],
+	                    "SignSymbol" ->
+	                        SymbolName @ Head @ First @ Keys @ quadSol[ "wc" ][ "SignRootMap" ]
+	                },
+	                buildKernelOpts
+	            ]
+	        ]
+	    ];
+	    
+  (*pd without plugging in wc coeffs*)
+		exprB = Subtract @@ quadSol[ "pd" ][ "eqB0" ];
+		paramsB = Join[
+			paramsA, (*non-stock parameters*)
+			paramsStocks, (*stock parameters*)
+			model["coeffsSystem"]["wc"][[2]] (*wc ratio coeffs*)
+		];
+	
+
+		$savedKernelB = 
+		    buildKernel[
+		        exprB,
+		        paramsB,
+		        Apply[
+		            Sequence,
+		            Join[
+		                {
+		                    "CoeffName" -> SymbolName @ Head @ Head @ model["coeffsSystem"]["pd"][[2,1]],
+		                    "SignSymbol" ->
+		                        SymbolName @ Head @ First @ Keys @ quadSol[ "pd" ][ "SignRootMap" ]
+		                },
+		                buildKernelOpts
+		            ]
+		        ]
+		    ];
+		(*pd plugging in wc coeffs*)
+		exprAB = Subtract @@ quadSol[ "pd" ][ "eqAB0" ];
+		paramsAB = Join[
+			paramsA, (*non-stock parameters*)
+			paramsStocks, (*stock parameters*)
+			{model["coeffsSystem"]["wc"][[2,1]]}, (*wc ratio A[0] only*)
+			Keys @ quadSol[ "wc" ][ "SignRootMap" ]  (*wc ratio signs for Sqrt*)
+		];
+		
+		$savedKernelAB = 
+		    buildKernel[
+		        exprAB,
+		        paramsAB,
+		        Apply[
+		            Sequence,
+		            Join[
+		                {
+		                    "CoeffName" -> SymbolName @ Head @ Head @ model["coeffsSystem"]["pd"][[2,1]],
+		                    "SignSymbol" ->
+		                        SymbolName @ Head @ First @ Keys @ quadSol[ "pd" ][ "SignRootMap" ]
+		                },
+		                buildKernelOpts
+		            ]
+		        ]
+		    ];
+  
+		  resourcesDir = Module[{pacletObj},
+      pacletObj = Quiet[First[PacletFind["FernandoDuarte/LongRunRisk"], $Failed]];
+      If[pacletObj =!= $Failed,
+          (* Paclet is installed *)
+          Needs["PacletTools`"];
+          PacletTools`PacletExtensionDirectory[pacletObj][{"Path", <|"Root" -> "Resources"|>}],
+          (* Paclet not installed - use relative path *)
+          FileNameJoin[{DirectoryName[$InputFileName, 3], "Resources"}]
+      ]
+  ];
+
+		compiledDir = FileNameJoin[{resourcesDir,"CompiledFunctions",shortname}];
+		Quiet[CreateDirectory[compiledDir, CreateIntermediateDirectories -> True], CreateDirectory::filex];
+	
+(*save compiled functions, note compiled functions are machine and version-specific*)
+	  Do[
+	    With[{
+	      filename = FileNameJoin[{compiledDir, "eq" <> eq <> "0"}],
+	      meta = <|"Version" -> $Version, "SystemID" -> $SystemID, "Date" -> DateString[]|>
+	    },
+	      DumpSave[filename <> ".mx", Symbol["$savedKernel" <> eq]];
+	      Put[meta, filename <> ".ml"];
+	    ],
+	    {eq, {"A", "B", "AB"}}
+	  ];
+
+
+](*With*)
+      
+
+
+readCache[compute_] := Module[{meta, good, data},
+  good = Quiet[
+    meta = Get[metaFile];
+    AssociationQ[meta] && meta["Version"] === $Version && meta["SystemID"] === $SystemID
+  ];
+  If[good && FileExistsQ[mxFile],
+    Get[mxFile],
+    writeCache@compute[]
+  ]
+]
+
+(* Usage *)
+result = readCache[Function[(* expensive calculation *) Range[5]^2]];
 
 
 (* ::Subsection:: *)

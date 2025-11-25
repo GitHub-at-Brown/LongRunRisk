@@ -7,11 +7,30 @@
 BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
 
 
+(* ::Subsection:: *)
+(*Public symbols*)
+
+
+paramQuadSolve
+expandPatternAssumptions
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
 paramQuadSolve::usage =
   "paramQuadSolve[eqns, vars, opts] returns an Association with keys \"Solution\", \"SignRootMap\", \"CoeffMap\", \"Conditions\", \"Assumptions\", \"Verification\", and \"Diagnostics\".\n\n\
 paramQuadSolve is a symbolic solver for square systems with per-variable degree <= 2. The per-variable degree test means bilinear terms such as x*y are permitted, \
 but they do not classify either variable as \"quadratic\" on their own. The solver produces parametric solutions with signA[k] for square-root branches, \
 a reversible coefficient map, and validation.";
+
+expandPatternAssumptions::usage =
+  "expandPatternAssumptions[expr, assumptions] expands pattern-based assumptions by finding all matching instances in expr.\n\n\
+Pattern-based assumptions use Blank (_), BlankSequence (__), or BlankNullSequence (___) in expressions like Element[x[_], Reals] or x[_] > 0. \
+This function searches expr for all matching patterns and expands them into concrete assumptions. \
+For example, if expr contains x[1] and x[2], then Element[x[_], Reals] expands to Element[x[1], Reals] && Element[x[2], Reals]. \
+Supports comparison operators: Element, Greater, GreaterEqual, Less, LessEqual, Equal, Unequal.";
 
 
 (* ::Section:: *)
@@ -838,13 +857,18 @@ buildAssumptions[userAss_] := Module[{base = defaultAssumptions[]},
 ];
 
 
-(* ::Subsubsection:: *)
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*expandPatternAssumptions*)
 
 
-expandPatternAssumptions[expr_,ass_]:=And@@DeleteCases[If[Head@ass===And,List@@ass,{ass}]/.
-(op:(Element|Greater|GreaterEqual|Less|LessEqual|Equal|Unequal))[p_,v_]/;!FreeQ[p,Blank|BlankSequence|BlankNullSequence]:>Sequence@@(op[#,v]&/@DeleteDuplicates@Cases[expr,p,{0,Infinity}]),True]
+expandPatternAssumptions[expr_, ass_] :=
+  And @@ DeleteCases[
+    If[Head@ass === And, List @@ ass, {ass}] /.
+      (op : (Element | Greater | GreaterEqual | Less | LessEqual | Equal | Unequal))[p_, v_] /;
+        !FreeQ[p, Blank | BlankSequence | BlankNullSequence] :>
+          Sequence @@ (op[#, v] & /@ DeleteDuplicates@Cases[expr, p, {0, Infinity}]),
+    True
+  ]
 
 
 (* ::Section:: *)

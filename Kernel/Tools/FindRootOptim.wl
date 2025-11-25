@@ -85,7 +85,7 @@ buildKernel[
     pSyms = Array[Unique["p$"]&, nP];
     sSyms = Array[Unique["s$"]&, nS];
 
-    body = ex0 /. Thread[params -> pSyms];
+    body = ex0 /. Thread[params -> pSyms] /. Abs -> RealAbs; (*replace Abs->RealAbs so that D[body,z] computes*)
 
     If[nS > 0,
       signHead = First @ Cases[ex0, s_Symbol[_Integer] /; SymbolName[s] === signSym :> s, Infinity, 1];
@@ -358,7 +358,7 @@ fastRoot//Options = {
 };
 
 
-(* --- explicit f, df --- *)
+(*explicit f, df*)
 fastRoot[
 	f_,
 	df_,
@@ -433,14 +433,14 @@ fastRoot[
   ]
 ];
 
-(* --- positional convenience, same as before --- *)
+(*positional convenience, same as before*)
 fastRoot[f_, df_, {a_?NumericQ, b_?NumericQ}, acc_Integer?NonNegative] :=
   fastRoot[f, df, {a, b}, AccuracyGoal -> acc, PrecisionGoal -> acc];
 
 fastRoot[f_, df_, {a_?NumericQ, b_?NumericQ}, acc_Integer?NonNegative, maxit_Integer?Positive] :=
   fastRoot[f, df, {a, b}, AccuracyGoal -> acc, PrecisionGoal -> acc, MaxIterations -> maxit];
 
-(* --- optional: bracket-only version without df --- *)
+(*optional: bracket-only version without df*)
 fastRoot[f_, {a_?NumericQ, b_?NumericQ}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; a < b := With[
   {
     findRootOpts = Flatten[{
