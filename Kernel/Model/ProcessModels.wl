@@ -72,7 +72,9 @@ processModels[
 		modelAssumptions,
 		(*optsSol,*)
 		maxMomentOrder,
-		maxSolveTime
+		maxSolveTime,
+		resourcesDir,
+		resourcesCompiledDir
 	},
 	(*replace stateVars by a function t |-> stateVars[t] *)
 	models = Append[
@@ -220,6 +222,21 @@ processModels[
 		"solveCoeffsSystem"
 	];
 	
+	(*compile and save equations for FindRoot*)
+	resourcesDir = 
+		Module[ { pacletObj },
+			pacletObj = PacletFind[ "FernandoDuarte/LongRunRisk" ];
+			If[ pacletObj =!= {},
+				Needs["PacletTools`"];
+				PacletTools`PacletExtensionDirectory[ First @ pacletObj ][ { "Path", <| "Root" -> "Resources" |> } ],
+				FileNameJoin @ { DirectoryName[ $InputFileName, 3 ], "Resources" }
+			]
+		];
+		Echo[resourcesDir,"resourcesDir"];
+	resourcesCompiledDir = FileNameJoin @ { resourcesDir, "CompiledFunctions"};
+		Echo[resourcesCompiledDir,"resourcesCompiledDir"];
+	createCompiledEq[#, resourcesCompiledDir]&/@models;
+	
 (*	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
 	models = EchoTiming[
 		Append[
@@ -265,7 +282,7 @@ processModels[
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*createExogenous*)
 
 
@@ -310,7 +327,7 @@ createExogenous[m_]:=Module[
 ]	
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*createExogenousNonZero*)
 
 
@@ -473,7 +490,7 @@ addToStateVars[model_]:=With[
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*addCoeffsSystem*)
 
 
@@ -525,7 +542,7 @@ addCoeffsSystem[model_]:=Module[
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*simplifyCoeffsSystem*)
 
 
@@ -661,7 +678,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						(*Echo[solA["eqA0"],"eqA0"];*)
 						(*Echo[solB["eqB0"],"eqB0"];*)
 						(*Echo[solB["eqAB0"],"eqAB0"];*)
-						Echo[model["shortname"],"finishedcoeffsParamQuadSolve"]; 
+						(*Echo[model["shortname"],"finishedcoeffsParamQuadSolve"]; *)
 						"coeffsParamQuadSolve" -> <| 
 							"wc" -> solA,
 							"pd" -> solB
@@ -674,7 +691,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 ] (*With*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*tryTransforms*)
 
 
@@ -735,128 +752,146 @@ createCompiledEq // Options = {
 };
 
 
-createCompiledEq[
-	model_,
-	opts : OptionsPattern[{createCompiledEq, buildKernel}]
-]:=With[
-	{
-		quadSol = Subtract @@ model["coeffsParamQuadSolve"],
-        modelParamsKeys = Keys @ model["params"],
-        shortname = model["shortname"],
-        buildKernelOpts = Flatten[
-           {
-              Evaluate @ FilterRules[Flatten @ {opts}, Options[buildKernel]],
-              Evaluate @ OptionValue["buildKernelOptions"]
-           }
-        ]
-    },
-	(*split parameters into stock and non-stock*)
-	ddHeads=Alternatives@@FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList["Real dividend growth"][[All,0]];
-	paramsA=DeleteCases[modelParamsKeys,ddHeads[_]];
-	paramsStocks=Cases[modelParamsKeys,x:ddHeads[_]:>Head[x][FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j]];
-Echo[buildKernelOpts,"buildKernelOpts"];
-		(*wc*)
-	exprA = Subtract @@ quadSol[ "wc" ][ "eqA0" ];
-	$savedKernelA = 
-	    buildKernel[
-	        exprA,
-	        paramsA,
-	        Apply[
-	            Sequence,
-	            Join[
-	                {
-	                    "CoeffName" -> SymbolName @ Head @ model["coeffsSystem"]["wc"][[2,1]],
-	                    "SignSymbol" ->
-	                        SymbolName @ Head @ First @ Keys @ quadSol[ "wc" ][ "SignRootMap" ]
-	                },
-	                buildKernelOpts
-	            ]
-	        ]
-	    ];
-	    
-  (*pd without plugging in wc coeffs*)
-		exprB = Subtract @@ quadSol[ "pd" ][ "eqB0" ];
-		paramsB = Join[
-			paramsA, (*non-stock parameters*)
-			paramsStocks, (*stock parameters*)
-			model["coeffsSystem"]["wc"][[2]] (*wc ratio coeffs*)
-		];
-	
+createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { createCompiledEq, buildKernel } ] ] := 
+    With[
+        {
+            quadSol = model[ "coeffsParamQuadSolve" ],
+            modelParamsKeys = Keys @ model[ "params" ],
+            shortname = model[ "shortname" ],
+            buildKernelOpts = 
+                Flatten @ {
+                    Evaluate @ FilterRules[ Flatten @ { opts }, Options @ buildKernel ],
+                    Evaluate @ OptionValue[ "buildKernelOptions" ]
+                },
+            coeffsSystem = model[ "coeffsSystem" ]
+        },
+        With[
+            {
+                ddHeads = 
+                    Apply[
+                        Alternatives,
+                        Part[
+                            FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList[ "Real dividend growth" ],
+                            All,
+                            0
+                        ]
+                    ],
+                wcSys = coeffsSystem[ "wc" ],
+                pdSys = coeffsSystem[ "pd" ],
+                quadSolWc = quadSol[ "wc" ],
+                quadSolPd = quadSol[ "pd" ]
+            },
+            With[
+                {
+                    paramsA = DeleteCases[ modelParamsKeys, ddHeads[ _ ] ],
+                    paramsStocks = Cases[ modelParamsKeys, x: ddHeads[ _ ] :> Head[ x ][ j ] ],
+                    wcCoeffs = wcSys[[ 2 ]],
+                    wcSignRootMap = Normal @ quadSolWc[ "SignRootMap" ]
+                 },
+                 With[
+                 {
+                    wcCoeffName = SymbolName @ Head @ wcCoeffs[[ 1 ]],
+                    pdCoeffName = SymbolName @ Head @ Head @ pdSys[[ 2, 1 ]],
+                    wcSigns = Keys @ wcSignRootMap,
+                    pdSigns = Keys @ quadSolPd[ "SignRootMap" ]
+                },
+                 Echo[paramsA,"paramsA"];
+                 Echo[paramsStocks,"paramsStocks"];
+                 Echo[wcCoeffs,"wcCoeffs"];
+                 Echo[wcSignRootMap,"wcSignRootMap"];
+                 Echo[{ First @ wcCoeffs },"{ First @ wcCoeffs }"];
+                 
+                With[
+                    {
+                        compiledDir = FileNameJoin @ { resourcesCompiledDir, shortname },
+                        eqMap = <|
+                            "A" -> <|
+                                "Expr" -> Subtract @@ quadSolWc[ "eqA0" ],
+                                "Params" -> paramsA,
+                                "CoeffName" -> wcCoeffName,
+                                "SignSymbol" -> If[
+	                                wcSigns==={},
+	                                "sign"<>SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc],
+	                                SymbolName @ Head @ First @ wcSigns
+                                ]
+                            |>,
+                            "B" -> <|
+                                "Expr" -> Subtract @@ quadSolPd[ "eqB0" ],
+                                "Params" -> Join[ paramsA, paramsStocks, wcCoeffs ],
+                                "CoeffName" -> pdCoeffName,
+                                "SignSymbol" -> If[
+	                                pdSigns==={},
+	                                "sign"<>SymbolName[Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd],
+	                                SymbolName @ Head @ First @ Keys @ pdSigns
+                                ]
+                            |>,
+                            "AB" -> <|
+                                "Expr" -> Subtract @@ quadSolPd[ "eqAB0" ],
+                                "Params" -> Join[ paramsA, paramsStocks, { First @ wcCoeffs }, wcSignRootMap ],
+                                "CoeffName" -> pdCoeffName,
+                                "SignSymbol" -> If[
+	                                pdSigns==={},
+	                                "sign"<>SymbolName[Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd],
+	                                SymbolName @ Head @ First @ Keys @ pdSigns
+                                ]
+                            |>
+                        |>
+                    },
+                    Echo[compiledDir,"compiledDir"];
+                    Quiet[
+                        CreateDirectory[ compiledDir, CreateIntermediateDirectories -> True ],
+                        CreateDirectory::eexist
+                    ];
 
-		$savedKernelB = 
-		    buildKernel[
-		        exprB,
-		        paramsB,
-		        Apply[
-		            Sequence,
-		            Join[
-		                {
-		                    "CoeffName" -> SymbolName @ Head @ Head @ model["coeffsSystem"]["pd"][[2,1]],
-		                    "SignSymbol" ->
-		                        SymbolName @ Head @ First @ Keys @ quadSol[ "pd" ][ "SignRootMap" ]
-		                },
-		                buildKernelOpts
-		            ]
-		        ]
-		    ];
-		(*pd plugging in wc coeffs*)
-		exprAB = Subtract @@ quadSol[ "pd" ][ "eqAB0" ];
-		paramsAB = Join[
-			paramsA, (*non-stock parameters*)
-			paramsStocks, (*stock parameters*)
-			{model["coeffsSystem"]["wc"][[2,1]]}, (*wc ratio A[0] only*)
-			Keys @ quadSol[ "wc" ][ "SignRootMap" ]  (*wc ratio signs for Sqrt*)
-		];
-		
-		$savedKernelAB = 
-		    buildKernel[
-		        exprAB,
-		        paramsAB,
-		        Apply[
-		            Sequence,
-		            Join[
-		                {
-		                    "CoeffName" -> SymbolName @ Head @ Head @ model["coeffsSystem"]["pd"][[2,1]],
-		                    "SignSymbol" ->
-		                        SymbolName @ Head @ First @ Keys @ quadSol[ "pd" ][ "SignRootMap" ]
-		                },
-		                buildKernelOpts
-		            ]
-		        ]
-		    ];
-  
-		  resourcesDir = Module[{pacletObj},
-      pacletObj = Quiet[First[PacletFind["FernandoDuarte/LongRunRisk"], $Failed]];
-      If[pacletObj =!= $Failed,
-          (* Paclet is installed *)
-          Needs["PacletTools`"];
-          PacletTools`PacletExtensionDirectory[pacletObj][{"Path", <|"Root" -> "Resources"|>}],
-          (* Paclet not installed - use relative path *)
-          FileNameJoin[{DirectoryName[$InputFileName, 3], "Resources"}]
-      ]
-  ];
+                    Do[
+                        Module[
+                            { kernel, filename, meta, eqData },
+                            
+                            eqData = eqMap[ eq ];
+							Echo[buildKernelOpts,"buildKernelOpts"];
+                            kernel =
+                                buildKernel[
+                                    eqData[ "Expr" ],
+                                    eqData[ "Params" ],
+                                    "CoeffName" -> eqData[ "CoeffName" ],
+                                    "SignSymbol" -> eqData[ "SignSymbol" ],
+                                    Sequence @@ buildKernelOpts
+                                ];
 
-		compiledDir = FileNameJoin[{resourcesDir,"CompiledFunctions",shortname}];
-		Quiet[CreateDirectory[compiledDir, CreateIntermediateDirectories -> True], CreateDirectory::filex];
-	
-(*save compiled functions, note compiled functions are machine and version-specific*)
-	  Do[
-	    With[{
-	      filename = FileNameJoin[{compiledDir, "eq" <> eq <> "0"}],
-	      meta = <|"Version" -> $Version, "SystemID" -> $SystemID, "Date" -> DateString[]|>
-	    },
-	      DumpSave[filename <> ".mx", Symbol["$savedKernel" <> eq]];
-	      Put[meta, filename <> ".ml"];
-	    ],
-	    {eq, {"A", "B", "AB"}}
-	  ];
+                            filename = FileNameJoin @ { compiledDir, "eq" <> eq <> "0" };
+                            Echo[filename,"filename"];
+                            meta = <|
+                                "Version"  -> $Version,
+                                "SystemID" -> $SystemID,
+                                "Date"     -> DateString[ ]
+                            |>;
+
+                            With[
+                                {
+                                    sym = Symbol[ "FernandoDuarte`LongRunRisk`Private`$savedKernel" <> eq ]
+                                },
+                                Set[ sym, kernel ];
+                                
+                                DumpSave[
+                                    filename <> ".mx",
+                                    sym
+                                ];
+
+                                Put[ meta, filename <> ".ml" ];
+                                
+                                Remove[ sym ];
+                            ];
+                        ],
+                        { eq, Keys @ eqMap }
+                    ];(*Do*)
+                ](*With*)
+                 ](*With*)
+            ](*With*)
+        ](*With*)
+    ](*With*)
 
 
-](*With*)
-      
-
-
-readCache[compute_] := Module[{meta, good, data},
+(*readCache[compute_] := Module[{meta, good, data},
   good = Quiet[
     meta = Get[metaFile];
     AssociationQ[meta] && meta["Version"] === $Version && meta["SystemID"] === $SystemID
@@ -868,7 +903,7 @@ readCache[compute_] := Module[{meta, good, data},
 ]
 
 (* Usage *)
-result = readCache[Function[(* expensive calculation *) Range[5]^2]];
+result = readCache[Function[(* expensive calculation *) Range[5]^2]];*)
 
 
 (* ::Subsection:: *)
@@ -1460,16 +1495,18 @@ addCoeffsSolutionN[model_]:=With[
 		maxMaturity = 120,
 		numStocks = model["numStocks"]
 	},
-	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
-	Ewc0 = getStartingValues["wc",modelInfo,"initialGuess" -> {}];
-	Epd0 = getStartingValues["pd",modelInfo,"initialGuess" -> {}];
-	Epd0j=Table["Epd0["<>IntegerString[j]<>"]"->First@(Epd0[[j]]),{j,1,numStocks}]/.Table->Sequence;
-	solWc=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsWc[model["coeffsSolution"]["wc"],params,{},"Ewc0"->Sequence[First@Ewc0],MaxIterations->1000];
-	solPd=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsPd[model["coeffsSolution"]["pd"],params,{},solWc,Epd0j,MaxIterations->1000];
-	solBond=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsBond[model["coeffsSolution"]["bond"],params,{},maxMaturity,solWc];
-	solNomBond=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsBond[model["coeffsSolution"]["nombond"],params,{},maxMaturity,solWc];
-	Flatten@Join[solWc,solPd,solBond,solNomBond]
-]
+	Module[{Ewc0,Epd0,Epd0j,solWc,solPd,solBond,solNomBond},
+		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+		Ewc0 = getStartingValues["wc",modelInfo,"initialGuess" -> {}];
+		Epd0 = getStartingValues["pd",modelInfo,"initialGuess" -> {}];
+		Epd0j=Table["Epd0["<>IntegerString[j]<>"]"->First@(Epd0[[j]]),{j,1,numStocks}]/.Table->Sequence;
+		solWc=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsWc[model["coeffsSolution"]["wc"],params,{},"Ewc0"->Sequence[First@Ewc0],MaxIterations->1000];
+		solPd=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsPd[model["coeffsSolution"]["pd"],params,{},solWc,Epd0j,MaxIterations->1000];
+		solBond=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsBond[model["coeffsSolution"]["bond"],params,{},maxMaturity,solWc];
+		solNomBond=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsBond[model["coeffsSolution"]["nombond"],params,{},maxMaturity,solWc];
+		Flatten@Join[solWc,solPd,solBond,solNomBond]
+	](*Module*)
+](*With*)
 
 
 (* ::Section::Closed:: *)
