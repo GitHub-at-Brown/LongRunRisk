@@ -517,7 +517,11 @@ solveCoeffRoots[
               "Interval" -> #1,
               "Roots"    -> #2,
               "Error"    -> (RealAbs /@ (f /@ #2)),
-              "Sol"      -> Association /@ #3
+              "Interval" -> #1,
+              "Roots"    -> #2,
+              "Error"    -> (RealAbs /@ (f /@ #2)),
+              "Sol"      -> Association /@ #3,
+              "Signs"    -> signs
             |> &,
             {intervals, roots, solRules}
           ]
@@ -530,6 +534,48 @@ solveCoeffRoots[
 
 (* ::Subsection:: *)
 (*solveWcPdRoots*)
+
+
+solveWcPdRoots[
+  model_Association,
+  savedKernelWc_Association,
+  savedKernelPd_Association,
+  extraParamsPd_Association : <||>,
+  opts : OptionsPattern[solveCoeffRoots]
+] := Module[
+  {
+    getSigCount, nWc, nPd, signsWcOptions, signsPdOptions,
+    resCoeff, resWcPd, allResults
+  },
+  getSigCount[k_] := If[KeyExistsQ[k, "SignIndex"], Max[Join[{0}, k["SignIndex"]]], 0];
+
+  nWc = getSigCount[savedKernelWc];
+  nPd = getSigCount[savedKernelPd];
+  
+  signsWcOptions = If[nWc == 0, {{}}, Tuples[{-1, 1}, nWc]];
+  signsPdOptions = If[nPd == 0, {{}}, Tuples[{-1, 1}, nPd]];
+  
+  allResults = {};
+  
+  Do[
+    resCoeff = Quiet[Check[solveCoeffRoots[model, savedKernelWc, sWc], $Failed], CompiledFunction::cfn];
+    If[resCoeff =!= $Failed,
+      Do[
+        resWcPd = Quiet[Check[solveWcPdRoots[model, savedKernelWc, savedKernelPd, sWc, sPd, extraParamsPd, opts], $Failed], CompiledFunction::cfn];
+        If[resWcPd =!= $Failed && ListQ[resWcPd],
+           If[AnyTrue[resWcPd, Function[wcRes, 
+                KeyExistsQ[wcRes, "Pd"] && ListQ[wcRes["Pd"]] && 
+                AnyTrue[wcRes["Pd"], Function[pdList, AnyTrue[pdList, Length[#["Roots"]] > 0 &]]]
+              ]],
+              allResults = Join[allResults, resWcPd]
+           ]
+        ]
+      , {sPd, signsPdOptions}]
+    ]
+  , {sWc, signsWcOptions}];
+  
+  allResults
+];
 
 
 solveWcPdRoots[
@@ -557,7 +603,7 @@ solveWcPdRoots[
               optSeq
             ] & /@ wr["Sol"])
           },
-          Append[wr, "Pd" -> pdForRoot]
+          Join[wr, <|"Pd" -> pdForRoot, "SignsWc" -> signsWc, "SignsPd" -> signsPd|>]
         ]
       ],
       wcResults
