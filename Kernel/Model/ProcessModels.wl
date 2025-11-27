@@ -822,7 +822,7 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { createC
                                 "SignSymbol" -> If[
 	                                pdSigns==={},
 	                                "sign"<>SymbolName[Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd],
-	                                SymbolName @ Head @ First @ Keys @ pdSigns
+	                                SymbolName @ Head @ First @ pdSigns
                                 ]
                             |>,
                             "AB" -> <|
@@ -832,7 +832,7 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { createC
                                 "SignSymbol" -> If[
 	                                pdSigns==={},
 	                                "sign"<>SymbolName[Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd],
-	                                SymbolName @ Head @ First @ Keys @ pdSigns
+	                                SymbolName @ Head @ First @ pdSigns
                                 ]
                             |>
                         |>
