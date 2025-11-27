@@ -481,6 +481,8 @@ solveCoeffRoots[
       With[
         {
           paramsAll   = Join[paramsBase, extraParams],
+          cName       = Lookup[savedKernel, "CoeffName", If[coeffKey === "wc", "A", "B"]],
+          sName       = Lookup[savedKernel, "SignSymbol", If[coeffKey === "wc", "signA", "signB"]],
           findOpts    = FilterRules[Flatten@{opts}, Options[findRootInterval]],
           extractOpts = FilterRules[Flatten@{opts}, Options[extractIntervalsFromReduce]],
           scanOpts    = FilterRules[
@@ -488,18 +490,38 @@ solveCoeffRoots[
             Join[Options[scanAndSolve], Options[FindRoot], Options[fastRoot]]
           ]
         },
-        Module[{f, df, reduceExpr, intervals, roots, sol0Rules, sol, solRules},
+        Module[{f, df, reduceExpr, intervals, roots, sol0Rules, sol, solRules, signHead, signsRule},
           {f, df}    = bindUnary[savedKernel, paramsAll, signs];
-          reduceExpr = findRootInterval[conds, paramsAll, signs, Sequence @@ findOpts];
+          
+          (* Pass CoeffName and SignSymbol to findRootInterval *)
+          reduceExpr = findRootInterval[conds, paramsAll, signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts];
+          
           intervals  = extractIntervalsFromReduce[reduceExpr, coeffsSys[[2, 1]], Sequence @@ extractOpts];
           roots      = (scanAndSolve[f, df, #, Sequence @@ scanOpts] & /@ intervals);
-          sol0Rules  = Map[coefName -> # &, roots, {2}] /. extraParams;
-          sol        = quadSol["Solution"] //. paramsAll;
+          
+          (* Substitute signs into the analytical solution *)
+          signHead   = If[StringQ[sName], ToExpression[sName], sName];
+          signsRule  = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
+          
+          (* Calculate analytical solution with all parameters substituted *)
+          sol        = quadSol["Solution"] //. paramsAll //. signsRule //. extraParams;
+          
+          (* Create rules for the root variable (e.g. B[1][0] -> value) *)
+          sol0Rules  = Map[(coefName /. extraParams) -> # &, roots, {2}];
+
+          (* Combine root rule with the rest of the solution *)
           solRules   = Map[Join[{#}, sol /. #] &, sol0Rules, {2}];
+          
           MapThread[
-            <|"Interval" -> #1, "Roots" -> #2, "Error" -> (f /@ #2), "Sol" -> Association /@ #3|> &,
+            <|
+              "Interval" -> #1,
+              "Roots"    -> #2,
+              "Error"    -> (RealAbs /@ (f /@ #2)),
+              "Sol"      -> Association /@ #3
+            |> &,
             {intervals, roots, solRules}
           ]
+
         ]
       ]
     ]
@@ -531,7 +553,7 @@ solveWcPdRoots[
               savedKernelPd,
               signsPd,
               "pd",
-              Join[extraParamsPd, #],
+              Join[<|j -> 1|>, extraParamsPd, #],
               optSeq
             ] & /@ wr["Sol"])
           },
