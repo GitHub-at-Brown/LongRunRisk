@@ -36,6 +36,7 @@ Begin["`Private`"];
 
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
@@ -452,6 +453,95 @@ updateCoeffs[args__]:=Module[
 	posArgsLength3=PadRight[posArgs,3,{{}}];
 	updateCoeffsSol[Sequence@@Join[posArgsLength3,optArgs,Options@updateCoeffs]]
 ]
+
+
+(* ::Subsection:: *)
+(*solveCoeffRoots*)
+
+solveCoeffRoots[
+  model_Association,
+  savedKernel_Association,
+  signs : ({} | {_Integer ..}) : {},
+  coeffKey : "wc" | "pd" : "wc",
+  extraParams_Association : <||>,
+  opts : OptionsPattern[{solveCoeffRoots, findRootInterval, extractIntervalsFromReduce, scanAndSolve, FindRoot, fastRoot}]
+] /; AllTrue[signs, (# === 1 || # === -1) &] :=
+  With[
+    {
+      paramsRules = model["params"],
+      coeffsSys   = model["coeffsSystem"][coeffKey],
+      quadSol     = model["coeffsParamQuadSolve"][coeffKey]
+    },
+    With[
+      {
+        paramsBase = (Association @ paramsRules) //. paramsRules // N,
+        coefName   = First @ coeffsSys[[2]],
+        conds      = quadSol["Conditions"]
+      },
+      With[
+        {
+          paramsAll   = Join[paramsBase, extraParams],
+          findOpts    = FilterRules[Flatten@{opts}, Options[findRootInterval]],
+          extractOpts = FilterRules[Flatten@{opts}, Options[extractIntervalsFromReduce]],
+          scanOpts    = FilterRules[
+            Flatten@{opts},
+            Join[Options[scanAndSolve], Options[FindRoot], Options[fastRoot]]
+          ]
+        },
+        Module[{f, df, reduceExpr, intervals, roots, sol0Rules, sol, solRules},
+          {f, df}    = bindUnary[savedKernel, paramsAll, signs];
+          reduceExpr = findRootInterval[conds, paramsAll, signs, Sequence @@ findOpts];
+          intervals  = extractIntervalsFromReduce[reduceExpr, coeffsSys[[2, 1]], Sequence @@ extractOpts];
+          roots      = (scanAndSolve[f, df, #, Sequence @@ scanOpts] & /@ intervals);
+          sol0Rules  = Map[coefName -> # &, roots, {2}] /. extraParams;
+          sol        = quadSol["Solution"] //. paramsAll;
+          solRules   = Map[Join[{#}, sol /. #] &, sol0Rules, {2}];
+          MapThread[
+            <|"Interval" -> #1, "Roots" -> #2, "Error" -> (f /@ #2), "Sol" -> Association /@ #3|> &,
+            {intervals, roots, solRules}
+          ]
+        ]
+      ]
+    ]
+  ];
+
+
+(* ::Subsection:: *)
+(*solveWcPdRoots*)
+
+
+solveWcPdRoots[
+  model_Association,
+  savedKernelWc_Association,
+  savedKernelPd_Association,
+  signsWc : ({} | {_Integer ..}) : {},
+  signsPd : ({} | {_Integer ..}) : {},
+  extraParamsPd_Association : <||>,
+  opts : OptionsPattern[solveCoeffRoots]
+] /; AllTrue[signsWc, (# === 1 || # === -1) &] && AllTrue[signsPd, (# === 1 || # === -1) &] := With[
+  {optSeq = Sequence @@ FilterRules[Flatten@{opts}, Options[solveCoeffRoots]]},
+  With[
+    {wcResults = solveCoeffRoots[model, savedKernelWc, signsWc, "wc", <||>, optSeq]},
+    Map[
+      Function[wr,
+        With[
+          {
+            pdForRoot = (solveCoeffRoots[
+              model,
+              savedKernelPd,
+              signsPd,
+              "pd",
+              Join[extraParamsPd, #],
+              optSeq
+            ] & /@ wr["Sol"])
+          },
+          Append[wr, "Pd" -> pdForRoot]
+        ]
+      ],
+      wcResults
+    ]
+  ]
+];
 
 
 (* ::Section::Closed:: *)
