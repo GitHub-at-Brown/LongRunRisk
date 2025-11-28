@@ -41,8 +41,8 @@ Begin["`Private`"];
 (*Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];*)
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
-Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"]
-Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"]
+Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 
 
 (* ::Subsection:: *)
@@ -617,7 +617,7 @@ createDatabase[
 	DownValues[Evaluate@covLong]=DeleteCases[DownValues[Evaluate@covLong],HoldForm,{3},Heads->True];
 	
 	(*save to file*)
-	With[{dataCovLong=ResourceFunction["DefinitionData"][covLong]},
+	With[{dataCovLong=PacletizedResourceFunctions`DefinitionData[covLong]},
 		Put[dataCovLong,covLongFilename];
 	];
 	
