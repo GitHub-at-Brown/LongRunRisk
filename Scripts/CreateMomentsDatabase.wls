@@ -1,11 +1,11 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-numKernels=22;
+numKernels=14;
 Unprotect[$ProcessorCount];$ProcessorCount=numKernels;
 CloseKernels[];LaunchKernels[numKernels];Kernels[];
 
-pacletDir=DirectoryName[Directory[],1];
+pacletDir=DirectoryName[File["CreateMomentsDatabase.wls"],1];
 PacletDirectoryLoad[pacletDir];
 resourcesDir=FileNameJoin[{pacletDir,"Resources"}];
 Get@Get[FileNameJoin[{resourcesDir,"Models.wl"}]];
@@ -23,7 +23,10 @@ createDatabase[
 	fileName
 ];
 ,
-{key,{"NRCStochVol"}(*Keys@FernandoDuarte`LongRunRisk`Models*)}
+{key,(*{"NRCStochVol"}*)Keys@FernandoDuarte`LongRunRisk`Models}
 ];
 ];
 Echo[out,"out"];
+
+
+
