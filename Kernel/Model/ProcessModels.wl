@@ -845,20 +845,18 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { createC
 
                         (* Check if we can skip compilation *)
                         If[FileExistsQ[file],
-                            savedData = Quiet[Get[file]];
+                            Quiet[Get[file]];
+                            savedData = FernandoDuarte`LongRunRisk`Private`$kernelExport;
                             If[AssociationQ[savedData] && KeyExistsQ[savedData, "meta"],
                                 savedHash = savedData["meta"]["Hash"];
                                 savedSystemID = savedData["meta"]["SystemID"];
                                 
-                                Echo[{savedHash, currentHash, savedSystemID, $SystemID}, "CacheCheck"];
                                 If[savedHash === currentHash && savedSystemID === $SystemID,
                                     (* Cache hit: do nothing *)
-                                    Echo["Cache Hit!", "CacheStatus"];
                                     Return[file]
                                 ]
                             ]
                         ];
-                        Echo["Cache Miss!", "CacheStatus"];
 
                         (* Cache miss: compile and save *)
                         kernels = Association @ Table[
