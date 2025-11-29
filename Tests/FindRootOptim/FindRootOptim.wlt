@@ -66,7 +66,7 @@ timeLimit = 60;
     {A[0] -> 1.777113528819289},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "dividend-model-A0-coefficient@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "dividend-model-A0-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:64,3-70,4"
   ],
 
   (* Test that B[1][0] coefficient is found and matches expected value *)
@@ -75,7 +75,7 @@ timeLimit = 60;
     {B[1][0] -> 1.784254766558428},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "dividend-model-B10-coefficient@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "dividend-model-B10-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:73,3-79,4"
   ],
 
   (* Test that A[0] value is in expected range *)
@@ -83,7 +83,7 @@ timeLimit = 60;
     1.77 < solNA0[[1,2]] < 1.78,
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "A0-coefficient-in-range@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "A0-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:82,3-87,4"
   ],
 
   (* Test that B[1][0] value is in expected range *)
@@ -91,7 +91,7 @@ timeLimit = 60;
     1.78 < solNAB0[[1,2]] < 1.79,
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "B10-coefficient-in-range@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "B10-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:90,3-95,4"
   ],
 
   (* Test that extractIntervalsFromReduce is exported and works *)
@@ -102,7 +102,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "extractIntervalsFromReduce-exported@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "extractIntervalsFromReduce-exported@@Tests/FindRootOptim/FindRootOptim.wlt:98,3-106,4"
   ],
 
   (* Test that extractIntervalsFromReduce returns correct interval for simple case *)
@@ -111,7 +111,7 @@ timeLimit = 60;
     {{0.001, 14.999}},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "extractIntervalsFromReduce-simple-inequality@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "extractIntervalsFromReduce-simple-inequality@@Tests/FindRootOptim/FindRootOptim.wlt:109,3-115,4"
   ],
 
   (* Test buildKernel for B coefficient structure *)
@@ -125,7 +125,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "buildKernel-B-structure@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "buildKernel-B-structure@@Tests/FindRootOptim/FindRootOptim.wlt:118,3-129,4"
   ],
 
   (* Test buildKernel CoeffName is correctly set *)
@@ -137,7 +137,7 @@ timeLimit = 60;
     ],
     "B",
     TimeConstraint -> timeLimit,
-    TestID -> "buildKernel-B-coeffname@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "buildKernel-B-coeffname@@Tests/FindRootOptim/FindRootOptim.wlt:132,3-141,4"
   ],
 
   (* Test bindUnary for B coefficient returns functions *)
@@ -150,7 +150,7 @@ timeLimit = 60;
     ],
     {Function, Function},
     TimeConstraint -> timeLimit,
-    TestID -> "bindUnary-B-returns-functions@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "bindUnary-B-returns-functions@@Tests/FindRootOptim/FindRootOptim.wlt:144,3-154,4"
   ],
 
   (* Test findRootInterval for B coefficient returns valid expression *)
@@ -162,7 +162,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "findRootInterval-B-succeeds@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "findRootInterval-B-succeeds@@Tests/FindRootOptim/FindRootOptim.wlt:157,3-166,4"
   ],
 
   (* Test that fastRoot finds correct root via manual workflow *)
@@ -180,7 +180,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "fastRoot-B-workflow-complete@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "fastRoot-B-workflow-complete@@Tests/FindRootOptim/FindRootOptim.wlt:169,3-184,4"
   ],
 
   (* Test findRootCoeff0 for A[0] coefficient - run once and verify both format and value *)
@@ -192,7 +192,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "findRootCoeff0-A-complete@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "findRootCoeff0-A-complete@@Tests/FindRootOptim/FindRootOptim.wlt:187,3-196,4"
   ],
 
   (* Test findRootCoeff0 for B[1][0] coefficient - run once and verify both format and value *)
@@ -204,7 +204,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "findRootCoeff0-B-complete@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "findRootCoeff0-B-complete@@Tests/FindRootOptim/FindRootOptim.wlt:199,3-208,4"
   ],
 
   (* Test findRootsCoeff0 - run once and verify format, count, and value *)
@@ -218,7 +218,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "findRootsCoeff0-B-complete@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "findRootsCoeff0-B-complete@@Tests/FindRootOptim/FindRootOptim.wlt:211,3-222,4"
   ],
 
   (* scanAndSolve is already tested via findRootsCoeff0 which uses it internally *)
@@ -232,7 +232,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> 5,
-    TestID -> "integration-parameter-chaining@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "integration-parameter-chaining@@Tests/FindRootOptim/FindRootOptim.wlt:227,3-236,4"
   ],
 
   (* Test error handling: invalid parameters *)
@@ -248,7 +248,7 @@ timeLimit = 60;
     $Failed,
     {findRootCoeff0::badparams},
     TimeConstraint -> timeLimit,
-    TestID -> "findRootCoeff0-invalid-params@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "findRootCoeff0-invalid-params@@Tests/FindRootOptim/FindRootOptim.wlt:239,3-252,4"
   ],
 
   (* Detailed option testing and edge cases removed to improve performance *)
@@ -265,7 +265,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "buildKernel-WVM-target@@test/FindRootOptim/FindRootOptim.wlt"
+    TestID -> "buildKernel-WVM-target@@Tests/FindRootOptim/FindRootOptim.wlt:258,3-269,4"
   ]
 
   (* WVM compilation functionality validated via buildKernel structure test *)

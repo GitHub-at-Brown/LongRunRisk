@@ -423,7 +423,7 @@ fastRoot[
 			    ];(*If*)
 			
 			    (* Fallback: Brent if bracketed; otherwise Secant *)
-			    res = If[newtonRes =!= $Failed, newtonRes,
+			    res = If[!FailureQ[newtonRes] && newtonRes =!= $Failed, newtonRes,
 			      Quiet@Check[
 			        If[Sign[fa] =!= Sign[fb],
 			          FindRoot[
@@ -441,7 +441,7 @@ fastRoot[
 			      ]
 			    ];
 			
-			    If[res === $Failed, $Failed, If[ret === "Value", var /. res, res]]
+			    If[res === $Failed || FailureQ[res], $Failed, If[ret === "Value", var /. res, res]]
 			](*Module*)
 		](*With*)
 	](*With*)

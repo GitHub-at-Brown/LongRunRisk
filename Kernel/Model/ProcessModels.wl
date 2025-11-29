@@ -167,6 +167,7 @@ processModels[
 		"toStateVars" -> addToStateVars[#]
 	]& /@ models;
 
+	
 	(*add unconditional moments of state variables*)
 	maxMomentOrder=4;(*4;*)
 	maxSolveTime = 2;(*20;*) (*try Solve for maxSolveTime seconds before switching to solveSystemRecursively*)
@@ -192,6 +193,7 @@ processModels[
 		"uncondE"
 	];
 	
+
 	(*add Euler equations*)
 	models = EchoTiming[
 		Append[
@@ -237,7 +239,7 @@ processModels[
 		Echo[resourcesCompiledDir,"resourcesCompiledDir"];
 	createCompiledEq[#, resourcesCompiledDir]&/@models;
 	
-(*	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
+	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
 	models = EchoTiming[
 		Append[
 			#,
@@ -267,7 +269,7 @@ processModels[
 		]& /@ models,
 		"addCoeffsSolutionN"
 	];
-	*)
+	
 	(*add a list of existing Keys called Properties*)
 	models=Append[
 		#,
@@ -282,7 +284,7 @@ processModels[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*createExogenous*)
 
 
@@ -401,7 +403,7 @@ createExogenousNonZero[m_]:=Module[
 ]	
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*createEndogenous*)
 
 
@@ -471,7 +473,7 @@ createEndogenous[mod_]:=Module[
 ]	
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*addToStateVars*)
 
 
@@ -490,7 +492,7 @@ addToStateVars[model_]:=With[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*addCoeffsSystem*)
 
 
@@ -542,7 +544,7 @@ addCoeffsSystem[model_]:=Module[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*simplifyCoeffsSystem*)
 
 
@@ -795,15 +797,8 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { createC
                     wcSigns = Keys @ wcSignRootMap,
                     pdSigns = Keys @ quadSolPd[ "SignRootMap" ]
                 },
-                 Echo[paramsA,"paramsA"];
-                 Echo[paramsStocks,"paramsStocks"];
-                 Echo[wcCoeffs,"wcCoeffs"];
-                 Echo[wcSignRootMap,"wcSignRootMap"];
-                 Echo[{ First @ wcCoeffs },"{ First @ wcCoeffs }"];
-                 
                 With[
                     {
-                        compiledDir = FileNameJoin @ { resourcesCompiledDir, shortname },
                         eqMap = <|
                             "A" -> <|
                                 "Expr" -> Subtract @@ quadSolWc[ "eqA0" ],
@@ -834,58 +829,71 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { createC
 	                                "sign"<>SymbolName[Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd],
 	                                SymbolName @ Head @ First @ pdSigns
                                 ]
-                            |>
                         |>
+                    |>
                     },
-                    Echo[compiledDir,"compiledDir"];
-                    Quiet[
-                        CreateDirectory[ compiledDir, CreateIntermediateDirectories -> True ],
-                        CreateDirectory::eexist
-                    ];
+                    Module[{
+                        kernels,
+                        file = FileNameJoin[{resourcesCompiledDir, shortname <> ".mx"}],
+                        currentHash,
+                        savedData,
+                        savedHash,
+                        savedSystemID
+                    },
+                        (* Compute hash of the equations and parameters *)
+                        currentHash = Hash[eqMap, "Expression"];
 
-                    Do[
-                        Module[
-                            { kernel, filename, meta, eqData },
-                            
-                            eqData = eqMap[ eq ];
-							Echo[buildKernelOpts,"buildKernelOpts"];
-                            kernel =
-                                buildKernel[
-                                    eqData[ "Expr" ],
-                                    eqData[ "Params" ],
-                                    "CoeffName" -> eqData[ "CoeffName" ],
-                                    "SignSymbol" -> eqData[ "SignSymbol" ],
-                                    Sequence @@ buildKernelOpts
-                                ];
-
-                            filename = FileNameJoin @ { compiledDir, "eq" <> eq <> "0" };
-                            Echo[filename,"filename"];
-                            meta = <|
-                                "Version"  -> $Version,
-                                "SystemID" -> $SystemID,
-                                "Date"     -> DateString[ ]
-                            |>;
-
-                            With[
-                                {
-                                    sym = Symbol[ "FernandoDuarte`LongRunRisk`Private`$savedKernel" <> eq ]
-                                },
-                                Set[ sym, kernel ];
+                        (* Check if we can skip compilation *)
+                        If[FileExistsQ[file],
+                            savedData = Quiet[Get[file]];
+                            If[AssociationQ[savedData] && KeyExistsQ[savedData, "meta"],
+                                savedHash = savedData["meta"]["Hash"];
+                                savedSystemID = savedData["meta"]["SystemID"];
                                 
-                                DumpSave[
-                                    filename <> ".mx",
-                                    sym
-                                ];
+                                Echo[{savedHash, currentHash, savedSystemID, $SystemID}, "CacheCheck"];
+                                If[savedHash === currentHash && savedSystemID === $SystemID,
+                                    (* Cache hit: do nothing *)
+                                    Echo["Cache Hit!", "CacheStatus"];
+                                    Return[file]
+                                ]
+                            ]
+                        ];
+                        Echo["Cache Miss!", "CacheStatus"];
 
-                                Put[ meta, filename <> ".ml" ];
-                                
-                                Remove[ sym ];
-                            ];
-                        ],
-                        { eq, Keys @ eqMap }
-                    ];(*Do*)
+                        (* Cache miss: compile and save *)
+                        kernels = Association @ Table[
+                            eq -> buildKernel[
+                                eqMap[eq]["Expr"],
+                                eqMap[eq]["Params"],
+                                "CoeffName" -> eqMap[eq]["CoeffName"],
+                                "SignSymbol" -> eqMap[eq]["SignSymbol"],
+                                Sequence @@ buildKernelOpts
+                            ],
+                            {eq, Keys @ eqMap}
+                        ];
+
+                        (* Save all kernels to single file *)
+                        With[
+                            {
+                                data = <|
+                                    "wc" -> kernels["A"],
+                                    "pd" -> kernels["B"],
+                                    "pdFromA0" -> kernels["AB"],
+                                    "meta" -> <|
+                                        "Version" -> $Version,
+                                        "SystemID" -> $SystemID,
+                                        "Date" -> DateString[],
+                                        "Hash" -> currentHash
+                                    |>
+                                |>
+                            },
+                            Block[{FernandoDuarte`LongRunRisk`Private`$kernelExport = data},
+                                DumpSave[file, FernandoDuarte`LongRunRisk`Private`$kernelExport]
+                            ]
+                        ]
+                    ](*Module*)
                 ](*With*)
-                 ](*With*)
+                ](*With*)
             ](*With*)
         ](*With*)
     ](*With*)

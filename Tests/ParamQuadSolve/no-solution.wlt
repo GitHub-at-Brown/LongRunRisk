@@ -11,7 +11,7 @@ r$ = pqs[eq$, vars$, "ValidationOption" -> True];
 leftover$ = r$["Diagnostics"]["LeftoverEquations"];
 ver$ = r$["Verification"];
 
-VerificationTest[AssociationQ[r$], True, TestID -> "assoc@@Tests/ParamQuadSolve/no-solution.wlt:24,1-24,110"]
-VerificationTest[Length[leftover$] >= 1 || AnyTrue[Flatten@ver$, FalseQ], True, TestID -> "signaled-no-solution@@Tests/ParamQuadSolve/no-solution.wlt:25,1-25,164"]
+VerificationTest[AssociationQ[r$], True, TestID -> "assoc@@Tests/ParamQuadSolve/no-solution.wlt:14,1-14,110"]
+VerificationTest[Length[leftover$] >= 1 || AnyTrue[Flatten@ver$, FalseQ], True, TestID -> "signaled-no-solution@@Tests/ParamQuadSolve/no-solution.wlt:15,1-15,164"]
 
 End[];

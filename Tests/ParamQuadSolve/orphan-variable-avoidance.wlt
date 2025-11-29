@@ -28,7 +28,7 @@ VerificationTest[
     MemberQ[res["DeferredVariables"], w]
   ],
   True,
-  TestID -> "orphan-simple-avoidance@@Tests/ParamQuadSolve/orphan-variable-avoidance.wlt:19,1-42,2"
+  TestID -> "orphan-simple-avoidance@@Tests/ParamQuadSolve/orphan-variable-avoidance.wlt:9,1-32,2"
 ]
 
 (* Test: Multiple equations with quadratics, one has orphaned variable *)
@@ -53,7 +53,7 @@ VerificationTest[
     MemberQ[res["DeferredVariables"], c]
   ],
   True,
-  TestID -> "orphan-prefer-no-orphans@@Tests/ParamQuadSolve/orphan-variable-avoidance.wlt:45,1-67,2"
+  TestID -> "orphan-prefer-no-orphans@@Tests/ParamQuadSolve/orphan-variable-avoidance.wlt:35,1-57,2"
 ]
 
 (* Test: Long-run risk model system - the motivating example *)
@@ -98,7 +98,7 @@ VerificationTest[
     !FreeQ[res["DeferredEquations"][[Position[deferredEqs, 4][[1, 1]]]], A[4]]
   ],
   True,
-  TestID -> "orphan-longrunrisk-eq4-deferred@@Tests/ParamQuadSolve/orphan-variable-avoidance.wlt:70,1-112,2"
+  TestID -> "orphan-longrunrisk-eq4-deferred@@Tests/ParamQuadSolve/orphan-variable-avoidance.wlt:60,1-102,2"
 ]
 
 (* Test: Verify deferred system is solvable (no orphaned variables) *)
@@ -148,7 +148,7 @@ VerificationTest[
     orphanedVars === {}
   ],
   True,
-  TestID -> "orphan-no-orphans-in-deferred@@Tests/ParamQuadSolve/orphan-variable-avoidance.wlt:115,1-162,2"
+  TestID -> "orphan-no-orphans-in-deferred@@Tests/ParamQuadSolve/orphan-variable-avoidance.wlt:105,1-152,2"
 ]
 
 End[];

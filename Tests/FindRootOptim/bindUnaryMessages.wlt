@@ -32,7 +32,7 @@ tests = {
     $Failed,
     {bindUnary::insufficientsigns},
     TimeConstraint -> timeLimit,
-    TestID -> "insufficientsigns-returns-failed-one-sign@@test/FindRootOptim/bindUnaryMessages.wlt"
+    TestID -> "insufficientsigns-returns-failed-one-sign@@Tests/FindRootOptim/bindUnaryMessages.wlt:30,3-36,4"
   ],
 
   (* Test: bindUnary returns $Failed and emits insufficientsigns message (0 signs, needs 2) *)
@@ -41,7 +41,7 @@ tests = {
     $Failed,
     {bindUnary::insufficientsigns},
     TimeConstraint -> timeLimit,
-    TestID -> "insufficientsigns-returns-failed-empty-signs@@test/FindRootOptim/bindUnaryMessages.wlt"
+    TestID -> "insufficientsigns-returns-failed-empty-signs@@Tests/FindRootOptim/bindUnaryMessages.wlt:39,3-45,4"
   ],
 
   (* Test: bindUnary works correctly with valid signs (no error, returns list of functions) *)
@@ -53,7 +53,7 @@ tests = {
     True,
     {},
     TimeConstraint -> timeLimit,
-    TestID -> "valid-signs-succeeds@@test/FindRootOptim/bindUnaryMessages.wlt"
+    TestID -> "valid-signs-succeeds@@Tests/FindRootOptim/bindUnaryMessages.wlt:48,3-57,4"
   ]
 };
 

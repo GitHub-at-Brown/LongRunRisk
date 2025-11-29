@@ -26,7 +26,7 @@ tests = With[{
       $Failed,
       {findRootCoeff0::badparams},
       TimeConstraint -> timeLimit,
-      TestID -> "badparams-returns-failed@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "badparams-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:16,5-30,6"
     ],
 
     (* Test invalid parameters return empty list with badparams message for findRootsCoeff0 *)
@@ -43,7 +43,7 @@ tests = With[{
       {},
       {findRootsCoeff0::badparams},
       TimeConstraint -> timeLimit,
-      TestID -> "badparams-returns-empty-list@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "badparams-returns-empty-list@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:33,5-47,6"
     ],
 
     (* Test that invalid parameters fail quickly without compilation *)
@@ -66,7 +66,7 @@ tests = With[{
       True,
       {findRootCoeff0::badparams},
       TimeConstraint -> timeLimit,
-      TestID -> "badparams-returns-failed-quickly@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "badparams-returns-failed-quickly@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:50,5-70,6"
     ],
 
     (* Test CompilationTarget -> "WVM" option propagation for findRootCoeff0 *)
@@ -87,7 +87,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "compilationtarget-wvm-option@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "compilationtarget-wvm-option@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:73,5-91,6"
     ],
 
     (* Test "CoeffName" -> "B" option override for findRootCoeff0 *)
@@ -107,7 +107,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "coeffname-override-B@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "coeffname-override-B@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:94,5-111,6"
     ],
 
 
@@ -128,7 +128,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "signsymbol-override-signB@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "signsymbol-override-signB@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:115,5-132,6"
     ],
 
     (* Test empty interval from findRootInterval returns $Failed for findRootCoeff0 *)
@@ -148,7 +148,7 @@ tests = With[{
       $Failed,
       {findRootInterval::emptyinterval},
       TimeConstraint -> timeLimit,
-      TestID -> "empty-interval-returns-failed@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "empty-interval-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:135,5-152,6"
     ],
 
     (* Test empty interval from findRootInterval returns empty list for findRootsCoeff0 *)
@@ -168,7 +168,7 @@ tests = With[{
       {},
       {findRootInterval::emptyinterval},
       TimeConstraint -> timeLimit,
-      TestID -> "empty-interval-returns-empty-list@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "empty-interval-returns-empty-list@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:155,5-172,6"
     ],
 
     (* Test that findRootInterval with False returns $Failed quickly *)
@@ -185,7 +185,7 @@ tests = With[{
       $Failed,
       {findRootInterval::nocoeff},
       TimeConstraint -> timeLimit,
-      TestID -> "findRootInterval-false-returns-failed@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "findRootInterval-false-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:175,5-189,6"
     ],
 
     (* Test buildKernel with "CoeffName" and "SignSymbol" options *)
@@ -201,7 +201,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-coeffname-signsymbol-options@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:192,5-205,6"
     ],
 
     (* Test bindUnary with insufficient signs returns $Failed with message *)
@@ -219,7 +219,7 @@ tests = With[{
       $Failed,
       {bindUnary::insufficientsigns},
       TimeConstraint -> timeLimit,
-      TestID -> "bindUnary-insufficient-signs-returns-failed@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:208,5-223,6"
     ],
 
     (* Test that findRootCoeff0 with contradictory root clauses fails quickly *)
@@ -239,7 +239,7 @@ tests = With[{
       $Failed,
       {findRootCoeff0::badparams},
       TimeConstraint -> timeLimit,
-      TestID -> "contradictory-root-clauses-fails@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "contradictory-root-clauses-fails@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:226,5-243,6"
     ],
 
     (* Test CompilationTarget propagates to buildKernel *)
@@ -258,7 +258,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-compilationtarget-wvm@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "buildKernel-compilationtarget-wvm@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:246,5-262,6"
     ],
 
     (* Test findRootsCoeff0 with CompilationTarget -> "WVM" *)
@@ -279,7 +279,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "findRootsCoeff0-compilationtarget-wvm@@test/FindRootOptim/findRootCoeff0EdgeCases.wlt"
+      TestID -> "findRootsCoeff0-compilationtarget-wvm@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:265,5-283,6"
     ]
   }
 ];

@@ -26,7 +26,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-false-uses-secant@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "newtonfirst-false-uses-secant@@Tests/FindRootOptim/fastRootOptions.wlt:21,3-30,4"
   ],
 
   VerificationTest[
@@ -37,7 +37,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-false-nonbracketed-secant@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "newtonfirst-false-nonbracketed-secant@@Tests/FindRootOptim/fastRootOptions.wlt:32,3-41,4"
   ],
 
   VerificationTest[
@@ -48,7 +48,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-false-bracketed-brent@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "newtonfirst-false-bracketed-brent@@Tests/FindRootOptim/fastRootOptions.wlt:43,3-52,4"
   ],
 
   (* Test "Return" -> "Value" vs default "Rule" *)
@@ -60,7 +60,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "return-rule-default@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "return-rule-default@@Tests/FindRootOptim/fastRootOptions.wlt:55,3-64,4"
   ],
 
   VerificationTest[
@@ -71,7 +71,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "return-value-option@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "return-value-option@@Tests/FindRootOptim/fastRootOptions.wlt:66,3-75,4"
   ],
 
   VerificationTest[
@@ -83,7 +83,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "return-rule-vs-value-consistency@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "return-rule-vs-value-consistency@@Tests/FindRootOptim/fastRootOptions.wlt:77,3-87,4"
   ],
 
   (* Test derivative-free overload fastRoot[f, {a,b}] with bracketed case *)
@@ -95,7 +95,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-bracketed-brent@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "derivative-free-bracketed-brent@@Tests/FindRootOptim/fastRootOptions.wlt:90,3-99,4"
   ],
 
   VerificationTest[
@@ -106,7 +106,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-bracketed-trig@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "derivative-free-bracketed-trig@@Tests/FindRootOptim/fastRootOptions.wlt:101,3-110,4"
   ],
 
   (* Test derivative-free overload fastRoot[f, {a,b}] with non-bracketed case *)
@@ -118,7 +118,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-nonbracketed-secant@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "derivative-free-nonbracketed-secant@@Tests/FindRootOptim/fastRootOptions.wlt:113,3-122,4"
   ],
 
   VerificationTest[
@@ -129,7 +129,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-nonbracketed-exp@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "derivative-free-nonbracketed-exp@@Tests/FindRootOptim/fastRootOptions.wlt:124,3-133,4"
   ],
 
   (* Test derivative-free with options *)
@@ -140,7 +140,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-high-accuracy@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "derivative-free-high-accuracy@@Tests/FindRootOptim/fastRootOptions.wlt:136,3-144,4"
   ],
 
   (* Test failure path when FindRoot emits messages - non-numeric function values *)
@@ -155,7 +155,7 @@ tests = {
     $Failed,
     {},
     TimeConstraint -> timeLimit,
-    TestID -> "failure-nonnumeric-function-value@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "failure-nonnumeric-function-value@@Tests/FindRootOptim/fastRootOptions.wlt:148,3-159,4"
   ],
 
   (* Test derivative-free version with valid function successfully finds root *)
@@ -167,7 +167,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-cubic-root@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "derivative-free-cubic-root@@Tests/FindRootOptim/fastRootOptions.wlt:162,3-171,4"
   ],
 
   (* Test constraint a < b - reversed interval should fail pattern match *)
@@ -179,7 +179,7 @@ tests = {
     ],
     fastRoot[#^2 - 2 &, 2*# &, {2., 1.}],
     TimeConstraint -> timeLimit,
-    TestID -> "reversed-interval-no-match@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "reversed-interval-no-match@@Tests/FindRootOptim/fastRootOptions.wlt:174,3-183,4"
   ],
 
   (* Test with both NewtonFirst and Return options combined *)
@@ -191,7 +191,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "combined-newtonfirst-false-return-value@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "combined-newtonfirst-false-return-value@@Tests/FindRootOptim/fastRootOptions.wlt:186,3-195,4"
   ],
 
   (* Test AccuracyGoal and PrecisionGoal options *)
@@ -203,7 +203,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "high-accuracy-precision-goals@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "high-accuracy-precision-goals@@Tests/FindRootOptim/fastRootOptions.wlt:198,3-207,4"
   ],
 
   (* Test MaxIterations option *)
@@ -215,7 +215,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "maxiterations-option@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "maxiterations-option@@Tests/FindRootOptim/fastRootOptions.wlt:210,3-219,4"
   ],
 
   (* Test positional accuracy argument *)
@@ -227,7 +227,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "positional-accuracy-argument@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "positional-accuracy-argument@@Tests/FindRootOptim/fastRootOptions.wlt:222,3-231,4"
   ],
 
   (* Test positional accuracy and maxiter arguments *)
@@ -239,7 +239,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "positional-accuracy-maxiter-arguments@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "positional-accuracy-maxiter-arguments@@Tests/FindRootOptim/fastRootOptions.wlt:234,3-243,4"
   ],
 
   (* Test Newton fallback to Brent when derivative is unreliable *)
@@ -253,7 +253,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newton-fails-fallback-to-brent@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "newton-fails-fallback-to-brent@@Tests/FindRootOptim/fastRootOptions.wlt:246,3-257,4"
   ],
 
   (* Test edge case: very narrow interval *)
@@ -264,7 +264,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "narrow-interval-convergence@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "narrow-interval-convergence@@Tests/FindRootOptim/fastRootOptions.wlt:260,3-268,4"
   ],
 
   (* Test with WorkingPrecision option *)
@@ -276,7 +276,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "workingprecision-option@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "workingprecision-option@@Tests/FindRootOptim/fastRootOptions.wlt:271,3-280,4"
   ],
 
   (* Test non-bracketed with NewtonFirst -> True (default) *)
@@ -288,7 +288,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-true-nonbracketed-fallback@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "newtonfirst-true-nonbracketed-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:283,3-292,4"
   ],
 
   (* Test that quiet computation works as expected *)
@@ -300,7 +300,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "quiet-computation-succeeds@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "quiet-computation-succeeds@@Tests/FindRootOptim/fastRootOptions.wlt:295,3-304,4"
   ],
 
   (* Test edge case: root at interval boundary *)
@@ -312,7 +312,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "root-at-boundary@@test/FindRootOptim/fastRootOptions.wlt"
+    TestID -> "root-at-boundary@@Tests/FindRootOptim/fastRootOptions.wlt:307,3-316,4"
   ]
 };
 
