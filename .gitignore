@@ -5,3 +5,5 @@
 /temp/
 LongRunRisk.code-workspace
 *.code-workspace
+
+Resources/CompiledFunctions/*.mx
