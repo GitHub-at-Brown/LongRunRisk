@@ -44,6 +44,68 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 
 
 (* ::Subsection:: *)
+(*loadModelKernels*)
+
+
+(* Global cache for loaded kernels *)
+$kernelCache = <||>;
+
+
+loadModelKernels::nofile = "Kernel file not found for model `1`. Expected: `2`";
+loadModelKernels::sysid = "Kernel was compiled on `1` but current system is `2`. Recompile may be needed.";
+
+
+(* Find paclet root from current file location - evaluated at package load time *)
+$pacletRoot = Module[{d},
+  d = DirectoryName[$InputFileName];
+  While[!FileExistsQ[FileNameJoin[{d, "PacletInfo.wl"}]] && d =!= DirectoryName[d],
+    d = DirectoryName[d]
+  ];
+  d
+];
+
+
+loadModelKernels[shortname_String] := Module[
+  {file, data},
+
+  (* Return cached if available *)
+  If[KeyExistsQ[$kernelCache, shortname],
+    Return[$kernelCache[shortname]]
+  ];
+
+  (* Build file path *)
+  file = FileNameJoin[{$pacletRoot, "Resources", "CompiledFunctions", shortname <> ".mx"}];
+
+  (* Check file exists *)
+  If[!FileExistsQ[file],
+    Message[loadModelKernels::nofile, shortname, file];
+    Return[$Failed]
+  ];
+
+  (* Load the file *)
+  Block[{FernandoDuarte`LongRunRisk`Private`$kernelExport},
+    Get[file];
+    data = FernandoDuarte`LongRunRisk`Private`$kernelExport;
+  ];
+
+  (* Warn if SystemID mismatch *)
+  If[KeyExistsQ[data, "meta"] && data["meta"]["SystemID"] =!= $SystemID,
+    Message[loadModelKernels::sysid, data["meta"]["SystemID"], $SystemID]
+  ];
+
+  (* Cache and return *)
+  $kernelCache[shortname] = data;
+  data
+];
+
+
+loadModelKernels[model_Association] := loadModelKernels[model["shortname"]];
+
+
+clearKernelCache[] := ($kernelCache = <||>);
+
+
+(* ::Subsection:: *)
 (*updateCoeffsSol*)
 
 
@@ -458,13 +520,14 @@ updateCoeffs[args__]:=Module[
 (* ::Subsection:: *)
 (*solveCoeffRoots*)
 
+
 solveCoeffRoots[
   model_Association,
   savedKernel_Association,
   signs : ({} | {_Integer ..}) : {},
   coeffKey : "wc" | "pd" : "wc",
   extraParams_Association : <||>,
-  opts : OptionsPattern[{solveCoeffRoots, findRootInterval, extractIntervalsFromReduce, scanAndSolve, FindRoot, fastRoot}]
+  opts : OptionsPattern[{solveCoeffRoots, findRootInterval, extractIntervalsFromReduce, scanAndSolve, fastRoot, FindRoot}]
 ] /; AllTrue[signs, (# === 1 || # === -1) &] :=
   With[
     {
@@ -480,7 +543,16 @@ solveCoeffRoots[
       },
       With[
         {
-          paramsAll   = Join[paramsBase, extraParams],
+          paramsAll = Join[
+		    paramsBase,
+		    extraParams,
+		    (*if j not present as Key in extraParams add j->1 with j extracted from coefName*)
+		    Association @ If[
+		      AnyTrue[Keys[extraParams], MatchQ[Replace[#, s_Symbol :> SymbolName[s]], "i" | "j"] &],
+		      {},
+		      Cases[coefName, s_Symbol /; MemberQ[{"i", "j"}, SymbolName[s]] :> (s -> 1), {2}, Heads -> True]
+		    ]
+		  ],
           cName       = Lookup[savedKernel, "CoeffName", If[coeffKey === "wc", "A", "B"]],
           sName       = Lookup[savedKernel, "SignSymbol", If[coeffKey === "wc", "signA", "signB"]],
           findOpts    = FilterRules[Flatten@{opts}, Options[findRootInterval]],
@@ -490,7 +562,7 @@ solveCoeffRoots[
             Join[Options[scanAndSolve], Options[FindRoot], Options[fastRoot]]
           ]
         },
-        Module[{f, df, reduceExpr, intervals, roots, sol0Rules, sol, solRules, signHead, signsRule},
+        Module[{f, df, reduceExpr, intervals, roots, sol0Rules, sol, solRules, signHead, signsRule, jRule},
           {f, df}    = bindUnary[savedKernel, paramsAll, signs];
           
           (* Pass CoeffName and SignSymbol to findRootInterval *)
@@ -503,20 +575,23 @@ solveCoeffRoots[
           signHead   = If[StringQ[sName], ToExpression[sName], sName];
           signsRule  = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
           
-          (* Calculate analytical solution with all parameters substituted *)
-          sol        = quadSol["Solution"] //. paramsAll //. signsRule //. extraParams;
-          
+          (* rest of the coefficients with all parameters substituted *)
+          sol        = quadSol["Solution"] //. paramsAll //. signsRule ;
+
+		  (* rule to substitute stock index if present *)
+(*		  jRule = First[
+		     KeySelect[paramsAll, MatchQ[Replace[#, s_Symbol :> SymbolName[s]], "i" | "j"] &],
+		     <||>
+		  ];*)
+  
           (* Create rules for the root variable (e.g. B[1][0] -> value) *)
-          sol0Rules  = Map[(coefName /. extraParams) -> # &, roots, {2}];
+          sol0Rules  = Map[(coefName /. paramsAll(*jRule*)) -> # &, roots, {2}];
 
           (* Combine root rule with the rest of the solution *)
           solRules   = Map[Join[{#}, sol /. #] &, sol0Rules, {2}];
           
           MapThread[
             <|
-              "Interval" -> #1,
-              "Roots"    -> #2,
-              "Error"    -> (RealAbs /@ (f /@ #2)),
               "Interval" -> #1,
               "Roots"    -> #2,
               "Error"    -> (RealAbs /@ (f /@ #2)),
@@ -599,7 +674,7 @@ solveWcPdRoots[
               savedKernelPd,
               signsPd,
               "pd",
-              Join[<|j -> 1|>, extraParamsPd, #],
+              Join[extraParamsPd, #],
               optSeq
             ] & /@ wr["Sol"])
           },

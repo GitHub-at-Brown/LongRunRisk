@@ -99,16 +99,57 @@ corr[expr1_,expr2_,conditionalTime_,model_]:=cov[expr1,expr2,conditionalTime,mod
 (*lagStateVarst*)
 
 
-Attributes[lagStateVarst]={HoldFirst};
-lagStateVarst[expr_,conditionalTime_,model_]:=Module[
-	{
-		mapAllt,
-		lagt
-	},
-	mapAllt[t_]:= Module[{s},Replace[Normal[Join[model["exogenousEq"],model["endogenousEq"]]],p_Rule :> ( (p[[1]][s_,q___]/;Refine[s>t,s>=0&&t>=0]) :> p[[2]][s,q] ),2]];
-	lagt[x_,t_]:= x//.mapAllt[t] ;
-	lagt[expr/.modelContextRules,conditionalTime]//. model["toStateVars"]
-]
+  lagStateVarst::timeout = "lagStateVarst timed out after `1` seconds. The toStateVars rules may cause infinite recursion. \
+  Consider including additional or different state variables for model `2` in \
+Kernel/Model/Catalog.wl.";
+  lagStateVarst::maxiter = "lagStateVarst exceeded `1` iterations without convergence. \
+ This indicates infinite recursion in toStateVars rules. Consider including additional or different state variables for model `2` in \
+Kernel/Model/Catalog.wl.";
+
+  Options[lagStateVarst] = {
+    "MaxIterations" -> 100,
+    "TimeConstraint" -> 5
+  };
+
+
+ Attributes[lagStateVarst]={HoldFirst};
+  lagStateVarst[expr_, conditionalTime_, model_, OptionsPattern[]] :=
+    Module[{mapAllt, lagt, intermediate, iterations, maxIter, timeLimit, result,sn=model["shortname"]},
+      maxIter = OptionValue["MaxIterations"];
+      timeLimit = OptionValue["TimeConstraint"];
+
+      mapAllt[t_] := Module[{s},
+        Replace[
+          Normal[Join[model["exogenousEq"], model["endogenousEq"]]],
+          p_Rule :> p[[1]][s_, q___] /; Refine[s > t, s >= 0 && t >= 0] :> p[[2]][s, q],
+          2
+        ]
+      ];
+
+      lagt[x_, t_] := x //. mapAllt[t];
+
+      result = TimeConstrained[
+        intermediate = lagt[expr /. modelContextRules, conditionalTime];
+
+        (* Use FixedPointList to track iterations *)
+        iterations = FixedPointList[
+          ReplaceAll[#, model["toStateVars"]] &,
+          intermediate,
+          maxIter
+        ];
+
+        (* Check if we hit max iterations without convergence *)
+        If[Length[iterations] == maxIter + 1 && iterations[[-1]] =!= iterations[[-2]],
+          Message[lagStateVarst::maxiter, maxIter, sn];
+          Abort[],
+          Last[iterations]
+        ],
+
+        timeLimit,
+        Message[lagStateVarst::timeout, timeLimit, sn];
+        Abort[]
+      ]
+    ]
 
 
 (* ::Subsubsection:: *)

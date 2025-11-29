@@ -155,9 +155,9 @@ bindUnary[
      Missing["NotFound"]
   ];
   (*replace j->paramsj in k["ParamOrder"] *)
-  If[!MissingQ[paramsj],
-    paramOrder = k["ParamOrder"] /. s_Symbol /; SymbolName[s] === "j" -> paramsj,
-    paramOrder = k["ParamOrder"] 
+  paramOrder = If[!MissingQ[paramsj],
+     k["ParamOrder"] /. s_Symbol /; SymbolName[s] === "j" -> paramsj,
+     k["ParamOrder"] 
  ];
 
  (*pack parameters and signs*)

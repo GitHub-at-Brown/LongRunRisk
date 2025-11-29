@@ -63,6 +63,15 @@ nomeulereq[x_[t_,i___], s_, model_] := ev[nomsdf[t], s, model] +
 (*niceEulerEq*)
 
 
+niceEulerEq::timevars =
+  "Time-dependent variables `1` found in Euler equation coefficients.";
+
+niceEulerEq::statevars =
+  "Solution not found: state variables `1` found in Euler equation \
+coefficients. Try different stateVars for model `2` in \
+Kernel/Model/Catalog.wl.";
+
+
 niceEulerEq[x_[t_,i___],model_,nominalFlag_:False]:=With[
 	{
 		stateVars=DeleteDuplicates[DeleteCases[Cases[Variables[model["stateVars"][t] ],z_[_]:>z],0]],
@@ -107,6 +116,24 @@ niceEulerEq[x_[t_,i___],model_,nominalFlag_:False]:=With[
 			PolynomialReduce[Expand[nomeulereq[x[t,i], t-1, model]], Factor[sortedNewRules], timeVars],
 			PolynomialReduce[Expand[eulereq[x[t,i], t-1, model]], Factor[sortedNewRules], timeVars]
 		];
+		
+		(* check if coefficients have time-dependent or state variables *)
+		With[
+		  {
+		    foundVarst =
+		      DeleteDuplicates @ Cases[newCoeff, s_Symbol[___, t, ___] :> s[t], Infinity],
+		    foundStateVars =
+		      DeleteDuplicates @ Cases[newCoeff, Alternatives @@ stateVarsAnyt, Infinity]
+		  },
+		  If[foundVarst =!= {},
+		    Message[niceEulerEq::timevars, foundVarst];
+		  ];
+		  If[foundStateVars =!= {},
+		    Message[niceEulerEq::statevars, foundStateVars, model["shortname"]];
+		    Abort[];
+		  ];
+		];
+
 		(* undo ordering *)
 		newCoeff=orderingToTarget[newCoeff, sortedNewRules, newRulesNoConst];
 		coeffC=If[
