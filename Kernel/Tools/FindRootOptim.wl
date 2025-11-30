@@ -29,7 +29,11 @@ bindUnary::insufficientsigns = "Expected at least `1` sign values, but got `2`."
 findRootInterval::usage  = "findRootInterval[conds, paramValues, signs] determines the search interval Interval[{min, max}] for the root variable based on constraints.";
 extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.";
 scanAndSolve::usage = "scanAndSolve[f, {min, max}] finds roots of f[x] in the range by grid subdivision.\nscanAndSolve[f, df, {min, max}] uses derivative df for Newton steps.";
-fastRoot::usage = "fastRoot[f, df, {a, b}] finds a root using a hybrid Newton/Brent/Secant strategy.";
+fastRoot::usage = "fastRoot[f, df, {a, b}] finds a root using a hybrid Newton/Brent/Secant strategy.
+Calling conventions:
+  1D: fastRoot[f, df, {a, b}] bounds, fastRoot[f, df, {x0, a, b}] full spec, fastRoot[f, df, x0] start only
+  nD: fastRoot[f, df, {{a1,a2,...}, {b1,b2,...}}] bounds, fastRoot[f, df, {{x0}, {a}, {b}}] full spec, fastRoot[f, df, {{x0_1, x0_2, ...}}] start only (nested list)
+  df can be None for derivative-free solving.";
 fastRoot::cvmit = "Failed to converge within `1` iterations starting from x0=`2` in bounds [`3`, `4`].";
 fastRoot::nnum = "Function returned non-numeric value `1` at x=`2`.";
 fastRoot::nobnd = "No bounds specified and FindRoot failed from x0=`1`.";
@@ -380,8 +384,9 @@ fastRoot[f_, df_, x0_?NumericQ, opts : OptionsPattern[{fastRoot, FindRoot}]] :=
   fastRootCore[f, df, x0, None, None, opts];
 
 
-(* Entry point 6: x0 only - numeric vector (nD) *)
-fastRoot[f_, df_, x0_?(VectorQ[#, NumericQ]&), opts : OptionsPattern[{fastRoot, FindRoot}]] :=
+(* Entry point 6: x0 only - numeric vector (nD), wrapped in extra list to disambiguate from 1D bounds *)
+(* Use {{x0_1, x0_2, ...}} syntax to distinguish from {a, b} for 1D bounds *)
+fastRoot[f_, df_, {x0_?(VectorQ[#, NumericQ]&)}, opts : OptionsPattern[{fastRoot, FindRoot}]] :=
   fastRootCore[f, df, x0, None, None, opts];
 
 
@@ -443,14 +448,20 @@ With[{
     ];
 
     (* Newton attempt - use With to inject evaluated values into FindRoot's held arguments *)
+    (* Only construct the equation for the appropriate dimensionality to avoid Part::partw *)
     newtonRes = If[TrueQ@newtonFirst && df =!= None,
-      With[{s = spec, j = jac, fo = findRootOpts, eq1d = f[{var}] == 0., eqNd = Thread[f[vars] == 0.]},
-        Quiet@Check[
-          If[dim == 1,
-            FindRoot[eq1d, s, Method -> "Newton", Jacobian -> j, Evaluate[Sequence @@ fo]],
-            FindRoot[eqNd, s, Method -> "Newton", Jacobian :> j, Evaluate[Sequence @@ fo]]
-          ],
-          $Failed
+      If[dim == 1,
+        With[{s = spec, j = jac, fo = findRootOpts, eq = f[{var}] == 0.},
+          Quiet@Check[
+            FindRoot[eq, s, Method -> "Newton", Jacobian -> j, Evaluate[Sequence @@ fo]],
+            $Failed
+          ]
+        ],
+        With[{s = spec, j = jac, fo = findRootOpts, eq = Thread[f[vars] == 0.]},
+          Quiet@Check[
+            FindRoot[eq, s, Method -> "Newton", Jacobian :> j, Evaluate[Sequence @@ fo]],
+            $Failed
+          ]
         ]
       ],
       $Failed
@@ -483,13 +494,12 @@ With[{
           ]
         ],
         (* nD or no bounds: use default method *)
-        With[{s = spec, fo = findRootOpts, eq1d = f[{var}] == 0., eqNd = Thread[f[vars] == 0.]},
-          Quiet@Check[
-            If[dim == 1,
-              FindRoot[eq1d, s, Evaluate[Sequence @@ fo]],
-              FindRoot[eqNd, s, Evaluate[Sequence @@ fo]]
-            ],
-            $Failed
+        If[dim == 1,
+          With[{s = spec, fo = findRootOpts, eq = f[{var}] == 0.},
+            Quiet@Check[FindRoot[eq, s, Evaluate[Sequence @@ fo]], $Failed]
+          ],
+          With[{s = spec, fo = findRootOpts, eq = Thread[f[vars] == 0.]},
+            Quiet@Check[FindRoot[eq, s, Evaluate[Sequence @@ fo]], $Failed]
           ]
         ]
       ]
@@ -539,9 +549,9 @@ fastRoot[f_, {x0_?(VectorQ[#, NumericQ]&), a_?(VectorQ[#, NumericQ]&), b_?(Vecto
 fastRoot[f_, x0_?NumericQ, opts : OptionsPattern[{fastRoot, FindRoot}]] :=
   fastRoot[f, None, x0, opts];
 
-(* No-derivative versions: x0 only - vector *)
-fastRoot[f_, x0_?(VectorQ[#, NumericQ]&), opts : OptionsPattern[{fastRoot, FindRoot}]] :=
-  fastRoot[f, None, x0, opts]; 
+(* No-derivative versions: x0 only - vector (nested list syntax) *)
+fastRoot[f_, {x0_?(VectorQ[#, NumericQ]&)}, opts : OptionsPattern[{fastRoot, FindRoot}]] :=
+  fastRoot[f, None, {x0}, opts]; 
 
 
 (* ::Subsection:: *)
@@ -572,7 +582,12 @@ scanAndSolve[
   },
 	  With[
 		  {
-		    frOpts = If[Head[frSpec] === Function, frSpec[var, a, b], frSpec]
+		    (* Handle Automatic -> {}, Function -> evaluate, otherwise pass through *)
+		    frOpts = Which[
+		      frSpec === Automatic, {},
+		      Head[frSpec] === Function, frSpec[var, a, b],
+		      True, frSpec
+		    ]
 		  },
 		  With[
 			  {
@@ -601,8 +616,11 @@ scanAndSolve[
 			      Evaluate @ FilterRules[Flatten@{opts}, Options[fastRoot]],
 			      Evaluate @ frFindRootOpts
 			    }];
+			    (* fnum/dfnum handle both scalar (for grid eval) and list input (for fastRoot) *)
 			    fnum[x_?NumericQ]  := f[x];
+			    fnum[{x_?NumericQ}] := f[x];
 			    dfnum[x_?NumericQ] := df[x];
+			    dfnum[{x_?NumericQ}] := df[x];
 			
 			    xs = N @ Subdivide[a, b, bins];        (* length = bins + 1 *)
 			    ys = fnum /@ xs;
@@ -616,6 +634,7 @@ scanAndSolve[
 			    (* sign-change subintervals; selector length == bins *)
 			    ints  = Pick[Partition[xs, 2, 1], Most[signs]*Rest[signs], -1];
 			
+			    (* fastRoot returns numeric value directly with default "Return" -> "Value" *)
 			    roots = Quiet @ Select[
 			      (Quiet @ Check[
 			         fastRoot[fnum, dfnum, #, Sequence @@ fastOpts],
@@ -640,14 +659,23 @@ scanAndSolve[
   {
     bins = OptionValue["BracketGrid"],
     tolOpt = OptionValue["Tolerance"],
-    findRootOpts = DeleteDuplicatesBy[
-      Flatten[{
-        Evaluate @ FilterRules[Flatten@{opts}, Options[FindRoot]],
-        Evaluate @ OptionValue["FindRootOptions"]
-      }],
-      First
-    ]
+    frSpec = OptionValue["FindRootOptions"]
   },
+  With[
+    {
+      (* Handle Automatic -> {} for FindRootOptions *)
+      frOpts = Replace[frSpec, Automatic -> {}]
+    },
+    With[
+      {
+        findRootOpts = DeleteDuplicatesBy[
+          Flatten[{
+            Evaluate @ FilterRules[Flatten@{opts}, Options[FindRoot]],
+            Evaluate @ frOpts
+          }],
+          First
+        ]
+      },
   Module[
     {ff = f, fnum, xs, ys, tol, zeroRoots, signs, ints, roots, fastOpts, acc},
     acc = Replace[
@@ -659,7 +687,9 @@ scanAndSolve[
       Evaluate @ OptionValue["FastRootOptions"],
       Evaluate @ findRootOpts
     }];
+    (* fnum handles both scalar (for grid eval) and list input (for fastRoot) *)
     fnum[x_?NumericQ] := ff[x];
+    fnum[{x_?NumericQ}] := ff[x];
 
     xs = N @ Subdivide[a, b, bins];
     ys = fnum /@ xs;
@@ -671,17 +701,20 @@ scanAndSolve[
     signs = Sign[ys];
     ints  = Pick[Partition[xs, 2, 1], Most[signs]*Rest[signs], -1];
 
+    (* fastRoot returns numeric value directly with default "Return" -> "Value" *)
     roots = Quiet @ Select[
       (Quiet @ Check[
-         x /. fastRoot[fnum, #, Sequence @@ fastOpts],
-                       $Failed
+         fastRoot[fnum, #, Sequence @@ fastOpts],
+         $Failed
        ]) & /@ ints,
       NumericQ
     ];
 
     Union[Join[zeroRoots, roots], SameTest -> (Abs[#1 - #2] <= tol &)]
-  ]
-];
+  ](*Module*)
+    ](*With findRootOpts*)
+  ](*With frOpts*)
+](*With bins,tolOpt,frSpec*);
 
 
 (* ::Subsection:: *)

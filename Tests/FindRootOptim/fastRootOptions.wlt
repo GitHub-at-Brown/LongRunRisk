@@ -27,6 +27,16 @@ fsin[z_] := Sin[z[[1]]] - 0.5;
 fexp[z_] := Exp[z[[1]]] - 3;
 fcubic[z_] := z[[1]]^3 - 8;       (* root at 2 *)
 
+(* nD helper functions for testing nested x0 syntax *)
+(* 2D system: x^2 + y - 3 = 0, x + y^2 - 3 = 0, symmetric root at x = y = (-1+Sqrt[13])/2 ~ 1.3028 *)
+fND2[z_] := {z[[1]]^2 + z[[2]] - 3, z[[1]] + z[[2]]^2 - 3};
+dfND2[z_] := {{2*z[[1]], 1}, {1, 2*z[[2]]}};
+expectedND2 = (-1 + Sqrt[13])/2 // N;  (* ~ 1.3027756377319946 *)
+
+(* 3D system for higher-dimension test *)
+fND3[z_] := {z[[1]] + z[[2]] + z[[3]] - 3, z[[1]]*z[[2]] - 1, z[[2]]*z[[3]] - 1};  (* root at (1,1,1) *)
+dfND3[z_] := {{1, 1, 1}, {z[[2]], z[[1]], 0}, {0, z[[3]], z[[2]]}};
+
 tests = {
   (* Test "NewtonFirst" -> False option with f, df, {a,b} *)
   VerificationTest[
@@ -323,6 +333,167 @@ tests = {
     True,
     TimeConstraint -> timeLimit,
     TestID -> "root-at-boundary@@Tests/FindRootOptim/fastRootOptions.wlt:316,3-325,4"
+  ],
+
+  (* ===== Tests for nD nested x0 syntax {{x0_1, x0_2, ...}} ===== *)
+
+  (* Test nD x0-only with derivative using nested syntax *)
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[fND2, dfND2, {{1.2, 1.2}}];
+      VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "nD-nested-x0-with-derivative@@Tests/FindRootOptim/fastRootOptions.wlt:330,3-338,4"
+  ],
+
+  (* Test nD x0-only without derivative using nested syntax *)
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[fND2, {{1.2, 1.2}}];
+      VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "nD-nested-x0-no-derivative@@Tests/FindRootOptim/fastRootOptions.wlt:341,3-349,4"
+  ],
+
+  (* Test nD nested x0 returns correct root value *)
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[fND2, dfND2, {{1.5, 1.5}}];
+      VectorQ[result, NumericQ] && Max[Abs[result - {expectedND2, expectedND2}]] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "nD-nested-x0-correct-root@@Tests/FindRootOptim/fastRootOptions.wlt:352,3-360,4"
+  ],
+
+  (* Test nD with bounds still works *)
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[fND2, dfND2, {{0.5, 0.5}, {2., 2.}}];
+      VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "nD-bounds-still-works@@Tests/FindRootOptim/fastRootOptions.wlt:363,3-371,4"
+  ],
+
+  (* Test disambiguation: flat {a, b} is 1D bounds, not 2D x0 *)
+  VerificationTest[
+    Module[{result},
+      (* {1.2, 1.2} as 1D bounds where a=b should fail with badbnds *)
+      result = fastRoot[f1, df1, {1.2, 1.2}];
+      result === $Failed
+    ],
+    True,
+    {fastRoot::badbnds},
+    TimeConstraint -> timeLimit,
+    TestID -> "disambiguation-flat-is-1D-bounds@@Tests/FindRootOptim/fastRootOptions.wlt:374,3-383,4"
+  ],
+
+  (* Test 3D nested x0 syntax *)
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[fND3, dfND3, {{0.9, 0.9, 0.9}}];
+      VectorQ[result, NumericQ] && Length[result] == 3 && Max[Abs[fND3[result]]] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "nD-3D-nested-x0@@Tests/FindRootOptim/fastRootOptions.wlt:386,3-394,4"
+  ],
+
+  (* Test nD nested x0 with Return -> Rule option *)
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[fND2, dfND2, {{1.2, 1.2}}, "Return" -> "Rule"];
+      MatchQ[result, {(_ -> _?NumericQ) ..}] && Length[result] == 2
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "nD-nested-x0-return-rule@@Tests/FindRootOptim/fastRootOptions.wlt:397,3-405,4"
+  ],
+
+  (* Test nD nested x0 with NewtonFirst -> False *)
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[fND2, dfND2, {{1.2, 1.2}}, "NewtonFirst" -> False];
+      VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "nD-nested-x0-newtonfirst-false@@Tests/FindRootOptim/fastRootOptions.wlt:408,3-416,4"
+  ],
+
+  (* ===== Tests for Newton failure with fallback ===== *)
+
+  (* Test nD Newton failure with fallback - bad Jacobian *)
+  VerificationTest[
+    Module[{result, badDfND},
+      (* Jacobian that returns zeros - Newton will fail *)
+      badDfND[z_] := {{0., 0.}, {0., 0.}};
+      result = fastRoot[fND2, badDfND, {{1.2, 1.2}}];
+      (* Should still find root via fallback to default method *)
+      VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "nD-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:419,3-430,4"
+  ],
+
+  (* Test nD with bounds - Newton failure with fallback *)
+  VerificationTest[
+    Module[{result, badDfND},
+      badDfND[z_] := {{0., 0.}, {0., 0.}};
+      result = fastRoot[fND2, badDfND, {{0.5, 0.5}, {2., 2.}}];
+      VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "nD-bounds-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:433,3-442,4"
+  ],
+
+  (* Test 1D bracketed - Newton failure falls back to Brent *)
+  VerificationTest[
+    Module[{result, badDF},
+      (* Bad derivative causes Newton to fail *)
+      badDF[z_] := 0.;
+      (* Bracketed interval: f1[1] < 0, f1[2] > 0 *)
+      result = fastRoot[f1, badDF, {1., 2.}];
+      (* Should fall back to Brent and find root *)
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "1D-bracketed-newton-fails-brent-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:445,3-456,4"
+  ],
+
+  (* Test 1D non-bracketed - Newton failure falls back to Secant *)
+  VerificationTest[
+    Module[{result, badDF},
+      badDF[z_] := 0.;
+      (* Non-bracketed: both f2[2.5] and f2[3] are positive *)
+      result = fastRoot[f2, badDF, {2.5, 3.}];
+      (* Should fall back to Secant and find root at 2 *)
+      NumericQ[result] && Abs[result^2 - 4] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "1D-nonbracketed-newton-fails-secant-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:459,3-469,4"
+  ],
+
+  (* Test 3D Newton failure with fallback *)
+  VerificationTest[
+    Module[{result, badDfND3},
+      badDfND3[z_] := {{0., 0., 0.}, {0., 0., 0.}, {0., 0., 0.}};
+      result = fastRoot[fND3, badDfND3, {{0.9, 0.9, 0.9}}];
+      VectorQ[result, NumericQ] && Length[result] == 3 && Max[Abs[fND3[result]]] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "3D-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:472,3-481,4"
   ]
 };
 
