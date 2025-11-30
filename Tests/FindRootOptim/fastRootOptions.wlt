@@ -16,303 +16,313 @@ tolSameTest = Function[{actual, expected},
   ]
 ];
 
+(* Helper functions that take list argument, consistent with bindUnary API *)
+f1[z_] := z[[1]]^2 - 2;           (* root at sqrt(2) ~ 1.414 *)
+df1[z_] := 2*z[[1]];
+f2[z_] := z[[1]]^2 - 4;           (* root at 2 *)
+df2[z_] := 2*z[[1]];
+fcos[z_] := Cos[z[[1]]];
+dfcos[z_] := -Sin[z[[1]]];
+fsin[z_] := Sin[z[[1]]] - 0.5;
+fexp[z_] := Exp[z[[1]]] - 3;
+fcubic[z_] := z[[1]]^3 - 8;       (* root at 2 *)
+
 tests = {
   (* Test "NewtonFirst" -> False option with f, df, {a,b} *)
   VerificationTest[
     Module[{result},
       (* f[x] = x^2 - 2, df[x] = 2x, root at sqrt(2) ~ 1.414 *)
-      result = fastRoot[#^2 - 2 &, 2*# &, {1., 2.}, "NewtonFirst" -> False];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 2] < 10^-6
+      result = fastRoot[f1, df1, {1., 2.}, "NewtonFirst" -> False];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-false-uses-secant@@Tests/FindRootOptim/fastRootOptions.wlt:21,3-30,4"
+    TestID -> "newtonfirst-false-uses-secant@@Tests/FindRootOptim/fastRootOptions.wlt:31,3-40,4"
   ],
 
   VerificationTest[
     Module[{result},
       (* Use non-bracketed interval to force Secant path *)
-      result = fastRoot[#^2 - 4 &, 2*# &, {1.5, 3.}, "NewtonFirst" -> False];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 4] < 10^-6
+      result = fastRoot[f2, df2, {1.5, 3.}, "NewtonFirst" -> False];
+      NumericQ[result] && Abs[result^2 - 4] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-false-nonbracketed-secant@@Tests/FindRootOptim/fastRootOptions.wlt:32,3-41,4"
+    TestID -> "newtonfirst-false-nonbracketed-secant@@Tests/FindRootOptim/fastRootOptions.wlt:42,3-51,4"
   ],
 
   VerificationTest[
     Module[{result},
       (* Bracketed interval should use Brent when NewtonFirst is False *)
-      result = fastRoot[Cos[#] &, -Sin[#] &, {1., 2.}, "NewtonFirst" -> False];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[Cos[result[[1,2]]]] < 10^-6
+      result = fastRoot[fcos, dfcos, {1., 2.}, "NewtonFirst" -> False];
+      NumericQ[result] && Abs[Cos[result]] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-false-bracketed-brent@@Tests/FindRootOptim/fastRootOptions.wlt:43,3-52,4"
+    TestID -> "newtonfirst-false-bracketed-brent@@Tests/FindRootOptim/fastRootOptions.wlt:53,3-62,4"
   ],
 
-  (* Test "Return" -> "Value" vs default "Rule" *)
+  (* Test "Return" -> "Value" vs "Rule" *)
   VerificationTest[
     Module[{result},
-      (* Default should return rule *)
-      result = fastRoot[#^2 - 2 &, 2*# &, {1., 2.}];
+      (* "Return" -> "Rule" should return rule *)
+      result = fastRoot[f1, df1, {1., 2.}, "Return" -> "Rule"];
       MatchQ[result, {_ -> _?NumericQ}]
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "return-rule-default@@Tests/FindRootOptim/fastRootOptions.wlt:55,3-64,4"
+    TestID -> "return-rule-option@@Tests/FindRootOptim/fastRootOptions.wlt:65,3-74,4"
   ],
 
   VerificationTest[
     Module[{result},
-      (* "Return" -> "Value" should return numeric value *)
-      result = fastRoot[#^2 - 2 &, 2*# &, {1., 2.}, "Return" -> "Value"];
+      (* Default "Return" -> "Value" should return numeric value *)
+      result = fastRoot[f1, df1, {1., 2.}];
       NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "return-value-option@@Tests/FindRootOptim/fastRootOptions.wlt:66,3-75,4"
+    TestID -> "return-value-default@@Tests/FindRootOptim/fastRootOptions.wlt:76,3-85,4"
   ],
 
   VerificationTest[
     Module[{resultRule, resultValue},
       (* Verify both forms return same numeric root *)
-      resultRule = fastRoot[Cos[#] &, -Sin[#] &, {1., 2.}, "Return" -> "Rule"];
-      resultValue = fastRoot[Cos[#] &, -Sin[#] &, {1., 2.}, "Return" -> "Value"];
+      resultRule = fastRoot[fcos, dfcos, {1., 2.}, "Return" -> "Rule"];
+      resultValue = fastRoot[fcos, dfcos, {1., 2.}, "Return" -> "Value"];
       Abs[resultRule[[1,2]] - resultValue] < 10^-8
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "return-rule-vs-value-consistency@@Tests/FindRootOptim/fastRootOptions.wlt:77,3-87,4"
+    TestID -> "return-rule-vs-value-consistency@@Tests/FindRootOptim/fastRootOptions.wlt:87,3-97,4"
   ],
 
   (* Test derivative-free overload fastRoot[f, {a,b}] with bracketed case *)
   VerificationTest[
     Module[{result},
       (* Bracketed: f[1] = -1, f[2] = 2, root at sqrt(2) *)
-      result = fastRoot[#^2 - 2 &, {1., 2.}];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 2] < 10^-6
+      result = fastRoot[f1, {1., 2.}];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-bracketed-brent@@Tests/FindRootOptim/fastRootOptions.wlt:90,3-99,4"
+    TestID -> "derivative-free-bracketed-brent@@Tests/FindRootOptim/fastRootOptions.wlt:100,3-109,4"
   ],
 
   VerificationTest[
     Module[{result},
       (* Bracketed trigonometric function *)
-      result = fastRoot[Sin[#] - 0.5 &, {0., 1.}];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[Sin[result[[1,2]]] - 0.5] < 10^-6
+      result = fastRoot[fsin, {0., 1.}];
+      NumericQ[result] && Abs[Sin[result] - 0.5] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-bracketed-trig@@Tests/FindRootOptim/fastRootOptions.wlt:101,3-110,4"
+    TestID -> "derivative-free-bracketed-trig@@Tests/FindRootOptim/fastRootOptions.wlt:111,3-120,4"
   ],
 
   (* Test derivative-free overload fastRoot[f, {a,b}] with non-bracketed case *)
   VerificationTest[
     Module[{result},
       (* Non-bracketed: both f[1.5] and f[3] are positive, should use Secant *)
-      result = fastRoot[#^2 - 4 &, {1.5, 3.}];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 4] < 10^-6
+      result = fastRoot[f2, {1.5, 3.}];
+      NumericQ[result] && Abs[result^2 - 4] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-nonbracketed-secant@@Tests/FindRootOptim/fastRootOptions.wlt:113,3-122,4"
+    TestID -> "derivative-free-nonbracketed-secant@@Tests/FindRootOptim/fastRootOptions.wlt:123,3-132,4"
   ],
 
   VerificationTest[
     Module[{result},
       (* Non-bracketed interval, both endpoints positive *)
-      result = fastRoot[Exp[#] - 3 &, {0.5, 1.5}];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[Exp[result[[1,2]]] - 3] < 10^-6
+      result = fastRoot[fexp, {0.5, 1.5}];
+      NumericQ[result] && Abs[Exp[result] - 3] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-nonbracketed-exp@@Tests/FindRootOptim/fastRootOptions.wlt:124,3-133,4"
+    TestID -> "derivative-free-nonbracketed-exp@@Tests/FindRootOptim/fastRootOptions.wlt:134,3-143,4"
   ],
 
   (* Test derivative-free with options *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[#^2 - 2 &, {1., 2.}, AccuracyGoal -> 10, PrecisionGoal -> 10];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 2] < 10^-9
+      result = fastRoot[f1, {1., 2.}, AccuracyGoal -> 10, PrecisionGoal -> 10];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-9
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-high-accuracy@@Tests/FindRootOptim/fastRootOptions.wlt:136,3-144,4"
+    TestID -> "derivative-free-high-accuracy@@Tests/FindRootOptim/fastRootOptions.wlt:146,3-154,4"
   ],
 
   (* Test failure path when FindRoot emits messages - non-numeric function values *)
-  (* Note: Using Quiet here to suppress internal FindRoot messages, not fastRoot's own messages *)
   VerificationTest[
     Module[{badF, result},
       (* Function that returns symbolic value, not numeric *)
-      badF[x_?NumericQ] := If[x < 1.5, x^2 - 2, Indeterminate];
-      result = Quiet[fastRoot[badF, 2*# &, {1., 2.}]];
+      badF[z_] := If[z[[1]] < 1.5, z[[1]]^2 - 2, Indeterminate];
+      result = Quiet[fastRoot[badF, df1, {1., 2.}]];
       result
     ],
     $Failed,
     {},
     TimeConstraint -> timeLimit,
-    TestID -> "failure-nonnumeric-function-value@@Tests/FindRootOptim/fastRootOptions.wlt:148,3-159,4"
+    TestID -> "failure-nonnumeric-function-value@@Tests/FindRootOptim/fastRootOptions.wlt:157,3-168,4"
   ],
 
   (* Test derivative-free version with valid function successfully finds root *)
   VerificationTest[
     Module[{result},
       (* Should successfully find root even without derivative *)
-      result = fastRoot[#^3 - 8 &, {1., 3.}];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^3 - 8] < 10^-6
+      result = fastRoot[fcubic, {1., 3.}];
+      NumericQ[result] && Abs[result^3 - 8] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-cubic-root@@Tests/FindRootOptim/fastRootOptions.wlt:162,3-171,4"
+    TestID -> "derivative-free-cubic-root@@Tests/FindRootOptim/fastRootOptions.wlt:171,3-180,4"
   ],
 
-  (* Test constraint a < b - reversed interval should fail pattern match *)
+  (* Test constraint a < b - reversed interval should emit badbnds message *)
   VerificationTest[
     Module[{result},
-      (* This should not match the pattern /; a < b *)
-      result = fastRoot[#^2 - 2 &, 2*# &, {2., 1.}];
+      result = fastRoot[f1, df1, {2., 1.}];
       result
     ],
-    fastRoot[#^2 - 2 &, 2*# &, {2., 1.}],
+    $Failed,
+    {fastRoot::badbnds},
     TimeConstraint -> timeLimit,
-    TestID -> "reversed-interval-no-match@@Tests/FindRootOptim/fastRootOptions.wlt:174,3-183,4"
+    TestID -> "reversed-interval-badbnds@@Tests/FindRootOptim/fastRootOptions.wlt:183,3-192,4"
   ],
 
   (* Test with both NewtonFirst and Return options combined *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[#^2 - 2 &, 2*# &, {1., 2.},
+      result = fastRoot[f1, df1, {1., 2.},
         "NewtonFirst" -> False, "Return" -> "Value"];
       NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "combined-newtonfirst-false-return-value@@Tests/FindRootOptim/fastRootOptions.wlt:186,3-195,4"
+    TestID -> "combined-newtonfirst-false-return-value@@Tests/FindRootOptim/fastRootOptions.wlt:195,3-204,4"
   ],
 
   (* Test AccuracyGoal and PrecisionGoal options *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[#^2 - 2 &, 2*# &, {1., 2.},
+      result = fastRoot[f1, df1, {1., 2.},
         AccuracyGoal -> 12, PrecisionGoal -> 12];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 2] < 10^-11
+      NumericQ[result] && Abs[result^2 - 2] < 10^-11
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "high-accuracy-precision-goals@@Tests/FindRootOptim/fastRootOptions.wlt:198,3-207,4"
+    TestID -> "high-accuracy-precision-goals@@Tests/FindRootOptim/fastRootOptions.wlt:207,3-216,4"
   ],
 
   (* Test MaxIterations option *)
   VerificationTest[
     Module[{result},
       (* With very few iterations, should still converge for simple function *)
-      result = fastRoot[#^2 - 2 &, 2*# &, {1., 2.}, MaxIterations -> 50];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 2] < 10^-6
+      result = fastRoot[f1, df1, {1., 2.}, MaxIterations -> 50];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "maxiterations-option@@Tests/FindRootOptim/fastRootOptions.wlt:210,3-219,4"
+    TestID -> "maxiterations-option@@Tests/FindRootOptim/fastRootOptions.wlt:219,3-228,4"
   ],
 
   (* Test positional accuracy argument *)
   VerificationTest[
     Module[{result},
       (* fastRoot[f, df, {a,b}, acc] signature *)
-      result = fastRoot[#^2 - 2 &, 2*# &, {1., 2.}, 10];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 2] < 10^-9
+      result = fastRoot[f1, df1, {1., 2.}, 10];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-9
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "positional-accuracy-argument@@Tests/FindRootOptim/fastRootOptions.wlt:222,3-231,4"
+    TestID -> "positional-accuracy-argument@@Tests/FindRootOptim/fastRootOptions.wlt:231,3-240,4"
   ],
 
   (* Test positional accuracy and maxiter arguments *)
   VerificationTest[
     Module[{result},
       (* fastRoot[f, df, {a,b}, acc, maxit] signature *)
-      result = fastRoot[#^2 - 2 &, 2*# &, {1., 2.}, 10, 100];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 2] < 10^-9
+      result = fastRoot[f1, df1, {1., 2.}, 10, 100];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-9
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "positional-accuracy-maxiter-arguments@@Tests/FindRootOptim/fastRootOptions.wlt:234,3-243,4"
+    TestID -> "positional-accuracy-maxiter-arguments@@Tests/FindRootOptim/fastRootOptions.wlt:243,3-252,4"
   ],
 
-  (* Test Newton fallback to Brent when derivative is unreliable *)
+  (* Test Newton fallback to default when derivative is unreliable *)
   VerificationTest[
     Module[{result, badDF},
       (* Provide incorrect derivative to force Newton to fail *)
-      badDF[x_] := 0;  (* Wrong derivative, should fallback *)
-      result = fastRoot[#^2 - 2 &, badDF, {1., 2.}];
-      (* Should still find root via Brent fallback *)
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 2] < 10^-6
+      badDF[z_] := 0;  (* Wrong derivative, should fallback *)
+      result = fastRoot[f1, badDF, {1., 2.}];
+      (* Should still find root via fallback *)
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newton-fails-fallback-to-brent@@Tests/FindRootOptim/fastRootOptions.wlt:246,3-257,4"
+    TestID -> "newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:255,3-266,4"
   ],
 
   (* Test edge case: very narrow interval *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[#^2 - 2 &, 2*# &, {1.41, 1.42}];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 2] < 10^-6
+      result = fastRoot[f1, df1, {1.41, 1.42}];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "narrow-interval-convergence@@Tests/FindRootOptim/fastRootOptions.wlt:260,3-268,4"
+    TestID -> "narrow-interval-convergence@@Tests/FindRootOptim/fastRootOptions.wlt:269,3-277,4"
   ],
 
   (* Test with WorkingPrecision option *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[#^2 - 2 &, 2*# &, {1., 2.},
+      result = fastRoot[f1, df1, {1., 2.},
         WorkingPrecision -> MachinePrecision];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 2] < 10^-6
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "workingprecision-option@@Tests/FindRootOptim/fastRootOptions.wlt:271,3-280,4"
+    TestID -> "workingprecision-option@@Tests/FindRootOptim/fastRootOptions.wlt:280,3-289,4"
   ],
 
   (* Test non-bracketed with NewtonFirst -> True (default) *)
   VerificationTest[
     Module[{result},
       (* Non-bracketed interval, Newton should try first then fallback to Secant *)
-      result = fastRoot[#^2 - 4 &, 2*# &, {1.5, 3.}, "NewtonFirst" -> True];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 4] < 10^-6
+      result = fastRoot[f2, df2, {1.5, 3.}, "NewtonFirst" -> True];
+      NumericQ[result] && Abs[result^2 - 4] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-true-nonbracketed-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:283,3-292,4"
+    TestID -> "newtonfirst-true-nonbracketed-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:292,3-301,4"
   ],
 
   (* Test that quiet computation works as expected *)
   VerificationTest[
     Module[{result},
       (* Should run successfully even when Quiet wrapped *)
-      result = Quiet[fastRoot[#^2 - 2 &, 2*# &, {1., 2.}]];
-      MatchQ[result, {_ -> _?NumericQ}]
+      result = Quiet[fastRoot[f1, df1, {1., 2.}]];
+      NumericQ[result]
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "quiet-computation-succeeds@@Tests/FindRootOptim/fastRootOptions.wlt:295,3-304,4"
+    TestID -> "quiet-computation-succeeds@@Tests/FindRootOptim/fastRootOptions.wlt:304,3-313,4"
   ],
 
   (* Test edge case: root at interval boundary *)
   VerificationTest[
     Module[{result},
       (* Root is at x=2, test with interval [1,2] *)
-      result = fastRoot[#^2 - 4 &, 2*# &, {1., 2.}];
-      MatchQ[result, {_ -> _?NumericQ}] && Abs[(result[[1,2]])^2 - 4] < 10^-6
+      result = fastRoot[f2, df2, {1., 2.}];
+      NumericQ[result] && Abs[result^2 - 4] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "root-at-boundary@@Tests/FindRootOptim/fastRootOptions.wlt:307,3-316,4"
+    TestID -> "root-at-boundary@@Tests/FindRootOptim/fastRootOptions.wlt:316,3-325,4"
   ]
 };
 

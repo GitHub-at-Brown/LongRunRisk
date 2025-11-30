@@ -1,4 +1,3 @@
-Print["Starting FindRootOptim.wlt"];
 Module[{testDir, binaryFile, sourceFile, loadStart, loadEnd, isCI},
   testDir = DirectoryName[$InputFileName];
   binaryFile = FileNameJoin[{testDir, "TestData.mx"}];
@@ -40,8 +39,6 @@ Module[{testDir, binaryFile, sourceFile, loadStart, loadEnd, isCI},
   ];
 
   On[General::shdw];
-Print["Module finished"];
-Print["Context of buildKernel inside wlt: ", Context[buildKernel]];
 ];
 
 (* Prefer exported extractIntervalsFromReduce; fall back to Private if needed *)
@@ -62,12 +59,7 @@ tolSameTest = Function[{actual, expected},
 ];
 timeLimit = 60;
 
-Print["Heads: ", {Head[exprAB], Head[{B[1][0]}], Head[paramAB]}];
-Print["Options[buildKernel]: ", Options[buildKernel]];
-Print["Test call buildKernel: ", buildKernel[1, {x}, {}]];
-
-Print["Returning tests list"];
-tests = {
+{
   (* Test that A[0] coefficient is found and matches expected value *)
   VerificationTest[
     solNA0,
@@ -217,6 +209,6 @@ tests = {
     TimeConstraint -> timeLimit,
     TestID -> "buildKernel-structure-check@@Tests/FindRootOptim/FindRootOptim.wlt:202,3-213,4"
   ]
-};
-Print["Tests list length: ", Length[tests]];
-tests
+
+  (* FunctionCompile compilation functionality validated via buildKernel structure test *)
+}

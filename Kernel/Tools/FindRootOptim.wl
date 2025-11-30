@@ -30,6 +30,10 @@ findRootInterval::usage  = "findRootInterval[conds, paramValues, signs] determin
 extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.";
 scanAndSolve::usage = "scanAndSolve[f, {min, max}] finds roots of f[x] in the range by grid subdivision.\nscanAndSolve[f, df, {min, max}] uses derivative df for Newton steps.";
 fastRoot::usage = "fastRoot[f, df, {a, b}] finds a root using a hybrid Newton/Brent/Secant strategy.";
+fastRoot::cvmit = "Failed to converge within `1` iterations starting from x0=`2` in bounds [`3`, `4`].";
+fastRoot::nnum = "Function returned non-numeric value `1` at x=`2`.";
+fastRoot::nobnd = "No bounds specified and FindRoot failed from x0=`1`.";
+fastRoot::badbnds = "Invalid bounds: lower bound `1` must be less than upper bound `2`.";
 
 
 (* ::Section:: *)
@@ -115,9 +119,10 @@ buildKernel[
 
     {fC,dfC}=Module[
 	    {inferType},
+	    (* Infer type by checking if expression is a list structure *)
 	    inferType[e_]:=With[
 		    {
-			    rank=ArrayDepth[e]
+			    rank=If[ListQ[e], ArrayDepth[e], 0]
 		    },
 		    If[rank==0,"Real64",TypeSpecifier["PackedArray"]["Real64",rank]]
 		];
@@ -130,6 +135,7 @@ buildKernel[
 				],
 				b=body,
 				db=dbody,
+				bType=inferType[body],
 				dbType=inferType[dbody]
 			},
 			{
@@ -186,11 +192,16 @@ bindUnary[
     ];
     Developer`ToPackedArray @ Round @ signs[[idx]]
   ];
-
-  {
-    Function[{z}, k["fC"][Sequence @@ Join[z, a, s]]],
-    Function[{z}, k["dfC"][Sequence @@ Join[z, a, s]]]
-  }
+  
+  With[
+	  {
+		  kfC=k["fC"],kdfC=k["dfC"],suffix=Join[a,s]
+	  },
+	  {
+		  Function[{z},kfC[Sequence@@Join[Flatten@{z},suffix]]],
+		  Function[{z},kdfC[Sequence@@Join[Flatten@{z},suffix]]]
+	  }
+   ]
 ];
 
 
@@ -277,110 +288,260 @@ findRootInterval[
 
 fastRoot//Options = {
   "NewtonFirst" -> True,          (* try Newton with df before fallback *)
-  "Return" -> "Value",             (* "Rule" | "Value" *)
-  "SecantBlend" -> 0.5,           (* in Newton: starting point is lambda*secant+(1-lambda)*midpoint*) (*in Secant: starting secant is lambda*lb+(1-lambda)*x0 and lambda*ub+(1-lambda)*x0*) 
-  "FindRootOptions" -> Function[
-	  {x, lb, ub},
-	  {
-		  AccuracyGoal -> 8,
-		  PrecisionGoal -> 8,
-		  StepMonitor :> (x = Clip[x, {lb, ub}]) (*prevent evaluation outside interval [lb,ub] by clipping, disable with StepMonitor -> None*)
-	  }
-  ]
+  "Return" -> "Value",            (* "Rule" | "Value" *)
+  "SecantBlend" -> 0.5,           (* blending factor for initial guess *)
+  "FindRootOptions" -> Automatic, (* constructed dynamically based on dimensionality *)
+  (* Standard FindRoot options passed through *)
+  AccuracyGoal -> Automatic,
+  PrecisionGoal -> Automatic,
+  MaxIterations -> Automatic,
+  WorkingPrecision -> Automatic,
+  StepMonitor -> None,
+  EvaluationMonitor -> None,
+  Method -> Automatic,
+  Jacobian -> Automatic
 };
 
 
-(*explicit f, df*)
-fastRoot[
-	f_,
-	df_,
-	{a_?NumericQ, b_?NumericQ},
-	opts : OptionsPattern[{fastRoot, FindRoot}]
-] /; a < b := With[
-  {
-    newtonFirst = OptionValue["NewtonFirst"],
-    ret = OptionValue["Return"],
-    lambda = N[OptionValue["SecantBlend"]],
-    frSpec = OptionValue["FindRootOptions"],
-    var = Unique["x"]
-  },
-	With[
-		{
-			frOpts = If[Head[frSpec] === Function, frSpec[var, a, b], frSpec]
-		},
-		With[
-			{
-				findRootOpts = DeleteDuplicatesBy[
-			      Flatten[{
-			        Evaluate @ FilterRules[Flatten@{opts}, Options[FindRoot]],
-			        Evaluate @ frOpts
-			      }],
-			      First
-			    ]
-		    },
-			Module[{fnum, dfnum, fa, fb, x0, res, newtonRes},
-						
-			    (* numeric-only wrappers *)
-			    fnum[x_?NumericQ]  := f[x];
-			    dfnum[x_?NumericQ] := df[x];
-			    fa = fnum[N@a]; fb = fnum[N@b];
-			    If[!(NumericQ[fa] && NumericQ[fb]), Return[$Failed]];
-				x0 = If[
-					Abs[fb - fa] > 1.0*^-10,
-					(1.-lambda)*(a+b)/2.+lambda*(a-fa*(b-a)/(fb-fa)),(* blended secant-midpoint *)
-					(a + b)/2.(* else midpoint *)
-				]; 
-				
-			    (* Newton attempt using derivative *)
-			    newtonRes = If[TrueQ@newtonFirst && (df=!=None),
-			      Quiet@Check[
-					 FindRoot[
-					   fnum[var] == 0.,
-					   {var, x0, a, b},
-					   Method -> "Newton",
-					   Jacobian -> {{dfnum[var]}},
-					   Evaluate[Sequence @@ findRootOpts]
-					 ],
-					 Failure["fastRootNewton", <|"Stage"->"Newton"|"Brent"|"Secant", "x0"->x0, "fa"->fa, "fb"->fb, "Bracket"->{a,b}|>]
-			      ],(*Check*)
-			      $Failed
-			    ];(*If*)
-			
-			    (* Fallback: Brent if bracketed; otherwise Secant *)
-			    res = If[!FailureQ[newtonRes] && newtonRes =!= $Failed, newtonRes,
-			      Quiet@Check[
-			        If[Sign[fa] =!= Sign[fb],
-			          FindRoot[
-			            fnum[var] == 0., {var, a, b},
-			            Method -> "Brent",
-			            Evaluate[Sequence @@ findRootOpts]
-			          ],
-			          FindRoot[
-			            fnum[var] == 0., {var, lambda*a+(1-lambda)*x0, lambda*b+(1-lambda)*x0},
-			            Method -> "Secant",
-			            Evaluate[Sequence @@ findRootOpts]
-			          ]
-			        ],
-			        Failure["fastRootNotNewton", <|"Stage"->If[Sign[fa] =!= Sign[fb],"Brent","Secant"], "fa"->fa, "fb"->fb, "Bracket"->{a,b}|>]
-			      ]
-			    ];
-			
-			    If[res === $Failed || FailureQ[res], $Failed, If[ret === "Value", var /. res, res]]
-			](*Module*)
-		](*With*)
-	](*With*)
-];(*With*)
+scalarOrVectorQ[x_] := NumericQ[x] || VectorQ[x, NumericQ];
 
-(*positional convenience, same as before*)
+
+(* Construct FindRoot options with proper StepMonitor for 1D vs nD *)
+makeFindRootOptions[var_, None, None] := {AccuracyGoal -> 8, PrecisionGoal -> 8};
+
+makeFindRootOptions[var_, a_?NumericQ, b_?NumericQ] := {
+  AccuracyGoal -> 8,
+  PrecisionGoal -> 8,
+  StepMonitor :> (var = Clip[var, {a, b}])
+};
+
+makeFindRootOptions[var_, a_?(VectorQ[#, NumericQ]&), b_?(VectorQ[#, NumericQ]&)] := {
+  AccuracyGoal -> 8,
+  PrecisionGoal -> 8,
+  StepMonitor :> (var = MapThread[Clip[#1, {#2, #3}] &, {var, a, b}])
+};
+
+
+(* Entry point 1: 1D bounds {a, b} - both scalars *)
+fastRoot[f_, df_, {a_?NumericQ, b_?NumericQ}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; (b > a) :=
+  Module[{x0, fa, fb, lambda = N[OptionValue["SecantBlend"]]},
+    fa = f[{N@a}];
+    fb = f[{N@b}];
+    If[!NumericQ[fa], Message[fastRoot::nnum, Short[fa], a]; Return[$Failed]];
+    If[!NumericQ[fb], Message[fastRoot::nnum, Short[fb], b]; Return[$Failed]];
+    x0 = If[
+      Abs[fb - fa] > 1.0*^-10,
+      Clip[(1. - lambda) * (a + b)/2. + lambda * (a - fa * (b - a)/(fb - fa)), {a, b}],
+      (a + b)/2.
+    ];
+    fastRootCore[f, df, x0, a, b, opts]
+  ];
+
+(* Catch reversed 1D bounds - must come before nD x0 pattern *)
+fastRoot[f_, df_, {a_?NumericQ, b_?NumericQ}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; (b <= a) :=
+  (Message[fastRoot::badbnds, a, b]; $Failed);
+
+
+(* Entry point 2: nD bounds {a, b} - both numeric vectors of same length *)
+(* Component-wise secant blend, falling back to midpoint where fb-fa is too small *)
+fastRoot[f_, df_, {a_?(VectorQ[#, NumericQ]&), b_?(VectorQ[#, NumericQ]&)}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; (Length[a] == Length[b] && Min[b - a] > 0) :=
+  Module[{x0, fa, fb, lambda = N[OptionValue["SecantBlend"]], aN, bN},
+    aN = N[a]; bN = N[b];
+    fa = f[aN];
+    fb = f[bN];
+    If[!AllTrue[Flatten[{fa}], NumericQ], Message[fastRoot::nnum, Short[fa], Short[a]]; Return[$Failed]];
+    If[!AllTrue[Flatten[{fb}], NumericQ], Message[fastRoot::nnum, Short[fb], Short[b]]; Return[$Failed]];
+    (* Component-wise: use secant blend if |fb-fa| > tol, else midpoint *)
+    x0 = MapThread[
+      Module[{diff = #2 - #1, mid = (#3 + #4)/2.},
+        If[Abs[diff] > 1.0*^-10,
+          Clip[(1. - lambda) * mid + lambda * (#3 - #1 * (#4 - #3) / diff), {#3, #4}],
+          mid
+        ]
+      ] &,
+      {fa, fb, aN, bN}
+    ];
+    fastRootCore[f, df, x0, aN, bN, opts]
+  ];
+
+
+(* Entry point 3: 1D full spec {x0, a, b} - all scalars *)
+fastRoot[f_, df_, {x0_?NumericQ, a_?NumericQ, b_?NumericQ}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; (b > a) :=
+  fastRootCore[f, df, x0, a, b, opts];
+
+
+(* Entry point 4: nD full spec {x0, a, b} - all numeric vectors of same length *)
+fastRoot[f_, df_, {x0_?(VectorQ[#, NumericQ]&), a_?(VectorQ[#, NumericQ]&), b_?(VectorQ[#, NumericQ]&)}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; (Length[x0] == Length[a] == Length[b] && Min[b - a] > 0) :=
+  fastRootCore[f, df, x0, a, b, opts];
+
+
+(* Entry point 5: x0 only - scalar (1D) *)
+fastRoot[f_, df_, x0_?NumericQ, opts : OptionsPattern[{fastRoot, FindRoot}]] :=
+  fastRootCore[f, df, x0, None, None, opts];
+
+
+(* Entry point 6: x0 only - numeric vector (nD) *)
+fastRoot[f_, df_, x0_?(VectorQ[#, NumericQ]&), opts : OptionsPattern[{fastRoot, FindRoot}]] :=
+  fastRootCore[f, df, x0, None, None, opts];
+
+
+(* Core implementation handling both 1D and nD *)
+fastRootCore[f_, df_, x0_, lb_, ub_, opts : OptionsPattern[{fastRoot, FindRoot}]] :=
+With[{
+  newtonFirst = OptionValue[fastRoot, {opts}, "NewtonFirst"],
+  ret = OptionValue[fastRoot, {opts}, "Return"],
+  frSpec = OptionValue[fastRoot, {opts}, "FindRootOptions"],
+  lambda = OptionValue[fastRoot, {opts}, "SecantBlend"]
+},
+  Module[{var, dim, vars, frOpts, findRootOpts, spec, newtonRes, res, jac, fTest, maxIter, fa, fb},
+
+    (* Determine dimensionality from x0 *)
+    dim = If[NumericQ[x0], 1, Length[x0]];
+    vars = If[dim == 1, {Unique["x"]}, Table[Unique["x"], dim]];
+    var = If[dim == 1, vars[[1]], vars];
+
+    (* Early check: verify function returns numeric values at x0 *)
+    fTest = f[If[dim == 1, {x0}, x0]];
+    If[!AllTrue[Flatten[{fTest}], NumericQ],
+      Message[fastRoot::nnum, Short[fTest], Short[x0]];
+      Return[$Failed]
+    ];
+
+    (* For 1D with bounds, get function values at boundaries for Brent/Secant decision *)
+    If[dim == 1 && lb =!= None,
+      fa = f[{N@lb}];
+      fb = f[{N@ub}];
+    ];
+
+    (* Build FindRoot options with proper StepMonitor *)
+    frOpts = If[frSpec === Automatic,
+      makeFindRootOptions[var, lb, ub],
+      If[Head[frSpec] === Function, frSpec[var, lb, ub], frSpec]
+    ];
+
+    findRootOpts = DeleteDuplicatesBy[
+      Flatten[{FilterRules[Flatten@{opts}, Options[FindRoot]], frOpts}],
+      First
+    ];
+
+    maxIter = MaxIterations /. findRootOpts /. MaxIterations -> 100;
+
+    (* Build variable spec for FindRoot *)
+    spec = If[dim == 1,
+      If[lb === None, {var, x0}, {var, x0, lb, ub}],
+      (* nD: build {{x1, x01, a1, b1}, ...} or {{x1, x01}, ...} *)
+      If[lb === None,
+        MapThread[{#1, #2} &, {vars, x0}],
+        MapThread[{#1, #2, #3, #4} &, {vars, x0, lb, ub}]
+      ]
+    ];
+
+    (* Build Jacobian for Newton *)
+    jac = If[df =!= None && dim == 1,
+      {{df[{var}]}},
+      If[df =!= None, df[vars], None]  (* nD: df returns Jacobian matrix *)
+    ];
+
+    (* Newton attempt - use With to inject evaluated values into FindRoot's held arguments *)
+    newtonRes = If[TrueQ@newtonFirst && df =!= None,
+      With[{s = spec, j = jac, fo = findRootOpts, eq1d = f[{var}] == 0., eqNd = Thread[f[vars] == 0.]},
+        Quiet@Check[
+          If[dim == 1,
+            FindRoot[eq1d, s, Method -> "Newton", Jacobian -> j, Evaluate[Sequence @@ fo]],
+            FindRoot[eqNd, s, Method -> "Newton", Jacobian :> j, Evaluate[Sequence @@ fo]]
+          ],
+          $Failed
+        ]
+      ],
+      $Failed
+    ];
+
+    (* Fallback strategy *)
+    res = If[!FailureQ[newtonRes] && newtonRes =!= $Failed,
+      newtonRes,
+      (* 1D with bounds: Brent if bracketed, Secant otherwise *)
+      If[dim == 1 && lb =!= None,
+        Module[{fnum, frOptsBrent},
+          (* Numeric wrapper to prevent symbolic evaluation *)
+          fnum[v_?NumericQ] := f[{v}];
+          (* For Brent/Secant fallback, use simpler options without StepMonitor
+             since these methods handle bounds internally *)
+          frOptsBrent = DeleteCases[findRootOpts, HoldPattern[StepMonitor -> _] | HoldPattern[StepMonitor :> _]];
+          If[Sign[fa] =!= Sign[fb],
+            (* Bracketed: use Brent *)
+            Quiet@Check[
+              FindRoot[fnum[var] == 0., {var, lb, ub}, Method -> "Brent",
+                Evaluate[Sequence @@ frOptsBrent]],
+              $Failed
+            ],
+            (* Not bracketed: use Secant with blended starting points *)
+            Quiet@Check[
+              FindRoot[fnum[var] == 0., {var, lambda*lb + (1-lambda)*x0, lambda*ub + (1-lambda)*x0},
+                Method -> "Secant", Evaluate[Sequence @@ frOptsBrent]],
+              $Failed
+            ]
+          ]
+        ],
+        (* nD or no bounds: use default method *)
+        With[{s = spec, fo = findRootOpts, eq1d = f[{var}] == 0., eqNd = Thread[f[vars] == 0.]},
+          Quiet@Check[
+            If[dim == 1,
+              FindRoot[eq1d, s, Evaluate[Sequence @@ fo]],
+              FindRoot[eqNd, s, Evaluate[Sequence @@ fo]]
+            ],
+            $Failed
+          ]
+        ]
+      ]
+    ];
+
+    (* Return result with informative message on failure *)
+    If[res === $Failed || FailureQ[res],
+      If[lb === None,
+        Message[fastRoot::nobnd, Short[x0]],
+        Message[fastRoot::cvmit, maxIter, Short[x0], Short[lb], Short[ub]]
+      ];
+      $Failed,
+      If[ret === "Value", var /. res, res]
+    ]
+  ]
+];
+
+
+(* Positional convenience overloads *)
 fastRoot[f_, df_, {a_?NumericQ, b_?NumericQ}, acc_Integer?NonNegative] :=
   fastRoot[f, df, {a, b}, AccuracyGoal -> acc, PrecisionGoal -> acc];
 
 fastRoot[f_, df_, {a_?NumericQ, b_?NumericQ}, acc_Integer?NonNegative, maxit_Integer?Positive] :=
   fastRoot[f, df, {a, b}, AccuracyGoal -> acc, PrecisionGoal -> acc, MaxIterations -> maxit];
 
-(*optional: bracket-only version without df*)
-fastRoot[f_, {a_?NumericQ, b_?NumericQ}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; a < b := 
-	fastRoot[f, None, {a, b}, opts]; 
+
+(* No-derivative versions: 1D bounds *)
+fastRoot[f_, {a_?NumericQ, b_?NumericQ}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; (b > a) :=
+  fastRoot[f, None, {a, b}, opts];
+
+fastRoot[f_, {a_?NumericQ, b_?NumericQ}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; (b <= a) :=
+  (Message[fastRoot::badbnds, a, b]; $Failed);
+
+(* No-derivative versions: nD bounds *)
+fastRoot[f_, {a_?(VectorQ[#, NumericQ]&), b_?(VectorQ[#, NumericQ]&)}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; (Length[a] == Length[b] && Min[b - a] > 0) :=
+  fastRoot[f, None, {a, b}, opts];
+
+(* No-derivative versions: 1D full spec *)
+fastRoot[f_, {x0_?NumericQ, a_?NumericQ, b_?NumericQ}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; (b > a) :=
+  fastRoot[f, None, {x0, a, b}, opts];
+
+(* No-derivative versions: nD full spec *)
+fastRoot[f_, {x0_?(VectorQ[#, NumericQ]&), a_?(VectorQ[#, NumericQ]&), b_?(VectorQ[#, NumericQ]&)}, opts : OptionsPattern[{fastRoot, FindRoot}]] /; (Length[x0] == Length[a] == Length[b] && Min[b - a] > 0) :=
+  fastRoot[f, None, {x0, a, b}, opts];
+
+(* No-derivative versions: x0 only - scalar *)
+fastRoot[f_, x0_?NumericQ, opts : OptionsPattern[{fastRoot, FindRoot}]] :=
+  fastRoot[f, None, x0, opts];
+
+(* No-derivative versions: x0 only - vector *)
+fastRoot[f_, x0_?(VectorQ[#, NumericQ]&), opts : OptionsPattern[{fastRoot, FindRoot}]] :=
+  fastRoot[f, None, x0, opts]; 
 
 
 (* ::Subsection:: *)
