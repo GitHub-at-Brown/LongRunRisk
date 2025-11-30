@@ -38,7 +38,7 @@ Module[{start, d, pacletRoot, resourcesDir, modelsFile, modelsData},
     {model, kernelData},
     model = FernandoDuarte`LongRunRisk`Models[modelKey];
     kernelData = loadModelKernels[model];
-    <|"Model" -> model, "WcKernel" -> kernelData["wc"], "PdKernel" -> kernelData["pd"]|>
+    <|"Model" -> model, "WcKernel" -> kernelData["kernels"]["A"], "PdKernel" -> kernelData["kernels"]["B"]|>
   ];
 
   (* Bind private functions *)

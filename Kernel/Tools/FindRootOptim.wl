@@ -135,7 +135,7 @@ buildKernel[
     compileOpts = Join[
       FilterRules[{opts}, Options[FunctionCompile]],
       If[perfGoal === "Speed",
-        {CompilationTarget -> "WVM", CompilationOptions -> {"OptimizationLevel" -> 0}},
+        {CompilerOptions -> {"AbortHandling" -> False, "OptimizationLevel" -> 0}},
         {}
       ]
     ];

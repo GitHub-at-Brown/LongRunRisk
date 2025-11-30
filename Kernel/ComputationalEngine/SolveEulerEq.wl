@@ -83,10 +83,7 @@ loadModelKernels[shortname_String] := Module[
   ];
 
   (* Load the file *)
-  Block[{FernandoDuarte`LongRunRisk`Private`$kernelExport},
-    Get[file];
-    data = FernandoDuarte`LongRunRisk`Private`$kernelExport;
-  ];
+  data = Import[file, "MX"];
 
   (* Warn if SystemID mismatch *)
   If[KeyExistsQ[data, "meta"] && data["meta"]["SystemID"] =!= $SystemID,

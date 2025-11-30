@@ -858,8 +858,7 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { buildKe
 
                         (* Check if we can skip compilation *)
                         If[FileExistsQ[file],
-                            Quiet[Get[file]];
-                            savedData = FernandoDuarte`LongRunRisk`Private`$kernelExport;
+                            savedData = Quiet[Import[file, "MX"]];
                             If[AssociationQ[savedData] && KeyExistsQ[savedData, "meta"],
                                 savedHash = savedData["meta"]["Hash"];
                                 savedSystemID = savedData["meta"]["SystemID"];
@@ -883,28 +882,19 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { buildKe
                                 "SignSymbol" -> eqMap[eq]["SignSymbol"],
                                 Sequence @@ buildKernelOpts
                             ],
-                            {eq, Keys @ eqMap}
+                            {eq, Keys @ eqMap }
                         ];
 
                         (* Save all kernels to single file *)
-                        With[
-                            {
-                                data = <|
-                                    "wc" -> kernels["A"],
-                                    "pd" -> kernels["B"],
-                                    "pdFromA0" -> kernels["AB"],
-                                    "meta" -> <|
-                                        "Version" -> $Version,
-                                        "SystemID" -> $SystemID,
-                                        "Date" -> DateString[],
-                                        "Hash" -> currentHash
-                                    |>
-                                |>
-                            },
-                            Block[{FernandoDuarte`LongRunRisk`Private`$kernelExport = data},
-                                DumpSave[file, FernandoDuarte`LongRunRisk`Private`$kernelExport]
-                            ]
-                        ]
+                        Export[file, <|
+                            "kernels" -> kernels,
+                            "meta" -> <|
+                                "Version" -> $Version,
+                                "SystemID" -> $SystemID,
+                                "Date" -> DateString[],
+                                "Hash" -> currentHash
+                            |>
+                        |>, "MX"]
                     ](*Module*)
                 ](*With*)
                 ](*With*)
