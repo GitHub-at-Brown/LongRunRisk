@@ -536,23 +536,23 @@ solveCoeffRoots[
       quadSol     = model["coeffsParamQuadSolve"][coeffKey]
     },
     With[
-        {
-          paramsBase = (Association @ paramsRules) //. paramsRules // N,
-          coefList   = coeffsSys[[2]],
-          coefName   = First @ coeffsSys[[2]],
-          conds      = quadSol["Conditions"]
-        },
+      {
+        paramsBase = (Association @ paramsRules) //. paramsRules // N,
+        coefList   = savedKernel["Vars"],
+        coefName   = First @ coeffsSys[[2]],
+        conds      = quadSol["Conditions"]
+      },
       With[
         {
           paramsAll = Join[
-		    paramsBase,
-		    extraParams,
-		    (*if j not present as Key in extraParams add j->1 with j extracted from coefName*)
-		    Association @ If[
-		      AnyTrue[Keys[extraParams], MatchQ[Replace[#, s_Symbol :> SymbolName[s]], "i" | "j"] &],
-		      {},
-		      Cases[coefName, s_Symbol /; MemberQ[{"i", "j"}, SymbolName[s]] :> (s -> 1), {2}, Heads -> True]
-		    ]
+            paramsBase,
+            extraParams,
+            (* if j not present as Key in extraParams add j->1 with j extracted from coefName *)
+            Association @ If[
+              AnyTrue[Keys[extraParams], MatchQ[Replace[#, s_Symbol :> SymbolName[s]], "i" | "j"] &],
+              {},
+              Cases[coefName, s_Symbol /; MemberQ[{"i", "j"}, SymbolName[s]] :> (s -> 1), {2}, Heads -> True]
+            ]
           ],
           cName       = Lookup[savedKernel, "CoeffName", If[coeffKey === "wc", "A", "B"]],
           sName       = Lookup[savedKernel, "SignSymbol", If[coeffKey === "wc", "signA", "signB"]],
@@ -572,15 +572,14 @@ solveCoeffRoots[
           intervals  = extractIntervalsFromReduce[reduceExpr, coefList, Sequence @@ extractOpts];
 
           If[Length[coefList] == 1,
-            (* 1D: use existing scanAndSolve path *)
-            roots = (scanAndSolve[f, df, #, Sequence @@ scanOpts] & /@ intervals),
+            (* 1D: use existing scanAndSolve path, ensure scalar output *)
+            roots = (scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals),
             (* nD: build vector bounds and run fastRoot directly *)
             roots = Map[
               Function[{iv},
-                Module[{a = iv[[1]], b = iv[[2]], x0, fastOpts},
+                Module[{a = iv[[1]], b = iv[[2]], x0},
                   x0 = Join[{Mean[{a[[1]], b[[1]]}]}, ConstantArray[0., Length[coefList] - 1]];
-                  fastOpts = FilterRules[scanOpts, Join[Options[fastRoot], Options[FindRoot]]];
-                  fastRoot[f, df, {x0, a, b}, Sequence @@ fastOpts]
+                  {fastRoot[f, df, {x0, a, b}, Sequence @@ scanOpts]}
                 ]
               ],
               intervals
@@ -594,11 +593,11 @@ solveCoeffRoots[
           (* rest of the coefficients with all parameters substituted *)
           sol        = quadSol["Solution"] //. paramsAll //. signsRule ;
 
-		  (* rule to substitute stock index if present *)
-(*		  jRule = First[
-		     KeySelect[paramsAll, MatchQ[Replace[#, s_Symbol :> SymbolName[s]], "i" | "j"] &],
-		     <||>
-		  ];*)
+          (* rule to substitute stock index if present *)
+          (* jRule = First[
+               KeySelect[paramsAll, MatchQ[Replace[#, s_Symbol :> SymbolName[s]], "i" | "j"] &],
+               <||>
+             ]; *)
   
           (* Create rules for the root variable (e.g. B[1][0] -> value) *)
           sol0Rules  = Map[Thread[(coefList /. paramsAll(*jRule*)) -> #] &, roots, {2}];
