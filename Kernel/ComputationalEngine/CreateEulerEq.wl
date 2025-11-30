@@ -68,7 +68,7 @@ niceEulerEq::timevars =
 
 niceEulerEq::statevars =
   "Solution not found: state variables `1` found in Euler equation \
-coefficients. Try different stateVars for model `2` in \
+coefficients. Consider including additional or different state variables for model `2` in \
 Kernel/Model/Catalog.wl.";
 
 

@@ -167,7 +167,6 @@ processModels[
 		"toStateVars" -> addToStateVars[#]
 	]& /@ models;
 
-	
 	(*add unconditional moments of state variables*)
 	maxMomentOrder=4;(*4;*)
 	maxSolveTime = 2;(*20;*) (*try Solve for maxSolveTime seconds before switching to solveSystemRecursively*)
@@ -193,7 +192,6 @@ processModels[
 		"uncondE"
 	];
 	
-
 	(*add Euler equations*)
 	models = EchoTiming[
 		Append[
@@ -234,10 +232,10 @@ processModels[
 				FileNameJoin @ { DirectoryName[ $InputFileName, 3 ], "Resources" }
 			]
 		];
-		Echo[resourcesDir,"resourcesDir"];
+	Echo[resourcesDir,"resourcesDir"];
 	resourcesCompiledDir = FileNameJoin @ { resourcesDir, "CompiledFunctions"};
-		Echo[resourcesCompiledDir,"resourcesCompiledDir"];
-	createCompiledEq[#, resourcesCompiledDir]&/@models;
+	Echo[resourcesCompiledDir,"resourcesCompiledDir"];
+	createCompiledEq[#, resourcesCompiledDir, PerformanceGoal->"Speed", ProgressReporting->True]&/@models;
 	
 	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
 	models = EchoTiming[
@@ -768,13 +766,13 @@ tryTransforms[
 (*createCompiledEq*)
 
 
-createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { buildKernel } ] ] := 
+createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { buildKernel, FunctionCompile } ] ] := 
     With[
         {
             quadSol = model[ "coeffsParamQuadSolve" ],
             modelParamsKeys = Keys @ model[ "params" ],
             shortname = model[ "shortname" ],
-            buildKernelOpts = Evaluate @ FilterRules[ Flatten @ { opts }, Options @ buildKernel ],
+            buildKernelOpts = Evaluate @ FilterRules[ Flatten @ { opts }, Join[Options @ buildKernel, Options @ FunctionCompile] ],
             coeffsSystem = model[ "coeffsSystem" ]
         },
         With[
@@ -813,7 +811,7 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { buildKe
                     {
                         eqMap = <|
                             "A" -> <|
-                                "Expr" ->  Map[ (Subtract @@ #)&, quadSolWc[ "eqA0" ] ],
+                                "Expr" ->  Map[ If[Head[#]===Equal, If[Length[#]==2, Subtract @@ #, Print["Error: Equal with != 2 args in A: ", #]; #], #]&, quadSolWc[ "eqA0" ] ],
                                 "Vars" -> wcVars,
                                 "Params" -> paramsA,
                                 "CoeffName" -> wcCoeffName,
@@ -824,7 +822,7 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { buildKe
                                 ]
                             |>,
                             "B" -> <|
-                                "Expr" -> Map[ (Subtract @@ #)&, quadSolPd[ "eqB0" ] ],
+                                "Expr" -> Map[ If[Head[#]===Equal, If[Length[#]==2, Subtract @@ #, Print["Error: Equal with != 2 args in B: ", #]; #], #]&, quadSolPd[ "eqB0" ] ],
                                 "Vars" -> pdVars,
                                 "Params" -> Join[ paramsA, paramsStocks, wcCoeffs ],
                                 "CoeffName" -> pdCoeffName,
@@ -835,7 +833,7 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { buildKe
                                 ]
                             |>,
                             "AB" -> <|
-                                "Expr" -> Map[ (Subtract @@ #)&, quadSolPd[ "eqAB0" ] ],
+                                "Expr" -> Map[ If[Head[#]===Equal, If[Length[#]==2, Subtract @@ #, Print["Error: Equal with != 2 args in AB: ", #]; #], #]&, quadSolPd[ "eqAB0" ] ],
                                 "Vars" -> pdVars,
                                 "Params" -> Join[ paramsA, paramsStocks, { First @ wcCoeffs }, wcSignRootMap ],
                                 "CoeffName" -> pdCoeffName,
@@ -867,14 +865,16 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { buildKe
                                 savedSystemID = savedData["meta"]["SystemID"];
                                 
                                 If[savedHash === currentHash && savedSystemID === $SystemID,
+                                    Print["Cache hit for model ", shortname, "; skipping compilation."];
                                     (* Cache hit: do nothing *)
                                     Return[file]
                                 ]
                             ]
                         ];
-
-                        (* Cache miss: compile and save *)
-                        kernels = Association @ Table[
+                        
+				    Print["Compiling model ", shortname, "; this may take a long time."];
+				    
+				    kernels = Association @ Table[
                             eq -> buildKernel[
                                 eqMap[eq]["Expr"],
                                 eqMap[eq]["Vars"],

@@ -26,7 +26,7 @@ fastRoot
 buildKernel::usage = "buildKernel[expr, vars, params] compiles expr into a kernel optimized for root-finding.
 vars: the coefficient variables (e.g., {A[0]}) to solve for.
 params: the parameter symbols present in expr.
-Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\").
+Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"PerformanceGoal\" (\"Quality\" | \"Speed\"; Speed uses WVM with OptimizationLevel 0).
 Returns an Association with keys: \"fC\", \"dfC\", \"Vars\", \"ParamOrder\", \"SignIndex\", \"CoeffName\", \"SignSymbol\".";
 bindUnary::usage   = "bindUnary[kernel, paramValues, signs] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.";
 bindUnary::insufficientsigns = "Expected at least `1` sign values, but got `2`.";
@@ -62,7 +62,8 @@ Begin["`Private`"];
 
 buildKernel//Options = {
 	"CoeffName" -> "A",
-	"SignSymbol" -> "signA"
+	"SignSymbol" -> "signA",
+	"PerformanceGoal" -> "Quality"
 };
 
 buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
@@ -74,14 +75,15 @@ buildKernel[
 	expr_,
 	vars_List,
 	params_List,
-	opts : OptionsPattern[{buildKernel}]
+	opts : OptionsPattern[{buildKernel, FunctionCompile}]
 ] := With[
   {
     coeffName = OptionValue["CoeffName"],
-    signSym = OptionValue["SignSymbol"]
+    signSym = OptionValue["SignSymbol"],
+    perfGoal = OptionValue["PerformanceGoal"]
   },
   Module[
-    {ex0, z, zRules, idx, pSyms, sSyms, body, dbody, fC, dfC, nP, nS, signHead},
+    {ex0, z, zRules, idx, pSyms, sSyms, body, dbody, fC, dfC, nP, nS, signHead, compileOpts},
 
     ex0 = normalizeExp[expr];
 
@@ -130,6 +132,14 @@ buildKernel[
     body  = N[body, MachinePrecision];
     dbody = N[D[body, {z}], MachinePrecision]; (*jacobian*)
 
+    compileOpts = Join[
+      FilterRules[{opts}, Options[FunctionCompile]],
+      If[perfGoal === "Speed",
+        {CompilationTarget -> "WVM", CompilationOptions -> {"OptimizationLevel" -> 0}},
+        {}
+      ]
+    ];
+
     {fC,dfC}=Module[
 	    {inferType},
 	    (* Infer type by checking if expression is a list structure *)
@@ -151,16 +161,18 @@ buildKernel[
 				bType=inferType[body],
 				dbType=inferType[dbody]
 			},
+			Echo[bType,"bType"];
+			Echo[dbType,"dbType"];
 			{
 				FunctionCompile[
-					Function[Evaluate@args,TypeHint[b,bType]],
+					Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
 					CompilerRuntimeErrorAction->"Evaluate",
-					ProgressReporting->False
+					Sequence@@compileOpts
 				],
 				FunctionCompile[
-					Function[Evaluate@args,TypeHint[db,dbType]],
+					Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
 					CompilerRuntimeErrorAction->"Evaluate",
-					ProgressReporting->False
+					Sequence@@compileOpts
 				]
 			}
 		]
