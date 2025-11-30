@@ -46,7 +46,12 @@ PacletObject[
         "Root" -> "Documentation",
         "Language" -> "English"
       },
-      {"Asset", "Assets" -> {{"License", "./LICENSE"}}},
+      {"Asset", "Root" -> "Resources", "Assets" -> {
+        {"ModelManifest", "ModelManifest.wl"},
+        {"CompiledFunctions", "CompiledFunctions"},
+        {"MomentsLookupTables", "MomentsLookupTables"},
+        {"License", "../LICENSE"}
+      }},
       {"Path", "Root" -> "Resources"}
     }
   |>
