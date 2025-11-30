@@ -655,27 +655,48 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						solA["Solution"]=tryTransforms[#,assumeA,Sequence @@ simplifyOpts]&/@solA["Solution"];
 						solB["Solution"]=tryTransforms[#,assumeB,Sequence @@ simplifyOpts]&/@solB["Solution"];
 						
-						(*create non-linear equation for unconditional mean of wc and pd*)
+						(*create non-linear equation for unconditional mean of wc and pd and unsolved coeffs*)
 						With[
 							{
 								wcCoeffEq = modelCoeffsSysWc[[1,1]],
-								pdCoeffEq = modelCoeffsSysPd[[1,1]]
+								pdCoeffEq = modelCoeffsSysPd[[1,1]],
+								verifA = TrueQ/@ solA["Verification"],
+								verifB = TrueQ/@ solB["Verification"]
 							},
-							(*wc*)
-							solA["eqA0"] = Assuming[
-								assumeA,
-								Quiet[FullSimplify[wcCoeffEq/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
+							With[
+								{
+									newSysA= Pick[sysA,verifA,False],
+									newVarsA = Pick[varsA,verifA,False]
+								},
+								(*wc*)
+								solA["varsA0"] = Prepend[newVarsA,modelCoeffsSysWc[[2,1]]];
+								solA["eqA0"] = Assuming[
+									assumeA,
+									Quiet[FullSimplify[Prepend[newSysA,wcCoeffEq]/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
+								];
 							];
-							(*pd without plugging in wc coeffs*)
-							solB["eqB0"] = Assuming[
-								assumeB,
-								Quiet[FullSimplify[pdCoeffEq/.solB["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
-							];
-							(*pd plugging in wc coeffs*)
-							solB["eqAB0"] = Assuming[
-								assumeB,
-								Quiet[FullSimplify[pdCoeffEq/.solB["Solution"]/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
-							];
+							With[
+								{
+									newSysB= Pick[sysB,verifB,False],
+									newVarsB = Pick[varsB,verifB,False]
+								},
+								With[
+									{
+										eqB0=Prepend[newSysB,pdCoeffEq]/.solB["Solution"]
+									},
+									solB["varsB0"] = Prepend[newVarsB,modelCoeffsSysPd[[2,1]]];
+									(*pd without plugging in wc coeffs*)
+									solB["eqB0"] = Assuming[
+										assumeB,
+										Quiet[FullSimplify[eqB0,Sequence @@ simplifyOpts],{FullSimplify::time}]
+									];
+									(*pd plugging in wc coeffs*)
+									solB["eqAB0"] = Assuming[
+										assumeB,
+										Quiet[FullSimplify[eqB0/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
+									];
+								]; (*With*)
+							]; (*With*)
 						]; (*With*)
 						(*Echo[solA["eqA0"],"eqA0"];*)
 						(*Echo[solB["eqB0"],"eqB0"];*)
@@ -747,24 +768,13 @@ tryTransforms[
 (*createCompiledEq*)
 
 
-createCompiledEq // Options = {
-	"buildKernelOptions" -> {
-		"CompilationTarget" -> "C"
-	}
-};
-
-
-createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { createCompiledEq, buildKernel } ] ] := 
+createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { buildKernel } ] ] := 
     With[
         {
             quadSol = model[ "coeffsParamQuadSolve" ],
             modelParamsKeys = Keys @ model[ "params" ],
             shortname = model[ "shortname" ],
-            buildKernelOpts = 
-                Flatten @ {
-                    Evaluate @ FilterRules[ Flatten @ { opts }, Options @ buildKernel ],
-                    Evaluate @ OptionValue[ "buildKernelOptions" ]
-                },
+            buildKernelOpts = Evaluate @ FilterRules[ Flatten @ { opts }, Options @ buildKernel ],
             coeffsSystem = model[ "coeffsSystem" ]
         },
         With[
@@ -795,13 +805,16 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { createC
                     wcCoeffName = SymbolName @ Head @ wcCoeffs[[ 1 ]],
                     pdCoeffName = SymbolName @ Head @ Head @ pdSys[[ 2, 1 ]],
                     wcSigns = Keys @ wcSignRootMap,
-                    pdSigns = Keys @ quadSolPd[ "SignRootMap" ]
+                    pdSigns = Keys @ quadSolPd[ "SignRootMap" ],
+                    wcVars = quadSolWc["varsA0"],
+                    pdVars = quadSolPd["varsB0"]
                 },
                 With[
                     {
                         eqMap = <|
                             "A" -> <|
-                                "Expr" -> Subtract @@ quadSolWc[ "eqA0" ],
+                                "Expr" ->  Map[ (Subtract @@ #)&, quadSolWc[ "eqA0" ] ],
+                                "Vars" -> wcVars,
                                 "Params" -> paramsA,
                                 "CoeffName" -> wcCoeffName,
                                 "SignSymbol" -> If[
@@ -811,7 +824,8 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { createC
                                 ]
                             |>,
                             "B" -> <|
-                                "Expr" -> Subtract @@ quadSolPd[ "eqB0" ],
+                                "Expr" -> Map[ (Subtract @@ #)&, quadSolPd[ "eqB0" ] ],
+                                "Vars" -> pdVars,
                                 "Params" -> Join[ paramsA, paramsStocks, wcCoeffs ],
                                 "CoeffName" -> pdCoeffName,
                                 "SignSymbol" -> If[
@@ -821,7 +835,8 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { createC
                                 ]
                             |>,
                             "AB" -> <|
-                                "Expr" -> Subtract @@ quadSolPd[ "eqAB0" ],
+                                "Expr" -> Map[ (Subtract @@ #)&, quadSolPd[ "eqAB0" ] ],
+                                "Vars" -> pdVars,
                                 "Params" -> Join[ paramsA, paramsStocks, { First @ wcCoeffs }, wcSignRootMap ],
                                 "CoeffName" -> pdCoeffName,
                                 "SignSymbol" -> If[
@@ -862,6 +877,7 @@ createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { createC
                         kernels = Association @ Table[
                             eq -> buildKernel[
                                 eqMap[eq]["Expr"],
+                                eqMap[eq]["Vars"],
                                 eqMap[eq]["Params"],
                                 "CoeffName" -> eqMap[eq]["CoeffName"],
                                 "SignSymbol" -> eqMap[eq]["SignSymbol"],

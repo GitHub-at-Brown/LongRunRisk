@@ -48,7 +48,6 @@ Begin["`Private`"];
 
 
 buildKernel//Options = {
-	"CompilationTarget" -> "C",
 	"CoeffName" -> "A",
 	"SignSymbol" -> "signA"
 };
@@ -57,25 +56,40 @@ buildKernel//Options = {
 (* fast, robust scalar-args kernel *)
 buildKernel[
 	expr_,
+	vars_List,
 	params_List,
 	opts : OptionsPattern[{buildKernel}]
 ] := With[
   {
-    tgt = OptionValue["CompilationTarget"],
     coeffName = OptionValue["CoeffName"],
     signSym = OptionValue["SignSymbol"]
   },
   Module[
-    {ex0, z, idx, pSyms, sSyms, body, dbody, fC, dfC, nP, nS, signHead},
+    {ex0, z, zRules, idx, pSyms, sSyms, body, dbody, fC, dfC, nP, nS, signHead},
 
     ex0 = normalizeExp[expr];
-    z   = Unique["z"];
-
-    (* Replace A[0] or B[j][0] with z, regardless of context *)
-    ex0 = ex0 /. {
-      (s_Symbol[j_][0] /; SymbolName[s] === coeffName) :> z,
-      (s_Symbol[0] /; SymbolName[s] === coeffName) :> z
-    };
+    (* Replace A[0] or B[j][0] with unique variables starting with z*)
+    {ex0,zRules}=Module[
+	    {
+		    zAssoc=<||>,
+		    orig=<||>
+	    },
+	    {
+	    ex0/. {
+		    HoldPattern[(x:s_Symbol[p_][q_])/;SymbolName[s]===coeffName]:>Lookup[
+			    zAssoc,
+			    Key[{p,q}],orig[{p,q}]=x;
+				zAssoc[{p,q}]=Unique["z$"]
+			],
+			HoldPattern[(x:s_Symbol[q_])/;SymbolName[s]===coeffName]:>Lookup[
+				zAssoc,
+				Key[{None,q}],orig[{None,q}]=x;
+				zAssoc[{None,q}]=Unique["z$"]
+			]
+		},
+		KeyValueMap[orig[#1]->#2&,zAssoc]
+		}
+	];
 
     (* detect indices before any N *)
     idx = signIdxs[ex0, signSym];
@@ -93,46 +107,46 @@ buildKernel[
     ];
 
     (* numericize after substitutions *)
+    z = Values@zRules;
     body  = N[body, MachinePrecision];
-    dbody = N[D[body, z], MachinePrecision];
+    dbody = N[Outer[D, body, z], MachinePrecision]; (*jacobian*)
 
-    With[{
-      args = Join[
-        {{z, _Real}},
-        Table[{pSyms[[i]], _Real}, {i, nP}],
-        Table[{sSyms[[j]], _Integer}, {j, nS}]
-      ],
-      b = body,
-      db = dbody,
-      tgt2 = tgt
-    },
-      fC = Compile[
-        Evaluate@args,
-        Evaluate@b,
-        CompilationTarget -> tgt2,
-        RuntimeOptions -> {"Speed", "EvaluateSymbolically" -> False,
-                          "CatchMachineUnderflow" -> True, "CatchMachineOverflow" -> True},
-        CompilationOptions -> {
-          "ExpressionOptimization" -> True,
-          "InlineExternalDefinitions" -> True,
-          "InlineCompiledFunctions" -> True
-        }
-      ];
-      dfC = Compile[
-        Evaluate@args,
-        Evaluate@db,
-        CompilationTarget -> tgt2,
-        RuntimeOptions -> {"Speed", "EvaluateSymbolically" -> False,
-                          "CatchMachineUnderflow" -> True, "CatchMachineOverflow" -> True},
-        CompilationOptions -> {
-          "ExpressionOptimization" -> True,
-          "InlineExternalDefinitions" -> True,
-          "InlineCompiledFunctions" -> True
-        }
-      ];
-    ];
+    {fC,dfC}=Module[
+	    {inferType},
+	    inferType[e_]:=With[
+		    {
+			    rank=ArrayDepth[e]
+		    },
+		    If[rank==0,"Real64",TypeSpecifier["PackedArray"]["Real64",rank]]
+		];
+		With[
+			{
+				args=Join[
+					Flatten[{Thread[Typed[z,"Real64"]]}],
+					Table[Typed[pSyms[[i]],"Real64"],{i,nP}],
+					Table[Typed[sSyms[[j]],"Integer64"],{j,nS}]
+				],
+				b=body,
+				db=dbody,
+				bType=inferType[body],
+				dbType=inferType[dbody]
+			},
+			{
+				FunctionCompile[
+					Function[Evaluate@args,TypeHint[b,bType]],
+					CompilerRuntimeErrorAction->"Evaluate",
+					ProgressReporting->False
+				],
+				FunctionCompile[
+					Function[Evaluate@args,TypeHint[db,dbType]],
+					CompilerRuntimeErrorAction->"Evaluate",
+					ProgressReporting->False
+				]
+			}
+		]
+	];
 
-    <|"fC"->fC, "dfC"->dfC, "ParamOrder"->params, "SignIndex"->idx, "CoeffName"->coeffName, "SignSymbol"->signSym|>
+    <|"fC"->fC, "dfC"->dfC, "Vars"->vars, "ParamOrder"->params, "SignIndex"->idx, "CoeffName"->coeffName, "SignSymbol"->signSym|>
   ]
 ];
 
@@ -173,8 +187,8 @@ bindUnary[
   ];
 
   {
-    Function[{z}, k["fC"][Sequence @@ Join[{z}, a, s]]],
-    Function[{z}, k["dfC"][Sequence @@ Join[{z}, a, s]]]
+    Function[{z}, k["fC"][Sequence @@ Join[z, a, s]]],
+    Function[{z}, k["dfC"][Sequence @@ Join[z, a, s]]]
   }
 ];
 
