@@ -1,5 +1,3 @@
-Begin["FernandoDuarte`LongRunRisk`Tests`ParamQuadSolve`"];
-
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
 
 
@@ -69,9 +67,7 @@ Module[{sol2, sol3, sol1, sol7, eq6sub, sol6, sol7full, sol1full, sol3full, eq5s
 manualVals$ = (vars$ /. FixedPoint[(# /. #) &, #]) & /@ manualSols$ // N;
 residualsMan$ = eqResidualVec /@ manualVals$;
 
-VerificationTest[AssociationQ[res$], True, TestID -> "returns-association@@Tests/ParamQuadSolve/seven-by-seven.wlt:72,1-72,129"]
-VerificationTest[Length[signKeys$] === 2, True, TestID -> "two-sign-variables@@Tests/ParamQuadSolve/seven-by-seven.wlt:73,1-73,133"]
-VerificationTest[Length[pkgVals$] === 4, True, TestID -> "four-branches@@Tests/ParamQuadSolve/seven-by-seven.wlt:74,1-74,127"]
-VerificationTest[Length[manualVals$] === 4, True, TestID -> "manual-four@@Tests/ParamQuadSolve/seven-by-seven.wlt:75,1-75,128"]
-
-End[];
+VerificationTest[AssociationQ[res$], True, TestID -> "returns-association"]
+VerificationTest[Length[signKeys$] === 2, True, TestID -> "two-sign-variables"]
+VerificationTest[Length[pkgVals$] === 4, True, TestID -> "four-branches"]
+VerificationTest[Length[manualVals$] === 4, True, TestID -> "manual-four"]

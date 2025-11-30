@@ -1,5 +1,3 @@
-Begin["FernandoDuarte`LongRunRisk`Tests`ParamQuadSolve`"];
-
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
 
 
@@ -13,7 +11,5 @@ rules$ = If[Length[signs$] == 0, {r$["Solution"]}, (r$["Solution"] /. Thread[sig
 tuples$ = N[(vars$ /. #) & /@ rules$, 30];
 uniqueX$ = DeleteDuplicates[tuples$[[All, 1]], (Abs[#1 - #2] < 1.*^-12) &];
 
-VerificationTest[Length[rules$] >= 1, True, TestID -> "enumerated@@Tests/ParamQuadSolve/degenerate-discriminant.wlt:16,1-16,130"]
-VerificationTest[Length[uniqueX$] == 1, True, TestID -> "collapsed-branches@@Tests/ParamQuadSolve/degenerate-discriminant.wlt:17,1-17,140"]
-
-End[];
+VerificationTest[Length[rules$] >= 1, True, TestID -> "enumerated"]
+VerificationTest[Length[uniqueX$] == 1, True, TestID -> "collapsed-branches"]

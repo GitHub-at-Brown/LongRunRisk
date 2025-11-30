@@ -24,7 +24,7 @@ tests = With[{
       $Failed,
       {findRootInterval::nocoeff},
       TimeConstraint -> timeLimit,
-      TestID -> "findRootInterval-false-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:14,5-27,6"
+      TestID -> "findRootInterval-false-returns-failed"
     ],
 
     (* Test buildKernel with "CoeffName" and "SignSymbol" options *)
@@ -41,7 +41,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:30,5-43,6"
+      TestID -> "buildKernel-coeffname-signsymbol-options"
     ],
 
     (* Test bindUnary with insufficient signs returns $Failed with message *)
@@ -60,7 +60,7 @@ tests = With[{
       $Failed,
       {bindUnary::insufficientsigns},
       TimeConstraint -> timeLimit,
-      TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:46,5-61,6"
+      TestID -> "bindUnary-insufficient-signs-returns-failed"
     ],
 
     (* Test buildKernel produces CompiledCodeFunction via FunctionCompile *)
@@ -79,7 +79,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-produces-CompiledCodeFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:64,5-80,6"
+      TestID -> "buildKernel-produces-CompiledCodeFunction"
     ]
   }
 ];

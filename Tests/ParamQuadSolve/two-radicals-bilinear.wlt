@@ -1,5 +1,3 @@
-Begin["FernandoDuarte`LongRunRisk`Tests`ParamQuadSolve`"];
-
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
 
 
@@ -19,21 +17,21 @@ radVals$ = Values[res$["SignRootMap"]];
 radSq$ = Simplify[radVals$^2];
 rulesFor[v1_, v2_] := Thread[signKeys$ -> {v1, v2}];
 
-VerificationTest[AssociationQ[res$], True, TestID -> "returns-association@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:22,1-22,136"]
-VerificationTest[Length[signKeys$] === 2, True, TestID -> "two-sign-variables@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:23,1-23,140"]
-VerificationTest[Sort[Simplify /@ radSq$] === Sort[{8, 13}], True, TestID -> "radicands-8-and-13@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:24,1-24,159"]
+VerificationTest[AssociationQ[res$], True, TestID -> "returns-association"]
+VerificationTest[Length[signKeys$] === 2, True, TestID -> "two-sign-variables"]
+VerificationTest[Sort[Simplify /@ radSq$] === Sort[{8, 13}], True, TestID -> "radicands-8-and-13"]
 VerificationTest[
   Module[{heads},
     heads = DeleteDuplicates[Head /@ signKeys$];
     AllTrue[Simplify[res$["Verification"] /. (Alternatives @@ ((#[_]^2) & /@ heads)) -> 1], TrueQ]
   ],
   True,
-  TestID -> "verification-all-true@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:25,1-32,2"
+  TestID -> "verification-all-true"
 ]
-VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. rulesFor[1, 1]], TrueQ], True, TestID -> "subs-++@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:33,1-33,175"]
-VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. rulesFor[1, -1]], TrueQ], True, TestID -> "subs-+-@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:34,1-34,176"]
-VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. rulesFor[-1, 1]], TrueQ], True, TestID -> "subs--+@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:35,1-35,176"]
-VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. rulesFor[-1, -1]], TrueQ], True, TestID -> "subs----@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:36,1-36,178"]
+VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. rulesFor[1, 1]], TrueQ], True, TestID -> "subs-++"]
+VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. rulesFor[1, -1]], TrueQ], True, TestID -> "subs-+-"]
+VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. rulesFor[-1, 1]], TrueQ], True, TestID -> "subs--+"]
+VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. rulesFor[-1, -1]], TrueQ], True, TestID -> "subs----"]
 VerificationTest[
   Module[{assigns, ourRules, solveRules, sameQ},
     assigns = Tuples[{-1, 1}, Length[signKeys$]];
@@ -42,7 +40,5 @@ VerificationTest[
     sameQ[r1_, r2_] := TrueQ@Simplify[(vars$ /. r1) == (vars$ /. r2)];
     Length[solveRules] == Length[ourRules] && AllTrue[solveRules, ssol |-> AnyTrue[ourRules, sameQ[#, ssol] &]]
   ],
-  True, TestID -> "matches-Solve@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:37,1-46,2"
+  True, TestID -> "matches-Solve"
 ]
-
-End[];

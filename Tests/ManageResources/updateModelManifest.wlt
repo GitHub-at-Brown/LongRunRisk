@@ -1,4 +1,4 @@
-(* Setup: Load PackageHealth.wl *)
+(* Setup: Load ManageResources.wl *)
 Module[{start, d, pacletRoot},
   start = If[StringQ[$InputFileName] && $InputFileName =!= "",
     DirectoryName[$InputFileName], Directory[]];
@@ -10,15 +10,15 @@ Module[{start, d, pacletRoot},
     BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"]; EndPackage[];
   ];
   Off[General::shdw];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "PackageHealth.wl"}]];
+  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "ManageResources.wl"}]];
   On[General::shdw];
 ];
 
 (* Extract private symbols for testing *)
-$getHash = ToExpression["FernandoDuarte`LongRunRisk`Tools`PackageHealth`Private`getCanonicalHash"];
-$canonicalize = ToExpression["FernandoDuarte`LongRunRisk`Tools`PackageHealth`Private`canonicalize"];
-$findPacletRoot = ToExpression["FernandoDuarte`LongRunRisk`Tools`PackageHealth`Private`findPacletRoot"];
-$getVersion = ToExpression["FernandoDuarte`LongRunRisk`Tools`PackageHealth`Private`getVersion"];
+$getHash = ToExpression["FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`getCanonicalHash"];
+$canonicalize = ToExpression["FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`canonicalize"];
+$findPacletRoot = ToExpression["FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot"];
+$getVersion = ToExpression["FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`getVersion"];
 
 $timeLimit = 5;
 
@@ -64,8 +64,8 @@ VerificationTest[
 
 VerificationTest[
   Block[
-    {FernandoDuarte`LongRunRisk`Tools`PackageHealth`Private`findPacletRoot},
-    FernandoDuarte`LongRunRisk`Tools`PackageHealth`Private`findPacletRoot[] := $Failed;
+    {FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot},
+    FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot[] := $Failed;
     updateModelManifest[]
   ],
   $Failed,
@@ -80,10 +80,10 @@ VerificationTest[
     manifestFile = FileNameJoin[{tmp, "Resources", "ModelManifest.wl"}];
     Block[
       {
-        FernandoDuarte`LongRunRisk`Tools`PackageHealth`Private`findPacletRoot,
+        FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot,
         FernandoDuarte`LongRunRisk`Model`Catalog`models
       },
-      FernandoDuarte`LongRunRisk`Tools`PackageHealth`Private`findPacletRoot[] := tmp;
+      FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot[] := tmp;
       FernandoDuarte`LongRunRisk`Model`Catalog`models = 42;  (* Not an association *)
       result = updateModelManifest[];
       fileExists = FileExistsQ[manifestFile];
@@ -110,10 +110,10 @@ VerificationTest[
     dropDate = KeyDrop[#, {"Date"}] &;
     Block[
       {
-        FernandoDuarte`LongRunRisk`Tools`PackageHealth`Private`findPacletRoot,
+        FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot,
         FernandoDuarte`LongRunRisk`Model`Catalog`models
       },
-      FernandoDuarte`LongRunRisk`Tools`PackageHealth`Private`findPacletRoot[] := tmp;
+      FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot[] := tmp;
       FernandoDuarte`LongRunRisk`Model`Catalog`models = catalogOverride;
       result = updateModelManifest[];
       fileData = Get[manifestFile];

@@ -54,6 +54,7 @@ Module[
   (* TestsAborted can be Missing if none aborted *)
   totalAborted = Replace[report["TestsAbortedCount"], _Missing -> 0];
   totalTests = totalPassed + totalFailed + totalAborted;
+  Print["Total: ", totalTests, ", Passed: ", totalPassed, ", Failed: ", totalFailed, ", Aborted: ", totalAborted, " (" <> ToString[NumberForm[100.0 * totalPassed / totalTests, {4, 1}]] <> "%)"];
 
   If[totalAborted > 0,
   ];

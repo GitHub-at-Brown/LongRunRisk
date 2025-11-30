@@ -85,7 +85,7 @@ Module[
   totalFailed = report["TestsFailedCount"];
 
   (* Print summary *)
-                                             " (" <> ToString[NumberForm[100.0 * totalPassed / totalTests, {4, 1}]] <> "%)"]];
+  Print["Total: ", totalTests, ", Passed: ", totalPassed, ", Failed: ", totalFailed, " (" <> ToString[NumberForm[100.0 * totalPassed / totalTests, {4, 1}]] <> "%)"];
   If[totalTests > 0,
   ];
 

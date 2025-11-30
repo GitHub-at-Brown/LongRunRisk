@@ -11,7 +11,7 @@ eir = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`extractInterv
     eir[True, A[0]],
     {{0.002, 14.998}},
     TimeConstraint -> timeLimit,
-    TestID -> "extractIntervalsFromReduce-true-scalar@@Tests/FindRootOptim/extractIntervalsFromReduce_nd.wlt:11,5-17,6"
+    TestID -> "extractIntervalsFromReduce-true-scalar"
   ],
 
   (* False yields empty even for nD *)
@@ -20,7 +20,7 @@ eir = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`extractInterv
     {},
     {extractIntervalsFromReduce::nointervals},
     TimeConstraint -> timeLimit,
-    TestID -> "extractIntervalsFromReduce-false-nd@@Tests/FindRootOptim/extractIntervalsFromReduce_nd.wlt:19,5-25,6"
+    TestID -> "extractIntervalsFromReduce-false-nd"
   ],
 
   (* nD padding keeps first-dim bounds and pads others with +/- UnboundedPad *)
@@ -31,6 +31,6 @@ eir = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`extractInterv
       {4.999,  1.*^5}
     }},
     TimeConstraint -> timeLimit,
-    TestID -> "extractIntervalsFromReduce-nd-padding@@Tests/FindRootOptim/extractIntervalsFromReduce_nd.wlt:27,5-38,6"
+    TestID -> "extractIntervalsFromReduce-nd-padding"
   ]
 }

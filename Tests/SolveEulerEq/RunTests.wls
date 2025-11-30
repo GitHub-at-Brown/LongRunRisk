@@ -21,7 +21,7 @@ Module[
   },
 
   (* Load MUnit for test reporting *)
-  Needs["MUnit`"];
+  (* Needs["MUnit`"]; *)
 
   (* Parse command-line arguments *)
   verbose = MemberQ[$ScriptCommandLine, "--verbose" | "-v"];
@@ -85,7 +85,7 @@ Module[
   totalFailed = report["TestsFailedCount"];
 
   (* Print summary *)
-                                             " (" <> ToString[NumberForm[100.0 * totalPassed / totalTests, {4, 1}]] <> "%)"]];
+  Print["Total: ", totalTests, ", Passed: ", totalPassed, ", Failed: ", totalFailed, " (" <> ToString[NumberForm[100.0 * totalPassed / totalTests, {4, 1}]] <> "%)"];
   If[totalTests > 0,
   ];
 
@@ -111,38 +111,34 @@ Module[
 
   (* Detailed failure report *)
   If[totalFailed > 0,
-
     Module[{failuresByFile},
       (* Group failures by file for better readability *)
       failuresByFile = GroupBy[
         report["TestsFailed"],
-        If[KeyExistsQ[#, "TestID"] && StringContainsQ[#["TestID"], "@@"],
-          Last[StringSplit[#["TestID"], "@@"]],
-          "Unknown file"
-        ] &
+        Function[test,
+            Module[{t = If[Head[test] === TestObject, First[test], test]},
+                  If[KeyExistsQ[t, "TestID"] && StringQ[t["TestID"]] && StringContainsQ[t["TestID"], "@@"],
+                    Last[StringSplit[t["TestID"], "@@"]],
+                    "Unknown file"
+                  ]
+            ]
+        ]
       ];
 
       KeyValueMap[
         Function[{file, tests},
           Do[
-            Module[{testID, expected, actual, messages},
-              testID = If[KeyExistsQ[test, "TestID"],
-                          First[StringSplit[test["TestID"], "@@"]],
-                          "Unknown"];
-              expected = If[KeyExistsQ[test, "ExpectedOutput"],
-                           test["ExpectedOutput"],
-                           "Unknown"];
-              actual = If[KeyExistsQ[test, "ActualOutput"],
-                         test["ActualOutput"],
-                         "Unknown"];
-              messages = If[KeyExistsQ[test, "ExpectedMessages"],
-                           test["ExpectedMessages"],
-                           None];
-
-              If[messages =!= None,
+            Module[{t = If[Head[test] === TestObject, First[test], test]},
+              Print["\nKeys: ", Keys[t]];
+              Print["Raw: ", Short[t, 2]];
+              Print["\nTest ID: ", Lookup[t, "TestID", "N/A"]];
+              Print["Expected: ", Lookup[t, "ExpectedOutput", "N/A"]];
+              Print["Actual:   ", Lookup[t, "ActualOutput", "N/A"]];
+              If[KeyExistsQ[t, "ExpectedMessages"] && t["ExpectedMessages"] =!= {},
+                  Print["Expected Messages: ", t["ExpectedMessages"]];
               ];
             ],
-            {test, tests}
+            {test, Values[tests]}
           ];
         ],
         failuresByFile

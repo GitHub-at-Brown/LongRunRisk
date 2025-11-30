@@ -93,7 +93,7 @@ Module[
   totalFailed = report["TestsFailedCount"];
 
   (* Print summary *)
-                                             " (" <> ToString[NumberForm[100.0 * totalPassed / totalTests, {4, 1}]] <> "%)"]];
+  Print["Total: ", totalTests, ", Passed: ", totalPassed, ", Failed: ", totalFailed, " (" <> ToString[NumberForm[100.0 * totalPassed / totalTests, {4, 1}]] <> "%)"];
   If[totalTests > 0,
   ];
 
@@ -120,42 +120,7 @@ Module[
   (* Detailed failure report *)
   If[totalFailed > 0,
 
-    Module[{failuresByFile},
-      (* Group failures by file for better readability *)
-      failuresByFile = GroupBy[
-        report["TestsFailed"],
-        If[KeyExistsQ[#, "TestID"] && StringContainsQ[#["TestID"], "@@"],
-          Last[StringSplit[#["TestID"], "@@"]],
-          "Unknown file"
-        ] &
-      ];
-
-      KeyValueMap[
-        Function[{file, tests},
-          Do[
-            Module[{testID, expected, actual, messages},
-              testID = If[KeyExistsQ[test, "TestID"],
-                          First[StringSplit[test["TestID"], "@@"]],
-                          "Unknown"];
-              expected = If[KeyExistsQ[test, "ExpectedOutput"],
-                           test["ExpectedOutput"],
-                           "Unknown"];
-              actual = If[KeyExistsQ[test, "ActualOutput"],
-                         test["ActualOutput"],
-                         "Unknown"];
-              messages = If[KeyExistsQ[test, "ExpectedMessages"],
-                           test["ExpectedMessages"],
-                           None];
-
-              If[messages =!= None,
-              ];
-            ],
-            {test, tests}
-          ];
-        ],
-        failuresByFile
-      ];
-    ];
+              Print["Failures: ", report["TestsFailed"]];
   ];
 
   (* Final status *)

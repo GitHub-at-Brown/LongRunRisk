@@ -7,7 +7,6 @@
    - wrapper finds multiple solutions for DES and NRCStochVol
 *)
 
-Begin["FernandoDuarte`LongRunRisk`Tests`SolveEulerEq`"];
 
 (* Find paclet root and load dependencies *)
 Module[{start, d, pacletRoot, resourcesDir, modelsFile, modelsData},
@@ -85,7 +84,7 @@ tests = {
       wcResults[[1]]["Signs"] === signsWc
     ],
     True,
-    TestID -> "solveCoeffRoots-Signs-Key@@Tests/SolveEulerEq/solveWcPdRoots.wlt:80,3-96,4"
+    TestID -> "solveCoeffRoots-Signs-Key"
   ],
 
   (* Test 2: solveWcPdRoots (original) returns "SignsWc" and "SignsPd" keys *)
@@ -107,7 +106,7 @@ tests = {
       wcPdResults[[1]]["SignsPd"] === signsPd
     ],
     True,
-    TestID -> "solveWcPdRoots-Original-Signs-Keys@@Tests/SolveEulerEq/solveWcPdRoots.wlt:99,3-118,4"
+    TestID -> "solveWcPdRoots-Original-Signs-Keys"
   ],
 
   (* Test 3: solveWcPdRoots (wrapper) returns flat list with sign info for BY *)
@@ -128,7 +127,7 @@ tests = {
       KeyExistsQ[results[[1]], "Pd"]
     ],
     True,
-    TestID -> "solveWcPdRoots-Wrapper-BY-Structure@@Tests/SolveEulerEq/solveWcPdRoots.wlt:121,3-139,4"
+    TestID -> "solveWcPdRoots-Wrapper-BY-Structure"
   ],
 
   (* Test 4: solveWcPdRoots (wrapper) finds multiple solutions for DES *)
@@ -146,7 +145,7 @@ tests = {
       AllTrue[results, KeyExistsQ[#, "SignsPd"] &]
     ],
     True,
-    TestID -> "solveWcPdRoots-Wrapper-DES-MultipleSolutions@@Tests/SolveEulerEq/solveWcPdRoots.wlt:142,3-157,4"
+    TestID -> "solveWcPdRoots-Wrapper-DES-MultipleSolutions"
   ],
 
   (* Test 5: solveWcPdRoots (wrapper) finds multiple solutions for NRCStochVol *)
@@ -165,11 +164,10 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveWcPdRoots-Wrapper-NRCStochVol-MultipleSolutions@@Tests/SolveEulerEq/solveWcPdRoots.wlt:160,3-176,4"
+    TestID -> "solveWcPdRoots-Wrapper-NRCStochVol-MultipleSolutions"
   ]
 
 };
 
-End[];
 
 tests

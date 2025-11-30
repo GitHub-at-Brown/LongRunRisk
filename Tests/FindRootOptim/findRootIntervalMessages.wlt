@@ -1,5 +1,3 @@
-Begin["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`"];
-
 Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 
 
@@ -15,7 +13,7 @@ tests = With[{fri = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim
       $Failed,
       {fri::emptyinterval},
       TimeConstraint -> timeLimit,
-      TestID -> "emptyinterval-message-on-false@@Tests/FindRootOptim/findRootIntervalMessages.wlt:11,5-19,6"
+      TestID -> "emptyinterval-message-on-false"
     ],
     VerificationTest[
       Block[{A},
@@ -24,7 +22,7 @@ tests = With[{fri = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim
       $Failed,
       {fri::emptyinterval},
       TimeConstraint -> timeLimit,
-      TestID -> "emptyinterval-message-on-contradiction@@Tests/FindRootOptim/findRootIntervalMessages.wlt:20,5-28,6"
+      TestID -> "emptyinterval-message-on-contradiction"
     ],
     VerificationTest[
       Block[{A},
@@ -33,7 +31,7 @@ tests = With[{fri = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim
       $Failed,
       {fri::emptyinterval},
       TimeConstraint -> timeLimit,
-      TestID -> "emptyinterval-message-on-param-contradiction@@Tests/FindRootOptim/findRootIntervalMessages.wlt:29,5-37,6"
+      TestID -> "emptyinterval-message-on-param-contradiction"
     ],
 
     (* Test: nocoeff message when no root variable matching "CoeffName" is present *)
@@ -44,7 +42,7 @@ tests = With[{fri = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim
       $Failed,
       {fri::nocoeff},
       TimeConstraint -> timeLimit,
-      TestID -> "nocoeff-message-no-coefficient@@Tests/FindRootOptim/findRootIntervalMessages.wlt:40,5-48,6"
+      TestID -> "nocoeff-message-no-coefficient"
     ],
     VerificationTest[
       Block[{a},
@@ -53,7 +51,7 @@ tests = With[{fri = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim
       $Failed,
       {fri::nocoeff},
       TimeConstraint -> timeLimit,
-      TestID -> "nocoeff-message-only-parameters@@Tests/FindRootOptim/findRootIntervalMessages.wlt:49,5-57,6"
+      TestID -> "nocoeff-message-only-parameters"
     ],
     VerificationTest[
       Block[{B},
@@ -62,7 +60,7 @@ tests = With[{fri = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim
       $Failed,
       {fri::nocoeff},
       TimeConstraint -> timeLimit,
-      TestID -> "nocoeff-message-wrong-coefficient-name@@Tests/FindRootOptim/findRootIntervalMessages.wlt:58,5-66,6"
+      TestID -> "nocoeff-message-wrong-coefficient-name"
     ],
     VerificationTest[
       Block[{B},
@@ -71,7 +69,7 @@ tests = With[{fri = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim
       $Failed,
       {fri::nocoeff},
       TimeConstraint -> timeLimit,
-      TestID -> "nocoeff-message-wrong-coefficient-name-indexed@@Tests/FindRootOptim/findRootIntervalMessages.wlt:67,5-75,6"
+      TestID -> "nocoeff-message-wrong-coefficient-name-indexed"
     ],
 
     (* Test: Valid case runs without messages *)
@@ -83,10 +81,9 @@ tests = With[{fri = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim
       {},
       SameTest -> MatchQ,
       TimeConstraint -> timeLimit,
-      TestID -> "no-messages-on-valid-input@@Tests/FindRootOptim/findRootIntervalMessages.wlt:78,5-87,6"
+      TestID -> "no-messages-on-valid-input"
     ]
   }
 ];
 
-End[];
-FernandoDuarte`LongRunRisk`Tests`FindRootOptim`tests
+tests

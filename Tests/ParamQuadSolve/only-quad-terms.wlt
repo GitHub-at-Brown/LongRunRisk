@@ -1,5 +1,3 @@
-Begin["FernandoDuarte`LongRunRisk`Tests`ParamQuadSolve`"];
-
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
 
 
@@ -9,7 +7,7 @@ VerificationTest[
   pqs[{x^2 + y^2 + z^2 == 3, x^2 + 2 x - 1 == 0}, {x, y, z}, "OnlyQuadTerms" -> True],
   $Failed,
   {FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSolve::nocover},
-  TestID -> "onlyquad-reject-partial@@Tests/ParamQuadSolve/only-quad-terms.wlt:8,1-13,2"
+  TestID -> "onlyquad-reject-partial"
 ]
 
 VerificationTest[
@@ -24,7 +22,7 @@ VerificationTest[
     diagnostics["DeferredVariables"] === {}
   ],
   True,
-  TestID -> "onlyquad-all-covered@@Tests/ParamQuadSolve/only-quad-terms.wlt:15,1-28,2"
+  TestID -> "onlyquad-all-covered"
 ]
 
 VerificationTest[
@@ -40,14 +38,12 @@ VerificationTest[
     Sort[deferredVars] === {y, z}
   ],
   True,
-  TestID -> "onlyquad-deferred-output@@Tests/ParamQuadSolve/only-quad-terms.wlt:30,1-44,2"
+  TestID -> "onlyquad-deferred-output"
 ]
 
 VerificationTest[
   pqs[{x + y == 1}, {x, y}, "OnlyQuadTerms" -> True],
   $Failed,
   {FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSolve::noquad},
-  TestID -> "onlyquad-noquadratic@@Tests/ParamQuadSolve/only-quad-terms.wlt:46,1-51,2"
+  TestID -> "onlyquad-noquadratic"
 ]
-
-End[];
