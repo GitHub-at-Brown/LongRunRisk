@@ -13,13 +13,14 @@ timeLimit = 5;
 (* Create a test kernel with sign dependencies *)
 (* Need to create symbols in the correct context *)
 ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`signA"];
-Module[{expr, params, signA},
+Module[{expr, vars, params, signA},
   signA = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`signA"];
   gamma = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`gamma"];
   delta = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`delta"];
-  expr = signA[1] * gamma + signA[2] * delta;
+  expr = signA[1] * gamma + signA[2] * delta - A[0];
+  vars = {A[0]};
   params = {gamma, delta};
-  kernel = buildKernel[expr, params, CompilationTarget -> "WVM", "SignSymbol" -> "signA"];
+  kernel = buildKernel[expr, vars, params, "SignSymbol" -> "signA"];
 ];
 
 gamma = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`gamma"];
