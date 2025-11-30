@@ -52,6 +52,9 @@ buildKernel//Options = {
 	"SignSymbol" -> "signA"
 };
 
+buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
+buildKernel::unusedvars = "Some vars were not found in the expression: `1`.";
+
 
 (* fast, robust scalar-args kernel *)
 buildKernel[
@@ -65,31 +68,34 @@ buildKernel[
     signSym = OptionValue["SignSymbol"]
   },
   Module[
-    {ex0, z, zRules, idx, pSyms, sSyms, body, dbody, fC, dfC, nP, nS, signHead},
+    {ex0, z, zRules, idx, pSyms, sSyms, body, dbody, fC, dfC, nP, nS, signHead, unused, unexpected},
 
     ex0 = normalizeExp[expr];
-    (* Replace A[0] or B[j][0] with unique variables starting with z*)
-    {ex0,zRules}=Module[
-	    {
-		    zAssoc=<||>,
-		    orig=<||>
-	    },
-	    {
-	    ex0/. {
-		    HoldPattern[(x:s_Symbol[p_][q_])/;SymbolName[s]===coeffName]:>Lookup[
-			    zAssoc,
-			    Key[{p,q}],orig[{p,q}]=x;
-				zAssoc[{p,q}]=Unique["z$"]
-			],
-			HoldPattern[(x:s_Symbol[q_])/;SymbolName[s]===coeffName]:>Lookup[
-				zAssoc,
-				Key[{None,q}],orig[{None,q}]=x;
-				zAssoc[{None,q}]=Unique["z$"]
-			]
-		},
-		KeyValueMap[orig[#1]->#2&,zAssoc]
-		}
-	];
+
+    (* deterministic z symbols from provided vars *)
+    z     = Array[Unique["z$"] &, Length@vars];
+    zRules = AssociationThread[vars -> z];
+
+    (* Replace only expected vars; fail on others *)
+    ex0 = Quiet@Check[
+      ex0 /. (Rule @@@ Normal@zRules),
+      Message[buildKernel::badvars];
+      Return[$Failed]
+    ];
+
+    (* verify every var was used at least once *)
+    unused = Pick[vars, FreeQ[ex0, #] & /@ z];
+    If[unused =!= {},
+      Message[buildKernel::unusedvars, unused];
+      Return[$Failed]
+    ];
+
+    (* detect leftover coefficient heads *)
+    unexpected = Cases[ex0, s_Symbol /; SymbolName[s] === coeffName, Infinity];
+    If[unexpected =!= {},
+      Message[buildKernel::badvars];
+      Return[$Failed]
+    ];
 
     (* detect indices before any N *)
     idx = signIdxs[ex0, signSym];
