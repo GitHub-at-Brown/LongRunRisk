@@ -754,64 +754,65 @@ extractIntervalsFromReduce::nointervals = "Could not extract any valid intervals
 extractIntervalsFromReduce // Options = {
   "InteriorShrink" -> 0.001,
   "RootUpperBound" -> 15,
-  "TotalDimensions" -> 1,
   "UnboundedPad" -> 1.*^5
 };
 
-extractIntervalsFromReduce[reduceExpr_, rootVar_, opts : OptionsPattern[{extractIntervalsFromReduce}]] := With[
+extractIntervalsFromReduce[reduceExpr_, rootVars_, opts : OptionsPattern[{extractIntervalsFromReduce}]] := With[
   {
     shrink = OptionValue["InteriorShrink"],
     maxBound = OptionValue["RootUpperBound"],
-    totalDim = Max[1, OptionValue["TotalDimensions"]],
+    rootList = Flatten@{rootVars},
     pad = OptionValue["UnboundedPad"]
   },
   Module[
     {lexp, disjuncts, intervals, intervalFromClause, rSym, rExpr},
+    If[rootList === {}, Message[extractIntervalsFromReduce::nointervals, reduceExpr]; Return[{}]];
 
-    Which[
-      reduceExpr === False, Return[{}],
-      reduceExpr === True, Return[{{shrink, maxBound - shrink}}]
+    intervals = Which[
+      reduceExpr === False, {},
+      reduceExpr === True, {{shrink, maxBound - shrink}},
+      True,
+        (
+          (* Normalize root variable to a simple symbol if needed *)
+          rSym = If[MatchQ[First[rootList], _Symbol], First[rootList], Unique["root$"]];
+          rExpr = reduceExpr /. First[rootList] -> rSym;
+
+          lexp = LogicalExpand[rExpr];
+          disjuncts = If[Head[lexp] === Or, List @@ lexp, {lexp}];
+
+          intervalFromClause[cl_] := Module[{direct, single, lower, upper, lo, hi},
+            direct = Cases[cl,
+              Inequality[loP_, (Less|LessEqual), rSym, (Less|LessEqual), hiP_] /;
+                NumericQ[N@loP] && NumericQ[N@hiP] :> {N@loP, N@hiP},
+              {0, Infinity}, Heads -> True
+            ];
+            If[direct =!= {}, Return[First[direct]]];
+
+            single = Cases[cl,
+              Equal[rSym, cP_] /; NumericQ[N@cP] :> {N@cP, N@cP},
+              {0, Infinity}, Heads -> True
+            ];
+            If[single =!= {}, Return[First[single]]];
+
+            lower = Cases[cl,
+              (Greater[rSym, loP_] | GreaterEqual[rSym, loP_] |
+               Less[loP_, rSym] | LessEqual[loP_, rSym]) /; NumericQ[N@loP] :> N@loP,
+              {0, Infinity}, Heads -> True
+            ];
+            upper = Cases[cl,
+              (Less[rSym, hiP_] | LessEqual[rSym, hiP_] |
+               Greater[hiP_, rSym] | GreaterEqual[hiP_, rSym]) /; NumericQ[N@hiP] :> N@hiP,
+              {0, Infinity}, Heads -> True
+            ];
+
+            lo = N[If[lower === {}, 0., Max[lower]], MachinePrecision];
+            hi = N[If[upper === {}, maxBound, Min[upper]], MachinePrecision];
+            {lo, hi}
+          ];
+
+          Select[intervalFromClause /@ disjuncts, NumericQ[#[[1]]] && NumericQ[#[[2]]] &]
+        )
     ];
-
-    (* Normalize root variable to a simple symbol if needed *)
-    rSym = If[MatchQ[rootVar, _Symbol], rootVar, Unique["root$"]];
-    rExpr = reduceExpr /. rootVar -> rSym;
-
-    lexp = LogicalExpand[rExpr];
-    disjuncts = If[Head[lexp] === Or, List @@ lexp, {lexp}];
-
-    intervalFromClause[cl_] := Module[{direct, single, lower, upper, lo, hi},
-      direct = Cases[cl,
-        Inequality[loP_, (Less|LessEqual), rSym, (Less|LessEqual), hiP_] /;
-          NumericQ[N@loP] && NumericQ[N@hiP] :> {N@loP, N@hiP},
-        {0, Infinity}, Heads -> True
-      ];
-      If[direct =!= {}, Return[First[direct]]];
-
-      single = Cases[cl,
-        Equal[rSym, cP_] /; NumericQ[N@cP] :> {N@cP, N@cP},
-        {0, Infinity}, Heads -> True
-      ];
-      If[single =!= {}, Return[First[single]]];
-
-      lower = Cases[cl,
-        (Greater[rSym, loP_] | GreaterEqual[rSym, loP_] |
-         Less[loP_, rSym] | LessEqual[loP_, rSym]) /; NumericQ[N@loP] :> N@loP,
-        {0, Infinity}, Heads -> True
-      ];
-      upper = Cases[cl,
-        (Less[rSym, hiP_] | LessEqual[rSym, hiP_] |
-         Greater[hiP_, rSym] | GreaterEqual[hiP_, rSym]) /; NumericQ[N@hiP] :> N@hiP,
-        {0, Infinity}, Heads -> True
-      ];
-
-      lo = N[If[lower === {}, 0., Max[lower]], MachinePrecision];
-      hi = N[If[upper === {}, maxBound, Min[upper]], MachinePrecision];
-      {lo, hi}
-    ];
-
-    intervals = intervalFromClause /@ disjuncts;
-    intervals = Select[intervals, NumericQ[#[[1]]] && NumericQ[#[[2]]] &];
 
     intervals = Map[
       Function[{interval},
@@ -841,12 +842,12 @@ extractIntervalsFromReduce[reduceExpr_, rootVar_, opts : OptionsPattern[{extract
     ];
 
     (* If more dimensions are requested, pad with wide symmetric bounds for the extra variables *)
-    If[totalDim > 1,
+    If[Length[rootList] > 1,
       intervals = Map[
         Function[{interval},
           {
-            Join[{interval[[1]]}, ConstantArray[-pad, totalDim - 1]],
-            Join[{interval[[2]]}, ConstantArray[ pad, totalDim - 1]]
+            Join[{interval[[1]]}, ConstantArray[-pad, Length[rootList] - 1]],
+            Join[{interval[[2]]}, ConstantArray[ pad, Length[rootList] - 1]]
           }
         ],
         intervals

@@ -536,11 +536,12 @@ solveCoeffRoots[
       quadSol     = model["coeffsParamQuadSolve"][coeffKey]
     },
     With[
-      {
-        paramsBase = (Association @ paramsRules) //. paramsRules // N,
-        coefName   = First @ coeffsSys[[2]],
-        conds      = quadSol["Conditions"]
-      },
+        {
+          paramsBase = (Association @ paramsRules) //. paramsRules // N,
+          coefList   = coeffsSys[[2]],
+          coefName   = First @ coeffsSys[[2]],
+          conds      = quadSol["Conditions"]
+        },
       With[
         {
           paramsAll = Join[
@@ -552,7 +553,7 @@ solveCoeffRoots[
 		      {},
 		      Cases[coefName, s_Symbol /; MemberQ[{"i", "j"}, SymbolName[s]] :> (s -> 1), {2}, Heads -> True]
 		    ]
-		  ],
+          ],
           cName       = Lookup[savedKernel, "CoeffName", If[coeffKey === "wc", "A", "B"]],
           sName       = Lookup[savedKernel, "SignSymbol", If[coeffKey === "wc", "signA", "signB"]],
           findOpts    = FilterRules[Flatten@{opts}, Options[findRootInterval]],
@@ -568,8 +569,23 @@ solveCoeffRoots[
           (* Pass CoeffName and SignSymbol to findRootInterval *)
           reduceExpr = findRootInterval[conds, paramsAll, signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts];
           
-          intervals  = extractIntervalsFromReduce[reduceExpr, coeffsSys[[2, 1]], Sequence @@ extractOpts];
-          roots      = (scanAndSolve[f, df, #, Sequence @@ scanOpts] & /@ intervals);
+          intervals  = extractIntervalsFromReduce[reduceExpr, coefList, Sequence @@ extractOpts];
+
+          If[Length[coefList] == 1,
+            (* 1D: use existing scanAndSolve path *)
+            roots = (scanAndSolve[f, df, #, Sequence @@ scanOpts] & /@ intervals),
+            (* nD: build vector bounds and run fastRoot directly *)
+            roots = Map[
+              Function[{iv},
+                Module[{a = iv[[1]], b = iv[[2]], x0, fastOpts},
+                  x0 = Join[{Mean[{a[[1]], b[[1]]}]}, ConstantArray[0., Length[coefList] - 1]];
+                  fastOpts = FilterRules[scanOpts, Join[Options[fastRoot], Options[FindRoot]]];
+                  fastRoot[f, df, {x0, a, b}, Sequence @@ fastOpts]
+                ]
+              ],
+              intervals
+            ]
+          ];
           
           (* Substitute signs into the analytical solution *)
           signHead   = If[StringQ[sName], ToExpression[sName], sName];
@@ -585,7 +601,7 @@ solveCoeffRoots[
 		  ];*)
   
           (* Create rules for the root variable (e.g. B[1][0] -> value) *)
-          sol0Rules  = Map[(coefName /. paramsAll(*jRule*)) -> # &, roots, {2}];
+          sol0Rules  = Map[Thread[(coefList /. paramsAll(*jRule*)) -> #] &, roots, {2}];
 
           (* Combine root rule with the rest of the solution *)
           solRules   = Map[Join[{#}, sol /. #] &, sol0Rules, {2}];
