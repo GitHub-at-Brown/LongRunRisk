@@ -57,8 +57,8 @@ buildKernel[
 	expr_,
 	vars_List,
 	params_List,
-	opts : OptionsPattern[]
-] := (Print["buildKernel called"]; With[
+	opts : OptionsPattern[{buildKernel}]
+] := With[
   {
     coeffName = OptionValue["CoeffName"],
     signSym = OptionValue["SignSymbol"]
@@ -76,7 +76,6 @@ buildKernel[
     ex0 = Quiet@Check[
       ex0 /. (Rule @@@ Normal@zRules),
       Message[buildKernel::badvars];
-      Print["buildKernel failed: badvars"];
       Return[$Failed]
     ];
 
@@ -84,7 +83,6 @@ buildKernel[
     unused = Pick[vars, FreeQ[ex0, #] & /@ z];
     If[unused =!= {},
       Message[buildKernel::unusedvars, unused];
-      Print["buildKernel failed: unused vars: ", unused];
       Return[$Failed]
     ];
 
@@ -92,7 +90,6 @@ buildKernel[
     unexpected = Cases[ex0, s_Symbol /; SymbolName[s] === coeffName, Infinity];
     If[unexpected =!= {},
       Message[buildKernel::badvars];
-      Print["buildKernel failed: unexpected coeffs: ", unexpected];
       Return[$Failed]
     ];
 
