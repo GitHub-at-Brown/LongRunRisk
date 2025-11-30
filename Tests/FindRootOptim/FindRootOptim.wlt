@@ -33,15 +33,10 @@ Module[{testDir, binaryFile, sourceFile, loadStart, loadEnd, isCI, pacletFile, p
       loadEnd = AbsoluteTime[];
       If[isCI,
         (* Print["CI detected: Using portable TestDataSource.wl"];*)
-        Null,
-        Print["Note: Loaded from TestDataSource.wl (",
-              NumberForm[loadEnd - loadStart, {4, 2}], " seconds)"];
-        Print["      Run CreateTestData.wls to generate faster binary TestData.mx"];
+        Null
       ];
       ,
       (* Error: no data files found *)
-      Print["ERROR: No test data files found!"];
-      Print["Expected source: ", sourceFile];
       Abort[];
     ],
     (* Fast binary load (local development) *)

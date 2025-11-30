@@ -23,12 +23,21 @@ fastRoot
 (*Usage*)
 
 
-buildKernel::usage = "buildKernel[expr, params] compiles expr into a C-kernel optimized for root-finding with respect to A[0] (or specified \"CoeffName\"). (MODIFIED)";
+buildKernel::usage = "buildKernel[expr, vars, params] compiles expr into a kernel optimized for root-finding.
+vars: the coefficient variables (e.g., {A[0]}) to solve for.
+params: the parameter symbols present in expr.
+Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\").
+Returns an Association with keys: \"fC\", \"dfC\", \"Vars\", \"ParamOrder\", \"SignIndex\", \"CoeffName\", \"SignSymbol\".";
 bindUnary::usage   = "bindUnary[kernel, paramValues, signs] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.";
 bindUnary::insufficientsigns = "Expected at least `1` sign values, but got `2`.";
-findRootInterval::usage  = "findRootInterval[conds, paramValues, signs] determines the search interval Interval[{min, max}] for the root variable based on constraints.";
-extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.";
-scanAndSolve::usage = "scanAndSolve[f, {min, max}] finds roots of f[x] in the range by grid subdivision.\nscanAndSolve[f, df, {min, max}] uses derivative df for Newton steps.";
+findRootInterval::usage  = "findRootInterval[conds, paramValues, signs] returns a Reduce expression constraining the root variable.
+Pass the result to extractIntervalsFromReduce to obtain numeric intervals.
+Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\").";
+extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.
+Options: \"InteriorShrink\" (default 0.001), \"RootUpperBound\" (default 15).";
+scanAndSolve::usage = "scanAndSolve[f, {min, max}] finds roots of f[x] in the range by grid subdivision.
+scanAndSolve[f, df, {min, max}] uses derivative df for Newton steps.
+Options: \"BracketGrid\" (default 32), \"Tolerance\" (default Automatic), \"FastRootOptions\", \"FindRootOptions\".";
 fastRoot::usage = "fastRoot[f, df, {a, b}] finds a root using a hybrid Newton/Brent/Secant strategy.
 Calling conventions:
   1D: fastRoot[f, df, {a, b}] bounds, fastRoot[f, df, {x0, a, b}] full spec, fastRoot[f, df, x0] start only
@@ -291,19 +300,12 @@ findRootInterval[
 
 
 fastRoot//Options = {
-  "NewtonFirst" -> True,          (* try Newton with df before fallback *)
-  "Return" -> "Value",            (* "Rule" | "Value" *)
-  "SecantBlend" -> 0.5,           (* blending factor for initial guess *)
-  "FindRootOptions" -> Automatic, (* constructed dynamically based on dimensionality *)
-  (* Standard FindRoot options passed through *)
-  AccuracyGoal -> Automatic,
-  PrecisionGoal -> Automatic,
-  MaxIterations -> Automatic,
-  WorkingPrecision -> Automatic,
-  StepMonitor -> None,
-  EvaluationMonitor -> None,
-  Method -> Automatic,
-  Jacobian -> Automatic
+  "NewtonFirst" -> True,
+  "Return" -> "Value",
+  "SecantBlend" -> 0.5,
+  "FindRootOptions" -> Automatic  (* Automatic builds StepMonitor dynamically; override with explicit list *)
+  (* FindRoot options are accepted via OptionsPattern[{fastRoot, FindRoot}] and
+     forwarded using FilterRules[{opts}, Options[FindRoot]] *)
 };
 
 
@@ -393,10 +395,10 @@ fastRoot[f_, df_, {x0_?(VectorQ[#, NumericQ]&)}, opts : OptionsPattern[{fastRoot
 (* Core implementation handling both 1D and nD *)
 fastRootCore[f_, df_, x0_, lb_, ub_, opts : OptionsPattern[{fastRoot, FindRoot}]] :=
 With[{
-  newtonFirst = OptionValue[fastRoot, {opts}, "NewtonFirst"],
-  ret = OptionValue[fastRoot, {opts}, "Return"],
-  frSpec = OptionValue[fastRoot, {opts}, "FindRootOptions"],
-  lambda = OptionValue[fastRoot, {opts}, "SecantBlend"]
+  newtonFirst = OptionValue["NewtonFirst"],
+  ret = OptionValue["Return"],
+  frSpec = OptionValue["FindRootOptions"],
+  lambda = OptionValue["SecantBlend"]
 },
   Module[{var, dim, vars, frOpts, findRootOpts, spec, newtonRes, res, jac, fTest, maxIter, fa, fb},
 
@@ -751,13 +753,17 @@ extractIntervalsFromReduce::nointervals = "Could not extract any valid intervals
 
 extractIntervalsFromReduce // Options = {
   "InteriorShrink" -> 0.001,
-  "RootUpperBound" -> 15
+  "RootUpperBound" -> 15,
+  "TotalDimensions" -> 1,
+  "UnboundedPad" -> 1.*^5
 };
 
 extractIntervalsFromReduce[reduceExpr_, rootVar_, opts : OptionsPattern[{extractIntervalsFromReduce}]] := With[
   {
     shrink = OptionValue["InteriorShrink"],
-    maxBound = OptionValue["RootUpperBound"]
+    maxBound = OptionValue["RootUpperBound"],
+    totalDim = Max[1, OptionValue["TotalDimensions"]],
+    pad = OptionValue["UnboundedPad"]
   },
   Module[
     {lexp, disjuncts, intervals, intervalFromClause, rSym, rExpr},
@@ -832,6 +838,19 @@ extractIntervalsFromReduce[reduceExpr_, rootVar_, opts : OptionsPattern[{extract
     If[intervals === {},
       Message[extractIntervalsFromReduce::nointervals, reduceExpr];
       Return[{}]
+    ];
+
+    (* If more dimensions are requested, pad with wide symmetric bounds for the extra variables *)
+    If[totalDim > 1,
+      intervals = Map[
+        Function[{interval},
+          {
+            Join[{interval[[1]]}, ConstantArray[-pad, totalDim - 1]],
+            Join[{interval[[2]]}, ConstantArray[ pad, totalDim - 1]]
+          }
+        ],
+        intervals
+      ]
     ];
 
     intervals
