@@ -583,6 +583,7 @@ VerificationTest[
       "shortname" -> "MSV",
       "bibRef" -> "Test2025",
       "desc" -> "Valid multi-stock model",
+      "enabled" -> True,
       "stateVars" -> $realModels["BY"]["stateVars"],
       "parameters" -> Join[byParams, stock2Params]
     |>;
@@ -753,6 +754,7 @@ $badCatalog = <|
     "shortname" -> "BY",
     "bibRef" -> "BY2004",
     "desc" -> "Long-run risk model with stochastic volatility",
+    "enabled" -> True,
     "stateVars" -> {x[t], sx},  (* ERROR: sx without [t] *)
     "parameters" -> {
       delta -> 0.998, psi -> 1.5, gamma -> 10, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -773,6 +775,7 @@ $badCatalog = <|
     "shortname" -> "BYlowPers",
     "bibRef" -> refBY,  (* ERROR: symbol not string *)
     "desc" -> "Long-run risk and stochastic volatility persistance reduced",
+    "enabled" -> True,
     "stateVars" -> {x[t], sx[t]},
     "parameters" -> {
       delta -> 0.998, psi -> 1.5, gamma -> 10, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -793,6 +796,7 @@ $badCatalog = <|
     "shortname" -> "BYverylowPers",
     "bibRef" -> "None",
     "desc" -> "Long-run risk persistance reduced to rhox=vx=0.1",
+    "enabled" -> True,
     "stateVars" -> {x[t], sx[t]},
     "parameters" -> {
       delta -> 0.998, psi -> 1.5, gamma -> 10, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -814,6 +818,7 @@ $badCatalog = <|
     "shortname" -> "BKY",
     "bibRef" -> "BKY2012",
     "desc" -> "Long-run risk model with a new calibration",
+    "enabled" -> True,
     "stateVars" -> {x[t], sx[t]},
     "parameters" -> {
       delta -> 0.9989, psi -> 1.5, gamma -> 10, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -836,6 +841,7 @@ $badCatalog = <|
     "shortname" -> "BKYlowPers",
     "bibRef" -> "None",
     "desc" -> "Low persistence variant",
+    "enabled" -> True,
     "stateVars" -> {x[t], sx[t]},
     "parameters" -> {
       delta -> 0.9989, psi -> 1.5, gamma -> 10, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -857,6 +863,7 @@ $badCatalog = <|
     "shortname" -> "BKYverylowPers",
     "bibRef" -> "None",
     "desc" -> "Very low persistence variant",
+    "enabled" -> True,
     "stateVars" -> {x[t], sx[t]},
     "parameters" -> {
       delta -> 0.9989, psi -> 1.5, gamma -> 10, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -879,6 +886,7 @@ $badCatalog = <|
     "shortname" -> "BKYinf",
     "bibRef" -> "None",
     "desc" -> "Inflation is persistent",
+    "enabled" -> True,
     "stateVars" -> {x[t], sx[t], -mup + pi[t]},
     "parameters" -> {
       delta -> 0.998, psi -> -0.108086,  (* ERROR: psi negative, violates psi > 0 *)
@@ -900,6 +908,7 @@ $badCatalog = <|
     "shortname" -> "NRC",
     "bibRef" -> "BDRS2020",
     "desc" -> "Model without long-run risk",
+    "enabled" -> True,
     "stateVars" -> {-mupx + pi[t], sg[-1 + t] eps["pi"][t], eps["pi"][t], -Esg + sg[t]},  (* ERROR: mupx is invalid symbol *)
     "parameters" -> {
       delta -> 0.99, psi -> 2, gamma -> 15, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -920,6 +929,7 @@ $badCatalog = <|
     "shortname" -> "NRCLLR",
     "bibRef" -> "None",
     "desc" -> "Long-run risk added",
+    "enabled" -> True,
     "stateVars" -> {-mup + pi[t], sg[-1 + t] eps["pi"][t], x[t], sx[t]},
     "parameters" -> {
       delta -> 0.99, psi -> 2, gamma -> 15, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -943,6 +953,7 @@ $badCatalog = <|
     "shortname" -> "WCratio",
     "bibRef" -> "KLNV2010",
     "desc" -> "Long-run risk model with LRR in expected inflation",
+    "enabled" -> True,
     "stateVars" -> {x[t], sc[t], sx[t], -mupbar + pibar[t], -mup + pi[t]},
     "parameters" -> {
       delta -> 0.9987, psi -> 1.5, gamma -> 8, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -965,6 +976,7 @@ $badCatalog = <|
     "shortname" -> "WCratioInf",
     "bibRef" -> "None",
     "desc" -> "Inflation predicts consumption growth",
+    "enabled" -> True,
     "stateVars" -> {x[t], sc[t], sx[t], -mupbar + pibar[t], -mup + pi[t]},
     "parameters" -> {
       delta -> 0.9987, psi -> 1.5, gamma -> 8, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -986,6 +998,7 @@ $badCatalog = <|
     "shortname" -> "infStochVol",
     "bibRef" -> "None",
     "desc" -> "Volatility of inflation is different from long-run risk",
+    "enabled" -> True,
     "stateVars" -> {x[t], sx[t], -mup + pi[t], sp[t]},
     "parameters" -> {
       delta -> 0.9989, psi -> 1.5, gamma -> 10, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -1007,6 +1020,7 @@ $badCatalog = <|
     "shortname" -> "hassel",
     "bibRef" -> "Ha2012",
     "desc" -> "Expected inflation has no real effects",
+    "enabled" -> True,
     "stateVars" -> {x[t], sx[t], -mupbar + pibar[t]},
     "parameters" -> {
       delta -> 0.9992, psi -> 2.51, gamma -> 6.78, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -1028,6 +1042,7 @@ $badCatalog = <|
     "shortname" -> "hasselNRC",
     "bibRef" -> "None",
     "desc" -> "NRC modeled as in model NRC",
+    "enabled" -> True,
     "stateVars" -> {x[t + s], sx[t]},  (* ERROR: s is invalid symbol in state var *)
     "parameters" -> {
       delta -> 0.9995, psi -> 1.1, gamma -> 10, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -1048,6 +1063,7 @@ $badCatalog = <|
     "shortname" -> "BS",
     "bibRef" -> "BSh2012",
     "desc" -> "Long-run risk depends on expected inflation",
+    "enabled" -> True,
     "stateVars" -> {x[t], pibar[t] - mupbar, sx[t], sp[t]},
     "parameters" -> {
       delta -> 0.994, psi -> 1.81, gamma -> 20.9, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -1069,6 +1085,7 @@ $badCatalog = <|
     "shortname" -> "DES",
     "bibRef" -> "des2023stocksbonds",
     "desc" -> "Long-run risk model with real effects of inflation",
+    "enabled" -> True,
     "stateVars" -> {x[t], sx[t], -mupbar + pibar[t], sg[-1 + t] eps["pi"][t], eps["pi"][t], ab[t] - Esg + sg[t]},  (* ERROR: ab[t] is invalid symbol *)
     "parameters" -> {
       delta -> 0.9995, psi -> 1.1, gamma -> 10, theta -> (1 - gamma)/(1 - psi^(-1)),
@@ -1089,6 +1106,7 @@ $badCatalog = <|
     "shortname" -> "NRCStochVol",
     "bibRef" -> "n/a",
     "desc" -> "Model without long-run risk with NRC and stochastic vol",
+    "enabled" -> True,
     "stateVars" -> {-mup + pi[s], sg[-1 + s] eps["pi"][s], eps["pi"][s], -Esg + sg[s], pibar[s] - mupbar, sp[s]},  (* ERROR: uses s instead of t *)
     "parameters" -> {
       delta -> 0.99, psi -> 1.2, gamma -> 15, theta -> (1 - gamma)/(1 - psi^(-1)),

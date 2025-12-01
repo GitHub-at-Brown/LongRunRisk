@@ -30,7 +30,7 @@ Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 (* Schema Definition - Pattern-based *)
 
 (* Required keys with their expected type patterns *)
-$requiredKeys = {"name", "shortname", "bibRef", "desc", "stateVars", "parameters"};
+$requiredKeys = {"name", "shortname", "bibRef", "desc", "enabled", "stateVars", "parameters"};
 
 (* Type patterns for each key - used with MatchQ *)
 $keyTypePatterns = <|
@@ -38,6 +38,7 @@ $keyTypePatterns = <|
   "shortname" -> _String,
   "bibRef" -> _String,
   "desc" -> _String,
+  "enabled" -> True | False,
   "stateVars" -> _List,
   "parameters" -> _List
 |>;
@@ -48,6 +49,7 @@ $keyTypeNames = <|
   "shortname" -> "String",
   "bibRef" -> "String",
   "desc" -> "String",
+  "enabled" -> "True or False",
   "stateVars" -> "List",
   "parameters" -> "List"
 |>;
