@@ -53,11 +53,11 @@ models = <|
 		"name" -> "Original long-run risk model",
 		"shortname" -> "BY",
 		"bibRef" -> "BY2004",
-		"desc" -> "Long-run risk model with stochastic		
+		"desc" -> "Long-run risk model with stochastic
 			volatility in the original 2004 paper by
-									Bansal and Yaron",
+			Bansal and Yaron",
 		"enabled" -> True,
-		"stateVars" -> {x[t],sx[t]},
+		"stateVars" -> {x[t], sx[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.998,
@@ -147,14 +147,14 @@ models = <|
 	|>,
 (**********************************************************)
 	"BYlowPers" -> <|
-		"name" -> "Original long-run risk model but with			
+		"name" -> "Original long-run risk model but with
 			low persistence",
 		"shortname" -> "BYlowPers",
 		"bibRef" -> "None",
-		"desc" -> "Long-run risk and stochastic volatility	
-							persistance reduced to rhox=vx=0.5",
+		"desc" -> "Long-run risk and stochastic volatility
+			persistance reduced to rhox=vx=0.5",
 		"enabled" -> False,
-		"stateVars" -> {x[t],sx[t]},
+		"stateVars" -> {x[t], sx[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.998,
@@ -244,14 +244,14 @@ models = <|
 	|>,
 (**********************************************************)
 	"BYverylowPers" -> <|
-		"name" -> "Original long-run risk model but with			
+		"name" -> "Original long-run risk model but with
 			very low persistence",
 		"shortname" -> "BYverylowPers",
 		"bibRef" -> "None",
-		"desc" -> "Long-run risk and stochastic volatility	
-							persistance reduced to rhox=vx=0.1",
+		"desc" -> "Long-run risk and stochastic volatility
+			persistance reduced to rhox=vx=0.1",
 		"enabled" -> False,
-		"stateVars" -> {x[t],sx[t]},
+		"stateVars" -> {x[t], sx[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.998,
@@ -344,11 +344,11 @@ models = <|
 		"name" -> "New calibration of long-run risk model",
 		"shortname" -> "BKY",
 		"bibRef" -> "BKY2012",
-		"desc" -> "Long-run risk model with a new		
-			calibration that matches moments better	
-							than the original 2004 calibration",
+		"desc" -> "Long-run risk model with a new
+			calibration that matches moments better
+			than the original 2004 calibration",
 		"enabled" -> True,
-		"stateVars" -> {x[t],sx[t]},
+		"stateVars" -> {x[t], sx[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9989,
@@ -438,14 +438,14 @@ models = <|
 	|>,
 (**********************************************************)
 	"BKYlowPers" -> <|
-		"name" -> "Long-run risk model of Bansal, Kiku and	
-							Yaron but with low persistence",
+		"name" -> "Long-run risk model of Bansal, Kiku and
+			Yaron but with low persistence",
 		"shortname" -> "BKYlowPers",
 		"bibRef" -> "None",
-		"desc" -> "Long-run risk and stochastic volatility	
-							persistance reduced to rhox=vx=0.5",
+		"desc" -> "Long-run risk and stochastic volatility
+			persistance reduced to rhox=vx=0.5",
 		"enabled" -> False,
-		"stateVars" -> {x[t],sx[t]},
+		"stateVars" -> {x[t], sx[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9989,
@@ -535,14 +535,14 @@ models = <|
 	|>,
 (**********************************************************)
 	"BKYverylowPers" -> <|
-		"name" -> "Long-run risk model of Bansal, Kiku and	
-							Yaron but with very low persistence",
+		"name" -> "Long-run risk model of Bansal, Kiku and
+			Yaron but with very low persistence",
 		"shortname" -> "BKYverylowPers",
 		"bibRef" -> "None",
-		"desc" -> "Long-run risk and stochastic volatility	
-							persistance reduced to rhox=vx=0.1",
+		"desc" -> "Long-run risk and stochastic volatility
+			persistance reduced to rhox=vx=0.1",
 		"enabled" -> False,
-		"stateVars" -> {x[t],sx[t]},
+		"stateVars" -> {x[t], sx[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9989,
@@ -632,15 +632,15 @@ models = <|
 	|>,
 (**********************************************************)
 	"BKYinf" -> <|
-		"name" -> "Similar to Bansal-Kiku-Yaron but with			
+		"name" -> "Similar to Bansal-Kiku-Yaron but with
 			inflation",
 		"shortname" -> "BKYinf",
 		"bibRef" -> "None",
-		"desc" -> "Inflation is persistent and predicts		
-			consumption growth (without		
+		"desc" -> "Inflation is persistent and predicts
+			consumption growth (without
 			time-variation, without NRC)",
 		"enabled" -> False,
-		"stateVars" -> {x[t],sx[t],-mup+pi[t]},
+		"stateVars" -> {x[t], sx[t], -mup + pi[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.998,
@@ -730,15 +730,15 @@ models = <|
 	|>,
 (**********************************************************)
 	"NRC" -> <|
-		"name" -> "Model with a nominal real covariance		
+		"name" -> "Model with a nominal real covariance
 			(NRC)",
 		"shortname" -> "NRC",
 		"bibRef" -> "BDRS2020",
-		"desc" -> "Model without long-run risk. Inflation		
-					shocks predict consumption growth with
-									time-varying sign given by the NRC",
+		"desc" -> "Model without long-run risk. Inflation
+			shocks predict consumption growth with
+			time-varying sign given by the NRC",
 		"enabled" -> True,
-		"stateVars" -> {-mup+pi[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],-SuperscriptBox["Esg", "2"]-FractionBox[SuperscriptBox["phig", "2"], RowBox[{"1", "-", SuperscriptBox["rhog", "2"]}]]+SuperscriptBox[RowBox[{"sg", "[", "t", "]"}], "2"]},
+		"stateVars" -> {-mup + pi[t], sg[-1 + t]*eps["pi"][t], eps["pi"][t], -Esg + sg[t], -Esg^2 - phig^2/(1 - rhog^2) + sg[t]^2},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.99,
@@ -865,11 +865,11 @@ models = <|
 		"name" -> "Same as NRC model but with long-run risk",
 		"shortname" -> "NRCLLR",
 		"bibRef" -> "None",
-		"desc" -> "Long-run risk added with same		
-			qualitative properties as in		
+		"desc" -> "Long-run risk added with same
+			qualitative properties as in
 			Bansal-Yaron (but different parameters)",
 		"enabled" -> False,
-		"stateVars" -> {-mup+pi[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],-SuperscriptBox["Esg", "2"]-FractionBox[SuperscriptBox["phig", "2"], RowBox[{"1", "-", SuperscriptBox["rhog", "2"]}]]+SuperscriptBox[RowBox[{"sg", "[", "t", "]"}], "2"],x[t],sx[t]},
+		"stateVars" -> {-mup + pi[t], sg[-1 + t]*eps["pi"][t], eps["pi"][t], -Esg + sg[t], -Esg^2 - phig^2/(1 - rhog^2) + sg[t]^2, x[t], sx[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.99,
@@ -993,15 +993,15 @@ models = <|
 	|>,
 (**********************************************************)
 	"WCratio" -> <|
-		"name" -> "Long Run Risk, the Wealth-Consumption			
+		"name" -> "Long Run Risk, the Wealth-Consumption
 			Ratio, and the Temporal Pricing of Risk",
 		"shortname" -> "WCratio",
 		"bibRef" -> "KLNV2010",
-		"desc" -> "Long-run risk model with long-run risk		
-					in expected inflation and no real		
+		"desc" -> "Long-run risk model with long-run risk
+			in expected inflation and no real
 			effects of inflation",
 		"enabled" -> False,
-		"stateVars" -> {x[t],sc[t],sx[t],-mupbar+pibar[t],-mup+pi[t]},
+		"stateVars" -> {x[t], sc[t], sx[t], -mupbar + pibar[t], -mup + pi[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9987,
@@ -1091,14 +1091,14 @@ models = <|
 	|>,
 (**********************************************************)
 	"WCratioInf" -> <|
-		"name" -> "Same as WCratio model but with real					
-				effects of inflation",
+		"name" -> "Same as WCratio model but with real
+			effects of inflation",
 		"shortname" -> "WCratioInf",
 		"bibRef" -> "None",
-		"desc" -> "Inflation predicts consumption growth			
+		"desc" -> "Inflation predicts consumption growth
 			(without time-variation, without NRC)",
 		"enabled" -> False,
-		"stateVars" -> {x[t],sc[t],sx[t],-mupbar+pibar[t],-mup+pi[t]},
+		"stateVars" -> {x[t], sc[t], sx[t], -mupbar + pibar[t], -mup + pi[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9987,
@@ -1188,16 +1188,16 @@ models = <|
 	|>,
 (**********************************************************)
 	"infStochVol" -> <|
-		"name" -> "Similar to Bansal, Kiku and Yaron but			
-						adding inflation that has stochastic	
-								volatility",
+		"name" -> "Similar to Bansal, Kiku and Yaron but
+			adding inflation that has stochastic
+			volatility",
 		"shortname" -> "infStochVol",
 		"bibRef" -> "None",
-		"desc" -> "Volatility of inflation is different		
-			from volatility of long-run risk and		
+		"desc" -> "Volatility of inflation is different
+			from volatility of long-run risk and
 			depends on inflation levels",
 		"enabled" -> False,
-		"stateVars" -> {x[t],sx[t],-mup+pi[t],sp[t]},
+		"stateVars" -> {x[t], sx[t], -mup + pi[t], sp[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9989,
@@ -1288,14 +1288,14 @@ models = <|
 (**********************************************************)
 	"hassel" -> <|
 		"name" -> "Hasseltoft's Stocks, Bonds, and Long-Run
-									Consumption Risks",
+			Consumption Risks",
 		"shortname" -> "hassel",
 		"bibRef" -> "Ha2012",
-		"desc" -> "Expected inflation has no real effects		
-					but its shock is correlated with		
+		"desc" -> "Expected inflation has no real effects
+			but its shock is correlated with
 			long-run risk shocks",
 		"enabled" -> False,
-		"stateVars" -> {x[t],sx[t],-mupbar+pibar[t]},
+		"stateVars" -> {x[t], sx[t], -mupbar + pibar[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9992,
@@ -1385,15 +1385,15 @@ models = <|
 	|>,
 (**********************************************************)
 	"hasselNRC" -> <|
-		"name" -> "Similar to model hassel but with an NRC	
-								added",
+		"name" -> "Similar to model hassel but with an NRC
+			added",
 		"shortname" -> "hasselNRC",
 		"bibRef" -> "None",
-		"desc" -> "NRC modeled as in model NRC (inflation		
-					shocks predict consumption in		
+		"desc" -> "NRC modeled as in model NRC (inflation
+			shocks predict consumption in
 			time-varying way)",
 		"enabled" -> False,
-		"stateVars" -> {x[t],sx[t],-mupbar+pibar[t],-mup+pi[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],-SuperscriptBox["Esg", "2"]-FractionBox[SuperscriptBox["phig", "2"], RowBox[{"1", "-", SuperscriptBox["rhog", "2"]}]]+SuperscriptBox[RowBox[{"sg", "[", "t", "]"}], "2"]},
+		"stateVars" -> {x[t], sx[t], -mupbar + pibar[t], -mup + pi[t], sg[-1 + t]*eps["pi"][t], eps["pi"][t], -Esg + sg[t], -Esg^2 - phig^2/(1 - rhog^2) + sg[t]^2},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9995,
@@ -1483,16 +1483,16 @@ models = <|
 	|>,
 (**********************************************************)
 	"BS" -> <|
-		"name" -> "A Long-Run Risks Explanation of						
-			Predictability Puzzles in Bond and						
+		"name" -> "A Long-Run Risks Explanation of
+			Predictability Puzzles in Bond and
 			Currency Markets",
 		"shortname" -> "BS",
 		"bibRef" -> "BSh2012",
-		"desc" -> "Long-run risk depends on expected		
-			inflation, expected inflation is		
+		"desc" -> "Long-run risk depends on expected
+			inflation, expected inflation is
 			persistent",
 		"enabled" -> False,
-		"stateVars" -> {x[t],-mupbar+pibar[t],sx[t],sp[t]},
+		"stateVars" -> {x[t], -mupbar + pibar[t], sx[t], sp[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.994,
@@ -1590,7 +1590,7 @@ models = <|
 		"desc" -> "Long-run risk model with real effects of
 			inflation",
 		"enabled" -> True,
-		"stateVars" -> {x[t],sx[t],-mupbar+pibar[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],-SuperscriptBox["Esg", "2"]-FractionBox[SuperscriptBox["phig", "2"], RowBox[{"1", "-", SuperscriptBox["rhog", "2"]}]]+SuperscriptBox[RowBox[{"sg", "[", "t", "]"}], "2"]},
+		"stateVars" -> {x[t], sx[t], -mupbar + pibar[t], sg[-1 + t]*eps["pi"][t], eps["pi"][t], -Esg + sg[t], -Esg^2 - phig^2/(1 - rhog^2) + sg[t]^2},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.9995,
@@ -1680,18 +1680,18 @@ models = <|
 	|>,
 (**********************************************************)
 	"NRCStochVol" -> <|
-		"name" -> "Model with a nominal real covariance				
-					(NRC) and stochastic volatility of
+		"name" -> "Model with a nominal real covariance
+			(NRC) and stochastic volatility of
 			expected inflation",
 		"shortname" -> "NRCStochVol",
 		"bibRef" -> "n/a",
-		"desc" -> "Model without long-run risk. Inflation		
-					shocks predict consumption growth with
-							time-varying sign given by the NRC
-			and expected inflation					has
-			stochastic volatility",
+		"desc" -> "Model without long-run risk. Inflation
+			shocks predict consumption growth with
+			time-varying sign given by the NRC and
+			expected inflation has stochastic
+			volatility",
 		"enabled" -> True,
-		"stateVars" -> {-mup+pi[t],sg[-1+t] eps["pi"][t],eps["pi"][t],-Esg+sg[t],FractionBox[RowBox[{RowBox[{SuperscriptBox["phip", "2"], " ", SuperscriptBox["rhogp", "2"]}], "+", RowBox[{SuperscriptBox["Esp", "2"], " ", SuperscriptBox["phipbarpb", "2"], " ", SuperscriptBox["rhogpbar", "2"]}], "-", RowBox[{SuperscriptBox["phip", "2"], " ", "rhog", " ", SuperscriptBox["rhogp", "2"], " ", "rhopbar"}], "+", RowBox[{SuperscriptBox["Esp", "2"], " ", SuperscriptBox["phipbarpb", "2"], " ", "rhog", " ", SuperscriptBox["rhogpbar", "2"], " ", "rhopbar"}], "-", RowBox[{SuperscriptBox["phip", "2"], " ", SuperscriptBox["rhogp", "2"], " ", SuperscriptBox["rhopbar", "2"]}], "+", RowBox[{SuperscriptBox["phip", "2"], " ", "rhog", " ", SuperscriptBox["rhogp", "2"], " ", SuperscriptBox["rhopbar", "3"]}], "+", RowBox[{SuperscriptBox["phig", "2"], " ", RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", RowBox[{"rhog", " ", "rhopbar"}]}], ")"}], " ", RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", SuperscriptBox["rhopbar", "2"]}], ")"}]}], "-", RowBox[{SuperscriptBox["Esg", "2"], " ", RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", SuperscriptBox["rhog", "2"]}], ")"}], " ", RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", RowBox[{"rhog", " ", "rhopbar"}]}], ")"}], " ", RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", SuperscriptBox["rhopbar", "2"]}], ")"}]}], "+", RowBox[{"2", " ", SuperscriptBox["Esp", "2"], " ", SuperscriptBox["phipbarpb", "2"], " ", "rhog", " ", "rhogp", " ", "rhogpbar", " ", "rhoppbar"}], "+", RowBox[{"2", " ", SuperscriptBox["Esp", "2"], " ", SuperscriptBox["phipbarpb", "2"], " ", "rhogp", " ", "rhogpbar", " ", "rhopbar", " ", "rhoppbar"}], "+", RowBox[{SuperscriptBox["Esp", "2"], " ", SuperscriptBox["phipbarpb", "2"], " ", SuperscriptBox["rhogp", "2"], " ", SuperscriptBox["rhoppbar", "2"]}], "+", RowBox[{SuperscriptBox["Esp", "2"], " ", SuperscriptBox["phipbarpb", "2"], " ", "rhog", " ", SuperscriptBox["rhogp", "2"], " ", "rhopbar", " ", SuperscriptBox["rhoppbar", "2"]}], "+", RowBox[{"2", " ", "phip", " ", "rhog", " ", SuperscriptBox["rhogp", "2"], " ", RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", RowBox[{"rhog", " ", "rhopbar"}]}], ")"}], " ", RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", SuperscriptBox["rhopbar", "2"]}], ")"}], " ", "xip"}], "+", RowBox[{SuperscriptBox["rhogp", "2"], " ", RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", RowBox[{"rhog", " ", "rhopbar"}]}], ")"}], " ", RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", SuperscriptBox["rhopbar", "2"]}], ")"}], " ", SuperscriptBox["xip", "2"]}]}], RowBox[{RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", SuperscriptBox["rhog", "2"]}], ")"}], " ", RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", RowBox[{"rhog", " ", "rhopbar"}]}], ")"}], " ", RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", SuperscriptBox["rhopbar", "2"]}], ")"}]}]]+SuperscriptBox[RowBox[{"sg", "[", "t", "]"}], "2"],-mupbar+pibar[t],sp[t]},
+		"stateVars" -> {-mup + pi[t], sg[-1 + t]*eps["pi"][t], eps["pi"][t], -Esg + sg[t], (phip^2*rhogp^2 + Esp^2*phipbarpb^2*rhogpbar^2 - phip^2*rhog*rhogp^2*rhopbar + Esp^2*phipbarpb^2*rhog*rhogpbar^2*rhopbar - phip^2*rhogp^2*rhopbar^2 + phip^2*rhog*rhogp^2*rhopbar^3 + phig^2*(-1 + rhog*rhopbar)*(-1 + rhopbar^2) - Esg^2*(-1 + rhog^2)*(-1 + rhog*rhopbar)*(-1 + rhopbar^2) + 2*Esp^2*phipbarpb^2*rhog*rhogp*rhogpbar*rhoppbar + 2*Esp^2*phipbarpb^2*rhogp*rhogpbar*rhopbar*rhoppbar + Esp^2*phipbarpb^2*rhogp^2*rhoppbar^2 + Esp^2*phipbarpb^2*rhog*rhogp^2*rhopbar*rhoppbar^2 + 2*phip*rhog*rhogp^2*(-1 + rhog*rhopbar)*(-1 + rhopbar^2)*xip + rhogp^2*(-1 + rhog*rhopbar)*(-1 + rhopbar^2)*xip^2)/((-1 + rhog^2)*(-1 + rhog*rhopbar)*(-1 + rhopbar^2)) + sg[t]^2, -mupbar + pibar[t], sp[t]},
 		"parameters" -> {
 			(*"Preferences"*)
 			delta -> 0.99,
@@ -1780,6 +1780,18 @@ models = <|
 		}
 	|>
 |>;(*end models*) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 
 

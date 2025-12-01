@@ -17,6 +17,8 @@ findRootInterval
 extractIntervalsFromReduce
 scanAndSolve
 fastRoot
+createCompiledEq
+compileJacobians
 
 
 (* ::Subsubsection:: *)
@@ -47,6 +49,10 @@ fastRoot::cvmit = "Failed to converge within `1` iterations starting from x0=`2`
 fastRoot::nnum = "Function returned non-numeric value `1` at x=`2`.";
 fastRoot::nobnd = "No bounds specified and FindRoot failed from x0=`1`.";
 fastRoot::badbnds = "Invalid bounds: lower bound `1` must be less than upper bound `2`.";
+createCompiledEq::usage = "createCompiledEq[model, dir] compiles model equations to dir/{shortname}.mx. Returns file path on success.";
+createCompiledEq::cachehit = "cache hit for model `1`; skipping compilation.";
+createCompiledEq::compiling = "compiling model `1`; this may take a long time.";
+compileJacobians::usage = "compileJacobians[model, dir] compiles jacobians to dir/{shortname}_jacobians.mx.";
 
 
 (* ::Section:: *)
@@ -909,6 +915,121 @@ extractIntervalsFromReduce[reduceExpr_, rootVars_, opts : OptionsPattern[{extrac
     intervals
   ]
 ];
+
+
+(* ::Subsection:: *)
+(*createCompiledEq*)
+
+
+createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile}]] :=
+With[{
+	quadSol = model["coeffsParamQuadSolve"],
+	modelParamsKeys = Keys @ model["params"],
+	shortname = model["shortname"],
+	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile]],
+	coeffsSystem = model["coeffsSystem"]
+},
+With[{
+	ddHeads = Apply[Alternatives, Part[FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList["Real dividend growth"], All, 0]],
+	wcSys = coeffsSystem["wc"],
+	pdSys = coeffsSystem["pd"],
+	quadSolWc = quadSol["wc"],
+	quadSolPd = quadSol["pd"]
+},
+With[{
+	paramsA = DeleteCases[modelParamsKeys, ddHeads[_]],
+	paramsStocks = Cases[modelParamsKeys, x : ddHeads[_] :> Head[x][j]],
+	wcCoeffs = wcSys[[2]],
+	wcSignRootMap = Normal @ quadSolWc["SignRootMap"]
+},
+With[{
+	wcCoeffName = SymbolName @ Head @ wcCoeffs[[1]],
+	pdCoeffName = SymbolName @ Head @ Head @ pdSys[[2, 1]],
+	wcSigns = Keys @ wcSignRootMap,
+	pdSigns = Keys @ quadSolPd["SignRootMap"],
+	wcVars = quadSolWc["varsA0"],
+	pdVars = quadSolPd["varsB0"]
+},
+With[{
+	eqMap = <|
+		"A" -> <|
+			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolWc["eqA0"]],
+			"Vars" -> wcVars,
+			"Params" -> paramsA,
+			"CoeffName" -> wcCoeffName,
+			"SignSymbol" -> If[wcSigns === {}, "sign" <> SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc], SymbolName @ Head @ First @ wcSigns]
+		|>,
+		"B" -> <|
+			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolPd["eqB0"]],
+			"Vars" -> pdVars,
+			"Params" -> Join[paramsA, paramsStocks, wcCoeffs],
+			"CoeffName" -> pdCoeffName,
+			"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
+		|>,
+		"AB" -> <|
+			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolPd["eqAB0"]],
+			"Vars" -> pdVars,
+			"Params" -> Join[paramsA, paramsStocks, {First @ wcCoeffs}, wcSignRootMap],
+			"CoeffName" -> pdCoeffName,
+			"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
+		|>
+	|>
+},
+Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
+	file = FileNameJoin[{resourcesCompiledDir, shortname <> ".mx"}];
+	currentHash = Hash[eqMap, "Expression"];
+
+	(* check cache *)
+	If[FileExistsQ[file],
+		savedData = Quiet[Import[file, "MX"]];
+		If[AssociationQ[savedData] && KeyExistsQ[savedData, "meta"],
+			savedHash = savedData["meta"]["Hash"];
+			savedSystemID = savedData["meta"]["SystemID"];
+			If[savedHash === currentHash && savedSystemID === $SystemID,
+				Message[createCompiledEq::cachehit, shortname];
+				Return[file]
+			]
+		]
+	];
+
+	Message[createCompiledEq::compiling, shortname];
+
+	kernels = Association @ Table[
+		eq -> buildKernel[
+			eqMap[eq]["Expr"],
+			eqMap[eq]["Vars"],
+			eqMap[eq]["Params"],
+			"CoeffName" -> eqMap[eq]["CoeffName"],
+			"SignSymbol" -> eqMap[eq]["SignSymbol"],
+			Sequence @@ buildKernelOpts
+		],
+		{eq, Keys @ eqMap}
+	];
+
+	Export[file, <|
+		"kernels" -> kernels,
+		"meta" -> <|
+			"Version" -> $Version,
+			"SystemID" -> $SystemID,
+			"Date" -> DateString[],
+			"Hash" -> currentHash
+		|>
+	|>, "MX"]
+]
+]]]]]
+
+
+(* ::Subsection:: *)
+(*compileJacobians*)
+
+
+compileJacobians[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile}]] :=
+Module[{shortname, file},
+	shortname = model["shortname"];
+	file = FileNameJoin[{resourcesCompiledDir, shortname <> "_jacobians.mx"}];
+	(* jacobians are already compiled in buildKernel as dfC; this is a placeholder for future separation *)
+	file
+]
 
 
 (* ::Section:: *)

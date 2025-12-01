@@ -20,6 +20,18 @@ reformatCatalog::noroot = "Could not locate paclet root directory.";
 reformatCatalog::nocat = "Could not locate Catalog.wl or parse its structure.";
 reformatCatalog::success = "Catalog.wl reformatted successfully.";
 
+buildModels::usage = "buildModels[] processes enabled models, compiles functions, computes numerical solutions, and creates moments database.";
+buildModels::noroot = "Could not locate paclet root directory.";
+buildModels::nocat = "Catalog models not found or invalid.";
+buildModels::start = "starting build for `1` model(s).";
+buildModels::processing = "processing model `1`.";
+buildModels::compiling = "compiling model `1`.";
+buildModels::numerical = "computing numerical solutions for `1`.";
+buildModels::moments = "creating moments database for `1`.";
+buildModels::done = "build completed for `1` model(s).";
+buildModels::uptodate = "all enabled models are up to date.";
+buildModels::skipped = "skipped `1` (not enabled).";
+
 Begin["`Private`"];
 
 (* Live catalog loading - tracks file modification time *)
@@ -211,8 +223,8 @@ checkCatalogChanges[] := Module[
     <|"Valid" -> True, "Results" -> <||>, "InvalidModels" -> {}, "TotalErrors" -> 0|>
   ];
 
-  (* Auto-reformat if there were changes *)
-  If[changedModels =!= {} || newModels =!= {},
+  (* auto-reformat only if there were valid changes *)
+  If[(changedModels =!= {} || newModels =!= {}) && TrueQ[validationResult["Valid"]],
     reformatCatalog[]
   ];
 
@@ -252,6 +264,23 @@ boxToString[BoxData[content_]] := boxToString[content];
 boxToString[Cell[BoxData[content_], ___]] := boxToString[content];
 boxToString[s_String] := s;
 boxToString[n_Integer] := ToString[n];
+boxToString[n_Real] := ToString[n];
+
+(* Mathematical box types *)
+boxToString[SuperscriptBox[base_, exp_]] := StringJoin["Power[", boxToString[base], ", ", boxToString[exp], "]"];
+boxToString[SubscriptBox[base_, sub_]] := StringJoin["Subscript[", boxToString[base], ", ", boxToString[sub], "]"];
+boxToString[SubsuperscriptBox[base_, sub_, sup_]] := StringJoin["Subsuperscript[", boxToString[base], ", ", boxToString[sub], ", ", boxToString[sup], "]"];
+boxToString[FractionBox[num_, denom_]] := StringJoin["(", boxToString[num], ")/(", boxToString[denom], ")"];
+boxToString[SqrtBox[content_]] := StringJoin["Sqrt[", boxToString[content], "]"];
+boxToString[RadicalBox[content_, n_]] := StringJoin["Power[", boxToString[content], ", 1/", boxToString[n], "]"];
+boxToString[OverscriptBox[base_, over_]] := StringJoin["Overscript[", boxToString[base], ", ", boxToString[over], "]"];
+boxToString[UnderscriptBox[base_, under_]] := StringJoin["Underscript[", boxToString[base], ", ", boxToString[under], "]"];
+
+(* Catch-all for unknown boxes - try to convert content recursively *)
+boxToString[box_[args___]] /; StringEndsQ[SymbolName[box], "Box"] :=
+  StringJoin["(*UnhandledBox:", SymbolName[box], "*)", StringRiffle[boxToString /@ {args}, " "]];
+
+(* Final fallback *)
 boxToString[x_] := ToString[x, InputForm];
 
 (* Main converter: tries front end first, falls back to manual *)
@@ -342,6 +371,173 @@ reformatCatalog[] := Module[
 
   Message[reformatCatalog::success];
   catalogFile
+];
+
+
+(* === buildModels orchestrator === *)
+
+buildModels // Options = {
+	"FromScratch" -> False,
+	"CompileJacobians" -> False,
+	"MaxMaturity" -> 120,
+	"Models" -> All  (* All or list of shortnames *)
+};
+
+
+(* helper: select enabled models from catalog *)
+selectEnabledModels[catalog_Association] := Select[catalog, TrueQ[#["enabled"]] &];
+
+
+(* helper: clean all generated outputs for from-scratch builds *)
+cleanAllOutputs[root_String] := Module[{resourcesDir, compiledDir, momentsDir},
+	resourcesDir = FileNameJoin[{root, "Resources"}];
+	compiledDir = FileNameJoin[{resourcesDir, "CompiledFunctions"}];
+	momentsDir = FileNameJoin[{resourcesDir, "MomentsLookupTables"}];
+
+	(* delete compiled .mx files *)
+	If[DirectoryQ[compiledDir],
+		DeleteFile /@ FileNames["*.mx", compiledDir]
+	];
+
+	(* delete moments lookup tables *)
+	If[DirectoryQ[momentsDir],
+		DeleteFile /@ FileNames["covLong*.wl", momentsDir]
+	];
+
+	(* delete Models.wl and ModelManifest.wl *)
+	Quiet[DeleteFile[FileNameJoin[{resourcesDir, "Models.wl"}]]];
+	Quiet[DeleteFile[FileNameJoin[{resourcesDir, "ModelManifest.wl"}]]];
+];
+
+
+(* helper: save processed models to Models.wl *)
+saveModels[models_Association, file_String] := Module[{},
+	Quiet[CreateDirectory[DirectoryName[file]], {CreateDirectory::filex, CreateDirectory::eexist}];
+	Put[models, file];
+	file
+];
+
+
+(* helper: load models from Models.wl *)
+loadModels[file_String] := If[FileExistsQ[file], Get[file], <||>];
+
+
+buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels, FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq}]] := With[
+	{
+		fromScratch = OptionValue["FromScratch"],
+		compileJacobians = OptionValue["CompileJacobians"],
+		maxMaturity = OptionValue["MaxMaturity"],
+		modelFilter = OptionValue["Models"]
+	},
+	Module[
+		{
+			root, resourcesDir, compiledDir, modelsFile,
+			catalogModels, enabledModels, modelsToProcess, changes,
+			processedModels, model, shortname, compiledFile
+		},
+
+		(* find paclet root *)
+		root = findPacletRoot[];
+		If[root === $Failed, Message[buildModels::noroot]; Return[$Failed]];
+
+		resourcesDir = FileNameJoin[{root, "Resources"}];
+		compiledDir = FileNameJoin[{resourcesDir, "CompiledFunctions"}];
+		modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
+
+		(* ensure directories exist *)
+		Quiet[CreateDirectory[compiledDir], {CreateDirectory::filex, CreateDirectory::eexist}];
+
+		(* get catalog and filter enabled models *)
+		catalogModels = getCatalogModels[];
+		If[!AssociationQ[catalogModels], Message[buildModels::nocat]; Return[$Failed]];
+
+		enabledModels = selectEnabledModels[catalogModels];
+
+		(* apply model filter if specified *)
+		enabledModels = If[modelFilter === All,
+			enabledModels,
+			KeyTake[enabledModels,
+				Select[Keys[enabledModels], MemberQ[Flatten@{modelFilter}, catalogModels[#]["shortname"]] &]
+			]
+		];
+
+		If[Length[enabledModels] == 0,
+			Message[buildModels::uptodate];
+			Return[<||>]
+		];
+
+		(* determine which models need processing *)
+		If[fromScratch,
+			cleanAllOutputs[root];
+			modelsToProcess = Keys[enabledModels];
+			,
+			(* check for changes *)
+			changes = checkCatalogChanges[];
+			modelsToProcess = If[changes === Null || changes === $Failed,
+				{},
+				Join[changes["Changed"], changes["New"]]
+			];
+			(* filter to only enabled models *)
+			modelsToProcess = Select[modelsToProcess, KeyExistsQ[enabledModels, #] &];
+		];
+
+		If[Length[modelsToProcess] == 0,
+			Message[buildModels::uptodate];
+			Return[<||>]
+		];
+
+		Message[buildModels::start, Length[modelsToProcess]];
+
+		(* load dependencies *)
+		Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
+		Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+
+		(* process each model *)
+		processedModels = <||>;
+
+		Do[
+			shortname = catalogModels[modelKey]["shortname"];
+			Message[buildModels::processing, shortname];
+
+			(* run symbolic processing *)
+			model = First @ Values @ FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
+				KeyTake[catalogModels, {modelKey}]
+			];
+
+			(* compile functions *)
+			Message[buildModels::compiling, shortname];
+			compiledFile = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
+				model,
+				compiledDir
+			];
+
+			(* compile jacobians if requested *)
+			If[compileJacobians,
+				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`compileJacobians[model, compiledDir]
+			];
+
+			(* compute numerical solutions *)
+			Message[buildModels::numerical, shortname];
+			model = Append[model,
+				"coeffsSolutionN" -> FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[model]
+			];
+
+			processedModels[shortname] = model;
+
+			, {modelKey, modelsToProcess}
+		];
+
+		(* save processed models *)
+		saveModels[processedModels, modelsFile];
+
+		(* update manifest *)
+		updateModelManifest[];
+
+		Message[buildModels::done, Length[modelsToProcess]];
+
+		processedModels
+	]
 ];
 
 End[];

@@ -12,6 +12,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
 
 updateCoeffs
+addCoeffsSolutionN
 
 
 (* ::Subsubsection:: *)
@@ -21,6 +22,8 @@ updateCoeffs
 updateCoeffs::usage = "updateCoeffs[model] solves for the coefficients of the wealth-consumption ratio, price-dividend ratio, real bonds, and nominal bonds, and returns a list of rules to evaluate the coefficients numerically."<>"\n"<>
 			          "updateCoeffs[model, newParameters] uses the parameters in the list of rules newParameters instead of the ones specified in model."<>"\n"<>
 			          "updateCoeffs[model, newParameters, guessCoeffsSolution] uses initial solution estimates in guessCoeffsSolution.";
+
+addCoeffsSolutionN::usage = "addCoeffsSolutionN[model] computes numerical solutions for all coefficient types (wc, pd, bond, nombond) using default parameters and model extraInfo.";
 
 
 (* ::Section:: *)
@@ -527,18 +530,50 @@ solveCoeffRoots[
   extraParams_Association : <||>,
   opts : OptionsPattern[{solveCoeffRoots, findRootInterval, extractIntervalsFromReduce, scanAndSolve, fastRoot, FindRoot}]
 ] /; AllTrue[signs, (# === 1 || # === -1) &] :=
-  With[
-    {
-      paramsRules = model["params"],
-      coeffsSys   = model["coeffsSystem"][coeffKey],
-      quadSol     = model["coeffsParamQuadSolve"][coeffKey]
-    },
-    With[
-      {
-        paramsBase = (Association @ paramsRules) //. paramsRules // N,
-        coefList   = savedKernel["Vars"],
-        coefName   = First @ coeffsSys[[2]],
-        conds      = quadSol["Conditions"]
+   With[
+        {
+          paramsBase = Module[{thetaRule, gammaRule, psiRule, gammaInTheta, psiInTheta, tempAssoc, tempResult},
+            Print["=== DEBUG: Before paramsBase evaluation ==="];
+            Print["paramsRules length: ", Length[paramsRules]];
+
+            (* Find theta, gamma, psi rules *)
+            thetaRule = SelectFirst[paramsRules, StringContainsQ[ToString[#[[1]]], "theta"] &, Missing[]];
+            gammaRule = SelectFirst[paramsRules, StringContainsQ[ToString[#[[1]]], "gamma"] && !StringContainsQ[ToString[#[[1]]], "theta"] &, Missing[]];
+            psiRule = SelectFirst[paramsRules, StringContainsQ[ToString[#[[1]]], "psi"] &, Missing[]];
+
+            Print["theta rule: ", thetaRule];
+            Print["gamma rule: ", gammaRule];
+            Print["psi rule: ", psiRule];
+
+            If[!MissingQ[thetaRule],
+              Print["theta formula symbols: ", Union @ Cases[thetaRule[[2]], _Symbol, Infinity]];
+              Print["theta formula symbol contexts: ", Context /@ Union @ Cases[thetaRule[[2]], _Symbol, Infinity]];
+              gammaInTheta = SelectFirst[Cases[thetaRule[[2]], _Symbol, Infinity], StringContainsQ[SymbolName[#], "gamma"] &, Missing[]];
+              psiInTheta = SelectFirst[Cases[thetaRule[[2]], _Symbol, Infinity], StringContainsQ[SymbolName[#], "psi"] &, Missing[]];
+              Print["gamma in theta formula: ", gammaInTheta, " context: ", If[!MissingQ[gammaInTheta], Context[gammaInTheta], "N/A"]];
+              Print["psi in theta formula: ", psiInTheta, " context: ", If[!MissingQ[psiInTheta], Context[psiInTheta], "N/A"]];
+              Print["gamma rule LHS === gamma in theta? ", If[!MissingQ[gammaRule] && !MissingQ[gammaInTheta], gammaRule[[1]] === gammaInTheta, "N/A"]];
+              Print["psi rule LHS === psi in theta? ", If[!MissingQ[psiRule] && !MissingQ[psiInTheta], psiRule[[1]] === psiInTheta, "N/A"]];
+            ];
+
+            (* Show intermediate steps *)
+            tempAssoc = Association @ paramsRules;
+            Print["After Association@paramsRules, theta value: ", tempAssoc[thetaRule[[1]]]];
+            tempResult = tempAssoc //. paramsRules;
+            Print["After //. paramsRules, theta value: ", tempResult[thetaRule[[1]]]];
+            Print["After // N, theta value: ", N[tempResult[thetaRule[[1]]]]];
+
+            Print["=== Entering Dialog[] - type Return[] to continue ==="];
+            Dialog[];
+
+            (* Original computation *)
+            (Association @ paramsRules) //. paramsRules // N
+          ],
+		coeffsSys   = model["coeffsSystem"][coeffKey],
+		quadSol     = model["coeffsParamQuadSolve"][coeffKey],
+		coefList   = savedKernel["Vars"],
+		coefName   = First @ coeffsSys[[2]],
+		conds      = quadSol["Conditions"]
       },
       With[
         {
@@ -616,8 +651,7 @@ solveCoeffRoots[
 
         ]
       ]
-    ]
-  ];
+    ];
 
 
 (* ::Subsection:: *)
@@ -697,6 +731,66 @@ solveWcPdRoots[
       wcResults
     ]
   ]
+];
+
+
+(* ::Subsection:: *)
+(*getStartingValues*)
+
+
+(* helper for addCoeffsSolutionN - retrieves initial guesses from model extraInfo *)
+getStartingValues // Options = {
+	"initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>
+};
+
+
+getStartingValues[
+	ratio_String,
+	infoModel_Association : <||>,
+	opts : OptionsPattern[{getStartingValues}]
+] := With[
+	{
+		iEv = "E" <> ratio,
+		ig = First @ OptionValue[getStartingValues, Flatten @ {opts}, {"initialGuess"}]
+	},
+	Which[
+		(* option provided and non-empty *)
+		And[
+			KeyExistsQ[ig, iEv],
+			Not[SameQ[ig, {}]] || Not[SameQ[ig[iEv], {}]]
+		],
+		ig[iEv],
+		(* from infoModel["initialGuess"] *)
+		KeyExistsQ[infoModel, "initialGuess"] && KeyExistsQ[infoModel["initialGuess"], iEv],
+		infoModel["initialGuess"][iEv],
+		(* default *)
+		True,
+		Switch[ratio, "wc", {4}, "pd", {{4}}]
+	]
+];
+
+
+(* ::Subsection:: *)
+(*addCoeffsSolutionN*)
+
+
+addCoeffsSolutionN[model_] := With[
+	{
+		modelInfo = model["extraInfo"],
+		params = model["params"],
+		maxMaturity = 120,
+		numStocks = model["numStocks"]
+	},
+	Module[{Ewc0, Epd0, Epd0j, solWc, solPd, solBond, solNomBond},
+		Ewc0 = getStartingValues["wc", modelInfo, "initialGuess" -> {}];
+		Epd0 = getStartingValues["pd", modelInfo, "initialGuess" -> {}];
+		Epd0j = Table["Epd0[" <> IntegerString[j] <> "]" -> First @ (Epd0[[j]]), {j, 1, numStocks}] /. Table -> Sequence;
+		solWc = updateCoeffsWc[model["coeffsSolution"]["wc"], params, {}, "Ewc0" -> Sequence[First @ Ewc0], MaxIterations -> 1000];
+		solPd = updateCoeffsPd[model["coeffsSolution"]["pd"], params, {}, solWc, Epd0j, MaxIterations -> 1000];
+		solBond = updateCoeffsBond[model["coeffsSolution"]["bond"], params, {}, maxMaturity, solWc];
+		solNomBond = updateCoeffsBond[model["coeffsSolution"]["nombond"], params, {}, maxMaturity, solWc];
+		Flatten @ Join[solWc, solPd, solBond, solNomBond]
+	]
 ];
 
 

@@ -18,8 +18,7 @@ processModels
 (*Usage*)
 
 
-processModels::usage = "processModels[modelsCatalog] adds convenience tools to solve and work with each model in modelsCatalog."<>"\n"<>
-					   "processModels[modelsCatalog, modelsExtraInfo] uses modelsExtraInfo to pre-solve parts of the model and to provide bounds or initial estimates for parts of the model that are not pre-solved.";
+processModels::usage = "processModels[modelsCatalog] performs symbolic processing on models, adding coefficient systems and solutions.";
 
 
 (* ::Section:: *)
@@ -60,22 +59,20 @@ processModels::progress = "Finished `1`.";
 
 processModels[
 	modelsCatalog_Association,
-	modelsExtraInfo_Association:<||>,
-	opts:OptionsPattern[{(*processModels,*) updateCoeffs, getStartingValues, FindRoot, RecurrenceTable}]
+	opts:OptionsPattern[{updateCoeffs, getStartingValues, FindRoot, RecurrenceTable}]
 ]:=
 	Module[
 	{
 		keys=Keys[modelsCatalog],
-		models = KeyMap[Replace[#, Thread[Keys[modelsCatalog]->Values@(#["shortname"]&/@modelsCatalog) ] ]&,modelsCatalog],(*rename Keys to shortname*)		
+		models = KeyMap[Replace[#, Thread[Keys[modelsCatalog]->Values@(#["shortname"]&/@modelsCatalog) ] ]&,modelsCatalog],(*rename Keys to shortname*)
 		contextPath=$ContextPath,
-		i,
 		modelAssumptions,
-		(*optsSol,*)
 		maxMomentOrder,
-		maxSolveTime,
-		resourcesDir,
-		resourcesCompiledDir
+		maxSolveTime
 	},
+	(* add default empty extraInfo if not present *)
+	models = If[KeyExistsQ[#, "extraInfo"], #, Append[#, "extraInfo" -> <||>]]& /@ models;
+
 	(*replace stateVars by a function t |-> stateVars[t] *)
 	models = Append[
 		#,
@@ -221,31 +218,7 @@ processModels[
 		]&/@models,
 		"solveCoeffsSystem"
 	];
-	
-	(*compile and save equations for FindRoot*)
-	resourcesDir = 
-		Module[ { pacletObj },
-			pacletObj = PacletFind[ "FernandoDuarte/LongRunRisk" ];
-			If[ pacletObj =!= {},
-				Needs["PacletTools`"];
-				PacletTools`PacletExtensionDirectory[ First @ pacletObj ][ { "Path", <| "Root" -> "Resources" |> } ],
-				FileNameJoin @ { DirectoryName[ $InputFileName, 3 ], "Resources" }
-			]
-		];
-	Echo[resourcesDir,"resourcesDir"];
-	resourcesCompiledDir = FileNameJoin @ { resourcesDir, "CompiledFunctions"};
-	Echo[resourcesCompiledDir,"resourcesCompiledDir"];
-	createCompiledEq[#, resourcesCompiledDir]&/@models;
-	
-	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
-	models = EchoTiming[
-		Append[
-			#,
-			"extraInfo" -> If[KeyExistsQ[modelsExtraInfo,#["shortname"]],modelsExtraInfo[#["shortname"]],<||>]
-		]& /@ models,
-		"extraInfo"
-	];
-	
+
 	models = EchoTiming[
 		Append[
 			#,
@@ -258,16 +231,7 @@ processModels[
 		]& /@ models,
 		"addCoeffsSolution"
 	];
-	
-	(*add numerical solution to coeffsSolution when using model["params"]*)
-	models = EchoTiming[
-		Append[
-			#,
-			"coeffsSolutionN" -> addCoeffsSolutionN[#]
-		]& /@ models,
-		"addCoeffsSolutionN"
-	];
-	
+
 	(*add a list of existing Keys called Properties*)
 	models=Append[
 		#,
@@ -762,160 +726,6 @@ tryTransforms[
 ](*Module*)
 
 
-(* ::Subsection:: *)
-(*createCompiledEq*)
-
-
-createCompiledEq[ model_, resourcesCompiledDir_, opts: OptionsPattern[ { buildKernel, FunctionCompile } ] ] := 
-    With[
-        {
-            quadSol = model[ "coeffsParamQuadSolve" ],
-            modelParamsKeys = Keys @ model[ "params" ],
-            shortname = model[ "shortname" ],
-            buildKernelOpts = Evaluate @ FilterRules[ Flatten @ { opts }, Join[Options @ buildKernel, Options @ FunctionCompile] ],
-            coeffsSystem = model[ "coeffsSystem" ]
-        },
-        With[
-            {
-                ddHeads = 
-                    Apply[
-                        Alternatives,
-                        Part[
-                            FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList[ "Real dividend growth" ],
-                            All,
-                            0
-                        ]
-                    ],
-                wcSys = coeffsSystem[ "wc" ],
-                pdSys = coeffsSystem[ "pd" ],
-                quadSolWc = quadSol[ "wc" ],
-                quadSolPd = quadSol[ "pd" ]
-            },
-            With[
-                {
-                    paramsA = DeleteCases[ modelParamsKeys, ddHeads[ _ ] ],
-                    paramsStocks = Cases[ modelParamsKeys, x: ddHeads[ _ ] :> Head[ x ][ j ] ],
-                    wcCoeffs = wcSys[[ 2 ]],
-                    wcSignRootMap = Normal @ quadSolWc[ "SignRootMap" ]
-                 },
-                 With[
-                 {
-                    wcCoeffName = SymbolName @ Head @ wcCoeffs[[ 1 ]],
-                    pdCoeffName = SymbolName @ Head @ Head @ pdSys[[ 2, 1 ]],
-                    wcSigns = Keys @ wcSignRootMap,
-                    pdSigns = Keys @ quadSolPd[ "SignRootMap" ],
-                    wcVars = quadSolWc["varsA0"],
-                    pdVars = quadSolPd["varsB0"]
-                },
-                With[
-                    {
-                        eqMap = <|
-                            "A" -> <|
-                                "Expr" ->  Map[ If[Head[#]===Equal, If[Length[#]==2, Subtract @@ #, Print["Error: Equal with != 2 args in A: ", #]; #], #]&, quadSolWc[ "eqA0" ] ],
-                                "Vars" -> wcVars,
-                                "Params" -> paramsA,
-                                "CoeffName" -> wcCoeffName,
-                                "SignSymbol" -> If[
-	                                wcSigns==={},
-	                                "sign"<>SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc],
-	                                SymbolName @ Head @ First @ wcSigns
-                                ]
-                            |>,
-                            "B" -> <|
-                                "Expr" -> Map[ If[Head[#]===Equal, If[Length[#]==2, Subtract @@ #, Print["Error: Equal with != 2 args in B: ", #]; #], #]&, quadSolPd[ "eqB0" ] ],
-                                "Vars" -> pdVars,
-                                "Params" -> Join[ paramsA, paramsStocks, wcCoeffs ],
-                                "CoeffName" -> pdCoeffName,
-                                "SignSymbol" -> If[
-	                                pdSigns==={},
-	                                "sign"<>SymbolName[Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd],
-	                                SymbolName @ Head @ First @ pdSigns
-                                ]
-                            |>,
-                            "AB" -> <|
-                                "Expr" -> Map[ If[Head[#]===Equal, If[Length[#]==2, Subtract @@ #, Print["Error: Equal with != 2 args in AB: ", #]; #], #]&, quadSolPd[ "eqAB0" ] ],
-                                "Vars" -> pdVars,
-                                "Params" -> Join[ paramsA, paramsStocks, { First @ wcCoeffs }, wcSignRootMap ],
-                                "CoeffName" -> pdCoeffName,
-                                "SignSymbol" -> If[
-	                                pdSigns==={},
-	                                "sign"<>SymbolName[Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd],
-	                                SymbolName @ Head @ First @ pdSigns
-                                ]
-                        |>
-                    |>
-                    },
-                    Module[{
-                        kernels,
-                        file = FileNameJoin[{resourcesCompiledDir, shortname <> ".mx"}],
-                        currentHash,
-                        savedData,
-                        savedHash,
-                        savedSystemID
-                    },
-                        (* Compute hash of the equations and parameters *)
-                        currentHash = Hash[eqMap, "Expression"];
-
-                        (* Check if we can skip compilation *)
-                        If[FileExistsQ[file],
-                            savedData = Quiet[Import[file, "MX"]];
-                            If[AssociationQ[savedData] && KeyExistsQ[savedData, "meta"],
-                                savedHash = savedData["meta"]["Hash"];
-                                savedSystemID = savedData["meta"]["SystemID"];
-                                
-                                If[savedHash === currentHash && savedSystemID === $SystemID,
-                                    Print["Cache hit for model ", shortname, "; skipping compilation."];
-                                    (* Cache hit: do nothing *)
-                                    Return[file]
-                                ]
-                            ]
-                        ];
-                        
-				    Print["Compiling model ", shortname, "; this may take a long time."];
-				    
-				    kernels = Association @ Table[
-                            eq -> buildKernel[
-                                eqMap[eq]["Expr"],
-                                eqMap[eq]["Vars"],
-                                eqMap[eq]["Params"],
-                                "CoeffName" -> eqMap[eq]["CoeffName"],
-                                "SignSymbol" -> eqMap[eq]["SignSymbol"],
-                                Sequence @@ buildKernelOpts
-                            ],
-                            {eq, Keys @ eqMap }
-                        ];
-
-                        (* Save all kernels to single file *)
-                        Export[file, <|
-                            "kernels" -> kernels,
-                            "meta" -> <|
-                                "Version" -> $Version,
-                                "SystemID" -> $SystemID,
-                                "Date" -> DateString[],
-                                "Hash" -> currentHash
-                            |>
-                        |>, "MX"]
-                    ](*Module*)
-                ](*With*)
-                ](*With*)
-            ](*With*)
-        ](*With*)
-    ](*With*)
-
-
-(*readCache[compute_] := Module[{meta, good, data},
-  good = Quiet[
-    meta = Get[metaFile];
-    AssociationQ[meta] && meta["Version"] === $Version && meta["SystemID"] === $SystemID
-  ];
-  If[good && FileExistsQ[mxFile],
-    Get[mxFile],
-    writeCache@compute[]
-  ]
-]
-
-(* Usage *)
-result = readCache[Function[(* expensive calculation *) Range[5]^2]];*)
 
 
 (* ::Subsection:: *)
@@ -934,7 +744,9 @@ addCoeffsSolution[
 		shortname = model["shortname"],
 		numStocks = model["numStocks"],
 		ratioUncondE=model["ratioUncondE"][ratio],
-		infoModel = model["extraInfo"]
+		infoModel = model["extraInfo"],
+		(* use coeffsParamQuadSolve as the authoritative source for closed-form coefficients *)
+		paramQuadSol = Lookup[model, "coeffsParamQuadSolve", <||>]
 	},
 	With[
 		{
@@ -970,11 +782,11 @@ addCoeffsSolution[
 				coeffInfoSol
 			},
 			If[
-				(*infoModel has coefficients in closed form*)
-				KeyExistsQ[infoModel,"coeffs"] && KeyExistsQ[infoModel["coeffs"],ratio]
+				(* coeffsParamQuadSolve has closed-form solution for this ratio *)
+				KeyExistsQ[paramQuadSol, ratio] && KeyExistsQ[paramQuadSol[ratio], "Solution"]
 				,
-				(*use the closed form to make the system of equations smaller*)
-				coeffInfo=infoModel["coeffs"][ratio];(*Join[infoModel["coeffs"][ratio],If[ratio==="wc",{},infoModel["coeffs"]["wc"]]];*)
+				(* use the closed form to make the system of equations smaller *)
+				coeffInfo = paramQuadSol[ratio]["Solution"];
 				solvedQ=Quiet[Simplify[#,Assumptions->n>=1 && Element[n,Integers],TimeConstraint->{5,15}]&/@(system[[2;;-1]]//.coeffInfo/.dependentParameters),Simplify::gtime];
 				notSolvedQ=Not/@(BooleanQ/@solvedQ);
 				If[
@@ -1044,10 +856,10 @@ addCoeffsSolution[
 			](*If*);
 			x = If[
 				solveNumericQ,
-				(*solve entire system numerically*)
+				(* solve entire system numerically *)
 				eq=system;
 				coefficientNames=unknowns;
-				coeffInfo = {};			
+				coeffInfo = {};
 				If[
 					StringMatchQ[ratio,"wc"|"pd"],
 					createStartingPoint[
@@ -1055,13 +867,13 @@ addCoeffsSolution[
 						ratioUncondE,
 						False,(*stocksSolvedQ*)
 						numStocks,
-						KeyDrop[infoModel,"coeffs"],
+						infoModel,
 						getStartingValuesOpts
 					],
 					cs[[3]]
 				]
 				,
-				(*solve a subset of the system numerically, use closed form solution for the rest*)
+				(* solve a subset of the system numerically, use closed form solution for the rest *)
 				If[
 					StringMatchQ[ratio,"wc"|"pd"],
 					createStartingPoint[
@@ -1484,40 +1296,15 @@ getStartingValues[
 		,
 		ig[iEv]
 		,
-		(*modelsExtraInfo[modKey]["initialGuess"] in Catalog.wl*)
+		(* model["extraInfo"]["initialGuess"] if available *)
 		KeyExistsQ[infoModel,"initialGuess"] && KeyExistsQ[infoModel["initialGuess"],iEv]
 		,
 		infoModel["initialGuess"][iEv],
-		(*a number*)
+		(* default *)
 		True
 		,
 		Switch[ratio,"wc",{4},"pd",{{4}}]
 	](*Which*)
-](*With*)
-
-
-(* ::Subsection:: *)
-(*addCoeffsSolutionN*)
-
-
-addCoeffsSolutionN[model_]:=With[
-	{
-		modelInfo=model["extraInfo"],
-		params=model["params"],
-		maxMaturity = 120,
-		numStocks = model["numStocks"]
-	},
-	Module[{Ewc0,Epd0,Epd0j,solWc,solPd,solBond,solNomBond},
-		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
-		Ewc0 = getStartingValues["wc",modelInfo,"initialGuess" -> {}];
-		Epd0 = getStartingValues["pd",modelInfo,"initialGuess" -> {}];
-		Epd0j=Table["Epd0["<>IntegerString[j]<>"]"->First@(Epd0[[j]]),{j,1,numStocks}]/.Table->Sequence;
-		solWc=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsWc[model["coeffsSolution"]["wc"],params,{},"Ewc0"->Sequence[First@Ewc0],MaxIterations->1000];
-		solPd=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsPd[model["coeffsSolution"]["pd"],params,{},solWc,Epd0j,MaxIterations->1000];
-		solBond=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsBond[model["coeffsSolution"]["bond"],params,{},maxMaturity,solWc];
-		solNomBond=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsBond[model["coeffsSolution"]["nombond"],params,{},maxMaturity,solWc];
-		Flatten@Join[solWc,solPd,solBond,solNomBond]
-	](*Module*)
 ](*With*)
 
 

@@ -574,7 +574,7 @@ modelFormattingTemplate[
 						}],",","\n","\t\t",
 
 						RowBox[{"\"\<stateVars\>\""," ","->"," ",
-						ToBoxes[stateVarsLocal,StandardForm]
+						ToString[stateVarsLocal, InputForm]
 						}],",","\n","\t\t",
 						
 						RowBox[{
@@ -696,7 +696,21 @@ modelFormattingTemplate[
 (*stringFormattingTemplate*)
 
 
-stringFormattingTemplate[str_String,lineLength_Number:40]:=StringReplace[InsertLinebreaks[StringDelete[str,"\n"],lineLength],"\n"->"\n\t\t\t"];
+(* normalize whitespace before formatting to prevent accumulation on round-trips *)
+(* must use nested StringReplace: first convert tabs/newlines to spaces, then collapse *)
+normalizeWhitespace[str_String] := StringTrim[
+	StringReplace[
+		StringReplace[str, {"\t" -> " ", "\n" -> " "}],
+		RegularExpression["  +"] -> " "
+	]
+];
+
+
+stringFormattingTemplate[str_String, lineLength_Number : 40] :=
+	StringReplace[
+		InsertLinebreaks[normalizeWhitespace[str], lineLength],
+		"\n" -> "\n\t\t\t"
+	];
 
 
 (* ::Subsubsection:: *)
@@ -742,6 +756,10 @@ separator[lineLength_Number:60] := RowBox[{"(*", StringRepeat["*",lineLength-4]<
 
 (* ::Subsection:: *)
 (*toCatalog*)
+
+
+(* handle empty catalog *)
+toCatalog[<||>, _] := <||>;
 
 
 toCatalog/:Conditions[
