@@ -517,7 +517,7 @@ formatModels[m_Association/; MemberQ[Values[m], _Association]]:=Module[
 (*modelFormattingTemplate*)
 
 
-modelFormattingTemplate[model_Association, Optional[separate_?BooleanQ,False]]:= (modelFormattingTemplate[##,separate]&) @@ KeyTake[model,{"name","shortname","bibRef","desc","stateVars","parameters"}]
+modelFormattingTemplate[model_Association, Optional[separate_?BooleanQ,False]]:= (modelFormattingTemplate[##,separate]&) @@ KeyTake[model,{"name","shortname","bibRef","desc","enabled","stateVars","parameters"}]
 
 
 modelFormattingTemplate[
@@ -525,6 +525,7 @@ modelFormattingTemplate[
 	shortname_String,
 	bibRef_String,
 	desc_String,
+	enabled:(True|False),
 	stateVars_List,
 	parameters:{_Rule..},
 	Optional[separate_?BooleanQ,False],
@@ -565,7 +566,11 @@ modelFormattingTemplate[
 						RowBox[{"\"\<desc\>\""," ","->"," ","\"\<"<>
 						formatStringFun[desc]<>
 						"\>\""}],",","\n","\t\t",
-						
+
+						RowBox[{"\"\<enabled\>\""," ","->"," ",
+						ToString[enabled]
+						}],",","\n","\t\t",
+
 						RowBox[{"\"\<stateVars\>\""," ","->"," ",
 						ToBoxes[stateVarsLocal,StandardForm]
 						}],",","\n","\t\t",
