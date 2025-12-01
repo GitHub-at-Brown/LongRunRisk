@@ -12,6 +12,8 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]
 
 
 info
+formatModels
+toCatalog
 
 
 (* ::Subsubsection:: *)
@@ -701,7 +703,7 @@ stringFormattingTemplate[str_String,lineLength_Number:40]:=StringReplace[InsertL
 (*numberFormattingTemplate*)
 
 
-numberFormattingTemplate[num_,opts:OptionsPattern[]]:=ToString[Evaluate[N[num]],InputForm,FilterRules[{opts},Options[ToString]],NumberMarks->False];
+numberFormattingTemplate[num_,opts:OptionsPattern[]]:=ToString[num,InputForm,FilterRules[{opts},Options[ToString]],NumberMarks->False];
 
 
 (* ::Subsubsection:: *)

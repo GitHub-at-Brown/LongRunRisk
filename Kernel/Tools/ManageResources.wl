@@ -15,6 +15,11 @@ checkCatalogChanges::changed = "The following models have changed and need updat
 checkCatalogChanges::newmodels = "New models added to catalog: `1`.";
 checkCatalogChanges::removed = "Models removed from catalog: `1`.";
 
+reformatCatalog::usage = "reformatCatalog[] reformats the models section of Catalog.wl using standard formatting, preserving modelsExtraInfo unchanged.";
+reformatCatalog::noroot = "Could not locate paclet root directory.";
+reformatCatalog::nocat = "Could not locate Catalog.wl or parse its structure.";
+reformatCatalog::success = "Catalog.wl reformatted successfully.";
+
 Begin["`Private`"];
 
 (* Live catalog loading - tracks file modification time *)
@@ -206,12 +211,137 @@ checkCatalogChanges[] := Module[
     <|"Valid" -> True, "Results" -> <||>, "InvalidModels" -> {}, "TotalErrors" -> 0|>
   ];
 
+  (* Auto-reformat if there were changes *)
+  If[changedModels =!= {} || newModels =!= {},
+    reformatCatalog[]
+  ];
+
   <|
     "Changed" -> changedModels,
     "New" -> newModels,
     "Removed" -> removedModels,
     "Validation" -> validationResult
   |>
+];
+
+(* === BoxData Conversion Functions === *)
+
+(* Option A: Front end conversion using FrontEndToken SaveRename *)
+convertWithFrontEnd[boxData_, outputPath_String] := Module[
+  {nb, result = $Failed},
+
+  UsingFrontEnd[
+    (* Create notebook in memory with formatted content *)
+    nb = NotebookPut[Notebook[{Cell[boxData, "Input"]}]];
+
+    If[nb =!= $Failed,
+      (* Save as .wl Package using front end's native mechanism *)
+      FrontEndExecute[
+        FrontEndToken[nb, "SaveRename", {outputPath, "Package"}]
+      ];
+      NotebookClose[nb];
+      result = Import[outputPath, "Text"]
+    ]
+  ];
+  result
+];
+
+(* Option B: Manual recursive flattening (fallback for headless mode) *)
+boxToString[RowBox[items_List]] := StringJoin[boxToString /@ items];
+boxToString[BoxData[content_]] := boxToString[content];
+boxToString[Cell[BoxData[content_], ___]] := boxToString[content];
+boxToString[s_String] := s;
+boxToString[n_Integer] := ToString[n];
+boxToString[x_] := ToString[x, InputForm];
+
+(* Main converter: tries front end first, falls back to manual *)
+boxDataToText[boxData_] := Module[{tempFile, result},
+  (* Try front end approach if available *)
+  If[$FrontEnd =!= Null,
+    tempFile = FileNameJoin[{$TemporaryDirectory, CreateUUID[] <> ".wl"}];
+    result = convertWithFrontEnd[boxData, tempFile];
+    If[result =!= $Failed,
+      Quiet[DeleteFile[tempFile]];
+      Return[result]
+    ]
+  ];
+  (* Fallback to manual boxToString *)
+  boxToString[boxData]
+];
+
+(* === Catalog Section Parser === *)
+
+(* Parse Catalog.wl and identify section boundaries *)
+parseCatalogSections[filePath_String] := Module[
+  {content, modelsStart, modelsEnd},
+
+  content = Import[filePath, "Text"];
+
+  (* Find "models = <|" position *)
+  modelsStart = First[StringPosition[content, "models = <|"], {-1, -1}][[1]];
+
+  (* Find "|>;(*end models*)" position *)
+  modelsEnd = First[StringPosition[content, "|>;(*end models*)"], {-1, -1}][[2]];
+
+  <|
+    "Content" -> content,
+    "ModelsStart" -> modelsStart,
+    "ModelsEnd" -> modelsEnd
+  |>
+];
+
+(* === Catalog Reformatter === *)
+
+reformatCatalog[] := Module[
+  {root, catalogFile, catalogModels, sections,
+   formattedBoxData, formattedText, newContent},
+
+  (* Find root and catalog file *)
+  root = findPacletRoot[];
+  If[root === $Failed, Message[reformatCatalog::noroot]; Return[$Failed]];
+
+  catalogFile = FileNameJoin[{root, "Kernel", "Model", "Catalog.wl"}];
+  If[!FileExistsQ[catalogFile], Message[reformatCatalog::nocat]; Return[$Failed]];
+
+  (* Load NiceOutput *)
+  Needs["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
+
+  (* Get current catalog models *)
+  catalogModels = getCatalogModels[];
+  If[!AssociationQ[catalogModels], Message[reformatCatalog::nocat]; Return[$Failed]];
+
+  (* Parse file to identify sections *)
+  sections = parseCatalogSections[catalogFile];
+  If[sections["ModelsStart"] < 0 || sections["ModelsEnd"] < 0,
+    Message[reformatCatalog::nocat]; Return[$Failed]
+  ];
+
+  (* Generate formatted BoxData using NiceOutput infrastructure *)
+  formattedBoxData = FernandoDuarte`LongRunRisk`Tools`NiceOutput`formatModels[
+    FernandoDuarte`LongRunRisk`Tools`NiceOutput`toCatalog[
+      catalogModels,
+      {"name", "shortname", "bibRef", "desc", "enabled", "stateVars", "parameters"}
+    ]
+  ];
+
+  (* Convert BoxData to plain text (tries front end first, falls back to manual) *)
+  formattedText = boxDataToText[formattedBoxData];
+
+  (* Reconstruct file: preserve header + new models + preserve footer *)
+  newContent = StringJoin[
+    StringTake[sections["Content"], sections["ModelsStart"] - 1],
+    formattedText,
+    StringDrop[sections["Content"], sections["ModelsEnd"]]
+  ];
+
+  (* Write back *)
+  Export[catalogFile, newContent, "Text"];
+
+  (* Reset cache to force reload on next access *)
+  $catalogMTime = None;
+
+  Message[reformatCatalog::success];
+  catalogFile
 ];
 
 End[];

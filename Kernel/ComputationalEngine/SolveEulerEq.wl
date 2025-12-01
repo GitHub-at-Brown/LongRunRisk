@@ -34,11 +34,12 @@ Begin["`Private`"];
 (*Package dependencies*)
 
 
+Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
-Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
 

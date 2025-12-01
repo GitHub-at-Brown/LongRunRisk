@@ -141,7 +141,7 @@ buildKernel[
     ];
 
     {fC,dfC}=Module[
-	    {inferType},
+	    {inferType, compileWithDiagnostics},
 	    (* Infer type by checking if expression is a list structure *)
 	    inferType[e_]:=With[
 		    {
@@ -149,6 +149,46 @@ buildKernel[
 		    },
 		    If[rank==0,"Real64",TypeSpecifier["PackedArray"]["Real64",rank]]
 		];
+
+		(* Wrapper that logs diagnostics before FunctionCompile *)
+		compileWithDiagnostics[func_, label_String, compOpts_List] := Module[
+		  {leafCount, byteCount, result, logFile},
+		  leafCount = LeafCount[func];
+		  byteCount = ByteCount[func];
+
+		  (* Write diagnostic info to file in case of crash - use Export for immediate flush *)
+		  logFile = FileNameJoin[{$TemporaryDirectory, "FunctionCompile_diagnostic.txt"}];
+		  With[{entry = StringJoin[
+		      DateString[], " | ", label,
+		      " | LeafCount=", ToString[leafCount],
+		      " | ByteCount=", ToString[byteCount],
+		      " | MemoryInUse=", ToString[Round[MemoryInUse[]/1024^2]], "MB",
+		      " | MaxMemoryUsed=", ToString[Round[MaxMemoryUsed[]/1024^2]], "MB\n"
+		    ]},
+		    (* Append with immediate flush *)
+		    With[{stream = OpenAppend[logFile]},
+		      WriteString[stream, entry];
+		      Close[stream];
+		    ];
+		  ];
+
+		  Print["FunctionCompile[", label, "]: LeafCount=", leafCount, ", ByteCount=", byteCount, ", MemoryInUse=", Round[MemoryInUse[]/1024^2], "MB"];
+
+		  (* Attempt compilation with MemoryConstrained *)
+		  result = MemoryConstrained[
+		    FunctionCompile[func, CompilerRuntimeErrorAction -> "Evaluate", Sequence @@ compOpts],
+		    4*1024^3, (* 4GB limit *)
+		    (Print["FunctionCompile[", label, "]: Memory limit exceeded"]; $Failed)
+		  ];
+
+		  If[result === $Failed || FailureQ[result],
+		    Print["FunctionCompile[", label, "]: FAILED"];
+		    $Failed,
+		    Print["FunctionCompile[", label, "]: SUCCESS"];
+		    result
+		  ]
+		];
+
 		With[
 			{
 				args=Join[
@@ -164,15 +204,15 @@ buildKernel[
 			Echo[bType,"bType"];
 			Echo[dbType,"dbType"];
 			{
-				FunctionCompile[
+				compileWithDiagnostics[
 					Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
-					CompilerRuntimeErrorAction->"Evaluate",
-					Sequence@@compileOpts
+					"f (function)",
+					compileOpts
 				],
-				FunctionCompile[
+				compileWithDiagnostics[
 					Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
-					CompilerRuntimeErrorAction->"Evaluate",
-					Sequence@@compileOpts
+					"df (jacobian)",
+					compileOpts
 				]
 			}
 		]

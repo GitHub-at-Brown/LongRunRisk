@@ -235,7 +235,7 @@ processModels[
 	Echo[resourcesDir,"resourcesDir"];
 	resourcesCompiledDir = FileNameJoin @ { resourcesDir, "CompiledFunctions"};
 	Echo[resourcesCompiledDir,"resourcesCompiledDir"];
-	createCompiledEq[#, resourcesCompiledDir, PerformanceGoal->"Speed", ProgressReporting->True]&/@models;
+	createCompiledEq[#, resourcesCompiledDir]&/@models;
 	
 	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
 	models = EchoTiming[

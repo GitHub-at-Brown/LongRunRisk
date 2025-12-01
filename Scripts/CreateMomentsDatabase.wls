@@ -27,6 +27,3 @@ createDatabase[
 ];
 ];
 Echo[out,"out"];
-
-
-
