@@ -2,12 +2,14 @@
 
 BeginPackage["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
 
-updateModelManifest::usage = "updateModelManifest[] generates and saves the ModelManifest.wl file.";
+updateModelManifest::usage = "updateModelManifest[] generates and saves the ModelManifest.wl file.
+updateModelManifest[modelsAssoc] computes manifest data from the given models association without writing to disk.";
 updateModelManifest::noroot = "Could not locate paclet root directory.";
 updateModelManifest::nocat = "Catalog models not found or invalid.";
 updateModelManifest::versionmismatch = "PacletInfo.wl version `1` differs from installed paclet version `2`; using PacletInfo.wl version.";
 
-checkCatalogChanges::usage = "checkCatalogChanges[] compares the current Catalog to the saved manifest and reports which models have changed.";
+checkCatalogChanges::usage = "checkCatalogChanges[] compares the current Catalog to the saved manifest and reports which models have changed.
+checkCatalogChanges[modelsAssoc] compares the given models association against the saved manifest, validates changes, but does not reformat.";
 checkCatalogChanges::noroot = "Could not locate paclet root directory.";
 checkCatalogChanges::nocat = "Catalog models not found or invalid.";
 checkCatalogChanges::nomanifest = "ModelManifest.wl not found. Run updateModelManifest[] first.";
@@ -18,6 +20,7 @@ checkCatalogChanges::removed = "Models removed from catalog: `1`.";
 reformatCatalog::usage = "reformatCatalog[] reformats the models section of Catalog.wl using standard formatting, preserving modelsExtraInfo unchanged.";
 reformatCatalog::noroot = "Could not locate paclet root directory.";
 reformatCatalog::nocat = "Could not locate Catalog.wl or parse its structure.";
+reformatCatalog::convfail = "Catalog reformatting failed: `1`";
 reformatCatalog::success = "Catalog.wl reformatted successfully.";
 
 buildModels::usage = "buildModels[] processes enabled models, compiles functions, computes numerical solutions, and creates moments database.";
@@ -117,6 +120,7 @@ loadManifestSafe[file_] := Module[{held, data},
   data
 ];
 
+(* No-argument version: reads from catalog, writes to disk *)
 updateModelManifest[] := Module[
   {root, manifestFile, catalogModels, catalogHash, modelHashes, version, manifestData},
 
@@ -148,6 +152,29 @@ updateModelManifest[] := Module[
   |>;
 
   Put[manifestData, manifestFile];
+  manifestData
+];
+
+(* Association argument version: computes manifest from provided models, does not write to disk *)
+updateModelManifest[modelsAssoc_Association] := Module[
+  {root, catalogHash, modelHashes, version, manifestData},
+
+  (* Find root for version info *)
+  root = findPacletRoot[];
+  version = If[root === $Failed, "Unknown", getVersion[root]];
+
+  (* Compute hashes from provided association *)
+  catalogHash = getCanonicalHash[modelsAssoc];
+  modelHashes = Map[getCanonicalHash, modelsAssoc];
+
+  (* Build manifest data (no file writes) *)
+  manifestData = <|
+    "PacletVersion" -> version,
+    "CatalogHash" -> catalogHash,
+    "Models" -> modelHashes,
+    "Date" -> DateString["ISODateTime"]
+  |>;
+
   manifestData
 ];
 
@@ -236,6 +263,85 @@ checkCatalogChanges[] := Module[
   |>
 ];
 
+(* Association argument version: compares provided models against manifest on disk, no reformatting *)
+checkCatalogChanges[modelsAssoc_Association] := Module[
+  {root, manifestFile, savedManifest, currentCatalogHash,
+   savedCatalogHash, savedModelHashes, currentModelHashes,
+   changedModels, newModels, removedModels, modelsToValidate, validationResult},
+
+  (* Find root *)
+  root = findPacletRoot[];
+  If[root === $Failed, Message[checkCatalogChanges::noroot]; Return[$Failed]];
+
+  (* Load manifest *)
+  manifestFile = FileNameJoin[{root, "Resources", "ModelManifest.wl"}];
+  If[!FileExistsQ[manifestFile],
+    Message[checkCatalogChanges::nomanifest];
+    Return[$Failed]
+  ];
+  savedManifest = loadManifestSafe[manifestFile];
+  If[savedManifest === $Failed,
+    Message[checkCatalogChanges::nomanifest];
+    Return[$Failed]
+  ];
+
+  (* Quick check: compare catalog hash *)
+  currentCatalogHash = getCanonicalHash[modelsAssoc];
+  savedCatalogHash = savedManifest["CatalogHash"];
+
+  If[currentCatalogHash === savedCatalogHash,
+    (* No changes - return silently *)
+    Return[Null]
+  ];
+
+  (* Catalog has changed - identify which models *)
+  savedModelHashes = savedManifest["Models"];
+  currentModelHashes = Map[getCanonicalHash, modelsAssoc];
+
+  (* Find changed models (exist in both, hash differs) *)
+  changedModels = Select[
+    Keys[KeyTake[currentModelHashes, Keys[savedModelHashes]]],
+    currentModelHashes[#] =!= savedModelHashes[#] &
+  ];
+
+  (* Find new models (in current but not saved) *)
+  newModels = Complement[Keys[currentModelHashes], Keys[savedModelHashes]];
+
+  (* Find removed models (in saved but not current) *)
+  removedModels = Complement[Keys[savedModelHashes], Keys[currentModelHashes]];
+
+  If[changedModels =!= {},
+    Message[checkCatalogChanges::changed, StringRiffle[changedModels, ", "]]
+  ];
+
+  If[newModels =!= {},
+    Message[checkCatalogChanges::newmodels, StringRiffle[newModels, ", "]]
+  ];
+
+  If[removedModels =!= {},
+    Message[checkCatalogChanges::removed, StringRiffle[removedModels, ", "]]
+  ];
+
+  (* Validate changed and new models *)
+  modelsToValidate = Join[changedModels, newModels];
+  validationResult = If[modelsToValidate =!= {},
+    Needs["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"];
+    FernandoDuarte`LongRunRisk`Tools`ValidateModels`validateCatalog[
+      KeyTake[modelsAssoc, modelsToValidate]
+    ],
+    <|"Valid" -> True, "Results" -> <||>, "InvalidModels" -> {}, "TotalErrors" -> 0|>
+  ];
+
+  (* No auto-reformat for association input - no file to reformat *)
+
+  <|
+    "Changed" -> changedModels,
+    "New" -> newModels,
+    "Removed" -> removedModels,
+    "Validation" -> validationResult
+  |>
+];
+
 (* === BoxData Conversion Functions === *)
 
 (* Option A: Front end conversion using FrontEndToken SaveRename *)
@@ -265,6 +371,7 @@ boxToString[Cell[BoxData[content_], ___]] := boxToString[content];
 boxToString[s_String] := s;
 boxToString[n_Integer] := ToString[n];
 boxToString[n_Real] := ToString[n];
+boxToString[items_List] := StringJoin[boxToString /@ items]; (* Handle bare lists *)
 
 (* Mathematical box types *)
 boxToString[SuperscriptBox[base_, exp_]] := StringJoin["Power[", boxToString[base], ", ", boxToString[exp], "]"];
@@ -283,19 +390,13 @@ boxToString[box_[args___]] /; StringEndsQ[SymbolName[box], "Box"] :=
 (* Final fallback *)
 boxToString[x_] := ToString[x, InputForm];
 
-(* Main converter: tries front end first, falls back to manual *)
-boxDataToText[boxData_] := Module[{tempFile, result},
-  (* Try front end approach if available *)
-  If[$FrontEnd =!= Null,
-    tempFile = FileNameJoin[{$TemporaryDirectory, CreateUUID[] <> ".wl"}];
-    result = convertWithFrontEnd[boxData, tempFile];
-    If[result =!= $Failed,
-      Quiet[DeleteFile[tempFile]];
-      Return[result]
-    ]
-  ];
-  (* Fallback to manual boxToString *)
-  boxToString[boxData]
+(* Main converter: uses boxToString for plain text output *)
+(* Note: convertWithFrontEnd produces notebook format with cell markers, *)
+(* which is undesirable for plain .wl files. Always use boxToString. *)
+(* Safety: ensure result is always a string *)
+boxDataToText[boxData_] := Module[{result},
+  result = boxToString[boxData];
+  If[StringQ[result], result, ToString[result, InputForm]]
 ];
 
 (* === Catalog Section Parser === *)
@@ -323,7 +424,8 @@ parseCatalogSections[filePath_String] := Module[
 
 reformatCatalog[] := Module[
   {root, catalogFile, catalogModels, sections,
-   formattedBoxData, formattedText, newContent},
+   formattedBoxData, formattedText, newContent,
+   footerRaw, footerTrimmed, headerText},
 
   (* Find root and catalog file *)
   root = findPacletRoot[];
@@ -353,14 +455,39 @@ reformatCatalog[] := Module[
     ]
   ];
 
-  (* Convert BoxData to plain text (tries front end first, falls back to manual) *)
+  (* Convert BoxData to plain text and trim trailing whitespace *)
   formattedText = boxDataToText[formattedBoxData];
+  If[!StringQ[formattedText],
+    Message[reformatCatalog::convfail, "BoxData conversion failed - formattedText is not a string"];
+    Return[$Failed]
+  ];
+  formattedText = StringTrim[formattedText, WhitespaceCharacter ..];
 
-  (* Reconstruct file: preserve header + new models + preserve footer *)
-  newContent = StringJoin[
-    StringTake[sections["Content"], sections["ModelsStart"] - 1],
-    formattedText,
-    StringDrop[sections["Content"], sections["ModelsEnd"]]
+  (* Get footer and normalize the boundary to prevent whitespace accumulation *)
+  footerRaw = StringDrop[sections["Content"], sections["ModelsEnd"]];
+  footerTrimmed = StringTrimLeft[footerRaw, WhitespaceCharacter ..];
+
+  (* Get header *)
+  headerText = StringTake[sections["Content"], sections["ModelsStart"] - 1];
+
+  (* Validate all parts are strings before joining *)
+  If[!StringQ[headerText],
+    Message[reformatCatalog::convfail, "Header extraction failed - headerText is not a string"];
+    Return[$Failed]
+  ];
+  If[!StringQ[footerTrimmed],
+    Message[reformatCatalog::convfail, "Footer extraction failed - footerTrimmed is not a string"];
+    Return[$Failed]
+  ];
+
+  (* Reconstruct file: preserve header + new models + separator + footer *)
+  (* Use exactly two newlines (one blank line) as separator *)
+  newContent = StringJoin[headerText, formattedText, "\n\n\n", footerTrimmed];
+
+  (* Final validation before writing *)
+  If[!StringQ[newContent],
+    Message[reformatCatalog::convfail, "StringJoin failed to produce a string - check inputs"];
+    Return[$Failed]
   ];
 
   (* Write back *)
@@ -388,7 +515,7 @@ buildModels // Options = {
 selectEnabledModels[catalog_Association] := Select[catalog, TrueQ[#["enabled"]] &];
 
 
-(* helper: clean all generated outputs for from-scratch builds *)
+(* helper: delete all generated outputs for from-scratch builds *)
 cleanAllOutputs[root_String] := Module[{resourcesDir, compiledDir, momentsDir},
 	resourcesDir = FileNameJoin[{root, "Resources"}];
 	compiledDir = FileNameJoin[{resourcesDir, "CompiledFunctions"}];
@@ -410,16 +537,18 @@ cleanAllOutputs[root_String] := Module[{resourcesDir, compiledDir, momentsDir},
 ];
 
 
-(* helper: save processed models to Models.wl *)
-saveModels[models_Association, file_String] := Module[{},
+(* helper: save processed models to Models.wl using DefinitionData *)
+saveModels[models_Association, file_String] := Module[{dataModels},
 	Quiet[CreateDirectory[DirectoryName[file]], {CreateDirectory::filex, CreateDirectory::eexist}];
-	Put[models, file];
+	(* Use DefinitionData to capture all definitions associated with models *)
+	dataModels = PacletizedResourceFunctions`DefinitionData[models];
+	Put[dataModels, file];
 	file
 ];
 
 
-(* helper: load models from Models.wl *)
-loadModels[file_String] := If[FileExistsQ[file], Get[file], <||>];
+(* helper: load models from Models.wl - uses double Get for DefinitionData *)
+loadModels[file_String] := If[FileExistsQ[file], Get@Get[file], <||>];
 
 
 buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels, FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq}]] := With[
@@ -489,6 +618,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		Message[buildModels::start, Length[modelsToProcess]];
 
 		(* load dependencies *)
+		Needs["PacletizedResourceFunctions`"];
 		Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
 		Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
@@ -496,6 +626,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		(* process each model *)
 		processedModels = <||>;
 
+		(* Phase 1: symbolic processing and compile functions *)
 		Do[
 			shortname = catalogModels[modelKey]["shortname"];
 			Message[buildModels::processing, shortname];
@@ -512,19 +643,34 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 				compiledDir
 			];
 
-			(* compile jacobians if requested *)
-			If[compileJacobians,
-				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`compileJacobians[model, compiledDir]
-			];
-
-			(* compute numerical solutions *)
-			Message[buildModels::numerical, shortname];
-			model = Append[model,
-				"coeffsSolutionN" -> FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[model]
-			];
-
 			processedModels[shortname] = model;
 
+			, {modelKey, modelsToProcess}
+		];
+
+		(* Phase 2: compile jacobians if requested *)
+		If[compileJacobians,
+			Do[
+				shortname = catalogModels[modelKey]["shortname"];
+				Message[buildModels::compiling, shortname <> " jacobians"];
+				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`compileJacobians[
+					processedModels[shortname],
+					compiledDir
+				];
+				, {modelKey, modelsToProcess}
+			]
+		];
+
+		(* Phase 3: compute numerical solutions - can use jacobians if available *)
+		Do[
+			shortname = catalogModels[modelKey]["shortname"];
+			Message[buildModels::numerical, shortname];
+			processedModels[shortname] = Append[
+				processedModels[shortname],
+				"coeffsSolutionN" -> FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[
+					processedModels[shortname]
+				]
+			];
 			, {modelKey, modelsToProcess}
 		];
 
