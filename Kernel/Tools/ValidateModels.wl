@@ -11,9 +11,9 @@ validateModel::duplicateParam = "Model \"`1`\": Duplicate parameter `2`.";
 validateModel::missingStockParam = "Model \"`1`\": Stock `2` is incomplete. Missing: `3`.";
 validateModel::notRule = "Model \"`1`\": Parameter entry `2` is not a Rule.";
 validateModel::badParamName = "Model \"`1`\": Invalid parameter name `2`.";
-validateModel::extraParam = "Model \"`1`\": Extra parameter(s) not in $parameters: `2`.";
-validateModel::missingParam = "Model \"`1`\": Missing parameter(s) from $parameters: `2`.";
-validateModel::badIndexedParam = "Model \"`1`\": Indexed parameter `2` is not a valid dividend growth parameter.";
+validateModel::extraParam = "Model \"`1`\": Extra parameter(s) not in $parameters: `2`. Valid parameters: `3`.";
+validateModel::missingParam = "Model \"`1`\": Missing parameter(s) from $parameters: `2`. Valid parameters: `3`.";
+validateModel::badIndexedParam = "Model \"`1`\": Indexed parameter `2` is not a valid dividend growth parameter. Valid dividend growth parameters: `3`.";
 validateModel::indexNotPositive = "Model \"`1`\": Parameter `2` has non-positive index.";
 validateModel::indexGap = "Model \"`1`\": Stock indices are not sequential starting from 1. Found indices: `2`.";
 validateModel::badAssumption = "Model \"`1`\": Parameter `2` = `3` violates assumption `4`.";
@@ -27,9 +27,7 @@ Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 
-(* ============================================================ *)
 (* Schema Definition - Pattern-based *)
-(* ============================================================ *)
 
 (* Required keys with their expected type patterns *)
 $requiredKeys = {"name", "shortname", "bibRef", "desc", "stateVars", "parameters"};
@@ -104,9 +102,9 @@ extractStateVarSymbols[expr_] := Module[{pureSymbols, headNames, allNames},
   Complement[allNames, $builtInMathSymbols]
 ];
 
-(* ============================================================ *)
+
 (* Helper Functions *)
-(* ============================================================ *)
+
 
 (* Check if an expression contains t-dependency like x[t], sx[-1+t], etc. *)
 (* Match any symbol named "t" regardless of context *)
@@ -144,9 +142,9 @@ stripParamIndex[other_] := ToString[other];
 (* $parameters is already a list of strings from Names[] *)
 getExpectedParamNames[] := FernandoDuarte`LongRunRisk`Model`Parameters`$parameters;
 
-(* ============================================================ *)
+
 (* Validation Functions *)
-(* ============================================================ *)
+
 
 (* Validate structure against schema - check required keys and types *)
 validateStructure[model_, modelName_] := Flatten[Last[Reap[
@@ -334,6 +332,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
               "Type" -> "BadIndexedParam",
               "Model" -> modelName,
               "Key" -> First[rule],
+              "ValidIndexedParams" -> expectedIndexedNames,
               "Message" -> validateModel::badIndexedParam
             |>]
           ],
@@ -404,6 +403,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
           "Type" -> "ExtraParam",
           "Model" -> modelName,
           "Extra" -> extraParams,
+          "Expected" -> expectedParamNames,
           "Message" -> validateModel::extraParam
         |>]
       ];
@@ -415,6 +415,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
           "Type" -> "MissingParam",
           "Model" -> modelName,
           "Missing" -> missingParams,
+          "Expected" -> expectedParamNames,
           "Message" -> validateModel::missingParam
         |>]
       ]
@@ -461,9 +462,9 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
   ]
 ], {}]];
 
-(* ============================================================ *)
+
 (* Message Issuing *)
-(* ============================================================ *)
+
 
 issueMessage[error_Association] := Switch[error["Type"],
   "MissingKey",
@@ -483,11 +484,11 @@ issueMessage[error_Association] := Switch[error["Type"],
   "BadParamName",
     Message[validateModel::badParamName, error["Model"], error["Key"]],
   "ExtraParam",
-    Message[validateModel::extraParam, error["Model"], StringRiffle[error["Extra"], ", "]],
+    Message[validateModel::extraParam, error["Model"], StringRiffle[error["Extra"], ", "], StringRiffle[error["Expected"], ", "]],
   "MissingParam",
-    Message[validateModel::missingParam, error["Model"], StringRiffle[error["Missing"], ", "]],
+    Message[validateModel::missingParam, error["Model"], StringRiffle[error["Missing"], ", "], StringRiffle[error["Expected"], ", "]],
   "BadIndexedParam",
-    Message[validateModel::badIndexedParam, error["Model"], error["Key"]],
+    Message[validateModel::badIndexedParam, error["Model"], error["Key"], StringRiffle[error["ValidIndexedParams"], ", "]],
   "IndexNotPositive",
     Message[validateModel::indexNotPositive, error["Model"], error["Key"]],
   "IndexGap",
@@ -500,9 +501,9 @@ issueMessage[error_Association] := Switch[error["Type"],
     Null
 ];
 
-(* ============================================================ *)
+
 (* Public API *)
-(* ============================================================ *)
+
 
 validateModel[model_Association] := Module[
   {errors, modelName, structureErrors, stateVarsErrors, paramsErrors},
