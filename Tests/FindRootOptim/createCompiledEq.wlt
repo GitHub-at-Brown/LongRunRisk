@@ -110,3 +110,71 @@ VerificationTest[
   True,
   TestID -> "buildKernel-has-PerformanceGoal-option"
 ]
+
+VerificationTest[
+  Module[{opts, bk},
+    bk = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel;
+    opts = Options[bk];
+    MemberQ[Keys[opts], "CompileMode"]
+  ],
+  True,
+  TestID -> "buildKernel-has-CompileMode-option"
+]
+
+VerificationTest[
+  Module[{bk},
+    bk = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel;
+    OptionValue[bk, "CompileMode"]
+  ],
+  "Both",
+  TestID -> "buildKernel-CompileMode-default-is-Both"
+]
+
+(* ============================================================ *)
+(* createCompiledEq Options Tests *)
+(* ============================================================ *)
+
+VerificationTest[
+  Module[{opts, cce},
+    cce = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq;
+    opts = Options[cce];
+    Length[opts] > 0
+  ],
+  True,
+  TestID -> "createCompiledEq-has-options"
+]
+
+VerificationTest[
+  Module[{opts, cce},
+    cce = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq;
+    opts = Options[cce];
+    MemberQ[Keys[opts], "CompileJacobians"]
+  ],
+  True,
+  TestID -> "createCompiledEq-has-CompileJacobians-option"
+]
+
+VerificationTest[
+  Module[{cce},
+    cce = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq;
+    OptionValue[cce, "CompileJacobians"]
+  ],
+  True,
+  TestID -> "createCompiledEq-CompileJacobians-default-is-True"
+]
+
+(* ============================================================ *)
+(* compileJacobians Message Tests *)
+(* ============================================================ *)
+
+VerificationTest[
+  StringQ[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`compileJacobians::cachehit],
+  True,
+  TestID -> "compileJacobians-has-cachehit-message"
+]
+
+VerificationTest[
+  StringQ[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`compileJacobians::compiling],
+  True,
+  TestID -> "compileJacobians-has-compiling-message"
+]

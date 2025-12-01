@@ -53,6 +53,8 @@ createCompiledEq::usage = "createCompiledEq[model, dir] compiles model equations
 createCompiledEq::cachehit = "cache hit for model `1`; skipping compilation.";
 createCompiledEq::compiling = "compiling model `1`; this may take a long time.";
 compileJacobians::usage = "compileJacobians[model, dir] compiles jacobians to dir/{shortname}_jacobians.mx.";
+compileJacobians::cachehit = "Using cached jacobians for model `1`.";
+compileJacobians::compiling = "Compiling jacobians for model `1`...";
 
 
 (* ::Section:: *)
@@ -69,7 +71,8 @@ Begin["`Private`"];
 buildKernel//Options = {
 	"CoeffName" -> "A",
 	"SignSymbol" -> "signA",
-	"PerformanceGoal" -> "Quality"
+	"PerformanceGoal" -> "Quality",
+	"CompileMode" -> "Both"  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
 };
 
 buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
@@ -86,7 +89,8 @@ buildKernel[
   {
     coeffName = OptionValue["CoeffName"],
     signSym = OptionValue["SignSymbol"],
-    perfGoal = OptionValue["PerformanceGoal"]
+    perfGoal = OptionValue["PerformanceGoal"],
+    compileMode = OptionValue["CompileMode"]
   },
   Module[
     {ex0, z, zRules, idx, pSyms, sSyms, body, dbody, fC, dfC, nP, nS, signHead, compileOpts},
@@ -209,18 +213,39 @@ buildKernel[
 			},
 			Echo[bType,"bType"];
 			Echo[dbType,"dbType"];
-			{
-				compileWithDiagnostics[
-					Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
-					"f (function)",
-					compileOpts
-				],
-				compileWithDiagnostics[
-					Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
-					"df (jacobian)",
-					compileOpts
-				]
-			}
+			Switch[compileMode,
+				"FunctionOnly",
+				{
+					compileWithDiagnostics[
+						Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
+						"f (function)",
+						compileOpts
+					],
+					Missing["NotCompiled"]
+				},
+				"JacobianOnly",
+				{
+					Missing["NotCompiled"],
+					compileWithDiagnostics[
+						Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
+						"df (jacobian)",
+						compileOpts
+					]
+				},
+				_, (* "Both" or default *)
+				{
+					compileWithDiagnostics[
+						Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
+						"f (function)",
+						compileOpts
+					],
+					compileWithDiagnostics[
+						Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
+						"df (jacobian)",
+						compileOpts
+					]
+				}
+			]
 		]
 	];
 
@@ -921,13 +946,19 @@ extractIntervalsFromReduce[reduceExpr_, rootVars_, opts : OptionsPattern[{extrac
 (*createCompiledEq*)
 
 
-createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile}]] :=
+createCompiledEq // Options = {
+	"CompileJacobians" -> True  (* backward compatible default *)
+};
+
+createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{createCompiledEq, buildKernel, FunctionCompile}]] :=
 With[{
 	quadSol = model["coeffsParamQuadSolve"],
 	modelParamsKeys = Keys @ model["params"],
 	shortname = model["shortname"],
 	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile]],
-	coeffsSystem = model["coeffsSystem"]
+	coeffsSystem = model["coeffsSystem"],
+	compileJacs = OptionValue["CompileJacobians"],
+	compileMode = If[OptionValue["CompileJacobians"], "Both", "FunctionOnly"]
 },
 With[{
 	ddHeads = Apply[Alternatives, Part[FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList["Real dividend growth"], All, 0]],
@@ -1001,6 +1032,7 @@ Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
 			eqMap[eq]["Params"],
 			"CoeffName" -> eqMap[eq]["CoeffName"],
 			"SignSymbol" -> eqMap[eq]["SignSymbol"],
+			"CompileMode" -> compileMode,
 			Sequence @@ buildKernelOpts
 		],
 		{eq, Keys @ eqMap}
@@ -1024,12 +1056,101 @@ Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
 
 
 compileJacobians[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile}]] :=
-Module[{shortname, file},
-	shortname = model["shortname"];
+With[{
+	quadSol = model["coeffsParamQuadSolve"],
+	modelParamsKeys = Keys @ model["params"],
+	shortname = model["shortname"],
+	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile]],
+	coeffsSystem = model["coeffsSystem"]
+},
+With[{
+	ddHeads = Apply[Alternatives, Part[FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList["Real dividend growth"], All, 0]],
+	wcSys = coeffsSystem["wc"],
+	pdSys = coeffsSystem["pd"],
+	quadSolWc = quadSol["wc"],
+	quadSolPd = quadSol["pd"]
+},
+With[{
+	paramsA = DeleteCases[modelParamsKeys, ddHeads[_]],
+	paramsStocks = Cases[modelParamsKeys, x : ddHeads[_] :> Head[x][j]],
+	wcCoeffs = wcSys[[2]],
+	wcSignRootMap = Normal @ quadSolWc["SignRootMap"]
+},
+With[{
+	wcCoeffName = SymbolName @ Head @ wcCoeffs[[1]],
+	pdCoeffName = SymbolName @ Head @ Head @ pdSys[[2, 1]],
+	wcSigns = Keys @ wcSignRootMap,
+	pdSigns = Keys @ quadSolPd["SignRootMap"],
+	wcVars = quadSolWc["varsA0"],
+	pdVars = quadSolPd["varsB0"]
+},
+With[{
+	eqMap = <|
+		"A" -> <|
+			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolWc["eqA0"]],
+			"Vars" -> wcVars,
+			"Params" -> paramsA,
+			"CoeffName" -> wcCoeffName,
+			"SignSymbol" -> If[wcSigns === {}, "sign" <> SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc], SymbolName @ Head @ First @ wcSigns]
+		|>,
+		"B" -> <|
+			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolPd["eqB0"]],
+			"Vars" -> pdVars,
+			"Params" -> Join[paramsA, paramsStocks, wcCoeffs],
+			"CoeffName" -> pdCoeffName,
+			"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
+		|>,
+		"AB" -> <|
+			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolPd["eqAB0"]],
+			"Vars" -> pdVars,
+			"Params" -> Join[paramsA, paramsStocks, {First @ wcCoeffs}, wcSignRootMap],
+			"CoeffName" -> pdCoeffName,
+			"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
+		|>
+	|>
+},
+Module[{jacobians, file, currentHash, savedData, savedHash, savedSystemID},
 	file = FileNameJoin[{resourcesCompiledDir, shortname <> "_jacobians.mx"}];
-	(* jacobians are already compiled in buildKernel as dfC; this is a placeholder for future separation *)
-	file
-]
+	currentHash = Hash[{"jacobians", eqMap}, "Expression"];
+
+	(* check cache *)
+	If[FileExistsQ[file],
+		savedData = Quiet[Import[file, "MX"]];
+		If[AssociationQ[savedData] && KeyExistsQ[savedData, "meta"],
+			savedHash = savedData["meta"]["Hash"];
+			savedSystemID = savedData["meta"]["SystemID"];
+			If[savedHash === currentHash && savedSystemID === $SystemID,
+				Message[compileJacobians::cachehit, shortname];
+				Return[file]
+			]
+		]
+	];
+
+	Message[compileJacobians::compiling, shortname];
+
+	jacobians = Association @ Table[
+		eq -> buildKernel[
+			eqMap[eq]["Expr"],
+			eqMap[eq]["Vars"],
+			eqMap[eq]["Params"],
+			"CoeffName" -> eqMap[eq]["CoeffName"],
+			"SignSymbol" -> eqMap[eq]["SignSymbol"],
+			"CompileMode" -> "JacobianOnly",
+			Sequence @@ buildKernelOpts
+		],
+		{eq, Keys @ eqMap}
+	];
+
+	Export[file, <|
+		"jacobians" -> jacobians,
+		"meta" -> <|
+			"Version" -> $Version,
+			"SystemID" -> $SystemID,
+			"Date" -> DateString[],
+			"Hash" -> currentHash
+		|>
+	|>, "MX"]
+]]]]]]
 
 
 (* ::Section:: *)
