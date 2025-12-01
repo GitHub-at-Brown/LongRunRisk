@@ -17,7 +17,27 @@ checkCatalogChanges::removed = "Models removed from catalog: `1`.";
 
 Begin["`Private`"];
 
-Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+(* Live catalog loading - tracks file modification time *)
+$catalogFile = None;
+$catalogMTime = None;
+
+getCatalogModels[] := Module[{mtime},
+  (* Find file path once *)
+  If[!StringQ[$catalogFile],
+    $catalogFile = FindFile["FernandoDuarte`LongRunRisk`Model`Catalog`"]
+  ];
+  If[!StringQ[$catalogFile], Return[$Failed]];
+
+  (* Check modification time *)
+  mtime = FileDate[$catalogFile, "Modification"];
+
+  If[mtime =!= $catalogMTime,
+    Get["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+    $catalogMTime = mtime
+  ];
+
+  FernandoDuarte`LongRunRisk`Model`Catalog`models
+];
 
 (* Simple root finder - uses FindFile on THIS package *)
 findPacletRoot[] := Module[{file, root},
@@ -89,10 +109,10 @@ updateModelManifest[] := Module[
 
   (* Build manifest path *)
   manifestFile = FileNameJoin[{root, "Resources", "ModelManifest.wl"}];
-  Quiet[CreateDirectory[DirectoryName[manifestFile]], CreateDirectory::filex];
+  Quiet[CreateDirectory[DirectoryName[manifestFile]], {CreateDirectory::filex, CreateDirectory::eexist}];
 
-  (* Get catalog *)
-  catalogModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
+  (* Get catalog (live reload if file changed) *)
+  catalogModels = getCatalogModels[];
   If[!AssociationQ[catalogModels], Message[updateModelManifest::nocat]; Return[$Failed]];
 
   (* Compute hashes *)
@@ -135,8 +155,8 @@ checkCatalogChanges[] := Module[
     Return[$Failed]
   ];
 
-  (* Get catalog *)
-  catalogModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
+  (* Get catalog (live reload if file changed) *)
+  catalogModels = getCatalogModels[];
   If[!AssociationQ[catalogModels], Message[checkCatalogChanges::nocat]; Return[$Failed]];
 
   (* Quick check: compare catalog hash *)
