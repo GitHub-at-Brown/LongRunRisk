@@ -968,8 +968,13 @@ With[{
 	quadSolPd = quadSol["pd"]
 },
 With[{
+	(* Extract the actual j symbol from pd coefficients to ensure context consistency *)
+	(* pdSys[[2,1]] has form coefpd[j][0], so pdSys[[2,1,0,1]] extracts j *)
+	jSymbol = pdSys[[2, 1, 0, 1]]
+},
+With[{
 	paramsA = DeleteCases[modelParamsKeys, ddHeads[_]],
-	paramsStocks = Cases[modelParamsKeys, x : ddHeads[_] :> Head[x][j]],
+	paramsStocks = Cases[modelParamsKeys, x : ddHeads[_] :> Head[x][jSymbol]],
 	wcCoeffs = wcSys[[2]],
 	wcSignRootMap = Normal @ quadSolWc["SignRootMap"]
 },
@@ -1048,7 +1053,7 @@ Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
 		|>
 	|>, "MX"]
 ]
-]]]]]
+]]]]]]
 
 
 (* ::Subsection:: *)
@@ -1071,8 +1076,13 @@ With[{
 	quadSolPd = quadSol["pd"]
 },
 With[{
+	(* Extract the actual j symbol from pd coefficients to ensure context consistency *)
+	(* pdSys[[2,1]] has form coefpd[j][0], so pdSys[[2,1,0,1]] extracts j *)
+	jSymbol = pdSys[[2, 1, 0, 1]]
+},
+With[{
 	paramsA = DeleteCases[modelParamsKeys, ddHeads[_]],
-	paramsStocks = Cases[modelParamsKeys, x : ddHeads[_] :> Head[x][j]],
+	paramsStocks = Cases[modelParamsKeys, x : ddHeads[_] :> Head[x][jSymbol]],
 	wcCoeffs = wcSys[[2]],
 	wcSignRootMap = Normal @ quadSolWc["SignRootMap"]
 },
@@ -1150,7 +1160,7 @@ Module[{jacobians, file, currentHash, savedData, savedHash, savedSystemID},
 			"Hash" -> currentHash
 		|>
 	|>, "MX"]
-]]]]]]
+]]]]]]]
 
 
 (* ::Section:: *)
