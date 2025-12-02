@@ -72,11 +72,12 @@ buildKernel//Options = {
 	"CoeffName" -> "A",
 	"SignSymbol" -> "signA",
 	"PerformanceGoal" -> "Quality",
-	"CompileMode" -> "Both"  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
+	"CompileMode" -> "FunctionOnly"  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
 };
 
 buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
 buildKernel::unusedvars = "Some vars were not found in the expression: `1`.";
+buildKernel::badcompilemode = "Invalid CompileMode `1`. Expected \"Both\", \"FunctionOnly\", or \"JacobianOnly\".";
 
 
 (* fast, robust scalar-args kernel *)
@@ -211,8 +212,6 @@ buildKernel[
 				bType=inferType[body],
 				dbType=inferType[dbody]
 			},
-			Echo[bType,"bType"];
-			Echo[dbType,"dbType"];
 			Switch[compileMode,
 				"FunctionOnly",
 				{
@@ -232,7 +231,7 @@ buildKernel[
 						compileOpts
 					]
 				},
-				_, (* "Both" or default *)
+				"Both",
 				{
 					compileWithDiagnostics[
 						Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
@@ -244,7 +243,10 @@ buildKernel[
 						"df (jacobian)",
 						compileOpts
 					]
-				}
+				},
+				_, (* invalid CompileMode *)
+				Message[buildKernel::badcompilemode, compileMode];
+				{$Failed, $Failed}
 			]
 		]
 	];
