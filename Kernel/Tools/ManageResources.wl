@@ -44,19 +44,31 @@ Begin["`Private`"];
 (* Live catalog loading - tracks file modification time *)
 $catalogFile = None;
 $catalogMTime = None;
+$packageRoot = If[StringQ[$InputFileName], DirectoryName[$InputFileName, 3], None];
+$pacletLoaded = False;
 
-getCatalogModels[] := Module[{mtime},
+getCatalogModels[] := Module[{mtime, root},
   (* Find file path once *)
   If[!StringQ[$catalogFile],
-    $catalogFile = FindFile["FernandoDuarte`LongRunRisk`Model`Catalog`"]
+    $catalogFile = FindFile["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+    If[!StringQ[$catalogFile],
+      With[{root = findPacletRoot[]},
+        If[StringQ[root],
+          $catalogFile = FileNameJoin[{root, "Kernel", "Model", "Catalog.wl"}]
+        ]
+      ]
+    ]
   ];
-  If[!StringQ[$catalogFile], Return[$Failed]];
+  root = If[StringQ[$catalogFile], DirectoryName[$catalogFile, 3], None];
+  If[StringQ[root], ensurePacletLoaded[root]];
+
+  If[!StringQ[$catalogFile] || !FileExistsQ[$catalogFile], Return[$Failed]];
 
   (* Check modification time *)
   mtime = FileDate[$catalogFile, "Modification"];
 
   If[mtime =!= $catalogMTime,
-    Get["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+    Get[$catalogFile];
     $catalogMTime = mtime
   ];
 
@@ -65,10 +77,34 @@ getCatalogModels[] := Module[{mtime},
 
 (* Simple root finder - uses FindFile on THIS package *)
 findPacletRoot[] := Module[{file, root},
-  file = FindFile["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
-  If[!StringQ[file], Return[$Failed]];
-  root = DirectoryName[file, 3];  (* Kernel/Tools/file.wl -> root *)
-  If[FileExistsQ[FileNameJoin[{root, "PacletInfo.wl"}]], root, $Failed]
+  file = Quiet@FindFile["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
+
+  (* Primary: locate via FindFile (installed paclet or $Path) *)
+  root = If[StringQ[file], DirectoryName[file, 3], None];  (* Kernel/Tools/file.wl -> root *)
+
+  (* Fallback: use the path of the currently loaded package file *)
+  If[!StringQ[root] && StringQ[$packageRoot], root = $packageRoot];
+
+  (* Fallback: if running from repo root, detect PacletInfo.wl in cwd *)
+  If[!StringQ[root],
+    With[{cwd = Directory[]},
+      If[FileExistsQ[FileNameJoin[{cwd, "PacletInfo.wl"}]],
+        root = cwd
+      ]
+    ]
+  ];
+
+  If[StringQ[root] && FileExistsQ[FileNameJoin[{root, "PacletInfo.wl"}]],
+    root,
+    $Failed
+  ]
+];
+
+ensurePacletLoaded[root_String] := Module[{},
+  If[TrueQ[$pacletLoaded], Return[root]];
+  Quiet@Check[PacletDirectoryLoad[root], Null];
+  $pacletLoaded = True;
+  root
 ];
 
 (* Simple version getter *)
@@ -440,6 +476,9 @@ reformatCatalog[] := Module[
 
   (* Load NiceOutput *)
   Needs["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
+  If[!NameQ["FernandoDuarte`LongRunRisk`Tools`NiceOutput`toCatalog"],
+    Quiet@Get[FileNameJoin[{root, "Kernel", "Tools", "NiceOutput.wl"}]]
+  ];
 
   (* Get current catalog models *)
   catalogModels = getCatalogModels[];
@@ -469,7 +508,7 @@ reformatCatalog[] := Module[
 
   (* Get footer and normalize the boundary to prevent whitespace accumulation *)
   footerRaw = StringDrop[sections["Content"], sections["ModelsEnd"]];
-  footerTrimmed = StringTrimLeft[footerRaw, WhitespaceCharacter ..];
+  footerTrimmed = StringTrim[footerRaw, WhitespaceCharacter ..];
 
   (* Get header *)
   headerText = StringTake[sections["Content"], sections["ModelsStart"] - 1];
