@@ -34,6 +34,10 @@ buildModels::moments = "creating moments database for `1`.";
 buildModels::done = "build completed for `1` model(s).";
 buildModels::uptodate = "all enabled models are up to date.";
 buildModels::skipped = "skipped `1` (not enabled).";
+buildModels::kernels = "launching `1` parallel kernel(s) for moments computation.";
+buildModels::kernelwarmup = "warming up parallel kernels with PacletizedResourceFunctions...";
+buildModels::momentscache = "moments database for `1` is up to date (cache hit).";
+buildModels::momentscomputing = "computing moments database for `1`...";
 
 Begin["`Private`"];
 
@@ -506,6 +510,8 @@ reformatCatalog[] := Module[
 buildModels // Options = {
 	"FromScratch" -> False,
 	"CompileJacobians" -> False,
+	"CreateMoments" -> True,
+	"NumKernels" -> Automatic,  (* Automatic | n | None *)
 	"MaxMaturity" -> 120,
 	"Models" -> All  (* All or list of shortnames *)
 };
@@ -551,10 +557,67 @@ saveModels[models_Association, file_String] := Module[{dataModels},
 loadModels[file_String] := If[FileExistsQ[file], Get@Get[file], <||>];
 
 
+(* helper: compute hash for moments cache *)
+getMomentsHash[catalogEntry_Association, model_Association] :=
+	getCanonicalHash[<|
+		"catalog" -> catalogEntry,
+		"exogenousEq" -> model["exogenousEq"],
+		"endogenousEq" -> model["endogenousEq"]
+	|>];
+
+
+(* helper: check if moments files are current *)
+(* Uses separate metadata file because createDatabase uses DefinitionData format *)
+momentsUpToDate[momentsFile_String, metaFile_String, expectedHash_String] := Module[
+	{savedMeta, savedHash},
+	(* Both files must exist *)
+	If[!FileExistsQ[momentsFile] || !FileExistsQ[metaFile], Return[False]];
+	savedMeta = Quiet[Get[metaFile]];
+	If[!AssociationQ[savedMeta], Return[False]];
+	savedHash = savedMeta["Hash"];
+	savedHash === expectedHash
+];
+
+
+(* helper: setup parallel kernels *)
+setupParallelKernels[numKernels_] := Module[{n},
+	n = Switch[numKernels,
+		Automatic, $ProcessorCount,
+		None, 0,
+		_Integer, numKernels,
+		_, $ProcessorCount
+	];
+	If[n <= 0, Return[0]];
+
+	(* Close existing and launch new *)
+	CloseKernels[];
+	LaunchKernels[n];
+
+	Length[ParallelKernels[]]
+];
+
+
+(* helper: warmup parallel kernels *)
+warmupParallelKernels[] := Module[{},
+	If[Length[ParallelKernels[]] == 0, Return[Null]];
+
+	(* Distribute required packages to parallel kernels *)
+	ParallelEvaluate[
+		Needs["PacletizedResourceFunctions`"];
+		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
+		Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+		Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
+	];
+];
+
+
 buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels, FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq}]] := With[
 	{
 		fromScratch = OptionValue["FromScratch"],
 		compileJacobians = OptionValue["CompileJacobians"],
+		createMoments = OptionValue["CreateMoments"],
+		numKernels = OptionValue["NumKernels"],
 		maxMaturity = OptionValue["MaxMaturity"],
 		modelFilter = OptionValue["Models"]
 	},
@@ -672,6 +735,70 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 				]
 			];
 			, {modelKey, modelsToProcess}
+		];
+
+		(* Phase 4: create moments database if requested *)
+		If[createMoments,
+			Module[{momentsDir, numLaunched, momentsFile, metaFile, currentHash, needsComputation},
+				momentsDir = FileNameJoin[{resourcesDir, "MomentsLookupTables"}];
+				Quiet[CreateDirectory[momentsDir], {CreateDirectory::filex, CreateDirectory::eexist}];
+
+				(* Setup parallel kernels *)
+				numLaunched = setupParallelKernels[numKernels];
+				If[numLaunched > 0,
+					Message[buildModels::kernels, numLaunched];
+					Message[buildModels::kernelwarmup];
+					warmupParallelKernels[];
+				];
+
+				(* Load createDatabase *)
+				Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
+
+				(* Process each model *)
+				Do[
+					shortname = catalogModels[modelKey]["shortname"];
+					momentsFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> ".wl"}];
+					metaFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> "_meta.wl"}];
+
+					(* Compute hash from catalog entry and equations *)
+					currentHash = getMomentsHash[
+						catalogModels[modelKey],
+						processedModels[shortname]
+					];
+
+					(* Check cache - uses separate meta file *)
+					needsComputation = !momentsUpToDate[momentsFile, metaFile, currentHash];
+
+					If[needsComputation,
+						Message[buildModels::momentscomputing, shortname];
+
+						(* Create moments database *)
+						FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`createDatabase[
+							processedModels[shortname],
+							momentsFile
+						];
+
+						(* Save metadata to separate file *)
+						Put[
+							<|
+								"Hash" -> currentHash,
+								"Date" -> DateString["ISODateTime"],
+								"Version" -> $Version,
+								"SystemID" -> $SystemID
+							|>,
+							metaFile
+						];
+						,
+						(* Cache hit *)
+						Message[buildModels::momentscache, shortname]
+					];
+
+					, {modelKey, modelsToProcess}
+				];
+
+				(* Cleanup parallel kernels *)
+				If[numLaunched > 0, CloseKernels[]];
+			]
 		];
 
 		(* save processed models *)
