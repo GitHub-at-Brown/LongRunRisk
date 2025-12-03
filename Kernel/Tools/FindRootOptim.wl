@@ -545,14 +545,16 @@ With[{
     (* Check if Jacobian is available *)
     hasJacobian = (df =!= None && !MissingQ[df]);
 
-    (* Newton attempt - pass Jacobian as numeric function *)
+    (* Newton attempt - pass Jacobian as expression using iteration variables *)
+    (* Following pattern: Jacobian -> jacEval[x, y] where x, y are the iteration vars *)
     newtonRes = If[TrueQ@newtonFirst && hasJacobian,
       With[{
-        s = spec, fo = findRootOpts, dfn = dfnum,
-        eq = If[dim == 1, fnum[var] == 0., Thread[fnum[vars] == 0.]]
+        s = spec, fo = findRootOpts,
+        eq = If[dim == 1, fnum[var] == 0., Thread[fnum[vars] == 0.]],
+        jc = If[dim == 1, dfnum[var], dfnum[vars]]
       },
         Quiet@Check[
-          FindRoot[eq, s, Method -> "Newton", Jacobian -> dfn, Evaluate[Sequence @@ fo]],
+          FindRoot[eq, s, Method -> "Newton", Jacobian -> jc, Evaluate[Sequence @@ fo]],
           $Failed
         ]
       ],
@@ -585,7 +587,7 @@ With[{
         ],
         (* nD WITH bounds: use optimization-based fallback *)
         If[dim > 1 && lb =!= None,
-          Module[{objective, constraints, fmRes, nmRes, gradFunc, acc, tol},
+          Module[{objective, constraints, fmRes, nmRes, gradExpr, acc, tol},
             (* Extract AccuracyGoal for tolerance *)
             acc = AccuracyGoal /. findRootOpts /. AccuracyGoal -> 8;
             tol = 10.^(-acc);
@@ -594,16 +596,16 @@ With[{
             objective = Total[fnum[vars]^2];
 
             (* Gradient from Jacobian: d/dx[sum(fi^2)] = 2 * J^T . f *)
-            (* Computed numerically using dfnum *)
-            gradFunc = If[hasJacobian,
-              Function[v, 2 * Transpose[dfnum[v]] . fnum[v]],
+            (* Must be expression using iteration vars (not a Function) for FindMinimum *)
+            gradExpr = If[hasJacobian,
+              2 * Transpose[dfnum[vars]] . fnum[vars],
               Automatic
             ];
 
             (* Try FindMinimum with InteriorPoint first *)
             fmRes = Quiet@Check[
               If[hasJacobian,
-                FindMinimum[objective, spec, Method -> "InteriorPoint", Gradient -> gradFunc],
+                FindMinimum[objective, spec, Method -> "InteriorPoint", Gradient -> gradExpr],
                 FindMinimum[objective, spec, Method -> "InteriorPoint"]
               ],
               $Failed
