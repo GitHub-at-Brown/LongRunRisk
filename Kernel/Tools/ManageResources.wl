@@ -637,17 +637,21 @@ setupParallelKernels[numKernels_] := Module[{n},
 
 
 (* helper: warmup parallel kernels *)
-warmupParallelKernels[] := Module[{},
+warmupParallelKernels[] := Module[{pacletDir},
 	If[Length[ParallelKernels[]] == 0, Return[Null]];
 
-	(* Distribute required packages to parallel kernels *)
+	(* Find paclet root directory *)
+	pacletDir = findPacletRoot[];
+	If[!StringQ[pacletDir], Return[$Failed]];
+
+	(* Register paclet and load required packages on parallel kernels *)
 	ParallelEvaluate[
-		Needs["PacletizedResourceFunctions`"];
+		PacletDirectoryLoad[#];
 		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 		Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 		Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
-	];
+	] &@ pacletDir;
 ];
 
 
