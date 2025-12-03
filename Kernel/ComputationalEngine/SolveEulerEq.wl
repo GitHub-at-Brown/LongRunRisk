@@ -531,48 +531,11 @@ solveCoeffRoots[
   opts : OptionsPattern[{solveCoeffRoots, findRootInterval, extractIntervalsFromReduce, scanAndSolve, fastRoot, FindRoot}]
 ] /; AllTrue[signs, (# === 1 || # === -1) &] :=
    With[
-        {
-          paramsBase = Module[{thetaRule, gammaRule, psiRule, gammaInTheta, psiInTheta, tempAssoc, tempResult},
-            Print["=== DEBUG: Before paramsBase evaluation ==="];
-            Print["paramsRules length: ", Length[paramsRules]];
-
-            (* Find theta, gamma, psi rules *)
-            thetaRule = SelectFirst[paramsRules, StringContainsQ[ToString[#[[1]]], "theta"] &, Missing[]];
-            gammaRule = SelectFirst[paramsRules, StringContainsQ[ToString[#[[1]]], "gamma"] && !StringContainsQ[ToString[#[[1]]], "theta"] &, Missing[]];
-            psiRule = SelectFirst[paramsRules, StringContainsQ[ToString[#[[1]]], "psi"] &, Missing[]];
-
-            Print["theta rule: ", thetaRule];
-            Print["gamma rule: ", gammaRule];
-            Print["psi rule: ", psiRule];
-
-            If[!MissingQ[thetaRule],
-              Print["theta formula symbols: ", Union @ Cases[thetaRule[[2]], _Symbol, Infinity]];
-              Print["theta formula symbol contexts: ", Context /@ Union @ Cases[thetaRule[[2]], _Symbol, Infinity]];
-              gammaInTheta = SelectFirst[Cases[thetaRule[[2]], _Symbol, Infinity], StringContainsQ[SymbolName[#], "gamma"] &, Missing[]];
-              psiInTheta = SelectFirst[Cases[thetaRule[[2]], _Symbol, Infinity], StringContainsQ[SymbolName[#], "psi"] &, Missing[]];
-              Print["gamma in theta formula: ", gammaInTheta, " context: ", If[!MissingQ[gammaInTheta], Context[gammaInTheta], "N/A"]];
-              Print["psi in theta formula: ", psiInTheta, " context: ", If[!MissingQ[psiInTheta], Context[psiInTheta], "N/A"]];
-              Print["gamma rule LHS === gamma in theta? ", If[!MissingQ[gammaRule] && !MissingQ[gammaInTheta], gammaRule[[1]] === gammaInTheta, "N/A"]];
-              Print["psi rule LHS === psi in theta? ", If[!MissingQ[psiRule] && !MissingQ[psiInTheta], psiRule[[1]] === psiInTheta, "N/A"]];
-            ];
-
-            (* Show intermediate steps *)
-            tempAssoc = Association @ paramsRules;
-            Print["After Association@paramsRules, theta value: ", tempAssoc[thetaRule[[1]]]];
-            tempResult = tempAssoc //. paramsRules;
-            Print["After //. paramsRules, theta value: ", tempResult[thetaRule[[1]]]];
-            Print["After // N, theta value: ", N[tempResult[thetaRule[[1]]]]];
-
-            Print["=== Entering Dialog[] - type Return[] to continue ==="];
-            Dialog[];
-
-            (* Original computation *)
-            (Association @ paramsRules) //. paramsRules // N
-          ],
-		coeffsSys   = model["coeffsSystem"][coeffKey],
+    {
+        paramsBase = (Association @ model["params"]) //. model["params"] // N,
 		quadSol     = model["coeffsParamQuadSolve"][coeffKey],
 		coefList   = savedKernel["Vars"],
-		coefName   = First @ coeffsSys[[2]],
+		coefName   = First@model["coeffsParamQuadSolve"]["wc"]["varsA0"],
 		conds      = quadSol["Conditions"]
       },
       With[

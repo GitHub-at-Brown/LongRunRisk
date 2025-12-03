@@ -18,7 +18,6 @@ extractIntervalsFromReduce
 scanAndSolve
 fastRoot
 createCompiledEq
-compileJacobians
 
 
 (* ::Subsubsection:: *)
@@ -52,9 +51,6 @@ fastRoot::badbnds = "Invalid bounds: lower bound `1` must be less than upper bou
 createCompiledEq::usage = "createCompiledEq[model, dir] compiles model equations to dir/{shortname}.mx. Returns file path on success.";
 createCompiledEq::cachehit = "cache hit for model `1`; skipping compilation.";
 createCompiledEq::compiling = "compiling model `1`; this may take a long time.";
-compileJacobians::usage = "compileJacobians[model, dir] compiles jacobians to dir/{shortname}_jacobians.mx.";
-compileJacobians::cachehit = "Using cached jacobians for model `1`.";
-compileJacobians::compiling = "Compiling jacobians for model `1`...";
 
 
 (* ::Section:: *)
@@ -94,7 +90,7 @@ buildKernel[
     compileMode = OptionValue["CompileMode"]
   },
   Module[
-    {ex0, z, zRules, idx, pSyms, sSyms, body, dbody, fC, dfC, nP, nS, signHead, compileOpts},
+    {ex0, z, zRules, idx, pSyms, sSyms, body, fC, dfC, nP, nS, signHead, compileOpts},
 
     ex0 = normalizeExp[expr];
 
@@ -141,7 +137,6 @@ buildKernel[
     (* numericize after substitutions *)
     z = Values@zRules;
     body  = N[body, MachinePrecision];
-    dbody = N[D[body, {z}], MachinePrecision]; (*jacobian*)
 
     compileOpts = Join[
       FilterRules[{opts}, Options[FunctionCompile]],
@@ -183,13 +178,18 @@ buildKernel[
 		    ];
 		  ];
 
-		  Print["FunctionCompile[", label, "]: LeafCount=", leafCount, ", ByteCount=", byteCount, ", MemoryInUse=", Round[MemoryInUse[]/1024^2], "MB"];
+		  (* Use 80% of available memory, with 2GB floor and 32GB cap *)
+		  With[{memLimit = Clip[Round[0.8 * MemoryAvailable[]], {2*1024^3, 32*1024^3}]},
+		    Print["FunctionCompile[", label, "]: LeafCount=", leafCount, ", ByteCount=", byteCount,
+		      ", MemoryInUse=", Round[MemoryInUse[]/1024^2], "MB",
+		      ", MemoryLimit=", Round[memLimit/1024^3], "GB"];
 
-		  (* Attempt compilation with MemoryConstrained *)
-		  result = MemoryConstrained[
-		    FunctionCompile[func, CompilerRuntimeErrorAction -> "Evaluate", Sequence @@ compOpts],
-		    4*1024^3, (* 4GB limit *)
-		    (Print["FunctionCompile[", label, "]: Memory limit exceeded"]; $Failed)
+		    (* Attempt compilation with MemoryConstrained *)
+		    result = MemoryConstrained[
+		      FunctionCompile[func, CompilerRuntimeErrorAction -> "Evaluate", Sequence @@ compOpts],
+		      memLimit,
+		      (Print["FunctionCompile[", label, "]: Memory limit exceeded (", Round[memLimit/1024^3], "GB)"]; $Failed)
+		    ];
 		  ];
 
 		  If[result === $Failed || FailureQ[result],
@@ -208,9 +208,7 @@ buildKernel[
 					Table[Typed[sSyms[[j]],"Integer64"],{j,nS}]
 				],
 				b=body,
-				db=dbody,
-				bType=inferType[body],
-				dbType=inferType[dbody]
+				bType=inferType[body]
 			},
 			Switch[compileMode,
 				"FunctionOnly",
@@ -223,27 +221,35 @@ buildKernel[
 					Missing["NotCompiled"]
 				},
 				"JacobianOnly",
-				{
-					Missing["NotCompiled"],
-					compileWithDiagnostics[
-						Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
-						"df (jacobian)",
-						compileOpts
+				With[{db = N[D[body, {z}], MachinePrecision]},
+					With[{dbType = inferType[db]},
+						{
+							Missing["NotCompiled"],
+							compileWithDiagnostics[
+								Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
+								"df (jacobian)",
+								compileOpts
+							]
+						}
 					]
-				},
+				],
 				"Both",
-				{
-					compileWithDiagnostics[
-						Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
-						"f (function)",
-						compileOpts
-					],
-					compileWithDiagnostics[
-						Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
-						"df (jacobian)",
-						compileOpts
+				With[{db = N[D[body, {z}], MachinePrecision]},
+					With[{dbType = inferType[db]},
+						{
+							compileWithDiagnostics[
+								Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
+								"f (function)",
+								compileOpts
+							],
+							compileWithDiagnostics[
+								Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
+								"df (jacobian)",
+								compileOpts
+							]
+						}
 					]
-				},
+				],
 				_, (* invalid CompileMode *)
 				Message[buildKernel::badcompilemode, compileMode];
 				{$Failed, $Failed}
@@ -280,25 +286,30 @@ bindUnary[
  ];
 
  (*pack parameters and signs*)
-  a = Developer`ToPackedArray @ N[Lookup[paramValues, paramOrder], MachinePrecision];
-
-  s = If[idx === {}, {},
-    maxIdx = Max[idx];
-    If[Length[signs] < maxIdx,
-      Message[bindUnary::insufficientsigns, maxIdx, Length[signs]];
-      Return[$Failed]
-    ];
-    Developer`ToPackedArray @ Round @ signs[[idx]]
-  ];
-  
-  With[
-	  {
-		  kfC=k["fC"],kdfC=k["dfC"],suffix=Join[a,s]
-	  },
-	  {
-		  Function[{z},kfC[Sequence@@Join[Flatten@{z},suffix]]],
-		  Function[{z},kdfC[Sequence@@Join[Flatten@{z},suffix]]]
-	  }
+ With[
+	 {
+		 paramValuesNum = N[paramValues//.paramValues,MachinePrecision]
+	 },
+	  a = Developer`ToPackedArray @ Lookup[paramValuesNum, paramOrder];
+	
+	  s = If[idx === {}, {},
+	    maxIdx = Max[idx];
+	    If[Length[signs] < maxIdx,
+	      Message[bindUnary::insufficientsigns, maxIdx, Length[signs]];
+	      Return[$Failed]
+	    ];
+	    Developer`ToPackedArray @ Round @ signs[[idx]]
+	  ];
+	  
+	  With[
+		  {
+			  kfC=k["fC"],kdfC=k["dfC"],suffix=Join[a,s]
+		  },
+		  {
+			  Function[{z},kfC[Sequence@@Join[Flatten@{z},suffix]]],
+			  Function[{z},kdfC[Sequence@@Join[Flatten@{z},suffix]]]
+		  }
+	   ]
    ]
 ];
 
@@ -351,7 +362,7 @@ findRootInterval[
     (*evaluate conditions numerically*)
     signHead = ToExpression[signSym];
     signsRule = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
-    paramsRules = Normal@paramValues;
+    paramsRules = paramValues//.paramValues;
     ineq = condNorm //. paramsRules /. signsRule;
 
     rootSym = Unique["root$"];
@@ -485,7 +496,7 @@ With[{
   frSpec = OptionValue["FindRootOptions"],
   lambda = OptionValue["SecantBlend"]
 },
-  Module[{var, dim, vars, frOpts, findRootOpts, spec, newtonRes, res, jac, fTest, maxIter, fa, fb},
+  Module[{var, dim, vars, frOpts, findRootOpts, spec, newtonRes, res, jac, fTest, fa, fb},
 
     (* Determine dimensionality from x0 *)
     dim = If[NumericQ[x0], 1, Length[x0]];
@@ -516,8 +527,6 @@ With[{
       First
     ];
 
-    maxIter = MaxIterations /. findRootOpts /. MaxIterations -> 100;
-
     (* Build variable spec for FindRoot *)
     spec = If[dim == 1,
       If[lb === None, {var, x0}, {var, x0, lb, ub}],
@@ -529,30 +538,27 @@ With[{
     ];
 
     (* Build Jacobian for Newton *)
-    jac = If[df =!= None && dim == 1,
+    jac = If[(df =!= None || !MissingQ[df]) && dim == 1,
       {{df[{var}]}},
-      If[df =!= None, df[vars], None]  (* nD: df returns Jacobian matrix *)
+      If[(df =!= None || !MissingQ[df]), df[vars], None]  (* nD: df returns Jacobian matrix *)
     ];
 
     (* Newton attempt - use With to inject evaluated values into FindRoot's held arguments *)
     (* Only construct the equation for the appropriate dimensionality to avoid Part::partw *)
-    newtonRes = If[TrueQ@newtonFirst && df =!= None,
-      If[dim == 1,
-        With[{s = spec, j = jac, fo = findRootOpts, eq = f[{var}] == 0.},
-          Quiet@Check[
-            FindRoot[eq, s, Method -> "Newton", Jacobian -> j, Evaluate[Sequence @@ fo]],
-            $Failed
-          ]
-        ],
-        With[{s = spec, j = jac, fo = findRootOpts, eq = Thread[f[vars] == 0.]},
-          Quiet@Check[
-            FindRoot[eq, s, Method -> "Newton", Jacobian :> j, Evaluate[Sequence @@ fo]],
-            $Failed
-          ]
-        ]
-      ],
-      $Failed
-    ];
+     newtonRes = If[TrueQ@newtonFirst && jac =!= None,
+	    With[{
+	      s = spec,
+	      jc = jac,
+	      fo = findRootOpts,
+	      eq = If[dim == 1, f[{var}] == 0., Thread[f[vars] == 0.]]
+	    },
+	      Quiet@Check[
+	        FindRoot[eq, s, Method -> "Newton", Jacobian :> jc, Evaluate[Sequence @@ fo]],
+	        $Failed
+	      ]
+	    ],
+	    $Failed
+	  ];
 
     (* Fallback strategy *)
     res = If[!FailureQ[newtonRes] && newtonRes =!= $Failed,
@@ -582,11 +588,11 @@ With[{
         ],
         (* nD or no bounds: use default method *)
         If[dim == 1,
-          With[{s = spec, fo = findRootOpts, eq = f[{var}] == 0.},
-            Quiet@Check[FindRoot[eq, s, Evaluate[Sequence @@ fo]], $Failed]
+          With[{sv = spec, fo = findRootOpts, eq =( f[{var}] == 0. )},
+            Quiet@Check[FindRoot[eq, sv, Evaluate[Sequence @@ fo]], $Failed]
           ],
-          With[{s = spec, fo = findRootOpts, eq = Thread[f[vars] == 0.]},
-            Quiet@Check[FindRoot[eq, s, Evaluate[Sequence @@ fo]], $Failed]
+          With[{sv = spec, fo = findRootOpts, eq = Thread[f[vars] == 0.]},
+            Quiet@Check[FindRoot[eq, sv, Evaluate[Sequence @@ fo]], $Failed]
           ]
         ]
       ]
@@ -596,7 +602,7 @@ With[{
     If[res === $Failed || FailureQ[res],
       If[lb === None,
         Message[fastRoot::nobnd, Short[x0]],
-        Message[fastRoot::cvmit, maxIter, Short[x0], Short[lb], Short[ub]]
+        Message[fastRoot::cvmit, MaxIterations /. findRootOpts /. MaxIterations -> 100, Short[x0], Short[lb], Short[ub]]
       ];
       $Failed,
       If[ret === "Value", var /. res, res]
@@ -948,19 +954,20 @@ extractIntervalsFromReduce[reduceExpr_, rootVars_, opts : OptionsPattern[{extrac
 (*createCompiledEq*)
 
 
-createCompiledEq // Options = {
-	"CompileJacobians" -> True  (* backward compatible default *)
-};
+(* createCompiledEq inherits "CompileMode" from buildKernel via OptionsPattern *)
 
-createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{createCompiledEq, buildKernel, FunctionCompile}]] :=
+createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile}]] :=
 With[{
 	quadSol = model["coeffsParamQuadSolve"],
 	modelParamsKeys = Keys @ model["params"],
 	shortname = model["shortname"],
 	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile]],
 	coeffsSystem = model["coeffsSystem"],
-	compileJacs = OptionValue["CompileJacobians"],
-	compileMode = If[OptionValue["CompileJacobians"], "Both", "FunctionOnly"]
+	compileMode = ("CompileMode" /. Flatten @ {opts}) /. "CompileMode" -> "FunctionOnly"
+},
+With[{
+	fileSuffix = If[compileMode === "JacobianOnly", "_jacobians", ""],
+	storageKey = If[compileMode === "JacobianOnly", "jacobians", "kernels"]
 },
 With[{
 	ddHeads = Apply[Alternatives, Part[FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList["Real dividend growth"], All, 0]],
@@ -1014,8 +1021,8 @@ With[{
 	|>
 },
 Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
-	file = FileNameJoin[{resourcesCompiledDir, shortname <> ".mx"}];
-	currentHash = Hash[eqMap, "Expression"];
+	file = FileNameJoin[{resourcesCompiledDir, shortname <> fileSuffix <> ".mx"}];
+	currentHash = Hash[{compileMode, eqMap}, "Expression"];
 
 	(* check cache *)
 	If[FileExistsQ[file],
@@ -1039,14 +1046,13 @@ Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
 			eqMap[eq]["Params"],
 			"CoeffName" -> eqMap[eq]["CoeffName"],
 			"SignSymbol" -> eqMap[eq]["SignSymbol"],
-			"CompileMode" -> compileMode,
 			Sequence @@ buildKernelOpts
 		],
 		{eq, Keys @ eqMap}
 	];
 
 	Export[file, <|
-		"kernels" -> kernels,
+		storageKey -> kernels,
 		"meta" -> <|
 			"Version" -> $Version,
 			"SystemID" -> $SystemID,
@@ -1055,113 +1061,6 @@ Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
 		|>
 	|>, "MX"]
 ]
-]]]]]]
-
-
-(* ::Subsection:: *)
-(*compileJacobians*)
-
-
-compileJacobians[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile}]] :=
-With[{
-	quadSol = model["coeffsParamQuadSolve"],
-	modelParamsKeys = Keys @ model["params"],
-	shortname = model["shortname"],
-	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile]],
-	coeffsSystem = model["coeffsSystem"]
-},
-With[{
-	ddHeads = Apply[Alternatives, Part[FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList["Real dividend growth"], All, 0]],
-	wcSys = coeffsSystem["wc"],
-	pdSys = coeffsSystem["pd"],
-	quadSolWc = quadSol["wc"],
-	quadSolPd = quadSol["pd"]
-},
-With[{
-	(* Extract the actual j symbol from pd coefficients to ensure context consistency *)
-	(* pdSys[[2,1]] has form coefpd[j][0], so pdSys[[2,1,0,1]] extracts j *)
-	jSymbol = pdSys[[2, 1, 0, 1]]
-},
-With[{
-	paramsA = DeleteCases[modelParamsKeys, ddHeads[_]],
-	paramsStocks = Cases[modelParamsKeys, x : ddHeads[_] :> Head[x][jSymbol]],
-	wcCoeffs = wcSys[[2]],
-	wcSignRootMap = Normal @ quadSolWc["SignRootMap"]
-},
-With[{
-	wcCoeffName = SymbolName @ Head @ wcCoeffs[[1]],
-	pdCoeffName = SymbolName @ Head @ Head @ pdSys[[2, 1]],
-	wcSigns = Keys @ wcSignRootMap,
-	pdSigns = Keys @ quadSolPd["SignRootMap"],
-	wcVars = quadSolWc["varsA0"],
-	pdVars = quadSolPd["varsB0"]
-},
-With[{
-	eqMap = <|
-		"A" -> <|
-			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolWc["eqA0"]],
-			"Vars" -> wcVars,
-			"Params" -> paramsA,
-			"CoeffName" -> wcCoeffName,
-			"SignSymbol" -> If[wcSigns === {}, "sign" <> SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc], SymbolName @ Head @ First @ wcSigns]
-		|>,
-		"B" -> <|
-			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolPd["eqB0"]],
-			"Vars" -> pdVars,
-			"Params" -> Join[paramsA, paramsStocks, wcCoeffs],
-			"CoeffName" -> pdCoeffName,
-			"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
-		|>,
-		"AB" -> <|
-			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolPd["eqAB0"]],
-			"Vars" -> pdVars,
-			"Params" -> Join[paramsA, paramsStocks, {First @ wcCoeffs}, wcSignRootMap],
-			"CoeffName" -> pdCoeffName,
-			"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
-		|>
-	|>
-},
-Module[{jacobians, file, currentHash, savedData, savedHash, savedSystemID},
-	file = FileNameJoin[{resourcesCompiledDir, shortname <> "_jacobians.mx"}];
-	currentHash = Hash[{"jacobians", eqMap}, "Expression"];
-
-	(* check cache *)
-	If[FileExistsQ[file],
-		savedData = Quiet[Import[file, "MX"]];
-		If[AssociationQ[savedData] && KeyExistsQ[savedData, "meta"],
-			savedHash = savedData["meta"]["Hash"];
-			savedSystemID = savedData["meta"]["SystemID"];
-			If[savedHash === currentHash && savedSystemID === $SystemID,
-				Message[compileJacobians::cachehit, shortname];
-				Return[file]
-			]
-		]
-	];
-
-	Message[compileJacobians::compiling, shortname];
-
-	jacobians = Association @ Table[
-		eq -> buildKernel[
-			eqMap[eq]["Expr"],
-			eqMap[eq]["Vars"],
-			eqMap[eq]["Params"],
-			"CoeffName" -> eqMap[eq]["CoeffName"],
-			"SignSymbol" -> eqMap[eq]["SignSymbol"],
-			"CompileMode" -> "JacobianOnly",
-			Sequence @@ buildKernelOpts
-		],
-		{eq, Keys @ eqMap}
-	];
-
-	Export[file, <|
-		"jacobians" -> jacobians,
-		"meta" -> <|
-			"Version" -> $Version,
-			"SystemID" -> $SystemID,
-			"Date" -> DateString[],
-			"Hash" -> currentHash
-		|>
-	|>, "MX"]
 ]]]]]]]
 
 

@@ -755,9 +755,10 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			Do[
 				shortname = catalogModels[modelKey]["shortname"];
 				Message[buildModels::compiling, shortname <> " jacobians"];
-				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`compileJacobians[
+				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 					processedModels[shortname],
-					compiledDir
+					compiledDir,
+					"CompileMode" -> "JacobianOnly"
 				];
 				, {modelKey, modelsToProcess}
 			]

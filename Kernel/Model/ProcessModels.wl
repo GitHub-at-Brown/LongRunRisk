@@ -745,8 +745,7 @@ addCoeffsSolution[
 		numStocks = model["numStocks"],
 		ratioUncondE=model["ratioUncondE"][ratio],
 		infoModel = model["extraInfo"],
-		(* use coeffsParamQuadSolve as the authoritative source for closed-form coefficients *)
-		paramQuadSol = Lookup[model, "coeffsParamQuadSolve", <||>]
+		paramQuadSol = model["coeffsParamQuadSolve"]
 	},
 	With[
 		{
@@ -782,7 +781,7 @@ addCoeffsSolution[
 				coeffInfoSol
 			},
 			If[
-				(* coeffsParamQuadSolve has closed-form solution for this ratio *)
+				(* coeffsParamQuadSolve has a solution for this ratio *)
 				KeyExistsQ[paramQuadSol, ratio] && KeyExistsQ[paramQuadSol[ratio], "Solution"]
 				,
 				(* use the closed form to make the system of equations smaller *)
