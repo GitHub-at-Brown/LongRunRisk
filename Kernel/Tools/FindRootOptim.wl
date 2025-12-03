@@ -67,7 +67,7 @@ Begin["`Private`"];
 buildKernel//Options = {
 	"CoeffName" -> "A",
 	"SignSymbol" -> "signA",
-	"PerformanceGoal" -> "Quality",
+	"PerformanceGoal" -> "Speed", (* "Speed" | "Speed" *)
 	"CompileMode" -> "FunctionOnly"  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
 };
 
@@ -141,7 +141,7 @@ buildKernel[
     compileOpts = Join[
       FilterRules[{opts}, Options[FunctionCompile]],
       If[perfGoal === "Speed",
-        {CompilerOptions -> {"AbortHandling" -> False, "OptimizationLevel" -> 0}},
+        {CompilerRuntimeErrorAction -> None, CompilerOptions -> {"AbortHandling" -> False, "OptimizationLevel" -> 0}},
         {}
       ]
     ];
@@ -186,7 +186,7 @@ buildKernel[
 
 		    (* Attempt compilation with MemoryConstrained *)
 		    result = MemoryConstrained[
-		      FunctionCompile[func, CompilerRuntimeErrorAction -> None, Sequence @@ compOpts],
+		      FunctionCompile[func, Sequence @@ compOpts],
 		      memLimit,
 		      (Print["FunctionCompile[", label, "]: Memory limit exceeded (", Round[memLimit/1024^3], "GB)"]; $Failed)
 		    ];
@@ -428,13 +428,13 @@ fastRoot[f_, df_, {a_?NumericQ, b_?NumericQ}, opts : OptionsPattern[{fastRoot, F
   Module[{x0, fa, fb, lambda = N[OptionValue["SecantBlend"]]},
     fa = f[{N@a}];
     fb = f[{N@b}];
-    If[!NumberQ[fa], Message[fastRoot::nnum, Short[fa], a]; Return[$Failed]];
-    If[!NumberQ[fb], Message[fastRoot::nnum, Short[fb], b]; Return[$Failed]];
-    x0 = If[
-      Abs[fb - fa] > 1.0*^-10,
-      Clip[(1. - lambda) * (a + b)/2. + lambda * (a - fa * (b - a)/(fb - fa)), {a, b}],
-      (a + b)/2.
-    ];
+	If[!MatchQ[fa,_?NumberQ|{__?NumberQ}], Message[fastRoot::nnum, Short[fa], a]; Return[$Failed]];
+	If[!MatchQ[fb,_?NumberQ|{__?NumberQ}], Message[fastRoot::nnum, Short[fb], b]; Return[$Failed]];
+	x0 = If[
+	      And@@Thread[Abs[fb - fa] > 1.0*^-10],
+	      Clip[(1. - lambda) * (a + b)/2. + lambda * (a - fa * (b - a)/(fb - fa)), {a, b}],
+	      (a + b)/2.
+	];
     fastRootCore[f, df, x0, a, b, opts]
   ];
 
@@ -897,7 +897,11 @@ extractIntervalsFromReduce // Options = {
   "UnboundedPad" -> 1.*^5
 };
 
-extractIntervalsFromReduce[reduceExpr_, rootVars_, opts : OptionsPattern[{extractIntervalsFromReduce}]] := With[
+extractIntervalsFromReduce[
+	reduceExpr_,
+	rootVars_,
+	opts : OptionsPattern[{extractIntervalsFromReduce}]
+] := With[
   {
     shrink = OptionValue["InteriorShrink"],
     maxBound = OptionValue["RootUpperBound"],

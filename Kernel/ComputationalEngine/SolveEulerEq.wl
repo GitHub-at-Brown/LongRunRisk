@@ -719,11 +719,12 @@ solveCoeffRoots[
         paramsBase = (Association @ model["params"]) //. model["params"] // N,
 		quadSol     = model["coeffsParamQuadSolve"][coeffKey],
 		coefList   = savedKernel["Vars"],
-		coefName   = First@model["coeffsParamQuadSolve"]["wc"]["varsA0"],
-		conds      = quadSol["Conditions"]
+		coefName   = First@savedKernel["Vars"]
+		
       },
       With[
         {
+          conds      = quadSol["Conditions"],
           paramsAll = Join[
             paramsBase,
             extraParams,
