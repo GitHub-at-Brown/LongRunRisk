@@ -24,12 +24,6 @@ VerificationTest[
 ]
 
 VerificationTest[
-  Head[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`compileJacobians],
-  Symbol,
-  TestID -> "compileJacobians-symbol-exists"
-]
-
-VerificationTest[
   Head[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel],
   Symbol,
   TestID -> "buildKernel-symbol-exists"
@@ -126,8 +120,8 @@ VerificationTest[
     bk = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel;
     OptionValue[bk, "CompileMode"]
   ],
-  "Both",
-  TestID -> "buildKernel-CompileMode-default-is-Both"
+  "FunctionOnly",
+  TestID -> "buildKernel-CompileMode-default-is-FunctionOnly"
 ]
 
 (* ============================================================ *)
@@ -148,33 +142,17 @@ VerificationTest[
   Module[{opts, cce},
     cce = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq;
     opts = Options[cce];
-    MemberQ[Keys[opts], "CompileJacobians"]
+    MemberQ[Keys[opts], "CompileMode"]
   ],
   True,
-  TestID -> "createCompiledEq-has-CompileJacobians-option"
+  TestID -> "createCompiledEq-has-CompileMode-option"
 ]
 
 VerificationTest[
   Module[{cce},
     cce = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq;
-    OptionValue[cce, "CompileJacobians"]
+    OptionValue[cce, "CompileMode"]
   ],
-  True,
-  TestID -> "createCompiledEq-CompileJacobians-default-is-True"
-]
-
-(* ============================================================ *)
-(* compileJacobians Message Tests *)
-(* ============================================================ *)
-
-VerificationTest[
-  StringQ[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`compileJacobians::cachehit],
-  True,
-  TestID -> "compileJacobians-has-cachehit-message"
-]
-
-VerificationTest[
-  StringQ[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`compileJacobians::compiling],
-  True,
-  TestID -> "compileJacobians-has-compiling-message"
+  "FunctionOnly",
+  TestID -> "createCompiledEq-CompileMode-default-is-FunctionOnly"
 ]
