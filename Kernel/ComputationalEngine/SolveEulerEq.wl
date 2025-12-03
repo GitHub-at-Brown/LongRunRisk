@@ -48,6 +48,190 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 
 
 (* ::Subsection:: *)
+(*nD Root-Finding Helpers*)
+
+
+(* Step 1: safeReduceCall - wraps findRootInterval with timeout for nD *)
+safeReduceCall[conds_, paramsAll_, signs_, cName_, sName_, findOpts_, timeout_] :=
+  TimeConstrained[
+    findRootInterval[conds, paramsAll, signs,
+      "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts],
+    timeout,
+    $Failed
+  ];
+
+
+(* Step 2: convertInfinityBounds - converts Infinity to finite bounds for x0 computation *)
+convertInfinityBounds[a_List, b_List, pad_?NumericQ] := {
+  a /. -Infinity -> -pad,
+  b /. Infinity -> pad
+};
+
+
+(* Step 3: trySmartIntervals - attempts root-finding with Reduce-derived intervals *)
+trySmartIntervals[f_, df_, reduceExpr_, coefList_, extractOpts_, scanOpts_, rub_, pad_] :=
+  Module[{intervals, finalRoots = {}, finalIntervals = {}},
+    If[reduceExpr === $Failed, Return[$Failed]];
+
+    intervals = extractIntervalsFromReduce[reduceExpr, coefList,
+      "UnboundedPad" -> Infinity, Sequence @@ extractOpts];
+
+    If[intervals === {} || intervals === $Failed, Return[$Failed]];
+
+    Scan[
+      Function[{iv},
+        Module[{a, b, aFinite, bFinite, x0, frRes},
+          (* iv = {lowerVector, upperVector} for nD *)
+          a = iv[[1]];  (* lower bounds vector *)
+          b = iv[[2]];  (* upper bounds vector *)
+          (* Convert Infinity to finite for initial guess computation *)
+          {aFinite, bFinite} = convertInfinityBounds[a, b, pad];
+          (* Heuristic x0 *)
+          x0 = MapThread[
+            Which[
+              NumericQ[#1] && NumericQ[#2], (#1 + #2)/2.,
+              #1 === -Infinity && #2 === Infinity, 0.,
+              NumericQ[#1], #1 + 1.,
+              NumericQ[#2], #2 - 1.,
+              True, 0.
+            ] &,
+            {a, b}
+          ];
+          frRes = fastRoot[f, df, {x0, aFinite, bFinite}, Sequence @@ scanOpts];
+          If[!FailureQ[frRes],
+            AppendTo[finalRoots, {frRes}];
+            AppendTo[finalIntervals, iv]
+          ]
+        ]
+      ],
+      intervals
+    ];
+
+    If[Length[finalRoots] > 0, {finalRoots, finalIntervals}, $Failed]
+  ];
+
+
+(* Step 4: tryArtificialBox - fallback with artificial finite bounds *)
+tryArtificialBox[f_, df_, coefList_, scanOpts_, rub_, pad_] :=
+  Module[{d, a, b, x0, frRes, artificialBounds},
+    d = Length[coefList];
+    artificialBounds = Prepend[ConstantArray[{-pad, pad}, d - 1], {0., rub}];
+    a = artificialBounds[[All, 1]];
+    b = artificialBounds[[All, 2]];
+    x0 = (a + b) / 2.;
+
+    frRes = fastRoot[f, df, {x0, a, b}, Sequence @@ scanOpts];
+    If[!FailureQ[frRes],
+      {{{frRes}}, {artificialBounds}},  (* Double-wrap root for Map[..., {2}] compatibility *)
+      $Failed
+    ]
+  ];
+
+
+(* Step 5: nMinimizeFallback - optimization-based fallback *)
+nMinimizeFallback[f_, coefList_, reduceExpr_, rub_, pad_, tol_] :=
+  Module[{d, vars, coefToVar, objFn, boxConstraints,
+          mappedReduceExpr, constraints, nmRes, artificialBounds},
+
+    d = Length[coefList];
+    (* Create unique symbols for NMinimize *)
+    vars = Array[Unique["x$"] &, d];
+    coefToVar = Thread[coefList -> vars];
+
+    (* Build artificial bounds for result reporting *)
+    artificialBounds = Prepend[ConstantArray[{-pad, pad}, d - 1], {0., rub}];
+
+    (* Objective: minimize sum of squared residuals *)
+    (* Note: f expects numeric vectors, so define objective as a black-box function *)
+    objFn[v_?(VectorQ[#, NumericQ] &)] := Total[f[v]^2];
+
+    (* Box constraints (always used) *)
+    boxConstraints = And @@ MapThread[
+      #1 <= #2 <= #3 &,
+      {artificialBounds[[All, 1]], vars, artificialBounds[[All, 2]]}
+    ];
+
+    (* Map reduceExpr coefficients to optimization variables *)
+    mappedReduceExpr = If[
+      reduceExpr =!= $Failed && reduceExpr =!= True && reduceExpr =!= False,
+      reduceExpr /. coefToVar,
+      True
+    ];
+
+    (* Combine box with mapped reduce constraint *)
+    constraints = boxConstraints && mappedReduceExpr;
+
+    nmRes = Quiet @ Check[
+      NMinimize[{objFn[vars], constraints}, vars, Method -> "NelderMead"],
+      $Failed
+    ];
+
+    If[!FailureQ[nmRes] && nmRes[[1]] < tol,
+      (* Convert vars back to coefficient values *)
+      {{{vars /. nmRes[[2]]}}, {artificialBounds}},  (* Wrap interval in list for MapThread *)
+      $Failed
+    ]
+  ];
+
+
+(* Step 6: solveND - orchestrates the nD fallback chain *)
+solveND // Options = {
+  "ReduceTimeLimit" -> 5.
+};
+
+solveND[f_, df_, conds_, paramsAll_, signs_, coefList_, cName_, sName_,
+        findOpts_, extractOpts_, scanOpts_, solTemplate_,
+        opts : OptionsPattern[{solveND}]] :=
+  Module[{reduceExpr, rub, pad, acc, tol, signHead, signsRule, sol, result},
+
+    (* Extract options from extractIntervalsFromReduce *)
+    rub = Lookup[Flatten@{extractOpts}, "RootUpperBound", 15.];
+    pad = Lookup[Flatten@{extractOpts}, "UnboundedPad", 1.*^5];
+    acc = AccuracyGoal /. Flatten[{scanOpts, Options[FindRoot]}] /. AccuracyGoal -> 8;
+    tol = 10.^(-acc);
+
+    (* Prepare solution substitution *)
+    signHead = If[StringQ[sName], ToExpression[sName], sName];
+    signsRule = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
+    sol = solTemplate //. paramsAll //. signsRule;
+
+    (* Helper to package result matching original format *)
+    packageResult[{rootsList_, intervalsList_}] := Module[{rRules, sRules},
+      rRules = Map[Thread[coefList -> #] &, rootsList, {2}];
+      sRules = Map[Join[{#}, sol /. #] &, rRules, {2}];
+      MapThread[
+        <|
+          "Interval" -> #1,
+          "Roots"    -> #2,
+          "Error"    -> (RealAbs /@ (f /@ #2)),  (* Match original: RealAbs, not Norm *)
+          "Sol"      -> Association /@ #3,
+          "Signs"    -> signs
+        |> &,
+        {intervalsList, rootsList, sRules}
+      ]
+    ];
+
+    (* Stage 1: Safe reduce call with timeout *)
+    reduceExpr = safeReduceCall[conds, paramsAll, signs, cName, sName,
+      findOpts, OptionValue["ReduceTimeLimit"]];
+
+    (* Stage 2: Try smart intervals with Infinity padding *)
+    result = trySmartIntervals[f, df, reduceExpr, coefList, extractOpts, scanOpts, rub, pad];
+    If[result =!= $Failed, Return[packageResult[result]]];
+
+    (* Stage 3: Try artificial box *)
+    result = tryArtificialBox[f, df, coefList, scanOpts, rub, pad];
+    If[result =!= $Failed, Return[packageResult[result]]];
+
+    (* Stage 4: NMinimize fallback *)
+    result = nMinimizeFallback[f, coefList, reduceExpr, rub, pad, tol];
+    If[result =!= $Failed, Return[packageResult[result]]];
+
+    {}  (* All stages failed *)
+  ];
+
+
+(* ::Subsection:: *)
 (*loadModelKernels*)
 
 
@@ -561,26 +745,22 @@ solveCoeffRoots[
         },
         Module[{f, df, reduceExpr, intervals, roots, sol0Rules, sol, solRules, signHead, signsRule, jRule},
           {f, df}    = bindUnary[savedKernel, paramsAll, signs];
-          
-          (* Pass CoeffName and SignSymbol to findRootInterval *)
-          reduceExpr = findRootInterval[conds, paramsAll, signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts];
-          
-          intervals  = extractIntervalsFromReduce[reduceExpr, coefList, Sequence @@ extractOpts];
 
-          If[Length[coefList] == 1,
-            (* 1D: use existing scanAndSolve path, ensure scalar output *)
-            roots = (scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals),
-            (* nD: build vector bounds and run fastRoot directly *)
-            roots = Map[
-              Function[{iv},
-                Module[{a = iv[[1]], b = iv[[2]], x0},
-                  x0 = Join[{Mean[{a[[1]], b[[1]]}]}, ConstantArray[0., Length[coefList] - 1]];
-                  {fastRoot[f, df, {x0, a, b}, Sequence @@ scanOpts]}
-                ]
-              ],
-              intervals
+          (* Branch early: nD uses solveND with timeout protection, 1D uses original path *)
+          If[Length[coefList] > 1,
+            (* nD: Delegate to solveND and return early with packaged result *)
+            Return[
+              solveND[f, df, conds, paramsAll, signs, coefList, cName, sName,
+                      findOpts, extractOpts, scanOpts, quadSol["Solution"],
+                      "ReduceTimeLimit" -> 5.],
+              Module  (* Return from enclosing Module *)
             ]
           ];
+
+          (* 1D path: use existing logic without timeout (fast for 1D) *)
+          reduceExpr = findRootInterval[conds, paramsAll, signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts];
+          intervals  = extractIntervalsFromReduce[reduceExpr, coefList, Sequence @@ extractOpts];
+          roots = (scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals);
           
           (* Substitute signs into the analytical solution *)
           signHead   = If[StringQ[sName], ToExpression[sName], sName];

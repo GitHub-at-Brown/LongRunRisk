@@ -819,7 +819,7 @@ scanAndSolve[
         ]
       },
   Module[
-    {ff = f, fnum, xs, ys, tol, zeroRoots, signs, ints, roots, fastOpts, acc},
+    {fnum, xs, ys, tol, zeroRoots, signs, ints, roots, fastOpts, acc},
     acc = Replace[
       AccuracyGoal /. findRootOpts,
       AccuracyGoal -> (AccuracyGoal /. Options[FindRoot])
@@ -830,8 +830,8 @@ scanAndSolve[
       Evaluate @ findRootOpts
     }];
     (* fnum: wrap scalar in list, pass vector through (consistent with fastRootCore) *)
-    fnum[x_?NumberQ] := ff[{x}];
-    fnum[v_?(VectorQ[#, NumberQ]&)] := ff[v];
+    fnum[x_?NumberQ] := f[{x}];
+    fnum[v_?(VectorQ[#, NumberQ]&)] := f[v];
 
     xs = N @ Subdivide[a, b, bins];
     ys = fnum /@ xs;
