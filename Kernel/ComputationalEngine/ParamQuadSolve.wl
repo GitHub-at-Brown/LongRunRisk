@@ -59,8 +59,8 @@ Options[paramQuadSolve] = {
   "MonomialOrder" -> Automatic,
   "ValidationOption" -> True,
   "ReturnOption" -> "All",
-  "TimeoutOption" -> 60,
-  "SimplifyTimeout" -> Automatic,
+  "TimeoutOption" -> 600,
+  "SimplifyTimeout" -> {10,300},(*Automatic,*)
   "DiagnosticsOption" -> False,
   "OnlyQuadTerms" -> False,
   "SignSymbol" -> signA

@@ -748,6 +748,9 @@ warmupParallelKernels[] := Module[{pacletDir},
 	pacletDir = findPacletRoot[];
 	If[!StringQ[pacletDir], Return[$Failed]];
 
+	Needs["PacletizedResourceFunctions`"];
+  	Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];];
+
 	(* Register paclet and load required packages on parallel kernels *)
 	ParallelEvaluate[
 		PacletDirectoryLoad[#];

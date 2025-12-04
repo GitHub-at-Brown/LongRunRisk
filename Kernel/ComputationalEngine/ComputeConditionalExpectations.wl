@@ -108,7 +108,7 @@ Kernel/Model/Catalog.wl.";
 
   Options[lagStateVarst] = {
     "MaxIterations" -> 100,
-    "TimeConstraint" -> 5
+    "TimeConstraint" -> 30
   };
 
 
