@@ -889,13 +889,11 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			catalogHash = getCanonicalHash[catalogModels[modelKey]];
 			processedModels[shortname] = Append[model, "catalogHash" -> catalogHash];
 
-			, {modelKey, symbolicModels}
-		];
-
-		(* Checkpoint after symbolic phase *)
-		If[Length[symbolicModels] > 0,
+			(* Checkpoint after each model's symbolic processing *)
 			saveModels[Merge[{savedModels, processedModels}, Last], modelsFile];
-			Message[buildModels::checkpoint, "Symbolic"]
+			Message[buildModels::checkpoint, shortname <> " Symbolic"];
+
+			, {modelKey, symbolicModels}
 		];
 
 		(* Phase 2: Compile functions - cascade from Symbolic + models at Compile stage *)
@@ -921,13 +919,12 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 					processedModels[shortname]
 				]
 			];
-			, {modelKey, numericalModels}
-		];
 
-		(* Checkpoint after numerical phase *)
-		If[Length[numericalModels] > 0,
+			(* Checkpoint after each model's numerical solutions *)
 			saveModels[Merge[{savedModels, processedModels}, Last], modelsFile];
-			Message[buildModels::checkpoint, "Numerical"]
+			Message[buildModels::checkpoint, shortname <> " Numerical"];
+
+			, {modelKey, numericalModels}
 		];
 
 		(* Phase 4: Moments database - cascade from Numerical + models at Moments stage *)
