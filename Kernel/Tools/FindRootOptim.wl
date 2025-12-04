@@ -73,8 +73,9 @@ Begin["`Private`"];
 buildKernel//Options = {
 	"CoeffName" -> "A",
 	"SignSymbol" -> "signA",
-	"PerformanceGoal" -> "Speed", (* "Speed" | "Speed" *)
-	"CompileMode" -> "FunctionOnly"  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
+	"PerformanceGoal" -> "Speed", (* "Speed" | "Quality" *)
+	"CompileMode" -> "FunctionOnly",  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
+	"Compiler" -> "FunctionCompile"  (* "FunctionCompile" | "Compile" *)
 };
 
 buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
@@ -87,13 +88,14 @@ buildKernel[
 	expr_,
 	vars_List,
 	params_List,
-	opts : OptionsPattern[{buildKernel, FunctionCompile}]
+	opts : OptionsPattern[{buildKernel, FunctionCompile, Compile}]
 ] := With[
   {
     coeffName = OptionValue["CoeffName"],
     signSym = OptionValue["SignSymbol"],
     perfGoal = OptionValue["PerformanceGoal"],
-    compileMode = OptionValue["CompileMode"]
+    compileMode = OptionValue["CompileMode"],
+    compiler = OptionValue["Compiler"]
   },
   Module[
     {ex0, z, zRules, idx, pSyms, sSyms, body, fC, dfC, nP, nS, signHead, compileOpts},
@@ -144,16 +146,27 @@ buildKernel[
     z = Values@zRules;
     body  = N[body, MachinePrecision];
 
-    compileOpts = Join[
-      FilterRules[{opts}, Options[FunctionCompile]],
-      If[perfGoal === "Speed",
-        {CompilerRuntimeErrorAction -> None, CompilerOptions -> {"AbortHandling" -> False, "OptimizationLevel" -> 0}},
-        {}
+    compileOpts = If[compiler === "FunctionCompile",
+      (* FunctionCompile options *)
+      Join[
+        FilterRules[Flatten@{opts}, Options[FunctionCompile]],
+        If[perfGoal === "Speed",
+          {CompilerRuntimeErrorAction -> None, CompilerOptions -> {"AbortHandling" -> False, "OptimizationLevel" -> 0}},
+          {}
+        ]
+      ],
+      (* Compile options - default to C target *)
+      Join[
+        FilterRules[Flatten@{opts}, Options[Compile]],
+        If[perfGoal === "Speed",
+          {CompilationTarget -> "C", RuntimeOptions -> "Speed"},
+          {CompilationTarget -> "C"}
+        ]
       ]
     ];
 
     {fC,dfC}=Module[
-	    {inferType, compileWithDiagnostics},
+	    {inferType, convertTypesForCompile, compileWithDiagnostics},
 	    (* Infer type by checking if expression is a list structure *)
 	    inferType[e_]:=With[
 		    {
@@ -162,16 +175,30 @@ buildKernel[
 		    If[rank==0,"Real64",TypeSpecifier["PackedArray"]["Real64",rank]]
 		];
 
-		(* Wrapper that logs diagnostics before FunctionCompile *)
-		compileWithDiagnostics[func_, label_String, compOpts_List] := Module[
+		(* Convert FunctionCompile type annotations to Compile format *)
+		convertTypesForCompile[args_List] := Map[
+		  Function[{arg},
+		    Which[
+		      MatchQ[arg, Typed[_, "Real64"]], {arg[[1]], _Real},
+		      MatchQ[arg, Typed[_, "Integer64"]], {arg[[1]], _Integer},
+		      MatchQ[arg, Typed[_, TypeSpecifier["PackedArray"]["Real64", _]]],
+		        {arg[[1]], _Real, arg[[2, 2]]},
+		      True, {arg[[1]], _Real}
+		    ]
+		  ],
+		  args
+		];
+
+		(* Wrapper that logs diagnostics and compiles using selected compiler *)
+		compileWithDiagnostics[func_, label_String, compOpts_List, useCompiler_String] := Module[
 		  {leafCount, byteCount, result, logFile},
 		  leafCount = LeafCount[func];
 		  byteCount = ByteCount[func];
 
 		  (* Write diagnostic info to file in case of crash - use Export for immediate flush *)
-		  logFile = FileNameJoin[{$TemporaryDirectory, "FunctionCompile_diagnostic.txt"}];
+		  logFile = FileNameJoin[{$TemporaryDirectory, "Compile_diagnostic.txt"}];
 		  With[{entry = StringJoin[
-		      DateString[], " | ", label,
+		      DateString[], " | ", label, " [", useCompiler, "]",
 		      " | LeafCount=", ToString[leafCount],
 		      " | ByteCount=", ToString[byteCount],
 		      " | MemoryInUse=", ToString[Round[MemoryInUse[]/1024^2]], "MB",
@@ -186,22 +213,36 @@ buildKernel[
 
 		  (* Use 80% of available memory, with 2GB floor and 32GB cap *)
 		  With[{memLimit = Clip[Round[0.8 * MemoryAvailable[]], {2*1024^3, 32*1024^3}]},
-		    Print["FunctionCompile[", label, "]: LeafCount=", leafCount, ", ByteCount=", byteCount,
+		    Print[useCompiler, "[", label, "]: LeafCount=", leafCount, ", ByteCount=", byteCount,
 		      ", MemoryInUse=", Round[MemoryInUse[]/1024^2], "MB",
 		      ", MemoryLimit=", Round[memLimit/1024^3], "GB"];
 
 		    (* Attempt compilation with MemoryConstrained *)
 		    result = MemoryConstrained[
-		      FunctionCompile[func, Sequence @@ compOpts],
+		      If[useCompiler === "FunctionCompile",
+		        (* FunctionCompile path *)
+		        FunctionCompile[func, Sequence @@ compOpts],
+		        (* Compile path - extract args and body from Function, convert types *)
+		        With[{
+		          funcArgs = func[[1]],
+		          funcBody = func[[2]]
+		        },
+		          Compile[
+		            Evaluate @ convertTypesForCompile[Flatten@{funcArgs}],
+		            Evaluate @ (funcBody /. TypeHint[e_, _] :> e),
+		            Evaluate[Sequence @@ compOpts]
+		          ]
+		        ]
+		      ],
 		      memLimit,
-		      (Print["FunctionCompile[", label, "]: Memory limit exceeded (", Round[memLimit/1024^3], "GB)"]; $Failed)
+		      (Print[useCompiler, "[", label, "]: Memory limit exceeded (", Round[memLimit/1024^3], "GB)"]; $Failed)
 		    ];
 		  ];
 
 		  If[result === $Failed || FailureQ[result],
-		    Print["FunctionCompile[", label, "]: FAILED"];
+		    Print[useCompiler, "[", label, "]: FAILED"];
 		    $Failed,
-		    Print["FunctionCompile[", label, "]: SUCCESS"];
+		    Print[useCompiler, "[", label, "]: SUCCESS"];
 		    result
 		  ]
 		];
@@ -222,7 +263,8 @@ buildKernel[
 					compileWithDiagnostics[
 						Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
 						"f (function)",
-						compileOpts
+						compileOpts,
+						compiler
 					],
 					Missing["NotCompiled"]
 				},
@@ -234,7 +276,8 @@ buildKernel[
 							compileWithDiagnostics[
 								Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
 								"df (jacobian)",
-								compileOpts
+								compileOpts,
+								compiler
 							]
 						}
 					]
@@ -246,12 +289,14 @@ buildKernel[
 							compileWithDiagnostics[
 								Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
 								"f (function)",
-								compileOpts
+								compileOpts,
+								compiler
 							],
 							compileWithDiagnostics[
 								Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
 								"df (jacobian)",
-								compileOpts
+								compileOpts,
+								compiler
 							]
 						}
 					]
@@ -517,8 +562,8 @@ computeX0Mixed[f_, x0_List, lo_List, hi_List, blend_] := Module[
 ]
 
 
-(* isCompiledCode: detect FunctionCompile'd functions *)
-isCompiledCode[f_] := MatchQ[f, _CompiledCodeFunction]
+(* isCompiledCode: detect both FunctionCompile'd and Compile'd functions *)
+isCompiledCode[f_] := MatchQ[f, _CompiledCodeFunction | _CompiledFunction]
 
 
 (* validateRoot: check if candidate root is valid *)
@@ -1297,11 +1342,12 @@ With[{
 
 (* createCompiledEq inherits "CompileMode" from buildKernel via OptionsPattern *)
 
-createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile}]] :=
+createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile, Compile}]] :=
 With[{
 	shortname = model["shortname"],
-	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile]],
+	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile, Options @ Compile]],
 	compileMode = ("CompileMode" /. Flatten @ {opts}) /. "CompileMode" -> "FunctionOnly",
+	compilerChoice = ("Compiler" /. Flatten @ {opts}) /. "Compiler" -> "FunctionCompile",
 	pdMode = Lookup[model["coeffsParamQuadSolve"]["pd"], "pdMode", "B"],
 	eqMap = buildEqMapFromModel[model]
 },
@@ -1311,7 +1357,7 @@ With[{
 },
 Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
 	file = FileNameJoin[{resourcesCompiledDir, shortname <> fileSuffix <> ".mx"}];
-	currentHash = Hash[{compileMode, pdMode, eqMap}, "Expression"];
+	currentHash = Hash[{compileMode, compilerChoice, pdMode, eqMap}, "Expression"];
 
 	(* check cache *)
 	If[FileExistsQ[file],

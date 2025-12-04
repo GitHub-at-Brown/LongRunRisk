@@ -71,7 +71,8 @@ tests = With[{
           {A[0]},
           {x},
           "CoeffName" -> "A",
-          "SignSymbol" -> "signA"
+          "SignSymbol" -> "signA",
+          "CompileMode" -> "Both"
         ];
         (* Kernel should have FunctionCompile-produced compiled functions *)
         Head[kernel["fC"]] === CompiledCodeFunction &&
@@ -80,6 +81,52 @@ tests = With[{
       True,
       TimeConstraint -> timeLimit,
       TestID -> "buildKernel-produces-CompiledCodeFunction"
+    ],
+
+    (* Test buildKernel with "Compiler" -> "Compile" produces CompiledFunction *)
+    VerificationTest[
+      Module[{kernel},
+        kernel = bk[
+          x^2 - A[0],
+          {A[0]},
+          {x},
+          "CoeffName" -> "A",
+          "SignSymbol" -> "signA",
+          "Compiler" -> "Compile"
+        ];
+        Head[kernel["fC"]] === CompiledFunction
+      ],
+      True,
+      TimeConstraint -> timeLimit,
+      TestID -> "buildKernel-Compile-produces-CompiledFunction"
+    ],
+
+    (* Test both compilers produce equivalent numerical results *)
+    VerificationTest[
+      Module[{kernelFC, kernelC, fFC, fC, dfFC, dfC},
+        kernelFC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "FunctionCompile"];
+        kernelC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "Compile"];
+        {fFC, dfFC} = bu[kernelFC, <|x -> 2|>, {}];
+        {fC, dfC} = bu[kernelC, <|x -> 2|>, {}];
+        (* Both should evaluate to the same result at A[0] = 1: 2^2 - 1 = 3 *)
+        Abs[fFC[1] - fC[1]] < 10^-10
+      ],
+      True,
+      TimeConstraint -> timeLimit,
+      TestID -> "buildKernel-both-compilers-equivalent-results"
+    ],
+
+    (* Test isCompiledCode detects both function types *)
+    VerificationTest[
+      Module[{kernelFC, kernelC, isCompiled},
+        isCompiled = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`Private`isCompiledCode"];
+        kernelFC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "FunctionCompile"];
+        kernelC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "Compile"];
+        isCompiled[kernelFC["fC"]] && isCompiled[kernelC["fC"]]
+      ],
+      True,
+      TimeConstraint -> timeLimit,
+      TestID -> "isCompiledCode-detects-both-types"
     ]
   }
 ];
