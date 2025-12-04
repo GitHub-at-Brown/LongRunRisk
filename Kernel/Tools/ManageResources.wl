@@ -587,16 +587,18 @@ cleanAllOutputs[root_String] := Module[{resourcesDir, compiledDir, momentsDir},
 
 
 (* helper: save processed models to Models.wl using DefinitionData *)
-saveModels[models_Association, file_String] := Module[{dataModels},
+saveModels[models_Association, file_String] := Module[{dataModels, modelsData},
 	Quiet[CreateDirectory[DirectoryName[file]], {CreateDirectory::filex, CreateDirectory::eexist}];
-	(* Use DefinitionData to capture all definitions associated with models *)
-	dataModels = PacletizedResourceFunctions`DefinitionData[models];
+	(* DefinitionData requires a Symbol, not an inline association.
+	   Assign to local symbol first so DefinitionData can serialize properly. *)
+	modelsData = models;
+	dataModels = PacletizedResourceFunctions`DefinitionData[modelsData];
 	Put[dataModels, file];
 	file
 ];
 
 
-(* helper: load models from Models.wl - uses double Get for DefinitionData *)
+(* helper: load models from Models.wl - Get@Get triggers DefinitionData UpValue *)
 loadModels[file_String] := If[FileExistsQ[file], Get@Get[file], <||>];
 
 
