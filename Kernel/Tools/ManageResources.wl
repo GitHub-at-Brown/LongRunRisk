@@ -555,7 +555,8 @@ buildModels // Options = {
 	"CreateMoments" -> True,
 	"NumKernels" -> Automatic,  (* Automatic | n | None *)
 	"MaxMaturity" -> 120,
-	"Models" -> All  (* All or list of shortnames *)
+	"Models" -> All,  (* All or list of shortnames *)
+	"PdEquations" -> "B"  (* "B" | "AB" | "Both" - controls which pd equations to compute/compile *)
 };
 
 
@@ -630,7 +631,7 @@ validCoeffsSolutionN[model_] :=
 
 (* helper: validate compiled .mx file against model - matches pattern from FindRootOptim.wl *)
 validateCompiledFile[mxFile_String, model_Association, compileMode_String : "FunctionOnly"] := Module[
-	{savedData, expectedHash, eqMap},
+	{savedData, expectedHash, eqMap, pdMode},
 
 	If[!FileExistsQ[mxFile], Return[<|"Valid" -> False, "Reason" -> "file missing"|>]];
 
@@ -644,8 +645,9 @@ validateCompiledFile[mxFile_String, model_Association, compileMode_String : "Fun
 	];
 
 	(* Compute expected hash - same logic as createCompiledEq *)
+	pdMode = Lookup[model["coeffsParamQuadSolve"]["pd"], "pdMode", "B"];
 	eqMap = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildEqMapFromModel[model];
-	expectedHash = Hash[{compileMode, eqMap}, "Expression"];
+	expectedHash = Hash[{compileMode, pdMode, eqMap}, "Expression"];
 
 	If[savedData["meta"]["Hash"] =!= expectedHash,
 		Return[<|"Valid" -> False, "Reason" -> "hash mismatch"|>]
@@ -882,7 +884,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 			(* run symbolic processing *)
 			model = First @ Values @ FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
-				KeyTake[catalogModels, {modelKey}]
+				KeyTake[catalogModels, {modelKey}],
+				"PdEquations" -> OptionValue["PdEquations"]
 			];
 
 			(* store catalogHash with model *)

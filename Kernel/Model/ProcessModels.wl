@@ -59,7 +59,7 @@ processModels::progress = "Finished `1`.";
 
 processModels[
 	modelsCatalog_Association,
-	opts:OptionsPattern[{updateCoeffs, getStartingValues, FindRoot, RecurrenceTable}]
+	opts:OptionsPattern[{solveCoeffsSystem, updateCoeffs, getStartingValues, FindRoot, RecurrenceTable}]
 ]:=
 	Module[
 	{
@@ -214,21 +214,26 @@ processModels[
 	models = EchoTiming[
 		Append[
 			#,
-			solveCoeffsSystem[#, TimeConstraint->{1,1}]
+			solveCoeffsSystem[#,
+				"PdEquations" -> OptionValue[solveCoeffsSystem, Flatten@{opts}, "PdEquations"],
+				TimeConstraint->{1,1}
+			]
 		]&/@models,
 		"solveCoeffsSystem"
 	];
 
 	models = EchoTiming[
-		Append[
-			#,
-			"coeffsSolution" -> <| 
-				"wc" -> addCoeffsSolution[#,"wc",opts],
-				"pd" -> addCoeffsSolution[#,"pd", opts],
-				"bond" -> addCoeffsSolution[#,"bond", opts],
-				"nombond" -> addCoeffsSolution[#,"nombond", opts]
-			|>
-		]& /@ models,
+		With[{addCoeffsOpts = FilterRules[Flatten@{opts}, Options[addCoeffsSolution]]},
+			Append[
+				#,
+				"coeffsSolution" -> <|
+					"wc" -> addCoeffsSolution[#,"wc", Sequence @@ addCoeffsOpts],
+					"pd" -> addCoeffsSolution[#,"pd", Sequence @@ addCoeffsOpts],
+					"bond" -> addCoeffsSolution[#,"bond", Sequence @@ addCoeffsOpts],
+					"nombond" -> addCoeffsSolution[#,"nombond", Sequence @@ addCoeffsOpts]
+				|>
+			]& /@ models
+		],
 		"addCoeffsSolution"
 	];
 
@@ -540,7 +545,8 @@ simplifyCoeffsSystem[model_, opts : OptionsPattern[Simplify]]:=With[
 
 
 solveCoeffsSystem // Options = {
-	"SimplifyOptions" -> {TimeConstraint -> {30, 600}}
+	"SimplifyOptions" -> {TimeConstraint -> {30, 600}},
+	"PdEquations" -> "B"  (* "B" | "AB" | "Both" - controls which pd equations to compute *)
 };
 
 
@@ -640,22 +646,28 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							With[
 								{
 									newSysB= Pick[sysB,verifB,False],
-									newVarsB = Pick[varsB,verifB,False]
+									newVarsB = Pick[varsB,verifB,False],
+									pdMode = OptionValue["PdEquations"]
 								},
 								With[
 									{
 										eqB0=Prepend[newSysB,pdCoeffEq]/.solB["Solution"]
 									},
+									solB["pdMode"] = pdMode;
 									solB["varsB0"] = Prepend[newVarsB,modelCoeffsSysPd[[2,1]]];
-									(*pd without plugging in wc coeffs*)
-									solB["eqB0"] = Assuming[
-										assumeB,
-										Quiet[FullSimplify[eqB0,Sequence @@ simplifyOpts],{FullSimplify::time}]
+									(*pd without plugging in wc coeffs - only if needed*)
+									If[MatchQ[pdMode, "B" | "Both"],
+										solB["eqB0"] = Assuming[
+											assumeB,
+											Quiet[FullSimplify[eqB0,Sequence @@ simplifyOpts],{FullSimplify::time}]
+										];
 									];
-									(*pd plugging in wc coeffs*)
-									solB["eqAB0"] = Assuming[
-										assumeB,
-										Quiet[FullSimplify[eqB0/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
+									(*pd plugging in wc coeffs - only if needed*)
+									If[MatchQ[pdMode, "AB" | "Both"],
+										solB["eqAB0"] = Assuming[
+											assumeB,
+											Quiet[FullSimplify[eqB0/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
+										];
 									];
 								]; (*With*)
 							]; (*With*)

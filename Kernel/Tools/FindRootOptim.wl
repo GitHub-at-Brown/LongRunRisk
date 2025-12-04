@@ -1236,7 +1236,8 @@ With[{
 With[{
 	(* Extract the actual j symbol from pd coefficients to ensure context consistency *)
 	(* pdSys[[2,1]] has form coefpd[j][0], so pdSys[[2,1,0,1]] extracts j *)
-	jSymbol = pdSys[[2, 1, 0, 1]]
+	jSymbol = pdSys[[2, 1, 0, 1]],
+	pdMode = Lookup[quadSolPd, "pdMode", "B"]
 },
 With[{
 	paramsA = DeleteCases[modelParamsKeys, ddHeads[_]],
@@ -1252,29 +1253,41 @@ With[{
 	wcVars = quadSolWc["varsA0"],
 	pdVars = quadSolPd["varsB0"]
 },
-	<|
-		"A" -> <|
-			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolWc["eqA0"]],
-			"Vars" -> wcVars,
-			"Params" -> paramsA,
-			"CoeffName" -> wcCoeffName,
-			"SignSymbol" -> If[wcSigns === {}, "sign" <> SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc], SymbolName @ Head @ First @ wcSigns]
+	Join[
+		<|
+			"A" -> <|
+				"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolWc["eqA0"]],
+				"Vars" -> wcVars,
+				"Params" -> paramsA,
+				"CoeffName" -> wcCoeffName,
+				"SignSymbol" -> If[wcSigns === {}, "sign" <> SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc], SymbolName @ Head @ First @ wcSigns]
+			|>
 		|>,
-		"B" -> <|
-			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolPd["eqB0"]],
-			"Vars" -> pdVars,
-			"Params" -> Join[paramsA, paramsStocks, wcCoeffs],
-			"CoeffName" -> pdCoeffName,
-			"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
-		|>,
-		"AB" -> <|
-			"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolPd["eqAB0"]],
-			"Vars" -> pdVars,
-			"Params" -> Join[paramsA, paramsStocks, {First @ wcCoeffs}, wcSignRootMap],
-			"CoeffName" -> pdCoeffName,
-			"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
-		|>
-	|>
+		If[MatchQ[pdMode, "B" | "Both"] && KeyExistsQ[quadSolPd, "eqB0"],
+			<|
+				"B" -> <|
+					"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolPd["eqB0"]],
+					"Vars" -> pdVars,
+					"Params" -> Join[paramsA, paramsStocks, wcCoeffs],
+					"CoeffName" -> pdCoeffName,
+					"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
+				|>
+			|>,
+			<||>
+		],
+		If[MatchQ[pdMode, "AB" | "Both"] && KeyExistsQ[quadSolPd, "eqAB0"],
+			<|
+				"AB" -> <|
+					"Expr" -> Map[If[Head[#] === Equal, If[Length[#] == 2, Subtract @@ #, #], #] &, quadSolPd["eqAB0"]],
+					"Vars" -> pdVars,
+					"Params" -> Join[paramsA, paramsStocks, {First @ wcCoeffs}, wcSignRootMap],
+					"CoeffName" -> pdCoeffName,
+					"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
+				|>
+			|>,
+			<||>
+		]
+	]
 ]]]]]
 
 
@@ -1289,6 +1302,7 @@ With[{
 	shortname = model["shortname"],
 	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile]],
 	compileMode = ("CompileMode" /. Flatten @ {opts}) /. "CompileMode" -> "FunctionOnly",
+	pdMode = Lookup[model["coeffsParamQuadSolve"]["pd"], "pdMode", "B"],
 	eqMap = buildEqMapFromModel[model]
 },
 With[{
@@ -1297,7 +1311,7 @@ With[{
 },
 Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
 	file = FileNameJoin[{resourcesCompiledDir, shortname <> fileSuffix <> ".mx"}];
-	currentHash = Hash[{compileMode, eqMap}, "Expression"];
+	currentHash = Hash[{compileMode, pdMode, eqMap}, "Expression"];
 
 	(* check cache *)
 	If[FileExistsQ[file],
