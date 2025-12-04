@@ -40,6 +40,7 @@ buildModels::momentscache = "moments database for `1` is up to date (cache hit).
 buildModels::momentscomputing = "computing moments database for `1`...";
 buildModels::stage = "model `1`: starting from `2` stage (`3`).";
 buildModels::modeluptodate = "model `1` is up to date.";
+buildModels::checkpoint = "checkpoint saved after `1` phase.";
 
 Begin["`Private`"];
 
@@ -891,6 +892,12 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			, {modelKey, symbolicModels}
 		];
 
+		(* Checkpoint after symbolic phase *)
+		If[Length[symbolicModels] > 0,
+			saveModels[Merge[{savedModels, processedModels}, Last], modelsFile];
+			Message[buildModels::checkpoint, "Symbolic"]
+		];
+
 		(* Phase 2: Compile functions - cascade from Symbolic + models at Compile stage *)
 		compileModels = DeleteDuplicates @ Join[symbolicModels, Lookup[modelsByStage, "Compile", {}]];
 		Do[
@@ -915,6 +922,12 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 				]
 			];
 			, {modelKey, numericalModels}
+		];
+
+		(* Checkpoint after numerical phase *)
+		If[Length[numericalModels] > 0,
+			saveModels[Merge[{savedModels, processedModels}, Last], modelsFile];
+			Message[buildModels::checkpoint, "Numerical"]
 		];
 
 		(* Phase 4: Moments database - cascade from Numerical + models at Moments stage *)
