@@ -97,7 +97,7 @@ trySmartIntervals[f_, df_, reduceExpr_, coefList_, extractOpts_, scanOpts_, rub_
             ] &,
             {a, b}
           ];
-          frRes = fastRoot[f, df, {x0, aFinite, bFinite}, Sequence @@ scanOpts];
+          frRes = fastRoot[f, {x0, aFinite, bFinite}, Jacobian -> df, Sequence @@ scanOpts];
           If[!FailureQ[frRes],
             AppendTo[finalRoots, {frRes}];
             AppendTo[finalIntervals, iv]
@@ -120,7 +120,7 @@ tryArtificialBox[f_, df_, coefList_, scanOpts_, rub_, pad_] :=
     b = artificialBounds[[All, 2]];
     x0 = (a + b) / 2.;
 
-    frRes = fastRoot[f, df, {x0, a, b}, Sequence @@ scanOpts];
+    frRes = fastRoot[f, {x0, a, b}, Jacobian -> df, Sequence @@ scanOpts];
     If[!FailureQ[frRes],
       {{{frRes}}, {artificialBounds}},  (* Double-wrap root for Map[..., {2}] compatibility *)
       $Failed

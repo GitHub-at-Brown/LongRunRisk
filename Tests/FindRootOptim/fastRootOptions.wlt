@@ -38,45 +38,45 @@ fND3[z_] := {z[[1]] + z[[2]] + z[[3]] - 3, z[[1]]*z[[2]] - 1, z[[2]]*z[[3]] - 1}
 dfND3[z_] := {{1, 1, 1}, {z[[2]], z[[1]], 0}, {0, z[[3]], z[[2]]}};
 
 tests = {
-  (* Test "NewtonFirst" -> False option with f, df, {a,b} *)
+  (* ===== Basic 1D tests with new API ===== *)
+
+  (* Test Method -> "Secant" option with bounds spec *)
   VerificationTest[
     Module[{result},
-      (* f[x] = x^2 - 2, df[x] = 2x, root at sqrt(2) ~ 1.414 *)
-      result = fastRoot[f1, df1, {1., 2.}, "NewtonFirst" -> False];
+      result = fastRoot[f1, {1., 2.}, Jacobian -> df1, Method -> "Secant"];
       NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-false-uses-secant"
+    TestID -> "method-secant-with-jacobian"
   ],
 
   VerificationTest[
     Module[{result},
       (* Use non-bracketed interval to force Secant path *)
-      result = fastRoot[f2, df2, {1.5, 3.}, "NewtonFirst" -> False];
+      result = fastRoot[f2, {1.5, 3.}, Jacobian -> df2, Method -> "Secant"];
       NumericQ[result] && Abs[result^2 - 4] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-false-nonbracketed-secant"
+    TestID -> "method-secant-nonbracketed"
   ],
 
   VerificationTest[
     Module[{result},
-      (* Bracketed interval should use Brent when NewtonFirst is False *)
-      result = fastRoot[fcos, dfcos, {1., 2.}, "NewtonFirst" -> False];
+      (* Bracketed interval should use Brent when Method -> "Brent" *)
+      result = fastRoot[fcos, {1., 2.}, Jacobian -> dfcos, Method -> "Brent"];
       NumericQ[result] && Abs[Cos[result]] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-false-bracketed-brent"
+    TestID -> "method-brent-bracketed"
   ],
 
   (* Test "Return" -> "Value" vs "Rule" *)
   VerificationTest[
     Module[{result},
-      (* "Return" -> "Rule" should return rule *)
-      result = fastRoot[f1, df1, {1., 2.}, "Return" -> "Rule"];
+      result = fastRoot[f1, {1., 2.}, Jacobian -> df1, "Return" -> "Rule"];
       MatchQ[result, {_ -> _?NumericQ}]
     ],
     True,
@@ -87,7 +87,7 @@ tests = {
   VerificationTest[
     Module[{result},
       (* Default "Return" -> "Value" should return numeric value *)
-      result = fastRoot[f1, df1, {1., 2.}];
+      result = fastRoot[f1, {1., 2.}, Jacobian -> df1];
       NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
@@ -98,16 +98,16 @@ tests = {
   VerificationTest[
     Module[{resultRule, resultValue},
       (* Verify both forms return same numeric root *)
-      resultRule = fastRoot[fcos, dfcos, {1., 2.}, "Return" -> "Rule"];
-      resultValue = fastRoot[fcos, dfcos, {1., 2.}, "Return" -> "Value"];
-      Abs[resultRule[[1,2]] - resultValue] < 10^-8
+      resultRule = fastRoot[fcos, {1., 2.}, Jacobian -> dfcos, "Return" -> "Rule"];
+      resultValue = fastRoot[fcos, {1., 2.}, Jacobian -> dfcos, "Return" -> "Value"];
+      Abs[resultRule[[1, 2]] - resultValue] < 10^-8
     ],
     True,
     TimeConstraint -> timeLimit,
     TestID -> "return-rule-vs-value-consistency"
   ],
 
-  (* Test derivative-free overload fastRoot[f, {a,b}] with bracketed case *)
+  (* Test without Jacobian (derivative-free) with bracketed case *)
   VerificationTest[
     Module[{result},
       (* Bracketed: f[1] = -1, f[2] = 2, root at sqrt(2) *)
@@ -116,7 +116,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-bracketed-brent"
+    TestID -> "no-jacobian-bracketed-brent"
   ],
 
   VerificationTest[
@@ -127,10 +127,10 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-bracketed-trig"
+    TestID -> "no-jacobian-bracketed-trig"
   ],
 
-  (* Test derivative-free overload fastRoot[f, {a,b}] with non-bracketed case *)
+  (* Test without Jacobian with non-bracketed case *)
   VerificationTest[
     Module[{result},
       (* Non-bracketed: both f[1.5] and f[3] are positive, should use Secant *)
@@ -139,7 +139,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-nonbracketed-secant"
+    TestID -> "no-jacobian-nonbracketed-secant"
   ],
 
   VerificationTest[
@@ -150,10 +150,10 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-nonbracketed-exp"
+    TestID -> "no-jacobian-nonbracketed-exp"
   ],
 
-  (* Test derivative-free with options *)
+  (* Test with options *)
   VerificationTest[
     Module[{result},
       result = fastRoot[f1, {1., 2.}, AccuracyGoal -> 10, PrecisionGoal -> 10];
@@ -161,15 +161,14 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-high-accuracy"
+    TestID -> "high-accuracy-goals"
   ],
 
   (* Test failure path when FindRoot emits messages - non-numeric function values *)
   VerificationTest[
     Module[{badF, result},
-      (* Function that returns symbolic value, not numeric *)
       badF[z_] := If[z[[1]] < 1.5, z[[1]]^2 - 2, Indeterminate];
-      result = Quiet[fastRoot[badF, df1, {1., 2.}]];
+      result = Quiet[fastRoot[badF, {1., 2.}, Jacobian -> df1]];
       result
     ],
     $Failed,
@@ -178,22 +177,21 @@ tests = {
     TestID -> "failure-nonnumeric-function-value"
   ],
 
-  (* Test derivative-free version with valid function successfully finds root *)
+  (* Test without Jacobian with valid function successfully finds root *)
   VerificationTest[
     Module[{result},
-      (* Should successfully find root even without derivative *)
       result = fastRoot[fcubic, {1., 3.}];
       NumericQ[result] && Abs[result^3 - 8] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-cubic-root"
+    TestID -> "no-jacobian-cubic-root"
   ],
 
-  (* Test constraint a < b - reversed interval should emit badbnds message *)
+  (* Test constraint lo < hi - reversed interval should emit badbnds message *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[f1, df1, {2., 1.}];
+      result = fastRoot[f1, {2., 1.}, Jacobian -> df1];
       result
     ],
     $Failed,
@@ -202,22 +200,22 @@ tests = {
     TestID -> "reversed-interval-badbnds"
   ],
 
-  (* Test with both NewtonFirst and Return options combined *)
+  (* Test with both Method and Return options combined *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[f1, df1, {1., 2.},
-        "NewtonFirst" -> False, "Return" -> "Value"];
+      result = fastRoot[f1, {1., 2.}, Jacobian -> df1,
+        Method -> "Secant", "Return" -> "Value"];
       NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "combined-newtonfirst-false-return-value"
+    TestID -> "combined-method-return-options"
   ],
 
   (* Test AccuracyGoal and PrecisionGoal options *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[f1, df1, {1., 2.},
+      result = fastRoot[f1, {1., 2.}, Jacobian -> df1,
         AccuracyGoal -> 12, PrecisionGoal -> 12];
       NumericQ[result] && Abs[result^2 - 2] < 10^-11
     ],
@@ -229,8 +227,7 @@ tests = {
   (* Test MaxIterations option *)
   VerificationTest[
     Module[{result},
-      (* With very few iterations, should still converge for simple function *)
-      result = fastRoot[f1, df1, {1., 2.}, MaxIterations -> 50];
+      result = fastRoot[f1, {1., 2.}, Jacobian -> df1, MaxIterations -> 50];
       NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
@@ -238,37 +235,11 @@ tests = {
     TestID -> "maxiterations-option"
   ],
 
-  (* Test positional accuracy argument *)
-  VerificationTest[
-    Module[{result},
-      (* fastRoot[f, df, {a,b}, acc] signature *)
-      result = fastRoot[f1, df1, {1., 2.}, 10];
-      NumericQ[result] && Abs[result^2 - 2] < 10^-9
-    ],
-    True,
-    TimeConstraint -> timeLimit,
-    TestID -> "positional-accuracy-argument"
-  ],
-
-  (* Test positional accuracy and maxiter arguments *)
-  VerificationTest[
-    Module[{result},
-      (* fastRoot[f, df, {a,b}, acc, maxit] signature *)
-      result = fastRoot[f1, df1, {1., 2.}, 10, 100];
-      NumericQ[result] && Abs[result^2 - 2] < 10^-9
-    ],
-    True,
-    TimeConstraint -> timeLimit,
-    TestID -> "positional-accuracy-maxiter-arguments"
-  ],
-
   (* Test Newton fallback to default when derivative is unreliable *)
   VerificationTest[
     Module[{result, badDF},
-      (* Provide incorrect derivative to force Newton to fail *)
-      badDF[z_] := 0;  (* Wrong derivative, should fallback *)
-      result = fastRoot[f1, badDF, {1., 2.}];
-      (* Should still find root via fallback *)
+      badDF[z_] := 0;
+      result = fastRoot[f1, {1., 2.}, Jacobian -> badDF];
       NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
@@ -279,7 +250,7 @@ tests = {
   (* Test edge case: very narrow interval *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[f1, df1, {1.41, 1.42}];
+      result = fastRoot[f1, {1.41, 1.42}, Jacobian -> df1];
       NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
@@ -290,7 +261,7 @@ tests = {
   (* Test with WorkingPrecision option *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[f1, df1, {1., 2.},
+      result = fastRoot[f1, {1., 2.}, Jacobian -> df1,
         WorkingPrecision -> MachinePrecision];
       NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
@@ -299,23 +270,21 @@ tests = {
     TestID -> "workingprecision-option"
   ],
 
-  (* Test non-bracketed with NewtonFirst -> True (default) *)
+  (* Test Method -> Automatic (default) with non-bracketed - should use Secant fallback *)
   VerificationTest[
     Module[{result},
-      (* Non-bracketed interval, Newton should try first then fallback to Secant *)
-      result = fastRoot[f2, df2, {1.5, 3.}, "NewtonFirst" -> True];
+      result = fastRoot[f2, {1.5, 3.}, Jacobian -> df2, Method -> Automatic];
       NumericQ[result] && Abs[result^2 - 4] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newtonfirst-true-nonbracketed-fallback"
+    TestID -> "method-automatic-nonbracketed"
   ],
 
   (* Test that quiet computation works as expected *)
   VerificationTest[
     Module[{result},
-      (* Should run successfully even when Quiet wrapped *)
-      result = Quiet[fastRoot[f1, df1, {1., 2.}]];
+      result = Quiet[fastRoot[f1, {1., 2.}, Jacobian -> df1]];
       NumericQ[result]
     ],
     True,
@@ -326,8 +295,7 @@ tests = {
   (* Test edge case: root at interval boundary *)
   VerificationTest[
     Module[{result},
-      (* Root is at x=2, test with interval [1,2] *)
-      result = fastRoot[f2, df2, {1., 2.}];
+      result = fastRoot[f2, {1., 2.}, Jacobian -> df2];
       NumericQ[result] && Abs[result^2 - 4] < 10^-6
     ],
     True,
@@ -335,20 +303,75 @@ tests = {
     TestID -> "root-at-boundary"
   ],
 
-  (* ===== Tests for nD nested x0 syntax {{x0_1, x0_2, ...}} ===== *)
+  (* ===== Tests for 1D full spec {x0, lo, hi} ===== *)
 
-  (* Test nD x0-only with derivative using nested syntax *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[fND2, dfND2, {{1.2, 1.2}}];
+      result = fastRoot[f1, {1.4, 1., 2.}, Jacobian -> df1];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "1D-full-spec-with-jacobian"
+  ],
+
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[f1, {1.4, 1., 2.}];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "1D-full-spec-no-jacobian"
+  ],
+
+  (* Test Automatic x0 in full spec *)
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[f1, {Automatic, 1., 2.}, Jacobian -> df1];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "1D-automatic-x0"
+  ],
+
+  (* ===== Tests for 1D x0-only spec (scalar) ===== *)
+
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[f1, 1.4, Jacobian -> df1];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "1D-scalar-x0-with-jacobian"
+  ],
+
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[f1, 1.4];
+      NumericQ[result] && Abs[result^2 - 2] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "1D-scalar-x0-no-jacobian"
+  ],
+
+  (* ===== Tests for nD nested x0 syntax {{x0_1, x0_2, ...}} ===== *)
+
+  (* Test nD x0-only with Jacobian using nested syntax *)
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[fND2, {{1.2, 1.2}}, Jacobian -> dfND2];
       VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-with-derivative"
+    TestID -> "nD-nested-x0-with-jacobian"
   ],
 
-  (* Test nD x0-only without derivative using nested syntax *)
+  (* Test nD x0-only without Jacobian using nested syntax *)
   VerificationTest[
     Module[{result},
       result = fastRoot[fND2, {{1.2, 1.2}}];
@@ -356,13 +379,13 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-no-derivative"
+    TestID -> "nD-nested-x0-no-jacobian"
   ],
 
   (* Test nD nested x0 returns correct root value *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[fND2, dfND2, {{1.5, 1.5}}];
+      result = fastRoot[fND2, {{1.5, 1.5}}, Jacobian -> dfND2];
       VectorQ[result, NumericQ] && Max[Abs[result - {expectedND2, expectedND2}]] < 10^-6
     ],
     True,
@@ -370,22 +393,33 @@ tests = {
     TestID -> "nD-nested-x0-correct-root"
   ],
 
-  (* Test nD with bounds still works *)
+  (* Test nD with bounds - new format {{lo1,hi1}, {lo2,hi2}} *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[fND2, dfND2, {{0.5, 0.5}, {2., 2.}}];
+      result = fastRoot[fND2, {{0.5, 2.}, {0.5, 2.}}, Jacobian -> dfND2];
       VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-bounds-still-works"
+    TestID -> "nD-bounds-new-format"
+  ],
+
+  (* Test nD full spec - new format {{x01,lo1,hi1}, {x02,lo2,hi2}} *)
+  VerificationTest[
+    Module[{result},
+      result = fastRoot[fND2, {{1.2, 0.5, 2.}, {1.2, 0.5, 2.}}, Jacobian -> dfND2];
+      VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
+    ],
+    True,
+    TimeConstraint -> timeLimit,
+    TestID -> "nD-full-spec-new-format"
   ],
 
   (* Test disambiguation: flat {a, b} is 1D bounds, not 2D x0 *)
   VerificationTest[
     Module[{result},
       (* {1.2, 1.2} as 1D bounds where a=b should fail with badbnds *)
-      result = fastRoot[f1, df1, {1.2, 1.2}];
+      result = fastRoot[f1, {1.2, 1.2}, Jacobian -> df1];
       result === $Failed
     ],
     True,
@@ -397,7 +431,7 @@ tests = {
   (* Test 3D nested x0 syntax *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[fND3, dfND3, {{0.9, 0.9, 0.9}}];
+      result = fastRoot[fND3, {{0.9, 0.9, 0.9}}, Jacobian -> dfND3];
       VectorQ[result, NumericQ] && Length[result] == 3 && Max[Abs[fND3[result]]] < 10^-6
     ],
     True,
@@ -408,7 +442,7 @@ tests = {
   (* Test nD nested x0 with Return -> Rule option *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[fND2, dfND2, {{1.2, 1.2}}, "Return" -> "Rule"];
+      result = fastRoot[fND2, {{1.2, 1.2}}, Jacobian -> dfND2, "Return" -> "Rule"];
       MatchQ[result, {(_ -> _?NumericQ) ..}] && Length[result] == 2
     ],
     True,
@@ -416,15 +450,15 @@ tests = {
     TestID -> "nD-nested-x0-return-rule"
   ],
 
-  (* Test nD nested x0 with NewtonFirst -> False *)
+  (* Test nD with Method -> "Secant" - should skip Newton *)
   VerificationTest[
     Module[{result},
-      result = fastRoot[fND2, dfND2, {{1.2, 1.2}}, "NewtonFirst" -> False];
+      result = fastRoot[fND2, {{1.2, 1.2}}, Jacobian -> dfND2, Method -> "Secant"];
       VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-newtonfirst-false"
+    TestID -> "nD-nested-x0-method-secant"
   ],
 
   (* ===== Tests for Newton failure with fallback ===== *)
@@ -432,10 +466,8 @@ tests = {
   (* Test nD Newton failure with fallback - bad Jacobian *)
   VerificationTest[
     Module[{result, badDfND},
-      (* Jacobian that returns zeros - Newton will fail *)
       badDfND[z_] := {{0., 0.}, {0., 0.}};
-      result = fastRoot[fND2, badDfND, {{1.2, 1.2}}];
-      (* Should still find root via fallback to default method *)
+      result = fastRoot[fND2, {{1.2, 1.2}}, Jacobian -> badDfND];
       VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
     ],
     True,
@@ -447,7 +479,7 @@ tests = {
   VerificationTest[
     Module[{result, badDfND},
       badDfND[z_] := {{0., 0.}, {0., 0.}};
-      result = fastRoot[fND2, badDfND, {{0.5, 0.5}, {2., 2.}}];
+      result = fastRoot[fND2, {{0.5, 2.}, {0.5, 2.}}, Jacobian -> badDfND];
       VectorQ[result, NumericQ] && Max[Abs[fND2[result]]] < 10^-6
     ],
     True,
@@ -458,11 +490,8 @@ tests = {
   (* Test 1D bracketed - Newton failure falls back to Brent *)
   VerificationTest[
     Module[{result, badDF},
-      (* Bad derivative causes Newton to fail *)
       badDF[z_] := 0.;
-      (* Bracketed interval: f1[1] < 0, f1[2] > 0 *)
-      result = fastRoot[f1, badDF, {1., 2.}];
-      (* Should fall back to Brent and find root *)
+      result = fastRoot[f1, {1., 2.}, Jacobian -> badDF];
       NumericQ[result] && Abs[result^2 - 2] < 10^-6
     ],
     True,
@@ -474,9 +503,7 @@ tests = {
   VerificationTest[
     Module[{result, badDF},
       badDF[z_] := 0.;
-      (* Non-bracketed: both f2[2.5] and f2[3] are positive *)
-      result = fastRoot[f2, badDF, {2.5, 3.}];
-      (* Should fall back to Secant and find root at 2 *)
+      result = fastRoot[f2, {2.5, 3.}, Jacobian -> badDF];
       NumericQ[result] && Abs[result^2 - 4] < 10^-6
     ],
     True,
@@ -488,12 +515,41 @@ tests = {
   VerificationTest[
     Module[{result, badDfND3},
       badDfND3[z_] := {{0., 0., 0.}, {0., 0., 0.}, {0., 0., 0.}};
-      result = fastRoot[fND3, badDfND3, {{0.9, 0.9, 0.9}}];
+      result = fastRoot[fND3, {{0.9, 0.9, 0.9}}, Jacobian -> badDfND3];
       VectorQ[result, NumericQ] && Length[result] == 3 && Max[Abs[fND3[result]]] < 10^-6
     ],
     True,
     TimeConstraint -> timeLimit,
     TestID -> "3D-newton-fails-fallback"
+  ],
+
+  (* ===== Tests for error messages ===== *)
+
+  (* Test noautox0 error when Automatic x0 without bounds *)
+  VerificationTest[
+    fastRoot[f1, Automatic],
+    $Failed,
+    {fastRoot::noautox0},
+    TimeConstraint -> timeLimit,
+    TestID -> "error-noautox0-scalar"
+  ],
+
+  (* Test badspec error for invalid spec *)
+  VerificationTest[
+    fastRoot[f1, "invalid"],
+    $Failed,
+    {fastRoot::badspec},
+    TimeConstraint -> timeLimit,
+    TestID -> "error-badspec-string"
+  ],
+
+  (* Test badbnds error for nD bounds *)
+  VerificationTest[
+    fastRoot[fND2, {{2., 1.}, {0.5, 2.}}, Jacobian -> dfND2],
+    $Failed,
+    {fastRoot::badbnds},
+    TimeConstraint -> timeLimit,
+    TestID -> "error-badbnds-nD"
   ]
 };
 

@@ -38,6 +38,8 @@ buildModels::kernels = "launching `1` parallel kernel(s) for moments computation
 buildModels::kernelwarmup = "warming up parallel kernels with PacletizedResourceFunctions...";
 buildModels::momentscache = "moments database for `1` is up to date (cache hit).";
 buildModels::momentscomputing = "computing moments database for `1`...";
+buildModels::stage = "model `1`: starting from `2` stage (`3`).";
+buildModels::modeluptodate = "model `1` is up to date.";
 
 Begin["`Private`"];
 
@@ -618,6 +620,103 @@ momentsUpToDate[momentsFile_String, metaFile_String, expectedHash_String] := Mod
 ];
 
 
+(* helper: check if numerical solutions are valid *)
+validCoeffsSolutionN[model_] :=
+	KeyExistsQ[model, "coeffsSolutionN"] &&
+	AssociationQ[model["coeffsSolutionN"]] &&
+	Length[model["coeffsSolutionN"]] > 0;
+
+
+(* helper: validate compiled .mx file against model - matches pattern from FindRootOptim.wl *)
+validateCompiledFile[mxFile_String, model_Association, compileMode_String : "FunctionOnly"] := Module[
+	{savedData, expectedHash, eqMap},
+
+	If[!FileExistsQ[mxFile], Return[<|"Valid" -> False, "Reason" -> "file missing"|>]];
+
+	savedData = Quiet[Check[Import[mxFile, "MX"], $Failed]];
+	If[!AssociationQ[savedData] || !KeyExistsQ[savedData, "meta"],
+		Return[<|"Valid" -> False, "Reason" -> "invalid format"|>]
+	];
+
+	If[savedData["meta"]["SystemID"] =!= $SystemID,
+		Return[<|"Valid" -> False, "Reason" -> "platform mismatch"|>]
+	];
+
+	(* Compute expected hash - same logic as createCompiledEq *)
+	eqMap = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildEqMapFromModel[model];
+	expectedHash = Hash[{compileMode, eqMap}, "Expression"];
+
+	If[savedData["meta"]["Hash"] =!= expectedHash,
+		Return[<|"Valid" -> False, "Reason" -> "hash mismatch"|>]
+	];
+
+	<|"Valid" -> True, "Reason" -> "valid"|>
+];
+
+
+(* helper: determine what stage a model needs to start from *)
+determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
+	compiledDir_, momentsDir_, compileJacobians_, createMoments_] := Module[
+	{shortname, catalogHash, savedModel, mxFile, validation},
+
+	shortname = catalogModels[modelKey]["shortname"];
+	catalogHash = getCanonicalHash[catalogModels[modelKey]];
+
+	(* Check: Catalog/manifest *)
+	If[manifest === $Failed || !KeyExistsQ[manifest["Models"], modelKey] ||
+		manifest["Models"][modelKey] =!= catalogHash,
+		Return[<|"MainStage" -> "Symbolic", "NeedsJacobians" -> compileJacobians,
+			"Reason" -> "catalog changed"|>]
+	];
+
+	(* Check: Saved model exists with matching catalogHash *)
+	savedModel = savedModels[shortname];
+	If[!AssociationQ[savedModel] || savedModel["catalogHash"] =!= catalogHash,
+		Return[<|"MainStage" -> "Symbolic", "NeedsJacobians" -> compileJacobians,
+			"Reason" -> "model not in Models.wl"|>]
+	];
+
+	(* Check: Compiled file valid *)
+	mxFile = FileNameJoin[{compiledDir, shortname <> ".mx"}];
+	validation = validateCompiledFile[mxFile, savedModel];
+	If[!validation["Valid"],
+		Return[<|"MainStage" -> "Compile", "NeedsJacobians" -> compileJacobians,
+			"Reason" -> validation["Reason"]|>]
+	];
+
+	(* Check: Numerical solutions *)
+	If[!validCoeffsSolutionN[savedModel],
+		Return[<|"MainStage" -> "Numerical", "NeedsJacobians" -> compileJacobians,
+			"Reason" -> "coeffsSolutionN missing"|>]
+	];
+
+	(* Check: Moments (if enabled) *)
+	If[createMoments,
+		With[{momentsFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> ".wl"}],
+			metaFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> "_meta.wl"}],
+			expectedHash = getMomentsHash[catalogModels[modelKey], savedModel]},
+			If[!momentsUpToDate[momentsFile, metaFile, expectedHash],
+				Return[<|"MainStage" -> "Moments", "NeedsJacobians" -> compileJacobians,
+					"Reason" -> "moments stale"|>]
+			]
+		]
+	];
+
+	(* Check jacobians independently *)
+	If[compileJacobians,
+		With[{jacFile = FileNameJoin[{compiledDir, shortname <> "_jacobians.mx"}]},
+			validation = validateCompiledFile[jacFile, savedModel, "JacobianOnly"];
+			If[!validation["Valid"],
+				Return[<|"MainStage" -> "UpToDate", "NeedsJacobians" -> True,
+					"Reason" -> "jacobians: " <> validation["Reason"]|>]
+			]
+		]
+	];
+
+	<|"MainStage" -> "UpToDate", "NeedsJacobians" -> False, "Reason" -> "all valid"|>
+];
+
+
 (* helper: setup parallel kernels *)
 setupParallelKernels[numKernels_] := Module[{n},
 	n = Switch[numKernels,
@@ -666,9 +765,11 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 	},
 	Module[
 		{
-			root, resourcesDir, compiledDir, modelsFile,
-			catalogModels, enabledModels, modelsToProcess, changes,
-			processedModels, model, shortname, compiledFile
+			root, resourcesDir, compiledDir, momentsDir, modelsFile, manifestFile,
+			catalogModels, enabledModels, savedModels, manifest,
+			modelStatuses, modelsByStage, modelsNeedingJacobians, modelsToPreload,
+			symbolicModels, compileModels, numericalModels, momentsModels,
+			processedModels, model, shortname, compiledFile, catalogHash
 		},
 
 		(* find paclet root *)
@@ -677,10 +778,13 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 		resourcesDir = FileNameJoin[{root, "Resources"}];
 		compiledDir = FileNameJoin[{resourcesDir, "CompiledFunctions"}];
+		momentsDir = FileNameJoin[{resourcesDir, "MomentsLookupTables"}];
 		modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
+		manifestFile = FileNameJoin[{resourcesDir, "ModelManifest.wl"}];
 
 		(* ensure directories exist *)
 		Quiet[CreateDirectory[compiledDir], {CreateDirectory::filex, CreateDirectory::eexist}];
+		Quiet[CreateDirectory[momentsDir], {CreateDirectory::filex, CreateDirectory::eexist}];
 
 		(* get catalog and filter enabled models *)
 		catalogModels = getCatalogModels[];
@@ -701,38 +805,76 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			Return[<||>]
 		];
 
-		(* determine which models need processing *)
-		If[fromScratch,
-			cleanAllOutputs[root];
-			modelsToProcess = Keys[enabledModels];
-			,
-			(* check for changes *)
-			changes = checkCatalogChanges[];
-			modelsToProcess = If[changes === Null || changes === $Failed,
-				{},
-				Join[changes["Changed"], changes["New"]]
-			];
-			(* filter to only enabled models *)
-			modelsToProcess = Select[modelsToProcess, KeyExistsQ[enabledModels, #] &];
-		];
-
-		If[Length[modelsToProcess] == 0,
-			Message[buildModels::uptodate];
-			Return[<||>]
-		];
-
-		Message[buildModels::start, Length[modelsToProcess]];
-
-		(* load dependencies *)
+		(* load dependencies early - needed for determineModelStatus *)
 		Needs["PacletizedResourceFunctions`"];
 		Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
 		Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
-		(* process each model *)
-		processedModels = <||>;
+		(* load saved state *)
+		savedModels = loadModels[modelsFile];
+		manifest = loadManifestSafe[manifestFile];
 
-		(* Phase 1: symbolic processing and compile functions *)
+		(* handle fromScratch option *)
+		If[fromScratch,
+			cleanAllOutputs[root];
+			savedModels = <||>;
+			manifest = $Failed;
+		];
+
+		(* report removed models *)
+		If[AssociationQ[manifest] && AssociationQ[manifest["Models"]],
+			With[{removed = Complement[Keys[manifest["Models"]], Keys[catalogModels]]},
+				If[removed =!= {}, Message[checkCatalogChanges::removed, StringRiffle[removed, ", "]]]
+			]
+		];
+
+		(* determine status for each enabled model *)
+		modelStatuses = Association @ Table[
+			k -> determineModelStatus[k, catalogModels, savedModels, manifest,
+				compiledDir, momentsDir, compileJacobians, createMoments],
+			{k, Keys[enabledModels]}
+		];
+
+		(* group by main pipeline stage *)
+		modelsByStage = GroupBy[Keys[modelStatuses], modelStatuses[#]["MainStage"] &];
+		modelsNeedingJacobians = Select[Keys[modelStatuses], modelStatuses[#]["NeedsJacobians"] &];
+
+		(* log status *)
+		Do[
+			With[{s = modelStatuses[k], sn = catalogModels[k]["shortname"]},
+				If[s["MainStage"] === "UpToDate" && !s["NeedsJacobians"],
+					Message[buildModels::modeluptodate, sn],
+					Message[buildModels::stage, sn, s["MainStage"], s["Reason"]]
+				]
+			], {k, Keys[enabledModels]}
+		];
+
+		(* early exit if nothing to do *)
+		modelsByStage = KeyDrop[modelsByStage, "UpToDate"];
+		If[Total[Length /@ Values[modelsByStage]] == 0 && Length[modelsNeedingJacobians] == 0,
+			Message[buildModels::uptodate];
+			Return[<||>]
+		];
+
+		Message[buildModels::start, Total[Length /@ Values[modelsByStage]]];
+
+		(* preload saved models for non-symbolic stages *)
+		processedModels = <||>;
+		modelsToPreload = DeleteDuplicates @ Join[
+			Flatten @ Values @ KeyDrop[modelsByStage, "Symbolic"],
+			modelsNeedingJacobians
+		];
+		Do[
+			With[{sn = catalogModels[k]["shortname"]},
+				If[KeyExistsQ[savedModels, sn], processedModels[sn] = savedModels[sn]]
+			], {k, modelsToPreload}
+		];
+
+		(* execute pipeline with cascade *)
+		symbolicModels = Lookup[modelsByStage, "Symbolic", {}];
+
+		(* Phase 1: Symbolic processing *)
 		Do[
 			shortname = catalogModels[modelKey]["shortname"];
 			Message[buildModels::processing, shortname];
@@ -742,33 +884,27 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 				KeyTake[catalogModels, {modelKey}]
 			];
 
-			(* compile functions *)
+			(* store catalogHash with model *)
+			catalogHash = getCanonicalHash[catalogModels[modelKey]];
+			processedModels[shortname] = Append[model, "catalogHash" -> catalogHash];
+
+			, {modelKey, symbolicModels}
+		];
+
+		(* Phase 2: Compile functions - cascade from Symbolic + models at Compile stage *)
+		compileModels = DeleteDuplicates @ Join[symbolicModels, Lookup[modelsByStage, "Compile", {}]];
+		Do[
+			shortname = catalogModels[modelKey]["shortname"];
 			Message[buildModels::compiling, shortname];
 			compiledFile = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
-				model,
+				processedModels[shortname],
 				compiledDir
 			];
-
-			processedModels[shortname] = model;
-
-			, {modelKey, modelsToProcess}
+			, {modelKey, compileModels}
 		];
 
-		(* Phase 2: compile jacobians if requested *)
-		If[compileJacobians,
-			Do[
-				shortname = catalogModels[modelKey]["shortname"];
-				Message[buildModels::compiling, shortname <> " jacobians"];
-				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
-					processedModels[shortname],
-					compiledDir,
-					"CompileMode" -> "JacobianOnly"
-				];
-				, {modelKey, modelsToProcess}
-			]
-		];
-
-		(* Phase 3: compute numerical solutions - can use jacobians if available *)
+		(* Phase 3: Numerical solutions - cascade from Compile + models at Numerical stage *)
+		numericalModels = DeleteDuplicates @ Join[compileModels, Lookup[modelsByStage, "Numerical", {}]];
 		Do[
 			shortname = catalogModels[modelKey]["shortname"];
 			Message[buildModels::numerical, shortname];
@@ -778,42 +914,32 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 					processedModels[shortname]
 				]
 			];
-			, {modelKey, modelsToProcess}
+			, {modelKey, numericalModels}
 		];
 
-		(* Phase 4: create moments database if requested *)
+		(* Phase 4: Moments database - cascade from Numerical + models at Moments stage *)
 		If[createMoments,
-			Module[{momentsDir, numLaunched, momentsFile, metaFile, currentHash, needsComputation},
-				momentsDir = FileNameJoin[{resourcesDir, "MomentsLookupTables"}];
-				Quiet[CreateDirectory[momentsDir], {CreateDirectory::filex, CreateDirectory::eexist}];
+			Module[{numLaunched, momentsFile, metaFile, currentHash},
+				momentsModels = DeleteDuplicates @ Join[numericalModels, Lookup[modelsByStage, "Moments", {}]];
 
-				(* Setup parallel kernels *)
-				numLaunched = setupParallelKernels[numKernels];
-				If[numLaunched > 0,
-					Message[buildModels::kernels, numLaunched];
-					Message[buildModels::kernelwarmup];
-					warmupParallelKernels[];
-				];
-
-				(* Load createDatabase *)
-				Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
-
-				(* Process each model *)
-				Do[
-					shortname = catalogModels[modelKey]["shortname"];
-					momentsFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> ".wl"}];
-					metaFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> "_meta.wl"}];
-
-					(* Compute hash from catalog entry and equations *)
-					currentHash = getMomentsHash[
-						catalogModels[modelKey],
-						processedModels[shortname]
+				If[Length[momentsModels] > 0,
+					(* Setup parallel kernels *)
+					numLaunched = setupParallelKernels[numKernels];
+					If[numLaunched > 0,
+						Message[buildModels::kernels, numLaunched];
+						Message[buildModels::kernelwarmup];
+						warmupParallelKernels[];
 					];
 
-					(* Check cache - uses separate meta file *)
-					needsComputation = !momentsUpToDate[momentsFile, metaFile, currentHash];
+					(* Load createDatabase *)
+					Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
 
-					If[needsComputation,
+					(* Process each model *)
+					Do[
+						shortname = catalogModels[modelKey]["shortname"];
+						momentsFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> ".wl"}];
+						metaFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> "_meta.wl"}];
+
 						Message[buildModels::momentscomputing, shortname];
 
 						(* Create moments database *)
@@ -822,7 +948,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 							momentsFile
 						];
 
-						(* Save metadata to separate file *)
+						(* Compute hash and save metadata *)
+						currentHash = getMomentsHash[catalogModels[modelKey], processedModels[shortname]];
 						Put[
 							<|
 								"Hash" -> currentHash,
@@ -832,26 +959,37 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 							|>,
 							metaFile
 						];
-						,
-						(* Cache hit *)
-						Message[buildModels::momentscache, shortname]
+
+						, {modelKey, momentsModels}
 					];
 
-					, {modelKey, modelsToProcess}
-				];
-
-				(* Cleanup parallel kernels *)
-				If[numLaunched > 0, CloseKernels[]];
+					(* Cleanup parallel kernels *)
+					If[numLaunched > 0, CloseKernels[]];
+				]
 			]
 		];
 
-		(* save processed models *)
-		saveModels[processedModels, modelsFile];
+		(* Jacobian track - orthogonal, no cascade *)
+		If[compileJacobians && Length[modelsNeedingJacobians] > 0,
+			Do[
+				shortname = catalogModels[modelKey]["shortname"];
+				Message[buildModels::compiling, shortname <> " jacobians"];
+				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
+					processedModels[shortname],
+					compiledDir,
+					"CompileMode" -> "JacobianOnly"
+				];
+				, {modelKey, modelsNeedingJacobians}
+			]
+		];
+
+		(* save - merge with existing models *)
+		saveModels[Merge[{savedModels, processedModels}, Last], modelsFile];
 
 		(* update manifest *)
 		updateModelManifest[];
 
-		Message[buildModels::done, Length[modelsToProcess]];
+		Message[buildModels::done, Total[Length /@ Values[modelsByStage]]];
 
 		processedModels
 	]
