@@ -545,7 +545,7 @@ simplifyCoeffsSystem[model_, opts : OptionsPattern[Simplify]]:=With[
 
 
 solveCoeffsSystem // Options = {
-	"SimplifyOptions" -> {TimeConstraint -> {30, 600}},
+	"SimplifyOptions" -> {TimeConstraint -> {5, 300}},
 	"PdEquations" -> "B"  (* "B" | "AB" | "Both" - controls which pd equations to compute *)
 };
 

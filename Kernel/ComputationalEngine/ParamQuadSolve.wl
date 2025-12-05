@@ -162,9 +162,9 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         ];
         denConds = collectDenominatorConditions[dens];
         {canPolys, coeffMap} = canonicalizeCoefficients[eqPolys, varsToSolve];
-        coeffMap = TimeConstrained[
-          Map[Simplify[#, Assumptions -> ass] &, coeffMap],
-          simpBudget,
+        (* TimeConstraint returns best simplification found within budget *)
+        coeffMap = Map[
+          Simplify[#, Assumptions -> ass, TimeConstraint -> simpBudget] &,
           coeffMap
         ];
         seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead, gbOrderUsed, allowGroebner], N@timeout, $Failed];
@@ -196,19 +196,16 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         {signRootMapDesym, signRadMapDesym} = simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss];
 
         If[TrueQ[doValidate],
-          solRulesDesym = TimeConstrained[
-            (#[[1]] -> Simplify[#[[2]], Assumptions -> fullAss]) & /@ solRulesDesym,
-            simpBudget,
-            solRulesDesym
-          ];
-          signRootMapDesym = TimeConstrained[
-            Map[Simplify[#, Assumptions -> fullAss] &, signRootMapDesym],
-            simpBudget,
+          (* TimeConstraint returns best simplification found within budget *)
+          solRulesDesym = (#[[1]] -> Simplify[#[[2]],
+            Assumptions -> fullAss, TimeConstraint -> simpBudget
+          ]) & /@ solRulesDesym;
+          signRootMapDesym = Map[
+            Simplify[#, Assumptions -> fullAss, TimeConstraint -> simpBudget] &,
             signRootMapDesym
           ];
-          signRadMapDesym = TimeConstrained[
-            Map[Simplify[#, Assumptions -> fullAss] &, signRadMapDesym],
-            simpBudget,
+          signRadMapDesym = Map[
+            Simplify[#, Assumptions -> fullAss, TimeConstraint -> simpBudget] &,
             signRadMapDesym
           ];
         ];

@@ -42,6 +42,15 @@ buildModels::stage = "model `1`: starting from `2` stage (`3`).";
 buildModels::modeluptodate = "model `1` is up to date.";
 buildModels::checkpoint = "checkpoint saved after `1` phase.";
 
+buildModelsParallel::usage = "buildModelsParallel[models] runs Symbolic+Compile+Numerical phases in parallel across models, then optionally runs Moments sequentially.
+Models is a list of shortnames like {\"BY\", \"NRC\", \"DES\"}.
+Options include \"CreateMoments\" (default True) and \"NumKernels\" (default Automatic).";
+buildModelsParallel::launching = "launching `1` parallel kernel(s) for model builds.";
+buildModelsParallel::parallel = "running parallel builds for: `1`.";
+buildModelsParallel::merging = "merging results from parallel builds.";
+buildModelsParallel::moments = "running moments phase sequentially for `1` model(s).";
+buildModelsParallel::done = "parallel build completed for `1` model(s).";
+
 Begin["`Private`"];
 
 (* Live catalog loading - tracks file modification time *)
@@ -625,14 +634,19 @@ momentsUpToDate[momentsFile_String, metaFile_String, expectedHash_String] := Mod
 
 
 (* helper: check if numerical solutions are valid *)
-validCoeffsSolutionN[model_] :=
+(* Note: addCoeffsSolutionN returns a List of rules, not an Association *)
+validCoeffsSolutionN[model_] := With[
+	{sol = model["coeffsSolutionN"]},
 	KeyExistsQ[model, "coeffsSolutionN"] &&
-	AssociationQ[model["coeffsSolutionN"]] &&
-	Length[model["coeffsSolutionN"]] > 0;
+	(AssociationQ[sol] || MatchQ[sol, {__Rule} | {__RuleDelayed}]) &&
+	Length[sol] > 0
+];
 
 
 (* helper: validate compiled .mx file against model - matches pattern from FindRootOptim.wl *)
-validateCompiledFile[mxFile_String, model_Association, compileMode_String : "FunctionOnly"] := Module[
+(* Note: compilerChoice and flattenOpt must match defaults in FindRootOptim.wl buildKernel/createCompiledEq *)
+validateCompiledFile[mxFile_String, model_Association, compileMode_String : "FunctionOnly",
+	compilerChoice_String : "Compile", flattenOpt_ : Automatic] := Module[
 	{savedData, expectedHash, eqMap, pdMode},
 
 	If[!FileExistsQ[mxFile], Return[<|"Valid" -> False, "Reason" -> "file missing"|>]];
@@ -646,10 +660,10 @@ validateCompiledFile[mxFile_String, model_Association, compileMode_String : "Fun
 		Return[<|"Valid" -> False, "Reason" -> "platform mismatch"|>]
 	];
 
-	(* Compute expected hash - same logic as createCompiledEq *)
+	(* Compute expected hash - same logic as createCompiledEq in FindRootOptim.wl *)
 	pdMode = Lookup[model["coeffsParamQuadSolve"]["pd"], "pdMode", "B"];
 	eqMap = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildEqMapFromModel[model];
-	expectedHash = Hash[{compileMode, pdMode, eqMap}, "Expression"];
+	expectedHash = Hash[{compileMode, compilerChoice, flattenOpt, pdMode, eqMap}, "Expression"];
 
 	If[savedData["meta"]["Hash"] =!= expectedHash,
 		Return[<|"Valid" -> False, "Reason" -> "hash mismatch"|>]
@@ -921,10 +935,14 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		Do[
 			shortname = catalogModels[modelKey]["shortname"];
 			Message[buildModels::numerical, shortname];
-			processedModels[shortname] = Append[
-				processedModels[shortname],
-				"coeffsSolutionN" -> FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[
+			With[{solN = FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[
 					processedModels[shortname]
+				]},
+				processedModels[shortname] = Append[processedModels[shortname], "coeffsSolutionN" -> solN];
+				(* Verify coeffsSolutionN was computed correctly *)
+				If[!validCoeffsSolutionN[processedModels[shortname]],
+					Print["WARNING: coeffsSolutionN validation failed for ", shortname,
+						"; Keys: ", If[AssociationQ[solN], Keys[solN], Head[solN]]]
 				]
 			];
 
@@ -1012,6 +1030,125 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		processedModels
 	]
 ];
+
+
+(* === buildModelsParallel - parallel orchestrator === *)
+
+buildModelsParallel // Options = {
+	"CreateMoments" -> True,
+	"NumKernels" -> Automatic,
+	"FromScratch" -> False,
+	"PdEquations" -> "B"
+};
+
+buildModelsParallel[models_List, opts : OptionsPattern[]] := Module[
+	{root, modelsFile, resourcesDir, numKernels, nLaunched,
+	 pacletDir, parallelResults, mergedModels, savedModels,
+	 createMoments, fromScratch, pdEquations, failedModels},
+
+	(* Get options *)
+	createMoments = OptionValue["CreateMoments"];
+	fromScratch = OptionValue["FromScratch"];
+	pdEquations = OptionValue["PdEquations"];
+	numKernels = Replace[OptionValue["NumKernels"], {
+		Automatic -> Min[Length[models], $ProcessorCount],
+		None -> 1
+	}];
+
+	(* Find paclet root *)
+	root = findPacletRoot[];
+	If[root === $Failed, Message[buildModels::noroot]; Return[$Failed]];
+
+	pacletDir = root;
+	resourcesDir = FileNameJoin[{root, "Resources"}];
+	modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
+
+	(* Handle fromScratch *)
+	If[fromScratch, cleanAllOutputs[root]];
+
+	(* Launch parallel kernels *)
+	CloseKernels[];
+	nLaunched = LaunchKernels[numKernels];
+	Message[buildModelsParallel::launching, nLaunched];
+
+	(* Initialize parallel kernels *)
+	ParallelEvaluate[
+		PacletDirectoryLoad[#];
+		Needs["PacletizedResourceFunctions`"];
+		Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
+	] &@ pacletDir;
+
+	(* Run builds in parallel - each returns processed model or $Failed *)
+	Message[buildModelsParallel::parallel, StringRiffle[models, ", "]];
+
+	parallelResults = ParallelTable[
+		Quiet @ Check[
+			With[{result = buildModels[
+				"Models" -> {m},
+				"CreateMoments" -> False,
+				"FromScratch" -> False,  (* already cleaned on main kernel *)
+				"PdEquations" -> pdEquations
+			]},
+				If[AssociationQ[result] && Length[result] > 0,
+					<|"Model" -> m, "Status" -> "Success", "Data" -> result|>,
+					<|"Model" -> m, "Status" -> "Empty", "Data" -> <||>|>
+				]
+			],
+			<|"Model" -> m, "Status" -> "Failed", "Data" -> <||>|>
+		],
+		{m, models},
+		DistributedContexts -> Automatic
+	];
+
+	(* Close parallel kernels before moments phase *)
+	CloseKernels[];
+
+	(* Report failures *)
+	failedModels = Select[parallelResults, #["Status"] =!= "Success" &];
+	If[Length[failedModels] > 0,
+		Print["WARNING: Some models failed or returned empty: ",
+			StringRiffle[#["Model"] & /@ failedModels, ", "]]
+	];
+
+	(* Merge results on main kernel *)
+	Message[buildModelsParallel::merging];
+	savedModels = loadModels[modelsFile];
+	mergedModels = Merge[
+		Prepend[
+			(#["Data"] & /@ Select[parallelResults, #["Status"] === "Success" &]),
+			savedModels
+		],
+		Last
+	];
+
+	(* Save merged results *)
+	If[Length[mergedModels] > 0,
+		saveModels[mergedModels, modelsFile];
+		updateModelManifest[];
+	];
+
+	(* Run moments sequentially if requested *)
+	If[createMoments,
+		With[{successModels = Select[parallelResults, #["Status"] === "Success" &]},
+			If[Length[successModels] > 0,
+				Message[buildModelsParallel::moments, Length[successModels]];
+				Do[
+					buildModels[
+						"Models" -> {m},
+						"CreateMoments" -> True,
+						"NumKernels" -> OptionValue["NumKernels"]
+					],
+					{m, #["Model"] & /@ successModels}
+				]
+			]
+		]
+	];
+
+	Message[buildModelsParallel::done, Length[models]];
+
+	mergedModels
+];
+
 
 End[];
 EndPackage[];
