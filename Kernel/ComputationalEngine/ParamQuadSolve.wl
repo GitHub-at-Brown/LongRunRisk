@@ -20,7 +20,7 @@ expandPatternAssumptions
 
 
 paramQuadSolve::usage =
-  "paramQuadSolve[eqns, vars, opts] returns an Association with keys \"Solution\", \"SignRootMap\", \"CoeffMap\", \"Conditions\", \"Assumptions\", \"Verification\", and \"Diagnostics\".\n\n\
+  "paramQuadSolve[eqns, vars, opts] returns an Association with keys \"Solution\", \"SignRootMap\", \"CoeffMap\", \"Conditions\", \"Assumptions\", \"Verification\", and \"Diagnostics\", or $Failed on error.\n\n\
 paramQuadSolve is a symbolic solver for square systems with per-variable degree <= 2. The per-variable degree test means bilinear terms such as x*y are permitted, \
 but they do not classify either variable as \"quadratic\" on their own. The solver produces parametric solutions with signA[k] for square-root branches, \
 a reversible coefficient map, and validation.";
@@ -71,6 +71,9 @@ paramQuadSolve::badmethod = "Method -> `1` is not supported. Use Automatic, \"Se
 paramQuadSolve::badorder = "MonomialOrder -> `1` is not supported by GroebnerBasis.";
 paramQuadSolve::noquad = "No quadratic variables detected in the given system; OnlyQuadTerms cannot be applied.";
 paramQuadSolve::nocover = "Unable to select a square subsystem covering the quadratic variables.";
+paramQuadSolve::emptyvar = "Variables list cannot be empty.";
+paramQuadSolve::emptyeq = "Equations list cannot be empty.";
+paramQuadSolve::solvefail = "Solver failed or timed out.";
 
 
 paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
@@ -117,10 +120,10 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         If[methodSpec === $Failed, Return[$Failed]];
         methodTag = methodSpec["Tag"];
         allowGroebner = methodSpec["AllowGroebner"];
-        If[NumericQ[timeout] && timeout <= 0, Return[<|"Error" -> "Timeout or failure during solving"|>]];
+        If[NumericQ[timeout] && timeout <= 0, Return[$Failed]];
         (* Input validation *)
-        If[vars === {}, Return[<|"Error" -> "Variables list cannot be empty"|>]];
-        If[eqns === {}, Return[<|"Error" -> "Equations list cannot be empty"|>]];
+        If[vars === {}, Message[paramQuadSolve::emptyvar]; Return[$Failed]];
+        If[eqns === {}, Message[paramQuadSolve::emptyeq]; Return[$Failed]];
         t0 = AbsoluteTime[];
         pairsFull = toPolyAndDen /@ eqns;
         polysFull = pairsFull[[All, 1]];
@@ -168,7 +171,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
           coeffMap
         ];
         seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead, gbOrderUsed, allowGroebner], N@timeout, $Failed];
-        If[!MatchQ[seqRes, {__}], Return[<|"Error" -> "Timeout or failure during solving"|>]];
+        If[!MatchQ[seqRes, {__}], Message[paramQuadSolve::solvefail]; Return[$Failed]];
         {solved, signMap, signRadMap, leftover, steps} = seqRes;
         solRules = Normal[solved];
         solRules = TimeConstrained[
@@ -182,7 +185,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
           N@timeout,
           $Failed
         ];
-        If[solRules === $Failed, Return[<|"Error" -> "Timeout or failure during solving"|>]];
+        If[solRules === $Failed, Message[paramQuadSolve::solvefail]; Return[$Failed]];
         signRootMap = Association[signMap];
         (* substitute original coefficient expressions back *)
         solRulesDesym = (solRules /. coeffMap);

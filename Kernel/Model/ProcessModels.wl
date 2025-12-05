@@ -605,6 +605,9 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							],
 							Assumptions->assumeB
 						];
+						If[FailureQ[solA] || FailureQ[solB],
+							Return["coeffsParamQuadSolve" -> $Failed, Module]
+						];
 						(*Echo[solB[[1]],"solB1"];*)
 						(*simplify conditions that guarantee real solutions*)
 						conditionsA=Assuming[assumeA,FullSimplify[solA["Conditions"],Sequence @@ simplifyOpts]];
