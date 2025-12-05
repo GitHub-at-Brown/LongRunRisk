@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     51914,       1004]
-NotebookOptionsPosition[      5124,        143]
-NotebookOutlinePosition[     51470,        997]
-CellTagsIndexPosition[     51427,        994]
+NotebookDataLength[     53115,       1033]
+NotebookOptionsPosition[      6098,        168]
+NotebookOutlinePosition[     52449,       1022]
+CellTagsIndexPosition[     52406,       1019]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -48,8 +48,8 @@ Cell[BoxData[{
 Cell[BoxData["\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/\
 MyPackages/LongRunRisk/\"\>"], "Output",
  CellChangeTimes->{3.973277537639135*^9, 3.9732991196332493`*^9, 
-  3.973299453449541*^9, 3.9733010047377653`*^9},
- CellLabel->"Out[1]=",ExpressionUUID->"66b2915a-b868-4117-9de3-590eeb2d714f"]
+  3.973299453449541*^9, 3.9733010047377653`*^9, 3.973875829962778*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"258e1ce6-7bc1-40a7-b23c-1b790b742b47"]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -90,6 +90,8 @@ Cell[BoxData[{
  InitializationCell->False,
  CellLabel->"In[3]:=",ExpressionUUID->"a97b263c-42f7-427b-86ba-5ebf4618f28c"],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{
@@ -106,7 +108,8 @@ Cell[BoxData[{
     RowBox[{"{", 
      RowBox[{"\"\<NeedsDefinitions\>\"", ",", "\"\<SetSymbolsContext\>\"", 
       ",", "\"\<DefinitionData\>\"", ",", "\"\<CopyDefinitions\>\"", 
-      ",", "\"\<CompoundScope\>\""}], "}"}]}], ";"}], " "}], "\n", 
+      ",", "\"\<CompoundScope\>\"", ",", "\"\<RecursiveRewrite\>\""}], 
+     "}"}]}], ";"}], " "}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -138,11 +141,34 @@ Cell[BoxData[{
  InitializationCell->False,
  CellChangeTimes->{{3.9732774439960546`*^9, 3.973277444486072*^9}, {
   3.973300793957636*^9, 3.973300801902275*^9}, {3.9733030823088093`*^9, 
-  3.973303091196885*^9}},
- CellLabel->"In[14]:=",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830"]
+  3.973303091196885*^9}, {3.973875804913336*^9, 3.9738758059630127`*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "ResourceFunction", "usermessage", 
+   "\"\\!\\(\\*TemplateBox[List[StyleBox[RowBox[List[\\\"\
+PacletizeResourceFunction\\\", \\\"::\\\", \\\"indexFailed\\\"]], \
+\\\"MessageName\\\"], \\\"\\\\\\\": \\\\\\\"\\\", TemplateBox[List[\\\"\\\\\\\
+\"Failed to index documentation. The help center might not find the \
+documentation pages.\\\\\\\"\\\"], \\\"RowDefault\\\"]], \
+\\\"RowDefault\\\"]\\)\"", 2, 9, 1, 24885612631815353688, "Local2"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9738758438967447`*^9},
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"36c5bcc6-000d-4018-883a-9399c2724251"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.9738758556345043`*^9, 
+  3.973875857346158*^9}},ExpressionUUID->"3956ada6-b3a3-4044-91bb-\
+fb1bc711cae5"]
 },
+Evaluator->"Local2",
 WindowSize->{1070, 842},
-WindowMargins->{{110, Automatic}, {-49, Automatic}},
+WindowMargins->{{154, Automatic}, {Automatic, 0}},
 DockedCells->{
   Cell[
    BoxData[
@@ -804,8 +830,7 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
             ImageSize -> {300, 25}, AspectRatio -> Full, 
             PlotRange -> {{-1, 1}, {-1, 1}}, ImagePadding -> None] :> (
            SelectionMove[LinterUIDockedCell`Private`cell, All, Cell]; 
-           With[{
-             LinterUIDockedCell`Private`nb = 
+           With[{LinterUIDockedCell`Private`nb = 
               ParentNotebook[LinterUIDockedCell`Private`cell]}, 
              FrontEndExecute[
               FrontEnd`FrontEndToken[
@@ -1000,12 +1025,16 @@ Cell[554, 20, 630, 14, 72, "Code",ExpressionUUID->"6cc0a46a-f018-41a4-86af-a98ed
  InitializationCell->False],
 Cell[CellGroupData[{
 Cell[1209, 38, 341, 7, 49, "Input",ExpressionUUID->"be3bd1cc-731a-41c7-84e0-e3399fb9b507"],
-Cell[1553, 47, 306, 4, 33, "Output",ExpressionUUID->"66b2915a-b868-4117-9de3-590eeb2d714f"]
+Cell[1553, 47, 328, 4, 33, "Output",ExpressionUUID->"258e1ce6-7bc1-40a7-b23c-1b790b742b47"]
 }, Open  ]],
-Cell[1874, 54, 1434, 36, 204, "Code",ExpressionUUID->"a97b263c-42f7-427b-86ba-5ebf4618f28c",
+Cell[1896, 54, 1434, 36, 204, "Code",ExpressionUUID->"a97b263c-42f7-427b-86ba-5ebf4618f28c",
  InitializationCell->False],
-Cell[3311, 92, 1809, 49, 299, "Code",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830",
- InitializationCell->False]
+Cell[CellGroupData[{
+Cell[3355, 94, 1895, 50, 299, "Code",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830",
+ InitializationCell->False],
+Cell[5253, 146, 672, 14, 26, "Message",ExpressionUUID->"36c5bcc6-000d-4018-883a-9399c2724251"]
+}, Open  ]],
+Cell[5940, 163, 154, 3, 29, "Input",ExpressionUUID->"3956ada6-b3a3-4044-91bb-fb1bc711cae5"]
 }
 ]
 *)

@@ -75,7 +75,8 @@ buildKernel//Options = {
 	"SignSymbol" -> "signA",
 	"PerformanceGoal" -> "Speed", (* "Speed" | "Quality" *)
 	"CompileMode" -> "FunctionOnly",  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
-	"Compiler" -> "FunctionCompile"  (* "FunctionCompile" | "Compile" *)
+	"Compiler" -> "Compile",  (* "Compile" | "FunctionCompile" - Compile uses C target *)
+	"FlattenExpressions" -> Automatic  (* True | False | Automatic (auto at LeafCount > 5000) *)
 };
 
 buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
@@ -145,6 +146,30 @@ buildKernel[
     (* numericize after substitutions *)
     z = Values@zRules;
     body  = N[body, MachinePrecision];
+
+    (* Apply expression flattening if requested - ONLY for FunctionOnly mode *)
+    (* D[Inactive[Module][...], x] produces garbage, so cannot flatten for Jacobian *)
+    flattenOpt = OptionValue["FlattenExpressions"];
+    {flatBody, flatType} = If[
+        compileMode === "FunctionOnly",
+        With[{lc = LeafCount[body]},
+            Switch[flattenOpt,
+                True,
+                (Print["buildKernel: Flattening expression (LeafCount=", lc, ")"];
+                 flattenForCompileBody[body]),
+                Automatic,
+                If[lc > 5000,
+                    (Print["buildKernel: Flattening expression (LeafCount=", lc, ")"];
+                     flattenForCompileBody[body]),
+                    {body, Automatic}
+                ],
+                _,
+                {body, Automatic}
+            ]
+        ],
+        (* For JacobianOnly or Both: no flattening *)
+        {body, Automatic}
+    ];
 
     compileOpts = If[compiler === "FunctionCompile",
       (* FunctionCompile options *)
@@ -259,15 +284,31 @@ buildKernel[
 			},
 			Switch[compileMode,
 				"FunctionOnly",
-				{
-					compileWithDiagnostics[
-						Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
-						"f (function)",
-						compileOpts,
-						compiler
-					],
-					Missing["NotCompiled"]
+				With[{
+					b2 = flatBody,
+					bType2 = If[flatType === Automatic, inferType[flatBody], flatType]
 				},
+					{
+						If[MatchQ[Head[b2], Inactive[_]],
+							(* Flattened: use Activate pattern *)
+							(* Note: Head[Inactive[Module][...]] is Inactive[Module], not Inactive *)
+							compileWithDiagnostics[
+								Activate[Inactive[Function][args, Inactive[TypeHint][b2, bType2]]],
+								"f (function)",
+								compileOpts,
+								compiler
+							],
+							(* Not flattened: original path *)
+							compileWithDiagnostics[
+								Function[Evaluate@args, Evaluate@TypeHint[b2, bType2]],
+								"f (function)",
+								compileOpts,
+								compiler
+							]
+						],
+						Missing["NotCompiled"]
+					}
+				],
 				"JacobianOnly",
 				With[{db = N[D[body, {z}], MachinePrecision]},
 					With[{dbType = inferType[db]},
@@ -1131,6 +1172,71 @@ normalizeExp[e_] := e //. {
 
 
 (* ::Subsubsection:: *)
+(*flattenForCompileBody*)
+
+
+(* Ensure PacletizedResourceFunctions is loaded for RecursiveRewrite *)
+Once[Needs["PacletizedResourceFunctions`"]];
+
+(* Flatten expression for compilation using RecursiveRewrite *)
+(* Returns {Inactive[Module][...], returnType} where returnType preserves ListQ info *)
+flattenForCompileBody[expr_] := Module[
+    {result, finalVar, rules, paramRules, compRules,
+     varMapping, literalMapping, fullMapping,
+     localVars, assignments, returnExpr, returnType},
+
+    (* Compute return type from ORIGINAL expression FIRST *)
+    (* Must do this before any processing because returnExpr will be a symbol *)
+    (* and ListQ[symbol] returns False, causing wrong TypeHint *)
+    returnType = With[{rank = If[ListQ[expr], ArrayDepth[expr], 0]},
+        If[rank == 0, "Real64", TypeSpecifier["PackedArray"]["Real64", rank]]
+    ];
+
+    (* Apply RecursiveRewrite to decompose expression *)
+    result = ResourceFunction["RecursiveRewrite"][expr];
+    If[!MatchQ[result, {_String, {__RuleDelayed}}],
+        Return[{expr, returnType}]
+    ];
+
+    {finalVar, rules} = result;
+
+    (* Separate literals (numbers, symbols) from computed expressions *)
+    paramRules = Cases[rules, (v_ :> val_) /; FreeQ[val, _String]];
+    compRules = Cases[rules, (v_ :> val_) /; !FreeQ[val, _String]];
+
+    (* If no computed rules, return original *)
+    If[Length[compRules] == 0, Return[{expr, returnType}]];
+
+    (* Create unique symbols for intermediate variables *)
+    varMapping = Association @@ ((#[[1]] -> Unique["t"]) & /@ compRules);
+    literalMapping = Association @@ ((#[[1]] -> #[[2]]) & /@ paramRules);
+    fullMapping = Join[varMapping, literalMapping];
+
+    localVars = Values[varMapping];
+
+    (* Build assignments using Inactive to prevent evaluation *)
+    assignments = Table[
+        Inactive[Set][
+            varMapping[compRules[[i, 1]]],
+            compRules[[i, 2]] /. s_String :> fullMapping[s]
+        ],
+        {i, Length[compRules]}
+    ];
+
+    returnExpr = fullMapping[finalVar];
+
+    (* Return {Inactive Module, type} *)
+    {
+        Inactive[Module][
+            localVars,
+            Inactive[CompoundExpression] @@ Append[assignments, returnExpr]
+        ],
+        returnType
+    }
+];
+
+
+(* ::Subsubsection:: *)
 (*signIdxs*)
 
 
@@ -1347,7 +1453,8 @@ With[{
 	shortname = model["shortname"],
 	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile, Options @ Compile]],
 	compileMode = ("CompileMode" /. Flatten @ {opts}) /. "CompileMode" -> "FunctionOnly",
-	compilerChoice = ("Compiler" /. Flatten @ {opts}) /. "Compiler" -> "FunctionCompile",
+	compilerChoice = ("Compiler" /. Flatten @ {opts}) /. "Compiler" -> "Compile",
+	flattenOpt = ("FlattenExpressions" /. Flatten @ {opts}) /. "FlattenExpressions" -> Automatic,
 	pdMode = Lookup[model["coeffsParamQuadSolve"]["pd"], "pdMode", "B"],
 	eqMap = buildEqMapFromModel[model]
 },
@@ -1357,7 +1464,7 @@ With[{
 },
 Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
 	file = FileNameJoin[{resourcesCompiledDir, shortname <> fileSuffix <> ".mx"}];
-	currentHash = Hash[{compileMode, compilerChoice, pdMode, eqMap}, "Expression"];
+	currentHash = Hash[{compileMode, compilerChoice, flattenOpt, pdMode, eqMap}, "Expression"];
 
 	(* check cache *)
 	If[FileExistsQ[file],
