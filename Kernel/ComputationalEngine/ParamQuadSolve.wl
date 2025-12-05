@@ -60,7 +60,7 @@ Options[paramQuadSolve] = {
   "ValidationOption" -> True,
   "ReturnOption" -> "All",
   "TimeoutOption" -> 600,
-  "SimplifyTimeout" -> {10,300},(*Automatic,*)
+  "SimplifyTimeout" -> Automatic,
   "DiagnosticsOption" -> False,
   "OnlyQuadTerms" -> False,
   "SignSymbol" -> signA
@@ -102,7 +102,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         gbOrderUsed = Replace[gbOrder, Automatic -> Lexicographic],
         simpBudget = Which[
           NumericQ[simplifyTimeout] && simplifyTimeout >= 0, N@simplifyTimeout,
-          simplifyTimeout === Automatic && NumericQ[timeout] && timeout > 0, Min[5., N@timeout/10.],
+          simplifyTimeout === Automatic && NumericQ[timeout] && timeout > 0, {1, Min[60.(*one minute*), N@timeout/10.(*1/10 of total time limit*)]},
           True, 1.0
         ],
         ass = buildAssumptions[userAss]
