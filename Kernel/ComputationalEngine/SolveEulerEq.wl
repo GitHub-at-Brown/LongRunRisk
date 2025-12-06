@@ -14,6 +14,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 updateCoeffs
 addCoeffsSolutionN
 flattenCoeffs
+flattenCoeffsBundles
 
 
 (* ::Subsubsection:: *)
@@ -34,6 +35,11 @@ flattenCoeffs::usage = "flattenCoeffs[updateCoeffsResult] extracts all coefficie
     "flattenCoeffs[result, n] extracts rules from the n-th A solution only.\n" <>
     "flattenCoeffs[result, n, j] extracts A rules and B rules for stock j from the n-th A solution.\n" <>
     "flattenCoeffs[result, n, j, m] extracts A rules and the m-th B solution for stock j from the n-th A solution.";
+
+flattenCoeffsBundles::usage = "flattenCoeffsBundles[updateCoeffsResult] returns a list of complete solution bundles.\n" <>
+    "Each bundle is a flat list of rules (A + one B per stock + Bond + NomBond) ready to apply with /. (ReplaceAll).\n" <>
+    "Generates Cartesian product: if stock 1 has 2 B solutions and stock 2 has 3, returns 6 bundles.\n" <>
+    "flattenCoeffsBundles[result, n] returns bundles for the n-th A solution only.";
 
 
 (* ::Section:: *)
@@ -1055,6 +1061,61 @@ flattenCoeffs[results_List, n_Integer, j_Integer, m_Integer] := With[{aSol = res
   Join[
     Normal[aSol["A"]],
     Normal[aSol["Stocks"][j][[m]]["B"]]
+  ]
+];
+
+
+(* ::Subsection:: *)
+(*flattenCoeffsBundles*)
+
+
+(* Generate Cartesian product of complete A+B solution bundles *)
+flattenCoeffsBundles[results_List] := Flatten[
+  Map[flattenCoeffsBundlesForA, results],
+  1
+];
+
+(* Generate bundles for n-th A solution only *)
+flattenCoeffsBundles[results_List, n_Integer] := flattenCoeffsBundlesForA[results[[n]]];
+
+(* Helper: generate all bundles for a single A solution *)
+flattenCoeffsBundlesForA[aSol_Association] := Module[
+  {aRules, stockKeys, bSolsPerStock, bondRules, nomBondRules, cartesianB},
+
+  aRules = Normal[aSol["A"]];
+  bondRules = If[!MissingQ[aSol["Bond"]], Normal[aSol["Bond"]], {}];
+  nomBondRules = If[!MissingQ[aSol["NomBond"]], Normal[aSol["NomBond"]], {}];
+
+  (* Get stock keys and B solutions for each stock *)
+  stockKeys = Keys[aSol["Stocks"]];
+
+  (* Handle empty Stocks case *)
+  If[stockKeys === {} || aSol["Stocks"] === <||>,
+    Return[{Join[aRules, bondRules, nomBondRules]}]
+  ];
+
+  (* Get list of B rule lists for each stock *)
+  bSolsPerStock = Map[
+    Function[j,
+      Map[Normal[#["B"]] &, aSol["Stocks"][j]]
+    ],
+    stockKeys
+  ];
+
+  (* Handle case where any stock has no B solutions *)
+  If[MemberQ[bSolsPerStock, {}],
+    Return[{Join[aRules, bondRules, nomBondRules]}]
+  ];
+
+  (* Cartesian product of B solutions across stocks *)
+  cartesianB = Tuples[bSolsPerStock];
+
+  (* Build complete bundles: A + each B combination + bonds *)
+  Map[
+    Function[bCombo,
+      Join[aRules, Flatten[bCombo], bondRules, nomBondRules]
+    ],
+    cartesianB
   ]
 ];
 
