@@ -467,7 +467,7 @@ addToStateVars[model_]:=With[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*addCoeffsSystem*)
 
 
@@ -519,7 +519,7 @@ addCoeffsSystem[model_]:=Module[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*simplifyCoeffsSystem*)
 
 
@@ -772,7 +772,7 @@ addCoeffsSolution::badextrainfo = "Closed-form coefficients from extra info did 
 
 addCoeffsSolution[
 	model_,
-	ratio_String: "bond" | "nombond", 
+	ratio: "bond" | "nombond", 
 	opts : OptionsPattern[{updateCoeffs, RecurrenceTable}]]:=With[
 	{
 		cs = model["coeffsSystem"][ratio],

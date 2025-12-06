@@ -182,7 +182,7 @@ updateModelManifest[] := Module[
 
   (* Build manifest path *)
   manifestFile = FileNameJoin[{root, "Resources", "ModelManifest.wl"}];
-  Quiet[CreateDirectory[DirectoryName[manifestFile]], {CreateDirectory::filex, CreateDirectory::eexist}];
+  Quiet[CreateDirectory[DirectoryName[manifestFile]], {CreateDirectory::eexist}];
 
   (* Get catalog (live reload if file changed) *)
   catalogModels = getCatalogModels[];
@@ -597,7 +597,7 @@ cleanAllOutputs[root_String] := Module[{resourcesDir, compiledDir, momentsDir},
 
 (* helper: save processed models to Models.wl using DefinitionData *)
 saveModels[models_Association, file_String] := Module[{dataModels, modelsData},
-	Quiet[CreateDirectory[DirectoryName[file]], {CreateDirectory::filex, CreateDirectory::eexist}];
+	Quiet[CreateDirectory[DirectoryName[file]], {CreateDirectory::eexist}];
 	(* DefinitionData requires a Symbol, not an inline association.
 	   Assign to local symbol first so DefinitionData can serialize properly. *)
 	modelsData = models;
@@ -805,8 +805,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		manifestFile = FileNameJoin[{resourcesDir, "ModelManifest.wl"}];
 
 		(* ensure directories exist *)
-		Quiet[CreateDirectory[compiledDir], {CreateDirectory::filex, CreateDirectory::eexist}];
-		Quiet[CreateDirectory[momentsDir], {CreateDirectory::filex, CreateDirectory::eexist}];
+		Quiet[CreateDirectory[compiledDir], {CreateDirectory::eexist}];
+		Quiet[CreateDirectory[momentsDir], {CreateDirectory::eexist}];
 
 		(* get catalog and filter enabled models *)
 		catalogModels = getCatalogModels[];
