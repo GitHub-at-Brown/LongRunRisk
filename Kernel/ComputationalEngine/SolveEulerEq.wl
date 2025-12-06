@@ -13,17 +13,27 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
 updateCoeffs
 addCoeffsSolutionN
+flattenCoeffs
 
 
 (* ::Subsubsection:: *)
 (*Usage*)
 
 
-updateCoeffs::usage = "updateCoeffs[model] solves for the coefficients of the wealth-consumption ratio, price-dividend ratio, real bonds, and nominal bonds, and returns a list of rules to evaluate the coefficients numerically."<>"\n"<>
-			          "updateCoeffs[model, newParameters] uses the parameters in the list of rules newParameters instead of the ones specified in model."<>"\n"<>
-			          "updateCoeffs[model, newParameters, guessCoeffsSolution] uses initial solution estimates in guessCoeffsSolution.";
+updateCoeffs::usage = "updateCoeffs[model] solves for the coefficients of the wealth-consumption ratio, price-dividend ratio, real bonds, and nominal bonds.\n" <>
+    "Returns a hierarchical structure: list of A solutions, each containing:\n" <>
+    "  - IntervalA, SignsA, SolutionIndexA, IntervalIndexA: metadata\n" <>
+    "  - A: coefficient rules for wealth-consumption ratio\n" <>
+    "  - Stocks: Association of stock j -> list of B solutions, each with IntervalB, SignsB, B\n" <>
+    "  - Bond, NomBond: bond coefficient rules (if computed)\n" <>
+    "Use flattenCoeffs[result] to extract all coefficient rules as a flat list.";
 
 addCoeffsSolutionN::usage = "addCoeffsSolutionN[model] computes numerical solutions for all coefficient types (wc, pd, bond, nombond) using default parameters and model extraInfo.";
+
+flattenCoeffs::usage = "flattenCoeffs[updateCoeffsResult] extracts all coefficient rules from the hierarchical structure returned by updateCoeffs.\n" <>
+    "flattenCoeffs[result, n] extracts rules from the n-th A solution only.\n" <>
+    "flattenCoeffs[result, n, j] extracts A rules and B rules for stock j from the n-th A solution.\n" <>
+    "flattenCoeffs[result, n, j, m] extracts A rules and the m-th B solution for stock j from the n-th A solution.";
 
 
 (* ::Section:: *)
@@ -376,7 +386,8 @@ normalizeRootSigns[rootSigns_, signIndex_] := (
 (*filterSolutions*)
 
 
-filterSolutions[solAll_, Automatic] := DeleteCases[solAll, {{}...}, Infinity];
+(* filterSolutions: legacy filter for backward compatibility, now handled in updateCoeffsWcPd *)
+filterSolutions[solAll_, Automatic] := solAll;
 filterSolutions[solAll_, _] := solAll;
 
 
@@ -395,10 +406,23 @@ extractSignIndex[kernels_Association] := <|
 
 
 computeWcCoeffs[model_, kernels_, params_, newParams_, rootSignsNorm_, rootSigns_, opts_] :=
-  filterSolutions[
-    updateCoeffsWcPd["wc", model["coeffsParamQuadSolve"], kernels,
-                     params, newParams, rootSignsNorm, rootSigns, opts],
-    rootSigns
+  Module[{rawResults},
+    rawResults = filterSolutions[
+      updateCoeffsWcPd["wc", model["coeffsParamQuadSolve"], kernels,
+                       params, newParams, rootSignsNorm, rootSigns, opts],
+      rootSigns
+    ];
+    (* Rename keys to A-specific names *)
+    Map[
+      <|
+        "IntervalA" -> #["Interval"],
+        "SignsA" -> #["Signs"],
+        "SolutionIndexA" -> #["SolutionIndex"],
+        "IntervalIndexA" -> #["IntervalIndex"],
+        "A" -> #["Sol"]
+      |> &,
+      rawResults
+    ]
   ];
 
 
@@ -408,19 +432,38 @@ computeWcCoeffs[model_, kernels_, params_, newParams_, rootSignsNorm_, rootSigns
 
 computePdCoeffs[model_, kernels_, params_, newParams_, solWc_,
                 rootSignsNorm_, rootSigns_, numStocks_, opts_] :=
-  filterSolutions[
-    Table[
-      Replace[solWc,
-        a_Association :> updateCoeffsWcPd[
-          "pd", model["coeffsParamQuadSolve"], kernels, params,
-          Join[newParams, <|j -> jVal|>, a],
-          rootSignsNorm, rootSigns, opts
-        ],
-        All
+  Module[{renameToB, computeBForASolution},
+    (* For each A solution, compute B solutions for all stocks *)
+    (* solWc is now a list of associations with keys: IntervalA, SignsA, SolutionIndexA, IntervalIndexA, A *)
+
+    (* Helper to rename keys to B-specific names *)
+    renameToB[bResult_] := <|
+      "IntervalB" -> bResult["Interval"],
+      "SignsB" -> bResult["Signs"],
+      "SolutionIndexB" -> bResult["SolutionIndex"],
+      "IntervalIndexB" -> bResult["IntervalIndex"],
+      "B" -> bResult["Sol"]
+    |>;
+
+    (* For a single A solution, compute B solutions for all stocks *)
+    computeBForASolution[aSol_] := Association @ Table[
+      jVal -> Map[
+        renameToB,
+        filterSolutions[
+          updateCoeffsWcPd[
+            "pd", model["coeffsParamQuadSolve"], kernels, params,
+            Join[newParams, <|j -> jVal|>, aSol["A"]],
+            rootSignsNorm, rootSigns, opts
+          ],
+          rootSigns
+        ]
       ],
       {jVal, numStocks}
-    ],
-    rootSigns
+    ];
+
+    (* Return list of B solutions indexed by stock, one per A solution *)
+    (* This preserves the A->B mapping: result[[i]] corresponds to solWc[[i]] *)
+    Map[computeBForASolution, solWc]
   ];
 
 
@@ -449,10 +492,11 @@ checkCoeffs[type_String, model_, sol_, params_, newParams_,
 (*updateCoeffsWcPd*)
 
 
-  updateCoeffsWcPd[key: "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, params_Association, newParams_Association, rootSignsNorm_, rootSigns_,
+updateCoeffsWcPd[key : "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, params_Association, newParams_Association, rootSignsNorm_, rootSigns_,
   solveCoeffRootsOpts_] :=
     With[{kernelKey = <|"wc" -> "A", "pd" -> "B"|>[key]},
-      Module[{solAll},
+      Module[{solAll, flattenedWithMeta, intervalIdx, solIdx},
+        (* solAll structure: list of {list of <|"Interval"->..., "Signs"->..., "Sol"->...|>} per sign combo *)
         solAll = solveCoeffRoots[
           coeffsParamQuadSolve[key],
           kernels[kernelKey],
@@ -462,9 +506,38 @@ checkCoeffs[type_String, model_, sol_, params_, newParams_,
           solveCoeffRootsOpts
         ] & /@ rootSignsNorm[key];
 
+        (* Flatten while preserving metadata: add interval index and solution index *)
+        flattenedWithMeta = Flatten @ MapIndexed[
+          Function[{signResults, signPos},
+            (* signResults is list of associations for one sign combination *)
+            MapIndexed[
+              Function[{intervalResult, intervalPos},
+                intervalIdx = intervalPos[[1]];
+                (* intervalResult has "Interval", "Signs", "Sol" (list of associations) *)
+                MapIndexed[
+                  Function[{solAssoc, solPos},
+                    solIdx = solPos[[1]];
+                    <|
+                      "Interval" -> intervalResult["Interval"],
+                      "Signs" -> intervalResult["Signs"],
+                      "SolutionIndex" -> solIdx,
+                      "IntervalIndex" -> intervalIdx,
+                      "Sol" -> solAssoc
+                    |>
+                  ],
+                  intervalResult["Sol"]
+                ]
+              ],
+              signResults
+            ]
+          ],
+          solAll
+        ];
+
+        (* Filter empty solutions if Automatic *)
         If[MatchQ[rootSigns, Automatic | KeyValuePattern[key -> Automatic]],
-          DeleteCases[solAll[[All, All, "Sol"]], {{}..}, Infinity],
-          solAll[[All, All, "Sol"]]
+          Select[flattenedWithMeta, AssociationQ[#["Sol"]] && Length[#["Sol"]] > 0 &],
+          flattenedWithMeta
         ]
       ]
     ]
@@ -534,32 +607,60 @@ updateCoeffsSol[
 		                        rootSignsNorm, rootSigns, numStocks, solveOpts]
 	];
 
-	(* Step 3: Compute bonds if requested *)
-	If[OptionValue["UpdateBond"] || OptionValue["UpdateBonds"],
-		solBond = updateCoeffsBond[model["coeffsSolution"]["bond"], params, newParams,
-		                           maxMaturity, solWc, recurrenceOpts]
-	];
-	If[OptionValue["UpdateNomBond"] || OptionValue["UpdateBonds"],
-		solNomBond = updateCoeffsBond[model["coeffsSolution"]["nombond"], params, newParams,
-		                              maxMaturity, solWc, recurrenceOpts]
-	];
-
-	(* Step 4: Run checks if requested *)
-	If[doChecks,
-		checkCoeffs["wc", model, solWc, params, newParams, maxMaturity, numStocks, checkOpts];
-		If[needsPd,
-			checkCoeffs["pd", model, Flatten @ {solWc, solPd}, params, newParams, maxMaturity, numStocks, checkOpts]
+	(* Step 3: Compute bonds if requested - extract A coefficients for bond computation *)
+	With[{wcCoeffsList = Map[#["A"] &, solWc]},
+		If[OptionValue["UpdateBond"] || OptionValue["UpdateBonds"],
+			solBond = updateCoeffsBond[model["coeffsSolution"]["bond"], params, newParams,
+			                           maxMaturity, wcCoeffsList, recurrenceOpts]
 		];
-		If[solBond =!= Nothing,
-			checkCoeffs["bond", model, Flatten @ {solWc, solBond}, params, newParams, maxMaturity, numStocks, checkOpts]
-		];
-		If[solNomBond =!= Nothing,
-			checkCoeffs["nombond", model, Flatten @ {solWc, solNomBond}, params, newParams, maxMaturity, numStocks, checkOpts]
+		If[OptionValue["UpdateNomBond"] || OptionValue["UpdateBonds"],
+			solNomBond = updateCoeffsBond[model["coeffsSolution"]["nombond"], params, newParams,
+			                              maxMaturity, wcCoeffsList, recurrenceOpts]
 		]
 	];
 
-	(* Return results *)
-	Flatten @ {solWc, solPd, solBond, solNomBond}
+	(* Step 4: Run checks if requested - extract coefficients for checking *)
+	If[doChecks,
+		With[{wcCoeffsFlat = Map[#["A"] &, solWc]},
+			checkCoeffs["wc", model, wcCoeffsFlat, params, newParams, maxMaturity, numStocks, checkOpts];
+			If[needsPd,
+				(* Flatten B coefficients for checking *)
+				With[{pdCoeffsFlat = Flatten @ Map[Values[#][[All, All, "B"]] &, solPd]},
+					checkCoeffs["pd", model, Flatten @ {wcCoeffsFlat, pdCoeffsFlat}, params, newParams, maxMaturity, numStocks, checkOpts]
+				]
+			];
+			If[solBond =!= Nothing,
+				checkCoeffs["bond", model, Flatten @ {wcCoeffsFlat, solBond}, params, newParams, maxMaturity, numStocks, checkOpts]
+			];
+			If[solNomBond =!= Nothing,
+				checkCoeffs["nombond", model, Flatten @ {wcCoeffsFlat, solNomBond}, params, newParams, maxMaturity, numStocks, checkOpts]
+			]
+		]
+	];
+
+	(* Build hierarchical result: each A solution bundled with its B solutions and bonds *)
+	MapIndexed[
+		Function[{aSol, idx},
+			Join[
+				aSol,  (* Contains: IntervalA, SignsA, SolutionIndexA, IntervalIndexA, A *)
+				<|
+					"Stocks" -> If[needsPd && solPd =!= Nothing,
+						solPd[[idx[[1]]]],  (* B solutions indexed by stock for this A *)
+						<||>
+					],
+					"Bond" -> If[solBond =!= Nothing,
+						solBond[[idx[[1]]]],  (* Bond coefficients for this A *)
+						Missing["NotComputed"]
+					],
+					"NomBond" -> If[solNomBond =!= Nothing,
+						solNomBond[[idx[[1]]]],  (* Nominal bond coefficients for this A *)
+						Missing["NotComputed"]
+					]
+				|>
+			]
+		],
+		solWc
+	]
 ]
 
 
@@ -905,6 +1006,56 @@ addCoeffsSolutionN[model_] := With[
 		solNomBond = updateCoeffsBond[model["coeffsSolution"]["nombond"], params, {}, maxMaturity, solWc];
 		Flatten @ Join[solWc, solPd, solBond, solNomBond]
 	]
+];
+
+
+(* ::Subsection:: *)
+(*flattenCoeffs*)
+
+
+(* Extract all coefficient rules from hierarchical updateCoeffs result *)
+flattenCoeffs[results_List] := Flatten @ Map[
+  Function[aSol,
+    Join[
+      Normal[aSol["A"]],
+      Flatten @ Map[
+        Function[bSolList, Map[Normal[#["B"]] &, bSolList]],
+        Values[aSol["Stocks"]]
+      ],
+      If[!MissingQ[aSol["Bond"]], Normal[aSol["Bond"]], {}],
+      If[!MissingQ[aSol["NomBond"]], Normal[aSol["NomBond"]], {}]
+    ]
+  ],
+  results
+];
+
+(* Extract rules from n-th A solution only *)
+flattenCoeffs[results_List, n_Integer] := With[{aSol = results[[n]]},
+  Join[
+    Normal[aSol["A"]],
+    Flatten @ Map[
+      Function[bSolList, Map[Normal[#["B"]] &, bSolList]],
+      Values[aSol["Stocks"]]
+    ],
+    If[!MissingQ[aSol["Bond"]], Normal[aSol["Bond"]], {}],
+    If[!MissingQ[aSol["NomBond"]], Normal[aSol["NomBond"]], {}]
+  ]
+];
+
+(* Extract A rules and all B rules for stock j from n-th A solution *)
+flattenCoeffs[results_List, n_Integer, j_Integer] := With[{aSol = results[[n]]},
+  Join[
+    Normal[aSol["A"]],
+    Flatten @ Map[Normal[#["B"]] &, aSol["Stocks"][j]]
+  ]
+];
+
+(* Extract A rules and m-th B solution for stock j from n-th A solution *)
+flattenCoeffs[results_List, n_Integer, j_Integer, m_Integer] := With[{aSol = results[[n]]},
+  Join[
+    Normal[aSol["A"]],
+    Normal[aSol["Stocks"][j][[m]]["B"]]
+  ]
 ];
 
 

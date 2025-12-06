@@ -92,17 +92,20 @@ toNumRules[
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 	With[{newParams=processNewParameters[newParameters,params]},
 		With[{allParams=Normal@Join[Association@params,Association@newParams]},
-			With[{sol=updateCoeffs[model,kernels,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,optsUpdateCoeffs]},
-				Join[
-					sol,
-					allParams,
-					{
-						FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc ->
-							(uncondEwc/.sol//.allParams),
-						FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[ind_] :>
-							(uncondEpd/.(FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j->ind)/.sol//.allParams)
-					}
-				](*Join*)
+			With[{solHierarchical=updateCoeffs[model,kernels,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,optsUpdateCoeffs]},
+				(* Extract flat rules from first A solution for backward compatibility *)
+				With[{sol=flattenCoeffs[solHierarchical, 1]},
+					Join[
+						sol,
+						allParams,
+						{
+							FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc ->
+								(uncondEwc/.sol//.allParams),
+							FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[ind_] :>
+								(uncondEpd/.(FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j->ind)/.sol//.allParams)
+						}
+					](*Join*)
+				](*With*)
 			](*With*)
 		](*With*)
 	](*With*)
