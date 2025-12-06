@@ -88,7 +88,8 @@ ToNum;ToEquation;ToExogenousVars;ToStateVars;
 UncondE; UncondCov; UncondVar; UncondCorr;
 Ev; Var; Cov; Corr;
 Growth;
-YieldCurve;PlotCoeffs
+YieldCurve;PlotCoeffs;
+VisualizeCoeffs
 (*t;*)
 (*covLongBY;covLongNRC;covLongDES;*)
 
@@ -306,6 +307,18 @@ PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`T
 
 reExport[#]&/@{
 	"FernandoDuarte`LongRunRisk`Tools`ToNumber`"
+}
+
+
+(* ::Subsubsection:: *)
+(*VisualizeCoeffs*)
+
+
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`VisualizeCoeffs`"];
+
+
+reExport[#]&/@{
+	"FernandoDuarte`LongRunRisk`Tools`VisualizeCoeffs`"
 }
 
 
