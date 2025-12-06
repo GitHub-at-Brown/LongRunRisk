@@ -83,7 +83,7 @@ yieldCurve[
 			PrependTo[Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution],FilterRules[{opts},RecurrenceTable]];
 				
 			(*if coefficients for wc were not provided, compute them*)
-			solWc=If[coeffsWc==={}, updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParams,opts], coeffsWc];
+			solWc=If[coeffsWc==={}, (*updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParams,opts]*), coeffsWc];
 			(*solve bond recursion*)
 			solNomBonds=updateCoeffsBond[model["coeffsSolution"][bondType], params, newParams, maxMaturity, solWc,opts];
 			(*compute unconditional expectation of bond yields*)
@@ -109,7 +109,7 @@ plotCoeffs[model_Association, sol_List, params_List, Ewc0_List, opts: OptionsPat
 	With[
 		{
 			activateLast = {MapThread},
-			system = model["coeffsSolution"]["wc"],
+			system = (*model["coeffsSolution"]["wc"]*),
 			parameters = Quiet[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[params,model["params"]]]
 		},
 		With[

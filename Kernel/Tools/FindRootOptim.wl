@@ -32,6 +32,7 @@ Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"Pe
 Returns an Association with keys: \"fC\", \"dfC\", \"Vars\", \"ParamOrder\", \"SignIndex\", \"CoeffName\", \"SignSymbol\".";
 bindUnary::usage   = "bindUnary[kernel, paramValues, signs] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.";
 bindUnary::insufficientsigns = "Expected at least `1` sign values, but got `2`.";
+bindUnary::toomanyigns = "Expected exactly `1` sign values, but got `2`.";
 findRootInterval::usage  = "findRootInterval[conds, paramValues, signs] returns a Reduce expression constraining the root variable.
 Pass the result to extractIntervalsFromReduce to obtain numeric intervals.
 Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\").";
@@ -383,16 +384,24 @@ bindUnary[
 		 paramValuesNum = N[paramValues//.paramValues,MachinePrecision]
 	 },
 	  a = Developer`ToPackedArray @ Lookup[paramValuesNum, paramOrder];
-	
+
 	  s = If[idx === {}, {},
 	    maxIdx = Max[idx];
-	    If[Length[signs] < maxIdx,
-	      Message[bindUnary::insufficientsigns, maxIdx, Length[signs]];
-	      Return[$Failed]
-	    ];
-	    Developer`ToPackedArray @ Round @ signs[[idx]]
+	    Which[
+	      Length[signs] < maxIdx,
+	        Message[bindUnary::insufficientsigns, maxIdx, Length[signs]];
+	        $Failed,
+	      Length[signs] > maxIdx,
+	        Message[bindUnary::toomanyigns, maxIdx, Length[signs]];
+	        $Failed,
+	      True,
+	        Developer`ToPackedArray @ Round @ signs[[idx]]
+	    ]
 	  ];
-	  
+
+	  (* Return early if sign extraction failed *)
+	  If[s === $Failed, Return[$Failed, Module]];
+
 	  With[
 		  {
 			  kfC=k["fC"],kdfC=k["dfC"],suffix=Join[a,s]

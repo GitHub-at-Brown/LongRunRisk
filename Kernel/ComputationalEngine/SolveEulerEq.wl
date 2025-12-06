@@ -302,325 +302,264 @@ updateCoeffsSol//Options={
 	"UpdateBond"->False,
 	"UpdateNomBond"->False,
 	"UpdateBonds"->False,
-	"MaxMaturity"->12
+	"MaxMaturity"->12,
+	"RootSigns" -> Automatic
+				(* 
+					All: returns solutions for all square root sign combinations, even if empty
+					Automatic: like All but removes empty solutions
+					A list like {"wc"->{-1,1},"pd"->{-1,1}} specifying signs
+					A list like {"wc"->Automatic,"pd"->{-1,1}} specifying signs| All | Automatic for "wc" and "pd" separately
+				*)
 };
+
+
+(* ::Subsubsection:: *)
+(*normalizeRootSigns*)
+
+
+normalizeRootSigns::badsignidx =
+  "signIndex must be an Association with \"wc\"/\"pd\" keys; got `1` instead.";
+
+(* Normalize RootSigns option into explicit sign tuples for wc/pd *)
+normalizeRootSigns[rootSigns_, signIndex_Association] := Module[
+  {base, numSigns, idxFor, makeTuples},
+
+  (* Normalize RootSigns into an Association over {\"wc\",\"pd\"} *)
+  base = Replace[rootSigns, {
+    Automatic :> <|"wc" -> Automatic, "pd" -> Automatic|>,
+    All       :> <|"wc" -> All,       "pd" -> All|>,
+    r_        :> Association[r]
+  }];
+
+  (* Helper: number of distinct sign slots for each key *)
+  idxFor[key_] := Lookup[signIndex, key, {}];
+  numSigns = Association @ Map[
+    Function[key,
+      Module[{idx = idxFor[key], flat},
+        flat = Flatten[idx];
+        key -> If[flat === {} || flat === {0}, 0, Max[flat]]
+      ]
+    ],
+    {"wc", "pd"}
+  ];
+
+  (* Helper: all sign tuples for a given key *)
+  makeTuples[key_] := Module[{n = numSigns[key]},
+    If[n <= 0, {{}}, Tuples[{-1, 1}, n]]
+  ];
+
+  Association @ KeyValueMap[
+    Function[{key, spec},
+      key -> Which[
+        MatchQ[spec, Automatic | All],
+          makeTuples[key],
+        True,
+          Module[{normalized},
+            normalized =
+              If[!MatchQ[spec, {{___} ..}], {Flatten @ {spec}}, spec];
+            If[normalized === {{}}, Table[{}, numSigns[key]], normalized]
+          ]
+      ]
+    ],
+    base
+  ]
+]
+
+(* Fallback when signIndex is not an Association *)
+normalizeRootSigns[rootSigns_, signIndex_] := (
+  Message[normalizeRootSigns::badsignidx, Head[signIndex]];
+  $Failed
+)
+
+
+(* ::Subsubsection:: *)
+(*filterSolutions*)
+
+
+filterSolutions[solAll_, Automatic] := DeleteCases[solAll, {{}...}, Infinity];
+filterSolutions[solAll_, _] := solAll;
+
+
+(* ::Subsubsection:: *)
+(*extractSignIndex*)
+
+
+extractSignIndex[kernels_Association] := <|
+  "wc" -> Lookup[Lookup[kernels, "A", <||>], "SignIndex", {}],
+  "pd" -> Lookup[Lookup[kernels, "B", <||>], "SignIndex", {}]
+|>;
+
+
+(* ::Subsubsection:: *)
+(*computeWcCoeffs*)
+
+
+computeWcCoeffs[model_, kernels_, params_, newParams_, rootSignsNorm_, rootSigns_, opts_] :=
+  filterSolutions[
+    updateCoeffsWcPd["wc", model["coeffsParamQuadSolve"], kernels,
+                     params, newParams, rootSignsNorm, rootSigns, opts],
+    rootSigns
+  ];
+
+
+(* ::Subsubsection:: *)
+(*computePdCoeffs*)
+
+
+computePdCoeffs[model_, kernels_, params_, newParams_, solWc_,
+                rootSignsNorm_, rootSigns_, numStocks_, opts_] :=
+  filterSolutions[
+    Table[
+      Replace[solWc,
+        a_Association :> updateCoeffsWcPd[
+          "pd", model["coeffsParamQuadSolve"], kernels, params,
+          Join[newParams, <|j -> jVal|>, a],
+          rootSignsNorm, rootSigns, opts
+        ],
+        All
+      ],
+      {jVal, numStocks}
+    ],
+    rootSigns
+  ];
+
+
+(* ::Subsubsection:: *)
+(*checkCoeffs*)
+
+
+checkCoeffs[type_String, model_, sol_, params_, newParams_,
+            maxMaturity_, numStocks_, opts_] :=
+  Switch[type,
+    "wc",
+      checks[First @ model["coeffsSystem"]["wc"], sol, params, newParams, opts],
+    "pd",
+      checks[Table[First @ model["coeffsSystem"]["pd"], {j, 1, numStocks}],
+             sol, params, newParams, opts],
+    "bond",
+      checks[Flatten @ Table[First @ model["coeffsSystem"]["bond"], {n, 1, maxMaturity}],
+             sol, params, newParams, opts],
+    "nombond",
+      checks[Flatten @ Table[First @ model["coeffsSystem"]["nombond"], {n, 1, maxMaturity}],
+             sol, params, newParams, opts]
+  ];
+
+
+(* ::Subsection:: *)
+(*updateCoeffsWcPd*)
+
+
+  updateCoeffsWcPd[key_: "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, params_Association, newParams_Association, rootSignsNorm_, rootSigns_,
+  solveCoeffRootsOpts_] :=
+    With[{kernelKey = <|"wc" -> "A", "pd" -> "B"|>[key]},
+      Module[{solAll},
+        solAll = solveCoeffRoots[
+          coeffsParamQuadSolve[key],
+          kernels[kernelKey],
+          params,
+          #,
+          newParams,
+          solveCoeffRootsOpts
+        ] & /@ rootSignsNorm[key];
+
+        If[MatchQ[rootSigns, Automatic | KeyValuePattern[key -> Automatic]],
+          DeleteCases[solAll[[All, All, "Sol"]], {{}..}, Infinity],
+          solAll[[All, All, "Sol"]]
+        ]
+      ]
+    ]
+
+
+updateCoeffsSol::badkernels = "savedKernels must contain a \"kernels\" key with \"A\" and \"B\" sub-keys. Got: `1`";
 
 
 updateCoeffsSol[
 	model_Association,
+	savedKernels_Association,
 	newParameters_List,
 	guessCoeffsSolution_List,
-	opts : OptionsPattern[
-		{
-			updateCoeffsSol,
-			checks,
-			FindRoot,
-			RecurrenceTable
-		}
-	]
-]:=With[
+	opts : OptionsPattern[{updateCoeffsSol, solveCoeffRoots, checks, FindRoot, RecurrenceTable}]
+] /; (
+	KeyExistsQ[savedKernels, "kernels"] &&
+	AssociationQ[savedKernels["kernels"]] &&
+	AllTrue[{"A", "B"}, KeyExistsQ[savedKernels["kernels"], #] &]
+) := Module[
 	{
-		parameters = model["parameters"],
-		params = model["params"],
-		numStocks = model["numStocks"],
-		stockFreeQ=FreeQ[#,_Symbol[_Integer]]&/@(Keys@newParameters),
-		ig = Evaluate[OptionValue["initialGuess"]]["Epd"],
-		optsFindRoot = Flatten[{
-			Evaluate[FilterRules[Flatten@{opts},Options[FindRoot]]],
-			Evaluate[OptionValue["FindRootOptions"]]
-		}],
-		optsRecurrenceTable = Flatten[{
-			Evaluate[FilterRules[Flatten@{opts},Options[RecurrenceTable]]],
-			Evaluate[OptionValue["RecurrenceTableOptions"]]
-		}],
-		optsUpdatePd = OptionValue["UpdatePd"],
-		optsUpdateBond = OptionValue["UpdateBond"],
-		optsUpdateNomBond = OptionValue["UpdateNomBond"],
-		optsUpdateBonds = OptionValue["UpdateBonds"],
-		maxMaturity = OptionValue["MaxMaturity"],
-		doChecks= OptionValue["PrintResidualsNorm"] || OptionValue["CheckResiduals"],
-		optsCheck = Evaluate[FilterRules[Flatten@{opts}, Options[checks]]]
+		params, newParams, kernels, numStocks, stockFreeQ, maxMaturity,
+		rootSigns, rootSignsNorm, doChecks, needsPd,
+		solWc = Nothing, solPd = Nothing, solBond = Nothing, solNomBond = Nothing,
+		solveOpts, checkOpts, recurrenceOpts
 	},
+
 	Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 	Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
-	With[
-		{
-			guessCoeffsSolutionWc = FilterRules[guessCoeffsSolution,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[_]],
-			initialGuessEwc = "Ewc0"->If[
-				MemberQ[Keys@guessCoeffsSolution,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[0]],
-				FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[0]/.guessCoeffsSolution,
-				First@(Evaluate[OptionValue["initialGuess"]]["Ewc"])
-			],
-			guessCoeffsSolutionPd=Module[{j},Table[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[[0]][j][0],{j,1,numStocks}]]/.guessCoeffsSolution,
-			igNumStocks=If[(First@Dimensions[ig])!=numStocks,ConstantArray[First@ig,numStocks],ig]
-		},
-		With[
-			{
-				initialGuessEpd = Module[{j},
-					Table[
-						"Epd0["<>IntegerString[j]<>"]"->
-							If[
-								NumberQ[guessCoeffsSolutionPd[[j]]],
-								guessCoeffsSolutionPd[[j]],igNumStocks[[j]]/.List->Sequence
-							],
-						{j,1,numStocks}
-					]
-				]
-			},
-			Module[
-				{
-					solWc = Nothing,
-					solPd = Nothing,
-					solBond = Nothing,
-					solNomBond = Nothing
-				},
-				Which[
-					(*if none of the new parameters are stock parameters and pd coefficients are not requested*)
-					AllTrue[stockFreeQ,TrueQ] && Not@TrueQ[optsUpdatePd]
-					,
-					(*only update wealth-consumption ratio coefficients*)
-					solWc=updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]];
-					If[
-						doChecks,
-						checks[
-							First@model["coeffsSystem"]["wc"],
-							solWc,
-							params,
-							newParameters,
-							optsCheck
-						];
-					];
-					,
-					(*if all of the new parameters are stock parameters*)
-					AllTrue[Not/@stockFreeQ,TrueQ]
-					,
-					(*only update price-dividend ratio coefficients*)
-					solWc=If[
-						guessCoeffsSolutionWc==={},
-						(*if coefficients for wc are not provided, compute them*)
-						updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]],
-						guessCoeffsSolutionWc
-					];
-					solPd=updateCoeffsPd[model["coeffsSolution"]["pd"], params, newParameters, solWc, Sequence[optsFindRoot,initialGuessEpd]];
-					If[
-						doChecks,
-						(*check pd coefficients*)
-						With[
-							{
-								j=DeleteDuplicates@Cases[(First@model["coeffsSystem"]["pd"]),Head[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd][j_][_]:>j,{0,Infinity}]
-							},
-							checks[
-								Table[First@model["coeffsSystem"]["pd"],{j,1,numStocks}],
-								Join[solWc,solPd],
-								params,
-								newParameters,
-								optsCheck
-							];
-						];(*With*)
-						(*check wc coefficients*)
-						checks[
-							First@model["coeffsSystem"]["wc"],
-							solWc,
-							params,
-							newParameters,
-							optsCheck
-						];
-					];(*If*)
-					,
-					(*both stock and non-stock parameters*)
-					True
-					,
-					solWc=updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]];
-					solPd=updateCoeffsPd[model["coeffsSolution"]["pd"], params, newParameters, solWc, Sequence[optsFindRoot,initialGuessEpd]];
-					If[
-						doChecks,
-						(*check pd coefficients*)
-						With[
-							{
-								j=First@DeleteDuplicates@Cases[(First@model["coeffsSystem"]["pd"]),Head[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd][j_][_]:>j,{0,Infinity}]
-							},
-							checks[
-								Table[First@model["coeffsSystem"]["pd"],{j,1,numStocks}],
-								Join[solWc,solPd],
-								params,
-								newParameters,
-								optsCheck
-							];
-						];(*With*)
-						(*check wc coefficients*)
-						checks[
-							First@model["coeffsSystem"]["wc"],
-							solWc,
-							params,
-							newParameters,
-							optsCheck
-						];
-					];(*If*)
-				];(*Which*)
-				If[
-					(*any bond coefficients are requested*)
-					optsUpdateBond || optsUpdateNomBond || optsUpdateBonds
-					,
-					(*get wc coefficients*)
-					If[
-						(*bond coefficients requested and wc coefficients not available*)
-						solWc===Nothing,
-						(*compute wc coefficients*)
-						solWc=If[
-							guessCoeffsSolutionWc==={},
-							(*if coefficients for wc are not provided, compute them*)
-							updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParameters, Sequence[optsFindRoot,initialGuessEwc]],
-							guessCoeffsSolutionWc
-						];
-					];
-					(*compute bond coefficients*)
-					Which[
-						optsUpdateBonds || (optsUpdateBond && optsUpdateNomBond),
-						(*compute both*)
-						solBond=updateCoeffsBond[model["coeffsSolution"]["bond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
-						solNomBond=updateCoeffsBond[model["coeffsSolution"]["nombond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
-						If[
-							doChecks,
-							With[
-								{
-									n=First@DeleteDuplicates@Cases[(First@model["coeffsSystem"]["bond"]),Head[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb][n_][_]:>(n/;FreeQ[n,Plus]),{0,Infinity}]
-								},
-								(*check bond coefficients*)
-								checks[
-									Flatten@Table[First@model["coeffsSystem"]["bond"],{n,1,maxMaturity}],
-									Join[solWc,solBond],
-									params,
-									newParameters,
-									optsCheck
-								];
-								(*check nombond coefficients*)
-								checks[
-									Flatten@Table[First@model["coeffsSystem"]["nombond"],{n,1,maxMaturity}],
-									Join[solWc,solNomBond],
-									params,
-									newParameters,
-									optsCheck
-								];
-							];(*With*)
-							(*check wc coefficients*)
-							checks[
-								First@model["coeffsSystem"]["wc"],
-								solWc,
-								params,
-								newParameters,
-								optsCheck
-							];
-						];		
-						,
-						optsUpdateBond,
-						(*compute only real*)
-						solBond=updateCoeffsBond[model["coeffsSolution"]["bond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
-						If[
-							doChecks,
-							With[
-								{
-									n=First@DeleteDuplicates@Cases[(First@model["coeffsSystem"]["bond"]),Head[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb][n_][_]:>(n/;FreeQ[n,Plus]),{0,Infinity}]
-								},
-								(*check bond coefficients*)
-								checks[
-									Flatten@Table[First@model["coeffsSystem"]["bond"],{n,1,maxMaturity}],
-									Join[solWc,solBond],
-									params,
-									newParameters,
-									optsCheck
-								];
-							];(*With*)
-							(*check wc coefficients*)
-							checks[
-								First@model["coeffsSystem"]["wc"],
-								solWc,
-								params,
-								newParameters,
-								optsCheck
-							];
-						];
-						,
-						optsUpdateNomBond,
-						(*compute only nominal*)
-						solNomBond=updateCoeffsBond[model["coeffsSolution"]["nombond"],params, newParameters,maxMaturity,solWc,optsRecurrenceTable];
-						If[
-							doChecks,
-							With[
-								{
-									n=First@DeleteDuplicates@Cases[(First@model["coeffsSystem"]["bond"]),Head[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb][n_][_]:>(n/;FreeQ[n,Plus]),{0,Infinity}]
-								},
-								(*check nombond coefficients*)
-								checks[
-									Flatten@Table[First@model["coeffsSystem"]["nombond"],{n,1,maxMaturity}],
-									Join[solWc,solNomBond],
-									params,
-									newParameters,
-									optsCheck
-								];
-							];(*With*)
-							(*check wc coefficients*)
-							checks[
-								First@model["coeffsSystem"]["wc"],
-								solWc,
-								params,
-								newParameters,
-								optsCheck
-							];
-						];
-					];				
-				];
-			Flatten@{solWc,solPd,solBond,solNomBond}
-		](*Module*)
-	](*With*)
-	](*With*)
-](*With*)
 
+	(* Initialize parameters *)
+	params = (Association @ model["params"]) //. model["params"] // N;
+	newParams = (Association @ newParameters) //. newParameters // N;
+	kernels = savedKernels["kernels"];
+	numStocks = model["numStocks"];
+	stockFreeQ = FreeQ[#, _Symbol[_Integer]] & /@ Keys @ newParameters;
+	maxMaturity = OptionValue["MaxMaturity"];
+	rootSigns = OptionValue["RootSigns"];
+	doChecks = OptionValue["PrintResidualsNorm"] || OptionValue["CheckResiduals"];
 
-(* ::Subsubsection:: *)
-(*updateCoeffsWc*)
+	(* Validate kernels *)
+	If[!AssociationQ[kernels],
+		Message[updateCoeffsSol::badkernels, kernels];
+		Return[$Failed]
+	];
 
+	(* Compute rootSignsNorm *)
+	rootSignsNorm = normalizeRootSigns[rootSigns, extractSignIndex[kernels]];
+	If[rootSignsNorm === $Failed, Return[$Failed]];
 
-updateCoeffsWc//Options ={
-	"Ewc0" -> 4
-};
+	(* Filter options once *)
+	solveOpts = FilterRules[Flatten @ {opts}, Options[updateCoeffsSol]];
+	checkOpts = FilterRules[Flatten @ {opts}, Options[checks]];
+	recurrenceOpts = Flatten[{
+		FilterRules[Flatten @ {opts}, Options[RecurrenceTable]],
+		OptionValue["RecurrenceTableOptions"]
+	}];
 
+	(* Determine what to compute *)
+	needsPd = AnyTrue[Not /@ stockFreeQ, TrueQ] || TrueQ[OptionValue["UpdatePd"]];
 
-updateCoeffsWc[modelCoeffsSolution_, modelParameters_, newParameters_List, opts : OptionsPattern[{updateCoeffsWc,FindRoot}]]:=Module[{solFirst,solRest},
-	With[{newParams=processNewParameters[newParameters,modelParameters]},
-		Off[Reduce::ratnz];
-		{solFirst,solRest}=Activate[
-			modelCoeffsSolution//.newParameters//.modelParameters/.
-				(x_/;(Head[x]===Symbol)&&(MatchQ[SymbolName[x],"FindRootOptions"]):>FilterRules[Flatten@{opts}, Options[FindRoot]])/.
-				(x_Symbol?(MatchQ[SymbolName[#],"Ewc0"]&)->OptionValue["Ewc0"])
+	(* Step 1: Always compute wc *)
+	solWc = computeWcCoeffs[model, kernels, params, newParams, rootSignsNorm, rootSigns, solveOpts];
+
+	(* Step 2: Compute pd if needed *)
+	If[needsPd,
+		solPd = computePdCoeffs[model, kernels, params, newParams, solWc,
+		                        rootSignsNorm, rootSigns, numStocks, solveOpts]
+	];
+
+	(* Step 3: Compute bonds if requested *)
+	If[OptionValue["UpdateBond"] || OptionValue["UpdateBonds"],
+		solBond = updateCoeffsBond[model["coeffsSolution"]["bond"], params, newParams,
+		                           maxMaturity, solWc, recurrenceOpts]
+	];
+	If[OptionValue["UpdateNomBond"] || OptionValue["UpdateBonds"],
+		solNomBond = updateCoeffsBond[model["coeffsSolution"]["nombond"], params, newParams,
+		                              maxMaturity, solWc, recurrenceOpts]
+	];
+
+	(* Step 4: Run checks if requested *)
+	If[doChecks,
+		checkCoeffs["wc", model, solWc, params, newParams, maxMaturity, numStocks, checkOpts];
+		If[needsPd,
+			checkCoeffs["pd", model, Flatten @ {solWc, solPd}, params, newParams, maxMaturity, numStocks, checkOpts]
 		];
-		On[Reduce::ratnz];
-		Flatten@Join[solFirst,solRest/.solFirst,2]
-	]
-]
-
-
-(* ::Subsubsection:: *)
-(*updateCoeffsPd*)
-
-
-updateCoeffsPd//Options ={
-	"Epd0[1]" -> Sequence[0,15],
-	"Epd0[2]" -> Sequence[0,15],
-	"Epd0[3]" -> Sequence[5.5]
-};
-
-
-updateCoeffsPd[modelCoeffsSolution_, modelParameters_, newParameters_List, coeffsWc_List, opts : OptionsPattern[{updateCoeffsPd,FindRoot}]]:=Module[{solFirst,solRest},
-	With[{newParams=processNewParameters[newParameters,modelParameters]},
-		Off[Reduce::ratnz];
-		{solFirst,solRest}=Activate[
-			modelCoeffsSolution//.newParameters//.modelParameters/.coeffsWc/.
-				(x_/;(Head[x]===Symbol)&&(MatchQ[SymbolName[x],"FindRootOptions"]):>FilterRules[Flatten@{opts}, Options[FindRoot]])/.
-				(x_Symbol?(MatchQ[SymbolName[#],"Epd0"]&)[j_Integer]:>OptionValue["Epd0["<>IntegerString[j]<>"]"])
+		If[solBond =!= Nothing,
+			checkCoeffs["bond", model, Flatten @ {solWc, solBond}, params, newParams, maxMaturity, numStocks, checkOpts]
 		];
-		On[Reduce::ratnz];
-	MapThread[Flatten@{#1,#2/.#1}&,{solFirst,solRest}]
-	]
+		If[solNomBond =!= Nothing,
+			checkCoeffs["nombond", model, Flatten @ {solWc, solNomBond}, params, newParams, maxMaturity, numStocks, checkOpts]
+		]
+	];
+
+	(* Return results *)
+	Flatten @ {solWc, solPd, solBond, solNomBond}
 ]
 
 
@@ -675,6 +614,19 @@ checks[eqs_, sol_, params_, newParams_, opts : OptionsPattern[]] :=With[
 (*updateCoeffs*)
 
 
+(* Fallback for invalid savedKernels structure *)
+updateCoeffsSol[
+	model_Association,
+	savedKernels_,
+	newParameters_List,
+	guessCoeffsSolution_List,
+	opts___
+] := (
+	Message[updateCoeffsSol::badkernels, Short[savedKernels, 2]];
+	$Failed
+)
+
+
 (*inherit default options from updateCoeffsSol, checks*)
 updateCoeffs//Options = Join@@(
 Options/@
@@ -690,15 +642,23 @@ updateCoeffs[args__]:=Module[
 	{
 		posArgs,
 		optArgs,
-		posArgsLength3
+		posArgsLength4
 	},
 	{posArgs,optArgs}=ArgumentsOptions[
 		updateCoeffsSol[args],
-		{1,3},
+		{1,4},
 		<|"OptionsMode"->"Shortest","ExtraOptions"->{checks,FindRoot,RecurrenceTable}|>
 	];
-	posArgsLength3=PadRight[posArgs,3,{{}}];
-	updateCoeffsSol[Sequence@@Join[posArgsLength3,optArgs,Options@updateCoeffs]]
+	posArgsLength4=PadRight[posArgs,4,{{}}];
+	(* auto-load kernels if caller didn't supply them *)
+	If[!AssociationQ[posArgsLength4[[2]]],
+		posArgsLength4[[2]] = loadModelKernels[posArgsLength4[[1]]];
+		(* check if kernel loading failed *)
+		If[posArgsLength4[[2]] === $Failed,
+			Return[$Failed, Module]
+		]
+	];
+	updateCoeffsSol[Sequence @@ Join[posArgsLength4, optArgs, Options@updateCoeffs]]
 ]
 
 
@@ -707,36 +667,34 @@ updateCoeffs[args__]:=Module[
 
 
 solveCoeffRoots[
-  model_Association,
+  quadSol_Association,
   savedKernel_Association,
+  paramsBase_Association,
   signs : ({} | {_Integer ..}) : {},
-  coeffKey : "wc" | "pd" : "wc",
   extraParams_Association : <||>,
   opts : OptionsPattern[{solveCoeffRoots, findRootInterval, extractIntervalsFromReduce, scanAndSolve, fastRoot, FindRoot}]
 ] /; AllTrue[signs, (# === 1 || # === -1) &] :=
    With[
     {
-        paramsBase = (Association @ model["params"]) //. model["params"] // N,
-		quadSol     = model["coeffsParamQuadSolve"][coeffKey],
-		coefList   = savedKernel["Vars"],
-		coefName   = First@savedKernel["Vars"]
-		
+        (*paramsBase = (Association @ model["params"]) //. model["params"] // N,
+		quadSol     = model["coeffsParamQuadSolve"][coeffKey],*)
+		coefList   = savedKernel["Vars"]
       },
       With[
         {
           conds      = quadSol["Conditions"],
           paramsAll = Join[
             paramsBase,
-            extraParams,
-            (* if j not present as Key in extraParams add j->1 with j extracted from coefName *)
             Association @ If[
+	            (* if j not present as Key in extraParams add j->1 with j extracted from coefName *)
               AnyTrue[Keys[extraParams], MatchQ[Replace[#, s_Symbol :> SymbolName[s]], "i" | "j"] &],
               {},
-              Cases[coefName, s_Symbol /; MemberQ[{"i", "j"}, SymbolName[s]] :> (s -> 1), {2}, Heads -> True]
-            ]
+              Cases[First@coefList, s_Symbol /; MemberQ[{"i", "j"}, SymbolName[s]] :> (s -> 1), {2}, Heads -> True]
+            ],
+            extraParams (*putting extra params last in Join takes priority and overwrites paramsBase*)
           ],
-          cName       = Lookup[savedKernel, "CoeffName", If[coeffKey === "wc", "A", "B"]],
-          sName       = Lookup[savedKernel, "SignSymbol", If[coeffKey === "wc", "signA", "signB"]],
+          cName       = Lookup[savedKernel, "CoeffName"],
+          sName       = Lookup[savedKernel, "SignSymbol"],
           findOpts    = FilterRules[Flatten@{opts}, Options[findRootInterval]],
           extractOpts = FilterRules[Flatten@{opts}, Options[extractIntervalsFromReduce]],
           scanOpts    = FilterRules[
@@ -744,10 +702,12 @@ solveCoeffRoots[
             Join[Options[scanAndSolve], Options[FindRoot], Options[fastRoot]]
           ]
         },
-        Module[{f, df, reduceExpr, intervals, roots, sol0Rules, sol, solRules, signHead, signsRule, jRule},
-          {f, df}    = bindUnary[savedKernel, paramsAll, signs];
+        Module[{f, df, reduceExpr, intervals, roots, sol0Rules, sol, solRules, signHead, signsRule, jRule, bindResult},
+          bindResult = bindUnary[savedKernel, paramsAll, signs];
+          If[bindResult === $Failed, Return[$Failed, Module]];
+          {f, df} = bindResult;
 
-          (* Branch early: nD uses solveND with timeout protection, 1D uses original path *)
+          (* treat 1D and nD differently *)
           If[Length[coefList] > 1,
             (* nD: Delegate to solveND and return early with packaged result *)
             Return[
@@ -758,7 +718,7 @@ solveCoeffRoots[
             ]
           ];
 
-          (* 1D path: use existing logic without timeout (fast for 1D) *)
+          (* 1D *)
           reduceExpr = findRootInterval[conds, paramsAll, signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts];
           intervals  = extractIntervalsFromReduce[reduceExpr, coefList, Sequence @@ extractOpts];
           roots = (scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals);
@@ -806,7 +766,7 @@ solveWcPdRoots[
   model_Association,
   savedKernelWc_Association,
   savedKernelPd_Association,
-  extraParamsPd_Association : <||>,
+  extraParams_Association : <||>,
   opts : OptionsPattern[solveCoeffRoots]
 ] := Module[
   {
@@ -814,7 +774,6 @@ solveWcPdRoots[
     resCoeff, resWcPd, allResults
   },
   getSigCount[k_] := If[KeyExistsQ[k, "SignIndex"], Max[Join[{0}, k["SignIndex"]]], 0];
-
   nWc = getSigCount[savedKernelWc];
   nPd = getSigCount[savedKernelPd];
   
@@ -824,10 +783,10 @@ solveWcPdRoots[
   allResults = {};
   
   Do[
-    resCoeff = Quiet[Check[solveCoeffRoots[model, savedKernelWc, sWc], $Failed], CompiledFunction::cfn];
+    resCoeff = Quiet[Check[solveCoeffRoots[model["coeffsParamQuadSolve"]["wc"], savedKernelWc, (Association@model["params"])//.model["params"]//N, sWc, extraParams, opts], $Failed], CompiledFunction::cfn];
     If[resCoeff =!= $Failed,
       Do[
-        resWcPd = Quiet[Check[solveWcPdRoots[model, savedKernelWc, savedKernelPd, sWc, sPd, extraParamsPd, opts], $Failed], CompiledFunction::cfn];
+        resWcPd = Quiet[Check[solveWcPdRoots[model, savedKernelWc, savedKernelPd, sWc, sPd, extraParams, opts], $Failed], CompiledFunction::cfn];
         If[resWcPd =!= $Failed && ListQ[resWcPd],
            If[AnyTrue[resWcPd, Function[wcRes, 
                 KeyExistsQ[wcRes, "Pd"] && ListQ[wcRes["Pd"]] && 
@@ -839,7 +798,6 @@ solveWcPdRoots[
       , {sPd, signsPdOptions}]
     ]
   , {sWc, signsWcOptions}];
-  
   allResults
 ];
 
@@ -850,24 +808,24 @@ solveWcPdRoots[
   savedKernelPd_Association,
   signsWc : ({} | {_Integer ..}) : {},
   signsPd : ({} | {_Integer ..}) : {},
-  extraParamsPd_Association : <||>,
+  extraParams_Association : <||>,
   opts : OptionsPattern[solveCoeffRoots]
 ] /; AllTrue[signsWc, (# === 1 || # === -1) &] && AllTrue[signsPd, (# === 1 || # === -1) &] := With[
   {optSeq = Sequence @@ FilterRules[Flatten@{opts}, Options[solveCoeffRoots]]},
   With[
-    {wcResults = solveCoeffRoots[model, savedKernelWc, signsWc, "wc", <||>, optSeq]},
+    {wcResults = solveCoeffRoots[model["coeffsParamQuadSolve"]["wc"], savedKernelWc, (Association@model["params"])//.model["params"]//N, signsWc, "wc", extraParams, optSeq]},
     Map[
       Function[wr,
         With[
           {
             pdForRoot = (solveCoeffRoots[
-              model,
+              model["coeffsParamQuadSolve"]["pd"],
               savedKernelPd,
+              (Association@model["params"])//.model["params"]//N,
               signsPd,
-              "pd",
-              Join[extraParamsPd, #],
+              Join[extraParams, #],
               optSeq
-            ] & /@ wr["Sol"])
+            ] & /@ wr(*["Sol"]*))
           },
           Join[wr, <|"Pd" -> pdForRoot, "SignsWc" -> signsWc, "SignsPd" -> signsPd|>]
         ]
@@ -929,8 +887,20 @@ addCoeffsSolutionN[model_] := With[
 		Ewc0 = getStartingValues["wc", modelInfo, "initialGuess" -> {}];
 		Epd0 = getStartingValues["pd", modelInfo, "initialGuess" -> {}];
 		Epd0j = Table["Epd0[" <> IntegerString[j] <> "]" -> First @ (Epd0[[j]]), {j, 1, numStocks}] /. Table -> Sequence;
-		solWc = updateCoeffsWc[model["coeffsSolution"]["wc"], params, {}, "Ewc0" -> Sequence[First @ Ewc0], MaxIterations -> 1000];
-		solPd = updateCoeffsPd[model["coeffsSolution"]["pd"], params, {}, solWc, Epd0j, MaxIterations -> 1000];
+		solWc=solveCoeffRoots[
+			  model["coeffsParamQuadSolve"]["wc"],
+			  params,
+			  {},
+			  newParams,
+			  solveCoeffRootsOpts
+			]["solRules"];
+		solPd=solveCoeffRoots[
+			  model["coeffsParamQuadSolve"]["pd"],
+			  params,
+			  {},
+			  Join[#,newParams],
+			  solveCoeffRootsOpts
+			]["solRules"] & /@ solWc;
 		solBond = updateCoeffsBond[model["coeffsSolution"]["bond"], params, {}, maxMaturity, solWc];
 		solNomBond = updateCoeffsBond[model["coeffsSolution"]["nombond"], params, {}, maxMaturity, solWc];
 		Flatten @ Join[solWc, solPd, solBond, solNomBond]

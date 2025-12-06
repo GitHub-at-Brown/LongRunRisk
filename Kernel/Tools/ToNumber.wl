@@ -92,7 +92,7 @@ toNumRules[
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 	With[{newParams=processNewParameters[newParameters,params]},
 		With[{allParams=Normal@Join[Association@params,Association@newParams]},
-			With[{sol=updateCoeffs[model,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,optsUpdateCoeffs]},
+			With[{sol=updateCoeffs[model,kernels,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,optsUpdateCoeffs]},
 				Join[
 					sol,
 					allParams,

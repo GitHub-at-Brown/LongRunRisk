@@ -201,7 +201,7 @@ processModels[
 	(* simplify Euler equations *)
 	models = EchoTiming[
 	  (
-	    Module[{m = #, simpl = simplifyCoeffsSystem[#, TimeConstraint -> {20,600}]},
+	    Module[{m = #, simpl = simplifyCoeffsSystem[#]},
 	      m[["coeffsSystem", "wc", 1, 2 ;; -1]] = simpl[[1]];
 	      m[["coeffsSystem", "pd", 1, 2 ;; -1]] = simpl[[2]];
 	      m
@@ -215,20 +215,28 @@ processModels[
 		Append[
 			#,
 			solveCoeffsSystem[#,
-				"PdEquations" -> OptionValue[solveCoeffsSystem, Flatten@{opts}, "PdEquations"],
-				TimeConstraint->{20,600}
+				"PdEquations" -> OptionValue[solveCoeffsSystem, Flatten@{opts}, "PdEquations"]
+				(*,
+				TimeConstraint->{20,600}*)
 			]
 		]&/@models,
 		"solveCoeffsSystem"
 	];
 
+	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
+	models = EchoTiming[
+		Append[
+			#,
+			"extraInfo" -> If[KeyExistsQ[modelsExtraInfo,#["shortname"]],modelsExtraInfo[#["shortname"]],<||>]
+		]& /@ models,
+		"extraInfo"
+	];
+	
 	models = EchoTiming[
 		With[{addCoeffsOpts = FilterRules[Flatten@{opts}, Options[addCoeffsSolution]]},
 			Append[
 				#,
 				"coeffsSolution" -> <|
-					"wc" -> addCoeffsSolution[#,"wc", Sequence @@ addCoeffsOpts],
-					"pd" -> addCoeffsSolution[#,"pd", Sequence @@ addCoeffsOpts],
 					"bond" -> addCoeffsSolution[#,"bond", Sequence @@ addCoeffsOpts],
 					"nombond" -> addCoeffsSolution[#,"nombond", Sequence @@ addCoeffsOpts]
 				|>
@@ -251,7 +259,7 @@ processModels[
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*createExogenous*)
 
 
@@ -459,7 +467,7 @@ addToStateVars[model_]:=With[
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*addCoeffsSystem*)
 
 
@@ -511,13 +519,21 @@ addCoeffsSystem[model_]:=Module[
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*simplifyCoeffsSystem*)
 
 
-simplifyCoeffsSystem[model_, opts : OptionsPattern[Simplify]]:=With[
+simplifyCoeffsSystem // Options = {
+	"SimplifyOptions" -> {TimeConstraint -> {5, 300}}
+};
+
+
+simplifyCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:=With[
 	{
-		simplifyOpts = FilterRules[{opts}, Options[Simplify]],
+		simplifyOpts = Flatten[{
+          Evaluate @ FilterRules[Flatten@{opts}, Options[Simplify]],
+          Evaluate @ OptionValue["SimplifyOptions"]
+        }],
 		modelCoeffsSys=model["coeffsSystem"]
 	},
 		With[
@@ -546,6 +562,7 @@ simplifyCoeffsSystem[model_, opts : OptionsPattern[Simplify]]:=With[
 
 solveCoeffsSystem // Options = {
 	"SimplifyOptions" -> {TimeConstraint -> {5, 300}},
+	"paramQuadSolveOptions" -> {},
 	"PdEquations" -> "B"  (* "B" | "AB" | "Both" - controls which pd equations to compute *)
 };
 
@@ -556,6 +573,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
           Evaluate @ FilterRules[Flatten@{opts}, Options[Simplify]],
           Evaluate @ OptionValue["SimplifyOptions"]
         }],
+        paramQuadSolveOpts=OptionValue["paramQuadSolveOptions"],
         modelCoeffsSys=model["coeffsSystem"]
 	},
 	With[
@@ -594,7 +612,8 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							"SignSymbol" -> Symbol[
 								"sign"<>SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc]
 							],
-							Assumptions->assumeA
+							Assumptions->assumeA,
+							Sequence @@ paramQuadSolveOpts
 						];
 						(*Echo[solA[[1]],"solA1"];*)
 						solB=paramQuadSolve[
@@ -603,7 +622,8 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							"SignSymbol" -> Symbol[
 								"sign"<>SymbolName[Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd]
 							],
-							Assumptions->assumeB
+							Assumptions->assumeB,
+							Sequence @@ paramQuadSolveOpts
 						];
 						If[FailureQ[solA] || FailureQ[solB],
 							Return["coeffsParamQuadSolve" -> $Failed, Module]
@@ -747,41 +767,24 @@ tryTransforms[
 (*addCoeffsSolution*)
 
 
-addCoeffsSolution::badextrainfo = "Closed-form coefficients from extra info did not validate; falling back to numerical solve.";
+addCoeffsSolution::badextrainfo = "Closed-form coefficients from extra info did not validate; falling back to all-numerical solve.";
 
 
 addCoeffsSolution[
 	model_,
-	ratio_String,
-	opts : OptionsPattern[{updateCoeffs, getStartingValues, FindRoot, RecurrenceTable}]]:=With[
+	ratio_String: "bond" | "nombond", 
+	opts : OptionsPattern[{updateCoeffs, RecurrenceTable}]]:=With[
 	{
 		cs = model["coeffsSystem"][ratio],
-		shortname = model["shortname"],
-		numStocks = model["numStocks"],
 		ratioUncondE=model["ratioUncondE"][ratio],
-		infoModel = model["extraInfo"],
-		paramQuadSol = model["coeffsParamQuadSolve"]
+		infoModel = model["extraInfo"]
 	},
 	With[
 		{
-			getStartingValuesOpts=FilterRules[Flatten[{opts}],Options[getStartingValues]],
-			findRootOpts=Sequence@@Flatten[{
-				Evaluate[
-					FilterRules[
-						Flatten@{opts},
-						Options[FindRoot]
-					]
-				],
-				Evaluate[
-					First@OptionValue[updateCoeffs,Flatten@{opts}, {"FindRootOptions"}]
-				],
-				Evaluate[
-					First@OptionValue[updateCoeffs, {"FindRootOptions"}]
-				]
-			}],
 			system=cs[[1]],
 			unknowns=cs[[2]],
-			n=If[StringMatchQ[ratio,"bond"|"nombond"],cs[[4]],Sequence[]],
+			ic = cs[[3]],
+			n=cs[[4]],
 			dependentParameters=Pick[model["parameters"],NumericQ/@Values@model["parameters"],False]
 		},
 		Module[
@@ -792,15 +795,15 @@ addCoeffsSolution[
 				notSolvedQ,
 				eq,
 				coefficientNames,
-				x,
-				coeffInfoSol
+				coeffInfoSol,
+				x
 			},
 			If[
-				(* coeffsParamQuadSolve has a solution for this ratio *)
-				KeyExistsQ[paramQuadSol, ratio] && KeyExistsQ[paramQuadSol[ratio], "Solution"]
+				(*infoModel has coefficients in closed form*)
+				KeyExistsQ[infoModel,"coeffs"] && KeyExistsQ[infoModel["coeffs"],ratio]
 				,
-				(* use the closed form to make the system of equations smaller *)
-				coeffInfo = paramQuadSol[ratio]["Solution"];
+				(*use the closed form to make the system of equations smaller*)
+				coeffInfo=infoModel["coeffs"][ratio];(*Join[infoModel["coeffs"][ratio],If[ratio==="wc",{},infoModel["coeffs"]["wc"]]];*)
 				solvedQ=Quiet[Simplify[#,Assumptions->n>=1 && Element[n,Integers],TimeConstraint->{5,15}]&/@(system[[2;;-1]]//.coeffInfo/.dependentParameters),Simplify::gtime];
 				notSolvedQ=Not/@(BooleanQ/@solvedQ);
 				If[
@@ -868,91 +871,17 @@ addCoeffsSolution[
 				(*solve entire system numerically*)
 				solveNumericQ = True;
 			](*If*);
-			x = If[
-				solveNumericQ,
-				(* solve entire system numerically *)
-				eq=system;
-				coefficientNames=unknowns;
-				coeffInfo = {};
-				If[
-					StringMatchQ[ratio,"wc"|"pd"],
-					createStartingPoint[
-						coefficientNames,
-						ratioUncondE,
-						False,(*stocksSolvedQ*)
-						numStocks,
-						infoModel,
-						getStartingValuesOpts
-					],
-					cs[[3]]
-				]
-				,
-				(* solve a subset of the system numerically, use closed form solution for the rest *)
-				If[
-					StringMatchQ[ratio,"wc"|"pd"],
-					createStartingPoint[
-						coefficientNames,
-						ratioUncondE,
-						False,(*stocksSolvedQ*)
-						numStocks,
-						infoModel,
-						getStartingValuesOpts
-					],
-					Flatten@{(First@(cs[[3]]))//.coeffInfo,Pick[Rest@(cs[[3]]),notSolvedQ]}
-				]
-			];
+			{eq, coefficientNames, x, coeffInfo} = If[
+		      solveNumericQ,
+		      (* solve entire system numerically *)
+		      {system, unknowns, ic, {}},
+		      (* solve subset numerically, use closed form for rest *)
+		      {eq, coefficientNames, Flatten@{(First@ic) //. coeffInfo, Pick[Rest@ic, notSolvedQ]}, coeffInfo}
+		    ];
 			coeffInfoSol = Normal@ReplaceRepeated[Association@coeffInfo,coeffInfo];
-			Switch[
-				ratio
-				,
-				"wc"
-				,
-				{
-					Inactive[MapThread][
-						Inactive[FindRoot][
-							Inactive[N][#1],
-							Inactive[N][#2],
-							Evaluate@findRootOpts
-						]&,
-						{{eq}, x}
-					],
-					coeffInfoSol
-				}
-				,
-				"pd"
-				,
-				With[
-					{
-						j=Last@Head@First@coefficientNames
-					},
-					Module[
-						{
-							checkFindRoot,
-							mapFindRoot,
-							dropTrue
-						},
-						checkFindRoot[x___]:= Quiet[Check[FindRoot[x],Nothing, {FindRoot::reged}],{FindRoot::reged}];
-						mapFindRoot[x1_,x2_,x3___]:=checkFindRoot[x1,#,x3]&/@x2;
-						dropTrue[expr_]:=Select[expr,Not[TrueQ[#]]&];
-						{
-							Inactive[MapThread][
-								Inactive[mapFindRoot][
-									Inactive[dropTrue][Inactive[N][#1]],
-									Inactive[N][#2],
-									Evaluate@findRootOpts
-								]&,
-								{eq  /. ({j->#}&/@Range[numStocks]), x}
-							],
-							coeffInfoSol /. ({j->#}&/@Range[numStocks])
-						}
-					]
-				](*With*)
-				,
-				"nombond"|"bond"
-				,
-				With[
+			With[
 					{						
-(*						P =(First@unknowns)[[0,0]],*)
+						(*P =(First@unknowns)[[0,0]],*)
 						remainingUnknowns=Complement[unknowns,coefficientNames]
 					},
 					With[
@@ -973,7 +902,7 @@ addCoeffsSolution[
 								solInfo
 							},
 							posConstantCoeff=Position[eq,_?(FreeQ[#,n-1]&),1,Heads->False];
-							perturbation=If[posConstantCoeff==={},0,10^(-18)*(First@Extract[coefficientNames,posConstantCoeff]/.(n->n-1))];
+							perturbation=If[posConstantCoeff==={},0,$MachineEpsilon*(First@Extract[coefficientNames,posConstantCoeff]/.(n->n-1))];
 							bondRecursionPerturbation=MapAt[(#/.(Equal[a_,b_]:>Equal[a,b+perturbation])&),eq,posConstantCoeff];
 							solBondNum[maxMaturity_]:=Inactive[RecurrenceTable][
 								Flatten[
@@ -987,7 +916,7 @@ addCoeffsSolution[
 								recurrenceTableOpts
 							];					
 							solNum[maxMaturity_]:=With[{coefficientNamesLocal=coefficientNames},Inactive[MapIndexed][Inactive[Thread][(coefficientNamesLocal/.n->(First@#2-1))->#1]&,solBondNum[maxMaturity]]];
-							solInfo[maxMaturity_]:= If[remainingUnknowns==={},Inactive[ConstantArray][{},maxMaturity+1],Inactive[Prepend][Inactive[Table][Inactive[Thread][remainingUnknowns->(remainingUnknowns/.coeffInfoSol)]/.n->m,{m,1,maxMaturity}],Complement[cs[[3]],x]/.Equal->Rule]];
+							solInfo[maxMaturity_]:= If[remainingUnknowns==={},Inactive[ConstantArray][{},maxMaturity+1],Inactive[Prepend][Inactive[Table][Inactive[Thread][remainingUnknowns->(remainingUnknowns/.coeffInfoSol)]/.n->m,{m,1,maxMaturity}],Complement[ic,x]/.Equal->Rule]];
 							{
 								maxMaturity|->Evaluate@solNum[maxMaturity],
 								maxMaturity|->Evaluate@solInfo[maxMaturity]
@@ -995,330 +924,8 @@ addCoeffsSolution[
 						](*Module*)
 					](*With*)
 				](*With*)
-			](*Switch*)
-		](*Module*)
-	](*Which*)
-](*Which*)
-
-
-(* ::Subsubsection:: *)
-(*createStartingPoint*)
-
-
-createStartingPoint::coeffswc = "infoModel[\"modelAssumptions\"] requires values of the wealth-consumption ratio
-coefficients to be provided as an association with key \"coeffsSolution\" in opts, e.g., 
-opts={ \"coeffsSolution\"-> <|\"wc\"-> {A[0]\[Rule]4.59,A[1],...}|>}";
-
-
-createStartingPoint[
-	coefficientNames_,
-	ratioUncondE_,
-	stocksSolvedQ:_?BooleanQ:False,
-	numStocks_Integer:1,
-	infoModel_Association:<||>,
-	opts : OptionsPattern[{getStartingValues}]
-]:=With[
-	{
-		ratio = If[FreeQ[coefficientNames,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc],"pd","wc"]
-	},
-	With[
-		{
-			iEv = "E"<>ratio,
-			startValues=formatStartingValues[
-				coefficientNames,
-				ratioUncondE,
-				stocksSolvedQ,
-				numStocks,
-				infoModel,
-				FilterRules[Flatten@{opts},Options[getStartingValues]]
-			]
-		},		
-		Module[{out},
-			Catch[
-				With[
-					{
-						dimStartValues=Dimensions@startValues
-					},
-					If[
-						StringMatchQ[ratio,"pd"] && (*createStartingPoints for stocks*)
-						Not[stocksSolvedQ] &&  (*"stocksSolvedQ" is used as an internal state that indicates createStartingPoint has already been run for stocks*)
-						MatchQ[ First@dimStartValues, numStocks] && MatchQ[Length@coefficientNames, dimStartValues[[2]]] (*dimensions of startValues are correct*)
-						,
-						out=With[
-							{
-								j=Last@Head@First@coefficientNames
-							},
-							MapIndexed[
-								createStartingPoint[
-									coefficientNames /. j -> (First@#2),
-									ratioUncondE /. j -> (First@#2),
-									True,(*stocksSolvedQ=True*)
-									numStocks,
-									infoModel /. j -> (First@#2),
-									{"initialGuess" -> <|"Epd" -> Take[#1,1,-1] |>, "stocksSolvedQ" -> True}
-								]&,
-								startValues
-							](*MapIndexed*)
-						];(*With*)
-						Throw[out];
-					];(*If*)
-				];(*With*)		
-				With[
-					{
-						guessFirst = (Flatten@First@startValues)/.x_Symbol?(MatchQ[SymbolName[#],"Epd0"]&):>x[Last@Head@First@coefficientNames],
-						restStartValues=Rest@startValues
-					},
-					With[
-						{
-							guessFirstValues = Rest@guessFirst,
-							coeff0 = First@coefficientNames
-						},
-						Module[
-							{
-								boundsGuess0,
-								boundsInfo0,
-								bounds0,
-								guess0,
-								lb,
-								ub,
-								intervals0
-							},
-							boundsGuess0=Switch[
-								Length[guessFirstValues],
-								1, True,
-								2, Inequality[guessFirstValues[[1]],LessEqual,coeff0,LessEqual,guessFirstValues[[2]]],
-								3, Inequality[guessFirstValues[[2]],LessEqual,coeff0,LessEqual,guessFirstValues[[3]]]
-							];		
-							(*combine with assumptions*)	
-							boundsInfo0=If[
-								KeyExistsQ[infoModel,"modelAssumptions"] && KeyExistsQ[infoModel["modelAssumptions"],iEv]
-								,
-								infoModel["modelAssumptions"][iEv]
-								,
-								True
-							];
-							bounds0= Inactive[Reduce][Inactive[Simplify][boundsGuess0 && boundsInfo0 && 0 < coeff0 < 15], coeff0, Reals];
-							intervals0= With[
-								{
-									coeff0Local=coeff0,
-									fv=First@guessFirstValues,
-									intervalPattern=Alternatives@@((Inequality[lb_?NumberQ,#[[1]],coeff0,#[[2]], ub_?NumberQ])&/@Tuples[{Less,LessEqual},2])
-								},
-								Inactive[Cases][bounds0,intervalPattern :> {coeff0Local,Inactive[If][Inactive[TrueQ][lb<=fv<=ub],fv,(lb+ub)/2],lb,ub},{0,1}]
-							];
-							guess0=Inactive[If][
-								Inactive[SameQ][{}, intervals0],
-								(*if assumptions do not give an interval, use provided initial guess*)
-								{guessFirst},
-								(*if assumptions do give an interval, use it*)
-								intervals0
-							];
-							With[{restStartValuesLocal=restStartValues},Inactive[Map][Join[{#},restStartValues]&, guess0]]
-						](*Module*)
-					](*With*)
-				](*With*)
-			](*Catch*)
-		](*Module for stocks*)
-	](*With*)
-](*With*)
-
-
-(* ::Subsubsection:: *)
-(*formatStartingValues*)
-
-
-formatStartingValues::badformat = "The format of `1` for starting points is incorrect. Try setting starting points using the optional argument {\"initialGuess\" -> \[LeftAssociation]\"Ewc\"\[Rule]{4.5},\"Epd\"\[Rule]{{4.5}}\[RightAssociation]}.";
-
-
-formatStartingValues[
-	coefficientNames_List,
-	ratioUncondE_,
-	stocksSolvedQ:_?BooleanQ:False,
-	numStocks_Integer:1,
-	Longest[infoModel_Association:<||>],
-	opts : OptionsPattern[{getStartingValues}]
-]:=With[
-	{
-		ratio = If[FreeQ[coefficientNames,FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc],"pd","wc"],
-		pattern1 = (VectorQ[#(*,NumberQ*)] && 1<=Length[#]<=3)&,
-		pattern2 = { {_?(Not@NumberQ[#]&),Repeated[_(*?NumberQ*),{1,3}]}..}
-	},
-	With[
-		{
-			pattern3 = (ListQ[#] && pattern1[First@#] && MatchQ[Rest@#, {} | pattern2])&
-		},
-		Module[
-			{
-				ig = getStartingValues[ratio,infoModel,opts]
-			},
-			(*if user provided a single set of starting values but there are more stocks, use the same starting value for all stocks*)
-			ig = If[
-					(ratio==="pd") && (numStocks>(First@(Dimensions@ig))) && (Not@stocksSolvedQ),
-					ConstantArray[First@ig,numStocks],
-					ig
-				];
-			Module[{out},
-				Catch[
-					If[
-						StringMatchQ[ratio,"pd"] && 
-						Not[stocksSolvedQ] && (*"stocksSolvedQ" is used as an internal state that indicates formatStartingValues has already been run for stocks*)
-						And@@((pattern1[#] || (ListQ[#] && MatchQ[#, pattern2]) || pattern3[#])& /@ig) (*dimensions are correct*)
-						,
-						out=With[
-							{
-								j=Last@Head@First@coefficientNames
-							},
-							MapIndexed[
-								formatStartingValues[
-									coefficientNames /. (j -> (First@#2)), 
-									ratioUncondE /. (j -> (First@#2)),
-									True,(*stocksSolvedQ*)
-									numStocks,
-									infoModel/. (j -> (First@#2)),
-									{"initialGuess" -> <|"Epd" -> {#1}|>}
-								]&,ig
-							]
-						];
-						Throw[out];
-					];
-					With[
-						{
-							firstIg = First@ig,
-							restIg = Rest@ig
-						},
-						With[
-							{
-								firstNames = First@coefficientNames,
-								restNames = Rest@coefficientNames
-							},
-							Which[
-								(*a number or a vector of up to three elements*)
-								(*NumberQ[ig] || (VectorQ[ig,NumberQ] && 1<=Length[ig]<=3)*)
-								NumberQ[ig] || pattern1[ig]
-								,
-								(*wrap ig in list, add zeros for all other variables*)
-								If[
-									Length[ig]===2,
-									Join[{Flatten@{firstNames,Mean@ig,ig}},Thread[{#,0}]&/@restNames],
-									Join[{Flatten@{firstNames,ig}},Thread[{#,0}]&/@restNames]
-								]
-								,
-								(*a list of lists, with sublists having 1 to 3 numbers as their last entries*)
-								(*ListQ[ig] && MatchQ[ig, { {_?(Not@NumberQ[#]&),Repeated[_?NumberQ,{1,3}]}..}]*)
-								ListQ[ig] && MatchQ[ig, pattern2]
-								,
-								(*reformat to only include coefficients that are being solved for and fix the context of the coefficients if needed*)
-								Join[{Flatten@{firstNames,Rest@(firstIg)}},formatStartingValuesRest[restIg,restNames]]
-								,
-								(*ListQ[ig] && (NumberQ[firstIg]||(VectorQ[firstIg,NumberQ]&&1<=Length[firstIg]<=3))  &&  MatchQ[restIg, {} | { {_?(Not@NumberQ[#]&),Repeated[_?NumberQ,{1,3}]}..}]*)
-								pattern3[ig]
-								,
-								Module[
-									{
-										guessRest,
-										guessRules,
-										guessFirst,
-										keys,
-										values,
-										uncondERatio
-									},
-									guessRest=formatStartingValuesRest[restIg,restNames];
-									guessRules = MapThread[#1 -> If[Length[#2]==2,Mean[#2],#2[[1]]]&,{First/@guessRest,Rest/@guessRest}];
-									guessFirst=Solve[(ratioUncondE/.guessRules)==uncondERatio,firstNames,Reals];
-									keys = Keys[guessFirst];
-									values = Switch[
-										Length[firstIg],
-										1,
-											Values@(guessFirst/.uncondERatio->First@firstIg),
-										2,
-											Join[Values@(guessFirst/.uncondERatio->Mean@firstIg),Sort@@@(Values@(guessFirst/.(uncondERatio->(firstIg)))),2],
-										3,
-											Join[Values@(guessFirst/.uncondERatio->First@firstIg),Sort@@@(Values@(guessFirst/.(uncondERatio->(Rest@firstIg)))),2]
-									];
-									Join[Join[keys,values,2],guessRest]
-								](*Module*)
-								,
-								(*all other cases*)
-								True
-								,
-								(Message[formatStartingValues::badformat,ig]; Abort[])
-							](*Which*)
-						](*With*)
-					](*With*)
-				](*Catch for stocks*)
-			](*Module for stocks*)
 		](*Module*)
 	](*With*)
-](*With*)
-
-
-
-(* ::Subsubsection:: *)
-(*formatStartingValuesRest*)
-
-
-formatStartingValuesRest[startingValuesRest_,coefficientNamesRest_List]:=Module[
-	{
-		all,
-		guess,
-		inter,
-		overlapAll,
-		overlapGuess,
-		overlapNames,
-		noOverlapNames,
-		noOverlapNamesGuess,
-		overlapNamesGuess
-	},
-	all=ReplaceAll[coefficientNamesRest, ( a_[j__] | a_)[ind_] :> {SymbolName@a,If[j===Sequence ,Nothing,Switch[ Head[j],Symbol,SymbolName@j,Integer,IntegerString@j,_,ToString@j]],ind}];
-	guess=Replace[First/@startingValuesRest, ( a_[j__] | a_)[ind_] :> {SymbolName@a,If[j===Sequence ,Nothing,Switch[ Head[j],Symbol,SymbolName@j,Integer,IntegerString@j,_,ToString@j]],ind},{1}];
-	inter=Intersection[all,guess];
-	overlapAll=PositionIndex[all][#]&/@(Keys@PositionIndex[inter]);
-	overlapGuess=PositionIndex[guess][#]&/@(Keys@PositionIndex[inter]);
-	overlapNames=Extract[coefficientNamesRest,overlapAll];
-	noOverlapNames = Complement[coefficientNamesRest,overlapNames];
-	noOverlapNamesGuess=Thread[{#,0}]&/@noOverlapNames;
-	overlapNamesGuess=MapIndexed[Join[overlapNames[[#2]],Rest@#1]&,Extract[startingValuesRest,overlapGuess]];
-	SortBy[Join[overlapNamesGuess,noOverlapNamesGuess],First]
-]
-
-
-(* ::Subsubsection:: *)
-(*getStartingValues*)
-
-
-getStartingValues//Options={
-	"initialGuess" -> <|"Ewc"->{4},"Epd"->{{4}}|>
-};
-
-
-getStartingValues[
-	ratio_String,
-	infoModel_Association:<||>,
-	opts : OptionsPattern[{getStartingValues}]
-]:=With[
-	{
-		iEv = "E"<>ratio,
-		ig = First@OptionValue[getStartingValues,Flatten@{opts},{"initialGuess"}]
-	},
-	(*get initial guess from the places where it can be provided*)
-	Which[
-		(*optional argument in function call or default option, but only if non-empty*)
-		And[
-				KeyExistsQ[ig,iEv],
-				Not[SameQ[ig,{}]] || Not[SameQ[ig[iEv],{}]]
-		](*And*)
-		,
-		ig[iEv]
-		,
-		(* model["extraInfo"]["initialGuess"] if available *)
-		KeyExistsQ[infoModel,"initialGuess"] && KeyExistsQ[infoModel["initialGuess"],iEv]
-		,
-		infoModel["initialGuess"][iEv],
-		(* default *)
-		True
-		,
-		Switch[ratio,"wc",{4},"pd",{{4}}]
-	](*Which*)
 ](*With*)
 
 

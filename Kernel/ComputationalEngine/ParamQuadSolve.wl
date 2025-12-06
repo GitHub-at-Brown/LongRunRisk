@@ -255,7 +255,12 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         out = <|
           "Solution" -> Sort@solRulesDesym,
           "SignRootMap" -> signRootMapDesym,
-          "CoeffMap" -> coeffMap,
+          "Maps" -> <|
+		          "Solution" -> solRules,
+		          "SignRootMap" -> signRootMap,
+		          "SignRadicandMap" -> signRadMap,
+		          "CoeffMap" -> coeffMap
+	          |>,
           "Conditions" -> conditions,
           "Assumptions" -> fullAss,
           "Verification" -> verif,
@@ -691,7 +696,7 @@ simplifySquareRoot[radicand_, transforms_List /; VectorQ[transforms, ListQ], ass
   ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*simplifySignMap*)
 
 
@@ -751,7 +756,7 @@ normalizeSigns[expr_, signHead_Symbol] := Module[{rules},
   ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*sequentialSolve*)
 
 
