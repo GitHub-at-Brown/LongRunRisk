@@ -14,8 +14,8 @@ Get[filename];     (* restores $SavedKernel *)
 kernel = $SavedKernel;
 
 (* bind params/signs and use *)
-{f, df} = bindUnary[kernel, paramsAssoc, signs];
-iv = findRootInterval[condA, paramsAssoc, signs];
+{f, df} = bindUnary[kernel, paramsAssoc, "Signs" -> signs];
+iv = findRootInterval[condA, paramsAssoc, "Signs" -> signs];
 {L, U} =  {Min@iv,Max@iv};
 root = FindRoot[f[z], {z, (L+U)/2., L, U}] /. z -> A[0];
 
@@ -50,10 +50,10 @@ scanAndSolve[(Cos[#] - #) &, {0., 3.}, 64, 8]
 
   ClearAll[kernel,fC,dFC,f,df,iv,L,U]
   kernel = buildKernel[expr, param, CompilationTarget -> "C"];
-  {fC, dfC} = bindUnary[kernel, params, signs];
+  {fC, dfC} = bindUnary[kernel, params, "Signs" -> signs];
   f[x_?NumericQ]  := fC[x];
   df[x_?NumericQ] := dfC[x];
-  iv = findRootInterval[condA, params, signs];
+  iv = findRootInterval[condA, params, "Signs" -> signs];
   If[iv === $Failed, Return[$Failed]];
   {L, U} = {N@Min@iv, N@Max@iv};
   {f[L],f[U-0.01],df[L],df[U-0.01]}
@@ -101,9 +101,9 @@ EnsureKernelFile[
 
 
 {kernel, file} = EnsureKernelFile[expr, param, Automatic, CompilationTarget -> "C"];
-{f, df}   = bindUnary[kernel, paramsAssoc, signs];
+{f, df}   = bindUnary[kernel, paramsAssoc, "Signs" -> signs];
 
-iv = findRootInterval[condA, paramsAssoc, signs];
+iv = findRootInterval[condA, paramsAssoc, "Signs" -> signs];
 {L, U} = iv[[1]];
 FindRoot[f[z] == 0, {z, (L + U)/2., L, U}, Method -> "Secant"]
 

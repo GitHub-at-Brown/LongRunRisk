@@ -54,8 +54,8 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 (* Step 1: safeReduceCall - wraps findRootInterval with timeout for nD *)
 safeReduceCall[conds_, paramsAll_, signs_, cName_, sName_, findOpts_, timeout_] :=
   TimeConstrained[
-    findRootInterval[conds, paramsAll, signs,
-      "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts],
+    findRootInterval[conds, paramsAll,
+      "Signs" -> signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts],
     timeout,
     $Failed
   ];
@@ -449,7 +449,7 @@ checkCoeffs[type_String, model_, sol_, params_, newParams_,
 (*updateCoeffsWcPd*)
 
 
-  updateCoeffsWcPd[key_: "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, params_Association, newParams_Association, rootSignsNorm_, rootSigns_,
+  updateCoeffsWcPd[key: "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, params_Association, newParams_Association, rootSignsNorm_, rootSigns_,
   solveCoeffRootsOpts_] :=
     With[{kernelKey = <|"wc" -> "A", "pd" -> "B"|>[key]},
       Module[{solAll},
@@ -703,7 +703,7 @@ solveCoeffRoots[
           ]
         },
         Module[{f, df, reduceExpr, intervals, roots, sol0Rules, sol, solRules, signHead, signsRule, jRule, bindResult},
-          bindResult = bindUnary[savedKernel, paramsAll, signs];
+          bindResult = bindUnary[savedKernel, paramsAll, "Signs" -> signs];
           If[bindResult === $Failed, Return[$Failed, Module]];
           {f, df} = bindResult;
 
@@ -719,7 +719,7 @@ solveCoeffRoots[
           ];
 
           (* 1D *)
-          reduceExpr = findRootInterval[conds, paramsAll, signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts];
+          reduceExpr = findRootInterval[conds, paramsAll, "Signs" -> signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts];
           intervals  = extractIntervalsFromReduce[reduceExpr, coefList, Sequence @@ extractOpts];
           roots = (scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals);
           

@@ -30,12 +30,13 @@ vars: the coefficient variables (e.g., {A[0]}) to solve for.
 params: the parameter symbols present in expr.
 Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"PerformanceGoal\" (\"Quality\" | \"Speed\"; Speed uses WVM with OptimizationLevel 0).
 Returns an Association with keys: \"fC\", \"dfC\", \"Vars\", \"ParamOrder\", \"SignIndex\", \"CoeffName\", \"SignSymbol\".";
-bindUnary::usage   = "bindUnary[kernel, paramValues, signs] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.";
+bindUnary::usage   = "bindUnary[kernel, paramValues] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.
+Options: \"Signs\" (default {}).";
 bindUnary::insufficientsigns = "Expected at least `1` sign values, but got `2`.";
 bindUnary::toomanyigns = "Expected exactly `1` sign values, but got `2`.";
-findRootInterval::usage  = "findRootInterval[conds, paramValues, signs] returns a Reduce expression constraining the root variable.
+findRootInterval::usage  = "findRootInterval[conds, paramValues] returns a Reduce expression constraining the root variable.
 Pass the result to extractIntervalsFromReduce to obtain numeric intervals.
-Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\").";
+Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"Signs\" (default {}).";
 extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.
 Options: \"InteriorShrink\" (default 0.001), \"RootUpperBound\" (default 15).";
 scanAndSolve::usage = "scanAndSolve[f, {min, max}] finds roots of f[x] in the range by grid subdivision.
@@ -359,12 +360,19 @@ buildKernel[
 (*bindUnary*)
 
 
+bindUnary // Options = {
+	"Signs" -> {}
+};
+
+
 (* bind: feed scalars to the scalar-args kernel *)
 bindUnary[
-	k_Association, 
-	paramValues_Association, 
-	signs_List:{}
-] := Module[
+	k_Association,
+	paramValues_Association,
+	opts : OptionsPattern[{bindUnary}]
+] := With[
+  {signs = OptionValue["Signs"]},
+  Module[
   {paramsj, paramOrder, a, s, idx = k["SignIndex"], maxIdx},
   
   (*if j present as Key in paramValues, find its associated value*)
@@ -412,7 +420,7 @@ bindUnary[
 		  }
 	   ]
    ]
-];
+]];  (* Close outer With *)
 
 
 (* ::Subsection:: *)
@@ -425,19 +433,20 @@ findRootInterval::nocoeff = "Could not locate a root variable for coefficient he
 
 findRootInterval//Options = {
     "CoeffName" -> "A",
-    "SignSymbol" -> "signA"
+    "SignSymbol" -> "signA",
+    "Signs" -> {}
 };
 
 
 findRootInterval[
 	conds_,
 	paramValues_Association,
-	signs_List : {},
 	opts : OptionsPattern[{findRootInterval}]
 ] := With[
   {
     coeffName = OptionValue["CoeffName"],
-    signSym = OptionValue["SignSymbol"]
+    signSym = OptionValue["SignSymbol"],
+    signs = OptionValue["Signs"]
   },
   Module[
     {condExpr, condNorm, ineq, red, rootVar, signHead,
@@ -654,7 +663,7 @@ validateRoot[f_, x_, acc_: 8] := Module[
 tryNewton1D[fnum_, dfnum_, var_, x0_, lb_, ub_, findRootOpts_] := Module[
   {spec, eq},
   spec = If[lb === None, {var, x0}, {var, x0, lb, ub}];
-  eq = fnum[var] == 0.;
+  eq = (fnum[var] == 0.);
   Quiet @ Check[
     FindRoot[eq, spec, Method -> "Newton", Jacobian -> dfnum[var],
       Evaluate[Sequence @@ findRootOpts]],
@@ -756,7 +765,7 @@ tryDefaultFindRoot[fnum_, var_, vars_, x0_, lb_, ub_, dim_, findRootOpts_] := Mo
   {spec, eq},
   If[dim == 1,
     spec = If[lb === None, {var, x0}, {var, x0, lb, ub}];
-    eq = fnum[var] == 0.;
+    eq = (fnum[var] == 0.);
     Quiet @ Check[FindRoot[eq, spec, Evaluate[Sequence @@ findRootOpts]], $Failed],
     spec = If[lb === None,
       MapThread[{#1, #2} &, {vars, x0}],
