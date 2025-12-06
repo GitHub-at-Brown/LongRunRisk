@@ -38,6 +38,11 @@ Begin["`Private`"];
 
 
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+
+(* Import A and B symbols from the correct context *)
+A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A;
+B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B;
 
 
 (* ::Subsection:: *)
