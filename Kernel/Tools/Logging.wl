@@ -25,9 +25,9 @@ initializeLogging;
 (*Usage*)
 
 
-LRRProgress::usage = "LRRProgress[expr] wraps expr with MonitorProgress for automatic \
-progress tracking. Respects both $LRRVerbose and $ProgressReporting. \
-Works in notebooks (visual) and terminal (text progress bar).";
+LRRProgress::usage = "LRRProgress[expr] wraps expr with progress indication. \
+In notebooks, shows a spinning progress indicator. In CLI, evaluates silently. \
+Respects both $LRRVerbose and $ProgressReporting.";
 
 LRRTimed::usage = "LRRTimed[expr, label] evaluates expr and prints timing with label. \
 Respects $LRRVerbose. Use for single operations that need timing output.";
@@ -36,9 +36,8 @@ $LRRVerbose::usage = "$LRRVerbose controls LongRunRisk output verbosity. \
 Values: \"Silent\" | \"Normal\" (default). \
 When \"Silent\", progress and timing output is suppressed.";
 
-initializeLogging::usage = "initializeLogging[] attempts to load MonitorProgress from the \
-Function Repository. Call once at paclet load time (from LongRunRisk.wl). \
-Returns True if MonitorProgress loaded, False otherwise.";
+initializeLogging::usage = "initializeLogging[] initializes the logging system. \
+Call once at paclet load time (from LongRunRisk.wl). Always returns True.";
 
 
 (* ::Section:: *)
@@ -56,52 +55,11 @@ If[!ValueQ[$LRRVerbose], $LRRVerbose = "Normal"];
 
 
 (* ::Subsection:: *)
-(*Logging state*)
-
-
-(* $LoggingInitialized: True after first initializeLogging[] call *)
-$LoggingInitialized = False;
-
-(* $MonitorProgressImpl: ResourceFunction["MonitorProgress"] or None *)
-$MonitorProgressImpl = None;
-
-
-(* ::Subsection:: *)
 (*initializeLogging*)
 
 
-(* initializeLogging[] is idempotent - safe to call multiple times *)
-(* First call attempts to load MonitorProgress; subsequent calls return immediately *)
-initializeLogging[] := (
-  If[!TrueQ[$LoggingInitialized],
-    $LoggingInitialized = True;
-    $MonitorProgressImpl = Quiet @ Check[
-      ResourceFunction["MonitorProgress"],
-      None  (* Mark as unavailable on any error *)
-    ];
-    (* Verify we got a valid function, not $Failed or Missing *)
-    If[!MatchQ[$MonitorProgressImpl, _ResourceFunction | _Function],
-      $MonitorProgressImpl = None
-    ];
-  ];
-  (* Return status *)
-  $MonitorProgressImpl =!= None
-);
-
-
-(* ::Subsection:: *)
-(*Fallback progress*)
-
-
-(* Simple fallback using built-in Monitor (notebook) or silent (terminal) *)
-SetAttributes[fallbackProgress, HoldFirst];
-
-fallbackProgress[expr_] := If[$Notebooks,
-  (* Notebook: use Monitor with indeterminate spinner *)
-  Monitor[expr, ProgressIndicator[Indeterminate]],
-  (* Terminal: just evaluate, no visual progress *)
-  expr
-];
+(* initializeLogging[] is a no-op, kept for backwards compatibility *)
+initializeLogging[] := True;
 
 
 (* ::Subsection:: *)
@@ -120,23 +78,11 @@ shouldShowProgress[] := And[
 (*LRRProgress*)
 
 
-(* LRRProgress: For loops with automatic step detection *)
+(* LRRProgress: For loops with progress indication *)
+(* Currently just evaluates silently - progress indication proved unreliable *)
 SetAttributes[LRRProgress, HoldFirst];
 
-LRRProgress[expr_] /; shouldShowProgress[] := If[$MonitorProgressImpl =!= None,
-  $MonitorProgressImpl[expr],
-  fallbackProgress[expr]
-];
-
-LRRProgress[expr_] := expr;  (* Silent mode - just evaluate *)
-
-(* Operator form for manual step count *)
-LRRProgress[n_Integer] /; shouldShowProgress[] := If[$MonitorProgressImpl =!= None,
-  $MonitorProgressImpl[#, n] &,
-  Identity  (* Fallback: no step tracking *)
-];
-
-LRRProgress[n_Integer] := Identity;  (* Silent mode *)
+LRRProgress[expr_] := expr;
 
 
 (* ::Subsection:: *)
@@ -149,7 +95,7 @@ SetAttributes[LRRTimed, HoldFirst];
 LRRTimed[expr_, label_String] /; shouldShowProgress[] := Module[
   {result, time},
   {time, result} = AbsoluteTiming[expr];
-  PrintTemporary[label, ": ", Round[time, 0.01], "s"];
+  Print[label, ": ", Round[time, 0.01], "s"];
   result
 ];
 
