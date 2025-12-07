@@ -56,8 +56,6 @@ fastRoot::noautox0 = "Cannot compute automatic starting point without bounds.";
 fastRoot::compiled = "Function is a CompiledCodeFunction; Newton+Jacobian unavailable, using fallback.";
 fastRoot::baddim = "Inconsistent dimensions in spec: `1`.";
 createCompiledEq::usage = "createCompiledEq[model, dir] compiles model equations to dir/{shortname}.mx. Returns file path on success.";
-createCompiledEq::cachehit = "cache hit for model `1`; skipping compilation.";
-createCompiledEq::compiling = "compiling model `1`; this may take a long time.";
 buildEqMapFromModel::usage = "buildEqMapFromModel[model] extracts the equation map from a processed model for use in compilation and hash validation.";
 
 
@@ -1491,13 +1489,13 @@ Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
 			savedHash = savedData["meta"]["Hash"];
 			savedSystemID = savedData["meta"]["SystemID"];
 			If[savedHash === currentHash && savedSystemID === $SystemID,
-				Message[createCompiledEq::cachehit, shortname];
+				PrintTemporary["createCompiledEq: cache hit for model ", shortname, "; skipping compilation."];
 				Return[file]
 			]
 		]
 	];
 
-	Message[createCompiledEq::compiling, shortname];
+	PrintTemporary["createCompiledEq: compiling model ", shortname, "; this may take a long time."];
 
 	kernels = Association @ Table[
 		eq -> buildKernel[
