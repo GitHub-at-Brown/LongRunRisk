@@ -172,22 +172,29 @@ keyCoeffsGrid[bundles_List, numStocks_Integer] := Module[
         {i, Length[bundles]}
     ];
 
-    (* Wrap in scrollable Pane for many bundles *)
-    Pane[
-        Grid[
-            Join[{headerRow}, dataRows],
-            Alignment -> {Center, Center},
-            Spacings -> {1.5, 0.5},
-            Frame -> All,
-            FrameStyle -> GrayLevel[0.7],
-            Background -> {
-                None,
-                Join[{LightGray}, Table[If[OddQ[i], White, GrayLevel[0.97]], {i, Length[bundles]}]]
-            },
-            ItemStyle -> {Automatic, {Directive[Bold]}}
+    (* Wrap in scrollable Pane matching coefficient panel height exactly *)
+    Framed[
+        Pane[
+            Grid[
+                Join[{headerRow}, dataRows],
+                Alignment -> {Center, Center},
+                Spacings -> {1.5, 0.5},
+                Frame -> All,
+                FrameStyle -> GrayLevel[0.7],
+                Background -> {
+                    None,
+                    Join[{LightGray}, Table[If[OddQ[i], White, GrayLevel[0.97]], {i, Length[bundles]}]]
+                },
+                ItemStyle -> {Automatic, {Directive[Bold]}}
+            ],
+            ImageSize -> {Automatic, $coeffPanelHeight - 22},
+            Scrollbars -> {False, Automatic},
+            Alignment -> {Left, Top}
         ],
-        ImageSize -> {Automatic, Min[400, 30 * Length[bundles] + 40]},
-        Scrollbars -> {False, Automatic}
+        FrameStyle -> GrayLevel[0.8],
+        Background -> GrayLevel[0.98],
+        FrameMargins -> 10,
+        ImageSize -> {Automatic, $coeffPanelHeight}
     ]
 ];
 
@@ -384,38 +391,35 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
 (*Bundle details section*)
 
 
-bundleDetails[results_List] := DynamicModule[{bundles, numBundles, solutionItems, numCols = 2},
+(* Width per solution item for column calculation *)
+$solutionItemWidth = 300;
+
+bundleDetails[results_List] := Module[{bundles, numBundles, solutionItems},
     bundles = extractBundles[results];
     numBundles = Length[bundles];
 
-    (* Create individual solution items *)
+    (* Create individual solution items with fixed width and aligned tops *)
     solutionItems = Table[
-        OpenerView[{
-            Style["Solution " <> ToString[i], Bold],
-            formatBundleDetail[bundles[[i]], results, i]
-        }, False],
+        Pane[
+            OpenerView[{
+                Style["Solution " <> ToString[i], Bold],
+                formatBundleDetail[bundles[[i]], results, i]
+            }, False],
+            ImageSize -> {$solutionItemWidth - 20, Automatic},
+            Alignment -> {Left, Top}
+        ],
         {i, numBundles}
     ];
 
     OpenerView[{
         Style["Solution Details (Signs, All Coefficients)", Bold],
-        Column[{
-            (* Column selector *)
-            Row[{
-                "Columns: ",
-                Slider[Dynamic[numCols], {1, Min[6, numBundles], 1}, ImageSize -> 100],
-                Dynamic[" " <> ToString[Round[numCols]]]
-            }],
-            Spacer[5],
-            (* Grid with dynamic number of columns *)
-            Dynamic[
-                Grid[
-                    Partition[solutionItems, UpTo[Max[1, Round[numCols]]]],
-                    Alignment -> {Left, Top},
-                    Spacings -> {2, 1}
-                ]
-            ]
-        }]
+        (* Resizable pane with wrapping row *)
+        Pane[
+            Row[solutionItems, Spacer[10], Alignment -> Top],
+            ImageSize -> {{300, Full}, {200, Full}},
+            Scrollbars -> Automatic,
+            AppearanceElements -> {"ResizeArea"}
+        ]
     }, False]
 ];
 
@@ -478,11 +482,11 @@ visualizeCoeffs[results_List, opts : OptionsPattern[]] := Module[
         Return[Style["No solutions found.", Italic, Red]]
     ];
 
-    (* Build key coefficients panel *)
+    (* Build key coefficients panel - Spacings -> 1 matches coeffSelector *)
     keyCoeffsPanel = Column[{
         Style["Key Coefficients (A[0], B[j][0])", Bold, 12],
         keyCoeffsGrid[bundles, numStocks]
-    }, Spacings -> 0.5];
+    }, Spacings -> 1];
 
     (* Build elements list *)
     elements = {
