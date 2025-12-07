@@ -862,6 +862,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		(* Phase 1: Symbolic processing *)
 		Do[
 			shortname = catalogModels[modelKey]["shortname"];
+			PrintTemporary["Processing model ", shortname, "..."];
 
 			(* run symbolic processing *)
 			model = First @ Values @ FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
