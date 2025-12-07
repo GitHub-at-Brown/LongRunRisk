@@ -43,6 +43,7 @@ Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 (* Symbols from EndogenousEq context - used via With for pattern injection *)
 $A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A;
 $B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B;
+$R = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`R;
 
 
 (* ::Subsection:: *)
@@ -117,6 +118,27 @@ With[{A = $A, B = $B},
     getMaxAIndex[bundle_List] := Max[Cases[bundle, (A[n_] -> _) :> n]];
     getMaxBIndex[bundle_List, jVal_Integer] := With[{j = jVal},
         Max[Cases[bundle, (B[j][n_] -> _) :> n]]
+    ];
+];
+
+
+(* Get max bond maturity from bundle *)
+With[{R = $R},
+    getMaxRIndex[bundle_List] := Max[0, Cases[bundle, (R[n_][0] -> _) :> n]];
+];
+
+
+(* Extract bond yields from bundle: yield[n] = -R[n][0]/n *)
+With[{R = $R},
+    getBondYields[bundle_List] := Module[{maxN, yields},
+        maxN = getMaxRIndex[bundle];
+        If[maxN == 0, Return[{}]];
+        yields = Table[
+            {n, -N[(R[n][0] /. bundle) / n]},
+            {n, 1, maxN}
+        ];
+        (* Filter out non-numeric values *)
+        Select[yields, NumericQ[#[[2]]] &]
     ];
 ];
 
@@ -259,62 +281,153 @@ coeffChart[bundles_List, coeff_, chartColor_] := Module[
                   ToString[Length[numericGroups]] <> " unique value(s) across " <>
                   ToString[Length[bundles]] <> " solutions:", Italic],
 
-            (* Bar chart with one bar per unique value *)
-            BarChart[
-                numericGroups[[All, 1]],
-                ChartLabels -> Placed[
-                    Map[
-                        Tooltip[
-                            formatValue[#[[1]]],
-                            "Solutions: " <> formatSolutionIndices[#[[2]]]
-                        ] &,
-                        numericGroups
+            (* Bar chart and solutions legend side by side *)
+            Row[{
+                (* Bar chart with one bar per unique value *)
+                BarChart[
+                    numericGroups[[All, 1]],
+                    ChartLabels -> Placed[
+                        Map[
+                            Tooltip[
+                                formatValue[#[[1]]],
+                                "Solutions: " <> formatSolutionIndices[#[[2]]]
+                            ] &,
+                            numericGroups
+                        ],
+                        Axis
                     ],
-                    Axis
+                    ChartStyle -> chartColor,
+                    BarOrigin -> Left,
+                    ImageSize -> {220, Max[80, Min[300, 25 * Length[numericGroups] + 40]]},
+                    LabelStyle -> {FontSize -> 10},
+                    Frame -> True,
+                    FrameLabel -> {formatCoeffName[coeff], None},
+                    PlotLabel -> None
                 ],
-                ChartStyle -> chartColor,
-                BarOrigin -> Left,
-                ImageSize -> {350, Max[80, Min[300, 25 * Length[numericGroups] + 40]]},
-                LabelStyle -> {FontSize -> 10},
-                Frame -> True,
-                FrameLabel -> {formatCoeffName[coeff], None},
-                PlotLabel -> None
-            ],
 
-            (* Legend showing which solutions have each value *)
-            Spacer[5],
-            Style["Solutions by value:", Bold, 10],
-            Pane[
-                Grid[
-                    Map[
-                        {
-                            Style[formatValue[#[[1]]], Bold],
-                            " \[RightArrow] ",
-                            Style[
-                                If[Length[#[[2]]] == Length[bundles],
-                                    "all solutions",
-                                    formatSolutionIndices[#[[2]]]
-                                ],
-                                Gray
+                Spacer[10],
+
+                (* Legend showing which solutions have each value *)
+                Column[{
+                    Style["Solutions by value:", Bold, 10],
+                    Pane[
+                        Grid[
+                            Map[
+                                {
+                                    Style[formatValue[#[[1]]], Bold],
+                                    " \[RightArrow] ",
+                                    Style[
+                                        If[Length[#[[2]]] == Length[bundles],
+                                            "all solutions",
+                                            formatSolutionIndices[#[[2]]]
+                                        ],
+                                        Gray
+                                    ],
+                                    Style[" (" <> ToString[Length[#[[2]]]] <> ")", Lighter[Gray]]
+                                } &,
+                                numericGroups
                             ],
-                            Style[" (" <> ToString[Length[#[[2]]]] <> ")", Lighter[Gray]]
-                        } &,
-                        numericGroups
-                    ],
-                    Alignment -> Left,
-                    Spacings -> {0.5, 0.3}
-                ],
-                ImageSize -> {Automatic, Min[150, 20 * Length[numericGroups] + 20]},
-                Scrollbars -> {False, Automatic}
-            ]
+                            Alignment -> Left,
+                            Spacings -> {0.5, 0.3}
+                        ],
+                        ImageSize -> {Automatic, Min[150, 20 * Length[numericGroups] + 20]},
+                        Scrollbars -> {False, Automatic}
+                    ]
+                }, Spacings -> 0.5]
+            }, Alignment -> Top]
         }, Spacings -> 1]
     ]
+];
+
+
+(* Bond yield curve chart - one line per unique A[0] value *)
+bondYieldChart[bundles_List] := Module[
+    {valuesWithIdx, grouped, numericGroups, yieldData, colors, maxMaturity, plot},
+
+    (* Get A[0] values with their bundle indices *)
+    valuesWithIdx = MapIndexed[
+        {getCoeffValue[#1, $A[0]], First[#2]} &,
+        bundles
+    ];
+
+    (* Group by A[0] value *)
+    grouped = GatherBy[valuesWithIdx, First];
+
+    (* Extract unique A[0] values and their bundle indices *)
+    numericGroups = Map[
+        {#[[1, 1]], #[[All, 2]]} &,
+        grouped
+    ];
+
+    (* Filter to only numeric A[0] values *)
+    numericGroups = Select[numericGroups, NumericQ[First[#]] &];
+    numericGroups = SortBy[numericGroups, First];
+
+    If[Length[numericGroups] == 0,
+        Return[Style["No bond data available", Italic, Gray]]
+    ];
+
+    (* For each unique A[0], get yields from the first bundle with that A[0] *)
+    yieldData = Map[
+        Function[{group},
+            Module[{a0Val, bundleIdx, yields},
+                a0Val = group[[1]];
+                bundleIdx = First[group[[2]]];
+                yields = getBondYields[bundles[[bundleIdx]]];
+                If[Length[yields] == 0, Nothing, {a0Val, yields}]
+            ]
+        ],
+        numericGroups
+    ];
+
+    If[Length[yieldData] == 0,
+        Return[Style["No bond data available", Italic, Gray]]
+    ];
+
+    (* Generate colors for different A[0] values *)
+    colors = Table[
+        ColorData[97][i],
+        {i, Length[yieldData]}
+    ];
+
+    (* Find max maturity for x-axis *)
+    maxMaturity = Max[Map[Max[#[[2]][[All, 1]]] &, yieldData]];
+
+    (* Create the plot *)
+    plot = ListLinePlot[
+        Map[#[[2]] &, yieldData],
+        PlotLegends -> Placed[
+            Map[
+                "A[0]=" <> ToString[NumberForm[#[[1]], {Infinity, 2}]] &,
+                yieldData
+            ],
+            Below
+        ],
+        PlotStyle -> colors,
+        PlotMarkers -> Automatic,
+        AxesLabel -> {"Maturity", "Yield"},
+        PlotLabel -> Style["Bond Yield Curve", Bold, 10],
+        ImageSize -> {380, 150},
+        Frame -> True,
+        FrameLabel -> {{"Yield (-R[n][0]/n)", None}, {"Maturity (n)", None}},
+        LabelStyle -> {FontSize -> 9}
+    ];
+
+    plot
 ];
 
 
 (* Standard panel size for coefficient charts *)
 $coeffPanelWidth = 420;
 $coeffPanelHeight = 480;
+
+(* Horizontal divider for panel sections *)
+panelDivider[] := Graphics[
+    {GrayLevel[0.7], Line[{{0, 0}, {1, 0}}]},
+    ImageSize -> {Full, 1},
+    AspectRatio -> 1/100,
+    PlotRangePadding -> 0
+];
 
 coeffSelector[bundles_List, numStocks_Integer] := Module[
     {maxAIdx, maxBIdxs, fixedA0Chart, panelStyle},
@@ -342,8 +455,17 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
     (* Fixed A[0] chart - always visible *)
     fixedA0Chart = panelStyle[
         Column[{
+            (* Top section: coefficient chart *)
             Style["A[0]", Bold, 12, $aColor],
-            coeffChart[bundles, $A[0], $aColor]
+            coeffChart[bundles, $A[0], $aColor],
+
+            (* Divider *)
+            Spacer[10],
+            panelDivider[],
+            Spacer[10],
+
+            (* Bottom section: bond yield curve *)
+            bondYieldChart[bundles]
         }, Spacings -> 1]
     ];
 
@@ -362,7 +484,7 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
                     (* Right: Selectable coefficient - use same panelStyle *)
                     panelStyle[
                         Column[{
-                            (* Selectors row *)
+                            (* Top section: selectors and chart *)
                             Row[{
                                 "Select: ",
                                 PopupMenu[Dynamic[coeffType], {"A", "B"}],
@@ -382,7 +504,15 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
                                 coeff = If[coeffType == "A", $A[coeffIdx], $B[stockIdx][coeffIdx]];
                                 chartColor = If[coeffType == "A", $aColor, bColor[stockIdx]];
                                 coeffChart[bundles, coeff, chartColor]
-                            ]]
+                            ]],
+
+                            (* Divider *)
+                            Spacer[10],
+                            panelDivider[],
+                            Spacer[10],
+
+                            (* Bottom section: placeholder for plot *)
+                            Style["", Gray]  (* Placeholder for future plot *)
                         }, Spacings -> 1]
                     ]
                 }, Alignment -> Top],
