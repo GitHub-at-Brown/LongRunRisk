@@ -148,8 +148,8 @@ keyCoeffsGrid[bundles_List, numStocks_Integer] := Module[
         Table[Style["B[" <> ToString[j] <> "][0]", Bold, bColor[j]], {j, numStocks}]
     ];
 
-    (* Header row: Bundle | A[0] | B[1][0] | B[2][0] | ... *)
-    headerRow = Join[{Style["Bundle", Bold]}, coeffLabels];
+    (* Header row: Solution | A[0] | B[1][0] | B[2][0] | ... *)
+    headerRow = Join[{Style["Solution", Bold]}, coeffLabels];
 
     (* Extract values: allData[[coeff, bundle]] *)
     allData = Table[
@@ -163,7 +163,7 @@ keyCoeffsGrid[bundles_List, numStocks_Integer] := Module[
     (* Build data rows - one row per bundle *)
     dataRows = Table[
         Join[
-            {Style["Bundle " <> ToString[i], Bold]},
+            {Style[ToString[i], Bold]},
             Table[formatValue[allData[[c, i]]], {c, Length[coeffNames]}]
         ],
         {i, Length[bundles]}
