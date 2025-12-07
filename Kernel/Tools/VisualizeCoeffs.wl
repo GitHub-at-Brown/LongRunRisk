@@ -322,17 +322,21 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
     maxAIdx = getMaxAIndex[First[bundles]];
     maxBIdxs = Table[getMaxBIndex[First[bundles], j], {j, numStocks}];
 
-    (* Common panel wrapper for consistent sizing *)
-    panelStyle[content_] := Framed[
-        Pane[content,
-            ImageSize -> {$coeffPanelWidth - 22, $coeffPanelHeight - 22},
-            Scrollbars -> {False, Automatic},
-            Alignment -> {Left, Top}
+    (* Common panel wrapper for consistent sizing and wrapping alignment *)
+    panelStyle[content_] := Pane[
+        Framed[
+            Pane[content,
+                ImageSize -> {$coeffPanelWidth - 22, $coeffPanelHeight - 22},
+                Scrollbars -> {False, Automatic},
+                Alignment -> {Left, Top}
+            ],
+            FrameStyle -> GrayLevel[0.8],
+            Background -> GrayLevel[0.98],
+            FrameMargins -> 10,
+            ImageSize -> {$coeffPanelWidth, $coeffPanelHeight}
         ],
-        FrameStyle -> GrayLevel[0.8],
-        Background -> GrayLevel[0.98],
-        FrameMargins -> 10,
-        ImageSize -> {$coeffPanelWidth, $coeffPanelHeight}
+        ImageSize -> {$coeffPanelWidth + 10, Automatic},
+        BaselinePosition -> Top
     ];
 
     (* Fixed A[0] chart - always visible *)
@@ -349,39 +353,41 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
             Style["Compare Any Coefficient", Bold, 12],
 
             (* Side-by-side layout: fixed A[0] on left, selectable on right *)
-            Row[{
-                (* Left: Fixed A[0] *)
-                fixedA0Chart,
+            (* Pane with flexible width lets Row wrap when container is narrow *)
+            Pane[
+                Row[{
+                    (* Left: Fixed A[0] *)
+                    fixedA0Chart,
 
-                Spacer[15],
+                    (* Right: Selectable coefficient - use same panelStyle *)
+                    panelStyle[
+                        Column[{
+                            (* Selectors row *)
+                            Row[{
+                                "Select: ",
+                                PopupMenu[Dynamic[coeffType], {"A", "B"}],
+                                Dynamic[If[coeffType == "B",
+                                    Row[{" Stock: ", PopupMenu[Dynamic[stockIdx], Range[numStocks]]}],
+                                    ""
+                                ]],
+                                " Coefficient: ",
+                                Dynamic[PopupMenu[
+                                    Dynamic[coeffIdx],
+                                    Range[0, If[coeffType == "A", maxAIdx, maxBIdxs[[stockIdx]]]]
+                                ]]
+                            }, Spacer[5]],
 
-                (* Right: Selectable coefficient - use same panelStyle *)
-                panelStyle[
-                    Column[{
-                        (* Selectors row *)
-                        Row[{
-                            "Select: ",
-                            PopupMenu[Dynamic[coeffType], {"A", "B"}],
-                            Dynamic[If[coeffType == "B",
-                                Row[{" Stock: ", PopupMenu[Dynamic[stockIdx], Range[numStocks]]}],
-                                ""
-                            ]],
-                            " Coefficient: ",
-                            Dynamic[PopupMenu[
-                                Dynamic[coeffIdx],
-                                Range[0, If[coeffType == "A", maxAIdx, maxBIdxs[[stockIdx]]]]
+                            (* Dynamic chart *)
+                            Dynamic[Module[{coeff, chartColor},
+                                coeff = If[coeffType == "A", $A[coeffIdx], $B[stockIdx][coeffIdx]];
+                                chartColor = If[coeffType == "A", $aColor, bColor[stockIdx]];
+                                coeffChart[bundles, coeff, chartColor]
                             ]]
-                        }, Spacer[5]],
-
-                        (* Dynamic chart *)
-                        Dynamic[Module[{coeff, chartColor},
-                            coeff = If[coeffType == "A", $A[coeffIdx], $B[stockIdx][coeffIdx]];
-                            chartColor = If[coeffType == "A", $aColor, bColor[stockIdx]];
-                            coeffChart[bundles, coeff, chartColor]
-                        ]]
-                    }, Spacings -> 1]
-                ]
-            }, Alignment -> Top]
+                        }, Spacings -> 1]
+                    ]
+                }, Alignment -> Top],
+                ImageSize -> {{$coeffPanelWidth, Full}, Automatic}
+            ]
         }, Spacings -> 1]
     ]
 ];
