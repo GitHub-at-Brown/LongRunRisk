@@ -329,7 +329,7 @@ formatBundleDetail[bundle_List, results_List, bundleIdx_Integer] := With[
 
 
 visualizeCoeffs[results_List, opts : OptionsPattern[]] := Module[
-    {bundles, numStocks, showSelector, showDetails},
+    {bundles, numStocks, showSelector, showDetails, elements},
 
     (* Get options *)
     showSelector = OptionValue["ShowSelector"];
@@ -344,32 +344,34 @@ visualizeCoeffs[results_List, opts : OptionsPattern[]] := Module[
         Return[Style["No solution bundles found.", Italic, Red]]
     ];
 
+    (* Build elements list *)
+    elements = {
+        (* Title *)
+        Style["Coefficient Solutions Comparison", Bold, 14],
+        Style[ToString[Length[bundles]] <> " solution bundles, " <>
+              ToString[numStocks] <> " stock(s)", Italic, Gray],
+
+        (* Key coefficients table *)
+        Spacer[10],
+        Style["Key Coefficients (A[0], B[j][0])", Bold, 12],
+        keyCoeffsGrid[bundles, numStocks]
+    };
+
+    (* Add coefficient selector if enabled *)
+    If[showSelector,
+        AppendTo[elements, Spacer[15]];
+        AppendTo[elements, coeffSelector[bundles, numStocks]];
+    ];
+
+    (* Add bundle details if enabled *)
+    If[showDetails,
+        AppendTo[elements, Spacer[15]];
+        AppendTo[elements, bundleDetails[results]];
+    ];
+
     (* Assemble view *)
     Panel[
-        Column[{
-            (* Title *)
-            Style["Coefficient Solutions Comparison", Bold, 14],
-            Style[ToString[Length[bundles]] <> " solution bundles, " <>
-                  ToString[numStocks] <> " stock(s)", Italic, Gray],
-
-            (* Key coefficients table *)
-            Spacer[10],
-            Style["Key Coefficients (A[0], B[j][0])", Bold, 12],
-            keyCoeffsGrid[bundles, numStocks],
-
-            (* Coefficient selector *)
-            If[showSelector,
-                Sequence[Spacer[15], coeffSelector[bundles, numStocks]],
-                Nothing
-            ],
-
-            (* Bundle details *)
-            If[showDetails,
-                Sequence[Spacer[15], bundleDetails[results]],
-                Nothing
-            ]
-        }, Spacings -> 0.5, Alignment -> Left],
-
+        Column[elements, Spacings -> 0.5, Alignment -> Left],
         ImageMargins -> 10,
         FrameMargins -> 15
     ]
