@@ -76,9 +76,9 @@ bColor[j_Integer] := $bColors[[Mod[j - 1, Length[$bColors]] + 1]];
 (*Helper functions*)
 
 
-(* Format value to 2 decimal places *)
+(* Format value to 2 decimal places, show "-" for missing values *)
 formatValue[val_?NumericQ] := NumberForm[N[val], {Infinity, 2}];
-formatValue[val_] := val;
+formatValue[val_] := Style["\[LongDash]", Gray];  (* No solution *)
 
 (* Format coefficient name without context - use With to inject symbols *)
 With[{A = $A, B = $B},
