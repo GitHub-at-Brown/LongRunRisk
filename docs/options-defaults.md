@@ -54,7 +54,7 @@ Package-defined options, their defaults, and where they flow. Built-ins (`FindRo
 ## Resource Management
 | Option | Defaults | Inherited / Used by | Notes |
 | --- | --- | --- | --- |
-| `buildModels` | `"FromScratch"->False`, `"CompileJacobians"->False`, `"CreateMoments"->True`, `"NumKernels"->Automatic`, `"MaxMaturity"->120`, `"Models"->All`, `"PdEquations"->"B"` | Orchestrates catalog build pipeline; also accepts `processModels` / `createCompiledEq` options | Drives symbolic processing, compilation, numerical solutions, and moments generation. `Models` can be `All` or a list of shortnames. |
+| `buildModels` | `"FromScratch"->False`, `"CompileJacobians"->False`, `"CreateMoments"->True`, `"NumKernels"->Automatic`, `"MaxMaturity"->120`, `"Models"->All`, `"PdEquations"->"B"` | Orchestrates catalog build pipeline; also accepts `processModels` / `createCompiledEq` options | Drives symbolic processing, compilation, numerical solutions, and moments generation. `Models` can be `All` or a list of shortnames. `PdEquations` controls which pd equations to compute: `"B"`, `"AB"`, or `"Both"`. |
 | `buildModelsParallel` | `"CreateMoments"->True`, `"NumKernels"->Automatic`, `"FromScratch"->False`, `"PdEquations"->"B"` | Helper used by `buildModels` for multi-model builds | Runs Symbolic+Compile+Numerical phases in parallel across models. |
 
 ## Wrapper Functions / Option Forwarders
