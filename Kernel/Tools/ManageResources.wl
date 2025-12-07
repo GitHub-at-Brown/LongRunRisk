@@ -791,11 +791,11 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 		enabledModels = selectEnabledModels[catalogModels];
 
-		(* apply model filter if specified *)
+		(* apply model filter if specified - convert to strings for comparison *)
 		enabledModels = If[modelFilter === All,
 			enabledModels,
 			KeyTake[enabledModels,
-				Select[Keys[enabledModels], MemberQ[Flatten@{modelFilter}, catalogModels[#]["shortname"]] &]
+				Select[Keys[enabledModels], MemberQ[ToString /@ Flatten@{modelFilter}, catalogModels[#]["shortname"]] &]
 			]
 		];
 
@@ -1029,7 +1029,7 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 
 	parallelResults = ParallelTable[
 		Quiet @ Check[
-			With[{result = buildModels[
+			With[{result = FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels[
 				"Models" -> {m},
 				"CreateMoments" -> False,
 				"FromScratch" -> False,  (* already cleaned on main kernel *)
