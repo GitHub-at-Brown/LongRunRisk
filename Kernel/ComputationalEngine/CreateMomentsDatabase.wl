@@ -43,7 +43,6 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpect
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
-Needs["FernandoDuarte`LongRunRisk`Tools`Logging`"];
 
 
 (* ::Subsection:: *)

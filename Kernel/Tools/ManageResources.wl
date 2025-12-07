@@ -32,9 +32,6 @@ Options include \"CreateMoments\" (default True) and \"NumKernels\" (default Aut
 
 Begin["`Private`"];
 
-(* Load Logging for LRRProgress *)
-Needs["FernandoDuarte`LongRunRisk`Tools`Logging`"];
-
 (* Live catalog loading - tracks file modification time *)
 $catalogFile = None;
 $catalogMTime = None;
@@ -863,7 +860,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		symbolicModels = Lookup[modelsByStage, "Symbolic", {}];
 
 		(* Phase 1: Symbolic processing *)
-		LRRProgress @ Do[
+		Do[
 			shortname = catalogModels[modelKey]["shortname"];
 
 			(* run symbolic processing *)
@@ -884,7 +881,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 		(* Phase 2: Compile functions - cascade from Symbolic + models at Compile stage *)
 		compileModels = DeleteDuplicates @ Join[symbolicModels, Lookup[modelsByStage, "Compile", {}]];
-		LRRProgress @ Do[
+		Do[
 			shortname = catalogModels[modelKey]["shortname"];
 			compiledFile = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 				processedModels[shortname],
@@ -895,7 +892,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 		(* Phase 3: Numerical solutions - cascade from Compile + models at Numerical stage *)
 		numericalModels = DeleteDuplicates @ Join[compileModels, Lookup[modelsByStage, "Numerical", {}]];
-		LRRProgress @ Do[
+		Do[
 			shortname = catalogModels[modelKey]["shortname"];
 			With[{solN = FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[
 					processedModels[shortname]
@@ -928,7 +925,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 					Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
 
 					(* Process each model *)
-					LRRProgress @ Do[
+					Do[
 						shortname = catalogModels[modelKey]["shortname"];
 						momentsFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> ".wl"}];
 						metaFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> "_meta.wl"}];
@@ -962,7 +959,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 		(* Jacobian track - orthogonal, no cascade *)
 		If[compileJacobians && Length[modelsNeedingJacobians] > 0,
-			LRRProgress @ Do[
+			Do[
 				shortname = catalogModels[modelKey]["shortname"];
 				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 					processedModels[shortname],
@@ -1079,7 +1076,7 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	If[createMoments,
 		With[{successModels = Select[parallelResults, #["Status"] === "Success" &]},
 			If[Length[successModels] > 0,
-				LRRProgress @ Do[
+				Do[
 					buildModels[
 						"Models" -> {m},
 						"CreateMoments" -> True,
