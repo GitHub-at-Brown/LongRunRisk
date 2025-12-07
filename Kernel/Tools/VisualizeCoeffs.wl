@@ -44,6 +44,7 @@ Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 $A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A;
 $B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B;
 $R = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`R;
+$P = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`P;
 
 
 (* ::Subsection:: *)
@@ -135,6 +136,27 @@ With[{R = $R},
         If[maxN == 0, Return[{}]];
         yields = Table[
             {n, -N[(R[n][0] /. bundle) / n]},
+            {n, 1, maxN}
+        ];
+        (* Filter out non-numeric values *)
+        Select[yields, NumericQ[#[[2]]] &]
+    ];
+];
+
+
+(* Get max nominal bond maturity from bundle *)
+With[{P = $P},
+    getMaxPIndex[bundle_List] := Max[0, Cases[bundle, (P[n_][0] -> _) :> n]];
+];
+
+
+(* Extract nominal bond yields from bundle: yield[n] = -P[n][0]/n *)
+With[{P = $P},
+    getNomBondYields[bundle_List] := Module[{maxN, yields},
+        maxN = getMaxPIndex[bundle];
+        If[maxN == 0, Return[{}]];
+        yields = Table[
+            {n, -N[(P[n][0] /. bundle) / n]},
             {n, 1, maxN}
         ];
         (* Filter out non-numeric values *)
@@ -441,6 +463,107 @@ bondYieldChart[bundles_List] := Module[
 ];
 
 
+(* Nominal bond yield curve chart - one line per unique A[0] value with checkboxes *)
+nomBondYieldChart[bundles_List] := Module[
+    {valuesWithIdx, grouped, numericGroups, yieldData, colors},
+
+    (* Get A[0] values with their bundle indices *)
+    valuesWithIdx = MapIndexed[
+        {getCoeffValue[#1, $A[0]], First[#2]} &,
+        bundles
+    ];
+
+    (* Group by A[0] value *)
+    grouped = GatherBy[valuesWithIdx, First];
+
+    (* Extract unique A[0] values and their bundle indices *)
+    numericGroups = Map[
+        {#[[1, 1]], #[[All, 2]]} &,
+        grouped
+    ];
+
+    (* Filter to only numeric A[0] values *)
+    numericGroups = Select[numericGroups, NumericQ[First[#]] &];
+    numericGroups = SortBy[numericGroups, First];
+
+    If[Length[numericGroups] == 0,
+        Return[Style["No nominal bond data available", Italic, Gray]]
+    ];
+
+    (* For each unique A[0], get yields from the first bundle with that A[0] *)
+    yieldData = Map[
+        Function[{group},
+            Module[{a0Val, bundleIdx, yields},
+                a0Val = group[[1]];
+                bundleIdx = First[group[[2]]];
+                yields = getNomBondYields[bundles[[bundleIdx]]];
+                If[Length[yields] == 0, Nothing, {a0Val, yields}]
+            ]
+        ],
+        numericGroups
+    ];
+
+    If[Length[yieldData] == 0,
+        Return[Style["No nominal bond data available", Italic, Gray]]
+    ];
+
+    (* Generate colors for different A[0] values *)
+    colors = Table[
+        ColorData[97][i],
+        {i, Length[yieldData]}
+    ];
+
+    (* Interactive chart with checkboxes *)
+    DynamicModule[{visible = ConstantArray[True, Length[yieldData]]},
+        Column[{
+            (* Dynamic plot showing only selected curves *)
+            Dynamic[
+                Module[{selectedIdx, selectedData, selectedColors},
+                    selectedIdx = Flatten[Position[visible, True]];
+                    If[Length[selectedIdx] == 0,
+                        Style["Select at least one curve", Italic, Gray],
+                        selectedData = yieldData[[selectedIdx]];
+                        selectedColors = colors[[selectedIdx]];
+                        ListLinePlot[
+                            Map[#[[2]] &, selectedData],
+                            PlotStyle -> selectedColors,
+                            PlotMarkers -> Automatic,
+                            PlotLabel -> Style["Nominal Bond Yield Curve", Bold, 10],
+                            ImageSize -> {380, 150},
+                            Frame -> True,
+                            FrameLabel -> {{"Nominal Yield (-P[n][0]/n)", None}, {"Maturity (n)", None}},
+                            LabelStyle -> {FontSize -> 9}
+                        ]
+                    ]
+                ]
+            ],
+
+            (* Checkboxes row *)
+            Pane[
+                Row[
+                    MapIndexed[
+                        Function[{data, idx},
+                            Row[{
+                                Checkbox[Dynamic[visible[[First[idx]]]]],
+                                Style[
+                                    " A[0]=" <> ToString[NumberForm[data[[1]], {Infinity, 2}]],
+                                    colors[[First[idx]]],
+                                    Bold,
+                                    9
+                                ]
+                            }]
+                        ],
+                        yieldData
+                    ],
+                    Spacer[10]
+                ],
+                ImageSize -> {380, Automatic}
+            ]
+        }, Spacings -> 0.5]
+    ]
+];
+
+
 (* Standard panel size for coefficient charts *)
 $coeffPanelWidth = 420;
 $coeffPanelHeight = 480;
@@ -535,8 +658,8 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
                             panelDivider[],
                             Spacer[10],
 
-                            (* Bottom section: placeholder for plot *)
-                            Style["", Gray]  (* Placeholder for future plot *)
+                            (* Bottom section: nominal bond yield curve *)
+                            nomBondYieldChart[bundles]
                         }, Spacings -> 1]
                     ]
                 }, Alignment -> Top],
