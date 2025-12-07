@@ -40,7 +40,7 @@ Begin["`Private`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
-(* Use the actual A and B symbols from EndogenousEq context *)
+(* Symbols from EndogenousEq context - used via With for pattern injection *)
 $A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A;
 $B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B;
 
@@ -80,9 +80,11 @@ bColor[j_Integer] := $bColors[[Mod[j - 1, Length[$bColors]] + 1]];
 formatValue[val_?NumericQ] := NumberForm[N[val], {Infinity, 2}];
 formatValue[val_] := val;
 
-(* Format coefficient name without context *)
-formatCoeffName[$A[n_]] := "A[" <> ToString[n] <> "]";
-formatCoeffName[$B[j_][n_]] := "B[" <> ToString[j] <> "][" <> ToString[n] <> "]";
+(* Format coefficient name without context - use With to inject symbols *)
+With[{A = $A, B = $B},
+    formatCoeffName[A[n_]] := "A[" <> ToString[n] <> "]";
+    formatCoeffName[B[j_][n_]] := "B[" <> ToString[j] <> "][" <> ToString[n] <> "]";
+];
 formatCoeffName[other_] := ToString[other];
 
 
@@ -94,9 +96,11 @@ extractBundles[results_List] := Module[{bundles},
 ];
 
 
-(* Get coefficient value from a bundle (list of rules) *)
-getCoeffValue[bundle_List, $A[n_Integer]] := $A[n] /. bundle;
-getCoeffValue[bundle_List, $B[j_Integer][n_Integer]] := $B[j][n] /. bundle;
+(* Get coefficient value from a bundle (list of rules) - use With to inject symbols *)
+With[{A = $A, B = $B},
+    getCoeffValue[bundle_List, A[n_Integer]] := A[n] /. bundle;
+    getCoeffValue[bundle_List, B[j_Integer][n_Integer]] := B[j][n] /. bundle;
+];
 
 
 (* Count number of stocks from results *)
@@ -105,10 +109,12 @@ getNumStocks[results_List] := With[{firstResult = First[results]},
 ];
 
 
-(* Get max coefficient index for A or B *)
-getMaxAIndex[bundle_List] := Max[Cases[bundle, ($A[n_] -> _) :> n]];
-getMaxBIndex[bundle_List, jVal_Integer] := With[{j = jVal},
-    Max[Cases[bundle, ($B[j][n_] -> _) :> n]]
+(* Get max coefficient index for A or B - use With to inject symbols *)
+With[{A = $A, B = $B},
+    getMaxAIndex[bundle_List] := Max[Cases[bundle, (A[n_] -> _) :> n]];
+    getMaxBIndex[bundle_List, jVal_Integer] := With[{j = jVal},
+        Max[Cases[bundle, (B[j][n_] -> _) :> n]]
+    ];
 ];
 
 
@@ -282,12 +288,12 @@ bundleDetails[results_List] := Module[{bundles, numBundles},
 ];
 
 
-formatBundleDetail[bundle_List, results_List, bundleIdx_Integer] := Module[
-    {aCoeffs, bCoeffs, numStocks},
-
-    numStocks = getNumStocks[results];
-    aCoeffs = Cases[bundle, ($A[_] -> _)];
-    bCoeffs = Table[With[{jj = j}, Cases[bundle, ($B[jj][_] -> _)]], {j, numStocks}];
+formatBundleDetail[bundle_List, results_List, bundleIdx_Integer] := With[
+    {A = $A, B = $B},
+    Module[{aCoeffs, bCoeffs, numStocks},
+        numStocks = getNumStocks[results];
+        aCoeffs = Cases[bundle, (A[_] -> _)];
+        bCoeffs = Table[With[{jj = j}, Cases[bundle, (B[jj][_] -> _)]], {j, numStocks}];
 
     Column[{
         (* A coefficients *)
@@ -318,7 +324,8 @@ formatBundleDetail[bundle_List, results_List, bundleIdx_Integer] := Module[
         ]
     }, Spacings -> 1, Frame -> True, FrameStyle -> GrayLevel[0.85],
        FrameMargins -> 5, Background -> White]
-];
+    ] (* Module *)
+]; (* With *)
 
 
 (* ::Subsection:: *)
