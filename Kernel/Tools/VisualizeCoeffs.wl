@@ -406,7 +406,8 @@ bundleDetails[results_List] := Module[{bundles, numBundles, solutionItems},
                 formatBundleDetail[bundles[[i]], results, i]
             }, False],
             ImageSize -> {$solutionItemWidth, Automatic},
-            Alignment -> {Left, Top}
+            Alignment -> {Left, Top},
+            BaselinePosition -> Top
         ],
         {i, numBundles}
     ];
