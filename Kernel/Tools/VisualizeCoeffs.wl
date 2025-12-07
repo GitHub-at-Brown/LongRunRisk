@@ -40,9 +40,9 @@ Begin["`Private`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
-(* Import A and B symbols from the correct context *)
-A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A;
-B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B;
+(* Use the actual A and B symbols from EndogenousEq context *)
+$A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A;
+$B = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B;
 
 
 (* ::Subsection:: *)
@@ -81,8 +81,8 @@ formatValue[val_?NumericQ] := NumberForm[N[val], {Infinity, 2}];
 formatValue[val_] := val;
 
 (* Format coefficient name without context *)
-formatCoeffName[A[n_]] := "A[" <> ToString[n] <> "]";
-formatCoeffName[B[j_][n_]] := "B[" <> ToString[j] <> "][" <> ToString[n] <> "]";
+formatCoeffName[$A[n_]] := "A[" <> ToString[n] <> "]";
+formatCoeffName[$B[j_][n_]] := "B[" <> ToString[j] <> "][" <> ToString[n] <> "]";
 formatCoeffName[other_] := ToString[other];
 
 
@@ -95,8 +95,8 @@ extractBundles[results_List] := Module[{bundles},
 
 
 (* Get coefficient value from a bundle (list of rules) *)
-getCoeffValue[bundle_List, A[n_Integer]] := A[n] /. bundle;
-getCoeffValue[bundle_List, B[j_Integer][n_Integer]] := B[j][n] /. bundle;
+getCoeffValue[bundle_List, $A[n_Integer]] := $A[n] /. bundle;
+getCoeffValue[bundle_List, $B[j_Integer][n_Integer]] := $B[j][n] /. bundle;
 
 
 (* Count number of stocks from results *)
@@ -106,9 +106,9 @@ getNumStocks[results_List] := With[{firstResult = First[results]},
 
 
 (* Get max coefficient index for A or B *)
-getMaxAIndex[bundle_List] := Max[Cases[bundle, (A[n_] -> _) :> n]];
+getMaxAIndex[bundle_List] := Max[Cases[bundle, ($A[n_] -> _) :> n]];
 getMaxBIndex[bundle_List, jVal_Integer] := With[{j = jVal},
-    Max[Cases[bundle, (B[j][n_] -> _) :> n]]
+    Max[Cases[bundle, ($B[j][n_] -> _) :> n]]
 ];
 
 
@@ -135,7 +135,7 @@ keyCoeffsGrid[bundles_List, numStocks_Integer] := Module[
     {coeffNames, headerRow, dataRows, allData, minMaxByRow},
 
     (* Build coefficient names: A[0], B[1][0], B[2][0], ... *)
-    coeffNames = Join[{A[0]}, Table[B[j][0], {j, numStocks}]];
+    coeffNames = Join[{$A[0]}, Table[$B[j][0], {j, numStocks}]];
 
     (* Header row *)
     headerRow = Join[
@@ -219,7 +219,7 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
 
             (* Bar chart *)
             Dynamic[Module[{coeff, values, maxVal, barData},
-                coeff = If[coeffType == "A", A[coeffIdx], B[stockIdx][coeffIdx]];
+                coeff = If[coeffType == "A", $A[coeffIdx], $B[stockIdx][coeffIdx]];
                 values = Table[getCoeffValue[bundle, coeff], {bundle, bundles}];
                 maxVal = Max[Abs[values]];
 
@@ -286,8 +286,8 @@ formatBundleDetail[bundle_List, results_List, bundleIdx_Integer] := Module[
     {aCoeffs, bCoeffs, numStocks},
 
     numStocks = getNumStocks[results];
-    aCoeffs = Cases[bundle, (A[_] -> _)];
-    bCoeffs = Table[Cases[bundle, (B[j][_] -> _)], {j, numStocks}];
+    aCoeffs = Cases[bundle, ($A[_] -> _)];
+    bCoeffs = Table[With[{jj = j}, Cases[bundle, ($B[jj][_] -> _)]], {j, numStocks}];
 
     Column[{
         (* A coefficients *)
