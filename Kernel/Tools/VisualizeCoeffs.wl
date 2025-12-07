@@ -231,26 +231,20 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
                 ];
 
                 Column[{
-                    Style[formatCoeffName[coeff] <> " across bundles:", Italic],
+                    Style[formatCoeffName[coeff] <> " across solutions:", Italic],
                     BarChart[
                         values,
-                        ChartLabels -> Table["B" <> ToString[i], {i, Length[bundles]}],
+                        ChartLabels -> If[Length[bundles] <= 20,
+                            Range[Length[bundles]],
+                            None  (* Hide labels if too many *)
+                        ],
                         ChartStyle -> If[coeffType == "A", $aColor, bColor[stockIdx]],
                         BarOrigin -> Left,
-                        ImageSize -> {400, Min[200, 25 * Length[bundles]]},
-                        LabelStyle -> {FontSize -> 10},
+                        ImageSize -> {500, Min[400, 12 * Length[bundles] + 40]},
+                        LabelStyle -> {FontSize -> 9},
                         Frame -> True,
-                        FrameLabel -> {None, formatCoeffName[coeff]},
+                        FrameLabel -> {formatCoeffName[coeff], "Solution"},
                         PlotLabel -> None
-                    ],
-                    (* Value table *)
-                    Grid[
-                        {Join[{"Bundle"}, Range[Length[bundles]]],
-                         Join[{"Value"}, formatValue /@ values]},
-                        Frame -> All,
-                        FrameStyle -> GrayLevel[0.8],
-                        Alignment -> Center,
-                        Spacings -> {1, 0.5}
                     ]
                 }, Spacings -> 1]
             ]]
@@ -269,11 +263,11 @@ bundleDetails[results_List] := Module[{bundles, numBundles},
     numBundles = Length[bundles];
 
     OpenerView[{
-        Style["Bundle Details (Signs, All Coefficients)", Bold],
+        Style["Solution Details (Signs, All Coefficients)", Bold],
         Column[
             Table[
                 OpenerView[{
-                    Style["Bundle " <> ToString[i], Bold],
+                    Style["Solution " <> ToString[i], Bold],
                     formatBundleDetail[bundles[[i]], results, i]
                 }, False],
                 {i, numBundles}
@@ -341,14 +335,14 @@ visualizeCoeffs[results_List, opts : OptionsPattern[]] := Module[
 
     (* Handle empty results *)
     If[Length[bundles] == 0,
-        Return[Style["No solution bundles found.", Italic, Red]]
+        Return[Style["No solutions found.", Italic, Red]]
     ];
 
     (* Build elements list *)
     elements = {
         (* Title *)
         Style["Coefficient Solutions Comparison", Bold, 14],
-        Style[ToString[Length[bundles]] <> " solution bundles, " <>
+        Style[ToString[Length[bundles]] <> " solutions, " <>
               ToString[numStocks] <> " stock(s)", Italic, Gray],
 
         (* Key coefficients table *)
