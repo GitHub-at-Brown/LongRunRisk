@@ -634,12 +634,11 @@ momentsUpToDate[momentsFile_String, metaFile_String, expectedHash_String] := Mod
 
 
 (* helper: check if numerical solutions are valid *)
-(* Note: addCoeffsSolutionN returns a List of rules, not an Association *)
+(* Note: addCoeffsSolutionN returns a List of Associations *)
 validCoeffsSolutionN[model_] := With[
 	{sol = model["coeffsSolutionN"]},
 	KeyExistsQ[model, "coeffsSolutionN"] &&
-	(AssociationQ[sol] || MatchQ[sol, {__Rule} | {__RuleDelayed}]) &&
-	Length[sol] > 0
+	MatchQ[sol, {__Association}]
 ];
 
 

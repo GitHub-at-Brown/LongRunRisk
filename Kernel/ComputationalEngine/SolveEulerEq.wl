@@ -311,7 +311,7 @@ clearKernelCache[] := ($kernelCache = <||>);
 
 updateCoeffsSol//Options={
 	"initialGuess" -> <|"Ewc"->{4},"Epd"->{{4}}|>,
-	"FindRootOptions"->{MaxIterations->100}, (*"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)
+	"FindRootOptions"->{},(*{MaxIterations->100},*) (*"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)
 	"RecurrenceTableOptions"->{"DependentVariables"->Automatic},
 	"UpdatePd"->False,
 	"UpdateBond"->False,
@@ -996,8 +996,8 @@ addCoeffsSolutionN[model_] := Module[{k},
 		k,
 		"UpdatePd"->True,
 		"UpdateBonds"->True,
-		"MaxMaturity"->120,
-		"RootSigns" -> Automatic
+		"MaxMaturity"->12,
+		"RootSigns" -> All
 	]
 ];
 

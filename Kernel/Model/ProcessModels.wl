@@ -32,6 +32,7 @@ Begin["`Private`"]
 (*Package dependencies*)
 
 
+Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
@@ -232,6 +233,7 @@ processModels[
 		"extraInfo"
 	];
 	
+	(*create recursions for bonds*)
 	models = EchoTiming[
 		With[{addCoeffsOpts = FilterRules[Flatten@{opts}, Options[addCoeffsSolution]]},
 			Append[
