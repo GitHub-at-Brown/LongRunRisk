@@ -340,9 +340,9 @@ coeffChart[bundles_List, coeff_, chartColor_] := Module[
 ];
 
 
-(* Bond yield curve chart - one line per unique A[0] value *)
+(* Bond yield curve chart - one line per unique A[0] value with checkboxes *)
 bondYieldChart[bundles_List] := Module[
-    {valuesWithIdx, grouped, numericGroups, yieldData, colors, maxMaturity, plot},
+    {valuesWithIdx, grouped, numericGroups, yieldData, colors},
 
     (* Get A[0] values with their bundle indices *)
     valuesWithIdx = MapIndexed[
@@ -390,30 +390,54 @@ bondYieldChart[bundles_List] := Module[
         {i, Length[yieldData]}
     ];
 
-    (* Find max maturity for x-axis *)
-    maxMaturity = Max[Map[Max[#[[2]][[All, 1]]] &, yieldData]];
-
-    (* Create the plot *)
-    plot = ListLinePlot[
-        Map[#[[2]] &, yieldData],
-        PlotLegends -> Placed[
-            Map[
-                "A[0]=" <> ToString[NumberForm[#[[1]], {Infinity, 2}]] &,
-                yieldData
+    (* Interactive chart with checkboxes *)
+    DynamicModule[{visible = ConstantArray[True, Length[yieldData]]},
+        Column[{
+            (* Dynamic plot showing only selected curves *)
+            Dynamic[
+                Module[{selectedIdx, selectedData, selectedColors},
+                    selectedIdx = Flatten[Position[visible, True]];
+                    If[Length[selectedIdx] == 0,
+                        Style["Select at least one curve", Italic, Gray],
+                        selectedData = yieldData[[selectedIdx]];
+                        selectedColors = colors[[selectedIdx]];
+                        ListLinePlot[
+                            Map[#[[2]] &, selectedData],
+                            PlotStyle -> selectedColors,
+                            PlotMarkers -> Automatic,
+                            PlotLabel -> Style["Real Bond Yield Curve", Bold, 10],
+                            ImageSize -> {380, 150},
+                            Frame -> True,
+                            FrameLabel -> {{"Real Yield (-R[n][0]/n)", None}, {"Maturity (n)", None}},
+                            LabelStyle -> {FontSize -> 9}
+                        ]
+                    ]
+                ]
             ],
-            Below
-        ],
-        PlotStyle -> colors,
-        PlotMarkers -> Automatic,
-        AxesLabel -> {"Maturity", "Yield"},
-        PlotLabel -> Style["Bond Yield Curve", Bold, 10],
-        ImageSize -> {380, 150},
-        Frame -> True,
-        FrameLabel -> {{"Yield (-R[n][0]/n)", None}, {"Maturity (n)", None}},
-        LabelStyle -> {FontSize -> 9}
-    ];
 
-    plot
+            (* Checkboxes row *)
+            Pane[
+                Row[
+                    MapIndexed[
+                        Function[{data, idx},
+                            Row[{
+                                Checkbox[Dynamic[visible[[First[idx]]]]],
+                                Style[
+                                    " A[0]=" <> ToString[NumberForm[data[[1]], {Infinity, 2}]],
+                                    colors[[First[idx]]],
+                                    Bold,
+                                    9
+                                ]
+                            }]
+                        ],
+                        yieldData
+                    ],
+                    Spacer[10]
+                ],
+                ImageSize -> {380, Automatic}
+            ]
+        }, Spacings -> 0.5]
+    ]
 ];
 
 
