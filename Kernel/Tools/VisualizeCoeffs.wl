@@ -398,14 +398,14 @@ bundleDetails[results_List] := Module[{bundles, numBundles, solutionItems},
     bundles = extractBundles[results];
     numBundles = Length[bundles];
 
-    (* Create individual solution items with fixed width and aligned tops *)
+    (* Create individual solution items with fixed width for consistent wrapping *)
     solutionItems = Table[
         Pane[
             OpenerView[{
                 Style["Solution " <> ToString[i], Bold],
                 formatBundleDetail[bundles[[i]], results, i]
             }, False],
-            ImageSize -> {$solutionItemWidth - 20, Automatic},
+            ImageSize -> {$solutionItemWidth, Automatic},
             Alignment -> {Left, Top}
         ],
         {i, numBundles}
@@ -413,9 +413,9 @@ bundleDetails[results_List] := Module[{bundles, numBundles, solutionItems},
 
     OpenerView[{
         Style["Solution Details (Signs, All Coefficients)", Bold],
-        (* Resizable pane with wrapping row *)
+        (* Resizable pane with wrapping row - no spacer for consistent column alignment *)
         Pane[
-            Row[solutionItems, Spacer[10], Alignment -> Top],
+            Row[solutionItems, Alignment -> Top],
             ImageSize -> {{300, Full}, {200, Full}},
             Scrollbars -> Automatic,
             AppearanceElements -> {"ResizeArea"}
