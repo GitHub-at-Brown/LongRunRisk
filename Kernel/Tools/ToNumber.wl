@@ -32,7 +32,7 @@ toExogenousVars::usage = "toExogenousVars[model] gives a pure (or \"anonymous\")
 						 "toExogenousVars[expr, model] re-writes its first argument in terms of the exogenous variables of model.";
 toStateVars::usage = "toStateVars[model] gives a pure (or \"anonymous\") function that re-writes its argument in terms of the state variables of model."<>"\n"<>
 					 "toStateVars[expr, model] re-writes expr in terms of the state variables of model.";
-(*processNewParameters::usage = "processNewParameters[newParameters,parameters] returns a validated list of rules to substitute  ";*)
+processNewParameters::usage = "processNewParameters[newParameters,parameters] returns a validated list of rules to substitute  ";
 
 
 (*Get["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
@@ -280,7 +280,7 @@ processNewParameters::theta="Please provide psi or gamma with theta.";
 processNewParameters::subsetparam="Parameters `1` in newParameters are not a subset of parameters.";
 
 
-processNewParameters[newParameters:{(_Rule)...},parameters:{(_Rule)..}]:=If[
+processNewParameters[newParameters : {___Rule} | _Association, parameters : {___Rule} | _Association]:=If[
 	newParameters==={},
 	Return[{}],
 	With[

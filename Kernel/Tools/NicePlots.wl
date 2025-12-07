@@ -110,7 +110,7 @@ plotCoeffs[model_Association, sol_List, params_List, Ewc0_List, opts: OptionsPat
 		{
 			activateLast = {MapThread},
 			system = (*model["coeffsSolution"]["wc"]*),
-			parameters = Quiet[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters[params,model["params"]]]
+			parameters = Quiet[processNewParameters[params,model["params"]]]
 		},
 		With[
 			{
