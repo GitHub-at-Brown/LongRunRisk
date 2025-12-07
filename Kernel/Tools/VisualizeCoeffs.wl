@@ -80,6 +80,11 @@ bColor[j_Integer] := $bColors[[Mod[j - 1, Length[$bColors]] + 1]];
 formatValue[val_?NumericQ] := NumberForm[N[val], {Infinity, 2}];
 formatValue[val_] := val;
 
+(* Format coefficient name without context *)
+formatCoeffName[A[n_]] := "A[" <> ToString[n] <> "]";
+formatCoeffName[B[j_][n_]] := "B[" <> ToString[j] <> "][" <> ToString[n] <> "]";
+formatCoeffName[other_] := ToString[other];
+
 
 (* Extract bundles using flattenCoeffsBundles *)
 extractBundles[results_List] := Module[{bundles},
@@ -158,7 +163,7 @@ keyCoeffsGrid[bundles_List, numStocks_Integer] := Module[
             rowColor = If[i == 1, $aColor, bColor[i - 1]]
         },
             Join[
-                {Style[ToString[coeff], Bold, rowColor]},
+                {Style[formatCoeffName[coeff], Bold, rowColor]},
                 Table[formatValue[val], {val, values}],
                 {inlineBar[Max[values], minVal, maxVal, rowColor]}
             ]
@@ -224,7 +229,7 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
                 ];
 
                 Column[{
-                    Style[ToString[coeff] <> " across bundles:", Italic],
+                    Style[formatCoeffName[coeff] <> " across bundles:", Italic],
                     BarChart[
                         values,
                         ChartLabels -> Table["B" <> ToString[i], {i, Length[bundles]}],
@@ -233,7 +238,7 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
                         ImageSize -> {400, Min[200, 25 * Length[bundles]]},
                         LabelStyle -> {FontSize -> 10},
                         Frame -> True,
-                        FrameLabel -> {None, ToString[coeff]},
+                        FrameLabel -> {None, formatCoeffName[coeff]},
                         PlotLabel -> None
                     ],
                     (* Value table *)
@@ -289,7 +294,7 @@ formatBundleDetail[bundle_List, results_List, bundleIdx_Integer] := Module[
         Style["A Coefficients:", Bold, $aColor],
         Grid[
             Partition[
-                Flatten[{ToString[#[[1]]], " = ", formatValue[#[[2]]]} & /@ aCoeffs],
+                Flatten[{formatCoeffName[#[[1]]], " = ", formatValue[#[[2]]]} & /@ aCoeffs],
                 3
             ],
             Alignment -> Left,
@@ -302,7 +307,7 @@ formatBundleDetail[bundle_List, results_List, bundleIdx_Integer] := Module[
                 Style["B[" <> ToString[j] <> "] Coefficients:", Bold, bColor[j]],
                 Grid[
                     Partition[
-                        Flatten[{ToString[#[[1]]], " = ", formatValue[#[[2]]]} & /@ bCoeffs[[j]]],
+                        Flatten[{formatCoeffName[#[[1]]], " = ", formatValue[#[[2]]]} & /@ bCoeffs[[j]]],
                         3
                     ],
                     Alignment -> Left,
