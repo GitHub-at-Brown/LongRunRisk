@@ -171,7 +171,11 @@ processModels[
 	models = EchoTiming[
 		Append[#,
 			"uncondMomOfStateVars"-> 
-					FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`solveSystem[maxMomentOrder, #, maxSolveTime]
+					FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`solveSystem[
+					maxMomentOrder,
+					#,
+					maxSolveTime
+				]
 		]&/@models,
 		"uncondMomOfStateVars"
 	]; (*leaks global t*)
