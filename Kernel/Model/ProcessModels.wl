@@ -42,7 +42,8 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectat
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
-Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"]
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`Logging`"];
 
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
@@ -53,9 +54,6 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 
 
 (*processModels//Options = {};*)
-
-
-processModels::progress = "Finished `1`.";
 
 
 processModels[
@@ -168,9 +166,9 @@ processModels[
 	(*add unconditional moments of state variables*)
 	maxMomentOrder=4;(*4;*)
 	maxSolveTime = 2;(*20;*) (*try Solve for maxSolveTime seconds before switching to solveSystemRecursively*)
-	models = EchoTiming[
+	models = LRRTimed[
 		Append[#,
-			"uncondMomOfStateVars"-> 
+			"uncondMomOfStateVars"->
 					FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`solveSystem[
 					maxMomentOrder,
 					#,
@@ -179,12 +177,12 @@ processModels[
 		]&/@models,
 		"uncondMomOfStateVars"
 	]; (*leaks global t*)
-	
+
 	(*add expressions for some unconditional moments*)
-	models = EchoTiming[
+	models = LRRTimed[
 		Append[
 			#,
-			"ratioUncondE" -> <| 
+			"ratioUncondE" -> <|
 				"wc"->Simplify@uncondE[wc[t],#],
 				"pd"->Simplify@uncondE[pd[t,j],#],
 				"bond"->Simplify@uncondE[bond[t,m],#],
@@ -193,18 +191,18 @@ processModels[
 		]& /@ models,
 		"uncondE"
 	];
-	
+
 	(*add Euler equations*)
-	models = EchoTiming[
+	models = LRRTimed[
 		Append[
 			#,
 			addCoeffsSystem[#]
 		]&/@models,
 		"addCoeffsSystem"
 	];
-	
+
 	(* simplify Euler equations *)
-	models = EchoTiming[
+	models = LRRTimed[
 	  (
 	    Module[{m = #, simpl = simplifyCoeffsSystem[#]},
 	      m[["coeffsSystem", "wc", 1, 2 ;; -1]] = simpl[[1]];
@@ -216,7 +214,7 @@ processModels[
 	];
 
 	(*solve, simplify solution, create nonlinear equations for mean of wc and pd*)
-	models = EchoTiming[
+	models = LRRTimed[
 		Append[
 			#,
 			solveCoeffsSystem[#,
@@ -229,16 +227,16 @@ processModels[
 	];
 
 	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
-	models = EchoTiming[
+	models = LRRTimed[
 		Append[
 			#,
 			"extraInfo" -> If[KeyExistsQ[modelsExtraInfo,#["shortname"]],modelsExtraInfo[#["shortname"]],<||>]
 		]& /@ models,
 		"extraInfo"
 	];
-	
+
 	(*create recursions for bonds*)
-	models = EchoTiming[
+	models = LRRTimed[
 		With[{addCoeffsOpts = FilterRules[Flatten@{opts}, Options[addCoeffsSolution]]},
 			Append[
 				#,

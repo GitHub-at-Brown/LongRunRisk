@@ -36,6 +36,10 @@ Quiet@Get[FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],
 MaTeXInstall[];
 Needs["MaTeX`"];
 (*MaTeX`Developer`ResetConfiguration[];*)
+
+(* Initialize logging early - front-loads MonitorProgress fetch *)
+Needs["FernandoDuarte`LongRunRisk`Tools`Logging`"];
+FernandoDuarte`LongRunRisk`Tools`Logging`initializeLogging[];
 (*configure MaTeX if pdflatex and Ghostscript are installed with Homebrew*)
 (*ConfigureMaTeX[
   "pdfLaTeX"   -> "/opt/homebrew/bin/pdflatex",

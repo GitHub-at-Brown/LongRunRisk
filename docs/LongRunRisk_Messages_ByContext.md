@@ -8,6 +8,9 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 ### Symbol `Esc`
 
 - `Esc::usage` — _[text in main catalog]_
+### Symbol `Info`
+
+- `Info::usage` — _[text in main catalog]_
 ### Symbol `Esg`
 
 - `Esg::usage` — _[text in main catalog]_
@@ -17,6 +20,25 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 ### Symbol `Esx`
 
 - `Esx::usage` — _[text in main catalog]_
+### Symbol `UncondCorr`
+
+- `UncondCorr::usage` — _[text in main catalog]_
+
+### Symbol `UncondCov`
+
+- `UncondCov::usage` — _[text in main catalog]_
+
+### Symbol `UncondVar`
+
+- `UncondVar::usage` — _[text in main catalog]_
+
+### Symbol `YieldCurve`
+
+- `YieldCurve::usage` — _[text in main catalog]_
+
+### Symbol `PlotCoeffs`
+
+- `PlotCoeffs::usage` — _[text in main catalog]_
 ### Symbol `TeXToModel`
 
 - `TeXToModel::usage` — "Association of LaTeX strings for parameters of the model and the name of the corresponding Mathematica variable"
@@ -31,8 +53,8 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 ### Symbol `bindUnary`
 
 - `bindUnary::usage` — `bindUnary[kernel, paramValues]` specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.
-- `bindUnary::insufficientsigns` — Expected at least \`1\` sign values, but got \`2\`.
-- `bindUnary::toomanyigns` — Expected exactly \`1\` sign values, but got \`2\`.
+- `bindUnary::toofewsigns` — Expected at least \`1\` sign values, but got \`2\`.
+- `bindUnary::toomanysigns` — Expected exactly \`1\` sign values, but got \`2\`.
 
 ### Symbol `bondeq`
 
@@ -116,7 +138,7 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 
 ### Symbol `covLongToUncondCov`
 
-- `covLongToUncondCov::nind` — The number of indices provided in \`1\` must be equal to the number of variables in \`2\` plus the number of stock-related variables in \`2\` that require a stock identifier.
+- `covLongToUncondCov::badindexcount` — The number of indices provided in \`1\` must be equal to the number of variables in \`2\` plus the number of stock-related variables in \`2\` that require a stock identifier.
 
 ### Symbol `createCompiledEq`
 
@@ -149,6 +171,11 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 
 - `eulereq::usage` — `eulereq[x[t], s, model]` or `eulereq[x[t,i], s, model]` give the Euler equation for an asset with real return `x[t]` or `x[t, i]` conditional on time `s` for `model`.
 
+### Symbol `niceEulerEq`
+
+- `niceEulerEq::timevars` — Time-dependent variables \`1\` found in Euler equation coefficients.
+- `niceEulerEq::statevars` — Solution not found: state variables \`1\` found in Euler equation coefficients. Consider including additional or different state variables for model \`2\` in `Kernel/Model/Catalog.wl`.
+
 ### Symbol `ev`
 
 - `ev::usage` — `ev[x, s, model]` gives the expected value of `x` conditional on time `s` for `model`.
@@ -176,13 +203,14 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 ### Symbol `fastRoot`
 
 - `fastRoot::usage` — `fastRoot[f, spec, opts]` finds a root using a hybrid Newton/Brent/Secant strategy.
-- `fastRoot::cvmit` — Failed to converge within \`1\` iterations starting from x0=\`2\` in bounds [\`3\`, \`4\`].
-- `fastRoot::nnum` — Function returned non-numeric value \`1\` at x=\`2\`.
-- `fastRoot::nobnd` — No bounds specified and FindRoot failed from x0=\`1\`.
-- `fastRoot::badbnds` — Invalid bounds: lower bound \`1\` must be less than upper bound \`2\`.
+- `fastRoot::noconverge` — Failed to converge within \`1\` iterations starting from x0=\`2\` in bounds [\`3\`, \`4\`].
+- `fastRoot::nonnumeric` — Function returned non-numeric value \`1\` at x=\`2\`.
+- `fastRoot::nobounds` — No bounds specified and FindRoot failed from x0=\`1\`.
+- `fastRoot::badbounds` — Invalid bounds: lower bound \`1\` must be less than upper bound \`2\`.
 - `fastRoot::badspec` — Invalid spec format \`1\`. Expected scalar, {lo, hi}, {x0, lo, hi}, or nested list.
 - `fastRoot::compiled` — Function is a CompiledCodeFunction; Newton+Jacobian unavailable, using fallback.
 - `fastRoot::baddim` — Inconsistent dimensions in spec: \`1\`.
+- `fastRoot::noautox0` — Cannot compute automatic starting point without bounds.
 
 ### Symbol `findBondRecursion`
 
@@ -225,7 +253,7 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 ### Symbol `loadModelKernels`
 
 - `loadModelKernels::nofile` — "Kernel file not found for model `1`. Expected: `2`"
-- `loadModelKernels::sysid` — "Kernel was compiled on `1` but current system is `2`. Recompile may be needed."
+- `loadModelKernels::systemidmismatch` — "Kernel was compiled on `1` but current system is `2`. Recompile may be needed."
 ### Symbol `modelEval`
 
 - `modelEval::usage` — `modelEval[expr, model]` evaluates moments in `expr` using `model`. Example text (abridged) shows mapping of `uncondE`, `uncondCov`, `cov`, etc. into model‑based versions.
@@ -582,7 +610,7 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 
 ### Symbol `updateCoeffsSol`
 
-- `updateCoeffsSol::badkernels` — savedKernels must contain a "kernels" key with "A" and "B" sub-keys. Got: \`1\`.
+- `updateCoeffsSol::badkernelstructure` — savedKernels must contain a "kernels" key with "A" and "B" sub-keys. Got: \`1\`.
 
 ### Symbol `updateModelManifest`
 
@@ -622,6 +650,14 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 ### Symbol `visualizeCoeffs`
 
 - `visualizeCoeffs::usage` — `visualizeCoeffs[updateCoeffsResult]` displays a coefficient-centric comparison view. Shows `A[0]` and `B[j][0]` values across all solution bundles for easy comparison. Includes an interactive selector to compare any coefficient across bundles. Options: • `"ShowSelector" -> True` — show interactive coefficient selector • `"ShowDetails" -> True` — show collapsible bundle details
+
+### Symbol `yieldCurve`
+
+- `yieldCurve::usage` — `yieldCurve[model, newParameters, coeffsWc, bondType, opts]` plots the yield curve.
+
+### Symbol `plotCoeffs`
+
+- `plotCoeffs::usage` — `plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts: OptionsPattern[]]` plots the steps that `FindRoot` takes to solve for `A[0]`.
 ### Symbol `vp`
 
 - `vp::usage` — _[text in main catalog]_

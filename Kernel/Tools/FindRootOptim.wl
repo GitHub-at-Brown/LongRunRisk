@@ -32,8 +32,8 @@ Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"Pe
 Returns an Association with keys: \"fC\", \"dfC\", \"Vars\", \"ParamOrder\", \"SignIndex\", \"CoeffName\", \"SignSymbol\".";
 bindUnary::usage   = "bindUnary[kernel, paramValues] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.
 Options: \"Signs\" (default {}).";
-bindUnary::insufficientsigns = "Expected at least `1` sign values, but got `2`.";
-bindUnary::toomanyigns = "Expected exactly `1` sign values, but got `2`.";
+bindUnary::toofewsigns = "Expected at least `1` sign values, but got `2`.";
+bindUnary::toomanysigns = "Expected exactly `1` sign values, but got `2`.";
 findRootInterval::usage  = "findRootInterval[conds, paramValues] returns a Reduce expression constraining the root variable.
 Pass the result to extractIntervalsFromReduce to obtain numeric intervals.
 Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"Signs\" (default {}).";
@@ -47,10 +47,10 @@ Spec formats:
   1D: {x0, min, max} full | {min, max} bounds only | x0 start only
   nD: {{x01,min1,max1},...} full | {{min1,max1},...} bounds only | {{x01,x02,...}} start only
 Options: Jacobian->df, Method->Automatic, \"SecantBlend\"->0.5, \"Return\"->\"Value\".";
-fastRoot::cvmit = "Failed to converge within `1` iterations starting from x0=`2` in bounds [`3`, `4`].";
-fastRoot::nnum = "Function returned non-numeric value `1` at x=`2`.";
-fastRoot::nobnd = "No bounds specified and FindRoot failed from x0=`1`.";
-fastRoot::badbnds = "Invalid bounds: lower bound `1` must be less than upper bound `2`.";
+fastRoot::noconverge = "Failed to converge within `1` iterations starting from x0=`2` in bounds [`3`, `4`].";
+fastRoot::nonnumeric = "Function returned non-numeric value `1` at x=`2`.";
+fastRoot::nobounds = "No bounds specified and FindRoot failed from x0=`1`.";
+fastRoot::badbounds = "Invalid bounds: lower bound `1` must be less than upper bound `2`.";
 fastRoot::badspec = "Invalid spec format `1`. Expected scalar, {lo, hi}, {x0, lo, hi}, or nested list.";
 fastRoot::noautox0 = "Cannot compute automatic starting point without bounds.";
 fastRoot::compiled = "Function is a CompiledCodeFunction; Newton+Jacobian unavailable, using fallback.";
@@ -397,10 +397,10 @@ bindUnary[
 	    maxIdx = Max[idx];
 	    Which[
 	      Length[signs] < maxIdx,
-	        Message[bindUnary::insufficientsigns, maxIdx, Length[signs]];
+	        Message[bindUnary::toofewsigns, maxIdx, Length[signs]];
 	        $Failed,
 	      Length[signs] > maxIdx,
-	        Message[bindUnary::toomanyigns, maxIdx, Length[signs]];
+	        Message[bindUnary::toomanysigns, maxIdx, Length[signs]];
 	        $Failed,
 	      True,
 	        Developer`ToPackedArray @ Round @ signs[[idx]]
@@ -530,7 +530,7 @@ parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi > lo :=
 
 (* 1D bounds with bad order *)
 parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi <= lo :=
-  (Message[fastRoot::badbnds, lo, hi]; $Failed)
+  (Message[fastRoot::badbounds, lo, hi]; $Failed)
 
 (* 1D full spec (3 elements): {x0, lo, hi} or {Automatic, lo, hi} *)
 parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi > lo :=
@@ -538,7 +538,7 @@ parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi > l
 
 (* 1D full spec with bad bounds *)
 parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi <= lo :=
-  (Message[fastRoot::badbnds, lo, hi]; $Failed)
+  (Message[fastRoot::badbounds, lo, hi]; $Failed)
 
 (* nD start only - NESTED SINGLETON {{x0_vec}} *)
 parseSpec[{v_?(VectorQ[#, NumericQ] &)}] :=
@@ -551,7 +551,7 @@ parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; And @@ ((#[[2]] > #[[1]]) &
 (* nD bounds with bad order *)
 parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; !And @@ ((#[[2]] > #[[1]]) & /@ nested) := Module[
   {badIdx = FirstPosition[nested, {lo_, hi_} /; hi <= lo, {1}, {1}][[1]]},
-  Message[fastRoot::badbnds, nested[[badIdx, 1]], nested[[badIdx, 2]]]; $Failed
+  Message[fastRoot::badbounds, nested[[badIdx, 1]], nested[[badIdx, 2]]]; $Failed
 ]
 
 (* nD full spec - nested, each inner has {x0|Automatic, lo, hi} *)
@@ -566,7 +566,7 @@ parseSpec[nested : {{(_?NumericQ | Automatic), _?NumericQ, _?NumericQ} ..}] /; A
 (* nD full spec with bad bounds *)
 parseSpec[nested : {{(_?NumericQ | Automatic), _?NumericQ, _?NumericQ} ..}] /; !And @@ ((#[[3]] > #[[2]]) & /@ nested) := Module[
   {badIdx = FirstPosition[nested, {_, lo_, hi_} /; hi <= lo, {1}, {1}][[1]]},
-  Message[fastRoot::badbnds, nested[[badIdx, 2]], nested[[badIdx, 3]]]; $Failed
+  Message[fastRoot::badbounds, nested[[badIdx, 2]], nested[[badIdx, 3]]]; $Failed
 ]
 
 (* Catch-all for invalid spec *)
@@ -905,8 +905,8 @@ With[{
       (* Handle failure *)
       If[res === $Failed,
         If[lb === None,
-          Message[fastRoot::nobnd, Short[x0]],
-          Message[fastRoot::cvmit, MaxIterations /. findRootOpts /. MaxIterations -> 100, Short[x0], Short[lb], Short[ub]]
+          Message[fastRoot::nobounds, Short[x0]],
+          Message[fastRoot::noconverge, MaxIterations /. findRootOpts /. MaxIterations -> 100, Short[x0], Short[lb], Short[ub]]
         ];
         Return[$Failed]
       ];
@@ -977,7 +977,7 @@ fastRoot[f_, spec_, opts : OptionsPattern[{fastRoot, FindRoot}]] := Module[
   (* Early check: verify function returns numeric values at x0 *)
   With[{fTest = f[If[dim == 1, {x0}, x0]]},
     If[!AllTrue[Flatten@{fTest}, NumberQ],
-      Message[fastRoot::nnum, Short[fTest], Short[x0]];
+      Message[fastRoot::nonnumeric, Short[fTest], Short[x0]];
       Return[$Failed]
     ]
   ];

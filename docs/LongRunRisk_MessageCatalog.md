@@ -430,9 +430,6 @@ Messages:
   > `processModels[modelsCatalog]` performs symbolic processing on models, adding
   > coefficient systems and solutions.
 
-- `processModels::progress`
-  > Finished \`1\`.
-
 Internal helper message:
 
 - `addCoeffsSolution::badextrainfo`
@@ -525,64 +522,64 @@ Messages:
   > `validateModel[model]` validates a single model `Association` against the
   > schema. Returns a `ValidationResult` association.
 
-- `validateModel::missingKey`
+- `validateModel::missingkey`
 
   > `Model "`1`": Missing required key "`2`".`
 
-- `validateModel::wrongType`
+- `validateModel::wrongtype`
 
   > `Model "`1`": Key "`2`" expected `3`, got `4`.`
 
-- `validateModel::badStateVar`
+- `validateModel::badstatevar`
 
   > `Model "`1`": Invalid state variable `2`. Expected expression with [t] dependency.`
 
-- `validateModel::badParam`
+- `validateModel::badparam`
 
   > `Model "`1`": Parameter `2` has non-numeric value `3`.`
 
-- `validateModel::duplicateParam`
+- `validateModel::duplicateparam`
 
   > `Model "`1`": Duplicate parameter `2`.`
 
-- `validateModel::missingStockParam`
+- `validateModel::missingstockparam`
 
   > `Model "`1`": Stock `2` is incomplete. Missing: `3`.`
 
-- `validateModel::notRule`
+- `validateModel::notrule`
 
   > `Model "`1`": Parameter entry `2` is not a Rule.`
 
-- `validateModel::badParamName`
+- `validateModel::badparamname`
 
   > `Model "`1`": Invalid parameter name `2`.`
 
-- `validateModel::extraParam`
+- `validateModel::extraparam`
 
   > `Model "`1`": Extra parameter(s) not in $parameters: `2`. Valid parameters: `3`.`
 
-- `validateModel::missingParam`
+- `validateModel::missingparam`
 
   > `Model "`1`": Missing parameter(s) from $parameters: `2`. Valid parameters: `3`.`
 
-- `validateModel::badIndexedParam`
+- `validateModel::badindexedparam`
 
   > `Model "`1`": Indexed parameter `2` is not a valid dividend growth parameter.
   > Valid dividend growth parameters: `3`.`
 
-- `validateModel::indexNotPositive`
+- `validateModel::indexnotpositive`
 
   > `Model "`1`": Parameter `2` has non-positive index.`
 
-- `validateModel::indexGap`
+- `validateModel::indexgap`
 
   > `Model "`1`": Stock indices are not sequential starting from 1. Found indices: `2`.`
 
-- `validateModel::badAssumption`
+- `validateModel::badassumption`
 
   > `Model "`1`": Parameter `2` = `3` violates assumption `4`.`
 
-- `validateModel::badStateVarSymbol`
+- `validateModel::badstatevarsymbol`
 
   > `Model "`1`": State variable `2` contains invalid symbol(s): `3`.`
 
@@ -646,7 +643,6 @@ Messages:
 - `reformatCatalog::noroot` — "Could not locate paclet root directory."
 - `reformatCatalog::nocat` — "Could not locate Catalog.wl or parse its structure."
 - `reformatCatalog::convfail` — "Catalog reformatting failed: `1`"
-- `reformatCatalog::success` — "Catalog.wl reformatted successfully."
 
 #### `buildModels`
 
@@ -657,36 +653,19 @@ Messages:
 
 - `buildModels::noroot` — "Could not locate paclet root directory."
 - `buildModels::nocat` — "Catalog models not found or invalid."
-- `buildModels::start` — "starting build for `1` model(s)."
-- `buildModels::processing` — "processing model `1`."
-- `buildModels::compiling` — "compiling model `1`."
-- `buildModels::numerical` — "computing numerical solutions for `1`."
-- `buildModels::moments` — "creating moments database for `1`."
-- `buildModels::done` — "build completed for `1` model(s)."
-- `buildModels::uptodate` — "all enabled models are up to date."
-- `buildModels::skipped` — "skipped `1` (not enabled)."
-- `buildModels::kernels` — "launching `1` parallel kernel(s) for moments computation."
-- `buildModels::kernelwarmup` — "warming up parallel kernels with PacletizedResourceFunctions..."
-- `buildModels::momentscache` — "moments database for `1` is up to date (cache hit)."
-- `buildModels::momentscomputing` — "computing moments database for `1`..."
-- `buildModels::stage` — "model `1`: starting from `2` stage (`3`)."
-- `buildModels::modeluptodate` — "model `1` is up to date."
-- `buildModels::checkpoint` — "checkpoint saved after `1` phase."
+
+**Note:** Progress messages have been moved to the `LRRProgress` logging system
+(see section 2.20 Tools: Logging). Progress is now shown via `MonitorProgress`
+when available, respecting `$LRRVerbose` and `$ProgressReporting` settings.
 
 #### `buildModelsParallel`
 
 - `buildModelsParallel::usage`
 
   > `buildModelsParallel[models]` runs Symbolic+Compile+Numerical phases in
-  > parallel across models, then optionally runs Moments sequentially.  
-  > `models` is a list of shortnames like `{"BY", "NRC", "DES"}`.  
+  > parallel across models, then optionally runs Moments sequentially.
+  > `models` is a list of shortnames like `{"BY", "NRC", "DES"}`.
   > Options include `"CreateMoments"` (default True) and `"NumKernels"` (default Automatic).
-
-- `buildModelsParallel::launching` — "launching `1` parallel kernel(s) for model builds."
-- `buildModelsParallel::parallel` — "running parallel builds for: `1`."
-- `buildModelsParallel::merging` — "merging results from parallel builds."
-- `buildModelsParallel::moments` — "running moments phase sequentially for `1` model(s)."
-- `buildModelsParallel::done` — "parallel build completed for `1` model(s)."
 
 ---
 
@@ -937,6 +916,175 @@ Messages:
 
 ---
 
+### 2.16 ComputationalEngine: ComputeUnconditionalExpectations (`Kernel/ComputationalEngine/ComputeUnconditionalExpectations.wl`)
+
+Context: `FernandoDuarte\`LongRunRisk\`ComputationalEngine\`ComputeUnconditionalExpectations\``.
+
+Public symbols:
+
+- `uncondE`
+- `uncondVar`
+- `uncondCov`
+- `uncondCorr`
+
+Messages:
+
+- `uncondE::usage`  
+  > `uncondE[expr, model]` gives the unconditional expectation of `expr` for `model`.
+
+- `uncondVar::usage`  
+  > `uncondVar[expr, model]` gives the unconditional variance of `expr` for `model`.
+
+- `uncondCov::usage`  
+  > `uncondCov[expr1, expr2, model]` gives the unconditional covariance of `expr1` and `expr2` for `model`.
+
+- `uncondCorr::usage`  
+  > `uncondCorr[expr1, expr2, model]` gives the unconditional correlation of `expr1` and `expr2` for `model`.
+
+---
+
+### 2.17 ComputationalEngine: ComputeConditionalExpectations (`Kernel/ComputationalEngine/ComputeConditionalExpectations.wl`)
+
+Context: `FernandoDuarte\`LongRunRisk\`ComputationalEngine\`ComputeConditionalExpectations\``.
+
+Public symbols:
+
+- `ev`
+- `var`
+- `cov`
+- `corr`
+
+Messages:
+
+- `ev::usage`  
+  > `ev[x, s, model]` gives the expected value of `x` conditional on time `s` for `model`.
+
+- `var::usage`  
+  > `var[x, s, model]` gives the variance of `x` conditional on time `s` for `model`.
+
+- `cov::usage`  
+  > `cov[x, y, s, model]` gives the covariance of `x` and `y` conditional on time `s` for `model`.
+
+- `corr::usage`  
+  > `corr[x, y, s, model]` gives the correlation of `x` and `y` conditional on time `s` for `model`.
+
+---
+
+### 2.18 Tools: FindRootOptim (`Kernel/Tools/FindRootOptim.wl`)
+
+Context: `FernandoDuarte\`LongRunRisk\`Tools\`FindRootOptim\``.
+
+Public symbols:
+
+- `buildKernel`
+- `bindUnary`
+- `findRootInterval`
+- `extractIntervalsFromReduce`
+- `scanAndSolve`
+- `fastRoot`
+- `createCompiledEq`
+- `buildEqMapFromModel`
+
+Messages (public usage):
+
+- `buildKernel::usage`  
+  > `buildKernel[expr, vars, params]` compiles `expr` into a kernel optimized for root-finding.  
+  > `vars` are the coefficient variables to solve for and `params` are the parameter symbols.  
+  > Options include `"CoeffName"`, `"SignSymbol"`, `"PerformanceGoal"`, `"CompileMode"`, `"Compiler"`, and `"FlattenExpressions"`.
+
+- `bindUnary::usage`  
+  > `bindUnary[kernel, paramValues]` specializes a compiled kernel with numeric parameter values, returning `{f, df}`.  
+  > Option `"Signs"` supplies explicit sign tuples for square‑root branches.
+
+- `findRootInterval::usage`  
+  > `findRootInterval[conds, paramValues]` returns a `Reduce` expression constraining the root variable associated with a coefficient head.  
+  > Options `"CoeffName"`, `"SignSymbol"`, and `"Signs"` control which coefficient and sign branch are used.
+
+- `extractIntervalsFromReduce::usage`  
+  > `extractIntervalsFromReduce[reduceExpr, rootVar]` converts a `Reduce` expression into a list of numeric intervals `{{a1, b1}, …}`.  
+  > Options `"InteriorShrink"`, `"RootUpperBound"`, and `"UnboundedPad"` control interval trimming and bounds.
+
+- `scanAndSolve::usage`  
+  > `scanAndSolve[f, {min, max}]` finds roots of `f[x]` on `[min, max]` by grid subdivision and refinement.  
+  > `scanAndSolve[f, df, {min, max}]` uses derivative information for Newton steps.  
+  > Options `"BracketGrid"`, `"Tolerance"`, `"FastRootOptions"`, and `"FindRootOptions"` configure scanning density and solver behavior.
+
+- `fastRoot::usage`  
+  > `fastRoot[f, spec, opts]` finds a root using a hybrid Newton/Brent/Secant strategy.  
+  > `spec` can be a scalar, `{lo, hi}`, `{x0, lo, hi}`, or nested list for nD problems.  
+  > Options include `Jacobian`, `Method`, `"SecantBlend"`, `"Return"`, and `"FindRootOptions"` (plus all `FindRoot` options).
+
+- `createCompiledEq::usage`  
+  > `createCompiledEq[model, dir]` compiles model equations to `dir/{shortname}.mx` and returns the file path on success.
+
+- `buildEqMapFromModel::usage`  
+  > `buildEqMapFromModel[model]` extracts the equation map from a processed model for use in compilation and hash validation.
+
+---
+
+### 2.19 Tools: NicePlots (`Kernel/Tools/NicePlots.wl`)
+
+Context: `FernandoDuarte\`LongRunRisk\`Tools\`NicePlots\``.
+
+Public symbols:
+
+- `yieldCurve`
+- `plotCoeffs`
+
+Messages:
+
+- `yieldCurve::usage`  
+  > `yieldCurve[model, newParameters, coeffsWc, bondType, opts]` plots the yield curve implied by `model`.  
+  > `bondType` selects real vs nominal bonds and `opts` are forwarded to coefficient solvers and `FindRoot`/`RecurrenceTable` as appropriate.
+
+- `plotCoeffs::usage`
+  > `plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts]` plots the steps that `FindRoot` takes to solve for `A[0]` in the coefficient system.
+  > Forwards options to the underlying `FindRootPlot` resource function.
+
+---
+
+### 2.20 Tools: Logging (`Kernel/Tools/Logging.wl`)
+
+Context: `FernandoDuarte\`LongRunRisk\`Tools\`Logging\``.
+
+Public symbols:
+
+- `LRRProgress`
+- `LRRTimed`
+- `$LRRVerbose`
+- `initializeLogging`
+
+Messages:
+
+- `LRRProgress::usage`
+  > `LRRProgress[expr]` wraps `expr` with `MonitorProgress` for automatic progress tracking.
+  > Respects both `$LRRVerbose` and `$ProgressReporting`.
+  > Works in notebooks (visual progress bar) and terminal (text progress bar).
+
+- `LRRTimed::usage`
+  > `LRRTimed[expr, label]` evaluates `expr` and prints timing with `label`.
+  > Respects `$LRRVerbose`. Use for single operations that need timing output.
+
+- `$LRRVerbose::usage`
+  > `$LRRVerbose` controls LongRunRisk output verbosity.
+  > Values: `"Silent"` | `"Normal"` (default).
+  > When `"Silent"`, progress and timing output is suppressed.
+
+- `initializeLogging::usage`
+  > `initializeLogging[]` attempts to load `MonitorProgress` from the Function Repository.
+  > Call once at paclet load time (from `LongRunRisk.wl`).
+  > Returns `True` if `MonitorProgress` loaded, `False` otherwise.
+
+**Design notes:**
+
+- Progress is shown using `MonitorProgress` from the Function Repository when available
+- Falls back to `Monitor` with `ProgressIndicator[Indeterminate]` in notebooks when `MonitorProgress` is unavailable
+- Falls back to silent evaluation in terminal when `MonitorProgress` is unavailable
+- Respects both `$LRRVerbose` and `$ProgressReporting` global settings
+- `initializeLogging[]` is idempotent (safe to call multiple times)
+
+---
+
 ## 3. Internal / helper messages
 
 This section lists messages that are **not part of the top‑level
@@ -1009,7 +1157,19 @@ Context: `FernandoDuarte\`LongRunRisk\`ComputationalEngine\`ComputeConditionalEx
 
 ---
 
-### 3.4 SolveEulerEq helper messages
+### 3.4 CreateEulerEq helper messages
+
+Context: `FernandoDuarte\`LongRunRisk\`ComputationalEngine\`CreateEulerEq\``.
+
+- `niceEulerEq::timevars`  
+  > Time-dependent variables \`1\` found in Euler equation coefficients.
+
+- `niceEulerEq::statevars`  
+  > Solution not found: state variables \`1\` found in Euler equation coefficients. Consider including additional or different state variables for model \`2\` in `Kernel/Model/Catalog.wl`.
+
+---
+
+### 3.5 SolveEulerEq helper messages
 
 Context: `FernandoDuarte\`LongRunRisk\`ComputationalEngine\`SolveEulerEq\``.
 
@@ -1019,7 +1179,7 @@ Context: `FernandoDuarte\`LongRunRisk\`ComputationalEngine\`SolveEulerEq\``.
 
   > "Kernel file not found for model `1`. Expected: `2`"
 
-- `loadModelKernels::sysid`
+- `loadModelKernels::systemidmismatch`
 
   > "Kernel was compiled on `1` but current system is `2`. Recompile may be needed."
 
@@ -1036,7 +1196,7 @@ Used when normalizing the `"RootSigns"` option.
 
 #### `updateCoeffsSol`
 
-- `updateCoeffsSol::badkernels`
+- `updateCoeffsSol::badkernelstructure`
   > savedKernels must contain a "kernels" key with "A" and "B" sub-keys. Got: \`1\`
 
 #### `checks`
@@ -1052,14 +1212,11 @@ Used when normalizing the `"RootSigns"` option.
 
 ---
 
-### 3.5 CreateMomentsDatabase helper messages
+### 3.6 CreateMomentsDatabase helper messages
 
 Context: `FernandoDuarte\`LongRunRisk\`ComputationalEngine\`CreateMomentsDatabase\``.
 
-- `createDatabase::done`
-  > Finished computing moments for \`1\`.
-
-- `covLongToUncondCov::nind`
+- `covLongToUncondCov::badindexcount`
   > The number of indices provided in \`1\` must be equal to the number of variables
   > in \`2\` plus the number of stock-related variables in \`2\` that require a stock identifier.
 
@@ -1068,7 +1225,7 @@ Context: `FernandoDuarte\`LongRunRisk\`ComputationalEngine\`CreateMomentsDatabas
 
 ---
 
-### 3.6 FindRootOptim helper messages
+### 3.7 FindRootOptim helper messages
 
 Context: `FernandoDuarte\`LongRunRisk\`Tools\`FindRootOptim\``.
 
@@ -1085,10 +1242,10 @@ Context: `FernandoDuarte\`LongRunRisk\`Tools\`FindRootOptim\``.
 
 #### `bindUnary`
 
-- `bindUnary::insufficientsigns`
+- `bindUnary::toofewsigns`
   > Expected at least \`1\` sign values, but got \`2\`.
 
-- `bindUnary::toomanyigns`
+- `bindUnary::toomanysigns`
   > Expected exactly \`1\` sign values, but got \`2\`.
 
 #### `findRootInterval`
@@ -1106,16 +1263,16 @@ Context: `FernandoDuarte\`LongRunRisk\`Tools\`FindRootOptim\``.
 
 #### `fastRoot`
 
-- `fastRoot::cvmit`
+- `fastRoot::noconverge`
   > Failed to converge within \`1\` iterations starting from x0=\`2\` in bounds [\`3\`, \`4\`].
 
-- `fastRoot::nnum`
+- `fastRoot::nonnumeric`
   > Function returned non-numeric value \`1\` at x=\`2\`.
 
-- `fastRoot::nobnd`
+- `fastRoot::nobounds`
   > No bounds specified and FindRoot failed from x0=\`1\`.
 
-- `fastRoot::badbnds`
+- `fastRoot::badbounds`
   > Invalid bounds: lower bound \`1\` must be less than upper bound \`2\`.
 
 - `fastRoot::badspec`
@@ -1127,6 +1284,9 @@ Context: `FernandoDuarte\`LongRunRisk\`Tools\`FindRootOptim\``.
 - `fastRoot::baddim`
   > Inconsistent dimensions in spec: \`1\`.
 
+- `fastRoot::noautox0`
+  > Cannot compute automatic starting point without bounds.
+
 #### `createCompiledEq`
 
 - `createCompiledEq::cachehit`
@@ -1137,7 +1297,7 @@ Context: `FernandoDuarte\`LongRunRisk\`Tools\`FindRootOptim\``.
 
 ---
 
-### 3.7 NiceOutput internal helpers
+### 3.8 NiceOutput internal helpers
 
 Context: `FernandoDuarte\`LongRunRisk\`Tools\`NiceOutput\``.
 
@@ -1164,7 +1324,7 @@ These helpers are **not exported** via the package’s public symbol list.
 
 ---
 
-### 3.8 ExogenousEq dynamic usage messages for private variables
+### 3.9 ExogenousEq dynamic usage messages for private variables
 
 In `Kernel/Model/ExogenousEq.wl`, after defining the public `...eq` symbols,
 the code constructs **private exogenous variable symbols** (without the `eq`

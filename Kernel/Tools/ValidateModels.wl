@@ -3,21 +3,21 @@
 BeginPackage["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"];
 
 validateModel::usage = "validateModel[model] validates a single model Association against the schema. Returns a ValidationResult Association.";
-validateModel::missingKey = "Model \"`1`\": Missing required key \"`2`\".";
-validateModel::wrongType = "Model \"`1`\": Key \"`2`\" expected `3`, got `4`.";
-validateModel::badStateVar = "Model \"`1`\": Invalid state variable `2`. Expected expression with [t] dependency.";
-validateModel::badParam = "Model \"`1`\": Parameter `2` has non-numeric value `3`.";
-validateModel::duplicateParam = "Model \"`1`\": Duplicate parameter `2`.";
-validateModel::missingStockParam = "Model \"`1`\": Stock `2` is incomplete. Missing: `3`.";
-validateModel::notRule = "Model \"`1`\": Parameter entry `2` is not a Rule.";
-validateModel::badParamName = "Model \"`1`\": Invalid parameter name `2`.";
-validateModel::extraParam = "Model \"`1`\": Extra parameter(s) not in $parameters: `2`. Valid parameters: `3`.";
-validateModel::missingParam = "Model \"`1`\": Missing parameter(s) from $parameters: `2`. Valid parameters: `3`.";
-validateModel::badIndexedParam = "Model \"`1`\": Indexed parameter `2` is not a valid dividend growth parameter. Valid dividend growth parameters: `3`.";
-validateModel::indexNotPositive = "Model \"`1`\": Parameter `2` has non-positive index.";
-validateModel::indexGap = "Model \"`1`\": Stock indices are not sequential starting from 1. Found indices: `2`.";
-validateModel::badAssumption = "Model \"`1`\": Parameter `2` = `3` violates assumption `4`.";
-validateModel::badStateVarSymbol = "Model \"`1`\": State variable `2` contains invalid symbol(s): `3`.";
+validateModel::missingkey = "Model \"`1`\": Missing required key \"`2`\".";
+validateModel::wrongtype = "Model \"`1`\": Key \"`2`\" expected `3`, got `4`.";
+validateModel::badstatevar = "Model \"`1`\": Invalid state variable `2`. Expected expression with [t] dependency.";
+validateModel::badparam = "Model \"`1`\": Parameter `2` has non-numeric value `3`.";
+validateModel::duplicateparam = "Model \"`1`\": Duplicate parameter `2`.";
+validateModel::missingstockparam = "Model \"`1`\": Stock `2` is incomplete. Missing: `3`.";
+validateModel::notrule = "Model \"`1`\": Parameter entry `2` is not a Rule.";
+validateModel::badparamname = "Model \"`1`\": Invalid parameter name `2`.";
+validateModel::extraparam = "Model \"`1`\": Extra parameter(s) not in $parameters: `2`. Valid parameters: `3`.";
+validateModel::missingparam = "Model \"`1`\": Missing parameter(s) from $parameters: `2`. Valid parameters: `3`.";
+validateModel::badindexedparam = "Model \"`1`\": Indexed parameter `2` is not a valid dividend growth parameter. Valid dividend growth parameters: `3`.";
+validateModel::indexnotpositive = "Model \"`1`\": Parameter `2` has non-positive index.";
+validateModel::indexgap = "Model \"`1`\": Stock indices are not sequential starting from 1. Found indices: `2`.";
+validateModel::badassumption = "Model \"`1`\": Parameter `2` = `3` violates assumption `4`.";
+validateModel::badstatevarsymbol = "Model \"`1`\": State variable `2` contains invalid symbol(s): `3`.";
 
 validateCatalog::usage = "validateCatalog[catalog] validates all models in a catalog Association. Returns a CatalogValidationResult.";
 
@@ -159,7 +159,7 @@ validateStructure[model_, modelName_] := Flatten[Last[Reap[
         "Type" -> "MissingKey",
         "Model" -> modelName,
         "Key" -> #,
-        "Message" -> validateModel::missingKey
+        "Message" -> validateModel::missingkey
       |>] &,
       missingKeys
     ];
@@ -175,7 +175,7 @@ validateStructure[model_, modelName_] := Flatten[Last[Reap[
             "Key" -> key,
             "Expected" -> $keyTypeNames[key],
             "Got" -> ToString[Head[model[key]]],
-            "Message" -> validateModel::wrongType
+            "Message" -> validateModel::wrongtype
           |>]
         ]
       ],
@@ -199,7 +199,7 @@ validateStateVars[stateVars_, modelName_] := Flatten[Last[Reap[
         "Key" -> "stateVars",
         "Expected" -> "non-empty List",
         "Got" -> "empty List",
-        "Message" -> validateModel::wrongType
+        "Message" -> validateModel::wrongtype
       |>];
       Return[{}]
     ];
@@ -211,7 +211,7 @@ validateStateVars[stateVars_, modelName_] := Flatten[Last[Reap[
         "Type" -> "BadStateVar",
         "Model" -> modelName,
         "Key" -> #,
-        "Message" -> validateModel::badStateVar
+        "Message" -> validateModel::badstatevar
       |>] &,
       badStateVars
     ];
@@ -229,7 +229,7 @@ validateStateVars[stateVars_, modelName_] := Flatten[Last[Reap[
               "Model" -> modelName,
               "StateVar" -> sv,
               "InvalidSymbols" -> invalidSymbols,
-              "Message" -> validateModel::badStateVarSymbol
+              "Message" -> validateModel::badstatevarsymbol
             |>]
           ]
         ],
@@ -254,7 +254,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
         "Key" -> "parameters",
         "Expected" -> "non-empty List",
         "Got" -> "empty List",
-        "Message" -> validateModel::wrongType
+        "Message" -> validateModel::wrongtype
       |>];
       Return[{}]
     ];
@@ -266,7 +266,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
         "Type" -> "NotRule",
         "Model" -> modelName,
         "Key" -> #,
-        "Message" -> validateModel::notRule
+        "Message" -> validateModel::notrule
       |>] &,
       nonRules
     ];
@@ -282,7 +282,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
         "Type" -> "DuplicateParam",
         "Model" -> modelName,
         "Key" -> #,
-        "Message" -> validateModel::duplicateParam
+        "Message" -> validateModel::duplicateparam
       |>] &,
       duplicates
     ];
@@ -294,7 +294,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
         "Type" -> "BadParamName",
         "Model" -> modelName,
         "Key" -> First[#],
-        "Message" -> validateModel::badParamName
+        "Message" -> validateModel::badparamname
       |>] &,
       badNames
     ];
@@ -308,7 +308,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
           "Model" -> modelName,
           "Key" -> First[rule],
           "Value" -> Last[rule],
-          "Message" -> validateModel::badParam
+          "Message" -> validateModel::badparam
         |>]
       ],
       badValues
@@ -335,7 +335,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
               "Model" -> modelName,
               "Key" -> First[rule],
               "ValidIndexedParams" -> expectedIndexedNames,
-              "Message" -> validateModel::badIndexedParam
+              "Message" -> validateModel::badindexedparam
             |>]
           ],
           badIndexedParams
@@ -350,7 +350,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
               "Type" -> "IndexNotPositive",
               "Model" -> modelName,
               "Key" -> First[rule],
-              "Message" -> validateModel::indexNotPositive
+              "Message" -> validateModel::indexnotpositive
             |>]
           ],
           nonPositiveIndices
@@ -363,7 +363,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
             "Type" -> "IndexGap",
             "Model" -> modelName,
             "Indices" -> stockIndices,
-            "Message" -> validateModel::indexGap
+            "Message" -> validateModel::indexgap
           |>]
         ];
 
@@ -383,7 +383,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
                 "Model" -> modelName,
                 "Key" -> idx,
                 "Missing" -> missingForStock,
-                "Message" -> validateModel::missingStockParam
+                "Message" -> validateModel::missingstockparam
               |>]
             ]
           ],
@@ -406,7 +406,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
           "Model" -> modelName,
           "Extra" -> extraParams,
           "Expected" -> expectedParamNames,
-          "Message" -> validateModel::extraParam
+          "Message" -> validateModel::extraparam
         |>]
       ];
 
@@ -418,7 +418,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
           "Model" -> modelName,
           "Missing" -> missingParams,
           "Expected" -> expectedParamNames,
-          "Message" -> validateModel::missingParam
+          "Message" -> validateModel::missingparam
         |>]
       ]
     ];
@@ -452,7 +452,7 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
                   "Key" -> paramName,
                   "Value" -> paramValue,
                   "Assumption" -> assumption,
-                  "Message" -> validateModel::badAssumption
+                  "Message" -> validateModel::badassumption
                 |>]
               ]
             ]
@@ -470,35 +470,35 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
 
 issueMessage[error_Association] := Switch[error["Type"],
   "MissingKey",
-    Message[validateModel::missingKey, error["Model"], error["Key"]],
+    Message[validateModel::missingkey, error["Model"], error["Key"]],
   "WrongType",
-    Message[validateModel::wrongType, error["Model"], error["Key"], error["Expected"], error["Got"]],
+    Message[validateModel::wrongtype, error["Model"], error["Key"], error["Expected"], error["Got"]],
   "BadStateVar",
-    Message[validateModel::badStateVar, error["Model"], error["Key"]],
+    Message[validateModel::badstatevar, error["Model"], error["Key"]],
   "BadParam",
-    Message[validateModel::badParam, error["Model"], error["Key"], error["Value"]],
+    Message[validateModel::badparam, error["Model"], error["Key"], error["Value"]],
   "DuplicateParam",
-    Message[validateModel::duplicateParam, error["Model"], error["Key"]],
+    Message[validateModel::duplicateparam, error["Model"], error["Key"]],
   "MissingStockParam",
-    Message[validateModel::missingStockParam, error["Model"], error["Key"], StringRiffle[ToString /@ error["Missing"], ", "]],
+    Message[validateModel::missingstockparam, error["Model"], error["Key"], StringRiffle[ToString /@ error["Missing"], ", "]],
   "NotRule",
-    Message[validateModel::notRule, error["Model"], error["Key"]],
+    Message[validateModel::notrule, error["Model"], error["Key"]],
   "BadParamName",
-    Message[validateModel::badParamName, error["Model"], error["Key"]],
+    Message[validateModel::badparamname, error["Model"], error["Key"]],
   "ExtraParam",
-    Message[validateModel::extraParam, error["Model"], StringRiffle[error["Extra"], ", "], StringRiffle[error["Expected"], ", "]],
+    Message[validateModel::extraparam, error["Model"], StringRiffle[error["Extra"], ", "], StringRiffle[error["Expected"], ", "]],
   "MissingParam",
-    Message[validateModel::missingParam, error["Model"], StringRiffle[error["Missing"], ", "], StringRiffle[error["Expected"], ", "]],
+    Message[validateModel::missingparam, error["Model"], StringRiffle[error["Missing"], ", "], StringRiffle[error["Expected"], ", "]],
   "BadIndexedParam",
-    Message[validateModel::badIndexedParam, error["Model"], error["Key"], StringRiffle[error["ValidIndexedParams"], ", "]],
+    Message[validateModel::badindexedparam, error["Model"], error["Key"], StringRiffle[error["ValidIndexedParams"], ", "]],
   "IndexNotPositive",
-    Message[validateModel::indexNotPositive, error["Model"], error["Key"]],
+    Message[validateModel::indexnotpositive, error["Model"], error["Key"]],
   "IndexGap",
-    Message[validateModel::indexGap, error["Model"], StringRiffle[ToString /@ error["Indices"], ", "]],
+    Message[validateModel::indexgap, error["Model"], StringRiffle[ToString /@ error["Indices"], ", "]],
   "BadAssumption",
-    Message[validateModel::badAssumption, error["Model"], error["Key"], error["Value"], error["Assumption"]],
+    Message[validateModel::badassumption, error["Model"], error["Key"], error["Value"], error["Assumption"]],
   "BadStateVarSymbol",
-    Message[validateModel::badStateVarSymbol, error["Model"], error["StateVar"], StringRiffle[error["InvalidSymbols"], ", "]],
+    Message[validateModel::badstatevarsymbol, error["Model"], error["StateVar"], StringRiffle[error["InvalidSymbols"], ", "]],
   _,
     Null
 ];

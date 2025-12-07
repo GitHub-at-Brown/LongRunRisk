@@ -21,37 +21,19 @@ reformatCatalog::usage = "reformatCatalog[] reformats the models section of Cata
 reformatCatalog::noroot = "Could not locate paclet root directory.";
 reformatCatalog::nocat = "Could not locate Catalog.wl or parse its structure.";
 reformatCatalog::convfail = "Catalog reformatting failed: `1`";
-reformatCatalog::success = "Catalog.wl reformatted successfully.";
 
 buildModels::usage = "buildModels[] processes enabled models, compiles functions, computes numerical solutions, and creates moments database.";
 buildModels::noroot = "Could not locate paclet root directory.";
 buildModels::nocat = "Catalog models not found or invalid.";
-buildModels::start = "starting build for `1` model(s).";
-buildModels::processing = "processing model `1`.";
-buildModels::compiling = "compiling model `1`.";
-buildModels::numerical = "computing numerical solutions for `1`.";
-buildModels::moments = "creating moments database for `1`.";
-buildModels::done = "build completed for `1` model(s).";
-buildModels::uptodate = "all enabled models are up to date.";
-buildModels::skipped = "skipped `1` (not enabled).";
-buildModels::kernels = "launching `1` parallel kernel(s) for moments computation.";
-buildModels::kernelwarmup = "warming up parallel kernels with PacletizedResourceFunctions...";
-buildModels::momentscache = "moments database for `1` is up to date (cache hit).";
-buildModels::momentscomputing = "computing moments database for `1`...";
-buildModels::stage = "model `1`: starting from `2` stage (`3`).";
-buildModels::modeluptodate = "model `1` is up to date.";
-buildModels::checkpoint = "checkpoint saved after `1` phase.";
 
 buildModelsParallel::usage = "buildModelsParallel[models] runs Symbolic+Compile+Numerical phases in parallel across models, then optionally runs Moments sequentially.
 Models is a list of shortnames like {\"BY\", \"NRC\", \"DES\"}.
 Options include \"CreateMoments\" (default True) and \"NumKernels\" (default Automatic).";
-buildModelsParallel::launching = "launching `1` parallel kernel(s) for model builds.";
-buildModelsParallel::parallel = "running parallel builds for: `1`.";
-buildModelsParallel::merging = "merging results from parallel builds.";
-buildModelsParallel::moments = "running moments phase sequentially for `1` model(s).";
-buildModelsParallel::done = "parallel build completed for `1` model(s).";
 
 Begin["`Private`"];
+
+(* Load Logging for LRRProgress *)
+Needs["FernandoDuarte`LongRunRisk`Tools`Logging`"];
 
 (* Live catalog loading - tracks file modification time *)
 $catalogFile = None;
@@ -551,7 +533,6 @@ reformatCatalog[] := Module[
   (* Reset cache to force reload on next access *)
   $catalogMTime = None;
 
-  Message[reformatCatalog::success];
   catalogFile
 ];
 
@@ -822,7 +803,6 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		];
 
 		If[Length[enabledModels] == 0,
-			Message[buildModels::uptodate];
 			Return[<||>]
 		];
 
@@ -861,24 +841,11 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		modelsByStage = GroupBy[Keys[modelStatuses], modelStatuses[#]["MainStage"] &];
 		modelsNeedingJacobians = Select[Keys[modelStatuses], modelStatuses[#]["NeedsJacobians"] &];
 
-		(* log status *)
-		Do[
-			With[{s = modelStatuses[k], sn = catalogModels[k]["shortname"]},
-				If[s["MainStage"] === "UpToDate" && !s["NeedsJacobians"],
-					Message[buildModels::modeluptodate, sn],
-					Message[buildModels::stage, sn, s["MainStage"], s["Reason"]]
-				]
-			], {k, Keys[enabledModels]}
-		];
-
 		(* early exit if nothing to do *)
 		modelsByStage = KeyDrop[modelsByStage, "UpToDate"];
 		If[Total[Length /@ Values[modelsByStage]] == 0 && Length[modelsNeedingJacobians] == 0,
-			Message[buildModels::uptodate];
 			Return[<||>]
 		];
-
-		Message[buildModels::start, Total[Length /@ Values[modelsByStage]]];
 
 		(* preload saved models for non-symbolic stages *)
 		processedModels = <||>;
@@ -896,9 +863,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		symbolicModels = Lookup[modelsByStage, "Symbolic", {}];
 
 		(* Phase 1: Symbolic processing *)
-		Do[
+		LRRProgress @ Do[
 			shortname = catalogModels[modelKey]["shortname"];
-			Message[buildModels::processing, shortname];
 
 			(* run symbolic processing *)
 			model = First @ Values @ FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
@@ -912,16 +878,14 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 			(* Checkpoint after each model's symbolic processing *)
 			saveModels[Merge[{savedModels, processedModels}, Last], modelsFile];
-			Message[buildModels::checkpoint, shortname <> " Symbolic"];
 
 			, {modelKey, symbolicModels}
 		];
 
 		(* Phase 2: Compile functions - cascade from Symbolic + models at Compile stage *)
 		compileModels = DeleteDuplicates @ Join[symbolicModels, Lookup[modelsByStage, "Compile", {}]];
-		Do[
+		LRRProgress @ Do[
 			shortname = catalogModels[modelKey]["shortname"];
-			Message[buildModels::compiling, shortname];
 			compiledFile = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 				processedModels[shortname],
 				compiledDir
@@ -931,9 +895,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 		(* Phase 3: Numerical solutions - cascade from Compile + models at Numerical stage *)
 		numericalModels = DeleteDuplicates @ Join[compileModels, Lookup[modelsByStage, "Numerical", {}]];
-		Do[
+		LRRProgress @ Do[
 			shortname = catalogModels[modelKey]["shortname"];
-			Message[buildModels::numerical, shortname];
 			With[{solN = FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[
 					processedModels[shortname]
 				]},
@@ -947,7 +910,6 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 			(* Checkpoint after each model's numerical solutions *)
 			saveModels[Merge[{savedModels, processedModels}, Last], modelsFile];
-			Message[buildModels::checkpoint, shortname <> " Numerical"];
 
 			, {modelKey, numericalModels}
 		];
@@ -960,22 +922,16 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 				If[Length[momentsModels] > 0,
 					(* Setup parallel kernels *)
 					numLaunched = setupParallelKernels[numKernels];
-					If[numLaunched > 0,
-						Message[buildModels::kernels, numLaunched];
-						Message[buildModels::kernelwarmup];
-						warmupParallelKernels[];
-					];
+					If[numLaunched > 0, warmupParallelKernels[]];
 
 					(* Load createDatabase *)
 					Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
 
 					(* Process each model *)
-					Do[
+					LRRProgress @ Do[
 						shortname = catalogModels[modelKey]["shortname"];
 						momentsFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> ".wl"}];
 						metaFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> "_meta.wl"}];
-
-						Message[buildModels::momentscomputing, shortname];
 
 						(* Create moments database *)
 						FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`createDatabase[
@@ -1006,9 +962,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 		(* Jacobian track - orthogonal, no cascade *)
 		If[compileJacobians && Length[modelsNeedingJacobians] > 0,
-			Do[
+			LRRProgress @ Do[
 				shortname = catalogModels[modelKey]["shortname"];
-				Message[buildModels::compiling, shortname <> " jacobians"];
 				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 					processedModels[shortname],
 					compiledDir,
@@ -1023,8 +978,6 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 		(* update manifest *)
 		updateModelManifest[];
-
-		Message[buildModels::done, Total[Length /@ Values[modelsByStage]]];
 
 		processedModels
 	]
@@ -1067,7 +1020,6 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	(* Launch parallel kernels *)
 	CloseKernels[];
 	nLaunched = LaunchKernels[numKernels];
-	Message[buildModelsParallel::launching, nLaunched];
 
 	(* Initialize parallel kernels *)
 	ParallelEvaluate[
@@ -1077,7 +1029,6 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	] &@ pacletDir;
 
 	(* Run builds in parallel - each returns processed model or $Failed *)
-	Message[buildModelsParallel::parallel, StringRiffle[models, ", "]];
 
 	parallelResults = ParallelTable[
 		Quiet @ Check[
@@ -1109,7 +1060,6 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	];
 
 	(* Merge results on main kernel *)
-	Message[buildModelsParallel::merging];
 	savedModels = loadModels[modelsFile];
 	mergedModels = Merge[
 		Prepend[
@@ -1129,8 +1079,7 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	If[createMoments,
 		With[{successModels = Select[parallelResults, #["Status"] === "Success" &]},
 			If[Length[successModels] > 0,
-				Message[buildModelsParallel::moments, Length[successModels]];
-				Do[
+				LRRProgress @ Do[
 					buildModels[
 						"Models" -> {m},
 						"CreateMoments" -> True,
@@ -1141,8 +1090,6 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 			]
 		]
 	];
-
-	Message[buildModelsParallel::done, Length[models]];
 
 	mergedModels
 ];

@@ -50,8 +50,8 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 | Context | Tag | Message text |
 | --- | --- | --- |
 | `FernandoDuarte\` | `usage` | `bindUnary[kernel, paramValues]` specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}. |
-| `FernandoDuarte\` | `insufficientsigns` | Expected at least \`1\` sign values, but got \`2\`. |
-| `FernandoDuarte\` | `toomanyigns` | Expected exactly \`1\` sign values, but got \`2\`. |
+| `FernandoDuarte\` | `toofewsigns` | Expected at least \`1\` sign values, but got \`2\`. |
+| `FernandoDuarte\` | `toomanysigns` | Expected exactly \`1\` sign values, but got \`2\`. |
 
 ## Symbol `bondeq`
 
@@ -174,7 +174,7 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 
 | Context | Tag | Message text |
 | --- | --- | --- |
-| `FernandoDuarte\` | `nind` | The number of indices provided in \`1\` must be equal to the number of variables in \`2\` plus the number of stock-related variables in \`2\` that require a stock identifier. |
+| `FernandoDuarte\` | `badindexcount` | The number of indices provided in \`1\` must be equal to the number of variables in \`2\` plus the number of stock-related variables in \`2\` that require a stock identifier. |
 
 ## Symbol `createCompiledEq`
 
@@ -275,13 +275,14 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 | Context | Tag | Message text |
 | --- | --- | --- |
 | `FernandoDuarte\` | `usage` | `fastRoot[f, spec, opts]` finds a root using a hybrid Newton/Brent/Secant strategy. |
-| `FernandoDuarte\` | `cvmit` | Failed to converge within \`1\` iterations starting from x0=\`2\` in bounds [\`3\`, \`4\`]. |
-| `FernandoDuarte\` | `nnum` | Function returned non-numeric value \`1\` at x=\`2\`. |
-| `FernandoDuarte\` | `nobnd` | No bounds specified and FindRoot failed from x0=\`1\`. |
-| `FernandoDuarte\` | `badbnds` | Invalid bounds: lower bound \`1\` must be less than upper bound \`2\`. |
+| `FernandoDuarte\` | `noconverge` | Failed to converge within \`1\` iterations starting from x0=\`2\` in bounds [\`3\`, \`4\`]. |
+| `FernandoDuarte\` | `nonnumeric` | Function returned non-numeric value \`1\` at x=\`2\`. |
+| `FernandoDuarte\` | `nobounds` | No bounds specified and FindRoot failed from x0=\`1\`. |
+| `FernandoDuarte\` | `badbounds` | Invalid bounds: lower bound \`1\` must be less than upper bound \`2\`. |
 | `FernandoDuarte\` | `badspec` | Invalid spec format \`1\`. Expected scalar, {lo, hi}, {x0, lo, hi}, or nested list. |
 | `FernandoDuarte\` | `compiled` | Function is a CompiledCodeFunction; Newton+Jacobian unavailable, using fallback. |
 | `FernandoDuarte\` | `baddim` | Inconsistent dimensions in spec: \`1\`. |
+| `FernandoDuarte\` | `noautox0` | Cannot compute automatic starting point without bounds. |
 
 ## Symbol `findBondRecursion`
 
@@ -321,6 +322,12 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 | --- | --- | --- |
 | `FernandoDuarte\` | `usage` | `growth[variable, t]` gives the growth rate at time `t` of `variable`. `growth[variable, t, i]` specifies the stock identifier `i` when `variable` is a stock-related variable such as dividends. `growth[variable, t, m]` specifies the maturity `m` in months when `variable` is a bond-related variable such as bond yields. |
 
+## Symbol `Info`
+
+| Context | Tag | Message text |
+| --- | --- | --- |
+| `FernandoDuarte\` | `usage` | `Info[models]` displays a table with information for each model in the association `models`. (Re-exported from `info` with capitalized name.) |
+
 ## Symbol `info`
 
 | Context | Tag | Message text |
@@ -351,7 +358,7 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 | Context | Tag | Message text |
 | --- | --- | --- |
 | `FernandoDuarte\` | `nofile` | "Kernel file not found for model `1`. Expected: `2`" |
-| `FernandoDuarte\` | `sysid` | "Kernel was compiled on `1` but current system is `2`. Recompile may be needed." |
+| `FernandoDuarte\` | `systemidmismatch` | "Kernel was compiled on `1` but current system is `2`. Recompile may be needed." |
 
 ## Symbol `modelEval`
 
@@ -442,6 +449,13 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 | Context | Tag | Message text |
 | --- | --- | --- |
 | `FernandoDuarte\` | `usage` | `nombondyieldeq[t, m]` gives the log yield of a nominal `m`‑month maturity discount (zero-coupon) riskless bond at time `t`. |
+
+## Symbol `niceEulerEq`
+
+| Context | Tag | Message text |
+| --- | --- | --- |
+| `FernandoDuarte\` | `timevars` | Time-dependent variables \`1\` found in Euler equation coefficients. |
+| `FernandoDuarte\` | `statevars` | Solution not found: state variables \`1\` found in Euler equation coefficients. Consider including additional or different state variables for model \`2\` in `Kernel/Model/Catalog.wl`. |
 
 ## Symbol `nomeulereq`
 
@@ -726,6 +740,18 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 | --- | --- | --- |
 | `FernandoDuarte\` | `usage` | `pieq[t]` gives the exogenous dynamics of inflation. |
 
+## Symbol `plotCoeffs`
+
+| Context | Tag | Message text |
+| --- | --- | --- |
+| `FernandoDuarte\` | `usage` | `plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts]` plots the steps that `FindRoot` takes to solve for `A[0]` in the coefficient system. Forwards options to the underlying `FindRootPlot` resource function. |
+
+## Symbol `PlotCoeffs`
+
+| Context | Tag | Message text |
+| --- | --- | --- |
+| `FernandoDuarte\` | `usage` | `PlotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts]` plots the steps that `FindRoot` takes to solve for `A[0]`. (Re-exported from `plotCoeffs` with capitalized name.) |
+
 ## Symbol `processNewParameters`
 
 | Context | Tag | Message text |
@@ -957,11 +983,23 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 | --- | --- | --- |
 | `FernandoDuarte\` | `usage` | `toStateVars[model]` gives a pure function that re‑writes its argument in terms of the state variables of `model`. `toStateVars[expr, model]` re‑writes its first argument in terms of the state variables of `model`. |
 
+## Symbol `UncondCorr`
+
+| Context | Tag | Message text |
+| --- | --- | --- |
+| `FernandoDuarte\` | `usage` | `UncondCorr[expr1, expr2, model]` gives the unconditional correlation of `expr1` and `expr2` for `model`. (Re-exported from `uncondCorr` with capitalized name.) |
+
 ## Symbol `uncondCorr`
 
 | Context | Tag | Message text |
 | --- | --- | --- |
 | `FernandoDuarte\` | `usage` | `uncondCorr[expr1, expr2, model]` gives the unconditional correlation of `expr1` and `expr2` for `model`. |
+
+## Symbol `UncondCov`
+
+| Context | Tag | Message text |
+| --- | --- | --- |
+| `FernandoDuarte\` | `usage` | `UncondCov[expr1, expr2, model]` gives the unconditional covariance of `expr1` and `expr2` for `model`. (Re-exported from `uncondCov` with capitalized name.) |
 
 ## Symbol `uncondCov`
 
@@ -981,6 +1019,12 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 | --- | --- | --- |
 | `FernandoDuarte\` | `usage` | `uncondE[expr, model]` gives the unconditional expectation of `expr` for `model`. |
 | `FernandoDuarte\` | `nmom` | Moment(s) \`1\` not computed. Try increasing `maxMoment` or `maxCrossMoment` in `llr.wl`. |
+
+## Symbol `UncondVar`
+
+| Context | Tag | Message text |
+| --- | --- | --- |
+| `FernandoDuarte\` | `usage` | `UncondVar[expr, model]` gives the unconditional variance of `expr` for `model`. (Re-exported from `uncondVar` with capitalized name.) |
 
 ## Symbol `uncondVar`
 
@@ -1004,7 +1048,7 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 
 | Context | Tag | Message text |
 | --- | --- | --- |
-| `FernandoDuarte\` | `badkernels` | savedKernels must contain a "kernels" key with "A" and "B" sub-keys. Got: \`1\`. |
+| `FernandoDuarte\` | `badkernelstructure` | savedKernels must contain a "kernels" key with "A" and "B" sub-keys. Got: \`1\`. |
 
 ## Symbol `updateModelManifest`
 
@@ -1113,3 +1157,15 @@ _Derived mechanically from `LongRunRisk_MessageCatalog.md`. Only messages that a
 | Context | Tag | Message text |
 | --- | --- | --- |
 | `FernandoDuarte\` | `usage` | _text in main catalog_ |
+
+## Symbol `yieldCurve`
+
+| Context | Tag | Message text |
+| --- | --- | --- |
+| `FernandoDuarte\` | `usage` | `yieldCurve[model, newParameters, coeffsWc, bondType, opts]` plots the yield curve implied by `model`. `bondType` selects real vs nominal bonds and `opts` are forwarded to coefficient solvers and `FindRoot`/`RecurrenceTable` as appropriate. |
+
+## Symbol `YieldCurve`
+
+| Context | Tag | Message text |
+| --- | --- | --- |
+| `FernandoDuarte\` | `usage` | `YieldCurve[model, newParameters, coeffsWc, bondType, opts]` plots the yield curve implied by `model`. (Re-exported from `yieldCurve` with capitalized name.) |

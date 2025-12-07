@@ -43,6 +43,7 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpect
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`Logging`"];
 
 
 (* ::Subsection:: *)
@@ -308,9 +309,6 @@ split[expr_]:=With[
 
 (* ::Subsection:: *)
 (*createDatabase*)
-
-
-createDatabase::done = "Finished computing moments for `1`";
 
 
 createDatabase//Options ={
@@ -620,9 +618,6 @@ createDatabase[
 	With[{dataCovLong=PacletizedResourceFunctions`DefinitionData[covLong]},
 		Put[dataCovLong,covLongFilename];
 	];
-	
-	(*user message*)
-	Message[createDatabase::done, covLong];
 ];(*With*)
 
 
@@ -682,7 +677,7 @@ totCovLong[
 (*covLongToUncondCov*)
 
 
-covLongToUncondCov::nind = "The number of indices provided in `1` must be equal to the number of variables in `2` plus the number of stock-related variables in `2` that require a stock identifier";
+covLongToUncondCov::badindexcount = "The number of indices provided in `1` must be equal to the number of variables in `2` plus the number of stock-related variables in `2` that require a stock identifier";
 
 
 covLongToUncondCov[components_]:=With[
@@ -699,7 +694,7 @@ covLongToUncondCov[components_]:=With[
 			ps=Position[vars,alt](*positions of stock-related variables*)
 		},
 		(*check components is well formed, otherwise abort with message*)
-		If[Length@Flatten@vars-1+ns =!=Length[ind], Message[covLongToUncondCov::nind,ind,vars];Abort[];];
+		If[Length@Flatten@vars-1+ns =!=Length[ind], Message[covLongToUncondCov::badindexcount,ind,vars];Abort[];];
 		(*arrange components*)
 		With[
 			{

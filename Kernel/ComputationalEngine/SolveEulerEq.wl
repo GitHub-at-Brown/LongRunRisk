@@ -255,7 +255,7 @@ $kernelCache = <||>;
 
 
 loadModelKernels::nofile = "Kernel file not found for model `1`. Expected: `2`";
-loadModelKernels::sysid = "Kernel was compiled on `1` but current system is `2`. Recompile may be needed.";
+loadModelKernels::systemidmismatch = "Kernel was compiled on `1` but current system is `2`. Recompile may be needed.";
 
 
 (* Find paclet root from current file location - evaluated at package load time *)
@@ -290,7 +290,7 @@ loadModelKernels[shortname_String] := Module[
 
   (* Warn if SystemID mismatch *)
   If[KeyExistsQ[data, "meta"] && data["meta"]["SystemID"] =!= $SystemID,
-    Message[loadModelKernels::sysid, data["meta"]["SystemID"], $SystemID]
+    Message[loadModelKernels::systemidmismatch, data["meta"]["SystemID"], $SystemID]
   ];
 
   (* Cache and return *)
@@ -548,7 +548,7 @@ updateCoeffsWcPd[key : "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, 
     ]
 
 
-updateCoeffsSol::badkernels = "savedKernels must contain a \"kernels\" key with \"A\" and \"B\" sub-keys. Got: `1`";
+updateCoeffsSol::badkernelstructure = "savedKernels must contain a \"kernels\" key with \"A\" and \"B\" sub-keys. Got: `1`";
 
 
 updateCoeffsSol[
@@ -584,7 +584,7 @@ updateCoeffsSol[
 
 	(* Validate kernels *)
 	If[!AssociationQ[kernels],
-		Message[updateCoeffsSol::badkernels, kernels];
+		Message[updateCoeffsSol::badkernelstructure, kernels];
 		Return[$Failed]
 	];
 
@@ -735,7 +735,7 @@ updateCoeffsSol[
 	guessCoeffsSolution_List,
 	opts___
 ] := (
-	Message[updateCoeffsSol::badkernels, Short[savedKernels, 2]];
+	Message[updateCoeffsSol::badkernelstructure, Short[savedKernels, 2]];
 	$Failed
 )
 
