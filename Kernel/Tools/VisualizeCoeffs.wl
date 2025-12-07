@@ -137,58 +137,54 @@ inlineBar[val_?NumericQ, minVal_, maxVal_, color_] := Module[
 (*Key coefficients table*)
 
 
+(* Transposed layout: bundles as rows, coefficients as columns *)
 keyCoeffsGrid[bundles_List, numStocks_Integer] := Module[
-    {coeffNames, headerRow, dataRows, allData, minMaxByRow},
+    {coeffNames, coeffLabels, headerRow, dataRows, allData, minMaxByCoeff},
 
     (* Build coefficient names: A[0], B[1][0], B[2][0], ... *)
     coeffNames = Join[{$A[0]}, Table[$B[j][0], {j, numStocks}]];
-
-    (* Header row *)
-    headerRow = Join[
-        {"Coeff"},
-        Table[Style["Bundle " <> ToString[i], Bold], {i, Length[bundles]}],
-        {""}  (* for bar column *)
+    coeffLabels = Join[
+        {Style["A[0]", Bold, $aColor]},
+        Table[Style["B[" <> ToString[j] <> "][0]", Bold, bColor[j]], {j, numStocks}]
     ];
 
-    (* Extract values for each coefficient across all bundles *)
+    (* Header row: Bundle | A[0] | B[1][0] | B[2][0] | ... *)
+    headerRow = Join[{Style["Bundle", Bold]}, coeffLabels];
+
+    (* Extract values: allData[[coeff, bundle]] *)
     allData = Table[
         Table[getCoeffValue[bundle, coeff], {bundle, bundles}],
         {coeff, coeffNames}
     ];
 
-    (* Compute min/max for each row for bar scaling *)
-    minMaxByRow = Table[{Min[row], Max[row]}, {row, allData}];
+    (* Compute min/max for each coefficient (for potential highlighting) *)
+    minMaxByCoeff = Table[{Min[col], Max[col]}, {col, allData}];
 
-    (* Build data rows *)
+    (* Build data rows - one row per bundle *)
     dataRows = Table[
-        With[{
-            coeff = coeffNames[[i]],
-            values = allData[[i]],
-            minVal = minMaxByRow[[i, 1]],
-            maxVal = minMaxByRow[[i, 2]],
-            rowColor = If[i == 1, $aColor, bColor[i - 1]]
-        },
-            Join[
-                {Style[formatCoeffName[coeff], Bold, rowColor]},
-                Table[formatValue[val], {val, values}],
-                {inlineBar[Max[values], minVal, maxVal, rowColor]}
-            ]
+        Join[
+            {Style["Bundle " <> ToString[i], Bold]},
+            Table[formatValue[allData[[c, i]]], {c, Length[coeffNames]}]
         ],
-        {i, Length[coeffNames]}
+        {i, Length[bundles]}
     ];
 
-    (* Assemble grid *)
-    Grid[
-        Join[{headerRow}, dataRows],
-        Alignment -> {Center, Center},
-        Spacings -> {1.5, 0.8},
-        Frame -> All,
-        FrameStyle -> GrayLevel[0.7],
-        Background -> {
-            None,
-            Join[{LightGray}, Table[If[OddQ[i], White, GrayLevel[0.95]], {i, Length[coeffNames]}]]
-        },
-        ItemStyle -> {Automatic, {Directive[Bold]}}
+    (* Wrap in scrollable Pane for many bundles *)
+    Pane[
+        Grid[
+            Join[{headerRow}, dataRows],
+            Alignment -> {Center, Center},
+            Spacings -> {1.5, 0.5},
+            Frame -> All,
+            FrameStyle -> GrayLevel[0.7],
+            Background -> {
+                None,
+                Join[{LightGray}, Table[If[OddQ[i], White, GrayLevel[0.97]], {i, Length[bundles]}]]
+            },
+            ItemStyle -> {Automatic, {Directive[Bold]}}
+        ],
+        ImageSize -> {Automatic, Min[400, 30 * Length[bundles] + 40]},
+        Scrollbars -> {False, Automatic}
     ]
 ];
 
