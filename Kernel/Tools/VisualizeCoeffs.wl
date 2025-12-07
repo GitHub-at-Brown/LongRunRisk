@@ -80,12 +80,15 @@ bColor[j_Integer] := $bColors[[Mod[j - 1, Length[$bColors]] + 1]];
 formatValue[val_?NumericQ] := NumberForm[N[val], {Infinity, 2}];
 formatValue[val_] := Style["\[LongDash]", Gray];  (* No solution *)
 
-(* Format coefficient name without context - use With to inject symbols *)
-With[{A = $A, B = $B},
-    formatCoeffName[A[n_]] := "A[" <> ToString[n] <> "]";
-    formatCoeffName[B[j_][n_]] := "B[" <> ToString[j] <> "][" <> ToString[n] <> "]";
+(* Format coefficient name without context - check Head directly *)
+formatCoeffName[coeff_] := Which[
+    Head[coeff] === $A,
+        "A[" <> ToString[First[coeff]] <> "]",
+    Head[Head[coeff]] === $B,
+        "B[" <> ToString[First[Head[coeff]]] <> "][" <> ToString[First[coeff]] <> "]",
+    True,
+        ToString[coeff, InputForm]
 ];
-formatCoeffName[other_] := ToString[other];
 
 
 (* Extract bundles using flattenCoeffsBundles *)
@@ -193,63 +196,186 @@ keyCoeffsGrid[bundles_List, numStocks_Integer] := Module[
 (*Coefficient selector*)
 
 
+(* Format a list of solution indices compactly, e.g., {1,2,3,5,7,8,9} -> "1-3, 5, 7-9" *)
+formatSolutionIndices[indices_List] := Module[
+    {sorted, runs, formatRun},
+
+    sorted = Sort[indices];
+    If[Length[sorted] == 0, Return[""]];
+
+    (* Split into consecutive runs *)
+    runs = Split[sorted, #2 == #1 + 1 &];
+
+    (* Format each run *)
+    formatRun[run_List] := If[Length[run] == 1,
+        ToString[First[run]],
+        If[Length[run] == 2,
+            ToString[First[run]] <> ", " <> ToString[Last[run]],
+            ToString[First[run]] <> "-" <> ToString[Last[run]]
+        ]
+    ];
+
+    StringRiffle[formatRun /@ runs, ", "]
+];
+
+
+(* Helper to build chart for a single coefficient *)
+coeffChart[bundles_List, coeff_, chartColor_] := Module[
+    {valuesWithIdx, grouped, uniqueVals, numericGroups},
+
+    (* Get values with their solution indices *)
+    valuesWithIdx = MapIndexed[
+        {getCoeffValue[#1, coeff], First[#2]} &,
+        bundles
+    ];
+
+    (* Group by value, keeping track of which solutions have each value *)
+    grouped = GatherBy[valuesWithIdx, First];
+
+    (* Extract unique values and their solution indices *)
+    uniqueVals = Map[
+        {#[[1, 1]], #[[All, 2]]} &,
+        grouped
+    ];
+
+    (* Filter to only numeric values and sort by value *)
+    numericGroups = Select[uniqueVals, NumericQ[First[#]] &];
+    numericGroups = SortBy[numericGroups, First];
+
+    If[Length[numericGroups] == 0,
+        (* No numeric values *)
+        Style["No numeric solutions for " <> formatCoeffName[coeff], Italic, Gray],
+
+        (* Show grouped visualization *)
+        Column[{
+            Style[formatCoeffName[coeff] <> " — " <>
+                  ToString[Length[numericGroups]] <> " unique value(s) across " <>
+                  ToString[Length[bundles]] <> " solutions:", Italic],
+
+            (* Bar chart with one bar per unique value *)
+            BarChart[
+                numericGroups[[All, 1]],
+                ChartLabels -> Placed[
+                    Map[
+                        Tooltip[
+                            formatValue[#[[1]]],
+                            "Solutions: " <> formatSolutionIndices[#[[2]]]
+                        ] &,
+                        numericGroups
+                    ],
+                    Axis
+                ],
+                ChartStyle -> chartColor,
+                BarOrigin -> Left,
+                ImageSize -> {350, Max[80, Min[300, 25 * Length[numericGroups] + 40]]},
+                LabelStyle -> {FontSize -> 10},
+                Frame -> True,
+                FrameLabel -> {formatCoeffName[coeff], None},
+                PlotLabel -> None
+            ],
+
+            (* Legend showing which solutions have each value *)
+            Spacer[5],
+            Style["Solutions by value:", Bold, 10],
+            Pane[
+                Grid[
+                    Map[
+                        {
+                            Style[formatValue[#[[1]]], Bold],
+                            " \[RightArrow] ",
+                            Style[
+                                If[Length[#[[2]]] == Length[bundles],
+                                    "all solutions",
+                                    formatSolutionIndices[#[[2]]]
+                                ],
+                                Gray
+                            ],
+                            Style[" (" <> ToString[Length[#[[2]]]] <> ")", Lighter[Gray]]
+                        } &,
+                        numericGroups
+                    ],
+                    Alignment -> Left,
+                    Spacings -> {0.5, 0.3}
+                ],
+                ImageSize -> {Automatic, Min[150, 20 * Length[numericGroups] + 20]},
+                Scrollbars -> {False, Automatic}
+            ]
+        }, Spacings -> 1]
+    ]
+];
+
+
+(* Standard panel size for coefficient charts *)
+$coeffPanelWidth = 420;
+$coeffPanelHeight = 480;
+
 coeffSelector[bundles_List, numStocks_Integer] := Module[
-    {maxAIdx, maxBIdxs},
+    {maxAIdx, maxBIdxs, fixedA0Chart, panelStyle},
 
     maxAIdx = getMaxAIndex[First[bundles]];
     maxBIdxs = Table[getMaxBIndex[First[bundles], j], {j, numStocks}];
 
-    DynamicModule[{coeffType = "A", stockIdx = 1, coeffIdx = 0},
+    (* Common panel wrapper for consistent sizing *)
+    panelStyle[content_] := Framed[
+        Pane[content,
+            ImageSize -> {$coeffPanelWidth - 22, $coeffPanelHeight - 22},
+            Scrollbars -> {False, Automatic},
+            Alignment -> {Left, Top}
+        ],
+        FrameStyle -> GrayLevel[0.8],
+        Background -> GrayLevel[0.98],
+        FrameMargins -> 10,
+        ImageSize -> {$coeffPanelWidth, $coeffPanelHeight}
+    ];
+
+    (* Fixed A[0] chart - always visible *)
+    fixedA0Chart = panelStyle[
+        Column[{
+            Style["A[0]", Bold, 12, $aColor],
+            coeffChart[bundles, $A[0], $aColor]
+        }, Spacings -> 1]
+    ];
+
+    DynamicModule[{coeffType = "B", stockIdx = 1, coeffIdx = 0},
         Column[{
             (* Title *)
             Style["Compare Any Coefficient", Bold, 12],
 
-            (* Selectors row *)
+            (* Side-by-side layout: fixed A[0] on left, selectable on right *)
             Row[{
-                "Select: ",
-                PopupMenu[Dynamic[coeffType], {"A", "B"}],
-                Dynamic[If[coeffType == "B",
-                    Row[{" Stock: ", PopupMenu[Dynamic[stockIdx], Range[numStocks]]}],
-                    ""
-                ]],
-                " Index: ",
-                Dynamic[PopupMenu[
-                    Dynamic[coeffIdx],
-                    Range[0, If[coeffType == "A", maxAIdx, maxBIdxs[[stockIdx]]]]
-                ]]
-            }, Spacer[5]],
+                (* Left: Fixed A[0] *)
+                fixedA0Chart,
 
-            (* Bar chart *)
-            Dynamic[Module[{coeff, values, maxVal, barData},
-                coeff = If[coeffType == "A", $A[coeffIdx], $B[stockIdx][coeffIdx]];
-                values = Table[getCoeffValue[bundle, coeff], {bundle, bundles}];
-                maxVal = Max[Abs[values]];
+                Spacer[15],
 
-                barData = MapIndexed[
-                    {First[#2], #1} &,
-                    values
-                ];
+                (* Right: Selectable coefficient - use same panelStyle *)
+                panelStyle[
+                    Column[{
+                        (* Selectors row *)
+                        Row[{
+                            "Select: ",
+                            PopupMenu[Dynamic[coeffType], {"A", "B"}],
+                            Dynamic[If[coeffType == "B",
+                                Row[{" Stock: ", PopupMenu[Dynamic[stockIdx], Range[numStocks]]}],
+                                ""
+                            ]],
+                            " Coefficient: ",
+                            Dynamic[PopupMenu[
+                                Dynamic[coeffIdx],
+                                Range[0, If[coeffType == "A", maxAIdx, maxBIdxs[[stockIdx]]]]
+                            ]]
+                        }, Spacer[5]],
 
-                Column[{
-                    Style[formatCoeffName[coeff] <> " across solutions:", Italic],
-                    BarChart[
-                        values,
-                        ChartLabels -> If[Length[bundles] <= 20,
-                            Range[Length[bundles]],
-                            None  (* Hide labels if too many *)
-                        ],
-                        ChartStyle -> If[coeffType == "A", $aColor, bColor[stockIdx]],
-                        BarOrigin -> Left,
-                        ImageSize -> {500, Min[400, 12 * Length[bundles] + 40]},
-                        LabelStyle -> {FontSize -> 9},
-                        Frame -> True,
-                        FrameLabel -> {formatCoeffName[coeff], "Solution"},
-                        PlotLabel -> None
-                    ]
-                }, Spacings -> 1]
-            ]]
-        }, Spacings -> 1, Frame -> True, FrameStyle -> GrayLevel[0.8],
-           Background -> GrayLevel[0.98], FrameMargins -> 10]
+                        (* Dynamic chart *)
+                        Dynamic[Module[{coeff, chartColor},
+                            coeff = If[coeffType == "A", $A[coeffIdx], $B[stockIdx][coeffIdx]];
+                            chartColor = If[coeffType == "A", $aColor, bColor[stockIdx]];
+                            coeffChart[bundles, coeff, chartColor]
+                        ]]
+                    }, Spacings -> 1]
+                ]
+            }, Alignment -> Top]
+        }, Spacings -> 1]
     ]
 ];
 
@@ -258,64 +384,78 @@ coeffSelector[bundles_List, numStocks_Integer] := Module[
 (*Bundle details section*)
 
 
-bundleDetails[results_List] := Module[{bundles, numBundles},
+bundleDetails[results_List] := DynamicModule[{bundles, numBundles, solutionItems, numCols = 2},
     bundles = extractBundles[results];
     numBundles = Length[bundles];
 
+    (* Create individual solution items *)
+    solutionItems = Table[
+        OpenerView[{
+            Style["Solution " <> ToString[i], Bold],
+            formatBundleDetail[bundles[[i]], results, i]
+        }, False],
+        {i, numBundles}
+    ];
+
     OpenerView[{
         Style["Solution Details (Signs, All Coefficients)", Bold],
-        Column[
-            Table[
-                OpenerView[{
-                    Style["Solution " <> ToString[i], Bold],
-                    formatBundleDetail[bundles[[i]], results, i]
-                }, False],
-                {i, numBundles}
-            ],
-            Spacings -> 0.5
-        ]
+        Column[{
+            (* Column selector *)
+            Row[{
+                "Columns: ",
+                Slider[Dynamic[numCols], {1, Min[6, numBundles], 1}, ImageSize -> 100],
+                Dynamic[" " <> ToString[Round[numCols]]]
+            }],
+            Spacer[5],
+            (* Grid with dynamic number of columns *)
+            Dynamic[
+                Grid[
+                    Partition[solutionItems, UpTo[Max[1, Round[numCols]]]],
+                    Alignment -> {Left, Top},
+                    Spacings -> {2, 1}
+                ]
+            ]
+        }]
     }, False]
 ];
 
 
-formatBundleDetail[bundle_List, results_List, bundleIdx_Integer] := With[
-    {A = $A, B = $B},
-    Module[{aCoeffs, bCoeffs, numStocks},
-        numStocks = getNumStocks[results];
-        aCoeffs = Cases[bundle, (A[_] -> _)];
-        bCoeffs = Table[With[{jj = j}, Cases[bundle, (B[jj][_] -> _)]], {j, numStocks}];
+formatBundleDetail[bundle_List, results_List, bundleIdx_Integer] := Module[
+    {aCoeffs, bCoeffs, numStocks, formatCoeffList},
+
+    numStocks = getNumStocks[results];
+
+    (* Extract A coefficients: rules where head is $A *)
+    aCoeffs = Select[bundle, Head[#[[1]]] === $A &];
+
+    (* Extract B[j] coefficients: rules where head is $B[j] *)
+    bCoeffs = Table[
+        With[{jj = j}, Select[bundle, Head[#[[1]]] === $B[jj] &]],
+        {j, numStocks}
+    ];
+
+    (* Helper to format a list of coefficient rules as rows *)
+    formatCoeffList[rules_List] := If[Length[rules] == 0,
+        {{"(none)"}},
+        Map[{formatCoeffName[#[[1]]], " = ", formatValue[#[[2]]]} &, rules]
+    ];
 
     Column[{
         (* A coefficients *)
         Style["A Coefficients:", Bold, $aColor],
-        Grid[
-            Partition[
-                Flatten[{formatCoeffName[#[[1]]], " = ", formatValue[#[[2]]]} & /@ aCoeffs],
-                3
-            ],
-            Alignment -> Left,
-            Spacings -> {0.5, 0.3}
-        ],
+        Grid[formatCoeffList[aCoeffs], Alignment -> Left, Spacings -> {0.5, 0.3}],
 
         (* B coefficients per stock *)
         Sequence @@ Table[
             Column[{
                 Style["B[" <> ToString[j] <> "] Coefficients:", Bold, bColor[j]],
-                Grid[
-                    Partition[
-                        Flatten[{formatCoeffName[#[[1]]], " = ", formatValue[#[[2]]]} & /@ bCoeffs[[j]]],
-                        3
-                    ],
-                    Alignment -> Left,
-                    Spacings -> {0.5, 0.3}
-                ]
+                Grid[formatCoeffList[bCoeffs[[j]]], Alignment -> Left, Spacings -> {0.5, 0.3}]
             }],
             {j, numStocks}
         ]
     }, Spacings -> 1, Frame -> True, FrameStyle -> GrayLevel[0.85],
        FrameMargins -> 5, Background -> White]
-    ] (* Module *)
-]; (* With *)
+];
 
 
 (* ::Subsection:: *)
@@ -323,7 +463,7 @@ formatBundleDetail[bundle_List, results_List, bundleIdx_Integer] := With[
 
 
 visualizeCoeffs[results_List, opts : OptionsPattern[]] := Module[
-    {bundles, numStocks, showSelector, showDetails, elements},
+    {bundles, numStocks, showSelector, showDetails, elements, keyCoeffsPanel, selectorPanel},
 
     (* Get options *)
     showSelector = OptionValue["ShowSelector"];
@@ -338,23 +478,28 @@ visualizeCoeffs[results_List, opts : OptionsPattern[]] := Module[
         Return[Style["No solutions found.", Italic, Red]]
     ];
 
+    (* Build key coefficients panel *)
+    keyCoeffsPanel = Column[{
+        Style["Key Coefficients (A[0], B[j][0])", Bold, 12],
+        keyCoeffsGrid[bundles, numStocks]
+    }, Spacings -> 0.5];
+
     (* Build elements list *)
     elements = {
         (* Title *)
         Style["Coefficient Solutions Comparison", Bold, 14],
         Style[ToString[Length[bundles]] <> " solutions, " <>
               ToString[numStocks] <> " stock(s)", Italic, Gray],
-
-        (* Key coefficients table *)
-        Spacer[10],
-        Style["Key Coefficients (A[0], B[j][0])", Bold, 12],
-        keyCoeffsGrid[bundles, numStocks]
+        Spacer[10]
     };
 
-    (* Add coefficient selector if enabled *)
+    (* Add key coefficients and selector side by side if selector enabled *)
     If[showSelector,
-        AppendTo[elements, Spacer[15]];
-        AppendTo[elements, coeffSelector[bundles, numStocks]];
+        selectorPanel = coeffSelector[bundles, numStocks];
+        AppendTo[elements, Row[{keyCoeffsPanel, Spacer[20], selectorPanel}, Alignment -> Top]];
+        ,
+        (* Just key coefficients if selector disabled *)
+        AppendTo[elements, keyCoeffsPanel];
     ];
 
     (* Add bundle details if enabled *)
@@ -363,11 +508,16 @@ visualizeCoeffs[results_List, opts : OptionsPattern[]] := Module[
         AppendTo[elements, bundleDetails[results]];
     ];
 
-    (* Assemble view *)
-    Panel[
-        Column[elements, Spacings -> 0.5, Alignment -> Left],
-        ImageMargins -> 10,
-        FrameMargins -> 15
+    (* Assemble view with resizable pane *)
+    Pane[
+        Panel[
+            Column[elements, Spacings -> 0.5, Alignment -> Left],
+            ImageMargins -> 10,
+            FrameMargins -> 15
+        ],
+        ImageSize -> {{400, Full}, {300, Full}},
+        Scrollbars -> Automatic,
+        AppearanceElements -> {"ResizeArea"}
     ]
 ];
 
