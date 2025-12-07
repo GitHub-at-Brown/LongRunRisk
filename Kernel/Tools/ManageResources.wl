@@ -903,7 +903,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			(* run symbolic processing *)
 			model = First @ Values @ FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
 				KeyTake[catalogModels, {modelKey}],
-				"PdEquations" -> OptionValue["PdEquations"]
+				FilterRules[Flatten @ {opts}, Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels]]
 			];
 
 			(* store catalogHash with model *)
@@ -1040,15 +1040,14 @@ buildModelsParallel // Options = {
 	"PdEquations" -> "B"
 };
 
-buildModelsParallel[models_List, opts : OptionsPattern[]] := Module[
+buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, buildModels}]] := Module[
 	{root, modelsFile, resourcesDir, numKernels, nLaunched,
 	 pacletDir, parallelResults, mergedModels, savedModels,
-	 createMoments, fromScratch, pdEquations, failedModels},
+	 createMoments, fromScratch, failedModels},
 
 	(* Get options *)
 	createMoments = OptionValue["CreateMoments"];
 	fromScratch = OptionValue["FromScratch"];
-	pdEquations = OptionValue["PdEquations"];
 	numKernels = Replace[OptionValue["NumKernels"], {
 		Automatic -> Min[Length[models], $ProcessorCount],
 		None -> 1
@@ -1086,7 +1085,7 @@ buildModelsParallel[models_List, opts : OptionsPattern[]] := Module[
 				"Models" -> {m},
 				"CreateMoments" -> False,
 				"FromScratch" -> False,  (* already cleaned on main kernel *)
-				"PdEquations" -> pdEquations
+				opts
 			]},
 				If[AssociationQ[result] && Length[result] > 0,
 					<|"Model" -> m, "Status" -> "Success", "Data" -> result|>,
