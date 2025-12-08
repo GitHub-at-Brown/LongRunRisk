@@ -884,6 +884,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		compileModels = DeleteDuplicates @ Join[symbolicModels, Lookup[modelsByStage, "Compile", {}]];
 		Do[
 			shortname = catalogModels[modelKey]["shortname"];
+			PrintTemporary["Compiling model ", shortname, "..."];
 			compiledFile = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 				processedModels[shortname],
 				compiledDir
@@ -1027,6 +1028,7 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	] &@ pacletDir;
 
 	(* Run builds in parallel - each returns processed model or $Failed *)
+	PrintTemporary["Compiling models in parallel: ", StringRiffle[ToString /@ models, ", "], "..."];
 
 	parallelResults = ParallelTable[
 		Quiet @ Check[
