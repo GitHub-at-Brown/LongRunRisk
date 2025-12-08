@@ -551,7 +551,9 @@ buildModels // Options = {
 	"NumKernels" -> Automatic,  (* Automatic | n | None *)
 	"MaxMaturity" -> 120,
 	"Models" -> All,  (* All or list of shortnames *)
-	"PdEquations" -> "B"  (* "B" | "AB" | "Both" - controls which pd equations to compute/compile *)
+	"PdEquations" -> "B",  (* "B" | "AB" | "Both" - controls which pd equations to compute/compile *)
+	"FileSuffix" -> "",  (* suffix for checkpoint files; "_BY" writes to Models_BY.wl *)
+	"UpdateManifest" -> True  (* whether to update ModelManifest.wl at end *)
 };
 
 
@@ -578,6 +580,9 @@ cleanAllOutputs[root_String] := Module[{resourcesDir, compiledDir, momentsDir},
 	(* delete Models.wl and ModelManifest.wl *)
 	Quiet[DeleteFile[FileNameJoin[{resourcesDir, "Models.wl"}]]];
 	Quiet[DeleteFile[FileNameJoin[{resourcesDir, "ModelManifest.wl"}]]];
+
+	(* delete any suffixed Models files from parallel builds *)
+	Quiet[DeleteFile /@ FileNames["Models_*.wl", resourcesDir]];
 ];
 
 
@@ -768,11 +773,13 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		createMoments = OptionValue["CreateMoments"],
 		numKernels = OptionValue["NumKernels"],
 		maxMaturity = OptionValue["MaxMaturity"],
-		modelFilter = OptionValue["Models"]
+		modelFilter = OptionValue["Models"],
+		fileSuffix = OptionValue["FileSuffix"],
+		updateManifest = OptionValue["UpdateManifest"]
 	},
 	Module[
 		{
-			root, resourcesDir, compiledDir, momentsDir, modelsFile, manifestFile,
+			root, resourcesDir, compiledDir, momentsDir, modelsFileCanonical, modelsFileCheckpoint, manifestFile,
 			catalogModels, enabledModels, savedModels, manifest,
 			modelStatuses, modelsByStage, modelsNeedingJacobians, modelsToPreload,
 			symbolicModels, compileModels, numericalModels, momentsModels,
@@ -786,7 +793,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		resourcesDir = FileNameJoin[{root, "Resources"}];
 		compiledDir = FileNameJoin[{resourcesDir, "CompiledFunctions"}];
 		momentsDir = FileNameJoin[{resourcesDir, "MomentsLookupTables"}];
-		modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
+		modelsFileCanonical = FileNameJoin[{resourcesDir, "Models.wl"}];
+		modelsFileCheckpoint = FileNameJoin[{resourcesDir, "Models" <> fileSuffix <> ".wl"}];
 		manifestFile = FileNameJoin[{resourcesDir, "ModelManifest.wl"}];
 
 		(* ensure directories exist *)
@@ -817,8 +825,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
-		(* load saved state *)
-		savedModels = loadModels[modelsFile];
+		(* load saved state from canonical file *)
+		savedModels = loadModels[modelsFileCanonical];
 		manifest = loadManifestSafe[manifestFile];
 
 		(* handle fromScratch option *)
@@ -883,7 +891,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			processedModels[shortname] = Append[model, "catalogHash" -> catalogHash];
 
 			(* Checkpoint after each model's symbolic processing *)
-			saveModels[Merge[{savedModels, processedModels}, Last], modelsFile];
+			saveModels[Merge[{savedModels, processedModels}, Last], modelsFileCheckpoint];
 
 			, {modelKey, symbolicModels}
 		];
@@ -916,7 +924,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			];
 
 			(* Checkpoint after each model's numerical solutions *)
-			saveModels[Merge[{savedModels, processedModels}, Last], modelsFile];
+			saveModels[Merge[{savedModels, processedModels}, Last], modelsFileCheckpoint];
 
 			, {modelKey, numericalModels}
 		];
@@ -980,11 +988,11 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			]
 		];
 
-		(* save - merge with existing models *)
-		saveModels[Merge[{savedModels, processedModels}, Last], modelsFile];
+		(* save - merge with existing models to checkpoint file *)
+		saveModels[Merge[{savedModels, processedModels}, Last], modelsFileCheckpoint];
 
-		(* update manifest *)
-		updateModelManifest[];
+		(* update manifest only when using canonical file (empty suffix) *)
+		If[TrueQ[updateManifest] && fileSuffix === "", updateModelManifest[]];
 
 		processedModels
 	]
@@ -1003,7 +1011,8 @@ buildModelsParallel // Options = {
 buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, buildModels}]] := Module[
 	{root, modelsFile, resourcesDir, numKernels, nLaunched,
 	 pacletDir, parallelResults, mergedModels, savedModels,
-	 createMoments, fromScratch, failedModels},
+	 createMoments, fromScratch, failedModels,
+	 filteredOpts, successResults, successModels, saveResult},
 
 	(* Get options *)
 	createMoments = OptionValue["CreateMoments"];
@@ -1038,13 +1047,19 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	(* Run builds in parallel - each returns processed model or $Failed *)
 	PrintTemporary["Compiling models in parallel: ", StringRiffle[ToString /@ models, ", "], "..."];
 
+	(* Filter out options we force-set to prevent caller override *)
+	filteredOpts = FilterRules[{opts},
+		Except["FileSuffix" | "UpdateManifest" | "CreateMoments" | "FromScratch" | "Models"]];
+
 	parallelResults = ParallelTable[
 		Quiet @ Check[
 			With[{result = FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels[
 				"Models" -> {m},
 				"CreateMoments" -> False,
-				"FromScratch" -> False,  (* already cleaned on main kernel *)
-				opts
+				"FromScratch" -> False,
+				"FileSuffix" -> "_" <> m,
+				"UpdateManifest" -> False,
+				filteredOpts
 			]},
 				If[AssociationQ[result] && Length[result] > 0,
 					<|"Model" -> m, "Status" -> "Success", "Data" -> result|>,
@@ -1060,42 +1075,61 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	(* Close parallel kernels before moments phase *)
 	CloseKernels[];
 
+	(* Get successful results directly from parallelResults (already in memory) *)
+	successResults = Select[parallelResults, #["Status"] === "Success" &];
+	successModels = #["Model"] & /@ successResults;
+
 	(* Report failures *)
-	failedModels = Select[parallelResults, #["Status"] =!= "Success" &];
+	failedModels = #["Model"] & /@ Select[parallelResults, #["Status"] =!= "Success" &];
 	If[Length[failedModels] > 0,
 		Print["WARNING: Some models failed or returned empty: ",
-			StringRiffle[#["Model"] & /@ failedModels, ", "]]
+			StringRiffle[failedModels, ", "]]
 	];
 
-	(* Merge results on main kernel *)
+	(* Load canonical Models.wl and merge with in-memory results *)
 	savedModels = loadModels[modelsFile];
 	mergedModels = Merge[
 		Prepend[
-			(#["Data"] & /@ Select[parallelResults, #["Status"] === "Success" &]),
+			(#["Data"] & /@ successResults),
 			savedModels
 		],
 		Last
 	];
 
-	(* Save merged results *)
+	(* Save merged results to canonical file *)
 	If[Length[mergedModels] > 0,
-		saveModels[mergedModels, modelsFile];
-		updateModelManifest[];
+		saveResult = Quiet @ Check[
+			saveModels[mergedModels, modelsFile];
+			updateModelManifest[];
+			True,
+			False
+		];
+
+		(* Only delete temp files if save succeeded *)
+		If[saveResult,
+			Do[
+				Quiet[DeleteFile[FileNameJoin[{resourcesDir, "Models_" <> m <> ".wl"}]]],
+				{m, successModels}
+			],
+			(* Save failed - keep all temp files for recovery *)
+			Print["WARNING: Save to canonical Models.wl failed; keeping Models_*.wl files for recovery"]
+		];
+	];
+
+	(* Note about failed model files (kept for debugging) *)
+	If[Length[failedModels] > 0,
+		Print["Note: Keeping Models_*.wl files for failed models: ", StringRiffle[failedModels, ", "]]
 	];
 
 	(* Run moments sequentially if requested *)
-	If[createMoments,
-		With[{successModels = Select[parallelResults, #["Status"] === "Success" &]},
-			If[Length[successModels] > 0,
-				Do[
-					buildModels[
-						"Models" -> {m},
-						"CreateMoments" -> True,
-						"NumKernels" -> OptionValue["NumKernels"]
-					],
-					{m, #["Model"] & /@ successModels}
-				]
-			]
+	If[createMoments && Length[successModels] > 0,
+		Do[
+			buildModels[
+				"Models" -> {m},
+				"CreateMoments" -> True,
+				"NumKernels" -> OptionValue["NumKernels"]
+			],
+			{m, successModels}
 		]
 	];
 

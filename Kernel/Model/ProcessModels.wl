@@ -228,7 +228,14 @@ processModels[
 	(* simplify Euler equations *)
 	models = EchoTiming[
 	  (
-	    Module[{m = #, simpl = simplifyCoeffsSystem[# , TimeConstraint -> {1,5}]},
+	    Module[
+	    {
+		    m = #, simpl = simplifyCoeffsSystem[
+			    #
+			    (*,
+			    TimeConstraint -> {1,5}*)
+		    ]
+	    },
 	      m[["coeffsSystem", "wc", 1, 2 ;; -1]] = simpl[[1]];
 	      m[["coeffsSystem", "pd", 1, 2 ;; -1]] = simpl[[2]];
 	      m
@@ -243,8 +250,8 @@ processModels[
 			#,
 			solveCoeffsSystem[#,
 				"PdEquations" -> OptionValue[solveCoeffsSystem, Flatten@{opts}, "PdEquations"]
-				,
-				TimeConstraint->{1,5}
+				(*,
+				TimeConstraint->{1,5}*)
 			]
 		]&/@models,
 		"solveCoeffsSystem"

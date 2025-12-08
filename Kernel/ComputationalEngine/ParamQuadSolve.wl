@@ -59,7 +59,7 @@ Options[paramQuadSolve] = {
   "MonomialOrder" -> Automatic,
   "ValidationOption" -> True,
   "ReturnOption" -> "All",
-  "TimeoutOption" -> 600,(*1,*)
+  "TimeoutOption" -> 600,
   "SimplifyTimeout" -> Automatic,
   "DiagnosticsOption" -> False,
   "OnlyQuadTerms" -> False,
