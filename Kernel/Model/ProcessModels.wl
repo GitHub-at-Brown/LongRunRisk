@@ -49,6 +49,15 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 
 
 (* ::Subsection:: *)
+(*Helper functions*)
+
+
+(* safeRest - safely extract all but first element, returns {} for invalid input *)
+safeRest[list_List] := If[Length[list] >= 1, Rest[list], {}];
+safeRest[_] := {};
+
+
+(* ::Subsection:: *)
 (*processModels*)
 
 
@@ -541,8 +550,8 @@ simplifyCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}
 	},
 		With[
 		{
-			sysA = modelCoeffsSys["wc"][[1]][[2;;-1]],
-			sysB = modelCoeffsSys["pd"][[1]][[2;;-1]],
+			sysA = safeRest[modelCoeffsSys["wc"][[1]]],
+			sysB = safeRest[modelCoeffsSys["pd"][[1]]],
 			modelAssumptions=model["modelAssumptions"]
 		},
 		With[
@@ -586,8 +595,8 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 		},
 		With[
 			{
-				sysA = modelCoeffsSysWc[[1]][[2;;-1]],
-				sysB = modelCoeffsSysPd[[1]][[2;;-1]],
+				sysA = safeRest[modelCoeffsSysWc[[1]]],
+				sysB = safeRest[modelCoeffsSysPd[[1]]],
 				modelAssumptions=model["modelAssumptions"]
 			},
 			With[
@@ -597,8 +606,8 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 				},
 				With[
 					{
-						varsA = modelCoeffsSysWc[[2]][[2;;-1]],
-						varsB = modelCoeffsSysPd[[2]][[2;;-1]]
+						varsA = safeRest[modelCoeffsSysWc[[2]]],
+						varsB = safeRest[modelCoeffsSysPd[[2]]]
 					},
 					Module[
 						{
