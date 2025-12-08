@@ -137,6 +137,14 @@ canonicalize[expr_] := expr;
 getCanonicalHash[expr_] := Hash[ExportString[canonicalize[expr], "WL"], "SHA256", "HexString"];
 
 loadManifestSafe[file_] := Module[{held, data},
+  If[!FileExistsQ[file],
+    Return[<|
+      "PacletVersion" -> "Missing",
+      "CatalogHash" -> "",
+      "Models" -> <||>,
+      "Date" -> ""
+    |>]
+  ];
   (* Parse without evaluation, then validate shape before releasing *)
   held = Check[ToExpression[Import[file, "Text"], StandardForm, HoldComplete], Return[$Failed]];
   If[!MatchQ[held, HoldComplete[_Association]], Return[$Failed]];

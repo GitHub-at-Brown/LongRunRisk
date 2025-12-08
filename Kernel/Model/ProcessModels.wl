@@ -56,6 +56,22 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 safeRest[list_List] := If[Length[list] >= 1, Rest[list], {}];
 safeRest[_] := {};
 
+(* safeVerification - safely convert Verification result to list of booleans.
+   If verification returned $Failed/Missing/etc, return list of all False
+   (meaning all vars are unverified and should be kept in the system).
+   Takes the raw Verification value, expected length, and optional label for warnings. *)
+safeVerification[verif_List, len_Integer, _String : ""] := TrueQ /@ verif;
+safeVerification[other_, len_Integer, label_String : ""] := (
+	If[label =!= "",
+		Print["  Warning: Could not verify closed-form solution for ", label, " coefficients (timed out or error). ",
+			"Code will use numerical solution for all coefficients. ",
+			"Results will still be correct but take longer to compute. ",
+			"Increasing TimeConstraint in solveCoeffsSystem and simplifyCoeffsSystem, ",
+			"or increasing TimeoutOption and SimplifyTimeout in paramQuadSolveOptions may help with closed-form solution verification."]
+	];
+	ConstantArray[False, len]
+);
+
 
 (* ::Subsection:: *)
 (*processModels*)
@@ -517,7 +533,7 @@ addCoeffsSystem[model_]:=Module[
 		
 	(* create system of equations for coefficients of pd ratios *)
 	{systemPd,unknownsPd}=findEulerEqConstants[ret[t+1,j],model]/.ratiosUncondERuleWc/.ratiosUncondERulePd;
-	
+
 	(* create recursion for price of bonds *)
 	{{nameBond,systemBond,initialCondBond,unknownsBond,nBond},
 	{nameNomBond,systemNomBond,initialCondNomBond,unknownsNomBond,nNomBond}} = findBondRecursion[t+1,n,model] /.ratiosUncondERuleWc;
@@ -663,8 +679,8 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							{
 								wcCoeffEq = modelCoeffsSysWc[[1,1]],
 								pdCoeffEq = modelCoeffsSysPd[[1,1]],
-								verifA = TrueQ/@ solA["Verification"],
-								verifB = TrueQ/@ solB["Verification"]
+								verifA = safeVerification[solA["Verification"], Length[varsA], "wc"],
+								verifB = safeVerification[solB["Verification"], Length[varsB], "pd"]
 							},
 							With[
 								{
