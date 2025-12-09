@@ -63,7 +63,10 @@ Options[paramQuadSolve] = {
   "SimplifyTimeout" -> Automatic,
   "DiagnosticsOption" -> False,
   "OnlyQuadTerms" -> False,
-  "SignSymbol" -> signA
+  "SignSymbol" -> signA,
+  "GroebnerMemoryFraction" -> 0.5,  (* fraction of MemoryAvailable[] to use *)
+  "GroebnerMemoryFloor" -> 1*1024^3,  (* minimum memory limit in bytes *)
+  "GroebnerMemoryCap" -> 16*1024^3  (* maximum memory limit in bytes *)
 };
 
 
@@ -74,6 +77,7 @@ paramQuadSolve::nocover = "Unable to select a square subsystem covering the quad
 paramQuadSolve::emptyvar = "Variables list cannot be empty.";
 paramQuadSolve::emptyeq = "Equations list cannot be empty.";
 paramQuadSolve::solvefail = "Solver failed or timed out.";
+paramQuadSolve::gbmem = "GroebnerBasis exceeded memory limit (`1` GB). Consider simplifying the system or increasing GroebnerMemoryCap.";
 
 
 paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
@@ -89,7 +93,10 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
       simplifyTimeout = OptionValue["SimplifyTimeout"],
       diagnosticsQ    = OptionValue["DiagnosticsOption"],
       onlyQuadQ       = TrueQ @ OptionValue["OnlyQuadTerms"],
-      signHead        = OptionValue["SignSymbol"]
+      signHead        = OptionValue["SignSymbol"],
+      gbMemFraction   = OptionValue["GroebnerMemoryFraction"],
+      gbMemFloor      = OptionValue["GroebnerMemoryFloor"],
+      gbMemCap        = OptionValue["GroebnerMemoryCap"]
     },
     With[
       {
@@ -103,9 +110,10 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             $Failed
         ],
         gbOrderUsed = Replace[gbOrder, Automatic -> Lexicographic],
+        gbMemLimit = Clip[Round[gbMemFraction * MemoryAvailable[]], {gbMemFloor, gbMemCap}],
         simpBudget = Which[
           NumericQ[simplifyTimeout] && simplifyTimeout >= 0, N@simplifyTimeout,
-          simplifyTimeout === Automatic && NumericQ[timeout] && timeout > 0, {1, Min[60.(*one minute*), N@timeout/10.(*1/10 of total time limit*)]},
+          simplifyTimeout === Automatic && NumericQ[timeout] && timeout > 0, Min[5., N@timeout/10.],(*{1, Min[60.(*one minute*), N@timeout/10.(*1/10 of total time limit*)]},*)
           True, 1.0
         ],
         ass = buildAssumptions[userAss]
@@ -170,7 +178,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
           Simplify[#, Assumptions -> ass, TimeConstraint -> simpBudget] &,
           coeffMap
         ];
-        seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead, gbOrderUsed, allowGroebner], N@timeout, $Failed];
+        seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead, gbOrderUsed, allowGroebner, gbMemLimit], N@timeout, $Failed];
         If[!MatchQ[seqRes, {__}], Message[paramQuadSolve::solvefail]; Return[$Failed]];
         {solved, signMap, signRadMap, leftover, steps} = seqRes;
         solRules = Normal[solved];
@@ -760,7 +768,7 @@ normalizeSigns[expr_, signHead_Symbol] := Module[{rules},
 (*sequentialSolve*)
 
 
-sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_] := Module[
+sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_, gbMemLimit_] := Module[
   {eqs = polys, unsolved = vars, solved = <||>, signMap = <||>, radMap = <||>, steps = {}, iter = 0,
    maxIter = 5 Length[vars], signGen = makeSignGenerator[signHead], gbOrderClean = Replace[gbOrder, Automatic -> Lexicographic]},
   While[eqs =!= {} && unsolved =!= {} && iter++ < maxIter,
@@ -826,13 +834,21 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_
       ];
       If[!TrueQ[allowGroebner], Break[]];
       last = Last[unsolved];
+      (* Use MemoryConstrained with GroebnerWalk for better performance *)
       gb = Quiet@Check[
-        GroebnerBasis[eqs, unsolved, MonomialOrder -> gbOrderClean],
+        MemoryConstrained[
+          GroebnerBasis[eqs, unsolved,
+            Method -> {"GroebnerWalk", "InitialMonomialOrder" -> DegreeReverseLexicographic},
+            MonomialOrder -> gbOrderClean
+          ],
+          gbMemLimit,
+          (Message[paramQuadSolve::gbmem, Round[gbMemLimit/1024^3]]; $Failed)
+        ],
         $Failed
       ];
       If[gb === $Failed,
-        Message[paramQuadSolve::badorder, gbOrder];
-        Return[$Failed];
+        (* Don't emit badorder message if it was a memory failure *)
+        Break[];
       ];
       uni = SelectFirst[gb, (varsInPoly[#, unsolved] === {last} && varDegree[#, last] <= 2) & , Missing["NotFound"]];
       If[uni === Missing["NotFound"], Break[]];
