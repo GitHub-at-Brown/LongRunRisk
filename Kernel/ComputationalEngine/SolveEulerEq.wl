@@ -801,8 +801,8 @@ solveCoeffRoots[
             Association @ If[
 	            (* if j not present as Key in extraParams add j->1 with j extracted from coefName *)
               AnyTrue[Keys[extraParams], MatchQ[Replace[#, s_Symbol :> SymbolName[s]], "i" | "j"] &],
-              {},
-              Cases[First@coefList, s_Symbol /; MemberQ[{"i", "j"}, SymbolName[s]] :> (s -> 1), {2}, Heads -> True]
+              <||>(*{}*),
+              Association@Flatten@Cases[First@coefList, s_Symbol /; MemberQ[{"i", "j"}, SymbolName[s]] :> (s -> 1), {2}, Heads -> True]
             ],
             extraParams (*putting extra params last in Join takes priority and overwrites paramsBase*)
           ],
@@ -926,7 +926,16 @@ solveWcPdRoots[
 ] /; AllTrue[signsWc, (# === 1 || # === -1) &] && AllTrue[signsPd, (# === 1 || # === -1) &] := With[
   {optSeq = Sequence @@ FilterRules[Flatten@{opts}, Options[solveCoeffRoots]]},
   With[
-    {wcResults = solveCoeffRoots[model["coeffsParamQuadSolve"]["wc"], savedKernelWc, (Association@model["params"])//.model["params"]//N, signsWc, "wc", extraParams, optSeq]},
+    {
+	    wcResults = solveCoeffRoots[
+		    model["coeffsParamQuadSolve"]["wc"],
+		    savedKernelWc,
+		    (Association@model["params"])//.model["params"]//N,
+		    signsWc,
+		    extraParams,
+		    optSeq
+	    ]
+    },
     Map[
       Function[wr,
         With[
