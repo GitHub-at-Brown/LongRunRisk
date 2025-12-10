@@ -698,8 +698,12 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						];
 						(*Echo[solB[[1]],"solB1"];*)
 						(*simplify conditions that guarantee real solutions*)
+						logSolve["BEFORE FullSimplify conditionsA (bytes=" <> ToString[ByteCount[solA["Conditions"]]] <> ")"];
 						conditionsA=Assuming[assumeA,FullSimplify[solA["Conditions"],Sequence @@ simplifyOpts]];
+						logSolve["AFTER FullSimplify conditionsA"];
+						logSolve["BEFORE FullSimplify conditionsB (bytes=" <> ToString[ByteCount[solB["Conditions"]]] <> ")"];
 						conditionsB=Assuming[assumeB,FullSimplify[solB["Conditions"],Sequence @@ simplifyOpts]];
+						logSolve["AFTER FullSimplify conditionsB"];
 						solA["Conditions"]=assumeA && (And@@conditionsA);
 						solB["Conditions"]=assumeB && (And@@conditionsB);
 						logSolve["after FullSimplify conditions"];
@@ -707,16 +711,24 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						(*Echo[solA["Conditions"][[1]],"solAConditions"];*)
 						(*Echo[solB["Conditions"][[1]],"solBConditions"];*)
 						(*simplify using assumptions*)
+						logSolve["BEFORE Simplify solA Solution (bytes=" <> ToString[ByteCount[solA["Solution"]]] <> ", len=" <> ToString[Length[solA["Solution"]]] <> ")"];
 						solA["Solution"]=Quiet[Assuming[solA["Conditions"],Simplify[solA["Solution"],Sequence @@ simplifyOpts]],{Simplify::time}];
+						logSolve["AFTER Simplify solA Solution"];
+						logSolve["BEFORE Simplify solB Solution (bytes=" <> ToString[ByteCount[solB["Solution"]]] <> ", len=" <> ToString[Length[solB["Solution"]]] <> ")"];
 					    solB["Solution"]=Quiet[Assuming[solB["Conditions"],Simplify[solB["Solution"],Sequence @@ simplifyOpts]],{Simplify::time}];
+						logSolve["AFTER Simplify solB Solution"];
 						logSolve["after Simplify solutions"];
 						(*Echo[solA["Solution"][[1]],"solASolution"];*)
 						(*Echo[solB["Solution"][[1]],"solBSolution"];*)
 						(*try eliminating one of gamma, theta, psi and keep shortest expressions*)
+						logSolve["BEFORE tryTransforms solA (bytes=" <> ToString[ByteCount[solA["Solution"]]] <> ")"];
 						solA["Solution"]=tryTransforms[#,assumeA,Sequence @@ simplifyOpts]&/@solA["Solution"];
+						logSolve["AFTER tryTransforms solA"];
+						logSolve["BEFORE tryTransforms solB (bytes=" <> ToString[ByteCount[solB["Solution"]]] <> ")"];
 						solB["Solution"]=tryTransforms[#,assumeB,Sequence @@ simplifyOpts]&/@solB["Solution"];
+						logSolve["AFTER tryTransforms solB"];
 						logSolve["after tryTransforms"];
-						
+
 						(*create non-linear equation for unconditional mean of wc and pd and unsolved coeffs*)
 						With[
 							{
@@ -725,6 +737,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								verifA = safeVerification[solA["Verification"], Length[varsA], "wc", model["shortname"], varsA],
 								verifB = safeVerification[solB["Verification"], Length[varsB], "pd", model["shortname"], varsB]
 							},
+							logSolve["after safeVerification"];
 							With[
 								{
 									newSysA= Pick[sysA,verifA,False],
@@ -736,6 +749,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 									assumeA,
 									Quiet[FullSimplify[Prepend[newSysA,wcCoeffEq]/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
 								];
+								logSolve["after FullSimplify eqA0"];
 							];
 							With[
 								{
@@ -755,6 +769,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 											assumeB,
 											Quiet[FullSimplify[eqB0,Sequence @@ simplifyOpts],{FullSimplify::time}]
 										];
+										logSolve["after FullSimplify eqB0"];
 									];
 									(*pd plugging in wc coeffs - only if needed*)
 									If[MatchQ[pdMode, "AB" | "Both"],
@@ -762,6 +777,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 											assumeB,
 											Quiet[FullSimplify[eqB0/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
 										];
+										logSolve["after FullSimplify eqAB0"];
 									];
 								]; (*With*)
 							]; (*With*)

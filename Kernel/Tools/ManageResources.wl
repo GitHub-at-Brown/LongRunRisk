@@ -875,6 +875,9 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		(* execute pipeline with cascade *)
 		symbolicModels = Lookup[modelsByStage, "Symbolic", {}];
 
+		(* Disable history to prevent memory accumulation from Out[] values *)
+		$HistoryLength = 0;
+
 		(* Memory profiling helper *)
 		$memoryProfileLog = {};
 		logMemory[label_String] := Module[{mem = MemoryInUse[], memGB},
@@ -903,6 +906,9 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 			(* Checkpoint after each model's symbolic processing *)
 			saveModels[Merge[{savedModels, processedModels}, Last], modelsFileCheckpoint];
+
+			(* Clear system cache to free memory after each model *)
+			ClearSystemCache[];
 			logMemory["Phase1 END: " <> shortname];
 
 			, {modelKey, symbolicModels}
