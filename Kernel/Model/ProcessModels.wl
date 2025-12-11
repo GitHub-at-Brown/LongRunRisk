@@ -897,20 +897,43 @@ tryTransforms[
 			simplifyOpts = Flatten[{
 	          Evaluate @ FilterRules[Flatten@{opts}, Options[Simplify]],
 	          Evaluate @ OptionValue["SimplifyOptions"]
-	        }]
+	        }],
+			transformsList = actualTransforms
 		},
 		(*Echo[{opts},"tryTransformsopts"];
 		Echo[simplifyOpts,"tryTransformssimplifyOpts"];
-		Echo[actualTransforms,"tryTransformsactualTransforms"];
+		Echo[transformsList,"tryTransformsactualTransforms"];
 		Echo[expr,"tryTransformsexpr"];
 		Echo[ass[[1]],"tryTransformsass"];*)
-		results = Quiet[
-			Table[
-				Assuming[ass,Simplify[expr /. transform, Sequence @@ simplifyOpts]],
-				{transform, actualTransforms}
+		With[
+			{
+				simplifyOne = Function[{tr},
+					Assuming[
+						ass,
+						Simplify[expr /. tr, Sequence @@ simplifyOpts]
+					]
+				],
+				nKernels = Min[Length[transformsList], $ProcessorCount]
+			},
+			If[nKernels > 0,
+				CloseKernels[];
+				LaunchKernels[nKernels];
+				results = Quiet[
+					ParallelTable[
+						simplifyOne[transform],
+						{transform, transformsList}
+					],
+					{Simplify::time}
+				];
+				CloseKernels[],
+				results = Quiet[
+					Table[
+						simplifyOne[transform],
+						{transform, transformsList}
+					],
+					{Simplify::time}
+				]
 			]
-			,
-			{Simplify::time}
 		];
 	];(*With*)
 	(*Echo[results,"tryTransformsresults"];*)
