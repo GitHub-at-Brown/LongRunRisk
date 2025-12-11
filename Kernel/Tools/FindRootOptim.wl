@@ -475,8 +475,8 @@ findRootInterval[
 
     rootSym = Unique["root$"];
     rootVarN = (rootVar//. paramsRules);
-    rootRules = rootVarN -> rootSym;
-    ineqRootVar=ineq/. rootRules;
+    rootRules = rootVarN -> Log[rootSym];
+    ineqRootVar=Simplify[ineq/. rootRules,TimeConstraint->{5,30}];
 
     red =  Check[
     Quiet[
@@ -493,7 +493,12 @@ findRootInterval[
     ];
 
     (*restore original variable names*)
-    red = red /. Reverse@rootRules
+    red = red /. Reverse@(Exp /@ rootRules);
+    red = Refine[ 
+      Reduce[red, rootVarN, Reals], 
+        FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc > 0 && 
+        FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[_] > 0
+      ]
   ]
 ];
 

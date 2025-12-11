@@ -136,6 +136,13 @@ canonicalize[expr_] := expr;
 
 getCanonicalHash[expr_] := Hash[ExportString[canonicalize[expr], "WL"], "SHA256", "HexString"];
 
+(* OS-level memory usage (sum of WolframKernel RSS, in GB) *)
+wolframKernelMemoryGB[] := Module[{raw, kb},
+  raw = Quiet@Import["!ps -axo rss,comm | grep -i '[W]olframKernel' | awk '{sum+=$1} END {print sum}'", "String"];
+  kb = Quiet@Check[ToExpression@StringTrim[raw], $Failed];
+  If[NumberQ[kb], N[kb/1024.^2], Missing["NotAvailable"]]
+];
+
 loadManifestSafe[file_] := Module[{held, data},
   If[!FileExistsQ[file],
     Return[<|
@@ -783,8 +790,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			catalogModels, enabledModels, savedModels, manifest,
 			modelStatuses, modelsByStage, modelsNeedingJacobians, modelsToPreload,
 			symbolicModels, compileModels, numericalModels, momentsModels,
-			processedModels, model, shortname, compiledFile, catalogHash
-		},
+			processedModels, model, shortname, compiledFile, catalogHash, phase3ContextFile
+			},
 
 		(* find paclet root *)
 		root = findPacletRoot[];
@@ -808,7 +815,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		enabledModels = selectEnabledModels[catalogModels];
 
 		(* apply model filter if specified - convert to strings for comparison *)
-		enabledModels = If[modelFilter === All,
+		(* Accept both All (symbol) and "All" (string) for convenience *)
+		enabledModels = If[modelFilter === All || modelFilter === "All",
 			enabledModels,
 			KeyTake[enabledModels,
 				Select[Keys[enabledModels], MemberQ[ToString /@ Flatten@{modelFilter}, catalogModels[#]["shortname"]] &]
@@ -879,12 +887,17 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		$HistoryLength = 0;
 
 		(* Memory profiling helper *)
-		$memoryProfileLog = {};
-		logMemory[label_String] := Module[{mem = MemoryInUse[], memGB},
-			memGB = N[mem / 1024^3];
-			AppendTo[$memoryProfileLog, <|"Label" -> label, "MemoryGB" -> memGB, "Time" -> DateString["ISODateTime"]|>];
-			Print[Style[StringPadRight[label, 50], Bold], " | Memory: ", NumberForm[memGB, {5, 2}], " GB"]
-		];
+			$memoryProfileLog = {};
+			logMemory[label_String] := Module[{mem = MemoryInUse[], memGB, kernelGB},
+				memGB = N[mem / 1024^3];
+				kernelGB = wolframKernelMemoryGB[];
+				AppendTo[$memoryProfileLog, <|"Label" -> label, "MemoryGB" -> memGB, "KernelRSSGB" -> kernelGB, "Time" -> DateString["ISODateTime"]|>];
+				Print[
+					Style[StringPadRight[label, 50], Bold],
+					" | Memory: ", NumberForm[memGB, {5, 2}], " GB",
+					" | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
+				]
+			];
 		logMemory["buildModels START"];
 
 		(* Phase 1: Symbolic processing *)
@@ -929,13 +942,29 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			, {modelKey, compileModels}
 		];
 
-		(* Phase 3: Numerical solutions - cascade from Compile + models at Numerical stage *)
-		logMemory["Phase3 START (Numerical)"];
-		numericalModels = DeleteDuplicates @ Join[compileModels, Lookup[modelsByStage, "Numerical", {}]];
-		Do[
-			shortname = catalogModels[modelKey]["shortname"];
-			logMemory["Phase3 START: " <> shortname];
-			With[{solN = FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[
+			(* Phase 3: Numerical solutions - cascade from Compile + models at Numerical stage *)
+			logMemory["Phase3 START (Numerical)"];
+			phase3ContextFile = FileNameJoin[{root, "temp", "Phase3Context.wl"}];
+			Quiet[CreateDirectory[DirectoryName[phase3ContextFile]], {CreateDirectory::eexist}];
+			Put[
+				<|
+					"Timestamp" -> DateString["ISODateTime"],
+					"compileModels" -> compileModels,
+					"modelsByStage" -> modelsByStage,
+					"processedModels" -> processedModels,
+					"catalogModels" -> catalogModels,
+					"savedModels" -> savedModels,
+					"modelsFileCheckpoint" -> modelsFileCheckpoint,
+					"logMemoryPresent" -> ValueQ[logMemory]
+				|>,
+				phase3ContextFile
+			];
+			Print["Saved Phase3 context for replay to ", phase3ContextFile];
+			numericalModels = DeleteDuplicates @ Join[compileModels, Lookup[modelsByStage, "Numerical", {}]];
+			Do[
+				shortname = catalogModels[modelKey]["shortname"];
+				logMemory["Phase3 START: " <> shortname];
+				With[{solN = FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[
 					processedModels[shortname]
 				]},
 				processedModels[shortname] = Append[processedModels[shortname], "coeffsSolutionN" -> solN];
@@ -950,11 +979,22 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			saveModels[Merge[{savedModels, processedModels}, Last], modelsFileCheckpoint];
 			logMemory["Phase3 END: " <> shortname];
 
-			, {modelKey, numericalModels}
-		];
+				, {modelKey, numericalModels}
+			];
 
-		(* Phase 4: Moments database - cascade from Numerical + models at Moments stage *)
-		If[createMoments,
+			If[$Notebooks === True,
+				CreateDialog[{
+					TextCell[
+						"Phase 3 numerical loop complete.\nContext saved to:\n" <> phase3ContextFile,
+						"Text"
+					],
+					DefaultButton["OK", DialogReturn[]]
+				}],
+				Print["Phase 3 numerical loop complete. Context file: ", phase3ContextFile]
+			];
+
+			(* Phase 4: Moments database - cascade from Numerical + models at Moments stage *)
+			If[createMoments,
 			Module[{numLaunched, momentsFile, metaFile, currentHash},
 				momentsModels = DeleteDuplicates @ Join[numericalModels, Lookup[modelsByStage, "Moments", {}]];
 

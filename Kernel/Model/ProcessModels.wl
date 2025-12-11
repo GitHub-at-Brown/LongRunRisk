@@ -52,6 +52,13 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 (*Helper functions*)
 
 
+(* OS-level memory usage (sum of WolframKernel RSS, in GB) *)
+wolframKernelMemoryGB[] := Module[{raw, kb},
+	raw = Quiet@Import["!ps -axo rss,comm | grep -i '[W]olframKernel' | awk '{sum+=$1} END {print sum}'", "String"];
+	kb = Quiet@Check[ToExpression@StringTrim[raw], $Failed];
+	If[NumberQ[kb], N[kb/1024.^2], Missing["NotAvailable"]]
+];
+
 (* safeRest - safely extract all but first element, returns {} for invalid input *)
 safeRest[list_List] := If[Length[list] >= 1, Rest[list], {}];
 safeRest[_] := {};
@@ -107,7 +114,13 @@ processModels[
 	(* Memory profiling for processModels - uses parent's logMemory if available *)
 	logMem[label_] := If[ValueQ[logMemory],
 		logMemory["  processModels: " <> label],
-		Print["  processModels: ", label, " | Memory: ", N[MemoryInUse[]/1024^3], " GB"]
+		Module[{memGB = N[MemoryInUse[]/1024^3], kernelGB = wolframKernelMemoryGB[]},
+			Print[
+				"  processModels: ", label,
+				" | Memory: ", NumberForm[memGB, {5, 2}], " GB",
+				" | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
+			]
+		]
 	];
 	logMem["START"];
 
@@ -667,7 +680,13 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							logSolve (* memory logging for solveCoeffsSystem *)
 						},
 						(* Memory logging helper *)
-						logSolve[label_] := Print["    solveCoeffsSystem: ", label, " | Memory: ", NumberForm[N[MemoryInUse[]/1024^3], {5, 2}], " GB"];
+						logSolve[label_] := Module[{memGB = N[MemoryInUse[]/1024^3], kernelGB = wolframKernelMemoryGB[]},
+							Print[
+								"    solveCoeffsSystem: ", label,
+								" | Memory: ", NumberForm[memGB, {5, 2}], " GB",
+								" | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
+							]
+						];
 						logSolve["START"];
 
 						(*solve system of linear-quadratic equations for wc and pd coefficients*)

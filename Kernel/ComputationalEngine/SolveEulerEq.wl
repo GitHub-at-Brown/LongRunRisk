@@ -577,7 +577,7 @@ updateCoeffsSol[
 	newParams = (Association @ newParameters) //. newParameters // N;
 	kernels = savedKernels["kernels"];
 	numStocks = model["numStocks"];
-	stockFreeQ = FreeQ[#, _Symbol[_Integer]] & /@ Keys @ newParameters;
+	stockFreeQ = Cases[Keys@newParameters, _Symbol[_Integer], Infinity] === {};
 	maxMaturity = OptionValue["MaxMaturity"];
 	rootSigns = OptionValue["RootSigns"];
 	doChecks = OptionValue["PrintResidualsNorm"] || OptionValue["CheckResiduals"];
@@ -601,7 +601,7 @@ updateCoeffsSol[
 	}];
 
 	(* Determine what to compute *)
-	needsPd = AnyTrue[Not /@ stockFreeQ, TrueQ] || TrueQ[OptionValue["UpdatePd"]];
+	needsPd = stockFreeQ || TrueQ[OptionValue["UpdatePd"]];
 
 	(* Step 1: Always compute wc *)
 	solWc = computeWcCoeffs[model, kernels, params, newParams, rootSignsNorm, rootSigns, solveOpts];

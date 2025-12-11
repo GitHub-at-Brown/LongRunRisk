@@ -47,6 +47,13 @@ Begin["`Private`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
+(* OS-level memory usage (sum of WolframKernel RSS, in GB) *)
+wolframKernelMemoryGB[] := Module[{raw, kb},
+  raw = Quiet@Import["!ps -axo rss,comm | grep -i '[W]olframKernel' | awk '{sum+=$1} END {print sum}'", "String"];
+  kb = Quiet@Check[ToExpression@StringTrim[raw], $Failed];
+  If[NumberQ[kb], N[kb/1024.^2], Missing["NotAvailable"]]
+];
+
 
 (* ::Subsection:: *)
 (*paramQuadSolve*)
@@ -126,7 +133,13 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         radicandsRaw, uniqueRadicands, radicandConditions, signVars, signAssumptions, fullAss,
         methodTag, allowGroebner, logPQS},
         (* Memory logging for paramQuadSolve internals *)
-        logPQS[label_] := Print["      paramQuadSolve: ", label, " | Memory: ", NumberForm[N[MemoryInUse[]/1024^3], {5, 2}], " GB"];
+        logPQS[label_] := Module[{memGB = N[MemoryInUse[]/1024^3], kernelGB = wolframKernelMemoryGB[]},
+          Print[
+            "      paramQuadSolve: ", label,
+            " | Memory: ", NumberForm[memGB, {5, 2}], " GB",
+            " | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
+          ]
+        ];
         If[methodSpec === $Failed, Return[$Failed]];
         methodTag = methodSpec["Tag"];
         allowGroebner = methodSpec["AllowGroebner"];
@@ -566,8 +579,14 @@ collectDenominatorConditions[dlist_List] := Module[{expr, conds},
 
 (* Replace all coefficients of polys by unique dummy symbols; return new polys and a mapping. *)
 canonicalizeCoefficients[polys_List, vars_List] := Module[
-  {rulesPer, allCoeffs, symb, cmap = <||>, newPolys, t0, t1, t2, t3, t4, logCC},
-  logCC[label_] := Print["        canonicalizeCoefficients: ", label, " | Memory: ", NumberForm[N[MemoryInUse[]/1024^3], {5, 2}], " GB"];
+{rulesPer, allCoeffs, symb, cmap = <||>, newPolys, t0, t1, t2, t3, t4, logCC},
+logCC[label_] := Module[{memGB = N[MemoryInUse[]/1024^3], kernelGB = wolframKernelMemoryGB[]},
+  Print[
+    "        canonicalizeCoefficients: ", label,
+    " | Memory: ", NumberForm[memGB, {5, 2}], " GB",
+    " | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
+  ]
+];
   symb[c_] := Lookup[cmap, c, With[{s = Unique["c$"]}, cmap[c] = s; s]];
   (* Extract coefficient rules for each poly *)
   t0 = AbsoluteTime[];
@@ -976,7 +995,13 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_
   {eqs = polys, unsolved = vars, solved = <||>, signMap = <||>, radMap = <||>, steps = {}, iter = 0,
    maxIter = 5 Length[vars], signGen = makeSignGenerator[signHead], gbOrderClean = Replace[gbOrder, Automatic -> Lexicographic],
    logSeq},
-  logSeq[label_] := Print["        sequentialSolve: ", label, " | Memory: ", NumberForm[N[MemoryInUse[]/1024^3], {5, 2}], " GB"];
+  logSeq[label_] := Module[{memGB = N[MemoryInUse[]/1024^3], kernelGB = wolframKernelMemoryGB[]},
+    Print[
+      "        sequentialSolve: ", label,
+      " | Memory: ", NumberForm[memGB, {5, 2}], " GB",
+      " | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
+    ]
+  ];
   logSeq["START (vars=" <> ToString[Length[vars]] <> ")"];
   While[eqs =!= {} && unsolved =!= {} && iter++ < maxIter,
     (* Log each iteration to track expression growth *)
@@ -1054,7 +1079,13 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_
         (* Front end available - show dialog *)
         CreateDialog[{
             TextCell["GroebnerBasis Debug - Inspect inputs before call", "Title"],
-            TextCell["Memory: " <> ToString[Round[MemoryInUse[]/1024^3, 0.01]] <> " GB", "Subtitle"],
+            TextCell[
+              With[{kernelGB = wolframKernelMemoryGB[]},
+                "Memory: " <> ToString[Round[MemoryInUse[]/1024^3, 0.01]] <> " GB" <>
+                " | KernelRSS: " <> If[NumberQ[kernelGB], ToString[NumberForm[kernelGB, {5, 2}]], "n/a"] <> " GB"
+              ],
+              "Subtitle"
+            ],
             TextCell["Number of equations: " <> ToString[Length[eqs]], "Text"],
             TextCell["Number of variables: " <> ToString[Length[unsolved]], "Text"],
             TextCell["Total ByteCount of eqs: " <> ToString[Round[Total[ByteCount /@ eqs]/1024., 0.1]] <> " KB", "Text"],

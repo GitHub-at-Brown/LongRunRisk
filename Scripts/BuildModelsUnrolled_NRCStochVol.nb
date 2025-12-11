@@ -1,0 +1,2746 @@
+Notebook[{
+
+(* ::Title:: *)
+(*BuildModels Unrolled - NRCStochVol Model*)
+
+(* ::Subtitle:: *)
+(*Interactive step-by-step execution of the buildModels pipeline*)
+
+(* ::Text:: *)
+(*This notebook "unrolls" the buildModels function from ManageResources.wl for the NRCStochVol model.*)
+(*Each cell can be executed interactively to trace through the model building process.*)
+(**)
+(*Model: NRCStochVol (Nominal-Real Covariance with Stochastic Volatility of Inflation)*)
+(*Phases: Symbolic \[Rule] Compile \[Rule] Numerical \[Rule] Moments*)
+
+(* ::Chapter:: *)
+(*Section 1: Setup and Configuration*)
+
+(* ::Section:: *)
+(*1.1 Environment Setup*)
+
+Cell[BoxData[{
+ RowBox[{"(* Set up paths and working directory *)"}], "\n",
+ RowBox[{
+  RowBox[{"$HistoryLength", "=", "0"}], ";", " ",
+  RowBox[{"(* Reduce memory usage *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"pacletRoot", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"$HomeDirectory", ",", "\"\<Library\>\"", ",", "\"\<CloudStorage\>\"", ",", "\"\<Dropbox-Personal\>\"", ",", "\"\<MyPackages\>\"", ",", "\"\<LongRunRisk\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"SetDirectory", "[", "pacletRoot", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"PacletDirectoryLoad", "[", "pacletRoot", "]"}], ";", " ",
+  RowBox[{"(* Required for Needs to find packages *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Working directory: \>\"", ",",
+    RowBox[{"Directory", "[", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[1]:="],
+
+(* ::Section:: *)
+(*1.2 Define Paths (Read from Real, Write to Temp)*)
+
+Cell[BoxData[{
+ RowBox[{"(* SOURCE paths - read existing progress from real Resources *)"}], "\n",
+ RowBox[{
+  RowBox[{"sourceResourcesDir", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"pacletRoot", ",", "\"\<Resources\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"sourceCompiledDir", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"sourceResourcesDir", ",", "\"\<CompiledFunctions\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"sourceMomentsDir", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"sourceResourcesDir", ",", "\"\<MomentsLookupTables\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"sourceModelsFile", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"sourceResourcesDir", ",", "\"\<Models.wl\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"sourceManifestFile", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"sourceResourcesDir", ",", "\"\<ModelManifest.wl\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{"(* OUTPUT paths - write new results to temp directory *)"}], "\n",
+ RowBox[{
+  RowBox[{"tempRoot", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"$TemporaryDirectory", ",", "\"\<LongRunRisk_BuildModels\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"resourcesDir", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"tempRoot", ",", "\"\<Resources\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"compiledDir", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"resourcesDir", ",", "\"\<CompiledFunctions\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"momentsDir", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"resourcesDir", ",", "\"\<MomentsLookupTables\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"modelsFile", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"resourcesDir", ",", "\"\<Models.wl\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"manifestFile", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"resourcesDir", ",", "\"\<ModelManifest.wl\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"catalogFile", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"pacletRoot", ",", "\"\<Kernel\>\"", ",", "\"\<Model\>\"", ",", "\"\<Catalog.wl\>\""}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{"(* Create output directory structure *)"}], "\n",
+ RowBox[{
+  RowBox[{"Map", "[",
+   RowBox[{
+    RowBox[{
+     RowBox[{"If", "[",
+      RowBox[{
+       RowBox[{"!",
+        RowBox[{"DirectoryQ", "[", "#", "]"}]}], ",",
+       RowBox[{"CreateDirectory", "[",
+        RowBox[{"#", ",",
+         RowBox[{"CreateIntermediateDirectories", "->", "True"}]}], "]"}]}], "]"}], "&"}], ",",
+    RowBox[{"{",
+     RowBox[{"resourcesDir", ",", "compiledDir", ",", "momentsDir"}], "}"}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<SOURCE (read existing): \>\"", ",", "sourceResourcesDir"}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<OUTPUT (write new):     \>\"", ",", "resourcesDir"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[6]:="],
+
+(* ::Section:: *)
+(*1.3 Configuration Options*)
+
+Cell[BoxData[{
+ RowBox[{"(* Build options - set these before running *)"}], "\n",
+ RowBox[{
+  RowBox[{"fromScratch", "=", "False"}], ";", " ",
+  RowBox[{"(* If True, deletes all existing outputs first *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"compileJacobians", "=", "False"}], ";", " ",
+  RowBox[{"(* Whether to compile jacobian functions *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"createMoments", "=", "True"}], ";", " ",
+  RowBox[{"(* Whether to create moments database *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"maxMaturity", "=", "120"}], ";", " ",
+  RowBox[{"(* Maximum bond maturity for moments *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"targetModel", "=", "\"\<NRCStochVol\>\""}], ";", " ",
+  RowBox[{"(* Model to process *)"}]}]}], "Input",
+ CellLabel->"In[14]:="],
+
+(* ::Chapter:: *)
+(*Section 2: Load Required Packages*)
+
+(* ::Text:: *)
+(*We load only the packages that provide deep functions we are NOT unrolling.*)
+(*Helper functions from ManageResources.wl and ProcessModels.wl are inlined in Section 3.*)
+
+Cell[BoxData[{
+ RowBox[{"(* Core paclet infrastructure *)"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<PacletizedResourceFunctions`\>\"", "]"}], ";"}], "\n",
+ RowBox[{"(* Model definition packages *)"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`Model`Parameters`\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`Model`Shocks`\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`Model`ExogenousEq`\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`Model`EndogenousEq`\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[20]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Computational engine packages - deep functions we call but don't inline *)"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`Tools`FindRootOptim`\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[25]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Verify packages loaded *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Packages loaded successfully.\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Available exogenous vars: \>\"", ",",
+    RowBox[{"FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[32]:="],
+
+(* ::Chapter:: *)
+(*Section 3: Inline Helper Functions*)
+
+(* ::Text:: *)
+(*These functions are copied from ManageResources.wl and ProcessModels.wl*)
+(*to enable step-by-step execution without loading those packages.*)
+
+(* ::Section:: *)
+(*3.1 Hash and Serialization Helpers (from ManageResources.wl)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Canonicalize: Sort associations for consistent hashing *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"canonicalize", "[",
+    RowBox[{"assoc_Association", "?", "AssociationQ"}], "]"}], ":=",
+   RowBox[{"KeySort", "[",
+    RowBox[{"Map", "[",
+     RowBox[{"canonicalize", ",", "assoc"}], "]"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"canonicalize", "[",
+    RowBox[{"list_List"}], "]"}], ":=",
+   RowBox[{"Sort", "[",
+    RowBox[{"Map", "[",
+     RowBox[{"canonicalize", ",", "list"}], "]"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"canonicalize", "[", "other_", "]"}], ":=", "other"}], ";"}]}], "Input",
+ CellLabel->"In[35]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Get canonical hash of an expression *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"getCanonicalHash", "[", "expr_", "]"}], ":=",
+   RowBox[{"Hash", "[",
+    RowBox[{
+     RowBox[{"canonicalize", "[", "expr", "]"}], ",", "\"\<SHA256\>\"", ",", "\"\<HexString\>\""}], "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[38]:="],
+
+(* ::Section:: *)
+(*3.2 Manifest Management (from ManageResources.wl)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Safely load manifest file *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"loadManifestSafe", "[", "path_String", "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{", "result", "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{"!",
+         RowBox[{"FileExistsQ", "[", "path", "]"}]}], ",", "\n", "      ",
+        RowBox[{"Return", "[",
+         RowBox[{"<|", "|>"}], "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"result", "=",
+       RowBox[{"Quiet", "[",
+        RowBox[{
+         RowBox[{"Check", "[",
+          RowBox[{
+           RowBox[{"Get", "[", "path", "]"}], ",", "$Failed"}], "]"}], ",",
+         RowBox[{"{",
+          RowBox[{
+           RowBox[{"Get", "::", "noopen"}], ",",
+           RowBox[{"Syntax", "::", "_"}]}], "}"}]}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{
+         RowBox[{"result", "===", "$Failed"}], "||",
+         RowBox[{"!",
+          RowBox[{"AssociationQ", "[", "result", "]"}]}]}], ",", "\n", "      ",
+        RowBox[{"<|", "|>"}], ",", "\n", "      ", "result"}], "]"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[39]:="],
+
+(* ::Section:: *)
+(*3.3 Model Save/Load (from ManageResources.wl)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Save models using DefinitionData for serialization *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"saveModels", "[",
+    RowBox[{"models_Association", ",", "path_String"}], "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{", "defData", "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"defData", "=",
+       RowBox[{"PacletizedResourceFunctions`DefinitionData", "[", "models", "]"}]}], ";", "\n", "    ",
+      RowBox[{"Put", "[",
+       RowBox[{"defData", ",", "path"}], "]"}], ";", "\n", "    ", "path"}]}], "\n", "  ", "]"}]}], ";"}], "\n",
+ RowBox[{"(* Load models from file *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"loadModels", "[", "path_String", "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{", "defData", "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{"!",
+         RowBox[{"FileExistsQ", "[", "path", "]"}]}], ",",
+        RowBox[{"Return", "[",
+         RowBox[{"<|", "|>"}], "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"defData", "=",
+       RowBox[{"Get", "[", "path", "]"}]}], ";", "\n", "    ",
+      RowBox[{"PacletizedResourceFunctions`DefinitionData", "[", "defData", "]"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[40]:="],
+
+(* ::Section:: *)
+(*3.4 Moments Hash Functions (from ManageResources.wl)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Compute hash for moments cache validity *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"getMomentsHash", "[",
+    RowBox[{"model_Association", ",", "maxMat_Integer"}], "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{", "relevantKeys", "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"relevantKeys", "=",
+       RowBox[{"{",
+        RowBox[{"\"\<shortname\>\"", ",", "\"\<stateVars\>\"", ",", "\"\<params\>\"", ",", "\"\<assumptions\>\"", ",", "\"\<catalogHash\>\""}], "}"}]}], ";", "\n", "    ",
+      RowBox[{"getCanonicalHash", "[",
+       RowBox[{"{",
+        RowBox[{
+         RowBox[{"KeyTake", "[",
+          RowBox[{"model", ",", "relevantKeys"}], "]"}], ",", "maxMat"}], "}"}], "]"}]}]}], "\n", "  ", "]"}]}], ";"}], "\n",
+ RowBox[{"(* Check if moments files are up to date *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"momentsUpToDate", "[",
+    RowBox[{"model_Association", ",", "momDir_String", ",", "maxMat_Integer", ",", "manifest_Association"}], "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"shortname", ",", "momFile", ",", "metaFile", ",", "currentHash", ",", "storedHash"}], "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"shortname", "=",
+       RowBox[{"model", "[", "\"\<shortname\>\"", "]"}]}], ";", "\n", "    ",
+      RowBox[{"momFile", "=",
+       RowBox[{"FileNameJoin", "[",
+        RowBox[{"{",
+         RowBox[{"momDir", ",",
+          RowBox[{"\"\<covLong\>\"", "<>", "shortname", "<>", "\"\<.wl\>\""}]}], "}"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"metaFile", "=",
+       RowBox[{"FileNameJoin", "[",
+        RowBox[{"{",
+         RowBox[{"momDir", ",",
+          RowBox[{"\"\<covLong\>\"", "<>", "shortname", "<>", "\"\<_meta.wl\>\""}]}], "}"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{
+         RowBox[{"!",
+          RowBox[{"FileExistsQ", "[", "momFile", "]"}]}], "||",
+         RowBox[{"!",
+          RowBox[{"FileExistsQ", "[", "metaFile", "]"}]}]}], ",",
+        RowBox[{"Return", "[", "False", "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"currentHash", "=",
+       RowBox[{"getMomentsHash", "[",
+        RowBox[{"model", ",", "maxMat"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"storedHash", "=",
+       RowBox[{"Lookup", "[",
+        RowBox[{
+         RowBox[{"Lookup", "[",
+          RowBox[{"manifest", ",", "shortname", ",",
+           RowBox[{"<|", "|>"}]}], "]"}], ",", "\"\<momentsHash\>\"", ",", "\"\<\>\""}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"currentHash", "===", "storedHash"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[42]:="],
+
+(* ::Section:: *)
+(*3.5 Compiled File Validation (from ManageResources.wl)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Validate that a compiled .mx file exists and is loadable *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"validateCompiledFile", "[",
+    RowBox[{"shortname_String", ",", "compDir_String"}], "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"mxFile", ",", "result"}], "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"mxFile", "=",
+       RowBox[{"FileNameJoin", "[",
+        RowBox[{"{",
+         RowBox[{"compDir", ",",
+          RowBox[{"shortname", "<>", "\"\<.mx\>\""}]}], "}"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{"!",
+         RowBox[{"FileExistsQ", "[", "mxFile", "]"}]}], ",",
+        RowBox[{"Return", "[", "False", "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"result", "=",
+       RowBox[{"Quiet", "[",
+        RowBox[{
+         RowBox[{"Check", "[",
+          RowBox[{
+           RowBox[{"(",
+            RowBox[{
+             RowBox[{"Get", "[", "mxFile", "]"}], ";", "True"}], ")"}], ",", "False"}], "]"}], ",",
+         RowBox[{"{",
+          RowBox[{"Get", "::", "_"}], "}"}]}], "]"}]}], ";", "\n", "    ", "result"}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[44]:="],
+
+(* ::Section:: *)
+(*3.6 Coefficient Solution Validation (from ManageResources.wl)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Check if numerical coefficient solution is valid *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"validCoeffsSolutionN", "[", "model_Association", "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{", "sol", "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"sol", "=",
+       RowBox[{"Lookup", "[",
+        RowBox[{"model", ",", "\"\<coeffsSolutionN\>\"", ",", "None"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{
+         RowBox[{"sol", "===", "None"}], "||",
+         RowBox[{"sol", "===",
+          RowBox[{"<|", "|>"}]}]}], ",",
+        RowBox[{"Return", "[", "False", "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"(* Check wc solution *)"}], "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{"!",
+         RowBox[{"KeyExistsQ", "[",
+          RowBox[{"sol", ",", "\"\<wc\>\""}], "]"}]}], ",",
+        RowBox[{"Return", "[", "False", "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"sol", "[", "\"\<wc\>\"", "]"}], "[", "\"\<status\>\"", "]"}], "=!=", "\"\<success\>\""}], ",",
+        RowBox[{"Return", "[", "False", "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"(* Check pd solutions for all stocks *)"}], "\n", "    ",
+      RowBox[{"AllTrue", "[",
+       RowBox[{
+        RowBox[{"Keys", "[",
+         RowBox[{"Select", "[",
+          RowBox[{"sol", ",",
+           RowBox[{
+            RowBox[{"StringStartsQ", "[",
+             RowBox[{
+              RowBox[{"ToString", "[", "#", "]"}], ",", "\"\<pd\>\""}], "]"}], "&"}]}], "]"}], "]"}], ",", "\n", "      ",
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"sol", "[", "#", "]"}], "[", "\"\<status\>\"", "]"}], "===", "\"\<success\>\""}], "&"}]}], "]"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[45]:="],
+
+(* ::Section:: *)
+(*3.7 Model Status Determination (from ManageResources.wl)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Determine what phase each model needs to start from *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"determineModelStatus", "[",
+    RowBox[{"catalogModels_Association", ",", "existingModels_Association", ",", "\n", "    ", "manifest_Association", ",", "compDir_String", ",", "momDir_String", ",", "maxMat_Integer"}], "]"}], ":=", "\n", "  ",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{", "statusMap", "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"statusMap", "=",
+       RowBox[{"Association", "[", "\n", "      ",
+        RowBox[{"KeyValueMap", "[",
+         RowBox[{
+          RowBox[{"Function", "[",
+           RowBox[{
+            RowBox[{"{",
+             RowBox[{"name", ",", "catModel"}], "}"}], ",", "\n", "        ",
+            RowBox[{"Module", "[",
+             RowBox[{
+              RowBox[{"{",
+               RowBox[{"shortname", ",", "catHash", ",", "existing", ",", "storedHash", ",", "status"}], "}"}], ",", "\n", "          ",
+              RowBox[{
+               RowBox[{"shortname", "=",
+                RowBox[{"catModel", "[", "\"\<shortname\>\"", "]"}]}], ";", "\n", "          ",
+               RowBox[{"catHash", "=",
+                RowBox[{"getCanonicalHash", "[", "catModel", "]"}]}], ";", "\n", "          ",
+               RowBox[{"existing", "=",
+                RowBox[{"Lookup", "[",
+                 RowBox[{"existingModels", ",", "shortname", ",", "None"}], "]"}]}], ";", "\n", "          ",
+               RowBox[{"storedHash", "=",
+                RowBox[{"Lookup", "[",
+                 RowBox[{
+                  RowBox[{"Lookup", "[",
+                   RowBox[{"manifest", ",", "shortname", ",",
+                    RowBox[{"<|", "|>"}]}], "]"}], ",", "\"\<catalogHash\>\"", ",", "\"\<\>\""}], "]"}]}], ";", "\n", "          ",
+               RowBox[{"status", "=", "\n", "            ",
+                RowBox[{"Which", "[", "\n", "              ",
+                 RowBox[{
+                  RowBox[{"(* Need symbolic if catalog changed or no existing model *)"}], "\n", "              ",
+                  RowBox[{
+                   RowBox[{"catHash", "=!=", "storedHash"}], "||",
+                   RowBox[{"existing", "===", "None"}]}], ",", "\"\<needsSymbolic\>\"", ",", "\n", "              ",
+                  RowBox[{"(* Need compile if no valid .mx file *)"}], "\n", "              ",
+                  RowBox[{"!",
+                   RowBox[{"validateCompiledFile", "[",
+                    RowBox[{"shortname", ",", "compDir"}], "]"}]}], ",", "\"\<needsCompile\>\"", ",", "\n", "              ",
+                  RowBox[{"(* Need numerical if no valid numerical solution *)"}], "\n", "              ",
+                  RowBox[{"!",
+                   RowBox[{"validCoeffsSolutionN", "[", "existing", "]"}]}], ",", "\"\<needsNumerical\>\"", ",", "\n", "              ",
+                  RowBox[{"(* Need moments if not up to date *)"}], "\n", "              ",
+                  RowBox[{"!",
+                   RowBox[{"momentsUpToDate", "[",
+                    RowBox[{"existing", ",", "momDir", ",", "maxMat", ",", "manifest"}], "]"}]}], ",", "\"\<needsMoments\>\"", ",", "\n", "              ",
+                  RowBox[{"(* Otherwise complete *)"}], "\n", "              ", "True", ",", "\"\<complete\>\""}], "\n", "            ", "]"}]}], ";", "\n", "          ",
+               RowBox[{"name", "->",
+                RowBox[{"<|",
+                 RowBox[{
+                  RowBox[{"\"\<status\>\"", "->", "status"}], ",",
+                  RowBox[{"\"\<catalogHash\>\"", "->", "catHash"}]}], "|>"}]}]}]}], "\n", "        ", "]"}]}], "\n", "      ", "]"}], ",", "catalogModels"}], "]"}], "]"}]}], ";", "\n", "    ", "statusMap"}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[46]:="],
+
+(* ::Section:: *)
+(*3.8 ProcessModels Helper: Safe Operations (from ProcessModels.wl)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Safe rest - returns empty list for empty/single element lists *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"safeRest", "[",
+    RowBox[{"{", "}"}], "]"}], ":=",
+   RowBox[{"{", "}"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"safeRest", "[",
+    RowBox[{"{", "_", "}"}], "]"}], ":=",
+   RowBox[{"{", "}"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"safeRest", "[", "list_List", "]"}], ":=",
+   RowBox[{"Rest", "[", "list", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[47]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Safe verification result conversion *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"safeVerification", "[", "result_", "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{", "processed", "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"processed", "=",
+       RowBox[{"result", "/.",
+        RowBox[{"{", "\n", "      ",
+         RowBox[{
+          RowBox[{
+           RowBox[{"VerificationTest", "[",
+            RowBox[{"_", ",", "_", ",", "_", ",",
+             RowBox[{"TestID", "->", "_"}]}], "]"}], "->", "True"}], ",", "\n", "      ",
+          RowBox[{
+           RowBox[{"VerificationTest", "[",
+            RowBox[{"_", ",", "_", ",",
+             RowBox[{"TestID", "->", "_"}]}], "]"}], "->", "True"}], ",", "\n", "      ",
+          RowBox[{
+           RowBox[{"VerificationTest", "[",
+            RowBox[{"_", ",", "_"}], "]"}], "->", "True"}], ",", "\n", "      ",
+          RowBox[{
+           RowBox[{"VerificationTest", "[", "_", "]"}], "->", "True"}]}], "\n", "    ", "}"}]}]}], ";", "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{"ListQ", "[", "processed", "]"}], ",", "\n", "      ",
+        RowBox[{"Map", "[",
+         RowBox[{"TrueQ", ",", "processed"}], "]"}], ",", "\n", "      ",
+        RowBox[{"{",
+         RowBox[{"TrueQ", "[", "processed", "]"}], "}"}]}], "]"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[50]:="],
+
+(* ::Chapter:: *)
+(*Section 4: NRCStochVol Model Definition*)
+
+(* ::Text:: *)
+(*The NRCStochVol model extends the NRC (Nominal-Real Covariance) model with stochastic volatility of inflation.*)
+(*It has 7 state variables and approximately 80 parameters.*)
+
+(* ::Section:: *)
+(*4.1 Model Specification*)
+
+Cell[BoxData[{
+ RowBox[{"(* NRCStochVol model definition - copied from Catalog.wl lines 1686-1782 *)"}], "\n",
+ RowBox[{
+  RowBox[{"nrcStochVolModel", "=",
+   RowBox[{"<|", "\n", "  ",
+    RowBox[{
+     RowBox[{"\"\<shortname\>\"", "->", "\"\<NRCStochVol\>\""}], ",", "\n", "  ",
+     RowBox[{"\"\<enabled\>\"", "->", "True"}], ",", "\n", "  ",
+     RowBox[{"\"\<stateVars\>\"", "->",
+      RowBox[{"{",
+       RowBox[{
+        RowBox[{"x", "[", "t", "]"}], ",",
+        RowBox[{"pie", "[", "t", "]"}], ",",
+        RowBox[{"pibar", "[", "t", "]"}], ",",
+        RowBox[{"sg", "[", "t", "]"}], ",",
+        RowBox[{"sx", "[", "t", "]"}], ",",
+        RowBox[{"sc", "[", "t", "]"}], ",",
+        RowBox[{"sp", "[", "t", "]"}]}], "}"}]}], ",", "\n", "  ",
+     RowBox[{"\"\<params\>\"", "->",
+      RowBox[{"<|", "\n", "    ",
+       RowBox[{"(* Consumption growth *)"}], "\n", "    ",
+       RowBox[{
+        RowBox[{"\"\<muc\>\"", "->", "0.0015"}], ",", "\n", "    ",
+        RowBox[{"\"\<rhocx\>\"", "->", "1"}], ",", "\n", "    ",
+        RowBox[{"\"\<rhocp\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"\"\<phic\>\"", "->", "0.0078"}], ",", "\n", "    ",
+        RowBox[{"(* Long-run risk x *)"}], "\n", "    ",
+        RowBox[{"\"\<rhox\>\"", "->", "0.979"}], ",", "\n", "    ",
+        RowBox[{"\"\<phix\>\"", "->", "0.044"}], ",", "\n", "    ",
+        RowBox[{"\"\<phixc\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"(* Inflation pi *)"}], "\n", "    ",
+        RowBox[{"\"\<mup\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"\"\<rhoppbar\>\"", "->", "1"}], ",", "\n", "    ",
+        RowBox[{"\"\<rhop\>\"", "->", "0.941"}], ",", "\n", "    ",
+        RowBox[{"\"\<phip\>\"", "->", "0.0024"}], ",", "\n", "    ",
+        RowBox[{"\"\<xip\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"(* Expected inflation pibar *)"}], "\n", "    ",
+        RowBox[{"\"\<mupbar\>\"", "->", "0.003"}], ",", "\n", "    ",
+        RowBox[{"\"\<rhopbar\>\"", "->", "0.99"}], ",", "\n", "    ",
+        RowBox[{"\"\<phipbar\>\"", "->", "0.0001"}], ",", "\n", "    ",
+        RowBox[{"(* Stochastic volatility of LRR sx *)"}], "\n", "    ",
+        RowBox[{"\"\<vx\>\"", "->", "1"}], ",", "\n", "    ",
+        RowBox[{"\"\<rhosxs\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"\"\<phisxs\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"(* Stochastic volatility of consumption sc *)"}], "\n", "    ",
+        RowBox[{"\"\<vc\>\"", "->", "1"}], ",", "\n", "    ",
+        RowBox[{"\"\<rhoscv\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"\"\<phiscv\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"(* Stochastic volatility of inflation sp - THE KEY FEATURE *)"}], "\n", "    ",
+        RowBox[{"\"\<vp\>\"", "->", "1"}], ",", "\n", "    ",
+        RowBox[{"\"\<vpp\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"\"\<vppbar\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"\"\<rhospw\>\"", "->", "0.99"}], ",", "\n", "    ",
+        RowBox[{"\"\<phispw\>\"", "->", "0.00001"}], ",", "\n", "    ",
+        RowBox[{"(* Nominal-real covariance sg - THE NRC COMPONENT *)"}], "\n", "    ",
+        RowBox[{"\"\<Esg\>\"", "->",
+         RowBox[{"-", "0.00001"}]}], ",", "\n", "    ",
+        RowBox[{"\"\<rhog\>\"", "->", "0.99"}], ",", "\n", "    ",
+        RowBox[{"\"\<phig\>\"", "->", "0.00001"}], ",", "\n", "    ",
+        RowBox[{"(* Preferences *)"}], "\n", "    ",
+        RowBox[{"\"\<delta\>\"", "->", "0.999"}], ",", "\n", "    ",
+        RowBox[{"\"\<gamma\>\"", "->", "10"}], ",", "\n", "    ",
+        RowBox[{"\"\<psi\>\"", "->", "1.5"}], ",", "\n", "    ",
+        RowBox[{"(* Stock 1 dividend parameters *)"}], "\n", "    ",
+        RowBox[{"\"\<mud[1]\>\"", "->", "0.0015"}], ",", "\n", "    ",
+        RowBox[{"\"\<phi[1]\>\"", "->", "4.5"}], ",", "\n", "    ",
+        RowBox[{"\"\<rhodx[1]\>\"", "->", "3"}], ",", "\n", "    ",
+        RowBox[{"\"\<rhods[1]\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"\"\<rhodp[1]\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"\"\<phidc[1]\>\"", "->", "0"}], ",", "\n", "    ",
+        RowBox[{"\"\<phid[1]\>\"", "->", "0.0078"}]}], "\n", "  ", "|>"}]}], ",", "\n", "  ",
+     RowBox[{"\"\<assumptions\>\"", "->",
+      RowBox[{"{",
+       RowBox[{
+        RowBox[{"delta", ">", "0"}], ",",
+        RowBox[{"delta", "<", "1"}], ",",
+        RowBox[{"gamma", ">", "0"}], ",",
+        RowBox[{"psi", ">", "0"}]}], "}"}]}], ",", "\n", "  ",
+     RowBox[{"\"\<extraInfo\>\"", "->",
+      RowBox[{"<|", "|>"}]}]}], "\n", "|>"}]}], ";"}]}], "Input",
+ CellLabel->"In[51]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Create catalog with just this model *)"}], "\n",
+ RowBox[{
+  RowBox[{"catalogModels", "=",
+   RowBox[{"<|",
+    RowBox[{"\"\<NRCStochVol\>\"", "->", "nrcStochVolModel"}], "|>"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Model to process: \>\"", ",",
+    RowBox[{"Keys", "[", "catalogModels", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[52]:="],
+
+(* ::Chapter:: *)
+(*Section 5: Phase 1 - Symbolic Processing*)
+
+(* ::Text:: *)
+(*IMPORTANT: Phase 1 (processModels) is computationally intensive for NRCStochVol.*)
+(*It involves solving polynomial systems and can take 10-30 minutes.*)
+(**)
+(*Two options are provided below:*)
+(*Option A: Call processModels directly (recommended) - simpler and more reliable*)
+(*Option B: Step-by-step inline execution - for understanding the internals*)
+(**)
+(*The step-by-step version (Option B) shows the preprocessing steps but calls*)
+(*deep functions (uncondE, findEulerEqConstants, paramQuadSolve) directly.*)
+
+(* ::Section:: *)
+(*5.0 Option A: Direct processModels Call (Recommended)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Load ProcessModels package and call processModels directly *)"}], "\n",
+ RowBox[{"(* This is the most reliable approach *)"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`Model`ProcessModels`\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Starting processModels (may take 10-30 minutes for NRCStochVol)...\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Started at: \>\"", ",",
+   RowBox[{"DateString", "[", "]"}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"processedModels", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels", "[", "catalogModels", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"processedModels", "[", "targetModel", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Completed at: \>\"", ",",
+   RowBox[{"DateString", "[", "]"}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Model keys: \>\"", ",",
+    RowBox[{"Keys", "[", "model", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[53]:="],
+
+(* ::Text:: *)
+(*After running Option A, skip to Section 6 (Phase 2).*)
+(*The cells below (Option B) are for educational purposes.*)
+
+(* ::Section:: *)
+(*5.1 Option B: Step-by-Step (Model Preparation)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Initialize model from catalog *)"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"catalogModels", "[", "targetModel", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"shortname", "=",
+   RowBox[{"model", "[", "\"\<shortname\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Processing model: \>\"", ",", "shortname"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[54]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Add default extraInfo if not present *)"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{"!",
+     RowBox[{"KeyExistsQ", "[",
+      RowBox[{"model", ",", "\"\<extraInfo\>\""}], "]"}]}], ",", "\n", "  ",
+    RowBox[{"model", "=",
+     RowBox[{"Append", "[",
+      RowBox[{"model", ",",
+       RowBox[{"\"\<extraInfo\>\"", "->",
+        RowBox[{"<|", "|>"}]}]}], "]"}]}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"extraInfo", "=",
+   RowBox[{"model", "[", "\"\<extraInfo\>\"", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[57]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Convert stateVars to time-dependent function *)"}], "\n",
+ RowBox[{
+  RowBox[{"stateVarsList", "=",
+   RowBox[{"model", "[", "\"\<stateVars\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"stateVarsFunc", "=",
+   RowBox[{"Function", "[",
+    RowBox[{
+     RowBox[{"{", "t", "}"}], ",",
+     RowBox[{"Evaluate", "[", "stateVarsList", "]"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<stateVars\>\"", "->", "stateVarsFunc"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<State variables: \>\"", ",",
+    RowBox[{"stateVarsFunc", "[", "t", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[59]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Count number of stocks by finding mud[_Integer] parameters *)"}], "\n",
+ RowBox[{
+  RowBox[{"paramKeys", "=",
+   RowBox[{"Keys", "[",
+    RowBox[{"model", "[", "\"\<params\>\"", "]"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"stockParams", "=",
+   RowBox[{"Select", "[",
+    RowBox[{"paramKeys", ",",
+     RowBox[{
+      RowBox[{"StringMatchQ", "[",
+       RowBox[{"#", ",", "\"\<mud[\" ~~ DigitCharacter.. ~~ \"]\>\""}], "]"}], "&"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"numStocks", "=",
+   RowBox[{"Length", "[", "stockParams", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<numStocks\>\"", "->", "numStocks"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Number of stocks: \>\"", ",", "numStocks"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[63]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Find parameters that are fixed to 0 or 1 (assignParam) *)"}], "\n",
+ RowBox[{
+  RowBox[{"params", "=",
+   RowBox[{"model", "[", "\"\<params\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"assignParam", "=",
+   RowBox[{"Select", "[",
+    RowBox[{"params", ",",
+     RowBox[{
+      RowBox[{"(",
+       RowBox[{
+        RowBox[{"#", "===", "0"}], "||",
+        RowBox[{"#", "===", "1"}]}], ")"}], "&"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<assignParam\>\"", "->", "assignParam"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Fixed parameters (0 or 1): \>\"", ",",
+    RowBox[{"Length", "[", "assignParam", "]"}], ",", "\"\< params\>\""}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[68]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Find stock parameters that are zero for all stocks *)"}], "\n",
+ RowBox[{
+  RowBox[{"stockZeroParam", "=",
+   RowBox[{"<|", "|>"}]}], ";", " ",
+  RowBox[{"(* Will be populated if any stock params are zero *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<stockZeroParam\>\"", "->", "stockZeroParam"}]}], "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[72]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Build assignParamStocks rules for substitution *)"}], "\n",
+ RowBox[{
+  RowBox[{"assignParamRules", "=",
+   RowBox[{"Normal", "[",
+    RowBox[{"Map", "[",
+     RowBox[{
+      RowBox[{
+       RowBox[{"(",
+        RowBox[{
+         RowBox[{"ToExpression", "[", "#", "]"}], "->", "#2"}], ")"}], "&"}], ",", "assignParam"}], "]"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<assignParamRules\>\"", "->", "assignParamRules"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Assignment rules created: \>\"", ",",
+    RowBox[{"Length", "[", "assignParamRules", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[74]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Compute non-fixed parameters (params that are not 0 or 1) *)"}], "\n",
+ RowBox[{
+  RowBox[{"freeParams", "=",
+   RowBox[{"Select", "[",
+    RowBox[{"params", ",",
+     RowBox[{
+      RowBox[{"(",
+       RowBox[{
+        RowBox[{"#", "=!=", "0"}], "&&",
+        RowBox[{"#", "=!=", "1"}]}], ")"}], "&"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<freeParams\>\"", "->", "freeParams"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Free parameters: \>\"", ",",
+    RowBox[{"Length", "[", "freeParams", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[77]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Build model assumptions from base assumptions *)"}], "\n",
+ RowBox[{
+  RowBox[{"baseAssumptions", "=",
+   RowBox[{"Lookup", "[",
+    RowBox[{"model", ",", "\"\<assumptions\>\"", ",",
+     RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"modelAssumptions", "=",
+   RowBox[{"And", "@@", "baseAssumptions"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<modelAssumptions\>\"", "->", "modelAssumptions"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Model assumptions: \>\"", ",", "modelAssumptions"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[80]:="],
+
+(* ::Section:: *)
+(*5.2 Create Exogenous Variables*)
+
+Cell[BoxData[{
+ RowBox[{"(* Get list of exogenous variables from the ExogenousEq package *)"}], "\n",
+ RowBox[{
+  RowBox[{"exogVarNames", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Exogenous variables: \>\"", ",", "exogVarNames"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[84]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Create exogenous equations association *)"}], "\n",
+ RowBox[{"(* Each equation is extracted from the package and stored with assignment rules applied *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"createExogenousEq", "[",
+    RowBox[{"eqName_Symbol", ",", "rules_List"}], "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"downVals", ",", "eqBody"}], "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"downVals", "=",
+       RowBox[{"DownValues", "[", "eqName", "]"}]}], ";", "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{
+         RowBox[{"Length", "[", "downVals", "]"}], "==", "0"}], ",",
+        RowBox[{"Return", "[", "Nothing", "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"(* Extract the equation body and apply rules *)"}], "\n", "    ",
+      RowBox[{"eqBody", "=",
+       RowBox[{
+        RowBox[{
+         RowBox[{"downVals", "[",
+          RowBox[{"[", "1", "]"}], "]"}], "[",
+         RowBox[{"[", "2", "]"}], "]"}], "/.", "rules"}]}], ";", "\n", "    ",
+      RowBox[{
+       RowBox[{"SymbolName", "[", "eqName", "]"}], "->",
+       RowBox[{"Function", "[",
+        RowBox[{
+         RowBox[{"{", "t", "}"}], ",",
+         RowBox[{"Evaluate", "[", "eqBody", "]"}]}], "]"}]}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[86]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Build exogenous equations *)"}], "\n",
+ RowBox[{
+  RowBox[{"exogenousEqs", "=",
+   RowBox[{"Association", "[", "\n", "  ",
+    RowBox[{"Table", "[", "\n", "    ",
+     RowBox[{
+      RowBox[{"createExogenousEq", "[",
+       RowBox[{
+        RowBox[{"ToExpression", "[",
+         RowBox[{"\"\<FernandoDuarte`LongRunRisk`Model`ExogenousEq`\>\"", "<>", "varName"}], "]"}], ",",
+        RowBox[{"Lookup", "[",
+         RowBox[{"model", ",", "\"\<assignParamRules\>\"", ",",
+          RowBox[{"{", "}"}]}], "]"}]}], "]"}], ",", "\n", "    ",
+      RowBox[{"{",
+       RowBox[{"varName", ",", "exogVarNames"}], "}"}]}], "]"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<exogenous\>\"", "->", "exogenousEqs"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Exogenous equations created: \>\"", ",",
+    RowBox[{"Keys", "[", "exogenousEqs", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[87]:="],
+
+(* ::Section:: *)
+(*5.3 Create Exogenous Non-Zero*)
+
+Cell[BoxData[{
+ RowBox[{"(* Filter out exogenous variables that evaluate to identically 0 *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"isNonZeroExog", "[",
+    RowBox[{"eqFunc_Function", ",", "stateVars_"}], "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"testVal", ",", "simplified"}], "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"testVal", "=",
+       RowBox[{"eqFunc", "[", "t", "]"}]}], ";", "\n", "    ",
+      RowBox[{"simplified", "=",
+       RowBox[{"Simplify", "[", "testVal", "]"}]}], ";", "\n", "    ",
+      RowBox[{"simplified", "=!=", "0"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[90]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Create non-zero exogenous association *)"}], "\n",
+ RowBox[{
+  RowBox[{"exogenousNonZero", "=",
+   RowBox[{"Select", "[",
+    RowBox[{"exogenousEqs", ",",
+     RowBox[{
+      RowBox[{"isNonZeroExog", "[",
+       RowBox[{"#", ",",
+        RowBox[{"model", "[", "\"\<stateVars\>\"", "]"}]}], "]"}], "&"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<exogenousNonZero\>\"", "->", "exogenousNonZero"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Non-zero exogenous: \>\"", ",",
+    RowBox[{"Keys", "[", "exogenousNonZero", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[91]:="],
+
+(* ::Section:: *)
+(*5.4 Create Endogenous Variables*)
+
+Cell[BoxData[{
+ RowBox[{"(* Get list of endogenous variables from the EndogenousEq package *)"}], "\n",
+ RowBox[{
+  RowBox[{"endogVarNames", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Endogenous variables: \>\"", ",", "endogVarNames"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[94]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Create endogenous equations association - similar to exogenous *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"createEndogenousEq", "[",
+    RowBox[{"eqName_Symbol", ",", "rules_List"}], "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"downVals", ",", "upVals", ",", "eqBody"}], "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"downVals", "=",
+       RowBox[{"DownValues", "[", "eqName", "]"}]}], ";", "\n", "    ",
+      RowBox[{"upVals", "=",
+       RowBox[{"UpValues", "[", "eqName", "]"}]}], ";", "\n", "    ",
+      RowBox[{"(* Use UpValues if available (for linear-in-state-vars definitions) *)"}], "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{
+         RowBox[{"Length", "[", "upVals", "]"}], ">", "0"}], ",", "\n", "      ",
+        RowBox[{
+         RowBox[{"eqBody", "=",
+          RowBox[{
+           RowBox[{
+            RowBox[{"upVals", "[",
+             RowBox[{"[", "1", "]"}], "]"}], "[",
+            RowBox[{"[", "2", "]"}], "]"}], "/.", "rules"}]}], ";"}], ",", "\n", "      ",
+        RowBox[{"If", "[",
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", "downVals", "]"}], ">", "0"}], ",", "\n", "        ",
+          RowBox[{
+           RowBox[{"eqBody", "=",
+            RowBox[{
+             RowBox[{
+              RowBox[{"downVals", "[",
+               RowBox[{"[", "1", "]"}], "]"}], "[",
+              RowBox[{"[", "2", "]"}], "]"}], "/.", "rules"}]}], ";"}], ",", "\n", "        ",
+          RowBox[{"Return", "[", "Nothing", "]"}]}], "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{
+       RowBox[{"SymbolName", "[", "eqName", "]"}], "->", "eqBody"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[96]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Build endogenous equations *)"}], "\n",
+ RowBox[{
+  RowBox[{"endogenousEqs", "=",
+   RowBox[{"Association", "[", "\n", "  ",
+    RowBox[{"Table", "[", "\n", "    ",
+     RowBox[{
+      RowBox[{"createEndogenousEq", "[",
+       RowBox[{
+        RowBox[{"ToExpression", "[",
+         RowBox[{"\"\<FernandoDuarte`LongRunRisk`Model`EndogenousEq`\>\"", "<>", "varName"}], "]"}], ",",
+        RowBox[{"Lookup", "[",
+         RowBox[{"model", ",", "\"\<assignParamRules\>\"", ",",
+          RowBox[{"{", "}"}]}], "]"}]}], "]"}], ",", "\n", "    ",
+      RowBox[{"{",
+       RowBox[{"varName", ",", "endogVarNames"}], "}"}]}], "]"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<endogenous\>\"", "->", "endogenousEqs"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Endogenous equations created: \>\"", ",",
+    RowBox[{"Keys", "[", "endogenousEqs", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[97]:="],
+
+(* ::Section:: *)
+(*5.5 Add State Variables Mapping*)
+
+Cell[BoxData[{
+ RowBox[{"(* Build toStateVars mapping rules *)"}], "\n",
+ RowBox[{
+  RowBox[{"stateVarsAtT", "=",
+   RowBox[{
+    RowBox[{"model", "[", "\"\<stateVars\>\"", "]"}], "[", "t", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"toStateVarsRules", "=",
+   RowBox[{"Thread", "[",
+    RowBox[{
+     RowBox[{"(",
+      RowBox[{"stateVarsAtT", "/.",
+       RowBox[{"t", "->",
+        RowBox[{"t", "+", "1"}]}]}], ")"}], "->",
+     RowBox[{"(",
+      RowBox[{"stateVarsAtT", "+",
+       RowBox[{"(",
+        RowBox[{
+         RowBox[{"(",
+          RowBox[{"stateVarsAtT", "/.",
+           RowBox[{"t", "->",
+            RowBox[{"t", "+", "1"}]}]}], ")"}], "-", "stateVarsAtT"}], ")"}]}], ")"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<toStateVars\>\"", "->", "toStateVarsRules"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<State vars mapping rules: \>\"", ",",
+    RowBox[{"Length", "[", "toStateVarsRules", "]"}], ",", "\"\< rules\>\""}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[100]:="],
+
+(* ::Section:: *)
+(*5.6 Compute Unconditional Moments*)
+
+Cell[BoxData[{
+ RowBox[{"(* Compute unconditional expectations using the ComputeUnconditionalExpectations package *)"}], "\n",
+ RowBox[{"(* This is a deep function we call but don't inline *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Computing unconditional moments (this may take a moment)...\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"unconditionalResult", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`solveSystem", "[",
+    RowBox[{"4", ",", "model", ",", "2"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Join", "[",
+    RowBox[{"model", ",", "unconditionalResult"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Unconditional moments computed.\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[104]:="],
+
+(* ::Section:: *)
+(*5.7 Compute Ratio Unconditional Expectations*)
+
+Cell[BoxData[{
+ RowBox[{"(* Compute ratio unconditional expectations for wc and pd *)"}], "\n",
+ RowBox[{
+  RowBox[{"uncondEwc", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE", "[",
+    RowBox[{
+     RowBox[{"wc", "[", "t", "]"}], ",", "model"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<uncondEwc\>\"", "->", "uncondEwc"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<E[wc]: \>\"", ",", "uncondEwc"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[108]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Compute for each stock's pd ratio *)"}], "\n",
+ RowBox[{
+  RowBox[{"uncondEpd", "=",
+   RowBox[{"Table", "[", "\n", "  ",
+    RowBox[{
+     RowBox[{"j", "->",
+      RowBox[{"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE", "[",
+       RowBox[{
+        RowBox[{"pd", "[",
+         RowBox[{"t", ",", "j"}], "]"}], ",", "model"}], "]"}]}], ",", "\n", "  ",
+     RowBox[{"{",
+      RowBox[{"j", ",", "1", ",", "numStocks"}], "}"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<uncondEpd\>\"", "->",
+      RowBox[{"Association", "[", "uncondEpd", "]"}]}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<E[pd]: \>\"", ",", "uncondEpd"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[111]:="],
+
+(* ::Section:: *)
+(*5.8 Add Coefficient System (Euler Equations)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Create Euler equation coefficient systems using CreateEulerEq package *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Creating Euler equation coefficient systems...\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[114]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Find Euler equation constants for wealth-consumption ratio *)"}], "\n",
+ RowBox[{
+  RowBox[{"wcCoeffSystem", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants", "[",
+    RowBox[{
+     RowBox[{"retc", "[",
+      RowBox[{"t", "+", "1"}], "]"}], ",", "model"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<WC coefficient system created with \>\"", ",",
+    RowBox[{"Length", "[", "wcCoeffSystem", "]"}], ",", "\"\< equations\>\""}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[115]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Find Euler equation constants for price-dividend ratio(s) *)"}], "\n",
+ RowBox[{
+  RowBox[{"pdCoeffSystems", "=",
+   RowBox[{"Table", "[", "\n", "  ",
+    RowBox[{
+     RowBox[{"j", "->",
+      RowBox[{"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findEulerEqConstants", "[",
+       RowBox[{
+        RowBox[{"ret", "[",
+         RowBox[{
+          RowBox[{"t", "+", "1"}], ",", "j"}], "]"}], ",", "model"}], "]"}]}], ",", "\n", "  ",
+     RowBox[{"{",
+      RowBox[{"j", ",", "1", ",", "numStocks"}], "}"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<PD coefficient systems created for \>\"", ",", "numStocks", ",", "\"\< stock(s)\>\""}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[117]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Find bond recursion for real bonds *)"}], "\n",
+ RowBox[{
+  RowBox[{"bondCoeffSystem", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`findBondRecursion", "[",
+    RowBox[{
+     RowBox[{"t", "+", "1"}], ",", "n", ",", "model"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Bond recursion system created: \>\"", ",",
+    RowBox[{"Short", "[",
+     RowBox[{"bondCoeffSystem", ",", "1"}], "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[119]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Store coefficient systems in model *)"}], "\n",
+ RowBox[{
+  RowBox[{"coeffsSystem", "=",
+   RowBox[{"<|", "\n", "  ",
+    RowBox[{
+     RowBox[{"\"\<wc\>\"", "->", "wcCoeffSystem"}], ",", "\n", "  ",
+     RowBox[{"\"\<pd\>\"", "->",
+      RowBox[{"Association", "[", "pdCoeffSystems", "]"}]}], ",", "\n", "  ",
+     RowBox[{"\"\<bond\>\"", "->", "bondCoeffSystem"}]}], "\n", "|>"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<coeffsSystem\>\"", "->", "coeffsSystem"}]}], "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[121]:="],
+
+(* ::Section:: *)
+(*5.9 Simplify Coefficient System*)
+
+Cell[BoxData[{
+ RowBox[{"(* Simplify the coefficient systems with model assumptions *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Simplifying coefficient systems (may take several minutes)...\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"$timeConstraint", "=", "300"}], ";", " ",
+  RowBox[{"(* 5 minutes max per simplification *)"}]}]}], "Input",
+ CellLabel->"In[123]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Simplify WC coefficient system *)"}], "\n",
+ RowBox[{
+  RowBox[{"wcCoeffSystemSimp", "=",
+   RowBox[{"TimeConstrained", "[", "\n", "  ",
+    RowBox[{
+     RowBox[{"FullSimplify", "[",
+      RowBox[{"wcCoeffSystem", ",", "modelAssumptions"}], "]"}], ",", "\n", "  ", "$timeConstraint", ",", "\n", "  ", "wcCoeffSystem"}], "]"}]}], ";", " ",
+  RowBox[{"(* Fall back to unsimplified if timeout *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<WC simplified.\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[125]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Simplify PD coefficient systems *)"}], "\n",
+ RowBox[{
+  RowBox[{"pdCoeffSystemsSimp", "=",
+   RowBox[{"Table", "[", "\n", "  ",
+    RowBox[{
+     RowBox[{"j", "->",
+      RowBox[{"TimeConstrained", "[", "\n", "    ",
+       RowBox[{
+        RowBox[{"FullSimplify", "[",
+         RowBox[{
+          RowBox[{
+           RowBox[{"Association", "[", "pdCoeffSystems", "]"}], "[", "j", "]"}], ",", "modelAssumptions"}], "]"}], ",", "\n", "    ", "$timeConstraint", ",", "\n", "    ",
+        RowBox[{
+         RowBox[{"Association", "[", "pdCoeffSystems", "]"}], "[", "j", "]"}]}], "]"}]}], ",", "\n", "  ",
+     RowBox[{"{",
+      RowBox[{"j", ",", "1", ",", "numStocks"}], "}"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<PD simplified.\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[127]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Store simplified systems *)"}], "\n",
+ RowBox[{
+  RowBox[{"coeffsSystemSimp", "=",
+   RowBox[{"<|", "\n", "  ",
+    RowBox[{
+     RowBox[{"\"\<wc\>\"", "->", "wcCoeffSystemSimp"}], ",", "\n", "  ",
+     RowBox[{"\"\<pd\>\"", "->",
+      RowBox[{"Association", "[", "pdCoeffSystemsSimp", "]"}]}], ",", "\n", "  ",
+     RowBox[{"\"\<bond\>\"", "->", "bondCoeffSystem"}]}], " ",
+    RowBox[{"(* Bond system kept as-is *)"}], "\n", "|>"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<coeffsSystemSimp\>\"", "->", "coeffsSystemSimp"}]}], "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[129]:="],
+
+(* ::Section:: *)
+(*5.10 Solve Coefficient System*)
+
+Cell[BoxData[{
+ RowBox[{"(* Solve the coefficient systems using paramQuadSolve *)"}], "\n",
+ RowBox[{"(* This is a deep function we call but don't inline *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Solving coefficient systems with paramQuadSolve...\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[131]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Extract coefficient variables for WC (A0, A1, ...) *)"}], "\n",
+ RowBox[{
+  RowBox[{"wcCoeffVars", "=",
+   RowBox[{"DeleteDuplicates", "[",
+    RowBox[{"Cases", "[",
+     RowBox[{"wcCoeffSystemSimp", ",",
+      RowBox[{"A", "[", "_", "]"}], ",", "Infinity"}], "]"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<WC coefficient variables: \>\"", ",", "wcCoeffVars"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[132]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* ============================================ *)"}], "\n",
+ RowBox[{"(* UNROLLED paramQuadSolve for WC coefficient system *)"}], "\n",
+ RowBox[{"(* This shows the actual execution path through the solver *)"}], "\n",
+ RowBox[{"(* ============================================ *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<\\n=== Solving WC coefficient system (unrolled paramQuadSolve) ===\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[134]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 1: Option setup - these are the defaults for WC solving *)"}], "\n",
+ RowBox[{
+  RowBox[{"pqsDomain", "=", "Reals"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"pqsMethodTag", "=", "\"\<SequentialWithGroebner\>\""}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"pqsTimeout", "=", "600"}], ";", " ",
+  RowBox[{"(* 10 minutes *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"pqsSimpBudget", "=", "5.0"}], ";", " ",
+  RowBox[{"(* seconds for each simplification *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"pqsSignHead", "=", "signA"}], ";", " ",
+  RowBox[{"(* symbol for parametric +/- in quadratic solutions *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"pqsAllowGroebner", "=", "True"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"pqsGroebnerMemLimit", "=",
+   RowBox[{"0.5", "*",
+    RowBox[{"MemoryAvailable", "[", "]"}]}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Options: domain=\"", ",", "pqsDomain", ",", "\"\<, method=\"", ",", "pqsMethodTag", ",", "\"\<, timeout=\"", ",", "pqsTimeout"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[135]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 2: Build assumptions - combine default with model assumptions *)"}], "\n",
+ RowBox[{
+  RowBox[{"endogAss", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`Model`EndogenousEq`endogEqAssumptions"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"paramAss", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`paramAssumptions"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"defaultAss", "=",
+   RowBox[{"And", "[",
+    RowBox[{"endogAss", ",", "paramAss"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"pqsAssumptions", "=",
+   RowBox[{"And", "[",
+    RowBox[{"defaultAss", ",", "modelAssumptions"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Assumptions built from endogEqAssumptions + paramAssumptions + modelAssumptions\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[136]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 3: toPolyAndDen - convert equations to polynomial form *)"}], "\n",
+ RowBox[{"(* For each equation eq: {numerator polynomial, denominator} via Together/Expand *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"toPolyAndDen", "[", "eq_", "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"diff", ",", "tog", ",", "num", ",", "den"}], "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"diff", "=",
+       RowBox[{"If", "[",
+        RowBox[{
+         RowBox[{"Head", "[", "eq", "]"}], "===", "Equal"}], ",",
+        RowBox[{
+         RowBox[{"eq", "[",
+          RowBox[{"[", "1", "]"}], "]"}], "-",
+         RowBox[{"eq", "[",
+          RowBox[{"[", "2", "]"}], "]"}]}], ",", "eq", "]"}]}], ";", "\n", "    ",
+      RowBox[{"tog", "=",
+       RowBox[{"Together", "[", "diff", "]"}]}], ";", "\n", "    ",
+      RowBox[{"num", "=",
+       RowBox[{"Expand", "[",
+        RowBox[{"Numerator", "[", "tog", "]"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"den", "=",
+       RowBox[{"Denominator", "[", "tog", "]"}]}], ";", "\n", "    ",
+      RowBox[{"{",
+       RowBox[{"num", ",", "den"}], "}"}]}]}], "\n", "  ", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcPolyDenPairs", "=",
+   RowBox[{"Map", "[",
+    RowBox[{"toPolyAndDen", ",", "wcCoeffSystemSimp"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcPolys", "=",
+   RowBox[{
+    RowBox[{
+     RowBox[{"#", "[",
+      RowBox[{"[", "1", "]"}], "]"}], "&"}], "/@", "wcPolyDenPairs"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Converted \>\"", ",",
+    RowBox[{"Length", "[", "wcPolys", "]"}], ",", "\"\< equations to polynomial form\>\""}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[137]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 4: canonicalizeCoefficients - replace coefficients with dummy symbols *)"}], "\n",
+ RowBox[{"(* This extracts coefficient expressions and replaces them with c$1, c$2, etc. *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"canonicalizeCoefficients", "[",
+    RowBox[{"polys_List", ",", "vars_List"}], "]"}], ":=", "\n", "  ",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"allCoeffs", ",", "uniqueCoeffs", ",", "coeffMap", ",", "inverseMap", ",", "canonPolys"}], "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"allCoeffs", "=",
+       RowBox[{"Flatten", "[",
+        RowBox[{
+         RowBox[{
+          RowBox[{"(",
+           RowBox[{
+            RowBox[{
+             RowBox[{"CoefficientRules", "[",
+              RowBox[{"#", ",", "vars"}], "]"}], "[",
+             RowBox[{"[",
+              RowBox[{"All", ",", "2"}], "]"}], "]"}], "&"}], ")"}], "/@", "polys"}], ",", "1"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"uniqueCoeffs", "=",
+       RowBox[{"DeleteDuplicates", "[",
+        RowBox[{"Select", "[",
+         RowBox[{"allCoeffs", ",",
+          RowBox[{
+           RowBox[{"!",
+            RowBox[{"NumericQ", "[", "#", "]"}]}], "&"}]}], "]"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"coeffMap", "=",
+       RowBox[{"Association", "@@",
+        RowBox[{"MapIndexed", "[",
+         RowBox[{
+          RowBox[{
+           RowBox[{"(",
+            RowBox[{
+             RowBox[{"Symbol", "[",
+              RowBox[{"\"\<c$\>\"", "<>",
+               RowBox[{"ToString", "[",
+                RowBox[{"#2", "[",
+                 RowBox[{"[", "1", "]"}], "]"}], "]"}]}], "]"}], "->", "#1"}], ")"}], "&"}], ",", "uniqueCoeffs"}], "]"}]}]}], ";", "\n", "    ",
+      RowBox[{"inverseMap", "=",
+       RowBox[{"Association", "[",
+        RowBox[{"Reverse", "/@",
+         RowBox[{"Normal", "[", "coeffMap", "]"}]}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"canonPolys", "=",
+       RowBox[{"polys", "/.", "inverseMap"}]}], ";", "\n", "    ",
+      RowBox[{"{",
+       RowBox[{"canonPolys", ",", "coeffMap", ",", "inverseMap"}], "}"}]}]}], "\n", "  ", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"{",
+    RowBox[{"wcCanonPolys", ",", "wcCoeffMap", ",", "wcInverseMap"}], "}"}], "=",
+   RowBox[{"canonicalizeCoefficients", "[",
+    RowBox[{"wcPolys", ",", "wcCoeffVars"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Canonicalized with \>\"", ",",
+    RowBox[{"Length", "[", "wcCoeffMap", "]"}], ",", "\"\< unique coefficient expressions\>\""}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[138]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 5: sequentialSolve - main solving loop *)"}], "\n",
+ RowBox[{"(* Iteratively solve one variable at a time, prioritizing linear equations *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Starting sequential solve loop...\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcUnsolved", "=", "wcCoeffVars"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcEqs", "=", "wcCanonPolys"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcSolved", "=",
+   RowBox[{"<|", "|>"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcSignMap", "=",
+   RowBox[{"<|", "|>"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcRadMap", "=",
+   RowBox[{"<|", "|>"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcSteps", "=",
+   RowBox[{"{", "}"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcSignCounter", "=", "0"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcMaxIter", "=", "100"}], ";"}]}], "Input",
+ CellLabel->"In[139]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Helper: check if polynomial is linear in variable v *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"linearInVarQ", "[",
+    RowBox[{"poly_", ",", "v_", ",", "ass_"}], "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"deg", ",", "coef"}], "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"deg", "=",
+       RowBox[{"Exponent", "[",
+        RowBox[{"poly", ",", "v"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{"deg", "!=", "1"}], ",",
+        RowBox[{"Return", "[", "False", "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"coef", "=",
+       RowBox[{"Coefficient", "[",
+        RowBox[{"poly", ",", "v", ",", "1"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{
+       RowBox[{"Simplify", "[",
+        RowBox[{
+         RowBox[{"coef", "!=", "0"}], ",", "ass"}], "]"}], "===", "True"}]}]}], "\n", "  ", "]"}]}], ";"}], "\n",
+ RowBox[{"(* Helper: solve linear equation for v *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"solveLinearFor", "[",
+    RowBox[{"poly_", ",", "v_"}], "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"a", ",", "b"}], "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"a", "=",
+       RowBox[{"Coefficient", "[",
+        RowBox[{"poly", ",", "v", ",", "1"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"b", "=",
+       RowBox[{"poly", "/.",
+        RowBox[{"v", "->", "0"}]}]}], ";", "\n", "    ",
+      RowBox[{"v", "->",
+       RowBox[{
+        RowBox[{"-", "b"}], "/", "a"}]}]}]}], "\n", "  ", "]"}]}], ";"}], "\n",
+ RowBox[{"(* Helper: solve quadratic with parametric sign *)"}], "\n",
+ RowBox[{
+  RowBox[{
+   RowBox[{"quadraticSolveParam", "[",
+    RowBox[{"poly_", ",", "v_", ",", "signIdx_Integer"}], "]"}], ":=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"a", ",", "b", ",", "c", ",", "disc", ",", "signSym"}], "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"a", "=",
+       RowBox[{"Coefficient", "[",
+        RowBox[{"poly", ",", "v", ",", "2"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"b", "=",
+       RowBox[{"Coefficient", "[",
+        RowBox[{"poly", ",", "v", ",", "1"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"c", "=",
+       RowBox[{"poly", "/.",
+        RowBox[{"v", "->", "0"}]}]}], ";", "\n", "    ",
+      RowBox[{"disc", "=",
+       RowBox[{
+        RowBox[{"b", "^", "2"}], "-",
+        RowBox[{"4", "*", "a", "*", "c"}]}]}], ";", "\n", "    ",
+      RowBox[{"signSym", "=",
+       RowBox[{"pqsSignHead", "[", "signIdx", "]"}]}], ";", "\n", "    ",
+      RowBox[{"{",
+       RowBox[{
+        RowBox[{"v", "->",
+         RowBox[{
+          RowBox[{"(",
+           RowBox[{
+            RowBox[{"-", "b"}], "+",
+            RowBox[{"signSym", "*",
+             RowBox[{"Sqrt", "[", "disc", "]"}]}]}], ")"}], "/",
+          RowBox[{"(",
+           RowBox[{"2", "*", "a"}], ")"}]}]}], ",", "disc", ",", "signSym"}], "}"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[140]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Main solving loop *)"}], "\n",
+ RowBox[{
+  RowBox[{"For", "[",
+   RowBox[{
+    RowBox[{"wcIter", "=", "1"}], ",",
+    RowBox[{
+     RowBox[{"wcIter", "<=", "wcMaxIter"}], "&&",
+     RowBox[{
+      RowBox[{"Length", "[", "wcEqs", "]"}], ">", "0"}], "&&",
+     RowBox[{
+      RowBox[{"Length", "[", "wcUnsolved", "]"}], ">", "0"}]}], ",",
+    RowBox[{"wcIter", "++"}], ",", "\n", "  ",
+    RowBox[{"Module", "[",
+     RowBox[{
+      RowBox[{"{",
+       RowBox[{"varsPerEq", ",", "bestIdx", ",", "bestEq", ",", "bestVars", ",", "linVars", ",", "sol"}], "}"}], ",", "\n", "    ",
+      RowBox[{"(* Count variables in each equation *)"}], "\n", "    ",
+      RowBox[{
+       RowBox[{"varsPerEq", "=",
+        RowBox[{"Table", "[",
+         RowBox[{
+          RowBox[{"{",
+           RowBox[{"i", ",",
+            RowBox[{"Intersection", "[",
+             RowBox[{
+              RowBox[{"Variables", "[",
+               RowBox[{"wcEqs", "[",
+                RowBox[{"[", "i", "]"}], "]"}], "]"}], ",", "wcUnsolved"}], "]"}]}], "}"}], ",",
+          RowBox[{"{",
+           RowBox[{"i", ",",
+            RowBox[{"Length", "[", "wcEqs", "]"}]}], "}"}]}], "]"}]}], ";", "\n", "    ",
+       RowBox[{"(* Find equation with fewest variables *)"}], "\n", "    ",
+       RowBox[{"varsPerEq", "=",
+        RowBox[{"Select", "[",
+         RowBox[{"varsPerEq", ",",
+          RowBox[{
+           RowBox[{
+            RowBox[{"Length", "[",
+             RowBox[{"#", "[",
+              RowBox[{"[", "2", "]"}], "]"}], "]"}], ">", "0"}], "&"}]}], "]"}]}], ";", "\n", "    ",
+       RowBox[{"If", "[",
+        RowBox[{
+         RowBox[{
+          RowBox[{"Length", "[", "varsPerEq", "]"}], "==", "0"}], ",",
+         RowBox[{"Break", "[", "]"}]}], "]"}], ";", "\n", "    ",
+       RowBox[{"varsPerEq", "=",
+        RowBox[{"SortBy", "[",
+         RowBox[{"varsPerEq", ",",
+          RowBox[{
+           RowBox[{"Length", "[",
+            RowBox[{"#", "[",
+             RowBox[{"[", "2", "]"}], "]"}], "]"}], "&"}]}], "]"}]}], ";", "\n", "    ",
+       RowBox[{"bestIdx", "=",
+        RowBox[{
+         RowBox[{"varsPerEq", "[",
+          RowBox[{"[", "1", "]"}], "]"}], "[",
+         RowBox[{"[", "1", "]"}], "]"}]}], ";", "\n", "    ",
+       RowBox[{"bestEq", "=",
+        RowBox[{"wcEqs", "[",
+         RowBox[{"[", "bestIdx", "]"}], "]"}]}], ";", "\n", "    ",
+       RowBox[{"bestVars", "=",
+        RowBox[{
+         RowBox[{"varsPerEq", "[",
+          RowBox[{"[", "1", "]"}], "]"}], "[",
+         RowBox[{"[", "2", "]"}], "]"}]}], ";", "\n", "    ",
+       RowBox[{"(* Try to find linear variable *)"}], "\n", "    ",
+       RowBox[{"linVars", "=",
+        RowBox[{"Select", "[",
+         RowBox[{"bestVars", ",",
+          RowBox[{
+           RowBox[{"linearInVarQ", "[",
+            RowBox[{"bestEq", ",", "#", ",", "pqsAssumptions"}], "]"}], "&"}]}], "]"}]}], ";", "\n", "    ",
+       RowBox[{"If", "[",
+        RowBox[{
+         RowBox[{
+          RowBox[{"Length", "[", "linVars", "]"}], ">", "0"}], ",", "\n", "      ",
+         RowBox[{"(* Solve linear *)"}], "\n", "      ",
+         RowBox[{
+          RowBox[{"sol", "=",
+           RowBox[{"solveLinearFor", "[",
+            RowBox[{"bestEq", ",",
+             RowBox[{"linVars", "[",
+              RowBox[{"[", "1", "]"}], "]"}]}], "]"}]}], ";", "\n", "      ",
+          RowBox[{"wcSolved", "=",
+           RowBox[{"Append", "[",
+            RowBox[{"wcSolved", ",", "sol"}], "]"}]}], ";", "\n", "      ",
+          RowBox[{"AppendTo", "[",
+           RowBox[{"wcSteps", ",",
+            RowBox[{"{",
+             RowBox[{"\"\<linear\>\"", ",",
+              RowBox[{"sol", "[",
+               RowBox[{"[", "1", "]"}], "]"}]}], "}"}]}], "]"}], ";", "\n", "      ",
+          RowBox[{"wcUnsolved", "=",
+           RowBox[{"DeleteCases", "[",
+            RowBox[{"wcUnsolved", ",",
+             RowBox[{"sol", "[",
+              RowBox[{"[", "1", "]"}], "]"}]}], "]"}]}], ";", "\n", "      ",
+          RowBox[{"wcEqs", "=",
+           RowBox[{"DeleteCases", "[",
+            RowBox[{
+             RowBox[{"wcEqs", "/.", "sol"}], ",", "0"}], "]"}]}]}], ",", "\n", "      ",
+         RowBox[{"(* Try quadratic if univariate *)"}], "\n", "      ",
+         RowBox[{
+          RowBox[{"If", "[",
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"Length", "[", "bestVars", "]"}], "==", "1"}], "&&",
+             RowBox[{
+              RowBox[{"Exponent", "[",
+               RowBox[{"bestEq", ",",
+                RowBox[{"bestVars", "[",
+                 RowBox[{"[", "1", "]"}], "]"}]}], "]"}], "==", "2"}]}], ",", "\n", "        ",
+            RowBox[{
+             RowBox[{"wcSignCounter", "++"}], ";", "\n", "        ",
+             RowBox[{
+              RowBox[{"{",
+               RowBox[{"sol", ",", "wcDisc", ",", "wcSign"}], "}"}], "=",
+              RowBox[{"quadraticSolveParam", "[",
+               RowBox[{"bestEq", ",",
+                RowBox[{"bestVars", "[",
+                 RowBox[{"[", "1", "]"}], "]"}], ",", "wcSignCounter"}], "]"}]}], ";", "\n", "        ",
+             RowBox[{"wcSolved", "=",
+              RowBox[{"Append", "[",
+               RowBox[{"wcSolved", ",", "sol"}], "]"}]}], ";", "\n", "        ",
+             RowBox[{"wcSignMap", "=",
+              RowBox[{"Append", "[",
+               RowBox[{"wcSignMap", ",",
+                RowBox[{"wcSign", "->",
+                 RowBox[{"Sqrt", "[", "wcDisc", "]"}]}]}], "]"}]}], ";", "\n", "        ",
+             RowBox[{"wcRadMap", "=",
+              RowBox[{"Append", "[",
+               RowBox[{"wcRadMap", ",",
+                RowBox[{"wcSign", "->", "wcDisc"}]}], "]"}]}], ";", "\n", "        ",
+             RowBox[{"AppendTo", "[",
+              RowBox[{"wcSteps", ",",
+               RowBox[{"{",
+                RowBox[{"\"\<quadratic\>\"", ",",
+                 RowBox[{"sol", "[",
+                  RowBox[{"[", "1", "]"}], "]"}]}], "}"}]}], "]"}], ";", "\n", "        ",
+             RowBox[{"wcUnsolved", "=",
+              RowBox[{"DeleteCases", "[",
+               RowBox[{"wcUnsolved", ",",
+                RowBox[{"sol", "[",
+                 RowBox[{"[", "1", "]"}], "]"}]}], "]"}]}], ";", "\n", "        ",
+             RowBox[{"wcEqs", "=",
+              RowBox[{"DeleteCases", "[",
+               RowBox[{
+                RowBox[{"wcEqs", "/.", "sol"}], ",", "0"}], "]"}]}]}]}], "\n", "      ", "]"}]}]}], "\n", "    ", "]"}]}]}], "\n", "  ", "]"}]}], "\n", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Completed \>\"", ",",
+    RowBox[{"wcIter", "-", "1"}], ",", "\"\< iterations, solved \>\"", ",",
+    RowBox[{"Length", "[", "wcSolved", "]"}], ",", "\"\< of \>\"", ",",
+    RowBox[{"Length", "[", "wcCoeffVars", "]"}], ",", "\"\< variables\>\""}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[141]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 6: Back-substitution and restore original coefficients *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Performing back-substitution...\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcSolvedFinal", "=",
+   RowBox[{"FixedPoint", "[",
+    RowBox[{
+     RowBox[{
+      RowBox[{"(",
+       RowBox[{"#", "/.",
+        RowBox[{"Normal", "[", "wcSolved", "]"}]}], ")"}], "&"}], ",",
+     RowBox[{"Normal", "[", "wcSolved", "]"}], ",", "10"}], "]"}]}], ";"}], "\n",
+ RowBox[{"(* Restore original coefficient expressions *)"}], "\n",
+ RowBox[{
+  RowBox[{"wcSolvedRestored", "=",
+   RowBox[{"wcSolvedFinal", "/.",
+    RowBox[{"Normal", "[", "wcCoeffMap", "]"}]}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Back-substitution complete, \>\"", ",",
+    RowBox[{"Length", "[", "wcSolvedRestored", "]"}], ",", "\"\< rules\>\""}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[142]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Assemble final wcSolution Association *)"}], "\n",
+ RowBox[{
+  RowBox[{"wcSolution", "=",
+   RowBox[{"<|", "\n", "  ",
+    RowBox[{
+     RowBox[{"\"\<Solution\>\"", "->",
+      RowBox[{"Association", "[", "wcSolvedRestored", "]"}]}], ",", "\n", "  ",
+     RowBox[{"\"\<SignRootMap\>\"", "->",
+      RowBox[{"wcSignMap", "/.",
+       RowBox[{"Normal", "[", "wcCoeffMap", "]"}]}]}], ",", "\n", "  ",
+     RowBox[{"\"\<RadicandMap\>\"", "->",
+      RowBox[{"wcRadMap", "/.",
+       RowBox[{"Normal", "[", "wcCoeffMap", "]"}]}]}], ",", "\n", "  ",
+     RowBox[{"\"\<Steps\>\"", "->", "wcSteps"}], ",", "\n", "  ",
+     RowBox[{"\"\<Leftover\>\"", "->", "wcEqs"}], ",", "\n", "  ",
+     RowBox[{"\"\<Unsolved\>\"", "->", "wcUnsolved"}], ",", "\n", "  ",
+     RowBox[{"\"\<status\>\"", "->",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{
+         RowBox[{"Length", "[", "wcUnsolved", "]"}], "==", "0"}], ",", "\"\<success\>\"", ",", "\"\<partial\>\""}], "]"}]}]}], "\n", "|>"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<WC solution status: \>\"", ",",
+    RowBox[{"wcSolution", "[", "\"\<status\>\"", "]"}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Steps taken: \>\"", ",", "wcSteps"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[143]:="],
+
+Cell[BoxData[
+ RowBox[{"(*", " ",
+  RowBox[{"=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "="}], " ", "*)"}]], "Input",
+ CellLabel->"In[144]:="],
+
+Cell[BoxData[
+ RowBox[{"(*", " ",
+  RowBox[{"UNROLLED", " ", "paramQuadSolve", " ", "for", " ", "PD", " ", "coefficients", " ",
+   RowBox[{"(",
+    RowBox[{"B", "[",
+     RowBox[{"j", ",", "k"}], "]"}], ")"}]}], " ", "*)"}]], "Input",
+ CellLabel->"In[145]:="],
+
+Cell[BoxData[
+ RowBox[{"(*", " ",
+  RowBox[{"=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "=", "="}], " ", "*)"}]], "Input",
+ CellLabel->"In[146]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* ",
+  RowBox[{"Initialize", " ", "container", " ", "for", " ", "all", " ", "PD", " ", "solutions"}], " ", "*)"}], "\n",
+ RowBox[{
+  RowBox[{"pdSolutions", "=",
+   RowBox[{"{", "}"}]}], ";"}]}], "Input",
+ CellLabel->"In[147]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* ",
+  RowBox[{"Loop", " ", "over", " ", "stocks", " ", "-", " ",
+   RowBox[{"for", " ", "NRCStochVol", " ", "numStocks"}], "=", "1"}], " ", "*)"}], "\n",
+ RowBox[{
+  RowBox[{"Do", "[", "\n", "  ",
+   RowBox[{
+    RowBox[{"Module", "[",
+     RowBox[{
+      RowBox[{"{", "\n", "    ",
+       RowBox[{"pdCoeffVars", ",", "pdCoeffSystem", ",", "\n", "    ",
+        RowBox[{"(*", " ",
+         RowBox[{"Step", " ", "1", ":", " ",
+          RowBox[{"Option", " ", "setup"}]}], " ", "*)"}], "\n", "    ",
+        RowBox[{"pdDomain", "=", "Reals"}], ",", "\n", "    ",
+        RowBox[{"pdMethodTag", "=", "\"\<SequentialWithGroebner\>\""}], ",", "\n", "    ",
+        RowBox[{"pdTimeout", "=", "600"}], ",", "\n", "    ",
+        RowBox[{"pdGroebnerWalk", "=", "True"}], ",", "\n", "    ",
+        RowBox[{"pdValidate", "=", "True"}], ",", "\n", "    ",
+        RowBox[{"(*", " ",
+         RowBox[{"Step", " ", "2", ":", " ", "Assumptions"}], " ", "*)"}], "\n", "    ",
+        "pdAssumptions", ",", "endogAssPD", ",", "paramAssPD", ",", "defaultAssPD", ",", "\n", "    ",
+        RowBox[{"(*", " ",
+         RowBox[{"Step", " ", "3", "-",
+          RowBox[{"4", ":", " ",
+           RowBox[{"Polynomial", " ", "conversion", " ", "and", " ", "canonicalization"}]}]}], " ", "*)"}], "\n", "    ",
+        "pdPolys", ",", "pdPolyDen", ",", "pdCoeffMap", ",", "pdCanonPolys", ",", "pdSymCounter", ",", "\n", "    ",
+        RowBox[{"(*", " ",
+         RowBox[{"Step", " ", "5", ":", " ",
+          RowBox[{"Sequential", " ", "solve", " ", "variables"}]}], " ", "*)"}], "\n", "    ",
+        "pdCurrentEqs", ",", "pdCurrentVars", ",", "pdSolRules", ",", "pdSteps", ",", "pdSignMap", ",", "pdRadMap", ",", "\n", "    ",
+        "pdIter", ",", "pdMaxIter", ",", "pdSolvedThisRound", ",", "\n", "    ",
+        RowBox[{"(*", " ",
+         RowBox[{"Step", " ", "6", ":", " ",
+          RowBox[{"Back", "-",
+           RowBox[{"substitution", " ", "and", " ", "result"}]}]}], " ", "*)"}], "\n", "    ",
+        "pdSolRulesDesym", ",", "pdStatus", ",", "pdSolution"}], "\n", "  ", "}"}], ",", "\n", "  ", "\n", "  ",
+      RowBox[{
+       RowBox[{"Print", "[",
+        RowBox[{"\"\<\\n=== Solving PD system for stock \>\"", ",", "stockIdx", ",", "\"\< ===\>\""}], "]"}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Extract", " ", "coefficient", " ", "variables", " ", "and", " ", "system", " ", "for", " ", "this", " ", "stock"}], " ", "*)"}], "\n", "  ",
+       RowBox[{"pdCoeffSystem", "=",
+        RowBox[{
+         RowBox[{"Association", "[", "pdCoeffSystemsSimp", "]"}], "[", "stockIdx", "]"}]}], ";", "\n", "  ",
+       RowBox[{"pdCoeffVars", "=",
+        RowBox[{"DeleteDuplicates", "[",
+         RowBox[{"Cases", "[",
+          RowBox[{"pdCoeffSystem", ",",
+           RowBox[{
+            RowBox[{"B", "[",
+             RowBox[{"stockIdx", ",", "_"}], "]"}], "|",
+            RowBox[{"B", "[", "_", "]"}]}], ",", "Infinity"}], "]"}], "]"}]}], ";", "\n", "  ",
+       RowBox[{"Print", "[",
+        RowBox[{"\"\<PD coefficient variables: \>\"", ",", "pdCoeffVars"}], "]"}], ";", "\n", "  ",
+       RowBox[{"Print", "[",
+        RowBox[{"\"\<Number of equations: \>\"", ",",
+         RowBox[{"Length", "[", "pdCoeffSystem", "]"}]}], "]"}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Step", " ", "2", ":", " ",
+         RowBox[{"Build", " ", "assumptions"}]}], " ", "*)"}], "\n", "  ",
+       RowBox[{"endogAssPD", "=",
+        RowBox[{"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`endogEqAssumptions", "/.",
+         RowBox[{"{",
+          RowBox[{
+           RowBox[{"Ewc", "->", "EwcVal"}], ",",
+           RowBox[{
+            RowBox[{"Epd", "[", "_", "]"}], "->", "EpdVal"}]}], "}"}]}]}], ";", "\n", "  ",
+       RowBox[{"paramAssPD", "=", "FernandoDuarte`LongRunRisk`Model`Parameters`paramAssumptions"}], ";", "\n", "  ",
+       RowBox[{"defaultAssPD", "=",
+        RowBox[{
+         RowBox[{"Element", "[",
+          RowBox[{
+           RowBox[{"Alternatives", "@@", "pdCoeffVars"}], ",", "Reals"}], "]"}], "&&",
+         RowBox[{"EwcVal", ">", "0"}], "&&",
+         RowBox[{"EpdVal", ">", "0"}]}]}], ";", "\n", "  ",
+       RowBox[{"pdAssumptions", "=",
+        RowBox[{"And", "[",
+         RowBox[{"endogAssPD", ",", "paramAssPD", ",", "defaultAssPD", ",", "modelAssumptions"}], "]"}]}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Step", " ", "3", ":", " ",
+         RowBox[{"toPolyAndDen", " ", "-", " ",
+          RowBox[{"convert", " ", "to", " ", "polynomial", " ", "form"}]}]}], " ", "*)"}], "\n", "  ",
+       RowBox[{"pdPolyDen", "=",
+        RowBox[{"Map", "[", "\n", "    ",
+         RowBox[{
+          RowBox[{
+           RowBox[{"Module", "[",
+            RowBox[{
+             RowBox[{"{",
+              RowBox[{"expr", ",", "num", ",", "den"}], "}"}], ",", "\n", "      ",
+             RowBox[{
+              RowBox[{"expr", "=",
+               RowBox[{"Together", "[", "#", "]"}]}], ";", "\n", "      ",
+              RowBox[{"num", "=",
+               RowBox[{"Numerator", "[", "expr", "]"}]}], ";", "\n", "      ",
+              RowBox[{"den", "=",
+               RowBox[{"Denominator", "[", "expr", "]"}]}], ";", "\n", "      ",
+              RowBox[{"{",
+               RowBox[{
+                RowBox[{"Expand", "[", "num", "]"}], ",", "den"}], "}"}]}]}], "\n", "    ", "]"}], "&"}], ",", "\n", "    ", "pdCoeffSystem"}], "\n", "  ", "]"}]}], ";", "\n", "  ",
+       RowBox[{"pdPolys", "=",
+        RowBox[{"pdPolyDen", "[",
+         RowBox[{"[",
+          RowBox[{"All", ",", "1"}], "]"}], "]"}]}], ";", "\n", "  ",
+       RowBox[{"Print", "[",
+        RowBox[{"\"\<Converted to polynomial form: \>\"", ",",
+         RowBox[{"Length", "[", "pdPolys", "]"}], ",", "\"\< polynomials\>\""}], "]"}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Step", " ", "4", ":", " ",
+         RowBox[{"canonicalizeCoefficients", " ", "-", " ",
+          RowBox[{"replace", " ", "coefficients", " ", "with", " ", "dummy", " ", "symbols"}]}]}], " ", "*)"}], "\n", "  ",
+       RowBox[{"pdSymCounter", "=", "0"}], ";", "\n", "  ",
+       RowBox[{"pdCoeffMap", "=",
+        RowBox[{"<|", "|>"}]}], ";", "\n", "  ",
+       RowBox[{"Module", "[",
+        RowBox[{
+         RowBox[{"{",
+          RowBox[{"allCoeffs", ",", "uniqueCoeffs", ",", "cmap"}], "}"}], ",", "\n", "    ",
+         RowBox[{
+          RowBox[{"allCoeffs", "=",
+           RowBox[{"Flatten", "[",
+            RowBox[{"Table", "[", "\n", "      ",
+             RowBox[{
+              RowBox[{
+               RowBox[{"CoefficientRules", "[",
+                RowBox[{
+                 RowBox[{"pdPolys", "[",
+                  RowBox[{"[", "i", "]"}], "]"}], ",", "pdCoeffVars"}], "]"}], "[",
+               RowBox[{"[",
+                RowBox[{"All", ",", "2"}], "]"}], "]"}], ",", "\n", "      ",
+              RowBox[{"{",
+               RowBox[{"i", ",",
+                RowBox[{"Length", "[", "pdPolys", "]"}]}], "}"}]}], "]"}], "]"}]}], ";", "\n", "    ",
+          RowBox[{"uniqueCoeffs", "=",
+           RowBox[{"DeleteDuplicates", "[",
+            RowBox[{"Select", "[",
+             RowBox[{"allCoeffs", ",",
+              RowBox[{
+               RowBox[{"!",
+                RowBox[{"NumericQ", "[", "#", "]"}]}], "&"}]}], "]"}], "]"}]}], ";", "\n", "    ",
+          RowBox[{"cmap", "=",
+           RowBox[{"Association", "[", "\n", "      ",
+            RowBox[{"Table", "[",
+             RowBox[{
+              RowBox[{
+               RowBox[{"uniqueCoeffs", "[",
+                RowBox[{"[", "k", "]"}], "]"}], "->",
+               RowBox[{"Symbol", "[",
+                RowBox[{"\"\<pdC$\>\"", "<>",
+                 RowBox[{"ToString", "[", "k", "]"}]}], "]"}]}], ",",
+              RowBox[{"{",
+               RowBox[{"k", ",",
+                RowBox[{"Length", "[", "uniqueCoeffs", "]"}]}], "}"}]}], "]"}], "\n", "    ", "]"}]}], ";", "\n", "    ",
+          RowBox[{"pdCoeffMap", "=", "cmap"}], ";", "\n", "    ",
+          RowBox[{"pdCanonPolys", "=",
+           RowBox[{"pdPolys", "/.", "cmap"}]}]}]}], "\n", "  ", "]"}], ";", "\n", "  ",
+       RowBox[{"Print", "[",
+        RowBox[{"\"\<Canonicalized with \>\"", ",",
+         RowBox[{"Length", "[", "pdCoeffMap", "]"}], ",", "\"\< coefficient mappings\>\""}], "]"}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Step", " ", "5", ":", " ",
+         RowBox[{"sequentialSolve", " ", "-", " ",
+          RowBox[{"main", " ", "solving", " ", "loop"}]}]}], " ", "*)"}], "\n", "  ",
+       RowBox[{"pdCurrentEqs", "=", "pdCanonPolys"}], ";", "\n", "  ",
+       RowBox[{"pdCurrentVars", "=", "pdCoeffVars"}], ";", "\n", "  ",
+       RowBox[{"pdSolRules", "=",
+        RowBox[{"{", "}"}]}], ";", "\n", "  ",
+       RowBox[{"pdSteps", "=",
+        RowBox[{"{", "}"}]}], ";", "\n", "  ",
+       RowBox[{"pdSignMap", "=",
+        RowBox[{"<|", "|>"}]}], ";", "\n", "  ",
+       RowBox[{"pdRadMap", "=",
+        RowBox[{"<|", "|>"}]}], ";", "\n", "  ",
+       RowBox[{"pdMaxIter", "=",
+        RowBox[{
+         RowBox[{"Length", "[", "pdCoeffVars", "]"}], "+", "5"}]}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Helper", ":", " ",
+         RowBox[{"check", " ", "if", " ", "equation", " ", "is", " ", "linear", " ", "in", " ", "a", " ", "variable"}]}], " ", "*)"}], "\n", "  ",
+       RowBox[{
+        RowBox[{"linearInVarQPD", "[",
+         RowBox[{"poly_", ",", "var_"}], "]"}], ":=",
+        RowBox[{
+         RowBox[{"Exponent", "[",
+          RowBox[{"poly", ",", "var"}], "]"}], "==", "1"}]}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Helper", ":", " ",
+         RowBox[{"solve", " ", "linear", " ", "equation", " ", "for", " ", "variable"}]}], " ", "*)"}], "\n", "  ",
+       RowBox[{
+        RowBox[{"solveLinearForPD", "[",
+         RowBox[{"poly_", ",", "var_"}], "]"}], ":=",
+        RowBox[{"Module", "[",
+         RowBox[{
+          RowBox[{"{",
+           RowBox[{"coeff", ",", "rest"}], "}"}], ",", "\n", "    ",
+          RowBox[{
+           RowBox[{"coeff", "=",
+            RowBox[{"Coefficient", "[",
+             RowBox[{"poly", ",", "var"}], "]"}]}], ";", "\n", "    ",
+           RowBox[{"rest", "=",
+            RowBox[{"poly", "-",
+             RowBox[{"coeff", "*", "var"}]}]}], ";", "\n", "    ",
+           RowBox[{"var", "->",
+            RowBox[{
+             RowBox[{"-", "rest"}], "/", "coeff"}]}]}]}], "\n", "  ", "]"}]}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Helper", ":", " ",
+         RowBox[{"solve", " ", "quadratic", " ", "with", " ", "parametric", " ", "sign"}]}], " ", "*)"}], "\n", "  ",
+       RowBox[{
+        RowBox[{"quadraticSolveParamPD", "[",
+         RowBox[{"poly_", ",", "var_", ",", "signSymBase_"}], "]"}], ":=",
+        RowBox[{"Module", "[",
+         RowBox[{
+          RowBox[{"{",
+           RowBox[{"a", ",", "b", ",", "c", ",", "disc", ",", "signSym", ",", "sol"}], "}"}], ",", "\n", "    ",
+          RowBox[{
+           RowBox[{"a", "=",
+            RowBox[{"Coefficient", "[",
+             RowBox[{"poly", ",", "var", ",", "2"}], "]"}]}], ";", "\n", "    ",
+           RowBox[{"b", "=",
+            RowBox[{"Coefficient", "[",
+             RowBox[{"poly", ",", "var", ",", "1"}], "]"}]}], ";", "\n", "    ",
+           RowBox[{"c", "=",
+            RowBox[{"Coefficient", "[",
+             RowBox[{"poly", ",", "var", ",", "0"}], "]"}]}], ";", "\n", "    ",
+           RowBox[{"disc", "=",
+            RowBox[{
+             RowBox[{"b", "^", "2"}], "-",
+             RowBox[{"4", "*", "a", "*", "c"}]}]}], ";", "\n", "    ",
+           RowBox[{"signSym", "=",
+            RowBox[{"Symbol", "[",
+             RowBox[{"\"\<signB\>\"", "<>",
+              RowBox[{"ToString", "[", "signSymBase", "]"}]}], "]"}]}], ";", "\n", "    ",
+           RowBox[{"sol", "=",
+            RowBox[{
+             RowBox[{"(",
+              RowBox[{
+               RowBox[{"-", "b"}], "+",
+               RowBox[{"signSym", "*",
+                RowBox[{"Sqrt", "[", "disc", "]"}]}]}], ")"}], "/",
+             RowBox[{"(",
+              RowBox[{"2", "*", "a"}], ")"}]}]}], ";", "\n", "    ",
+           RowBox[{"{",
+            RowBox[{
+             RowBox[{"var", "->", "sol"}], ",", "signSym", ",", "disc"}], "}"}]}]}], "\n", "  ", "]"}]}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Main", " ", "solving", " ", "loop"}], " ", "*)"}], "\n", "  ",
+       RowBox[{"pdIter", "=", "0"}], ";", "\n", "  ",
+       RowBox[{"While", "[",
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", "pdCurrentVars", "]"}], ">", "0"}], "&&",
+          RowBox[{"pdIter", "<", "pdMaxIter"}]}], ",", "\n", "    ",
+         RowBox[{
+          RowBox[{"pdIter", "++"}], ";", "\n", "    ",
+          RowBox[{"pdSolvedThisRound", "=", "False"}], ";", "\n", "    ", "\n", "    ",
+          RowBox[{"(*", " ",
+           RowBox[{"Try", " ", "to", " ", "find", " ", "and", " ", "solve", " ", "a", " ", "linear", " ", "equation"}], " ", "*)"}], "\n", "    ",
+          RowBox[{"Do", "[", "\n", "      ",
+           RowBox[{
+            RowBox[{"If", "[",
+             RowBox[{
+              RowBox[{"!", "pdSolvedThisRound"}], ",", "\n", "        ",
+              RowBox[{"Do", "[", "\n", "          ",
+               RowBox[{
+                RowBox[{"If", "[",
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"!", "pdSolvedThisRound"}], "&&",
+                   RowBox[{"linearInVarQPD", "[",
+                    RowBox[{"eq", ",", "v"}], "]"}]}], ",", "\n", "            ",
+                  RowBox[{"Module", "[",
+                   RowBox[{
+                    RowBox[{"{", "rule", "}"}], ",", "\n", "              ",
+                    RowBox[{
+                     RowBox[{"rule", "=",
+                      RowBox[{"solveLinearForPD", "[",
+                       RowBox[{"eq", ",", "v"}], "]"}]}], ";", "\n", "              ",
+                     RowBox[{"AppendTo", "[",
+                      RowBox[{"pdSolRules", ",", "rule"}], "]"}], ";", "\n", "              ",
+                     RowBox[{"AppendTo", "[",
+                      RowBox[{"pdSteps", ",",
+                       RowBox[{"{",
+                        RowBox[{"\"\<linear\>\"", ",", "v", ",", "eq"}], "}"}]}], "]"}], ";", "\n", "              ",
+                     RowBox[{"pdCurrentEqs", "=",
+                      RowBox[{
+                       RowBox[{"DeleteCases", "[",
+                        RowBox[{"pdCurrentEqs", ",", "eq"}], "]"}], "/.", "rule"}]}], ";", "\n", "              ",
+                     RowBox[{"pdCurrentEqs", "=",
+                      RowBox[{"Select", "[",
+                       RowBox[{"pdCurrentEqs", ",",
+                        RowBox[{
+                         RowBox[{"#", "=!=", "0"}], "&"}]}], "]"}]}], ";", "\n", "              ",
+                     RowBox[{"pdCurrentVars", "=",
+                      RowBox[{"DeleteCases", "[",
+                       RowBox[{"pdCurrentVars", ",", "v"}], "]"}]}], ";", "\n", "              ",
+                     RowBox[{"pdSolvedThisRound", "=", "True"}]}]}], "\n", "            ", "]"}]}], "\n", "          ", "]"}], ",", "\n", "          ",
+                RowBox[{"{",
+                 RowBox[{"v", ",", "pdCurrentVars"}], "}"}]}], "\n", "        ", "]"}]}], "\n", "      ", "]"}], ",", "\n", "      ",
+            RowBox[{"{",
+             RowBox[{"eq", ",", "pdCurrentEqs"}], "}"}]}], "\n", "    ", "]"}], ";", "\n", "    ", "\n", "    ",
+          RowBox[{"(*", " ",
+           RowBox[{"If", " ", "no", " ", "linear", " ", "solution", " ", "found"}], ",", " ",
+           RowBox[{"try", " ", "quadratic"}], " ", "*)"}], "\n", "    ",
+          RowBox[{"If", "[",
+           RowBox[{
+            RowBox[{
+             RowBox[{"!", "pdSolvedThisRound"}], "&&",
+             RowBox[{
+              RowBox[{"Length", "[", "pdCurrentVars", "]"}], ">", "0"}]}], ",", "\n", "      ",
+            RowBox[{"Module", "[",
+             RowBox[{
+              RowBox[{"{",
+               RowBox[{"foundQuad", "=", "False"}], "}"}], ",", "\n", "        ",
+              RowBox[{
+               RowBox[{"Do", "[", "\n", "          ",
+                RowBox[{
+                 RowBox[{"If", "[",
+                  RowBox[{
+                   RowBox[{"!", "foundQuad"}], ",", "\n", "            ",
+                   RowBox[{"Do", "[", "\n", "              ",
+                    RowBox[{
+                     RowBox[{"If", "[",
+                      RowBox[{
+                       RowBox[{
+                        RowBox[{"!", "foundQuad"}], "&&",
+                        RowBox[{
+                         RowBox[{"Exponent", "[",
+                          RowBox[{"eq", ",", "v"}], "]"}], "==", "2"}]}], ",", "\n", "                ",
+                       RowBox[{"Module", "[",
+                        RowBox[{
+                         RowBox[{"{",
+                          RowBox[{"result", ",", "rule", ",", "signSym", ",", "disc"}], "}"}], ",", "\n", "                  ",
+                         RowBox[{
+                          RowBox[{"result", "=",
+                           RowBox[{"quadraticSolveParamPD", "[",
+                            RowBox[{"eq", ",", "v", ",",
+                             RowBox[{"Length", "[", "pdSignMap", "]"}]}], "]"}]}], ";", "\n", "                  ",
+                          RowBox[{"rule", "=",
+                           RowBox[{"result", "[",
+                            RowBox[{"[", "1", "]"}], "]"}]}], ";", "\n", "                  ",
+                          RowBox[{"signSym", "=",
+                           RowBox[{"result", "[",
+                            RowBox[{"[", "2", "]"}], "]"}]}], ";", "\n", "                  ",
+                          RowBox[{"disc", "=",
+                           RowBox[{"result", "[",
+                            RowBox[{"[", "3", "]"}], "]"}]}], ";", "\n", "                  ",
+                          RowBox[{"AppendTo", "[",
+                           RowBox[{"pdSolRules", ",", "rule"}], "]"}], ";", "\n", "                  ",
+                          RowBox[{"AppendTo", "[",
+                           RowBox[{"pdSteps", ",",
+                            RowBox[{"{",
+                             RowBox[{"\"\<quadratic\>\"", ",", "v", ",", "eq", ",", "signSym"}], "}"}]}], "]"}], ";", "\n", "                  ",
+                          RowBox[{
+                           RowBox[{"pdSignMap", "[", "signSym", "]"}], "=", "v"}], ";", "\n", "                  ",
+                          RowBox[{
+                           RowBox[{"pdRadMap", "[", "signSym", "]"}], "=", "disc"}], ";", "\n", "                  ",
+                          RowBox[{"pdCurrentEqs", "=",
+                           RowBox[{
+                            RowBox[{"DeleteCases", "[",
+                             RowBox[{"pdCurrentEqs", ",", "eq"}], "]"}], "/.", "rule"}]}], ";", "\n", "                  ",
+                          RowBox[{"pdCurrentEqs", "=",
+                           RowBox[{"Select", "[",
+                            RowBox[{"pdCurrentEqs", ",",
+                             RowBox[{
+                              RowBox[{"#", "=!=", "0"}], "&"}]}], "]"}]}], ";", "\n", "                  ",
+                          RowBox[{"pdCurrentVars", "=",
+                           RowBox[{"DeleteCases", "[",
+                            RowBox[{"pdCurrentVars", ",", "v"}], "]"}]}], ";", "\n", "                  ",
+                          RowBox[{"foundQuad", "=", "True"}], ";", "\n", "                  ",
+                          RowBox[{"pdSolvedThisRound", "=", "True"}]}]}], "\n", "                ", "]"}]}], "\n", "              ", "]"}], ",", "\n", "              ",
+                     RowBox[{"{",
+                      RowBox[{"v", ",", "pdCurrentVars"}], "}"}]}], "\n", "            ", "]"}]}], "\n", "          ", "]"}], ",", "\n", "          ",
+                 RowBox[{"{",
+                  RowBox[{"eq", ",", "pdCurrentEqs"}], "}"}]}], "\n", "        ", "]"}], ";", "\n", "        ",
+               RowBox[{"If", "[",
+                RowBox[{
+                 RowBox[{"!", "foundQuad"}], ",",
+                 RowBox[{"Break", "[", "]"}]}], "]"}]}]}], "\n", "      ", "]"}]}], "\n", "    ", "]"}]}]}], "\n", "  ", "]"}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"Print", "[",
+        RowBox[{"\"\<Solved \>\"", ",",
+         RowBox[{"Length", "[", "pdSolRules", "]"}], ",", "\"\< variables in \>\"", ",", "pdIter", ",", "\"\< iterations\>\""}], "]"}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Step", " ", "6", ":", " ",
+         RowBox[{"Back", "-",
+          RowBox[{"substitution", " ", "and", " ", "restore", " ", "original", " ", "coefficients"}]}]}], " ", "*)"}], "\n", "  ",
+       RowBox[{"pdSolRulesDesym", "=",
+        RowBox[{"FixedPoint", "[", "\n", "    ",
+         RowBox[{
+          RowBox[{
+           RowBox[{"#", "/.", "pdSolRules"}], "&"}], ",", "\n", "    ", "pdSolRules", ",", "\n", "    ", "20"}], "\n", "  ", "]"}]}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Restore", " ", "original", " ", "coefficient", " ", "expressions"}], " ", "*)"}], "\n", "  ",
+       RowBox[{"pdSolRulesDesym", "=",
+        RowBox[{"pdSolRulesDesym", "/.",
+         RowBox[{"Reverse", "/@",
+          RowBox[{"Normal", "[", "pdCoeffMap", "]"}]}]}]}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Determine", " ", "status"}], " ", "*)"}], "\n", "  ",
+       RowBox[{"pdStatus", "=",
+        RowBox[{"If", "[",
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", "pdCurrentVars", "]"}], "==", "0"}], ",", "\"\<solved\>\"", ",", "\"\<partial\>\""}], "]"}]}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Build", " ", "solution", " ", "association"}], " ", "*)"}], "\n", "  ",
+       RowBox[{"pdSolution", "=",
+        RowBox[{"<|", "\n", "    ",
+         RowBox[{
+          RowBox[{"\"\<status\>\"", "->", "pdStatus"}], ",", "\n", "    ",
+          RowBox[{"\"\<Solution\>\"", "->",
+           RowBox[{"Association", "[", "pdSolRulesDesym", "]"}]}], ",", "\n", "    ",
+          RowBox[{"\"\<SignRootMap\>\"", "->",
+           RowBox[{"pdSignMap", "/.",
+            RowBox[{"Reverse", "/@",
+             RowBox[{"Normal", "[", "pdCoeffMap", "]"}]}]}]}], ",", "\n", "    ",
+          RowBox[{"\"\<RadicandMap\>\"", "->",
+           RowBox[{"pdRadMap", "/.",
+            RowBox[{"Reverse", "/@",
+             RowBox[{"Normal", "[", "pdCoeffMap", "]"}]}]}]}], ",", "\n", "    ",
+          RowBox[{"\"\<Steps\>\"", "->", "pdSteps"}]}], "\n", "  ", "|>"}]}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"Print", "[",
+        RowBox[{"\"\<PD\>\"", ",", "stockIdx", ",", "\"\< solution status: \>\"", ",", "pdStatus"}], "]"}], ";", "\n", "  ", "\n", "  ",
+       RowBox[{"(*", " ",
+        RowBox[{"Append", " ", "to", " ", "pdSolutions", " ", "list"}], " ", "*)"}], "\n", "  ",
+       RowBox[{"AppendTo", "[",
+        RowBox[{"pdSolutions", ",",
+         RowBox[{
+          RowBox[{"\"\<pd\>\"", "<>",
+           RowBox[{"ToString", "[", "stockIdx", "]"}]}], "->", "pdSolution"}]}], "]"}]}]}], "\n", "  ", "\n", "]"}], ",", "\n",
+    RowBox[{"{",
+     RowBox[{"stockIdx", ",", "1", ",", "numStocks"}], "}"}]}], "\n", "]"}], ";"}]}], "Input",
+ CellLabel->"In[148]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* ",
+  RowBox[{"Print", " ", "summary", " ", "of", " ", "all", " ", "PD", " ", "solutions"}], " ", "*)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<\\nPD solutions summary: \>\"", ",",
+    RowBox[{
+     RowBox[{
+      RowBox[{"#", "[",
+       RowBox[{"[", "1", "]"}], "]"}], "&"}], "/@", "pdSolutions"}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<PD solution statuses: \>\"", ",",
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"#", "[",
+        RowBox[{"[", "2", "]"}], "]"}], "[", "\"\<status\>\"", "]"}], "&"}], "/@", "pdSolutions"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[149]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Store all coefficient solutions *)"}], "\n",
+ RowBox[{
+  RowBox[{"coeffsSolution", "=",
+   RowBox[{"<|", "\n", "  ",
+    RowBox[{
+     RowBox[{"\"\<wc\>\"", "->", "wcSolution"}], ",", "\n", "  ",
+     RowBox[{"Sequence", "@@",
+      RowBox[{"Association", "[", "pdSolutions", "]"}]}]}], "\n", "|>"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<coeffsSolution\>\"", "->", "coeffsSolution"}]}], "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[139]:="],
+
+(* ::Section:: *)
+(*5.11 Add Coefficient Solution (Bond Recursions)*)
+
+Cell[BoxData[{
+ RowBox[{"(* Create bond recursion closures using RecurrenceTable *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Creating bond coefficient recursion closures...\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[141]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* The bond coefficients R[n] and P[n] are computed recursively *)"}], "\n",
+ RowBox[{"(* This creates closures that can compute them for any maturity n *)"}], "\n",
+ RowBox[{
+  RowBox[{"bondRecursionClosure", "=",
+   RowBox[{"Module", "[",
+    RowBox[{
+     RowBox[{"{", "recursion", "}"}], ",", "\n", "    ",
+     RowBox[{
+      RowBox[{"recursion", "=", "bondCoeffSystem"}], ";", "\n", "    ",
+      RowBox[{"Function", "[",
+       RowBox[{
+        RowBox[{"{", "maxN", "}"}], ",", "\n", "      ",
+        RowBox[{"RecurrenceTable", "[",
+         RowBox[{"recursion", ",",
+          RowBox[{"{", "n", ",", "1", ",", "maxN", "}"}]}], "]"}]}], "]"}]}]}], "\n", "  ", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<bondRecursion\>\"", "->", "bondRecursionClosure"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Bond recursion closure created.\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[142]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Store catalog hash for tracking changes *)"}], "\n",
+ RowBox[{
+  RowBox[{"catalogHash", "=",
+   RowBox[{"getCanonicalHash", "[",
+    RowBox[{"catalogModels", "[", "targetModel", "]"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<catalogHash\>\"", "->", "catalogHash"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<\\n=== Phase 1 (Symbolic) Complete ===\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Model keys: \>\"", ",",
+    RowBox[{"Keys", "[", "model", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[145]:="],
+
+(* ::Chapter:: *)
+(*Section 6: Phase 2 - Compilation*)
+
+(* ::Text:: *)
+(*This phase compiles the symbolic equations to optimized .mx files for fast numerical evaluation.*)
+
+Cell[BoxData[{
+ RowBox[{"(* Phase 2: Compile equations to .mx files *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<\\n=== Phase 2: Compilation ===\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Output directory: \>\"", ",", "compiledDir"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[149]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Ensure compiled directory exists *)"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{"!",
+     RowBox[{"DirectoryQ", "[", "compiledDir", "]"}]}], ",", "\n", "  ",
+    RowBox[{"CreateDirectory", "[",
+     RowBox[{"compiledDir", ",",
+      RowBox[{"CreateIntermediateDirectories", "->", "True"}]}], "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[151]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Create compiled equations using FindRootOptim package *)"}], "\n",
+ RowBox[{"(* This is a deep function we call but don't inline *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Compiling equations (this may take several minutes)...\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"compilationResult", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq", "[",
+    RowBox[{"model", ",", "compiledDir"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Compilation result: \>\"", ",", "compilationResult"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[152]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Verify compiled file exists *)"}], "\n",
+ RowBox[{
+  RowBox[{"mxFile", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"compiledDir", ",",
+      RowBox[{"shortname", "<>", "\"\<.mx\>\""}]}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{"FileExistsQ", "[", "mxFile", "]"}], ",", "\n", "  ",
+    RowBox[{
+     RowBox[{"Print", "[",
+      RowBox[{"\"\<Compiled file created: \>\"", ",", "mxFile"}], "]"}], ";"}], ",", "\n", "  ",
+    RowBox[{
+     RowBox[{"Print", "[", "\"\<WARNING: Compiled file not found!\>\"", "]"}], ";"}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<\\n=== Phase 2 (Compilation) Complete ===\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[155]:="],
+
+(* ::Chapter:: *)
+(*Section 7: Phase 3 - Numerical Solutions*)
+
+(* ::Text:: *)
+(*This phase computes numerical solutions for the coefficient equations using the compiled functions.*)
+
+Cell[BoxData[{
+ RowBox[{"(* Phase 3: Numerical coefficient solutions *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<\\n=== Phase 3: Numerical Solutions ===\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[159]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Add numerical coefficient solutions using SolveEulerEq package *)"}], "\n",
+ RowBox[{"(* This loads compiled kernels and solves for numerical values *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Computing numerical solutions...\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"model", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN", "[", "model", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[160]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Check the numerical solution status *)"}], "\n",
+ RowBox[{
+  RowBox[{"coeffsSolN", "=",
+   RowBox[{"Lookup", "[",
+    RowBox[{"model", ",", "\"\<coeffsSolutionN\>\"", ",",
+     RowBox[{"<|", "|>"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{"AssociationQ", "[", "coeffsSolN", "]"}], ",", "\n", "  ",
+    RowBox[{
+     RowBox[{"Print", "[",
+      RowBox[{"\"\<Numerical solutions found for: \>\"", ",",
+       RowBox[{"Keys", "[", "coeffsSolN", "]"}]}], "]"}], ";"}], ",", "\n", "  ",
+    RowBox[{
+     RowBox[{"Print", "[", "\"\<WARNING: No numerical solutions computed!\>\"", "]"}], ";"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[162]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Validate the numerical solution *)"}], "\n",
+ RowBox[{
+  RowBox[{"isValid", "=",
+   RowBox[{"validCoeffsSolutionN", "[", "model", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Numerical solution valid: \>\"", ",", "isValid"}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<\\n=== Phase 3 (Numerical) Complete ===\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[165]:="],
+
+(* ::Chapter:: *)
+(*Section 8: Phase 4 - Moments Database*)
+
+(* ::Text:: *)
+(*This phase creates lookup tables for covariances and moments at different maturities.*)
+
+Cell[BoxData[{
+ RowBox[{"(* Phase 4: Create moments database *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<\\n=== Phase 4: Moments Database ===\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{"!", "createMoments"}], ",", "\n", "  ",
+    RowBox[{
+     RowBox[{
+      RowBox[{"Print", "[", "\"\<Skipping moments creation (createMoments=False)\>\"", "]"}], ";"}], "\n", "  ",
+     RowBox[{"Goto", "[", "\"\<SkipMoments\>\"", "]"}]}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[168]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Ensure moments directory exists *)"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{"!",
+     RowBox[{"DirectoryQ", "[", "momentsDir", "]"}]}], ",", "\n", "  ",
+    RowBox[{"CreateDirectory", "[",
+     RowBox[{"momentsDir", ",",
+      RowBox[{"CreateIntermediateDirectories", "->", "True"}]}], "]"}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Moments directory: \>\"", ",", "momentsDir"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[170]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Define moments output file *)"}], "\n",
+ RowBox[{
+  RowBox[{"momentsFile", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"momentsDir", ",",
+      RowBox[{"\"\<covLong\>\"", "<>", "shortname", "<>", "\"\<.wl\>\""}]}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"momentsMetaFile", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"momentsDir", ",",
+      RowBox[{"\"\<covLong\>\"", "<>", "shortname", "<>", "\"\<_meta.wl\>\""}]}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Moments file: \>\"", ",", "momentsFile"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[172]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Create moments database using CreateMomentsDatabase package *)"}], "\n",
+ RowBox[{"(* This computes covariances for all maturities up to maxMaturity *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Creating moments database for maturities 1 to \>\"", ",", "maxMaturity", ",", "\"\<...\>\""}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<(This may take 10-30 minutes depending on model complexity)\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[175]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Run database creation *)"}], "\n",
+ RowBox[{
+  RowBox[{"momentsResult", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`createDatabase", "[",
+    RowBox[{"model", ",", "momentsFile"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Moments result: \>\"", ",", "momentsResult"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[177]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Save metadata *)"}], "\n",
+ RowBox[{
+  RowBox[{"momentsMeta", "=",
+   RowBox[{"<|", "\n", "  ",
+    RowBox[{
+     RowBox[{"\"\<maxMaturity\>\"", "->", "maxMaturity"}], ",", "\n", "  ",
+     RowBox[{"\"\<momentsHash\>\"", "->",
+      RowBox[{"getMomentsHash", "[",
+       RowBox[{"model", ",", "maxMaturity"}], "]"}]}], ",", "\n", "  ",
+     RowBox[{"\"\<createdAt\>\"", "->",
+      RowBox[{"DateString", "[", "]"}]}]}], "\n", "|>"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Put", "[",
+   RowBox[{"momentsMeta", ",", "momentsMetaFile"}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Moments metadata saved.\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Label", "[", "\"\<SkipMoments\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<\\n=== Phase 4 (Moments) Complete ===\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[179]:="],
+
+(* ::Chapter:: *)
+(*Section 9: Save Results*)
+
+(* ::Text:: *)
+(*Save the processed model and update the manifest.*)
+
+Cell[BoxData[{
+ RowBox[{"(* Save processed model *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<\\n=== Saving Results ===\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[184]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Load existing models from SOURCE (real Resources folder) *)"}], "\n",
+ RowBox[{
+  RowBox[{"existingModels", "=",
+   RowBox[{"loadModels", "[", "sourceModelsFile", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Existing models (from source): \>\"", ",",
+    RowBox[{"Keys", "[", "existingModels", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[185]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Merge new model with existing *)"}], "\n",
+ RowBox[{
+  RowBox[{"allModels", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"existingModels", ",",
+     RowBox[{"shortname", "->", "model"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Total models: \>\"", ",",
+    RowBox[{"Keys", "[", "allModels", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[187]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Save models *)"}], "\n",
+ RowBox[{
+  RowBox[{"saveModels", "[",
+   RowBox[{"allModels", ",", "modelsFile"}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Models saved to: \>\"", ",", "modelsFile"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[189]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Load manifest from SOURCE, save to OUTPUT *)"}], "\n",
+ RowBox[{
+  RowBox[{"manifest", "=",
+   RowBox[{"loadManifestSafe", "[", "sourceManifestFile", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"manifest", "=",
+   RowBox[{"Append", "[",
+    RowBox[{"manifest", ",", "\n", "  ",
+     RowBox[{"shortname", "->",
+      RowBox[{"<|", "\n", "    ",
+       RowBox[{
+        RowBox[{"\"\<catalogHash\>\"", "->", "catalogHash"}], ",", "\n", "    ",
+        RowBox[{"\"\<momentsHash\>\"", "->",
+         RowBox[{"getMomentsHash", "[",
+          RowBox[{"model", ",", "maxMaturity"}], "]"}]}], ",", "\n", "    ",
+        RowBox[{"\"\<lastUpdated\>\"", "->",
+         RowBox[{"DateString", "[", "]"}]}]}], "\n", "  ", "|>"}]}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Put", "[",
+   RowBox[{"manifest", ",", "manifestFile"}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Manifest updated: \>\"", ",", "manifestFile"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[191]:="],
+
+(* ::Section:: *)
+(*Summary*)
+
+Cell[BoxData[{
+ RowBox[{"(* Final summary *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<\\n========================================\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<BUILD COMPLETE\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<========================================\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Model: \>\"", ",", "shortname"}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<State variables: \>\"", ",",
+    RowBox[{"Length", "[",
+     RowBox[{
+      RowBox[{"model", "[", "\"\<stateVars\>\"", "]"}], "[", "t", "]"}], "]"}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Free parameters: \>\"", ",",
+    RowBox[{"Length", "[",
+     RowBox[{"Lookup", "[",
+      RowBox[{"model", ",", "\"\<freeParams\>\"", ",",
+       RowBox[{"{", "}"}]}], "]"}], "]"}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Stocks: \>\"", ",",
+    RowBox[{"Lookup", "[",
+     RowBox[{"model", ",", "\"\<numStocks\>\"", ",", "0"}], "]"}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Numerical solution valid: \>\"", ",",
+    RowBox[{"validCoeffsSolutionN", "[", "model", "]"}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<========================================\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[195]:="]
+
+},
+WindowSize->{1024, 768},
+WindowMargins->{{Automatic, 100}, {Automatic, 50}},
+FrontEndVersion->"14.0 for Mac OS X ARM (64-bit)",
+StyleDefinitions->"Default.nb"
+]
