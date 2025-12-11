@@ -762,10 +762,22 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						(*Echo[solB[[1]],"solB1"];*)
 						(*simplify conditions that guarantee real solutions*)
 						logSolve["BEFORE FullSimplify conditionsA (bytes=" <> ToString[ByteCount[solA["Conditions"]]] <> ")"];
-						conditionsA=Assuming[assumeA,FullSimplify[solA["Conditions"],Sequence @@ simplifyOpts]];
+						conditionsA=Assuming[assumeA,
+							simplifyWithDummySubstitution[solA["Conditions"],
+								"Assumptions" -> True,
+								"SimplifyFunction" -> FullSimplify,
+								Sequence @@ simplifyOpts
+							]
+						];
 						logSolve["AFTER FullSimplify conditionsA"];
 						logSolve["BEFORE FullSimplify conditionsB (bytes=" <> ToString[ByteCount[solB["Conditions"]]] <> ")"];
-						conditionsB=Assuming[assumeB,FullSimplify[solB["Conditions"],Sequence @@ simplifyOpts]];
+						conditionsB=Assuming[assumeB,
+							simplifyWithDummySubstitution[solB["Conditions"],
+								"Assumptions" -> True,
+								"SimplifyFunction" -> FullSimplify,
+								Sequence @@ simplifyOpts
+							]
+						];
 						logSolve["AFTER FullSimplify conditionsB"];
 						solA["Conditions"]=assumeA && (And@@conditionsA);
 						solB["Conditions"]=assumeB && (And@@conditionsB);

@@ -13,6 +13,7 @@ BeginPackage["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
 
 paramQuadSolve
 expandPatternAssumptions
+simplifyWithDummySubstitution
 
 
 (* ::Subsubsection:: *)
@@ -31,6 +32,20 @@ Pattern-based assumptions use Blank (_), BlankSequence (__), or BlankNullSequenc
 This function searches expr for all matching patterns and expands them into concrete assumptions. \
 For example, if expr contains x[1] and x[2], then Element[x[_], Reals] expands to Element[x[1], Reals] && Element[x[2], Reals]. \
 Supports comparison operators: Element, Greater, GreaterEqual, Less, LessEqual, Equal, Unequal.";
+
+simplifyWithDummySubstitution::usage =
+  "simplifyWithDummySubstitution[expr, opts] simplifies expr by temporarily replacing Exp, Tanh, and Sqrt subexpressions with dummy symbols.\n\n\
+This prevents memory explosion during Simplify by converting:\n\
+- Level-0 symbols sym (e.g., A[0], B[j][0]) to Log[dummy], so E^sym becomes dummy\n\
+- Tanh[sym/2] to (dummy - 1)/(dummy + 1)\n\
+- Sqrt[radicand] to sqrtDummy\n\n\
+After simplification with positivity assumptions on dummies (via Assuming[...]), original forms are restored.\n\n\
+Options:\n\
+- \"Assumptions\" -> Automatic: User assumptions combined with dummy positivity for Assuming[] (Automatic uses defaultAssumptions[], True inherits from outer Assuming context via $Assumptions)\n\
+- \"Level0Pattern\" -> _Symbol[0] | _Symbol[_][0]: Pattern matching level-0 symbols\n\
+- \"SimplifyFunction\" -> Simplify: Function to use (Simplify or FullSimplify)\n\
+- Any Simplify options (e.g., TimeConstraint) are passed through directly\n\n\
+For a list of rules {lhs -> rhs, ...}, simplifies the RHS of each rule.";
 
 
 (* ::Section:: *)
@@ -74,6 +89,12 @@ Options[paramQuadSolve] = {
   "GroebnerMemoryFraction" -> 0.5,  (* fraction of MemoryAvailable[] to use *)
   "GroebnerMemoryFloor" -> 1*1024^3,  (* minimum memory limit in bytes *)
   "GroebnerMemoryCap" -> 16*1024^3  (* maximum memory limit in bytes *)
+};
+
+Options[simplifyWithDummySubstitution] = {
+  "Assumptions" -> Automatic,
+  "Level0Pattern" -> _Symbol[0] | _Symbol[_][0],
+  "SimplifyFunction" -> Simplify
 };
 
 
@@ -264,122 +285,41 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         ];
 
         If[TrueQ[doValidate],
-          (* TimeConstraint returns best simplification found within budget *)
-          (* Replace Sqrt, Exp, and Tanh expressions with dummy symbols to prevent memory explosion during Simplify *)
-          Module[{level0Pattern, baseLevel0Symbols, expToDummy, expTransformRules, tanhTransformRules,
-                  dummyToExp, dummyToTanh, sqrtToDummy, dummyToSqrt, sqrtDummies, expDummies,
-                  dummyPositiveAss, augmentedAss, allTransformRules, allRestoreRules},
-            logPQS["BEFORE validate simplify solRulesDesym (len=" <> ToString[Length[solRulesDesym]] <>
-                   ", bytes=" <> ToString[ByteCount[solRulesDesym]] <> ")"];
+          (* Simplify solRulesDesym using dummy substitution to prevent memory explosion *)
+          logPQS["BEFORE validate simplify solRulesDesym (len=" <> ToString[Length[solRulesDesym]] <>
+                 ", bytes=" <> ToString[ByteCount[solRulesDesym]] <> ")"];
+          solRulesDesym = simplifyWithDummySubstitution[solRulesDesym,
+            "Assumptions" -> fullAss,
+            TimeConstraint -> simpBudget
+          ];
+          logPQS["after validate simplify solRulesDesym"];
 
-            (* Step 1: Create rules to replace level-0 symbols with Log[dummy] *)
-            (* This handles E^(a*A[0] + b*B[j][0]) -> dummyA^a * dummyB^b automatically *)
-            level0Pattern = _Symbol[0] | _Symbol[_][0];
-            baseLevel0Symbols = Union[Cases[solRulesDesym, level0Pattern, Infinity]];
-
-            expToDummy = Association[Map[
-              # -> Symbol["expPlaceholder$" <> ToString[Hash[#]]] &,
-              baseLevel0Symbols
-            ]];
-
-            (* Replace sym -> Log[dummy], so E^(n*sym) becomes dummy^n *)
-            expTransformRules = Map[
-              # -> Log[expToDummy[#]] &,
-              baseLevel0Symbols
-            ];
-
-            (* Step 1b: Create rules to replace Tanh[sym/2] with (dummy - 1)/(dummy + 1) *)
-            (* This is needed because Tanh[A[0]/2] = (E^A[0] - 1)/(E^A[0] + 1) *)
-            (* Without this, Tanh[Log[dummy]/2] creates complex expressions *)
-            tanhTransformRules = Map[
-              With[{d = expToDummy[#]}, Tanh[#/2] -> (d - 1)/(d + 1)] &,
-              baseLevel0Symbols
-            ];
-
-            (* To restore: dummy -> E^sym *)
-            dummyToExp = Map[expToDummy[#] -> Exp[#] &, baseLevel0Symbols];
-            (* To restore Tanh: (dummy - 1)/(dummy + 1) -> Tanh[sym/2] *)
-            dummyToTanh = Map[
-              With[{d = expToDummy[#]}, (d - 1)/(d + 1) -> Tanh[#/2]] &,
-              baseLevel0Symbols
-            ];
-
-            (* Step 2: Apply exp and tanh transforms first, then extract ALL Sqrt expressions *)
-            (* This is more robust than extracting from signRootMapDesym since solRulesDesym *)
-            (* may have Sqrt expressions with different factorizations *)
-            Module[{solRulesPartiallyTransformed, allSqrtRadicands},
-              solRulesPartiallyTransformed = solRulesDesym /. Join[tanhTransformRules, expTransformRules];
-
-              (* Find all unique Sqrt radicands in the partially transformed expressions *)
-              allSqrtRadicands = Union[Cases[solRulesPartiallyTransformed, Power[x_, Rational[1, 2]] :> x, Infinity]];
-
-              (* Create dummy for each unique Sqrt radicand *)
-              sqrtToDummy = Map[
-                Sqrt[#] -> Symbol["sqrtPlaceholder$" <> ToString[Hash[#]]] &,
-                allSqrtRadicands
-              ];
-
-              (* dummyToSqrt restores each Sqrt *)
-              dummyToSqrt = Map[
-                Symbol["sqrtPlaceholder$" <> ToString[Hash[#]]] -> Sqrt[#] &,
-                allSqrtRadicands
-              ];
-            ];
-
-            (* Step 3: Build augmented assumptions with positivity for dummies *)
-            sqrtDummies = Cases[sqrtToDummy, Rule[_, sym_Symbol] :> sym];
-            expDummies = Values[expToDummy];
-            dummyPositiveAss = And @@ Map[# > 0 &, Join[expDummies, sqrtDummies]];
-            augmentedAss = And[fullAss, dummyPositiveAss];
-
-            (* Combine all transform and restore rules *)
-            (* Order matters: tanhTransformRules first (exact match), then expTransformRules, then sqrtToDummy *)
-            allTransformRules = Join[tanhTransformRules, expTransformRules, sqrtToDummy];
-            allRestoreRules = Join[dummyToTanh, dummyToExp, dummyToSqrt];
-
-            (* Step 4: Apply all transforms, simplify with HARD timeout, then restore *)
-            (* TimeConstrained provides hard cutoff; TimeConstraint is soft and often ignored *)
-            solRulesDesym = Map[
-              Function[rule, Module[{transformed, simplified},
-                transformed = rule[[2]] /. allTransformRules;
-                simplified = TimeConstrained[
-                  Quiet[Simplify[transformed, Assumptions -> augmentedAss, TimeConstraint -> simpBudget], {Simplify::time}],
-                  simpBudget + 0.5, (* hard timeout slightly above soft *)
-                  transformed (* return unchanged on timeout *)
-                ];
-                rule[[1]] -> (simplified /. allRestoreRules)
-              ]],
-              solRulesDesym
-            ];
-            logPQS["after validate simplify solRulesDesym"];
-            logPQS["BEFORE simplify signRootMapDesym (len=" <> ToString[Length[signRootMapDesym]] <>
-                   ", bytes=" <> ToString[ByteCount[signRootMapDesym]] <> ")"];
-            signRootMapDesym = KeyValueMap[
-              Function[{key, val},
-                key -> TimeConstrained[
-                  Quiet[Simplify[val, Assumptions -> augmentedAss, TimeConstraint -> simpBudget], {Simplify::time}],
-                  simpBudget + 0.5,
-                  val
-                ]
-              ],
-              signRootMapDesym
-            ] // Association;
-            logPQS["AFTER simplify signRootMapDesym"];
-            logPQS["BEFORE simplify signRadMapDesym (len=" <> ToString[Length[signRadMapDesym]] <>
-                   ", bytes=" <> ToString[ByteCount[signRadMapDesym]] <> ")"];
-            signRadMapDesym = KeyValueMap[
-              Function[{key, val},
-                key -> TimeConstrained[
-                  Quiet[Simplify[val, Assumptions -> augmentedAss, TimeConstraint -> simpBudget], {Simplify::time}],
-                  simpBudget + 0.5,
-                  val
-                ]
-              ],
-              signRadMapDesym
-            ] // Association;
-            logPQS["AFTER simplify signRadMapDesym"];
-            logPQS["after validate simplify signMaps"];
-          ]; (* end Module for dummy replacement *)
+          (* Simplify signRootMapDesym and signRadMapDesym *)
+          logPQS["BEFORE simplify signRootMapDesym (len=" <> ToString[Length[signRootMapDesym]] <>
+                 ", bytes=" <> ToString[ByteCount[signRootMapDesym]] <> ")"];
+          signRootMapDesym = KeyValueMap[
+            Function[{key, val},
+              key -> simplifyWithDummySubstitution[val,
+                "Assumptions" -> fullAss,
+                TimeConstraint -> simpBudget
+              ]
+            ],
+            signRootMapDesym
+          ] // Association;
+          logPQS["AFTER simplify signRootMapDesym"];
+          logPQS["BEFORE simplify signRadMapDesym (len=" <> ToString[Length[signRadMapDesym]] <>
+                 ", bytes=" <> ToString[ByteCount[signRadMapDesym]] <> ")"];
+          signRadMapDesym = KeyValueMap[
+            Function[{key, val},
+              key -> simplifyWithDummySubstitution[val,
+                "Assumptions" -> fullAss,
+                TimeConstraint -> simpBudget
+              ]
+            ],
+            signRadMapDesym
+          ] // Association;
+          logPQS["AFTER simplify signRadMapDesym"];
+          logPQS["after validate simplify signMaps"];
         ];
         logPQS["after doValidate block"];
         radicandsRaw = Values[signRadMapDesym];
@@ -973,6 +913,96 @@ simplifySignMap[signMap_Association, radMap_Association, ass : Except[_List] : A
   ];
 
   {simplifiedSignMap, simplifiedRadMap}
+];
+
+
+(* ::Subsubsection:: *)
+(*simplifyWithDummySubstitution*)
+
+
+(* Simplify an expression by temporarily replacing Exp, Tanh, and Sqrt subexpressions
+   with dummy symbols to prevent memory explosion during Simplify.
+
+   Single expression form:
+     simplifyWithDummySubstitution[expr, opts]
+
+   List of rules form (simplifies RHS of each rule):
+     simplifyWithDummySubstitution[{lhs1 -> rhs1, ...}, opts]
+*)
+simplifyWithDummySubstitution[expr_, opts:OptionsPattern[{simplifyWithDummySubstitution, Simplify}]] := Module[
+  {ass, level0Pattern, simplifyFn, simplifyOpts, baseLevel0Symbols, expToDummy, expTransformRules,
+   tanhTransformRules, dummyToExp, dummyToTanh, sqrtToDummy, dummyToSqrt,
+   sqrtDummies, expDummies, dummyPositiveAss, augmentedAss,
+   allTransformRules, allRestoreRules, exprTransformed, allSqrtRadicands,
+   simplified},
+
+  (* Extract our custom options *)
+  (* True means inherit from outer Assuming context via $Assumptions *)
+  ass = Replace[OptionValue["Assumptions"], {Automatic -> defaultAssumptions[], True -> $Assumptions}];
+  level0Pattern = OptionValue["Level0Pattern"];
+  simplifyFn = OptionValue["SimplifyFunction"];
+  (* Pass through Simplify options directly *)
+  simplifyOpts = FilterRules[Flatten[{opts}], Options[Simplify]];
+
+  (* Step 1: Find level-0 symbols and create exp transform rules *)
+  baseLevel0Symbols = Union[Cases[expr, level0Pattern, Infinity]];
+
+  expToDummy = Association[Map[
+    # -> Symbol["expPlaceholder$" <> ToString[Hash[#]]] &,
+    baseLevel0Symbols
+  ]];
+
+  expTransformRules = Map[# -> Log[expToDummy[#]] &, baseLevel0Symbols];
+
+  (* Step 1b: Create tanh transform rules *)
+  tanhTransformRules = Map[
+    With[{d = expToDummy[#]}, Tanh[#/2] -> (d - 1)/(d + 1)] &,
+    baseLevel0Symbols
+  ];
+
+  (* Restore rules *)
+  dummyToExp = Map[expToDummy[#] -> Exp[#] &, baseLevel0Symbols];
+  dummyToTanh = Map[
+    With[{d = expToDummy[#]}, (d - 1)/(d + 1) -> Tanh[#/2]] &,
+    baseLevel0Symbols
+  ];
+
+  (* Step 2: Apply exp/tanh transforms, then extract Sqrt radicands *)
+  exprTransformed = expr /. Join[tanhTransformRules, expTransformRules];
+  allSqrtRadicands = Union[Cases[exprTransformed, Power[x_, Rational[1, 2]] :> x, {0, Infinity}]];
+
+  sqrtToDummy = Map[
+    Sqrt[#] -> Symbol["sqrtPlaceholder$" <> ToString[Hash[#]]] &,
+    allSqrtRadicands
+  ];
+  dummyToSqrt = Map[
+    Symbol["sqrtPlaceholder$" <> ToString[Hash[#]]] -> Sqrt[#] &,
+    allSqrtRadicands
+  ];
+
+  (* Step 3: Build augmented assumptions *)
+  sqrtDummies = Cases[sqrtToDummy, Rule[_, sym_Symbol] :> sym];
+  expDummies = Values[expToDummy];
+  dummyPositiveAss = And @@ Map[# > 0 &, Join[expDummies, sqrtDummies]];
+  augmentedAss = And[ass, dummyPositiveAss];
+
+  (* Combine rules *)
+  allTransformRules = Join[tanhTransformRules, expTransformRules, sqrtToDummy];
+  allRestoreRules = Join[dummyToTanh, dummyToExp, dummyToSqrt];
+
+  (* Step 4: Transform, simplify with Assuming, restore *)
+  simplified = Quiet[
+    Assuming[augmentedAss, simplifyFn[expr /. allTransformRules, Sequence @@ simplifyOpts]],
+    {Simplify::time, FullSimplify::time}
+  ];
+
+  simplified /. allRestoreRules
+];
+
+(* Overload for list of rules - simplify RHS of each *)
+simplifyWithDummySubstitution[rules:{__Rule}, opts:OptionsPattern[]] := Map[
+  #[[1]] -> simplifyWithDummySubstitution[#[[2]], opts] &,
+  rules
 ];
 
 

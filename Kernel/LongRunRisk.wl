@@ -178,7 +178,14 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 Needs["PacletTools`"];
 pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
 filesInResources = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources"|>}];
-Map[Get@Get@#&,Flatten@StringCases[filesInResources,__~~".wl"]];
+FernandoDuarte`LongRunRisk`Models =Get@Get@(First@Flatten@StringCases[filesInResources,__~~"Models.wl"]);
+Map[
+	Get@Get@#&,
+	Select[
+		Flatten@StringCases[filesInResources,__~~".wl"],
+		Function[s, Not@StringEndsQ[s, "_meta.wl" | "ModelManifest.wl" | "Models.wl" ]]
+	]
+];
 
 
 (* ::Subsection:: *)
