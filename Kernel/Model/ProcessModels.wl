@@ -623,31 +623,51 @@ simplifyCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}
 		},
 				With[
 					{
-						res = {
-							ParallelMap[
-								Assuming[
-									assumeA,
-									Quiet[
-										FullSimplify[#,Sequence @@ simplifyOpts],
-										{FullSimplify::time,FullSimplify::gtime}
-									]
-								]&,
-								sysA/. (1-gamma)/(1-1/psi)->theta
-							],
-							ParallelMap[
-								Assuming[
-									assumeB,
-									Quiet[
-										FullSimplify[#,Sequence @@ simplifyOpts],
-										{FullSimplify::time,FullSimplify::gtime}
-									]
-								]&,
-								sysB/. (1-gamma)/(1-1/psi)->theta
+						maxLen = Max[Length[sysA], Length[sysB]],
+						fA = Function[e,
+							Assuming[
+								assumeA,
+								Quiet[
+									FullSimplify[e,Sequence @@ simplifyOpts],
+									{FullSimplify::time,FullSimplify::gtime}
+								]
 							]
-						}
+						],
+						fB = Function[e,
+							Assuming[
+								assumeB,
+								Quiet[
+									FullSimplify[e,Sequence @@ simplifyOpts],
+									{FullSimplify::time,FullSimplify::gtime}
+								]
+							]
+						]
 					},
-					CloseKernels[];
-					res
+					Module[{nKernels, kernelsOK = False, res},
+						nKernels = Min[maxLen, $ProcessorCount];
+						If[nKernels > 1,
+							Quiet[CloseKernels[]];
+							Quiet[
+								Check[
+									LaunchKernels[nKernels];
+									kernelsOK = Length[ParallelKernels[]] > 0,
+									kernelsOK = False
+								]
+							];
+						];
+						res = If[kernelsOK,
+							{
+								ParallelMap[fA, sysA/. (1-gamma)/(1-1/psi)->theta],
+								ParallelMap[fB, sysB/. (1-gamma)/(1-1/psi)->theta]
+							},
+							{
+								Map[fA, sysA/. (1-gamma)/(1-1/psi)->theta],
+								Map[fB, sysB/. (1-gamma)/(1-1/psi)->theta]
+							}
+						];
+						If[kernelsOK, CloseKernels[]];
+						res
+					]
 				]
 		](*With*)
 	] (*With*)
