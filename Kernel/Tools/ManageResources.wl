@@ -942,6 +942,23 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			, {modelKey, compileModels}
 		];
 
+		(* Jacobian track - runs after function compilation, before numerical *)
+		If[compileJacobians && Length[modelsNeedingJacobians] > 0,
+			logMemory["Jacobian compilation START"];
+			Do[
+				shortname = catalogModels[modelKey]["shortname"];
+				logMemory["Jacobian START: " <> shortname];
+				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
+					processedModels[shortname],
+					compiledDir,
+					"CompileMode" -> "JacobianOnly"
+				];
+				logMemory["Jacobian END: " <> shortname];
+				, {modelKey, modelsNeedingJacobians}
+			];
+			logMemory["Jacobian compilation END"]
+		];
+
 			(* Phase 3: Numerical solutions - cascade from Compile + models at Numerical stage *)
 			logMemory["Phase3 START (Numerical)"];
 			phase3ContextFile = FileNameJoin[{root, "temp", "Phase3Context.wl"}];
@@ -1037,23 +1054,6 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 					If[numLaunched > 0, CloseKernels[]];
 				]
 			]
-		];
-
-		(* Jacobian track - orthogonal, no cascade *)
-		If[compileJacobians && Length[modelsNeedingJacobians] > 0,
-			logMemory["Jacobian compilation START"];
-			Do[
-				shortname = catalogModels[modelKey]["shortname"];
-				logMemory["Jacobian START: " <> shortname];
-				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
-					processedModels[shortname],
-					compiledDir,
-					"CompileMode" -> "JacobianOnly"
-				];
-				logMemory["Jacobian END: " <> shortname];
-				, {modelKey, modelsNeedingJacobians}
-			];
-			logMemory["Jacobian compilation END"]
 		];
 
 		(* save - merge with existing models to checkpoint file *)
