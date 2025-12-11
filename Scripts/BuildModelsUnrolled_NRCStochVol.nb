@@ -2441,18 +2441,394 @@ Cell[BoxData[{
  CellLabel->"In[151]:="],
 
 Cell[BoxData[{
- RowBox[{"(* Create compiled equations using FindRootOptim package *)"}], "\n",
- RowBox[{"(* This is a deep function we call but don't inline *)"}], "\n",
+ RowBox[{"(* ============================================================== *)"}], "\n",
+ RowBox[{"(* UNROLLED createCompiledEq - Compile equations to .mx file *)"}], "\n",
+ RowBox[{"(* Source: FindRootOptim.wl lines 1472-1526 *)"}], "\n",
+ RowBox[{"(* ============================================================== *)"}], "\n",
  RowBox[{
-  RowBox[{"Print", "[", "\"\<Compiling equations (this may take several minutes)...\>\"", "]"}], ";"}], "\n",
+  RowBox[{"Print", "[", "\"\<Compiling equations (this may take several minutes)...\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[152]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 1: Extract configuration from model *)"}], "\n",
  RowBox[{
-  RowBox[{"compilationResult", "=",
-   RowBox[{"FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq", "[",
-    RowBox[{"model", ",", "compiledDir"}], "]"}]}], ";"}], "\n",
+  RowBox[{"compShortname", "=",
+   RowBox[{"model", "[", "\"\<shortname\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"compileMode", "=", "\"\<FunctionOnly\>\""}], ";", " ",
+  RowBox[{"(*", " ",
+   RowBox[{"Default", ":", " ",
+    RowBox[{"compile", " ", "function", " ", "only"}]}], " ", "*)"}]}], "\n",
+ RowBox[{
+  RowBox[{"compilerChoice", "=", "\"\<Compile\>\""}], ";", " ",
+  RowBox[{"(*", " ",
+   RowBox[{"Use", " ", "Compile", " ", "with", " ", "C", " ", "target"}], " ", "*)"}]}], "\n",
+ RowBox[{
+  RowBox[{"flattenOpt", "=", "Automatic"}], ";", " ",
+  RowBox[{"(*", " ",
+   RowBox[{"Auto", "-",
+    RowBox[{"flatten", " ", "large", " ", "expressions"}]}], " ", "*)"}]}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Compiling model: \>\"", ",", "compShortname"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[153]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 2: Build equation map from model (buildEqMapFromModel) *)"}], "\n",
+ RowBox[{"(* This extracts the equation systems for compilation *)"}], "\n",
+ RowBox[{
+  RowBox[{"quadSol", "=",
+   RowBox[{"model", "[", "\"\<coeffsParamQuadSolve\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"modelParamsKeys", "=",
+   RowBox[{"Keys", "@",
+    RowBox[{"model", "[", "\"\<params\>\"", "]"}]}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"coeffsSystem", "=",
+   RowBox[{"model", "[", "\"\<coeffsSystem\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<coeffsParamQuadSolve keys: \>\"", ",",
+    RowBox[{"Keys", "[", "quadSol", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[156]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 2b: Extract equation details for A (wc) coefficients *)"}], "\n",
+ RowBox[{
+  RowBox[{"wcSys", "=",
+   RowBox[{"coeffsSystem", "[", "\"\<wc\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"quadSolWc", "=",
+   RowBox[{"quadSol", "[", "\"\<wc\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcCoeffs", "=",
+   RowBox[{"wcSys", "[",
+    RowBox[{"[", "2", "]"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcSignRootMap", "=",
+   RowBox[{"Normal", "@",
+    RowBox[{"quadSolWc", "[", "\"\<SignRootMap\>\"", "]"}]}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcCoeffName", "=",
+   RowBox[{"SymbolName", "@",
+    RowBox[{"Head", "@",
+     RowBox[{"wcCoeffs", "[",
+      RowBox[{"[", "1", "]"}], "]"}]}]}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcSigns", "=",
+   RowBox[{"Keys", "@", "wcSignRootMap"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"wcVars", "=",
+   RowBox[{"quadSolWc", "[", "\"\<varsA0\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<WC coefficient name: \>\"", ",", "wcCoeffName", ",", "\"\<, vars: \>\"", ",", "wcVars"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[160]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 2c: Extract equation details for B (pd) coefficients *)"}], "\n",
+ RowBox[{
+  RowBox[{"pdSys", "=",
+   RowBox[{"coeffsSystem", "[", "\"\<pd\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"quadSolPd", "=",
+   RowBox[{"quadSol", "[", "\"\<pd\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"pdMode", "=",
+   RowBox[{"Lookup", "[",
+    RowBox[{"quadSolPd", ",", "\"\<pdMode\>\"", ",", "\"\<B\>\""}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"(* Extract j symbol from pd coefficients for context consistency *)"}]}], "\n",
+ RowBox[{
+  RowBox[{"jSymbol", "=",
+   RowBox[{"pdSys", "[",
+    RowBox[{"[",
+     RowBox[{"2", ",", "1", ",", "0", ",", "1"}], "]"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"pdCoeffName", "=",
+   RowBox[{"SymbolName", "@",
+    RowBox[{"Head", "@",
+     RowBox[{"Head", "@",
+      RowBox[{"pdSys", "[",
+       RowBox[{"[",
+        RowBox[{"2", ",", "1"}], "]"}], "]"}]}]}]}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"pdSigns", "=",
+   RowBox[{"Keys", "@",
+    RowBox[{"quadSolPd", "[", "\"\<SignRootMap\>\"", "]"}]}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"pdVars", "=",
+   RowBox[{"quadSolPd", "[", "\"\<varsB0\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<PD coefficient name: \>\"", ",", "pdCoeffName", ",", "\"\<, vars: \>\"", ",", "pdVars"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[169]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 2d: Build parameters for A (exclude dividend params) and B *)"}], "\n",
+ RowBox[{
+  RowBox[{"ddHeads", "=",
+   RowBox[{"Apply", "[",
+    RowBox[{"Alternatives", ",",
+     RowBox[{"Part", "[",
+      RowBox[{
+       RowBox[{
+        RowBox[{"FernandoDuarte`LongRunRisk`Model`Parameters`Private`paramList", "[", "\"\<Real dividend growth\>\"", "]"}]}], ",", "All", ",", "0"}], "]"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"paramsA", "=",
+   RowBox[{"DeleteCases", "[",
+    RowBox[{"modelParamsKeys", ",",
+     RowBox[{"ddHeads", "[", "_", "]"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"paramsStocks", "=",
+   RowBox[{"Cases", "[",
+    RowBox[{"modelParamsKeys", ",",
+     RowBox[{
+      RowBox[{"x", ":",
+       RowBox[{"ddHeads", "[", "_", "]"}]}], ":>",
+      RowBox[{
+       RowBox[{"Head", "[", "x", "]"}], "[", "jSymbol", "]"}]}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Parameters for A: \>\"", ",",
+    RowBox[{"Length", "[", "paramsA", "]"}], ",", "\"\< params\>\""}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Stock parameters: \>\"", ",", "paramsStocks"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[178]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 2e: Build equation map - the data structure for compilation *)"}], "\n",
+ RowBox[{
+  RowBox[{"eqMapA", "=",
+   RowBox[{"<|", "\n", "  ",
+    RowBox[{
+     RowBox[{"\"\<Expr\>\"", "->",
+      RowBox[{"Map", "[",
+       RowBox[{
+        RowBox[{
+         RowBox[{"If", "[",
+          RowBox[{
+           RowBox[{
+            RowBox[{"Head", "[", "#", "]"}], "===", "Equal"}], ",",
+           RowBox[{"If", "[",
+            RowBox[{
+             RowBox[{
+              RowBox[{"Length", "[", "#", "]"}], "==", "2"}], ",",
+             RowBox[{"Subtract", "@@", "#"}], ",", "#"}], "]"}], ",", "#"}], "]"}], "&"}], ",",
+        RowBox[{"quadSolWc", "[", "\"\<eqA0\>\"", "]"}]}], "]"}]}], ",", "\n", "  ",
+     RowBox[{"\"\<Vars\>\"", "->", "wcVars"}], ",", "\n", "  ",
+     RowBox[{"\"\<Params\>\"", "->", "paramsA"}], ",", "\n", "  ",
+     RowBox[{"\"\<CoeffName\>\"", "->", "wcCoeffName"}], ",", "\n", "  ",
+     RowBox[{"\"\<SignSymbol\>\"", "->",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{"wcSigns", "===",
+         RowBox[{"{", "}"}]}], ",",
+        RowBox[{"\"\<sign\>\"", "<>",
+         RowBox[{"SymbolName", "[",
+          RowBox[{"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc"}], "]"}]}], ",",
+        RowBox[{"SymbolName", "@",
+         RowBox[{"Head", "@",
+          RowBox[{"First", "@", "wcSigns"}]}]}]}], "]"}]}]}], "\n", "|>"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Equation map A built, expr count: \>\"", ",",
+    RowBox[{"Length", "[",
+     RowBox[{"eqMapA", "[", "\"\<Expr\>\"", "]"}], "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[183]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Build equation map for B if pdMode includes B *)"}], "\n",
+ RowBox[{
+  RowBox[{"eqMapB", "=",
+   RowBox[{"If", "[",
+    RowBox[{
+     RowBox[{
+      RowBox[{"MatchQ", "[",
+       RowBox[{"pdMode", ",",
+        RowBox[{"\"\<B\>\"", "|", "\"\<Both\>\""}]}], "]"}], "&&",
+      RowBox[{"KeyExistsQ", "[",
+       RowBox[{"quadSolPd", ",", "\"\<eqB0\>\""}], "]"}]}], ",", "\n", "    ",
+     RowBox[{"<|", "\n", "      ",
+      RowBox[{
+       RowBox[{"\"\<Expr\>\"", "->",
+        RowBox[{"Map", "[",
+         RowBox[{
+          RowBox[{
+           RowBox[{"If", "[",
+            RowBox[{
+             RowBox[{
+              RowBox[{"Head", "[", "#", "]"}], "===", "Equal"}], ",",
+             RowBox[{"If", "[",
+              RowBox[{
+               RowBox[{
+                RowBox[{"Length", "[", "#", "]"}], "==", "2"}], ",",
+               RowBox[{"Subtract", "@@", "#"}], ",", "#"}], "]"}], ",", "#"}], "]"}], "&"}], ",",
+          RowBox[{"quadSolPd", "[", "\"\<eqB0\>\"", "]"}]}], "]"}]}], ",", "\n", "      ",
+       RowBox[{"\"\<Vars\>\"", "->", "pdVars"}], ",", "\n", "      ",
+       RowBox[{"\"\<Params\>\"", "->",
+        RowBox[{"Join", "[",
+         RowBox[{"paramsA", ",", "paramsStocks", ",", "wcCoeffs"}], "]"}]}], ",", "\n", "      ",
+       RowBox[{"\"\<CoeffName\>\"", "->", "pdCoeffName"}], ",", "\n", "      ",
+       RowBox[{"\"\<SignSymbol\>\"", "->",
+        RowBox[{"If", "[",
+         RowBox[{
+          RowBox[{"pdSigns", "===",
+           RowBox[{"{", "}"}]}], ",",
+          RowBox[{"\"\<sign\>\"", "<>",
+           RowBox[{"SymbolName", "[",
+            RowBox[{"Head", "@",
+             RowBox[{"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd"}]}], "]"}]}], ",",
+          RowBox[{"SymbolName", "@",
+           RowBox[{"Head", "@",
+            RowBox[{"First", "@", "pdSigns"}]}]}]}], "]"}]}]}], "\n", "    |>"}], ",", "\n", "    ",
+     RowBox[{"<|", "|>"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{"eqMapB", "=!=",
+     RowBox[{"<|", "|>"}]}], ",",
+    RowBox[{"Print", "[",
+     RowBox[{"\"\<Equation map B built, expr count: \>\"", ",",
+      RowBox[{"Length", "[",
+       RowBox[{"eqMapB", "[", "\"\<Expr\>\"", "]"}], "]"}]}], "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[185]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 3: Compute hash for cache validation *)"}], "\n",
+ RowBox[{
+  RowBox[{"eqMap", "=",
+   RowBox[{"Join", "[",
+    RowBox[{
+     RowBox[{"<|",
+      RowBox[{"\"\<A\>\"", "->", "eqMapA"}], "|>"}], ",",
+     RowBox[{"If", "[",
+      RowBox[{
+       RowBox[{"eqMapB", "=!=",
+        RowBox[{"<|", "|>"}]}], ",",
+       RowBox[{"<|",
+        RowBox[{"\"\<B\>\"", "->", "eqMapB"}], "|>"}], ",",
+       RowBox[{"<|", "|>"}]}], "]"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"currentHash", "=",
+   RowBox[{"Hash", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{"compileMode", ",", "compilerChoice", ",", "flattenOpt", ",", "pdMode", ",", "eqMap"}], "}"}], ",", "\"\<Expression\>\""}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Current hash: \>\"", ",", "currentHash"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[187]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 4: Check cache - skip if already compiled with same hash *)"}], "\n",
+ RowBox[{
+  RowBox[{"mxFile", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"compiledDir", ",",
+      RowBox[{"compShortname", "<>", "\"\<.mx\>\""}]}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"cacheHit", "=", "False"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{"FileExistsQ", "[", "mxFile", "]"}], ",", "\n", "  ",
+    RowBox[{"Module", "[",
+     RowBox[{
+      RowBox[{"{",
+       RowBox[{"savedData", ",", "savedHash", ",", "savedSystemID"}], "}"}], ",", "\n", "    ",
+      RowBox[{
+       RowBox[{"savedData", "=",
+        RowBox[{"Quiet", "[",
+         RowBox[{"Import", "[",
+          RowBox[{"mxFile", ",", "\"\<MX\>\""}], "]"}], "]"}]}], ";", "\n", "    ",
+       RowBox[{"If", "[",
+        RowBox[{
+         RowBox[{
+          RowBox[{"AssociationQ", "[", "savedData", "]"}], "&&",
+          RowBox[{"KeyExistsQ", "[",
+           RowBox[{"savedData", ",", "\"\<meta\>\""}], "]"}]}], ",", "\n", "      ",
+         RowBox[{
+          RowBox[{"savedHash", "=",
+           RowBox[{
+            RowBox[{"savedData", "[", "\"\<meta\>\"", "]"}], "[", "\"\<Hash\>\"", "]"}]}], ";", "\n", "      ",
+          RowBox[{"savedSystemID", "=",
+           RowBox[{
+            RowBox[{"savedData", "[", "\"\<meta\>\"", "]"}], "[", "\"\<SystemID\>\"", "]"}]}], ";", "\n", "      ",
+          RowBox[{"If", "[",
+           RowBox[{
+            RowBox[{
+             RowBox[{"savedHash", "===", "currentHash"}], "&&",
+             RowBox[{"savedSystemID", "===", "$SystemID"}]}], ",", "\n", "        ",
+            RowBox[{
+             RowBox[{"cacheHit", "=", "True"}], ";", "\n", "        ",
+             RowBox[{"Print", "[", "\"\<Cache hit - skipping compilation\>\"", "]"}]}]}], "]"}]}]}], "]"}]}]}], "\n", "  ", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[190]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 5: Compile kernels if cache miss *)"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{"!", "cacheHit"}], ",", "\n", "  ",
+    RowBox[{"Module", "[",
+     RowBox[{
+      RowBox[{"{", "kernels", "}"}], ",", "\n", "    ",
+      RowBox[{
+       RowBox[{"Print", "[", "\"\<Compiling kernels...\>\"", "]"}], ";", "\n", "    ",
+       RowBox[{"(* Call buildKernel for each equation type - this is a deep function *)"}], "\n", "    ",
+       RowBox[{"kernels", "=",
+        RowBox[{"Association", "@",
+         RowBox[{"Table", "[", "\n", "      ",
+          RowBox[{
+           RowBox[{"eq", "->",
+            RowBox[{"FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel", "[", "\n", "        ",
+             RowBox[{
+              RowBox[{
+               RowBox[{"eqMap", "[", "eq", "]"}], "[", "\"\<Expr\>\"", "]"}], ",", "\n", "        ",
+              RowBox[{
+               RowBox[{"eqMap", "[", "eq", "]"}], "[", "\"\<Vars\>\"", "]"}], ",", "\n", "        ",
+              RowBox[{
+               RowBox[{"eqMap", "[", "eq", "]"}], "[", "\"\<Params\>\"", "]"}], ",", "\n", "        ",
+              RowBox[{"\"\<CoeffName\>\"", "->",
+               RowBox[{
+                RowBox[{"eqMap", "[", "eq", "]"}], "[", "\"\<CoeffName\>\"", "]"}]}], ",", "\n", "        ",
+              RowBox[{"\"\<SignSymbol\>\"", "->",
+               RowBox[{
+                RowBox[{"eqMap", "[", "eq", "]"}], "[", "\"\<SignSymbol\>\"", "]"}]}], ",", "\n", "        ",
+              RowBox[{"\"\<CompileMode\>\"", "->", "compileMode"}], ",", "\n", "        ",
+              RowBox[{"\"\<Compiler\>\"", "->", "compilerChoice"}], ",", "\n", "        ",
+              RowBox[{"\"\<PerformanceGoal\>\"", "->", "\"\<Speed\>\""}]}], "]"}]}], ",", "\n", "      ",
+           RowBox[{"{",
+            RowBox[{"eq", ",",
+             RowBox[{"Keys", "@", "eqMap"}]}], "}"}]}], "]"}]}]}], ";", "\n", "    ",
+       RowBox[{"Print", "[",
+        RowBox[{"\"\<Kernels compiled: \>\"", ",",
+         RowBox[{"Keys", "[", "kernels", "]"}]}], "]"}], ";", "\n", "    ", "\n", "    ",
+       RowBox[{"(* Export to .mx file with metadata *)"}], "\n", "    ",
+       RowBox[{"Export", "[",
+        RowBox[{"mxFile", ",",
+         RowBox[{"<|", "\n", "      ",
+          RowBox[{
+           RowBox[{"\"\<kernels\>\"", "->", "kernels"}], ",", "\n", "      ",
+           RowBox[{"\"\<meta\>\"", "->",
+            RowBox[{"<|", "\n", "        ",
+             RowBox[{
+              RowBox[{"\"\<Version\>\"", "->", "$Version"}], ",", "\n", "        ",
+              RowBox[{"\"\<SystemID\>\"", "->", "$SystemID"}], ",", "\n", "        ",
+              RowBox[{"\"\<Date\>\"", "->",
+               RowBox[{"DateString", "[", "]"}]}], ",", "\n", "        ",
+              RowBox[{"\"\<Hash\>\"", "->", "currentHash"}]}], "\n", "      |>"}]}]}], "\n", "    |>"}], ",", "\"\<MX\>\""}], "]"}], ";", "\n", "    ",
+       RowBox[{"Print", "[",
+        RowBox[{"\"\<Exported to: \>\"", ",", "mxFile"}], "]"}]}]}], "\n", "  ", "]"}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"compilationResult", "=", "mxFile"}], ";"}], "\n",
  RowBox[{
   RowBox[{"Print", "[",
    RowBox[{"\"\<Compilation result: \>\"", ",", "compilationResult"}], "]"}], ";"}]}], "Input",
- CellLabel->"In[152]:="],
+ CellLabel->"In[194]:="],
 
 Cell[BoxData[{
  RowBox[{"(* Verify compiled file exists *)"}], "\n",
@@ -2488,14 +2864,248 @@ Cell[BoxData[{
  CellLabel->"In[159]:="],
 
 Cell[BoxData[{
- RowBox[{"(* Add numerical coefficient solutions using SolveEulerEq package *)"}], "\n",
- RowBox[{"(* This loads compiled kernels and solves for numerical values *)"}], "\n",
+ RowBox[{"(* ============================================ *)"}], "\n",
+ RowBox[{"(* UNROLLED: addCoeffsSolutionN[model] *)"}], "\n",
+ RowBox[{"(* From SolveEulerEq.wl - computes numerical coefficient solutions *)"}], "\n",
+ RowBox[{"(* ============================================ *)"}], "\n",
  RowBox[{
-  RowBox[{"Print", "[", "\"\<Computing numerical solutions...\>\"", "]"}], ";"}], "\n",
+  RowBox[{"Print", "[", "\"\<Computing numerical solutions (unrolled)...\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[160]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 1: Load compiled kernels from .mx file *)"}], "\n",
+ RowBox[{"(* This is the loadModelKernels function unrolled *)"}], "\n",
+ RowBox[{
+  RowBox[{"kernelShortname", "=",
+   RowBox[{"model", "[", "\"\<shortname\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"kernelFile", "=",
+   RowBox[{"FileNameJoin", "[",
+    RowBox[{"{",
+     RowBox[{"compiledDir", ",",
+      RowBox[{"kernelShortname", "<>", "\"\<.mx\>\""}]}], "}"}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Loading kernels from: \>\"", ",", "kernelFile"}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{"!",
+     RowBox[{"FileExistsQ", "[", "kernelFile", "]"}]}], ",", "\n", "  ",
+    RowBox[{
+     RowBox[{"Print", "[", "\"\<ERROR: Kernel file not found! Run Phase 2 first.\>\"", "]"}], ";",
+     RowBox[{"Abort", "[", "]"}]}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"savedKernels", "=",
+   RowBox[{"Import", "[",
+    RowBox[{"kernelFile", ",", "\"\<MX\>\""}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Kernel file loaded. Keys: \>\"", ",",
+    RowBox[{"Keys", "[", "savedKernels", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[161]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 2: Extract kernels and validate structure *)"}], "\n",
+ RowBox[{
+  RowBox[{"kernels", "=",
+   RowBox[{"savedKernels", "[", "\"\<kernels\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{"!",
+     RowBox[{"AssociationQ", "[", "kernels", "]"}]}], ",", "\n", "  ",
+    RowBox[{
+     RowBox[{"Print", "[", "\"\<ERROR: Invalid kernel structure\>\"", "]"}], ";",
+     RowBox[{"Abort", "[", "]"}]}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Available kernel types: \>\"", ",",
+    RowBox[{"Keys", "[", "kernels", "]"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[162]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 3: Set up updateCoeffs options *)"}], "\n",
+ RowBox[{"(* These match the defaults in addCoeffsSolutionN *)"}], "\n",
+ RowBox[{
+  RowBox[{"updatePd", "=", "True"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"updateBonds", "=", "True"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"maxMaturityNumerical", "=", "12"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"rootSigns", "=", "All"}], ";", " ",
+  RowBox[{"(*", " ",
+   RowBox[{"All", " ", "sign", " ", "combinations"}], " ", "*)"}]}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Options: UpdatePd=\>\"", ",", "updatePd", ",", "\"\<, UpdateBonds=\>\"", ",", "updateBonds", ",", "\"\<, MaxMaturity=\>\"", ",", "maxMaturityNumerical"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[163]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 4: Initialize parameters for numerical computation *)"}], "\n",
+ RowBox[{
+  RowBox[{"params", "=",
+   RowBox[{
+    RowBox[{
+     RowBox[{"Association", "@",
+      RowBox[{"model", "[", "\"\<params\>\"", "]"}]}], "//.",
+     RowBox[{"model", "[", "\"\<params\>\"", "]"}]}], "//", "N"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"newParams", "=",
+   RowBox[{"<|", "|>"}]}], ";", " ",
+  RowBox[{"(*", " ",
+   RowBox[{"No", " ", "override", " ", "parameters"}], " ", "*)"}]}], "\n",
+ RowBox[{
+  RowBox[{"numStocks", "=",
+   RowBox[{"model", "[", "\"\<numStocks\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Number of stocks: \>\"", ",", "numStocks"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[164]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 5: Normalize root signs - determine sign combinations to try *)"}], "\n",
+ RowBox[{"(* extractSignIndex gets sign indices from compiled kernels *)"}], "\n",
+ RowBox[{
+  RowBox[{"extractSignIndex", "[", "k_Association", "]"}], ":=",
+  RowBox[{"<|", "\n", "  ",
+   RowBox[{
+    RowBox[{"\"\<wc\>\"", "->",
+     RowBox[{"Lookup", "[",
+      RowBox[{
+       RowBox[{"Lookup", "[",
+        RowBox[{"k", ",", "\"\<A\>\"", ",",
+         RowBox[{"<|", "|>"}]}], "]"}], ",", "\"\<SignIndex\>\"", ",",
+       RowBox[{"{", "}"}]}], "]"}]}], ",", "\n", "  ",
+    RowBox[{"\"\<pd\>\"", "->",
+     RowBox[{"Lookup", "[",
+      RowBox[{
+       RowBox[{"Lookup", "[",
+        RowBox[{"k", ",", "\"\<B\>\"", ",",
+         RowBox[{"<|", "|>"}]}], "]"}], ",", "\"\<SignIndex\>\"", ",",
+       RowBox[{"{", "}"}]}], "]"}]}]}], "\n", "|>"}]}], "\n",
+ RowBox[{
+  RowBox[{"signIndex", "=",
+   RowBox[{"extractSignIndex", "[", "kernels", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Sign indices: \>\"", ",", "signIndex"}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[165]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 6: Call updateCoeffs to compute numerical solutions *)"}], "\n",
+ RowBox[{"(* This uses the deep functions solveCoeffRoots, updateCoeffsWcPd, etc. *)"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Running updateCoeffs (numerical root-finding)...\>\"", "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"numericalResults", "=",
+   RowBox[{"FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs", "[", "\n", "  ",
+    RowBox[{"model", ",", "\n", "  ", "savedKernels", ",", "\n", "  ",
+     RowBox[{"{", "}"}], ",", " ",
+     RowBox[{"(*", " ",
+      RowBox[{"newParameters", " ", "-", " ", "empty"}], " ", "*)"}], "\n", "  ",
+     RowBox[{"{", "}"}], ",", " ",
+     RowBox[{"(*", " ",
+      RowBox[{"guessCoeffsSolution", " ", "-", " ", "empty"}], " ", "*)"}], "\n", "  ",
+     RowBox[{"\"\<UpdatePd\>\"", "->", "updatePd"}], ",", "\n", "  ",
+     RowBox[{"\"\<UpdateBonds\>\"", "->", "updateBonds"}], ",", "\n", "  ",
+     RowBox[{"\"\<MaxMaturity\>\"", "->", "maxMaturityNumerical"}], ",", "\n", "  ",
+     RowBox[{"\"\<RootSigns\>\"", "->", "rootSigns"}]}], "\n", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<updateCoeffs returned \>\"", ",",
+    RowBox[{"Length", "[", "numericalResults", "]"}], ",", "\"\< solution(s)\>\""}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[166]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 7: Inspect results structure *)"}], "\n",
+ RowBox[{"(* Each result contains: IntervalA, SignsA, SolutionIndexA, IntervalIndexA, A, Stocks, Bond, NomBond *)"}], "\n",
+ RowBox[{
+  RowBox[{"If", "[",
+   RowBox[{
+    RowBox[{
+     RowBox[{"Length", "[", "numericalResults", "]"}], ">", "0"}], ",", "\n", "  ",
+    RowBox[{
+     RowBox[{"firstResult", "=",
+      RowBox[{"numericalResults", "[",
+       RowBox[{"[", "1", "]"}], "]"}]}], ";", "\n", "  ",
+     RowBox[{"Print", "[",
+      RowBox[{"\"\<First solution keys: \>\"", ",",
+       RowBox[{"Keys", "[", "firstResult", "]"}]}], "]"}], ";", "\n", "  ",
+     RowBox[{"Print", "[",
+      RowBox[{"\"\<A coefficients: \>\"", ",",
+       RowBox[{"Keys", "[",
+        RowBox[{"firstResult", "[", "\"\<A\>\"", "]"}], "]"}]}], "]"}], ";", "\n", "  ",
+     RowBox[{"If", "[",
+      RowBox[{
+       RowBox[{"KeyExistsQ", "[",
+        RowBox[{"firstResult", ",", "\"\<Stocks\>\""}], "]"}], ",", "\n", "    ",
+       RowBox[{"Print", "[",
+        RowBox[{"\"\<Stocks in result: \>\"", ",",
+         RowBox[{"Keys", "[",
+          RowBox[{"firstResult", "[", "\"\<Stocks\>\"", "]"}], "]"}]}], "]"}]}], "]"}], ";", "\n", "  ",
+     RowBox[{"If", "[",
+      RowBox[{
+       RowBox[{"!",
+        RowBox[{"MissingQ", "[",
+         RowBox[{"firstResult", "[", "\"\<Bond\>\"", "]"}], "]"}]}], ",", "\n", "    ",
+       RowBox[{"Print", "[",
+        RowBox[{"\"\<Bond maturities computed: \>\"", ",",
+         RowBox[{"Length", "[",
+          RowBox[{"firstResult", "[", "\"\<Bond\>\"", "]"}], "]"}]}], "]"}]}], "]"}]}], ",", "\n", "  ",
+    RowBox[{
+     RowBox[{"Print", "[", "\"\<WARNING: No numerical solutions found!\>\"", "]"}], ";"}]}], "]"}], ";"}]}], "Input",
+ CellLabel->"In[167]:="],
+
+Cell[BoxData[{
+ RowBox[{"(* Step 8: Add numerical results to model *)"}], "\n",
+ RowBox[{"(* Store in coeffsSolutionN key for compatibility *)"}], "\n",
+ RowBox[{
+  RowBox[{"coeffsSolutionN", "=",
+   RowBox[{"<|", "\n", "  ",
+    RowBox[{
+     RowBox[{"\"\<wc\>\"", "->",
+      RowBox[{"<|", "\n", "    ",
+       RowBox[{
+        RowBox[{"\"\<status\>\"", "->",
+         RowBox[{"If", "[",
+          RowBox[{
+           RowBox[{
+            RowBox[{"Length", "[", "numericalResults", "]"}], ">", "0"}], ",", "\"\<success\>\"", ",", "\"\<failed\>\""}], "]"}]}], ",", "\n", "    ",
+        RowBox[{"\"\<solutions\>\"", "->", "numericalResults"}]}], "\n", "  ", "|>"}]}], ",", "\n", "  ",
+     RowBox[{"\"\<pd\>\"", "->",
+      RowBox[{"<|", "\n", "    ",
+       RowBox[{
+        RowBox[{"\"\<status\>\"", "->",
+         RowBox[{"If", "[",
+          RowBox[{
+           RowBox[{"updatePd", "&&",
+            RowBox[{
+             RowBox[{"Length", "[", "numericalResults", "]"}], ">", "0"}]}], ",", "\"\<success\>\"", ",", "\"\<skipped\>\""}], "]"}]}], ",", "\n", "    ",
+        RowBox[{"\"\<numStocks\>\"", "->", "numStocks"}]}], "\n", "  ", "|>"}]}], ",", "\n", "  ",
+     RowBox[{"\"\<bond\>\"", "->",
+      RowBox[{"<|", "\n", "    ",
+       RowBox[{
+        RowBox[{"\"\<status\>\"", "->",
+         RowBox[{"If", "[",
+          RowBox[{"updateBonds", ",", "\"\<success\>\"", ",", "\"\<skipped\>\""}], "]"}]}], ",", "\n", "    ",
+        RowBox[{"\"\<maxMaturity\>\"", "->", "maxMaturityNumerical"}]}], "\n", "  ", "|>"}]}], ",", "\n", "  ",
+     RowBox[{"\"\<nombond\>\"", "->",
+      RowBox[{"<|", "\n", "    ",
+       RowBox[{
+        RowBox[{"\"\<status\>\"", "->",
+         RowBox[{"If", "[",
+          RowBox[{"updateBonds", ",", "\"\<success\>\"", ",", "\"\<skipped\>\""}], "]"}]}], ",", "\n", "    ",
+        RowBox[{"\"\<maxMaturity\>\"", "->", "maxMaturityNumerical"}]}], "\n", "  ", "|>"}]}]}], "\n", "|>"}]}], ";"}], "\n",
  RowBox[{
   RowBox[{"model", "=",
-   RowBox[{"FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN", "[", "model", "]"}]}], ";"}]}], "Input",
- CellLabel->"In[160]:="],
+   RowBox[{"Append", "[",
+    RowBox[{"model", ",",
+     RowBox[{"\"\<coeffsSolutionN\>\"", "->", "coeffsSolutionN"}]}], "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<Numerical solutions added to model.\>\"", "]"}], ";"}]}], "Input",
+ CellLabel->"In[168]:="],
 
 Cell[BoxData[{
  RowBox[{"(* Check the numerical solution status *)"}], "\n",

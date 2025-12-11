@@ -236,7 +236,11 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         logPQS["after desym substitution"];
 
         (* Apply square root simplification *)
-        {signRootMapDesym, signRadMapDesym} = simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss];
+        {signRootMapDesym, signRadMapDesym} = LocalEvaluate[
+          Block[{$HistoryLength = 0},
+            simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss]
+          ]
+        ];
         logPQS["after simplifySignMap"];
 
         (* Debug: capture state before doValidate block for testing *)

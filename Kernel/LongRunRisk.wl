@@ -18,6 +18,7 @@ If[
 	]
 ];
 Get["PacletizedResourceFunctions`"];
+Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]; (*run once to avoid Symbol::symname message*)
 
 (*install local version of MaTeX provided with LongRunRisk paclet if not already installed*)
 If[

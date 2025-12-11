@@ -621,10 +621,34 @@ simplifyCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}
 			assumeA=expandPatternAssumptions[sysA,modelAssumptions],
 			assumeB=expandPatternAssumptions[sysB,modelAssumptions]
 		},
-				{
-					Quiet[Assuming[assumeA, FullSimplify[sysA/. (1-gamma)/(1-1/psi)->theta, Sequence @@ simplifyOpts]],{FullSimplify::time}],
-					Quiet[Assuming[assumeB, FullSimplify[sysB/. (1-gamma)/(1-1/psi)->theta, Sequence @@ simplifyOpts]],{FullSimplify::time}]
-				}
+				With[
+					{
+						res = {
+							ParallelMap[
+								Assuming[
+									assumeA,
+									Quiet[
+										FullSimplify[#,Sequence @@ simplifyOpts],
+										{FullSimplify::time,FullSimplify::gtime}
+									]
+								]&,
+								sysA/. (1-gamma)/(1-1/psi)->theta
+							],
+							ParallelMap[
+								Assuming[
+									assumeB,
+									Quiet[
+										FullSimplify[#,Sequence @@ simplifyOpts],
+										{FullSimplify::time,FullSimplify::gtime}
+									]
+								]&,
+								sysB/. (1-gamma)/(1-1/psi)->theta
+							]
+						}
+					},
+					CloseKernels[];
+					res
+				]
 		](*With*)
 	] (*With*)
 ] (*With*)
@@ -764,9 +788,21 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								},
 								(*wc*)
 								solA["varsA0"] = Prepend[newVarsA,modelCoeffsSysWc[[2,1]]];
-								solA["eqA0"] = Assuming[
-									assumeA,
-									Quiet[FullSimplify[Prepend[newSysA,wcCoeffEq]/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
+								With[
+									{
+										eqA0Unsimplified = Prepend[newSysA,wcCoeffEq]/.solA["Solution"]
+									},
+									solA["eqA0"] = LocalEvaluate[
+										Block[{$HistoryLength = 0},
+											Assuming[
+												assumeA,
+												Quiet[
+													FullSimplify[eqA0Unsimplified,Sequence @@ simplifyOpts],
+													{FullSimplify::time,FullSimplify::gtime}
+												]
+											]
+										]
+									];
 								];
 								logSolve["after FullSimplify eqA0"];
 							];
@@ -784,17 +820,31 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 									solB["varsB0"] = Prepend[newVarsB,modelCoeffsSysPd[[2,1]]];
 									(*pd without plugging in wc coeffs - only if needed*)
 									If[MatchQ[pdMode, "B" | "Both"],
-										solB["eqB0"] = Assuming[
-											assumeB,
-											Quiet[FullSimplify[eqB0,Sequence @@ simplifyOpts],{FullSimplify::time}]
+										solB["eqB0"] = LocalEvaluate[
+											Block[{$HistoryLength = 0},
+												Assuming[
+													assumeB,
+													Quiet[
+														FullSimplify[eqB0,Sequence @@ simplifyOpts],
+														{FullSimplify::time,FullSimplify::gtime}
+													]
+												]
+											]
 										];
 										logSolve["after FullSimplify eqB0"];
 									];
 									(*pd plugging in wc coeffs - only if needed*)
 									If[MatchQ[pdMode, "AB" | "Both"],
-										solB["eqAB0"] = Assuming[
-											assumeB,
-											Quiet[FullSimplify[eqB0/.solA["Solution"],Sequence @@ simplifyOpts],{FullSimplify::time}]
+										solB["eqAB0"] = LocalEvaluate[
+											Block[{$HistoryLength = 0},
+												Assuming[
+													assumeB,
+													Quiet[
+														FullSimplify[eqB0/.solA["Solution"],Sequence @@ simplifyOpts],
+														{FullSimplify::time,FullSimplify::gtime}
+													]
+												]
+											]
 										];
 										logSolve["after FullSimplify eqAB0"];
 									];
