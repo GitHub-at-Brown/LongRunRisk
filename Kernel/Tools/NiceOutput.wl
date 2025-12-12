@@ -717,7 +717,7 @@ stringFormattingTemplate[str_String, lineLength_Number : 40] :=
 (*numberFormattingTemplate*)
 
 
-numberFormattingTemplate[num_,opts:OptionsPattern[]]:=ToString[num,InputForm,FilterRules[{opts},Options[ToString]],NumberMarks->False];
+numberFormattingTemplate[num_,opts:OptionsPattern[]]:=ToString[N@num,InputForm,FilterRules[{opts},Options[ToString]],NumberMarks->False];
 
 
 (* ::Subsubsection:: *)

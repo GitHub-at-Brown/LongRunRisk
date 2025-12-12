@@ -73,9 +73,9 @@ growth[
 			flowvar=Switch[
 				SymbolName[v],
 				"wc",
-				Symbol[Context[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`v]<>"dc"],
+				Symbol[Context[v]<>"dc"],
 				"pd",
-				Symbol[Context[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`v]<>"dd"]	
+				Symbol[Context[v]<>"dd"]	
 			];
 			(*must use numPeriods->1 for ratio*)
 			optsgt=Normal@Append[Association@optsgt,"numPeriods"->1];
