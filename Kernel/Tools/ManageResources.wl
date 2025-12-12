@@ -600,7 +600,12 @@ saveModels[models_Association, file_String] := Module[{dataModels, modelsData},
 	   Assign to local symbol first so DefinitionData can serialize properly. *)
 	modelsData = models;
 	dataModels = PacletizedResourceFunctions`DefinitionData[modelsData];
-	Put[dataModels, file];
+	(* Ensure correct context before saving - prevents shadowing issues *)
+	dataModels = PacletizedResourceFunctions`DefinitionData @@ List @@ dataModels;
+	(* Block $ContextPath so Put writes full context prefix *)
+	Block[{$ContextPath = {"System`"}},
+		Put[dataModels, file]
+	];
 	file
 ];
 

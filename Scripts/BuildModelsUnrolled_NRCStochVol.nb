@@ -212,169 +212,192 @@ Cell[BoxData[{
 
 Cell[BoxData[{
  RowBox[{"(* Canonicalize: Sort associations for consistent hashing *)"}], "\n",
+ RowBox[{"(* Note: Matches ManageResources.wl - lists are NOT sorted, only associations are key-sorted *)"}], "\n",
  RowBox[{
   RowBox[{
    RowBox[{"canonicalize", "[",
-    RowBox[{"assoc_Association", "?", "AssociationQ"}], "]"}], ":=",
+    RowBox[{"expr_Association"}], "]"}], ":=",
    RowBox[{"KeySort", "[",
     RowBox[{"Map", "[",
-     RowBox[{"canonicalize", ",", "assoc"}], "]"}], "]"}]}], ";"}], "\n",
+     RowBox[{"canonicalize", ",", "expr"}], "]"}], "]"}]}], ";"}], "\n",
  RowBox[{
   RowBox[{
    RowBox[{"canonicalize", "[",
-    RowBox[{"list_List"}], "]"}], ":=",
-   RowBox[{"Sort", "[",
-    RowBox[{"Map", "[",
-     RowBox[{"canonicalize", ",", "list"}], "]"}], "]"}]}], ";"}], "\n",
+    RowBox[{"expr_List"}], "]"}], ":=",
+   RowBox[{"Map", "[",
+    RowBox[{"canonicalize", ",", "expr"}], "]"}]}], ";"}], "\n",
  RowBox[{
   RowBox[{
-   RowBox[{"canonicalize", "[", "other_", "]"}], ":=", "other"}], ";"}]}], "Input",
+   RowBox[{"canonicalize", "[", "expr_", "]"}], ":=", "expr"}], ";"}]}], "Input",
  CellLabel->"In[35]:="],
 
 Cell[BoxData[{
  RowBox[{"(* Get canonical hash of an expression *)"}], "\n",
+ RowBox[{"(* Note: Uses ExportString to WL format, matching ManageResources.wl *)"}], "\n",
  RowBox[{
   RowBox[{
    RowBox[{"getCanonicalHash", "[", "expr_", "]"}], ":=",
    RowBox[{"Hash", "[",
     RowBox[{
-     RowBox[{"canonicalize", "[", "expr", "]"}], ",", "\"\<SHA256\>\"", ",", "\"\<HexString\>\""}], "]"}]}], ";"}]}], "Input",
+     RowBox[{"ExportString", "[",
+      RowBox[{
+       RowBox[{"canonicalize", "[", "expr", "]"}], ",", "\"\<WL\>\""}], "]"}], ",", "\"\<SHA256\>\"", ",", "\"\<HexString\>\""}], "]"}]}], ";"}]}], "Input",
  CellLabel->"In[38]:="],
 
 (* ::Section:: *)
 (*3.2 Manifest Management (from ManageResources.wl)*)
 
 Cell[BoxData[{
- RowBox[{"(* Safely load manifest file *)"}], "\n",
+ RowBox[{"(* Safely load manifest file - matches ManageResources.wl *)"}], "\n",
  RowBox[{
   RowBox[{
-   RowBox[{"loadManifestSafe", "[", "path_String", "]"}], ":=",
+   RowBox[{"loadManifestSafe", "[", "file_", "]"}], ":=",
    RowBox[{"Module", "[",
     RowBox[{
-     RowBox[{"{", "result", "}"}], ",", "\n", "    ",
+     RowBox[{"{",
+      RowBox[{"held", ",", "data"}], "}"}], ",", "\n", "    ",
      RowBox[{
       RowBox[{"If", "[",
        RowBox[{
         RowBox[{"!",
-         RowBox[{"FileExistsQ", "[", "path", "]"}]}], ",", "\n", "      ",
+         RowBox[{"FileExistsQ", "[", "file", "]"}]}], ",", "\n", "      ",
         RowBox[{"Return", "[",
-         RowBox[{"<|", "|>"}], "]"}]}], "]"}], ";", "\n", "    ",
-      RowBox[{"result", "=",
-       RowBox[{"Quiet", "[",
+         RowBox[{"<|", "\n", "        ",
+          RowBox[{
+           RowBox[{"\"\<PacletVersion\>\"", "->", "\"\<Missing\>\""}], ",", "\n", "        ",
+           RowBox[{"\"\<CatalogHash\>\"", "->", "\"\<\>\""}], ",", "\n", "        ",
+           RowBox[{"\"\<Models\>\"", "->",
+            RowBox[{"<|", "|>"}]}], ",", "\n", "        ",
+           RowBox[{"\"\<Date\>\"", "->", "\"\<\>\""}]}], "\n", "      ", "|>"}], "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"(* Parse without evaluation, then validate shape before releasing *)"}], "\n", "    ",
+      RowBox[{"held", "=",
+       RowBox[{"Check", "[",
         RowBox[{
-         RowBox[{"Check", "[",
+         RowBox[{"ToExpression", "[",
           RowBox[{
-           RowBox[{"Get", "[", "path", "]"}], ",", "$Failed"}], "]"}], ",",
-         RowBox[{"{",
-          RowBox[{
-           RowBox[{"Get", "::", "noopen"}], ",",
-           RowBox[{"Syntax", "::", "_"}]}], "}"}]}], "]"}]}], ";", "\n", "    ",
+           RowBox[{"Import", "[",
+            RowBox[{"file", ",", "\"\<Text\>\""}], "]"}], ",", "StandardForm", ",", "HoldComplete"}], "]"}], ",",
+         RowBox[{"Return", "[", "$Failed", "]"}]}], "]"}]}], ";", "\n", "    ",
       RowBox[{"If", "[",
        RowBox[{
+        RowBox[{"!",
+         RowBox[{"MatchQ", "[",
+          RowBox[{"held", ",",
+           RowBox[{"HoldComplete", "[", "_Association", "]"}]}], "]"}]}], ",",
+        RowBox[{"Return", "[", "$Failed", "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{"!",
+         RowBox[{"MatchQ", "[",
+          RowBox[{"held", ",",
+           RowBox[{"HoldComplete", "[",
+            RowBox[{"<|", "\n", "        ",
+             RowBox[{
+              RowBox[{"\"\<PacletVersion\>\"", "->", "_String"}], ",", "\n", "        ",
+              RowBox[{"\"\<CatalogHash\>\"", "->", "_String"}], ",", "\n", "        ",
+              RowBox[{"\"\<Models\>\"", "->", "_Association"}], ",", "\n", "        ",
+              RowBox[{"\"\<Date\>\"", "->", "_String"}]}], "\n", "      ", "|>"}], "]"}]}], "]"}]}], ",",
+        RowBox[{"Return", "[", "$Failed", "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"data", "=",
+       RowBox[{"held", "/.",
         RowBox[{
-         RowBox[{"result", "===", "$Failed"}], "||",
-         RowBox[{"!",
-          RowBox[{"AssociationQ", "[", "result", "]"}]}]}], ",", "\n", "      ",
-        RowBox[{"<|", "|>"}], ",", "\n", "      ", "result"}], "]"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+         RowBox[{"HoldComplete", "[", "x_", "]"}], ":>", "x"}]}]}], ";", "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{"!",
+         RowBox[{"VectorQ", "[",
+          RowBox[{
+           RowBox[{"Values", "[",
+            RowBox[{"data", "[", "\"\<Models\>\"", "]"}], "]"}], ",", "StringQ"}], "]"}]}], ",",
+        RowBox[{"Return", "[", "$Failed", "]"}]}], "]"}], ";", "\n", "    ", "data"}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
  CellLabel->"In[39]:="],
 
 (* ::Section:: *)
 (*3.3 Model Save/Load (from ManageResources.wl)*)
 
 Cell[BoxData[{
- RowBox[{"(* Save models using DefinitionData for serialization *)"}], "\n",
+ RowBox[{"(* Save models using DefinitionData for serialization - matches ManageResources.wl *)"}], "\n",
  RowBox[{
   RowBox[{
    RowBox[{"saveModels", "[",
-    RowBox[{"models_Association", ",", "path_String"}], "]"}], ":=",
+    RowBox[{"models_Association", ",", "file_String"}], "]"}], ":=",
    RowBox[{"Module", "[",
     RowBox[{
-     RowBox[{"{", "defData", "}"}], ",", "\n", "    ",
+     RowBox[{"{",
+      RowBox[{"dataModels", ",", "modelsData"}], "}"}], ",", "\n", "    ",
      RowBox[{
-      RowBox[{"defData", "=",
-       RowBox[{"PacletizedResourceFunctions`DefinitionData", "[", "models", "]"}]}], ";", "\n", "    ",
+      RowBox[{"Quiet", "[",
+       RowBox[{
+        RowBox[{"CreateDirectory", "[",
+         RowBox[{"DirectoryName", "[", "file", "]"}], "]"}], ",",
+        RowBox[{"{",
+         RowBox[{"CreateDirectory", "::", "eexist"}], "}"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"(* DefinitionData requires a Symbol, not an inline association. *)"}], "\n", "    ",
+      RowBox[{"(* Assign to local symbol first so DefinitionData can serialize properly. *)"}], "\n", "    ",
+      RowBox[{"modelsData", "=", "models"}], ";", "\n", "    ",
+      RowBox[{"dataModels", "=",
+       RowBox[{"PacletizedResourceFunctions`DefinitionData", "[", "modelsData", "]"}]}], ";", "\n", "    ",
       RowBox[{"Put", "[",
-       RowBox[{"defData", ",", "path"}], "]"}], ";", "\n", "    ", "path"}]}], "\n", "  ", "]"}]}], ";"}], "\n",
- RowBox[{"(* Load models from file *)"}], "\n",
+       RowBox[{"dataModels", ",", "file"}], "]"}], ";", "\n", "    ", "file"}]}], "\n", "  ", "]"}]}], ";"}], "\n",
+ RowBox[{"(* Load models from file - Get@Get triggers DefinitionData UpValue *)"}], "\n",
  RowBox[{
   RowBox[{
-   RowBox[{"loadModels", "[", "path_String", "]"}], ":=",
-   RowBox[{"Module", "[",
+   RowBox[{"loadModels", "[", "file_String", "]"}], ":=",
+   RowBox[{"If", "[",
     RowBox[{
-     RowBox[{"{", "defData", "}"}], ",", "\n", "    ",
-     RowBox[{
-      RowBox[{"If", "[",
-       RowBox[{
-        RowBox[{"!",
-         RowBox[{"FileExistsQ", "[", "path", "]"}]}], ",",
-        RowBox[{"Return", "[",
-         RowBox[{"<|", "|>"}], "]"}]}], "]"}], ";", "\n", "    ",
-      RowBox[{"defData", "=",
-       RowBox[{"Get", "[", "path", "]"}]}], ";", "\n", "    ",
-      RowBox[{"PacletizedResourceFunctions`DefinitionData", "[", "defData", "]"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+     RowBox[{"FileExistsQ", "[", "file", "]"}], ",",
+     RowBox[{"Get", "@",
+      RowBox[{"Get", "[", "file", "]"}]}], ",",
+     RowBox[{"<|", "|>"}]}], "]"}]}], ";"}]}], "Input",
  CellLabel->"In[40]:="],
 
 (* ::Section:: *)
 (*3.4 Moments Hash Functions (from ManageResources.wl)*)
 
 Cell[BoxData[{
- RowBox[{"(* Compute hash for moments cache validity *)"}], "\n",
+ RowBox[{"(* Compute hash for moments cache validity - matches ManageResources.wl *)"}], "\n",
  RowBox[{
   RowBox[{
    RowBox[{"getMomentsHash", "[",
-    RowBox[{"model_Association", ",", "maxMat_Integer"}], "]"}], ":=",
-   RowBox[{"Module", "[",
-    RowBox[{
-     RowBox[{"{", "relevantKeys", "}"}], ",", "\n", "    ",
+    RowBox[{"catalogEntry_Association", ",", "model_Association"}], "]"}], ":=",
+   RowBox[{"getCanonicalHash", "[",
+    RowBox[{"<|", "\n", "    ",
      RowBox[{
-      RowBox[{"relevantKeys", "=",
-       RowBox[{"{",
-        RowBox[{"\"\<shortname\>\"", ",", "\"\<stateVars\>\"", ",", "\"\<params\>\"", ",", "\"\<assumptions\>\"", ",", "\"\<catalogHash\>\""}], "}"}]}], ";", "\n", "    ",
-      RowBox[{"getCanonicalHash", "[",
-       RowBox[{"{",
-        RowBox[{
-         RowBox[{"KeyTake", "[",
-          RowBox[{"model", ",", "relevantKeys"}], "]"}], ",", "maxMat"}], "}"}], "]"}]}]}], "\n", "  ", "]"}]}], ";"}], "\n",
- RowBox[{"(* Check if moments files are up to date *)"}], "\n",
+      RowBox[{"\"\<catalog\>\"", "->", "catalogEntry"}], ",", "\n", "    ",
+      RowBox[{"\"\<exogenousEq\>\"", "->",
+       RowBox[{"model", "[", "\"\<exogenousEq\>\"", "]"}]}], ",", "\n", "    ",
+      RowBox[{"\"\<endogenousEq\>\"", "->",
+       RowBox[{"model", "[", "\"\<endogenousEq\>\"", "]"}]}]}], "\n", "  ", "|>"}], "]"}]}], ";"}], "\n",
+ RowBox[{"(* Check if moments files are up to date - matches ManageResources.wl *)"}], "\n",
  RowBox[{
   RowBox[{
    RowBox[{"momentsUpToDate", "[",
-    RowBox[{"model_Association", ",", "momDir_String", ",", "maxMat_Integer", ",", "manifest_Association"}], "]"}], ":=",
+    RowBox[{"momentsFile_String", ",", "metaFile_String", ",", "expectedHash_String"}], "]"}], ":=",
    RowBox[{"Module", "[",
     RowBox[{
      RowBox[{"{",
-      RowBox[{"shortname", ",", "momFile", ",", "metaFile", ",", "currentHash", ",", "storedHash"}], "}"}], ",", "\n", "    ",
+      RowBox[{"savedMeta", ",", "savedHash"}], "}"}], ",", "\n", "    ",
      RowBox[{
-      RowBox[{"shortname", "=",
-       RowBox[{"model", "[", "\"\<shortname\>\"", "]"}]}], ";", "\n", "    ",
-      RowBox[{"momFile", "=",
-       RowBox[{"FileNameJoin", "[",
-        RowBox[{"{",
-         RowBox[{"momDir", ",",
-          RowBox[{"\"\<covLong\>\"", "<>", "shortname", "<>", "\"\<.wl\>\""}]}], "}"}], "]"}]}], ";", "\n", "    ",
-      RowBox[{"metaFile", "=",
-       RowBox[{"FileNameJoin", "[",
-        RowBox[{"{",
-         RowBox[{"momDir", ",",
-          RowBox[{"\"\<covLong\>\"", "<>", "shortname", "<>", "\"\<_meta.wl\>\""}]}], "}"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"(* Both files must exist *)"}], "\n", "    ",
       RowBox[{"If", "[",
        RowBox[{
         RowBox[{
          RowBox[{"!",
-          RowBox[{"FileExistsQ", "[", "momFile", "]"}]}], "||",
+          RowBox[{"FileExistsQ", "[", "momentsFile", "]"}]}], "||",
          RowBox[{"!",
           RowBox[{"FileExistsQ", "[", "metaFile", "]"}]}]}], ",",
         RowBox[{"Return", "[", "False", "]"}]}], "]"}], ";", "\n", "    ",
-      RowBox[{"currentHash", "=",
-       RowBox[{"getMomentsHash", "[",
-        RowBox[{"model", ",", "maxMat"}], "]"}]}], ";", "\n", "    ",
-      RowBox[{"storedHash", "=",
-       RowBox[{"Lookup", "[",
-        RowBox[{
-         RowBox[{"Lookup", "[",
-          RowBox[{"manifest", ",", "shortname", ",",
-           RowBox[{"<|", "|>"}]}], "]"}], ",", "\"\<momentsHash\>\"", ",", "\"\<\>\""}], "]"}]}], ";", "\n", "    ",
-      RowBox[{"currentHash", "===", "storedHash"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
+      RowBox[{"savedMeta", "=",
+       RowBox[{"Quiet", "[",
+        RowBox[{"Get", "[", "metaFile", "]"}], "]"}]}], ";", "\n", "    ",
+      RowBox[{"If", "[",
+       RowBox[{
+        RowBox[{"!",
+         RowBox[{"AssociationQ", "[", "savedMeta", "]"}]}], ",",
+        RowBox[{"Return", "[", "False", "]"}]}], "]"}], ";", "\n", "    ",
+      RowBox[{"savedHash", "=",
+       RowBox[{"savedMeta", "[", "\"\<Hash\>\"", "]"}]}], ";", "\n", "    ",
+      RowBox[{"savedHash", "===", "expectedHash"}]}]}], "\n", "  ", "]"}]}], ";"}]}], "Input",
  CellLabel->"In[42]:="],
 
 (* ::Section:: *)
@@ -596,85 +619,24 @@ Cell[BoxData[{
 (*4.1 Model Specification*)
 
 Cell[BoxData[{
- RowBox[{"(* NRCStochVol model definition - copied from Catalog.wl lines 1686-1782 *)"}], "\n",
+ RowBox[{"(* Load NRCStochVol model directly from Catalog.wl *)"}], "\n",
+ RowBox[{"(* This ensures the notebook always uses the current model definition *)"}], "\n",
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FernandoDuarte`LongRunRisk`Model`Catalog`\>\"", "]"}], ";"}], "\n",
  RowBox[{
   RowBox[{"nrcStochVolModel", "=",
-   RowBox[{"<|", "\n", "  ",
-    RowBox[{
-     RowBox[{"\"\<shortname\>\"", "->", "\"\<NRCStochVol\>\""}], ",", "\n", "  ",
-     RowBox[{"\"\<enabled\>\"", "->", "True"}], ",", "\n", "  ",
-     RowBox[{"\"\<stateVars\>\"", "->",
-      RowBox[{"{",
-       RowBox[{
-        RowBox[{"x", "[", "t", "]"}], ",",
-        RowBox[{"pie", "[", "t", "]"}], ",",
-        RowBox[{"pibar", "[", "t", "]"}], ",",
-        RowBox[{"sg", "[", "t", "]"}], ",",
-        RowBox[{"sx", "[", "t", "]"}], ",",
-        RowBox[{"sc", "[", "t", "]"}], ",",
-        RowBox[{"sp", "[", "t", "]"}]}], "}"}]}], ",", "\n", "  ",
-     RowBox[{"\"\<params\>\"", "->",
-      RowBox[{"<|", "\n", "    ",
-       RowBox[{"(* Consumption growth *)"}], "\n", "    ",
-       RowBox[{
-        RowBox[{"\"\<muc\>\"", "->", "0.0015"}], ",", "\n", "    ",
-        RowBox[{"\"\<rhocx\>\"", "->", "1"}], ",", "\n", "    ",
-        RowBox[{"\"\<rhocp\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"\"\<phic\>\"", "->", "0.0078"}], ",", "\n", "    ",
-        RowBox[{"(* Long-run risk x *)"}], "\n", "    ",
-        RowBox[{"\"\<rhox\>\"", "->", "0.979"}], ",", "\n", "    ",
-        RowBox[{"\"\<phix\>\"", "->", "0.044"}], ",", "\n", "    ",
-        RowBox[{"\"\<phixc\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"(* Inflation pi *)"}], "\n", "    ",
-        RowBox[{"\"\<mup\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"\"\<rhoppbar\>\"", "->", "1"}], ",", "\n", "    ",
-        RowBox[{"\"\<rhop\>\"", "->", "0.941"}], ",", "\n", "    ",
-        RowBox[{"\"\<phip\>\"", "->", "0.0024"}], ",", "\n", "    ",
-        RowBox[{"\"\<xip\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"(* Expected inflation pibar *)"}], "\n", "    ",
-        RowBox[{"\"\<mupbar\>\"", "->", "0.003"}], ",", "\n", "    ",
-        RowBox[{"\"\<rhopbar\>\"", "->", "0.99"}], ",", "\n", "    ",
-        RowBox[{"\"\<phipbar\>\"", "->", "0.0001"}], ",", "\n", "    ",
-        RowBox[{"(* Stochastic volatility of LRR sx *)"}], "\n", "    ",
-        RowBox[{"\"\<vx\>\"", "->", "1"}], ",", "\n", "    ",
-        RowBox[{"\"\<rhosxs\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"\"\<phisxs\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"(* Stochastic volatility of consumption sc *)"}], "\n", "    ",
-        RowBox[{"\"\<vc\>\"", "->", "1"}], ",", "\n", "    ",
-        RowBox[{"\"\<rhoscv\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"\"\<phiscv\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"(* Stochastic volatility of inflation sp - THE KEY FEATURE *)"}], "\n", "    ",
-        RowBox[{"\"\<vp\>\"", "->", "1"}], ",", "\n", "    ",
-        RowBox[{"\"\<vpp\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"\"\<vppbar\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"\"\<rhospw\>\"", "->", "0.99"}], ",", "\n", "    ",
-        RowBox[{"\"\<phispw\>\"", "->", "0.00001"}], ",", "\n", "    ",
-        RowBox[{"(* Nominal-real covariance sg - THE NRC COMPONENT *)"}], "\n", "    ",
-        RowBox[{"\"\<Esg\>\"", "->",
-         RowBox[{"-", "0.00001"}]}], ",", "\n", "    ",
-        RowBox[{"\"\<rhog\>\"", "->", "0.99"}], ",", "\n", "    ",
-        RowBox[{"\"\<phig\>\"", "->", "0.00001"}], ",", "\n", "    ",
-        RowBox[{"(* Preferences *)"}], "\n", "    ",
-        RowBox[{"\"\<delta\>\"", "->", "0.999"}], ",", "\n", "    ",
-        RowBox[{"\"\<gamma\>\"", "->", "10"}], ",", "\n", "    ",
-        RowBox[{"\"\<psi\>\"", "->", "1.5"}], ",", "\n", "    ",
-        RowBox[{"(* Stock 1 dividend parameters *)"}], "\n", "    ",
-        RowBox[{"\"\<mud[1]\>\"", "->", "0.0015"}], ",", "\n", "    ",
-        RowBox[{"\"\<phi[1]\>\"", "->", "4.5"}], ",", "\n", "    ",
-        RowBox[{"\"\<rhodx[1]\>\"", "->", "3"}], ",", "\n", "    ",
-        RowBox[{"\"\<rhods[1]\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"\"\<rhodp[1]\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"\"\<phidc[1]\>\"", "->", "0"}], ",", "\n", "    ",
-        RowBox[{"\"\<phid[1]\>\"", "->", "0.0078"}]}], "\n", "  ", "|>"}]}], ",", "\n", "  ",
-     RowBox[{"\"\<assumptions\>\"", "->",
-      RowBox[{"{",
-       RowBox[{
-        RowBox[{"delta", ">", "0"}], ",",
-        RowBox[{"delta", "<", "1"}], ",",
-        RowBox[{"gamma", ">", "0"}], ",",
-        RowBox[{"psi", ">", "0"}]}], "}"}]}], ",", "\n", "  ",
-     RowBox[{"\"\<extraInfo\>\"", "->",
-      RowBox[{"<|", "|>"}]}]}], "\n", "|>"}]}], ";"}]}], "Input",
+   RowBox[{"FernandoDuarte`LongRunRisk`Model`Catalog`models", "[", "\"\<NRCStochVol\>\"", "]"}]}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Loaded NRCStochVol model from Catalog.wl\>\""}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<Model keys: \>\"", ",",
+    RowBox[{"Keys", "[", "nrcStochVolModel", "]"}]}], "]"}], ";"}], "\n",
+ RowBox[{
+  RowBox[{"Print", "[",
+   RowBox[{"\"\<State variables: \>\"", ",",
+    RowBox[{"nrcStochVolModel", "[", "\"\<stateVars\>\"", "]"}]}], "]"}], ";"}]}], "Input",
  CellLabel->"In[51]:="],
 
 Cell[BoxData[{

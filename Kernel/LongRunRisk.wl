@@ -91,7 +91,7 @@ UncondE; UncondCov; UncondVar; UncondCorr;
 Ev; Var; Cov; Corr;
 Growth;
 YieldCurve;PlotCoeffs;
-VisualizeCoeffs
+VisualizeCoeffs;
 (*t;*)
 (*covLongBY;covLongNRC;covLongDES;*)
 
@@ -177,15 +177,20 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 (*load file with pre-processed models and pre-computed moments*)
 Needs["PacletTools`"];
 pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
-filesInResources = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources"|>}];
-FernandoDuarte`LongRunRisk`Models =Get@Get@(First@Flatten@StringCases[filesInResources,__~~"Models.wl"]);
-Map[
+
+modelFilename=FindFile[File["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Resources/Models.wl"]];
+
+(*filesInResources = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources"|>}];
+modelFilename=FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]];*)
+FernandoDuarte`LongRunRisk`Models = Get@Get["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Resources/Models.wl"];
+(*FernandoDuarte`LongRunRisk`Models = Get@data;*)
+(*Map[
 	Get@Get@#&,
 	Select[
 		Flatten@StringCases[filesInResources,__~~".wl"],
 		Function[s, Not@StringEndsQ[s, "_meta.wl" | "ModelManifest.wl" | "Models.wl" ]]
 	]
-];
+];*)
 
 
 (* ::Subsection:: *)
