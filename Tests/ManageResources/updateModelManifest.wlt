@@ -22,6 +22,9 @@ $getVersion = ToExpression["FernandoDuarte`LongRunRisk`Tools`ManageResources`Pri
 
 $timeLimit = 5;
 
+(* Helper for creating temp directories - uses $TemporaryDirectory as reliable fallback *)
+$makeTempDir[] := CreateDirectory[FileNameJoin[{$TemporaryDirectory, "lrr-test-" <> CreateUUID[]}]];
+
 (* ============================================================ *)
 (* Hash Determinism Tests *)
 (* ============================================================ *)
@@ -76,7 +79,7 @@ VerificationTest[
 
 VerificationTest[
   Module[{tmp, manifestFile, result, fileExists},
-    tmp = CreateDirectory[FileNameJoin[{DirectoryName[$InputFileName], "tmp-" <> CreateUUID[]}]];
+    tmp = $makeTempDir[];
     manifestFile = FileNameJoin[{tmp, "Resources", "ModelManifest.wl"}];
     Block[
       {
@@ -104,7 +107,7 @@ VerificationTest[
 VerificationTest[
   Module[
     {tmp, manifestFile, catalogOverride, result, fileData, dropDate, dateOK, versionOK, hashesOK},
-    tmp = CreateDirectory[FileNameJoin[{DirectoryName[$InputFileName], "tmp-" <> CreateUUID[]}]];
+    tmp = $makeTempDir[];
     manifestFile = FileNameJoin[{tmp, "Resources", "ModelManifest.wl"}];
     catalogOverride = <|"ModelA" -> <|"a" -> 1|>, "ModelB" -> <|"b" -> {1, 2}|>|>;
     dropDate = KeyDrop[#, {"Date"}] &;

@@ -79,7 +79,7 @@ VerificationTest[
   (* unicode should be preserved *)
   $normalizeWhitespace["Müller–Lyer illusion with αβγ symbols"],
   "Müller–Lyer illusion with αβγ symbols",
-"normalizeWhitespace-unicode-preserved@@Tests/NiceOutput/stringFormatting.wlt:78,1-83,2"e-preserved"
+  TestID -> "normalizeWhitespace-unicode-preserved@@Tests/NiceOutput/stringFormatting.wlt:78,1-83,2"
 ]
 
 (* ============================================================ *)
@@ -95,7 +95,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-"stringFormattingTemplate-idempotent-short@@Tests/NiceOutput/stringFormatting.wlt:89,1-99,2"otent-short"
+  TestID -> "stringFormattingTemplate-idempotent-short@@Tests/NiceOutput/stringFormatting.wlt:89,1-99,2"
 ]
 
 VerificationTest[
@@ -108,7 +108,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-"stringFormattingTemplate-idempotent-long@@Tests/NiceOutput/stringFormatting.wlt:101,1-112,2"potent-long"
+  TestID -> "stringFormattingTemplate-idempotent-long@@Tests/NiceOutput/stringFormatting.wlt:101,1-112,2"
 ]
 
 VerificationTest[
@@ -120,7 +120,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-"stringFormattingTemplate-content-preserved@@Tests/NiceOutput/stringFormatting.wlt:114,1-124,2"t-preserved"
+  TestID -> "stringFormattingTemplate-content-preserved@@Tests/NiceOutput/stringFormatting.wlt:114,1-124,2"
 ]
 
 VerificationTest[
@@ -131,7 +131,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-"stringFormattingTemplate-inserts-line-breaks@@Tests/NiceOutput/stringFormatting.wlt:126,1-135,2"line-breaks"
+  TestID -> "stringFormattingTemplate-inserts-line-breaks@@Tests/NiceOutput/stringFormatting.wlt:126,1-135,2"
 ]
 
 VerificationTest[
@@ -142,7 +142,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-"stringFormattingTemplate-adds-indentation@@Tests/NiceOutput/stringFormatting.wlt:137,1-146,2"indentation"
+  TestID -> "stringFormattingTemplate-adds-indentation@@Tests/NiceOutput/stringFormatting.wlt:137,1-146,2"
 ]
 
 (* ============================================================ *)
@@ -159,7 +159,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-"stringFormattingTemplate-idempotent-preformatted@@Tests/NiceOutput/stringFormatting.wlt:152,1-163,2"reformatted"
+  TestID -> "stringFormattingTemplate-idempotent-preformatted@@Tests/NiceOutput/stringFormatting.wlt:152,1-163,2"
 ]
 
 VerificationTest[
@@ -173,5 +173,5 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-"stringFormattingTemplate-stable-length@@Tests/NiceOutput/stringFormatting.wlt:165,1-177,2"able-length"
+  TestID -> "stringFormattingTemplate-stable-length@@Tests/NiceOutput/stringFormatting.wlt:165,1-177,2"
 ]

@@ -185,7 +185,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  Test"formatModels-unicode-preserved@@Tests/NiceOutput/formatModels.wlt:179,1-189,2"erved"
+  TestID -> "formatModels-unicode-preserved@@Tests/NiceOutput/formatModels.wlt:179,1-189,2"
 ]
 
 (* ============================================================ *)
@@ -201,7 +201,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> 30,
-  Test"formatModels-full-catalog@@Tests/NiceOutput/formatModels.wlt:195,1-205,2"talog"
+  TestID -> "formatModels-full-catalog@@Tests/NiceOutput/formatModels.wlt:195,1-205,2"
 ]
 
 VerificationTest[
@@ -216,5 +216,5 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> 30,
-  Test"formatModels-all-models-in-output@@Tests/NiceOutput/formatModels.wlt:207,1-220,2"utput"
+  TestID -> "formatModels-all-models-in-output@@Tests/NiceOutput/formatModels.wlt:207,1-220,2"
 ]
