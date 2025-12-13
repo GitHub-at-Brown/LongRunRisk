@@ -1,7 +1,7 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Preliminaries*)
 
 
@@ -73,7 +73,7 @@ DeleteFile[testFilePath<>"temp"];
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*replaceNthRecord*)*)*)*)*)
+(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -102,7 +102,7 @@ Close /@ {readStream, writeStream}
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*countLines*)*)*)*)*)
+(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -146,7 +146,7 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)
+(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -215,7 +215,7 @@ ClearSystemCache[];
 (*Generate Tests*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Catalog`*)
 
 
@@ -386,10 +386,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-runTests[testFilePath]
-
-
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`EndogenousEq`*)
 
 
@@ -619,7 +616,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ExogenousEq`*)
 
 
@@ -723,7 +720,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ProcessModels`*)
 
 
@@ -1145,7 +1142,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Shocks`*)
 
 
@@ -1423,7 +1420,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeConditionalExpectations`*)
 
 
@@ -1735,7 +1732,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -2108,7 +2105,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateEulerEq`*)
 
 
@@ -2298,7 +2295,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateMomentsDatabase`*)
 
 
@@ -2449,7 +2446,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`SolveEulerEq`*)
 
 
@@ -2479,8 +2476,273 @@ True
 ];
 
 
-(* ::Input::Initialization::"Tags"-><|"DuplicateKeys" -> <|"ListOfRules" -> <|Enabled -> False|>|>|>:: *)
 ResourceFunction["WriteUnitTest"][testFilePath,
+
+  Off[General::stop];
+  If[Not@longTest, Off[FindRoot::cvmit]];
+
+  FernandoDuarte`LongRunRisk`Models =
+    Get@Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]];
+
+  msp = FernandoDuarte`LongRunRisk`Models;
+  modBY = msp["BY"];
+  modBKY = msp["BKY"];
+  modNRC = msp["NRC"];
+  modDES = msp["DES"];
+  modNRCStochVol = msp["NRCStochVol"];
+
+  mods = If[longTest,
+    {modBY, modBKY, modNRC, modDES, modNRCStochVol},
+    {modBKY, modDES}
+  ];
+
+  updateCoeffs =
+    FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs;
+  updateCoeffsSol =
+    FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsSol;
+  loadModelKernels =
+    FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`loadModelKernels;
+  updateCoeffsBond =
+    FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsBond;
+
+  ClearAll[outTests];
+
+  (* expects a flat list of rules OR an Association of rules *)
+  coeffsQ[solIn_, coeffName_, numStateVars_, numAssets_: 0, bond_: 0] := Module[
+    {sol = solIn},
+    sol = Which[
+      AssociationQ[sol], Normal[sol],
+      True, sol
+    ];
+    If[! ListQ[sol], Return[False]];
+    And @@ {
+      If[numAssets == 0,
+        (Sort @ Cases[Keys /@ sol, coeffName[i_Integer] :> i]) === (Range[numStateVars + 1] - 1),
+        (Sort @ Tuples[{Range[numAssets] - bond, Range[numStateVars + 1] - 1}]) ===
+          (Sort @ Cases[Keys /@ sol, coeffName[i_Integer][j_Integer] :> {i, j}])
+      ],
+      And @@ (MatchQ[#, coeffName] & /@ Cases[Keys /@ sol, var_[i_Integer][j_Integer] :> var]),
+      And @@ (Map[Function[# === Context[coeffName]],
+        Cases[Keys /@ sol, var_[i_Integer][j_Integer] :> Context[var]]
+      ]),
+      And @@ (NumberQ /@ (Values /@ sol))
+    }
+  ];
+
+  (* extractors for hierarchical updateCoeffs output *)
+  firstASol[res_] := If[
+    ListQ[res] && res =!= {} && AssociationQ[First[res]] && KeyExistsQ[First[res], "A"],
+    First[res],
+    $Failed
+  ];
+
+  wcRulesFirst[res_] := Module[{a = firstASol[res]},
+    If[a === $Failed, $Failed, Normal[a["A"]]]
+  ];
+
+  pdRulesFirstBundle[res_, numStocks_] := Module[{a = firstASol[res], stocks},
+    If[a === $Failed, Return[$Failed]];
+    stocks = a["Stocks"];
+    If[! AssociationQ[stocks] || stocks === <||>, Return[{}]];
+    Flatten@Table[
+      If[KeyExistsQ[stocks, j] && ListQ[stocks[j]] && stocks[j] =!= {},
+        Normal[stocks[j][[1, "B"]]],
+        {}
+      ],
+      {j, 1, numStocks}
+    ]
+  ];
+
+  Do[
+    ind = 0;
+
+    numStateVars = Length[thisModel["stateVars"][t]];
+    numStocks = thisModel["numStocks"];
+
+    coeffsQWcRules[solRules_] :=
+      coeffsQ[solRules, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc, numStateVars];
+    coeffsQPdRules[solRules_] :=
+      coeffsQ[solRules, Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd, numStateVars, numStocks];
+    coeffsQBondRules[solRules_, maxMaturity_] :=
+      coeffsQ[solRules, Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb, numStateVars, maxMaturity + 1, 1];
+    coeffsQNomBondRules[solRules_, maxMaturity_] :=
+      coeffsQ[solRules, Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb, numStateVars, maxMaturity + 1, 1];
+
+    savedKernels = loadModelKernels[thisModel];
+
+    (* WC: updateCoeffs vs updateCoeffsSol (A rules match) *)
+    optsWc = {"MaxIterations" -> 100};
+    resWc = Quiet@updateCoeffs[thisModel, optsWc];
+    resWcSol = Quiet@updateCoeffsSol[thisModel, savedKernels, {}, {}, optsWc];
+
+    outTests[thisModel["shortname"]][ind] = And @@ {
+      ListQ[resWc] && resWc =!= {},
+      ListQ[resWcSol] && resWcSol =!= {},
+      wcRulesFirst[resWc] =!= $Failed,
+      wcRulesFirst[resWcSol] =!= $Failed,
+      wcRulesFirst[resWc] === wcRulesFirst[resWcSol],
+      coeffsQWcRules[wcRulesFirst[resWc]]
+    };
+    ind = ind + 1;
+
+    (* UpdatePd option: extract wc/pd from hierarchical structure *)
+    Ewc0 = 4.6;
+
+    resNoPd = Quiet@updateCoeffs[
+      thisModel,
+      "UpdatePd" -> False,
+      "initialGuess" -> <|"Ewc" -> {Ewc0}, "Epd" -> {{5.5}}|>
+    ];
+    outTests[thisModel["shortname"]][ind] = coeffsQWcRules[wcRulesFirst[resNoPd]];
+    ind = ind + 1;
+
+    resWcPd = Quiet@updateCoeffs[
+      thisModel,
+      "UpdatePd" -> True,
+      "initialGuess" -> <|"Ewc" -> {Ewc0}, "Epd" -> {{5.5}}|>
+    ];
+
+    coeffsWc = wcRulesFirst[resWcPd];
+    coeffsPd = pdRulesFirstBundle[resWcPd, numStocks];
+
+    outTests[thisModel["shortname"]][ind] = coeffsQWcRules[coeffsWc];
+    ind = ind + 1;
+
+    outTests[thisModel["shortname"]][ind] = coeffsQPdRules[coeffsPd];
+    ind = ind + 1;
+
+    (* initialGuess interval forms *)
+    outTests[thisModel["shortname"]][ind] = And @@ {
+      coeffsQWcRules[
+        wcRulesFirst @ Quiet@updateCoeffs[thisModel, "initialGuess" -> <|"Ewc" -> {1, 8}|>]
+      ],
+      coeffsQWcRules[
+        wcRulesFirst @ Quiet@updateCoeffs[thisModel, "initialGuess" -> <|"Ewc" -> {4, 1, 8}|>]
+      ]
+    };
+    ind = ind + 1;
+
+    (* bonds: updateCoeffsBond expects LIST of wc coeff sets (one per A solution) *)
+    maxMaturity = 12;
+    wcCoeffSets = resWc[[All, "A"]];
+
+    solBond = updateCoeffsBond[
+      thisModel["coeffsSolution"]["bond"],
+      thisModel["params"],
+      {},
+      maxMaturity,
+      wcCoeffSets
+    ];
+    solNomBond = updateCoeffsBond[
+      thisModel["coeffsSolution"]["nombond"],
+      thisModel["params"],
+      {},
+      maxMaturity,
+      wcCoeffSets
+    ];
+
+    outTests[thisModel["shortname"]][ind] = And @@ {
+      ListQ[solBond] && solBond =!= {},
+      ListQ[solNomBond] && solNomBond =!= {},
+      And @@ (coeffsQBondRules[Normal[#], maxMaturity] & /@ solBond),
+      And @@ (coeffsQNomBondRules[Normal[#], maxMaturity] & /@ solNomBond)
+    };
+    ind = ind + 1;
+
+    (* newParameters impact bonds *)
+    newBondParams = {
+      FernandoDuarte`LongRunRisk`Model`Parameters`psi ->
+        (0.1 + (FernandoDuarte`LongRunRisk`Model`Parameters`psi /. thisModel["params"]))
+    };
+
+    resWcNewBondParams = Quiet@updateCoeffs[thisModel, {}, newBondParams, {}, optsWc];
+    wcCoeffSetsNew = resWcNewBondParams[[All, "A"]];
+
+    solBondNew = updateCoeffsBond[
+      thisModel["coeffsSolution"]["bond"],
+      thisModel["params"],
+      newBondParams,
+      maxMaturity,
+      wcCoeffSetsNew
+    ];
+    solNomBondNew = updateCoeffsBond[
+      thisModel["coeffsSolution"]["nombond"],
+      thisModel["params"],
+      newBondParams,
+      maxMaturity,
+      wcCoeffSetsNew
+    ];
+
+    outTests[thisModel["shortname"]][ind] = And @@ {
+      And @@ (coeffsQBondRules[Normal[#], maxMaturity] & /@ solBondNew),
+      And @@ (coeffsQNomBondRules[Normal[#], maxMaturity] & /@ solNomBondNew),
+      Not[solBond === solBondNew],
+      Not[solNomBond === solNomBondNew]
+    };
+    ind = ind + 1;
+
+    (* maxMaturity affects key ranges *)
+    oldMaxMaturity = maxMaturity;
+    maxMaturity = 2;
+
+    solBond2 = updateCoeffsBond[
+      thisModel["coeffsSolution"]["bond"],
+      thisModel["params"],
+      {},
+      maxMaturity,
+      wcCoeffSets
+    ];
+    solNomBond2 = updateCoeffsBond[
+      thisModel["coeffsSolution"]["nombond"],
+      thisModel["params"],
+      {},
+      maxMaturity,
+      wcCoeffSets
+    ];
+
+    outTests[thisModel["shortname"]][ind] = And @@ {
+      And @@ (coeffsQBondRules[Normal[#], maxMaturity] & /@ solBond2),
+      And @@ (coeffsQNomBondRules[Normal[#], maxMaturity] & /@ solNomBond2),
+      And @@ (Range[0, maxMaturity] === (Sort @ DeleteDuplicates @ Cases[Keys @ #, x_[i_][j_] :> i]) & /@ solBond2),
+      And @@ (Range[0, maxMaturity] === (Sort @ DeleteDuplicates @ Cases[Keys @ #, x_[i_][j_] :> i]) & /@ solNomBond2)
+    };
+    ind = ind + 1;
+
+    maxMaturity = oldMaxMaturity;
+
+    ,
+    {thisModel, mods}
+  ];
+
+  noMissingTest = {};
+  Do[
+    testNumber =
+      Sort @ Cases[
+        Keys @ SubValues @ outTests,
+        Verbatim[HoldPattern][outTests[thisModel["shortname"]][i_Integer]] :> i
+      ];
+    AppendTo[noMissingTest, Range[0, Max[testNumber]] == testNumber];
+    ,
+    {thisModel, mods}
+  ];
+
+  out = And @@ {
+    And @@ noMissingTest,
+    And @@ Values @ SubValues @ outTests
+  };
+
+  On[General::stop];
+  On[FindRoot::cvmit];
+
+  out
+  ,
+  "ConfirmResults" -> confirm
+];
+
+
+
+(* ::Input::Initialization::"Tags"-><|"DuplicateKeys" -> <|"ListOfRules" -> <|Enabled -> False|>|>|>:: *)
+(*ResourceFunction["WriteUnitTest"][testFilePath,
 Off[General::stop];
 If[Not@longTest,Off[FindRoot::cvmit]];
 
@@ -3027,7 +3289,7 @@ On[General::stop];
 On[FindRoot::cvmit];
 
 out
-,"ConfirmResults"->confirm];
+,"ConfirmResults"->confirm];*)
 
 
 (* ::Input::Initialization:: *)
@@ -3046,7 +3308,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`NiceOutput`*)
 
 
@@ -3220,7 +3482,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`TimeAggregation`*)
 
 
@@ -3664,7 +3926,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`ToNumber`*)
 
 
@@ -3742,7 +4004,7 @@ optsList={
 {"RecurrenceTableOptions"->{"DependentVariables"->Automatic}},
 {DependentVariables->Automatic}
 };
-opts=If[longTest,optsList[[1;;5]],optsList[[1;;2]]];
+testOptsList=If[longTest,optsList[[1;;5]],optsList[[1;;2]]];
 (*define list of parameters, guess, options, expr, to test passing new parameters*)
 newParameters={delta->0.99};
 guessCoeffsSolution={A[0]->4.6};
@@ -3752,7 +4014,7 @@ exprNewParam = uncondE[wc[t]];
 AbortProtect[
 Do[
 (*counter for Do loop*)
-ind=0;
+testLoopIndex=0;
 (*rules to evaluate numerically at arbitrarily chosen values*)
 stateVars=#[_]&/@DeleteDuplicates[DeleteCases[Cases[Variables[thisModel["stateVars"][t] ],x_[_]:>x],0]];
 numModel=Join[Thread[stateVars->1.],{FernandoDuarte`LongRunRisk`Model`Shocks`eps[_][_]->1,FernandoDuarte`LongRunRisk`Model`Shocks`eps[_][_,_]->1.,mu->2.,AA->-1.,BB->3.}];
@@ -3762,7 +4024,7 @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toNum=FernandoDuarte`LongRunRisk
 FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toEquation=FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation;
 FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toExogenousVars=FernandoDuarte`LongRunRisk`Tools`ToNumber`toExogenousVars;
 FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toStateVars=FernandoDuarte`LongRunRisk`Tools`ToNumber`toStateVars;
-FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters=FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters;
+FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters=FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters;
 
 FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE=FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE;
 FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar=FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondVar;
@@ -3777,10 +4039,10 @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`corr=FernandoDuarte`LongRunRisk`
 
 (*toNum[thisModel]*)
 tn=toNum[thisModel];
-outTests[thisModel["shortname"]][ind]=And@@( 
+outTests[thisModel["shortname"]][testLoopIndex]=And@@(
 Flatten@{
 Head@tn===Function,
-NumericQ/@( 
+NumericQ/@(
 Flatten@
 If[longTest,
 {
@@ -3806,10 +4068,10 @@ If[longTest,
 )
 }
 );
-ind=ind+1;
+testLoopIndex=testLoopIndex+1;
 
 (*toNum[expression, thisModel]*)
-outTests[thisModel["shortname"]][ind]=And@@( 
+outTests[thisModel["shortname"]][testLoopIndex]=And@@( 
 Flatten@{
 Head@tn===Function,
 NumericQ/@( 
@@ -3838,13 +4100,13 @@ If[longTest,
 )
 }
 );
-ind=ind+1;
+testLoopIndex=testLoopIndex+1;
 
 (*toNum["Rules", thisModel]*)
-outTests[thisModel["shortname"]][ind]=And@@( 
+outTests[thisModel["shortname"]][testLoopIndex]=And@@(
 Flatten@{
 Head@tn===Function,
-NumericQ/@( 
+NumericQ/@(
 Flatten@
 If[longTest,
 {
@@ -3870,13 +4132,13 @@ If[longTest,
 )
 }
 );
-ind=ind+1;
+testLoopIndex=testLoopIndex+1;
 
 (**********options for toNum**********)
 Do[
 (*toNum[thisModel]*)
-tn=toNum[thisModel,Sequence@@opt];
-outTests[thisModel["shortname"]][ind]=And@@( 
+tn=toNum[thisModel,Sequence@@testOpt];
+outTests[thisModel["shortname"]][testLoopIndex]=And@@( 
 Flatten@{
 Head@tn===Function,
 NumericQ/@( 
@@ -3905,45 +4167,45 @@ If[longTest,
 )
 }
 );
-ind=ind+1;
+testLoopIndex=testLoopIndex+1;
 
 (*toNum[expression, thisModel]*)
-outTests[thisModel["shortname"]][ind]=And@@( 
+outTests[thisModel["shortname"]][testLoopIndex]=And@@(
 Flatten@{
 Head@tn===Function,
-NumericQ/@( 
+NumericQ/@(
 Flatten@
 If[longTest,
 {
-((toNum[e2,thisModel,Sequence@@opt] )//.numModel),
-(((toNum[uncondE/@e2,thisModel,Sequence@@opt]) )//.numModel),
-(((toNum[uncondVar/@e2,thisModel,Sequence@@opt]) )//.numModel),
-((toNum[MapThread[uncondCov[#1,#2]&,{e2,Reverse@e2}] ,thisModel,Sequence@@opt])//.numModel),
-((toNum[MapThread[uncondCorr[#1,#2]&,{e2[[1;;2]],e2[[-2;;-1]]}],thisModel,Sequence@@opt] )//.numModel),
-(((toNum[ev[#,t-1]&/@e2,thisModel,Sequence@@opt]) )//.numModel),
-(((toNum[var[#,t-1]&/@e2,thisModel,Sequence@@opt]) )//.numModel),
-((toNum[MapThread[cov[#1,#2,t-1]&,{e2,Reverse@e2}],thisModel,Sequence@@opt] )//.numModel),
-((toNum[MapThread[corr[#1,#2,t-1]&,{e2[[1;;2]],e2[[-2;;-1]]}],thisModel,Sequence@@opt] )//.numModel)
+((toNum[e2,thisModel,Sequence@@testOpt] )//.numModel),
+(((toNum[uncondE/@e2,thisModel,Sequence@@testOpt]) )//.numModel),
+(((toNum[uncondVar/@e2,thisModel,Sequence@@testOpt]) )//.numModel),
+((toNum[MapThread[uncondCov[#1,#2]&,{e2,Reverse@e2}] ,thisModel,Sequence@@testOpt])//.numModel),
+((toNum[MapThread[uncondCorr[#1,#2]&,{e2[[1;;2]],e2[[-2;;-1]]}],thisModel,Sequence@@testOpt] )//.numModel),
+(((toNum[ev[#,t-1]&/@e2,thisModel,Sequence@@testOpt]) )//.numModel),
+(((toNum[var[#,t-1]&/@e2,thisModel,Sequence@@testOpt]) )//.numModel),
+((toNum[MapThread[cov[#1,#2,t-1]&,{e2,Reverse@e2}],thisModel,Sequence@@testOpt] )//.numModel),
+((toNum[MapThread[corr[#1,#2,t-1]&,{e2[[1;;2]],e2[[-2;;-1]]}],thisModel,Sequence@@testOpt] )//.numModel)
 }
 ,
 {
-((toNum[e2,thisModel,Sequence@@opt] )//.numModel),
-(((toNum[uncondE/@e2,thisModel,Sequence@@opt]) )//.numModel),
-(((toNum[uncondVar/@e2,thisModel,Sequence@@opt]) )//.numModel),
-(((toNum[ev[#,t-1]&/@e2,thisModel,Sequence@@opt]) )//.numModel),
-(((toNum[var[#,t-1]&/@e2,thisModel,Sequence@@opt]) )//.numModel)
+((toNum[e2,thisModel,Sequence@@testOpt] )//.numModel),
+(((toNum[uncondE/@e2,thisModel,Sequence@@testOpt]) )//.numModel),
+(((toNum[uncondVar/@e2,thisModel,Sequence@@testOpt]) )//.numModel),
+(((toNum[ev[#,t-1]&/@e2,thisModel,Sequence@@testOpt]) )//.numModel),
+(((toNum[var[#,t-1]&/@e2,thisModel,Sequence@@testOpt]) )//.numModel)
 }
 ]
 )
 }
 );
-ind=ind+1;
+testLoopIndex=testLoopIndex+1;
 
 (*toNum["Rules", thisModel]*)
-outTests[thisModel["shortname"]][ind]=And@@( 
+outTests[thisModel["shortname"]][testLoopIndex]=And@@(
 Flatten@{
 Head@tn===Function,
-NumericQ/@( 
+NumericQ/@(
 Flatten@
 If[longTest,
 {
@@ -3965,17 +4227,17 @@ If[longTest,
 (((toEquation[ev[#,t-1]&/@e2,thisModel]) )//.numModel),
 (((toEquation[var[#,t-1]&/@e2,thisModel]) )//.numModel)
 }
-]//.toNum["Rules",thisModel,Sequence@@opt]
+]//.toNum["Rules",thisModel,Sequence@@testOpt]
 )
 }
 );
-ind=ind+1;
+testLoopIndex=testLoopIndex+1;
 ,
-{opt,opts}
+{testOpt,testOptsList}
 ];
 
 (*"UpdatePd", "UpdateBond", "UpdateNomBond", "UpdateBonds" are ignored, toNum always uses "UpdatePd"->True,"UpdateBonds"->True*)
-outTests[thisModel["shortname"]][ind]=And@@( 
+outTests[thisModel["shortname"]][testLoopIndex]=And@@( 
 NumericQ/@( 
 Flatten@{
 pd[t,1]//toNum[thisModel,"UpdatePd"->False]//.numModel,
@@ -3988,10 +4250,10 @@ toEquation[{bondyield[t,2],nombondyield[t,3]},thisModel]//.toNum["Rules",thisMod
 }
 )
 );
-ind=ind+1;
+testLoopIndex=testLoopIndex+1;
 
 (**********new parameters, guess for toNum**********)
-outTests[thisModel["shortname"]][ind]=And@@( 
+outTests[thisModel["shortname"]][testLoopIndex]=And@@(
 NumericQ/@{
 (*pass new parameters*)
 exprNewParam//toNum[thisModel,newParameters]//.numModel,
@@ -4022,7 +4284,7 @@ toNum[exprNewParam,thisModel,newParameters,guessCoeffsSolution,Sequence@@optNewP
 toEquation[exprNewParam,thisModel]//.toNum["Rules",thisModel,newParameters,guessCoeffsSolution,Sequence@@optNewParam]//.numModel
 }
 );
-ind=ind+1;
+testLoopIndex=testLoopIndex+1;
 ,
 {thisModel,mods}
 ];
@@ -4053,7 +4315,7 @@ out
 
 (* ::Input::Initialization:: *)
 ResourceFunction["WriteUnitTest"][testFilePath,
-FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters=FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters;
+FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters=FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters;
 (*helper functions*)
 (*returns True if evaluation of expr returns $Aborted*)
 SetAttributes[checkAbrt,HoldAll];
@@ -4204,7 +4466,7 @@ And@@Simplify@{
 (*aborts*)
 checkAbrt[processNewParameters[newP,p]],
 (*with message subsetparam*)
-checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::subsetparam]
+checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::subsetparam]
 }
 ,"ConfirmResults"->confirm];
 
@@ -4219,7 +4481,7 @@ And@@Simplify@{
 (*aborts*)
 checkAbrt[processNewParameters[newP,p]],
 (*with message subsetparam*)
-checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::psi]
+checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::psi]
 }
 ,"ConfirmResults"->confirm];
 
@@ -4234,7 +4496,7 @@ And@@Simplify@{
 (*aborts*)
 checkAbrt[processNewParameters[newP,p]],
 (*with message subsetparam*)
-checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::psi]
+checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::psi]
 }
 ,"ConfirmResults"->confirm];
 
@@ -4269,7 +4531,7 @@ ResourceFunction["WriteUnitTest"][testFilePath,
 (*case: theta is not exactly (1-gamma)/(1-1/psi)*)
 p={delta->0.998`,Esx->0.0078`,gamma->10,muc->0.0015`,phisxs->2.3`*^-6,phix->0.044`,psi->1.5`,rhox->0.979`,theta->(1-gamma)/(1-1/psi),vx->0.987`,mud[1]->0.0015`,phidxd[1]->4.5`,rhodx[1]->3};
 newP={gamma->10,theta->3.23`,psi->1.5`};
-procP=Quiet[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::param];
+procP=Quiet[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::param];
 And@@Simplify@{
 (*values are numbers*)
 And@@(NumberQ/@Values@procP),
@@ -4280,7 +4542,7 @@ SubsetQ[Keys@p,Keys@procP],
 (*not aborted*)
 Not@checkAbrt[processNewParameters[newP,p]],
 (*with message subsetparam*)
-checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::param],
+checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::param],
 (*theta has correct value*)
 Chop@RealAbs[(theta/.procP)-(-27.)]<$MachineEpsilon
 }
@@ -4381,7 +4643,7 @@ And@@Simplify@{
 (*aborts*)
 checkAbrt[processNewParameters[newP,p]],
 (*with message subsetparam*)
-checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`processNewParameters::theta]
+checkMsg[processNewParameters[newP,p],FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::theta]
 }
 ,"ConfirmResults"->confirm];
 
@@ -4417,7 +4679,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*PacletizeResources*)
 
 
