@@ -66,7 +66,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "checkCatalogChanges-assoc-input-returns-structure"
+  TestID -> "checkCatalogChanges-assoc-input-returns-structure@@Tests/ManageResources/checkCatalogChanges.wlt:21,1-70,2"
 ]
 
 VerificationTest[
@@ -124,5 +124,5 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "checkCatalogChanges-detects-changed-new-removed"
+  TestID -> "checkCatalogChanges-detects-changed-new-removed@@Tests/ManageResources/checkCatalogChanges.wlt:72,1-128,2"
 ]

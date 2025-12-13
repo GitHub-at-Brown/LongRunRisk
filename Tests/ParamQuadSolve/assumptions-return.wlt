@@ -13,7 +13,7 @@ VerificationTest[
     KeyExistsQ[res, "Assumptions"]
   ],
   True,
-  TestID -> "assumptions-key-exists-default"
+  TestID -> "assumptions-key-exists-default@@Tests/ParamQuadSolve/assumptions-return.wlt:8,1-17,2"
 ]
 
 (* Test: Assumptions include default assumptions when Automatic *)
@@ -29,7 +29,7 @@ VerificationTest[
     StringContainsQ[ToString[ass, InputForm], "psi"]
   ],
   True,
-  TestID -> "assumptions-include-defaults-automatic"
+  TestID -> "assumptions-include-defaults-automatic@@Tests/ParamQuadSolve/assumptions-return.wlt:20,1-33,2"
 ]
 
 (* Test: Assumptions include default assumptions when not specified *)
@@ -45,7 +45,7 @@ VerificationTest[
     StringContainsQ[ToString[ass, InputForm], "psi"]
   ],
   True,
-  TestID -> "assumptions-include-defaults-omitted"
+  TestID -> "assumptions-include-defaults-omitted@@Tests/ParamQuadSolve/assumptions-return.wlt:36,1-49,2"
 ]
 
 (* Test: Assumptions include sign constraints when there are sign variables *)
@@ -59,7 +59,7 @@ VerificationTest[
     StringContainsQ[ToString[ass, InputForm], "signA[1]^2 == 1"]
   ],
   True,
-  TestID -> "assumptions-include-sign-constraints"
+  TestID -> "assumptions-include-sign-constraints@@Tests/ParamQuadSolve/assumptions-return.wlt:52,1-63,2"
 ]
 
 (* Test: Custom assumptions are combined with defaults *)
@@ -77,7 +77,7 @@ VerificationTest[
     StringContainsQ[ToString[ass, InputForm], "gamma"]
   ],
   True,
-  TestID -> "assumptions-combine-custom-and-defaults"
+  TestID -> "assumptions-combine-custom-and-defaults@@Tests/ParamQuadSolve/assumptions-return.wlt:66,1-81,2"
 ]
 
 (* Test: No sign constraints when no quadratics *)
@@ -91,7 +91,7 @@ VerificationTest[
     !StringContainsQ[ToString[ass, InputForm], "signA"]
   ],
   True,
-  TestID -> "assumptions-no-sign-when-no-quadratics"
+  TestID -> "assumptions-no-sign-when-no-quadratics@@Tests/ParamQuadSolve/assumptions-return.wlt:84,1-95,2"
 ]
 
 (* Test: Multiple sign variables create multiple constraints *)
@@ -106,7 +106,7 @@ VerificationTest[
     StringContainsQ[ToString[ass, InputForm], "signA[2]^2 == 1"]
   ],
   True,
-  TestID -> "assumptions-multiple-sign-constraints"
+  TestID -> "assumptions-multiple-sign-constraints@@Tests/ParamQuadSolve/assumptions-return.wlt:98,1-110,2"
 ]
 
 (* Test: Assumptions are used in Simplify operations *)
@@ -120,7 +120,7 @@ VerificationTest[
     AssociationQ[res] && KeyExistsQ[res, "Verification"]
   ],
   True,
-  TestID -> "assumptions-used-in-verification"
+  TestID -> "assumptions-used-in-verification@@Tests/ParamQuadSolve/assumptions-return.wlt:113,1-124,2"
 ]
 
 (* Test: Assumptions with OnlyQuadTerms option *)
@@ -140,5 +140,5 @@ VerificationTest[
     StringContainsQ[ToString[ass, InputForm], "signA"]
   ],
   True,
-  TestID -> "assumptions-with-only-quad-terms"
+  TestID -> "assumptions-with-only-quad-terms@@Tests/ParamQuadSolve/assumptions-return.wlt:127,1-144,2"
 ]

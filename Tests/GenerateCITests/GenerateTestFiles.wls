@@ -12,8 +12,9 @@ pacletDir = DirectoryName[inputFileDir,2];
 
 Quiet[PacletUninstall["FernandoDuarte/LongRunRisk"]];
 Needs["PacletTools`"];
-built=Quiet[PacletBuild[pacletDir],{Global`Java::excptn}];
-installed=PacletInstall[built["PacletArchive"]];
+(*built=Quiet[PacletBuild[pacletDir],{Global`Java::excptn}];*)
+built=PacletBuild[pacletDir]
+installed=PacletInstall[built["PacletArchive"]]
 
 testsDir = FileNameJoin[{pacletDir,"Tests"}];
 PacletDirectoryLoad[pacletDir];
@@ -73,7 +74,7 @@ DeleteFile[testFilePath<>"temp"];
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -102,7 +103,7 @@ Close /@ {readStream, writeStream}
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -146,7 +147,7 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -3926,7 +3927,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Tools`ToNumber`*)
 
 

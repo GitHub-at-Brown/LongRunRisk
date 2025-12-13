@@ -29,33 +29,33 @@ $timeLimit = 5;
 VerificationTest[
   $getHash[<|"b" -> 1, "a" -> 2|>] === $getHash[<|"a" -> 2, "b" -> 1|>],
   True,
-  TestID -> "hash-key-order-invariant"
+  TestID -> "hash-key-order-invariant@@Tests/ManageResources/updateModelManifest.wlt:29,1-33,2"
 ]
 
 VerificationTest[
   $getHash[<|"x" -> <|"b" -> 1, "a" -> 2|>|>] === $getHash[<|"x" -> <|"a" -> 2, "b" -> 1|>|>],
   True,
-  TestID -> "hash-nested-key-order-invariant"
+  TestID -> "hash-nested-key-order-invariant@@Tests/ManageResources/updateModelManifest.wlt:35,1-39,2"
 ]
 
 VerificationTest[
   $getHash[<|"z" -> {<|"b" -> 1|>, <|"a" -> 2|>}|>] === $getHash[<|"z" -> {<|"b" -> 1|>, <|"a" -> 2|>}|>],
   True,
-  TestID -> "hash-list-of-associations"
+  TestID -> "hash-list-of-associations@@Tests/ManageResources/updateModelManifest.wlt:41,1-45,2"
 ]
 
 VerificationTest[
   (* Different content should produce different hashes *)
   $getHash[<|"a" -> 1|>] =!= $getHash[<|"a" -> 2|>],
   True,
-  TestID -> "hash-different-values-differ"
+  TestID -> "hash-different-values-differ@@Tests/ManageResources/updateModelManifest.wlt:47,1-52,2"
 ]
 
 VerificationTest[
   (* Canonicalize should sort keys recursively *)
   $canonicalize[<|"b" -> <|"d" -> 1, "c" -> 2|>, "a" -> 3|>],
   <|"a" -> 3, "b" -> <|"c" -> 2, "d" -> 1|>|>,
-  TestID -> "canonicalize-sorts-nested-keys"
+  TestID -> "canonicalize-sorts-nested-keys@@Tests/ManageResources/updateModelManifest.wlt:54,1-59,2"
 ]
 
 (* ============================================================ *)
@@ -71,7 +71,7 @@ VerificationTest[
   $Failed,
   {updateModelManifest::noroot},
   TimeConstraint -> $timeLimit,
-  TestID -> "fails-when-root-not-found"
+  TestID -> "fails-when-root-not-found@@Tests/ManageResources/updateModelManifest.wlt:65,1-75,2"
 ]
 
 VerificationTest[
@@ -94,7 +94,7 @@ VerificationTest[
   {$Failed, False},
   {updateModelManifest::nocat},
   TimeConstraint -> $timeLimit,
-  TestID -> "rejects-non-association-catalog"
+  TestID -> "rejects-non-association-catalog@@Tests/ManageResources/updateModelManifest.wlt:77,1-98,2"
 ]
 
 (* ============================================================ *)
@@ -134,7 +134,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "writes-manifest-with-expected-content"
+  TestID -> "writes-manifest-with-expected-content@@Tests/ManageResources/updateModelManifest.wlt:104,1-138,2"
 ]
 
 (* ============================================================ *)
@@ -155,5 +155,5 @@ VerificationTest[
     $getHash[catalog1] === $getHash[catalog2]
   ],
   True,
-  TestID -> "hash-complex-permutation-invariant"
+  TestID -> "hash-complex-permutation-invariant@@Tests/ManageResources/updateModelManifest.wlt:144,1-159,2"
 ]

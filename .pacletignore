@@ -1,1 +1,6 @@
 Resources/CompiledFunctions/*.mx
+.claude/**
+.cursor/**
+.vscode/**
+tools/**
+ToProcess/**

@@ -9,5 +9,5 @@ r$ = pqs[eq$, vars$, "DomainOption" -> Reals, "ValidationOption" -> False];
 steps$ = r$["Diagnostics"]["Steps"];
 lastVar$ = vars$[[-1]];
 
-VerificationTest[MemberQ[steps$, {"quadraticGB", lastVar$}], True, TestID -> "gb-fallback-used"]
-VerificationTest[Length[Keys[r$["SignRootMap"]]] >= 1, True, TestID -> "sign-created-after-gb"]
+VerificationTest[MemberQ[steps$, {"quadraticGB", lastVar$}], True, TestID -> "gb-fallback-used@@Tests/ParamQuadSolve/gb-fallback.wlt:12,1-12,146"]
+VerificationTest[Length[Keys[r$["SignRootMap"]]] >= 1, True, TestID -> "sign-created-after-gb@@Tests/ParamQuadSolve/gb-fallback.wlt:13,1-13,145"]

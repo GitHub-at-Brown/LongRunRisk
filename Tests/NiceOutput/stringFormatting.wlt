@@ -24,62 +24,62 @@ $timeLimit = 5;
 VerificationTest[
   $normalizeWhitespace["hello\tworld"],
   "hello world",
-  TestID -> "normalizeWhitespace-tab-to-space"
+  TestID -> "normalizeWhitespace-tab-to-space@@Tests/NiceOutput/stringFormatting.wlt:24,1-28,2"
 ]
 
 VerificationTest[
   $normalizeWhitespace["hello\nworld"],
   "hello world",
-  TestID -> "normalizeWhitespace-newline-to-space"
+  TestID -> "normalizeWhitespace-newline-to-space@@Tests/NiceOutput/stringFormatting.wlt:30,1-34,2"
 ]
 
 VerificationTest[
   $normalizeWhitespace["hello\t\t\tworld"],
   "hello world",
-  TestID -> "normalizeWhitespace-multi-tab-collapse"
+  TestID -> "normalizeWhitespace-multi-tab-collapse@@Tests/NiceOutput/stringFormatting.wlt:36,1-40,2"
 ]
 
 VerificationTest[
   $normalizeWhitespace["hello\n\t\t\tworld"],
   "hello world",
-  TestID -> "normalizeWhitespace-mixed-whitespace"
+  TestID -> "normalizeWhitespace-mixed-whitespace@@Tests/NiceOutput/stringFormatting.wlt:42,1-46,2"
 ]
 
 VerificationTest[
   $normalizeWhitespace["hello     world"],
   "hello world",
-  TestID -> "normalizeWhitespace-multi-space-collapse"
+  TestID -> "normalizeWhitespace-multi-space-collapse@@Tests/NiceOutput/stringFormatting.wlt:48,1-52,2"
 ]
 
 VerificationTest[
   $normalizeWhitespace["  hello world  "],
   "hello world",
-  TestID -> "normalizeWhitespace-trim-leading-trailing"
+  TestID -> "normalizeWhitespace-trim-leading-trailing@@Tests/NiceOutput/stringFormatting.wlt:54,1-58,2"
 ]
 
 VerificationTest[
   $normalizeWhitespace["\t\nhello\n\t  \t\nworld\n\t"],
   "hello world",
-  TestID -> "normalizeWhitespace-complex-mixed"
+  TestID -> "normalizeWhitespace-complex-mixed@@Tests/NiceOutput/stringFormatting.wlt:60,1-64,2"
 ]
 
 VerificationTest[
   $normalizeWhitespace[""],
   "",
-  TestID -> "normalizeWhitespace-empty-string"
+  TestID -> "normalizeWhitespace-empty-string@@Tests/NiceOutput/stringFormatting.wlt:66,1-70,2"
 ]
 
 VerificationTest[
   $normalizeWhitespace["\t\n   \t\n"],
   "",
-  TestID -> "normalizeWhitespace-only-whitespace"
+  TestID -> "normalizeWhitespace-only-whitespace@@Tests/NiceOutput/stringFormatting.wlt:72,1-76,2"
 ]
 
 VerificationTest[
   (* unicode should be preserved *)
   $normalizeWhitespace["Müller–Lyer illusion with αβγ symbols"],
   "Müller–Lyer illusion with αβγ symbols",
-  TestID -> "normalizeWhitespace-unicode-preserved"
+"normalizeWhitespace-unicode-preserved@@Tests/NiceOutput/stringFormatting.wlt:78,1-83,2"e-preserved"
 ]
 
 (* ============================================================ *)
@@ -95,7 +95,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stringFormattingTemplate-idempotent-short"
+"stringFormattingTemplate-idempotent-short@@Tests/NiceOutput/stringFormatting.wlt:89,1-99,2"otent-short"
 ]
 
 VerificationTest[
@@ -108,7 +108,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stringFormattingTemplate-idempotent-long"
+"stringFormattingTemplate-idempotent-long@@Tests/NiceOutput/stringFormatting.wlt:101,1-112,2"potent-long"
 ]
 
 VerificationTest[
@@ -120,7 +120,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stringFormattingTemplate-content-preserved"
+"stringFormattingTemplate-content-preserved@@Tests/NiceOutput/stringFormatting.wlt:114,1-124,2"t-preserved"
 ]
 
 VerificationTest[
@@ -131,7 +131,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stringFormattingTemplate-inserts-line-breaks"
+"stringFormattingTemplate-inserts-line-breaks@@Tests/NiceOutput/stringFormatting.wlt:126,1-135,2"line-breaks"
 ]
 
 VerificationTest[
@@ -142,7 +142,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stringFormattingTemplate-adds-indentation"
+"stringFormattingTemplate-adds-indentation@@Tests/NiceOutput/stringFormatting.wlt:137,1-146,2"indentation"
 ]
 
 (* ============================================================ *)
@@ -159,7 +159,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stringFormattingTemplate-idempotent-preformatted"
+"stringFormattingTemplate-idempotent-preformatted@@Tests/NiceOutput/stringFormatting.wlt:152,1-163,2"reformatted"
 ]
 
 VerificationTest[
@@ -173,5 +173,5 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stringFormattingTemplate-stable-length"
+"stringFormattingTemplate-stable-length@@Tests/NiceOutput/stringFormatting.wlt:165,1-177,2"able-length"
 ]

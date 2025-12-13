@@ -11,11 +11,11 @@ res$ = pqs[eqns$, vars$, "ValidationOption" -> True, "DomainOption" -> Reals];
 signSym$ = First[Keys[res$["SignRootMap"]]];
 rad$ = res$["SignRootMap"][signSym$];
 
-VerificationTest[AssociationQ[res$], True, TestID -> "returns-association"]
-VerificationTest[AllTrue[Flatten@res$["Verification"], TrueQ], True, TestID -> "verification-all-true"]
-VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. signSym$ -> 1], TrueQ], True, TestID -> "subs-sign-+1"]
-VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. signSym$ -> -1], TrueQ], True, TestID -> "subs-sign--1"]
-VerificationTest[Simplify[rad$^2 == 20], True, TestID -> "discriminant-20"]
+VerificationTest[AssociationQ[res$], True, TestID -> "returns-association@@Tests/ParamQuadSolve/basic-2x2.wlt:14,1-14,123"]
+VerificationTest[AllTrue[Flatten@res$["Verification"], TrueQ], True, TestID -> "verification-all-true@@Tests/ParamQuadSolve/basic-2x2.wlt:15,1-15,152"]
+VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. signSym$ -> 1], TrueQ], True, TestID -> "subs-sign-+1@@Tests/ParamQuadSolve/basic-2x2.wlt:16,1-16,167"]
+VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. signSym$ -> -1], TrueQ], True, TestID -> "subs-sign--1@@Tests/ParamQuadSolve/basic-2x2.wlt:17,1-17,168"]
+VerificationTest[Simplify[rad$^2 == 20], True, TestID -> "discriminant-20@@Tests/ParamQuadSolve/basic-2x2.wlt:18,1-18,123"]
 VerificationTest[
  Module[{signs, ourRules, solveRules, sameQ},
    signs = {1, -1};
@@ -23,5 +23,5 @@ VerificationTest[
    solveRules = Solve[eqns$, vars$, Reals];
    sameQ[r1_, r2_] := TrueQ@Simplify[(vars$ /. r1) == (vars$ /. r2)];
    Length[solveRules] == Length[ourRules] && AllTrue[solveRules, ssol |-> AnyTrue[ourRules, sameQ[#, ssol] &]]
- ], True, TestID -> "matches-Solve"
+ ], True, TestID -> "matches-Solve@@Tests/ParamQuadSolve/basic-2x2.wlt:19,1-27,2"
 ]

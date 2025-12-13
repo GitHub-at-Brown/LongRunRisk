@@ -63,7 +63,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "formatModels-returns-BoxData"
+  TestID -> "formatModels-returns-BoxData@@Tests/NiceOutput/formatModels.wlt:59,1-67,2"
 ]
 
 VerificationTest[
@@ -73,7 +73,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "formatModels-contains-RowBox"
+  TestID -> "formatModels-contains-RowBox@@Tests/NiceOutput/formatModels.wlt:69,1-77,2"
 ]
 
 VerificationTest[
@@ -83,7 +83,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "formatModels-contains-association-markers"
+  TestID -> "formatModels-contains-association-markers@@Tests/NiceOutput/formatModels.wlt:79,1-87,2"
 ]
 
 (* ============================================================ *)
@@ -98,7 +98,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "formatModels-contains-shortname"
+  TestID -> "formatModels-contains-shortname@@Tests/NiceOutput/formatModels.wlt:93,1-102,2"
 ]
 
 VerificationTest[
@@ -110,7 +110,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "formatModels-contains-parameters"
+  TestID -> "formatModels-contains-parameters@@Tests/NiceOutput/formatModels.wlt:104,1-114,2"
 ]
 
 VerificationTest[
@@ -121,7 +121,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "formatModels-contains-enabled-field"
+  TestID -> "formatModels-contains-enabled-field@@Tests/NiceOutput/formatModels.wlt:116,1-125,2"
 ]
 
 VerificationTest[
@@ -132,7 +132,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "formatModels-contains-numeric-params"
+  TestID -> "formatModels-contains-numeric-params@@Tests/NiceOutput/formatModels.wlt:127,1-136,2"
 ]
 
 (* ============================================================ *)
@@ -152,7 +152,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "formatModels-multiple-models"
+  TestID -> "formatModels-multiple-models@@Tests/NiceOutput/formatModels.wlt:142,1-156,2"
 ]
 
 (* ============================================================ *)
@@ -169,7 +169,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "formatModels-long-desc-line-breaks"
+  TestID -> "formatModels-long-desc-line-breaks@@Tests/NiceOutput/formatModels.wlt:162,1-173,2"
 ]
 
 (* ============================================================ *)
@@ -185,7 +185,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "formatModels-unicode-preserved"
+  Test"formatModels-unicode-preserved@@Tests/NiceOutput/formatModels.wlt:179,1-189,2"erved"
 ]
 
 (* ============================================================ *)
@@ -201,7 +201,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> 30,
-  TestID -> "formatModels-full-catalog"
+  Test"formatModels-full-catalog@@Tests/NiceOutput/formatModels.wlt:195,1-205,2"talog"
 ]
 
 VerificationTest[
@@ -216,5 +216,5 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> 30,
-  TestID -> "formatModels-all-models-in-output"
+  Test"formatModels-all-models-in-output@@Tests/NiceOutput/formatModels.wlt:207,1-220,2"utput"
 ]

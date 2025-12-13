@@ -26,13 +26,13 @@ $timeLimit = 5;
 VerificationTest[
   $toCatalog[<||>, {"name", "shortname"}],
   <||>,
-  TestID -> "toCatalog-empty-catalog-returns-empty"
+  TestID -> "toCatalog-empty-catalog-returns-empty@@Tests/NiceOutput/toCatalog.wlt:26,1-30,2"
 ]
 
 VerificationTest[
   AssociationQ[$toCatalog[<||>, {"name"}]],
   True,
-  TestID -> "toCatalog-empty-catalog-is-association"
+  TestID -> "toCatalog-empty-catalog-is-association@@Tests/NiceOutput/toCatalog.wlt:32,1-36,2"
 ]
 
 (* ============================================================ *)
@@ -48,7 +48,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-returns-associations"
+  TestID -> "toCatalog-returns-associations@@Tests/NiceOutput/toCatalog.wlt:42,1-52,2"
 ]
 
 VerificationTest[
@@ -58,7 +58,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-model-keys"
+  TestID -> "toCatalog-preserves-model-keys@@Tests/NiceOutput/toCatalog.wlt:54,1-62,2"
 ]
 
 VerificationTest[
@@ -69,7 +69,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-filters-to-specified-keys"
+  TestID -> "toCatalog-filters-to-specified-keys@@Tests/NiceOutput/toCatalog.wlt:64,1-73,2"
 ]
 
 (* ============================================================ *)
@@ -92,7 +92,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-evaluates-stateVars-function"
+  TestID -> "toCatalog-evaluates-stateVars-function@@Tests/NiceOutput/toCatalog.wlt:79,1-96,2"
 ]
 
 VerificationTest[
@@ -111,7 +111,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-stateVars-list"
+  TestID -> "toCatalog-preserves-stateVars-list@@Tests/NiceOutput/toCatalog.wlt:98,1-115,2"
 ]
 
 (* ============================================================ *)
@@ -126,7 +126,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-enabled-boolean"
+  TestID -> "toCatalog-preserves-enabled-boolean@@Tests/NiceOutput/toCatalog.wlt:121,1-130,2"
 ]
 
 VerificationTest[
@@ -137,7 +137,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-parameters-list"
+  TestID -> "toCatalog-preserves-parameters-list@@Tests/NiceOutput/toCatalog.wlt:132,1-141,2"
 ]
 
 VerificationTest[
@@ -159,7 +159,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-filters-out-extra-fields"
+  TestID -> "toCatalog-filters-out-extra-fields@@Tests/NiceOutput/toCatalog.wlt:143,1-163,2"
 ]
 
 (* ============================================================ *)
@@ -174,7 +174,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-single-model"
+  TestID -> "toCatalog-single-model@@Tests/NiceOutput/toCatalog.wlt:169,1-178,2"
 ]
 
 VerificationTest[
@@ -186,7 +186,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-all-models"
+  TestID -> "toCatalog-preserves-all-models@@Tests/NiceOutput/toCatalog.wlt:180,1-190,2"
 ]
 
 (* ============================================================ *)
@@ -204,5 +204,5 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-full-catalog-roundtrip"
+  TestID -> "toCatalog-full-catalog-roundtrip@@Tests/NiceOutput/toCatalog.wlt:196,1-208,2"
 ]

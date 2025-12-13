@@ -20,13 +20,13 @@ $timeLimit = 5;
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN],
   Symbol,
-  TestID -> "addCoeffsSolutionN-symbol-exists"
+  TestID -> "addCoeffsSolutionN-symbol-exists@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:20,1-24,2"
 ]
 
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs],
   Symbol,
-  TestID -> "updateCoeffs-symbol-exists"
+  TestID -> "updateCoeffs-symbol-exists@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:26,1-30,2"
 ]
 
 (* ============================================================ *)
@@ -36,13 +36,13 @@ VerificationTest[
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN::usage],
   True,
-  TestID -> "addCoeffsSolutionN-has-usage"
+  TestID -> "addCoeffsSolutionN-has-usage@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:36,1-40,2"
 ]
 
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs::usage],
   True,
-  TestID -> "updateCoeffs-has-usage"
+  TestID -> "updateCoeffs-has-usage@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:42,1-46,2"
 ]
 
 (* ============================================================ *)
@@ -57,5 +57,5 @@ VerificationTest[
     ListQ[opts]
   ],
   True,
-  TestID -> "updateCoeffs-options-is-list"
+  TestID -> "updateCoeffs-options-is-list@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:52,1-61,2"
 ]
