@@ -25,28 +25,28 @@ gamma = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`gamma"];
 delta = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`delta"];
 
 tests = {
-  (* Test: bindUnary returns $Failed and emits insufficientsigns message (1 sign, needs 2) *)
+  (* Test: bindUnary returns $Failed and emits toofewsigns message (1 sign, needs 2) *)
   VerificationTest[
-    bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, {1}],
+    bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, "Signs" -> {1}],
     $Failed,
-    {bindUnary::insufficientsigns},
+    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
     TimeConstraint -> timeLimit,
-    TestID -> "insufficientsigns-returns-failed-one-sign"
+    TestID -> "toofewsigns-returns-failed-one-sign"
   ],
 
-  (* Test: bindUnary returns $Failed and emits insufficientsigns message (0 signs, needs 2) *)
+  (* Test: bindUnary returns $Failed and emits toofewsigns message (0 signs, needs 2) *)
   VerificationTest[
-    bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, {}],
+    bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, "Signs" -> {}],
     $Failed,
-    {bindUnary::insufficientsigns},
+    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
     TimeConstraint -> timeLimit,
-    TestID -> "insufficientsigns-returns-failed-empty-signs"
+    TestID -> "toofewsigns-returns-failed-empty-signs"
   ],
 
   (* Test: bindUnary works correctly with valid signs (no error, returns list of functions) *)
   VerificationTest[
     Module[{result},
-      result = bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, {1, -1}];
+      result = bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, "Signs" -> {1, -1}];
       MatchQ[result, {_Function, _Function}]
     ],
     True,

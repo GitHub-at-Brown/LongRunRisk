@@ -188,16 +188,16 @@ tests = {
     TestID -> "no-jacobian-cubic-root"
   ],
 
-  (* Test constraint lo < hi - reversed interval should emit badbnds message *)
+  (* Test constraint lo < hi - reversed interval should emit badbounds message *)
   VerificationTest[
     Module[{result},
       result = fastRoot[f1, {2., 1.}, Jacobian -> df1];
       result
     ],
     $Failed,
-    {fastRoot::badbnds},
+    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
     TimeConstraint -> timeLimit,
-    TestID -> "reversed-interval-badbnds"
+    TestID -> "reversed-interval-badbounds"
   ],
 
   (* Test with both Method and Return options combined *)
@@ -418,12 +418,12 @@ tests = {
   (* Test disambiguation: flat {a, b} is 1D bounds, not 2D x0 *)
   VerificationTest[
     Module[{result},
-      (* {1.2, 1.2} as 1D bounds where a=b should fail with badbnds *)
+      (* {1.2, 1.2} as 1D bounds where a=b should fail with badbounds *)
       result = fastRoot[f1, {1.2, 1.2}, Jacobian -> df1];
       result === $Failed
     ],
     True,
-    {fastRoot::badbnds},
+    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
     TimeConstraint -> timeLimit,
     TestID -> "disambiguation-flat-is-1D-bounds"
   ],
@@ -529,7 +529,7 @@ tests = {
   VerificationTest[
     fastRoot[f1, Automatic],
     $Failed,
-    {fastRoot::noautox0},
+    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::noautox0},
     TimeConstraint -> timeLimit,
     TestID -> "error-noautox0-scalar"
   ],
@@ -538,18 +538,18 @@ tests = {
   VerificationTest[
     fastRoot[f1, "invalid"],
     $Failed,
-    {fastRoot::badspec},
+    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badspec},
     TimeConstraint -> timeLimit,
     TestID -> "error-badspec-string"
   ],
 
-  (* Test badbnds error for nD bounds *)
+  (* Test badbounds error for nD bounds *)
   VerificationTest[
     fastRoot[fND2, {{2., 1.}, {0.5, 2.}}, Jacobian -> dfND2],
     $Failed,
-    {fastRoot::badbnds},
+    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
     TimeConstraint -> timeLimit,
-    TestID -> "error-badbnds-nD"
+    TestID -> "error-badbounds-nD"
   ]
 };
 

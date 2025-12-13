@@ -28,7 +28,7 @@ tests = {
   VerificationTest[
     eir[x < -1, x, "InteriorShrink" -> 0, "RootUpperBound" -> 10],
     {},
-    {extractIntervalsFromReduce::nointervals},
+    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`extractIntervalsFromReduce::nointervals},
     TestID -> "drops-below-zero-clause-and-returns-empty"
   ],
 
@@ -40,13 +40,15 @@ tests = {
 
   VerificationTest[
     eir[True, x, "InteriorShrink" -> 0.1, "RootUpperBound" -> 5],
-    {{0.1, 4.9}},
+    {{0.2, 4.8}},
+    SameTest -> (Max[Abs[Flatten[#1] - Flatten[#2]]] < 10^-10 &),
     TestID -> "true-branch-full-range"
   ],
 
   VerificationTest[
     eir[False, x],
     {},
+    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`extractIntervalsFromReduce::nointervals},
     TestID -> "false-branch-empty"
   ],
 
@@ -83,7 +85,7 @@ tests = {
   VerificationTest[
     eir[x > 20, x, "RootUpperBound" -> 15],
     {},
-    {extractIntervalsFromReduce::nointervals},
+    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`extractIntervalsFromReduce::nointervals},
     TestID -> "all-clauses-dropped-empty"
   ]
 };

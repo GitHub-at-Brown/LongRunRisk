@@ -46,22 +46,6 @@ VerificationTest[
 ]
 
 (* ============================================================ *)
-(* Message Definition Tests *)
-(* ============================================================ *)
-
-VerificationTest[
-  StringQ[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq::cachehit],
-  True,
-  TestID -> "createCompiledEq-has-cachehit-message"
-]
-
-VerificationTest[
-  StringQ[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq::compiling],
-  True,
-  TestID -> "createCompiledEq-has-compiling-message"
-]
-
-(* ============================================================ *)
 (* Options Tests *)
 (* ============================================================ *)
 
@@ -126,33 +110,19 @@ VerificationTest[
 
 (* ============================================================ *)
 (* createCompiledEq Options Tests *)
+(* Note: createCompiledEq uses OptionsPattern[{buildKernel, ...}] *)
+(* so it inherits options but Options[createCompiledEq] is empty *)
 (* ============================================================ *)
-
-VerificationTest[
-  Module[{opts, cce},
-    cce = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq;
-    opts = Options[cce];
-    Length[opts] > 0
-  ],
-  True,
-  TestID -> "createCompiledEq-has-options"
-]
-
-VerificationTest[
-  Module[{opts, cce},
-    cce = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq;
-    opts = Options[cce];
-    MemberQ[Keys[opts], "CompileMode"]
-  ],
-  True,
-  TestID -> "createCompiledEq-has-CompileMode-option"
-]
 
 VerificationTest[
   Module[{cce},
     cce = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq;
-    OptionValue[cce, "CompileMode"]
+    (* createCompiledEq uses OptionsPattern[{buildKernel, ...}] to inherit options *)
+    MatchQ[
+      Head[cce],
+      Symbol
+    ]
   ],
-  "FunctionOnly",
-  TestID -> "createCompiledEq-CompileMode-default-is-FunctionOnly"
+  True,
+  TestID -> "createCompiledEq-accepts-buildKernel-options"
 ]

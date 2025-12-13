@@ -10,21 +10,21 @@ tests = With[{
   bu = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary"]
 },
   {
-    (* Test that findRootInterval with False returns $Failed quickly *)
+    (* Test that findRootInterval with contradiction returns $Failed quickly *)
+    (* Use A[0] contradiction to get emptyinterval message *)
     VerificationTest[
-      Module[{result},
-        result = fri[
-          False,  (* Always false condition *)
+      Block[{A},
+        fri[
+          A[0] < 0 && A[0] > 0,  (* Contradiction containing coefficient *)
           <|x -> 2|>,
           {},
           "CoeffName" -> "A", "SignSymbol" -> "signA"
-        ];
-        result
+        ]
       ],
       $Failed,
-      {findRootInterval::nocoeff},
+      {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval},
       TimeConstraint -> timeLimit,
-      TestID -> "findRootInterval-false-returns-failed"
+      TestID -> "findRootInterval-contradiction-returns-failed"
     ],
 
     (* Test buildKernel with "CoeffName" and "SignSymbol" options *)
@@ -54,11 +54,11 @@ tests = With[{
           "CoeffName" -> "A",
           "SignSymbol" -> "signA"
         ];
-        result = bu[kernel, <|x -> 2|>, {1}];  (* Only 1 sign, but need 2 *)
+        result = bu[kernel, <|x -> 2|>, "Signs" -> {1}];  (* Only 1 sign, but need 2 *)
         result
       ],
       $Failed,
-      {bindUnary::insufficientsigns},
+      {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
       TimeConstraint -> timeLimit,
       TestID -> "bindUnary-insufficient-signs-returns-failed"
     ],
@@ -72,7 +72,8 @@ tests = With[{
           {x},
           "CoeffName" -> "A",
           "SignSymbol" -> "signA",
-          "CompileMode" -> "Both"
+          "CompileMode" -> "Both",
+          "Compiler" -> "FunctionCompile"  (* Required for CompiledCodeFunction *)
         ];
         (* Kernel should have FunctionCompile-produced compiled functions *)
         Head[kernel["fC"]] === CompiledCodeFunction &&

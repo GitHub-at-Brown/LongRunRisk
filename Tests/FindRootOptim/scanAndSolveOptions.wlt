@@ -11,11 +11,14 @@ tolSameTest = Function[{actual, expected},
 ];
 timeLimit = 5;
 
+(* Note: scanAndSolve internally wraps scalar inputs as lists via fnum[x] := f[{x}]
+   So all functions must accept vector/list input and use z[[1]] to extract the scalar *)
+
 tests = {
   (* Test: Derivative-free mode with no sign change but grid hit *)
   VerificationTest[
     Module[{f, result},
-      f[x_?NumericQ] := (x - 2.5)^2;
+      f[z_] := (z[[1]] - 2.5)^2;
       result = sas[f, {2.0, 3.0}, "BracketGrid" -> 32, AccuracyGoal -> 8];
       (* With 32 bins between 2.0 and 3.0, one grid point should land very close to 2.5 *)
       (* Grid points: 2.0, 2.03125, 2.0625, ..., 2.5, ..., 3.0 (33 points total) *)
@@ -30,7 +33,7 @@ tests = {
   (* Test: Derivative-free mode finds actual zero near grid point *)
   VerificationTest[
     Module[{f, result},
-      f[x_?NumericQ] := x - 2.5;
+      f[z_] := z[[1]] - 2.5;
       result = sas[f, {2.0, 3.0}, "BracketGrid" -> 16, AccuracyGoal -> 8];
       Length[result] == 1 && Abs[result[[1]] - 2.5] < 10^-6
     ],
@@ -42,8 +45,8 @@ tests = {
   (* Test: Custom BracketGrid option with coarser grid *)
   VerificationTest[
     Module[{f, df, result1, result2},
-      f[x_?NumericQ] := Sin[10*x];
-      df[x_?NumericQ] := 10*Cos[10*x];
+      f[z_] := Sin[10*z[[1]]];
+      df[z_] := 10*Cos[10*z[[1]]];
       (* Fine grid should find more roots *)
       result1 = sas[f, df, {0.0, 1.0}, "BracketGrid" -> 8, AccuracyGoal -> 6];
       result2 = sas[f, df, {0.0, 1.0}, "BracketGrid" -> 64, AccuracyGoal -> 6];
@@ -58,8 +61,8 @@ tests = {
   (* Test: Custom BracketGrid with very coarse grid *)
   VerificationTest[
     Module[{f, df, result},
-      f[x_?NumericQ] := (x - 1.5)*(x - 2.5);
-      df[x_?NumericQ] := 2*x - 4.0;
+      f[z_] := (z[[1]] - 1.5)*(z[[1]] - 2.5);
+      df[z_] := 2*z[[1]] - 4.0;
       result = sas[f, df, {1.0, 3.0}, "BracketGrid" -> 4, AccuracyGoal -> 8];
       (* With only 4 bins, should still find both roots via sign changes *)
       Length[result] == 2 &&
@@ -74,7 +77,7 @@ tests = {
   (* Test: Custom Tolerance option for grid hits *)
   VerificationTest[
     Module[{f, result},
-      f[x_?NumericQ] := (x - 2.5)^4;
+      f[z_] := (z[[1]] - 2.5)^4;
       (* With very tight tolerance, grid points far from exact zero won't count *)
       result = sas[f, {2.0, 3.0}, "BracketGrid" -> 32, "Tolerance" -> 10^-12, AccuracyGoal -> 8];
       (* Function value at grid points will be > 10^-12 except very close to 2.5 *)
@@ -91,7 +94,7 @@ tests = {
   (* Test: Custom Tolerance option for relaxed grid hits *)
   VerificationTest[
     Module[{f, result},
-      f[x_?NumericQ] := (x - 2.5)^2;
+      f[z_] := (z[[1]] - 2.5)^2;
       (* With relaxed tolerance, more grid points should qualify as "zeros" *)
       result = sas[f, {2.0, 3.0}, "BracketGrid" -> 16, "Tolerance" -> 0.01, AccuracyGoal -> 8];
       (* f[x] = (x-2.5)^2 < 0.01 when |x-2.5| < 0.1 *)
@@ -106,8 +109,8 @@ tests = {
   (* Test: Tolerance-based deduplication of solutions *)
   VerificationTest[
     Module[{f, df, result},
-      f[x_?NumericQ] := Sin[x];
-      df[x_?NumericQ] := Cos[x];
+      f[z_] := Sin[z[[1]]];
+      df[z_] := Cos[z[[1]]];
       (* Pi is near a grid point with certain grid sizes *)
       (* The deduplication should prevent reporting the same root multiple times *)
       result = sas[f, df, {3.0, 3.2}, "BracketGrid" -> 32, "Tolerance" -> 10^-6, AccuracyGoal -> 8];
@@ -122,8 +125,8 @@ tests = {
   (* Test: Tolerance-based deduplication with multiple roots *)
   VerificationTest[
     Module[{f, df, result},
-      f[x_?NumericQ] := (x - 1.0)*(x - 2.0)*(x - 3.0);
-      df[x_?NumericQ] := (x - 2.0)*(x - 3.0) + (x - 1.0)*(x - 3.0) + (x - 1.0)*(x - 2.0);
+      f[z_] := (z[[1]] - 1.0)*(z[[1]] - 2.0)*(z[[1]] - 3.0);
+      df[z_] := (z[[1]] - 2.0)*(z[[1]] - 3.0) + (z[[1]] - 1.0)*(z[[1]] - 3.0) + (z[[1]] - 1.0)*(z[[1]] - 2.0);
       result = sas[f, df, {0.5, 3.5}, "BracketGrid" -> 64, "Tolerance" -> 10^-8, AccuracyGoal -> 8];
       (* Should find exactly 3 roots, deduplicated *)
       Length[result] == 3 &&
@@ -140,8 +143,8 @@ tests = {
   VerificationTest[
     Module[{f, df, result},
       (* Function with no zeros in the interval, but with small minimum *)
-      f[x_?NumericQ] := (x - 2.5)^2 + 10^-6;
-      df[x_?NumericQ] := 2*(x - 2.5);
+      f[z_] := (z[[1]] - 2.5)^2 + 10^-6;
+      df[z_] := 2*(z[[1]] - 2.5);
       result = sas[f, df, {2.0, 3.0}, "BracketGrid" -> 32, AccuracyGoal -> 8, "Tolerance" -> 10^-8];
       (* No sign changes, and minimum value is 10^-6 > 10^-8 (tolerance) *)
       (* Should return empty since no grid hits are within tolerance *)
@@ -156,8 +159,8 @@ tests = {
   VerificationTest[
     Module[{f, df, result},
       (* Function with very small minimum that lands on or near a grid point *)
-      f[x_?NumericQ] := (x - 2.5)^2;
-      df[x_?NumericQ] := 2*(x - 2.5);
+      f[z_] := (z[[1]] - 2.5)^2;
+      df[z_] := 2*(z[[1]] - 2.5);
       result = sas[f, df, {2.0, 3.0}, "BracketGrid" -> 32, AccuracyGoal -> 8, "Tolerance" -> 10^-6];
       (* No sign changes (f is always >= 0), but minimum at x=2.5 *)
       (* With 32 bins, grid spacing is 1/32, and x=2.5 should be on or very near a grid point *)
@@ -173,7 +176,7 @@ tests = {
   VerificationTest[
     Module[{f, result},
       (* Function with no zeros and minimum well above tolerance *)
-      f[x_?NumericQ] := (x - 2.5)^2 + 1.0;
+      f[z_] := (z[[1]] - 2.5)^2 + 1.0;
       result = sas[f, {2.0, 3.0}, "BracketGrid" -> 16, AccuracyGoal -> 8];
       (* No sign changes, all values > 1.0, should return empty *)
       Length[result] == 0
@@ -187,7 +190,7 @@ tests = {
   VerificationTest[
     Module[{f, result1, result2},
       (* Function with small but nonzero minimum *)
-      f[x_?NumericQ] := (x - 2.5)^2 + 10^-7;
+      f[z_] := (z[[1]] - 2.5)^2 + 10^-7;
       (* AccuracyGoal -> 6 means automatic tolerance = 10^-6 *)
       result1 = sas[f, {2.0, 3.0}, "BracketGrid" -> 32, AccuracyGoal -> 6];
       (* AccuracyGoal -> 8 means automatic tolerance = 10^-8 *)
@@ -204,8 +207,8 @@ tests = {
   (* Test: Multiple roots found with custom grid and tolerance *)
   VerificationTest[
     Module[{f, df, result},
-      f[x_?NumericQ] := Sin[2*Pi*x];
-      df[x_?NumericQ] := 2*Pi*Cos[2*Pi*x];
+      f[z_] := Sin[2*Pi*z[[1]]];
+      df[z_] := 2*Pi*Cos[2*Pi*z[[1]]];
       result = sas[f, df, {0.0, 2.5}, "BracketGrid" -> 50, "Tolerance" -> 10^-6, AccuracyGoal -> 8];
       (* Should find zeros at x = 0, 0.5, 1.0, 1.5, 2.0, 2.5 (but 0 may be excluded if at boundary) *)
       (* Depending on sign changes detected, should find 4-6 roots *)
