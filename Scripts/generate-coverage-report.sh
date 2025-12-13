@@ -49,7 +49,7 @@ if [[ -f "$COVERAGE_DIR/baseline.lcov" ]] && grep -q "^DA:" "$COVERAGE_DIR/basel
          -o "$COVERAGE_DIR/combined.lcov"
 
     # Generate HTML report
-    genhtml --ignore-errors empty,corrupt \
+    genhtml --ignore-errors empty,corrupt,category \
             --num-spaces 4 \
             --title "LongRunRisk Coverage" \
             "$COVERAGE_DIR/combined.lcov" \

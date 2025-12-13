@@ -43,7 +43,7 @@ jobs:
         # Only generate HTML if real coverage data exists (DA: lines)
         if grep -q "^DA:" build/coverage/baseline.lcov 2>/dev/null; then
           lcov --ignore-errors empty,corrupt -a build/coverage/baseline.lcov -a build/coverage/tests.lcov -o build/coverage/combined.lcov
-          genhtml --ignore-errors empty,corrupt --num-spaces 4 --title "LongRunRisk Coverage" build/coverage/combined.lcov -o build/coverage/html
+          genhtml --ignore-errors empty,corrupt,category --num-spaces 4 --title "LongRunRisk Coverage" build/coverage/combined.lcov -o build/coverage/html
           lcov --ignore-errors empty,corrupt --summary build/coverage/combined.lcov
         else
           echo "Coverage tracking disabled (Instrumentation paclet bug with Compile). Skipping HTML report."

@@ -74,7 +74,7 @@ DeleteFile[testFilePath<>"temp"];
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -103,7 +103,7 @@ Close /@ {readStream, writeStream}
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -147,7 +147,7 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -216,7 +216,7 @@ ClearSystemCache[];
 (*Generate Tests*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`Catalog`*)
 
 
@@ -387,7 +387,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`EndogenousEq`*)
 
 
@@ -617,7 +617,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`ExogenousEq`*)
 
 
@@ -721,7 +721,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`ProcessModels`*)
 
 
@@ -1143,7 +1143,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`Shocks`*)
 
 
@@ -1421,7 +1421,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`ComputeConditionalExpectations`*)
 
 
@@ -1733,7 +1733,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -2106,7 +2106,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`CreateEulerEq`*)
 
 
@@ -2296,7 +2296,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`CreateMomentsDatabase`*)
 
 
@@ -2447,7 +2447,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`SolveEulerEq`*)
 
 
@@ -3309,7 +3309,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Tools`NiceOutput`*)
 
 
@@ -3483,7 +3483,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Tools`TimeAggregation`*)
 
 
@@ -4680,7 +4680,7 @@ tr[Evaluate@name]["OutputTrueQ"]
 cleanUp[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*PacletizeResources*)
 
 
@@ -4755,7 +4755,7 @@ SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> False]
 
 
 (* ::Input::Initialization:: *)
-Exit[](*Quit[]*)
+Quit[]
 
 
 (* ::Input::Initialization:: *)
@@ -4765,10 +4765,22 @@ PacletFind["Wolfram/PacletCICD"]
 
 
 (* ::Input::Initialization:: *)
-pacletBaseDir=DirectoryName[NotebookDirectory[],2];
+pacletBaseDir=DirectoryName[NotebookDirectory[],2]
 Needs["Wolfram`PacletCICD`"];
-testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir]
+testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]]
+(*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir];*)
+
+
+(* ::Input::Initialization:: *)
 And@@Values@((#["ReportSucceeded"])&/@testResults["Result"])
+
+
+testResults
+
+
+testResults[[2]]["Result"]["./Tests/CreateMomentsDatabase.wlt"]["Results"]
+testResults[[2]]["Result"]["./Tests/Shocks.wlt"]["Results"]
+
 
 
 (* ::Section:: *)
@@ -4818,7 +4830,7 @@ Table[ex[[1,i]]===ac[[1,i]],{i,1,Length[ex[[1]]]}]
 
 
 (* ::Input::Initialization:: *)
-(*Quit[]*)
+Quit[]
 
 
 (* ::Input::Initialization:: *)

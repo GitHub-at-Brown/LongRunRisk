@@ -214,9 +214,19 @@ buildKernel[
 		  args
 		];
 
+		(* Detect if running inside CoverageEvaluate - compilation crashes the Instrumentation paclet *)
+		insideCoverageEvaluate[] := ValueQ[Instrumentation`Coverage`Private`$LineCoverageRuntime];
+
 		(* Wrapper that logs diagnostics and compiles using selected compiler *)
 		compileWithDiagnostics[func_, label_String, compOpts_List, useCompiler_String] := Module[
 		  {leafCount, byteCount, result, logFile},
+
+		  (* Skip compilation during coverage to avoid Instrumentation paclet crash *)
+		  If[insideCoverageEvaluate[],
+		    Print[useCompiler, "[", label, "]: SKIPPED (coverage mode)"];
+		    Return[func, Module]
+		  ];
+
 		  leafCount = LeafCount[func];
 		  byteCount = ByteCount[func];
 
