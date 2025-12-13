@@ -178,10 +178,10 @@ VerificationTest[
 
 VerificationTest[
   Module[{specialModel, result, strings},
-    specialModel = ReplacePart[$minimalModel, {"TEST", "name"} -> "Test with αβγ symbols"];
+    specialModel = ReplacePart[$minimalModel, {"TEST", "name"} -> "Test with \[Alpha]\[Beta]\[Gamma] symbols"];
     result = $formatModels[specialModel];
     strings = Cases[result, _String, Infinity];
-    MemberQ[strings, s_String /; StringContainsQ[s, "αβγ"]]
+    MemberQ[strings, s_String /; StringContainsQ[s, "\[Alpha]\[Beta]\[Gamma]"]]
   ],
   True,
   TimeConstraint -> $timeLimit,

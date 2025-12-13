@@ -77,8 +77,8 @@ VerificationTest[
 
 VerificationTest[
   (* unicode should be preserved *)
-  $normalizeWhitespace["Müller–Lyer illusion with αβγ symbols"],
-  "Müller–Lyer illusion with αβγ symbols",
+  $normalizeWhitespace["M\[UDoubleDot]ller\[Dash]Lyer illusion with \[Alpha]\[Beta]\[Gamma] symbols"],
+  "M\[UDoubleDot]ller\[Dash]Lyer illusion with \[Alpha]\[Beta]\[Gamma] symbols",
   TestID -> "normalizeWhitespace-unicode-preserved@@Tests/NiceOutput/stringFormatting.wlt:78,1-83,2"
 ]
 
