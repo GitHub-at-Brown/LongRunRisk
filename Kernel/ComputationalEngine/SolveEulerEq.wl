@@ -947,7 +947,7 @@ solveWcPdRoots[
               signsPd,
               Join[extraParams, #],
               optSeq
-            ] & /@ wr(*["Sol"]*))
+            ] & /@ wr["Sol"])
           },
           Join[wr, <|"Pd" -> pdForRoot, "SignsWc" -> signsWc, "SignsPd" -> signsPd|>]
         ]
