@@ -24,9 +24,9 @@ signHeadOK$ = And @@ (Head /@ Keys[rSign$["SignRootMap"]] === Table[sg, {Length[
 rRad$ = Quiet[pqs[{x^2 - 1 == 0, y^2 - x == 0}, {x, y}, "DomainOption" -> Reals, "ValidationOption" -> False], {Power::infy, Infinity::indet}];
 radCondOK$ = Module[{sk = Keys[rRad$["SignRootMap"]]}, MemberQ[rRad$["Conditions"], First[sk] >= 0]];
 
-VerificationTest[loadMessages$ === {}, True, TestID -> "package-load-clean@@Tests/ParamQuadSolve/options-and-domain.wlt:27,1-27,133"]
-VerificationTest[AssociationQ[rBase$], True, TestID -> "assoc-r1@@Tests/ParamQuadSolve/options-and-domain.wlt:28,1-28,123"]
-VerificationTest[diagMethodOK$, True, TestID -> "method-option-used@@Tests/ParamQuadSolve/options-and-domain.wlt:29,1-29,126"]
-VerificationTest[diagOrderOK$, True, TestID -> "monomial-order-recorded@@Tests/ParamQuadSolve/options-and-domain.wlt:30,1-30,130"]
-VerificationTest[signHeadOK$, True, TestID -> "signsymbol-head@@Tests/ParamQuadSolve/options-and-domain.wlt:31,1-31,121"]
-VerificationTest[radCondOK$, True, TestID -> "radicand-sign-constraint@@Tests/ParamQuadSolve/options-and-domain.wlt:32,1-32,129"]
+VerificationTest[loadMessages$ === {}, True, TestID -> "package-load-clean@@Tests/ParamQuadSolve/options-and-domain.wlt:27,1-27,134"]
+VerificationTest[AssociationQ[rBase$], True, TestID -> "assoc-r1@@Tests/ParamQuadSolve/options-and-domain.wlt:28,1-28,124"]
+VerificationTest[diagMethodOK$, True, TestID -> "method-option-used@@Tests/ParamQuadSolve/options-and-domain.wlt:29,1-29,127"]
+VerificationTest[diagOrderOK$, True, TestID -> "monomial-order-recorded@@Tests/ParamQuadSolve/options-and-domain.wlt:30,1-30,131"]
+VerificationTest[signHeadOK$, True, TestID -> "signsymbol-head@@Tests/ParamQuadSolve/options-and-domain.wlt:31,1-31,122"]
+VerificationTest[radCondOK$, True, TestID -> "radicand-sign-constraint@@Tests/ParamQuadSolve/options-and-domain.wlt:32,1-32,130"]

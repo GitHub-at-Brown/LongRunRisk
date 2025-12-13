@@ -17,9 +17,9 @@ ourRules$ = Map[(res$["Solution"] /. Thread[signKeys$ -> #]) &, assigns$];
 solveRules$ = Solve[eqns$, vars$];
 sameQ[r1_, r2_] := Quiet[Chop[N[(vars$ //. r1) - (vars$ //. r2), 50]] == ConstantArray[0, Length[vars$]]];
 
-VerificationTest[AssociationQ[res$], True, TestID -> "returns-association@@Tests/ParamQuadSolve/spec-example1.wlt:20,1-20,127"]
-VerificationTest[Length[signKeys$] === 1, True, TestID -> "one-sign-variable@@Tests/ParamQuadSolve/spec-example1.wlt:21,1-21,130"]
-VerificationTest[Length[ourRules$] === 2, True, TestID -> "two-branches@@Tests/ParamQuadSolve/spec-example1.wlt:22,1-22,125"]
+VerificationTest[AssociationQ[res$], True, TestID -> "returns-association@@Tests/ParamQuadSolve/spec-example1.wlt:20,1-20,128"]
+VerificationTest[Length[signKeys$] === 1, True, TestID -> "one-sign-variable@@Tests/ParamQuadSolve/spec-example1.wlt:21,1-21,131"]
+VerificationTest[Length[ourRules$] === 2, True, TestID -> "two-branches@@Tests/ParamQuadSolve/spec-example1.wlt:22,1-22,126"]
 VerificationTest[And @@ (AllTrue[Simplify[eqns$ //. #], TrueQ] & /@ ourRules$), True, TestID -> "subs-all-branches@@Tests/ParamQuadSolve/spec-example1.wlt:23,1-23,169"]
-VerificationTest[Length[solveRules$] == Length[ourRules$], True, TestID -> "solve-count-match@@Tests/ParamQuadSolve/spec-example1.wlt:24,1-24,147"]
+VerificationTest[Length[solveRules$] == Length[ourRules$], True, TestID -> "solve-count-match@@Tests/ParamQuadSolve/spec-example1.wlt:24,1-24,148"]
 VerificationTest[AllTrue[solveRules$, ssol |-> AnyTrue[ourRules$, sameQ[#, ssol] &]], True, TestID -> "matches-Solve@@Tests/ParamQuadSolve/spec-example1.wlt:25,1-25,171"]
