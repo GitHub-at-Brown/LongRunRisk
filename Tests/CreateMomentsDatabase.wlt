@@ -1,5 +1,22 @@
-BeginTestSection["CreateMomentsDatabase"] 
+BeginTestSection["CreateMomentsDatabase"]
 Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`"]
+
+(* Find paclet root and set up paths for TestPaclet compatibility *)
+Module[{start, d},
+	start = If[StringQ[$InputFileName] && $InputFileName =!= "",
+		DirectoryName[$InputFileName],
+		Directory[]
+	];
+	d = start;
+	While[!FileExistsQ[FileNameJoin[{d, "PacletInfo.wl"}]] && d =!= DirectoryName[d],
+		d = DirectoryName[d]
+	];
+	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`$pacletRoot = d;
+	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`$resourcesDir = FileNameJoin[{d, "Resources"}];
+	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`$momentsDir = FileNameJoin[{d, "Resources", "MomentsLookupTables"}];
+	PacletDirectoryLoad[d];
+];
+
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`longTest = False;
 	True
@@ -8,7 +25,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateMomentsDatabase_20251212-TQU27I@@Tests/CreateMomentsDatabase.wlt:3,1-12,2"
+	TestID->"CreateMomentsDatabase_20251213-0XDWTH@@Tests/CreateMomentsDatabase.wlt:20,1-29,2"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`";
@@ -19,16 +36,16 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateMomentsDatabase_20251212-ZXZPPQ@@Tests/CreateMomentsDatabase.wlt:13,1-23,2"
+	TestID->"CreateMomentsDatabase_20251213-HY3MV1@@Tests/CreateMomentsDatabase.wlt:30,1-40,2"
 ]
 VerificationTest[
 	Off[General::stop];
 	If[!FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`longTest, Off[FindRoot::cvmit]];
-	FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
-	Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongBKY.wl"};
-	Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongDES.wl"};
-	Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongNRC.wl"};
-	Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongNRCStochVol.wl"};
+	FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin[{FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`$resourcesDir, "Models.wl"}];
+	Get @ Get @ FileNameJoin[{FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`$momentsDir, "covLongBKY.wl"}];
+	Get @ Get @ FileNameJoin[{FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`$momentsDir, "covLongDES.wl"}];
+	Get @ Get @ FileNameJoin[{FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`$momentsDir, "covLongNRC.wl"}];
+	Get @ Get @ FileNameJoin[{FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`$momentsDir, "covLongNRCStochVol.wl"}];
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`";
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`";
 	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`msp = FernandoDuarte`LongRunRisk`Models;
@@ -177,12 +194,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateMomentsDatabase_20251212-VFJLEN@@Tests/CreateMomentsDatabase.wlt:24,1-181,2"
+	TestID->"CreateMomentsDatabase_20251213-6A44NV@@Tests/CreateMomentsDatabase.wlt:41,1-198,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
   True,
-  TestID -> "Untitled-10@@Tests/CreateMomentsDatabase.wlt:182,1-186,2"
+  TestID -> "Untitled-10@@Tests/CreateMomentsDatabase.wlt:199,1-203,2"
 ]
 End[]
 EndTestSection[]

@@ -1,5 +1,20 @@
-BeginTestSection["Shocks"] 
+BeginTestSection["Shocks"]
 Begin["FernandoDuarte`LongRunRisk`Tests`Model`Shocks`"]
+
+(* Find paclet root and set up paths for TestPaclet compatibility *)
+Module[{start, d},
+	start = If[StringQ[$InputFileName] && $InputFileName =!= "",
+		DirectoryName[$InputFileName],
+		Directory[]
+	];
+	d = start;
+	While[!FileExistsQ[FileNameJoin[{d, "PacletInfo.wl"}]] && d =!= DirectoryName[d],
+		d = DirectoryName[d]
+	];
+	FernandoDuarte`LongRunRisk`Tests`Model`Shocks`$pacletRoot = d;
+	PacletDirectoryLoad[d];
+];
+
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`Shocks`";
 	True
@@ -8,7 +23,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-NFCTHM@@Tests/Shocks.wlt:3,1-12,2"
+	TestID->"Shocks_20251213-S5Y1B1@@Tests/Shocks.wlt:18,1-27,2"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Shocks`"]
@@ -17,7 +32,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-FISVCU@@Tests/Shocks.wlt:13,1-21,2"
+	TestID->"Shocks_20251213-9HRQH4@@Tests/Shocks.wlt:28,1-36,2"
 ]
 VerificationTest[
 	!SameQ[Names @ "*rulesE", {}]
@@ -26,7 +41,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-1BIT17@@Tests/Shocks.wlt:22,1-30,2"
+	TestID->"Shocks_20251213-AZ73XN@@Tests/Shocks.wlt:37,1-45,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -46,7 +61,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-BN5MTI@@Tests/Shocks.wlt:31,1-50,2"
+	TestID->"Shocks_20251213-1LWUFR@@Tests/Shocks.wlt:46,1-65,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -66,7 +81,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-OYEYN9@@Tests/Shocks.wlt:51,1-70,2"
+	TestID->"Shocks_20251213-83GHTR@@Tests/Shocks.wlt:66,1-85,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -86,7 +101,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-EDTFFG@@Tests/Shocks.wlt:71,1-90,2"
+	TestID->"Shocks_20251213-UVFRWJ@@Tests/Shocks.wlt:86,1-105,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -106,7 +121,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-YDZ853@@Tests/Shocks.wlt:91,1-110,2"
+	TestID->"Shocks_20251213-1803WC@@Tests/Shocks.wlt:106,1-125,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -137,7 +152,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-5O2TSI@@Tests/Shocks.wlt:111,1-141,2"
+	TestID->"Shocks_20251213-GY6T2L@@Tests/Shocks.wlt:126,1-156,2"
 ]
 VerificationTest[
 	SameQ[
@@ -156,7 +171,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-EME4P3@@Tests/Shocks.wlt:142,1-160,2"
+	TestID->"Shocks_20251213-B6K85X@@Tests/Shocks.wlt:157,1-175,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -192,7 +207,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-A3O11D@@Tests/Shocks.wlt:161,1-196,2"
+	TestID->"Shocks_20251213-GTQB7H@@Tests/Shocks.wlt:176,1-211,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -217,7 +232,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-99SLTI@@Tests/Shocks.wlt:197,1-221,2"
+	TestID->"Shocks_20251213-C3OK8H@@Tests/Shocks.wlt:212,1-236,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -245,7 +260,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-T9UL6X@@Tests/Shocks.wlt:222,1-249,2"
+	TestID->"Shocks_20251213-Z1LEK4@@Tests/Shocks.wlt:237,1-264,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -280,7 +295,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-FCFWXI@@Tests/Shocks.wlt:250,1-284,2"
+	TestID->"Shocks_20251213-T7LWAM@@Tests/Shocks.wlt:265,1-299,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -300,7 +315,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-6SW6LZ@@Tests/Shocks.wlt:285,1-304,2"
+	TestID->"Shocks_20251213-UM1NQ4@@Tests/Shocks.wlt:300,1-319,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -320,12 +335,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251212-D5068Y@@Tests/Shocks.wlt:305,1-324,2"
+	TestID->"Shocks_20251213-ND4BPE@@Tests/Shocks.wlt:320,1-339,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
   True,
-  TestID -> "Untitled-22@@Tests/Shocks.wlt:325,1-329,2"
+  TestID -> "Untitled-22@@Tests/Shocks.wlt:340,1-344,2"
 ]
 End[]
 EndTestSection[]
