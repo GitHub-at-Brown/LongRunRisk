@@ -29,9 +29,6 @@ Module[
     Quit[1];
   ];
 
-  If[verbose,
-  ];
-
   testFiles = If[Length[specificFiles] > 0,
     FileNameJoin[{testDir, #}] & /@ specificFiles,
     Sort[FileNames["*.wlt", testDir]]
@@ -39,9 +36,6 @@ Module[
 
   If[Length[testFiles] == 0,
     Quit[1];
-  ];
-
-  If[verbose,
   ];
 
   startTime = AbsoluteTime[];
@@ -56,28 +50,7 @@ Module[
   totalTests = totalPassed + totalFailed + totalAborted;
   Print["Total: ", totalTests, ", Passed: ", totalPassed, ", Failed: ", totalFailed, ", Aborted: ", totalAborted, " (" <> ToString[NumberForm[100.0 * totalPassed / totalTests, {4, 1}]] <> "%)"];
 
-  If[totalAborted > 0,
-  ];
-
   If[totalFailed > 0 || totalAborted > 0,
-    If[totalFailed > 0,
-      (* TestsFailed returns nested association - flatten all values *)
-      Flatten[Values /@ Values[report["TestsFailed"]]] // Map[
-        Function[test,
-          If[verbose,
-            If[test["ExpectedMessages"] =!= {},
-            ];
-          ];
-        ]
-      ];
-    ];
-    If[totalAborted > 0,
-      (* TestsAborted returns association of test results *)
-      Values[report["TestsAborted"]] // Map[
-        Function[test,
-        ]
-      ];
-    ];
     Quit[1],
     Quit[0]
   ];

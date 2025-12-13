@@ -53,9 +53,6 @@ Module[
     Quit[1];
   ];
 
-  If[verbose,
-  ];
-
   (* Get test files *)
   testFiles = If[Length[specificFiles] > 0,
     (* Run specific files *)
@@ -73,15 +70,7 @@ Module[
     Select[Flatten[{expr}], MatchQ[_TestObject | _VerificationTest]]
   ];
 
-  (* Print header *)
-  If[Length[specificFiles] > 0,
-  ];
-
   startTime = AbsoluteTime[];
-
-  (* Run all test files with progress reporting *)
-  If[verbose,
-  ];
 
   report = TestReport[testsFromFile /@ testFiles, "ProgressReporting" -> verbose];
 
@@ -94,28 +83,6 @@ Module[
 
   (* Print summary *)
   Print["Total: ", totalTests, ", Passed: ", totalPassed, ", Failed: ", totalFailed, " (" <> ToString[NumberForm[100.0 * totalPassed / totalTests, {4, 1}]] <> "%)"];
-  If[totalTests > 0,
-  ];
-
-  (* Per-file summary *)
-
-  Do[
-    Module[{fileReport, fileName, passed, failed, total, status},
-      fileName = FileBaseName[testFile];
-      fileReport = TestReport[testsFromFile[testFile]];
-      passed = fileReport["TestsSucceededCount"];
-      failed = fileReport["TestsFailedCount"];
-      total = passed + failed;
-
-      status = If[failed == 0, "✓", "✗"];
-
-      With[{padded = StringPadRight[fileName <> ".wlt", 35]},
-        If[failed == 0,
-        ];
-      ];
-    ],
-    {testFile, testFiles}
-  ];
 
   (* Detailed failure report *)
   If[totalFailed > 0,
