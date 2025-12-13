@@ -76,15 +76,15 @@ VerificationTest[
 
 VerificationTest[
   Module[{tmp, manifestFile, result, fileExists},
-    tmp = FileNameJoin[{DirectoryName[$InputFileName], "tmp-" <> CreateUUID[]}];
+    tmp = CreateDirectory[FileNameJoin[{DirectoryName[$InputFileName], "tmp-" <> CreateUUID[]}]];
     manifestFile = FileNameJoin[{tmp, "Resources", "ModelManifest.wl"}];
     Block[
       {
         FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot,
-        FernandoDuarte`LongRunRisk`Model`Catalog`models
+        FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`getCatalogModels
       },
       FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot[] := tmp;
-      FernandoDuarte`LongRunRisk`Model`Catalog`models = 42;  (* Not an association *)
+      FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`getCatalogModels[] := 42;  (* Not an association *)
       result = updateModelManifest[];
       fileExists = FileExistsQ[manifestFile];
     ];
@@ -104,17 +104,17 @@ VerificationTest[
 VerificationTest[
   Module[
     {tmp, manifestFile, catalogOverride, result, fileData, dropDate, dateOK, versionOK, hashesOK},
-    tmp = FileNameJoin[{DirectoryName[$InputFileName], "tmp-" <> CreateUUID[]}];
+    tmp = CreateDirectory[FileNameJoin[{DirectoryName[$InputFileName], "tmp-" <> CreateUUID[]}]];
     manifestFile = FileNameJoin[{tmp, "Resources", "ModelManifest.wl"}];
     catalogOverride = <|"ModelA" -> <|"a" -> 1|>, "ModelB" -> <|"b" -> {1, 2}|>|>;
     dropDate = KeyDrop[#, {"Date"}] &;
     Block[
       {
         FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot,
-        FernandoDuarte`LongRunRisk`Model`Catalog`models
+        FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`getCatalogModels
       },
       FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot[] := tmp;
-      FernandoDuarte`LongRunRisk`Model`Catalog`models = catalogOverride;
+      FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`getCatalogModels[] := catalogOverride;
       result = updateModelManifest[];
       fileData = Get[manifestFile];
     ];

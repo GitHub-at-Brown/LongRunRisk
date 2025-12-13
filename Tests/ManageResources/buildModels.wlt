@@ -56,27 +56,15 @@ VerificationTest[
 (* ============================================================ *)
 
 VerificationTest[
-  StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels::kernels],
+  StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels::noroot],
   True,
-  TestID -> "buildModels-has-kernels-message"
+  TestID -> "buildModels-has-noroot-message"
 ]
 
 VerificationTest[
-  StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels::kernelwarmup],
+  StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels::nocat],
   True,
-  TestID -> "buildModels-has-kernelwarmup-message"
-]
-
-VerificationTest[
-  StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels::momentscache],
-  True,
-  TestID -> "buildModels-has-momentscache-message"
-]
-
-VerificationTest[
-  StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels::momentscomputing],
-  True,
-  TestID -> "buildModels-has-momentscomputing-message"
+  TestID -> "buildModels-has-nocat-message"
 ]
 
 (* ============================================================ *)
