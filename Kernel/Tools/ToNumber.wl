@@ -15,7 +15,7 @@ toNum
 toEquation
 toExogenousVars
 toStateVars
-
+processNewParameters
 
 (* ::Subsubsection:: *)
 (*Usage*)

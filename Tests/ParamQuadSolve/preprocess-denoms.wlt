@@ -11,7 +11,7 @@ condExpr$ = And @@ conds$;
 hasPsiDen$ = Simplify[condExpr$ /. psi -> 1] === False;
 hasExpDen$ = Simplify[condExpr$ /. Exp[A[0]] -> -1] === False;
 
-coeffKeysOK$ = AssociationQ[r$["CoeffMap"]] && Length[r$["CoeffMap"]] >= 1;
+coeffKeysOK$ = AssociationQ[r$["Maps"]["CoeffMap"]] && Length[r$["Maps"]["CoeffMap"]] >= 1;
 noDummyInSol$ = FreeQ[r$["Solution"], _Symbol?(StringMatchQ[SymbolName[#], "c$*"] & )];
 
 VerificationTest[hasPsiDen$, True, TestID -> "psi-denom-cond"]
