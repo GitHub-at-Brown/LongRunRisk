@@ -54,7 +54,7 @@ yieldCurve[
 	newParameters_:{},
 	coeffsWc_:{},
 	bondType : "bond"|"nombond" : "nombond",
-	opts : OptionsPattern[{yieldCurve, updateCoeffsSol, FindRoot, RecurrenceTable}]
+	opts : OptionsPattern[{yieldCurve, updateCoeffs, FindRoot, RecurrenceTable}]
 ]:= With[
 	{
 		params = model["params"],
@@ -69,27 +69,43 @@ yieldCurve[
 		{
 			newParams=processNewParameters[newParameters,params]
 		},
-		Module[
-			{
-				solWc,
-				solNomBonds,
-				yE
-			},
+			Module[
+				{
+					solWc,
+					solNomBonds,
+					yE,
+					updateOpts,
+					recurrenceOpts,
+					coeffsWcList
+				},
 
-			Off[Reduce::ratnz];
-			(*set options*)					
-			SetOptions[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution, FilterRules[{opts},FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution]];
+				Off[Reduce::ratnz];
+				(*set options*)					
+				SetOptions[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution, FilterRules[{opts},FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution]];
 			PrependTo[Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution],FilterRules[{opts},FindRoot]];
 			PrependTo[Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution],FilterRules[{opts},RecurrenceTable]];
-				
-			(*if coefficients for wc were not provided, compute them*)
-			solWc=If[coeffsWc==={}, coeffsWc(*updateCoeffsWc[model["coeffsSolution"]["wc"], params, newParams,opts]*), coeffsWc];
-			(*solve bond recursion*)
-			solNomBonds=updateCoeffsBond[model["coeffsSolution"][bondType], params, newParams, maxMaturity, solWc,opts];
-			(*compute unconditional expectation of bond yields*)
-			yE=Simplify@If[bondType==="nombond", momF@@{nombondyield[t,m],model}, momF@@{bondyield[t,m],model}];
-			(*restore options*)
-			SetOptions[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution,initialOpts];
+					
+				(*if coefficients for wc were not provided, compute them*)
+				updateOpts = FilterRules[Flatten @ {opts}, Join[Options[updateCoeffs], Options[FindRoot], Options[RecurrenceTable]]];
+				recurrenceOpts = FilterRules[Flatten @ {opts}, Options[RecurrenceTable]];
+				coeffsWcList = Which[
+					coeffsWc === {}, {},
+					AssociationQ[coeffsWc] || MatchQ[coeffsWc, {___Rule}], {coeffsWc},
+					MatchQ[coeffsWc, {_Association ..}] || MatchQ[coeffsWc, {{___Rule} ..}], coeffsWc,
+					True, coeffsWc
+				];
+				solWc = If[coeffsWcList === {},
+					Map[#["A"]&, updateCoeffs[model, newParams, {}, Sequence @@ updateOpts]],
+					coeffsWcList
+				];
+				(*solve bond recursion*)
+				solNomBonds=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsBond[
+					model["coeffsSolution"][bondType], params, newParams, maxMaturity, solWc, Sequence @@ recurrenceOpts
+				];
+				(*compute unconditional expectation of bond yields*)
+				yE=Simplify@If[bondType==="nombond", momF@@{nombondyield[t,m],model}, momF@@{bondyield[t,m],model}];
+				(*restore options*)
+				SetOptions[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution,initialOpts];
 			On[Reduce::ratnz];
 			(*yield curve, plot with ListLinePlot[yieldCurve]*)
 			Table[{m,yE}/.m->mm,{mm,maxMaturity}]/.solNomBonds
