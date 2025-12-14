@@ -30,6 +30,14 @@ buildModelsParallel::usage = "buildModelsParallel[models] runs Symbolic+Compile+
 Models is a list of shortnames like {\"BY\", \"NRC\", \"DES\"}.
 Options include \"CreateMoments\" (default True) and \"NumKernels\" (default Automatic).";
 
+checkCatalogForUI::usage = "checkCatalogForUI[] checks catalog changes without auto-reformatting.
+Returns <|\"Changed\"->{keys}, \"New\"->{keys}, \"Removed\"->{keys}, \"Validation\"->..., \"FirstRun\"->bool|> or $Failed.
+Handles first-run case (no manifest) by returning all enabled models as \"New\" with FirstRun->True.";
+
+getModelPipelineStatus::usage = "getModelPipelineStatus[] returns pipeline status for all enabled models.
+getModelPipelineStatus[shortnames] returns status for specified models (shortnames or All).
+Returns <|shortname -> <|\"MainStage\"->..., \"NeedsJacobians\"->..., \"Reason\"->...|>, ...|> or $Failed.";
+
 Begin["`Private`"];
 
 (* Live catalog loading - tracks file modification time *)
@@ -134,7 +142,10 @@ canonicalize[expr_Association] := KeySort[Map[canonicalize, expr]];
 canonicalize[expr_List] := Map[canonicalize, expr];
 canonicalize[expr_] := expr;
 
-getCanonicalHash[expr_] := Hash[ExportString[canonicalize[expr], "WL"], "SHA256", "HexString"];
+(* Block $ContextPath to ensure stable hash regardless of loaded packages *)
+getCanonicalHash[expr_] := Block[{$ContextPath = {"System`"}},
+  Hash[ExportString[canonicalize[expr], "WL"], "SHA256", "HexString"]
+];
 
 (* OS-level memory usage (sum of WolframKernel RSS, in GB) *)
 wolframKernelMemoryGB[] := Module[{raw, kb},
@@ -1248,6 +1259,125 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	Print["=== buildModelsParallel finished at ", DateString[], " (", Round[AbsoluteTime[] - startTime], "s total) ==="];
 	Print["Returning mergedModels with keys: ", Keys[mergedModels]];
 	mergedModels
+];
+
+
+(* Public API for PipelineMonitor UI layer *)
+
+(* checkCatalogForUI: Check catalog changes without auto-reformatting *)
+(* Handles first-run case (no manifest) by returning all enabled models as "New" *)
+checkCatalogForUI[] := Module[
+	{root, manifestFile, catalogModels, savedManifest, currentCatalogHash,
+	 savedCatalogHash, savedModelHashes, currentModelHashes,
+	 changedModels, newModels, removedModels, modelsToValidate, validationResult},
+
+	root = findPacletRoot[];
+	If[root === $Failed, Return[$Failed]];
+
+	manifestFile = FileNameJoin[{root, "Resources", "ModelManifest.wl"}];
+
+	(* Get catalog - must succeed for any operation *)
+	catalogModels = getCatalogModels[];
+	If[!AssociationQ[catalogModels], Return[$Failed]];
+
+	(* First run: manifest doesn't exist *)
+	If[!FileExistsQ[manifestFile],
+		Return[<|
+			"Changed" -> {},
+			"New" -> Keys[Select[catalogModels, TrueQ[#["enabled"]] &]],
+			"Removed" -> {},
+			"Validation" -> <|"Valid" -> True, "Results" -> <||>,
+				"InvalidModels" -> {}, "TotalErrors" -> 0|>,
+			"FirstRun" -> True
+		|>]
+	];
+
+	(* Load manifest *)
+	savedManifest = loadManifestSafe[manifestFile];
+	If[savedManifest === $Failed, Return[$Failed]];
+
+	(* Quick check: compare catalog hash *)
+	currentCatalogHash = getCanonicalHash[catalogModels];
+	savedCatalogHash = savedManifest["CatalogHash"];
+
+	If[currentCatalogHash === savedCatalogHash,
+		(* No changes *)
+		Return[<|"Changed" -> {}, "New" -> {}, "Removed" -> {},
+			"Validation" -> <|"Valid" -> True|>, "FirstRun" -> False|>]
+	];
+
+	(* Catalog has changed - identify which models *)
+	savedModelHashes = savedManifest["Models"];
+	currentModelHashes = Map[getCanonicalHash, catalogModels];
+
+	(* Find changed models (exist in both, hash differs) *)
+	changedModels = Select[
+		Keys[KeyTake[currentModelHashes, Keys[savedModelHashes]]],
+		currentModelHashes[#] =!= savedModelHashes[#] &
+	];
+
+	(* Find new models (in current but not saved) *)
+	newModels = Complement[Keys[currentModelHashes], Keys[savedModelHashes]];
+
+	(* Find removed models (in saved but not current) *)
+	removedModels = Complement[Keys[savedModelHashes], Keys[currentModelHashes]];
+
+	(* Validate changed and new models - but DON'T reformat *)
+	modelsToValidate = Join[changedModels, newModels];
+	validationResult = If[modelsToValidate =!= {},
+		Needs["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"];
+		FernandoDuarte`LongRunRisk`Tools`ValidateModels`validateCatalog[
+			KeyTake[catalogModels, modelsToValidate]
+		],
+		<|"Valid" -> True, "Results" -> <||>, "InvalidModels" -> {}, "TotalErrors" -> 0|>
+	];
+
+	<|
+		"Changed" -> changedModels,
+		"New" -> newModels,
+		"Removed" -> removedModels,
+		"Validation" -> validationResult,
+		"FirstRun" -> False
+	|>
+];
+
+(* getModelPipelineStatus: Return pipeline status for models *)
+getModelPipelineStatus[] := getModelPipelineStatus[All];
+
+getModelPipelineStatus[shortnames_] := Module[
+	{root, catalogModels, savedModels, manifest, compiledDir, momentsDir,
+	 enabledModels, modelKeys, result},
+
+	root = findPacletRoot[];
+	If[root === $Failed, Return[$Failed]];
+
+	(* Load all required data *)
+	catalogModels = getCatalogModels[];
+	If[!AssociationQ[catalogModels], Return[$Failed]];
+
+	savedModels = loadModels[FileNameJoin[{root, "Resources", "Models.wl"}]];
+	manifest = loadManifestSafe[FileNameJoin[{root, "Resources", "ModelManifest.wl"}]];
+	compiledDir = FileNameJoin[{root, "Resources", "CompiledFunctions"}];
+	momentsDir = FileNameJoin[{root, "Resources", "MomentsLookupTables"}];
+
+	enabledModels = Select[catalogModels, TrueQ[#["enabled"]] &];
+
+	(* Filter by shortnames if specified *)
+	modelKeys = If[shortnames === All,
+		Keys[enabledModels],
+		Select[Keys[enabledModels],
+			MemberQ[Flatten@{shortnames}, catalogModels[#]["shortname"]] &]
+	];
+
+	(* Build status for each model *)
+	result = Association @ Table[
+		catalogModels[key]["shortname"] ->
+			determineModelStatus[key, catalogModels, savedModels, manifest,
+				compiledDir, momentsDir, False, True],
+		{key, modelKeys}
+	];
+
+	result
 ];
 
 

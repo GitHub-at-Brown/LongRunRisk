@@ -66,6 +66,21 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 (*nD Root-Finding Helpers*)
 
 
+(* Resolve the sign-head symbol used in analytical solutions.
+   Avoid ToExpression["signA"] because it is $ContextPath-dependent (e.g. under PacletCICDTest). *)
+signHeadFromExpr[expr_, sName_String] := Module[
+  {base = Last @ StringSplit[sName, "`"]},
+  FirstCase[
+    expr,
+    s_Symbol[i_Integer] /; SymbolName[s] === base :> s,
+    Symbol["Global`" <> base],
+    Infinity
+  ]
+];
+
+signHeadFromExpr[expr_, sName_Symbol] := sName;
+
+
 (* Step 1: safeReduceCall - wraps findRootInterval with timeout for nD *)
 safeReduceCall[conds_, paramsAll_, signs_, cName_, sName_, findOpts_, timeout_] :=
   TimeConstrained[
@@ -195,9 +210,9 @@ solveND // Options = {
 };
 
 solveND[f_, df_, conds_, paramsAll_, signs_, coefList_, cName_, sName_,
-        findOpts_, extractOpts_, scanOpts_, solTemplate_,
-        opts : OptionsPattern[{solveND}]] :=
-  Module[{reduceExpr, rub, pad, acc, tol, signHead, signsRule, sol, result},
+	        findOpts_, extractOpts_, scanOpts_, solTemplate_,
+	        opts : OptionsPattern[{solveND}]] :=
+	  Module[{reduceExpr, rub, pad, acc, tol, signHead, signsRule, sol, result},
 
     (* Extract options from extractIntervalsFromReduce *)
     rub = Lookup[Flatten@{extractOpts}, "RootUpperBound", 15.];
@@ -205,10 +220,10 @@ solveND[f_, df_, conds_, paramsAll_, signs_, coefList_, cName_, sName_,
     acc = AccuracyGoal /. Flatten[{scanOpts, Options[FindRoot]}] /. AccuracyGoal -> 8;
     tol = 10.^(-acc);
 
-    (* Prepare solution substitution *)
-    signHead = If[StringQ[sName], ToExpression[sName], sName];
-    signsRule = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
-    sol = solTemplate //. paramsAll //. signsRule;
+	    (* Prepare solution substitution *)
+	    signHead = signHeadFromExpr[solTemplate, sName];
+	    signsRule = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
+	    sol = solTemplate //. paramsAll //. signsRule;
 
     (* Helper to package result matching original format *)
     packageResult[{rootsList_, intervalsList_}] := Module[{rRules, sRules},
@@ -836,12 +851,12 @@ solveCoeffRoots[
           intervals  = extractIntervalsFromReduce[reduceExpr, coefList, Sequence @@ extractOpts];
           roots = (scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals);
           
-          (* Substitute signs into the analytical solution *)
-          signHead   = If[StringQ[sName], ToExpression[sName], sName];
-          signsRule  = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
-          
-          (* rest of the coefficients with all parameters substituted *)
-          sol        = quadSol["Solution"] //. paramsAll //. signsRule ;
+	          (* Substitute signs into the analytical solution *)
+	          signHead   = signHeadFromExpr[quadSol["Solution"], sName];
+	          signsRule  = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
+	          
+	          (* rest of the coefficients with all parameters substituted *)
+	          sol        = quadSol["Solution"] //. paramsAll //. signsRule ;
 
           (* rule to substitute stock index if present *)
           (* jRule = First[

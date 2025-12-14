@@ -92,6 +92,7 @@ Ev; Var; Cov; Corr;
 Growth;
 YieldCurve;PlotCoeffs;
 VisualizeCoeffs;
+CheckModels;
 (*t;*)
 (*covLongBY;covLongNRC;covLongDES;*)
 
@@ -344,6 +345,33 @@ End[]; (*"`Private`"*)
 
 
 EndPackage[];
+
+
+(* === Export CheckModels to main context === *)
+(* Safe initialization - NEVER affects package load success *)
+Quiet[
+	Check[
+		Needs["FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`"];
+		(* Make CheckModels available in main context *)
+		FernandoDuarte`LongRunRisk`CheckModels =
+			FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`CheckModels;
+		,
+		Null  (* Silently ignore any errors *)
+	],
+	All  (* Suppress all messages *)
+];
+
+(* Optional: auto-check on first load only - guarded *)
+Quiet[
+	Check[
+		If[!TrueQ[$ParallelEvaluationEnvironment] && $KernelID === 0,
+			(* Only run if not in parallel context and main kernel *)
+			FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`CheckModels[]
+		],
+		Null
+	],
+	All
+];
 
 
 (* Protect all package symbols after EndPackage[]; *)
