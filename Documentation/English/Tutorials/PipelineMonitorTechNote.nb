@@ -1,0 +1,775 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     29106,        749]
+NotebookOptionsPosition[     19892,        544]
+NotebookOutlinePosition[     20423,        562]
+CellTagsIndexPosition[     20380,        559]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Pipeline Monitor for Model Management", "Title",
+ CellID->509267359,ExpressionUUID->"f2514675-c067-4391-b738-12aebcbb80f4"],
+
+Cell["\<\
+The Pipeline Monitor helps users manage economic models in the LongRunRisk \
+paclet by detecting catalog changes, validating model configurations, and \
+orchestrating the build pipeline. It provides both an interactive interface \
+in notebooks and a command-line interface for terminal users.\
+\>", "Text",
+ CellID->1534169418,ExpressionUUID->"1d60b798-7bb7-4629-bafd-949dbb0b8076"],
+
+Cell[CellGroupData[{
+
+Cell["Load the LongRunRisk package:", "MathCaption",
+ CellID->1825449234,ExpressionUUID->"60bf169c-eb5a-4068-ba9b-7f34a14326d4"],
+
+Cell[BoxData[
+ RowBox[{"<<", "FernandoDuarte`LongRunRisk`"}]], "Input",
+ CellLabel->"In[1]:=",
+ CellID->1373894796,ExpressionUUID->"950cd364-b6dd-4a42-8b39-70917157a4a3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Checking for Catalog Changes", "Section",
+ CellID->2591,ExpressionUUID->"cbb4111d-e939-49c0-a4fc-b9e76fa68484"],
+
+Cell["\<\
+After editing the model catalog, use CheckModels to detect changes and \
+validate configurations. The function automatically identifies new, changed, \
+and removed models, then displays a pipeline status report.\
+\>", "Text",
+ CellID->16706,ExpressionUUID->"3142a608-c419-4058-88e8-5b89521eabd3"],
+
+Cell[BoxData[GridBox[{
+   {
+    RowBox[{"CheckModels", "[", "]"}], Cell["\<\
+check the catalog for changes and offer to build updated models\
+\>", "TableText",ExpressionUUID->"b1db1ab4-991f-4cf9-914b-5596e28fdfd2"]}
+  }]], "DefinitionBox",
+ CellID->19362,ExpressionUUID->"cd4db743-f4e0-4f59-9b6f-2f17e3f1edf6"],
+
+Cell["Checking for catalog changes.", "Caption",
+ CellID->19031,ExpressionUUID->"8587fe24-fc76-459d-a403-720856ccdc67"],
+
+Cell[CellGroupData[{
+
+Cell["Check for catalog changes and view pipeline status:", "MathCaption",
+ CellID->6421,ExpressionUUID->"a38fefd9-86b5-4be8-83ec-76f13d037f82"],
+
+Cell[BoxData[
+ RowBox[{"CheckModels", "[", "]"}]], "Input",
+ CellLabel->"In[2]:=",
+ CellID->27111,ExpressionUUID->"aa4d12d7-235d-46fa-87f7-552b4e202665"]
+}, Open  ]],
+
+Cell["\<\
+If working on the front end in a notebook, a dialog appears showing changed \
+models and their pipeline status. If working on a terminal, an ASCII table is \
+printed with the command needed to build the models.\
+\>", "Text",
+ CellChangeTimes->{{3.9746857304050627`*^9, 3.974685781283971*^9}},
+ CellID->16707,ExpressionUUID->"e85aa1f2-a307-47d1-b1e0-793b74de89d7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Working with Models", "Section",
+ CellID->30767,ExpressionUUID->"70986d04-08c4-4c2c-8f5e-7f0abe49575d"],
+
+Cell["\<\
+Models are defined in Catalog.wl located at Kernel/Model/Catalog.wl. Each \
+model is an entry in the models association with required fields: name, \
+shortname, enabled, stateVars, and parameters.\
+\>", "Text",
+ CellID->3951,ExpressionUUID->"f6a06541-090b-4e7a-9fb5-18160498857d"],
+
+Cell[CellGroupData[{
+
+Cell["Model Entry Structure", "Subsection",
+ CellID->30768,ExpressionUUID->"d55e0654-4313-4db2-820d-ee9e9ad594be"],
+
+Cell[BoxData[GridBox[{
+   {Cell["Field", "TableHeader",ExpressionUUID->
+     "2375f09b-dc48-49e9-8b62-07ffe4a636b6"], Cell[
+    "Required", "TableHeader",ExpressionUUID->
+     "83770526-c76f-4688-95e3-091ebd4b4e86"], Cell[
+    "Description", "TableHeader",ExpressionUUID->
+     "e6db2807-403e-4d50-88f6-2d2c8dddf7bd"]},
+   {"\"\<name\>\"", "Yes", Cell[
+    "Human-readable model name", "TableText",ExpressionUUID->
+     "3a7abcd8-6a6a-41fd-a325-2e64bd89c597"]},
+   {"\"\<shortname\>\"", "Yes", Cell[
+    "Short identifier used in file names (e.g., \"BY\")", "TableText",
+     ExpressionUUID->"8a1f2ae9-2143-4215-a1b5-0e6c0a3983a4"]},
+   {"\"\<enabled\>\"", "Yes", Cell[
+    "Boolean; set True to include in builds", "TableText",ExpressionUUID->
+     "4c98e15f-b32b-4a97-a34d-ed82a344fb46"]},
+   {"\"\<stateVars\>\"", "Yes", Cell[
+    "List of state variables as symbols with time argument", "TableText",
+     ExpressionUUID->"841af54f-b2a5-47e9-a2cb-63c1b6840958"]},
+   {"\"\<parameters\>\"", "Yes", Cell[
+    "List of parameter rules with numerical values", "TableText",
+     ExpressionUUID->"42cdcb3b-0980-49c6-b6b7-7b9bdc176a43"]},
+   {"\"\<bibRef\>\"", "No", Cell[
+    "Bibliography reference key", "TableText",ExpressionUUID->
+     "fa493aa2-dd57-48f5-beb7-df5d104b2c88"]},
+   {"\"\<desc\>\"", "No", Cell[
+    "Extended description text", "TableText",ExpressionUUID->
+     "13c02eed-3aa7-4e94-b0e4-64542968f243"]}
+  },
+  GridBoxDividers->{
+   "Rows" -> {False, True, {False}, False}}]], "DefinitionBox3Col",
+ CellID->2017,ExpressionUUID->"434f2908-05ec-460b-9707-58b38ab20856"],
+
+Cell["Required and optional fields for model entries.", "Caption",
+ CellID->21763,ExpressionUUID->"0413904d-c967-41fb-b814-6f8aee102826"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Adding a New Model", "Subsection",
+ CellID->30769,ExpressionUUID->"ea819038-30a9-4d53-a860-8139f2c61fb0"],
+
+Cell["\<\
+To add a new model, insert a new entry in the models association in \
+Catalog.wl. The entry key should be a unique string identifier.\
+\>", "Text",
+ CellID->3952,ExpressionUUID->"7f150b3a-12a7-4b4a-ab1d-aa24c9c7b2ea"],
+
+Cell[CellGroupData[{
+
+Cell["Example model entry structure:", "MathCaption",
+ CellID->6422,ExpressionUUID->"5b0acb16-59a6-4780-845b-a03c7618e5d6"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Add", " ", "to", " ", 
+     RowBox[{"Catalog", ".", "wl"}], " ", "inside", " ", "models"}], " ", "=",
+     " ", 
+    RowBox[{"<|", " ", "...", " ", "|>"}]}], " ", "*)"}], "\n", 
+  RowBox[{"\"\<MyNewModel\>\"", " ", "->", " ", 
+   RowBox[{"<|", "\n", "    ", 
+    RowBox[{
+     RowBox[{"\"\<name\>\"", " ", "->", " ", "\"\<My Custom Model\>\""}], ",",
+      "\n", "    ", 
+     RowBox[{"\"\<shortname\>\"", " ", "->", " ", "\"\<MNM\>\""}], ",", "\n", 
+     "    ", 
+     RowBox[{"\"\<enabled\>\"", " ", "->", " ", "True"}], ",", "\n", "    ", 
+     RowBox[{"\"\<stateVars\>\"", " ", "->", " ", 
+      RowBox[{"{", 
+       RowBox[{"x", "[", "t", "]"}], ",", " ", 
+       RowBox[{"sx", "[", "t", "]"}], "}"}]}], ",", "\n", "    ", 
+     RowBox[{"\"\<parameters\>\"", " ", "->", " ", 
+      RowBox[{"{", "\n", "        ", 
+       RowBox[{
+        RowBox[{"delta", " ", "->", " ", "0.998"}], ",", "\n", "        ", 
+        RowBox[{"psi", " ", "->", " ", "1.5"}], ",", "\n", "        ", 
+        RowBox[{"gamma", " ", "->", " ", "10"}]}], "\n", "    ", "}"}]}]}], 
+    "\n", "|>"}]}]}]], "Input",
+ CellLabel->"In[3]:=",
+ CellID->27112,ExpressionUUID->"46127351-4bef-44eb-b626-4ea4ca10b8f4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["After adding the model, save and check for changes:", "MathCaption",
+ CellChangeTimes->{{3.97468586998629*^9, 3.974685873848729*^9}},
+ CellID->6423,ExpressionUUID->"4fee8a67-f64b-4b4b-bb44-9364c088fa05"],
+
+Cell[BoxData[
+ RowBox[{"CheckModels", "[", "]"}]], "Input",
+ CellLabel->"In[4]:=",
+ CellID->27113,ExpressionUUID->"7703aad1-59d4-46a5-a346-c15dbefc06a9"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Updating an Existing Model", "Subsection",
+ CellID->30770,ExpressionUUID->"6211bab4-96e2-4f32-8a7b-80f150456f10"],
+
+Cell["\<\
+To modify an existing model, edit its entry in Catalog.wl. Common changes \
+include adjusting parameter values or modifying the state variable list.\
+\>", "Text",
+ CellID->3953,ExpressionUUID->"a050fe11-2cc2-4d9a-b622-78dbd88a2fcc"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+For example, to change the risk aversion parameter gamma in the BY model:\
+\>", "MathCaption",
+ CellID->6424,ExpressionUUID->"d4a37bc2-6e6e-4219-9efe-52565bdfc244"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"In", " ", 
+     RowBox[{"Catalog", ".", "wl"}]}], ",", " ", 
+    RowBox[{"find", " ", "the", " ", "\"\<BY\>\"", " ", "entry", " ", "and", " ", 
+     RowBox[{"modify", ":"}]}]}], " ", "*)"}], "\n", 
+  RowBox[{"gamma", " ", "->", " ", "12", "  ", 
+   RowBox[{"(*", " ", 
+    RowBox[{"changed", " ", "from", " ", "10"}], " ", "*)"}]}]}]], "Input",
+ CellLabel->"In[5]:=",
+ CellID->27114,ExpressionUUID->"34019732-d270-45f3-b564-625ca66350fd"]
+}, Open  ]],
+
+Cell["\<\
+Model parameters are the default parameters. Users can use models with any \
+set of parameters after they are built.\
+\>", "Text",
+ CellChangeTimes->{{3.974685912063202*^9, 3.9746860172786694`*^9}, {
+  3.9746860563484087`*^9, 3.974686061301602*^9}},
+ CellID->1487916350,ExpressionUUID->"b0f56b78-635c-4a29-b8a7-10e96575cd15"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Disabling a Model", "Subsection",
+ CellID->30771,ExpressionUUID->"5b021ae6-8504-4157-a043-d15426b27200"],
+
+Cell["\<\
+To temporarily exclude a model from builds without removing it, set the \
+enabled field to False.\
+\>", "Text",
+ CellID->3954,ExpressionUUID->"85843cba-ba62-42d0-ab27-0aac5d2f31c0"],
+
+Cell[CellGroupData[{
+
+Cell["Disable a model by setting enabled to False:", "MathCaption",
+ CellID->6425,ExpressionUUID->"00f59cf8-fb22-473d-acf4-0e5692e5817a"],
+
+Cell[BoxData[
+ RowBox[{"\"\<BYlowPers\>\"", " ", "->", " ", 
+  RowBox[{"<|", "\n", "    ", 
+   RowBox[{
+    RowBox[{"\"\<name\>\"", " ", "->", 
+     " ", "\"\<Long-run risk with low persistence\>\""}], ",", "\n", "    ", 
+    RowBox[{"\"\<shortname\>\"", " ", "->", " ", "\"\<BYlowPers\>\""}], ",", 
+    "\n", "    ", 
+    RowBox[{"\"\<enabled\>\"", " ", "->", " ", "False"}], ","}], "  ", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "Model", " ", "will", " ", "be", " ", "skipped", " ", "during", " ", 
+     "builds"}], " ", "*)"}], "\n", "    ", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{"...", " ", "rest", " ", "of", " ", "specification"}], " ", 
+     "..."}], " ", "*)"}], "\n", "|>"}]}]], "Input",
+ CellLabel->"In[6]:=",
+ CellID->27115,ExpressionUUID->"41fdb6fb-66f0-4d6c-a065-4a29ea86ea67"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Removing a Model", "Subsection",
+ CellID->30772,ExpressionUUID->"eb39fcfb-ab3d-4ba0-9497-4e6631da74fe"],
+
+Cell["\<\
+To permanently remove a model, delete its entire entry from the models \
+association in Catalog.wl. The next call to CheckModels will detect the \
+removal.\
+\>", "Text",
+ CellID->3955,ExpressionUUID->"aa138a1c-5993-4ea7-a5d6-2f9652ee2031"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Pipeline Stages", "Section",
+ CellID->32197,ExpressionUUID->"addeafa6-f8e5-419f-9d20-5c88bb46bc4f"],
+
+Cell["\<\
+The build pipeline processes models through four sequential stages. Each \
+stage must complete successfully before the next begins.\
+\>", "Text",
+ CellID->19192,ExpressionUUID->"277b3b03-d04a-4192-b1fc-535a91d3f54e"],
+
+Cell[BoxData[GridBox[{
+   {Cell["Stage", "TableHeader",ExpressionUUID->
+     "30026068-2c49-4f14-b92f-611ee84ed4ab"], Cell[
+    "Description", "TableHeader",ExpressionUUID->
+     "3a242b59-cafd-4241-b6dd-2397f72c41ea"], Cell[
+    "Output", "TableHeader",ExpressionUUID->
+     "812b3e16-2ca9-470a-9725-f6a18c231490"]},
+   {"Symbolic", Cell[
+    "Solve model symbolically", "TableText",ExpressionUUID->
+     "7b612b52-66cb-4685-be1b-6dac8a0c378a"], Cell[
+    "Closed-form solutions, moments of state variables", "TableText",
+     ExpressionUUID->"28a79f85-43d0-491f-b16d-892dd0dbf5ae"]},
+   {"Compile", Cell[
+    "Compile functions for numerical evaluation", "TableText",ExpressionUUID->
+     "9ddd684f-106b-41ff-9562-8c567fbebe86"], Cell[
+    ".mx files in CompiledFunctions/", "TableText",ExpressionUUID->
+     "11521e5f-8672-4566-8904-535a926297c8"]},
+   {"Numerical", Cell[
+    "Solve model numerically", "TableText",ExpressionUUID->
+     "661a5628-7f89-44cd-8d33-ba8815e0e957"], Cell[
+    "Numerical solution when closed-form unavailable", "TableText",
+     ExpressionUUID->"63a4a085-e3f9-477e-b674-b943e0b009e5"]},
+   {"Moments", Cell[
+    "Compute moments lookup tables", "TableText",ExpressionUUID->
+     "fd19b413-5fc9-4d3d-82a8-203ef5f28934"], Cell[
+    ".wl files in MomentsLookupTables/", "TableText",ExpressionUUID->
+     "b735a34c-de97-46f9-8349-da27aa984eb4"]}
+  },
+  GridBoxDividers->{
+   "Rows" -> {False, True, {False}, False}}]], "DefinitionBox3Col",
+ CellChangeTimes->{{3.974686118855688*^9, 3.97468619626602*^9}, {
+  3.974686248377439*^9, 3.9746863800454493`*^9}, {3.974686417173634*^9, 
+  3.974686427019957*^9}, {3.974686457771183*^9, 3.974686490154859*^9}, {
+  3.974686528360814*^9, 3.97468666594198*^9}},
+ CellID->3225,ExpressionUUID->"23f7e856-40d5-4a9f-b0ca-b5f2d8c00d72"],
+
+Cell["Pipeline stages and their outputs.", "Caption",
+ CellID->16825,ExpressionUUID->"5f026f32-88ae-405b-9798-2346d7e45387"],
+
+Cell["\<\
+The CheckModels function displays the current pipeline status for each model. \
+A checkmark indicates a completed stage, an arrow indicates the next stage to \
+run, and a circle indicates a pending stage.\
+\>", "Text",
+ CellID->25290,ExpressionUUID->"827fad0c-f8d1-46ec-86ef-d7afb17f7375"],
+
+Cell[CellGroupData[{
+
+Cell["Example terminal output showing pipeline status:", "MathCaption",
+ CellID->26053,ExpressionUUID->"6c8668e9-babf-4ddc-8f6a-135dba079468"],
+
+Cell["\<\
+| Model     | Sym  | Comp | Num  | Mom  | Next       | Reason    |
+|-----------|------|------|------|------|------------|----------|
+| BY        | [OK] | [>>] | [ ]  | [ ]  | Compile    | hash mism |
+| NRC       | [OK] | [OK] | [OK] | [>>] | Moments    | stale     |\
+\>", "Code",
+ CellID->19391,ExpressionUUID->"8f82a169-48a3-4685-80a6-f515cce19c52"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Building Models", "Section",
+ CellID->32198,ExpressionUUID->"ae7afef4-e41d-4f3d-a121-9dfbe5c625eb"],
+
+Cell["\<\
+After reviewing the pipeline status, build the models using BuildModels. If \
+working on a Front End notebook, the CheckModels dialog provides a \"Build \
+Now\" button. In terminal mode, the exact command to run that builds models \
+is displayed on screen.\
+\>", "Text",
+ CellChangeTimes->{{3.974686702300865*^9, 3.974686809999498*^9}},
+ CellID->19193,ExpressionUUID->"84f45800-99f6-41cd-bef8-8e503f2f6396"],
+
+Cell[BoxData[GridBox[{
+   {
+    RowBox[{"BuildModels", "[", 
+     RowBox[{"\"\<Models\>\"", "->", 
+      RowBox[{"{", "shortnames", "}"}]}], "]"}], Cell[
+    "build specified models through all pipeline stages", "TableText",
+     ExpressionUUID->"337495a8-9f2d-490b-8413-af1020b1bd1f"]},
+   {
+    RowBox[{"BuildModels", "[", "]"}], Cell[
+    "build all enabled models", "TableText",ExpressionUUID->
+     "a8da975a-5b4a-42bf-832a-d927fbdbcfd1"]}
+  }]], "DefinitionBox",
+ CellChangeTimes->{{3.974686822387224*^9, 3.974686823920371*^9}},
+ CellID->19045,ExpressionUUID->"c782353b-d600-467b-b77d-fe9a0add0835"],
+
+Cell["Building models with BuildModels.", "Caption",
+ CellChangeTimes->{3.974686829168398*^9},
+ CellID->7357,ExpressionUUID->"c675c8d3-d865-4958-a85b-f948dd54735b"],
+
+Cell[CellGroupData[{
+
+Cell["Build specific models:", "MathCaption",
+ CellChangeTimes->{3.974686867897655*^9},
+ CellID->27664,ExpressionUUID->"e4d7b0e1-9569-4d8c-8574-588d43da38d1"],
+
+Cell[BoxData[
+ RowBox[{"BuildModels", "[", 
+  RowBox[{"\"\<Models\>\"", "->", 
+   RowBox[{"{", 
+    RowBox[{"\"\<BY\>\"", ",", "\"\<NRC\>\""}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.9746868705706472`*^9, 3.9746868708721037`*^9}},
+ CellLabel->"In[7]:=",
+ CellID->6364,ExpressionUUID->"add44856-b172-45f4-a917-05ab197e3087"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Build all enabled models:", "MathCaption",
+ CellID->6827,ExpressionUUID->"c8622fdc-9a9e-4fdb-8ff6-1118024de1ce"],
+
+Cell[BoxData[
+ RowBox[{"BuildModels", "[", "]"}]], "Input",
+ CellLabel->"In[8]:=",
+ CellID->17078,ExpressionUUID->"f52c929d-9098-41b1-a9d2-52c918ce986d"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Configuration Options", "Section",
+ CellID->32199,ExpressionUUID->"1fd3bffb-93a0-4acf-942f-276c7e0ce26e"],
+
+Cell["\<\
+The Pipeline Monitor can be configured via a configuration file located in \
+your home directory. On macOS and Linux, this is ~/.longrunrisk/config.wl. On \
+Windows, this is C:\\\\Users\\\\YourName\\\\.longrunrisk\\\\config.wl. Create \
+this directory and file to customize behavior.\
+\>", "Text",
+ CellID->19194,ExpressionUUID->"830527be-ef00-4509-b5c5-cd706da3c27b"],
+
+Cell[TextData[{
+ "Open or create your configuration file: ",
+ ButtonBox[
+  StyleBox["~/.longrunrisk/config.wl",
+   FontColor->RGBColor[0, 0, 1],
+   FontVariations->{"Underline"->True},
+   StripOnInput->False],
+  ButtonFunction:>(
+   Needs["FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`"];
+   FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`Private`openOrCreateConfigFile[]
+  ),
+  Appearance->None,
+  Method->"Queued",
+  Evaluator->Automatic]
+}], "Text",
+ CellID->418277356,ExpressionUUID->"a7dcfeb0-b61e-459e-b128-1164f8d0be83"],
+
+Cell[CellGroupData[{
+
+Cell["Disabling Auto-Check", "Subsection",
+ CellID->30773,ExpressionUUID->"16bce7ee-3ecc-49d1-8a49-5f6f454597e0"],
+
+Cell["\<\
+By default, CheckModels runs automatically when the package first loads. To \
+disable this auto-check, set PipelineMonitorEnabled to False in the \
+configuration file.\
+\>", "Text",
+ CellID->3956,ExpressionUUID->"4ca0521d-7907-45e0-b877-c07be15aca95"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Create or edit the config file in your home directory \
+(.longrunrisk/config.wl):\
+\>", "MathCaption",
+ CellID->6426,ExpressionUUID->"16c21ac6-1648-4a91-81ce-6f151bd267ab"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Contents", " ", 
+     RowBox[{"of", " ", "~"}]}], "/.", 
+    RowBox[{"longrunrisk", "/", 
+     RowBox[{"config", ".", "wl"}]}]}], " ", "*)"}], "\n", 
+  RowBox[{"<|", "\n", "    ", 
+   RowBox[{"\"\<PipelineMonitorEnabled\>\"", " ", "->", " ", "False"}], "\n", 
+   "|>"}]}]], "Input",
+ CellLabel->"In[9]:=",
+ CellID->27116,ExpressionUUID->"ad4f3331-b94e-4024-99b6-fd1759d37738"]
+}, Open  ]],
+
+Cell["\<\
+With auto-check disabled, explicitly call CheckModels when needed.\
+\>", "Text",
+ CellID->3957,ExpressionUUID->"97714787-5c13-472c-942f-600631da8387"]
+}, Open  ]]
+}, Open  ]],
+
+Cell["More About", "TutorialMoreAboutSection",
+ CellID->113667996,ExpressionUUID->"1e8fbb68-29ab-444b-b678-fc4148ee42ca"],
+
+Cell["Related Tech Notes", "RelatedTutorialsSection",
+ CellID->133707239,ExpressionUUID->"790bab84-3ffc-458f-98f1-6133f0cff866"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->311882160,ExpressionUUID->"6bb9261e-8c4f-409e-ae5f-34e9db317130"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449,ExpressionUUID->"1b302534-c4a7-4b1c-8125-647a6fddfcd0"],
+
+Cell["Tech Note", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507,ExpressionUUID->"42c5d3e7-c1df-42c2-9e48-344940024d3c"],
+
+Cell["FernandoDuarte/LongRunRisk", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->605800465,ExpressionUUID->"223cbe4b-6d35-46a3-9e76-800f1bdeee3e"],
+
+Cell["FernandoDuarte`LongRunRisk`", "Categorization",
+ CellLabel->"Context",
+ CellID->468444828,ExpressionUUID->"3826e631-dee3-4145-9bec-38e7477cb567"],
+
+Cell["FernandoDuarte/LongRunRisk/tutorial/PipelineMonitorTechNote", \
+"Categorization",
+ CellLabel->"URI",
+ CellID->31593272,ExpressionUUID->"00ac2467-b21c-4780-b328-fa928d2fd0bf"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->1427428552,ExpressionUUID->"cf882408-08cd-4e7e-abf8-96b520967f25"],
+
+Cell["pipeline", "Keywords",
+ CellID->1251852827,ExpressionUUID->"4249c3c1-a4a7-4d74-ad63-27ae976e014f"],
+
+Cell["model management", "Keywords",
+ CellID->1251852828,ExpressionUUID->"81af0e2e-a1f1-4a91-811a-589c3f066fbf"],
+
+Cell["catalog", "Keywords",
+ CellID->1251852829,ExpressionUUID->"007f0980-8a2f-49bf-9aa8-f450f6c326ad"],
+
+Cell["build", "Keywords",
+ CellID->1251852830,ExpressionUUID->"356e8cf5-36ec-4cd9-9b6c-863a04f4f51b"],
+
+Cell["CheckModels", "Keywords",
+ CellID->1251852831,ExpressionUUID->"1ca1b738-7c83-42b9-8f7e-f06fe2a1cba5"],
+
+Cell["BuildModels", "Keywords",
+ CellChangeTimes->{3.974686851103182*^9},
+ CellID->1251852832,ExpressionUUID->"56f9f9b6-5f49-4dd3-a62c-ab98e4a35d23"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{56, Automatic}, {Automatic, 78}},
+TaggingRules-><|"Paclet" -> "FernandoDuarte/LongRunRisk"|>,
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "TechNotePageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"3bd8d24a-44b1-4278-976c-19fecd40be09"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 129, 1, 70, "Title",ExpressionUUID->"f2514675-c067-4391-b738-12aebcbb80f4",
+ CellID->509267359],
+Cell[708, 25, 392, 6, 70, "Text",ExpressionUUID->"1d60b798-7bb7-4629-bafd-949dbb0b8076",
+ CellID->1534169418],
+Cell[CellGroupData[{
+Cell[1125, 35, 128, 1, 70, "MathCaption",ExpressionUUID->"60bf169c-eb5a-4068-ba9b-7f34a14326d4",
+ CellID->1825449234],
+Cell[1256, 38, 170, 3, 70, "Input",ExpressionUUID->"950cd364-b6dd-4a42-8b39-70917157a4a3",
+ CellID->1373894796]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1463, 46, 117, 1, 70, "Section",ExpressionUUID->"cbb4111d-e939-49c0-a4fc-b9e76fa68484",
+ CellID->2591],
+Cell[1583, 49, 306, 5, 70, "Text",ExpressionUUID->"3142a608-c419-4058-88e8-5b89521eabd3",
+ CellID->16706],
+Cell[1892, 56, 310, 6, 70, "DefinitionBox",ExpressionUUID->"cd4db743-f4e0-4f59-9b6f-2f17e3f1edf6",
+ CellID->19362],
+Cell[2205, 64, 119, 1, 70, "Caption",ExpressionUUID->"8587fe24-fc76-459d-a403-720856ccdc67",
+ CellID->19031],
+Cell[CellGroupData[{
+Cell[2349, 69, 144, 1, 70, "MathCaption",ExpressionUUID->"a38fefd9-86b5-4be8-83ec-76f13d037f82",
+ CellID->6421],
+Cell[2496, 72, 153, 3, 70, "Input",ExpressionUUID->"aa4d12d7-235d-46fa-87f7-552b4e202665",
+ CellID->27111]
+}, Open  ]],
+Cell[2664, 78, 373, 6, 70, "Text",ExpressionUUID->"e85aa1f2-a307-47d1-b1e0-793b74de89d7",
+ CellID->16707]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3074, 89, 109, 1, 70, "Section",ExpressionUUID->"70986d04-08c4-4c2c-8f5e-7f0abe49575d",
+ CellID->30767],
+Cell[3186, 92, 290, 5, 70, "Text",ExpressionUUID->"f6a06541-090b-4e7a-9fb5-18160498857d",
+ CellID->3951],
+Cell[CellGroupData[{
+Cell[3501, 101, 114, 1, 70, "Subsection",ExpressionUUID->"d55e0654-4313-4db2-820d-ee9e9ad594be",
+ CellID->30768],
+Cell[3618, 104, 1582, 31, 70, "DefinitionBox3Col",ExpressionUUID->"434f2908-05ec-460b-9707-58b38ab20856",
+ CellID->2017],
+Cell[5203, 137, 137, 1, 70, "Caption",ExpressionUUID->"0413904d-c967-41fb-b814-6f8aee102826",
+ CellID->21763]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5377, 143, 111, 1, 70, "Subsection",ExpressionUUID->"ea819038-30a9-4d53-a860-8139f2c61fb0",
+ CellID->30769],
+Cell[5491, 146, 227, 4, 70, "Text",ExpressionUUID->"7f150b3a-12a7-4b4a-ab1d-aa24c9c7b2ea",
+ CellID->3952],
+Cell[CellGroupData[{
+Cell[5743, 154, 123, 1, 70, "MathCaption",ExpressionUUID->"5b0acb16-59a6-4780-845b-a03c7618e5d6",
+ CellID->6422],
+Cell[5869, 157, 1256, 28, 70, "Input",ExpressionUUID->"46127351-4bef-44eb-b626-4ea4ca10b8f4",
+ CellID->27112]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7162, 190, 209, 2, 70, "MathCaption",ExpressionUUID->"4fee8a67-f64b-4b4b-bb44-9364c088fa05",
+ CellID->6423],
+Cell[7374, 194, 153, 3, 70, "Input",ExpressionUUID->"7703aad1-59d4-46a5-a346-c15dbefc06a9",
+ CellID->27113]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7576, 203, 119, 1, 70, "Subsection",ExpressionUUID->"6211bab4-96e2-4f32-8a7b-80f150456f10",
+ CellID->30770],
+Cell[7698, 206, 242, 4, 70, "Text",ExpressionUUID->"a050fe11-2cc2-4d9a-b622-78dbd88a2fcc",
+ CellID->3953],
+Cell[CellGroupData[{
+Cell[7965, 214, 174, 3, 70, "MathCaption",ExpressionUUID->"d4a37bc2-6e6e-4219-9efe-52565bdfc244",
+ CellID->6424],
+Cell[8142, 219, 509, 12, 70, "Input",ExpressionUUID->"34019732-d270-45f3-b564-625ca66350fd",
+ CellID->27114]
+}, Open  ]],
+Cell[8666, 234, 335, 6, 70, "Text",ExpressionUUID->"b0f56b78-635c-4a29-b8a7-10e96575cd15",
+ CellID->1487916350]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9038, 245, 110, 1, 70, "Subsection",ExpressionUUID->"5b021ae6-8504-4157-a043-d15426b27200",
+ CellID->30771],
+Cell[9151, 248, 191, 4, 70, "Text",ExpressionUUID->"85843cba-ba62-42d0-ab27-0aac5d2f31c0",
+ CellID->3954],
+Cell[CellGroupData[{
+Cell[9367, 256, 137, 1, 70, "MathCaption",ExpressionUUID->"00f59cf8-fb22-473d-acf4-0e5692e5817a",
+ CellID->6425],
+Cell[9507, 259, 802, 18, 70, "Input",ExpressionUUID->"41fdb6fb-66f0-4d6c-a065-4a29ea86ea67",
+ CellID->27115]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10358, 283, 109, 1, 70, "Subsection",ExpressionUUID->"eb39fcfb-ab3d-4ba0-9497-4e6631da74fe",
+ CellID->30772],
+Cell[10470, 286, 249, 5, 70, "Text",ExpressionUUID->"aa138a1c-5993-4ea7-a5d6-2f9652ee2031",
+ CellID->3955]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10768, 297, 105, 1, 70, "Section",ExpressionUUID->"addeafa6-f8e5-419f-9d20-5c88bb46bc4f",
+ CellID->32197],
+Cell[10876, 300, 226, 4, 70, "Text",ExpressionUUID->"277b3b03-d04a-4192-b1fc-535a91d3f54e",
+ CellID->19192],
+Cell[11105, 306, 1796, 34, 70, "DefinitionBox3Col",ExpressionUUID->"23f7e856-40d5-4a9f-b0ca-b5f2d8c00d72",
+ CellID->3225],
+Cell[12904, 342, 124, 1, 70, "Caption",ExpressionUUID->"5f026f32-88ae-405b-9798-2346d7e45387",
+ CellID->16825],
+Cell[13031, 345, 299, 5, 70, "Text",ExpressionUUID->"827fad0c-f8d1-46ec-86ef-d7afb17f7375",
+ CellID->25290],
+Cell[CellGroupData[{
+Cell[13355, 354, 142, 1, 70, "MathCaption",ExpressionUUID->"6c8668e9-babf-4ddc-8f6a-135dba079468",
+ CellID->26053],
+Cell[13500, 357, 361, 6, 70, "Code",ExpressionUUID->"8f82a169-48a3-4685-80a6-f515cce19c52",
+ CellID->19391]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13910, 369, 105, 1, 70, "Section",ExpressionUUID->"ae7afef4-e41d-4f3d-a121-9dfbe5c625eb",
+ CellID->32198],
+Cell[14018, 372, 417, 7, 70, "Text",ExpressionUUID->"84f45800-99f6-41cd-bef8-8e503f2f6396",
+ CellID->19193],
+Cell[14438, 381, 605, 13, 70, "DefinitionBox",ExpressionUUID->"c782353b-d600-467b-b77d-fe9a0add0835",
+ CellID->19045],
+Cell[15046, 396, 164, 2, 70, "Caption",ExpressionUUID->"c675c8d3-d865-4958-a85b-f948dd54735b",
+ CellID->7357],
+Cell[CellGroupData[{
+Cell[15235, 402, 158, 2, 70, "MathCaption",ExpressionUUID->"e4d7b0e1-9569-4d8c-8574-588d43da38d1",
+ CellID->27664],
+Cell[15396, 406, 332, 7, 70, "Input",ExpressionUUID->"add44856-b172-45f4-a917-05ab197e3087",
+ CellID->6364]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15765, 418, 118, 1, 70, "MathCaption",ExpressionUUID->"c8622fdc-9a9e-4fdb-8ff6-1118024de1ce",
+ CellID->6827],
+Cell[15886, 421, 153, 3, 70, "Input",ExpressionUUID->"f52c929d-9098-41b1-a9d2-52c918ce986d",
+ CellID->17078]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16088, 430, 111, 1, 70, "Section",ExpressionUUID->"1fd3bffb-93a0-4acf-942f-276c7e0ce26e",
+ CellID->32199],
+Cell[16202, 433, 378, 6, 70, "Text",ExpressionUUID->"830527be-ef00-4509-b5c5-cd706da3c27b",
+ CellID->19194],
+Cell[CellGroupData[{
+Cell[16605, 443, 113, 1, 70, "Subsection",ExpressionUUID->"16bce7ee-3ecc-49d1-8a49-5f6f454597e0",
+ CellID->30773],
+Cell[16721, 446, 261, 5, 70, "Text",ExpressionUUID->"4ca0521d-7907-45e0-b877-c07be15aca95",
+ CellID->3956],
+Cell[CellGroupData[{
+Cell[17007, 455, 182, 4, 70, "MathCaption",ExpressionUUID->"16c21ac6-1648-4a91-81ce-6f151bd267ab",
+ CellID->6426],
+Cell[17192, 461, 447, 12, 70, "Input",ExpressionUUID->"ad4f3331-b94e-4024-99b6-fd1759d37738",
+ CellID->27116]
+}, Open  ]],
+Cell[17654, 476, 160, 3, 70, "Text",ExpressionUUID->"97714787-5c13-472c-942f-600631da8387",
+ CellID->3957]
+}, Open  ]]
+}, Open  ]],
+Cell[17841, 483, 121, 1, 70, "TutorialMoreAboutSection",ExpressionUUID->"1e8fbb68-29ab-444b-b678-fc4148ee42ca",
+ CellID->113667996],
+Cell[17965, 486, 128, 1, 70, "RelatedTutorialsSection",ExpressionUUID->"790bab84-3ffc-458f-98f1-6133f0cff866",
+ CellID->133707239]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18130, 492, 110, 1, 70, "MetadataSection",ExpressionUUID->"6bb9261e-8c4f-409e-ae5f-34e9db317130",
+ CellID->311882160],
+Cell[CellGroupData[{
+Cell[18265, 497, 123, 1, 70, "CategorizationSection",ExpressionUUID->"1b302534-c4a7-4b1c-8125-647a6fddfcd0",
+ CellID->1122911449],
+Cell[18391, 500, 137, 2, 70, "Categorization",ExpressionUUID->"42c5d3e7-c1df-42c2-9e48-344940024d3c",
+ CellID->686433507],
+Cell[18531, 504, 154, 2, 70, "Categorization",ExpressionUUID->"223cbe4b-6d35-46a3-9e76-800f1bdeee3e",
+ CellID->605800465],
+Cell[18688, 508, 151, 2, 70, "Categorization",ExpressionUUID->"3826e631-dee3-4145-9bec-38e7477cb567",
+ CellID->468444828],
+Cell[18842, 512, 180, 3, 70, "Categorization",ExpressionUUID->"00ac2467-b21c-4780-b328-fa928d2fd0bf",
+ CellID->31593272]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19059, 520, 111, 1, 70, "KeywordsSection",ExpressionUUID->"cf882408-08cd-4e7e-abf8-96b520967f25",
+ CellID->1427428552],
+Cell[19173, 523, 104, 1, 70, "Keywords",ExpressionUUID->"4249c3c1-a4a7-4d74-ad63-27ae976e014f",
+ CellID->1251852827],
+Cell[19280, 526, 112, 1, 70, "Keywords",ExpressionUUID->"81af0e2e-a1f1-4a91-811a-589c3f066fbf",
+ CellID->1251852828],
+Cell[19395, 529, 103, 1, 70, "Keywords",ExpressionUUID->"007f0980-8a2f-49bf-9aa8-f450f6c326ad",
+ CellID->1251852829],
+Cell[19501, 532, 101, 1, 70, "Keywords",ExpressionUUID->"356e8cf5-36ec-4cd9-9b6c-863a04f4f51b",
+ CellID->1251852830],
+Cell[19605, 535, 107, 1, 70, "Keywords",ExpressionUUID->"1ca1b738-7c83-42b9-8f7e-f06fe2a1cba5",
+ CellID->1251852831],
+Cell[19715, 538, 149, 2, 70, "Keywords",ExpressionUUID->"56f9f9b6-5f49-4dd3-a62c-ab98e4a35d23",
+ CellID->1251852832]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
