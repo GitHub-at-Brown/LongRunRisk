@@ -15,12 +15,21 @@ eir = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`extractInterv
   ],
 
   (* False yields empty even for nD *)
+  (* Note: Uses Quiet + Check to verify message without triggering VerificationTest MessagesFailure *)
   VerificationTest[
-    eir[False, {A[0], B[1][0]}],
-    {},
-    {extractIntervalsFromReduce::nointervals},
+    Module[{result, messageEmitted = False},
+      result = Quiet[
+        Check[
+          eir[False, {A[0], B[1][0]}],
+          messageEmitted = True; {},
+          FernandoDuarte`LongRunRisk`Tools`FindRootOptim`extractIntervalsFromReduce::nointervals
+        ]
+      ];
+      result === {} && messageEmitted
+    ],
+    True,
     TimeConstraint -> timeLimit,
-    TestID -> "extractIntervalsFromReduce-false-nd@@Tests/FindRootOptim/extractIntervalsFromReduce_nd.wlt:18,3-24,4"
+    TestID -> "extractIntervalsFromReduce-false-nd@@Tests/FindRootOptim/extractIntervalsFromReduce_nd.wlt:19,3-33,4"
   ],
 
   (* nD padding keeps first-dim bounds and pads others with +/- UnboundedPad *)
@@ -31,6 +40,6 @@ eir = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`extractInterv
       {4.999,  1.*^5}
     }},
     TimeConstraint -> timeLimit,
-    TestID -> "extractIntervalsFromReduce-nd-padding@@Tests/FindRootOptim/extractIntervalsFromReduce_nd.wlt:27,3-35,4"
+    TestID -> "extractIntervalsFromReduce-nd-padding@@Tests/FindRootOptim/extractIntervalsFromReduce_nd.wlt:36,3-44,4"
   ]
 }

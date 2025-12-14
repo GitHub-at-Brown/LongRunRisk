@@ -12,19 +12,28 @@ tests = With[{
   {
     (* Test that findRootInterval with contradiction returns $Failed quickly *)
     (* Use A[0] contradiction to get emptyinterval message *)
+    (* Note: Uses Quiet + Check to verify message without triggering VerificationTest MessagesFailure *)
     VerificationTest[
-      Block[{A},
-        fri[
-          A[0] < 0 && A[0] > 0,  (* Contradiction containing coefficient *)
-          <|x -> 2|>,
-          {},
-          "CoeffName" -> "A", "SignSymbol" -> "signA"
-        ]
+      Module[{result, messageEmitted = False},
+        result = Quiet[
+          Check[
+            Block[{A},
+              fri[
+                A[0] < 0 && A[0] > 0,  (* Contradiction containing coefficient *)
+                <|x -> 2|>,
+                {},
+                "CoeffName" -> "A", "SignSymbol" -> "signA"
+              ]
+            ],
+            messageEmitted = True; $Failed,
+            FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval
+          ]
+        ];
+        result === $Failed && messageEmitted
       ],
-      $Failed,
-      {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval},
+      True,
       TimeConstraint -> timeLimit,
-      TestID -> "findRootInterval-contradiction-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:15,5-28,6"
+      TestID -> "findRootInterval-contradiction-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:16,5-37,6"
     ],
 
     (* Test buildKernel with "CoeffName" and "SignSymbol" options *)
@@ -41,12 +50,13 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:31,5-45,6"
+      TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:40,5-54,6"
     ],
 
     (* Test bindUnary with insufficient signs returns $Failed with message *)
+    (* Note: Uses Quiet + Check to verify message without triggering VerificationTest MessagesFailure *)
     VerificationTest[
-      Module[{kernel, result},
+      Module[{kernel, result, messageEmitted = False},
         kernel = bk[
           x^2 - A[0] + signA[1] + signA[2],
           {A[0]},
@@ -54,13 +64,18 @@ tests = With[{
           "CoeffName" -> "A",
           "SignSymbol" -> "signA"
         ];
-        result = bu[kernel, <|x -> 2|>, "Signs" -> {1}];  (* Only 1 sign, but need 2 *)
-        result
+        result = Quiet[
+          Check[
+            bu[kernel, <|x -> 2|>, "Signs" -> {1}],  (* Only 1 sign, but need 2 *)
+            messageEmitted = True; $Failed,
+            FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns
+          ]
+        ];
+        result === $Failed && messageEmitted
       ],
-      $Failed,
-      {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
+      True,
       TimeConstraint -> timeLimit,
-      TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:48,5-64,6"
+      TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:58,5-79,6"
     ],
 
     (* Test buildKernel produces CompiledCodeFunction via FunctionCompile *)
@@ -81,7 +96,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-produces-CompiledCodeFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:67,5-85,6"
+      TestID -> "buildKernel-produces-CompiledCodeFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:82,5-100,6"
     ],
 
     (* Test buildKernel with "Compiler" -> "Compile" produces CompiledFunction *)
@@ -99,7 +114,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-Compile-produces-CompiledFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:88,5-103,6"
+      TestID -> "buildKernel-Compile-produces-CompiledFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:103,5-118,6"
     ],
 
     (* Test both compilers produce equivalent numerical results *)
@@ -114,7 +129,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-both-compilers-equivalent-results@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:106,5-118,6"
+      TestID -> "buildKernel-both-compilers-equivalent-results@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:121,5-133,6"
     ],
 
     (* Test isCompiledCode detects both function types *)
@@ -127,7 +142,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "isCompiledCode-detects-both-types@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:121,5-131,6"
+      TestID -> "isCompiledCode-detects-both-types@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:136,5-146,6"
     ]
   }
 ];

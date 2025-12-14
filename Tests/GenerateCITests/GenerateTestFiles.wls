@@ -1,7 +1,7 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Preliminaries*)
 
 
@@ -74,7 +74,7 @@ DeleteFile[testFilePath<>"temp"];
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -103,7 +103,7 @@ Close /@ {readStream, writeStream}
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -147,7 +147,7 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 
 
 (* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)*)*)*)
+(*(*(*(*(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)*)*)*)*)
 
 
 (* ::Input::Initialization:: *)
@@ -1282,6 +1282,19 @@ ToString@(eps["dd"][t,ii]*eps["dc"][t]/.rulesE[t])
 ,{ii,{1,i,j}}
 ])==={"taugd[1]","taugd[i]","taugd[j]"}
 ,"ConfirmResults"->confirm];
+
+
+SameQ[
+		Map[
+			Function[
+				StringDelete[#, StringExpression["FernandoDuarte" | "`", __, "`"]]
+			],
+			Table[ToString[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][FernandoDuarte`LongRunRisk`Tests`Model`Shocks`t, FernandoDuarte`LongRunRisk`Tests`Model`Shocks`ii] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Tests`Model`Shocks`t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[FernandoDuarte`LongRunRisk`Tests`Model`Shocks`t]],
+				{FernandoDuarte`LongRunRisk`Tests`Model`Shocks`ii, {1, FernandoDuarte`LongRunRisk`Tests`Model`Shocks`i, FernandoDuarte`LongRunRisk`Tests`Model`Shocks`j}}
+			]
+		],
+		{"taugd[1]", "taugd[i]", "taugd[j]"}
+	]
 
 
 (* ::Input::Initialization:: *)
@@ -4765,22 +4778,32 @@ PacletFind["Wolfram/PacletCICD"]
 
 
 (* ::Input::Initialization:: *)
-pacletBaseDir=DirectoryName[NotebookDirectory[],2]
+pacletBaseDir="/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/";(*DirectoryName[NotebookDirectory[],2]*)
 Needs["Wolfram`PacletCICD`"];
 testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]]
 (*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir];*)
+
+
+testResults[[2]]["Result"]["./Tests/Shocks.wlt"]["Results"]
 
 
 (* ::Input::Initialization:: *)
 And@@Values@((#["ReportSucceeded"])&/@testResults["Result"])
 
 
-testResults
+TestPaclet runs each TestReport inside a wrapper that sets $Context = "PacletCICDTest"and$ContextPath = {"PacletCICDTest","System"}
+
+
+testResults["Result"]
 
 
 testResults[[2]]["Result"]["./Tests/CreateMomentsDatabase.wlt"]["Results"]
-testResults[[2]]["Result"]["./Tests/Shocks.wlt"]["Results"]
 
+testResults[[2]]["Result"]["./Tests/ValidateModels/validateModel.wlt"]
+
+
+
+PacletInstall["Wolfram/MCPServer"]
 
 
 (* ::Section:: *)

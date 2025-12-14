@@ -189,15 +189,21 @@ tests = {
   ],
 
   (* Test constraint lo < hi - reversed interval should emit badbounds message *)
+  (* Note: Uses Quiet + Check to verify message without triggering VerificationTest MessagesFailure *)
   VerificationTest[
-    Module[{result},
-      result = fastRoot[f1, {2., 1.}, Jacobian -> df1];
-      result
+    Module[{result, messageEmitted = False},
+      result = Quiet[
+        Check[
+          fastRoot[f1, {2., 1.}, Jacobian -> df1],
+          messageEmitted = True; $Failed,
+          FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds
+        ]
+      ];
+      result === $Failed && messageEmitted
     ],
-    $Failed,
-    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
+    True,
     TimeConstraint -> timeLimit,
-    TestID -> "reversed-interval-badbounds@@Tests/FindRootOptim/fastRootOptions.wlt:192,3-201,4"
+    TestID -> "reversed-interval-badbounds@@Tests/FindRootOptim/fastRootOptions.wlt:193,3-207,4"
   ],
 
   (* Test with both Method and Return options combined *)
@@ -209,7 +215,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "combined-method-return-options@@Tests/FindRootOptim/fastRootOptions.wlt:204,3-213,4"
+    TestID -> "combined-method-return-options@@Tests/FindRootOptim/fastRootOptions.wlt:210,3-219,4"
   ],
 
   (* Test AccuracyGoal and PrecisionGoal options *)
@@ -221,7 +227,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "high-accuracy-precision-goals@@Tests/FindRootOptim/fastRootOptions.wlt:216,3-225,4"
+    TestID -> "high-accuracy-precision-goals@@Tests/FindRootOptim/fastRootOptions.wlt:222,3-231,4"
   ],
 
   (* Test MaxIterations option *)
@@ -232,7 +238,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "maxiterations-option@@Tests/FindRootOptim/fastRootOptions.wlt:228,3-236,4"
+    TestID -> "maxiterations-option@@Tests/FindRootOptim/fastRootOptions.wlt:234,3-242,4"
   ],
 
   (* Test Newton fallback to default when derivative is unreliable *)
@@ -244,7 +250,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:239,3-248,4"
+    TestID -> "newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:245,3-254,4"
   ],
 
   (* Test edge case: very narrow interval *)
@@ -255,7 +261,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "narrow-interval-convergence@@Tests/FindRootOptim/fastRootOptions.wlt:251,3-259,4"
+    TestID -> "narrow-interval-convergence@@Tests/FindRootOptim/fastRootOptions.wlt:257,3-265,4"
   ],
 
   (* Test with WorkingPrecision option *)
@@ -267,7 +273,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "workingprecision-option@@Tests/FindRootOptim/fastRootOptions.wlt:262,3-271,4"
+    TestID -> "workingprecision-option@@Tests/FindRootOptim/fastRootOptions.wlt:268,3-277,4"
   ],
 
   (* Test Method -> Automatic (default) with non-bracketed - should use Secant fallback *)
@@ -278,7 +284,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "method-automatic-nonbracketed@@Tests/FindRootOptim/fastRootOptions.wlt:274,3-282,4"
+    TestID -> "method-automatic-nonbracketed@@Tests/FindRootOptim/fastRootOptions.wlt:280,3-288,4"
   ],
 
   (* Test that quiet computation works as expected *)
@@ -289,7 +295,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "quiet-computation-succeeds@@Tests/FindRootOptim/fastRootOptions.wlt:285,3-293,4"
+    TestID -> "quiet-computation-succeeds@@Tests/FindRootOptim/fastRootOptions.wlt:291,3-299,4"
   ],
 
   (* Test edge case: root at interval boundary *)
@@ -300,7 +306,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "root-at-boundary@@Tests/FindRootOptim/fastRootOptions.wlt:296,3-304,4"
+    TestID -> "root-at-boundary@@Tests/FindRootOptim/fastRootOptions.wlt:302,3-310,4"
   ],
 
   (* ===== Tests for 1D full spec {x0, lo, hi} ===== *)
@@ -312,7 +318,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-full-spec-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:308,3-316,4"
+    TestID -> "1D-full-spec-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:314,3-322,4"
   ],
 
   VerificationTest[
@@ -322,7 +328,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-full-spec-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:318,3-326,4"
+    TestID -> "1D-full-spec-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:324,3-332,4"
   ],
 
   (* Test Automatic x0 in full spec *)
@@ -333,7 +339,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-automatic-x0@@Tests/FindRootOptim/fastRootOptions.wlt:329,3-337,4"
+    TestID -> "1D-automatic-x0@@Tests/FindRootOptim/fastRootOptions.wlt:335,3-343,4"
   ],
 
   (* ===== Tests for 1D x0-only spec (scalar) ===== *)
@@ -345,7 +351,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-scalar-x0-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:341,3-349,4"
+    TestID -> "1D-scalar-x0-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:347,3-355,4"
   ],
 
   VerificationTest[
@@ -355,7 +361,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-scalar-x0-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:351,3-359,4"
+    TestID -> "1D-scalar-x0-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:357,3-365,4"
   ],
 
   (* ===== Tests for nD nested x0 syntax {{x0_1, x0_2, ...}} ===== *)
@@ -368,7 +374,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:364,3-372,4"
+    TestID -> "nD-nested-x0-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:370,3-378,4"
   ],
 
   (* Test nD x0-only without Jacobian using nested syntax *)
@@ -379,7 +385,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:375,3-383,4"
+    TestID -> "nD-nested-x0-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:381,3-389,4"
   ],
 
   (* Test nD nested x0 returns correct root value *)
@@ -390,7 +396,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-correct-root@@Tests/FindRootOptim/fastRootOptions.wlt:386,3-394,4"
+    TestID -> "nD-nested-x0-correct-root@@Tests/FindRootOptim/fastRootOptions.wlt:392,3-400,4"
   ],
 
   (* Test nD with bounds - new format {{lo1,hi1}, {lo2,hi2}} *)
@@ -401,7 +407,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-bounds-new-format@@Tests/FindRootOptim/fastRootOptions.wlt:397,3-405,4"
+    TestID -> "nD-bounds-new-format@@Tests/FindRootOptim/fastRootOptions.wlt:403,3-411,4"
   ],
 
   (* Test nD full spec - new format {{x01,lo1,hi1}, {x02,lo2,hi2}} *)
@@ -412,20 +418,26 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-full-spec-new-format@@Tests/FindRootOptim/fastRootOptions.wlt:408,3-416,4"
+    TestID -> "nD-full-spec-new-format@@Tests/FindRootOptim/fastRootOptions.wlt:414,3-422,4"
   ],
 
   (* Test disambiguation: flat {a, b} is 1D bounds, not 2D x0 *)
+  (* Note: Uses Quiet + Check to verify message without triggering VerificationTest MessagesFailure *)
   VerificationTest[
-    Module[{result},
+    Module[{result, messageEmitted = False},
       (* {1.2, 1.2} as 1D bounds where a=b should fail with badbounds *)
-      result = fastRoot[f1, {1.2, 1.2}, Jacobian -> df1];
-      result === $Failed
+      result = Quiet[
+        Check[
+          fastRoot[f1, {1.2, 1.2}, Jacobian -> df1],
+          messageEmitted = True; $Failed,
+          FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds
+        ]
+      ];
+      result === $Failed && messageEmitted
     ],
     True,
-    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
     TimeConstraint -> timeLimit,
-    TestID -> "disambiguation-flat-is-1D-bounds@@Tests/FindRootOptim/fastRootOptions.wlt:419,3-429,4"
+    TestID -> "disambiguation-flat-is-1D-bounds@@Tests/FindRootOptim/fastRootOptions.wlt:426,3-441,4"
   ],
 
   (* Test 3D nested x0 syntax *)
@@ -436,7 +448,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-3D-nested-x0@@Tests/FindRootOptim/fastRootOptions.wlt:432,3-440,4"
+    TestID -> "nD-3D-nested-x0@@Tests/FindRootOptim/fastRootOptions.wlt:444,3-452,4"
   ],
 
   (* Test nD nested x0 with Return -> Rule option *)
@@ -447,7 +459,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-return-rule@@Tests/FindRootOptim/fastRootOptions.wlt:443,3-451,4"
+    TestID -> "nD-nested-x0-return-rule@@Tests/FindRootOptim/fastRootOptions.wlt:455,3-463,4"
   ],
 
   (* Test nD with Method -> "Secant" - should skip Newton *)
@@ -458,7 +470,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-method-secant@@Tests/FindRootOptim/fastRootOptions.wlt:454,3-462,4"
+    TestID -> "nD-nested-x0-method-secant@@Tests/FindRootOptim/fastRootOptions.wlt:466,3-474,4"
   ],
 
   (* ===== Tests for Newton failure with fallback ===== *)
@@ -472,7 +484,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:467,3-476,4"
+    TestID -> "nD-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:479,3-488,4"
   ],
 
   (* Test nD with bounds - Newton failure with fallback *)
@@ -484,7 +496,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-bounds-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:479,3-488,4"
+    TestID -> "nD-bounds-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:491,3-500,4"
   ],
 
   (* Test 1D bracketed - Newton failure falls back to Brent *)
@@ -496,7 +508,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-bracketed-newton-fails-brent-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:491,3-500,4"
+    TestID -> "1D-bracketed-newton-fails-brent-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:503,3-512,4"
   ],
 
   (* Test 1D non-bracketed - Newton failure falls back to Secant *)
@@ -508,7 +520,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-nonbracketed-newton-fails-secant-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:503,3-512,4"
+    TestID -> "1D-nonbracketed-newton-fails-secant-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:515,3-524,4"
   ],
 
   (* Test 3D Newton failure with fallback *)
@@ -520,36 +532,63 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "3D-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:515,3-524,4"
+    TestID -> "3D-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:527,3-536,4"
   ],
 
   (* ===== Tests for error messages ===== *)
 
   (* Test noautox0 error when Automatic x0 without bounds *)
+  (* Note: Uses Quiet + Check to verify message without triggering VerificationTest MessagesFailure *)
   VerificationTest[
-    fastRoot[f1, Automatic],
-    $Failed,
-    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::noautox0},
+    Module[{result, messageEmitted = False},
+      result = Quiet[
+        Check[
+          fastRoot[f1, Automatic],
+          messageEmitted = True; $Failed,
+          FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::noautox0
+        ]
+      ];
+      result === $Failed && messageEmitted
+    ],
+    True,
     TimeConstraint -> timeLimit,
-    TestID -> "error-noautox0-scalar@@Tests/FindRootOptim/fastRootOptions.wlt:529,3-535,4"
+    TestID -> "error-noautox0-scalar@@Tests/FindRootOptim/fastRootOptions.wlt:542,3-556,4"
   ],
 
   (* Test badspec error for invalid spec *)
+  (* Note: Uses Quiet + Check to verify message without triggering VerificationTest MessagesFailure *)
   VerificationTest[
-    fastRoot[f1, "invalid"],
-    $Failed,
-    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badspec},
+    Module[{result, messageEmitted = False},
+      result = Quiet[
+        Check[
+          fastRoot[f1, "invalid"],
+          messageEmitted = True; $Failed,
+          FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badspec
+        ]
+      ];
+      result === $Failed && messageEmitted
+    ],
+    True,
     TimeConstraint -> timeLimit,
-    TestID -> "error-badspec-string@@Tests/FindRootOptim/fastRootOptions.wlt:538,3-544,4"
+    TestID -> "error-badspec-string@@Tests/FindRootOptim/fastRootOptions.wlt:560,3-574,4"
   ],
 
   (* Test badbounds error for nD bounds *)
+  (* Note: Uses Quiet + Check to verify message without triggering VerificationTest MessagesFailure *)
   VerificationTest[
-    fastRoot[fND2, {{2., 1.}, {0.5, 2.}}, Jacobian -> dfND2],
-    $Failed,
-    {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
+    Module[{result, messageEmitted = False},
+      result = Quiet[
+        Check[
+          fastRoot[fND2, {{2., 1.}, {0.5, 2.}}, Jacobian -> dfND2],
+          messageEmitted = True; $Failed,
+          FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds
+        ]
+      ];
+      result === $Failed && messageEmitted
+    ],
+    True,
     TimeConstraint -> timeLimit,
-    TestID -> "error-badbounds-nD@@Tests/FindRootOptim/fastRootOptions.wlt:547,3-553,4"
+    TestID -> "error-badbounds-nD@@Tests/FindRootOptim/fastRootOptions.wlt:578,3-592,4"
   ]
 };
 

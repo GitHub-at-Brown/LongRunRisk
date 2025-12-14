@@ -8,9 +8,10 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20251213-6721FN@@Tests/SolveEulerEq.wlt:3,1-12,2"
+	TestID->"SolveEulerEq_20251214-9P26F1@@Tests/SolveEulerEq.wlt:3,1-12,2"
 ]
 VerificationTest[
+	Quiet[Remove /@ {"PacletCICDTest`i", "PacletCICDTest`j"}];
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`";
 	$ContextPath = DeleteDuplicates @ Prepend[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`"];
 	True
@@ -19,7 +20,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20251213-2V1U36@@Tests/SolveEulerEq.wlt:13,1-23,2"
+	TestID->"SolveEulerEq_20251214-6N0ECD@@Tests/SolveEulerEq.wlt:13,1-24,2"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -311,12 +312,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20251213-MBKFN8@@Tests/SolveEulerEq.wlt:24,1-315,2"
+	TestID->"SolveEulerEq_20251214-OACV43@@Tests/SolveEulerEq.wlt:25,1-316,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
   True,
-  TestID -> "Untitled-24@@Tests/SolveEulerEq.wlt:316,1-320,2"
+  TestID -> "Untitled-24@@Tests/SolveEulerEq.wlt:317,1-321,2"
 ]
 End[]
 EndTestSection[]

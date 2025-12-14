@@ -1,20 +1,5 @@
-BeginTestSection["Shocks"]
+BeginTestSection["Shocks"] 
 Begin["FernandoDuarte`LongRunRisk`Tests`Model`Shocks`"]
-
-(* Find paclet root and set up paths for TestPaclet compatibility *)
-Module[{start, d},
-	start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-		DirectoryName[$InputFileName],
-		Directory[]
-	];
-	d = start;
-	While[!FileExistsQ[FileNameJoin[{d, "PacletInfo.wl"}]] && d =!= DirectoryName[d],
-		d = DirectoryName[d]
-	];
-	FernandoDuarte`LongRunRisk`Tests`Model`Shocks`$pacletRoot = d;
-	PacletDirectoryLoad[d];
-];
-
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`Shocks`";
 	True
@@ -23,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-S5Y1B1@@Tests/Shocks.wlt:18,1-27,2"
+	TestID->"Shocks_20251214-6R4S4G@@Tests/Shocks.wlt:3,1-12,2"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Shocks`"]
@@ -32,7 +17,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-9HRQH4@@Tests/Shocks.wlt:28,1-36,2"
+	TestID->"Shocks_20251214-JH48ZZ@@Tests/Shocks.wlt:13,1-21,2"
 ]
 VerificationTest[
 	!SameQ[Names @ "*rulesE", {}]
@@ -41,7 +26,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-AZ73XN@@Tests/Shocks.wlt:37,1-45,2"
+	TestID->"Shocks_20251214-KRJCNR@@Tests/Shocks.wlt:22,1-30,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -61,7 +46,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-1LWUFR@@Tests/Shocks.wlt:46,1-65,2"
+	TestID->"Shocks_20251214-X618HZ@@Tests/Shocks.wlt:31,1-50,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -81,7 +66,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-83GHTR@@Tests/Shocks.wlt:66,1-85,2"
+	TestID->"Shocks_20251214-WIHP0U@@Tests/Shocks.wlt:51,1-70,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -101,7 +86,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-UVFRWJ@@Tests/Shocks.wlt:86,1-105,2"
+	TestID->"Shocks_20251214-8N4XCZ@@Tests/Shocks.wlt:71,1-90,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -121,7 +106,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-1803WC@@Tests/Shocks.wlt:106,1-125,2"
+	TestID->"Shocks_20251214-9U8G3D@@Tests/Shocks.wlt:91,1-110,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -152,26 +137,27 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-GY6T2L@@Tests/Shocks.wlt:126,1-156,2"
+	TestID->"Shocks_20251214-DJDEGH@@Tests/Shocks.wlt:111,1-141,2"
 ]
 VerificationTest[
 	SameQ[
-		Map[
-			Function[
-				StringDelete[#, StringExpression["FernandoDuarte" | "`", __, "`"]]
-			],
-			Table[ToString[(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][FernandoDuarte`LongRunRisk`Tests`Model`Shocks`t, FernandoDuarte`LongRunRisk`Tests`Model`Shocks`ii] * FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Tests`Model`Shocks`t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[FernandoDuarte`LongRunRisk`Tests`Model`Shocks`t]],
-				{FernandoDuarte`LongRunRisk`Tests`Model`Shocks`ii, {1, FernandoDuarte`LongRunRisk`Tests`Model`Shocks`i, FernandoDuarte`LongRunRisk`Tests`Model`Shocks`j}}
-			]
+		Table[
+			(FernandoDuarte`LongRunRisk`Model`Shocks`eps["dd"][FernandoDuarte`LongRunRisk`Tests`Model`Shocks`t, FernandoDuarte`LongRunRisk`Tests`Model`Shocks`ii] *
+					FernandoDuarte`LongRunRisk`Model`Shocks`eps["dc"][FernandoDuarte`LongRunRisk`Tests`Model`Shocks`t]) /. FernandoDuarte`LongRunRisk`Model`Shocks`rulesE[FernandoDuarte`LongRunRisk`Tests`Model`Shocks`t],
+			{FernandoDuarte`LongRunRisk`Tests`Model`Shocks`ii, {1, FernandoDuarte`LongRunRisk`Tests`Model`Shocks`i, FernandoDuarte`LongRunRisk`Tests`Model`Shocks`j}}
 		],
-		{"taugd[1]", "taugd[i]", "taugd[j]"}
+		{
+			FernandoDuarte`LongRunRisk`Model`Parameters`taugd[1],
+			FernandoDuarte`LongRunRisk`Model`Parameters`taugd[FernandoDuarte`LongRunRisk`Tests`Model`Shocks`i],
+			FernandoDuarte`LongRunRisk`Model`Parameters`taugd[FernandoDuarte`LongRunRisk`Tests`Model`Shocks`j]
+		}
 	]
 	,
 	True
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-B6K85X@@Tests/Shocks.wlt:157,1-175,2"
+	TestID->"Shocks_20251214-W5N3EJ@@Tests/Shocks.wlt:142,1-161,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -207,7 +193,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-GTQB7H@@Tests/Shocks.wlt:176,1-211,2"
+	TestID->"Shocks_20251214-A2UL4W@@Tests/Shocks.wlt:162,1-197,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -232,7 +218,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-C3OK8H@@Tests/Shocks.wlt:212,1-236,2"
+	TestID->"Shocks_20251214-VS6T55@@Tests/Shocks.wlt:198,1-222,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -260,7 +246,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-Z1LEK4@@Tests/Shocks.wlt:237,1-264,2"
+	TestID->"Shocks_20251214-G3F6Z8@@Tests/Shocks.wlt:223,1-250,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -295,7 +281,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-T7LWAM@@Tests/Shocks.wlt:265,1-299,2"
+	TestID->"Shocks_20251214-NJ4GDV@@Tests/Shocks.wlt:251,1-285,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -315,7 +301,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-UM1NQ4@@Tests/Shocks.wlt:300,1-319,2"
+	TestID->"Shocks_20251214-6R9N0Q@@Tests/Shocks.wlt:286,1-305,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -335,12 +321,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251213-ND4BPE@@Tests/Shocks.wlt:320,1-339,2"
+	TestID->"Shocks_20251214-PTBX82@@Tests/Shocks.wlt:306,1-325,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
   True,
-  TestID -> "Untitled-22@@Tests/Shocks.wlt:340,1-344,2"
+  TestID -> "Untitled-22@@Tests/Shocks.wlt:326,1-330,2"
 ]
 End[]
 EndTestSection[]
