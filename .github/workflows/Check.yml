@@ -52,7 +52,6 @@ jobs:
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.11.0
         with:
-          target: Update
           debug: "false"
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
         env:
@@ -62,7 +61,6 @@ jobs:
         id: check-paclet
         uses: WolframResearch/check-paclet@v1.11.0
         with:
-          target: Update
           debug: "false"
           paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
         env:
