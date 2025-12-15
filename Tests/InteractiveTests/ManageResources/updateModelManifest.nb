@@ -10,19 +10,23 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     31136,        792]
-NotebookOptionsPosition[     29054,        761]
-NotebookOutlinePosition[     29371,        775]
-CellTagsIndexPosition[     29328,        772]
+NotebookDataLength[     30215,        786]
+NotebookOptionsPosition[     28618,        749]
+NotebookOutlinePosition[     29009,        765]
+CellTagsIndexPosition[     28966,        762]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
+
+Cell[CellGroupData[{
 Cell["updateModelManifest Tests", "Title",ExpressionUUID->"5b0f71a6-84d5-4b63-94ed-a0277edf3b9a"],
 
 Cell["\<\
 Interactive tests for ManageResources updateModelManifest functionality\
 \>", "Subtitle",ExpressionUUID->"f517213a-7bad-4fcd-a379-e4606859956b"],
+
+Cell[CellGroupData[{
 
 Cell["Setup", "Section",ExpressionUUID->"a30f2ab1-4161-47c4-a531-16d330274af6"],
 
@@ -167,598 +171,584 @@ getVersion\>\"", "]"}]}], ";"}], "\n", "\n",
        RowBox[{"{", 
         RowBox[{"$TemporaryDirectory", ",", " ", 
          RowBox[{"\"\<lrr-test-\>\"", " ", "<>", " ", 
-          RowBox[{"CreateUUID", "[", "]"}]}]}], "}"}], "]"}], "]"}]}], ";"}], 
-   "\n", "\n"}]}]], "Input",ExpressionUUID->"f16ed69d-48de-4c9a-a1b0-\
-f2202834d105"],
+          RowBox[{"CreateUUID", "[", "]"}]}]}], "}"}], "]"}], "]"}]}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.9747752036659327`*^9, 
+  3.97477520398543*^9}},ExpressionUUID->"f16ed69d-48de-4c9a-a1b0-\
+f2202834d105"]
+}, Open  ]],
 
-Cell["\<\
-*)
-(* Hash Determinism Tests\
-\>", "Section",ExpressionUUID->"e3a80542-2a3b-414f-94ee-01352b634458"],
+Cell[CellGroupData[{
 
-Cell[BoxData[
+Cell["Hash Determinism Tests", "Section",
+ CellChangeTimes->{{3.974774952886321*^9, 
+  3.974774958363975*^9}},ExpressionUUID->"e3a80542-2a3b-414f-94ee-\
+01352b634458"],
+
+Cell[BoxData[{
  RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Hash", " ", "Determinism", " ", "Tests"}], " ", "*)"}], 
-  "\n"}]], "Input",ExpressionUUID->"21865140-4e5d-4158-9400-9c9a15b5e471"],
-
-Cell["\<\
-*)
-
-VerificationTest[
-  $getHash[<|\"b\" -> 1, \"a\" -> 2|>]  $getHash[<|\"a\" -> 2, \"b\" -> 1|>],
-  True,
-  TestID -> \
-\"hash-key-order-invariant@@Tests/InteractiveTests/ManageResources/\
-updateModelManifest.wlt:40,1-44,2\"
-]
-
-VerificationTest[
-  $getHash[<|\"x\" -> <|\"b\" -> 1, \"a\" -> 2|>|>]  $getHash[<|\"x\" -> \
-<|\"a\" -> 2, \"b\" -> 1|>|>],
-  True,
-  TestID -> \
-\"hash-nested-key-order-invariant@@Tests/InteractiveTests/ManageResources/\
-updateModelManifest.wlt:46,1-50,2\"
-]
-
-VerificationTest[
-  $getHash[<|\"z\" -> {<|\"b\" -> 1|>, <|\"a\" -> 2|>}|>]  $getHash[<|\"z\" \
--> {<|\"b\" -> 1|>, <|\"a\" -> 2|>}|>],
-  True,
-  TestID -> \
-\"hash-list-of-associations@@Tests/InteractiveTests/ManageResources/\
-updateModelManifest.wlt:52,1-56,2\"
-]
-
-VerificationTest[
-  (* Different content should produce different hashes *)
-  $getHash[<|\"a\" -> 1|>] ! $getHash[<|\"a\" -> 2|>],
-  True,
-  TestID -> \
-\"hash-different-values-differ@@Tests/InteractiveTests/ManageResources/\
-updateModelManifest.wlt:58,1-63,2\"
-]
-
-VerificationTest[
-  (* Canonicalize should sort keys recursively\
-\>", "Section",ExpressionUUID->"21a8f241-b396-4844-b570-eaa3eef73bfa"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{"VerificationTest", "[", "\n", "  ", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"$getHash", "[", 
-       RowBox[{"<|", 
-        RowBox[{
-         RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], ",", " ", 
-         RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}]}], "|>"}], "]"}], " ", "===",
-       " ", 
-      RowBox[{"$getHash", "[", 
-       RowBox[{"<|", 
-        RowBox[{
-         RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], ",", " ", 
-         RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}]}], "|>"}], "]"}]}], ",", 
-     "\n", "  ", "True", ",", "\n", "  ", 
-     RowBox[{
-     "TestID", " ", "->", 
-      " ", "\"\<hash-key-order-invariant@@Tests/InteractiveTests/\
-ManageResources/updateModelManifest.wlt:40,1-44,2\>\""}]}], "\n", "]"}], "\n",
-    "\n", 
-   RowBox[{"VerificationTest", "[", "\n", "  ", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"$getHash", "[", 
-       RowBox[{"<|", 
-        RowBox[{"\"\<x\>\"", " ", "->", " ", 
-         RowBox[{"<|", 
-          RowBox[{
-           RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], ",", " ", 
-           RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}]}], "|>"}]}], "|>"}], 
-       "]"}], " ", "===", " ", 
-      RowBox[{"$getHash", "[", 
-       RowBox[{"<|", 
-        RowBox[{"\"\<x\>\"", " ", "->", " ", 
-         RowBox[{"<|", 
-          RowBox[{
-           RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], ",", " ", 
-           RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}]}], "|>"}]}], "|>"}], 
-       "]"}]}], ",", "\n", "  ", "True", ",", "\n", "  ", 
-     RowBox[{
-     "TestID", " ", "->", 
-      " ", "\"\<hash-nested-key-order-invariant@@Tests/InteractiveTests/\
-ManageResources/updateModelManifest.wlt:46,1-50,2\>\""}]}], "\n", "]"}], "\n",
-    "\n", 
-   RowBox[{"VerificationTest", "[", "\n", "  ", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"$getHash", "[", 
-       RowBox[{"<|", 
-        RowBox[{"\"\<z\>\"", " ", "->", " ", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"<|", 
-            RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], "|>"}], ",", " ", 
-           RowBox[{"<|", 
-            RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], "|>"}]}], "}"}]}], 
-        "|>"}], "]"}], " ", "===", " ", 
-      RowBox[{"$getHash", "[", 
-       RowBox[{"<|", 
-        RowBox[{"\"\<z\>\"", " ", "->", " ", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"<|", 
-            RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], "|>"}], ",", " ", 
-           RowBox[{"<|", 
-            RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], "|>"}]}], "}"}]}], 
-        "|>"}], "]"}]}], ",", "\n", "  ", "True", ",", "\n", "  ", 
-     RowBox[{
-     "TestID", " ", "->", 
-      " ", "\"\<hash-list-of-associations@@Tests/InteractiveTests/\
-ManageResources/updateModelManifest.wlt:52,1-56,2\>\""}]}], "\n", "]"}], "\n",
-    "\n", 
-   RowBox[{"VerificationTest", "[", "\n", "  ", 
-    RowBox[{"(*", " ", 
-     RowBox[{
-     "Different", " ", "content", " ", "should", " ", "produce", " ", 
-      "different", " ", "hashes"}], " ", "*)"}], "\n", "  ", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"$getHash", "[", 
-       RowBox[{"<|", 
-        RowBox[{"\"\<a\>\"", " ", "->", " ", "1"}], "|>"}], "]"}], " ", "=!=",
-       " ", 
-      RowBox[{"$getHash", "[", 
-       RowBox[{"<|", 
-        RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], "|>"}], "]"}]}], ",", 
-     "\n", "  ", "True", ",", "\n", "  ", 
-     RowBox[{
-     "TestID", " ", "->", 
-      " ", "\"\<hash-different-values-differ@@Tests/InteractiveTests/\
-ManageResources/updateModelManifest.wlt:58,1-63,2\>\""}]}], "\n", "]"}], "\n",
-    "\n", 
-   RowBox[{"VerificationTest", "[", "\n", "  ", 
-    RowBox[{"(*", " ", 
-     RowBox[{
-     "Canonicalize", " ", "should", " ", "sort", " ", "keys", " ", 
-      "recursively"}], " ", "*)"}], "\n", "  ", 
-    RowBox[{
-     RowBox[{"$canonicalize", "[", 
-      RowBox[{"<|", 
-       RowBox[{
-        RowBox[{"\"\<b\>\"", " ", "->", " ", 
-         RowBox[{"<|", 
-          RowBox[{
-           RowBox[{"\"\<d\>\"", " ", "->", " ", "1"}], ",", " ", 
-           RowBox[{"\"\<c\>\"", " ", "->", " ", "2"}]}], "|>"}]}], ",", " ", 
-        RowBox[{"\"\<a\>\"", " ", "->", " ", "3"}]}], "|>"}], "]"}], ",", 
-     "\n", "  ", 
-     RowBox[{"<|", 
-      RowBox[{
-       RowBox[{"\"\<a\>\"", " ", "->", " ", "3"}], ",", " ", 
-       RowBox[{"\"\<b\>\"", " ", "->", " ", 
-        RowBox[{"<|", 
-         RowBox[{
-          RowBox[{"\"\<c\>\"", " ", "->", " ", "2"}], ",", " ", 
-          RowBox[{"\"\<d\>\"", " ", "->", " ", "1"}]}], "|>"}]}]}], "|>"}], ",",
-      "\n", "  ", 
-     RowBox[{
-     "TestID", " ", "->", 
-      " ", "\"\<canonicalize-sorts-nested-keys@@Tests/InteractiveTests/\
-ManageResources/updateModelManifest.wlt:65,1-70,2\>\""}]}], "\n", "]"}], "\n",
-    "\n"}]}]], "Input",ExpressionUUID->"98ada5d6-700e-463a-b582-da5c6ee9fffd"],
-
-Cell["\<\
-*)
-(* updateModelManifest Error Handling Tests\
-\>", "Section",ExpressionUUID->"ca243675-9c87-460b-ab5b-976ca39f0342"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "updateModelManifest", " ", "Error", " ", "Handling", " ", "Tests"}], " ", 
-   "*)"}], "\n"}]], "Input",ExpressionUUID->"58a2ea2b-ac60-4635-8fe9-\
-2cb4682f42f0"],
-
-Cell["\<\
-*)
-
-VerificationTest[
-  Block[
-    {FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot},\
-
-    FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot[] \
-: $Failed;
-    updateModelManifest[]
-  ],
-  $Failed,
-  {updateModelManifest::noroot},
-  TimeConstraint -> $timeLimit,
-  TestID -> \
-\"fails-when-root-not-found@@Tests/InteractiveTests/ManageResources/\
-updateModelManifest.wlt:76,1-86,2\"
-]
-
-VerificationTest[
-  Module[{tmp, manifestFile, result, fileExists},
-    tmp  $makeTempDir[];
-    manifestFile  FileNameJoin[{tmp, \"Resources\", \"ModelManifest.wl\"}];
-    Block[
-      {
-        FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-findPacletRoot,
-        FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-getCatalogModels
-      },
-      FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`findPacletRoot[\
-] : tmp;
-      FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-getCatalogModels[] : 42;  (* Not an association\
-\>", "Section",ExpressionUUID->"7c56b1c2-e2db-431a-a541-ca021e3e4455"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{"VerificationTest", "[", "\n", "  ", 
-    RowBox[{
-     RowBox[{"Block", "[", "\n", "    ", 
-      RowBox[{
-       RowBox[{
-       "{", "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-findPacletRoot", "}"}], ",", "\n", "    ", 
-       RowBox[{
-        RowBox[{
-         RowBox[{
-         "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-findPacletRoot", "[", "]"}], " ", ":=", " ", "$Failed"}], ";", "\n", "    ", 
-        RowBox[{"updateModelManifest", "[", "]"}]}]}], "\n", "  ", "]"}], ",",
-      "\n", "  ", "$Failed", ",", "\n", "  ", 
-     RowBox[{"{", 
-      RowBox[{"updateModelManifest", "::", "noroot"}], "}"}], ",", "\n", "  ", 
-     RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", 
-     "  ", 
-     RowBox[{
-     "TestID", " ", "->", 
-      " ", "\"\<fails-when-root-not-found@@Tests/InteractiveTests/\
-ManageResources/updateModelManifest.wlt:76,1-86,2\>\""}]}], "\n", "]"}], "\n",
-    "\n", 
-   RowBox[{"VerificationTest", "[", "\n", "  ", 
-    RowBox[{
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{
-        "tmp", ",", " ", "manifestFile", ",", " ", "result", ",", " ", 
-         "fileExists"}], "}"}], ",", "\n", "    ", 
-       RowBox[{
-        RowBox[{"tmp", " ", "=", " ", 
-         RowBox[{"$makeTempDir", "[", "]"}]}], ";", "\n", "    ", 
-        RowBox[{"manifestFile", " ", "=", " ", 
-         RowBox[{"FileNameJoin", "[", 
-          RowBox[{"{", 
-           RowBox[{
-           "tmp", ",", " ", "\"\<Resources\>\"", ",", 
-            " ", "\"\<ModelManifest.wl\>\""}], "}"}], "]"}]}], ";", "\n", 
-        "    ", 
-        RowBox[{"Block", "[", "\n", "      ", 
-         RowBox[{
-          RowBox[{"{", "\n", "        ", 
-           RowBox[{
-           "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-findPacletRoot", ",", "\n", "        ", 
-            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-getCatalogModels"}], "\n", "      ", "}"}], ",", "\n", "      ", 
-          RowBox[{
-           RowBox[{
-            RowBox[{
-            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-findPacletRoot", "[", "]"}], " ", ":=", " ", "tmp"}], ";", "\n", "      ", 
-           RowBox[{
-            RowBox[{
-            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-getCatalogModels", "[", "]"}], " ", ":=", " ", "42"}], ";", "  ", 
-           RowBox[{"(*", " ", 
-            RowBox[{"Not", " ", "an", " ", "association"}], " ", "*)"}], "\n",
-            "      ", 
-           RowBox[{"result", " ", "=", " ", 
-            RowBox[{"updateModelManifest", "[", "]"}]}], ";", "\n", "      ", 
-           
-           RowBox[{"fileExists", " ", "=", " ", 
-            RowBox[{"FileExistsQ", "[", "manifestFile", "]"}]}], ";"}]}], 
-         "\n", "    ", "]"}], ";", "\n", "    ", 
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{"DirectoryQ", "[", "tmp", "]"}], ",", " ", 
-          RowBox[{"DeleteDirectory", "[", 
-           RowBox[{"tmp", ",", " ", 
-            RowBox[{"DeleteContents", " ", "->", " ", "True"}]}], "]"}]}], 
-         "]"}], ";", "\n", "    ", 
-        RowBox[{"{", 
-         RowBox[{"result", ",", " ", "fileExists"}], "}"}]}]}], "\n", "  ", 
-      "]"}], ",", "\n", "  ", 
-     RowBox[{"{", 
-      RowBox[{"$Failed", ",", " ", "False"}], "}"}], ",", "\n", "  ", 
-     RowBox[{"{", 
-      RowBox[{"updateModelManifest", "::", "nocat"}], "}"}], ",", "\n", "  ", 
-     
-     RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", 
-     "  ", 
-     RowBox[{
-     "TestID", " ", "->", 
-      " ", "\"\<rejects-non-association-catalog@@Tests/InteractiveTests/\
-ManageResources/updateModelManifest.wlt:88,1-109,2\>\""}]}], "\n", "]"}], 
-   "\n", "\n"}]}]], "Input",ExpressionUUID->"c13292fe-de45-4a86-9193-\
-ec1e05c073ad"],
-
-Cell["\<\
-*)
-(* updateModelManifest Success Path Test\
-\>", "Section",ExpressionUUID->"c9b1c9b9-3076-4441-b8f4-7255e6275992"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"updateModelManifest", " ", "Success", " ", "Path", " ", "Test"}], 
-   " ", "*)"}], "\n"}]], "Input",ExpressionUUID->"18ddbd79-1c0c-4db2-914f-\
-d8dee5975181"],
-
-Cell["", "Section",ExpressionUUID->"b7bcdf93-323d-4529-b0b4-fa71bd7a7a01"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{"VerificationTest", "[", "\n", "  ", 
-    RowBox[{
-     RowBox[{"Module", "[", "\n", "    ", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{
-        "tmp", ",", " ", "manifestFile", ",", " ", "catalogOverride", ",", 
-         " ", "result", ",", " ", "fileData", ",", " ", "dropDate", ",", " ", 
-         "dateOK", ",", " ", "versionOK", ",", " ", "hashesOK"}], "}"}], ",", 
-       "\n", "    ", 
-       RowBox[{
-        RowBox[{"tmp", " ", "=", " ", 
-         RowBox[{"$makeTempDir", "[", "]"}]}], ";", "\n", "    ", 
-        RowBox[{"manifestFile", " ", "=", " ", 
-         RowBox[{"FileNameJoin", "[", 
-          RowBox[{"{", 
-           RowBox[{
-           "tmp", ",", " ", "\"\<Resources\>\"", ",", 
-            " ", "\"\<ModelManifest.wl\>\""}], "}"}], "]"}]}], ";", "\n", 
-        "    ", 
-        RowBox[{"catalogOverride", " ", "=", " ", 
-         RowBox[{"<|", 
-          RowBox[{
-           RowBox[{"\"\<ModelA\>\"", " ", "->", " ", 
-            RowBox[{"<|", 
-             RowBox[{"\"\<a\>\"", " ", "->", " ", "1"}], "|>"}]}], ",", " ", 
-           RowBox[{"\"\<ModelB\>\"", " ", "->", " ", 
-            RowBox[{"<|", 
-             RowBox[{"\"\<b\>\"", " ", "->", " ", 
-              RowBox[{"{", 
-               RowBox[{"1", ",", " ", "2"}], "}"}]}], "|>"}]}]}], "|>"}]}], ";",
-         "\n", "    ", 
-        RowBox[{"dropDate", " ", "=", " ", 
-         RowBox[{
-          RowBox[{"KeyDrop", "[", 
-           RowBox[{"#", ",", " ", 
-            RowBox[{"{", "\"\<Date\>\"", "}"}]}], "]"}], " ", "&"}]}], ";", 
-        "\n", "    ", 
-        RowBox[{"Block", "[", "\n", "      ", 
-         RowBox[{
-          RowBox[{"{", "\n", "        ", 
-           RowBox[{
-           "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-findPacletRoot", ",", "\n", "        ", 
-            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-getCatalogModels"}], "\n", "      ", "}"}], ",", "\n", "      ", 
-          RowBox[{
-           RowBox[{
-            RowBox[{
-            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-findPacletRoot", "[", "]"}], " ", ":=", " ", "tmp"}], ";", "\n", "      ", 
-           RowBox[{
-            RowBox[{
-            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
-getCatalogModels", "[", "]"}], " ", ":=", " ", "catalogOverride"}], ";", "\n",
-            "      ", 
-           RowBox[{"result", " ", "=", " ", 
-            RowBox[{"updateModelManifest", "[", "]"}]}], ";", "\n", "      ", 
-           
-           RowBox[{"fileData", " ", "=", " ", 
-            RowBox[{"Get", "[", "manifestFile", "]"}]}], ";"}]}], "\n", 
-         "    ", "]"}], ";", "\n", "    ", 
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{"DirectoryQ", "[", "tmp", "]"}], ",", " ", 
-          RowBox[{"DeleteDirectory", "[", 
-           RowBox[{"tmp", ",", " ", 
-            RowBox[{"DeleteContents", " ", "->", " ", "True"}]}], "]"}]}], 
-         "]"}], ";", "\n", "    ", 
-        RowBox[{"dateOK", " ", "=", " ", 
-         RowBox[{"StringQ", "[", 
-          RowBox[{"result", "[", "\"\<Date\>\"", "]"}], "]"}]}], ";", "\n", 
-        "    ", 
-        RowBox[{"With", "[", "\n", "      ", 
-         RowBox[{
-          RowBox[{"{", "\n", "        ", 
-           RowBox[{
-            RowBox[{"baseResult", " ", "=", " ", 
-             RowBox[{"dropDate", "[", "result", "]"}]}], ",", "\n", 
-            "        ", 
-            RowBox[{"baseFile", " ", "=", " ", 
-             RowBox[{"dropDate", "[", "fileData", "]"}]}], ",", "\n", 
-            "        ", 
-            RowBox[{"expectedCatalogHash", " ", "=", " ", 
-             RowBox[{"$getHash", "[", "catalogOverride", "]"}]}], ",", "\n", 
-            "        ", 
-            RowBox[{"expectedModelHashes", " ", "=", " ", 
-             RowBox[{"Map", "[", 
-              RowBox[{"$getHash", ",", " ", "catalogOverride"}], "]"}]}]}], 
-           "\n", "      ", "}"}], ",", "\n", "      ", 
-          RowBox[{
-           RowBox[{"versionOK", " ", "=", " ", 
-            RowBox[{"StringQ", "[", 
-             RowBox[{"baseResult", "[", "\"\<PacletVersion\>\"", "]"}], 
-             "]"}]}], ";", "\n", "      ", 
-           RowBox[{"hashesOK", " ", "=", " ", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"baseResult", "[", "\"\<CatalogHash\>\"", "]"}], " ", "===",
-               " ", "expectedCatalogHash"}], " ", "&&", " ", 
-             RowBox[{
-              RowBox[{"baseResult", "[", "\"\<Models\>\"", "]"}], " ", "===", 
-              " ", "expectedModelHashes"}]}]}], ";", "\n", "      ", 
-           RowBox[{
-            RowBox[{"baseResult", " ", "===", " ", "baseFile"}], " ", "&&", 
-            " ", "versionOK", " ", "&&", " ", "hashesOK", " ", "&&", " ", 
-            "dateOK"}]}]}], "\n", "    ", "]"}]}]}], "\n", "  ", "]"}], ",", 
-     "\n", "  ", "True", ",", "\n", "  ", 
-     RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", 
-     "  ", 
-     RowBox[{
-     "TestID", " ", "->", 
-      " ", "\"\<writes-manifest-with-expected-content@@Tests/InteractiveTests/\
-ManageResources/updateModelManifest.wlt:115,1-149,2\>\""}]}], "\n", "]"}], 
-   "\n", "\n"}]}]], "Input",ExpressionUUID->"3db88e65-c463-4dd7-9f44-\
-41b2e0b751c1"],
-
-Cell["\<\
-*)
-(* Hash Consistency with Key Permutation Test\
-\>", "Section",ExpressionUUID->"fe371bce-576f-4abf-ab7c-1f33a1704aed"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "Hash", " ", "Consistency", " ", "with", " ", "Key", " ", "Permutation", " ",
-     "Test"}], " ", "*)"}], "\n"}]], "Input",ExpressionUUID->"b46ccbf4-db85-\
-421c-b274-58f7a0bf5ae4"],
-
-Cell["\<\
-*)
-
-VerificationTest[
-  Module[{catalog1, catalog2},
-    (* Same content, different key order at multiple levels\
-\>", "Section",ExpressionUUID->"545767da-fae6-4fa3-8c90-5376d59f63c6"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", "\n", 
   RowBox[{"VerificationTest", "[", "\n", "  ", 
    RowBox[{
-    RowBox[{"Module", "[", 
-     RowBox[{
-      RowBox[{"{", 
-       RowBox[{"catalog1", ",", " ", "catalog2"}], "}"}], ",", "\n", "    ", 
-      RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
        RowBox[{
-        RowBox[{"Same", " ", "content"}], ",", " ", 
-        RowBox[{
-        "different", " ", "key", " ", "order", " ", "at", " ", "multiple", " ",
-          "levels"}]}], " ", "*)"}], "\n", "    ", 
-      RowBox[{
-       RowBox[{"catalog1", " ", "=", " ", 
-        RowBox[{"<|", "\n", "      ", 
-         RowBox[{
-          RowBox[{"\"\<ModelB\>\"", " ", "->", " ", 
-           RowBox[{"<|", 
-            RowBox[{
-             RowBox[{"\"\<params\>\"", " ", "->", " ", 
-              RowBox[{"<|", 
-               RowBox[{
-                RowBox[{"\"\<gamma\>\"", " ", "->", " ", "2"}], ",", " ", 
-                RowBox[{"\"\<beta\>\"", " ", "->", " ", "1"}]}], "|>"}]}], ",",
-              " ", 
-             RowBox[{"\"\<name\>\"", " ", "->", " ", "\"\<B\>\""}]}], 
-            "|>"}]}], ",", "\n", "      ", 
-          RowBox[{"\"\<ModelA\>\"", " ", "->", " ", 
-           RowBox[{"<|", 
-            RowBox[{
-             RowBox[{"\"\<name\>\"", " ", "->", " ", "\"\<A\>\""}], ",", " ", 
-             
-             RowBox[{"\"\<params\>\"", " ", "->", " ", 
-              RowBox[{"<|", 
-               RowBox[{"\"\<alpha\>\"", " ", "->", " ", "0"}], "|>"}]}]}], 
-            "|>"}]}]}], "\n", "    ", "|>"}]}], ";", "\n", "    ", 
-       RowBox[{"catalog2", " ", "=", " ", 
-        RowBox[{"<|", "\n", "      ", 
-         RowBox[{
-          RowBox[{"\"\<ModelA\>\"", " ", "->", " ", 
-           RowBox[{"<|", 
-            RowBox[{
-             RowBox[{"\"\<params\>\"", " ", "->", " ", 
-              RowBox[{"<|", 
-               RowBox[{"\"\<alpha\>\"", " ", "->", " ", "0"}], "|>"}]}], ",", 
-             " ", 
-             RowBox[{"\"\<name\>\"", " ", "->", " ", "\"\<A\>\""}]}], 
-            "|>"}]}], ",", "\n", "      ", 
-          RowBox[{"\"\<ModelB\>\"", " ", "->", " ", 
-           RowBox[{"<|", 
-            RowBox[{
-             RowBox[{"\"\<name\>\"", " ", "->", " ", "\"\<B\>\""}], ",", " ", 
-             
-             RowBox[{"\"\<params\>\"", " ", "->", " ", 
-              RowBox[{"<|", 
-               RowBox[{
-                RowBox[{"\"\<beta\>\"", " ", "->", " ", "1"}], ",", " ", 
-                RowBox[{"\"\<gamma\>\"", " ", "->", " ", "2"}]}], "|>"}]}]}], 
-            "|>"}]}]}], "\n", "    ", "|>"}]}], ";", "\n", "    ", 
+        RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], ",", " ", 
+        RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}]}], "|>"}], "]"}], "  ", 
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
        RowBox[{
-        RowBox[{"$getHash", "[", "catalog1", "]"}], " ", "===", " ", 
-        RowBox[{"$getHash", "[", "catalog2", "]"}]}]}]}], "\n", "  ", "]"}], ",",
-     "\n", "  ", "True", ",", "\n", "  ", 
+        RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], ",", " ", 
+        RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}]}], "|>"}], "]"}]}], ",", 
+    "\n", "  ", "True", ",", "\n", "  ", 
     RowBox[{
     "TestID", " ", "->", 
-     " ", "\"\<hash-complex-permutation-invariant@@Tests/InteractiveTests/\
+     " ", "\"\<hash-key-order-invariant@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:40,1-44,2\>\""}]}], "\n", "]"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"VerificationTest", "[", "\n", "  ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{"\"\<x\>\"", " ", "->", " ", 
+        RowBox[{"<|", 
+         RowBox[{
+          RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], ",", " ", 
+          RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}]}], "|>"}]}], "|>"}], 
+      "]"}], "  ", 
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{"\"\<x\>\"", " ", "->", " ", 
+        RowBox[{"<|", 
+         RowBox[{
+          RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], ",", " ", 
+          RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}]}], "|>"}]}], "|>"}], 
+      "]"}]}], ",", "\n", "  ", "True", ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<hash-nested-key-order-invariant@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:46,1-50,2\>\""}]}], "\n", "]"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"VerificationTest", "[", "\n", "  ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{"\"\<z\>\"", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"<|", 
+           RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], "|>"}], ",", " ", 
+          RowBox[{"<|", 
+           RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], "|>"}]}], "}"}]}], 
+       "|>"}], "]"}], "  ", 
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{"\"\<z\>\"", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"<|", 
+           RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], "|>"}], ",", " ", 
+          RowBox[{"<|", 
+           RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], "|>"}]}], "}"}]}], 
+       "|>"}], "]"}]}], ",", "\n", "  ", "True", ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<hash-list-of-associations@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:52,1-56,2\>\""}]}], "\n", "]"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"VerificationTest", "[", "\n", "  ", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "Different", " ", "content", " ", "should", " ", "produce", " ", 
+     "different", " ", "hashes"}], " ", "*)"}], "\n", "  ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"$getHash", "[", 
+       RowBox[{"<|", 
+        RowBox[{"\"\<a\>\"", " ", "->", " ", "1"}], "|>"}], "]"}], " ", "!"}],
+      " ", 
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], "|>"}], "]"}]}], ",", "\n",
+     "  ", "True", ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<hash-different-values-differ@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:58,1-63,2\>\""}]}], "\n", "]"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"VerificationTest", "[", "\n", "  ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{
+        RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], ",", " ", 
+        RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}]}], "|>"}], "]"}], " ", "===",
+      " ", 
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{
+        RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], ",", " ", 
+        RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}]}], "|>"}], "]"}]}], ",", 
+    "\n", "  ", "True", ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<hash-key-order-invariant@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:40,1-44,2\>\""}]}], "\n", "]"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"VerificationTest", "[", "\n", "  ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{"\"\<x\>\"", " ", "->", " ", 
+        RowBox[{"<|", 
+         RowBox[{
+          RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], ",", " ", 
+          RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}]}], "|>"}]}], "|>"}], 
+      "]"}], " ", "===", " ", 
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{"\"\<x\>\"", " ", "->", " ", 
+        RowBox[{"<|", 
+         RowBox[{
+          RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], ",", " ", 
+          RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}]}], "|>"}]}], "|>"}], 
+      "]"}]}], ",", "\n", "  ", "True", ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<hash-nested-key-order-invariant@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:46,1-50,2\>\""}]}], "\n", "]"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"VerificationTest", "[", "\n", "  ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{"\"\<z\>\"", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"<|", 
+           RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], "|>"}], ",", " ", 
+          RowBox[{"<|", 
+           RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], "|>"}]}], "}"}]}], 
+       "|>"}], "]"}], " ", "===", " ", 
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{"\"\<z\>\"", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"<|", 
+           RowBox[{"\"\<b\>\"", " ", "->", " ", "1"}], "|>"}], ",", " ", 
+          RowBox[{"<|", 
+           RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], "|>"}]}], "}"}]}], 
+       "|>"}], "]"}]}], ",", "\n", "  ", "True", ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<hash-list-of-associations@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:52,1-56,2\>\""}]}], "\n", "]"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"VerificationTest", "[", "\n", "  ", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "Different", " ", "content", " ", "should", " ", "produce", " ", 
+     "different", " ", "hashes"}], " ", "*)"}], "\n", "  ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{"\"\<a\>\"", " ", "->", " ", "1"}], "|>"}], "]"}], " ", "=!=", 
+     " ", 
+     RowBox[{"$getHash", "[", 
+      RowBox[{"<|", 
+       RowBox[{"\"\<a\>\"", " ", "->", " ", "2"}], "|>"}], "]"}]}], ",", "\n",
+     "  ", "True", ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<hash-different-values-differ@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:58,1-63,2\>\""}]}], "\n", "]"}], 
+  "\n"}], "\n", 
+ RowBox[{"VerificationTest", "[", "\n", "  ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Canonicalize", " ", "should", " ", "sort", " ", "keys", " ", 
+    "recursively"}], " ", "*)"}], "\n", "  ", 
+  RowBox[{
+   RowBox[{"$canonicalize", "[", 
+    RowBox[{"<|", 
+     RowBox[{
+      RowBox[{"\"\<b\>\"", " ", "->", " ", 
+       RowBox[{"<|", 
+        RowBox[{
+         RowBox[{"\"\<d\>\"", " ", "->", " ", "1"}], ",", " ", 
+         RowBox[{"\"\<c\>\"", " ", "->", " ", "2"}]}], "|>"}]}], ",", " ", 
+      RowBox[{"\"\<a\>\"", " ", "->", " ", "3"}]}], "|>"}], "]"}], ",", "\n", 
+   "  ", 
+   RowBox[{"<|", 
+    RowBox[{
+     RowBox[{"\"\<a\>\"", " ", "->", " ", "3"}], ",", " ", 
+     RowBox[{"\"\<b\>\"", " ", "->", " ", 
+      RowBox[{"<|", 
+       RowBox[{
+        RowBox[{"\"\<c\>\"", " ", "->", " ", "2"}], ",", " ", 
+        RowBox[{"\"\<d\>\"", " ", "->", " ", "1"}]}], "|>"}]}]}], "|>"}], ",",
+    "\n", "  ", 
+   RowBox[{
+   "TestID", " ", "->", 
+    " ", "\"\<canonicalize-sorts-nested-keys@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:65,1-70,2\>\""}]}], "\n", 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.974774937358562*^9, 3.974774961956789*^9}, {
+  3.974775197185862*^9, 3.97477519777801*^9}, {3.9747753658031693`*^9, 
+  3.974775367861313*^9}},ExpressionUUID->"21a8f241-b396-4844-b570-\
+eaa3eef73bfa"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["updateModelManifest Error Handling Tests", "Section",
+ CellChangeTimes->{{3.9747751885779877`*^9, 
+  3.974775189713646*^9}},ExpressionUUID->"ca243675-9c87-460b-ab5b-\
+976ca39f0342"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"VerificationTest", "[", "\n", "  ", 
+   RowBox[{
+    RowBox[{"Block", "[", "\n", "    ", 
+     RowBox[{
+      RowBox[{
+      "{", "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+findPacletRoot", "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+findPacletRoot", "[", "]"}], " ", ":", " ", "$Failed"}], ";", "\n", "    ", 
+       RowBox[{"updateModelManifest", "[", "]"}]}]}], "\n", "  ", "]"}], ",", 
+    "\n", "  ", "$Failed", ",", "\n", "  ", 
+    RowBox[{"{", 
+     RowBox[{"updateModelManifest", "::", "noroot"}], "}"}], ",", "\n", "  ", 
+    
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<fails-when-root-not-found@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:76,1-86,2\>\""}]}], "\n", "]"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"VerificationTest", "[", "\n", "  ", 
+   RowBox[{
+    RowBox[{"Block", "[", "\n", "    ", 
+     RowBox[{
+      RowBox[{
+      "{", "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+findPacletRoot", "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+findPacletRoot", "[", "]"}], " ", ":=", " ", "$Failed"}], ";", "\n", "    ", 
+       RowBox[{"updateModelManifest", "[", "]"}]}]}], "\n", "  ", "]"}], ",", 
+    "\n", "  ", "$Failed", ",", "\n", "  ", 
+    RowBox[{"{", 
+     RowBox[{"updateModelManifest", "::", "noroot"}], "}"}], ",", "\n", "  ", 
+    
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<fails-when-root-not-found@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:76,1-86,2\>\""}]}], "\n", "]"}], 
+  "\n"}], "\n", 
+ RowBox[{"VerificationTest", "[", "\n", "  ", 
+  RowBox[{
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "tmp", ",", " ", "manifestFile", ",", " ", "result", ",", " ", 
+       "fileExists"}], "}"}], ",", "\n", "    ", 
+     RowBox[{
+      RowBox[{"tmp", " ", "=", " ", 
+       RowBox[{"$makeTempDir", "[", "]"}]}], ";", "\n", "    ", 
+      RowBox[{"manifestFile", " ", "=", " ", 
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{
+         "tmp", ",", " ", "\"\<Resources\>\"", ",", 
+          " ", "\"\<ModelManifest.wl\>\""}], "}"}], "]"}]}], ";", "\n", 
+      "    ", 
+      RowBox[{"Block", "[", "\n", "      ", 
+       RowBox[{
+        RowBox[{"{", "\n", "        ", 
+         RowBox[{
+         "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+findPacletRoot", ",", "\n", "        ", 
+          "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels"}], "\n", "      ", "}"}], ",", "\n", "      ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+          "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+findPacletRoot", "[", "]"}], " ", ":=", " ", "tmp"}], ";", "\n", "      ", 
+         RowBox[{
+          RowBox[{
+          "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", "[", "]"}], " ", ":=", " ", "42"}], ";", "  ", 
+         RowBox[{"(*", " ", 
+          RowBox[{"Not", " ", "an", " ", "association"}], " ", "*)"}], "\n", 
+         "      ", 
+         RowBox[{"result", " ", "=", " ", 
+          RowBox[{"updateModelManifest", "[", "]"}]}], ";", "\n", "      ", 
+         RowBox[{"fileExists", " ", "=", " ", 
+          RowBox[{"FileExistsQ", "[", "manifestFile", "]"}]}], ";"}]}], "\n", 
+       "    ", "]"}], ";", "\n", "    ", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"DirectoryQ", "[", "tmp", "]"}], ",", " ", 
+        RowBox[{"DeleteDirectory", "[", 
+         RowBox[{"tmp", ",", " ", 
+          RowBox[{"DeleteContents", " ", "->", " ", "True"}]}], "]"}]}], 
+       "]"}], ";", "\n", "    ", 
+      RowBox[{"{", 
+       RowBox[{"result", ",", " ", "fileExists"}], "}"}]}]}], "\n", "  ", 
+    "]"}], ",", "\n", "  ", 
+   RowBox[{"{", 
+    RowBox[{"$Failed", ",", " ", "False"}], "}"}], ",", "\n", "  ", 
+   RowBox[{"{", 
+    RowBox[{"updateModelManifest", "::", "nocat"}], "}"}], ",", "\n", "  ", 
+   RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+   
+   RowBox[{
+   "TestID", " ", "->", 
+    " ", "\"\<rejects-non-association-catalog@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:88,1-109,2\>\""}]}], "\n", 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.97477512232414*^9, 3.974775122325007*^9}, {
+  3.974775167610515*^9, 3.974775185265986*^9}, {3.974775377415856*^9, 
+  3.974775381852275*^9}},ExpressionUUID->"7c56b1c2-e2db-431a-a541-\
+ca021e3e4455"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["updateModelManifest Success Path Test", "Section",
+ CellChangeTimes->{
+  3.974775158897409*^9},ExpressionUUID->"c9b1c9b9-3076-4441-b8f4-\
+7255e6275992"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "[", "\n", "  ", 
+  RowBox[{
+   RowBox[{"Module", "[", "\n", "    ", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "tmp", ",", " ", "manifestFile", ",", " ", "catalogOverride", ",", " ", 
+       "result", ",", " ", "fileData", ",", " ", "dropDate", ",", " ", 
+       "dateOK", ",", " ", "versionOK", ",", " ", "hashesOK"}], "}"}], ",", 
+     "\n", "    ", 
+     RowBox[{
+      RowBox[{"tmp", " ", "=", " ", 
+       RowBox[{"$makeTempDir", "[", "]"}]}], ";", "\n", "    ", 
+      RowBox[{"manifestFile", " ", "=", " ", 
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{
+         "tmp", ",", " ", "\"\<Resources\>\"", ",", 
+          " ", "\"\<ModelManifest.wl\>\""}], "}"}], "]"}]}], ";", "\n", 
+      "    ", 
+      RowBox[{"catalogOverride", " ", "=", " ", 
+       RowBox[{"<|", 
+        RowBox[{
+         RowBox[{"\"\<ModelA\>\"", " ", "->", " ", 
+          RowBox[{"<|", 
+           RowBox[{"\"\<a\>\"", " ", "->", " ", "1"}], "|>"}]}], ",", " ", 
+         RowBox[{"\"\<ModelB\>\"", " ", "->", " ", 
+          RowBox[{"<|", 
+           RowBox[{"\"\<b\>\"", " ", "->", " ", 
+            RowBox[{"{", 
+             RowBox[{"1", ",", " ", "2"}], "}"}]}], "|>"}]}]}], "|>"}]}], ";",
+       "\n", "    ", 
+      RowBox[{"dropDate", " ", "=", " ", 
+       RowBox[{
+        RowBox[{"KeyDrop", "[", 
+         RowBox[{"#", ",", " ", 
+          RowBox[{"{", "\"\<Date\>\"", "}"}]}], "]"}], " ", "&"}]}], ";", 
+      "\n", "    ", 
+      RowBox[{"Block", "[", "\n", "      ", 
+       RowBox[{
+        RowBox[{"{", "\n", "        ", 
+         RowBox[{
+         "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+findPacletRoot", ",", "\n", "        ", 
+          "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels"}], "\n", "      ", "}"}], ",", "\n", "      ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+          "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+findPacletRoot", "[", "]"}], " ", ":=", " ", "tmp"}], ";", "\n", "      ", 
+         RowBox[{
+          RowBox[{
+          "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", "[", "]"}], " ", ":=", " ", "catalogOverride"}], ";", "\n",
+          "      ", 
+         RowBox[{"result", " ", "=", " ", 
+          RowBox[{"updateModelManifest", "[", "]"}]}], ";", "\n", "      ", 
+         RowBox[{"fileData", " ", "=", " ", 
+          RowBox[{"Get", "[", "manifestFile", "]"}]}], ";"}]}], "\n", "    ", 
+       "]"}], ";", "\n", "    ", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"DirectoryQ", "[", "tmp", "]"}], ",", " ", 
+        RowBox[{"DeleteDirectory", "[", 
+         RowBox[{"tmp", ",", " ", 
+          RowBox[{"DeleteContents", " ", "->", " ", "True"}]}], "]"}]}], 
+       "]"}], ";", "\n", "    ", 
+      RowBox[{"dateOK", " ", "=", " ", 
+       RowBox[{"StringQ", "[", 
+        RowBox[{"result", "[", "\"\<Date\>\"", "]"}], "]"}]}], ";", "\n", 
+      "    ", 
+      RowBox[{"With", "[", "\n", "      ", 
+       RowBox[{
+        RowBox[{"{", "\n", "        ", 
+         RowBox[{
+          RowBox[{"baseResult", " ", "=", " ", 
+           RowBox[{"dropDate", "[", "result", "]"}]}], ",", "\n", "        ", 
+          
+          RowBox[{"baseFile", " ", "=", " ", 
+           RowBox[{"dropDate", "[", "fileData", "]"}]}], ",", "\n", 
+          "        ", 
+          RowBox[{"expectedCatalogHash", " ", "=", " ", 
+           RowBox[{"$getHash", "[", "catalogOverride", "]"}]}], ",", "\n", 
+          "        ", 
+          RowBox[{"expectedModelHashes", " ", "=", " ", 
+           RowBox[{"Map", "[", 
+            RowBox[{"$getHash", ",", " ", "catalogOverride"}], "]"}]}]}], 
+         "\n", "      ", "}"}], ",", "\n", "      ", 
+        RowBox[{
+         RowBox[{"versionOK", " ", "=", " ", 
+          RowBox[{"StringQ", "[", 
+           RowBox[{"baseResult", "[", "\"\<PacletVersion\>\"", "]"}], "]"}]}],
+          ";", "\n", "      ", 
+         RowBox[{"hashesOK", " ", "=", " ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"baseResult", "[", "\"\<CatalogHash\>\"", "]"}], " ", "===",
+             " ", "expectedCatalogHash"}], " ", "&&", " ", 
+           RowBox[{
+            RowBox[{"baseResult", "[", "\"\<Models\>\"", "]"}], " ", "===", 
+            " ", "expectedModelHashes"}]}]}], ";", "\n", "      ", 
+         RowBox[{
+          RowBox[{"baseResult", " ", "===", " ", "baseFile"}], " ", "&&", " ",
+           "versionOK", " ", "&&", " ", "hashesOK", " ", "&&", " ", 
+          "dateOK"}]}]}], "\n", "    ", "]"}]}]}], "\n", "  ", "]"}], ",", 
+   "\n", "  ", "True", ",", "\n", "  ", 
+   RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+   
+   RowBox[{
+   "TestID", " ", "->", 
+    " ", "\"\<writes-manifest-with-expected-content@@Tests/InteractiveTests/\
+ManageResources/updateModelManifest.wlt:115,1-149,2\>\""}]}], "\n", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.974775149995119*^9, 
+  3.974775157306974*^9}},ExpressionUUID->"3db88e65-c463-4dd7-9f44-\
+41b2e0b751c1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Hash Consistency with Key Permutation Test", "Section",
+ CellChangeTimes->{
+  3.974775141221784*^9},ExpressionUUID->"fe371bce-576f-4abf-ab7c-\
+1f33a1704aed"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "[", "\n", "  ", 
+  RowBox[{
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"catalog1", ",", " ", "catalog2"}], "}"}], ",", "\n", "    ", 
+     RowBox[{"(*", " ", 
+      RowBox[{
+       RowBox[{"Same", " ", "content"}], ",", " ", 
+       RowBox[{
+       "different", " ", "key", " ", "order", " ", "at", " ", "multiple", " ",
+         "levels"}]}], " ", "*)"}], "\n", "    ", 
+     RowBox[{
+      RowBox[{"catalog1", " ", "=", " ", 
+       RowBox[{"<|", "\n", "      ", 
+        RowBox[{
+         RowBox[{"\"\<ModelB\>\"", " ", "->", " ", 
+          RowBox[{"<|", 
+           RowBox[{
+            RowBox[{"\"\<params\>\"", " ", "->", " ", 
+             RowBox[{"<|", 
+              RowBox[{
+               RowBox[{"\"\<gamma\>\"", " ", "->", " ", "2"}], ",", " ", 
+               RowBox[{"\"\<beta\>\"", " ", "->", " ", "1"}]}], "|>"}]}], ",",
+             " ", 
+            RowBox[{"\"\<name\>\"", " ", "->", " ", "\"\<B\>\""}]}], "|>"}]}],
+          ",", "\n", "      ", 
+         RowBox[{"\"\<ModelA\>\"", " ", "->", " ", 
+          RowBox[{"<|", 
+           RowBox[{
+            RowBox[{"\"\<name\>\"", " ", "->", " ", "\"\<A\>\""}], ",", " ", 
+            RowBox[{"\"\<params\>\"", " ", "->", " ", 
+             RowBox[{"<|", 
+              RowBox[{"\"\<alpha\>\"", " ", "->", " ", "0"}], "|>"}]}]}], 
+           "|>"}]}]}], "\n", "    ", "|>"}]}], ";", "\n", "    ", 
+      RowBox[{"catalog2", " ", "=", " ", 
+       RowBox[{"<|", "\n", "      ", 
+        RowBox[{
+         RowBox[{"\"\<ModelA\>\"", " ", "->", " ", 
+          RowBox[{"<|", 
+           RowBox[{
+            RowBox[{"\"\<params\>\"", " ", "->", " ", 
+             RowBox[{"<|", 
+              RowBox[{"\"\<alpha\>\"", " ", "->", " ", "0"}], "|>"}]}], ",", 
+            " ", 
+            RowBox[{"\"\<name\>\"", " ", "->", " ", "\"\<A\>\""}]}], "|>"}]}],
+          ",", "\n", "      ", 
+         RowBox[{"\"\<ModelB\>\"", " ", "->", " ", 
+          RowBox[{"<|", 
+           RowBox[{
+            RowBox[{"\"\<name\>\"", " ", "->", " ", "\"\<B\>\""}], ",", " ", 
+            RowBox[{"\"\<params\>\"", " ", "->", " ", 
+             RowBox[{"<|", 
+              RowBox[{
+               RowBox[{"\"\<beta\>\"", " ", "->", " ", "1"}], ",", " ", 
+               RowBox[{"\"\<gamma\>\"", " ", "->", " ", "2"}]}], "|>"}]}]}], 
+           "|>"}]}]}], "\n", "    ", "|>"}]}], ";", "\n", "    ", 
+      RowBox[{
+       RowBox[{"$getHash", "[", "catalog1", "]"}], " ", "===", " ", 
+       RowBox[{"$getHash", "[", "catalog2", "]"}]}]}]}], "\n", "  ", "]"}], ",",
+    "\n", "  ", "True", ",", "\n", "  ", 
+   RowBox[{
+   "TestID", " ", "->", 
+    " ", "\"\<hash-complex-permutation-invariant@@Tests/InteractiveTests/\
 ManageResources/updateModelManifest.wlt:155,1-170,2\>\""}]}], "\n", 
-   "]"}]}]], "Input",ExpressionUUID->"aecf56a7-b093-43e1-9f41-0a4c58da9132"]
+  "]"}]], "Input",
+ CellChangeTimes->{{3.974775146914626*^9, 
+  3.974775147562612*^9}},ExpressionUUID->"aecf56a7-b093-43e1-9f41-\
+0a4c58da9132"]
+}, Open  ]]
+}, Open  ]]
 },
+WindowSize->{1105, 831},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
 FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"030dd925-0c5d-4328-bf2c-3d20dd20664e"
@@ -774,28 +764,31 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[554, 20, 97, 0, 70, "Title",ExpressionUUID->"5b0f71a6-84d5-4b63-94ed-a0277edf3b9a"],
-Cell[654, 22, 154, 2, 70, "Subtitle",ExpressionUUID->"f517213a-7bad-4fcd-a379-e4606859956b"],
-Cell[811, 26, 79, 0, 70, "Section",ExpressionUUID->"a30f2ab1-4161-47c4-a531-16d330274af6"],
-Cell[893, 28, 5618, 143, 70, "Input",ExpressionUUID->"f16ed69d-48de-4c9a-a1b0-f2202834d105"],
-Cell[6514, 173, 110, 3, 70, "Section",ExpressionUUID->"e3a80542-2a3b-414f-94ee-01352b634458"],
-Cell[6627, 178, 397, 9, 70, "Input",ExpressionUUID->"21865140-4e5d-4158-9400-9c9a15b5e471"],
-Cell[7027, 189, 1169, 40, 70, "Section",ExpressionUUID->"21a8f241-b396-4844-b570-eaa3eef73bfa"],
-Cell[8199, 231, 5027, 129, 70, "Input",ExpressionUUID->"98ada5d6-700e-463a-b582-da5c6ee9fffd"],
-Cell[13229, 362, 128, 3, 70, "Section",ExpressionUUID->"ca243675-9c87-460b-ab5b-976ca39f0342"],
-Cell[13360, 367, 430, 11, 70, "Input",ExpressionUUID->"58a2ea2b-ac60-4635-8fe9-2cb4682f42f0"],
-Cell[13793, 380, 1080, 34, 70, "Section",ExpressionUUID->"7c56b1c2-e2db-431a-a541-ca021e3e4455"],
-Cell[14876, 416, 4071, 97, 70, "Input",ExpressionUUID->"c13292fe-de45-4a86-9193-ec1e05c073ad"],
-Cell[18950, 515, 125, 3, 70, "Section",ExpressionUUID->"c9b1c9b9-3076-4441-b8f4-7255e6275992"],
-Cell[19078, 520, 423, 10, 70, "Input",ExpressionUUID->"18ddbd79-1c0c-4db2-914f-d8dee5975181"],
-Cell[19504, 532, 74, 0, 70, "Section",ExpressionUUID->"b7bcdf93-323d-4529-b0b4-fa71bd7a7a01"],
-Cell[19581, 534, 5474, 123, 70, "Input",ExpressionUUID->"3db88e65-c463-4dd7-9f44-41b2e0b751c1"],
-Cell[25058, 659, 130, 3, 70, "Section",ExpressionUUID->"fe371bce-576f-4abf-ab7c-1f33a1704aed"],
-Cell[25191, 664, 449, 11, 70, "Input",ExpressionUUID->"b46ccbf4-db85-421c-b274-58f7a0bf5ae4"],
-Cell[25643, 677, 194, 6, 70, "Section",ExpressionUUID->"545767da-fae6-4fa3-8c90-5376d59f63c6"],
-Cell[25840, 685, 3210, 74, 70, "Input",ExpressionUUID->"aecf56a7-b093-43e1-9f41-0a4c58da9132"]
+Cell[CellGroupData[{
+Cell[576, 22, 97, 0, 96, "Title",ExpressionUUID->"5b0f71a6-84d5-4b63-94ed-a0277edf3b9a"],
+Cell[676, 24, 154, 2, 52, "Subtitle",ExpressionUUID->"f517213a-7bad-4fcd-a379-e4606859956b"],
+Cell[CellGroupData[{
+Cell[855, 30, 79, 0, 66, "Section",ExpressionUUID->"a30f2ab1-4161-47c4-a531-16d330274af6"],
+Cell[937, 32, 5677, 145, 703, "Input",ExpressionUUID->"f16ed69d-48de-4c9a-a1b0-f2202834d105"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6651, 182, 167, 3, 66, "Section",ExpressionUUID->"e3a80542-2a3b-414f-94ee-01352b634458"],
+Cell[6821, 187, 8329, 226, 1152, "Input",ExpressionUUID->"21a8f241-b396-4844-b570-eaa3eef73bfa"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15187, 418, 187, 3, 66, "Section",ExpressionUUID->"ca243675-9c87-460b-ab5b-976ca39f0342"],
+Cell[15377, 423, 4793, 116, 948, "Input",ExpressionUUID->"7c56b1c2-e2db-431a-a541-ca021e3e4455"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20207, 544, 158, 3, 66, "Section",ExpressionUUID->"c9b1c9b9-3076-4441-b8f4-7255e6275992"],
+Cell[20368, 549, 5061, 117, 744, "Input",ExpressionUUID->"3db88e65-c463-4dd7-9f44-41b2e0b751c1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25466, 671, 163, 3, 66, "Section",ExpressionUUID->"fe371bce-576f-4abf-ab7c-1f33a1704aed"],
+Cell[25632, 676, 2958, 69, 335, "Input",ExpressionUUID->"aecf56a7-b093-43e1-9f41-0a4c58da9132"]
+}, Open  ]]
+}, Open  ]]
 }
 ]
 *)
 
-(* End of internal cache information *)

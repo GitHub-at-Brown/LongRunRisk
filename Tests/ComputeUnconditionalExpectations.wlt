@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-DL3VDL@@Tests/ComputeUnconditionalExpectations.wlt:3,1-12,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-0RIAQM@@Tests/ComputeUnconditionalExpectations.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Needs @ "PacletizedResourceFunctions`";
@@ -18,7 +18,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-M7HLVB@@Tests/ComputeUnconditionalExpectations.wlt:13,1-22,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-G8E7V5@@Tests/ComputeUnconditionalExpectations.wlt:13,1-22,2"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`";
@@ -31,7 +31,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-PD6R6R@@Tests/ComputeUnconditionalExpectations.wlt:23,1-35,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-0N8I40@@Tests/ComputeUnconditionalExpectations.wlt:23,1-35,2"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"]
@@ -40,7 +40,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-CEYYTR@@Tests/ComputeUnconditionalExpectations.wlt:36,1-44,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-36173G@@Tests/ComputeUnconditionalExpectations.wlt:36,1-44,2"
 ]
 VerificationTest[
 	!SameQ[Names @ "*uncondE", {}]
@@ -49,7 +49,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-VSLO4S@@Tests/ComputeUnconditionalExpectations.wlt:45,1-53,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-9T6LDX@@Tests/ComputeUnconditionalExpectations.wlt:45,1-53,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
@@ -62,7 +62,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-8RT131@@Tests/ComputeUnconditionalExpectations.wlt:54,1-66,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-Q1LYVI@@Tests/ComputeUnconditionalExpectations.wlt:54,1-66,2"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`longTest,
@@ -130,7 +130,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-UD2DK0@@Tests/ComputeUnconditionalExpectations.wlt:67,1-134,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-Y6LR0J@@Tests/ComputeUnconditionalExpectations.wlt:67,1-134,2"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`longTest,
@@ -166,7 +166,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-JOQLG5@@Tests/ComputeUnconditionalExpectations.wlt:135,1-170,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-UP2VJ1@@Tests/ComputeUnconditionalExpectations.wlt:135,1-170,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -198,7 +198,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-UYODIV@@Tests/ComputeUnconditionalExpectations.wlt:171,1-202,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-9PD7DB@@Tests/ComputeUnconditionalExpectations.wlt:171,1-202,2"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`longTest,
@@ -217,7 +217,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-QQCQJU@@Tests/ComputeUnconditionalExpectations.wlt:203,1-221,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-JWKUYM@@Tests/ComputeUnconditionalExpectations.wlt:203,1-221,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`stateVarsNoEps = {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sg, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`pi};
@@ -307,7 +307,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-83QMK5@@Tests/ComputeUnconditionalExpectations.wlt:222,1-311,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-II1MBA@@Tests/ComputeUnconditionalExpectations.wlt:222,1-311,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -376,7 +376,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-XSG7MU@@Tests/ComputeUnconditionalExpectations.wlt:312,1-380,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-HCM5U7@@Tests/ComputeUnconditionalExpectations.wlt:312,1-380,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -448,7 +448,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-S6SBXP@@Tests/ComputeUnconditionalExpectations.wlt:381,1-452,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-OKW4LY@@Tests/ComputeUnconditionalExpectations.wlt:381,1-452,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -477,7 +477,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-ENL7RN@@Tests/ComputeUnconditionalExpectations.wlt:453,1-481,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-P23JRF@@Tests/ComputeUnconditionalExpectations.wlt:453,1-481,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -507,7 +507,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-X59MUV@@Tests/ComputeUnconditionalExpectations.wlt:482,1-511,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-33QZ56@@Tests/ComputeUnconditionalExpectations.wlt:482,1-511,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -599,7 +599,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-4TVMU6@@Tests/ComputeUnconditionalExpectations.wlt:512,1-603,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-OG5BZC@@Tests/ComputeUnconditionalExpectations.wlt:512,1-603,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -737,7 +737,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-5IKXL3@@Tests/ComputeUnconditionalExpectations.wlt:604,1-741,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-L5LKOM@@Tests/ComputeUnconditionalExpectations.wlt:604,1-741,2"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`longTest,
@@ -920,12 +920,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeUnconditionalExpectations_20251214-S0K6H9@@Tests/ComputeUnconditionalExpectations.wlt:742,1-924,2"
+	TestID->"ComputeUnconditionalExpectations_20251215-E6V1PX@@Tests/ComputeUnconditionalExpectations.wlt:742,1-924,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
   True,
-  TestID -> "Untitled-6@@Tests/ComputeUnconditionalExpectations.wlt:925,1-929,2"
+  TestID -> "Untitled-4@@Tests/ComputeUnconditionalExpectations.wlt:925,1-933,8"
 ]
 End[]
 EndTestSection[]
