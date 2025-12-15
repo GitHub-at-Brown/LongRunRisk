@@ -48,6 +48,17 @@ jobs:
           tlmgr install latex standalone lm svn-prov
           tlmgr path add
           tlmgr list --only-installed
+      - name: Verify Wolfram credentials
+        run: |
+          echo "Checking WOLFRAMSCRIPT_ENTITLEMENTID..."
+          if [ -n "$WOLFRAMSCRIPT_ENTITLEMENTID" ]; then
+            echo "WOLFRAMSCRIPT_ENTITLEMENTID is set (length: ${#WOLFRAMSCRIPT_ENTITLEMENTID})"
+          else
+            echo "ERROR: WOLFRAMSCRIPT_ENTITLEMENTID is empty or not set!"
+            exit 1
+          fi
+          echo "Testing wolframscript..."
+          wolframscript -code 'Print["Wolfram Engine: ", $Version]' || echo "wolframscript test failed"
       - name: Test
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.11.0
