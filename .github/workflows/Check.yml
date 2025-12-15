@@ -19,7 +19,7 @@ jobs:
     name: Check-Test
     runs-on: ubuntu-latest
     container:
-      image: wolframresearch/wolframengine:14.3.0
+      image: wolframresearch/wolframengine:latest
       options: --user root --privileged --init
       env:
         WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
@@ -48,35 +48,28 @@ jobs:
           tlmgr install latex standalone lm svn-prov
           tlmgr path add
           tlmgr list --only-installed
-      - name: Verify Wolfram credentials
+      - name: Install PacletCICD
         run: |
-          echo "Checking WOLFRAMSCRIPT_ENTITLEMENTID..."
-          if [ -n "$WOLFRAMSCRIPT_ENTITLEMENTID" ]; then
-            echo "WOLFRAMSCRIPT_ENTITLEMENTID is set (length: ${#WOLFRAMSCRIPT_ENTITLEMENTID})"
-          else
-            echo "ERROR: WOLFRAMSCRIPT_ENTITLEMENTID is empty or not set!"
-            exit 1
-          fi
-          echo "Testing wolframscript..."
-          wolframscript -code 'Print["Wolfram Engine: ", $Version]' || echo "wolframscript test failed"
-      - name: Test
-        id: test-paclet-step
-        uses: WolframResearch/test-paclet@v1.11.0
-        with:
-          debug: "false"
-          paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
-        env:
-          WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
-          RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
-      - name: Check
-        id: check-paclet
-        uses: WolframResearch/check-paclet@v1.11.0
-        with:
-          debug: "false"
-          paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
-        env:
-          WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
-          RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
+          wolframscript -code '
+            PacletInstall["https://github.com/WolframResearch/PacletCICD/releases/download/v${{ env.PACLET_CICD_VERSION }}/Wolfram__PacletCICD-${{ env.PACLET_CICD_VERSION }}.paclet"];
+            Print["PacletCICD installed: ", FileExistsQ[FindFile["Wolfram`PacletCICD`"]]];
+          '
+      - name: Test Paclet
+        run: |
+          wolframscript -code '
+            Needs["Wolfram`PacletCICD`"];
+            result = TestPaclet[Directory[], "Target" -> "Submit"];
+            Print["Test result: ", result];
+            If[FailureQ[result], Exit[1]];
+          '
+      - name: Check Paclet
+        run: |
+          wolframscript -code '
+            Needs["Wolfram`PacletCICD`"];
+            result = CheckPaclet[Directory[], "Target" -> "Submit"];
+            Print["Check result: ", result];
+            If[FailureQ[result], Exit[1]];
+          '
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
