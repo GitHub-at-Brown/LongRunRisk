@@ -1,6 +1,16 @@
 name: Coverage
 on:
   workflow_dispatch:
+    inputs:
+      coverage_mode:
+        description: 'Coverage mode: Auto (try execution, fallback to baseline), Baseline (structure only), Execution (fail if CoverageEvaluate fails)'
+        required: false
+        default: 'Auto'
+        type: choice
+        options:
+          - Auto
+          - Baseline
+          - Execution
 env:
   WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
   ENGINE_TAG: 14.3.0
@@ -13,7 +23,7 @@ jobs:
       options: --user root --privileged --init
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -32,7 +42,7 @@ jobs:
           tlmgr install latex standalone lm svn-prov
           tlmgr path add
       - name: Run coverage
-        run: wolframscript Tests/RunCoverage.wls
+        run: wolframscript Tests/RunCoverage.wls --mode=${{ inputs.coverage_mode || 'Auto' }}
       - name: Generate HTML report
         run: |
           # Only generate HTML if real coverage data exists (DA: lines)
@@ -41,7 +51,9 @@ jobs:
             genhtml --ignore-errors empty,corrupt,category --num-spaces 4 --title "LongRunRisk Coverage" build/coverage/combined.lcov -o build/coverage/html
             lcov --ignore-errors empty,corrupt --summary build/coverage/combined.lcov
           else
-            echo "Coverage tracking disabled (Instrumentation paclet bug with Compile). Skipping HTML report."
+            echo "Note: LCOV files do not contain DA: lines (baseline coverage only). Generating report anyway."
+            lcov --ignore-errors empty,corrupt -a build/coverage/baseline.lcov -a build/coverage/tests.lcov -o build/coverage/combined.lcov || true
+            genhtml --ignore-errors empty,corrupt,category --num-spaces 4 --title "LongRunRisk Coverage (Baseline)" build/coverage/combined.lcov -o build/coverage/html || true
           fi
       - name: Upload coverage report
         uses: actions/upload-artifact@v5

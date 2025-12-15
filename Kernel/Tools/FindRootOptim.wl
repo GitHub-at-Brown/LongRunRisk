@@ -76,7 +76,8 @@ buildKernel//Options = {
 	"PerformanceGoal" -> "Speed", (* "Speed" | "Quality" *)
 	"CompileMode" -> "FunctionOnly",  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
 	"Compiler" -> "Compile",  (* "Compile" | "FunctionCompile" - Compile uses C target *)
-	"FlattenExpressions" -> Automatic  (* True | False | Automatic (auto at LeafCount > 5000) *)
+	"FlattenExpressions" -> Automatic,  (* True | False | Automatic (auto at LeafCount > 5000) *)
+	"AllowCompileDuringCoverage" -> False  (* True to force compilation even during coverage *)
 };
 
 buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
@@ -96,7 +97,8 @@ buildKernel[
     signSym = OptionValue["SignSymbol"],
     perfGoal = OptionValue["PerformanceGoal"],
     compileMode = OptionValue["CompileMode"],
-    compiler = OptionValue["Compiler"]
+    compiler = OptionValue["Compiler"],
+    allowCompileDuringCoverage = TrueQ[OptionValue["AllowCompileDuringCoverage"]]
   },
   Module[
     {ex0, z, zRules, idx, pSyms, sSyms, body, fC, dfC, nP, nS, signHead, compileOpts},
@@ -215,14 +217,19 @@ buildKernel[
 		];
 
 		(* Detect if running inside CoverageEvaluate - compilation crashes the Instrumentation paclet *)
-		insideCoverageEvaluate[] := ValueQ[Instrumentation`Coverage`Private`$LineCoverageRuntime];
+		(* Checks for: (1) Instrumentation's internal runtime variable, (2) explicit global flag *)
+		insideCoverageEvaluate[] := Or[
+			ValueQ[Instrumentation`Coverage`Private`$LineCoverageRuntime],
+			TrueQ[$CoverageMode]
+		];
 
 		(* Wrapper that logs diagnostics and compiles using selected compiler *)
-		compileWithDiagnostics[func_, label_String, compOpts_List, useCompiler_String] := Module[
+		(* allowCompileDuringCoverage: if True, skip the coverage check and compile anyway *)
+		compileWithDiagnostics[func_, label_String, compOpts_List, useCompiler_String, allowCompileDuringCoverage_:False] := Module[
 		  {leafCount, byteCount, result, logFile},
 
 		  (* Skip compilation during coverage to avoid Instrumentation paclet crash *)
-		  If[insideCoverageEvaluate[],
+		  If[!TrueQ[allowCompileDuringCoverage] && insideCoverageEvaluate[],
 		    Print[useCompiler, "[", label, "]: SKIPPED (coverage mode)"];
 		    Return[func, Module]
 		  ];
@@ -306,14 +313,16 @@ buildKernel[
 								Activate[Inactive[Function][args, Inactive[TypeHint][b2, bType2]]],
 								"f (function)",
 								compileOpts,
-								compiler
+								compiler,
+								allowCompileDuringCoverage
 							],
 							(* Not flattened: original path *)
 							compileWithDiagnostics[
 								Function[Evaluate@args, Evaluate@TypeHint[b2, bType2]],
 								"f (function)",
 								compileOpts,
-								compiler
+								compiler,
+								allowCompileDuringCoverage
 							]
 						],
 						Missing["NotCompiled"]
@@ -328,7 +337,8 @@ buildKernel[
 								Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
 								"df (jacobian)",
 								compileOpts,
-								compiler
+								compiler,
+								allowCompileDuringCoverage
 							]
 						}
 					]
@@ -341,13 +351,15 @@ buildKernel[
 								Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
 								"f (function)",
 								compileOpts,
-								compiler
+								compiler,
+								allowCompileDuringCoverage
 							],
 							compileWithDiagnostics[
 								Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
 								"df (jacobian)",
 								compileOpts,
-								compiler
+								compiler,
+								allowCompileDuringCoverage
 							]
 						}
 					]
