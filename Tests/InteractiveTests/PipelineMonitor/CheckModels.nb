@@ -1,0 +1,1307 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     58053,       1298]
+NotebookOptionsPosition[     53939,       1246]
+NotebookOutlinePosition[     54256,       1260]
+CellTagsIndexPosition[     54213,       1257]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["CheckModels Tests", "Title",ExpressionUUID->"c5d74ad0-cc71-4828-bc32-9d4bd0c7ac77"],
+
+Cell["\<\
+Interactive tests for PipelineMonitor CheckModels functionality\
+\>", "Subtitle",ExpressionUUID->"6f5d4729-2883-47fa-8f3a-8913aeb0f319"],
+
+Cell["Setup", "Section",ExpressionUUID->"c02713ac-63b6-4e5b-b74c-45cb772b10d1"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Setup", ":", " ", 
+    RowBox[{"Load", " ", 
+     RowBox[{"PipelineMonitor", ".", "wl"}]}]}], " ", "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "start", ",", " ", "d", ",", " ", "pacletRoot", ",", " ", "pacletFile",
+         ",", " ", "pacletObj"}], "}"}], ",", "\n", "  ", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{"Robust", " ", "paclet", " ", "root", " ", 
+         RowBox[{"detection", ":", " ", "$InputFileName"}]}], " ", "->", " ", 
+        
+        RowBox[{"FindFile", " ", "->", " ", 
+         RowBox[{"PacletObject", " ", "->", " ", "Directory"}]}]}], " ", 
+       "*)"}], "\n", "  ", 
+      RowBox[{
+       RowBox[{"start", " ", "=", " ", 
+        RowBox[{"Which", "[", "\n", "    ", 
+         RowBox[{"(*", " ", 
+          RowBox[{"Primary", ":", " ", 
+           RowBox[{
+           "use", " ", "$InputFileName", " ", "if", " ", "available"}]}], " ",
+           "*)"}], "\n", "    ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"StringQ", "[", "$InputFileName", "]"}], " ", "&&", " ", 
+           RowBox[{"$InputFileName", " ", "=!=", " ", "\"\<\>\""}]}], ",", 
+          "\n", "      ", 
+          RowBox[{"DirectoryName", "[", "$InputFileName", "]"}], ",", "\n", 
+          "    ", 
+          RowBox[{"(*", " ", 
+           RowBox[{"Fallback", ":", " ", 
+            RowBox[{"find", " ", "paclet", " ", "via", " ", "FindFile"}]}], 
+           " ", "*)"}], "\n", "    ", 
+          RowBox[{"StringQ", "[", 
+           RowBox[{"pacletFile", " ", "=", " ", 
+            RowBox[{
+            "FindFile", 
+             "[", "\"\<FernandoDuarte`LongRunRisk`Model`Catalog`\>\"", 
+             "]"}]}], "]"}], ",", "\n", "      ", 
+          RowBox[{"DirectoryName", "[", 
+           RowBox[{"pacletFile", ",", " ", "3"}], "]"}], ",", "  ", 
+          RowBox[{"(*", " ", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Kernel", "/", "Model"}], "/", 
+             RowBox[{"Catalog", ".", "wl"}]}], " ", "->", " ", 
+            RowBox[{"paclet", " ", "root"}]}], " ", "*)"}], "\n", "    ", 
+          RowBox[{"(*", " ", 
+           RowBox[{"Fallback", ":", " ", 
+            RowBox[{"find", " ", "via", " ", "PacletObject", " ", 
+             RowBox[{"(", 
+              RowBox[{
+              "works", " ", "when", " ", "loaded", " ", "via", " ", 
+               "PacletDirectoryLoad"}], ")"}]}]}], " ", "*)"}], "\n", "    ", 
+          
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"pacletObj", " ", "=", " ", 
+              RowBox[{
+              "PacletObject", "[", "\"\<FernandoDuarte/LongRunRisk\>\"", 
+               "]"}]}], ")"}], " ", "=!=", " ", "$Failed"}], " ", "&&", " ", 
+           RowBox[{"pacletObj", " ", "=!=", " ", "None"}]}], ",", "\n", 
+          "      ", 
+          RowBox[{"pacletObj", "[", "\"\<Location\>\"", "]"}], ",", "\n", 
+          "    ", 
+          RowBox[{"(*", " ", 
+           RowBox[{"Last", " ", 
+            RowBox[{"resort", ":", " ", 
+             RowBox[{"try", " ", "current", " ", "directory"}]}]}], " ", 
+           "*)"}], "\n", "    ", "True", ",", "\n", "      ", 
+          RowBox[{"Directory", "[", "]"}]}], "\n", "  ", "]"}]}], ";", "\n", 
+       "  ", 
+       RowBox[{"d", " ", "=", " ", "start"}], ";", "\n", "  ", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"StringQ", "[", "d", "]"}], " ", "&&", " ", 
+          RowBox[{"d", " ", "=!=", " ", "\"\<\>\""}], " ", "&&", " ", 
+          RowBox[{"!", 
+           RowBox[{"FileExistsQ", "@", 
+            RowBox[{"FileNameJoin", "[", 
+             RowBox[{"{", 
+              RowBox[{"d", ",", " ", "\"\<PacletInfo.wl\>\""}], "}"}], 
+             "]"}]}]}], " ", "&&", " ", 
+          RowBox[{"d", " ", "=!=", " ", 
+           RowBox[{"DirectoryName", "[", "d", "]"}]}]}], ",", "\n", "    ", 
+         RowBox[{"d", " ", "=", " ", 
+          RowBox[{"DirectoryName", "[", "d", "]"}]}]}], "\n", "  ", "]"}], ";",
+        "\n", "  ", 
+       RowBox[{"pacletRoot", " ", "=", " ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"StringQ", "[", "d", "]"}], " ", "&&", " ", 
+           RowBox[{"d", " ", "=!=", " ", "\"\<\>\""}], " ", "&&", " ", 
+           RowBox[{"FileExistsQ", "@", 
+            RowBox[{"FileNameJoin", "[", 
+             RowBox[{"{", 
+              RowBox[{"d", ",", " ", "\"\<PacletInfo.wl\>\""}], "}"}], 
+             "]"}]}]}], ",", " ", "d", ",", " ", 
+          RowBox[{"Directory", "[", "]"}]}], "]"}]}], ";", "\n", "  ", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"StringQ", "[", "pacletRoot", "]"}], " ", "&&", " ", 
+          RowBox[{"pacletRoot", " ", "=!=", " ", "\"\<\>\""}]}], ",", " ", 
+         RowBox[{"SetDirectory", "[", "pacletRoot", "]"}]}], "]"}], ";", "\n",
+        "  ", 
+       RowBox[{"Off", "[", 
+        RowBox[{"General", "::", "shdw"}], "]"}], ";", "\n", "  ", 
+       RowBox[{"Get", "[", 
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{
+          "pacletRoot", ",", " ", "\"\<Kernel\>\"", ",", " ", "\"\<Tools\>\"",
+            ",", " ", "\"\<PipelineMonitor.wl\>\""}], "}"}], "]"}], "]"}], ";",
+        "\n", "  ", 
+       RowBox[{"On", "[", 
+        RowBox[{"General", "::", "shdw"}], "]"}], ";"}]}], "\n", "]"}], ";"}],
+    "\n", "\n", 
+   RowBox[{
+    RowBox[{
+    "$CheckModels", " ", "=", " ", 
+     "FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`checkModels"}], ";"}], 
+   "\n", 
+   RowBox[{
+    RowBox[{"$loadConfig", " ", "=", " ", 
+     RowBox[{
+     "ToExpression", 
+      "[", "\"\<FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`Private`\
+loadConfig\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"$statusIcon", " ", "=", " ", 
+     RowBox[{
+     "ToExpression", 
+      "[", "\"\<FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`Private`\
+statusIcon\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"$timeLimit", " ", "=", " ", "15"}], ";"}]}]}]], "Input",Expressio\
+nUUID->"cd35e7db-01c4-4944-a0c5-ce1ae3b9f5f6"],
+
+Cell["Tests", "Section",ExpressionUUID->"f08988b7-d085-45c8-bf0d-c4f506d7854f"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"d325306f-35cf-4029-b055-bdc3f4d614d7"],
+
+Cell["loadConfig-missing-file-returns-empty", "Subsection",ExpressionUUID->"18639206-a65a-401f-b5a0-0b7d4feb58e6"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"tmpHome", ",", " ", "result"}], "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{"tmpHome", " ", "=", " ", 
+        RowBox[{"CreateDirectory", "[", "]"}]}], ";", "\n", "    ", 
+       RowBox[{"result", " ", "=", " ", 
+        RowBox[{"Block", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"$HomeDirectory", " ", "=", " ", "tmpHome"}], "}"}], ",", 
+          " ", 
+          RowBox[{"Quiet", "[", 
+           RowBox[{"$loadConfig", "[", "]"}], "]"}]}], "]"}]}], ";", "\n", 
+       "    ", 
+       RowBox[{"DeleteDirectory", "[", 
+        RowBox[{"tmpHome", ",", " ", 
+         RowBox[{"DeleteContents", " ", "->", " ", "True"}]}], "]"}], ";", 
+       "\n", "    ", "result"}]}], "\n", "  ", "]"}], ",", "\n", "  ", 
+    RowBox[{"<|", "|>"}], ",", "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<loadConfig-missing-file-returns-empty@@Tests/InteractiveTests/\
+PipelineMonitor/CheckModels.wlt:35,1-45,2\>\""}]}], "\n"}], "]"}]], "Input",Ex\
+pressionUUID->"ce793fb7-0b6d-4668-b419-89bf1c6d0c2b"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"ce8fa5ac-cd69-49d5-8b83-219eb8574ecb"],
+
+Cell["loadConfig-malformed-file-returns-empty", "Subsection",ExpressionUUID->"f4e6c954-fd95-4457-941c-ce163938b4d3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "tmpHome", ",", " ", "cfgDir", ",", " ", "cfgFile", ",", " ", 
+        "result"}], "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{"tmpHome", " ", "=", " ", 
+        RowBox[{"CreateDirectory", "[", "]"}]}], ";", "\n", "    ", 
+       RowBox[{"cfgDir", " ", "=", " ", 
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{"tmpHome", ",", " ", "\"\<.longrunrisk\>\""}], "}"}], 
+         "]"}]}], ";", "\n", "    ", 
+       RowBox[{"CreateDirectory", "[", "cfgDir", "]"}], ";", "\n", "    ", 
+       RowBox[{"cfgFile", " ", "=", " ", 
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{"cfgDir", ",", " ", "\"\<config.wl\>\""}], "}"}], "]"}]}], ";",
+        "\n", "    ", 
+       RowBox[{"Put", "[", 
+        RowBox[{"42", ",", " ", "cfgFile"}], "]"}], ";", "\n", "    ", 
+       RowBox[{"result", " ", "=", " ", 
+        RowBox[{"Block", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"$HomeDirectory", " ", "=", " ", "tmpHome"}], "}"}], ",", 
+          " ", 
+          RowBox[{"Quiet", "[", 
+           RowBox[{"$loadConfig", "[", "]"}], "]"}]}], "]"}]}], ";", "\n", 
+       "    ", 
+       RowBox[{"DeleteDirectory", "[", 
+        RowBox[{"tmpHome", ",", " ", 
+         RowBox[{"DeleteContents", " ", "->", " ", "True"}]}], "]"}], ";", 
+       "\n", "    ", "result"}]}], "\n", "  ", "]"}], ",", "\n", "  ", 
+    RowBox[{"<|", "|>"}], ",", "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<loadConfig-malformed-file-returns-empty@@Tests/\
+InteractiveTests/PipelineMonitor/CheckModels.wlt:47,1-61,2\>\""}]}], "\n"}], 
+  "]"}]], "Input",ExpressionUUID->"ce6d3fd0-ea7d-4982-8b9e-d0f18299ac20"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"5d4475d4-21fd-43d5-9feb-72e7fa2992a5"],
+
+Cell["CheckModels-guarded-in-subkernel", "Subsection",ExpressionUUID->"0244d860-2653-4ff2-9484-c167498c0d8c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"called", ",", " ", "result"}], "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{"called", " ", "=", " ", "False"}], ";", "\n", "    ", 
+       RowBox[{"result", " ", "=", " ", 
+        RowBox[{"Block", "[", "\n", "      ", 
+         RowBox[{
+          RowBox[{"{", "\n", "        ", 
+           RowBox[{
+            RowBox[{"$KernelID", " ", "=", " ", "1"}], ",", "\n", "        ", 
+            
+            RowBox[{
+            "$ParallelEvaluationEnvironment", " ", "=", " ", "False"}], ",", 
+            "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI"}], "\n", "      ", "}"}], ",", "\n", "      ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", "[", "]"}], " ", ":=", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"called", " ", "=", " ", "True"}], ";", " ", 
+              "$Failed"}], ")"}]}], ";", "\n", "      ", 
+           RowBox[{"Quiet", "[", 
+            RowBox[{"$CheckModels", "[", "]"}], "]"}]}]}], "\n", "    ", 
+         "]"}]}], ";", "\n", "    ", 
+       RowBox[{
+        RowBox[{"result", " ", "===", " ", "Null"}], " ", "&&", " ", 
+        RowBox[{"called", " ", "===", " ", "False"}]}]}]}], "\n", "  ", "]"}],
+     ",", "\n", "  ", "True", ",", "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<CheckModels-guarded-in-subkernel@@Tests/InteractiveTests/\
+PipelineMonitor/CheckModels.wlt:63,1-80,2\>\""}]}], "\n"}], "]"}]], "Input",Ex\
+pressionUUID->"7297df84-2572-4eff-9ee5-47c7eb9e327c"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"89a927d0-3e95-42a5-b828-e52c0ab11910"],
+
+Cell["CheckModels-config-disabled-exits", "Subsection",ExpressionUUID->"3d2bae5f-d392-4e54-abba-b1293b4e7606"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "tmpHome", ",", " ", "cfgDir", ",", " ", "cfgFile", ",", " ", "called",
+         ",", " ", "result"}], "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{"tmpHome", " ", "=", " ", 
+        RowBox[{"CreateDirectory", "[", "]"}]}], ";", "\n", "    ", 
+       RowBox[{"cfgDir", " ", "=", " ", 
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{"tmpHome", ",", " ", "\"\<.longrunrisk\>\""}], "}"}], 
+         "]"}]}], ";", "\n", "    ", 
+       RowBox[{"CreateDirectory", "[", "cfgDir", "]"}], ";", "\n", "    ", 
+       RowBox[{"cfgFile", " ", "=", " ", 
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{"cfgDir", ",", " ", "\"\<config.wl\>\""}], "}"}], "]"}]}], ";",
+        "\n", "    ", 
+       RowBox[{"Put", "[", 
+        RowBox[{
+         RowBox[{"<|", 
+          RowBox[{"\"\<PipelineMonitorEnabled\>\"", " ", "->", " ", "False"}],
+           "|>"}], ",", " ", "cfgFile"}], "]"}], ";", "\n", "\n", "    ", 
+       RowBox[{"called", " ", "=", " ", "False"}], ";", "\n", "    ", 
+       RowBox[{"result", " ", "=", " ", 
+        RowBox[{"Block", "[", "\n", "      ", 
+         RowBox[{
+          RowBox[{"{", "\n", "        ", 
+           RowBox[{
+            RowBox[{"$KernelID", " ", "=", " ", "0"}], ",", "\n", "        ", 
+            
+            RowBox[{
+            "$ParallelEvaluationEnvironment", " ", "=", " ", "False"}], ",", 
+            "\n", "        ", 
+            RowBox[{"$HomeDirectory", " ", "=", " ", "tmpHome"}], ",", "\n", 
+            "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI"}], "\n", "      ", "}"}], ",", "\n", "      ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", "[", "]"}], " ", ":=", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"called", " ", "=", " ", "True"}], ";", " ", 
+              "$Failed"}], ")"}]}], ";", "\n", "      ", 
+           RowBox[{"Quiet", "[", 
+            RowBox[{"$CheckModels", "[", "]"}], "]"}]}]}], "\n", "    ", 
+         "]"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"DeleteDirectory", "[", 
+        RowBox[{"tmpHome", ",", " ", 
+         RowBox[{"DeleteContents", " ", "->", " ", "True"}]}], "]"}], ";", 
+       "\n", "    ", 
+       RowBox[{
+        RowBox[{"result", " ", "===", " ", "Null"}], " ", "&&", " ", 
+        RowBox[{"called", " ", "===", " ", "False"}]}]}]}], "\n", "  ", "]"}],
+     ",", "\n", "  ", "True", ",", "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<CheckModels-config-disabled-exits@@Tests/InteractiveTests/\
+PipelineMonitor/CheckModels.wlt:82,1-108,2\>\""}]}], "\n"}], "]"}]], "Input",E\
+xpressionUUID->"3ce05006-8d9c-453d-b6c7-7e362c5a6fd9"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"c66b384f-115c-4542-8b31-802af94110bf"],
+
+Cell["CheckModels-no-changes-silent", "Subsection",ExpressionUUID->"b6a21dbc-d487-4732-ba21-67ee32e406f5"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"prints", ",", " ", "result"}], "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{"prints", " ", "=", " ", 
+        RowBox[{"{", "}"}]}], ";", "\n", "    ", 
+       RowBox[{"result", " ", "=", " ", 
+        RowBox[{"Block", "[", "\n", "      ", 
+         RowBox[{
+          RowBox[{"{", "\n", "        ", 
+           RowBox[{
+            RowBox[{"$KernelID", " ", "=", " ", "0"}], ",", "\n", "        ", 
+            
+            RowBox[{
+            "$ParallelEvaluationEnvironment", " ", "=", " ", "False"}], ",", 
+            "\n", "        ", 
+            RowBox[{"$HomeDirectory", " ", "=", " ", 
+             RowBox[{"CreateDirectory", "[", "]"}]}], ",", "\n", "        ", 
+            RowBox[{"Print", " ", "=", " ", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"AppendTo", "[", 
+                 RowBox[{"prints", ",", " ", 
+                  RowBox[{"StringRiffle", "[", 
+                   RowBox[{
+                    RowBox[{"ToString", " ", "/@", " ", 
+                    RowBox[{"{", "##", "}"}]}], ",", " ", "\"\<\>\""}], 
+                   "]"}]}], "]"}], ";", " ", "Null"}], ")"}], " ", "&"}]}], ",",
+             "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI"}], "\n", "      ", "}"}], ",", "\n", "      ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", "[", "]"}], " ", ":=", " ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{
+              RowBox[{"\"\<Changed\>\"", " ", "->", " ", 
+               RowBox[{"{", "}"}]}], ",", "\n", "        ", 
+              RowBox[{"\"\<New\>\"", " ", "->", " ", 
+               RowBox[{"{", "}"}]}], ",", "\n", "        ", 
+              RowBox[{"\"\<Removed\>\"", " ", "->", " ", 
+               RowBox[{"{", "}"}]}], ",", "\n", "        ", 
+              RowBox[{"\"\<Validation\>\"", " ", "->", " ", 
+               RowBox[{"<|", 
+                RowBox[{"\"\<Valid\>\"", " ", "->", " ", "True"}], "|>"}]}], ",",
+               "\n", "        ", 
+              RowBox[{"\"\<FirstRun\>\"", " ", "->", " ", "False"}]}], "\n", 
+             "      ", "|>"}]}], ";", "\n", "      ", 
+           RowBox[{"Quiet", "[", 
+            RowBox[{"$CheckModels", "[", "]"}], "]"}]}]}], "\n", "    ", 
+         "]"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{
+        RowBox[{"result", " ", "===", " ", "Null"}], " ", "&&", " ", 
+        RowBox[{"prints", " ", "===", " ", 
+         RowBox[{"{", "}"}]}]}]}]}], "\n", "  ", "]"}], ",", "\n", "  ", 
+    "True", ",", "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<CheckModels-no-changes-silent@@Tests/InteractiveTests/\
+PipelineMonitor/CheckModels.wlt:110,1-136,2\>\""}]}], "\n"}], "]"}]], "Input",\
+ExpressionUUID->"d7417736-fe57-46b2-acd4-4220cb18554b"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"e5629016-4aaa-4eec-8b15-ae6e2ae58de2"],
+
+Cell["CheckModels-checkCatalogForUI-failure", "Subsection",ExpressionUUID->"516b070f-3a7c-4d41-afad-7f6064892ddc"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"prints", ",", " ", "result"}], "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{"prints", " ", "=", " ", 
+        RowBox[{"{", "}"}]}], ";", "\n", "    ", 
+       RowBox[{"result", " ", "=", " ", 
+        RowBox[{"Block", "[", "\n", "      ", 
+         RowBox[{
+          RowBox[{"{", "\n", "        ", 
+           RowBox[{
+            RowBox[{"$KernelID", " ", "=", " ", "0"}], ",", "\n", "        ", 
+            
+            RowBox[{
+            "$ParallelEvaluationEnvironment", " ", "=", " ", "False"}], ",", 
+            "\n", "        ", 
+            RowBox[{"$HomeDirectory", " ", "=", " ", 
+             RowBox[{"CreateDirectory", "[", "]"}]}], ",", "\n", "        ", 
+            RowBox[{"Print", " ", "=", " ", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"AppendTo", "[", 
+                 RowBox[{"prints", ",", " ", 
+                  RowBox[{"StringRiffle", "[", 
+                   RowBox[{
+                    RowBox[{"ToString", " ", "/@", " ", 
+                    RowBox[{"{", "##", "}"}]}], ",", " ", "\"\<\>\""}], 
+                   "]"}]}], "]"}], ";", " ", "Null"}], ")"}], " ", "&"}]}], ",",
+             "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI"}], "\n", "      ", "}"}], ",", "\n", "      ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", "[", "]"}], " ", ":=", " ", "$Failed"}], ";", "\n", 
+           "      ", 
+           RowBox[{"Quiet", "[", 
+            RowBox[{"$CheckModels", "[", "]"}], "]"}]}]}], "\n", "    ", 
+         "]"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{
+        RowBox[{"result", " ", "===", " ", "$Failed"}], " ", "&&", "\n", 
+        "      ", 
+        RowBox[{"AnyTrue", "[", 
+         RowBox[{"prints", ",", " ", 
+          RowBox[{
+           RowBox[{"StringContainsQ", "[", 
+            RowBox[{"#", ",", " ", "\"\<Could not check catalog\>\""}], "]"}],
+            " ", "&"}]}], "]"}]}]}]}], "\n", "  ", "]"}], ",", "\n", "  ", 
+    "True", ",", "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<CheckModels-checkCatalogForUI-failure@@Tests/InteractiveTests/\
+PipelineMonitor/CheckModels.wlt:138,1-159,2\>\""}]}], "\n"}], "]"}]], "Input",\
+ExpressionUUID->"d4e3aeba-68ce-47bf-bf2e-55ab6d143ce2"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"631fa2e8-ee9f-4d9e-9d09-56acff95679d"],
+
+Cell["CheckModels-validation-errors-return-failed", "Subsection",ExpressionUUID->"8d60d96a-06d2-41d0-8a8b-5f9b076cc664"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "prints", ",", " ", "result", ",", " ", "changes", ",", " ", 
+        "validation"}], "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{"prints", " ", "=", " ", 
+        RowBox[{"{", "}"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"validation", " ", "=", " ", 
+        RowBox[{"<|", "\n", "      ", 
+         RowBox[{
+          RowBox[{"\"\<Valid\>\"", " ", "->", " ", "False"}], ",", "\n", 
+          "      ", 
+          RowBox[{"\"\<Results\>\"", " ", "->", " ", 
+           RowBox[{"<|", "\n", "        ", 
+            RowBox[{"\"\<A\>\"", " ", "->", " ", 
+             RowBox[{"<|", "\n", "          ", 
+              RowBox[{
+               RowBox[{"\"\<Valid\>\"", " ", "->", " ", "False"}], ",", "\n", 
+               "          ", 
+               RowBox[{"\"\<Errors\>\"", " ", "->", " ", 
+                RowBox[{"{", 
+                 RowBox[{"<|", 
+                  RowBox[{
+                   
+                   RowBox[{"\"\<Type\>\"", " ", "->", 
+                    " ", "\"\<MissingKey\>\""}], ",", " ", 
+                   
+                   RowBox[{"\"\<Message\>\"", " ", "->", 
+                    " ", "\"\<Required key stateVars missing\>\""}]}], "|>"}],
+                  "}"}]}]}], "\n", "        ", "|>"}]}], "\n", "      ", 
+            "|>"}]}]}], "\n", "    ", "|>"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"changes", " ", "=", " ", 
+        RowBox[{"<|", "\n", "      ", 
+         RowBox[{
+          RowBox[{"\"\<Changed\>\"", " ", "->", " ", 
+           RowBox[{"{", "\"\<A\>\"", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<New\>\"", " ", "->", " ", 
+           RowBox[{"{", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<Removed\>\"", " ", "->", " ", 
+           RowBox[{"{", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<Validation\>\"", " ", "->", " ", "validation"}], ",", 
+          "\n", "      ", 
+          RowBox[{"\"\<FirstRun\>\"", " ", "->", " ", "False"}]}], "\n", 
+         "    ", "|>"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"result", " ", "=", " ", 
+        RowBox[{"Block", "[", "\n", "      ", 
+         RowBox[{
+          RowBox[{"{", "\n", "        ", 
+           RowBox[{
+            RowBox[{"$KernelID", " ", "=", " ", "0"}], ",", "\n", "        ", 
+            
+            RowBox[{
+            "$ParallelEvaluationEnvironment", " ", "=", " ", "False"}], ",", 
+            "\n", "        ", 
+            RowBox[{"$HomeDirectory", " ", "=", " ", 
+             RowBox[{"CreateDirectory", "[", "]"}]}], ",", "\n", "        ", 
+            RowBox[{"Print", " ", "=", " ", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"AppendTo", "[", 
+                 RowBox[{"prints", ",", " ", 
+                  RowBox[{"StringRiffle", "[", 
+                   RowBox[{
+                    RowBox[{"ToString", " ", "/@", " ", 
+                    RowBox[{"{", "##", "}"}]}], ",", " ", "\"\<\>\""}], 
+                   "]"}]}], "]"}], ";", " ", "Null"}], ")"}], " ", "&"}]}], ",",
+             "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+getModelPipelineStatus"}], "\n", "      ", "}"}], ",", "\n", "      ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", "[", "]"}], " ", ":=", " ", "changes"}], ";", "\n", 
+           "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", "[", "]"}], " ", ":=", " ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{"\"\<A\>\"", " ", "->", " ", 
+              RowBox[{"<|", 
+               RowBox[{"\"\<shortname\>\"", " ", "->", " ", "\"\<AA\>\""}], 
+               "|>"}]}], "\n", "      ", "|>"}]}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+getModelPipelineStatus", "[", "_", "]"}], " ", ":=", " ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{"\"\<AA\>\"", " ", "->", " ", 
+              RowBox[{"<|", 
+               RowBox[{
+                
+                RowBox[{"\"\<MainStage\>\"", " ", "->", 
+                 " ", "\"\<Symbolic\>\""}], ",", " ", 
+                
+                RowBox[{"\"\<Reason\>\"", " ", "->", 
+                 " ", "\"\<changed\>\""}]}], "|>"}]}], "\n", "      ", 
+             "|>"}]}], ";", "\n", "      ", 
+           RowBox[{"Quiet", "[", 
+            RowBox[{"$CheckModels", "[", "]"}], "]"}]}]}], "\n", "    ", 
+         "]"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{
+        RowBox[{"result", " ", "===", " ", "$Failed"}], " ", "&&", "\n", 
+        "      ", 
+        RowBox[{"AnyTrue", "[", 
+         RowBox[{"prints", ",", " ", 
+          RowBox[{
+           RowBox[{"StringContainsQ", "[", 
+            RowBox[{"#", ",", " ", "\"\<VALIDATION ERRORS\>\""}], "]"}], " ", 
+           "&"}]}], "]"}], " ", "&&", "\n", "      ", 
+        RowBox[{"AnyTrue", "[", 
+         RowBox[{"prints", ",", " ", 
+          RowBox[{
+           RowBox[{"StringContainsQ", "[", 
+            RowBox[{"#", ",", " ", "\"\<MissingKey\>\""}], "]"}], " ", 
+           "&"}]}], "]"}]}]}]}], "\n", "  ", "]"}], ",", "\n", "  ", "True", ",",
+     "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<CheckModels-validation-errors-return-failed@@Tests/\
+InteractiveTests/PipelineMonitor/CheckModels.wlt:161,1-210,2\>\""}]}], "\n"}],
+   "]"}]], "Input",ExpressionUUID->"2f295450-8edb-43d6-ba85-6cdbb2eafa36"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"a02f2f8a-764b-4927-b736-5ce85472017e"],
+
+Cell["showTerminalReport-prints-fully-qualified-command", "Subsection",ExpressionUUID->"59ff4226-b001-423e-a258-94acb8ebfe27"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "prints", ",", " ", "output", ",", " ", "result", ",", " ", 
+        "changes"}], "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{"prints", " ", "=", " ", 
+        RowBox[{"{", "}"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"changes", " ", "=", " ", 
+        RowBox[{"<|", "\n", "      ", 
+         RowBox[{
+          RowBox[{"\"\<Changed\>\"", " ", "->", " ", 
+           RowBox[{"{", "\"\<A\>\"", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<New\>\"", " ", "->", " ", 
+           RowBox[{"{", "\"\<B\>\"", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<Removed\>\"", " ", "->", " ", 
+           RowBox[{"{", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<Validation\>\"", " ", "->", " ", 
+           RowBox[{"<|", 
+            RowBox[{"\"\<Valid\>\"", " ", "->", " ", "True"}], "|>"}]}], ",", 
+          "\n", "      ", 
+          RowBox[{"\"\<FirstRun\>\"", " ", "->", " ", "False"}]}], "\n", 
+         "    ", "|>"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"result", " ", "=", " ", 
+        RowBox[{"Block", "[", "\n", "      ", 
+         RowBox[{
+          RowBox[{"{", "\n", "        ", 
+           RowBox[{
+            RowBox[{"$KernelID", " ", "=", " ", "0"}], ",", "\n", "        ", 
+            
+            RowBox[{
+            "$ParallelEvaluationEnvironment", " ", "=", " ", "False"}], ",", 
+            "\n", "        ", 
+            RowBox[{"$HomeDirectory", " ", "=", " ", 
+             RowBox[{"CreateDirectory", "[", "]"}]}], ",", "\n", "        ", 
+            RowBox[{"Print", " ", "=", " ", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"AppendTo", "[", 
+                 RowBox[{"prints", ",", " ", 
+                  RowBox[{"StringRiffle", "[", 
+                   RowBox[{
+                    RowBox[{"ToString", " ", "/@", " ", 
+                    RowBox[{"{", "##", "}"}]}], ",", " ", "\"\<\>\""}], 
+                   "]"}]}], "]"}], ";", " ", "Null"}], ")"}], " ", "&"}]}], ",",
+             "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+getModelPipelineStatus"}], "\n", "      ", "}"}], ",", "\n", "      ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", "[", "]"}], " ", ":=", " ", "changes"}], ";", "\n", 
+           "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", "[", "]"}], " ", ":=", " ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{
+              RowBox[{"\"\<A\>\"", " ", "->", " ", 
+               RowBox[{"<|", 
+                RowBox[{"\"\<shortname\>\"", " ", "->", " ", "\"\<AA\>\""}], 
+                "|>"}]}], ",", "\n", "        ", 
+              RowBox[{"\"\<B\>\"", " ", "->", " ", 
+               RowBox[{"<|", 
+                RowBox[{"\"\<shortname\>\"", " ", "->", " ", "\"\<BB\>\""}], 
+                "|>"}]}]}], "\n", "      ", "|>"}]}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+getModelPipelineStatus", "[", "_", "]"}], " ", ":=", " ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{
+              RowBox[{"\"\<AA\>\"", " ", "->", " ", 
+               RowBox[{"<|", 
+                RowBox[{
+                 
+                 RowBox[{"\"\<MainStage\>\"", " ", "->", 
+                  " ", "\"\<Numerical\>\""}], ",", " ", 
+                 
+                 RowBox[{"\"\<Reason\>\"", " ", "->", 
+                  " ", "\"\<changed\>\""}]}], "|>"}]}], ",", "\n", "        ", 
+              RowBox[{"\"\<BB\>\"", " ", "->", " ", 
+               RowBox[{"<|", 
+                RowBox[{
+                 
+                 RowBox[{"\"\<MainStage\>\"", " ", "->", 
+                  " ", "\"\<Symbolic\>\""}], ",", " ", 
+                 RowBox[{"\"\<Reason\>\"", " ", "->", " ", "\"\<new\>\""}]}], 
+                "|>"}]}]}], "\n", "      ", "|>"}]}], ";", "\n", "      ", 
+           RowBox[{"Quiet", "[", 
+            RowBox[{"$CheckModels", "[", "]"}], "]"}]}]}], "\n", "    ", 
+         "]"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"output", " ", "=", " ", 
+        RowBox[{"StringRiffle", "[", 
+         RowBox[{"prints", ",", " ", "\"\<\\n\>\""}], "]"}]}], ";", "\n", 
+       "    ", 
+       RowBox[{
+        RowBox[{"result", " ", "===", " ", "Null"}], " ", "&&", "\n", 
+        "      ", 
+        RowBox[{"StringContainsQ", "[", 
+         RowBox[{"output", ",", " ", "\"\<Catalog Changes Detected\>\""}], 
+         "]"}], " ", "&&", "\n", "      ", 
+        RowBox[{"StringContainsQ", "[", 
+         RowBox[{
+         "output", ",", 
+          " ", "\"\<Needs[\\\"FernandoDuarte`LongRunRisk`Tools`\
+ManageResources`\>\""}], "]"}], " ", "&&", "\n", "      ", 
+        RowBox[{"StringContainsQ", "[", 
+         RowBox[{
+         "output", ",", 
+          " ", "\"\<FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+buildModels\>\""}], "]"}], " ", "&&", "\n", "      ", 
+        RowBox[{"StringContainsQ", "[", 
+         RowBox[{"output", ",", " ", 
+          RowBox[{"ToString", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"\"\<AA\>\"", ",", " ", "\"\<BB\>\""}], "}"}], ",", " ", 
+            "InputForm"}], "]"}]}], "]"}]}]}]}], "\n", "  ", "]"}], ",", "\n",
+     "  ", "True", ",", "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<showTerminalReport-prints-fully-qualified-command@@Tests/\
+InteractiveTests/PipelineMonitor/CheckModels.wlt:212,1-256,2\>\""}]}], "\n"}],
+   "]"}]], "Input",ExpressionUUID->"4e8c3c10-a0b8-4744-8b92-c2d2c85d3c65"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"de3ee3bc-9790-4929-bafd-182c0f494e34"],
+
+Cell["statusIcon-terminal-contract", "Subsection",ExpressionUUID->"78deec66-87d4-48f3-9719-9a57b9f29c7c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Block", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"$Notebooks", " ", "=", " ", "False"}], "}"}], ",", "\n", 
+      "    ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"$statusIcon", "[", 
+         RowBox[{"\"\<Compile\>\"", ",", " ", "\"\<Numerical\>\""}], "]"}], 
+        " ", "===", " ", "\"\<[OK]\>\""}], " ", "&&", "\n", "      ", 
+       RowBox[{
+        RowBox[{"$statusIcon", "[", 
+         RowBox[{"\"\<Numerical\>\"", ",", " ", "\"\<Numerical\>\""}], "]"}], 
+        " ", "===", " ", "\"\<[>>]\>\""}], " ", "&&", "\n", "      ", 
+       RowBox[{
+        RowBox[{"$statusIcon", "[", 
+         RowBox[{"\"\<Moments\>\"", ",", " ", "\"\<Numerical\>\""}], "]"}], 
+        " ", "===", " ", "\"\<[ ]\>\""}]}]}], "\n", "  ", "]"}], ",", "\n", 
+    "  ", "True", ",", "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<statusIcon-terminal-contract@@Tests/InteractiveTests/\
+PipelineMonitor/CheckModels.wlt:258,1-267,2\>\""}]}], "\n"}], "]"}]], "Input",\
+ExpressionUUID->"37ce6211-8b56-4ced-bbfd-2cea6646cfa8"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"a1b5ea37-7a3c-456c-a162-e105db164f31"],
+
+Cell["CheckModels-notebook-cancel-does-not-build", "Subsection",ExpressionUUID->"c6dae36f-d2fa-4803-96a6-b0730388a438"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "buildCalled", ",", " ", "buildArgs", ",", " ", "result", ",", " ", 
+        "changes"}], "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{"buildCalled", " ", "=", " ", "False"}], ";", "\n", "    ", 
+       RowBox[{"buildArgs", " ", "=", " ", "None"}], ";", "\n", "\n", "    ", 
+       
+       RowBox[{"changes", " ", "=", " ", 
+        RowBox[{"<|", "\n", "      ", 
+         RowBox[{
+          RowBox[{"\"\<Changed\>\"", " ", "->", " ", 
+           RowBox[{"{", "\"\<A\>\"", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<New\>\"", " ", "->", " ", 
+           RowBox[{"{", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<Removed\>\"", " ", "->", " ", 
+           RowBox[{"{", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<Validation\>\"", " ", "->", " ", 
+           RowBox[{"<|", 
+            RowBox[{"\"\<Valid\>\"", " ", "->", " ", "True"}], "|>"}]}], ",", 
+          "\n", "      ", 
+          RowBox[{"\"\<FirstRun\>\"", " ", "->", " ", "False"}]}], "\n", 
+         "    ", "|>"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"result", " ", "=", " ", 
+        RowBox[{"Block", "[", "\n", "      ", 
+         RowBox[{
+          RowBox[{"{", "\n", "        ", 
+           RowBox[{
+            RowBox[{"$KernelID", " ", "=", " ", "0"}], ",", "\n", "        ", 
+            
+            RowBox[{
+            "$ParallelEvaluationEnvironment", " ", "=", " ", "False"}], ",", 
+            "\n", "        ", 
+            RowBox[{"$HomeDirectory", " ", "=", " ", 
+             RowBox[{"CreateDirectory", "[", "]"}]}], ",", "\n", "        ", 
+            RowBox[{"$Notebooks", " ", "=", " ", "True"}], ",", "\n", 
+            "        ", "DialogInput", ",", "\n", "        ", "MessageDialog",
+             ",", "\n", "        ", "PrintTemporary", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+getModelPipelineStatus", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels"}], 
+           "\n", "      ", "}"}], ",", "\n", "      ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"DialogInput", "[", 
+             RowBox[{"_", ",", " ", "___"}], "]"}], " ", ":=", 
+            " ", "\"\<Cancel\>\""}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{"MessageDialog", "[", "___", "]"}], " ", ":=", " ", 
+            "Null"}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{"PrintTemporary", "[", "___", "]"}], " ", ":=", " ", 
+            "Null"}], ";", "\n", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", "[", "]"}], " ", ":=", " ", "changes"}], ";", "\n", 
+           "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", "[", "]"}], " ", ":=", " ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{"\"\<A\>\"", " ", "->", " ", 
+              RowBox[{"<|", 
+               RowBox[{"\"\<shortname\>\"", " ", "->", " ", "\"\<AA\>\""}], 
+               "|>"}]}], "\n", "      ", "|>"}]}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+getModelPipelineStatus", "[", "_", "]"}], " ", ":=", " ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{"\"\<AA\>\"", " ", "->", " ", 
+              RowBox[{"<|", 
+               RowBox[{
+                
+                RowBox[{"\"\<MainStage\>\"", " ", "->", 
+                 " ", "\"\<Symbolic\>\""}], ",", " ", 
+                
+                RowBox[{"\"\<Reason\>\"", " ", "->", 
+                 " ", "\"\<changed\>\""}]}], "|>"}]}], "\n", "      ", 
+             "|>"}]}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels", "[",
+              "args___", "]"}], " ", ":=", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"buildCalled", " ", "=", " ", "True"}], ";", " ", 
+              RowBox[{"buildArgs", " ", "=", " ", 
+               RowBox[{"{", "args", "}"}]}], ";", " ", "\"\<ok\>\""}], 
+             ")"}]}], ";", "\n", "\n", "      ", 
+           RowBox[{"Quiet", "[", 
+            RowBox[{"$CheckModels", "[", "]"}], "]"}]}]}], "\n", "    ", 
+         "]"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{
+        RowBox[{"result", " ", "===", " ", "Null"}], " ", "&&", " ", 
+        RowBox[{"buildCalled", " ", "===", " ", "False"}], " ", "&&", " ", 
+        RowBox[{"buildArgs", " ", "===", " ", "None"}]}]}]}], "\n", "  ", 
+     "]"}], ",", "\n", "  ", "True", ",", "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<CheckModels-notebook-cancel-does-not-build@@Tests/\
+InteractiveTests/PipelineMonitor/CheckModels.wlt:269,1-317,2\>\""}]}], "\n"}],
+   "]"}]], "Input",ExpressionUUID->"b1a55fd1-0392-434a-8129-05efb236fe29"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"81a1a395-40f0-45d4-87e7-65438e5fb245"],
+
+Cell["CheckModels-notebook-build-success", "Subsection",ExpressionUUID->"9db646da-3c13-4f53-9e89-053943ff4ced"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "buildCalled", ",", " ", "buildArgs", ",", " ", "dialogs", ",", " ", 
+        "result", ",", " ", "changes"}], "}"}], ",", "\n", "    ", 
+      RowBox[{
+       RowBox[{"buildCalled", " ", "=", " ", "False"}], ";", "\n", "    ", 
+       RowBox[{"buildArgs", " ", "=", " ", "None"}], ";", "\n", "    ", 
+       RowBox[{"dialogs", " ", "=", " ", 
+        RowBox[{"{", "}"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"changes", " ", "=", " ", 
+        RowBox[{"<|", "\n", "      ", 
+         RowBox[{
+          RowBox[{"\"\<Changed\>\"", " ", "->", " ", 
+           RowBox[{"{", "\"\<A\>\"", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<New\>\"", " ", "->", " ", 
+           RowBox[{"{", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<Removed\>\"", " ", "->", " ", 
+           RowBox[{"{", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<Validation\>\"", " ", "->", " ", 
+           RowBox[{"<|", 
+            RowBox[{"\"\<Valid\>\"", " ", "->", " ", "True"}], "|>"}]}], ",", 
+          "\n", "      ", 
+          RowBox[{"\"\<FirstRun\>\"", " ", "->", " ", "False"}]}], "\n", 
+         "    ", "|>"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"result", " ", "=", " ", 
+        RowBox[{"Block", "[", "\n", "      ", 
+         RowBox[{
+          RowBox[{"{", "\n", "        ", 
+           RowBox[{
+            RowBox[{"$KernelID", " ", "=", " ", "0"}], ",", "\n", "        ", 
+            
+            RowBox[{
+            "$ParallelEvaluationEnvironment", " ", "=", " ", "False"}], ",", 
+            "\n", "        ", 
+            RowBox[{"$HomeDirectory", " ", "=", " ", 
+             RowBox[{"CreateDirectory", "[", "]"}]}], ",", "\n", "        ", 
+            RowBox[{"$Notebooks", " ", "=", " ", "True"}], ",", "\n", 
+            "        ", "DialogInput", ",", "\n", "        ", "MessageDialog",
+             ",", "\n", "        ", "PrintTemporary", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+getModelPipelineStatus", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels"}], 
+           "\n", "      ", "}"}], ",", "\n", "      ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"DialogInput", "[", 
+             RowBox[{"_", ",", " ", "___"}], "]"}], " ", ":=", 
+            " ", "\"\<Build\>\""}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{"MessageDialog", "[", 
+             RowBox[{"msg_", ",", " ", "___"}], "]"}], " ", ":=", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"AppendTo", "[", 
+               RowBox[{"dialogs", ",", " ", "msg"}], "]"}], ";", " ", 
+              "Null"}], ")"}]}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{"PrintTemporary", "[", "___", "]"}], " ", ":=", " ", 
+            "Null"}], ";", "\n", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", "[", "]"}], " ", ":=", " ", "changes"}], ";", "\n", 
+           "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", "[", "]"}], " ", ":=", " ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{"\"\<A\>\"", " ", "->", " ", 
+              RowBox[{"<|", 
+               RowBox[{"\"\<shortname\>\"", " ", "->", " ", "\"\<AA\>\""}], 
+               "|>"}]}], "\n", "      ", "|>"}]}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+getModelPipelineStatus", "[", "_", "]"}], " ", ":=", " ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{"\"\<AA\>\"", " ", "->", " ", 
+              RowBox[{"<|", 
+               RowBox[{
+                
+                RowBox[{"\"\<MainStage\>\"", " ", "->", 
+                 " ", "\"\<Symbolic\>\""}], ",", " ", 
+                
+                RowBox[{"\"\<Reason\>\"", " ", "->", 
+                 " ", "\"\<changed\>\""}]}], "|>"}]}], "\n", "      ", 
+             "|>"}]}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels", "[",
+              "args___", "]"}], " ", ":=", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"buildCalled", " ", "=", " ", "True"}], ";", " ", 
+              RowBox[{"buildArgs", " ", "=", " ", 
+               RowBox[{"{", "args", "}"}]}], ";", " ", "\"\<OK\>\""}], 
+             ")"}]}], ";", "\n", "\n", "      ", 
+           RowBox[{"Quiet", "[", 
+            RowBox[{"$CheckModels", "[", "]"}], "]"}]}]}], "\n", "    ", 
+         "]"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{
+        RowBox[{"result", " ", "===", " ", "\"\<OK\>\""}], " ", "&&", "\n", 
+        "      ", 
+        RowBox[{"buildCalled", " ", "===", " ", "True"}], " ", "&&", "\n", 
+        "      ", 
+        RowBox[{"buildArgs", " ", "===", " ", 
+         RowBox[{"{", 
+          RowBox[{"\"\<Models\>\"", " ", "->", " ", 
+           RowBox[{"{", "\"\<AA\>\"", "}"}]}], "}"}]}], " ", "&&", "\n", 
+        "      ", 
+        RowBox[{"AnyTrue", "[", 
+         RowBox[{"dialogs", ",", " ", 
+          RowBox[{
+           RowBox[{"StringContainsQ", "[", 
+            RowBox[{"#", ",", " ", "\"\<Build completed successfully\>\""}], 
+            "]"}], " ", "&"}]}], "]"}]}]}]}], "\n", "  ", "]"}], ",", "\n", 
+    "  ", "True", ",", "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<CheckModels-notebook-build-success@@Tests/InteractiveTests/\
+PipelineMonitor/CheckModels.wlt:319,1-371,2\>\""}]}], "\n"}], "]"}]], "Input",\
+ExpressionUUID->"31bb20a6-7cc1-4a54-beff-9a12ee73efce"],
+
+Cell[BoxData[
+ RowBox[{"VerificationTest", "["}]], "Input",ExpressionUUID->"2087f02c-6d63-4870-83f5-380cac38494e"],
+
+Cell["CheckModels-notebook-build-failure", "Subsection",ExpressionUUID->"781f8d4d-7fb7-4a38-aaff-b8343c28cd05"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"dialogs", ",", " ", "result", ",", " ", "changes"}], "}"}], ",",
+       "\n", "    ", 
+      RowBox[{
+       RowBox[{"dialogs", " ", "=", " ", 
+        RowBox[{"{", "}"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"changes", " ", "=", " ", 
+        RowBox[{"<|", "\n", "      ", 
+         RowBox[{
+          RowBox[{"\"\<Changed\>\"", " ", "->", " ", 
+           RowBox[{"{", "\"\<A\>\"", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<New\>\"", " ", "->", " ", 
+           RowBox[{"{", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<Removed\>\"", " ", "->", " ", 
+           RowBox[{"{", "}"}]}], ",", "\n", "      ", 
+          RowBox[{"\"\<Validation\>\"", " ", "->", " ", 
+           RowBox[{"<|", 
+            RowBox[{"\"\<Valid\>\"", " ", "->", " ", "True"}], "|>"}]}], ",", 
+          "\n", "      ", 
+          RowBox[{"\"\<FirstRun\>\"", " ", "->", " ", "False"}]}], "\n", 
+         "    ", "|>"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{"result", " ", "=", " ", 
+        RowBox[{"Block", "[", "\n", "      ", 
+         RowBox[{
+          RowBox[{"{", "\n", "        ", 
+           RowBox[{
+            RowBox[{"$KernelID", " ", "=", " ", "0"}], ",", "\n", "        ", 
+            
+            RowBox[{
+            "$ParallelEvaluationEnvironment", " ", "=", " ", "False"}], ",", 
+            "\n", "        ", 
+            RowBox[{"$HomeDirectory", " ", "=", " ", 
+             RowBox[{"CreateDirectory", "[", "]"}]}], ",", "\n", "        ", 
+            RowBox[{"$Notebooks", " ", "=", " ", "True"}], ",", "\n", 
+            "        ", "DialogInput", ",", "\n", "        ", "MessageDialog",
+             ",", "\n", "        ", "PrintTemporary", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+getModelPipelineStatus", ",", "\n", "        ", 
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels"}], 
+           "\n", "      ", "}"}], ",", "\n", "      ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"DialogInput", "[", 
+             RowBox[{"_", ",", " ", "___"}], "]"}], " ", ":=", 
+            " ", "\"\<Build\>\""}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{"MessageDialog", "[", 
+             RowBox[{"msg_", ",", " ", "___"}], "]"}], " ", ":=", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"AppendTo", "[", 
+               RowBox[{"dialogs", ",", " ", "msg"}], "]"}], ";", " ", 
+              "Null"}], ")"}]}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{"PrintTemporary", "[", "___", "]"}], " ", ":=", " ", 
+            "Null"}], ";", "\n", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+checkCatalogForUI", "[", "]"}], " ", ":=", " ", "changes"}], ";", "\n", 
+           "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`\
+getCatalogModels", "[", "]"}], " ", ":=", " ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{"\"\<A\>\"", " ", "->", " ", 
+              RowBox[{"<|", 
+               RowBox[{"\"\<shortname\>\"", " ", "->", " ", "\"\<AA\>\""}], 
+               "|>"}]}], "\n", "      ", "|>"}]}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`\
+getModelPipelineStatus", "[", "_", "]"}], " ", ":=", " ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{"\"\<AA\>\"", " ", "->", " ", 
+              RowBox[{"<|", 
+               RowBox[{
+                
+                RowBox[{"\"\<MainStage\>\"", " ", "->", 
+                 " ", "\"\<Symbolic\>\""}], ",", " ", 
+                
+                RowBox[{"\"\<Reason\>\"", " ", "->", 
+                 " ", "\"\<changed\>\""}]}], "|>"}]}], "\n", "      ", 
+             "|>"}]}], ";", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+            "FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels", "[",
+              "___", "]"}], " ", ":=", " ", "$Failed"}], ";", "\n", "\n", 
+           "      ", 
+           RowBox[{"Quiet", "[", 
+            RowBox[{"$CheckModels", "[", "]"}], "]"}]}]}], "\n", "    ", 
+         "]"}]}], ";", "\n", "\n", "    ", 
+       RowBox[{
+        RowBox[{"result", " ", "===", " ", "$Failed"}], " ", "&&", "\n", 
+        "      ", 
+        RowBox[{"AnyTrue", "[", 
+         RowBox[{"dialogs", ",", " ", 
+          RowBox[{
+           RowBox[{"StringContainsQ", "[", 
+            RowBox[{"#", ",", " ", "\"\<Build failed\>\""}], "]"}], " ", 
+           "&"}]}], "]"}]}]}]}], "\n", "  ", "]"}], ",", "\n", "  ", "True", ",",
+     "\n", "  ", 
+    RowBox[{"TimeConstraint", " ", "->", " ", "$timeLimit"}], ",", "\n", "  ", 
+    RowBox[{
+    "TestID", " ", "->", 
+     " ", "\"\<CheckModels-notebook-build-failure@@Tests/InteractiveTests/\
+PipelineMonitor/CheckModels.wlt:373,1-421,2\>\""}]}], "\n"}], "]"}]], "Input",\
+ExpressionUUID->"533db3d5-3e80-43aa-ad88-946708cf30f7"]
+},
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"80f2b347-3c71-4388-a31d-b277f31ea363"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[554, 20, 89, 0, 70, "Title",ExpressionUUID->"c5d74ad0-cc71-4828-bc32-9d4bd0c7ac77"],
+Cell[646, 22, 146, 2, 70, "Subtitle",ExpressionUUID->"6f5d4729-2883-47fa-8f3a-8913aeb0f319"],
+Cell[795, 26, 79, 0, 70, "Section",ExpressionUUID->"c02713ac-63b6-4e5b-b74c-45cb772b10d1"],
+Cell[877, 28, 6168, 148, 70, "Input",ExpressionUUID->"cd35e7db-01c4-4944-a0c5-ce1ae3b9f5f6"],
+Cell[7048, 178, 79, 0, 70, "Section",ExpressionUUID->"f08988b7-d085-45c8-bf0d-c4f506d7854f"],
+Cell[7130, 180, 114, 1, 70, "Input",ExpressionUUID->"d325306f-35cf-4029-b055-bdc3f4d614d7"],
+Cell[7247, 183, 114, 0, 70, "Subsection",ExpressionUUID->"18639206-a65a-401f-b5a0-0b7d4feb58e6"],
+Cell[7364, 185, 1244, 30, 70, "Input",ExpressionUUID->"ce793fb7-0b6d-4668-b419-89bf1c6d0c2b"],
+Cell[8611, 217, 114, 1, 70, "Input",ExpressionUUID->"ce8fa5ac-cd69-49d5-8b83-219eb8574ecb"],
+Cell[8728, 220, 116, 0, 70, "Subsection",ExpressionUUID->"f4e6c954-fd95-4457-941c-ce163938b4d3"],
+Cell[8847, 222, 1902, 45, 70, "Input",ExpressionUUID->"ce6d3fd0-ea7d-4982-8b9e-d0f18299ac20"],
+Cell[10752, 269, 114, 1, 70, "Input",ExpressionUUID->"5d4475d4-21fd-43d5-9feb-72e7fa2992a5"],
+Cell[10869, 272, 109, 0, 70, "Subsection",ExpressionUUID->"0244d860-2653-4ff2-9484-c167498c0d8c"],
+Cell[10981, 274, 1822, 43, 70, "Input",ExpressionUUID->"7297df84-2572-4eff-9ee5-47c7eb9e327c"],
+Cell[12806, 319, 114, 1, 70, "Input",ExpressionUUID->"89a927d0-3e95-42a5-b828-e52c0ab11910"],
+Cell[12923, 322, 110, 0, 70, "Subsection",ExpressionUUID->"3d2bae5f-d392-4e54-abba-b1293b4e7606"],
+Cell[13036, 324, 3019, 69, 70, "Input",ExpressionUUID->"3ce05006-8d9c-453d-b6c7-7e362c5a6fd9"],
+Cell[16058, 395, 114, 1, 70, "Input",ExpressionUUID->"c66b384f-115c-4542-8b31-802af94110bf"],
+Cell[16175, 398, 106, 0, 70, "Subsection",ExpressionUUID->"b6a21dbc-d487-4732-ba21-67ee32e406f5"],
+Cell[16284, 400, 3112, 69, 70, "Input",ExpressionUUID->"d7417736-fe57-46b2-acd4-4220cb18554b"],
+Cell[19399, 471, 114, 1, 70, "Input",ExpressionUUID->"e5629016-4aaa-4eec-8b15-ae6e2ae58de2"],
+Cell[19516, 474, 114, 0, 70, "Subsection",ExpressionUUID->"516b070f-3a7c-4d41-afad-7f6064892ddc"],
+Cell[19633, 476, 2600, 61, 70, "Input",ExpressionUUID->"d4e3aeba-68ce-47bf-bf2e-55ab6d143ce2"],
+Cell[22236, 539, 114, 1, 70, "Input",ExpressionUUID->"631fa2e8-ee9f-4d9e-9d09-56acff95679d"],
+Cell[22353, 542, 120, 0, 70, "Subsection",ExpressionUUID->"8d60d96a-06d2-41d0-8a8b-5f9b076cc664"],
+Cell[22476, 544, 6004, 134, 70, "Input",ExpressionUUID->"2f295450-8edb-43d6-ba85-6cdbb2eafa36"],
+Cell[28483, 680, 114, 1, 70, "Input",ExpressionUUID->"a02f2f8a-764b-4927-b736-5ce85472017e"],
+Cell[28600, 683, 126, 0, 70, "Subsection",ExpressionUUID->"59ff4226-b001-423e-a258-94acb8ebfe27"],
+Cell[28729, 685, 6147, 137, 70, "Input",ExpressionUUID->"4e8c3c10-a0b8-4744-8b92-c2d2c85d3c65"],
+Cell[34879, 824, 114, 1, 70, "Input",ExpressionUUID->"de3ee3bc-9790-4929-bafd-182c0f494e34"],
+Cell[34996, 827, 105, 0, 70, "Subsection",ExpressionUUID->"78deec66-87d4-48f3-9719-9a57b9f29c7c"],
+Cell[35104, 829, 1183, 28, 70, "Input",ExpressionUUID->"37ce6211-8b56-4ced-bbfd-2cea6646cfa8"],
+Cell[36290, 859, 114, 1, 70, "Input",ExpressionUUID->"a1b5ea37-7a3c-456c-a162-e105db164f31"],
+Cell[36407, 862, 119, 0, 70, "Subsection",ExpressionUUID->"c6dae36f-d2fa-4803-96a6-b0730388a438"],
+Cell[36529, 864, 5398, 115, 70, "Input",ExpressionUUID->"b1a55fd1-0392-434a-8129-05efb236fe29"],
+Cell[41930, 981, 114, 1, 70, "Input",ExpressionUUID->"81a1a395-40f0-45d4-87e7-65438e5fb245"],
+Cell[42047, 984, 111, 0, 70, "Subsection",ExpressionUUID->"9db646da-3c13-4f53-9e89-053943ff4ced"],
+Cell[42161, 986, 6162, 133, 70, "Input",ExpressionUUID->"31bb20a6-7cc1-4a54-beff-9a12ee73efce"],
+Cell[48326, 1121, 114, 1, 70, "Input",ExpressionUUID->"2087f02c-6d63-4870-83f5-380cac38494e"],
+Cell[48443, 1124, 111, 0, 70, "Subsection",ExpressionUUID->"781f8d4d-7fb7-4a38-aaff-b8343c28cd05"],
+Cell[48557, 1126, 5378, 118, 70, "Input",ExpressionUUID->"533db3d5-3e80-43aa-ad88-946708cf30f7"]
+}
+]
+*)
+
+(* End of internal cache information *)

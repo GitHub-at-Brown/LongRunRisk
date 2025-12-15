@@ -17,8 +17,6 @@ If[
 	ForceVersionInstall->True
 	]
 ];
-Get["PacletizedResourceFunctions`"];
-Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]; (*run once to avoid Symbol::symname message*)
 
 (*install local version of MaTeX provided with LongRunRisk paclet if not already installed*)
 If[
@@ -33,6 +31,11 @@ If[
 		ForceVersionInstall->True
 	]
 ]
+
+(*load packages*)
+Get["PacletizedResourceFunctions`"];
+Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]; (*run once to avoid Symbol::symname message*)
+
 Quiet@Get[FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],"Kernel","MaTeXInstall.wl"}]];
 MaTeXInstall[];
 Needs["MaTeX`"];
@@ -56,9 +59,6 @@ Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
-
-
-(*If[Not[$FrontEnd===Null],SetOptions[$FrontEndSession,AutoStyleOptions->{"SymbolShadowingStyle"->{FontColor->Black}}]];*)
 
 
 (* Unprotect package symbols in case it is double-loaded *)
@@ -93,6 +93,7 @@ Growth;
 YieldCurve;PlotCoeffs;
 VisualizeCoeffs;
 CheckModels;
+BuildModels;
 (*t;*)
 (*covLongBY;covLongNRC;covLongDES;*)
 
@@ -101,7 +102,7 @@ CheckModels;
 (*Usage*)
 
 
-(*symbols automatically inherit usage messages from the package in which they are first introduced*)
+(*symbols automatically inherit usage messages from the file in which they are first introduced*)
 
 
 (*Symbol/@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`$exogenousVarsPrivate
@@ -138,8 +139,8 @@ PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`T
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceTables`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];*)
-CopyDefinitions = PacletizedResourceFunctions`CopyDefinitions;(*ResourceFunction["CopyDefinitions"];*)
-CompoundScope = PacletizedResourceFunctions`CompoundScope;(*ResourceFunction["CompoundScope"];*)
+(*CopyDefinitions = PacletizedResourceFunctions`CopyDefinitions;(*ResourceFunction["CopyDefinitions"];*)
+CompoundScope = PacletizedResourceFunctions`CompoundScope;(*ResourceFunction["CompoundScope"];*)*)
 
 
 (* ::Subsection:: *)
@@ -176,14 +177,13 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 
 
 (*load file with pre-processed models and pre-computed moments*)
-Needs["PacletTools`"];
-pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
-
-modelFilename=FindFile[File["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Resources/Models.wl"]];
+(*Needs["PacletTools`"];
+pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];*)
+FernandoDuarte`LongRunRisk`Models = Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];
 
 (*filesInResources = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources"|>}];
 modelFilename=FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]];*)
-FernandoDuarte`LongRunRisk`Models = Get@Get["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Resources/Models.wl"];
+(*FernandoDuarte`LongRunRisk`Models = Get@Get["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Resources/Models.wl"];*)
 (*FernandoDuarte`LongRunRisk`Models = Get@data;*)
 (*Map[
 	Get@Get@#&,
@@ -202,7 +202,7 @@ FernandoDuarte`LongRunRisk`Models = Get@Get["/Users/fduarte/Library/CloudStorage
 (*Conditional moments*)
 
 
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
+(*PacletizedResourceFunctions`*)NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 
 
 reExport[#]&/@{
@@ -268,6 +268,20 @@ UncondCorr[x_,y_,model_]:=UncondCov[x,y,model]/(Sqrt[UncondVar[x,model]]Sqrt[Unc
 
 
 (* ::Subsubsection:: *)
+(*ManageResources*)
+
+
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
+
+
+(* ::Text:: *)
+(*BuildModels*)
+
+
+reExport[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels,FernandoDuarte`LongRunRisk`BuildModels];
+
+
+(* ::Subsubsection:: *)
 (*NiceOutput*)
 
 
@@ -277,7 +291,8 @@ PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`N
 Info::usage = StringReplace[Information[FernandoDuarte`LongRunRisk`Tools`NiceOutput`info,"Usage"],"info" -> "Info"];
 
 
-Info[models_Association] :=PacletizedResourceFunctions`SetSymbolsContext@FernandoDuarte`LongRunRisk`Tools`NiceOutput`info[models]; (*PacletizedResourceFunctions`SetSymbolsContext@Column[(FernandoDuarte`LongRunRisk`Tools`NiceOutput`info@#&)/@(Values@FernandoDuarte`LongRunRisk`Tools`NiceOutput`createEqTables[models])];*)
+Info[models_Association] :=PacletizedResourceFunctions`SetSymbolsContext@FernandoDuarte`LongRunRisk`Tools`NiceOutput`info[models]; 
+(*PacletizedResourceFunctions`SetSymbolsContext@Column[(FernandoDuarte`LongRunRisk`Tools`NiceOutput`info@#&)/@(Values@FernandoDuarte`LongRunRisk`Tools`NiceOutput`createEqTables[models])];*)
 
 
 (* ::Subsubsection:: *)
@@ -299,6 +314,20 @@ reExport[#]&/@{
 (*reExport[#]&/@{
 	"FernandoDuarte`LongRunRisk`Tools`NiceTables`"
 }*)
+
+
+(* ::Subsubsection:: *)
+(*PipelineMonitor*)
+
+
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`"];
+
+
+(* ::Text:: *)
+(*BuildModels*)
+
+
+reExport[FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`checkModels,FernandoDuarte`LongRunRisk`CheckModels];
 
 
 (* ::Subsubsection:: *)
@@ -349,7 +378,7 @@ EndPackage[];
 
 (* === Export CheckModels to main context === *)
 (* Safe initialization - NEVER affects package load success *)
-Quiet[
+(*Quiet[
 	Check[
 		Needs["FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`"];
 		(* Make CheckModels available in main context *)
@@ -359,14 +388,14 @@ Quiet[
 		Null  (* Silently ignore any errors *)
 	],
 	All  (* Suppress all messages *)
-];
+];*)
 
 (* Optional: auto-check on first load only - guarded *)
 Quiet[
 	Check[
 		If[!TrueQ[$ParallelEvaluationEnvironment] && $KernelID === 0,
 			(* Only run if not in parallel context and main kernel *)
-			FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`CheckModels[]
+			FernandoDuarte`LongRunRisk`CheckModels[]
 		],
 		Null
 	],

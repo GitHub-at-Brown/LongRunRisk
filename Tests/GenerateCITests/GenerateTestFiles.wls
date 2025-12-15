@@ -73,8 +73,8 @@ DeleteFile[testFilePath<>"temp"];
 ]
 
 
-(* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*(*(*(*(*replaceNthRecord*)*)*)*)*)*)*)*)*)*)*)
+(* ::Subsection:: *)
+(*replaceNthRecord*)
 
 
 (* ::Input::Initialization:: *)
@@ -102,8 +102,8 @@ Close /@ {readStream, writeStream}
 ]
 
 
-(* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*(*(*(*(*countLines*)*)*)*)*)*)*)*)*)*)*)
+(* ::Subsection:: *)
+(*countLines*)
 
 
 (* ::Input::Initialization:: *)
@@ -146,8 +146,8 @@ outputTrueQ= And@@{And@@Flatten@actual,And@@Flatten@expected};
 ]
 
 
-(* ::Subsection::Initialization:: *)
-(*(*(*(*(*(*(*(*(*(*(*tableActualVsExpeected*)*)*)*)*)*)*)*)*)*)*)
+(* ::Subsection:: *)
+(*tableActualVsExpeected*)
 
 
 (* ::Input::Initialization:: *)
@@ -214,6 +214,13 @@ ClearSystemCache[];
 
 (* ::Chapter:: *)
 (*Generate Tests*)
+
+
+$ContextPath
+
+
+(* ::Section:: *)
+(*LongRunRisk`*)
 
 
 (* ::Section:: *)
@@ -4784,6 +4791,13 @@ testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]]
 (*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir];*)
 
 
+(* ::Input::Initialization:: *)
+pacletBaseDir="/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/";(*DirectoryName[NotebookDirectory[],2]*)
+Needs["Wolfram`PacletCICD`"];
+testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]]
+(*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir];*)
+
+
 testResults[[2]]["Result"]["./Tests/Shocks.wlt"]["Results"]
 
 
@@ -4794,7 +4808,8 @@ And@@Values@((#["ReportSucceeded"])&/@testResults["Result"])
 TestPaclet runs each TestReport inside a wrapper that sets $Context = "PacletCICDTest"and$ContextPath = {"PacletCICDTest","System"}
 
 
-testResults["Result"]
+succeed=#["ReportSucceeded"]&/@testResults[[2]]["Result"];
+Keys@Pick[testResults[[2]]["Result"],Values@succeed,False]
 
 
 testResults[[2]]["Result"]["./Tests/CreateMomentsDatabase.wlt"]["Results"]

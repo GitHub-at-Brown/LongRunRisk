@@ -2,7 +2,7 @@
 
 BeginPackage["FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`"];
 
-CheckModels::usage = "CheckModels[] checks for Catalog.wl changes and offers to build updated models.
+checkModels::usage = "checkModels[] checks for Catalog.wl changes and offers to build updated models.
 Returns Null if no changes, $Failed on error, or the build result if user confirms.";
 
 Begin["`Private`"];
@@ -10,7 +10,7 @@ Begin["`Private`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
 
 (* Main entry point *)
-CheckModels[] := Module[
+checkModels[] := Module[
 	{config, changes, status, shortnames, catalogModels},
 
 	(* Guard against parallel/subkernel contexts *)
@@ -30,7 +30,7 @@ CheckModels[] := Module[
 	(* Handle failures gracefully *)
 	If[changes === $Failed,
 		If[$Notebooks =!= True,
-			Print["CheckModels: Could not check catalog. Check for syntax errors."],
+			Print["checkModels: Could not check catalog. Check for syntax errors."],
 			MessageDialog["Could not check catalog. Check Catalog.wl for syntax errors."]
 		];
 		Return[$Failed]
@@ -273,7 +273,7 @@ showValidationErrors[validation_Association] := Module[{},
 			validation["Results"]
 		];
 		Print[""];
-		Print["Please correct errors in Catalog.wl and call CheckModels[] again."],
+		Print["Please correct errors in Catalog.wl and call checkModels[] again."],
 
 		(* Notebook mode *)
 		MessageDialog[
@@ -295,7 +295,7 @@ showValidationErrors[validation_Association] := Module[{},
 					]
 				],
 				"",
-				"Please correct errors in Catalog.wl and call CheckModels[] again."
+				"Please correct errors in Catalog.wl and call checkModels[] again."
 			}],
 			WindowTitle -> "Validation Errors"
 		]

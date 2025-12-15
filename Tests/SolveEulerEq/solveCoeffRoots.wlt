@@ -12,10 +12,16 @@
 
 
 (* Find paclet root and load dependencies *)
-Module[{start, d, pacletRoot, resourcesDir, modelsFile, modelsData},
+Module[{start, d, pacletRoot, pacletFile, resourcesDir, modelsFile, modelsData},
+  (* Robust paclet root detection: $InputFileName -> FindFile -> Directory *)
   start = If[StringQ[$InputFileName] && $InputFileName =!= "",
     DirectoryName[$InputFileName],
-    Directory[]
+    (* Fallback: find paclet via FindFile *)
+    pacletFile = FindFile["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+    If[StringQ[pacletFile],
+      DirectoryName[pacletFile, 3],  (* Kernel/Model/Catalog.wl -> paclet root *)
+      Directory[]
+    ]
   ];
   d = start;
   While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
@@ -106,7 +112,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveCoeffRoots-wc-BY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:77,3-110,4"
+    TestID -> "solveCoeffRoots-wc-BY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:83,3-116,4"
   ],
 
   (* Test: solveCoeffRoots for pd returns numeric solution for BY model *)
@@ -166,7 +172,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveCoeffRoots-pd-BY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:113,3-170,4"
+    TestID -> "solveCoeffRoots-pd-BY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:119,3-176,4"
   ],
 
   (* Test: solveWcPdRoots returns valid structure for BY model *)
@@ -195,7 +201,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveWcPdRoots-BY-structure@@Tests/SolveEulerEq/solveCoeffRoots.wlt:173,3-199,4"
+    TestID -> "solveWcPdRoots-BY-structure@@Tests/SolveEulerEq/solveCoeffRoots.wlt:179,3-205,4"
   ],
 
   (* Test: solveCoeffRoots for wc returns numeric solution for BKY model *)
@@ -230,7 +236,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveCoeffRoots-wc-BKY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:202,3-234,4"
+    TestID -> "solveCoeffRoots-wc-BKY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:208,3-240,4"
   ],
 
   (* Test: solveCoeffRoots for wc handles NRC model (may fail due to numerical precision)
@@ -265,7 +271,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveCoeffRoots-wc-NRC-handles-gracefully@@Tests/SolveEulerEq/solveCoeffRoots.wlt:238,3-269,4"
+    TestID -> "solveCoeffRoots-wc-NRC-handles-gracefully@@Tests/SolveEulerEq/solveCoeffRoots.wlt:244,3-275,4"
   ],
 
   (* Test: kernel SignSymbol is correctly read for wc *)
@@ -279,7 +285,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "kernel-SignSymbol-wc@@Tests/SolveEulerEq/solveCoeffRoots.wlt:272,3-283,4"
+    TestID -> "kernel-SignSymbol-wc@@Tests/SolveEulerEq/solveCoeffRoots.wlt:278,3-289,4"
   ],
 
   (* Test: kernel SignSymbol is correctly read for pd *)
@@ -293,7 +299,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "kernel-SignSymbol-pd@@Tests/SolveEulerEq/solveCoeffRoots.wlt:286,3-297,4"
+    TestID -> "kernel-SignSymbol-pd@@Tests/SolveEulerEq/solveCoeffRoots.wlt:292,3-303,4"
   ]
 
 };

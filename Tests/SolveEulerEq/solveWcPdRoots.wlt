@@ -9,10 +9,16 @@
 
 
 (* Find paclet root and load dependencies *)
-Module[{start, d, pacletRoot, resourcesDir, modelsFile},
+Module[{start, d, pacletRoot, pacletFile, resourcesDir, modelsFile},
+  (* Robust paclet root detection: $InputFileName -> FindFile -> Directory *)
   start = If[StringQ[$InputFileName] && $InputFileName =!= "",
     DirectoryName[$InputFileName],
-    Directory[]
+    (* Fallback: find paclet via FindFile *)
+    pacletFile = FindFile["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+    If[StringQ[pacletFile],
+      DirectoryName[pacletFile, 3],  (* Kernel/Model/Catalog.wl -> paclet root *)
+      Directory[]
+    ]
   ];
   d = start;
   While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
@@ -94,7 +100,7 @@ tests = {
       wcResults[[1]]["Signs"] === signsWc
     ],
     True,
-    TestID -> "solveCoeffRoots-Signs-Key@@Tests/SolveEulerEq/solveWcPdRoots.wlt:74,3-98,4"
+    TestID -> "solveCoeffRoots-Signs-Key@@Tests/SolveEulerEq/solveWcPdRoots.wlt:80,3-104,4"
   ],
 
   (* Test: solveWcPdRoots (original) returns "SignsWc" and "SignsPd" keys *)
@@ -117,7 +123,7 @@ tests = {
       wcPdResults[[1]]["SignsPd"] === signsPd
     ],
     True,
-    TestID -> "solveWcPdRoots-Original-Signs-Keys@@Tests/SolveEulerEq/solveWcPdRoots.wlt:101,3-121,4"
+    TestID -> "solveWcPdRoots-Original-Signs-Keys@@Tests/SolveEulerEq/solveWcPdRoots.wlt:107,3-127,4"
   ],
 
   (* Test: solveWcPdRoots (wrapper) returns flat list with sign info for BY *)
@@ -139,7 +145,7 @@ tests = {
       KeyExistsQ[results[[1]], "Pd"]
     ],
     True,
-    TestID -> "solveWcPdRoots-Wrapper-BY-Structure@@Tests/SolveEulerEq/solveWcPdRoots.wlt:124,3-143,4"
+    TestID -> "solveWcPdRoots-Wrapper-BY-Structure@@Tests/SolveEulerEq/solveWcPdRoots.wlt:130,3-149,4"
   ],
 
   (* Test: solveWcPdRoots (wrapper) handles DES model
@@ -161,7 +167,7 @@ tests = {
        AllTrue[results, KeyExistsQ[#, "SignsPd"] &])
     ],
     True,
-    TestID -> "solveWcPdRoots-Wrapper-DES-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:147,3-165,4"
+    TestID -> "solveWcPdRoots-Wrapper-DES-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:153,3-171,4"
   ],
 
   (* Test: solveWcPdRoots (wrapper) handles NRCStochVol model
@@ -184,7 +190,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveWcPdRoots-Wrapper-NRCStochVol-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:169,3-188,4"
+    TestID -> "solveWcPdRoots-Wrapper-NRCStochVol-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:175,3-194,4"
   ]
 
 };

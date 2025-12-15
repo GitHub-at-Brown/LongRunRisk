@@ -1104,39 +1104,7 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_
       ];
       If[!TrueQ[allowGroebner], Break[]];
       last = Last[unsolved];
-      logSeq["BEFORE GroebnerBasis (unsolved=" <> ToString[Length[unsolved]] <> ")"];
-      (* Debug Dialog: inspect GroebnerBasis inputs before call - only if front end available *)
-      If[$Notebooks =!= True,
-        (* No front end - just print summary *)
-        Print["        GroebnerBasis inputs: eqs=", Length[eqs], " vars=", Length[unsolved],
-              " eqBytes=", Round[Total[ByteCount /@ eqs]/1024.], "KB"];,
-        (* Front end available - show dialog *)
-        CreateDialog[{
-            TextCell["GroebnerBasis Debug - Inspect inputs before call", "Title"],
-            TextCell[
-              With[{kernelGB = wolframKernelMemoryGB[]},
-                "Memory: " <> ToString[Round[MemoryInUse[]/1024^3, 0.01]] <> " GB" <>
-                " | KernelRSS: " <> If[NumberQ[kernelGB], ToString[NumberForm[kernelGB, {5, 2}]], "n/a"] <> " GB"
-              ],
-              "Subtitle"
-            ],
-            TextCell["Number of equations: " <> ToString[Length[eqs]], "Text"],
-            TextCell["Number of variables: " <> ToString[Length[unsolved]], "Text"],
-            TextCell["Total ByteCount of eqs: " <> ToString[Round[Total[ByteCount /@ eqs]/1024., 0.1]] <> " KB", "Text"],
-            TextCell["Max ByteCount per eq: " <> ToString[Round[Max[ByteCount /@ eqs]/1024., 0.1]] <> " KB", "Text"],
-            TextCell["gbMemLimit: " <> ToString[Round[gbMemLimit/1024^3, 0.1]] <> " GB", "Text"],
-            TextCell["MonomialOrder: " <> ToString[gbOrderClean], "Text"],
-            TextCell["Variables (unsolved):", "Section"],
-            ExpressionCell[unsolved, "Output"],
-            TextCell["Equations (eqs):", "Section"],
-            ExpressionCell[Short[eqs, 10], "Output"],
-            TextCell["Full equations (scroll):", "Section"],
-            ExpressionCell[eqs, "Output", CellSize -> {600, 200}, CellMargins -> {{20, 20}, {5, 5}}],
-            DefaultButton["Continue", DialogReturn[]]
-          },
-          Modal -> True
-        ]
-      ];
+      logSeq["BEFORE GroebnerBasis (unsolved=" <> ToString[Length[unsolved]] <> ", eqs=" <> ToString[Length[eqs]] <> ", eqBytes=" <> ToString[Round[Total[ByteCount /@ eqs]/1024.]] <> "KB)"];
       (* Use MemoryConstrained with GroebnerWalk for better performance *)
       gb = Quiet@Check[
         MemoryConstrained[
