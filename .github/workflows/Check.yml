@@ -38,7 +38,25 @@ jobs:
       - name: Add latex to path
         run: echo "$HOME/bin" >> $GITHUB_PATH
       - name: Install LaTeX packages for MaTeX
+        env:
+          TEXLIVE_DOWNLOADER: wget
         run: |
+          # Work around occasional CTAN mirror failures on CI by pinning a
+          # known-good TeX Live repository for tlmgr.
+          for repo in \
+            https://mirrors.rit.edu/CTAN/systems/texlive/tlnet \
+            https://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet \
+            https://ftp.fau.de/ctan/systems/texlive/tlnet \
+            https://mirror.ctan.org/systems/texlive/tlnet
+          do
+            echo "Trying TeX Live repository: $repo"
+            if wget -q --spider --timeout=20 --tries=2 "$repo/tlpkg/texlive.tlpdb.sha512"; then
+              echo "Using TeX Live repository: $repo"
+              tlmgr option repository "$repo"
+              break
+            fi
+          done
+          tlmgr option repository
           tlmgr update --self --all
           tlmgr path add
           fmtutil-sys --all
