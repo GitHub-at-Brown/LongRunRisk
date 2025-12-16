@@ -23,7 +23,7 @@ jobs:
       options: --user root --privileged --init
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
-    timeout-minutes: 90
+    timeout-minutes: 360
     steps:
       - name: Checkout
         id: checkout-code-step
