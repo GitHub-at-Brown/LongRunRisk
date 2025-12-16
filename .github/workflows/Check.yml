@@ -19,7 +19,7 @@ jobs:
     name: Check-Test
     runs-on: ubuntu-latest
     container:
-      image: wolframresearch/wolframengine:14.3.0
+      image: wolframresearch/wolframengine:latest
       options: --user root --privileged --init
       env:
         WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
