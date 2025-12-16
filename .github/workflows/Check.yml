@@ -25,7 +25,7 @@ jobs:
         WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
-    timeout-minutes: 60
+    timeout-minutes: 90
     steps:
       - name: Checkout
         id: checkout-code-step
