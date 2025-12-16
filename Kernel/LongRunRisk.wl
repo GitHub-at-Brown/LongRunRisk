@@ -37,7 +37,10 @@ Get["PacletizedResourceFunctions`"];
 Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]; (*run once to avoid Symbol::symname message*)
 
 Quiet@Get[FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],"Kernel","MaTeXInstall.wl"}]];
-MaTeXInstall[];
+If[
+	{}===PacletFind["MaTeX"],
+	MaTeXInstall[];
+]
 Needs["MaTeX`"];
 (*MaTeX`Developer`ResetConfiguration[];*)
 
@@ -131,6 +134,10 @@ Begin["`Private`"]
 (*Package dependencies*)
 
 
+Get["PacletizedResourceFunctions`"];
+Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]; (*run once to avoid Symbol::symname message*)
+
+
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
@@ -139,8 +146,8 @@ PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`T
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceTables`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];*)
-(*CopyDefinitions = PacletizedResourceFunctions`CopyDefinitions;(*ResourceFunction["CopyDefinitions"];*)
-CompoundScope = PacletizedResourceFunctions`CompoundScope;(*ResourceFunction["CompoundScope"];*)*)
+CopyDefinitions = (*PacletizedResourceFunctions`CopyDefinitions;*)ResourceFunction["CopyDefinitions"];
+CompoundScope = (*PacletizedResourceFunctions`CompoundScope;*)ResourceFunction["CompoundScope"];
 
 
 (* ::Subsection:: *)
@@ -177,21 +184,21 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 
 
 (*load file with pre-processed models and pre-computed moments*)
-(*Needs["PacletTools`"];
-pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];*)
-FernandoDuarte`LongRunRisk`Models = Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];
+Needs["PacletTools`"];
+pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
 
-(*filesInResources = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources"|>}];
-modelFilename=FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]];*)
+filesInResources = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources"|>}];
+modelFilename=FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]];
+FernandoDuarte`LongRunRisk`Models = Get@Get[modelFilename];
 (*FernandoDuarte`LongRunRisk`Models = Get@Get["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Resources/Models.wl"];*)
 (*FernandoDuarte`LongRunRisk`Models = Get@data;*)
-(*Map[
+Map[
 	Get@Get@#&,
 	Select[
 		Flatten@StringCases[filesInResources,__~~".wl"],
 		Function[s, Not@StringEndsQ[s, "_meta.wl" | "ModelManifest.wl" | "Models.wl" ]]
 	]
-];*)
+];
 
 
 (* ::Subsection:: *)
@@ -202,7 +209,8 @@ modelFilename=FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]];*)
 (*Conditional moments*)
 
 
-(*PacletizedResourceFunctions`*)NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
+(*PacletizedResourceFunctions`*)
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 
 
 reExport[#]&/@{

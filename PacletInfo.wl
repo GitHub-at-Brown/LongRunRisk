@@ -21,6 +21,8 @@ PacletObject[
         "Root" -> "Kernel",
         "Context" -> {"FernandoDuarte`LongRunRisk`"},
         "Symbols" -> {
+          "FernandoDuarte`LongRunRisk`BuildModels",
+          "FernandoDuarte`LongRunRisk`CheckModels",
           "FernandoDuarte`LongRunRisk`Corr",
           "FernandoDuarte`LongRunRisk`Cov",
           "FernandoDuarte`LongRunRisk`Ev",
@@ -38,14 +40,16 @@ PacletObject[
           "FernandoDuarte`LongRunRisk`UncondE",
           "FernandoDuarte`LongRunRisk`UncondVar",
           "FernandoDuarte`LongRunRisk`Var",
+          "FernandoDuarte`LongRunRisk`VisualizeCoeffs",
           "FernandoDuarte`LongRunRisk`YieldCurve"
         }
       },
-      {
+       {
         "Documentation",
         "Root" -> "Documentation",
         "Language" -> "English"
       },
+      {"Asset", "Assets" -> {{"License", "./LICENSE"}}},
       {"Path", "Root" -> "Resources"}
     }
   |>
