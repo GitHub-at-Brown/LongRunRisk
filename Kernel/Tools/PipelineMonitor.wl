@@ -3,14 +3,39 @@
 BeginPackage["FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`"];
 
 checkModels::usage = "checkModels[] checks for Catalog.wl changes and incomplete pipelines, and offers to build.
-Returns Null if no changes and pipeline is complete, $Failed on error, or the build result if user confirms.";
+Returns Null if no changes and pipeline is complete, $Failed on error, or the build result if user confirms.
+checkModels[\"AutoBuild\" -> True] automatically builds incomplete models without user confirmation.
+checkModels[\"AutoBuild\" -> False] disables auto-build even in CI.
+With \"AutoBuild\" -> Automatic (default), auto-build is enabled when:
+  1. Environment variable LONGRUNRISK_AUTOBUILD is \"true\", \"1\", or \"yes\", OR
+  2. Environment variable CI is \"true\" (set by GitHub Actions, Travis, etc.) and not in a notebook.";
 
 Begin["`Private`"];
 
 Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
 
+Options[checkModels] = {"AutoBuild" -> Automatic};
+
+(* Determine if AutoBuild should be enabled *)
+(* Priority: 1. Explicit option, 2. LONGRUNRISK_AUTOBUILD env var, 3. CI detection *)
+resolveAutoBuild[opt_] := Which[
+	(* Explicit True/False option takes priority *)
+	TrueQ[opt], True,
+	opt === False, False,
+	(* Check LONGRUNRISK_AUTOBUILD env var *)
+	MemberQ[{"true", "1", "yes"}, ToLowerCase[ToString[Environment["LONGRUNRISK_AUTOBUILD"]]]],
+		True,
+	(* Auto-detect CI environment (GitHub Actions, Travis, CircleCI, etc. set CI=true) *)
+	MemberQ[{"true", "1"}, ToLowerCase[ToString[Environment["CI"]]]] && $Notebooks =!= True,
+		True,
+	(* Default: no auto-build *)
+	True, False
+];
+
 (* Main entry point *)
-checkModels[] := Module[
+checkModels[OptionsPattern[]] := With[
+	{autoBuild = resolveAutoBuild[OptionValue["AutoBuild"]]},
+Module[
 	{config, changes, status, shortnames, catalogModels, allStatus, incompleteModels, hasCatalogChanges},
 
 	(* Guard against parallel/subkernel contexts *)
@@ -73,8 +98,8 @@ checkModels[] := Module[
 	status = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[shortnames];
 
 	(* Show report and prompt for build *)
-	showPipelineReport[changes, status, shortnames]
-];
+	showPipelineReport[changes, status, shortnames, autoBuild]
+]];
 
 (* Config loading - robust with fallbacks for all platforms *)
 loadConfig[] := Module[{home, configFile, config},
@@ -132,8 +157,19 @@ openOrCreateConfigFile[] := Module[{home, file, defaults, create},
 ];
 
 (* Pipeline report and build prompt *)
-showPipelineReport[changes_, status_, shortnames_] := Module[
+showPipelineReport[changes_, status_, shortnames_, autoBuild_:False] := Module[
 	{dialogResult, buildResult, grid, title},
+
+	(* AutoBuild mode: skip prompts and build directly *)
+	If[TrueQ[autoBuild],
+		If[$Notebooks =!= True,
+			Print["=== LongRunRisk: Auto-building models: ", StringRiffle[shortnames, ", "], " ==="]
+		];
+		buildResult = FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels[
+			"Models" -> shortnames
+		];
+		Return[buildResult]
+	];
 
 	(* Build status grid *)
 	grid = formatStatusGrid[status];

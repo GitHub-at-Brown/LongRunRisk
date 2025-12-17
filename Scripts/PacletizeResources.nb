@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     53115,       1033]
-NotebookOptionsPosition[      6098,        168]
-NotebookOutlinePosition[     52449,       1022]
-CellTagsIndexPosition[     52406,       1019]
+NotebookDataLength[     53166,       1035]
+NotebookOptionsPosition[      6149,        170]
+NotebookOutlinePosition[     52500,       1024]
+CellTagsIndexPosition[     52457,       1021]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -107,9 +107,10 @@ Cell[BoxData[{
    RowBox[{"toPacletize", " ", "=", " ", 
     RowBox[{"{", 
      RowBox[{"\"\<NeedsDefinitions\>\"", ",", "\"\<SetSymbolsContext\>\"", 
-      ",", "\"\<DefinitionData\>\"", ",", "\"\<CopyDefinitions\>\"", 
-      ",", "\"\<CompoundScope\>\"", ",", "\"\<RecursiveRewrite\>\""}], 
-     "}"}]}], ";"}], " "}], "\n", 
+      ",", "\"\<DefinitionData\>\"", ",", 
+      RowBox[{"(*", 
+       RowBox[{"\"\<CopyDefinitions\>\"", ",", "\"\<CompoundScope\>\"", ","}],
+        "*)"}], "\"\<RecursiveRewrite\>\""}], "}"}]}], ";"}], " "}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -140,9 +141,10 @@ Cell[BoxData[{
    "]"}]}]}], "Code",
  InitializationCell->False,
  CellChangeTimes->{{3.9732774439960546`*^9, 3.973277444486072*^9}, {
-  3.973300793957636*^9, 3.973300801902275*^9}, {3.9733030823088093`*^9, 
-  3.973303091196885*^9}, {3.973875804913336*^9, 3.9738758059630127`*^9}},
- CellLabel->"In[5]:=",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830"],
+   3.973300793957636*^9, 3.973300801902275*^9}, {3.9733030823088093`*^9, 
+   3.973303091196885*^9}, {3.973875804913336*^9, 3.9738758059630127`*^9}, 
+   3.9749917443217697`*^9},ExpressionUUID->"605abd3f-0626-402e-8123-\
+a27e9f629830"],
 
 Cell[BoxData[
  TemplateBox[{
@@ -1030,11 +1032,11 @@ Cell[1553, 47, 328, 4, 33, "Output",ExpressionUUID->"258e1ce6-7bc1-40a7-b23c-1b7
 Cell[1896, 54, 1434, 36, 204, "Code",ExpressionUUID->"a97b263c-42f7-427b-86ba-5ebf4618f28c",
  InitializationCell->False],
 Cell[CellGroupData[{
-Cell[3355, 94, 1895, 50, 299, "Code",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830",
+Cell[3355, 94, 1946, 52, 299, "Code",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830",
  InitializationCell->False],
-Cell[5253, 146, 672, 14, 26, "Message",ExpressionUUID->"36c5bcc6-000d-4018-883a-9399c2724251"]
+Cell[5304, 148, 672, 14, 26, "Message",ExpressionUUID->"36c5bcc6-000d-4018-883a-9399c2724251"]
 }, Open  ]],
-Cell[5940, 163, 154, 3, 29, "Input",ExpressionUUID->"3956ada6-b3a3-4044-91bb-fb1bc711cae5"]
+Cell[5991, 165, 154, 3, 29, "Input",ExpressionUUID->"3956ada6-b3a3-4044-91bb-fb1bc711cae5"]
 }
 ]
 *)
