@@ -146,8 +146,10 @@ PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`T
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceTables`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];*)
-CopyDefinitions = (*PacletizedResourceFunctions`CopyDefinitions;*)ResourceFunction["CopyDefinitions"];
-CompoundScope = (*PacletizedResourceFunctions`CompoundScope;*)ResourceFunction["CompoundScope"];
+Needs["FernandoDuarte`LongRunRisk`Tools`CopyDefinitions`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`CompoundScope`"];
+CopyDefinitions = FernandoDuarte`LongRunRisk`Tools`CopyDefinitions`copyDefinitions;
+CompoundScope = FernandoDuarte`LongRunRisk`Tools`CompoundScope`compoundScope;
 
 
 (* ::Subsection:: *)
