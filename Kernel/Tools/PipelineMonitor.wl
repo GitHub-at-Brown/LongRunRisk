@@ -102,34 +102,32 @@ Module[
 ]];
 
 (* Config loading - robust with fallbacks for all platforms *)
-loadConfig[] := Module[{home, configFile, config},
-	(* $HomeDirectory is cross-platform in Wolfram Language *)
-	home = $HomeDirectory;
-	(* Fallbacks: HOME (Unix/macOS), USERPROFILE (Windows) *)
-	If[!StringQ[home], home = Environment["HOME"]];
-	If[!StringQ[home], home = Environment["USERPROFILE"]];
-	If[!StringQ[home], Return[<||>]];
+configFilePath[] := Module[{userBase},
+	userBase = $UserBaseDirectory;
+	If[!StringQ[userBase], userBase = $HomeDirectory];
+	If[!StringQ[userBase], userBase = Environment["HOME"]];
+	If[!StringQ[userBase], userBase = Environment["USERPROFILE"]];
+	If[!StringQ[userBase], Return[$Failed]];
 
-	configFile = FileNameJoin[{home, ".longrunrisk", "config.wl"}];
-	If[!FileExistsQ[configFile], Return[<||>]];
+	FileNameJoin[{userBase, "ApplicationData", "FernandoDuarte", "LongRunRisk", "config.wl"}]
+];
+
+loadConfig[] := Module[{configFile, config},
+	configFile = configFilePath[];
+	If[configFile === $Failed || !FileExistsQ[configFile], Return[<||>]];
 
 	config = Quiet[Check[Get[configFile], <||>]];
 	If[!AssociationQ[config], Return[<||>]];
 	config
 ];
 
-openOrCreateConfigFile[] := Module[{home, file, defaults, create},
-	(* $HomeDirectory is cross-platform in Wolfram Language *)
-	home = $HomeDirectory;
-	(* Fallbacks: HOME (Unix/macOS), USERPROFILE (Windows) *)
-	If[!StringQ[home], home = Environment["HOME"]];
-	If[!StringQ[home], home = Environment["USERPROFILE"]];
-	If[!StringQ[home],
-		MessageDialog["Could not determine your home directory."];
+openOrCreateConfigFile[] := Module[{file, defaults, create},
+	file = configFilePath[];
+	If[file === $Failed,
+		MessageDialog["Could not determine your user base directory."];
 		Return[Null]
 	];
 
-	file = FileNameJoin[{home, ".longrunrisk", "config.wl"}];
 	defaults = Association[
 		"PipelineMonitorEnabled" -> True,
 		"AutoReformat" -> True,
