@@ -66,9 +66,15 @@ jobs:
           tlmgr install latex standalone lm svn-prov
           tlmgr path add
           tlmgr list --only-installed
+      - name: Warm up paclet
+        run: |
+          wolframscript -code '
+            PacletDirectoryLoad["."];
+            Needs["FernandoDuarte`LongRunRisk`"];
+            Print["Paclet loaded successfully"]
+          '
       - name: Test
         id: test-paclet-step
-        timeout-minutes: 5
         uses: WolframResearch/test-paclet@v1.11.0
         with:
           debug: "true"
@@ -94,9 +100,9 @@ jobs:
           name: paclet-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
           if-no-files-found: ignore
-      - name: Setup tmate session
-        if: always()
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: false
+      # - name: Setup tmate session
+      #   if: always()
+      #   uses: mxschmitt/action-tmate@v3
+      #   with:
+      #     limit-access-to-actor: false
           
