@@ -2,8 +2,8 @@
 
 BeginPackage["FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`"];
 
-checkModels::usage = "checkModels[] checks for Catalog.wl changes and offers to build updated models.
-Returns Null if no changes, $Failed on error, or the build result if user confirms.";
+checkModels::usage = "checkModels[] checks for Catalog.wl changes and incomplete pipelines, and offers to build.
+Returns Null if no changes and pipeline is complete, $Failed on error, or the build result if user confirms.";
 
 Begin["`Private`"];
 
@@ -11,7 +11,7 @@ Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
 
 (* Main entry point *)
 checkModels[] := Module[
-	{config, changes, status, shortnames, catalogModels},
+	{config, changes, status, shortnames, catalogModels, allStatus, incompleteModels, hasCatalogChanges},
 
 	(* Guard against parallel/subkernel contexts *)
 	If[TrueQ[$ParallelEvaluationEnvironment] || $KernelID =!= 0,
@@ -36,27 +36,41 @@ checkModels[] := Module[
 		Return[$Failed]
 	];
 
-	(* No changes case *)
-	If[changes["Changed"] === {} && changes["New"] === {} && changes["Removed"] === {},
+	(* Handle validation errors *)
+	If[!TrueQ[changes["Validation"]["Valid"]],
+		showValidationErrors[changes["Validation"]];
+		Return[$Failed]
+	];
+
+	hasCatalogChanges = Not[changes["Changed"] === {} && changes["New"] === {} && changes["Removed"] === {}];
+
+	(* Always check pipeline status for ALL models to detect missing .mx files *)
+	allStatus = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[All];
+
+	(* Find models with incomplete pipelines (not UpToDate) *)
+	incompleteModels = Keys@Select[allStatus, #["MainStage"] =!= "UpToDate" &];
+
+	(* If no catalog changes AND pipeline is complete, return Null *)
+	If[!hasCatalogChanges && incompleteModels === {},
 		Return[Null]
 	];
 
 	(* Get catalog to map keys to shortnames *)
 	catalogModels = FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`getCatalogModels[];
 
-	(* Get pipeline status for changed/new models *)
-	shortnames = Map[
-		catalogModels[#]["shortname"] &,
-		Join[changes["Changed"], changes["New"]]
+	(* Determine which models to report on: union of changed/new and incomplete *)
+	If[hasCatalogChanges,
+		shortnames = DeleteDuplicates@Join[
+			Map[catalogModels[#]["shortname"] &, Join[changes["Changed"], changes["New"]]],
+			incompleteModels
+		],
+		(* No catalog changes, just incomplete pipelines *)
+		shortnames = incompleteModels;
+		(* Mark as "incomplete pipeline" run *)
+		changes = <|changes, "IncompletePipeline" -> True|>
 	];
 
 	status = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[shortnames];
-
-	(* Handle validation errors *)
-	If[!TrueQ[changes["Validation"]["Valid"]],
-		showValidationErrors[changes["Validation"]];
-		Return[$Failed]
-	];
 
 	(* Show report and prompt for build *)
 	showPipelineReport[changes, status, shortnames]
@@ -119,10 +133,16 @@ openOrCreateConfigFile[] := Module[{home, file, defaults, create},
 
 (* Pipeline report and build prompt *)
 showPipelineReport[changes_, status_, shortnames_] := Module[
-	{dialogResult, buildResult, grid},
+	{dialogResult, buildResult, grid, title},
 
 	(* Build status grid *)
 	grid = formatStatusGrid[status];
+
+	(* Choose title based on whether it's catalog changes or incomplete pipeline *)
+	title = If[TrueQ[changes["IncompletePipeline"]],
+		"Incomplete Pipeline Detected",
+		"Catalog Changes Detected"
+	];
 
 	If[$Notebooks =!= True,
 		(* Terminal mode *)
@@ -131,10 +151,10 @@ showPipelineReport[changes_, status_, shortnames_] := Module[
 		(* Notebook mode: use DialogInput for value return *)
 		dialogResult = DialogInput[
 			Column[{
-				Style["Catalog Changes Detected", "Title", 16, Bold],
+				Style[title, "Title", 16, Bold],
 				Style[DateString[], "Subtitle", Gray],
 				"",
-				formatChangeSummary[changes],
+				formatChangeSummary[changes, shortnames],
 				"",
 				Style["Pipeline Status:", Bold],
 				Pane[grid, ImageSize -> {500, 150}, Scrollbars -> {False, Automatic}],
@@ -169,17 +189,24 @@ showPipelineReport[changes_, status_, shortnames_] := Module[
 (* Terminal output with fully qualified command *)
 showTerminalReport[changes_, status_, shortnames_] := Module[{},
 	Print[""];
-	Print["=== LongRunRisk: Catalog Changes Detected ==="];
+	If[TrueQ[changes["IncompletePipeline"]],
+		Print["=== LongRunRisk: Incomplete Pipeline Detected ==="],
+		Print["=== LongRunRisk: Catalog Changes Detected ==="]
+	];
 	Print[""];
 
-	If[changes["New"] =!= {},
-		Print["New models: ", StringRiffle[changes["New"], ", "]]];
-	If[changes["Changed"] =!= {},
-		Print["Changed models: ", StringRiffle[changes["Changed"], ", "]]];
-	If[changes["Removed"] =!= {},
-		Print["Removed models: ", StringRiffle[changes["Removed"], ", "]]];
-	If[TrueQ[changes["FirstRun"]],
-		Print["(First run - no previous manifest)"]];
+	If[TrueQ[changes["IncompletePipeline"]],
+		Print["Models with incomplete pipelines: ", StringRiffle[shortnames, ", "]],
+		(* Regular catalog changes *)
+		If[changes["New"] =!= {},
+			Print["New models: ", StringRiffle[changes["New"], ", "]]];
+		If[changes["Changed"] =!= {},
+			Print["Changed models: ", StringRiffle[changes["Changed"], ", "]]];
+		If[changes["Removed"] =!= {},
+			Print["Removed models: ", StringRiffle[changes["Removed"], ", "]]];
+		If[TrueQ[changes["FirstRun"]],
+			Print["(First run - no previous manifest)"]]
+	];
 
 	Print[""];
 	Print["Pipeline Status:"];
@@ -244,7 +271,10 @@ printStatusTable[status_Association] := Module[{},
 	]
 ];
 
-formatChangeSummary[changes_Association] := Column[{
+formatChangeSummary[changes_Association, shortnames_List : {}] := Column[{
+	If[TrueQ[changes["IncompletePipeline"]],
+		Row[{Style["Models with incomplete pipelines: ", Bold], StringRiffle[shortnames, ", "]}],
+		Nothing],
 	If[changes["New"] =!= {},
 		Row[{Style["New models: ", Bold], StringRiffle[changes["New"], ", "]}],
 		Nothing],
