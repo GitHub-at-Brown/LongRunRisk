@@ -69,7 +69,13 @@ jobs:
       - name: Warm up paclet
         run: |
           wolframscript -code '
+            Print["=== Starting paclet warmup ==="];
+            Print["$SystemID: ", $SystemID];
+            Print["Working directory: ", Directory[]];
+            Print["Loading paclet directory..."];
             PacletDirectoryLoad["."];
+            Print["Paclet directory loaded"];
+            Print["Loading LongRunRisk package..."];
             Needs["FernandoDuarte`LongRunRisk`"];
             Print["Paclet loaded successfully"]
           '
