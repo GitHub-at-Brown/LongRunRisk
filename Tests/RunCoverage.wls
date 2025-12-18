@@ -133,16 +133,26 @@ Module[{
      - FindRootOptim: Causes abort during cleanup
      - ParamQuadSolve: Causes AssociateTo::invak errors that corrupt coverage runtime *)
   coverageExcludeDirs = {"FindRootOptim", "ParamQuadSolve"};
+
+  (* Test files that load the umbrella package (Needs["FernandoDuarte`LongRunRisk`"])
+     break function body coverage tracking for sub-packages. These must be excluded
+     from CoverageEvaluate and run separately. *)
+  coverageExcludeFiles = {"ComputeConditionalExpectations.wlt", "PacletizeResources.wlt"};
+
   noCoverageTests = Select[testFiles,
-    !FreeQ[FileNameSplit[#], Alternatives @@ coverageExcludeDirs] &
+    !FreeQ[FileNameSplit[#], Alternatives @@ coverageExcludeDirs] ||
+    MemberQ[coverageExcludeFiles, FileNameTake[#]] &
   ];
   coverageTests = Select[testFiles,
-    FreeQ[FileNameSplit[#], Alternatives @@ coverageExcludeDirs] &
+    FreeQ[FileNameSplit[#], Alternatives @@ coverageExcludeDirs] &&
+    !MemberQ[coverageExcludeFiles, FileNameTake[#]] &
   ];
 
   Print["Found ", Length[testFiles], " test files total"];
   Print["  ", Length[coverageTests], " for coverage tracking"];
-  Print["  ", Length[noCoverageTests], " excluded from coverage (", StringRiffle[coverageExcludeDirs, ", "], ")"];
+  Print["  ", Length[noCoverageTests], " excluded from coverage"];
+  Print["    Dirs: ", StringRiffle[coverageExcludeDirs, ", "]];
+  Print["    Files: ", StringRiffle[coverageExcludeFiles, ", "]];
 
   (* === Initialize coverage tracking state === *)
   executionCoverageSuccess = False;
@@ -153,70 +163,36 @@ Module[{
   If[coverageMode === "Execution" || coverageMode === "Auto",
     Print["\nAttempting execution coverage with CoverageEvaluate..."];
 
-    (* IMPORTANT: Load instrumented paclet directory but DON'T load the paclet yet
-       The paclet must be loaded INSIDE CoverageEvaluate for coverage tracking to work *)
+    (* CRITICAL: Unload original paclet to ensure instrumented version is used.
+       When tests load the umbrella package, Needs calls must resolve to the
+       instrumented sub-packages, not the original ones. *)
+    PacletDirectoryUnload[pacletRoot];
     PacletDirectoryLoad[instrumentedDir];
 
-    (* Attempt CoverageEvaluate with timeout and error handling
-       Note: Don't use Check[] here - test MessagesFailure tests emit expected messages
-       that would be incorrectly caught as failures *)
-    Block[{result, salvageAttempted = False},
-      result = TimeConstrained[
-        CheckAbort[
-          Instrumentation`CoverageEvaluate[
-            (* Load paclet INSIDE CoverageEvaluate *)
-            Needs["FernandoDuarte`LongRunRisk`"];
-            TestReport[coverageTests, "ProgressReporting" -> True]
-          ],
-          (* On abort, try to salvage coverage data from runtime variables *)
-          (salvageAttempted = True;
-           Print["CoverageEvaluate aborted - attempting to salvage coverage data..."];
-           {$Aborted, $Aborted})
-        ],
-        1800, (* 30 minute timeout *)
-        {$TimedOut, $TimedOut}
+    (* Run CoverageEvaluate WITHOUT:
+       - TimeConstrained/CheckAbort wrappers (these break coverage tracking entirely)
+       - Pre-loading umbrella package (prevents function body coverage)
+       Let test files load their own packages via their Needs calls *)
+    {report, runData} = Quiet[
+      Instrumentation`CoverageEvaluate[
+        TestReport[coverageTests, "ProgressReporting" -> True]
+      ],
+      Instrumentation::versions
+    ];
+
+    If[MatchQ[runData, _Instrumentation`CoverageData],
+      executionCoverageSuccess = True;
+      Print["CoverageEvaluate completed successfully!"],
+      (* Failed *)
+      Print["CoverageEvaluate failed or returned invalid data: ", Head[runData]];
+      If[coverageMode === "Execution",
+        Print["Error: Execution mode requested but CoverageEvaluate failed."];
+        Quit[1]
       ];
-
-      (* Check what we got back *)
-      If[MatchQ[result, {_, _}] && !MatchQ[result[[1]], $Failed | $Aborted | $TimedOut],
-        (* Success! *)
-        {report, runData} = result;
-        executionCoverageSuccess = True;
-        Print["CoverageEvaluate completed successfully!"],
-        (* Failed or aborted - try to salvage coverage data *)
-        If[salvageAttempted || result[[1]] === $Aborted,
-          (* Try to construct CoverageData from runtime variables *)
-          If[ValueQ[Instrumentation`Coverage`Private`$LineCoverageRuntime],
-            Print["Salvaging coverage data from runtime variables..."];
-            With[{
-              lineData = Instrumentation`Coverage`Private`$LineCoverageRuntime,
-              funcData = If[ValueQ[Instrumentation`Coverage`Private`$FunctionCoverageRuntime],
-                Instrumentation`Coverage`Private`$FunctionCoverageRuntime,
-                <||>
-              ]
-            },
-              If[AssociationQ[lineData] && Length[lineData] > 0,
-                runData = Instrumentation`CoverageData[{lineData, funcData}];
-                executionCoverageSuccess = True;
-                Print["Coverage data salvaged successfully! (", Length[lineData], " files tracked)"],
-                Print["No coverage data found in runtime variables."]
-              ]
-            ],
-            Print["No runtime coverage data available."]
-          ]
-        ];
-
-        If[!executionCoverageSuccess,
-          Print["CoverageEvaluate failed: ", result[[1]]];
-          If[coverageMode === "Execution",
-            Print["Error: Execution mode requested but CoverageEvaluate failed."];
-            Quit[1]
-          ];
-          Print["Falling back to baseline-only coverage..."]
-        ]
-      ]
+      Print["Falling back to baseline-only coverage..."]
     ]
   ];
+
 
   (* === Generate execution coverage LCOV or fall back === *)
   If[executionCoverageSuccess && runData =!= Null,
