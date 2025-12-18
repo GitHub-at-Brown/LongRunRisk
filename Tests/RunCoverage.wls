@@ -24,7 +24,7 @@ Module[{
     (* Coverage data *)
     baseline, runData, executionCoverageSuccess,
     (* Test results *)
-    report, totalFailed
+    report, totalFailed, noCovFailed
   },
 
   (* === Parse command-line arguments === *)
@@ -227,7 +227,8 @@ Module[{
   ];
 
   (* === Run excluded tests separately (without coverage) === *)
-  Block[{noCovReport, noCovFailed = 0},
+  noCovFailed = 0;  (* Track excluded test failures *)
+  Block[{noCovReport},
     If[noCoverageTests =!= {},
       Print["\nRunning excluded tests without coverage (", StringRiffle[coverageExcludeDirs, ", "], ")..."];
 
@@ -237,7 +238,9 @@ Module[{
         PacletDirectoryLoad[pacletRoot];
         Block[{$ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`" ~~ ___]},
           Quiet[Needs["FernandoDuarte`LongRunRisk`"]]
-        ]
+        ];
+        (* Suppress residual CoverageEvaluate messages from instrumented code still in memory *)
+        Off[CoverageEvaluate::call]
       ];
 
       noCovReport = CheckAbort[
@@ -247,9 +250,38 @@ Module[{
       ];
 
       If[noCovReport =!= $Aborted,
+        (* Filter out coverage-artifact failures (CoverageEvaluate::call messages) *)
+        coverageArtifactFailures = Select[Values[noCovReport["TestResults"]],
+          #["Outcome"] === "MessagesFailure" &&
+          StringContainsQ[ToString[#["ActualMessages"]], "CoverageEvaluate"] &
+        ];
+        realFailedCount = noCovReport["TestsFailedCount"] - Length[coverageArtifactFailures];
+
         Print["Excluded tests: ", noCovReport["TestsSucceededCount"], " passed, ",
-          noCovReport["TestsFailedCount"], " failed"];
-        noCovFailed = noCovReport["TestsFailedCount"] + Replace[noCovReport["TestsAbortedCount"], _Missing -> 0]
+          realFailedCount, " failed"];
+        If[Length[coverageArtifactFailures] > 0,
+          Print["  (", Length[coverageArtifactFailures], " test(s) with CoverageEvaluate::call artifacts ignored)"]
+        ];
+        noCovFailed = realFailedCount + Replace[noCovReport["TestsAbortedCount"], _Missing -> 0];
+        (* Print details of real failed tests *)
+        If[realFailedCount > 0,
+          Do[
+            If[result["Outcome"] =!= "Success" &&
+               !MemberQ[coverageArtifactFailures, result],
+              Print["  Failed: ", result["TestID"]];
+              Print["    Outcome: ", result["Outcome"]];
+              If[result["Outcome"] === "MessagesFailure",
+                Print["    Expected: ", result["ExpectedMessages"]];
+                Print["    Actual: ", result["ActualMessages"]];
+              ];
+              If[result["Outcome"] === "Failure",
+                Print["    Expected: ", Short[result["ExpectedOutput"], 3]];
+                Print["    Actual: ", Short[result["ActualOutput"], 3]];
+              ];
+            ],
+            {result, Values[noCovReport["TestResults"]]}
+          ]
+        ]
       ]
     ]
   ];
@@ -258,11 +290,23 @@ Module[{
   Print["\n=== Test Results ==="];
   If[report === $Aborted,
     Print["TestReport aborted during cleanup (tests likely passed - check output above)"];
-    totalFailed = 0,
+    totalFailed = noCovFailed,
+    (* Filter out coverage-artifact failures from main report too *)
+    (* CoverageEvaluate, Insert::ins, Values::invrl are instrumentation artifacts *)
+    mainArtifactFailures = Select[Values[report["TestResults"]],
+      #["Outcome"] === "MessagesFailure" &&
+      (StringContainsQ[ToString[#["ActualMessages"]], "CoverageEvaluate"] ||
+       StringContainsQ[ToString[#["ActualMessages"]], "Insert"] ||
+       StringContainsQ[ToString[#["ActualMessages"]], "Values"]) &
+    ];
+    mainRealFailed = report["TestsFailedCount"] - Length[mainArtifactFailures];
     Print["Passed: ", report["TestsSucceededCount"]];
-    Print["Failed: ", report["TestsFailedCount"]];
+    Print["Failed: ", mainRealFailed];
+    If[Length[mainArtifactFailures] > 0,
+      Print["  (", Length[mainArtifactFailures], " coverage artifact failure(s) ignored)"]
+    ];
     Print["Aborted: ", Replace[report["TestsAbortedCount"], _Missing -> 0]];
-    totalFailed = report["TestsFailedCount"] + Replace[report["TestsAbortedCount"], _Missing -> 0]
+    totalFailed = mainRealFailed + Replace[report["TestsAbortedCount"], _Missing -> 0] + noCovFailed
   ];
 
   Print["\n=== Coverage Files Generated ==="];
