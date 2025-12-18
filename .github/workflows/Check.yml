@@ -30,12 +30,13 @@ jobs:
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v5
-      - name: Install perl, ghostscript, tinytex
+      - name: Install perl, ghostscript, git, tinytex
         run: |
           apt-get update -y
           apt-get install perl -y
           apt-get install ghostscript -y
           apt-get install wget -y
+          apt-get install git -y
           wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
       - name: Add latex to path
         run: echo "$HOME/bin" >> $GITHUB_PATH
