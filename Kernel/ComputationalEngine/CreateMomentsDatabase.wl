@@ -342,26 +342,76 @@ createDatabase[
 	];
 	(*construct covLong database*)
 	(*moments without stocks*)
-	ParallelDo[
-		With[
-			{
-				v1=exo[[ind1]],
-				v2=exo[[ind2]]
-			},
+		ParallelDo[
 			With[
 				{
-					tempNeg = Table[{T, uncondCov[v1[t], v2[t + T], model]}, {T, -maxLag - 1, -seqStart}],
-					tempPos = Table[{T, uncondCov[v1[t], v2[t + T], model]}, {T, seqStart, maxLag + 1}],
-					s = seqStart
-				}
-				,
-				covLong[v1, v2, q_ /; q <= (-s)] = seqfun[tempNeg, q, v1, v2];
-				covLong[v1, v2, 0] = uncondCov[v1[t], v2[t], model];
-				covLong[v1, v2, q_ /; q >= s] = seqfun[tempPos, q, v1, v2];
-				Do[
-					covLong[v1, v2, -qInd] = uncondCov[v1[t], v2[t - qInd], model];
-					covLong[v1, v2, qInd] = uncondCov[v1[t], v2[t + qInd], model];
+					v1=exo[[ind1]],
+					v2=exo[[ind2]]
+				},
+				With[
+					{
+						tempNeg = Table[{T, uncondCov[v1[t], v2[t + T], model]}, {T, -maxLag - 1, -seqStart}],
+						tempPos = Table[{T, uncondCov[v1[t], v2[t + T], model]}, {T, seqStart, maxLag + 1}],
+						s = seqStart
+					}
 					,
+					Module[
+						{
+							negRule,
+							posRule,
+							negVals,
+							posVals,
+							negRec,
+							posRec,
+							negInit,
+							posInit
+						},
+						negRule = Quiet @ CheckAbort[seqfun[tempNeg, q, v1, v2], $Failed];
+						If[
+							negRule === $Failed
+							,
+							Scan[(covLong[v1, v2, #[[1]]] = #[[2]]) &, tempNeg];
+							negVals = Reverse[tempNeg[[All, 2]]];
+							negRec = Quiet @ Check[FindLinearRecurrence[negVals], $Failed];
+								If[
+									negRec =!= $Failed
+									,
+									negInit = Take[negVals, Length[negRec]];
+									With[
+										{negRecLocal = negRec, negInitLocal = negInit, sLocal = s},
+										covLong[v1, v2, q_Integer /; q <= (-sLocal)] :=
+											Last @ LinearRecurrence[negRecLocal, negInitLocal, -q - sLocal + 1];
+									];
+								];
+							,
+							covLong[v1, v2, q_Integer /; q <= (-s)] = negRule;
+						];
+						posRule = Quiet @ CheckAbort[seqfun[tempPos, q, v1, v2], $Failed];
+						If[
+							posRule === $Failed
+							,
+							Scan[(covLong[v1, v2, #[[1]]] = #[[2]]) &, tempPos];
+							posVals = tempPos[[All, 2]];
+							posRec = Quiet @ Check[FindLinearRecurrence[posVals], $Failed];
+								If[
+									posRec =!= $Failed
+									,
+									posInit = Take[posVals, Length[posRec]];
+									With[
+										{posRecLocal = posRec, posInitLocal = posInit, sLocal = s},
+										covLong[v1, v2, q_Integer /; q >= sLocal] :=
+											Last @ LinearRecurrence[posRecLocal, posInitLocal, q - sLocal + 1];
+									];
+								];
+							,
+							covLong[v1, v2, q_Integer /; q >= s] = posRule;
+						];
+					];
+					covLong[v1, v2, 0] = uncondCov[v1[t], v2[t], model];
+					Do[
+						covLong[v1, v2, -qInd] = uncondCov[v1[t], v2[t - qInd], model];
+						covLong[v1, v2, qInd] = uncondCov[v1[t], v2[t + qInd], model];
+						,
 					{qInd, s - 1}
 				];
 				If[
@@ -379,25 +429,79 @@ createDatabase[
 		DistributedContexts -> All
 	];
 	(*moments with one stock*)
-	ParallelDo[
-		With[
-			{
-				v1 = exoStocks[[ind1]],
-				v2 = exo[[ind2]],
-				s = seqStart
-			},
-			Module[
-				{tempNeg, tempPos}
-				,
-				tempNeg[j_] = Table[{T, uncondCov[v1[t, j], v2[t + T], model]}, {T, -maxLag - 1, -seqStart}];
-				tempPos[j_] = Table[{T, uncondCov[v1[t, j], v2[t + T], model]}, {T, seqStart, maxLag + 1}];
-				covLong[v1, v2, q_ /; q <= (-s), j_] = seqfun[tempNeg[j], q, v1, v2];
-				covLong[v1, v2, 0, j_] = uncondCov[v1[t, j], v2[t], model];
-				covLong[v1, v2, q_ /; q >= s, j_] = seqfun[tempPos[j], q, v1, v2];
-				Do[
-					covLong[v1, v2, -qInd, j_] = uncondCov[v1[t, j], v2[t - qInd], model];
-					covLong[v1, v2, qInd, j_] = uncondCov[v1[t, j], v2[t + qInd], model];
+		ParallelDo[
+			With[
+				{
+					v1 = exoStocks[[ind1]],
+					v2 = exo[[ind2]],
+					s = seqStart
+				},
+				Module[
+					{tempNeg, tempPos}
 					,
+					tempNeg[j_] = Table[{T, uncondCov[v1[t, j], v2[t + T], model]}, {T, -maxLag - 1, -seqStart}];
+					tempPos[j_] = Table[{T, uncondCov[v1[t, j], v2[t + T], model]}, {T, seqStart, maxLag + 1}];
+					Module[
+						{
+							negList,
+							posList,
+							negRule,
+							posRule,
+							negVals,
+							posVals,
+							negRec,
+							posRec,
+							negInit,
+							posInit
+						},
+						negList = tempNeg[j];
+						negRule = Quiet @ CheckAbort[seqfun[negList, q, v1, v2], $Failed];
+						If[
+							negRule === $Failed
+							,
+							Scan[(covLong[v1, v2, #[[1]], j_] = #[[2]]) &, negList];
+							negVals = Reverse[negList[[All, 2]]];
+							negRec = Quiet @ Check[FindLinearRecurrence[negVals], $Failed];
+								If[
+									negRec =!= $Failed
+									,
+									negInit = Take[negVals, Length[negRec]];
+									With[
+										{negRecLocal = negRec, negInitLocal = negInit, sLocal = s},
+										covLong[v1, v2, q_Integer /; q <= (-sLocal), j_] :=
+											Last @ LinearRecurrence[negRecLocal, negInitLocal, -q - sLocal + 1];
+									];
+								];
+							,
+							covLong[v1, v2, q_Integer /; q <= (-s), j_] = negRule;
+						];
+						posList = tempPos[j];
+						posRule = Quiet @ CheckAbort[seqfun[posList, q, v1, v2], $Failed];
+						If[
+							posRule === $Failed
+							,
+							Scan[(covLong[v1, v2, #[[1]], j_] = #[[2]]) &, posList];
+							posVals = posList[[All, 2]];
+							posRec = Quiet @ Check[FindLinearRecurrence[posVals], $Failed];
+								If[
+									posRec =!= $Failed
+									,
+									posInit = Take[posVals, Length[posRec]];
+									With[
+										{posRecLocal = posRec, posInitLocal = posInit, sLocal = s},
+										covLong[v1, v2, q_Integer /; q >= sLocal, j_] :=
+											Last @ LinearRecurrence[posRecLocal, posInitLocal, q - sLocal + 1];
+									];
+								];
+							,
+							covLong[v1, v2, q_Integer /; q >= s, j_] = posRule;
+						];
+					];
+					covLong[v1, v2, 0, j_] = uncondCov[v1[t, j], v2[t], model];
+					Do[
+						covLong[v1, v2, -qInd, j_] = uncondCov[v1[t, j], v2[t - qInd], model];
+						covLong[v1, v2, qInd, j_] = uncondCov[v1[t, j], v2[t + qInd], model];
+						,
 					{qInd, s - 1}
 				];
 				covLong[v2, v1, q_Integer, j_] = covLong[v1, v2, -q, j];
@@ -411,25 +515,79 @@ createDatabase[
 		DistributedContexts -> All
 	];
 	(*moments with two stocks*)
-	ParallelDo[
-		With[
-			{
-				v1 = exoStocks[[ind1]],
-				v2 = exoStocks[[ind2]],
-				s = seqStart
-			},
-			Module[
-				{tempNeg, tempPos}
-				,
-				tempNeg[i_, j_] = Table[{T, uncondCov[v1[t, i], v2[t + T, j], model]}, {T, -maxLag - 1, -seqStart}];
-				tempPos[i_, j_] = Table[{T, uncondCov[v1[t, i], v2[t + T, j], model]}, {T, seqStart, maxLag + 1}];
-				covLong[v1, v2, q_ /; q <= (-s), i_, j_] = seqfun[tempNeg[i, j], q, v1, v2];
-				covLong[v1, v2, 0, i_, j_] = uncondCov[v1[t, i], v2[t, j], model];
-				covLong[v1, v2, q_ /; q >= s, i_, j_] = seqfun[tempPos[i, j], q, v1, v2];
-				Do[
-					covLong[v1, v2, -qInd, i_, j_] = uncondCov[v1[t, i], v2[t - qInd, j], model];
-					covLong[v1, v2, qInd, i_, j_] = uncondCov[v1[t, i], v2[t + qInd, j], model];
+		ParallelDo[
+			With[
+				{
+					v1 = exoStocks[[ind1]],
+					v2 = exoStocks[[ind2]],
+					s = seqStart
+				},
+				Module[
+					{tempNeg, tempPos}
 					,
+					tempNeg[i_, j_] = Table[{T, uncondCov[v1[t, i], v2[t + T, j], model]}, {T, -maxLag - 1, -seqStart}];
+					tempPos[i_, j_] = Table[{T, uncondCov[v1[t, i], v2[t + T, j], model]}, {T, seqStart, maxLag + 1}];
+					Module[
+						{
+							negList,
+							posList,
+							negRule,
+							posRule,
+							negVals,
+							posVals,
+							negRec,
+							posRec,
+							negInit,
+							posInit
+						},
+						negList = tempNeg[i, j];
+						negRule = Quiet @ CheckAbort[seqfun[negList, q, v1, v2], $Failed];
+						If[
+							negRule === $Failed
+							,
+							Scan[(covLong[v1, v2, #[[1]], i_, j_] = #[[2]]) &, negList];
+							negVals = Reverse[negList[[All, 2]]];
+							negRec = Quiet @ Check[FindLinearRecurrence[negVals], $Failed];
+								If[
+									negRec =!= $Failed
+									,
+									negInit = Take[negVals, Length[negRec]];
+									With[
+										{negRecLocal = negRec, negInitLocal = negInit, sLocal = s},
+										covLong[v1, v2, q_Integer /; q <= (-sLocal), i_, j_] :=
+											Last @ LinearRecurrence[negRecLocal, negInitLocal, -q - sLocal + 1];
+									];
+								];
+							,
+							covLong[v1, v2, q_Integer /; q <= (-s), i_, j_] = negRule;
+						];
+						posList = tempPos[i, j];
+						posRule = Quiet @ CheckAbort[seqfun[posList, q, v1, v2], $Failed];
+						If[
+							posRule === $Failed
+							,
+							Scan[(covLong[v1, v2, #[[1]], i_, j_] = #[[2]]) &, posList];
+							posVals = posList[[All, 2]];
+							posRec = Quiet @ Check[FindLinearRecurrence[posVals], $Failed];
+								If[
+									posRec =!= $Failed
+									,
+									posInit = Take[posVals, Length[posRec]];
+									With[
+										{posRecLocal = posRec, posInitLocal = posInit, sLocal = s},
+										covLong[v1, v2, q_Integer /; q >= sLocal, i_, j_] :=
+											Last @ LinearRecurrence[posRecLocal, posInitLocal, q - sLocal + 1];
+									];
+								];
+							,
+							covLong[v1, v2, q_Integer /; q >= s, i_, j_] = posRule;
+						];
+					];
+					covLong[v1, v2, 0, i_, j_] = uncondCov[v1[t, i], v2[t, j], model];
+					Do[
+						covLong[v1, v2, -qInd, i_, j_] = uncondCov[v1[t, i], v2[t - qInd, j], model];
+						covLong[v1, v2, qInd, i_, j_] = uncondCov[v1[t, i], v2[t + qInd, j], model];
+						,
 					{qInd, s - 1}
 				];
 				covLong[v2, v1, q_Integer, i_, j_] = covLong[v1, v2, -q, j, i];
@@ -613,10 +771,8 @@ createDatabase[
 	];(*If*)
 	DownValues[Evaluate@covLong]=DeleteCases[DownValues[Evaluate@covLong],HoldForm,{3},Heads->True];
 	
-	(*save to file*)
-	With[{dataCovLong=PacletizedResourceFunctions`DefinitionData[covLong]},
-		Put[dataCovLong,covLongFilename];
-	];
+	(* save to file (binary dump of symbol definitions) *)
+	DumpSave[covLongFilename, Evaluate @ covLong];
 ];(*With*)
 
 
