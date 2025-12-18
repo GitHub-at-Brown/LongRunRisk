@@ -1235,8 +1235,15 @@ flattenForCompileBody[expr_] := Module[
         If[rank == 0, "Real64", TypeSpecifier["PackedArray"]["Real64", rank]]
     ];
 
-    (* Apply RecursiveRewrite to decompose expression *)
-    result = ResourceFunction["RecursiveRewrite"][expr];
+    (* Apply RecursiveRewrite to decompose expression with timeout *)
+    Print["flattenForCompileBody: Starting RecursiveRewrite (LeafCount=", LeafCount[expr], ")"];
+    result = TimeConstrained[
+        ResourceFunction["RecursiveRewrite"][expr],
+        300,  (* 5 minute timeout *)
+        Print["flattenForCompileBody: RecursiveRewrite timed out after 5 minutes"]; $Failed
+    ];
+    Print["flattenForCompileBody: RecursiveRewrite completed"];
+    If[result === $Failed, Return[{expr, returnType}]];
     If[!MatchQ[result, {_String, {__RuleDelayed}}],
         Return[{expr, returnType}]
     ];
