@@ -585,9 +585,9 @@ cleanAllOutputs[root_String] := Module[{resourcesDir, compiledDir, momentsDir},
 	compiledDir = FileNameJoin[{resourcesDir, "CompiledFunctions"}];
 	momentsDir = FileNameJoin[{resourcesDir, "MomentsLookupTables"}];
 
-	(* delete compiled .mx files *)
+	(* delete compiled .mx files from root and all platform subfolders *)
 	If[DirectoryQ[compiledDir],
-		DeleteFile /@ FileNames["*.mx", compiledDir]
+		DeleteFile /@ FileNames["*.mx", compiledDir, Infinity]
 	];
 
 	(* delete moments lookup tables *)
@@ -708,8 +708,8 @@ determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
 			"Reason" -> "model not in Models.wl"|>]
 	];
 
-	(* Check: Compiled file valid *)
-	mxFile = FileNameJoin[{compiledDir, shortname <> ".mx"}];
+	(* Check: Compiled file valid - use platform-specific subfolder *)
+	mxFile = FileNameJoin[{compiledDir, $SystemID, shortname <> ".mx"}];
 	validation = validateCompiledFile[mxFile, savedModel];
 	If[!validation["Valid"],
 		Return[<|"MainStage" -> "Compile", "NeedsJacobians" -> compileJacobians,
@@ -734,9 +734,9 @@ determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
 		]
 	];
 
-	(* Check jacobians independently *)
+	(* Check jacobians independently - use platform-specific subfolder *)
 	If[compileJacobians,
-		With[{jacFile = FileNameJoin[{compiledDir, shortname <> "_jacobians.mx"}]},
+		With[{jacFile = FileNameJoin[{compiledDir, $SystemID, shortname <> "_jacobians.mx"}]},
 			validation = validateCompiledFile[jacFile, savedModel, "JacobianOnly"];
 			If[!validation["Valid"],
 				Return[<|"MainStage" -> "UpToDate", "NeedsJacobians" -> True,

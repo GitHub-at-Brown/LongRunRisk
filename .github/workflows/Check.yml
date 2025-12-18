@@ -73,6 +73,20 @@ jobs:
             Needs["FernandoDuarte`LongRunRisk`"];
             Print["Paclet loaded successfully"]
           '
+      - name: Commit MX files if updated
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        run: |
+          # Check if there are new/modified MX files in the platform subfolder
+          if [ -n "$(git status --porcelain Resources/CompiledFunctions/Linux-x86-64/)" ]; then
+            echo "MX files were updated, committing..."
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add Resources/CompiledFunctions/Linux-x86-64/*.mx
+            git commit -m "Update compiled MX files for Linux-x86-64"
+            git push
+          else
+            echo "No MX file changes to commit"
+          fi
       - name: Test
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.11.0

@@ -1505,8 +1505,11 @@ With[{
 	fileSuffix = If[compileMode === "JacobianOnly", "_jacobians", ""],
 	storageKey = If[compileMode === "JacobianOnly", "jacobians", "kernels"]
 },
-Module[{kernels, file, currentHash, savedData, savedHash, savedSystemID},
-	file = FileNameJoin[{resourcesCompiledDir, shortname <> fileSuffix <> ".mx"}];
+Module[{kernels, file, platformDir, currentHash, savedData, savedHash, savedSystemID},
+	(* Use platform-specific subfolder for MX files *)
+	platformDir = FileNameJoin[{resourcesCompiledDir, $SystemID}];
+	If[!DirectoryQ[platformDir], CreateDirectory[platformDir]];
+	file = FileNameJoin[{platformDir, shortname <> fileSuffix <> ".mx"}];
 	currentHash = Hash[{compileMode, compilerChoice, flattenOpt, pdMode, eqMap}, "Expression"];
 
 	(* check cache *)

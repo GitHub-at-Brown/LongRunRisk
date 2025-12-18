@@ -291,8 +291,8 @@ loadModelKernels[shortname_String] := Module[
     Return[$kernelCache[shortname]]
   ];
 
-  (* Build file path *)
-  file = FileNameJoin[{$pacletRoot, "Resources", "CompiledFunctions", shortname <> ".mx"}];
+  (* Build file path - use platform-specific subfolder *)
+  file = FileNameJoin[{$pacletRoot, "Resources", "CompiledFunctions", $SystemID, shortname <> ".mx"}];
 
   (* Check file exists *)
   If[!FileExistsQ[file],
