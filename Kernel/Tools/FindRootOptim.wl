@@ -1238,7 +1238,7 @@ flattenForCompileBody[expr_] := Module[
     (* Apply RecursiveRewrite to decompose expression with timeout *)
     Print["flattenForCompileBody: Starting RecursiveRewrite (LeafCount=", LeafCount[expr], ")"];
     result = TimeConstrained[
-        ResourceFunction["RecursiveRewrite"][expr],
+        (* ResourceFunction["RecursiveRewrite"]*)PacletizedResourceFunctions`RecursiveRewrite[expr], 
         300,  (* 5 minute timeout *)
         Print["flattenForCompileBody: RecursiveRewrite timed out after 5 minutes"]; $Failed
     ];
