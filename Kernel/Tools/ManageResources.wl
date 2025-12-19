@@ -1032,13 +1032,13 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			];
 
 			If[$Notebooks === True,
-				CreateDialog[{
+				(* CreateDialog[{
 					TextCell[
 						"Phase 3 numerical loop complete.\nContext saved to:\n" <> phase3ContextFile,
 						"Text"
 					],
 					DefaultButton["OK", DialogReturn[]]
-				}],
+				}], *)
 				Print["Phase 3 numerical loop complete. Context file: ", phase3ContextFile]
 			];
 
