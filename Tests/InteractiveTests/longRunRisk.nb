@@ -2925,18 +2925,17 @@ Cell[BoxData[{
    RowBox[{"FernandoDuarte`LongRunRisk`Models", "[", "modelName", "]"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"covLongFilename", "=", 
-   RowBox[{"FileNameJoin", "[", 
-    RowBox[{"{", 
-     RowBox[{"resourcesDir", ",", "\"\<MomentsLookupTables\>\"", ",", 
-      RowBox[{"\"\<covLong\>\"", "<>", "modelName", "<>", "\"\<.wl\>\""}]}], 
-     "}"}], "]"}]}], ";"}], "\n", 
- RowBox[{"Get", "@", 
-  RowBox[{"Get", "@", "covLongFilename"}]}]}], "Input",
- CellChangeTimes->{{3.910014173635005*^9, 3.910014173834529*^9}, {
-  3.9100435042928667`*^9, 3.9100435047308083`*^9}, {3.91021950384065*^9, 
-  3.910219504123459*^9}, {3.910219636815084*^9, 3.910219637131401*^9}, {
-  3.9102197133024406`*^9, 3.910219715552146*^9}},
+	  RowBox[{"covLongFilename", "=", 
+	   RowBox[{"FileNameJoin", "[", 
+	    RowBox[{"{", 
+	     RowBox[{"resourcesDir", ",", "\"\<MomentsLookupTables\>\"", ",", 
+	      RowBox[{"\"\<covLong\>\"", "<>", "modelName", "<>", "\"\<.mx\>\""}]}], 
+	     "}"}], "]"}]}], ";"}], "\n", 
+	 RowBox[{"Get", "@", "covLongFilename"}]}], "Input",
+	 CellChangeTimes->{{3.910014173635005*^9, 3.910014173834529*^9}, {
+	  3.9100435042928667`*^9, 3.9100435047308083`*^9}, {3.91021950384065*^9, 
+	  3.910219504123459*^9}, {3.910219636815084*^9, 3.910219637131401*^9}, {
+	  3.9102197133024406`*^9, 3.910219715552146*^9}},
  CellLabel->"In[57]:=",ExpressionUUID->"88feb00d-749b-453c-8eb4-a8d1c7d86ab8"],
 
 Cell[BoxData["FernandoDuarte`LongRunRisk`covLongNRCStochVol"], "Output",
@@ -4684,4 +4683,3 @@ Cell[134213, 3623, 1073, 28, 90, "Input",ExpressionUUID->"abc4642c-a615-452e-82c
 }
 ]
 *)
-

@@ -111,14 +111,14 @@ Notebook[
               {
                "resourcesDir",
                ",",
-               "\"MomentsLookupTables\"",
-               ",",
-               RowBox[
-                {"\"covLong\"", "<>", "modelShortName", "<>", "\".wl\""}
-               ]
-              }
-             ],
-             "}"
+	               "\"MomentsLookupTables\"",
+	               ",",
+	               RowBox[
+	                {"\"covLong\"", "<>", "modelShortName", "<>", "\".mx\""}
+	               ]
+	              }
+	             ],
+	             "}"
             }
            ],
            "]"

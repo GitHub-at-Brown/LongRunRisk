@@ -475,16 +475,16 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{"Do", "[", "\[IndentingNewLine]", 
     RowBox[{
-     RowBox[{
-      RowBox[{"fileName", "=", 
-       RowBox[{"FileNameJoin", "[", 
-        RowBox[{"{", 
-         RowBox[{"resourcesDir", ",", "\"\<MomentsLookupTables\>\"", ",", 
-          RowBox[{"\"\<covLong\>\"", "<>", "key", "<>", "\"\<.wl\>\""}]}], 
-         "}"}], "]"}]}], ";", "\[IndentingNewLine]", 
-      RowBox[{"If", "[", "\[IndentingNewLine]", 
-       RowBox[{
-        RowBox[{"!", 
+	     RowBox[{
+	      RowBox[{"fileName", "=", 
+	       RowBox[{"FileNameJoin", "[", 
+	        RowBox[{"{", 
+	         RowBox[{"resourcesDir", ",", "\"\<MomentsLookupTables\>\"", ",", 
+	          RowBox[{"\"\<covLong\>\"", "<>", "key", "<>", "\"\<.mx\>\""}]}], 
+	         "}"}], "]"}]}], ";", "\[IndentingNewLine]", 
+	      RowBox[{"If", "[", "\[IndentingNewLine]", 
+	       RowBox[{
+	        RowBox[{"!", 
          RowBox[{"FileExistsQ", "[", "fileName", "]"}]}], ",", 
         "\[IndentingNewLine]", 
         RowBox[{"CreateFile", "[", "fileName", "]"}]}], "\[IndentingNewLine]",
@@ -52860,4 +52860,3 @@ Cell[3126760, 52610, 3991, 102, 652, "Input",ExpressionUUID->"6dd2110e-772a-4135
 }
 ]
 *)
-

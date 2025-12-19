@@ -11,7 +11,7 @@ resourcesDir = FileNameJoin[{DirectoryName[$InputFileName, 2], "Resources"}];
 compiledDir = CreateDirectory[
   FileNameJoin[{$TemporaryDirectory, "LongRunRisk-CompilationCachingTest-" <> CreateUUID[]}]
 ];
-mxFile = FileNameJoin[{compiledDir, "TestBY.mx"}];
+mxFile = FileNameJoin[{compiledDir, $SystemID, "TestBY.mx"}];
 
 getFileModTime[file_] := If[FileExistsQ[file], AbsoluteTime[FileDate[file]], 0];
 

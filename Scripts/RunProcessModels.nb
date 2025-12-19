@@ -14905,29 +14905,29 @@ LongRunRisk/Resources/ModelManifest.wl\"\>",
    ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
 LongRunRisk/Resources/Models.wl\"\>", 
    ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/MomentsLookupTables/covLongBKY_meta.wl\"\>", 
-   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/MomentsLookupTables/covLongBKY.wl\"\>", 
-   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/MomentsLookupTables/covLongBY_meta.wl\"\>", 
-   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/MomentsLookupTables/covLongBY.wl\"\>", 
-   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/MomentsLookupTables/covLongDES_meta.wl\"\>", 
-   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/MomentsLookupTables/covLongDES.wl\"\>", 
-   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/MomentsLookupTables/covLongNRC_meta.wl\"\>", 
-   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/MomentsLookupTables/covLongNRCStochVol_meta.wl\"\>", 
-   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/MomentsLookupTables/covLongNRCStochVol.wl\"\>", 
-   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/MomentsLookupTables/covLongNRC.wl\"\>", 
-   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/MomentsLookupTables/.DS_Store\"\>", 
-   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
-LongRunRisk/Resources/PacletizedResourceFunctions.paclet\"\>"}], 
+	LongRunRisk/Resources/MomentsLookupTables/covLongBKY_meta.wl\"\>", 
+	   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
+LongRunRisk/Resources/MomentsLookupTables/covLongBKY.mx\"\>", 
+	   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
+	LongRunRisk/Resources/MomentsLookupTables/covLongBY_meta.wl\"\>", 
+	   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
+LongRunRisk/Resources/MomentsLookupTables/covLongBY.mx\"\>", 
+	   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
+	LongRunRisk/Resources/MomentsLookupTables/covLongDES_meta.wl\"\>", 
+	   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
+LongRunRisk/Resources/MomentsLookupTables/covLongDES.mx\"\>", 
+	   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
+	LongRunRisk/Resources/MomentsLookupTables/covLongNRC_meta.wl\"\>", 
+	   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
+	LongRunRisk/Resources/MomentsLookupTables/covLongNRCStochVol_meta.wl\"\>", 
+	   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
+LongRunRisk/Resources/MomentsLookupTables/covLongNRCStochVol.mx\"\>", 
+	   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
+LongRunRisk/Resources/MomentsLookupTables/covLongNRC.mx\"\>", 
+	   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
+	LongRunRisk/Resources/MomentsLookupTables/.DS_Store\"\>", 
+	   ",", "\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/\
+	LongRunRisk/Resources/PacletizedResourceFunctions.paclet\"\>"}], 
   "}"}]], "Output",
  CellChangeTimes->{3.974473771590708*^9},
  CellLabel->"Out[48]=",ExpressionUUID->"eab17885-b753-47d8-9ecf-e24c938177ae"]
@@ -20098,4 +20098,3 @@ Cell[1002611, 19572, 211, 5, 36, "Input",ExpressionUUID->"cd5847eb-9baf-4507-846
 }
 ]
 *)
-

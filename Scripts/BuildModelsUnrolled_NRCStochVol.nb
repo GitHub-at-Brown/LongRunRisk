@@ -3138,16 +3138,16 @@ Cell[BoxData[{
 Cell[BoxData[{
  RowBox[{"(* Define moments output file *)"}], "\n",
  RowBox[{
-  RowBox[{"momentsFile", "=",
-   RowBox[{"FileNameJoin", "[",
-    RowBox[{"{",
-     RowBox[{"momentsDir", ",",
-      RowBox[{"\"\<covLong\>\"", "<>", "shortname", "<>", "\"\<.wl\>\""}]}], "}"}], "]"}]}], ";"}], "\n",
- RowBox[{
-  RowBox[{"momentsMetaFile", "=",
-   RowBox[{"FileNameJoin", "[",
-    RowBox[{"{",
-     RowBox[{"momentsDir", ",",
+	  RowBox[{"momentsFile", "=",
+	   RowBox[{"FileNameJoin", "[",
+	    RowBox[{"{",
+	     RowBox[{"momentsDir", ",",
+	      RowBox[{"\"\<covLong\>\"", "<>", "shortname", "<>", "\"\<.mx\>\""}]}], "}"}], "]"}]}], ";"}], "\n",
+	 RowBox[{
+	  RowBox[{"momentsMetaFile", "=",
+	   RowBox[{"FileNameJoin", "[",
+	    RowBox[{"{",
+	     RowBox[{"momentsDir", ",",
       RowBox[{"\"\<covLong\>\"", "<>", "shortname", "<>", "\"\<_meta.wl\>\""}]}], "}"}], "]"}]}], ";"}], "\n",
  RowBox[{
   RowBox[{"Print", "[",
