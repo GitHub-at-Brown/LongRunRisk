@@ -1,4 +1,6 @@
+# Legacy flat MX layout (MX now stored under Resources/CompiledFunctions/$SystemID/)
 Resources/CompiledFunctions/*.mx
+.DS_Store
 .claude/**
 .cursor/**
 .vscode/**

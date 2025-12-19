@@ -2177,23 +2177,16 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"CreateDirectory", "[", "covLongDir", "]"}], ";", 
     "\[IndentingNewLine]", 
-    RowBox[{"covLongFilename", "=", 
-     RowBox[{"FileNameJoin", "[", 
-      RowBox[{"{", 
-       RowBox[{"covLongDir", ",", "\"\<covLongNewNRC.wl\>\""}], "}"}], 
-      "]"}]}], ";", "\[IndentingNewLine]", 
-    RowBox[{"With", "[", 
-     RowBox[{
-      RowBox[{"{", 
-       RowBox[{"dataCovLong", "=", 
-        RowBox[{
-         RowBox[{"ResourceFunction", "[", "\"\<DefinitionData\>\"", "]"}], "[",
-          "covLongNRC", "]"}]}], "}"}], ",", "\n", "\t\t", 
-      RowBox[{
-       RowBox[{"Put", "[", 
-        RowBox[{"dataCovLong", ",", "covLongFilename"}], "]"}], ";"}]}], "\n",
-      "\t", "]"}], ";"}], "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{"File", "[", "covLongFilename", "]"}]}], "Input",
+	    RowBox[{"covLongFilename", "=", 
+	     RowBox[{"FileNameJoin", "[", 
+	      RowBox[{"{", 
+	       RowBox[{"covLongDir", ",", "\"\<covLongNewNRC.mx\>\""}], "}"}], 
+	      "]"}]}], ";", "\[IndentingNewLine]", 
+	    RowBox[{
+	     RowBox[{"DumpSave", "[", 
+	      RowBox[{"covLongFilename", ",", "covLongNRC"}], "]"}], ";"}]}], 
+	   "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", 
+	 RowBox[{"File", "[", "covLongFilename", "]"}]}], "Input",
  CellChangeTimes->{{3.910231423991501*^9, 3.9102314844519787`*^9}, {
   3.910231532206458*^9, 3.91023157982718*^9}, {3.9102317521908827`*^9, 
   3.910231764971593*^9}, {3.910231865670576*^9, 3.910231917453003*^9}, {
@@ -2210,9 +2203,9 @@ Cell["Load stored moments when you want to use them again:", "MathCaption",
  CellID->1068395119,ExpressionUUID->"8d1a682c-17c2-4371-ae16-305545b7a1e1"],
 
 Cell[BoxData[{
- RowBox[{
-  RowBox[{"ClearAll", "[", "covLongNRC", "]"}], 
-  ";"}], "\[IndentingNewLine]", 
+	 RowBox[{
+	  RowBox[{"ClearAll", "[", "covLongNRC", "]"}], 
+	  ";"}], "\[IndentingNewLine]", 
  RowBox[{"Length", "[", 
   RowBox[{"DownValues", "[", "covLongNRC", "]"}], "]"}], "\[IndentingNewLine]", 
  RowBox[{
@@ -2222,11 +2215,10 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"ClearAll", "[", "covLongNRC", "]"}], 
   ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"Get", "@", 
-   RowBox[{"Get", "@", "covLongFilename"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{"Length", "[", 
-  RowBox[{"DownValues", "[", "covLongNRC", "]"}], "]"}]}], "Input",
+	 RowBox[{
+	  RowBox[{"Get", "@", "covLongFilename"}], ";"}], "\[IndentingNewLine]", 
+	 RowBox[{"Length", "[", 
+	  RowBox[{"DownValues", "[", "covLongNRC", "]"}], "]"}]}], "Input",
  CellChangeTimes->{{3.910232046774645*^9, 3.9102320811259537`*^9}, {
   3.91023283337807*^9, 3.9102328563911467`*^9}, {3.910233092393713*^9, 
   3.910233106774156*^9}},
@@ -2261,12 +2253,11 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"ClearAll", "[", "covLongNRC", "]"}], 
   ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"Get", "@", 
-   RowBox[{"Get", "@", "covLongFilename"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{"Timing", "[", 
-  RowBox[{"UncondCov", "[", 
-   RowBox[{
+	 RowBox[{
+	  RowBox[{"Get", "@", "covLongFilename"}], ";"}], "\[IndentingNewLine]", 
+	 RowBox[{"Timing", "[", 
+	  RowBox[{"UncondCov", "[", 
+	   RowBox[{
     RowBox[{"wc", "[", "t", "]"}], ",", 
     SuperscriptBox[
      RowBox[{"pi", "[", 
@@ -2325,21 +2316,13 @@ Cell[BoxData[{
   RowBox[{"covLongFilename2", "=", 
    RowBox[{"FileNameJoin", "[", 
     RowBox[{"{", 
-     RowBox[{"covLongDirectory", ",", "\"\<covLongNRC.wl\>\""}], "}"}], 
+     RowBox[{"covLongDirectory", ",", "\"\<covLongNRC.mx\>\""}], "}"}], 
     "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Quiet", "@", 
-   RowBox[{"With", "[", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{"dataCovLong", "=", 
-       RowBox[{
-        RowBox[{"ResourceFunction", "[", "\"\<DefinitionData\>\"", "]"}], "[",
-         "covLongNRC", "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
-     RowBox[{
-      RowBox[{"Put", "[", 
-       RowBox[{"dataCovLong", ",", "covLongFilename2"}], "]"}], ";"}]}], 
-    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]"}], "Input",
+   RowBox[{"DumpSave", "[", 
+    RowBox[{"covLongFilename2", ",", "covLongNRC"}], "]"}]}], ";"}], 
+ "\[IndentingNewLine]"}], "Input",
  CellChangeTimes->{{3.9102329984246264`*^9, 3.910233077444285*^9}, {
   3.910233153143394*^9, 3.9102332292044888`*^9}},
  CellLabel->"In[41]:=",
@@ -2374,8 +2357,7 @@ Cell[BoxData[{
   RowBox[{"ClearAll", "[", "covLongNRC", "]"}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"Get", "@", 
-   RowBox[{"Get", "@", "covLongFilename"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"Get", "@", "covLongFilename"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{"Length", "[", 
   RowBox[{"DownValues", "[", "covLongNRC", "]"}], "]"}], "\[IndentingNewLine]", 
  RowBox[{"Timing", "[", 

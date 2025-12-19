@@ -55,7 +55,7 @@ fastRoot::badspec = "Invalid spec format `1`. Expected scalar, {lo, hi}, {x0, lo
 fastRoot::noautox0 = "Cannot compute automatic starting point without bounds.";
 fastRoot::compiled = "Function is a CompiledCodeFunction; Newton+Jacobian unavailable, using fallback.";
 fastRoot::baddim = "Inconsistent dimensions in spec: `1`.";
-createCompiledEq::usage = "createCompiledEq[model, dir] compiles model equations to dir/{shortname}.mx. Returns file path on success.";
+createCompiledEq::usage = "createCompiledEq[model, dir] compiles model equations to dir/$SystemID/{shortname}.mx. Returns file path on success.";
 buildEqMapFromModel::usage = "buildEqMapFromModel[model] extracts the equation map from a processed model for use in compilation and hash validation.";
 
 

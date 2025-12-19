@@ -326,14 +326,14 @@ Cell[BoxData[GridBox[{
      "661a5628-7f89-44cd-8d33-ba8815e0e957"], Cell[
     "Numerical solution when closed-form unavailable", "TableText",
      ExpressionUUID->"63a4a085-e3f9-477e-b674-b943e0b009e5"]},
-   {"Moments", Cell[
-    "Compute moments lookup tables", "TableText",ExpressionUUID->
-     "fd19b413-5fc9-4d3d-82a8-203ef5f28934"], Cell[
-    ".wl files in MomentsLookupTables/", "TableText",ExpressionUUID->
-     "b735a34c-de97-46f9-8349-da27aa984eb4"]}
-  },
-  GridBoxDividers->{
-   "Rows" -> {False, True, {False}, False}}]], "DefinitionBox3Col",
+	   {"Moments", Cell[
+	    "Compute moments lookup tables", "TableText",ExpressionUUID->
+	     "fd19b413-5fc9-4d3d-82a8-203ef5f28934"], Cell[
+	    ".mx files in MomentsLookupTables/", "TableText",ExpressionUUID->
+	     "b735a34c-de97-46f9-8349-da27aa984eb4"]}
+	  },
+	  GridBoxDividers->{
+	   "Rows" -> {False, True, {False}, False}}]], "DefinitionBox3Col",
  CellChangeTimes->{{3.974686118855688*^9, 3.97468619626602*^9}, {
   3.974686248377439*^9, 3.9746863800454493`*^9}, {3.974686417173634*^9, 
   3.974686427019957*^9}, {3.974686457771183*^9, 3.974686490154859*^9}, {
@@ -794,4 +794,3 @@ Cell[20382, 556, 149, 2, 70, "Keywords",ExpressionUUID->"56f9f9b6-5f49-4dd3-a62c
 *)
 
 (* End of internal cache information *)
-

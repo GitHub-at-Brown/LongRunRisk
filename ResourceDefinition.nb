@@ -2283,15 +2283,15 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"covLongBKY.wl\"", 
+   TemplateBox[{"\"covLongBKY.mx\"", 
      FileNameJoin[{
        NotebookDirectory[], "Resources", "MomentsLookupTables", 
-       "covLongBKY.wl"}]},
+       "covLongBKY.mx"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[2]]& ],
   FileNameJoin[{
-    NotebookDirectory[], "Resources", "MomentsLookupTables", "covLongBKY.wl"}],
+    NotebookDirectory[], "Resources", "MomentsLookupTables", "covLongBKY.mx"}],
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile",
  CellMargins->{{46 + Inherited, Inherited}, {Inherited, Inherited}},
@@ -2334,15 +2334,15 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"covLongBY.wl\"", 
+   TemplateBox[{"\"covLongBY.mx\"", 
      FileNameJoin[{
        NotebookDirectory[], "Resources", "MomentsLookupTables", 
-       "covLongBY.wl"}]},
+       "covLongBY.mx"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[2]]& ],
   FileNameJoin[{
-    NotebookDirectory[], "Resources", "MomentsLookupTables", "covLongBY.wl"}],
+    NotebookDirectory[], "Resources", "MomentsLookupTables", "covLongBY.mx"}],
   
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile",
@@ -2386,15 +2386,15 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"covLongDES.wl\"", 
+   TemplateBox[{"\"covLongDES.mx\"", 
      FileNameJoin[{
        NotebookDirectory[], "Resources", "MomentsLookupTables", 
-       "covLongDES.wl"}]},
+       "covLongDES.mx"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[2]]& ],
   FileNameJoin[{
-    NotebookDirectory[], "Resources", "MomentsLookupTables", "covLongDES.wl"}],
+    NotebookDirectory[], "Resources", "MomentsLookupTables", "covLongDES.mx"}],
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile",
  CellMargins->{{46 + Inherited, Inherited}, {Inherited, Inherited}},
@@ -2463,16 +2463,16 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"covLongNRCStochVol.wl\"", 
+   TemplateBox[{"\"covLongNRCStochVol.mx\"", 
      FileNameJoin[{
        NotebookDirectory[], "Resources", "MomentsLookupTables", 
-       "covLongNRCStochVol.wl"}]},
+       "covLongNRCStochVol.mx"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[2]]& ],
   FileNameJoin[{
     NotebookDirectory[], "Resources", "MomentsLookupTables", 
-    "covLongNRCStochVol.wl"}],
+    "covLongNRCStochVol.mx"}],
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile",
  CellMargins->{{46 + Inherited, Inherited}, {Inherited, Inherited}},
@@ -2489,15 +2489,15 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"covLongNRC.wl\"", 
+   TemplateBox[{"\"covLongNRC.mx\"", 
      FileNameJoin[{
        NotebookDirectory[], "Resources", "MomentsLookupTables", 
-       "covLongNRC.wl"}]},
+       "covLongNRC.mx"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[2]]& ],
   FileNameJoin[{
-    NotebookDirectory[], "Resources", "MomentsLookupTables", "covLongNRC.wl"}],
+    NotebookDirectory[], "Resources", "MomentsLookupTables", "covLongNRC.mx"}],
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile",
  CellMargins->{{46 + Inherited, Inherited}, {Inherited, Inherited}},
@@ -4050,16 +4050,16 @@ Cell[TextData[Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"covLongBKY.wl\"", 
+   TemplateBox[{"\"covLongBKY.mx\"", 
      FileNameJoin[{
        NotebookDirectory[], "temp", "LongRunRisk_copy", "Resources", 
-       "MomentsLookupTables", "covLongBKY.wl"}]},
+       "MomentsLookupTables", "covLongBKY.mx"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[4]]& ],
   FileNameJoin[{
     NotebookDirectory[], "temp", "LongRunRisk_copy", "Resources", 
-    "MomentsLookupTables", "covLongBKY.wl"}],
+    "MomentsLookupTables", "covLongBKY.mx"}],
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile",
  CellMargins->{{92 + Inherited, Inherited}, {Inherited, Inherited}},
@@ -4076,16 +4076,16 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"covLongBY.wl\"", 
+   TemplateBox[{"\"covLongBY.mx\"", 
      FileNameJoin[{
        NotebookDirectory[], "temp", "LongRunRisk_copy", "Resources", 
-       "MomentsLookupTables", "covLongBY.wl"}]},
+       "MomentsLookupTables", "covLongBY.mx"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[4]]& ],
   FileNameJoin[{
     NotebookDirectory[], "temp", "LongRunRisk_copy", "Resources", 
-    "MomentsLookupTables", "covLongBY.wl"}],
+    "MomentsLookupTables", "covLongBY.mx"}],
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile",
  CellMargins->{{92 + Inherited, Inherited}, {Inherited, Inherited}},
@@ -4102,16 +4102,16 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"covLongDES.wl\"", 
+   TemplateBox[{"\"covLongDES.mx\"", 
      FileNameJoin[{
        NotebookDirectory[], "temp", "LongRunRisk_copy", "Resources", 
-       "MomentsLookupTables", "covLongDES.wl"}]},
+       "MomentsLookupTables", "covLongDES.mx"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[4]]& ],
   FileNameJoin[{
     NotebookDirectory[], "temp", "LongRunRisk_copy", "Resources", 
-    "MomentsLookupTables", "covLongDES.wl"}],
+    "MomentsLookupTables", "covLongDES.mx"}],
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile",
  CellMargins->{{92 + Inherited, Inherited}, {Inherited, Inherited}},
@@ -4128,16 +4128,16 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"covLongNRCStochVol.wl\"", 
+   TemplateBox[{"\"covLongNRCStochVol.mx\"", 
      FileNameJoin[{
        NotebookDirectory[], "temp", "LongRunRisk_copy", "Resources", 
-       "MomentsLookupTables", "covLongNRCStochVol.wl"}]},
+       "MomentsLookupTables", "covLongNRCStochVol.mx"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[4]]& ],
   FileNameJoin[{
     NotebookDirectory[], "temp", "LongRunRisk_copy", "Resources", 
-    "MomentsLookupTables", "covLongNRCStochVol.wl"}],
+    "MomentsLookupTables", "covLongNRCStochVol.mx"}],
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile",
  CellMargins->{{92 + Inherited, Inherited}, {Inherited, Inherited}},
@@ -4154,16 +4154,16 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   TagBox[
-   TemplateBox[{"\"covLongNRC.wl\"", 
+   TemplateBox[{"\"covLongNRC.mx\"", 
      FileNameJoin[{
        NotebookDirectory[], "temp", "LongRunRisk_copy", "Resources", 
-       "MomentsLookupTables", "covLongNRC.wl"}]},
+       "MomentsLookupTables", "covLongNRC.mx"}]},
     "FileManagerFileOpenerTemplate"],
    Annotation[#, 
     DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[4]]& ],
   FileNameJoin[{
     NotebookDirectory[], "temp", "LongRunRisk_copy", "Resources", 
-    "MomentsLookupTables", "covLongNRC.wl"}],
+    "MomentsLookupTables", "covLongNRC.mx"}],
   BoxID -> "FileTreePath",
   BaseStyle->{"Text"}]], "FileManagerFile",
  CellMargins->{{92 + Inherited, Inherited}, {Inherited, Inherited}},
@@ -19345,4 +19345,3 @@ GRPf1sw3cDj8VSOm/5G9w5vAHXKt3IZQ/0HDoQHBFwFFwBcEHxR9zQlGcP3o
   "Default.nb"],
 ExpressionUUID->"edbb2442-2d63-4240-aefc-33014d75719e"
 ]
-

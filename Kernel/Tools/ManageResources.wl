@@ -592,7 +592,10 @@ cleanAllOutputs[root_String] := Module[{resourcesDir, compiledDir, momentsDir},
 
 	(* delete moments lookup tables *)
 	If[DirectoryQ[momentsDir],
-		DeleteFile /@ FileNames["covLong*.wl", momentsDir]
+		DeleteFile /@ Join[
+			FileNames["covLong*.mx", momentsDir],
+			FileNames["covLong*.wl", momentsDir]
+		]
 	];
 
 	(* delete Models.wl and ModelManifest.wl *)
@@ -633,9 +636,8 @@ getMomentsHash[catalogEntry_Association, model_Association] :=
 		"endogenousEq" -> model["endogenousEq"]
 	|>];
 
-
 (* helper: check if moments files are current *)
-(* Uses separate metadata file because createDatabase uses DefinitionData format *)
+(* Uses separate metadata file so we can validate cache without loading it *)
 momentsUpToDate[momentsFile_String, metaFile_String, expectedHash_String] := Module[
 	{savedMeta, savedHash},
 	(* Both files must exist *)
@@ -643,7 +645,9 @@ momentsUpToDate[momentsFile_String, metaFile_String, expectedHash_String] := Mod
 	savedMeta = Quiet[Get[metaFile]];
 	If[!AssociationQ[savedMeta], Return[False]];
 	savedHash = savedMeta["Hash"];
-	savedHash === expectedHash
+	If[savedHash =!= expectedHash, Return[False]];
+	If[KeyExistsQ[savedMeta, "SystemID"] && savedMeta["SystemID"] =!= $SystemID, Return[False]];
+	True
 ];
 
 
@@ -685,6 +689,18 @@ validateCompiledFile[mxFile_String, model_Association, compileMode_String : "Fun
 	<|"Valid" -> True, "Reason" -> "valid"|>
 ];
 
+(* helper: resolve compiled .mx path (platform subfolder preferred, legacy flat fallback) *)
+resolveCompiledMxFile[compiledDir_String, shortname_String, fileSuffix_String : ""] := Module[
+	{newFile, legacyFile},
+	newFile = FileNameJoin[{compiledDir, $SystemID, shortname <> fileSuffix <> ".mx"}];
+	legacyFile = FileNameJoin[{compiledDir, shortname <> fileSuffix <> ".mx"}];
+	Which[
+		FileExistsQ[newFile], newFile,
+		FileExistsQ[legacyFile], legacyFile,
+		True, newFile
+	]
+];
+
 
 (* helper: determine what stage a model needs to start from *)
 determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
@@ -708,8 +724,8 @@ determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
 			"Reason" -> "model not in Models.wl"|>]
 	];
 
-	(* Check: Compiled file valid - use platform-specific subfolder *)
-	mxFile = FileNameJoin[{compiledDir, $SystemID, shortname <> ".mx"}];
+	(* Check: Compiled file valid - prefer platform-specific subfolder *)
+	mxFile = resolveCompiledMxFile[compiledDir, shortname];
 	validation = validateCompiledFile[mxFile, savedModel];
 	If[!validation["Valid"],
 		Return[<|"MainStage" -> "Compile", "NeedsJacobians" -> compileJacobians,
@@ -724,7 +740,7 @@ determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
 
 	(* Check: Moments (if enabled) *)
 	If[createMoments,
-		With[{momentsFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> ".wl"}],
+		With[{momentsFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> ".mx"}],
 			metaFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> "_meta.wl"}],
 			expectedHash = getMomentsHash[catalogModels[modelKey], savedModel]},
 			If[!momentsUpToDate[momentsFile, metaFile, expectedHash],
@@ -734,9 +750,9 @@ determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
 		]
 	];
 
-	(* Check jacobians independently - use platform-specific subfolder *)
+	(* Check jacobians independently - prefer platform-specific subfolder *)
 	If[compileJacobians,
-		With[{jacFile = FileNameJoin[{compiledDir, $SystemID, shortname <> "_jacobians.mx"}]},
+		With[{jacFile = resolveCompiledMxFile[compiledDir, shortname, "_jacobians"]},
 			validation = validateCompiledFile[jacFile, savedModel, "JacobianOnly"];
 			If[!validation["Valid"],
 				Return[<|"MainStage" -> "UpToDate", "NeedsJacobians" -> True,
@@ -1042,7 +1058,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 					(* Process each model *)
 					Do[
 						shortname = catalogModels[modelKey]["shortname"];
-						momentsFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> ".wl"}];
+						momentsFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> ".mx"}];
 						metaFile = FileNameJoin[{momentsDir, "covLong" <> shortname <> "_meta.wl"}];
 
 						(* Create moments database *)
@@ -1061,9 +1077,9 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 								"SystemID" -> $SystemID
 							|>,
 							metaFile
-						];
+							];
 
-						, {modelKey, momentsModels}
+					, {modelKey, momentsModels}
 					];
 
 					(* Cleanup parallel kernels *)

@@ -194,12 +194,48 @@ modelFilename=FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]];
 FernandoDuarte`LongRunRisk`Models = Get@Get[modelFilename];
 (*FernandoDuarte`LongRunRisk`Models = Get@Get["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Resources/Models.wl"];*)
 (*FernandoDuarte`LongRunRisk`Models = Get@data;*)
+(* load any DefinitionData resources under Resources/, excluding models/manifest/meta and moments tables *)
 Map[
 	Get@Get@#&,
 	Select[
-		Flatten@StringCases[filesInResources,__~~".wl"],
-		Function[s, Not@StringEndsQ[s, "_meta.wl" | "ModelManifest.wl" | "Models.wl" ]]
+		Flatten@StringCases[filesInResources, __ ~~ ".wl"],
+		Function[
+			s,
+			Not@StringEndsQ[s, "_meta.wl" | "ModelManifest.wl" | "Models.wl"] &&
+			Not@(StringContainsQ[s, "MomentsLookupTables"] && StringStartsQ[FileNameTake[s], "covLong"])
+		]
 	]
+];
+(* load moments lookup tables, preferring DumpSave .mx with fallback to DefinitionData .wl *)
+With[
+	{
+		momentsCandidates = Select[
+			filesInResources,
+			Function[
+				s,
+				StringContainsQ[s, "MomentsLookupTables"] &&
+				StringStartsQ[FileNameTake[s], "covLong"] &&
+				StringEndsQ[s, ".mx" | ".wl"] &&
+				Not@StringEndsQ[s, "_meta.wl"]
+			]
+		]
+	},
+	Map[
+		Function[
+			group,
+			Module[{mxFile, wlFile},
+				mxFile = SelectFirst[group, StringEndsQ[#, ".mx"] &, Missing["NotFound"]];
+				wlFile = SelectFirst[group, StringEndsQ[#, ".wl"] &, Missing["NotFound"]];
+				If[mxFile =!= Missing["NotFound"],
+					If[Quiet@Check[Get@mxFile, $Failed] === $Failed && wlFile =!= Missing["NotFound"],
+						Get@Get@wlFile
+					],
+					If[wlFile =!= Missing["NotFound"], Get@Get@wlFile]
+				]
+			]
+		],
+		GatherBy[momentsCandidates, FileBaseName]
+	];
 ];
 
 
