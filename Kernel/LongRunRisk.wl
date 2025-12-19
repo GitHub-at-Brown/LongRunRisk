@@ -183,6 +183,10 @@ reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunR
 (* load models *)
 FernandoDuarte`LongRunRisk`Models = Get@Get@"FernandoDuarte/LongRunRisk/Models.wl";
 
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+FernandoDuarte`LongRunRisk`Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];
+
+
 (* load moments lookup tables *)
 Needs["PacletTools`"];
 pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
@@ -384,21 +388,10 @@ End[]; (*"`Private`"*)
 EndPackage[];
 
 
-(* === Export CheckModels to main context === *)
-(* Safe initialization - NEVER affects package load success *)
-(*Quiet[
-	Check[
-		Needs["FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`"];
-		(* Make CheckModels available in main context *)
-		FernandoDuarte`LongRunRisk`CheckModels =
-			FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`CheckModels;
-		,
-		Null  (* Silently ignore any errors *)
-	],
-	All  (* Suppress all messages *)
-];*)
+(* ::Subsection:: *)
+(*Load and build models*)
 
-(* Optional: auto-check on first load only - guarded *)
+
 Quiet[
 	Check[
 		If[!TrueQ[$ParallelEvaluationEnvironment] && $KernelID === 0,
