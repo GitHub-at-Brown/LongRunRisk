@@ -13,11 +13,7 @@ Get@FileNameJoin[{pacletDir,"Kernel","ComputationalEngine","CreateMomentsDatabas
 Echo[pacletDir,"pacletDir"];
 out=AbsoluteTiming[
 Do[
-fileName=FileNameJoin[{resourcesDir,"MomentsLookupTables","covLong"<>key<>".wl"}];
-If[
-!FileExistsQ[fileName],
-CreateFile[fileName]
-];
+fileName=FileNameJoin[{resourcesDir,"MomentsLookupTables","covLong"<>key<>".mx"}];
 createDatabase[
 	FernandoDuarte`LongRunRisk`Models[key],
 	fileName
