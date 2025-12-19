@@ -254,18 +254,26 @@ showTerminalReport[changes_, status_, shortnames_] := Module[{},
 ];
 
 (* Status icon - uses Position for robustness *)
-statusIcon[stage_String, currentStage_String] := Module[
-	{stageOrder, stageIdx, currentIdx, pos},
+(* reason parameter determines if this is a catalog-change cascade or artifact-only rebuild *)
+statusIcon[stage_String, currentStage_String, reason_String : ""] := Module[
+	{stageOrder, stageIdx, currentIdx, pos, catalogChanged},
 	stageOrder = {"Symbolic", "Compile", "Numerical", "Moments", "UpToDate"};
 	pos = Position[stageOrder, stage];
 	stageIdx = If[pos === {}, 6, pos[[1, 1]]];
 	pos = Position[stageOrder, currentStage];
 	currentIdx = If[pos === {}, 6, pos[[1, 1]]];
+
+	(* Check if this is a catalog-change cascade (full rebuild) or artifact-only (no moments cascade) *)
+	catalogChanged = MemberQ[{"catalog changed", "model not in Models.wl"}, reason];
+
 	Which[
 		stageIdx < currentIdx,
 			If[$Notebooks =!= True, "[OK]", Style["\[Checkmark]", Darker@Green, Bold]],
 		stageIdx == currentIdx,
 			If[$Notebooks =!= True, "[>>]", Style["\[RightArrow]", Orange, Bold]],
+		(* For Moments stage: if artifact-only issue, moments won't be rebuilt - show as valid *)
+		stage === "Moments" && !catalogChanged && currentIdx < 4,
+			If[$Notebooks =!= True, "[OK]", Style["\[Checkmark]", Darker@Green, Bold]],
 		True,
 			If[$Notebooks =!= True, "[ ]", Style["\[FilledCircle]", Gray]]
 	]
@@ -275,10 +283,10 @@ formatStatusGrid[status_Association] := Grid[
 	Prepend[
 		KeyValueMap[
 			{#1,
-			 statusIcon["Symbolic", #2["MainStage"]],
-			 statusIcon["Compile", #2["MainStage"]],
-			 statusIcon["Numerical", #2["MainStage"]],
-			 statusIcon["Moments", #2["MainStage"]],
+			 statusIcon["Symbolic", #2["MainStage"], #2["Reason"]],
+			 statusIcon["Compile", #2["MainStage"], #2["Reason"]],
+			 statusIcon["Numerical", #2["MainStage"], #2["Reason"]],
+			 statusIcon["Moments", #2["MainStage"], #2["Reason"]],
 			 #2["MainStage"],
 			 #2["Reason"]} &,
 			status
@@ -295,10 +303,10 @@ printStatusTable[status_Association] := Module[{},
 	Print["|-----------|------|------|------|------|------------|-----------|"];
 	KeyValueMap[
 		Print["| ", StringPadRight[#1, 9], " | ",
-			StringPadRight[statusIcon["Symbolic", #2["MainStage"]], 4], " | ",
-			StringPadRight[statusIcon["Compile", #2["MainStage"]], 4], " | ",
-			StringPadRight[statusIcon["Numerical", #2["MainStage"]], 4], " | ",
-			StringPadRight[statusIcon["Moments", #2["MainStage"]], 4], " | ",
+			StringPadRight[statusIcon["Symbolic", #2["MainStage"], #2["Reason"]], 4], " | ",
+			StringPadRight[statusIcon["Compile", #2["MainStage"], #2["Reason"]], 4], " | ",
+			StringPadRight[statusIcon["Numerical", #2["MainStage"], #2["Reason"]], 4], " | ",
+			StringPadRight[statusIcon["Moments", #2["MainStage"], #2["Reason"]], 4], " | ",
 			StringPadRight[#2["MainStage"], 10], " | ",
 			StringPadRight[#2["Reason"], 9], " |"] &,
 		status
