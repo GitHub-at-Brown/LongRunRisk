@@ -30,7 +30,6 @@ PacletObject[
           "FernandoDuarte`LongRunRisk`Info",
           "FernandoDuarte`LongRunRisk`Models",
           "FernandoDuarte`LongRunRisk`PlotCoeffs",
-          "FernandoDuarte`LongRunRisk`t",
           "FernandoDuarte`LongRunRisk`ToEquation",
           "FernandoDuarte`LongRunRisk`ToExogenousVars",
           "FernandoDuarte`LongRunRisk`ToNum",
@@ -45,12 +44,20 @@ PacletObject[
         }
       },
        {
-        "Documentation",
-        "Root" -> "Documentation",
-        "Language" -> "English"
+        "Documentation"
       },
-      {"Asset", "Assets" -> {{"License", "./LICENSE"}}},
-      {"Path", "Root" -> "Resources"}
+      {
+	      "Asset",
+	      "Assets" -> {{"License", "./LICENSE"}}
+      },
+      {
+	      "Path",
+	      "Root" -> "Resources"
+      },
+      {
+	      "Path",
+	      "Root" -> "Resources/MomentsLookupTables"
+      }
     }
   |>
 ]
