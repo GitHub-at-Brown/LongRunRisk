@@ -894,6 +894,14 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		modelsByStage = GroupBy[Keys[modelStatuses], modelStatuses[#]["MainStage"] &];
 		modelsNeedingJacobians = Select[Keys[modelStatuses], modelStatuses[#]["NeedsJacobians"] &];
 
+		(* Track models where catalog actually changed - these need full cascade to moments *)
+		(* Models with artifact-only issues (file missing, platform mismatch) should not cascade to moments *)
+		catalogChangedModels = Select[
+			Keys[modelStatuses],
+			modelStatuses[#]["Reason"] === "catalog changed" ||
+			modelStatuses[#]["Reason"] === "model not in Models.wl" &
+		];
+
 		(* early exit if nothing to do *)
 		modelsByStage = KeyDrop[modelsByStage, "UpToDate"];
 		If[Total[Length /@ Values[modelsByStage]] == 0 && Length[modelsNeedingJacobians] == 0,
@@ -1045,7 +1053,13 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			(* Phase 4: Moments database - cascade from Numerical + models at Moments stage *)
 			If[createMoments,
 			Module[{numLaunched, momentsFile, metaFile, currentHash},
-				momentsModels = DeleteDuplicates @ Join[numericalModels, Lookup[modelsByStage, "Moments", {}]];
+				(* Only cascade to moments if catalog changed, otherwise check moments independently *)
+				momentsModels = DeleteDuplicates @ Join[
+					(* Models that went through numerical AND had catalog changes - need moments recomputed *)
+					Intersection[numericalModels, catalogChangedModels],
+					(* Models specifically identified as needing moments stage *)
+					Lookup[modelsByStage, "Moments", {}]
+				];
 
 				If[Length[momentsModels] > 0,
 					(* Setup parallel kernels *)
