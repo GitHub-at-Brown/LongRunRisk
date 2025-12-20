@@ -68,17 +68,22 @@ jobs:
           tlmgr path add
           tlmgr list --only-installed
       - name: Warm up paclet
+        timeout-minutes: 15
         run: |
           wolframscript -code '
             Print["=== Starting paclet warmup ==="];
+            Print["Timestamp: ", DateString[]];
             Print["$SystemID: ", $SystemID];
+            Print["$Version: ", $Version];
             Print["Working directory: ", Directory[]];
-            Print["Loading paclet directory..."];
+
+            Print["[", DateString["ISOTime"], "] Loading paclet directory..."];
             PacletDirectoryLoad["."];
-            Print["Paclet directory loaded"];
-            Print["Loading LongRunRisk package..."];
+            Print["[", DateString["ISOTime"], "] Paclet directory loaded"];
+
+            Print["[", DateString["ISOTime"], "] Loading LongRunRisk package..."];
             Needs["FernandoDuarte`LongRunRisk`"];
-            Print["Paclet loaded successfully"]
+            Print["[", DateString["ISOTime"], "] Paclet loaded successfully"]
           '
       - name: Commit MX files if updated
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
