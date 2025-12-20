@@ -135,7 +135,11 @@ Cell[BoxData[{
        "fileName", ",", "\n", "\t\t\t", 
        RowBox[{"\"\<PacletName\>\"", " ", "->", " ", "pacletName"}]}], "\n", 
       "\t\t", "]"}], ";"}], "\n", "\t\t", ",", "\n", "\t\t", 
-    RowBox[{"ResourceObject", "::", "notfname"}]}], "\n", "\t\t", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"ResourceObject", "::", "notfname"}], ",", 
+      RowBox[{"ResourceFunction", "::", "usermessage"}]}], "}"}]}], "\n", 
+   "\t\t", 
    "]"}]}]}], "Code",
  InitializationCell->False,
  CellChangeTimes->{{3.9732774439960546`*^9, 3.973277444486072*^9}, {
@@ -162,7 +166,80 @@ documentation pages.\\\\\\\"\\\"], \\\"RowDefault\\\"]], \
 In[5]:=",ExpressionUUID->"36c5bcc6-000d-4018-883a-9399c2724251"]
 }, Open  ]],
 
-Cell[BoxData[""], "Input",
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"stripPacletDocs", "[", "file_", "]"}], " ", ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "tmpDir", ",", " ", "pacletRootDir", ",", " ", "pacletInfoFile", ",", 
+        " ", "pacletInfo", ",", " ", "documentationDir"}], "}"}], ",", "\n", 
+      "\t", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"!", " ", 
+          RowBox[{"FileExistsQ", "[", "file", "]"}]}], ",", " ", 
+         RowBox[{"Return", "[", "$Failed", "]"}]}], "]"}], ";", "\n", "\t", 
+       RowBox[{"tmpDir", " ", "=", " ", 
+        RowBox[{"CreateDirectory", "[", "]"}]}], ";", "\n", "\t", 
+       RowBox[{"ExtractArchive", "[", 
+        RowBox[{"file", ",", " ", "tmpDir"}], "]"}], ";", "\n", "\t", 
+       RowBox[{"pacletRootDir", " ", "=", " ", 
+        RowBox[{"First", " ", "@", " ", 
+         RowBox[{"Select", "[", 
+          RowBox[{
+           RowBox[{"FileNames", "[", 
+            RowBox[{"\"\<*\>\"", ",", " ", "tmpDir"}], "]"}], ",", " ", 
+           "DirectoryQ"}], "]"}]}]}], ";", "\n", "\t", 
+       RowBox[{"documentationDir", " ", "=", " ", 
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{"pacletRootDir", ",", " ", "\"\<Documentation\>\""}], "}"}], 
+         "]"}]}], ";", "\n", "\t", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"DirectoryQ", "[", "documentationDir", "]"}], ",", " ", 
+         RowBox[{"DeleteDirectory", "[", 
+          RowBox[{"documentationDir", ",", " ", 
+           RowBox[{"DeleteContents", " ", "->", " ", "True"}]}], "]"}]}], 
+        "]"}], ";", "\n", "\t", 
+       RowBox[{"pacletInfoFile", " ", "=", " ", 
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{"pacletRootDir", ",", " ", "\"\<PacletInfo.m\>\""}], "}"}], 
+         "]"}]}], ";", "\n", "\t", 
+       RowBox[{"pacletInfo", " ", "=", " ", 
+        RowBox[{"Get", "[", "pacletInfoFile", "]"}]}], ";", "\n", "\t", 
+       RowBox[{"pacletInfo", " ", "=", " ", 
+        RowBox[{"pacletInfo", " ", "/.", " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"Extensions", " ", "->", " ", "ext_"}], ")"}], " ", ":>", 
+          " ", 
+          RowBox[{"(", 
+           RowBox[{"Extensions", " ", "->", " ", 
+            RowBox[{"DeleteCases", "[", 
+             RowBox[{"ext", ",", " ", 
+              RowBox[{"{", 
+               RowBox[{"\"\<Documentation\>\"", ",", " ", "___"}], "}"}]}], 
+             "]"}]}], ")"}]}]}]}], ";", "\n", "\t", 
+       RowBox[{"Put", "[", 
+        RowBox[{"pacletInfo", ",", " ", "pacletInfoFile"}], "]"}], ";", "\n", 
+       "\t", 
+       RowBox[{"CreateArchive", "[", 
+        RowBox[{"pacletRootDir", ",", " ", "file", ",", " ", 
+         RowBox[{"OverwriteTarget", " ", "->", " ", "True"}]}], "]"}], ";", 
+       "\n", "\t", 
+       RowBox[{"DeleteDirectory", "[", 
+        RowBox[{"tmpDir", ",", " ", 
+         RowBox[{"DeleteContents", " ", "->", " ", "True"}]}], "]"}], ";", 
+       "\n", "\t", "file"}]}], "\n", "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"stripPacletDocs", "[", "fileName", "]"}], ";"}]}], "Input",
  CellChangeTimes->{{3.9738758556345043`*^9, 
   3.973875857346158*^9}},ExpressionUUID->"3956ada6-b3a3-4044-91bb-\
 fb1bc711cae5"]
@@ -1039,4 +1116,3 @@ Cell[5956, 164, 154, 3, 29, "Input",ExpressionUUID->"3956ada6-b3a3-4044-91bb-fb1
 }
 ]
 *)
-
