@@ -68,7 +68,7 @@ jobs:
           tlmgr path add
           tlmgr list --only-installed
       - name: Warm up paclet
-        timeout-minutes: 15
+        timeout-minutes: 20
         run: |
           wolframscript -code '
             Print["=== Starting paclet warmup ==="];
@@ -77,13 +77,48 @@ jobs:
             Print["$Version: ", $Version];
             Print["Working directory: ", Directory[]];
 
-            Print["[", DateString["ISOTime"], "] Loading paclet directory..."];
+            Print[DateString[], " Loading paclet directory..."];
             PacletDirectoryLoad["."];
-            Print["[", DateString["ISOTime"], "] Paclet directory loaded"];
+            Print[DateString[], " Paclet directory loaded"];
 
-            Print["[", DateString["ISOTime"], "] Loading LongRunRisk package..."];
+            (* Load dependencies step by step to find where it hangs *)
+            Print[DateString[], " Step 1: Installing PacletizedResourceFunctions..."];
+            If[{}===PacletFind["PacletizedResourceFunctions"],
+              PacletInstall[File[FindFile["FernandoDuarte/LongRunRisk/PacletizedResourceFunctions.paclet"]],
+                KeepExistingVersion->False, ForceVersionInstall->True]
+            ];
+            Print[DateString[], " Step 1 complete"];
+
+            Print[DateString[], " Step 2: Installing MaTeXInstall..."];
+            If[{}===PacletFind["MaTeXInstall"->"1.0.0"],
+              PacletInstall[File[FindFile["FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"]],
+                KeepExistingVersion->True, ForceVersionInstall->True]
+            ];
+            Print[DateString[], " Step 2 complete"];
+
+            Print[DateString[], " Step 3: Loading PacletizedResourceFunctions..."];
+            Get["PacletizedResourceFunctions`"];
+            Print[DateString[], " Step 3 complete"];
+
+            Print[DateString[], " Step 4: Loading MaTeXInstall definitions..."];
+            Quiet@PacletizedResourceFunctions`NeedsDefinitions[
+              FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],"Kernel","MaTeXInstall.wl"}]
+            ];
+            Print[DateString[], " Step 4 complete"];
+
+            Print[DateString[], " Step 5: Installing MaTeX if needed..."];
+            If[{}===PacletFind["MaTeX"],
+              MaTeXInstall`MaTeXInstall[]
+            ];
+            Print[DateString[], " Step 5 complete"];
+
+            Print[DateString[], " Step 6: Loading MaTeX..."];
+            Needs["MaTeX`"];
+            Print[DateString[], " Step 6 complete"];
+
+            Print[DateString[], " Step 7: Loading full LongRunRisk package..."];
             Needs["FernandoDuarte`LongRunRisk`"];
-            Print["[", DateString["ISOTime"], "] Paclet loaded successfully"]
+            Print[DateString[], " Paclet loaded successfully!"]
           '
       - name: Commit MX files if updated
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
