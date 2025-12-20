@@ -83,6 +83,7 @@ jobs:
       - name: Commit MX files if updated
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           # Check if there are new/modified MX files in the platform subfolder
           if [ -n "$(git status --porcelain Resources/CompiledFunctions/Linux-x86-64/)" ]; then
             echo "MX files were updated, committing..."
