@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     53221,       1036]
-NotebookOptionsPosition[      6200,        171]
-NotebookOutlinePosition[     52555,       1025]
-CellTagsIndexPosition[     52512,       1022]
+NotebookDataLength[     53128,       1034]
+NotebookOptionsPosition[      6114,        169]
+NotebookOutlinePosition[     52462,       1023]
+CellTagsIndexPosition[     52419,       1020]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -108,9 +108,7 @@ Cell[BoxData[{
     RowBox[{"{", 
      RowBox[{"\"\<NeedsDefinitions\>\"", ",", "\"\<SetSymbolsContext\>\"", 
       ",", "\"\<DefinitionData\>\"", ",", "\"\<RecursiveRewrite\>\""}], 
-     RowBox[{"(*", 
-      RowBox[{",", "\"\<CopyDefinitions\>\"", ",", "\"\<CompoundScope\>\""}], 
-      "*)"}], "}"}]}], ";"}], " "}], "\n", 
+     "}"}]}], ";"}], " "}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -143,8 +141,8 @@ Cell[BoxData[{
  CellChangeTimes->{{3.9732774439960546`*^9, 3.973277444486072*^9}, {
    3.973300793957636*^9, 3.973300801902275*^9}, {3.9733030823088093`*^9, 
    3.973303091196885*^9}, {3.973875804913336*^9, 3.9738758059630127`*^9}, 
-   3.9749917443217697`*^9, {3.9751530860274487`*^9, 
-   3.9751530937275057`*^9}},ExpressionUUID->"605abd3f-0626-402e-8123-\
+   3.9749917443217697`*^9, {3.9751530860274487`*^9, 3.9751530937275057`*^9}, 
+   3.975200011387603*^9},ExpressionUUID->"605abd3f-0626-402e-8123-\
 a27e9f629830"],
 
 Cell[BoxData[
@@ -169,9 +167,8 @@ Cell[BoxData[""], "Input",
   3.973875857346158*^9}},ExpressionUUID->"3956ada6-b3a3-4044-91bb-\
 fb1bc711cae5"]
 },
-Evaluator->"Local2",
 WindowSize->{1070, 842},
-WindowMargins->{{-1513, Automatic}, {-59, Automatic}},
+WindowMargins->{{-1514, Automatic}, {-58, Automatic}},
 DockedCells->{
   Cell[
    BoxData[
@@ -833,7 +830,8 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
             ImageSize -> {300, 25}, AspectRatio -> Full, 
             PlotRange -> {{-1, 1}, {-1, 1}}, ImagePadding -> None] :> (
            SelectionMove[LinterUIDockedCell`Private`cell, All, Cell]; 
-           With[{LinterUIDockedCell`Private`nb = 
+           With[{
+             LinterUIDockedCell`Private`nb = 
               ParentNotebook[LinterUIDockedCell`Private`cell]}, 
              FrontEndExecute[
               FrontEnd`FrontEndToken[
@@ -1033,11 +1031,11 @@ Cell[1553, 47, 328, 4, 33, "Output",ExpressionUUID->"258e1ce6-7bc1-40a7-b23c-1b7
 Cell[1896, 54, 1434, 36, 204, "Code",ExpressionUUID->"a97b263c-42f7-427b-86ba-5ebf4618f28c",
  InitializationCell->False],
 Cell[CellGroupData[{
-Cell[3355, 94, 1997, 53, 299, "Code",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830",
+Cell[3355, 94, 1911, 51, 299, "Code",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830",
  InitializationCell->False],
-Cell[5355, 149, 672, 14, 26, "Message",ExpressionUUID->"36c5bcc6-000d-4018-883a-9399c2724251"]
+Cell[5269, 147, 672, 14, 26, "Message",ExpressionUUID->"36c5bcc6-000d-4018-883a-9399c2724251"]
 }, Open  ]],
-Cell[6042, 166, 154, 3, 29, "Input",ExpressionUUID->"3956ada6-b3a3-4044-91bb-fb1bc711cae5"]
+Cell[5956, 164, 154, 3, 29, "Input",ExpressionUUID->"3956ada6-b3a3-4044-91bb-fb1bc711cae5"]
 }
 ]
 *)

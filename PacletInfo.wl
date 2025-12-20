@@ -43,7 +43,7 @@ PacletObject[
           "FernandoDuarte`LongRunRisk`YieldCurve"
         }
       },
-       {
+      {
         "Documentation"
       },
       {

@@ -68,7 +68,7 @@ jobs:
           tlmgr path add
           tlmgr list --only-installed
       - name: Warm up paclet
-        timeout-minutes: 20
+        timeout-minutes: 5
         run: |
           wolframscript -code '
             Print["=== Starting paclet warmup ==="];
@@ -97,6 +97,8 @@ jobs:
             Print[DateString[], " Step 2 complete"];
 
             Print[DateString[], " Step 3: Loading PacletizedResourceFunctions..."];
+            Print[First@(#["Location"] & /@ PacletFind["PacletizedResourceFunctions"]), "PacletizedResourceFunctions location"];
+            Print[DateString[], " PacletizedResourceFunctions location complete"];
             Get["PacletizedResourceFunctions`"];
             Print[DateString[], " Step 3 complete"];
 
