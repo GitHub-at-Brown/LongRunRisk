@@ -97,7 +97,7 @@ jobs:
             Print[DateString[], " Step 2 complete"];
 
             Print[DateString[], " Step 3: Loading PacletizedResourceFunctions..."];
-            Print[First@(#["Location"] & /@ PacletFind["PacletizedResourceFunctions"]), "PacletizedResourceFunctions location"];
+            Print[First@(#["Location"] & /@ PacletFind["PacletizedResourceFunctions"])];
             Print[DateString[], " PacletizedResourceFunctions location complete"];
             Get["PacletizedResourceFunctions`"];
             Print[DateString[], " Step 3 complete"];

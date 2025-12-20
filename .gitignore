@@ -5,10 +5,3 @@
 /temp/
 LongRunRisk.code-workspace
 *.code-workspace
-
-# Ignore root MX files, allow platform-specific subfolders
-Resources/CompiledFunctions/*.mx
-!Resources/CompiledFunctions/Linux-x86-64/
-!Resources/CompiledFunctions/MacOSX-x86-64/
-!Resources/CompiledFunctions/MacOSX-ARM64/
-!Resources/CompiledFunctions/Windows-x86-64/
