@@ -76,6 +76,8 @@ jobs:
             Print["Loading paclet directory..."];
             PacletDirectoryLoad["."];
             Print["Paclet directory loaded"];
+            Print["$Packages available"];
+            Print[$Packages];
             Print["Loading LongRunRisk package..."];
             Needs["FernandoDuarte`LongRunRisk`"];
             Print["Paclet loaded successfully"]
