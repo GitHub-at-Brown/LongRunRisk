@@ -22,12 +22,9 @@ resolveAutoBuild[opt_] := Which[
 	(* Explicit True/False option takes priority *)
 	TrueQ[opt], True,
 	opt === False, False,
-	(* Check LONGRUNRISK_AUTOBUILD env var for explicit true *)
+	(* Check LONGRUNRISK_AUTOBUILD env var *)
 	MemberQ[{"true", "1", "yes"}, ToLowerCase[ToString[Environment["LONGRUNRISK_AUTOBUILD"]]]],
 		True,
-	(* Check LONGRUNRISK_AUTOBUILD env var for explicit false *)
-	MemberQ[{"false", "0", "no"}, ToLowerCase[ToString[Environment["LONGRUNRISK_AUTOBUILD"]]]],
-		False,
 	(* Auto-detect CI environment (GitHub Actions, Travis, CircleCI, etc. set CI=true) *)
 	MemberQ[{"true", "1"}, ToLowerCase[ToString[Environment["CI"]]]] && $Notebooks =!= True,
 		True,
@@ -43,12 +40,6 @@ Module[
 
 	(* Guard against parallel/subkernel contexts *)
 	If[TrueQ[$ParallelEvaluationEnvironment] || $KernelID =!= 0,
-		Return[Null]
-	];
-
-	(* Early exit when LONGRUNRISK_AUTOBUILD is explicitly "false" *)
-	(* This allows CI warmup to skip pipeline checks entirely *)
-	If[MemberQ[{"false", "0", "no"}, ToLowerCase[ToString[Environment["LONGRUNRISK_AUTOBUILD"]]]],
 		Return[Null]
 	];
 
