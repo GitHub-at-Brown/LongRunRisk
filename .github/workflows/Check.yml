@@ -38,7 +38,7 @@ jobs:
           path: |
             /github/home/bin
             /github/home/.TinyTeX
-          key: tinytex-${{ runner.os }}-latex-standalone-lm-svn-prov-v2
+          key: tinytex-${{ runner.os }}-latex-standalone-lm-svn-prov-v1
           restore-keys: |
             tinytex-${{ runner.os }}-
       - name: Install TinyTeX
@@ -80,17 +80,12 @@ jobs:
       - name: Load paclet
         env:
           LONGRUNRISK_SKIP_CHECK: "true"
-        timeout-minutes: 5
         run: |
-          echo "Starting wolframscript..."
           wolframscript -code '
             Print["=== Starting paclet warmup ==="];
             Print["$SystemID: ", $SystemID];
-            Print["$Packages before load: ", $Packages];
             t0 = AbsoluteTime[];
-            Print["Calling PacletDirectoryLoad..."];
             PacletDirectoryLoad["."];
-            Print["PacletDirectoryLoad done, calling Needs..."];
             Needs["FernandoDuarte`LongRunRisk`"];
             Print["Paclet loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
 
@@ -101,7 +96,6 @@ jobs:
 
             Print["=== Paclet warmup complete ==="]
           '
-          echo "wolframscript completed"
       - name: Commit MX files if updated
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: |
