@@ -38,17 +38,21 @@ checkModels[OptionsPattern[]] := With[
 Module[
 	{config, changes, status, shortnames, catalogModels, allStatus, incompleteModels, hasCatalogChanges},
 
+	If[$Notebooks =!= True, Print["[checkModels] Starting..."]];
+
 	(* Guard against parallel/subkernel contexts *)
 	If[TrueQ[$ParallelEvaluationEnvironment] || $KernelID =!= 0,
 		Return[Null]
 	];
 
+	If[$Notebooks =!= True, Print["[checkModels] Loading config..."]];
 	(* Load config *)
 	config = loadConfig[];
 	If[Lookup[config, "PipelineMonitorEnabled", True] === False,
 		Return[Null]
 	];
 
+	If[$Notebooks =!= True, Print["[checkModels] Checking catalog..."]];
 	(* Check for changes using public API *)
 	changes = FernandoDuarte`LongRunRisk`Tools`ManageResources`checkCatalogForUI[];
 
@@ -69,6 +73,7 @@ Module[
 
 	hasCatalogChanges = Not[changes["Changed"] === {} && changes["New"] === {} && changes["Removed"] === {}];
 
+	If[$Notebooks =!= True, Print["[checkModels] Getting pipeline status..."]];
 	(* Always check pipeline status for ALL models to detect missing .mx files *)
 	allStatus = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[All];
 
