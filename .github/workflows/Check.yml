@@ -84,26 +84,10 @@ jobs:
           wolframscript -code '
             Print["=== Starting paclet warmup ==="];
             Print["$SystemID: ", $SystemID];
-            Print["CI env: ", Environment["CI"]];
             t0 = AbsoluteTime[];
             PacletDirectoryLoad["."];
-
-            (* Load package but prevent auto-build by setting AutoBuild->False *)
-            (* We do this by loading dependencies first, then calling CheckModels manually *)
-            Get["PacletizedResourceFunctions`"];
-            Quiet@PacletizedResourceFunctions`NeedsDefinitions[
-              FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],"Kernel","MaTeXInstall.wl"}]];
-            If[{}===PacletFind["MaTeX"], MaTeXInstall`MaTeXInstall[]];
-
-            (* Now load the package - CheckModels will run but we want to see what happens *)
             Needs["FernandoDuarte`LongRunRisk`"];
             Print["Paclet loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
-
-            (* Show pipeline status for debugging *)
-            Print["Pipeline status:"];
-            status = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[All];
-            Scan[Print["  ", #, ": ", status[#]] &, Keys[status]];
-
             Print["=== Paclet warmup complete ==="]
           '
       - name: Commit MX files if updated
