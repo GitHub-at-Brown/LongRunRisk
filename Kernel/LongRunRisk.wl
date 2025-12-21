@@ -394,7 +394,9 @@ EndPackage[];
 
 Quiet[
 	Check[
-		If[!TrueQ[$ParallelEvaluationEnvironment] && $KernelID === 0,
+		If[!TrueQ[$ParallelEvaluationEnvironment] && $KernelID === 0 &&
+			(* Skip CheckModels if LONGRUNRISK_SKIP_CHECK=true (for CI warmup) *)
+			!MemberQ[{"true", "1"}, ToLowerCase[ToString[Environment["LONGRUNRISK_SKIP_CHECK"]]]],
 			(* Only run if not in parallel context and main kernel *)
 			FernandoDuarte`LongRunRisk`CheckModels[]
 		],

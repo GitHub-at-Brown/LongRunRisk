@@ -78,62 +78,19 @@ jobs:
           tlmgr path add
           tlmgr list --only-installed 
       - name: Load paclet
+        env:
+          LONGRUNRISK_SKIP_CHECK: "true"
         run: |
           wolframscript -code '
             Print["=== Starting paclet warmup ==="];
             Print["$SystemID: ", $SystemID];
             Print["Working directory: ", Directory[]];
-            Print["Loading paclet directory..."];
+            Print["LONGRUNRISK_SKIP_CHECK: ", Environment["LONGRUNRISK_SKIP_CHECK"]];
+            t0 = AbsoluteTime[];
             PacletDirectoryLoad["."];
-            Print["Paclet directory loaded"];
-
-            (* Step-by-step loading with timing *)
-            Print["[1/6] Loading PacletizedResourceFunctions..."];
-            t1 = AbsoluteTime[];
-            Get["PacletizedResourceFunctions`"];
-            Print["  Done in ", AbsoluteTime[] - t1, " seconds"];
-
-            Print["[2/6] Installing/Loading MaTeX..."];
-            t2 = AbsoluteTime[];
-            Quiet@PacletizedResourceFunctions`NeedsDefinitions[
-              FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],"Kernel","MaTeXInstall.wl"}]
-            ];
-            If[{}===PacletFind["MaTeX"],
-              Print["  MaTeX not found, installing..."];
-              MaTeXInstall`MaTeXInstall[]
-            ];
-            Needs["MaTeX`"];
-            Print["  Done in ", AbsoluteTime[] - t2, " seconds"];
-
-            Print["[3/6] Loading model sub-contexts..."];
-            t3 = AbsoluteTime[];
-            Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
-            Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
-            Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
-            Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-            Print["  Done in ", AbsoluteTime[] - t3, " seconds"];
-
-            Print["[4/6] Loading main package (definitions)..."];
-            t4 = AbsoluteTime[];
-            (* Load just the definitions, skip CheckModels for now *)
-            Block[{FernandoDuarte`LongRunRisk`CheckModels = Null &},
-              Needs["FernandoDuarte`LongRunRisk`"]
-            ];
-            Print["  Done in ", AbsoluteTime[] - t4, " seconds"];
-
-            Print["[5/6] Running CheckModels..."];
-            t5 = AbsoluteTime[];
-            (* Now run CheckModels with verbose output *)
-            result = FernandoDuarte`LongRunRisk`Tools`ManageResources`checkCatalogForUI[];
-            Print["  checkCatalogForUI result: ", result];
-            Print["  Done in ", AbsoluteTime[] - t5, " seconds"];
-
-            Print["[6/6] Getting pipeline status..."];
-            t6 = AbsoluteTime[];
-            status = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[All];
-            Print["  Pipeline status: ", status];
-            Print["  Done in ", AbsoluteTime[] - t6, " seconds"];
-
+            Print["Loading LongRunRisk package..."];
+            Needs["FernandoDuarte`LongRunRisk`"];
+            Print["Paclet loaded in ", AbsoluteTime[] - t0, " seconds"];
             Print["=== Paclet warmup complete ==="]
           '
       - name: Commit MX files if updated
