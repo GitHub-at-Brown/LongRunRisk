@@ -78,21 +78,23 @@ jobs:
           tlmgr path add
           tlmgr list --only-installed 
       - name: Load paclet
+        env:
+          LONGRUNRISK_SKIP_CHECK: "true"
         run: |
           wolframscript -code '
-            Print["=== Starting paclet warmup ==="];
+            Print["[1] Starting..."];
             Print["$SystemID: ", $SystemID];
+            Print["[2] PacletDirectoryLoad..."];
             t0 = AbsoluteTime[];
             PacletDirectoryLoad["."];
+            Print["[3] Loading package (Needs)..."];
             Needs["FernandoDuarte`LongRunRisk`"];
-            Print["Paclet loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
-
-            (* Show pipeline status for debugging *)
-            Print["Pipeline status:"];
+            Print["[4] Package loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
+            Print["[5] Calling getModelPipelineStatus..."];
             status = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[All];
-            Scan[Print["  ", #, ": ", status[#]] &, Keys[status]];
-
-            Print["=== Paclet warmup complete ==="]
+            Print["[6] Pipeline status retrieved"];
+            Scan[Print["  ", #, ": ", status[#]["MainStage"]] &, Keys[status]];
+            Print["=== Done ==="]
           '
       - name: Commit MX files if updated
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
