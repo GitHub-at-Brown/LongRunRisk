@@ -27,12 +27,6 @@ jobs:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
     timeout-minutes: 360
     steps:
-      - name: Restore APT cache
-        id: cache-apt
-        uses: actions/cache@v5
-        with:
-          path: /var/cache/apt/archives
-          key: apt-${{ runner.os }}-perl-ghostscript-wget-git-v1
       - name: Install system dependencies
         run: |
           apt-get update -y
