@@ -84,37 +84,10 @@ jobs:
           wolframscript -code '
             Print["=== Starting paclet warmup ==="];
             Print["$SystemID: ", $SystemID];
-
-            timing[label_, code_] := Module[{t, result},
-              Print["[", label, "] Starting..."];
-              t = AbsoluteTime[];
-              result = code;
-              Print["[", label, "] Done in ", Round[AbsoluteTime[] - t, 0.1], "s"];
-              result
-            ];
-
-            timing["PacletDirectoryLoad", PacletDirectoryLoad["."]];
-            timing["PacletizedResourceFunctions", Get["PacletizedResourceFunctions`"]];
-            timing["MaTeXInstall", (
-              Quiet@PacletizedResourceFunctions`NeedsDefinitions[
-                FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],"Kernel","MaTeXInstall.wl"}]];
-              If[{}===PacletFind["MaTeX"], MaTeXInstall`MaTeXInstall[]]
-            )];
-            timing["MaTeX", Needs["MaTeX`"]];
-            timing["Parameters", Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]];
-            timing["Shocks", Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"]];
-            timing["ExogenousEq", Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"]];
-            timing["EndogenousEq", Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"]];
-            timing["Models.wl", FernandoDuarte`LongRunRisk`Models = Get@Get@"FernandoDuarte/LongRunRisk/Models.wl"];
-            timing["Catalog", PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"]];
-            timing["MomentsLookupTables", (
-              Needs["PacletTools`"];
-              pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
-              filesMom = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources/MomentsLookupTables"|>}];
-              Map[Get, Flatten@StringCases[filesMom, __ ~~ ".mx"]]
-            )];
-            timing["FullPackage", Needs["FernandoDuarte`LongRunRisk`"]];
-
+            t0 = AbsoluteTime[];
+            PacletDirectoryLoad["."];
+            Needs["FernandoDuarte`LongRunRisk`"];
+            Print["Paclet loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
             Print["=== Paclet warmup complete ==="]
           '
       - name: Commit MX files if updated
