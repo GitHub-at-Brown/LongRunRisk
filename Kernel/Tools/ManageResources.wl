@@ -638,9 +638,6 @@ getMomentsHash[catalogEntry_Association, model_Association] :=
 
 (* helper: check if moments files are current *)
 (* Uses separate metadata file so we can validate cache without loading it *)
-(* Note: MomentsLookupTables contain pure mathematical data (symbolic covariances), *)
-(* not compiled code, so they are platform-independent. We only check the hash, *)
-(* not SystemID, unlike CompiledFunctions which are platform-specific. *)
 momentsUpToDate[momentsFile_String, metaFile_String, expectedHash_String] := Module[
 	{savedMeta, savedHash},
 	(* Both files must exist *)
@@ -649,7 +646,7 @@ momentsUpToDate[momentsFile_String, metaFile_String, expectedHash_String] := Mod
 	If[!AssociationQ[savedMeta], Return[False]];
 	savedHash = savedMeta["Hash"];
 	If[savedHash =!= expectedHash, Return[False]];
-	(* No SystemID check - moments are platform-independent symbolic data *)
+	If[KeyExistsQ[savedMeta, "SystemID"] && savedMeta["SystemID"] =!= $SystemID, Return[False]];
 	True
 ];
 
