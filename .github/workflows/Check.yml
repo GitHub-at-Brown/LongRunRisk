@@ -78,12 +78,24 @@ jobs:
           tlmgr path add
           tlmgr list --only-installed 
       - name: Load paclet
+        env:
+          LONGRUNRISK_AUTOBUILD: "false"
         run: |
           wolframscript -code '
             Print["=== Starting paclet warmup ==="];
             Print["$SystemID: ", $SystemID];
+            Print["CI env: ", Environment["CI"]];
             t0 = AbsoluteTime[];
             PacletDirectoryLoad["."];
+
+            (* Load package but prevent auto-build by setting AutoBuild->False *)
+            (* We do this by loading dependencies first, then calling CheckModels manually *)
+            Get["PacletizedResourceFunctions`"];
+            Quiet@PacletizedResourceFunctions`NeedsDefinitions[
+              FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],"Kernel","MaTeXInstall.wl"}]];
+            If[{}===PacletFind["MaTeX"], MaTeXInstall`MaTeXInstall[]];
+
+            (* Now load the package - CheckModels will run but we want to see what happens *)
             Needs["FernandoDuarte`LongRunRisk`"];
             Print["Paclet loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
 
