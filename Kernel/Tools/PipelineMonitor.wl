@@ -46,6 +46,12 @@ Module[
 		Return[Null]
 	];
 
+	(* Early exit when LONGRUNRISK_AUTOBUILD is explicitly "false" *)
+	(* This allows CI warmup to skip pipeline checks entirely *)
+	If[MemberQ[{"false", "0", "no"}, ToLowerCase[ToString[Environment["LONGRUNRISK_AUTOBUILD"]]]],
+		Return[Null]
+	];
+
 	(* Load config *)
 	config = loadConfig[];
 	If[Lookup[config, "PipelineMonitorEnabled", True] === False,
