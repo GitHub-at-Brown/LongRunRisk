@@ -26,10 +26,23 @@ jobs:
       run: |
         apt-get update -y
         apt-get install -y perl ghostscript wget lcov bc
-        wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+    - name: Restore TinyTeX cache
+      id: cache-tinytex
+      uses: actions/cache@v5
+      with:
+        path: |
+          /github/home/bin
+          /github/home/.TinyTeX
+        key: tinytex-${{ runner.os }}-latex-standalone-lm-svn-prov-v1
+        restore-keys: |
+          tinytex-${{ runner.os }}-
+    - name: Install TinyTeX
+      if: steps.cache-tinytex.outputs.cache-hit != 'true'
+      run: wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
     - name: Add latex to path
       run: echo "$HOME/bin" >> $GITHUB_PATH
     - name: Install LaTeX packages for MaTeX
+      if: steps.cache-tinytex.outputs.cache-hit != 'true'
       run: |
         tlmgr update --self --all
         tlmgr path add
