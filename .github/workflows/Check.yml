@@ -82,19 +82,19 @@ jobs:
           LONGRUNRISK_SKIP_CHECK: "true"
         run: |
           wolframscript -code '
-            Print["[1] Starting..."];
+            Print["=== Starting paclet warmup ==="];
             Print["$SystemID: ", $SystemID];
-            Print["[2] PacletDirectoryLoad..."];
             t0 = AbsoluteTime[];
             PacletDirectoryLoad["."];
-            Print["[3] Loading package (Needs)..."];
             Needs["FernandoDuarte`LongRunRisk`"];
-            Print["[4] Package loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
-            Print["[5] Calling getModelPipelineStatus..."];
+            Print["Paclet loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
+
+            (* Show pipeline status for debugging *)
+            Print["Pipeline status:"];
             status = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[All];
-            Print["[6] Pipeline status retrieved"];
-            Scan[Print["  ", #, ": ", status[#]["MainStage"]] &, Keys[status]];
-            Print["=== Done ==="]
+            Scan[Print["  ", #, ": ", status[#]] &, Keys[status]];
+
+            Print["=== Paclet warmup complete ==="]
           '
       - name: Commit MX files if updated
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
