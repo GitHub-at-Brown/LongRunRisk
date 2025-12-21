@@ -84,10 +84,12 @@ jobs:
           wolframscript -code '
             Print["=== Starting paclet warmup ==="];
             Print["$SystemID: ", $SystemID];
-            t0 = AbsoluteTime[];
+            Print["[1] PacletDirectoryLoad..."];
             PacletDirectoryLoad["."];
+            Print["[2] Loading package..."];
+            t0 = AbsoluteTime[];
             Needs["FernandoDuarte`LongRunRisk`"];
-            Print["Paclet loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
+            Print["[3] Package loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
             Print["=== Paclet warmup complete ==="]
           '
       - name: Commit MX files if updated
