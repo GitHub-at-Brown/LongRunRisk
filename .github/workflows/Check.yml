@@ -39,8 +39,8 @@ jobs:
         uses: actions/cache@v5
         with:
           path: |
-            /root/bin
-            /root/.TinyTeX
+            /github/home/bin
+            /github/home/.TinyTeX
           key: tinytex-${{ runner.os }}-latex-standalone-lm-svn-prov-v1
           restore-keys: |
             tinytex-${{ runner.os }}-
