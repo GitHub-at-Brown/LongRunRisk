@@ -31,9 +31,6 @@ jobs:
         run: |
           apt-get update -y
           apt-get install -y perl ghostscript wget git
-      - name: Checkout
-        id: checkout-code-step
-        uses: actions/checkout@v5
       - name: Restore TinyTeX cache
         id: cache-tinytex
         uses: actions/cache@v5
@@ -77,14 +74,10 @@ jobs:
           tlmgr install latex standalone lm svn-prov
           tlmgr path add
           tlmgr list --only-installed
-      - name: Restore Wolfram paclet cache
-        uses: actions/cache@v5
-        with:
-          path: /github/home/.Wolfram/Paclets
-          key: wolfram-paclets-${{ env.ENGINE_TAG }}-${{ github.run_number }}
-          restore-keys: |
-            wolfram-paclets-${{ env.ENGINE_TAG }}-
-      - name: Warm up paclet
+      - name: Checkout
+        id: checkout-code-step
+        uses: actions/checkout@v5    
+      - name: Load paclet
         run: |
           wolframscript -code '
             Print["=== Starting paclet warmup ==="];
