@@ -44,6 +44,9 @@ jobs:
       - name: Install TinyTeX
         if: steps.cache-tinytex.outputs.cache-hit != 'true'
         run: wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+      - name: Checkout
+        id: checkout-code-step
+        uses: actions/checkout@v5   
       - name: Add latex to path
         run: echo "$HOME/bin" >> $GITHUB_PATH
       - name: Install LaTeX packages for MaTeX
@@ -73,10 +76,7 @@ jobs:
           tlmgr --version
           tlmgr install latex standalone lm svn-prov
           tlmgr path add
-          tlmgr list --only-installed
-      - name: Checkout
-        id: checkout-code-step
-        uses: actions/checkout@v5    
+          tlmgr list --only-installed 
       - name: Load paclet
         run: |
           wolframscript -code '
@@ -87,7 +87,7 @@ jobs:
             PacletDirectoryLoad["."];
             Print["Paclet directory loaded"];
             Print["$Packages available"];
-            Print[$Packages];
+            Print[Sort@$Packages];
             Print["Loading LongRunRisk package..."];
             Needs["FernandoDuarte`LongRunRisk`"];
             Print["Paclet loaded successfully"]
