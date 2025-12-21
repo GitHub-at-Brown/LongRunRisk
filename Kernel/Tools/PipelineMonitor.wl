@@ -41,6 +41,8 @@ checkModels[OptionsPattern[]] := With[
 Module[
 	{config, changes, status, shortnames, catalogModels, allStatus, incompleteModels, hasCatalogChanges},
 
+	If[$Notebooks =!= True, Print["checkModels: Starting (autoBuild=", autoBuild, ")"]];
+
 	(* Guard against parallel/subkernel contexts *)
 	If[TrueQ[$ParallelEvaluationEnvironment] || $KernelID =!= 0,
 		Return[Null]
@@ -51,6 +53,8 @@ Module[
 	If[Lookup[config, "PipelineMonitorEnabled", True] === False,
 		Return[Null]
 	];
+
+	If[$Notebooks =!= True, Print["checkModels: Checking catalog..."]];
 
 	(* Check for changes using public API *)
 	changes = FernandoDuarte`LongRunRisk`Tools`ManageResources`checkCatalogForUI[];
@@ -71,15 +75,20 @@ Module[
 	];
 
 	hasCatalogChanges = Not[changes["Changed"] === {} && changes["New"] === {} && changes["Removed"] === {}];
+	If[$Notebooks =!= True, Print["checkModels: Catalog changes: ", hasCatalogChanges]];
+
+	If[$Notebooks =!= True, Print["checkModels: Getting pipeline status..."]];
 
 	(* Always check pipeline status for ALL models to detect missing .mx files *)
 	allStatus = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[All];
 
 	(* Find models with incomplete pipelines (not UpToDate) *)
 	incompleteModels = Keys@Select[allStatus, #["MainStage"] =!= "UpToDate" &];
+	If[$Notebooks =!= True, Print["checkModels: Incomplete models: ", incompleteModels]];
 
 	(* If no catalog changes AND pipeline is complete, return Null *)
 	If[!hasCatalogChanges && incompleteModels === {},
+		If[$Notebooks =!= True, Print["checkModels: All models up to date, nothing to do"]];
 		Return[Null]
 	];
 
