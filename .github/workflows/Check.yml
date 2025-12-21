@@ -79,7 +79,7 @@ jobs:
           tlmgr list --only-installed 
       - name: Load paclet
         env:
-          LONGRUNRISK_AUTOBUILD: "false"
+          LONGRUNRISK_AUTOBUILD: "true"
         run: |
           wolframscript -code '
             Print["=== Starting paclet warmup ==="];
