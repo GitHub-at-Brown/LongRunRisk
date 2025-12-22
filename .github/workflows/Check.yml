@@ -77,10 +77,6 @@ jobs:
           tlmgr install latex standalone lm svn-prov
           tlmgr path add
           tlmgr list --only-installed
-      - name: Setup tmate session (before Load paclet)
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: false
       - name: Load paclet
         env:
           LONGRUNRISK_SKIP_CHECK: "true"

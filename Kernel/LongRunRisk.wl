@@ -18,6 +18,20 @@ If[
 	]
 ];
 
+(*install ResourceSystemClient to prevent cloud auth prompts in DefinitionData*)
+If[
+	{}===PacletFind["ResourceSystemClient"],
+	PacletInstall[
+		File[
+			FindFile[
+				"FernandoDuarte/LongRunRisk/ResourceSystemClient.paclet"
+			]
+		],
+	KeepExistingVersion->True,
+	ForceVersionInstall->True
+	]
+];
+
 (*install local version of MaTeX provided with LongRunRisk paclet if not already installed*)
 If[
 	{}===PacletFind["MaTeXInstall"->"1.0.0"],
@@ -33,12 +47,13 @@ If[
 ]
 
 (*load packages*)
-Get["PacletizedResourceFunctions`"];
+(*Get["PacletizedResourceFunctions`"];*)
 Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]; (*run once to avoid Symbol::symname message*)
 
-Quiet@PacletizedResourceFunctions`NeedsDefinitions[FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],"Kernel","MaTeXInstall.wl"}]];
 If[
 	{}===PacletFind["MaTeX"],
+	(*Quiet@PacletizedResourceFunctions`NeedsDefinitions["MaTeXInstall`"];*)
+	Needs["MaTeXInstall`"];
 	MaTeXInstall`MaTeXInstall[];
 ]
 Needs["MaTeX`"];
