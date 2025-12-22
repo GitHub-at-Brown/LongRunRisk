@@ -42,6 +42,7 @@ jobs:
         env:
           TEXLIVE_DOWNLOADER: wget
         run: |
+          export PATH="$HOME/bin:$PATH"
           # Work around occasional CTAN mirror failures on CI by pinning a
           # known-good TeX Live repository for tlmgr.
           for repo in \
