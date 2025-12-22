@@ -197,10 +197,10 @@ FernandoDuarte`LongRunRisk`Models::usage = Information["FernandoDuarte`LongRunRi
 (* load moments lookup tables *)
 Needs["PacletTools`"];
 pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
-filesMom = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources/MomentsLookupTables"|>}];
+filesMom = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources"|>}];
 Map[
 	Get@#&,
-	Flatten@StringCases[filesMom, __ ~~ ".mx"]
+	Flatten@StringCases[filesMom,__~~"MomentsLookupTables"~~__~~".mx"]
 ];
 
 (* load compiled functions -- commented out since done automatically downstream *)
