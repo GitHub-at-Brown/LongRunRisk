@@ -17,23 +17,10 @@ If[
 	ForceVersionInstall->True
 	]
 ];
+
 (*install local version of MaTeX provided with LongRunRisk paclet if not already installed*)
 If[
-	{}===PacletFind["MaTeX"],
-	PacletInstall[
-		File[
-			FindFile[
-				"FernandoDuarte/LongRunRisk/MaTeX-1.7.10.paclet"
-			]
-		],
-	KeepExistingVersion->False,
-	ForceVersionInstall->True
-	]
-];
-
-(* attempt auto-install MaTeX (requires internet connection)*)
-If[
-	{}===PacletFind["MaTeXInstall"->"1.0.0"] && {}===PacletFind["MaTeX"],
+	{}===PacletFind["MaTeXInstall"->"1.0.0"],
 	PacletInstall[
 		File[
 			FindFile[
@@ -42,11 +29,6 @@ If[
 		],
 		KeepExistingVersion->True,
 		ForceVersionInstall->True
-	];
-	Quiet@PacletizedResourceFunctions`NeedsDefinitions[FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],"Kernel","MaTeXInstall.wl"}]];
-	If[
-		{}===PacletFind["MaTeX"],
-		MaTeXInstall`MaTeXInstall[];
 	]
 ]
 
@@ -54,7 +36,11 @@ If[
 Get["PacletizedResourceFunctions`"];
 Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]; (*run once to avoid Symbol::symname message*)
 
-
+Quiet@PacletizedResourceFunctions`NeedsDefinitions[FileNameJoin[{(First@PacletFind["MaTeXInstall"->"1.0.0"])["Location"],"Kernel","MaTeXInstall.wl"}]];
+If[
+	{}===PacletFind["MaTeX"],
+	MaTeXInstall`MaTeXInstall[];
+]
 Needs["MaTeX`"];
 (*MaTeX`Developer`ResetConfiguration[];*)
 
@@ -202,9 +188,12 @@ FernandoDuarte`LongRunRisk`Models::usage = Information["FernandoDuarte`LongRunRi
 
 
 (* load moments lookup tables *)
-Block[{pacletRoot = DirectoryName[DirectoryName[$InputFileName]]},
-	filesMom = FileNames["*.mx", FileNameJoin[{pacletRoot, "Resources", "MomentsLookupTables"}]];
-	Map[Get, filesMom];
+Needs["PacletTools`"];
+pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
+filesMom = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources/MomentsLookupTables"|>}];
+Map[
+	Get@#&,
+	Flatten@StringCases[filesMom, __ ~~ ".mx"]
 ];
 
 (* load compiled functions -- commented out since done automatically downstream *)

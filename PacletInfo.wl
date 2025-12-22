@@ -53,6 +53,10 @@ PacletObject[
       {
 	      "Path",
 	      "Root" -> "Resources"
+      },
+      {
+	      "Path",
+	      "Root" -> "Resources/MomentsLookupTables"
       }
     }
   |>
