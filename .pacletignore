@@ -4,3 +4,8 @@
 .vscode/**
 tools/**
 ToProcess/**
+temp/**
+docs/**
+Scripts/**
+Tests/GenerateCITests/**
+Tests/InteractiveTests/**
