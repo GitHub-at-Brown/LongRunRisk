@@ -795,8 +795,11 @@ warmupParallelKernels[] := Module[{pacletDir},
 	If[!StringQ[pacletDir], Return[$Failed]];
 
 	Needs["PacletizedResourceFunctions`"];
-	Block[{$AllowInternet = False},
-		Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]
+	Quiet[
+		Block[{$AllowInternet = False},
+			Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]
+		],
+		URLSubmit::offline
 	];
 
 	(* Register paclet and load required packages on parallel kernels *)

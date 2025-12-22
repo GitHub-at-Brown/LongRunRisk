@@ -35,8 +35,11 @@ If[
 (*load packages*)
 (*Get["PacletizedResourceFunctions`"];*)
 (*run DefinitionData once to avoid Symbol::symname message; disable internet to prevent cloud auth prompts*)
-Block[{$AllowInternet = False},
-	Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]
+Quiet[
+	Block[{$AllowInternet = False},
+		Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]
+	],
+	URLSubmit::offline
 ];
 
 If[
