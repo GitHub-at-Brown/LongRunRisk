@@ -1,17 +1,9 @@
 BeginTestSection["validateModel"]
 
-(* Setup: Load ValidateModels.wl *)
-Module[{start, d, pacletRoot},
-  start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-    DirectoryName[$InputFileName], Directory[]];
-  d = start;
-  While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
-    d = DirectoryName[d]];
-  pacletRoot = d;
-  Off[General::shdw];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "ValidateModels.wl"}]];
-  On[General::shdw];
-];
+(* Setup: Load ValidateModels package *)
+Off[General::shdw];
+Needs["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"];
+On[General::shdw];
 
 (* Extract private symbols for testing *)
 $validateModel = FernandoDuarte`LongRunRisk`Tools`ValidateModels`validateModel;

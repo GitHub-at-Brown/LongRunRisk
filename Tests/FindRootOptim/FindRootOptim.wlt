@@ -1,10 +1,16 @@
 BeginTestSection["FindRootOptim"]
 
-Module[{testDir, binaryFile, sourceFile, loadStart, loadEnd, isCI, pacletFile, pacletRoot},
+(* Load the FindRootOptim package first *)
+Off[General::shdw];
+Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+On[General::shdw];
+
+(* Load test data from test directory *)
+Module[{testDir, binaryFile, sourceFile, isCI, pacletFile, pacletRoot},
   (* Robust path detection: try $InputFileName first, then derive from paclet location *)
   testDir = If[StringQ[$InputFileName] && StringLength[$InputFileName] > 0,
     DirectoryName[$InputFileName],
-    (* Fallback: find paclet root and derive test directory *)
+    (* Fallback: find paclet root from loaded package and derive test directory *)
     pacletFile = FindFile["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
     If[StringQ[pacletFile],
       (* Go from Kernel/Tools/FindRootOptim.wl up to paclet root, then to Tests/FindRootOptim *)
@@ -17,37 +23,21 @@ Module[{testDir, binaryFile, sourceFile, loadStart, loadEnd, isCI, pacletFile, p
   binaryFile = FileNameJoin[{testDir, "TestData.mx"}];
   sourceFile = FileNameJoin[{testDir, "TestDataSource.wl"}];
 
-  Off[General::shdw];
-
-  (* Load the FindRootOptim code via Needs *)
-  Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
-
   (* Load test data: prefer binary, fall back to source *)
   (* On CI, always use source to avoid platform issues with .mx files *)
-  loadStart = AbsoluteTime[];
   isCI = Environment["CI"] === "true" || Environment["GITHUB_ACTIONS"] === "true" ||
          Environment["GITLAB_CI"] === "true" || Environment["CIRCLECI"] === "true";
 
   If[isCI || !FileExistsQ[binaryFile],
     (* Use source file (portable, slower) *)
     If[FileExistsQ[sourceFile],
-      Get[sourceFile];
-      loadEnd = AbsoluteTime[];
-      If[isCI,
-        (* Print["CI detected: Using portable TestDataSource.wl"];*)
-        Null
-      ];
-      ,
+      Get[sourceFile],
       (* Error: no data files found *)
-      Abort[];
+      Abort[]
     ],
     (* Fast binary load (local development) *)
-    Get[binaryFile];
-    loadEnd = AbsoluteTime[];
-    (*Print["Loaded test data from binary in ", NumberForm[loadEnd - loadStart, {4, 2}], " seconds"];*)
+    Get[binaryFile]
   ];
-
-  On[General::shdw];
 ];
 
 (* Prefer exported extractIntervalsFromReduce; fall back to Private if needed *)

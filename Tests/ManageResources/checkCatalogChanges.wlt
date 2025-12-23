@@ -1,18 +1,9 @@
 BeginTestSection["checkCatalogChanges"]
 
-(* Setup: Load ManageResources.wl *)
-Module[{start, d, pacletRoot},
-  start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-    DirectoryName[$InputFileName], Directory[]];
-  d = start;
-  While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
-    d = DirectoryName[d]];
-  pacletRoot = d;
-  SetDirectory[pacletRoot];
-  Off[General::shdw];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "ManageResources.wl"}]];
-  On[General::shdw];
-];
+(* Setup: Load ManageResources package *)
+Off[General::shdw];
+Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
+On[General::shdw];
 
 $timeLimit = 30;
 

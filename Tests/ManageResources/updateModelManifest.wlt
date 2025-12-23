@@ -1,20 +1,12 @@
 BeginTestSection["updateModelManifest"]
 
-(* Setup: Load ManageResources.wl *)
-Module[{start, d, pacletRoot},
-  start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-    DirectoryName[$InputFileName], Directory[]];
-  d = start;
-  While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
-    d = DirectoryName[d]];
-  pacletRoot = d;
-  If[FindFile["FernandoDuarte`LongRunRisk`Model`Catalog`"] === $Failed,
-    BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"]; EndPackage[];
-  ];
-  Off[General::shdw];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "ManageResources.wl"}]];
-  On[General::shdw];
+(* Setup: Load ManageResources package *)
+If[FindFile["FernandoDuarte`LongRunRisk`Model`Catalog`"] === $Failed,
+  BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"]; EndPackage[];
 ];
+Off[General::shdw];
+Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
+On[General::shdw];
 
 (* Extract private symbols for testing *)
 $getHash = ToExpression["FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`getCanonicalHash"];
@@ -78,7 +70,7 @@ VerificationTest[
 
 VerificationTest[
   Module[{tmp, manifestFile, result, fileExists},
-    tmp = CreateDirectory[FileNameJoin[{DirectoryName[$InputFileName], "tmp-" <> CreateUUID[]}]];
+    tmp = CreateDirectory[FileNameJoin[{$TemporaryDirectory, "tmp-" <> CreateUUID[]}]];
     manifestFile = FileNameJoin[{tmp, "Resources", "ModelManifest.wl"}];
     Block[
       {
@@ -106,7 +98,7 @@ VerificationTest[
 VerificationTest[
   Module[
     {tmp, manifestFile, catalogOverride, result, fileData, dropDate, dateOK, versionOK, hashesOK},
-    tmp = CreateDirectory[FileNameJoin[{DirectoryName[$InputFileName], "tmp-" <> CreateUUID[]}]];
+    tmp = CreateDirectory[FileNameJoin[{$TemporaryDirectory, "tmp-" <> CreateUUID[]}]];
     manifestFile = FileNameJoin[{tmp, "Resources", "ModelManifest.wl"}];
     catalogOverride = <|"ModelA" -> <|"a" -> 1|>, "ModelB" -> <|"b" -> {1, 2}|>|>;
     dropDate = KeyDrop[#, {"Date"}] &;

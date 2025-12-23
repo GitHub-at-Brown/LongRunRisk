@@ -1,17 +1,9 @@
 BeginTestSection["toCatalog"]
 
-(* Setup: Load NiceOutput.wl and Catalog *)
-Module[{start, d, pacletRoot},
-  start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-    DirectoryName[$InputFileName], Directory[]];
-  d = start;
-  While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
-    d = DirectoryName[d]];
-  pacletRoot = d;
-  Off[General::shdw];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "NiceOutput.wl"}]];
-  On[General::shdw];
-];
+(* Setup: Load NiceOutput package *)
+Off[General::shdw];
+Needs["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
+On[General::shdw];
 
 $toCatalog = FernandoDuarte`LongRunRisk`Tools`NiceOutput`toCatalog;
 

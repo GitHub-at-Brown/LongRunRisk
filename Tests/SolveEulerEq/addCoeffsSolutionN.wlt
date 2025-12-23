@@ -1,17 +1,9 @@
 BeginTestSection["addCoeffsSolutionN"]
 
-(* Setup: Load SolveEulerEq.wl *)
-Module[{start, d, pacletRoot},
-  start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-    DirectoryName[$InputFileName], Directory[]];
-  d = start;
-  While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
-    d = DirectoryName[d]];
-  pacletRoot = d;
-  Off[General::shdw];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "ComputationalEngine", "SolveEulerEq.wl"}]];
-  On[General::shdw];
-];
+(* Setup: Load SolveEulerEq package *)
+Off[General::shdw];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+On[General::shdw];
 
 $timeLimit = 5;
 

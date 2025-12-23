@@ -12,18 +12,28 @@ BeginTestSection["solveCoeffRoots"]
    - solveWcPdRoots returns valid interval structure
 *)
 
+(* Load required packages *)
+Off[General::shdw];
+Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+On[General::shdw];
 
-(* Find paclet root and load dependencies *)
-Module[{start, d, pacletRoot, resourcesDir, modelsFile, modelsData},
-  start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-    DirectoryName[$InputFileName],
-    Directory[]
+(* Load models data from Resources *)
+Module[{pacletFile, pacletRoot, resourcesDir, modelsFile},
+  (* Find paclet root from loaded package *)
+  pacletFile = FindFile["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+  pacletRoot = If[StringQ[pacletFile],
+    DirectoryName[pacletFile, 3],
+    (* Fallback: try $InputFileName *)
+    If[StringQ[$InputFileName] && $InputFileName =!= "",
+      Module[{d = DirectoryName[$InputFileName]},
+        While[!FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
+          d = DirectoryName[d]];
+        d
+      ],
+      Directory[]
+    ]
   ];
-  d = start;
-  While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
-    d = DirectoryName[d]
-  ];
-  pacletRoot = d;
 
   (* Store paclet root for use in tests *)
   $testPacletRoot = pacletRoot;
@@ -32,12 +42,6 @@ Module[{start, d, pacletRoot, resourcesDir, modelsFile, modelsData},
   resourcesDir = FileNameJoin[{pacletRoot, "Resources"}];
   modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
   $testModels = Get@Get[modelsFile];
-
-  Off[General::shdw];
-  PacletDirectoryLoad[pacletRoot];
-  Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
-  Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
-  On[General::shdw];
 ];
 
 (* Time limit for tests - these involve numeric solving *)

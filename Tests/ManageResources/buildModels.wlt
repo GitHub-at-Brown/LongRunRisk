@@ -1,20 +1,12 @@
 BeginTestSection["buildModels"]
 
-(* Setup: Load ManageResources.wl *)
-Module[{start, d, pacletRoot},
-  start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-    DirectoryName[$InputFileName], Directory[]];
-  d = start;
-  While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
-    d = DirectoryName[d]];
-  pacletRoot = d;
-  If[FindFile["FernandoDuarte`LongRunRisk`Model`Catalog`"] === $Failed,
-    BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"]; EndPackage[];
-  ];
-  Off[General::shdw];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "ManageResources.wl"}]];
-  On[General::shdw];
+(* Setup: Load ManageResources package *)
+If[FindFile["FernandoDuarte`LongRunRisk`Model`Catalog`"] === $Failed,
+  BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"]; EndPackage[];
 ];
+Off[General::shdw];
+Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
+On[General::shdw];
 
 (* Extract private symbols for testing *)
 $getMomentsHash = ToExpression["FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`getMomentsHash"];

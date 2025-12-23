@@ -1,19 +1,10 @@
 BeginTestSection["reformatCatalog"]
 
-(* Setup: Load ManageResources.wl and NiceOutput.wl *)
-Module[{start, d, pacletRoot},
-  start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-    DirectoryName[$InputFileName], Directory[]];
-  d = start;
-  While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
-    d = DirectoryName[d]];
-  pacletRoot = d;
-  SetDirectory[pacletRoot];
-  Off[General::shdw];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "ManageResources.wl"}]];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "NiceOutput.wl"}]];
-  On[General::shdw];
-];
+(* Setup: Load required packages *)
+Off[General::shdw];
+Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
+On[General::shdw];
 
 (* Load catalog for testing *)
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];

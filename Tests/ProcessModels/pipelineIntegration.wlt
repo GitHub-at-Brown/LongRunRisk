@@ -1,18 +1,10 @@
 BeginTestSection["pipelineIntegration"]
 
 (* Setup: Load required packages *)
-Module[{start, d, pacletRoot},
-  start = If[StringQ[$InputFileName] && $InputFileName =!= "",
-    DirectoryName[$InputFileName], Directory[]];
-  d = start;
-  While[! FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
-    d = DirectoryName[d]];
-  pacletRoot = d;
-  Off[General::shdw];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Model", "ProcessModels.wl"}]];
-  Get[FileNameJoin[{pacletRoot, "Kernel", "Tools", "ManageResources.wl"}]];
-  On[General::shdw];
-];
+Off[General::shdw];
+Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
+On[General::shdw];
 
 (* Load catalog *)
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
