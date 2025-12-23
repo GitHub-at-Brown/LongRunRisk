@@ -6,7 +6,7 @@ Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 On[General::shdw];
 
 (* Load test data from test directory *)
-Module[{testDir, binaryFile, sourceFile, isCI, pacletFile, pacletRoot},
+Module[{testDir, sourceFile, pacletFile, pacletRoot},
   (* Robust path detection: try $InputFileName first, then derive from paclet location *)
   testDir = If[StringQ[$InputFileName] && StringLength[$InputFileName] > 0,
     DirectoryName[$InputFileName],
@@ -20,23 +20,16 @@ Module[{testDir, binaryFile, sourceFile, isCI, pacletFile, pacletRoot},
       Directory[]
     ]
   ];
-  binaryFile = FileNameJoin[{testDir, "TestData.mx"}];
   sourceFile = FileNameJoin[{testDir, "TestDataSource.wl"}];
 
-  (* Load test data: prefer binary, fall back to source *)
-  (* On CI, always use source to avoid platform issues with .mx files *)
-  isCI = Environment["CI"] === "true" || Environment["GITHUB_ACTIONS"] === "true" ||
-         Environment["GITLAB_CI"] === "true" || Environment["CIRCLECI"] === "true";
-
-  If[isCI || !FileExistsQ[binaryFile],
-    (* Use source file (portable, slower) *)
-    If[FileExistsQ[sourceFile],
-      Get[sourceFile],
-      (* Error: no data files found - set flag so tests fail gracefully *)
-      $testDataLoadFailed = True
+  (* Load test data from source file (portable) *)
+  (* Ensure data is loaded into the same context as the test symbols *)
+  If[FileExistsQ[sourceFile],
+    Block[{$Context = Context[solNA0]},
+      Get[sourceFile]
     ],
-    (* Fast binary load (local development) *)
-    Get[binaryFile]
+    (* Error: no data file found - set flag so tests fail gracefully *)
+    $testDataLoadFailed = True
   ];
   (* If data didn't load, define dummy variables so tests fail instead of error *)
   If[TrueQ[$testDataLoadFailed],
@@ -69,7 +62,7 @@ timeLimit = 60;
     {A[0] -> 1.777113528819289},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "dividend-model-A0-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:63,3-69,4"
+    TestID -> "dividend-model-A0-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:60,3-66,4"
   ],
 
   (* Test that B[1][0] coefficient is found and matches expected value *)
@@ -78,7 +71,7 @@ timeLimit = 60;
     {B[1][0] -> 1.784254766558428},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "dividend-model-B10-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:72,3-78,4"
+    TestID -> "dividend-model-B10-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:69,3-75,4"
   ],
 
   (* Test that A[0] value is in expected range *)
@@ -86,7 +79,7 @@ timeLimit = 60;
     1.77 < solNA0[[1,2]] < 1.78,
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "A0-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:81,3-86,4"
+    TestID -> "A0-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:78,3-83,4"
   ],
 
   (* Test that B[1][0] value is in expected range *)
@@ -94,7 +87,7 @@ timeLimit = 60;
     1.78 < solNAB0[[1,2]] < 1.79,
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "B10-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:89,3-94,4"
+    TestID -> "B10-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:86,3-91,4"
   ],
 
   (* Test that extractIntervalsFromReduce is exported and works *)
@@ -105,7 +98,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "extractIntervalsFromReduce-exported@@Tests/FindRootOptim/FindRootOptim.wlt:97,3-105,4"
+    TestID -> "extractIntervalsFromReduce-exported@@Tests/FindRootOptim/FindRootOptim.wlt:94,3-102,4"
   ],
 
   (* Test that extractIntervalsFromReduce returns correct interval for simple case *)
@@ -114,7 +107,7 @@ timeLimit = 60;
     {{0.001, 14.999}},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "extractIntervalsFromReduce-simple-inequality@@Tests/FindRootOptim/FindRootOptim.wlt:108,3-114,4"
+    TestID -> "extractIntervalsFromReduce-simple-inequality@@Tests/FindRootOptim/FindRootOptim.wlt:105,3-111,4"
   ],
 
   (* Test workflow concept: verify pre-computed results can be chained *)
@@ -126,7 +119,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> 5,
-    TestID -> "integration-parameter-chaining@@Tests/FindRootOptim/FindRootOptim.wlt:117,3-126,4"
+    TestID -> "integration-parameter-chaining@@Tests/FindRootOptim/FindRootOptim.wlt:114,3-123,4"
   ]
 
   (* buildKernel, bindUnary, findRootInterval, and fastRoot are tested in findRootCoeff0EdgeCases.wlt *)
