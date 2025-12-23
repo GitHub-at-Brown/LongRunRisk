@@ -171,9 +171,9 @@ tests = {
     Module[{badF, result},
       badF[z_] := If[z[[1]] < 1.5, z[[1]]^2 - 2, Indeterminate];
       result = Quiet[fastRoot[badF, {1., 2.}, Jacobian -> df1]];
-      result
+      result === $Failed
     ],
-    $Failed,
+    True,
     {},
     TimeConstraint -> timeLimit,
     TestID -> "failure-nonnumeric-function-value@@Tests/FindRootOptim/fastRootOptions.wlt:170,3-180,4"
@@ -194,9 +194,9 @@ tests = {
   VerificationTest[
     Module[{result},
       result = fastRoot[f1, {2., 1.}, Jacobian -> df1];
-      result
+      result === $Failed
     ],
-    $Failed,
+    True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
     TimeConstraint -> timeLimit,
     TestID -> "reversed-interval-badbounds@@Tests/FindRootOptim/fastRootOptions.wlt:194,3-203,4"
@@ -529,8 +529,8 @@ tests = {
 
   (* Test noautox0 error when Automatic x0 without bounds *)
   VerificationTest[
-    fastRoot[f1, Automatic],
-    $Failed,
+    fastRoot[f1, Automatic] === $Failed,
+    True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::noautox0},
     TimeConstraint -> timeLimit,
     TestID -> "error-noautox0-scalar@@Tests/FindRootOptim/fastRootOptions.wlt:531,3-537,4"
@@ -538,8 +538,8 @@ tests = {
 
   (* Test badspec error for invalid spec *)
   VerificationTest[
-    fastRoot[f1, "invalid"],
-    $Failed,
+    fastRoot[f1, "invalid"] === $Failed,
+    True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badspec},
     TimeConstraint -> timeLimit,
     TestID -> "error-badspec-string@@Tests/FindRootOptim/fastRootOptions.wlt:540,3-546,4"
@@ -547,8 +547,8 @@ tests = {
 
   (* Test badbounds error for nD bounds *)
   VerificationTest[
-    fastRoot[fND2, {{2., 1.}, {0.5, 2.}}, Jacobian -> dfND2],
-    $Failed,
+    fastRoot[fND2, {{2., 1.}, {0.5, 2.}}, Jacobian -> dfND2] === $Failed,
+    True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
     TimeConstraint -> timeLimit,
     TestID -> "error-badbounds-nD@@Tests/FindRootOptim/fastRootOptions.wlt:549,3-555,4"

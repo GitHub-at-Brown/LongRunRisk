@@ -21,9 +21,9 @@ tests = With[{
           <|x -> 2|>,
           {},
           "CoeffName" -> "A", "SignSymbol" -> "signA"
-        ]
+        ] === $Failed
       ],
-      $Failed,
+      True,
       {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval},
       TimeConstraint -> timeLimit,
       TestID -> "findRootInterval-contradiction-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:17,5-30,6"
@@ -57,9 +57,9 @@ tests = With[{
           "SignSymbol" -> "signA"
         ];
         result = bu[kernel, <|x -> 2|>, "Signs" -> {1}];  (* Only 1 sign, but need 2 *)
-        result
+        result === $Failed
       ],
-      $Failed,
+      True,
       {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
       TimeConstraint -> timeLimit,
       TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:50,5-66,6"
