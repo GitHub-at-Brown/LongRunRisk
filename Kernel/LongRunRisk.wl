@@ -20,16 +20,22 @@ If[
 
 (*install local version of MaTeX provided with LongRunRisk paclet if not already installed*)
 If[
-	{}===PacletFind["MaTeXInstall"->"1.0.0"],
-	PacletInstall[
-		File[
-			FindFile[
-				"FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"
-			]
-		],
-		KeepExistingVersion->True,
-		ForceVersionInstall->True
-	]
+	{}===PacletFind["MaTeX"],
+	If[
+		{}===PacletFind["MaTeXInstall"->"1.0.0"],
+		PacletInstall[
+			File[
+				FindFile[
+					"FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"
+				]
+			],
+			KeepExistingVersion->True,
+			ForceVersionInstall->True
+		]
+	];
+	(*Quiet@PacletizedResourceFunctions`NeedsDefinitions["MaTeXInstall`"];*)
+	Needs["MaTeXInstall`"];
+	MaTeXInstall`MaTeXInstall[];
 ]
 
 (*load packages*)
@@ -42,12 +48,6 @@ Quiet[
 	URLSubmit::offline
 ];
 
-If[
-	{}===PacletFind["MaTeX"],
-	(*Quiet@PacletizedResourceFunctions`NeedsDefinitions["MaTeXInstall`"];*)
-	Needs["MaTeXInstall`"];
-	MaTeXInstall`MaTeXInstall[];
-]
 Needs["MaTeX`"];
 (*MaTeX`Developer`ResetConfiguration[];*)
 
