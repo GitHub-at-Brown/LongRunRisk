@@ -40,6 +40,8 @@ Returns <|shortname -> <|\"MainStage\"->..., \"NeedsJacobians\"->..., \"Reason\"
 
 Begin["`Private`"];
 
+Needs["PacletizedResourceFunctions`"]
+
 (* Live catalog loading - tracks file modification time *)
 $catalogFile = None;
 $catalogMTime = None;
@@ -794,7 +796,7 @@ warmupParallelKernels[] := Module[{pacletDir},
 	pacletDir = findPacletRoot[];
 	If[!StringQ[pacletDir], Return[$Failed]];
 
-	Needs["PacletizedResourceFunctions`"];
+	(* Needs["PacletizedResourceFunctions`"]; *)
 	Quiet[
 		Block[{$AllowInternet = False},
 			Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]
