@@ -1,5 +1,4 @@
 BeginTestSection["FindRootOptim"]
-Begin["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`FindRootOptim`"]
 
 Module[{testDir, binaryFile, sourceFile, loadStart, loadEnd, isCI, pacletFile, pacletRoot},
   (* Robust path detection: try $InputFileName first, then derive from paclet location *)
@@ -76,7 +75,7 @@ timeLimit = 60;
     {A[0] -> 1.777113528819289},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "dividend-model-A0-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:71,3-77,4"
+    TestID -> "dividend-model-A0-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:74,3-80,4"
   ],
 
   (* Test that B[1][0] coefficient is found and matches expected value *)
@@ -85,7 +84,7 @@ timeLimit = 60;
     {B[1][0] -> 1.784254766558428},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "dividend-model-B10-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:80,3-86,4"
+    TestID -> "dividend-model-B10-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:83,3-89,4"
   ],
 
   (* Test that A[0] value is in expected range *)
@@ -93,7 +92,7 @@ timeLimit = 60;
     1.77 < solNA0[[1,2]] < 1.78,
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "A0-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:89,3-94,4"
+    TestID -> "A0-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:92,3-97,4"
   ],
 
   (* Test that B[1][0] value is in expected range *)
@@ -101,7 +100,7 @@ timeLimit = 60;
     1.78 < solNAB0[[1,2]] < 1.79,
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "B10-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:97,3-102,4"
+    TestID -> "B10-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:100,3-105,4"
   ],
 
   (* Test that extractIntervalsFromReduce is exported and works *)
@@ -112,7 +111,7 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "extractIntervalsFromReduce-exported@@Tests/FindRootOptim/FindRootOptim.wlt:105,3-113,4"
+    TestID -> "extractIntervalsFromReduce-exported@@Tests/FindRootOptim/FindRootOptim.wlt:108,3-116,4"
   ],
 
   (* Test that extractIntervalsFromReduce returns correct interval for simple case *)
@@ -121,7 +120,7 @@ timeLimit = 60;
     {{0.001, 14.999}},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "extractIntervalsFromReduce-simple-inequality@@Tests/FindRootOptim/FindRootOptim.wlt:116,3-122,4"
+    TestID -> "extractIntervalsFromReduce-simple-inequality@@Tests/FindRootOptim/FindRootOptim.wlt:119,3-125,4"
   ],
 
   (* Test workflow concept: verify pre-computed results can be chained *)
@@ -133,12 +132,11 @@ timeLimit = 60;
     ],
     True,
     TimeConstraint -> 5,
-    TestID -> "integration-parameter-chaining@@Tests/FindRootOptim/FindRootOptim.wlt:125,3-134,4"
+    TestID -> "integration-parameter-chaining@@Tests/FindRootOptim/FindRootOptim.wlt:128,3-137,4"
   ]
 
   (* buildKernel, bindUnary, findRootInterval, and fastRoot are tested in findRootCoeff0EdgeCases.wlt *)
   (* with simpler expressions that don't timeout during FunctionCompile *)
 }
 
-End[]
 EndTestSection[]

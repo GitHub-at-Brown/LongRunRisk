@@ -1,5 +1,4 @@
 BeginTestSection["checkCatalogChanges"]
-Begin["FernandoDuarte`LongRunRisk`Tests`ManageResources`checkCatalogChanges`"]
 
 (* Setup: Load ManageResources.wl *)
 Module[{start, d, pacletRoot},
@@ -69,7 +68,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "checkCatalogChanges-assoc-input-returns-structure@@Tests/ManageResources/checkCatalogChanges.wlt:21,1-70,2"
+  TestID -> "checkCatalogChanges-assoc-input-returns-structure@@Tests/ManageResources/checkCatalogChanges.wlt:24,1-73,2"
 ]
 
 VerificationTest[
@@ -127,8 +126,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "checkCatalogChanges-detects-changed-new-removed@@Tests/ManageResources/checkCatalogChanges.wlt:72,1-128,2"
+  TestID -> "checkCatalogChanges-detects-changed-new-removed@@Tests/ManageResources/checkCatalogChanges.wlt:75,1-131,2"
 ]
 
-End[]
 EndTestSection[]

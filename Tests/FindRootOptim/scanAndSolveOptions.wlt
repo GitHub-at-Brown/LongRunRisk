@@ -1,5 +1,4 @@
 BeginTestSection["scanAndSolveOptions"]
-Begin["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`scanAndSolveOptions`"]
 
 Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 
@@ -30,7 +29,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-grid-hit@@Tests/FindRootOptim/scanAndSolveOptions.wlt:19,3-31,4"
+    TestID -> "derivative-free-grid-hit@@Tests/FindRootOptim/scanAndSolveOptions.wlt:22,3-34,4"
   ],
 
   (* Test: Derivative-free mode finds actual zero near grid point *)
@@ -42,7 +41,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-finds-zero@@Tests/FindRootOptim/scanAndSolveOptions.wlt:34,3-43,4"
+    TestID -> "derivative-free-finds-zero@@Tests/FindRootOptim/scanAndSolveOptions.wlt:37,3-46,4"
   ],
 
   (* Test: Custom BracketGrid option with coarser grid *)
@@ -58,7 +57,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "custom-bracket-grid-coarse-vs-fine@@Tests/FindRootOptim/scanAndSolveOptions.wlt:46,3-59,4"
+    TestID -> "custom-bracket-grid-coarse-vs-fine@@Tests/FindRootOptim/scanAndSolveOptions.wlt:49,3-62,4"
   ],
 
   (* Test: Custom BracketGrid with very coarse grid *)
@@ -74,7 +73,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "custom-bracket-grid-very-coarse@@Tests/FindRootOptim/scanAndSolveOptions.wlt:62,3-75,4"
+    TestID -> "custom-bracket-grid-very-coarse@@Tests/FindRootOptim/scanAndSolveOptions.wlt:65,3-78,4"
   ],
 
   (* Test: Custom Tolerance option for grid hits *)
@@ -91,7 +90,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "custom-tolerance-tight@@Tests/FindRootOptim/scanAndSolveOptions.wlt:78,3-92,4"
+    TestID -> "custom-tolerance-tight@@Tests/FindRootOptim/scanAndSolveOptions.wlt:81,3-95,4"
   ],
 
   (* Test: Custom Tolerance option for relaxed grid hits *)
@@ -106,7 +105,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "custom-tolerance-relaxed@@Tests/FindRootOptim/scanAndSolveOptions.wlt:95,3-107,4"
+    TestID -> "custom-tolerance-relaxed@@Tests/FindRootOptim/scanAndSolveOptions.wlt:98,3-110,4"
   ],
 
   (* Test: Tolerance-based deduplication of solutions *)
@@ -122,7 +121,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "tolerance-deduplication-single-root@@Tests/FindRootOptim/scanAndSolveOptions.wlt:110,3-123,4"
+    TestID -> "tolerance-deduplication-single-root@@Tests/FindRootOptim/scanAndSolveOptions.wlt:113,3-126,4"
   ],
 
   (* Test: Tolerance-based deduplication with multiple roots *)
@@ -139,7 +138,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "tolerance-deduplication-multiple-roots@@Tests/FindRootOptim/scanAndSolveOptions.wlt:126,3-140,4"
+    TestID -> "tolerance-deduplication-multiple-roots@@Tests/FindRootOptim/scanAndSolveOptions.wlt:129,3-143,4"
   ],
 
   (* Test: Derivative provided but no sign changes, returns near-zero grid hits only *)
@@ -155,7 +154,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-no-sign-change-no-hits@@Tests/FindRootOptim/scanAndSolveOptions.wlt:143,3-156,4"
+    TestID -> "derivative-no-sign-change-no-hits@@Tests/FindRootOptim/scanAndSolveOptions.wlt:146,3-159,4"
   ],
 
   (* Test: Derivative provided but no sign changes, with grid hit at minimum *)
@@ -172,7 +171,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-no-sign-change-with-grid-hit@@Tests/FindRootOptim/scanAndSolveOptions.wlt:159,3-173,4"
+    TestID -> "derivative-no-sign-change-with-grid-hit@@Tests/FindRootOptim/scanAndSolveOptions.wlt:162,3-176,4"
   ],
 
   (* Test: Derivative-free mode with no sign changes and no grid hits *)
@@ -186,7 +185,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-no-hits-no-sign-change@@Tests/FindRootOptim/scanAndSolveOptions.wlt:176,3-187,4"
+    TestID -> "derivative-free-no-hits-no-sign-change@@Tests/FindRootOptim/scanAndSolveOptions.wlt:179,3-190,4"
   ],
 
   (* Test: AccuracyGoal affects automatic tolerance *)
@@ -204,7 +203,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "accuracy-goal-affects-automatic-tolerance@@Tests/FindRootOptim/scanAndSolveOptions.wlt:190,3-205,4"
+    TestID -> "accuracy-goal-affects-automatic-tolerance@@Tests/FindRootOptim/scanAndSolveOptions.wlt:193,3-208,4"
   ],
 
   (* Test: Multiple roots found with custom grid and tolerance *)
@@ -219,10 +218,9 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "multiple-roots-custom-options@@Tests/FindRootOptim/scanAndSolveOptions.wlt:208,3-220,4"
+    TestID -> "multiple-roots-custom-options@@Tests/FindRootOptim/scanAndSolveOptions.wlt:211,3-223,4"
   ]
 };
 
 
-End[]
 EndTestSection[]

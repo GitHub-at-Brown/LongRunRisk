@@ -1,5 +1,4 @@
 BeginTestSection["toCatalog"]
-Begin["FernandoDuarte`LongRunRisk`Tests`NiceOutput`toCatalog`"]
 
 (* Setup: Load NiceOutput.wl and Catalog *)
 Module[{start, d, pacletRoot},
@@ -29,13 +28,13 @@ $timeLimit = 5;
 VerificationTest[
   $toCatalog[<||>, {"name", "shortname"}],
   <||>,
-  TestID -> "toCatalog-empty-catalog-returns-empty@@Tests/NiceOutput/toCatalog.wlt:26,1-30,2"
+  TestID -> "toCatalog-empty-catalog-returns-empty@@Tests/NiceOutput/toCatalog.wlt:29,1-33,2"
 ]
 
 VerificationTest[
   AssociationQ[$toCatalog[<||>, {"name"}]],
   True,
-  TestID -> "toCatalog-empty-catalog-is-association@@Tests/NiceOutput/toCatalog.wlt:32,1-36,2"
+  TestID -> "toCatalog-empty-catalog-is-association@@Tests/NiceOutput/toCatalog.wlt:35,1-39,2"
 ]
 
 (* ============================================================ *)
@@ -51,7 +50,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-returns-associations@@Tests/NiceOutput/toCatalog.wlt:42,1-52,2"
+  TestID -> "toCatalog-returns-associations@@Tests/NiceOutput/toCatalog.wlt:45,1-55,2"
 ]
 
 VerificationTest[
@@ -61,7 +60,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-model-keys@@Tests/NiceOutput/toCatalog.wlt:54,1-62,2"
+  TestID -> "toCatalog-preserves-model-keys@@Tests/NiceOutput/toCatalog.wlt:57,1-65,2"
 ]
 
 VerificationTest[
@@ -72,7 +71,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-filters-to-specified-keys@@Tests/NiceOutput/toCatalog.wlt:64,1-73,2"
+  TestID -> "toCatalog-filters-to-specified-keys@@Tests/NiceOutput/toCatalog.wlt:67,1-76,2"
 ]
 
 (* ============================================================ *)
@@ -95,7 +94,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-evaluates-stateVars-function@@Tests/NiceOutput/toCatalog.wlt:79,1-96,2"
+  TestID -> "toCatalog-evaluates-stateVars-function@@Tests/NiceOutput/toCatalog.wlt:82,1-99,2"
 ]
 
 VerificationTest[
@@ -114,7 +113,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-stateVars-list@@Tests/NiceOutput/toCatalog.wlt:98,1-115,2"
+  TestID -> "toCatalog-preserves-stateVars-list@@Tests/NiceOutput/toCatalog.wlt:101,1-118,2"
 ]
 
 (* ============================================================ *)
@@ -129,7 +128,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-enabled-boolean@@Tests/NiceOutput/toCatalog.wlt:121,1-130,2"
+  TestID -> "toCatalog-preserves-enabled-boolean@@Tests/NiceOutput/toCatalog.wlt:124,1-133,2"
 ]
 
 VerificationTest[
@@ -140,7 +139,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-parameters-list@@Tests/NiceOutput/toCatalog.wlt:132,1-141,2"
+  TestID -> "toCatalog-preserves-parameters-list@@Tests/NiceOutput/toCatalog.wlt:135,1-144,2"
 ]
 
 VerificationTest[
@@ -162,7 +161,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-filters-out-extra-fields@@Tests/NiceOutput/toCatalog.wlt:143,1-163,2"
+  TestID -> "toCatalog-filters-out-extra-fields@@Tests/NiceOutput/toCatalog.wlt:146,1-166,2"
 ]
 
 (* ============================================================ *)
@@ -177,7 +176,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-single-model@@Tests/NiceOutput/toCatalog.wlt:169,1-178,2"
+  TestID -> "toCatalog-single-model@@Tests/NiceOutput/toCatalog.wlt:172,1-181,2"
 ]
 
 VerificationTest[
@@ -189,7 +188,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-all-models@@Tests/NiceOutput/toCatalog.wlt:180,1-190,2"
+  TestID -> "toCatalog-preserves-all-models@@Tests/NiceOutput/toCatalog.wlt:183,1-193,2"
 ]
 
 (* ============================================================ *)
@@ -207,8 +206,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-full-catalog-roundtrip@@Tests/NiceOutput/toCatalog.wlt:196,1-208,2"
+  TestID -> "toCatalog-full-catalog-roundtrip@@Tests/NiceOutput/toCatalog.wlt:199,1-211,2"
 ]
 
-End[]
 EndTestSection[]

@@ -1,5 +1,4 @@
 BeginTestSection["buildModels"]
-Begin["FernandoDuarte`LongRunRisk`Tests`ManageResources`buildModels`"]
 
 (* Setup: Load ManageResources.wl *)
 Module[{start, d, pacletRoot},
@@ -33,25 +32,25 @@ $timeLimit = 5;
 VerificationTest[
   MemberQ[Keys[Options[$buildModels]], "CreateMoments"],
   True,
-  TestID -> "buildModels-has-CreateMoments-option@@Tests/ManageResources/buildModels.wlt:30,1-34,2"
+  TestID -> "buildModels-has-CreateMoments-option@@Tests/ManageResources/buildModels.wlt:33,1-37,2"
 ]
 
 VerificationTest[
   MemberQ[Keys[Options[$buildModels]], "NumKernels"],
   True,
-  TestID -> "buildModels-has-NumKernels-option@@Tests/ManageResources/buildModels.wlt:36,1-40,2"
+  TestID -> "buildModels-has-NumKernels-option@@Tests/ManageResources/buildModels.wlt:39,1-43,2"
 ]
 
 VerificationTest[
   OptionValue[$buildModels, "CreateMoments"],
   True,
-  TestID -> "buildModels-CreateMoments-default-is-True@@Tests/ManageResources/buildModels.wlt:42,1-46,2"
+  TestID -> "buildModels-CreateMoments-default-is-True@@Tests/ManageResources/buildModels.wlt:45,1-49,2"
 ]
 
 VerificationTest[
   OptionValue[$buildModels, "NumKernels"],
   Automatic,
-  TestID -> "buildModels-NumKernels-default-is-Automatic@@Tests/ManageResources/buildModels.wlt:48,1-52,2"
+  TestID -> "buildModels-NumKernels-default-is-Automatic@@Tests/ManageResources/buildModels.wlt:51,1-55,2"
 ]
 
 (* ============================================================ *)
@@ -61,13 +60,13 @@ VerificationTest[
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels::noroot],
   True,
-  TestID -> "buildModels-has-noroot-message@@Tests/ManageResources/buildModels.wlt:58,1-62,2"
+  TestID -> "buildModels-has-noroot-message@@Tests/ManageResources/buildModels.wlt:61,1-65,2"
 ]
 
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels::nocat],
   True,
-  TestID -> "buildModels-has-nocat-message@@Tests/ManageResources/buildModels.wlt:64,1-68,2"
+  TestID -> "buildModels-has-nocat-message@@Tests/ManageResources/buildModels.wlt:67,1-71,2"
 ]
 
 (* ============================================================ *)
@@ -82,7 +81,7 @@ VerificationTest[
     StringQ[hash] && StringLength[hash] == 64
   ],
   True,
-  TestID -> "getMomentsHash-returns-64-char-hex-string@@Tests/ManageResources/buildModels.wlt:74,1-83,2"
+  TestID -> "getMomentsHash-returns-64-char-hex-string@@Tests/ManageResources/buildModels.wlt:77,1-86,2"
 ]
 
 VerificationTest[
@@ -94,7 +93,7 @@ VerificationTest[
     hash1 === hash2
   ],
   True,
-  TestID -> "getMomentsHash-is-deterministic@@Tests/ManageResources/buildModels.wlt:85,1-95,2"
+  TestID -> "getMomentsHash-is-deterministic@@Tests/ManageResources/buildModels.wlt:88,1-98,2"
 ]
 
 VerificationTest[
@@ -107,7 +106,7 @@ VerificationTest[
     hash1 =!= hash2
   ],
   True,
-  TestID -> "getMomentsHash-differs-for-different-catalog@@Tests/ManageResources/buildModels.wlt:97,1-108,2"
+  TestID -> "getMomentsHash-differs-for-different-catalog@@Tests/ManageResources/buildModels.wlt:100,1-111,2"
 ]
 
 VerificationTest[
@@ -120,7 +119,7 @@ VerificationTest[
     hash1 =!= hash2
   ],
   True,
-  TestID -> "getMomentsHash-differs-for-different-exogenousEq@@Tests/ManageResources/buildModels.wlt:110,1-121,2"
+  TestID -> "getMomentsHash-differs-for-different-exogenousEq@@Tests/ManageResources/buildModels.wlt:113,1-124,2"
 ]
 
 (* ============================================================ *)
@@ -130,7 +129,7 @@ VerificationTest[
 VerificationTest[
   $momentsUpToDate["/nonexistent/file.wl", "/nonexistent/meta.wl", "somehash"],
   False,
-  TestID -> "momentsUpToDate-false-for-nonexistent-files@@Tests/ManageResources/buildModels.wlt:127,1-131,2"
+  TestID -> "momentsUpToDate-false-for-nonexistent-files@@Tests/ManageResources/buildModels.wlt:130,1-134,2"
 ]
 
 VerificationTest[
@@ -145,7 +144,7 @@ VerificationTest[
     result
   ],
   False,
-  TestID -> "momentsUpToDate-false-when-meta-missing@@Tests/ManageResources/buildModels.wlt:133,1-146,2"
+  TestID -> "momentsUpToDate-false-when-meta-missing@@Tests/ManageResources/buildModels.wlt:136,1-149,2"
 ]
 
 VerificationTest[
@@ -160,7 +159,7 @@ VerificationTest[
     result
   ],
   True,
-  TestID -> "momentsUpToDate-true-when-hash-matches@@Tests/ManageResources/buildModels.wlt:148,1-161,2"
+  TestID -> "momentsUpToDate-true-when-hash-matches@@Tests/ManageResources/buildModels.wlt:151,1-164,2"
 ]
 
 VerificationTest[
@@ -175,7 +174,7 @@ VerificationTest[
     result
   ],
   False,
-  TestID -> "momentsUpToDate-false-when-hash-differs@@Tests/ManageResources/buildModels.wlt:163,1-176,2"
+  TestID -> "momentsUpToDate-false-when-hash-differs@@Tests/ManageResources/buildModels.wlt:166,1-179,2"
 ]
 
 (* ============================================================ *)
@@ -185,20 +184,19 @@ VerificationTest[
 VerificationTest[
   $setupParallelKernels[None],
   0,
-  TestID -> "setupParallelKernels-None-returns-zero@@Tests/ManageResources/buildModels.wlt:182,1-186,2"
+  TestID -> "setupParallelKernels-None-returns-zero@@Tests/ManageResources/buildModels.wlt:185,1-189,2"
 ]
 
 VerificationTest[
   $setupParallelKernels[0],
   0,
-  TestID -> "setupParallelKernels-zero-returns-zero@@Tests/ManageResources/buildModels.wlt:188,1-192,2"
+  TestID -> "setupParallelKernels-zero-returns-zero@@Tests/ManageResources/buildModels.wlt:191,1-195,2"
 ]
 
 VerificationTest[
   $setupParallelKernels[-1],
   0,
-  TestID -> "setupParallelKernels-negative-returns-zero@@Tests/ManageResources/buildModels.wlt:194,1-198,2"
+  TestID -> "setupParallelKernels-negative-returns-zero@@Tests/ManageResources/buildModels.wlt:197,1-201,2"
 ]
 
-End[]
 EndTestSection[]

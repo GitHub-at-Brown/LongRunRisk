@@ -1,5 +1,4 @@
 BeginTestSection["degenerate-discriminant"]
-Begin["FernandoDuarte`LongRunRisk`Tests`ParamQuadSolve`degenerate-discriminant`"]
 
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
 
@@ -14,8 +13,7 @@ rules$ = If[Length[signs$] == 0, {r$["Solution"]}, (r$["Solution"] /. Thread[sig
 tuples$ = N[(vars$ /. #) & /@ rules$, 30];
 uniqueX$ = DeleteDuplicates[tuples$[[All, 1]], (Abs[#1 - #2] < 1.*^-12) &];
 
-VerificationTest[Length[rules$] >= 1, True, TestID -> "enumerated@@Tests/ParamQuadSolve/degenerate-discriminant.wlt:14,1-14,129"]
-VerificationTest[Length[uniqueX$] == 1, True, TestID -> "collapsed-branches@@Tests/ParamQuadSolve/degenerate-discriminant.wlt:15,1-15,139"]
+VerificationTest[Length[rules$] >= 1, True, TestID -> "enumerated@@Tests/ParamQuadSolve/degenerate-discriminant.wlt:17,1-17,130"]
+VerificationTest[Length[uniqueX$] == 1, True, TestID -> "collapsed-branches@@Tests/ParamQuadSolve/degenerate-discriminant.wlt:18,1-18,140"]
 
-End[]
 EndTestSection[]

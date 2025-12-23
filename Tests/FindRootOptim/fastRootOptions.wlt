@@ -1,5 +1,4 @@
 BeginTestSection["fastRootOptions"]
-Begin["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`fastRootOptions`"]
 
 Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 
@@ -51,7 +50,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "method-secant-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:44,3-52,4"
+    TestID -> "method-secant-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:47,3-55,4"
   ],
 
   VerificationTest[
@@ -62,7 +61,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "method-secant-nonbracketed@@Tests/FindRootOptim/fastRootOptions.wlt:54,3-63,4"
+    TestID -> "method-secant-nonbracketed@@Tests/FindRootOptim/fastRootOptions.wlt:57,3-66,4"
   ],
 
   VerificationTest[
@@ -73,7 +72,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "method-brent-bracketed@@Tests/FindRootOptim/fastRootOptions.wlt:65,3-74,4"
+    TestID -> "method-brent-bracketed@@Tests/FindRootOptim/fastRootOptions.wlt:68,3-77,4"
   ],
 
   (* Test "Return" -> "Value" vs "Rule" *)
@@ -84,7 +83,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "return-rule-option@@Tests/FindRootOptim/fastRootOptions.wlt:77,3-85,4"
+    TestID -> "return-rule-option@@Tests/FindRootOptim/fastRootOptions.wlt:80,3-88,4"
   ],
 
   VerificationTest[
@@ -95,7 +94,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "return-value-default@@Tests/FindRootOptim/fastRootOptions.wlt:87,3-96,4"
+    TestID -> "return-value-default@@Tests/FindRootOptim/fastRootOptions.wlt:90,3-99,4"
   ],
 
   VerificationTest[
@@ -107,7 +106,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "return-rule-vs-value-consistency@@Tests/FindRootOptim/fastRootOptions.wlt:98,3-108,4"
+    TestID -> "return-rule-vs-value-consistency@@Tests/FindRootOptim/fastRootOptions.wlt:101,3-111,4"
   ],
 
   (* Test without Jacobian (derivative-free) with bracketed case *)
@@ -119,7 +118,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "no-jacobian-bracketed-brent@@Tests/FindRootOptim/fastRootOptions.wlt:111,3-120,4"
+    TestID -> "no-jacobian-bracketed-brent@@Tests/FindRootOptim/fastRootOptions.wlt:114,3-123,4"
   ],
 
   VerificationTest[
@@ -130,7 +129,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "no-jacobian-bracketed-trig@@Tests/FindRootOptim/fastRootOptions.wlt:122,3-131,4"
+    TestID -> "no-jacobian-bracketed-trig@@Tests/FindRootOptim/fastRootOptions.wlt:125,3-134,4"
   ],
 
   (* Test without Jacobian with non-bracketed case *)
@@ -142,7 +141,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "no-jacobian-nonbracketed-secant@@Tests/FindRootOptim/fastRootOptions.wlt:134,3-143,4"
+    TestID -> "no-jacobian-nonbracketed-secant@@Tests/FindRootOptim/fastRootOptions.wlt:137,3-146,4"
   ],
 
   VerificationTest[
@@ -153,7 +152,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "no-jacobian-nonbracketed-exp@@Tests/FindRootOptim/fastRootOptions.wlt:145,3-154,4"
+    TestID -> "no-jacobian-nonbracketed-exp@@Tests/FindRootOptim/fastRootOptions.wlt:148,3-157,4"
   ],
 
   (* Test with options *)
@@ -164,7 +163,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "high-accuracy-goals@@Tests/FindRootOptim/fastRootOptions.wlt:157,3-165,4"
+    TestID -> "high-accuracy-goals@@Tests/FindRootOptim/fastRootOptions.wlt:160,3-168,4"
   ],
 
   (* Test failure path when FindRoot emits messages - non-numeric function values *)
@@ -177,7 +176,7 @@ tests = {
     $Failed,
     {},
     TimeConstraint -> timeLimit,
-    TestID -> "failure-nonnumeric-function-value@@Tests/FindRootOptim/fastRootOptions.wlt:168,3-178,4"
+    TestID -> "failure-nonnumeric-function-value@@Tests/FindRootOptim/fastRootOptions.wlt:171,3-181,4"
   ],
 
   (* Test without Jacobian with valid function successfully finds root *)
@@ -188,7 +187,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "no-jacobian-cubic-root@@Tests/FindRootOptim/fastRootOptions.wlt:181,3-189,4"
+    TestID -> "no-jacobian-cubic-root@@Tests/FindRootOptim/fastRootOptions.wlt:184,3-192,4"
   ],
 
   (* Test constraint lo < hi - reversed interval should emit badbounds message *)
@@ -200,7 +199,7 @@ tests = {
     $Failed,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
     TimeConstraint -> timeLimit,
-    TestID -> "reversed-interval-badbounds@@Tests/FindRootOptim/fastRootOptions.wlt:192,3-201,4"
+    TestID -> "reversed-interval-badbounds@@Tests/FindRootOptim/fastRootOptions.wlt:195,3-204,4"
   ],
 
   (* Test with both Method and Return options combined *)
@@ -212,7 +211,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "combined-method-return-options@@Tests/FindRootOptim/fastRootOptions.wlt:204,3-213,4"
+    TestID -> "combined-method-return-options@@Tests/FindRootOptim/fastRootOptions.wlt:207,3-216,4"
   ],
 
   (* Test AccuracyGoal and PrecisionGoal options *)
@@ -224,7 +223,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "high-accuracy-precision-goals@@Tests/FindRootOptim/fastRootOptions.wlt:216,3-225,4"
+    TestID -> "high-accuracy-precision-goals@@Tests/FindRootOptim/fastRootOptions.wlt:219,3-228,4"
   ],
 
   (* Test MaxIterations option *)
@@ -235,7 +234,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "maxiterations-option@@Tests/FindRootOptim/fastRootOptions.wlt:228,3-236,4"
+    TestID -> "maxiterations-option@@Tests/FindRootOptim/fastRootOptions.wlt:231,3-239,4"
   ],
 
   (* Test Newton fallback to default when derivative is unreliable *)
@@ -247,7 +246,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:239,3-248,4"
+    TestID -> "newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:242,3-251,4"
   ],
 
   (* Test edge case: very narrow interval *)
@@ -258,7 +257,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "narrow-interval-convergence@@Tests/FindRootOptim/fastRootOptions.wlt:251,3-259,4"
+    TestID -> "narrow-interval-convergence@@Tests/FindRootOptim/fastRootOptions.wlt:254,3-262,4"
   ],
 
   (* Test with WorkingPrecision option *)
@@ -270,7 +269,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "workingprecision-option@@Tests/FindRootOptim/fastRootOptions.wlt:262,3-271,4"
+    TestID -> "workingprecision-option@@Tests/FindRootOptim/fastRootOptions.wlt:265,3-274,4"
   ],
 
   (* Test Method -> Automatic (default) with non-bracketed - should use Secant fallback *)
@@ -281,7 +280,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "method-automatic-nonbracketed@@Tests/FindRootOptim/fastRootOptions.wlt:274,3-282,4"
+    TestID -> "method-automatic-nonbracketed@@Tests/FindRootOptim/fastRootOptions.wlt:277,3-285,4"
   ],
 
   (* Test that quiet computation works as expected *)
@@ -292,7 +291,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "quiet-computation-succeeds@@Tests/FindRootOptim/fastRootOptions.wlt:285,3-293,4"
+    TestID -> "quiet-computation-succeeds@@Tests/FindRootOptim/fastRootOptions.wlt:288,3-296,4"
   ],
 
   (* Test edge case: root at interval boundary *)
@@ -303,7 +302,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "root-at-boundary@@Tests/FindRootOptim/fastRootOptions.wlt:296,3-304,4"
+    TestID -> "root-at-boundary@@Tests/FindRootOptim/fastRootOptions.wlt:299,3-307,4"
   ],
 
   (* ===== Tests for 1D full spec {x0, lo, hi} ===== *)
@@ -315,7 +314,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-full-spec-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:308,3-316,4"
+    TestID -> "1D-full-spec-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:311,3-319,4"
   ],
 
   VerificationTest[
@@ -325,7 +324,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-full-spec-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:318,3-326,4"
+    TestID -> "1D-full-spec-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:321,3-329,4"
   ],
 
   (* Test Automatic x0 in full spec *)
@@ -336,7 +335,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-automatic-x0@@Tests/FindRootOptim/fastRootOptions.wlt:329,3-337,4"
+    TestID -> "1D-automatic-x0@@Tests/FindRootOptim/fastRootOptions.wlt:332,3-340,4"
   ],
 
   (* ===== Tests for 1D x0-only spec (scalar) ===== *)
@@ -348,7 +347,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-scalar-x0-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:341,3-349,4"
+    TestID -> "1D-scalar-x0-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:344,3-352,4"
   ],
 
   VerificationTest[
@@ -358,7 +357,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-scalar-x0-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:351,3-359,4"
+    TestID -> "1D-scalar-x0-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:354,3-362,4"
   ],
 
   (* ===== Tests for nD nested x0 syntax {{x0_1, x0_2, ...}} ===== *)
@@ -371,7 +370,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:364,3-372,4"
+    TestID -> "nD-nested-x0-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:367,3-375,4"
   ],
 
   (* Test nD x0-only without Jacobian using nested syntax *)
@@ -382,7 +381,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:375,3-383,4"
+    TestID -> "nD-nested-x0-no-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:378,3-386,4"
   ],
 
   (* Test nD nested x0 returns correct root value *)
@@ -393,7 +392,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-correct-root@@Tests/FindRootOptim/fastRootOptions.wlt:386,3-394,4"
+    TestID -> "nD-nested-x0-correct-root@@Tests/FindRootOptim/fastRootOptions.wlt:389,3-397,4"
   ],
 
   (* Test nD with bounds - new format {{lo1,hi1}, {lo2,hi2}} *)
@@ -404,7 +403,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-bounds-new-format@@Tests/FindRootOptim/fastRootOptions.wlt:397,3-405,4"
+    TestID -> "nD-bounds-new-format@@Tests/FindRootOptim/fastRootOptions.wlt:400,3-408,4"
   ],
 
   (* Test nD full spec - new format {{x01,lo1,hi1}, {x02,lo2,hi2}} *)
@@ -415,7 +414,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-full-spec-new-format@@Tests/FindRootOptim/fastRootOptions.wlt:408,3-416,4"
+    TestID -> "nD-full-spec-new-format@@Tests/FindRootOptim/fastRootOptions.wlt:411,3-419,4"
   ],
 
   (* Test disambiguation: flat {a, b} is 1D bounds, not 2D x0 *)
@@ -428,7 +427,7 @@ tests = {
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
     TimeConstraint -> timeLimit,
-    TestID -> "disambiguation-flat-is-1D-bounds@@Tests/FindRootOptim/fastRootOptions.wlt:419,3-429,4"
+    TestID -> "disambiguation-flat-is-1D-bounds@@Tests/FindRootOptim/fastRootOptions.wlt:422,3-432,4"
   ],
 
   (* Test 3D nested x0 syntax *)
@@ -439,7 +438,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-3D-nested-x0@@Tests/FindRootOptim/fastRootOptions.wlt:432,3-440,4"
+    TestID -> "nD-3D-nested-x0@@Tests/FindRootOptim/fastRootOptions.wlt:435,3-443,4"
   ],
 
   (* Test nD nested x0 with Return -> Rule option *)
@@ -450,7 +449,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-return-rule@@Tests/FindRootOptim/fastRootOptions.wlt:443,3-451,4"
+    TestID -> "nD-nested-x0-return-rule@@Tests/FindRootOptim/fastRootOptions.wlt:446,3-454,4"
   ],
 
   (* Test nD with Method -> "Secant" - should skip Newton *)
@@ -461,7 +460,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-nested-x0-method-secant@@Tests/FindRootOptim/fastRootOptions.wlt:454,3-462,4"
+    TestID -> "nD-nested-x0-method-secant@@Tests/FindRootOptim/fastRootOptions.wlt:457,3-465,4"
   ],
 
   (* ===== Tests for Newton failure with fallback ===== *)
@@ -475,7 +474,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:467,3-476,4"
+    TestID -> "nD-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:470,3-479,4"
   ],
 
   (* Test nD with bounds - Newton failure with fallback *)
@@ -487,7 +486,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-bounds-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:479,3-488,4"
+    TestID -> "nD-bounds-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:482,3-491,4"
   ],
 
   (* Test 1D bracketed - Newton failure falls back to Brent *)
@@ -499,7 +498,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-bracketed-newton-fails-brent-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:491,3-500,4"
+    TestID -> "1D-bracketed-newton-fails-brent-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:494,3-503,4"
   ],
 
   (* Test 1D non-bracketed - Newton failure falls back to Secant *)
@@ -511,7 +510,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-nonbracketed-newton-fails-secant-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:503,3-512,4"
+    TestID -> "1D-nonbracketed-newton-fails-secant-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:506,3-515,4"
   ],
 
   (* Test 3D Newton failure with fallback *)
@@ -523,7 +522,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "3D-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:515,3-524,4"
+    TestID -> "3D-newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:518,3-527,4"
   ],
 
   (* ===== Tests for error messages ===== *)
@@ -534,7 +533,7 @@ tests = {
     $Failed,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::noautox0},
     TimeConstraint -> timeLimit,
-    TestID -> "error-noautox0-scalar@@Tests/FindRootOptim/fastRootOptions.wlt:529,3-535,4"
+    TestID -> "error-noautox0-scalar@@Tests/FindRootOptim/fastRootOptions.wlt:532,3-538,4"
   ],
 
   (* Test badspec error for invalid spec *)
@@ -543,7 +542,7 @@ tests = {
     $Failed,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badspec},
     TimeConstraint -> timeLimit,
-    TestID -> "error-badspec-string@@Tests/FindRootOptim/fastRootOptions.wlt:538,3-544,4"
+    TestID -> "error-badspec-string@@Tests/FindRootOptim/fastRootOptions.wlt:541,3-547,4"
   ],
 
   (* Test badbounds error for nD bounds *)
@@ -552,10 +551,9 @@ tests = {
     $Failed,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
     TimeConstraint -> timeLimit,
-    TestID -> "error-badbounds-nD@@Tests/FindRootOptim/fastRootOptions.wlt:547,3-553,4"
+    TestID -> "error-badbounds-nD@@Tests/FindRootOptim/fastRootOptions.wlt:550,3-556,4"
   ]
 };
 
 
-End[]
 EndTestSection[]

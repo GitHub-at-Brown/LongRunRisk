@@ -1,5 +1,4 @@
 BeginTestSection["no-solution"]
-Begin["FernandoDuarte`LongRunRisk`Tests`ParamQuadSolve`no-solution`"]
 
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
 
@@ -12,8 +11,7 @@ r$ = pqs[eq$, vars$, "ValidationOption" -> True];
 leftover$ = r$["Diagnostics"]["LeftoverEquations"];
 ver$ = r$["Verification"];
 
-VerificationTest[AssociationQ[r$], True, TestID -> "assoc@@Tests/ParamQuadSolve/no-solution.wlt:12,1-12,109"]
-VerificationTest[Length[leftover$] >= 1 || AnyTrue[Flatten@ver$, FalseQ], True, TestID -> "signaled-no-solution@@Tests/ParamQuadSolve/no-solution.wlt:13,1-13,164"]
+VerificationTest[AssociationQ[r$], True, TestID -> "assoc@@Tests/ParamQuadSolve/no-solution.wlt:15,1-15,110"]
+VerificationTest[Length[leftover$] >= 1 || AnyTrue[Flatten@ver$, FalseQ], True, TestID -> "signaled-no-solution@@Tests/ParamQuadSolve/no-solution.wlt:16,1-16,164"]
 
-End[]
 EndTestSection[]

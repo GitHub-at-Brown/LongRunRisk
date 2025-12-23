@@ -1,5 +1,4 @@
 BeginTestSection["updateModelManifest"]
-Begin["FernandoDuarte`LongRunRisk`Tests`ManageResources`updateModelManifest`"]
 
 (* Setup: Load ManageResources.wl *)
 Module[{start, d, pacletRoot},
@@ -32,33 +31,33 @@ $timeLimit = 5;
 VerificationTest[
   $getHash[<|"b" -> 1, "a" -> 2|>] === $getHash[<|"a" -> 2, "b" -> 1|>],
   True,
-  TestID -> "hash-key-order-invariant@@Tests/ManageResources/updateModelManifest.wlt:29,1-33,2"
+  TestID -> "hash-key-order-invariant@@Tests/ManageResources/updateModelManifest.wlt:32,1-36,2"
 ]
 
 VerificationTest[
   $getHash[<|"x" -> <|"b" -> 1, "a" -> 2|>|>] === $getHash[<|"x" -> <|"a" -> 2, "b" -> 1|>|>],
   True,
-  TestID -> "hash-nested-key-order-invariant@@Tests/ManageResources/updateModelManifest.wlt:35,1-39,2"
+  TestID -> "hash-nested-key-order-invariant@@Tests/ManageResources/updateModelManifest.wlt:38,1-42,2"
 ]
 
 VerificationTest[
   $getHash[<|"z" -> {<|"b" -> 1|>, <|"a" -> 2|>}|>] === $getHash[<|"z" -> {<|"b" -> 1|>, <|"a" -> 2|>}|>],
   True,
-  TestID -> "hash-list-of-associations@@Tests/ManageResources/updateModelManifest.wlt:41,1-45,2"
+  TestID -> "hash-list-of-associations@@Tests/ManageResources/updateModelManifest.wlt:44,1-48,2"
 ]
 
 VerificationTest[
   (* Different content should produce different hashes *)
   $getHash[<|"a" -> 1|>] =!= $getHash[<|"a" -> 2|>],
   True,
-  TestID -> "hash-different-values-differ@@Tests/ManageResources/updateModelManifest.wlt:47,1-52,2"
+  TestID -> "hash-different-values-differ@@Tests/ManageResources/updateModelManifest.wlt:50,1-55,2"
 ]
 
 VerificationTest[
   (* Canonicalize should sort keys recursively *)
   $canonicalize[<|"b" -> <|"d" -> 1, "c" -> 2|>, "a" -> 3|>],
   <|"a" -> 3, "b" -> <|"c" -> 2, "d" -> 1|>|>,
-  TestID -> "canonicalize-sorts-nested-keys@@Tests/ManageResources/updateModelManifest.wlt:54,1-59,2"
+  TestID -> "canonicalize-sorts-nested-keys@@Tests/ManageResources/updateModelManifest.wlt:57,1-62,2"
 ]
 
 (* ============================================================ *)
@@ -74,7 +73,7 @@ VerificationTest[
   $Failed,
   {updateModelManifest::noroot},
   TimeConstraint -> $timeLimit,
-  TestID -> "fails-when-root-not-found@@Tests/ManageResources/updateModelManifest.wlt:65,1-75,2"
+  TestID -> "fails-when-root-not-found@@Tests/ManageResources/updateModelManifest.wlt:68,1-78,2"
 ]
 
 VerificationTest[
@@ -97,7 +96,7 @@ VerificationTest[
   {$Failed, False},
   {updateModelManifest::nocat},
   TimeConstraint -> $timeLimit,
-  TestID -> "rejects-non-association-catalog@@Tests/ManageResources/updateModelManifest.wlt:77,1-98,2"
+  TestID -> "rejects-non-association-catalog@@Tests/ManageResources/updateModelManifest.wlt:80,1-101,2"
 ]
 
 (* ============================================================ *)
@@ -137,7 +136,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "writes-manifest-with-expected-content@@Tests/ManageResources/updateModelManifest.wlt:104,1-138,2"
+  TestID -> "writes-manifest-with-expected-content@@Tests/ManageResources/updateModelManifest.wlt:107,1-141,2"
 ]
 
 (* ============================================================ *)
@@ -158,8 +157,7 @@ VerificationTest[
     $getHash[catalog1] === $getHash[catalog2]
   ],
   True,
-  TestID -> "hash-complex-permutation-invariant@@Tests/ManageResources/updateModelManifest.wlt:144,1-159,2"
+  TestID -> "hash-complex-permutation-invariant@@Tests/ManageResources/updateModelManifest.wlt:147,1-162,2"
 ]
 
-End[]
 EndTestSection[]

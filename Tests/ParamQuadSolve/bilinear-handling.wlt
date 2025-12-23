@@ -1,5 +1,4 @@
 BeginTestSection["bilinear-handling"]
-Begin["FernandoDuarte`LongRunRisk`Tests`ParamQuadSolve`bilinear-handling`"]
 
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
 
@@ -18,7 +17,7 @@ VerificationTest[
    Sort[sol] === Sort[{x -> 1/2, y -> 2}] &&
    FreeQ[steps1, {"quadratic", _}] &&
    FreeQ[steps1, {"quartic", _}]
- ], True, TestID -> "bilinear-linear-behaviour@@Tests/ParamQuadSolve/bilinear-handling.wlt:7,1-19,2"
+ ], True, TestID -> "bilinear-linear-behaviour@@Tests/ParamQuadSolve/bilinear-handling.wlt:10,1-22,2"
 ]
 
 (* Mixed system: x^2 + y == 1, y + z == 2.  Solution for x should depend on z. *)
@@ -37,8 +36,7 @@ VerificationTest[
    Length[Keys[signMap]] >= 1 &&
    Module[{sk = First[Keys[signMap]]}, Simplify[signMap[sk]^2 == 4*(z - 1)]] &&
    MemberQ[conds, z >= 1]
- ], True, TestID -> "mixed-quadratic-linear-parameter-dependence@@Tests/ParamQuadSolve/bilinear-handling.wlt:22,1-38,2"
+ ], True, TestID -> "mixed-quadratic-linear-parameter-dependence@@Tests/ParamQuadSolve/bilinear-handling.wlt:25,1-41,2"
 ]
 
-End[]
 EndTestSection[]

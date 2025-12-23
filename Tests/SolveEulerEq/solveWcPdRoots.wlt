@@ -1,5 +1,4 @@
 BeginTestSection["solveWcPdRoots"]
-Begin["FernandoDuarte`LongRunRisk`Tests`SolveEulerEq`solveWcPdRoots`"]
 
 (* Tests for solveWcPdRoots wrapper and standardized output structure
 
@@ -97,7 +96,7 @@ tests = {
       wcResults[[1]]["Signs"] === signsWc
     ],
     True,
-    TestID -> "solveCoeffRoots-Signs-Key@@Tests/SolveEulerEq/solveWcPdRoots.wlt:74,3-98,4"
+    TestID -> "solveCoeffRoots-Signs-Key@@Tests/SolveEulerEq/solveWcPdRoots.wlt:77,3-101,4"
   ],
 
   (* Test: solveWcPdRoots (original) returns "SignsWc" and "SignsPd" keys *)
@@ -120,7 +119,7 @@ tests = {
       wcPdResults[[1]]["SignsPd"] === signsPd
     ],
     True,
-    TestID -> "solveWcPdRoots-Original-Signs-Keys@@Tests/SolveEulerEq/solveWcPdRoots.wlt:101,3-121,4"
+    TestID -> "solveWcPdRoots-Original-Signs-Keys@@Tests/SolveEulerEq/solveWcPdRoots.wlt:104,3-124,4"
   ],
 
   (* Test: solveWcPdRoots (wrapper) returns flat list with sign info for BY *)
@@ -142,7 +141,7 @@ tests = {
       KeyExistsQ[results[[1]], "Pd"]
     ],
     True,
-    TestID -> "solveWcPdRoots-Wrapper-BY-Structure@@Tests/SolveEulerEq/solveWcPdRoots.wlt:124,3-143,4"
+    TestID -> "solveWcPdRoots-Wrapper-BY-Structure@@Tests/SolveEulerEq/solveWcPdRoots.wlt:127,3-146,4"
   ],
 
   (* Test: solveWcPdRoots (wrapper) handles DES model
@@ -164,7 +163,7 @@ tests = {
        AllTrue[results, KeyExistsQ[#, "SignsPd"] &])
     ],
     True,
-    TestID -> "solveWcPdRoots-Wrapper-DES-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:147,3-165,4"
+    TestID -> "solveWcPdRoots-Wrapper-DES-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:150,3-168,4"
   ],
 
   (* Test: solveWcPdRoots (wrapper) handles NRCStochVol model
@@ -187,12 +186,11 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveWcPdRoots-Wrapper-NRCStochVol-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:169,3-188,4"
+    TestID -> "solveWcPdRoots-Wrapper-NRCStochVol-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:172,3-191,4"
   ]
 
 };
 
 
 
-End[]
 EndTestSection[]

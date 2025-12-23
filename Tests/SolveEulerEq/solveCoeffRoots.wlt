@@ -1,5 +1,4 @@
 BeginTestSection["solveCoeffRoots"]
-Begin["FernandoDuarte`LongRunRisk`Tests`SolveEulerEq`solveCoeffRoots`"]
 
 (* Tests for solveCoeffRoots and solveWcPdRoots functions
 
@@ -109,7 +108,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveCoeffRoots-wc-BY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:77,3-110,4"
+    TestID -> "solveCoeffRoots-wc-BY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:80,3-113,4"
   ],
 
   (* Test: solveCoeffRoots for pd returns numeric solution for BY model *)
@@ -169,7 +168,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveCoeffRoots-pd-BY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:113,3-170,4"
+    TestID -> "solveCoeffRoots-pd-BY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:116,3-173,4"
   ],
 
   (* Test: solveWcPdRoots returns valid structure for BY model *)
@@ -198,7 +197,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveWcPdRoots-BY-structure@@Tests/SolveEulerEq/solveCoeffRoots.wlt:173,3-199,4"
+    TestID -> "solveWcPdRoots-BY-structure@@Tests/SolveEulerEq/solveCoeffRoots.wlt:176,3-202,4"
   ],
 
   (* Test: solveCoeffRoots for wc returns numeric solution for BKY model *)
@@ -233,7 +232,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveCoeffRoots-wc-BKY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:202,3-234,4"
+    TestID -> "solveCoeffRoots-wc-BKY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:205,3-237,4"
   ],
 
   (* Test: solveCoeffRoots for wc handles NRC model (may fail due to numerical precision)
@@ -268,7 +267,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveCoeffRoots-wc-NRC-handles-gracefully@@Tests/SolveEulerEq/solveCoeffRoots.wlt:238,3-269,4"
+    TestID -> "solveCoeffRoots-wc-NRC-handles-gracefully@@Tests/SolveEulerEq/solveCoeffRoots.wlt:241,3-272,4"
   ],
 
   (* Test: kernel SignSymbol is correctly read for wc *)
@@ -282,7 +281,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "kernel-SignSymbol-wc@@Tests/SolveEulerEq/solveCoeffRoots.wlt:272,3-283,4"
+    TestID -> "kernel-SignSymbol-wc@@Tests/SolveEulerEq/solveCoeffRoots.wlt:275,3-286,4"
   ],
 
   (* Test: kernel SignSymbol is correctly read for pd *)
@@ -296,12 +295,11 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "kernel-SignSymbol-pd@@Tests/SolveEulerEq/solveCoeffRoots.wlt:286,3-297,4"
+    TestID -> "kernel-SignSymbol-pd@@Tests/SolveEulerEq/solveCoeffRoots.wlt:289,3-300,4"
   ]
 
 };
 
 
 
-End[]
 EndTestSection[]

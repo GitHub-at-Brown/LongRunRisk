@@ -1,5 +1,4 @@
 BeginTestSection["bindUnaryMessages"]
-Begin["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`bindUnaryMessages`"]
 
 (* Load MUnit for message testing *)
 
@@ -33,7 +32,7 @@ tests = {
     $Failed,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
     TimeConstraint -> timeLimit,
-    TestID -> "toofewsigns-returns-failed-one-sign@@Tests/FindRootOptim/bindUnaryMessages.wlt:29,3-35,4"
+    TestID -> "toofewsigns-returns-failed-one-sign@@Tests/FindRootOptim/bindUnaryMessages.wlt:31,3-37,4"
   ],
 
   (* Test: bindUnary returns $Failed and emits toofewsigns message (0 signs, needs 2) *)
@@ -42,7 +41,7 @@ tests = {
     $Failed,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
     TimeConstraint -> timeLimit,
-    TestID -> "toofewsigns-returns-failed-empty-signs@@Tests/FindRootOptim/bindUnaryMessages.wlt:38,3-44,4"
+    TestID -> "toofewsigns-returns-failed-empty-signs@@Tests/FindRootOptim/bindUnaryMessages.wlt:40,3-46,4"
   ],
 
   (* Test: bindUnary works correctly with valid signs (no error, returns list of functions) *)
@@ -54,10 +53,9 @@ tests = {
     True,
     {},
     TimeConstraint -> timeLimit,
-    TestID -> "valid-signs-succeeds@@Tests/FindRootOptim/bindUnaryMessages.wlt:47,3-56,4"
+    TestID -> "valid-signs-succeeds@@Tests/FindRootOptim/bindUnaryMessages.wlt:49,3-58,4"
   ]
 };
 
 
-End[]
 EndTestSection[]

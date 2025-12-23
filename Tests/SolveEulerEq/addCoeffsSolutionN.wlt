@@ -1,5 +1,4 @@
 BeginTestSection["addCoeffsSolutionN"]
-Begin["FernandoDuarte`LongRunRisk`Tests`SolveEulerEq`addCoeffsSolutionN`"]
 
 (* Setup: Load SolveEulerEq.wl *)
 Module[{start, d, pacletRoot},
@@ -23,13 +22,13 @@ $timeLimit = 5;
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN],
   Symbol,
-  TestID -> "addCoeffsSolutionN-symbol-exists@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:20,1-24,2"
+  TestID -> "addCoeffsSolutionN-symbol-exists@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:23,1-27,2"
 ]
 
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs],
   Symbol,
-  TestID -> "updateCoeffs-symbol-exists@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:26,1-30,2"
+  TestID -> "updateCoeffs-symbol-exists@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:29,1-33,2"
 ]
 
 (* ============================================================ *)
@@ -39,13 +38,13 @@ VerificationTest[
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN::usage],
   True,
-  TestID -> "addCoeffsSolutionN-has-usage@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:36,1-40,2"
+  TestID -> "addCoeffsSolutionN-has-usage@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:39,1-43,2"
 ]
 
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs::usage],
   True,
-  TestID -> "updateCoeffs-has-usage@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:42,1-46,2"
+  TestID -> "updateCoeffs-has-usage@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:45,1-49,2"
 ]
 
 (* ============================================================ *)
@@ -60,8 +59,7 @@ VerificationTest[
     ListQ[opts]
   ],
   True,
-  TestID -> "updateCoeffs-options-is-list@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:52,1-61,2"
+  TestID -> "updateCoeffs-options-is-list@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:55,1-64,2"
 ]
 
-End[]
 EndTestSection[]
