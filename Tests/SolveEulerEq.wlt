@@ -85,15 +85,15 @@ VerificationTest[
 			AssociationQ[First @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`res],
 			KeyExistsQ[First @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`res, "A"]
 		],
-		First @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`res, $Failed
+		First @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`res, False
 	];
 	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`res_] := Module[
 		{FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`a = FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`firstASol @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`res},
-		If[SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`a, $Failed], $Failed, Normal @ FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`a @ "A"]
+		If[SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`a, False], False, Normal @ FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`a @ "A"]
 	];
 	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`pdRulesFirstBundle[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`res_, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`numStocks_] := Module[
 		{FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`a = FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`firstASol @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`res, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`stocks},
-		If[SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`a, $Failed], Return[$Failed]];
+		If[SameQ[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`a, False], Return[False]];
 		FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`stocks = FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`a @ "Stocks";
 		If[Or[!AssociationQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`stocks], SameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`stocks, <||>]], Return[{}]];
 		Flatten[
@@ -127,8 +127,8 @@ VerificationTest[
 			{
 				And[ListQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resWc], UnsameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resWc, {}]],
 				And[ListQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resWcSol], UnsameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resWcSol, {}]],
-				UnsameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resWc, $Failed],
-				UnsameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resWcSol, $Failed],
+				UnsameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resWc, False],
+				UnsameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resWcSol, False],
 				SameQ[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resWc, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resWcSol],
 				FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffsQWcRules @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resWc
 			}

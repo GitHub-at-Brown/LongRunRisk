@@ -32,11 +32,15 @@ Module[{testDir, binaryFile, sourceFile, isCI, pacletFile, pacletRoot},
     (* Use source file (portable, slower) *)
     If[FileExistsQ[sourceFile],
       Get[sourceFile],
-      (* Error: no data files found *)
-      Abort[]
+      (* Error: no data files found - set flag so tests fail gracefully *)
+      $testDataLoadFailed = True
     ],
     (* Fast binary load (local development) *)
     Get[binaryFile]
+  ];
+  (* If data didn't load, define dummy variables so tests fail instead of error *)
+  If[TrueQ[$testDataLoadFailed],
+    solNA0 = {}; solNAB0 = {}; paramsA = <||>;
   ];
 ];
 

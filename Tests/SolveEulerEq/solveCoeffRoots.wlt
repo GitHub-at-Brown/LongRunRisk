@@ -139,7 +139,7 @@ tests = {
         $Failed
       ];
 
-      If[!ListQ[wcResults] || Length[wcResults] == 0, Return[$Failed]];
+      If[!ListQ[wcResults] || Length[wcResults] == 0, Return[False]];
 
       (* Now test pd with wc results as extra params *)
       extraParamsPd = wcResults[[1]]["Sol"][[1]];
