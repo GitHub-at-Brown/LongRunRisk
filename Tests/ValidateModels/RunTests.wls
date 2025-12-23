@@ -11,7 +11,7 @@ Module[
   Needs["MUnit`"];
 
   verbose = MemberQ[$ScriptCommandLine, "--verbose" | "-v"];
-  specificFiles = Select[$ScriptCommandLine, StringEndsQ[#, ".wlt"] &];
+  specificFiles = Select[$ScriptCommandLine, StringEndsQ[#, ".mt"] &];
 
   testDir = DirectoryName[$InputFileName];
 
@@ -31,7 +31,7 @@ Module[
 
   testFiles = If[Length[specificFiles] > 0,
     FileNameJoin[{testDir, #}] & /@ specificFiles,
-    Sort[FileNames["*.wlt", testDir]]
+    Sort[FileNames["*.mt", testDir]]
   ];
 
   If[Length[testFiles] == 0,

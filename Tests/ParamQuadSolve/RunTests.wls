@@ -6,7 +6,7 @@
    Usage:
      wolframscript RunTests.wls              # Run all tests
      wolframscript RunTests.wls --verbose    # Run with detailed output
-     wolframscript RunTests.wls file1.wlt    # Run specific test file
+     wolframscript RunTests.wls file1.mt    # Run specific test file
 
    Exit codes:
      0 - All tests passed
@@ -25,7 +25,7 @@ Module[
 
   (* Parse command-line arguments *)
   verbose = MemberQ[$ScriptCommandLine, "--verbose" | "-v"];
-  specificFiles = Select[$ScriptCommandLine, StringEndsQ[#, ".wlt"] &];
+  specificFiles = Select[$ScriptCommandLine, StringEndsQ[#, ".mt"] &];
 
   testDir = DirectoryName[$InputFileName];
 
@@ -49,8 +49,8 @@ Module[
   testFiles = If[Length[specificFiles] > 0,
     (* Run specific files *)
     FileNameJoin[{testDir, #}] & /@ specificFiles,
-    (* Run all .wlt files in directory, sorted for consistent ordering *)
-    Sort[FileNames["*.wlt", testDir]]
+    (* Run all .mt files in directory, sorted for consistent ordering *)
+    Sort[FileNames["*.mt", testDir]]
   ];
 
   If[Length[testFiles] == 0,
