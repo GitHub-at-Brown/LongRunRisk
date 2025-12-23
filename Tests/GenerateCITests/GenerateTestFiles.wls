@@ -212,7 +212,7 @@
 (*]*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Generate Tests*)
 
 
@@ -725,7 +725,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`ProcessModels`*)
 
 
@@ -741,6 +741,7 @@
 (* ::Input:: *)
 (*With[{context=context},*)
 (*ResourceFunction["WriteUnitTest"][testFilePath,*)
+(*Needs@"FernandoDuarte`LongRunRisk`";*)
 (*Needs@context;*)
 (*True*)
 (*,"ConfirmResults"->confirm];*)

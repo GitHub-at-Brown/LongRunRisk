@@ -1219,7 +1219,7 @@ normalizeExp[e_] := e //. {
 
 
 (* Ensure PacletizedResourceFunctions is loaded for RecursiveRewrite *)
-Once[Needs["PacletizedResourceFunctions`"]];
+Needs["PacletizedResourceFunctions`"];
 
 (* Flatten expression for compilation using RecursiveRewrite *)
 (* Returns {Inactive[Module][...], returnType} where returnType preserves ListQ info *)

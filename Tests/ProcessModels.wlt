@@ -2,6 +2,7 @@ BeginTestSection["ProcessModels"]
 
 
 VerificationTest[
+	Needs @ "FernandoDuarte`LongRunRisk`";
 	Needs @ "FernandoDuarte`LongRunRisk`Model`ProcessModels`";
 	True
 	,
