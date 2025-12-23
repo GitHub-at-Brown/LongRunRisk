@@ -6,7 +6,7 @@
    Usage:
      wolframscript RunTests.wls              # Run all tests
      wolframscript RunTests.wls --verbose    # Run with detailed output
-     wolframscript RunTests.wls file1.mt    # Run specific test file
+     wolframscript RunTests.wls file1.wlt    # Run specific test file
 
    Exit codes:
      0 - All tests passed
@@ -17,7 +17,7 @@
    - Fixed message testing syntax issues in multiple test files
    - Replaced MessagesExpected option with proper third positional argument
    - Removed Quiet anti-pattern, now properly asserting expected messages
-   - Files fixed: bindUnaryMessages.mt, findRootCoeff0EdgeCases.mt, fastRootOptions.mt
+   - Files fixed: bindUnaryMessages.wlt, findRootCoeff0EdgeCases.wlt, fastRootOptions.wlt
    - Enhanced test runner with better reporting and error handling
 *)
 
@@ -33,7 +33,7 @@ Module[
 
   (* Parse command-line arguments *)
   verbose = MemberQ[$ScriptCommandLine, "--verbose" | "-v"];
-  specificFiles = Select[$ScriptCommandLine, StringEndsQ[#, ".mt"] &];
+  specificFiles = Select[$ScriptCommandLine, StringEndsQ[#, ".wlt"] &];
 
   testDir = DirectoryName[$InputFileName];
 
@@ -57,8 +57,8 @@ Module[
   testFiles = If[Length[specificFiles] > 0,
     (* Run specific files *)
     FileNameJoin[{testDir, #}] & /@ specificFiles,
-    (* Run all .mt files in directory, sorted for consistent ordering *)
-    Sort[FileNames["*.mt", testDir]]
+    (* Run all .wlt files in directory, sorted for consistent ordering *)
+    Sort[FileNames["*.wlt", testDir]]
   ];
 
   If[Length[testFiles] == 0,

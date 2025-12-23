@@ -11,7 +11,7 @@ Module[
   Needs["MUnit`"];
 
   verbose = MemberQ[$ScriptCommandLine, "--verbose" | "-v"];
-  specificFiles = Select[$ScriptCommandLine, StringEndsQ[#, ".mt"] &];
+  specificFiles = Select[$ScriptCommandLine, StringEndsQ[#, ".wlt"] &];
 
   testDir = DirectoryName[$InputFileName];
 
@@ -31,7 +31,7 @@ Module[
 
   testFiles = If[Length[specificFiles] > 0,
     FileNameJoin[{testDir, #}] & /@ specificFiles,
-    Sort[FileNames["*.mt", testDir]]
+    Sort[FileNames["*.wlt", testDir]]
   ];
 
   If[Length[testFiles] == 0,
@@ -39,7 +39,7 @@ Module[
   ];
 
   startTime = AbsoluteTime[];
-  (* Use TestReport directly on files - handles .mt natively and collects all tests *)
+  (* Use TestReport directly on files - handles .wlt natively and collects all tests *)
   report = TestReport[testFiles, "ProgressReporting" -> verbose];
   endTime = AbsoluteTime[];
 
