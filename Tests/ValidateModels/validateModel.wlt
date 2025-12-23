@@ -26,73 +26,73 @@ $timeLimit = 5;
 VerificationTest[
   $containsTimeDep[x[t]],
   True,
-  TestID -> "containsTimeDep-simple-x[t]@@Tests/ValidateModels/validateModel.wlt:35,1-39,2"
+  TestID -> "containsTimeDep-simple-x[t]@@Tests/ValidateModels/validateModel.wlt:26,1-30,2"
 ]
 
 VerificationTest[
   $containsTimeDep[sx[-1 + t]],
   True,
-  TestID -> "containsTimeDep-lagged-sx[-1+t]@@Tests/ValidateModels/validateModel.wlt:41,1-45,2"
+  TestID -> "containsTimeDep-lagged-sx[-1+t]@@Tests/ValidateModels/validateModel.wlt:32,1-36,2"
 ]
 
 VerificationTest[
   $containsTimeDep[-mup + pi[t]],
   True,
-  TestID -> "containsTimeDep-expression-with-t@@Tests/ValidateModels/validateModel.wlt:47,1-51,2"
+  TestID -> "containsTimeDep-expression-with-t@@Tests/ValidateModels/validateModel.wlt:38,1-42,2"
 ]
 
 VerificationTest[
   $containsTimeDep[x],
   False,
-  TestID -> "containsTimeDep-symbol-without-t@@Tests/ValidateModels/validateModel.wlt:53,1-57,2"
+  TestID -> "containsTimeDep-symbol-without-t@@Tests/ValidateModels/validateModel.wlt:44,1-48,2"
 ]
 
 VerificationTest[
   $containsTimeDep[42],
   False,
-  TestID -> "containsTimeDep-number@@Tests/ValidateModels/validateModel.wlt:59,1-63,2"
+  TestID -> "containsTimeDep-number@@Tests/ValidateModels/validateModel.wlt:50,1-54,2"
 ]
 
 VerificationTest[
   $numericValueQ[0.998],
   True,
-  TestID -> "numericValueQ-decimal@@Tests/ValidateModels/validateModel.wlt:65,1-69,2"
+  TestID -> "numericValueQ-decimal@@Tests/ValidateModels/validateModel.wlt:56,1-60,2"
 ]
 
 VerificationTest[
   $numericValueQ[10],
   True,
-  TestID -> "numericValueQ-integer@@Tests/ValidateModels/validateModel.wlt:71,1-75,2"
+  TestID -> "numericValueQ-integer@@Tests/ValidateModels/validateModel.wlt:62,1-66,2"
 ]
 
 VerificationTest[
   $numericValueQ[(1 - gamma)/(1 - psi^(-1))],
   True,
-  TestID -> "numericValueQ-symbolic-expression@@Tests/ValidateModels/validateModel.wlt:77,1-81,2"
+  TestID -> "numericValueQ-symbolic-expression@@Tests/ValidateModels/validateModel.wlt:68,1-72,2"
 ]
 
 VerificationTest[
   $numericValueQ["not a number"],
   False,
-  TestID -> "numericValueQ-string-false@@Tests/ValidateModels/validateModel.wlt:83,1-87,2"
+  TestID -> "numericValueQ-string-false@@Tests/ValidateModels/validateModel.wlt:74,1-78,2"
 ]
 
 VerificationTest[
   $validParamNameQ[delta],
   True,
-  TestID -> "validParamNameQ-symbol@@Tests/ValidateModels/validateModel.wlt:89,1-93,2"
+  TestID -> "validParamNameQ-symbol@@Tests/ValidateModels/validateModel.wlt:80,1-84,2"
 ]
 
 VerificationTest[
   $validParamNameQ[mud[1]],
   True,
-  TestID -> "validParamNameQ-indexed-symbol@@Tests/ValidateModels/validateModel.wlt:95,1-99,2"
+  TestID -> "validParamNameQ-indexed-symbol@@Tests/ValidateModels/validateModel.wlt:86,1-90,2"
 ]
 
 VerificationTest[
   $validParamNameQ["delta"],
   False,
-  TestID -> "validParamNameQ-string-false@@Tests/ValidateModels/validateModel.wlt:101,1-105,2"
+  TestID -> "validParamNameQ-string-false@@Tests/ValidateModels/validateModel.wlt:92,1-96,2"
 ]
 
 (* ============================================================ *)
@@ -102,7 +102,7 @@ VerificationTest[
 VerificationTest[
   $validateModel[$realModels["BY"]]["Valid"],
   True,
-  TestID -> "valid-model-passes-BY@@Tests/ValidateModels/validateModel.wlt:111,1-115,2"
+  TestID -> "valid-model-passes-BY@@Tests/ValidateModels/validateModel.wlt:102,1-106,2"
 ]
 
 VerificationTest[
@@ -111,14 +111,14 @@ VerificationTest[
     result["Valid"] && result["ErrorCount"] === 0
   ],
   True,
-  TestID -> "valid-model-passes-BKY@@Tests/ValidateModels/validateModel.wlt:117,1-124,2"
+  TestID -> "valid-model-passes-BKY@@Tests/ValidateModels/validateModel.wlt:108,1-115,2"
 ]
 
 VerificationTest[
   (* Test that all catalog models pass validation *)
   $validateCatalog[$realModels]["Valid"],
   True,
-  TestID -> "all-catalog-models-valid@@Tests/ValidateModels/validateModel.wlt:126,1-131,2"
+  TestID -> "all-catalog-models-valid@@Tests/ValidateModels/validateModel.wlt:117,1-122,2"
 ]
 
 (* ============================================================ *)
@@ -140,7 +140,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "missing-name-key-fails@@Tests/ValidateModels/validateModel.wlt:137,1-153,2"
+  TestID -> "missing-name-key-fails@@Tests/ValidateModels/validateModel.wlt:128,1-144,2"
 ]
 
 VerificationTest[
@@ -157,7 +157,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "multiple-missing-keys-accumulated@@Tests/ValidateModels/validateModel.wlt:155,1-170,2"
+  TestID -> "multiple-missing-keys-accumulated@@Tests/ValidateModels/validateModel.wlt:146,1-161,2"
 ]
 
 (* ============================================================ *)
@@ -179,7 +179,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "wrong-type-name-integer@@Tests/ValidateModels/validateModel.wlt:176,1-192,2"
+  TestID -> "wrong-type-name-integer@@Tests/ValidateModels/validateModel.wlt:167,1-183,2"
 ]
 
 VerificationTest[
@@ -197,7 +197,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "wrong-type-stateVars-string@@Tests/ValidateModels/validateModel.wlt:194,1-210,2"
+  TestID -> "wrong-type-stateVars-string@@Tests/ValidateModels/validateModel.wlt:185,1-201,2"
 ]
 
 (* ============================================================ *)
@@ -219,7 +219,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stateVars-missing-t-dependency@@Tests/ValidateModels/validateModel.wlt:216,1-232,2"
+  TestID -> "stateVars-missing-t-dependency@@Tests/ValidateModels/validateModel.wlt:207,1-223,2"
 ]
 
 VerificationTest[
@@ -238,7 +238,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stateVars-empty-list-fails@@Tests/ValidateModels/validateModel.wlt:234,1-251,2"
+  TestID -> "stateVars-empty-list-fails@@Tests/ValidateModels/validateModel.wlt:225,1-242,2"
 ]
 
 VerificationTest[
@@ -257,7 +257,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stateVars-invalid-symbol-fails@@Tests/ValidateModels/validateModel.wlt:253,1-270,2"
+  TestID -> "stateVars-invalid-symbol-fails@@Tests/ValidateModels/validateModel.wlt:244,1-261,2"
 ]
 
 VerificationTest[
@@ -276,7 +276,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stateVars-mixed-valid-invalid-fails@@Tests/ValidateModels/validateModel.wlt:272,1-289,2"
+  TestID -> "stateVars-mixed-valid-invalid-fails@@Tests/ValidateModels/validateModel.wlt:263,1-280,2"
 ]
 
 VerificationTest[
@@ -296,7 +296,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stateVars-valid-symbols-pass@@Tests/ValidateModels/validateModel.wlt:291,1-309,2"
+  TestID -> "stateVars-valid-symbols-pass@@Tests/ValidateModels/validateModel.wlt:282,1-300,2"
 ]
 
 (* ============================================================ *)
@@ -318,7 +318,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "duplicate-parameter-fails@@Tests/ValidateModels/validateModel.wlt:315,1-331,2"
+  TestID -> "duplicate-parameter-fails@@Tests/ValidateModels/validateModel.wlt:306,1-322,2"
 ]
 
 VerificationTest[
@@ -336,7 +336,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "non-numeric-param-value-fails@@Tests/ValidateModels/validateModel.wlt:333,1-349,2"
+  TestID -> "non-numeric-param-value-fails@@Tests/ValidateModels/validateModel.wlt:324,1-340,2"
 ]
 
 VerificationTest[
@@ -354,7 +354,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "non-rule-parameter-entry-fails@@Tests/ValidateModels/validateModel.wlt:351,1-367,2"
+  TestID -> "non-rule-parameter-entry-fails@@Tests/ValidateModels/validateModel.wlt:342,1-358,2"
 ]
 
 (* ============================================================ *)
@@ -380,7 +380,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "incomplete-stock-params-fails@@Tests/ValidateModels/validateModel.wlt:373,1-393,2"
+  TestID -> "incomplete-stock-params-fails@@Tests/ValidateModels/validateModel.wlt:364,1-384,2"
 ]
 
 (* ============================================================ *)
@@ -402,7 +402,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "accumulates-multiple-errors@@Tests/ValidateModels/validateModel.wlt:399,1-415,2"
+  TestID -> "accumulates-multiple-errors@@Tests/ValidateModels/validateModel.wlt:390,1-406,2"
 ]
 
 (* ============================================================ *)
@@ -413,14 +413,14 @@ VerificationTest[
   (* Test stripParamIndex helper *)
   $stripParamIndex[delta] === "delta",
   True,
-  TestID -> "stripParamIndex-symbol@@Tests/ValidateModels/validateModel.wlt:421,1-426,2"
+  TestID -> "stripParamIndex-symbol@@Tests/ValidateModels/validateModel.wlt:412,1-417,2"
 ]
 
 VerificationTest[
   (* Test stripParamIndex with indexed param *)
   $stripParamIndex[mud[1]] === "mud",
   True,
-  TestID -> "stripParamIndex-indexed@@Tests/ValidateModels/validateModel.wlt:428,1-433,2"
+  TestID -> "stripParamIndex-indexed@@Tests/ValidateModels/validateModel.wlt:419,1-424,2"
 ]
 
 VerificationTest[
@@ -441,7 +441,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "extra-param-detected@@Tests/ValidateModels/validateModel.wlt:435,1-454,2"
+  TestID -> "extra-param-detected@@Tests/ValidateModels/validateModel.wlt:426,1-445,2"
 ]
 
 VerificationTest[
@@ -463,7 +463,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "missing-param-detected@@Tests/ValidateModels/validateModel.wlt:456,1-476,2"
+  TestID -> "missing-param-detected@@Tests/ValidateModels/validateModel.wlt:447,1-467,2"
 ]
 
 VerificationTest[
@@ -483,7 +483,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "simple-model-missing-params@@Tests/ValidateModels/validateModel.wlt:478,1-496,2"
+  TestID -> "simple-model-missing-params@@Tests/ValidateModels/validateModel.wlt:469,1-487,2"
 ]
 
 (* ============================================================ *)
@@ -509,7 +509,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "bad-indexed-param-name-fails@@Tests/ValidateModels/validateModel.wlt:502,1-522,2"
+  TestID -> "bad-indexed-param-name-fails@@Tests/ValidateModels/validateModel.wlt:493,1-513,2"
 ]
 
 VerificationTest[
@@ -531,7 +531,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "non-positive-index-fails@@Tests/ValidateModels/validateModel.wlt:524,1-544,2"
+  TestID -> "non-positive-index-fails@@Tests/ValidateModels/validateModel.wlt:515,1-535,2"
 ]
 
 VerificationTest[
@@ -558,7 +558,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "index-gap-fails@@Tests/ValidateModels/validateModel.wlt:546,1-571,2"
+  TestID -> "index-gap-fails@@Tests/ValidateModels/validateModel.wlt:537,1-562,2"
 ]
 
 VerificationTest[
@@ -586,7 +586,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "valid-multi-stock-passes@@Tests/ValidateModels/validateModel.wlt:573,1-599,2"
+  TestID -> "valid-multi-stock-passes@@Tests/ValidateModels/validateModel.wlt:564,1-590,2"
 ]
 
 (* ============================================================ *)
@@ -612,7 +612,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "assumption-delta-negative-fails@@Tests/ValidateModels/validateModel.wlt:605,1-625,2"
+  TestID -> "assumption-delta-negative-fails@@Tests/ValidateModels/validateModel.wlt:596,1-616,2"
 ]
 
 VerificationTest[
@@ -633,7 +633,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "assumption-delta-too-high-fails@@Tests/ValidateModels/validateModel.wlt:627,1-646,2"
+  TestID -> "assumption-delta-too-high-fails@@Tests/ValidateModels/validateModel.wlt:618,1-637,2"
 ]
 
 VerificationTest[
@@ -654,7 +654,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "assumption-psi-negative-fails@@Tests/ValidateModels/validateModel.wlt:648,1-667,2"
+  TestID -> "assumption-psi-negative-fails@@Tests/ValidateModels/validateModel.wlt:639,1-658,2"
 ]
 
 VerificationTest[
@@ -675,7 +675,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "assumption-theta-zero-fails@@Tests/ValidateModels/validateModel.wlt:669,1-688,2"
+  TestID -> "assumption-theta-zero-fails@@Tests/ValidateModels/validateModel.wlt:660,1-679,2"
 ]
 
 VerificationTest[
@@ -696,7 +696,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "assumption-rhox-out-of-range-fails@@Tests/ValidateModels/validateModel.wlt:690,1-709,2"
+  TestID -> "assumption-rhox-out-of-range-fails@@Tests/ValidateModels/validateModel.wlt:681,1-700,2"
 ]
 
 (* ============================================================ *)
@@ -713,7 +713,7 @@ VerificationTest[
     $validateCatalog[catalog]["Valid"]
   ],
   True,
-  TestID -> "valid-catalog-passes@@Tests/ValidateModels/validateModel.wlt:715,1-726,2"
+  TestID -> "valid-catalog-passes@@Tests/ValidateModels/validateModel.wlt:706,1-717,2"
 ]
 
 VerificationTest[
@@ -734,7 +734,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "catalog-identifies-invalid-models@@Tests/ValidateModels/validateModel.wlt:728,1-747,2"
+  TestID -> "catalog-identifies-invalid-models@@Tests/ValidateModels/validateModel.wlt:719,1-738,2"
 ]
 
 (* ============================================================ *)
@@ -1126,7 +1126,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BY-missing-t-dependency@@Tests/ValidateModels/validateModel.wlt:1131,1-1139,2"
+  TestID -> "badCatalog-BY-missing-t-dependency@@Tests/ValidateModels/validateModel.wlt:1122,1-1130,2"
 ]
 
 (* Test BYlowPers: bibRef is symbol not string *)
@@ -1137,7 +1137,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BYlowPers-bibRef-symbol@@Tests/ValidateModels/validateModel.wlt:1142,1-1150,2"
+  TestID -> "badCatalog-BYlowPers-bibRef-symbol@@Tests/ValidateModels/validateModel.wlt:1133,1-1141,2"
 ]
 
 (* Test BYverylowPers: rhopbar has non-numeric value epsilon *)
@@ -1148,7 +1148,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BYverylowPers-non-numeric-param@@Tests/ValidateModels/validateModel.wlt:1153,1-1161,2"
+  TestID -> "badCatalog-BYverylowPers-non-numeric-param@@Tests/ValidateModels/validateModel.wlt:1144,1-1152,2"
 ]
 
 (* Test BKY: missing phipx parameter *)
@@ -1159,7 +1159,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BKY-missing-phipx@@Tests/ValidateModels/validateModel.wlt:1164,1-1172,2"
+  TestID -> "badCatalog-BKY-missing-phipx@@Tests/ValidateModels/validateModel.wlt:1155,1-1163,2"
 ]
 
 (* Test BKYlowPers: extra phipbarxpb parameter not in $parameters *)
@@ -1170,7 +1170,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BKYlowPers-extra-param@@Tests/ValidateModels/validateModel.wlt:1175,1-1183,2"
+  TestID -> "badCatalog-BKYlowPers-extra-param@@Tests/ValidateModels/validateModel.wlt:1166,1-1174,2"
 ]
 
 (* Test BKYverylowPers: missing taugd[1] for stock *)
@@ -1181,7 +1181,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BKYverylowPers-missing-stock-param@@Tests/ValidateModels/validateModel.wlt:1186,1-1194,2"
+  TestID -> "badCatalog-BKYverylowPers-missing-stock-param@@Tests/ValidateModels/validateModel.wlt:1177,1-1185,2"
 ]
 
 (* Test BKYinf: psi negative violates assumption psi > 0 *)
@@ -1192,7 +1192,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BKYinf-psi-negative@@Tests/ValidateModels/validateModel.wlt:1197,1-1205,2"
+  TestID -> "badCatalog-BKYinf-psi-negative@@Tests/ValidateModels/validateModel.wlt:1188,1-1196,2"
 ]
 
 (* Test NRC: mupx in stateVar is invalid symbol *)
@@ -1203,7 +1203,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-NRC-invalid-symbol@@Tests/ValidateModels/validateModel.wlt:1208,1-1216,2"
+  TestID -> "badCatalog-NRC-invalid-symbol@@Tests/ValidateModels/validateModel.wlt:1199,1-1207,2"
 ]
 
 (* Test NRCLLR: has stock indices 1 and 3 but missing 2 *)
@@ -1214,7 +1214,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-NRCLLR-index-gap@@Tests/ValidateModels/validateModel.wlt:1219,1-1227,2"
+  TestID -> "badCatalog-NRCLLR-index-gap@@Tests/ValidateModels/validateModel.wlt:1210,1-1218,2"
 ]
 
 (* Test WCratio: phicpc has non-numeric value ab *)
@@ -1225,7 +1225,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-WCratio-non-numeric@@Tests/ValidateModels/validateModel.wlt:1230,1-1238,2"
+  TestID -> "badCatalog-WCratio-non-numeric@@Tests/ValidateModels/validateModel.wlt:1221,1-1229,2"
 ]
 
 (* Test WCratioInf: stock index 0 is non-positive *)
@@ -1236,7 +1236,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-WCratioInf-zero-index@@Tests/ValidateModels/validateModel.wlt:1241,1-1249,2"
+  TestID -> "badCatalog-WCratioInf-zero-index@@Tests/ValidateModels/validateModel.wlt:1232,1-1240,2"
 ]
 
 (* Test infStochVol: stock index 2 without stock 1 *)
@@ -1247,7 +1247,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-infStochVol-index-gap@@Tests/ValidateModels/validateModel.wlt:1252,1-1260,2"
+  TestID -> "badCatalog-infStochVol-index-gap@@Tests/ValidateModels/validateModel.wlt:1243,1-1251,2"
 ]
 
 (* Test hassel: using symbol j instead of integer for stock index *)
@@ -1258,7 +1258,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-hassel-symbol-index@@Tests/ValidateModels/validateModel.wlt:1263,1-1271,2"
+  TestID -> "badCatalog-hassel-symbol-index@@Tests/ValidateModels/validateModel.wlt:1254,1-1262,2"
 ]
 
 (* Test hasselNRC: x[t+s] contains invalid symbol s *)
@@ -1269,7 +1269,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-hasselNRC-invalid-symbol-s@@Tests/ValidateModels/validateModel.wlt:1274,1-1282,2"
+  TestID -> "badCatalog-hasselNRC-invalid-symbol-s@@Tests/ValidateModels/validateModel.wlt:1265,1-1273,2"
 ]
 
 (* Test BS: has phidpc[2] but missing other stock 2 params *)
@@ -1280,7 +1280,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BS-incomplete-stock@@Tests/ValidateModels/validateModel.wlt:1285,1-1293,2"
+  TestID -> "badCatalog-BS-incomplete-stock@@Tests/ValidateModels/validateModel.wlt:1276,1-1284,2"
 ]
 
 (* Test DES: ab[t] in stateVars is invalid symbol *)
@@ -1291,7 +1291,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-DES-invalid-symbol-ab@@Tests/ValidateModels/validateModel.wlt:1296,1-1304,2"
+  TestID -> "badCatalog-DES-invalid-symbol-ab@@Tests/ValidateModels/validateModel.wlt:1287,1-1295,2"
 ]
 
 (* Test NRCStochVol: uses s instead of t in stateVars *)
@@ -1303,7 +1303,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-NRCStochVol-wrong-time-var@@Tests/ValidateModels/validateModel.wlt:1307,1-1316,2"
+  TestID -> "badCatalog-NRCStochVol-wrong-time-var@@Tests/ValidateModels/validateModel.wlt:1298,1-1307,2"
 ]
 
 (* Test validateCatalog on entire bad catalog - all should fail *)
@@ -1314,7 +1314,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> 30,
-  TestID -> "badCatalog-all-models-invalid@@Tests/ValidateModels/validateModel.wlt:1319,1-1327,2"
+  TestID -> "badCatalog-all-models-invalid@@Tests/ValidateModels/validateModel.wlt:1310,1-1318,2"
 ]
 
 (* Comprehensive test: validate entire bad catalog and verify all expected error types *)
@@ -1359,7 +1359,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> 60,
-  TestID -> "badCatalog-comprehensive-validation@@Tests/ValidateModels/validateModel.wlt:1330,1-1372,2"
+  TestID -> "badCatalog-comprehensive-validation@@Tests/ValidateModels/validateModel.wlt:1321,1-1363,2"
 ]
 
 EndTestSection[]

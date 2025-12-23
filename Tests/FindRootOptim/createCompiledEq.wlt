@@ -14,13 +14,13 @@ $timeLimit = 5;
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq],
   Symbol,
-  TestID -> "createCompiledEq-symbol-exists@@Tests/FindRootOptim/createCompiledEq.wlt:23,1-27,2"
+  TestID -> "createCompiledEq-symbol-exists@@Tests/FindRootOptim/createCompiledEq.wlt:14,1-18,2"
 ]
 
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel],
   Symbol,
-  TestID -> "buildKernel-symbol-exists@@Tests/FindRootOptim/createCompiledEq.wlt:29,1-33,2"
+  TestID -> "buildKernel-symbol-exists@@Tests/FindRootOptim/createCompiledEq.wlt:20,1-24,2"
 ]
 
 (* ============================================================ *)
@@ -30,13 +30,13 @@ VerificationTest[
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq::usage],
   True,
-  TestID -> "createCompiledEq-has-usage@@Tests/FindRootOptim/createCompiledEq.wlt:39,1-43,2"
+  TestID -> "createCompiledEq-has-usage@@Tests/FindRootOptim/createCompiledEq.wlt:30,1-34,2"
 ]
 
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel::usage],
   True,
-  TestID -> "buildKernel-has-usage@@Tests/FindRootOptim/createCompiledEq.wlt:45,1-49,2"
+  TestID -> "buildKernel-has-usage@@Tests/FindRootOptim/createCompiledEq.wlt:36,1-40,2"
 ]
 
 (* ============================================================ *)
@@ -50,7 +50,7 @@ VerificationTest[
     Length[opts] > 0
   ],
   True,
-  TestID -> "buildKernel-has-options@@Tests/FindRootOptim/createCompiledEq.wlt:55,1-63,2"
+  TestID -> "buildKernel-has-options@@Tests/FindRootOptim/createCompiledEq.wlt:46,1-54,2"
 ]
 
 VerificationTest[
@@ -60,7 +60,7 @@ VerificationTest[
     MemberQ[Keys[opts], "CoeffName"]
   ],
   True,
-  TestID -> "buildKernel-has-CoeffName-option@@Tests/FindRootOptim/createCompiledEq.wlt:65,1-73,2"
+  TestID -> "buildKernel-has-CoeffName-option@@Tests/FindRootOptim/createCompiledEq.wlt:56,1-64,2"
 ]
 
 VerificationTest[
@@ -70,7 +70,7 @@ VerificationTest[
     MemberQ[Keys[opts], "SignSymbol"]
   ],
   True,
-  TestID -> "buildKernel-has-SignSymbol-option@@Tests/FindRootOptim/createCompiledEq.wlt:75,1-83,2"
+  TestID -> "buildKernel-has-SignSymbol-option@@Tests/FindRootOptim/createCompiledEq.wlt:66,1-74,2"
 ]
 
 VerificationTest[
@@ -80,7 +80,7 @@ VerificationTest[
     MemberQ[Keys[opts], "PerformanceGoal"]
   ],
   True,
-  TestID -> "buildKernel-has-PerformanceGoal-option@@Tests/FindRootOptim/createCompiledEq.wlt:85,1-93,2"
+  TestID -> "buildKernel-has-PerformanceGoal-option@@Tests/FindRootOptim/createCompiledEq.wlt:76,1-84,2"
 ]
 
 VerificationTest[
@@ -90,7 +90,7 @@ VerificationTest[
     MemberQ[Keys[opts], "CompileMode"]
   ],
   True,
-  TestID -> "buildKernel-has-CompileMode-option@@Tests/FindRootOptim/createCompiledEq.wlt:95,1-103,2"
+  TestID -> "buildKernel-has-CompileMode-option@@Tests/FindRootOptim/createCompiledEq.wlt:86,1-94,2"
 ]
 
 VerificationTest[
@@ -99,7 +99,7 @@ VerificationTest[
     OptionValue[bk, "CompileMode"]
   ],
   "FunctionOnly",
-  TestID -> "buildKernel-CompileMode-default-is-FunctionOnly@@Tests/FindRootOptim/createCompiledEq.wlt:105,1-112,2"
+  TestID -> "buildKernel-CompileMode-default-is-FunctionOnly@@Tests/FindRootOptim/createCompiledEq.wlt:96,1-103,2"
 ]
 
 (* ============================================================ *)
@@ -118,7 +118,7 @@ VerificationTest[
     ]
   ],
   True,
-  TestID -> "createCompiledEq-accepts-buildKernel-options@@Tests/FindRootOptim/createCompiledEq.wlt:120,1-131,2"
+  TestID -> "createCompiledEq-accepts-buildKernel-options@@Tests/FindRootOptim/createCompiledEq.wlt:111,1-122,2"
 ]
 
 EndTestSection[]

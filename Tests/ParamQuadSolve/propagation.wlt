@@ -10,6 +10,6 @@ vars$ = {x, y, z};
 r$ = pqs[eq$, vars$, "ValidationOption" -> False];
 rhs$ = r$["Solution"][[All, 2]];
 
-VerificationTest[FreeQ[rhs$, Alternatives @@ vars$], True, TestID -> "rhs-free-of-unknowns@@Tests/ParamQuadSolve/propagation.wlt:14,1-14,143"]
+VerificationTest[FreeQ[rhs$, Alternatives @@ vars$], True, TestID -> "rhs-free-of-unknowns@@Tests/ParamQuadSolve/propagation.wlt:13,1-13,143"]
 
 EndTestSection[]

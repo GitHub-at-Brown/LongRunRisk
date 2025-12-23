@@ -43,6 +43,7 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpect
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 
 
 (* ::Subsection:: *)
@@ -367,7 +368,7 @@ createDatabase[
 				If[
 					v1 =!= v2
 					,
-					covLong[v2, v1, q_Integer] = covLong[v1, v2, -q]
+					covLong[v2, v1, qq_Integer] = covLong[v1, v2, -qq]
 				];
 			];(*With*)
 		];(*With*)
@@ -400,7 +401,7 @@ createDatabase[
 					,
 					{qInd, s - 1}
 				];
-				covLong[v2, v1, q_Integer, j_] = covLong[v1, v2, -q, j];
+				covLong[v2, v1, qq_Integer, j_] = covLong[v1, v2, -qq, j];
 			];(*Module*)
 		];(*With*)
 		,
@@ -432,7 +433,7 @@ createDatabase[
 					,
 					{qInd, s - 1}
 				];
-				covLong[v2, v1, q_Integer, i_, j_] = covLong[v1, v2, -q, j, i];
+				covLong[v2, v1, qq_Integer, i_, j_] = covLong[v1, v2, -qq, j, i];
 			];(*Module*)
 		];(*With*)
 		,

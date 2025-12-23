@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251215-8UXF1H@@Tests/EndogenousEq.wlt:3,1-12,2"
+	TestID->"EndogenousEq_20251223-EDLNWG@@Tests/EndogenousEq.wlt:3,1-12,2"
 ]
 VerificationTest[
 	!SameQ[Names @ "*pdeq", {}]
@@ -17,7 +17,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251215-45A9IH@@Tests/EndogenousEq.wlt:13,1-21,2"
+	TestID->"EndogenousEq_20251223-C3LW7Z@@Tests/EndogenousEq.wlt:13,1-21,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -46,7 +46,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251215-4ZS9RX@@Tests/EndogenousEq.wlt:22,1-50,2"
+	TestID->"EndogenousEq_20251223-2SME0U@@Tests/EndogenousEq.wlt:22,1-50,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -67,7 +67,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251215-0LYUQL@@Tests/EndogenousEq.wlt:51,1-71,2"
+	TestID->"EndogenousEq_20251223-L0VUEJ@@Tests/EndogenousEq.wlt:51,1-71,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -88,7 +88,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251215-TQE4LI@@Tests/EndogenousEq.wlt:72,1-92,2"
+	TestID->"EndogenousEq_20251223-077TRW@@Tests/EndogenousEq.wlt:72,1-92,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -117,7 +117,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251215-4W8Q0P@@Tests/EndogenousEq.wlt:93,1-121,2"
+	TestID->"EndogenousEq_20251223-72QAYI@@Tests/EndogenousEq.wlt:93,1-121,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -135,7 +135,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251215-13HATS@@Tests/EndogenousEq.wlt:122,1-139,2"
+	TestID->"EndogenousEq_20251223-J1CO3Y@@Tests/EndogenousEq.wlt:122,1-139,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -152,7 +152,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251215-HBIEAY@@Tests/EndogenousEq.wlt:140,1-156,2"
+	TestID->"EndogenousEq_20251223-5751HS@@Tests/EndogenousEq.wlt:140,1-156,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -168,7 +168,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251215-20PFPT@@Tests/EndogenousEq.wlt:157,1-172,2"
+	TestID->"EndogenousEq_20251223-CZNT6S@@Tests/EndogenousEq.wlt:157,1-172,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Model`EndogenousEq`coefwc = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc;
@@ -297,12 +297,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251215-4EIU8N@@Tests/EndogenousEq.wlt:173,1-301,2"
+	TestID->"EndogenousEq_20251223-402VM5@@Tests/EndogenousEq.wlt:173,1-301,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
   True,
-  TestID -> "Untitled-8@@Tests/EndogenousEq.wlt:302,1-310,8"
+  TestID -> "Untitled-12@@Tests/EndogenousEq.wlt:302,1-310,8"
 ]
 End[]
 EndTestSection[]

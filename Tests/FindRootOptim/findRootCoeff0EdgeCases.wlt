@@ -26,7 +26,7 @@ tests = With[{
       $Failed,
       {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval},
       TimeConstraint -> timeLimit,
-      TestID -> "findRootInterval-contradiction-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:18,5-31,6"
+      TestID -> "findRootInterval-contradiction-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:17,5-30,6"
     ],
 
     (* Test buildKernel with "CoeffName" and "SignSymbol" options *)
@@ -43,7 +43,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:34,5-48,6"
+      TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:33,5-47,6"
     ],
 
     (* Test bindUnary with insufficient signs returns $Failed with message *)
@@ -62,7 +62,7 @@ tests = With[{
       $Failed,
       {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
       TimeConstraint -> timeLimit,
-      TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:51,5-67,6"
+      TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:50,5-66,6"
     ],
 
     (* Test buildKernel produces CompiledCodeFunction via FunctionCompile *)
@@ -83,7 +83,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-produces-CompiledCodeFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:70,5-88,6"
+      TestID -> "buildKernel-produces-CompiledCodeFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:69,5-87,6"
     ],
 
     (* Test buildKernel with "Compiler" -> "Compile" produces CompiledFunction *)
@@ -101,7 +101,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-Compile-produces-CompiledFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:91,5-106,6"
+      TestID -> "buildKernel-Compile-produces-CompiledFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:90,5-105,6"
     ],
 
     (* Test both compilers produce equivalent numerical results *)
@@ -116,7 +116,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "buildKernel-both-compilers-equivalent-results@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:109,5-121,6"
+      TestID -> "buildKernel-both-compilers-equivalent-results@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:108,5-120,6"
     ],
 
     (* Test isCompiledCode detects both function types *)
@@ -129,7 +129,7 @@ tests = With[{
       ],
       True,
       TimeConstraint -> timeLimit,
-      TestID -> "isCompiledCode-detects-both-types@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:124,5-134,6"
+      TestID -> "isCompiledCode-detects-both-types@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:123,5-133,6"
     ]
   }
 ];

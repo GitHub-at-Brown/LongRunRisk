@@ -9,7 +9,7 @@ VerificationTest[
   pqs[{x^2 + y^2 + z^2 == 3, x^2 + 2 x - 1 == 0}, {x, y, z}, "OnlyQuadTerms" -> True],
   $Failed,
   {FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSolve::nocover},
-  TestID -> "onlyquad-reject-partial@@Tests/ParamQuadSolve/only-quad-terms.wlt:9,1-14,2"
+  TestID -> "onlyquad-reject-partial@@Tests/ParamQuadSolve/only-quad-terms.wlt:8,1-13,2"
 ]
 
 VerificationTest[
@@ -24,7 +24,7 @@ VerificationTest[
     diagnostics["DeferredVariables"] === {}
   ],
   True,
-  TestID -> "onlyquad-all-covered@@Tests/ParamQuadSolve/only-quad-terms.wlt:16,1-29,2"
+  TestID -> "onlyquad-all-covered@@Tests/ParamQuadSolve/only-quad-terms.wlt:15,1-28,2"
 ]
 
 VerificationTest[
@@ -40,14 +40,14 @@ VerificationTest[
     Sort[deferredVars] === {y, z}
   ],
   True,
-  TestID -> "onlyquad-deferred-output@@Tests/ParamQuadSolve/only-quad-terms.wlt:31,1-45,2"
+  TestID -> "onlyquad-deferred-output@@Tests/ParamQuadSolve/only-quad-terms.wlt:30,1-44,2"
 ]
 
 VerificationTest[
   pqs[{x + y == 1}, {x, y}, "OnlyQuadTerms" -> True],
   $Failed,
   {FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSolve::noquad},
-  TestID -> "onlyquad-noquadratic@@Tests/ParamQuadSolve/only-quad-terms.wlt:47,1-52,2"
+  TestID -> "onlyquad-noquadratic@@Tests/ParamQuadSolve/only-quad-terms.wlt:46,1-51,2"
 ]
 
 EndTestSection[]

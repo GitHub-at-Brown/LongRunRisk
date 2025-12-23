@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-DV8ZW4@@Tests/Catalog.wlt:3,1-12,2"
+	TestID->"Catalog_20251223-EV7HU0@@Tests/Catalog.wlt:3,1-12,2"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"]
@@ -17,7 +17,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-M4Q51W@@Tests/Catalog.wlt:13,1-21,2"
+	TestID->"Catalog_20251223-CVYMGR@@Tests/Catalog.wlt:13,1-21,2"
 ]
 VerificationTest[
 	Apply[And, Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models]]
@@ -26,7 +26,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-AAO8IX@@Tests/Catalog.wlt:22,1-30,2"
+	TestID->"Catalog_20251223-ZQHUJ0@@Tests/Catalog.wlt:22,1-30,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -49,7 +49,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-6NXGZF@@Tests/Catalog.wlt:31,1-53,2"
+	TestID->"Catalog_20251223-N0A4JV@@Tests/Catalog.wlt:31,1-53,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -62,7 +62,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-QI1MSB@@Tests/Catalog.wlt:54,1-66,2"
+	TestID->"Catalog_20251223-OX2LLT@@Tests/Catalog.wlt:54,1-66,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -82,7 +82,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-WV9U1Z@@Tests/Catalog.wlt:67,1-86,2"
+	TestID->"Catalog_20251223-TQC5UV@@Tests/Catalog.wlt:67,1-86,2"
 ]
 VerificationTest[
 	SameQ[FernandoDuarte`LongRunRisk`Model`Catalog`models["BY"]["stateVars"], {FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t, FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx @ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t}]
@@ -91,7 +91,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-QPIVYT@@Tests/Catalog.wlt:87,1-95,2"
+	TestID->"Catalog_20251223-RMOIJN@@Tests/Catalog.wlt:87,1-95,2"
 ]
 VerificationTest[
 	Apply[And, Map[MemberQ[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], #]&, {"BY", "BKY"}]]
@@ -100,7 +100,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-WX8IA8@@Tests/Catalog.wlt:96,1-104,2"
+	TestID->"Catalog_20251223-AWF8GZ@@Tests/Catalog.wlt:96,1-104,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -118,7 +118,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-RVUUKV@@Tests/Catalog.wlt:105,1-122,2"
+	TestID->"Catalog_20251223-L8VWTP@@Tests/Catalog.wlt:105,1-122,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -155,7 +155,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-BWEC6O@@Tests/Catalog.wlt:123,1-159,2"
+	TestID->"Catalog_20251223-1G21CC@@Tests/Catalog.wlt:123,1-159,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -184,7 +184,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-JS38O9@@Tests/Catalog.wlt:160,1-188,2"
+	TestID->"Catalog_20251223-CW7BLD@@Tests/Catalog.wlt:160,1-188,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -213,7 +213,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-YNFN2X@@Tests/Catalog.wlt:189,1-217,2"
+	TestID->"Catalog_20251223-USIK1Y@@Tests/Catalog.wlt:189,1-217,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -242,7 +242,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-FR27HI@@Tests/Catalog.wlt:218,1-246,2"
+	TestID->"Catalog_20251223-2IK0IQ@@Tests/Catalog.wlt:218,1-246,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -274,7 +274,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-XYOBHF@@Tests/Catalog.wlt:247,1-278,2"
+	TestID->"Catalog_20251223-16V8HS@@Tests/Catalog.wlt:247,1-278,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -290,7 +290,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-OGHDK3@@Tests/Catalog.wlt:279,1-294,2"
+	TestID->"Catalog_20251223-91RLYU@@Tests/Catalog.wlt:279,1-294,2"
 ]
 VerificationTest[
 	Apply[And, {SubsetQ[Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`models, Keys @ FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo]}]
@@ -299,7 +299,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-W2W57W@@Tests/Catalog.wlt:295,1-303,2"
+	TestID->"Catalog_20251223-O3EOWM@@Tests/Catalog.wlt:295,1-303,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -331,7 +331,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251215-CZNEGQ@@Tests/Catalog.wlt:304,1-335,2"
+	TestID->"Catalog_20251223-IJ59KY@@Tests/Catalog.wlt:304,1-335,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,

@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-DY5PCN@@Tests/TimeAggregation.wlt:3,1-12,2"
+	TestID->"TimeAggregation_20251223-IT48KT@@Tests/TimeAggregation.wlt:3,1-12,2"
 ]
 VerificationTest[
 	Off[General::stop];
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-4WVVJC@@Tests/TimeAggregation.wlt:13,1-23,2"
+	TestID->"TimeAggregation_20251223-3WEQZN@@Tests/TimeAggregation.wlt:13,1-23,2"
 ]
 VerificationTest[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
@@ -29,7 +29,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-WYZ0N9@@Tests/TimeAggregation.wlt:24,1-33,2"
+	TestID->"TimeAggregation_20251223-VG5BVR@@Tests/TimeAggregation.wlt:24,1-33,2"
 ]
 VerificationTest[
 	!SameQ[Names @ "*growth", {}]
@@ -38,7 +38,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-NRHWGD@@Tests/TimeAggregation.wlt:34,1-42,2"
+	TestID->"TimeAggregation_20251223-WONDVI@@Tests/TimeAggregation.wlt:34,1-42,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -56,7 +56,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-9GRB66@@Tests/TimeAggregation.wlt:43,1-60,2"
+	TestID->"TimeAggregation_20251223-U10LZ4@@Tests/TimeAggregation.wlt:43,1-60,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -117,7 +117,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-4HJY2R@@Tests/TimeAggregation.wlt:61,1-121,2"
+	TestID->"TimeAggregation_20251223-4E6B0H@@Tests/TimeAggregation.wlt:61,1-121,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -243,7 +243,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-ZEMHZ1@@Tests/TimeAggregation.wlt:122,1-247,2"
+	TestID->"TimeAggregation_20251223-5RD3WD@@Tests/TimeAggregation.wlt:122,1-247,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -284,7 +284,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-G420NH@@Tests/TimeAggregation.wlt:248,1-288,2"
+	TestID->"TimeAggregation_20251223-3UKC3U@@Tests/TimeAggregation.wlt:248,1-288,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -316,7 +316,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-O976YF@@Tests/TimeAggregation.wlt:289,1-320,2"
+	TestID->"TimeAggregation_20251223-6IK7G0@@Tests/TimeAggregation.wlt:289,1-320,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -398,7 +398,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-Y6GHKC@@Tests/TimeAggregation.wlt:321,1-402,2"
+	TestID->"TimeAggregation_20251223-3T8NC0@@Tests/TimeAggregation.wlt:321,1-402,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`arbitraryFun1 = Function[{FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`t, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`j, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h, FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`k, v}, Sqrt @ FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h];
@@ -535,7 +535,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-ILIFAH@@Tests/TimeAggregation.wlt:403,1-539,2"
+	TestID->"TimeAggregation_20251223-QZ97FD@@Tests/TimeAggregation.wlt:403,1-539,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -564,7 +564,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-D53EZP@@Tests/TimeAggregation.wlt:540,1-568,2"
+	TestID->"TimeAggregation_20251223-I7KL2Y@@Tests/TimeAggregation.wlt:540,1-568,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -614,7 +614,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-Q0W4J8@@Tests/TimeAggregation.wlt:569,1-618,2"
+	TestID->"TimeAggregation_20251223-V2C2PB@@Tests/TimeAggregation.wlt:569,1-618,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -668,7 +668,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-3C0NPE@@Tests/TimeAggregation.wlt:619,1-672,2"
+	TestID->"TimeAggregation_20251223-CFO0NZ@@Tests/TimeAggregation.wlt:619,1-672,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -691,7 +691,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-JA9SIH@@Tests/TimeAggregation.wlt:673,1-695,2"
+	TestID->"TimeAggregation_20251223-IJTW55@@Tests/TimeAggregation.wlt:673,1-695,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 1;
@@ -720,7 +720,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-FP7XPI@@Tests/TimeAggregation.wlt:696,1-724,2"
+	TestID->"TimeAggregation_20251223-DKZMIY@@Tests/TimeAggregation.wlt:696,1-724,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 2;
@@ -755,7 +755,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-22YHSP@@Tests/TimeAggregation.wlt:725,1-759,2"
+	TestID->"TimeAggregation_20251223-1OCPF0@@Tests/TimeAggregation.wlt:725,1-759,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -790,7 +790,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-YLMXZW@@Tests/TimeAggregation.wlt:760,1-794,2"
+	TestID->"TimeAggregation_20251223-PTZZZH@@Tests/TimeAggregation.wlt:760,1-794,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 4;
@@ -825,7 +825,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-C8KE8L@@Tests/TimeAggregation.wlt:795,1-829,2"
+	TestID->"TimeAggregation_20251223-ZR63ZD@@Tests/TimeAggregation.wlt:795,1-829,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -881,7 +881,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-QY3E03@@Tests/TimeAggregation.wlt:830,1-885,2"
+	TestID->"TimeAggregation_20251223-Y57R4E@@Tests/TimeAggregation.wlt:830,1-885,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -937,7 +937,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-QEJ3TU@@Tests/TimeAggregation.wlt:886,1-941,2"
+	TestID->"TimeAggregation_20251223-M73FMI@@Tests/TimeAggregation.wlt:886,1-941,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`f = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`f;
@@ -951,7 +951,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-MWRHFG@@Tests/TimeAggregation.wlt:942,1-955,2"
+	TestID->"TimeAggregation_20251223-9SSRN3@@Tests/TimeAggregation.wlt:942,1-955,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -1208,7 +1208,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-0SDQBS@@Tests/TimeAggregation.wlt:956,1-1212,2"
+	TestID->"TimeAggregation_20251223-437MTH@@Tests/TimeAggregation.wlt:956,1-1212,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -1238,7 +1238,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-BKLQ4Z@@Tests/TimeAggregation.wlt:1213,1-1242,2"
+	TestID->"TimeAggregation_20251223-Q8KJ84@@Tests/TimeAggregation.wlt:1213,1-1242,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -1329,7 +1329,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-570ZBE@@Tests/TimeAggregation.wlt:1243,1-1333,2"
+	TestID->"TimeAggregation_20251223-CKQ6IG@@Tests/TimeAggregation.wlt:1243,1-1333,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -1435,7 +1435,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-1HWKLY@@Tests/TimeAggregation.wlt:1334,1-1439,2"
+	TestID->"TimeAggregation_20251223-ZIIB7K@@Tests/TimeAggregation.wlt:1334,1-1439,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -1489,7 +1489,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-Y0ZU9I@@Tests/TimeAggregation.wlt:1440,1-1493,2"
+	TestID->"TimeAggregation_20251223-VUNRZY@@Tests/TimeAggregation.wlt:1440,1-1493,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -1603,7 +1603,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-CSRJJ7@@Tests/TimeAggregation.wlt:1494,1-1607,2"
+	TestID->"TimeAggregation_20251223-F1GTBF@@Tests/TimeAggregation.wlt:1494,1-1607,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -1645,7 +1645,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-O8AM1O@@Tests/TimeAggregation.wlt:1608,1-1649,2"
+	TestID->"TimeAggregation_20251223-LGVV9H@@Tests/TimeAggregation.wlt:1608,1-1649,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -1697,7 +1697,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-ZOIM9Y@@Tests/TimeAggregation.wlt:1650,1-1701,2"
+	TestID->"TimeAggregation_20251223-GL6029@@Tests/TimeAggregation.wlt:1650,1-1701,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -1751,7 +1751,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-F6P5ZJ@@Tests/TimeAggregation.wlt:1702,1-1755,2"
+	TestID->"TimeAggregation_20251223-L6DDF0@@Tests/TimeAggregation.wlt:1702,1-1755,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -1878,7 +1878,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-UVQGOX@@Tests/TimeAggregation.wlt:1756,1-1882,2"
+	TestID->"TimeAggregation_20251223-KVH063@@Tests/TimeAggregation.wlt:1756,1-1882,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`TimeAggregation`h = 3;
@@ -2006,7 +2006,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-4HQKKO@@Tests/TimeAggregation.wlt:1883,1-2010,2"
+	TestID->"TimeAggregation_20251223-DS0RIH@@Tests/TimeAggregation.wlt:1883,1-2010,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -2144,7 +2144,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-9857SC@@Tests/TimeAggregation.wlt:2011,1-2148,2"
+	TestID->"TimeAggregation_20251223-4KUPNC@@Tests/TimeAggregation.wlt:2011,1-2148,2"
 ]
 VerificationTest[
 	On[General::stop];
@@ -2154,12 +2154,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251215-SEE63I@@Tests/TimeAggregation.wlt:2149,1-2158,2"
+	TestID->"TimeAggregation_20251223-5QVB6Z@@Tests/TimeAggregation.wlt:2149,1-2158,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
   True,
-  TestID -> "Untitled-18@@Tests/TimeAggregation.wlt:2159,1-2167,8"
+  TestID -> "Untitled-26@@Tests/TimeAggregation.wlt:2159,1-2167,8"
 ]
 End[]
 EndTestSection[]

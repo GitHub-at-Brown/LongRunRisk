@@ -18,13 +18,13 @@ $timeLimit = 30;
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`Tools`ManageResources`reformatCatalog],
   Symbol,
-  TestID -> "reformatCatalog-symbol-exists@@Tests/ManageResources/reformatCatalog.wlt:28,1-32,2"
+  TestID -> "reformatCatalog-symbol-exists@@Tests/ManageResources/reformatCatalog.wlt:18,1-22,2"
 ]
 
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`reformatCatalog::usage],
   True,
-  TestID -> "reformatCatalog-has-usage@@Tests/ManageResources/reformatCatalog.wlt:34,1-38,2"
+  TestID -> "reformatCatalog-has-usage@@Tests/ManageResources/reformatCatalog.wlt:24,1-28,2"
 ]
 
 (* ============================================================ *)
@@ -42,7 +42,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "reformatCatalog-toCatalog-works-on-full-catalog@@Tests/ManageResources/reformatCatalog.wlt:45,1-56,2"
+  TestID -> "reformatCatalog-toCatalog-works-on-full-catalog@@Tests/ManageResources/reformatCatalog.wlt:35,1-46,2"
 ]
 
 VerificationTest[
@@ -57,7 +57,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "reformatCatalog-formatModels-produces-BoxData@@Tests/ManageResources/reformatCatalog.wlt:58,1-71,2"
+  TestID -> "reformatCatalog-formatModels-produces-BoxData@@Tests/ManageResources/reformatCatalog.wlt:48,1-61,2"
 ]
 
 VerificationTest[
@@ -74,7 +74,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "reformatCatalog-all-models-in-formatted-output@@Tests/ManageResources/reformatCatalog.wlt:73,1-88,2"
+  TestID -> "reformatCatalog-all-models-in-formatted-output@@Tests/ManageResources/reformatCatalog.wlt:63,1-78,2"
 ]
 
 VerificationTest[
@@ -90,7 +90,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "reformatCatalog-enabled-field-in-output@@Tests/ManageResources/reformatCatalog.wlt:90,1-104,2"
+  TestID -> "reformatCatalog-enabled-field-in-output@@Tests/ManageResources/reformatCatalog.wlt:80,1-94,2"
 ]
 
 (* ============================================================ *)
@@ -109,7 +109,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "reformatCatalog-string-formatting-idempotent@@Tests/ManageResources/reformatCatalog.wlt:110,1-123,2"
+  TestID -> "reformatCatalog-string-formatting-idempotent@@Tests/ManageResources/reformatCatalog.wlt:100,1-113,2"
 ]
 
 EndTestSection[]
