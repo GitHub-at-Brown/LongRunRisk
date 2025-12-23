@@ -52,12 +52,6 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 (*Helper functions*)
 
 
-(* OS-level memory usage (sum of WolframKernel RSS, in GB) *)
-wolframKernelMemoryGB[] := Module[{raw, kb},
-	raw = Quiet@Import["!ps -axo rss,comm | grep -i '[W]olframKernel' | awk '{sum+=$1} END {print sum}'", "String"];
-	kb = Quiet@Check[ToExpression@StringTrim[raw], $Failed];
-	If[NumberQ[kb], N[kb/1024.^2], Missing["NotAvailable"]]
-];
 
 (* safeRest - safely extract all but first element, returns {} for invalid input *)
 safeRest[list_List] := If[Length[list] >= 1, Rest[list], {}];
@@ -108,21 +102,8 @@ processModels[
 		contextPath=$ContextPath,
 		modelAssumptions,
 		maxMomentOrder,
-		maxSolveTime,
-		logMem (* memory logging helper *)
+		maxSolveTime
 	},
-	(* Memory profiling for processModels - uses parent's logMemory if available *)
-	logMem[label_] := If[ValueQ[logMemory],
-		logMemory["  processModels: " <> label],
-		Module[{memGB = N[MemoryInUse[]/1024^3], kernelGB = wolframKernelMemoryGB[]},
-			Print[
-				"  processModels: ", label,
-				" | Memory: ", NumberForm[memGB, {5, 2}], " GB",
-				" | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
-			]
-		]
-	];
-	logMem["START"];
 
 	(* add default empty extraInfo if not present *)
 	models = If[KeyExistsQ[#, "extraInfo"], #, Append[#, "extraInfo" -> <||>]]& /@ models;
@@ -217,7 +198,6 @@ processModels[
 		#,
 		"toStateVars" -> addToStateVars[#]
 	]& /@ models;
-	logMem["after toStateVars"];
 
 	(*add unconditional moments of state variables*)
 	maxMomentOrder=4;(*4;*)
@@ -233,7 +213,6 @@ processModels[
 		]&/@models,
 		"uncondMomOfStateVars"
 	]; (*leaks global t*)
-	logMem["after uncondMomOfStateVars"];
 
 	(*add expressions for some unconditional moments*)
 	models = EchoTiming[
@@ -248,7 +227,6 @@ processModels[
 		]& /@ models,
 		"uncondE"
 	];
-	logMem["after uncondE"];
 
 	(*add Euler equations*)
 	models = EchoTiming[
@@ -258,7 +236,6 @@ processModels[
 		]&/@models,
 		"addCoeffsSystem"
 	];
-	logMem["after addCoeffsSystem"];
 
 	(* simplify Euler equations *)
 	models = EchoTiming[
@@ -278,7 +255,6 @@ processModels[
 	  ) & /@ models,
 	  "simplifyCoeffsSystem"
 	];
-	logMem["after simplifyCoeffsSystem"];
 
 	(*solve, simplify solution, create nonlinear equations for mean of wc and pd*)
 	models = EchoTiming[
@@ -292,7 +268,6 @@ processModels[
 		]&/@models,
 		"solveCoeffsSystem"
 	];
-	logMem["after solveCoeffsSystem"];
 
 	(*add from FernandoDuarte`LongRunRisk`Model`Catalog`modelsExtraInfo*)
 	models = EchoTiming[
@@ -316,7 +291,6 @@ processModels[
 		],
 		"addCoeffsSolution"
 	];
-	logMem["after addCoeffsSolution"];
 
 	(*add a list of existing Keys called Properties*)
 	models=Append[
@@ -327,7 +301,6 @@ processModels[
 	(*restore $ContextPath to initial state*)
 	$ContextPath=contextPath;
 
-	logMem["END"];
 	(*restore original keys and output models*)
 	models = KeyMap[Replace[#,Thread[Keys[models]->keys]]&,models]
 ]
@@ -720,18 +693,8 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							solA,
 							solB,
 							conditionsA,
-							conditionsB,
-							logSolve (* memory logging for solveCoeffsSystem *)
+							conditionsB
 						},
-						(* Memory logging helper *)
-						logSolve[label_] := Module[{memGB = N[MemoryInUse[]/1024^3], kernelGB = wolframKernelMemoryGB[]},
-							Print[
-								"    solveCoeffsSystem: ", label,
-								" | Memory: ", NumberForm[memGB, {5, 2}], " GB",
-								" | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
-							]
-						];
-						logSolve["START"];
 
 						(*solve system of linear-quadratic equations for wc and pd coefficients*)
 						(*Echo[sysA[[1]],"sysA1"];*)
@@ -744,7 +707,6 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							Assumptions->assumeA,
 							Sequence @@ paramQuadSolveOpts
 						];
-						logSolve["after paramQuadSolve wc"];
 						(*Echo[solA[[1]],"solA1"];*)
 						solB=paramQuadSolve[
 							sysB,
@@ -755,13 +717,11 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							Assumptions->assumeB,
 							Sequence @@ paramQuadSolveOpts
 						];
-						logSolve["after paramQuadSolve pd"];
 						If[FailureQ[solA] || FailureQ[solB],
 							Return["coeffsParamQuadSolve" -> $Failed, Module]
 						];
 						(*Echo[solB[[1]],"solB1"];*)
 						(*simplify conditions that guarantee real solutions*)
-						logSolve["BEFORE FullSimplify conditionsA (bytes=" <> ToString[ByteCount[solA["Conditions"]]] <> ")"];
 						conditionsA=Assuming[assumeA,
 							simplifyWithDummySubstitution[solA["Conditions"],
 								"Assumptions" -> True,
@@ -769,8 +729,6 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								Sequence @@ simplifyOpts
 							]
 						];
-						logSolve["AFTER FullSimplify conditionsA"];
-						logSolve["BEFORE FullSimplify conditionsB (bytes=" <> ToString[ByteCount[solB["Conditions"]]] <> ")"];
 						conditionsB=Assuming[assumeB,
 							simplifyWithDummySubstitution[solB["Conditions"],
 								"Assumptions" -> True,
@@ -778,31 +736,19 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								Sequence @@ simplifyOpts
 							]
 						];
-						logSolve["AFTER FullSimplify conditionsB"];
 						solA["Conditions"]=assumeA && (And@@conditionsA);
 						solB["Conditions"]=assumeB && (And@@conditionsB);
-						logSolve["after FullSimplify conditions"];
 
 						(*Echo[solA["Conditions"][[1]],"solAConditions"];*)
 						(*Echo[solB["Conditions"][[1]],"solBConditions"];*)
 						(*simplify using assumptions*)
-						logSolve["BEFORE Simplify solA Solution (bytes=" <> ToString[ByteCount[solA["Solution"]]] <> ", len=" <> ToString[Length[solA["Solution"]]] <> ")"];
 						solA["Solution"]=Quiet[Assuming[solA["Conditions"],Simplify[solA["Solution"],Sequence @@ simplifyOpts]],{Simplify::time}];
-						logSolve["AFTER Simplify solA Solution"];
-						logSolve["BEFORE Simplify solB Solution (bytes=" <> ToString[ByteCount[solB["Solution"]]] <> ", len=" <> ToString[Length[solB["Solution"]]] <> ")"];
 					    solB["Solution"]=Quiet[Assuming[solB["Conditions"],Simplify[solB["Solution"],Sequence @@ simplifyOpts]],{Simplify::time}];
-						logSolve["AFTER Simplify solB Solution"];
-						logSolve["after Simplify solutions"];
 						(*Echo[solA["Solution"][[1]],"solASolution"];*)
 						(*Echo[solB["Solution"][[1]],"solBSolution"];*)
 						(*try eliminating one of gamma, theta, psi and keep shortest expressions*)
-						logSolve["BEFORE tryTransforms solA (bytes=" <> ToString[ByteCount[solA["Solution"]]] <> ")"];
 						solA["Solution"]=tryTransforms[#,assumeA,Sequence @@ simplifyOpts]&/@solA["Solution"];
-						logSolve["AFTER tryTransforms solA"];
-						logSolve["BEFORE tryTransforms solB (bytes=" <> ToString[ByteCount[solB["Solution"]]] <> ")"];
 						solB["Solution"]=tryTransforms[#,assumeB,Sequence @@ simplifyOpts]&/@solB["Solution"];
-						logSolve["AFTER tryTransforms solB"];
-						logSolve["after tryTransforms"];
 
 						(*create non-linear equation for unconditional mean of wc and pd and unsolved coeffs*)
 						With[
@@ -812,7 +758,6 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								verifA = safeVerification[solA["Verification"], Length[varsA], "wc", model["shortname"], varsA],
 								verifB = safeVerification[solB["Verification"], Length[varsB], "pd", model["shortname"], varsB]
 							},
-							logSolve["after safeVerification"];
 							With[
 								{
 									newSysA= Pick[sysA,verifA,False],
@@ -836,7 +781,6 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 										]
 									];
 								];
-								logSolve["after FullSimplify eqA0"];
 							];
 							With[
 								{
@@ -863,7 +807,6 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 												]
 											]
 										];
-										logSolve["after FullSimplify eqB0"];
 									];
 									(*pd plugging in wc coeffs - only if needed*)
 									If[MatchQ[pdMode, "AB" | "Both"],
@@ -878,7 +821,6 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 												]
 											]
 										];
-										logSolve["after FullSimplify eqAB0"];
 									];
 								]; (*With*)
 							]; (*With*)
@@ -887,7 +829,6 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						(*Echo[solB["eqB0"],"eqB0"];*)
 						(*Echo[solB["eqAB0"],"eqAB0"];*)
 						(*Echo[model["shortname"],"finishedcoeffsParamQuadSolve"]; *)
-						logSolve["END"];
 						"coeffsParamQuadSolve" -> <|
 							"wc" -> solA,
 							"pd" -> solB
