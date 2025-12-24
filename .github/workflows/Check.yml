@@ -96,12 +96,12 @@ jobs:
             t0 = AbsoluteTime[];
             PacletDirectoryLoad["."];
 
+            Needs["FernandoDuarte`LongRunRisk`"];
+            Print["Paclet loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
+
             Print["Pipeline status:"];
             status = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[All];
             Scan[Print["  ", #, ": ", status[#]] &, Keys[status]];
-
-            Needs["FernandoDuarte`LongRunRisk`"];
-            Print["Paclet loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
             Print["=== Paclet load complete ==="]
           '
       - name: Commit MX files if updated

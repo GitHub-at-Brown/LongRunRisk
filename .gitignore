@@ -5,3 +5,4 @@
 /temp/
 LongRunRisk.code-workspace
 *.code-workspace
+Scripts/CreateGithubSecrets.nb
