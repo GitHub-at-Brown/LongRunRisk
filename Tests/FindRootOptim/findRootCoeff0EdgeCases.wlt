@@ -32,14 +32,16 @@ tests = With[{
     (* Test buildKernel with "CoeffName" and "SignSymbol" options *)
     VerificationTest[
       Module[{kernel},
-        kernel = bk[
-          x^2 - B[0] + signB[1],
-          {B[0]},
-          {x},
-          "CoeffName" -> "B",
-          "SignSymbol" -> "signB"
-        ];
-        kernel["CoeffName"] === "B" && kernel["SignSymbol"] === "signB"
+        Block[{$ContextPath = Prepend[$ContextPath, "CCompilerDriver`"]},
+          kernel = bk[
+            x^2 - B[0] + signB[1],
+            {B[0]},
+            {x},
+            "CoeffName" -> "B",
+            "SignSymbol" -> "signB"
+          ];
+          kernel["CoeffName"] === "B" && kernel["SignSymbol"] === "signB"
+        ]
       ],
       True,
       TimeConstraint -> timeLimit,
@@ -49,15 +51,17 @@ tests = With[{
     (* Test bindUnary with insufficient signs returns $Failed with message *)
     VerificationTest[
       Module[{kernel, result},
-        kernel = bk[
-          x^2 - A[0] + signA[1] + signA[2],
-          {A[0]},
-          {x},
-          "CoeffName" -> "A",
-          "SignSymbol" -> "signA"
-        ];
-        result = bu[kernel, <|x -> 2|>, "Signs" -> {1}];  (* Only 1 sign, but need 2 *)
-        result === $Failed
+        Block[{$ContextPath = Prepend[$ContextPath, "CCompilerDriver`"]},
+          kernel = bk[
+            x^2 - A[0] + signA[1] + signA[2],
+            {A[0]},
+            {x},
+            "CoeffName" -> "A",
+            "SignSymbol" -> "signA"
+          ];
+          result = bu[kernel, <|x -> 2|>, "Signs" -> {1}];  (* Only 1 sign, but need 2 *)
+          result === $Failed
+        ]
       ],
       True,
       {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
@@ -68,18 +72,20 @@ tests = With[{
     (* Test buildKernel produces CompiledCodeFunction via FunctionCompile *)
     VerificationTest[
       Module[{kernel},
-        kernel = bk[
-          x^2 - A[0],
-          {A[0]},
-          {x},
-          "CoeffName" -> "A",
-          "SignSymbol" -> "signA",
-          "CompileMode" -> "Both",
-          "Compiler" -> "FunctionCompile"  (* Required for CompiledCodeFunction *)
-        ];
-        (* Kernel should have FunctionCompile-produced compiled functions *)
-        Head[kernel["fC"]] === CompiledCodeFunction &&
-        Head[kernel["dfC"]] === CompiledCodeFunction
+        Block[{$ContextPath = Prepend[$ContextPath, "CCompilerDriver`"]},
+          kernel = bk[
+            x^2 - A[0],
+            {A[0]},
+            {x},
+            "CoeffName" -> "A",
+            "SignSymbol" -> "signA",
+            "CompileMode" -> "Both",
+            "Compiler" -> "FunctionCompile"  (* Required for CompiledCodeFunction *)
+          ];
+          (* Kernel should have FunctionCompile-produced compiled functions *)
+          Head[kernel["fC"]] === CompiledCodeFunction &&
+          Head[kernel["dfC"]] === CompiledCodeFunction
+        ]
       ],
       True,
       TimeConstraint -> timeLimit,
@@ -89,15 +95,17 @@ tests = With[{
     (* Test buildKernel with "Compiler" -> "Compile" produces CompiledFunction *)
     VerificationTest[
       Module[{kernel},
-        kernel = bk[
-          x^2 - A[0],
-          {A[0]},
-          {x},
-          "CoeffName" -> "A",
-          "SignSymbol" -> "signA",
-          "Compiler" -> "Compile"
-        ];
-        Head[kernel["fC"]] === CompiledFunction
+        Block[{$ContextPath = Prepend[$ContextPath, "CCompilerDriver`"]},
+          kernel = bk[
+            x^2 - A[0],
+            {A[0]},
+            {x},
+            "CoeffName" -> "A",
+            "SignSymbol" -> "signA",
+            "Compiler" -> "Compile"
+          ];
+          Head[kernel["fC"]] === CompiledFunction
+        ]
       ],
       True,
       TimeConstraint -> timeLimit,
@@ -107,12 +115,14 @@ tests = With[{
     (* Test both compilers produce equivalent numerical results *)
     VerificationTest[
       Module[{kernelFC, kernelC, fFC, fC, dfFC, dfC},
-        kernelFC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "FunctionCompile"];
-        kernelC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "Compile"];
-        {fFC, dfFC} = bu[kernelFC, <|x -> 2|>, {}];
-        {fC, dfC} = bu[kernelC, <|x -> 2|>, {}];
-        (* Both should evaluate to the same result at A[0] = 1: 2^2 - 1 = 3 *)
-        Abs[fFC[1] - fC[1]] < 10^-10
+        Block[{$ContextPath = Prepend[$ContextPath, "CCompilerDriver`"]},
+          kernelFC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "FunctionCompile"];
+          kernelC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "Compile"];
+          {fFC, dfFC} = bu[kernelFC, <|x -> 2|>, {}];
+          {fC, dfC} = bu[kernelC, <|x -> 2|>, {}];
+          (* Both should evaluate to the same result at A[0] = 1: 2^2 - 1 = 3 *)
+          Abs[fFC[1] - fC[1]] < 10^-10
+        ]
       ],
       True,
       TimeConstraint -> timeLimit,
@@ -122,10 +132,12 @@ tests = With[{
     (* Test isCompiledCode detects both function types *)
     VerificationTest[
       Module[{kernelFC, kernelC, isCompiled},
-        isCompiled = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`Private`isCompiledCode"];
-        kernelFC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "FunctionCompile"];
-        kernelC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "Compile"];
-        isCompiled[kernelFC["fC"]] && isCompiled[kernelC["fC"]]
+        Block[{$ContextPath = Prepend[$ContextPath, "CCompilerDriver`"]},
+          isCompiled = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`Private`isCompiledCode"];
+          kernelFC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "FunctionCompile"];
+          kernelC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "Compile"];
+          isCompiled[kernelFC["fC"]] && isCompiled[kernelC["fC"]]
+        ]
       ],
       True,
       TimeConstraint -> timeLimit,
