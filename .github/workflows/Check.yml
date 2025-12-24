@@ -30,11 +30,14 @@ jobs:
       - name: Install system dependencies
         run: |
           apt-get update -y
-          apt-get install -y perl ghostscript wget git build-essential
+          apt-get install -y perl ghostscript wget git build-essential libc6-dev
       - name: Verify C compiler
         run: |
           gcc --version
-          wolframscript -code 'Needs["CCompilerDriver`"]; Print["C Compiler: ", CCompilerDriver`$CCompiler]'
+          g++ --version
+          which gcc
+          which g++
+          wolframscript -code 'Needs["CCompilerDriver`"]; Print["CCompilers found: ", CCompilerDriver`CCompilers[]]; Print["Default compiler: ", CCompilerDriver`$CCompiler]; f = Compile[{{x, _Real}}, x^2, CompilationTarget -> "C"]; Print["Compiled successfully: ", Head[f] === CompiledFunction]'
       - name: Restore TinyTeX cache
         id: cache-tinytex
         uses: actions/cache@v5

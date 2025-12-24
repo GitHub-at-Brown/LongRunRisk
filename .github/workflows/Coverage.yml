@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update -y
-          apt-get install -y perl ghostscript wget lcov bc build-essential
+          apt-get install -y perl ghostscript wget lcov bc build-essential libc6-dev
       - name: Restore TinyTeX cache
         id: cache-tinytex
         uses: actions/cache@v5
