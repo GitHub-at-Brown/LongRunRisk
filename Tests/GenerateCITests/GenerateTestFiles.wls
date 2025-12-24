@@ -212,7 +212,7 @@
 (*]*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Generate Tests*)
 
 
@@ -2127,7 +2127,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`CreateEulerEq`*)
 
 
@@ -4789,12 +4789,12 @@
 (* ::Input:: *)
 (*pacletBaseDir="/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/";(*DirectoryName[NotebookDirectory[],2]*)*)
 (*Needs["Wolfram`PacletCICD`"];*)
-(*testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]];*)
-(*(*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir];*)*)
+(*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir];*)
+(*(*testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]];*)*)
 
 
 (* ::Input:: *)
-(*And@@Values@((#["ReportSucceeded"])&/@testResults["Result"])*)
+(*And@@Values@((#["ReportSucceeded"])&/@testResults["Result"]) (* should be True for no failures *)*)
 
 
 (* ::Code:: *)
@@ -4816,8 +4816,13 @@
 (*  ]*)
 (*];*)
 (**)
-(*(*PacletDirectoryLoad["."];*)
-(*pacletCICDTestContext @ TestReport["Tests/Shocks.wlt"]*)*)
+(*testDir = FileNameJoin[{pacletBaseDir,"Tests/"}];*)
+(*testFiles = FileNames["*.wlt", testDir, Infinity];*)
+(*report = pacletCICDTestContext[TestReport[testFiles]["ResultsByOutcome"]];*)
+(*report["MessagesFailure"] ==={} (* should be True for no message failures *)*)
+(*report["Failure"]==={}  (* should be True for no failures *)*)
+(*report["NotEvaluated"] ==={} (* should be True for all tests evaluated *)*)
+(**)
 
 
 (* ::Input:: *)
@@ -4839,13 +4844,13 @@
 (* ::Input:: *)
 (*pacletBaseDir=DirectoryName[NotebookDirectory[],2];*)
 (*PacletDirectoryLoad[pacletBaseDir];*)
-(*testFileNames = FileNames[FileNameJoin[{pacletBaseDir,"Tests","*.wlt"}]];*)
+(*testFileNames=FileNames["*.wlt",FileNameJoin[{pacletBaseDir,"Tests"}],Infinity];*)
 (*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];*)
 
 
 (* ::Input:: *)
 (*trAll=TestReport[testFileNames]*)
-(*trAll["ReportSucceeded"]*)
+(*trAll["ReportSucceeded"]  (* should be True for no failures *)*)
 (*trAll["TestsFailedWrongResults"]*)
 (*trAll["TestsFailedWithMessages"]*)
 

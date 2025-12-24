@@ -63,7 +63,7 @@ VerificationTest[
     updateModelManifest[]
   ] === $Failed,
   True,
-  {updateModelManifest::noroot},
+  {FernandoDuarte`LongRunRisk`Tools`ManageResources`updateModelManifest::noroot},
   TimeConstraint -> $timeLimit,
   TestID -> "fails-when-root-not-found@@Tests/ManageResources/updateModelManifest.wlt:59,1-69,2"
 ]
@@ -86,7 +86,7 @@ VerificationTest[
     result === $Failed && fileExists === False
   ],
   True,
-  {updateModelManifest::nocat},
+  {FernandoDuarte`LongRunRisk`Tools`ManageResources`updateModelManifest::nocat},
   TimeConstraint -> $timeLimit,
   TestID -> "rejects-non-association-catalog@@Tests/ManageResources/updateModelManifest.wlt:71,1-92,2"
 ]

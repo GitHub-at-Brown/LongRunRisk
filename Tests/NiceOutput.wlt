@@ -29,7 +29,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-0M5X2B@@Tests/NiceOutput.wlt:3,1-18,2"
+	TestID->"NiceOutput_20251223-0M5X2B@@Tests/NiceOutput.wlt:9,1-33,2"
 ]
 VerificationTest[
 	Greater[Length @ PacletFind @ "PacletizedResourceFunctions", 0]
@@ -38,7 +38,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-W4Y3IH@@Tests/NiceOutput.wlt:19,1-27,2"
+	TestID->"NiceOutput_20251223-W4Y3IH@@Tests/NiceOutput.wlt:34,1-42,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`longTest = False;
@@ -48,7 +48,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-VW18UF@@Tests/NiceOutput.wlt:28,1-37,2"
+	TestID->"NiceOutput_20251223-VW18UF@@Tests/NiceOutput.wlt:43,1-52,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
@@ -66,7 +66,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-XQJQF1@@Tests/NiceOutput.wlt:38,1-55,2"
+	TestID->"NiceOutput_20251223-XQJQF1@@Tests/NiceOutput.wlt:53,1-70,2"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Tools`NiceOutput`";
@@ -77,7 +77,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-LVJFXU@@Tests/NiceOutput.wlt:56,1-66,2"
+	TestID->"NiceOutput_20251223-LVJFXU@@Tests/NiceOutput.wlt:71,1-81,2"
 ]
 VerificationTest[
 	Apply[And, {MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]}]
@@ -86,7 +86,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-JUUTIC@@Tests/NiceOutput.wlt:67,1-75,2"
+	TestID->"NiceOutput_20251223-JUUTIC@@Tests/NiceOutput.wlt:82,1-90,2"
 ]
 VerificationTest[
 	!SameQ[Names @ "*info", {}]
@@ -95,7 +95,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-K4B6I8@@Tests/NiceOutput.wlt:76,1-84,2"
+	TestID->"NiceOutput_20251223-K4B6I8@@Tests/NiceOutput.wlt:91,1-99,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`myModelsInfo = PacletizedResourceFunctions`SetSymbolsContext @ FernandoDuarte`LongRunRisk`Tools`NiceOutput`info @ FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`msp;
@@ -116,7 +116,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-C58NLK@@Tests/NiceOutput.wlt:85,1-105,2"
+	TestID->"NiceOutput_20251223-C58NLK@@Tests/NiceOutput.wlt:100,1-120,2"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`justBY = <|"BY" -> FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`msp["BY"]|>;
@@ -146,7 +146,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-WJET5C@@Tests/NiceOutput.wlt:106,1-135,2"
+	TestID->"NiceOutput_20251223-WJET5C@@Tests/NiceOutput.wlt:121,1-150,2"
 ]
 VerificationTest[
 	Apply[And,
@@ -174,7 +174,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-1LRLAE@@Tests/NiceOutput.wlt:136,1-163,2"
+	TestID->"NiceOutput_20251223-1LRLAE@@Tests/NiceOutput.wlt:151,1-178,2"
 ]
 VerificationTest[
 	SameQ[
@@ -208,7 +208,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-TZN6TZ@@Tests/NiceOutput.wlt:164,1-197,2"
+	TestID->"NiceOutput_20251223-TZN6TZ@@Tests/NiceOutput.wlt:179,1-212,2"
 ]
 VerificationTest[
 	Not[
@@ -222,12 +222,12 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-SFQJ4X@@Tests/NiceOutput.wlt:198,1-211,2"
+	TestID->"NiceOutput_20251223-SFQJ4X@@Tests/NiceOutput.wlt:213,1-226,2"
 ] 
 VerificationTest[
   $ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ]; True,
   True,
-  TestID -> "Untitled-16@@Tests/NiceOutput.wlt:212,1-220,8"
+  TestID -> "Untitled-16@@Tests/NiceOutput.wlt:227,1-231,2"
 ]
 End[]
 EndTestSection[]
