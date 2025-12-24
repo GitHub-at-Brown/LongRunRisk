@@ -27,14 +27,8 @@ Module[{testDir, sourceFile, pacletFile, pacletRoot},
   (* Load test data from source file *)
   If[FileExistsQ[sourceFile],
     Get[sourceFile],
-    (* File not found - set dummy variables so tests fail with clear error *)
+    (* File not found - set dummy variables so tests fail instead of error *)
     solNA0 = {}; solNAB0 = {}; paramsA = <||>;
-    (* Print diagnostic info to help debug path issues *)
-    Print["ERROR: Test data file not found!"];
-    Print["  Searched for: ", sourceFile];
-    Print["  testDir was: ", testDir];
-    Print["  pacletFile was: ", pacletFile];
-    Print["  $InputFileName was: ", $InputFileName];
   ];
 ];
 
