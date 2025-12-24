@@ -236,24 +236,28 @@ buildKernel[
 		  (* Use 80% of available memory, with 2GB floor and 32GB cap *)
 		  With[{memLimit = Clip[Round[0.8 * MemoryAvailable[]], {2*1024^3, 32*1024^3}]},
 		    (* Attempt compilation with MemoryConstrained *)
-		    result = MemoryConstrained[
-		      If[useCompiler === "FunctionCompile",
-		        (* FunctionCompile path *)
-		        FunctionCompile[func, Sequence @@ compOpts],
-		        (* Compile path - extract args and body from Function, convert types *)
-		        With[{
-		          funcArgs = func[[1]],
-		          funcBody = func[[2]]
-		        },
-		          Compile[
-		            Evaluate @ convertTypesForCompile[Flatten@{funcArgs}],
-		            Evaluate @ (funcBody /. TypeHint[e_, _] :> e),
-		            Evaluate[Sequence @@ compOpts]
+		    (* Quiet C compilation fallback warnings - these are expected when C target unavailable *)
+		    result = Quiet[
+		      MemoryConstrained[
+		        If[useCompiler === "FunctionCompile",
+		          (* FunctionCompile path *)
+		          FunctionCompile[func, Sequence @@ compOpts],
+		          (* Compile path - extract args and body from Function, convert types *)
+		          With[{
+		            funcArgs = func[[1]],
+		            funcBody = func[[2]]
+		          },
+		            Compile[
+		              Evaluate @ convertTypesForCompile[Flatten@{funcArgs}],
+		              Evaluate @ (funcBody /. TypeHint[e_, _] :> e),
+		              Evaluate[Sequence @@ compOpts]
+		            ]
 		          ]
-		        ]
+		        ],
+		        memLimit,
+		        $Failed
 		      ],
-		      memLimit,
-		      $Failed
+		      {CCompilerDriver`CreateLibrary::nocomp, Compile::nogen}
 		    ];
 		  ];
 
