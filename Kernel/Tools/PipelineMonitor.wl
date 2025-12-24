@@ -55,7 +55,7 @@ Module[
 	(* Handle failures gracefully *)
 	If[changes === $Failed,
 		If[$Notebooks =!= True,
-			Print["checkModels: Could not check catalog. Check for syntax errors."],
+			Null,
 			MessageDialog["Could not check catalog. Check Catalog.wl for syntax errors."]
 		];
 		Return[$Failed]
@@ -161,7 +161,7 @@ showPipelineReport[changes_, status_, shortnames_, autoBuild_:False] := Module[
 	(* AutoBuild mode: skip prompts and build directly *)
 	If[TrueQ[autoBuild],
 		If[$Notebooks =!= True,
-			Print["=== LongRunRisk: Auto-building models: ", StringRiffle[shortnames, ", "], " ==="]
+			Null
 		];
 		buildResult = FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels[
 			"Models" -> shortnames
@@ -222,35 +222,7 @@ showPipelineReport[changes_, status_, shortnames_, autoBuild_:False] := Module[
 
 (* Terminal output with fully qualified command *)
 showTerminalReport[changes_, status_, shortnames_] := Module[{},
-	Print[""];
-	If[TrueQ[changes["IncompletePipeline"]],
-		Print["=== LongRunRisk: Incomplete Pipeline Detected ==="],
-		Print["=== LongRunRisk: Catalog Changes Detected ==="]
-	];
-	Print[""];
-
-	If[TrueQ[changes["IncompletePipeline"]],
-		Print["Models with incomplete pipelines: ", StringRiffle[shortnames, ", "]],
-		(* Regular catalog changes *)
-		If[changes["New"] =!= {},
-			Print["New models: ", StringRiffle[changes["New"], ", "]]];
-		If[changes["Changed"] =!= {},
-			Print["Changed models: ", StringRiffle[changes["Changed"], ", "]]];
-		If[changes["Removed"] =!= {},
-			Print["Removed models: ", StringRiffle[changes["Removed"], ", "]]];
-		If[TrueQ[changes["FirstRun"]],
-			Print["(First run - no previous manifest)"]]
-	];
-
-	Print[""];
-	Print["Pipeline Status:"];
-	printStatusTable[status];
-
-	Print[""];
-	Print["To build these models, run:"];
-	(* Fully qualified command *)
-	Print["  Needs[\"FernandoDuarte`LongRunRisk`Tools`ManageResources`\"];"];
-	Print["  FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels[\"Models\" -> ", ToString[shortnames, InputForm], "]"];
+	Null
 ];
 
 (* Status icon - uses Position for robustness *)
@@ -299,18 +271,7 @@ formatStatusGrid[status_Association] := Grid[
 ];
 
 printStatusTable[status_Association] := Module[{},
-	Print["| Model     | Sym  | Comp | Num  | Mom  | Next       | Reason    |"];
-	Print["|-----------|------|------|------|------|------------|-----------|"];
-	KeyValueMap[
-		Print["| ", StringPadRight[#1, 9], " | ",
-			StringPadRight[statusIcon["Symbolic", #2["MainStage"], #2["Reason"]], 4], " | ",
-			StringPadRight[statusIcon["Compile", #2["MainStage"], #2["Reason"]], 4], " | ",
-			StringPadRight[statusIcon["Numerical", #2["MainStage"], #2["Reason"]], 4], " | ",
-			StringPadRight[statusIcon["Moments", #2["MainStage"], #2["Reason"]], 4], " | ",
-			StringPadRight[#2["MainStage"], 10], " | ",
-			StringPadRight[#2["Reason"], 9], " |"] &,
-		status
-	]
+	Null
 ];
 
 formatChangeSummary[changes_Association, shortnames_List : {}] := Column[{
@@ -333,19 +294,7 @@ formatChangeSummary[changes_Association, shortnames_List : {}] := Column[{
 
 showValidationErrors[validation_Association] := Module[{},
 	If[$Notebooks =!= True,
-		Print[""];
-		Print["=== VALIDATION ERRORS ==="];
-		KeyValueMap[
-			Function[{model, result},
-				If[!TrueQ[result["Valid"]],
-					Print["Model: ", model];
-					Scan[Print["  - ", #["Type"], ": ", #["Message"]] &, result["Errors"]]
-				]
-			],
-			validation["Results"]
-		];
-		Print[""];
-		Print["Please correct errors in Catalog.wl and call checkModels[] again."],
+		Null,
 
 		(* Notebook mode *)
 		MessageDialog[

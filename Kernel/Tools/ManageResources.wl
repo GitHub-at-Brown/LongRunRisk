@@ -933,8 +933,6 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		(* execute pipeline with cascade *)
 		symbolicModels = Lookup[modelsByStage, "Symbolic", {}];
 
-		(* Disable history to prevent memory accumulation from Out[] values *)
-		$HistoryLength = 0;
 
 		(* Memory profiling helper *)
 			$memoryProfileLog = {};
@@ -942,11 +940,6 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 				memGB = N[mem / 1024^3];
 				kernelGB = wolframKernelMemoryGB[];
 				AppendTo[$memoryProfileLog, <|"Label" -> label, "MemoryGB" -> memGB, "KernelRSSGB" -> kernelGB, "Time" -> DateString["ISODateTime"]|>];
-				Print[
-					Style[StringPadRight[label, 50], Bold],
-					" | Memory: ", NumberForm[memGB, {5, 2}], " GB",
-					" | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
-				]
 			];
 		logMemory["buildModels START"];
 
@@ -1026,7 +1019,6 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 				|>,
 				phase3ContextFile
 			];
-			Print["Saved Phase3 context for replay to ", phase3ContextFile];
 			numericalModels = DeleteDuplicates @ Join[compileModels, Lookup[modelsByStage, "Numerical", {}]];
 			Do[
 				shortname = catalogModels[modelKey]["shortname"];
@@ -1037,8 +1029,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 				processedModels[shortname] = Append[processedModels[shortname], "coeffsSolutionN" -> solN];
 				(* Verify coeffsSolutionN was computed correctly *)
 				If[!validCoeffsSolutionN[processedModels[shortname]],
-					Print["WARNING: coeffsSolutionN validation failed for ", shortname,
-						"; Keys: ", If[AssociationQ[solN], Keys[solN], Head[solN]]]
+					Null
 				]
 			];
 
@@ -1057,7 +1048,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 					],
 					DefaultButton["OK", DialogReturn[]]
 				}], *)
-				Print["Phase 3 numerical loop complete. Context file: ", phase3ContextFile]
+				Null
 			];
 
 			(* Phase 4: Moments database - cascade from Numerical + models at Moments stage *)
@@ -1116,12 +1107,6 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		saveModels[Merge[{savedModels, processedModels}, Last], modelsFileCheckpoint];
 		logMemory["buildModels END - Final save complete"];
 
-		(* Print memory profile summary *)
-		Print["\n", Style["=== MEMORY PROFILE SUMMARY ===", Bold, Blue]];
-		Print["Peak memory: ", Max[$memoryProfileLog[[All, "MemoryGB"]]], " GB"];
-		Print["Memory growth: ", Last[$memoryProfileLog]["MemoryGB"] - First[$memoryProfileLog]["MemoryGB"], " GB"];
-		Print["\nFull log available in $memoryProfileLog"];
-
 		(* update manifest only when using canonical file (empty suffix) *)
 		If[TrueQ[updateManifest] && fileSuffix === "", updateModelManifest[]];
 
@@ -1146,8 +1131,6 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	 filteredOpts, successResults, successModels, saveResult, startTime},
 
 	startTime = AbsoluteTime[];
-	Print["=== buildModelsParallel started at ", DateString[], " ==="];
-	Print["Models to build: ", models];
 
 	(* Get options *)
 	createMoments = OptionValue["CreateMoments"];
@@ -1156,7 +1139,6 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 		Automatic -> Min[Length[models], $ProcessorCount],
 		None -> 1
 	}];
-	Print["Options: CreateMoments=", createMoments, ", FromScratch=", fromScratch, ", NumKernels=", numKernels];
 
 	(* Find paclet root *)
 	root = findPacletRoot[];
@@ -1165,33 +1147,24 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	pacletDir = root;
 	resourcesDir = FileNameJoin[{root, "Resources"}];
 	modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
-	Print["Resources dir: ", resourcesDir];
 
 	(* Handle fromScratch *)
 	If[fromScratch,
-		Print["Cleaning all outputs (FromScratch=True)..."];
 		cleanAllOutputs[root];
-		Print["Clean complete."]
 	];
 
 	(* Launch parallel kernels *)
-	Print["Closing any existing kernels..."];
 	CloseKernels[];
-	Print["Launching ", numKernels, " parallel kernels..."];
 	nLaunched = LaunchKernels[numKernels];
-	Print["Launched ", nLaunched, " kernels."];
 
 	(* Initialize parallel kernels *)
-	Print["Initializing parallel kernels (loading paclet)..."];
 	ParallelEvaluate[
 		PacletDirectoryLoad[#];
 		Needs["PacletizedResourceFunctions`"];
 		Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
 	] &@ pacletDir;
-	Print["Parallel kernels initialized."];
 
 	(* Run builds in parallel - each returns processed model or $Failed *)
-	Print["Starting parallel builds at ", DateString[], "..."];
 
 	(* Filter out options we force-set to prevent caller override *)
 	filteredOpts = FilterRules[{opts},
@@ -1217,31 +1190,22 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 		{m, models},
 		DistributedContexts -> Automatic
 	];
-	Print["Parallel builds completed at ", DateString[], " (", Round[AbsoluteTime[] - startTime], "s elapsed)"];
 
 	(* Close parallel kernels before moments phase *)
-	Print["Closing parallel kernels..."];
 	CloseKernels[];
-	Print["Parallel kernels closed."];
 
 	(* Get successful results directly from parallelResults (already in memory) *)
-	Print["Parallel results status: ", #["Model"] -> #["Status"] & /@ parallelResults];
 	successResults = Select[parallelResults, #["Status"] === "Success" &];
 	successModels = #["Model"] & /@ successResults;
-	Print["Success models: ", successModels];
 
 	(* Report failures *)
 	failedModels = #["Model"] & /@ Select[parallelResults, #["Status"] =!= "Success" &];
 	If[Length[failedModels] > 0,
-		Print["WARNING: Some models failed or returned empty: ",
-			StringRiffle[failedModels, ", "]]
+		Null
 	];
 
 	(* Load canonical Models.wl and merge with in-memory results *)
-	Print["Loading existing Models.wl..."];
 	savedModels = loadModels[modelsFile];
-	Print["Loaded ", Length[savedModels], " existing models: ", Keys[savedModels]];
-	Print["Merging results..."];
 	mergedModels = Merge[
 		Prepend[
 			(#["Data"] & /@ successResults),
@@ -1249,16 +1213,12 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 		],
 		Last
 	];
-	Print["Merged models: ", Keys[mergedModels]];
 
 	(* Save merged results to canonical file *)
-	Print["Saving merged models to Models.wl..."];
 	If[Length[mergedModels] > 0,
 		saveResult = Quiet @ Check[
 			saveModels[mergedModels, modelsFile];
-			Print["Updating manifest..."];
 			updateModelManifest[];
-			Print["Save complete."];
 			True,
 			False
 		];
@@ -1270,34 +1230,29 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 				{m, successModels}
 			],
 			(* Save failed - keep all temp files for recovery *)
-			Print["WARNING: Save to canonical Models.wl failed; keeping Models_*.wl files for recovery"]
+			Null
 		];
 	];
 
 	(* Note about failed model files (kept for debugging) *)
 	If[Length[failedModels] > 0,
-		Print["Note: Keeping Models_*.wl files for failed models: ", StringRiffle[failedModels, ", "]]
+		Null
 	];
 
 	(* Run moments sequentially if requested *)
 	If[createMoments && Length[successModels] > 0,
-		Print["Starting moments phase for ", Length[successModels], " models..."];
 		Do[
-			Print["  Creating moments for ", m, "..."];
 			buildModels[
 				"Models" -> {m},
 				"CreateMoments" -> True,
 				"NumKernels" -> OptionValue["NumKernels"]
 			],
 			{m, successModels}
-		];
-		Print["Moments phase complete."],
+		];,
 		(* else *)
-		Print["Skipping moments phase (CreateMoments=", createMoments, ", successModels=", successModels, ")"]
+		Null
 	];
 
-	Print["=== buildModelsParallel finished at ", DateString[], " (", Round[AbsoluteTime[] - startTime], "s total) ==="];
-	Print["Returning mergedModels with keys: ", Keys[mergedModels]];
 	mergedModels
 ];
 

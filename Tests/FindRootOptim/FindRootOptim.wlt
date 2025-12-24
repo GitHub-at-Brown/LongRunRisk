@@ -56,7 +56,7 @@ VerificationTest[
   {A[0] -> 1.777113528819289},
   SameTest -> tolSameTest,
   TimeConstraint -> timeLimit,
-  TestID -> "dividend-model-A0-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:60,1-66,2"
+  TestID -> "dividend-model-A0-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:54,1-60,2"
 ]
 
 (* Test that B[1][0] coefficient is found and matches expected value *)
@@ -65,7 +65,7 @@ VerificationTest[
   {B[1][0] -> 1.784254766558428},
   SameTest -> tolSameTest,
   TimeConstraint -> timeLimit,
-  TestID -> "dividend-model-B10-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:69,1-75,2"
+  TestID -> "dividend-model-B10-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:63,1-69,2"
 ]
 
 (* Test that A[0] value is in expected range *)
@@ -73,7 +73,7 @@ VerificationTest[
   1.77 < solNA0[[1,2]] < 1.78,
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "A0-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:78,1-83,2"
+  TestID -> "A0-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:72,1-77,2"
 ]
 
 (* Test that B[1][0] value is in expected range *)
@@ -81,7 +81,7 @@ VerificationTest[
   1.78 < solNAB0[[1,2]] < 1.79,
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "B10-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:86,1-91,2"
+  TestID -> "B10-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:80,1-85,2"
 ]
 
 (* Test that extractIntervalsFromReduce is exported and works *)
@@ -92,7 +92,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "extractIntervalsFromReduce-exported@@Tests/FindRootOptim/FindRootOptim.wlt:94,1-102,2"
+  TestID -> "extractIntervalsFromReduce-exported@@Tests/FindRootOptim/FindRootOptim.wlt:88,1-96,2"
 ]
 
 (* Test that extractIntervalsFromReduce returns correct interval for simple case *)
@@ -101,7 +101,7 @@ VerificationTest[
   {{0.001, 14.999}},
   SameTest -> tolSameTest,
   TimeConstraint -> timeLimit,
-  TestID -> "extractIntervalsFromReduce-simple-inequality@@Tests/FindRootOptim/FindRootOptim.wlt:105,1-111,2"
+  TestID -> "extractIntervalsFromReduce-simple-inequality@@Tests/FindRootOptim/FindRootOptim.wlt:99,1-105,2"
 ]
 
 (* Test workflow concept: verify pre-computed results can be chained *)
@@ -113,7 +113,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> 5,
-  TestID -> "integration-parameter-chaining@@Tests/FindRootOptim/FindRootOptim.wlt:114,1-123,2"
+  TestID -> "integration-parameter-chaining@@Tests/FindRootOptim/FindRootOptim.wlt:108,1-117,2"
 ]
 
 (* buildKernel, bindUnary, findRootInterval, and fastRoot are tested in findRootCoeff0EdgeCases.wlt *)

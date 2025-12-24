@@ -24,7 +24,7 @@ VerificationTest[
   True,
   {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval},
   TimeConstraint -> timeLimit,
-  TestID -> "findRootInterval-contradiction-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:17,5-30,6"
+  TestID -> "findRootInterval-contradiction-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:15,1-28,2"
 ]
 
 (* Test buildKernel with "CoeffName" and "SignSymbol" options *)
@@ -43,7 +43,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:33,5-47,6"
+  TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:31,1-47,2"
 ]
 
 (* Test bindUnary with insufficient signs returns $Failed with message *)
@@ -64,7 +64,7 @@ VerificationTest[
   True,
   {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
   TimeConstraint -> timeLimit,
-  TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:50,5-66,6"
+  TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:50,1-68,2"
 ]
 
 (* Test buildKernel produces CompiledCodeFunction via FunctionCompile *)
@@ -87,7 +87,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "buildKernel-produces-CompiledCodeFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:69,5-87,6"
+  TestID -> "buildKernel-produces-CompiledCodeFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:71,1-91,2"
 ]
 
 (* Test buildKernel with "Compiler" -> "Compile" produces CompiledFunction *)
@@ -107,7 +107,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "buildKernel-Compile-produces-CompiledFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:90,5-105,6"
+  TestID -> "buildKernel-Compile-produces-CompiledFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:94,1-111,2"
 ]
 
 (* Test both compilers produce equivalent numerical results *)
@@ -124,7 +124,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "buildKernel-both-compilers-equivalent-results@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:108,5-120,6"
+  TestID -> "buildKernel-both-compilers-equivalent-results@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:114,1-128,2"
 ]
 
 (* Test isCompiledCode detects both function types *)
@@ -139,7 +139,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "isCompiledCode-detects-both-types@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:123,5-133,6"
+  TestID -> "isCompiledCode-detects-both-types@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:131,1-143,2"
 ]
 
 EndTestSection[]
