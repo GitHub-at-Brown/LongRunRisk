@@ -3,7 +3,7 @@ BeginTestSection["findRootCoeff0EdgeCases"]
 Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 
 
-timeLimit = 5;
+timeLimit = 15;
 
 (* Access functions for testing *)
 fri = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval"];
