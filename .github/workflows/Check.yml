@@ -34,7 +34,7 @@ jobs:
       - name: Verify C compiler
         run: |
           gcc --version
-          wolframscript -code 'Needs["CCompilerDriver`"]; Print["C Compiler: ", $CCompiler]'
+          wolframscript -code 'Needs["CCompilerDriver`"]; Print["C Compiler: ", CCompilerDriver`$CCompiler]'
       - name: Restore TinyTeX cache
         id: cache-tinytex
         uses: actions/cache@v5
