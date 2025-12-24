@@ -33,12 +33,15 @@ VerificationTest[
 (* ============================================================ *)
 
 VerificationTest[
-  Module[{keysToKeep, raw, toCatalogFn, realModels},
-    toCatalogFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`toCatalog;
-    realModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
-    keysToKeep = {"name", "shortname", "bibRef", "desc", "enabled", "stateVars", "parameters"};
-    raw = toCatalogFn[realModels, keysToKeep];
-    AssociationQ[raw] && Length[raw] === Length[realModels]
+  Quiet[
+    Module[{keysToKeep, raw, toCatalogFn, realModels},
+      toCatalogFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`toCatalog;
+      realModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
+      keysToKeep = {"name", "shortname", "bibRef", "desc", "enabled", "stateVars", "parameters"};
+      raw = toCatalogFn[realModels, keysToKeep];
+      AssociationQ[raw] && Length[raw] === Length[realModels]
+    ],
+    General::shdw
   ],
   True,
   TimeConstraint -> $timeLimit,
@@ -46,14 +49,17 @@ VerificationTest[
 ]
 
 VerificationTest[
-  Module[{keysToKeep, raw, formatted, toCatalogFn, formatModelsFn, realModels},
-    toCatalogFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`toCatalog;
-    formatModelsFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`formatModels;
-    realModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
-    keysToKeep = {"name", "shortname", "bibRef", "desc", "enabled", "stateVars", "parameters"};
-    raw = toCatalogFn[realModels, keysToKeep];
-    formatted = formatModelsFn[raw];
-    Head[formatted] === BoxData
+  Quiet[
+    Module[{keysToKeep, raw, formatted, toCatalogFn, formatModelsFn, realModels},
+      toCatalogFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`toCatalog;
+      formatModelsFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`formatModels;
+      realModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
+      keysToKeep = {"name", "shortname", "bibRef", "desc", "enabled", "stateVars", "parameters"};
+      raw = toCatalogFn[realModels, keysToKeep];
+      formatted = formatModelsFn[raw];
+      Head[formatted] === BoxData
+    ],
+    General::shdw
   ],
   True,
   TimeConstraint -> $timeLimit,
@@ -61,16 +67,19 @@ VerificationTest[
 ]
 
 VerificationTest[
-  Module[{keysToKeep, raw, formatted, strings, modelNames, toCatalogFn, formatModelsFn, realModels},
-    toCatalogFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`toCatalog;
-    formatModelsFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`formatModels;
-    realModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
-    keysToKeep = {"name", "shortname", "bibRef", "desc", "enabled", "stateVars", "parameters"};
-    raw = toCatalogFn[realModels, keysToKeep];
-    formatted = formatModelsFn[raw];
-    strings = Cases[formatted, _String, Infinity];
-    modelNames = Values[#["shortname"]& /@ raw];
-    AllTrue[modelNames, MemberQ[strings, s_String /; StringContainsQ[s, #]]&]
+  Quiet[
+    Module[{keysToKeep, raw, formatted, strings, modelNames, toCatalogFn, formatModelsFn, realModels},
+      toCatalogFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`toCatalog;
+      formatModelsFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`formatModels;
+      realModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
+      keysToKeep = {"name", "shortname", "bibRef", "desc", "enabled", "stateVars", "parameters"};
+      raw = toCatalogFn[realModels, keysToKeep];
+      formatted = formatModelsFn[raw];
+      strings = Cases[formatted, _String, Infinity];
+      modelNames = Values[#["shortname"]& /@ raw];
+      AllTrue[modelNames, MemberQ[strings, s_String /; StringContainsQ[s, #]]&]
+    ],
+    General::shdw
   ],
   True,
   TimeConstraint -> $timeLimit,
@@ -78,15 +87,18 @@ VerificationTest[
 ]
 
 VerificationTest[
-  Module[{keysToKeep, raw, formatted, strings, toCatalogFn, formatModelsFn, realModels},
-    toCatalogFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`toCatalog;
-    formatModelsFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`formatModels;
-    realModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
-    keysToKeep = {"name", "shortname", "bibRef", "desc", "enabled", "stateVars", "parameters"};
-    raw = toCatalogFn[realModels, keysToKeep];
-    formatted = formatModelsFn[raw];
-    strings = Cases[formatted, _String, Infinity];
-    MemberQ[strings, s_String /; StringContainsQ[s, "enabled"]]
+  Quiet[
+    Module[{keysToKeep, raw, formatted, strings, toCatalogFn, formatModelsFn, realModels},
+      toCatalogFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`toCatalog;
+      formatModelsFn = FernandoDuarte`LongRunRisk`Tools`NiceOutput`formatModels;
+      realModels = FernandoDuarte`LongRunRisk`Model`Catalog`models;
+      keysToKeep = {"name", "shortname", "bibRef", "desc", "enabled", "stateVars", "parameters"};
+      raw = toCatalogFn[realModels, keysToKeep];
+      formatted = formatModelsFn[raw];
+      strings = Cases[formatted, _String, Infinity];
+      MemberQ[strings, s_String /; StringContainsQ[s, "enabled"]]
+    ],
+    General::shdw
   ],
   True,
   TimeConstraint -> $timeLimit,
