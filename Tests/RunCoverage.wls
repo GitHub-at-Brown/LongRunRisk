@@ -56,7 +56,8 @@ Module[{
 
   (* === Setup paths === *)
   testsRoot = DirectoryName[$InputFileName];
-  pacletRoot = testsRoot;
+  (* Walk up from Tests/ directory to find paclet root *)
+  pacletRoot = DirectoryName[testsRoot];
   While[!FileExistsQ@FileNameJoin[{pacletRoot, "PacletInfo.wl"}] &&
         pacletRoot =!= DirectoryName[pacletRoot],
     pacletRoot = DirectoryName[pacletRoot]
@@ -84,31 +85,32 @@ Module[{
   Needs["MUnit`"];
 
   If[verbose,
-    Print["Instrumentation version: ",
-      Quiet[PacletFind["Instrumentation"][[1]]["Version"], {PacletFind::notfound, Part::partw}] /.
-        {} -> "built-in"]
+    Print["Instrumentation version: ", PacletFind["Instrumentation"][[1]]["Version"]]
   ];
 
   (* === Build instrumented paclet structure === *)
   Print["Building instrumented paclet structure..."];
 
   (* Copy PacletInfo.wl so paclet resolution works *)
-  CopyFile[
+  If[FailureQ[CopyFile[
     FileNameJoin[{pacletRoot, "PacletInfo.wl"}],
     FileNameJoin[{instrumentedDir, "PacletInfo.wl"}]
+  ]],
+    Print["Error: Failed to copy PacletInfo.wl"];
+    Quit[1]
   ];
 
   (* Copy Resources directory (needed for Models.wl, etc.) *)
   If[DirectoryQ[resourcesDir],
-    CopyDirectory[resourcesDir, FileNameJoin[{instrumentedDir, "Resources"}]]
+    If[FailureQ[CopyDirectory[resourcesDir, FileNameJoin[{instrumentedDir, "Resources"}]]],
+      Print["Error: Failed to copy Resources directory"];
+      Quit[1]
+    ]
   ];
 
   (* === Instrument Kernel/ === *)
   Print["Instrumenting source files..."];
-  baseline = Quiet[
-    Instrumentation`CoverageInstrument[kernelDir, instrumentedKernel],
-    Instrumentation::versions
-  ];
+  baseline = Instrumentation`CoverageInstrument[kernelDir, instrumentedKernel];
 
   If[FailureQ[baseline],
     Print["Error: CoverageInstrument failed: ", baseline];
@@ -173,11 +175,8 @@ Module[{
        - TimeConstrained/CheckAbort wrappers (these break coverage tracking entirely)
        - Pre-loading umbrella package (prevents function body coverage)
        Let test files load their own packages via their Needs calls *)
-    {report, runData} = Quiet[
-      Instrumentation`CoverageEvaluate[
-        TestReport[coverageTests, "ProgressReporting" -> True]
-      ],
-      Instrumentation::versions
+    {report, runData} = Instrumentation`CoverageEvaluate[
+      TestReport[coverageTests, "ProgressReporting" -> True]
     ];
 
     If[MatchQ[runData, _Instrumentation`CoverageData],
@@ -195,7 +194,7 @@ Module[{
 
 
   (* === Generate execution coverage LCOV or fall back === *)
-  If[executionCoverageSuccess && runData =!= Null,
+  If[executionCoverageSuccess,
     (* Write real execution coverage data *)
     Print["Generating execution coverage data..."];
     Instrumentation`CoverageProcess[runData, coverageDir, "tests.lcov"],
@@ -214,16 +213,9 @@ Module[{
     (* Load ORIGINAL paclet since instrumented one may have issues *)
     PacletDirectoryUnload[instrumentedDir];
     PacletDirectoryLoad[pacletRoot];
-    (* Re-load to get original version *)
-    Block[{$ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`" ~~ ___]},
-      Quiet[Needs["FernandoDuarte`LongRunRisk`"]]
-    ];
+    Needs["FernandoDuarte`LongRunRisk`"];
 
-    report = CheckAbort[
-      TestReport[testFiles, "ProgressReporting" -> True],
-      Print["Note: TestReport cleanup triggered abort (tests completed)"];
-      $Aborted
-    ]
+    report = TestReport[testFiles, "ProgressReporting" -> True]
   ];
 
   (* === Run excluded tests separately (without coverage) === *)
@@ -236,51 +228,47 @@ Module[{
       If[executionCoverageSuccess,
         PacletDirectoryUnload[instrumentedDir];
         PacletDirectoryLoad[pacletRoot];
-        Block[{$ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`" ~~ ___]},
-          Quiet[Needs["FernandoDuarte`LongRunRisk`"]]
-        ];
-        (* Suppress residual CoverageEvaluate messages from instrumented code still in memory *)
-        Off[CoverageEvaluate::call]
+        Needs["FernandoDuarte`LongRunRisk`"]
       ];
 
-      noCovReport = CheckAbort[
+      (* Quiet instrumentation messages from residual coverage code in memory *)
+      noCovReport = Quiet[
         TestReport[noCoverageTests, "ProgressReporting" -> True],
-        Print["Note: Excluded tests TestReport triggered abort"];
-        $Aborted
+        {CoverageEvaluate::call, Insert::ins, Values::invrl}
       ];
 
-      If[noCovReport =!= $Aborted,
-        (* Filter out coverage-artifact failures (CoverageEvaluate::call messages) *)
-        coverageArtifactFailures = Select[Values[noCovReport["TestResults"]],
-          #["Outcome"] === "MessagesFailure" &&
-          StringContainsQ[ToString[#["ActualMessages"]], "CoverageEvaluate"] &
-        ];
-        realFailedCount = noCovReport["TestsFailedCount"] - Length[coverageArtifactFailures];
+      (* Filter out coverage-artifact failures (instrumentation messages) *)
+      coverageArtifactFailures = Select[Values[noCovReport["TestResults"]],
+        #["Outcome"] === "MessagesFailure" &&
+        AnyTrue[#["ActualMessages"],
+          MatchQ[#, HoldPattern[MessageName[CoverageEvaluate | Insert | Values, _]]] &
+        ] &
+      ];
+      realFailedCount = noCovReport["TestsFailedCount"] - Length[coverageArtifactFailures];
 
-        Print["Excluded tests: ", noCovReport["TestsSucceededCount"], " passed, ",
-          realFailedCount, " failed"];
-        If[Length[coverageArtifactFailures] > 0,
-          Print["  (", Length[coverageArtifactFailures], " test(s) with CoverageEvaluate::call artifacts ignored)"]
-        ];
-        noCovFailed = realFailedCount + Replace[noCovReport["TestsAbortedCount"], _Missing -> 0];
-        (* Print details of real failed tests *)
-        If[realFailedCount > 0,
-          Do[
-            If[result["Outcome"] =!= "Success" &&
-               !MemberQ[coverageArtifactFailures, result],
-              Print["  Failed: ", result["TestID"]];
-              Print["    Outcome: ", result["Outcome"]];
-              If[result["Outcome"] === "MessagesFailure",
-                Print["    Expected: ", result["ExpectedMessages"]];
-                Print["    Actual: ", result["ActualMessages"]];
-              ];
-              If[result["Outcome"] === "Failure",
-                Print["    Expected: ", Short[result["ExpectedOutput"], 3]];
-                Print["    Actual: ", Short[result["ActualOutput"], 3]];
-              ];
-            ],
-            {result, Values[noCovReport["TestResults"]]}
-          ]
+      Print["Excluded tests: ", noCovReport["TestsSucceededCount"], " passed, ",
+        realFailedCount, " failed"];
+      If[Length[coverageArtifactFailures] > 0,
+        Print["  (", Length[coverageArtifactFailures], " test(s) with instrumentation artifacts ignored)"]
+      ];
+      noCovFailed = realFailedCount + Lookup[noCovReport, "TestsAbortedCount", 0];
+      (* Print details of real failed tests *)
+      If[realFailedCount > 0,
+        Do[
+          If[result["Outcome"] =!= "Success" &&
+             !MemberQ[coverageArtifactFailures, result],
+            Print["  Failed: ", result["TestID"]];
+            Print["    Outcome: ", result["Outcome"]];
+            If[result["Outcome"] === "MessagesFailure",
+              Print["    Expected: ", result["ExpectedMessages"]];
+              Print["    Actual: ", result["ActualMessages"]];
+            ];
+            If[result["Outcome"] === "Failure",
+              Print["    Expected: ", Short[result["ExpectedOutput"], 3]];
+              Print["    Actual: ", Short[result["ActualOutput"], 3]];
+            ];
+          ],
+          {result, Values[noCovReport["TestResults"]]}
         ]
       ]
     ]
@@ -288,26 +276,23 @@ Module[{
 
   (* === Summary === *)
   Print["\n=== Test Results ==="];
-  If[report === $Aborted,
-    Print["TestReport aborted during cleanup (tests likely passed - check output above)"];
-    totalFailed = noCovFailed,
-    (* Filter out coverage-artifact failures from main report too *)
-    (* CoverageEvaluate, Insert::ins, Values::invrl are instrumentation artifacts *)
-    mainArtifactFailures = Select[Values[report["TestResults"]],
-      #["Outcome"] === "MessagesFailure" &&
-      (StringContainsQ[ToString[#["ActualMessages"]], "CoverageEvaluate"] ||
-       StringContainsQ[ToString[#["ActualMessages"]], "Insert"] ||
-       StringContainsQ[ToString[#["ActualMessages"]], "Values"]) &
-    ];
-    mainRealFailed = report["TestsFailedCount"] - Length[mainArtifactFailures];
-    Print["Passed: ", report["TestsSucceededCount"]];
-    Print["Failed: ", mainRealFailed];
-    If[Length[mainArtifactFailures] > 0,
-      Print["  (", Length[mainArtifactFailures], " coverage artifact failure(s) ignored)"]
-    ];
-    Print["Aborted: ", Replace[report["TestsAbortedCount"], _Missing -> 0]];
-    totalFailed = mainRealFailed + Replace[report["TestsAbortedCount"], _Missing -> 0] + noCovFailed
+
+  (* Filter out coverage-artifact failures from main report *)
+  (* CoverageEvaluate, Insert, Values messages are instrumentation artifacts *)
+  mainArtifactFailures = Select[Values[report["TestResults"]],
+    #["Outcome"] === "MessagesFailure" &&
+    AnyTrue[#["ActualMessages"],
+      MatchQ[#, HoldPattern[MessageName[CoverageEvaluate | Insert | Values, _]]] &
+    ] &
   ];
+  mainRealFailed = report["TestsFailedCount"] - Length[mainArtifactFailures];
+  Print["Passed: ", report["TestsSucceededCount"]];
+  Print["Failed: ", mainRealFailed];
+  If[Length[mainArtifactFailures] > 0,
+    Print["  (", Length[mainArtifactFailures], " coverage artifact failure(s) ignored)"]
+  ];
+  Print["Aborted: ", Lookup[report, "TestsAbortedCount", 0]];
+  totalFailed = mainRealFailed + Lookup[report, "TestsAbortedCount", 0] + noCovFailed;
 
   Print["\n=== Coverage Files Generated ==="];
   Print["  Mode: ", If[executionCoverageSuccess, "Execution", "Baseline"]];
@@ -326,5 +311,12 @@ Module[{
   Print["  open build/coverage/html/index.html"];
 
   (* Exit with failure if any tests failed OR aborted *)
-  Quit[If[totalFailed > 0, 1, 0]]
+  If[totalFailed > 0,
+    Print["\n=== TESTS FAILED ==="];
+    Print["Total failures: ", totalFailed];
+    Print["Please review test output above for details."];
+    Quit[1],
+    Print["\n=== ALL TESTS PASSED ==="];
+    Quit[0]
+  ]
 ];
