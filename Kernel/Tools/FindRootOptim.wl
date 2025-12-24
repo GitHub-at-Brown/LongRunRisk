@@ -71,6 +71,10 @@ buildEqMapFromModel::usage = "buildEqMapFromModel[model] extracts the equation m
 
 Needs["CCompilerDriver`"];
 
+(* Force compiler detection/initialization - ensures CCompilerDriver finds gcc
+   even when loaded in isolated contexts like PacletCICDTest` *)
+Quiet[CCompilerDriver`CCompilers[], {CCompilerDriver`CreateLibrary::nocomp}];
+
 Begin["`Private`"];
 
 
