@@ -123,11 +123,17 @@ tests = With[{
     VerificationTest[
       Module[{kernelFC, kernelC, isCompiled},
         isCompiled = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`Private`isCompiledCode"];
+        (* Suppress expected compilation messages when C compiler not available *)
+        Off[CCompilerDriver`CreateLibrary::nocomp];
+        Off[Compile::nogen];
         kernelFC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "FunctionCompile"];
         kernelC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "Compile"];
+        On[CCompilerDriver`CreateLibrary::nocomp];
+        On[Compile::nogen];
         isCompiled[kernelFC["fC"]] && isCompiled[kernelC["fC"]]
       ],
       True,
+      {},
       TimeConstraint -> timeLimit,
       TestID -> "isCompiledCode-detects-both-types@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:123,5-133,6"
     ]
