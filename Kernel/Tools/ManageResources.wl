@@ -932,16 +932,13 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 
 		(* execute pipeline with cascade *)
 		symbolicModels = Lookup[modelsByStage, "Symbolic", {}];
-
 		(* Memory profiling helper *)
 			$memoryProfileLog = {};
 			logMemory[label_String] := Module[{mem = MemoryInUse[], memGB, kernelGB},
 				memGB = N[mem / 1024^3];
 				kernelGB = wolframKernelMemoryGB[];
-				AppendTo[$memoryProfileLog, <|"Label" -> label, "MemoryGB" -> memGB, "KernelRSSGB" -> kernelGB, "Time" -> DateString["ISODateTime"]|>];, Bold],
-					" | Memory: ", NumberForm[memGB, {5, 2}], " GB",
-					" | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
-				]
+				AppendTo[$memoryProfileLog, <|"Label" -> label, "MemoryGB" -> memGB, "KernelRSSGB" -> kernelGB, "Time" -> DateString["ISODateTime"]|>];
+				Null
 			];
 		logMemory["buildModels START"];
 
@@ -1021,6 +1018,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 				|>,
 				phase3ContextFile
 			];
+			Null;
 			numericalModels = DeleteDuplicates @ Join[compileModels, Lookup[modelsByStage, "Numerical", {}]];
 			Do[
 				shortname = catalogModels[modelKey]["shortname"];
@@ -1030,7 +1028,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 				]},
 				processedModels[shortname] = Append[processedModels[shortname], "coeffsSolutionN" -> solN];
 				(* Verify coeffsSolutionN was computed correctly *)
-				If[!validCoeffsSolutionN[processedModels[shortname]],, Keys[solN], Head[solN]]]
+				If[!validCoeffsSolutionN[processedModels[shortname]],
+					Null
 				]
 			];
 
@@ -1049,6 +1048,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 					],
 					DefaultButton["OK", DialogReturn[]]
 				}], *)
+				Null
 			];
 
 			(* Phase 4: Moments database - cascade from Numerical + models at Moments stage *)
@@ -1107,7 +1107,11 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 		saveModels[Merge[{savedModels, processedModels}, Last], modelsFileCheckpoint];
 		logMemory["buildModels END - Final save complete"];
 
-		(* Print memory profile summary *)];]], " GB"];["MemoryGB"] - First[$memoryProfileLog]["MemoryGB"], " GB"];
+		(* Print memory profile summary *)
+		Null;
+		Null;
+		Null;
+		Null;
 
 		(* update manifest only when using canonical file (empty suffix) *)
 		If[TrueQ[updateManifest] && fileSuffix === "", updateModelManifest[]];
@@ -1132,7 +1136,9 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	 createMoments, fromScratch, failedModels,
 	 filteredOpts, successResults, successModels, saveResult, startTime},
 
-	startTime = AbsoluteTime[];, " ==="];
+	startTime = AbsoluteTime[];
+	Null;
+	Null;
 
 	(* Get options *)
 	createMoments = OptionValue["CreateMoments"];
@@ -1141,6 +1147,7 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 		Automatic -> Min[Length[models], $ProcessorCount],
 		None -> 1
 	}];
+	Null;
 
 	(* Find paclet root *)
 	root = findPacletRoot[];
@@ -1149,24 +1156,33 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 	pacletDir = root;
 	resourcesDir = FileNameJoin[{root, "Resources"}];
 	modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
+	Null;
 
 	(* Handle fromScratch *)
 	If[fromScratch,
+		Null;
 		cleanAllOutputs[root];
+		Null
 	];
 
 	(* Launch parallel kernels *)
+	Null;
 	CloseKernels[];
+	Null;
 	nLaunched = LaunchKernels[numKernels];
+	Null;
 
 	(* Initialize parallel kernels *)
+	Null;
 	ParallelEvaluate[
 		PacletDirectoryLoad[#];
 		Needs["PacletizedResourceFunctions`"];
 		Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
 	] &@ pacletDir;
+	Null;
 
-	(* Run builds in parallel - each returns processed model or $Failed *), "..."];
+	(* Run builds in parallel - each returns processed model or $Failed *)
+	Null;
 
 	(* Filter out options we force-set to prevent caller override *)
 	filteredOpts = FilterRules[{opts},
@@ -1191,35 +1207,48 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 		],
 		{m, models},
 		DistributedContexts -> Automatic
-	];, " (", Round[AbsoluteTime[] - startTime], "s elapsed)"];
+	];
+	Null;
 
 	(* Close parallel kernels before moments phase *)
+	Null;
 	CloseKernels[];
+	Null;
 
-	(* Get successful results directly from parallelResults (already in memory) *) -> #["Status"] & /@ parallelResults];
+	(* Get successful results directly from parallelResults (already in memory) *)
+	Null;
 	successResults = Select[parallelResults, #["Status"] === "Success" &];
 	successModels = #["Model"] & /@ successResults;
+	Null;
 
 	(* Report failures *)
 	failedModels = #["Model"] & /@ Select[parallelResults, #["Status"] =!= "Success" &];
-	If[Length[failedModels] > 0,]
+	If[Length[failedModels] > 0,
+		Null
 	];
 
 	(* Load canonical Models.wl and merge with in-memory results *)
-	savedModels = loadModels[modelsFile];, " existing models: ", Keys[savedModels]];
+	Null;
+	savedModels = loadModels[modelsFile];
+	Null;
+	Null;
 	mergedModels = Merge[
 		Prepend[
 			(#["Data"] & /@ successResults),
 			savedModels
 		],
 		Last
-	];];
+	];
+	Null;
 
 	(* Save merged results to canonical file *)
+	Null;
 	If[Length[mergedModels] > 0,
 		saveResult = Quiet @ Check[
 			saveModels[mergedModels, modelsFile];
+			Null;
 			updateModelManifest[];
+			Null;
 			True,
 			False
 		];
@@ -1231,26 +1260,34 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 				{m, successModels}
 			],
 			(* Save failed - keep all temp files for recovery *)
+			Null
 		];
 	];
 
 	(* Note about failed model files (kept for debugging) *)
-	If[Length[failedModels] > 0,]
+	If[Length[failedModels] > 0,
+		Null
 	];
 
 	(* Run moments sequentially if requested *)
-	If[createMoments && Length[successModels] > 0,, " models..."];
+	If[createMoments && Length[successModels] > 0,
+		Null;
 		Do[
+			Null;
 			buildModels[
 				"Models" -> {m},
 				"CreateMoments" -> True,
 				"NumKernels" -> OptionValue["NumKernels"]
 			],
 			{m, successModels}
-		];,
+		];
+		Null,
 		(* else *)
+		Null
 	];
-, " (", Round[AbsoluteTime[] - startTime], "s total) ==="];];
+
+	Null;
+	Null;
 	mergedModels
 ];
 

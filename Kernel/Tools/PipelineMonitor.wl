@@ -54,7 +54,8 @@ Module[
 
 	(* Handle failures gracefully *)
 	If[changes === $Failed,
-		If[$Notebooks =!= True,,
+		If[$Notebooks =!= True,
+			Null,
 			MessageDialog["Could not check catalog. Check Catalog.wl for syntax errors."]
 		];
 		Return[$Failed]
@@ -159,7 +160,8 @@ showPipelineReport[changes_, status_, shortnames_, autoBuild_:False] := Module[
 
 	(* AutoBuild mode: skip prompts and build directly *)
 	If[TrueQ[autoBuild],
-		If[$Notebooks =!= True,, " ==="]
+		If[$Notebooks =!= True,
+			Null
 		];
 		buildResult = FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels[
 			"Models" -> shortnames
@@ -220,20 +222,35 @@ showPipelineReport[changes_, status_, shortnames_, autoBuild_:False] := Module[
 
 (* Terminal output with fully qualified command *)
 showTerminalReport[changes_, status_, shortnames_] := Module[{},
-	If[TrueQ[changes["IncompletePipeline"]],,
+	Null;
+	If[TrueQ[changes["IncompletePipeline"]],
+		Null,
+		Null
 	];
+	Null;
 
-	If[TrueQ[changes["IncompletePipeline"]],],
+	If[TrueQ[changes["IncompletePipeline"]],
+		Null,
 		(* Regular catalog changes *)
-		If[changes["New"] =!= {},, ", "]]];
-		If[changes["Changed"] =!= {},, ", "]]];
-		If[changes["Removed"] =!= {},, ", "]]];
-		If[TrueQ[changes["FirstRun"]],]
+		If[changes["New"] =!= {},
+			Null];
+		If[changes["Changed"] =!= {},
+			Null];
+		If[changes["Removed"] =!= {},
+			Null];
+		If[TrueQ[changes["FirstRun"]],
+			Null]
 	];
 
+	Null;
+	Null;
 	printStatusTable[status];
 
-	(* Fully qualified command *)"];, "]"];
+	Null;
+	Null;
+	(* Fully qualified command *)
+	Null;
+	Null;
 ];
 
 (* Status icon - uses Position for robustness *)
@@ -282,13 +299,10 @@ formatStatusGrid[status_Association] := Grid[
 ];
 
 printStatusTable[status_Association] := Module[{},
-	KeyValueMap[, " | ",
-			StringPadRight[statusIcon["Symbolic", #2["MainStage"], #2["Reason"]], 4], " | ",
-			StringPadRight[statusIcon["Compile", #2["MainStage"], #2["Reason"]], 4], " | ",
-			StringPadRight[statusIcon["Numerical", #2["MainStage"], #2["Reason"]], 4], " | ",
-			StringPadRight[statusIcon["Moments", #2["MainStage"], #2["Reason"]], 4], " | ",
-			StringPadRight[#2["MainStage"], 10], " | ",
-			StringPadRight[#2["Reason"], 9], " |"] &,
+	Null;
+	Null;
+	KeyValueMap[
+		Null &,
 		status
 	]
 ];
@@ -313,14 +327,19 @@ formatChangeSummary[changes_Association, shortnames_List : {}] := Column[{
 
 showValidationErrors[validation_Association] := Module[{},
 	If[$Notebooks =!= True,
+		Null;
+		Null;
 		KeyValueMap[
 			Function[{model, result},
 				If[!TrueQ[result["Valid"]],
-					Scan[Print["  - ", #["Type"], ": ", #["Message"]] &, result["Errors"]]
+					Null;
+					Scan[Null &, result["Errors"]]
 				]
 			],
 			validation["Results"]
-		]; again."],
+		];
+		Null;
+		Null,
 
 		(* Notebook mode *)
 		MessageDialog[
