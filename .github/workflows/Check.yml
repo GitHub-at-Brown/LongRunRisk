@@ -25,6 +25,8 @@ jobs:
       options: --user root --privileged --init
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
+      CC: /usr/bin/gcc
+      CXX: /usr/bin/g++
     timeout-minutes: 360
     steps:
       - name: Install system dependencies
