@@ -226,9 +226,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
 
         (* Apply square root simplification *)
         {signRootMapDesym, signRadMapDesym} = LocalEvaluate[
-          Block[{$HistoryLength = 0},
-            simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss]
-          ]
+          simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss]
         ];
 
         If[TrueQ[doValidate],

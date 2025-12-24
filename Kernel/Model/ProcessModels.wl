@@ -63,23 +63,6 @@ safeRest[_] := {};
    Takes the raw Verification value, expected length, and optional label, model name, and vars for warnings. *)
 safeVerification[verif_List, len_Integer, _String : "", _String : "", _List : {}] := TrueQ /@ verif;
 safeVerification[other_, len_Integer, label_String : "", modelName_String : "", vars_List : {}] := (
-	If[label =!= "",
-		With[{
-			modelInfo = If[modelName =!= "", " (model: " <> modelName <> ")", ""],
-			coeffInfo = If[vars =!= {},
-				" [" <> ToString[Length[vars]] <> " coefficients: " <>
-					StringRiffle[ToString /@ Take[vars, UpTo[5]], ", "] <>
-					If[Length[vars] > 5, ", ...", ""] <> "]",
-				""
-			]
-		},
-			Print["  Warning: Could not verify closed-form solution for ", label, " coefficients", modelInfo, coeffInfo, " (timed out or error). ",
-				"Code will use numerical solution for all coefficients. ",
-				"Results will still be correct but take longer to compute. ",
-				"Increasing TimeConstraint in solveCoeffsSystem and simplifyCoeffsSystem, ",
-				"or increasing TimeoutOption and SimplifyTimeout in paramQuadSolveOptions may help with closed-form solution verification."]
-		]
-	];
 	ConstantArray[False, len]
 );
 
@@ -770,13 +753,11 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 										eqA0Unsimplified = Prepend[newSysA,wcCoeffEq]/.solA["Solution"]
 									},
 									solA["eqA0"] = LocalEvaluate[
-										Block[{$HistoryLength = 0},
-											Assuming[
-												assumeA,
-												Quiet[
-													FullSimplify[eqA0Unsimplified,Sequence @@ simplifyOpts],
-													{FullSimplify::time,FullSimplify::gtime}
-												]
+										Assuming[
+											assumeA,
+											Quiet[
+												FullSimplify[eqA0Unsimplified,Sequence @@ simplifyOpts],
+												{FullSimplify::time,FullSimplify::gtime}
 											]
 										]
 									];
@@ -797,13 +778,11 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 									(*pd without plugging in wc coeffs - only if needed*)
 									If[MatchQ[pdMode, "B" | "Both"],
 										solB["eqB0"] = LocalEvaluate[
-											Block[{$HistoryLength = 0},
-												Assuming[
-													assumeB,
-													Quiet[
-														FullSimplify[eqB0,Sequence @@ simplifyOpts],
-														{FullSimplify::time,FullSimplify::gtime}
-													]
+											Assuming[
+												assumeB,
+												Quiet[
+													FullSimplify[eqB0,Sequence @@ simplifyOpts],
+													{FullSimplify::time,FullSimplify::gtime}
 												]
 											]
 										];
@@ -811,13 +790,11 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 									(*pd plugging in wc coeffs - only if needed*)
 									If[MatchQ[pdMode, "AB" | "Both"],
 										solB["eqAB0"] = LocalEvaluate[
-											Block[{$HistoryLength = 0},
-												Assuming[
-													assumeB,
-													Quiet[
-														FullSimplify[eqB0/.solA["Solution"],Sequence @@ simplifyOpts],
-														{FullSimplify::time,FullSimplify::gtime}
-													]
+											Assuming[
+												assumeB,
+												Quiet[
+													FullSimplify[eqB0/.solA["Solution"],Sequence @@ simplifyOpts],
+													{FullSimplify::time,FullSimplify::gtime}
 												]
 											]
 										];
