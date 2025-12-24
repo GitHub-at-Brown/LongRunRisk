@@ -30,6 +30,9 @@ vars: the coefficient variables (e.g., {A[0]}) to solve for.
 params: the parameter symbols present in expr.
 Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"PerformanceGoal\" (\"Quality\" | \"Speed\"; Speed uses WVM with OptimizationLevel 0).
 Returns an Association with keys: \"fC\", \"dfC\", \"Vars\", \"ParamOrder\", \"SignIndex\", \"CoeffName\", \"SignSymbol\".";
+buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
+buildKernel::unusedvars = "Some vars were not found in the expression: `1`.";
+buildKernel::badcompilemode = "Invalid CompileMode `1`. Expected \"Both\", \"FunctionOnly\", or \"JacobianOnly\".";
 bindUnary::usage   = "bindUnary[kernel, paramValues] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.
 Options: \"Signs\" (default {}).";
 bindUnary::toofewsigns = "Expected at least `1` sign values, but got `2`.";
@@ -39,6 +42,9 @@ Pass the result to extractIntervalsFromReduce to obtain numeric intervals.
 Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"Signs\" (default {}).";
 extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.
 Options: \"InteriorShrink\" (default 0.001), \"RootUpperBound\" (default 15).";
+extractIntervalsFromReduce::nointervals = "Could not extract any valid intervals from reduced expression `1`.";
+findRootInterval::emptyinterval = "There are no real solutions for `1`. Try changing signs `2` or parameters.";
+findRootInterval::nocoeff = "Could not locate a root variable for coefficient head `1` in the conditions.";
 scanAndSolve::usage = "scanAndSolve[f, {min, max}] finds roots of f[x] in the range by grid subdivision.
 scanAndSolve[f, df, {min, max}] uses derivative df for Newton steps.
 Options: \"BracketGrid\" (default 32), \"Tolerance\" (default Automatic), \"FastRootOptions\", \"FindRootOptions\".";
@@ -79,10 +85,6 @@ buildKernel//Options = {
 	"FlattenExpressions" -> Automatic,  (* True | False | Automatic (auto at LeafCount > 5000) *)
 	"AllowCompileDuringCoverage" -> False  (* True to force compilation even during coverage *)
 };
-
-buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
-buildKernel::unusedvars = "Some vars were not found in the expression: `1`.";
-buildKernel::badcompilemode = "Invalid CompileMode `1`. Expected \"Both\", \"FunctionOnly\", or \"JacobianOnly\".";
 
 
 (* fast, robust scalar-args kernel *)
@@ -157,12 +159,10 @@ buildKernel[
         With[{lc = LeafCount[body]},
             Switch[flattenOpt,
                 True,
-                (Print["buildKernel: Flattening expression (LeafCount=", lc, ")"];
-                 flattenForCompileBody[body]),
+                flattenForCompileBody[body],
                 Automatic,
                 If[lc > 5000,
-                    (Print["buildKernel: Flattening expression (LeafCount=", lc, ")"];
-                     flattenForCompileBody[body]),
+                    flattenForCompileBody[body],
                     {body, Automatic}
                 ],
                 _,
@@ -223,42 +223,18 @@ buildKernel[
 			TrueQ[$CoverageMode]
 		];
 
-		(* Wrapper that logs diagnostics and compiles using selected compiler *)
+		(* Wrapper that compiles using selected compiler *)
 		(* allowCompileDuringCoverage: if True, skip the coverage check and compile anyway *)
 		compileWithDiagnostics[func_, label_String, compOpts_List, useCompiler_String, allowCompileDuringCoverage_:False] := Module[
-		  {leafCount, byteCount, result, logFile},
+		  {result},
 
 		  (* Skip compilation during coverage to avoid Instrumentation paclet crash *)
 		  If[!TrueQ[allowCompileDuringCoverage] && insideCoverageEvaluate[],
-		    Print[useCompiler, "[", label, "]: SKIPPED (coverage mode)"];
 		    Return[func, Module]
-		  ];
-
-		  leafCount = LeafCount[func];
-		  byteCount = ByteCount[func];
-
-		  (* Write diagnostic info to file in case of crash - use Export for immediate flush *)
-		  logFile = FileNameJoin[{$TemporaryDirectory, "Compile_diagnostic.txt"}];
-		  With[{entry = StringJoin[
-		      DateString[], " | ", label, " [", useCompiler, "]",
-		      " | LeafCount=", ToString[leafCount],
-		      " | ByteCount=", ToString[byteCount],
-		      " | MemoryInUse=", ToString[Round[MemoryInUse[]/1024^2]], "MB",
-		      " | MaxMemoryUsed=", ToString[Round[MaxMemoryUsed[]/1024^2]], "MB\n"
-		    ]},
-		    (* Append with immediate flush *)
-		    With[{stream = OpenAppend[logFile]},
-		      WriteString[stream, entry];
-		      Close[stream];
-		    ];
 		  ];
 
 		  (* Use 80% of available memory, with 2GB floor and 32GB cap *)
 		  With[{memLimit = Clip[Round[0.8 * MemoryAvailable[]], {2*1024^3, 32*1024^3}]},
-		    Print[useCompiler, "[", label, "]: LeafCount=", leafCount, ", ByteCount=", byteCount,
-		      ", MemoryInUse=", Round[MemoryInUse[]/1024^2], "MB",
-		      ", MemoryLimit=", Round[memLimit/1024^3], "GB"];
-
 		    (* Attempt compilation with MemoryConstrained *)
 		    result = MemoryConstrained[
 		      If[useCompiler === "FunctionCompile",
@@ -277,14 +253,12 @@ buildKernel[
 		        ]
 		      ],
 		      memLimit,
-		      (Print[useCompiler, "[", label, "]: Memory limit exceeded (", Round[memLimit/1024^3], "GB)"]; $Failed)
+		      $Failed
 		    ];
 		  ];
 
 		  If[result === $Failed || FailureQ[result],
-		    Print[useCompiler, "[", label, "]: FAILED"];
 		    $Failed,
-		    Print[useCompiler, "[", label, "]: SUCCESS"];
 		    result
 		  ]
 		];
@@ -417,10 +391,10 @@ bindUnary[
 	    maxIdx = Max[idx];
 	    Which[
 	      Length[signs] < maxIdx,
-	        Message[bindUnary::toofewsigns, maxIdx, Length[signs]];
+	        Message[MessageName[bindUnary, "toofewsigns"], maxIdx, Length[signs]];
 	        $Failed,
 	      Length[signs] > maxIdx,
-	        Message[bindUnary::toomanysigns, maxIdx, Length[signs]];
+	        Message[MessageName[bindUnary, "toomanysigns"], maxIdx, Length[signs]];
 	        $Failed,
 	      True,
 	        Developer`ToPackedArray @ Round @ signs[[idx]]
@@ -445,10 +419,6 @@ bindUnary[
 
 (* ::Subsection:: *)
 (*findRootInterval*)
-
-
-findRootInterval::emptyinterval = "There are no real solutions for `1`. Try changing signs `2` or parameters.";
-findRootInterval::nocoeff = "Could not locate a root variable for coefficient head `1` in the conditions.";
 
 
 findRootInterval//Options = {
@@ -555,7 +525,7 @@ parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi > lo :=
 
 (* 1D bounds with bad order *)
 parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi <= lo :=
-  (Message[fastRoot::badbounds, lo, hi]; $Failed)
+  (Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, lo, hi]; $Failed)
 
 (* 1D full spec (3 elements): {x0, lo, hi} or {Automatic, lo, hi} *)
 parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi > lo :=
@@ -563,7 +533,7 @@ parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi > l
 
 (* 1D full spec with bad bounds *)
 parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi <= lo :=
-  (Message[fastRoot::badbounds, lo, hi]; $Failed)
+  (Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, lo, hi]; $Failed)
 
 (* nD start only - NESTED SINGLETON {{x0_vec}} *)
 parseSpec[{v_?(VectorQ[#, NumericQ] &)}] :=
@@ -576,7 +546,7 @@ parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; And @@ ((#[[2]] > #[[1]]) &
 (* nD bounds with bad order *)
 parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; !And @@ ((#[[2]] > #[[1]]) & /@ nested) := Module[
   {badIdx = FirstPosition[nested, {lo_, hi_} /; hi <= lo, {1}, {1}][[1]]},
-  Message[fastRoot::badbounds, nested[[badIdx, 1]], nested[[badIdx, 2]]]; $Failed
+  Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, nested[[badIdx, 1]], nested[[badIdx, 2]]]; $Failed
 ]
 
 (* nD full spec - nested, each inner has {x0|Automatic, lo, hi} *)
@@ -591,11 +561,11 @@ parseSpec[nested : {{(_?NumericQ | Automatic), _?NumericQ, _?NumericQ} ..}] /; A
 (* nD full spec with bad bounds *)
 parseSpec[nested : {{(_?NumericQ | Automatic), _?NumericQ, _?NumericQ} ..}] /; !And @@ ((#[[3]] > #[[2]]) & /@ nested) := Module[
   {badIdx = FirstPosition[nested, {_, lo_, hi_} /; hi <= lo, {1}, {1}][[1]]},
-  Message[fastRoot::badbounds, nested[[badIdx, 2]], nested[[badIdx, 3]]]; $Failed
+  Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, nested[[badIdx, 2]], nested[[badIdx, 3]]]; $Failed
 ]
 
 (* Catch-all for invalid spec *)
-parseSpec[spec_] := (Message[fastRoot::badspec, Short[spec]]; $Failed)
+parseSpec[spec_] := (Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badspec, Short[spec]]; $Failed)
 
 
 (* computeX0: compute automatic initial guess via secant blend *)
@@ -852,7 +822,7 @@ With[{
 
     (* Warn if compiled function with Jacobian - Newton won't work *)
     If[hasJacobian && isCompiled,
-      Message[fastRoot::compiled]
+      Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::compiled]
     ];
 
     (* Check for bracketing (1D only) *)
@@ -930,8 +900,8 @@ With[{
       (* Handle failure *)
       If[res === $Failed,
         If[lb === None,
-          Message[fastRoot::nobounds, Short[x0]],
-          Message[fastRoot::noconverge, MaxIterations /. findRootOpts /. MaxIterations -> 100, Short[x0], Short[lb], Short[ub]]
+          Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::nobounds, Short[x0]],
+          Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::noconverge, MaxIterations /. findRootOpts /. MaxIterations -> 100, Short[x0], Short[lb], Short[ub]]
         ];
         Return[$Failed]
       ];
@@ -976,11 +946,11 @@ fastRoot[f_, spec_, opts : OptionsPattern[{fastRoot, FindRoot}]] := Module[
 
   (* Validate: cannot compute automatic x0 without bounds *)
   If[x0 === Automatic && (lb === None || ub === None),
-    Message[fastRoot::noautox0];
+    Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::noautox0];
     Return[$Failed]
   ];
   If[ListQ[x0] && MemberQ[x0, Automatic] && (lb === None || ub === None),
-    Message[fastRoot::noautox0];
+    Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::noautox0];
     Return[$Failed]
   ];
 
@@ -1002,7 +972,7 @@ fastRoot[f_, spec_, opts : OptionsPattern[{fastRoot, FindRoot}]] := Module[
   (* Early check: verify function returns numeric values at x0 *)
   With[{fTest = f[If[dim == 1, {x0}, x0]]},
     If[!AllTrue[Flatten@{fTest}, NumberQ],
-      Message[fastRoot::nonnumeric, Short[fTest], Short[x0]];
+      Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::nonnumeric, Short[fTest], Short[x0]];
       Return[$Failed]
     ]
   ];
@@ -1236,13 +1206,11 @@ flattenForCompileBody[expr_] := Module[
     ];
 
     (* Apply RecursiveRewrite to decompose expression with timeout *)
-    Print["flattenForCompileBody: Starting RecursiveRewrite (LeafCount=", LeafCount[expr], ")"];
     result = TimeConstrained[
-        (* ResourceFunction["RecursiveRewrite"]*)PacletizedResourceFunctions`RecursiveRewrite[expr], 
+        (* ResourceFunction["RecursiveRewrite"]*)PacletizedResourceFunctions`RecursiveRewrite[expr],
         300,  (* 5 minute timeout *)
-        Print["flattenForCompileBody: RecursiveRewrite timed out after 5 minutes"]; $Failed
+        $Failed
     ];
-    Print["flattenForCompileBody: RecursiveRewrite completed"];
     If[result === $Failed, Return[{expr, returnType}]];
     If[!MatchQ[result, {_String, {__RuleDelayed}}],
         Return[{expr, returnType}]
@@ -1302,8 +1270,6 @@ signIdxs[ex_, sigSym_String] := Sort @ DeleteDuplicates @ Cases[
 (*extractIntervalsFromReduce*)
 
 
-extractIntervalsFromReduce::nointervals = "Could not extract any valid intervals from reduced expression `1`.";
-
 extractIntervalsFromReduce // Options = {
   "InteriorShrink" -> 0.001,
   "RootUpperBound" -> 15,
@@ -1323,7 +1289,7 @@ extractIntervalsFromReduce[
   },
   Module[
     {lexp, disjuncts, intervals, intervalFromClause, rSym, rExpr},
-    If[rootList === {}, Message[extractIntervalsFromReduce::nointervals, reduceExpr]; Return[{}]];
+    If[rootList === {}, Message[MessageName[extractIntervalsFromReduce, "nointervals"], reduceExpr]; Return[{}]];
 
     intervals = Which[
       reduceExpr === False, {},
@@ -1394,7 +1360,7 @@ extractIntervalsFromReduce[
     intervals = SortBy[intervals, First];
 
     If[intervals === {},
-      Message[extractIntervalsFromReduce::nointervals, reduceExpr];
+      Message[MessageName[extractIntervalsFromReduce, "nointervals"], reduceExpr];
       Return[{}]
     ];
 

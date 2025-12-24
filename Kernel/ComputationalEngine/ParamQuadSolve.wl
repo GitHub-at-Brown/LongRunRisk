@@ -62,13 +62,6 @@ Begin["`Private`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
-(* OS-level memory usage (sum of WolframKernel RSS, in GB) *)
-wolframKernelMemoryGB[] := Module[{raw, kb},
-  raw = Quiet@Import["!ps -axo rss,comm | grep -i '[W]olframKernel' | awk '{sum+=$1} END {print sum}'", "String"];
-  kb = Quiet@Check[ToExpression@StringTrim[raw], $Failed];
-  If[NumberQ[kb], N[kb/1024.^2], Missing["NotAvailable"]]
-];
-
 
 (* ::Subsection:: *)
 (*paramQuadSolve*)
@@ -152,15 +145,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         dens, denConds, canPolys, coeffMap, seqRes, solved, signMap, signRadMap, leftover, steps, solRules,
         signRootMap, conditions, verif, out, t0, t1, solRulesDesym, signRootMapDesym, signRadMapDesym, diagExtra,
         radicandsRaw, uniqueRadicands, radicandConditions, signVars, signAssumptions, fullAss,
-        methodTag, allowGroebner, logPQS},
-        (* Memory logging for paramQuadSolve internals *)
-        logPQS[label_] := Module[{memGB = N[MemoryInUse[]/1024^3], kernelGB = wolframKernelMemoryGB[]},
-          Print[
-            "      paramQuadSolve: ", label,
-            " | Memory: ", NumberForm[memGB, {5, 2}], " GB",
-            " | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
-          ]
-        ];
+        methodTag, allowGroebner},
         If[methodSpec === $Failed, Return[$Failed]];
         methodTag = methodSpec["Tag"];
         allowGroebner = methodSpec["AllowGroebner"];
@@ -169,15 +154,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         If[vars === {}, Message[paramQuadSolve::emptyvar]; Return[$Failed]];
         If[eqns === {}, Message[paramQuadSolve::emptyeq]; Return[$Failed]];
         t0 = AbsoluteTime[];
-        logPQS["START"];
-        logPQS["BEFORE toPolyAndDen (" <> ToString[Length[eqns]] <> " eqs)"];
-        pairsFull = MapIndexed[
-          (logPQS["  toPolyAndDen eq " <> ToString[#2[[1]]] <> "/" <> ToString[Length[eqns]] <>
-                  " bytes=" <> ToString[ByteCount[#1]]];
-           toPolyAndDen[#1]) &,
-          eqns
-        ];
-        logPQS["AFTER toPolyAndDen"];
+        pairsFull = toPolyAndDen /@ eqns;
         polysFull = pairsFull[[All, 1]];
         densFull = pairsFull[[All, 2]];
         eqVarSets = varsInPoly[#, vars] & /@ polysFull;
@@ -215,22 +192,14 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             "DeferredEquationsIndices" -> {}
           |>;
         ];
-        logPQS["after setup"];
         denConds = collectDenominatorConditions[dens];
-        logPQS["BEFORE canonicalizeCoefficients (" <> ToString[Length[eqPolys]] <> " polys, " <>
-               ToString[Length[varsToSolve]] <> " vars, polyBytes=" <> ToString[Total[ByteCount /@ eqPolys]] <> ")"];
         {canPolys, coeffMap} = canonicalizeCoefficients[eqPolys, varsToSolve];
-        logPQS["AFTER canonicalizeCoefficients (coeffMap size=" <> ToString[Length[coeffMap]] <>
-               ", coeffMapBytes=" <> ToString[ByteCount[coeffMap]] <> ")"];
         (* TimeConstraint returns best simplification found within budget *)
-        logPQS["BEFORE Simplify coeffMap"];
         coeffMap = Map[
           Simplify[#, Assumptions -> ass, TimeConstraint -> simpBudget] &,
           coeffMap
         ];
-        logPQS["AFTER Simplify coeffMap"];
         seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead, gbOrderUsed, allowGroebner, gbMemLimit, simpBudget], N@timeout, $Failed];
-        logPQS["after sequentialSolve"];
         If[!MatchQ[seqRes, {__}], Message[paramQuadSolve::solvefail]; Return[$Failed]];
         {solved, signMap, signRadMap, leftover, steps} = seqRes;
         solRules = Normal[solved];
@@ -254,7 +223,6 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         signVars = Keys[signRootMapDesym];
         signAssumptions = If[signVars === {}, True, And @@ Thread[(signVars)^2 == 1]];
         fullAss = expandPatternAssumptions[eqns, ass && signAssumptions];
-        logPQS["after desym substitution"];
 
         (* Apply square root simplification *)
         {signRootMapDesym, signRadMapDesym} = LocalEvaluate[
@@ -262,41 +230,15 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss]
           ]
         ];
-        logPQS["after simplifySignMap"];
-
-        (* Debug: capture state before doValidate block for testing *)
-        If[$Notebooks === True,
-          Module[{debugState},
-            debugState = <|
-              "vars" -> vars,
-              "solRulesDesym" -> solRulesDesym,
-              "signRootMapDesym" -> signRootMapDesym,
-              "signRadMapDesym" -> signRadMapDesym,
-              "fullAss" -> fullAss,
-              "simpBudget" -> simpBudget
-            |>;
-            Put[debugState, "/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/temp/debugStateA.wl"];
-            Print["Debug state saved to temp/debugState.wl"];
-            Print["  vars: ", vars];
-            Print["  solRulesDesym length: ", Length[solRulesDesym], ", bytes: ", ByteCount[solRulesDesym]];
-            Print["  signRootMapDesym keys: ", Keys[signRootMapDesym]];
-            Print["  signRadMapDesym keys: ", Keys[signRadMapDesym]];
-          ]
-        ];
 
         If[TrueQ[doValidate],
           (* Simplify solRulesDesym using dummy substitution to prevent memory explosion *)
-          logPQS["BEFORE validate simplify solRulesDesym (len=" <> ToString[Length[solRulesDesym]] <>
-                 ", bytes=" <> ToString[ByteCount[solRulesDesym]] <> ")"];
           solRulesDesym = simplifyWithDummySubstitution[solRulesDesym,
             "Assumptions" -> fullAss,
             TimeConstraint -> simpBudget
           ];
-          logPQS["after validate simplify solRulesDesym"];
 
           (* Simplify signRootMapDesym and signRadMapDesym *)
-          logPQS["BEFORE simplify signRootMapDesym (len=" <> ToString[Length[signRootMapDesym]] <>
-                 ", bytes=" <> ToString[ByteCount[signRootMapDesym]] <> ")"];
           signRootMapDesym = KeyValueMap[
             Function[{key, val},
               key -> simplifyWithDummySubstitution[val,
@@ -306,9 +248,6 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             ],
             signRootMapDesym
           ] // Association;
-          logPQS["AFTER simplify signRootMapDesym"];
-          logPQS["BEFORE simplify signRadMapDesym (len=" <> ToString[Length[signRadMapDesym]] <>
-                 ", bytes=" <> ToString[ByteCount[signRadMapDesym]] <> ")"];
           signRadMapDesym = KeyValueMap[
             Function[{key, val},
               key -> simplifyWithDummySubstitution[val,
@@ -318,14 +257,9 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             ],
             signRadMapDesym
           ] // Association;
-          logPQS["AFTER simplify signRadMapDesym"];
-          logPQS["after validate simplify signMaps"];
         ];
-        logPQS["after doValidate block"];
         radicandsRaw = Values[signRadMapDesym];
         uniqueRadicands = DeleteDuplicates[radicandsRaw];
-        logPQS["BEFORE radicandConditions (uniqueRadicands len=" <> ToString[Length[uniqueRadicands]] <>
-               ", bytes=" <> ToString[ByteCount[uniqueRadicands]] <> ")"];
         radicandConditions =
           If[domain === Reals,
             If[uniqueRadicands === {},
@@ -338,56 +272,39 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             ],
             {}
           ];
-        logPQS["AFTER radicandConditions"];
         conditions = DeleteCases[Flatten@{denConds, radicandConditions}, True];
-        logPQS["BEFORE verif block"];
         verif = If[TrueQ[doValidate],
           TimeConstrained[
             Module[{polys0, exprs, zeroQuick, checked},
-              logPQS["  verif: computing polys0"];
               polys0 = Subtract@@@eqnsUsed;
-              logPQS["  verif: computing exprs (polys0 bytes=" <> ToString[ByteCount[polys0]] <> ")"];
               exprs = normalizeSigns[polys0 /. solRulesDesym, signHead];
-              logPQS["  verif: BEFORE PossibleZeroQ (exprs len=" <> ToString[Length[exprs]] <>
-                     ", bytes=" <> ToString[ByteCount[exprs]] <> ")"];
-              zeroQuick = MapIndexed[
-                (logPQS["    PossibleZeroQ expr " <> ToString[#2[[1]]] <> "/" <> ToString[Length[exprs]] <>
-                        " bytes=" <> ToString[ByteCount[#1]]];
-                 PossibleZeroQ[#1, Assumptions -> fullAss]) &,
-                exprs
-              ];
-              logPQS["  verif: AFTER PossibleZeroQ (results=" <> ToString[zeroQuick] <> ")"];
-              logPQS["  verif: BEFORE checked Simplify loop"];
+              zeroQuick = PossibleZeroQ[#, Assumptions -> fullAss] & /@ exprs;
               checked = MapIndexed[
                 Function[{pair, idx},
                   With[{zq = pair[[1]], expr = pair[[2]]},
                     If[zq === True,
                       True,
-                      (logPQS["    checked Simplify idx=" <> ToString[idx[[1]]] <> " exprBytes=" <> ToString[ByteCount[expr]]];
-                       Module[{noAss, withAss},
-                         logPQS["      Simplify without assumptions"];
-                         noAss = TimeConstrained[
-                           Quiet[Simplify[expr == 0, TimeConstraint -> simpBudget], {Simplify::time}],
-                           simpBudget + 0.5,
-                           expr == 0 (* unchanged on timeout *)
-                         ];
-                         If[TrueQ[noAss],
-                           True,
-                           (logPQS["      Simplify WITH assumptions"];
-                            withAss = TimeConstrained[
-                              Quiet[Simplify[expr == 0, Assumptions -> fullAss, TimeConstraint -> simpBudget], {Simplify::time}],
-                              simpBudget + 0.5,
-                              expr == 0
-                            ];
-                            withAss)
-                         ]
-                       ])
+                      Module[{noAss, withAss},
+                        noAss = TimeConstrained[
+                          Quiet[Simplify[expr == 0, TimeConstraint -> simpBudget], {Simplify::time}],
+                          simpBudget + 0.5,
+                          expr == 0 (* unchanged on timeout *)
+                        ];
+                        If[TrueQ[noAss],
+                          True,
+                          withAss = TimeConstrained[
+                            Quiet[Simplify[expr == 0, Assumptions -> fullAss, TimeConstraint -> simpBudget], {Simplify::time}],
+                            simpBudget + 0.5,
+                            expr == 0
+                          ];
+                          withAss
+                        ]
+                      ]
                     ]
                   ]
                 ],
                 Transpose[{zeroQuick, exprs}]
               ];
-              logPQS["  verif: AFTER checked Simplify loop"];
               checked
             ],
             N@timeout,
@@ -395,7 +312,6 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
           ],
           Missing["NotEvaluated"]
         ];
-        logPQS["AFTER verif block"];
         t1 = AbsoluteTime[];
         out = <|
           "Solution" -> Sort@solRulesDesym,
@@ -486,18 +402,12 @@ defaultAssumptions[] := Module[
 (*toPolyAndDen*)
 
 
-toPolyAndDen[eq_] := Module[{lhs, rhs, expr, num, den, t0, t1, t2},
+toPolyAndDen[eq_] := Module[{lhs, rhs, expr, num, den},
   If[MatchQ[eq, _Equal], lhs = eq[[1]]; rhs = eq[[2]];, lhs = eq; rhs = 0;];
-  t0 = AbsoluteTime[];
   expr = Together[lhs - rhs];
-  t1 = AbsoluteTime[];
   num = Numerator[expr];
   den = Denominator[expr];
   num = Expand[num];
-  t2 = AbsoluteTime[];
-  If[t1 - t0 > 1 || t2 - t1 > 1,
-    Print["        toPolyAndDen: Together=", NumberForm[t1 - t0, {4, 2}], "s Expand=", NumberForm[t2 - t1, {4, 2}], "s | numBytes=", ByteCount[num]]
-  ];
   {num, den}
 ];
 
@@ -523,29 +433,13 @@ collectDenominatorConditions[dlist_List] := Module[{expr, conds},
 
 (* Replace all coefficients of polys by unique dummy symbols; return new polys and a mapping. *)
 canonicalizeCoefficients[polys_List, vars_List] := Module[
-{rulesPer, allCoeffs, symb, cmap = <||>, newPolys, t0, t1, t2, t3, t4, logCC},
-logCC[label_] := Module[{memGB = N[MemoryInUse[]/1024^3], kernelGB = wolframKernelMemoryGB[]},
-  Print[
-    "        canonicalizeCoefficients: ", label,
-    " | Memory: ", NumberForm[memGB, {5, 2}], " GB",
-    " | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
-  ]
-];
+{rulesPer, allCoeffs, symb, cmap = <||>, newPolys},
   symb[c_] := Lookup[cmap, c, With[{s = Unique["c$"]}, cmap[c] = s; s]];
   (* Extract coefficient rules for each poly *)
-  t0 = AbsoluteTime[];
   rulesPer = CoefficientRules[#, vars] & /@ polys;
-  t1 = AbsoluteTime[];
-  logCC["after CoefficientRules (" <> ToString[NumberForm[t1 - t0, {4, 2}]] <> "s, totalRules=" <>
-        ToString[Total[Length /@ rulesPer]] <> ")"];
   allCoeffs = Union[Flatten[Values /@ rulesPer]];
-  t2 = AbsoluteTime[];
-  logCC["after Union allCoeffs (" <> ToString[NumberForm[t2 - t1, {4, 2}]] <> "s, uniqueCoeffs=" <>
-        ToString[Length[allCoeffs]] <> ", coeffsBytes=" <> ToString[ByteCount[allCoeffs]] <> ")"];
   (* Build cmap explicitly *)
   Scan[(symb[#]) &, allCoeffs];
-  t3 = AbsoluteTime[];
-  logCC["after build cmap (" <> ToString[NumberForm[t3 - t2, {4, 2}]] <> "s)"];
   (* Rebuild polynomials with dummy coefficients *)
   newPolys = Map[
     Function[assocList,
@@ -555,8 +449,6 @@ logCC[label_] := Module[{memGB = N[MemoryInUse[]/1024^3], kernelGB = wolframKern
     ],
     rulesPer
   ];
-  t4 = AbsoluteTime[];
-  logCC["after rebuild polys (" <> ToString[NumberForm[t4 - t3, {4, 2}]] <> "s)"];
   {Expand /@ newPolys, AssociationThread[Values[cmap], Keys[cmap]]}
 ];
 
@@ -1027,21 +919,8 @@ normalizeSigns[expr_, signHead_Symbol] := Module[{rules},
 
 sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_, gbMemLimit_, simplifyTC_: 5] := Module[
   {eqs = polys, unsolved = vars, solved = <||>, signMap = <||>, radMap = <||>, steps = {}, iter = 0,
-   maxIter = 5 Length[vars], signGen = makeSignGenerator[signHead], gbOrderClean = Replace[gbOrder, Automatic -> Lexicographic],
-   logSeq},
-  logSeq[label_] := Module[{memGB = N[MemoryInUse[]/1024^3], kernelGB = wolframKernelMemoryGB[]},
-    Print[
-      "        sequentialSolve: ", label,
-      " | Memory: ", NumberForm[memGB, {5, 2}], " GB",
-      " | KernelRSS: ", If[NumberQ[kernelGB], NumberForm[kernelGB, {5, 2}], "n/a"], " GB"
-    ]
-  ];
-  logSeq["START (vars=" <> ToString[Length[vars]] <> ")"];
+   maxIter = 5 Length[vars], signGen = makeSignGenerator[signHead], gbOrderClean = Replace[gbOrder, Automatic -> Lexicographic]},
   While[eqs =!= {} && unsolved =!= {} && iter++ < maxIter,
-    (* Log each iteration to track expression growth *)
-    logSeq["iter=" <> ToString[iter] <> " eqs=" <> ToString[Length[eqs]] <>
-           " unsolved=" <> ToString[Length[unsolved]] <>
-           " eqBytes=" <> ToString[Round[Total[ByteCount /@ eqs]/1024.]] <> "KB"];
     Module[{varCounts = varsInPoly[#, unsolved] & /@ eqs, counts, linearFlags, bestIndex, peq, varsIn,
       linearCandidates, v, res, degree, last, gb, uni},
       counts = Length /@ varCounts;
@@ -1104,7 +983,6 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_
       ];
       If[!TrueQ[allowGroebner], Break[]];
       last = Last[unsolved];
-      logSeq["BEFORE GroebnerBasis (unsolved=" <> ToString[Length[unsolved]] <> ", eqs=" <> ToString[Length[eqs]] <> ", eqBytes=" <> ToString[Round[Total[ByteCount /@ eqs]/1024.]] <> "KB)"];
       (* Use MemoryConstrained with GroebnerWalk for better performance *)
       gb = Quiet@Check[
         MemoryConstrained[
@@ -1117,7 +995,6 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_
         ],
         $Failed
       ];
-      logSeq["AFTER GroebnerBasis"];
       If[gb === $Failed,
         (* Don't emit badorder message if it was a memory failure *)
         Break[];
@@ -1134,7 +1011,6 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_
       eqs = (eqs /. res[[1]]);
     ]
   ];
-  logSeq["END (solved=" <> ToString[Length[solved]] <> ")"];
   {solved, signMap, radMap, eqs, steps}
 ];
 

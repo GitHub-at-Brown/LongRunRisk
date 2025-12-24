@@ -130,7 +130,7 @@ getVersion[root_String] := Module[
   matchVersion = Quiet@Check[match["Version"], None];
 
   If[StringQ[repoVersion] && StringQ[matchVersion] && repoVersion =!= matchVersion,
-    Message[updateModelManifest::versionmismatch, repoVersion, matchVersion];
+    Message[FernandoDuarte`LongRunRisk`Tools`ManageResources`updateModelManifest::versionmismatch, repoVersion, matchVersion];
   ];
 
   Which[
@@ -185,7 +185,7 @@ updateModelManifest[] := Module[
 
   (* Find root *)
   root = findPacletRoot[];
-  If[root === $Failed, Message[updateModelManifest::noroot]; Return[$Failed]];
+  If[root === $Failed, Message[FernandoDuarte`LongRunRisk`Tools`ManageResources`updateModelManifest::noroot]; Return[$Failed]];
 
   (* Build manifest path *)
   manifestFile = FileNameJoin[{root, "Resources", "ModelManifest.wl"}];
@@ -193,7 +193,7 @@ updateModelManifest[] := Module[
 
   (* Get catalog (live reload if file changed) *)
   catalogModels = getCatalogModels[];
-  If[!AssociationQ[catalogModels], Message[updateModelManifest::nocat]; Return[$Failed]];
+  If[!AssociationQ[catalogModels], Message[FernandoDuarte`LongRunRisk`Tools`ManageResources`updateModelManifest::nocat]; Return[$Failed]];
 
   (* Compute hashes *)
   catalogHash = getCanonicalHash[catalogModels];
