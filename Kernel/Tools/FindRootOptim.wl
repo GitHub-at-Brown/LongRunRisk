@@ -69,6 +69,8 @@ buildEqMapFromModel::usage = "buildEqMapFromModel[model] extracts the equation m
 (*Code*)
 
 
+Needs["CCompilerDriver`"];
+
 Begin["`Private`"];
 
 
