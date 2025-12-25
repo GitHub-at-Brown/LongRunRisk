@@ -740,7 +740,7 @@ rp[expr_,{pos_,i_}]:=ReplaceAt[expr,vv_[t+q_.]:>vv[t+q,i],pos];
 
 
 (*split expr by presence/absence of certain parameters*)
-partitionBy[expr_] := {
+partitionConditions[expr_] := {
 	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phix] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhoxpbar]},
 	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phix] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx^2] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhox]},
 	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phix] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx^2] },
@@ -759,11 +759,11 @@ partitionBy[expr_] := {
 	{Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhox] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar]},
 	{Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhox]}
 };
+partitionBy[expr_] := partitionConditions[expr];
 (*number of cases in partitionBy*)
-numCond = (Dimensions @ Values @ DownValues @ partitionBy)[[2]];
+numCond = Length @ partitionConditions[expr];
 (*create function with different value for each case*)
-dvPartitionBy= DownValues @ partitionBy;
-partitionWithValue = Values @ First @ Fold[Insert[#1, #2[[3]], #2]&, dvPartitionBy, Table[{1, 2, n, 1}, {n, 1, numCond}]];
+partitionWithValue = MapIndexed[{First @ #2, First @ #1} &, partitionConditions[expr]];
 categorize[expr_] := Evaluate @ Piecewise[partitionWithValue, -99];(*-99 for cases not in partitionBy*)
 DownValues[categorize] = Activate @ DownValues @ categorize;
 
