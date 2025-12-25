@@ -747,7 +747,6 @@ partitionBy[expr_] := {
 	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhox] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar]},
 	{Not @ Inactive @ FreeQ[expr,  FernandoDuarte`LongRunRisk`Model`Parameters`rhodx] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhox]},
 	{Not @ Inactive @ FreeQ[expr,  FernandoDuarte`LongRunRisk`Model`Parameters`rhox]},
-	
 	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`vp] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phispw]},
 	{Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarpb]},
 	{Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phispw]},
@@ -756,7 +755,6 @@ partitionBy[expr_] := {
 	{Not @ Inactive@ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`Esp]},
 	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar] && Inactive @ Not @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`Esp]},
 	{Inactive@ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`vppbar]},
-	
 	{Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarx] && Not @ Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`phipbarxb]},
 	{Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhox] && Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhopbar]},
 	{Inactive @ FreeQ[expr, FernandoDuarte`LongRunRisk`Model`Parameters`rhox]}
