@@ -20,11 +20,11 @@ Module[{
     testsRoot, pacletRoot, kernelDir, resourcesDir,
     instrumentedDir, instrumentedKernel, coverageDir,
     (* Test data *)
-    testFiles, ignoreDirs,
+    testFiles,
     (* Coverage data *)
     baseline, runData, executionCoverageSuccess,
     (* Test results *)
-    report, totalFailed, noCovFailed
+    report, totalFailed
   },
 
   (* === Parse command-line arguments === *)
@@ -108,6 +108,46 @@ Module[{
     ]
   ];
 
+  (* Copy test data files (but not as instrumented code) *)
+  (* Tests use FindFile to locate package, then derive Tests/ path for test data *)
+  (* We copy only .wl data files (not .wlt test files) to the instrumented Tests/ directory *)
+  Module[{instrumentedTestsDir, testSubdirs, dataFiles},
+    instrumentedTestsDir = FileNameJoin[{instrumentedDir, "Tests"}];
+    CreateDirectory[instrumentedTestsDir, CreateIntermediateDirectories -> True];
+
+    (* Find all test subdirectories *)
+    testSubdirs = Select[FileNames["*", testsRoot], DirectoryQ];
+
+    (* Copy test data files from each subdirectory *)
+    Do[
+      Module[{subdirName, targetSubdir, subDataFiles},
+        subdirName = FileBaseName[subdir];
+
+        (* Skip temp-tests-inst, Resources (contains Models.wl which gets run as test) *)
+        If[subdirName =!= "temp-tests-inst" && subdirName =!= "Resources",
+          (* Find .wl data files (not .wlt test files) in this subdirectory *)
+          subDataFiles = FileNames["*.wl", subdir, 1];
+          subDataFiles = Select[subDataFiles, !StringEndsQ[#, ".wlt"] &];
+
+          If[Length[subDataFiles] > 0,
+            targetSubdir = FileNameJoin[{instrumentedTestsDir, subdirName}];
+            CreateDirectory[targetSubdir, CreateIntermediateDirectories -> True];
+
+            (* Copy each data file without instrumentation (using CopyFile, not loading) *)
+            Do[
+              CopyFile[dataFile,
+                FileNameJoin[{targetSubdir, FileBaseName[dataFile] <> ".wl"}],
+                OverwriteTarget -> True
+              ],
+              {dataFile, subDataFiles}
+            ]
+          ]
+        ]
+      ],
+      {subdir, testSubdirs}
+    ]
+  ];
+
   (* === Instrument Kernel/ === *)
   Print["Instrumenting source files..."];
   baseline = Instrumentation`CoverageInstrument[kernelDir, instrumentedKernel];
@@ -122,39 +162,17 @@ Module[{
   Instrumentation`CoverageProcess[baseline, coverageDir, "baseline.lcov"];
 
   (* === Prepare test files === *)
-  ignoreDirs = {"InteractiveTests", "GenerateCITests"};
-  testFiles = FileNames["*.wlt", testsRoot, Infinity];
-  testFiles = Select[testFiles, FreeQ[FileNameSplit[#], Alternatives @@ ignoreDirs] &];
+  (* Use only the individual split test files from temp-tests-inst/ *)
+  (* Exclude _all.wlt files which are copies of the original multi-test files *)
+  allFiles = FileNames["*.wlt", FileNameJoin[{testsRoot, "temp-tests-inst"}], Infinity];
+  testFiles = Select[allFiles, !StringEndsQ[FileBaseName[#], "_all"] &];
 
   If[testFiles === {},
-    Print["No .wlt tests found outside ignored directories: ", StringRiffle[ignoreDirs, ", "]];
+    Print["No .wlt tests found in temp-tests-inst/"];
     Quit[1]
   ];
 
-  (* Directories that cause CoverageEvaluate to abort or corrupt coverage data:
-     - FindRootOptim: Causes abort during cleanup
-     - ParamQuadSolve: Causes AssociateTo::invak errors that corrupt coverage runtime *)
-  coverageExcludeDirs = {"FindRootOptim", "ParamQuadSolve"};
-
-  (* Test files that load the umbrella package (Needs["FernandoDuarte`LongRunRisk`"])
-     break function body coverage tracking for sub-packages. These must be excluded
-     from CoverageEvaluate and run separately. *)
-  coverageExcludeFiles = {"ComputeConditionalExpectations.wlt", "PacletizeResources.wlt"};
-
-  noCoverageTests = Select[testFiles,
-    !FreeQ[FileNameSplit[#], Alternatives @@ coverageExcludeDirs] ||
-    MemberQ[coverageExcludeFiles, FileNameTake[#]] &
-  ];
-  coverageTests = Select[testFiles,
-    FreeQ[FileNameSplit[#], Alternatives @@ coverageExcludeDirs] &&
-    !MemberQ[coverageExcludeFiles, FileNameTake[#]] &
-  ];
-
-  Print["Found ", Length[testFiles], " test files total"];
-  Print["  ", Length[coverageTests], " for coverage tracking"];
-  Print["  ", Length[noCoverageTests], " excluded from coverage"];
-  Print["    Dirs: ", StringRiffle[coverageExcludeDirs, ", "]];
-  Print["    Files: ", StringRiffle[coverageExcludeFiles, ", "]];
+  Print["Found ", Length[testFiles], " individual test files in temp-tests-inst/ (excluding ", Length[allFiles] - Length[testFiles], " _all.wlt files)"];
 
   (* === Initialize coverage tracking state === *)
   executionCoverageSuccess = False;
@@ -176,7 +194,7 @@ Module[{
        - Pre-loading umbrella package (prevents function body coverage)
        Let test files load their own packages via their Needs calls *)
     {report, runData} = Instrumentation`CoverageEvaluate[
-      TestReport[coverageTests, "ProgressReporting" -> True]
+      TestReport[testFiles, "ProgressReporting" -> True]
     ];
 
     If[MatchQ[runData, _Instrumentation`CoverageData],
@@ -213,86 +231,16 @@ Module[{
     (* Load ORIGINAL paclet since instrumented one may have issues *)
     PacletDirectoryUnload[instrumentedDir];
     PacletDirectoryLoad[pacletRoot];
-    Needs["FernandoDuarte`LongRunRisk`"];
 
     report = TestReport[testFiles, "ProgressReporting" -> True]
   ];
 
-  (* === Run excluded tests separately (without coverage) === *)
-  noCovFailed = 0;  (* Track excluded test failures *)
-  Block[{noCovReport},
-    If[noCoverageTests =!= {},
-      Print["\nRunning excluded tests without coverage (", StringRiffle[coverageExcludeDirs, ", "], ")..."];
-
-      (* Make sure we have original paclet loaded *)
-      If[executionCoverageSuccess,
-        PacletDirectoryUnload[instrumentedDir];
-        PacletDirectoryLoad[pacletRoot];
-        Needs["FernandoDuarte`LongRunRisk`"]
-      ];
-
-      (* Quiet instrumentation messages from residual coverage code in memory *)
-      noCovReport = Quiet[
-        TestReport[noCoverageTests, "ProgressReporting" -> True],
-        {CoverageEvaluate::call, Insert::ins, Values::invrl}
-      ];
-
-      (* Filter out coverage-artifact failures (instrumentation messages) *)
-      coverageArtifactFailures = Select[Values[noCovReport["TestResults"]],
-        #["Outcome"] === "MessagesFailure" &&
-        AnyTrue[#["ActualMessages"],
-          MatchQ[#, HoldPattern[MessageName[CoverageEvaluate | Insert | Values, _]]] &
-        ] &
-      ];
-      realFailedCount = noCovReport["TestsFailedCount"] - Length[coverageArtifactFailures];
-
-      Print["Excluded tests: ", noCovReport["TestsSucceededCount"], " passed, ",
-        realFailedCount, " failed"];
-      If[Length[coverageArtifactFailures] > 0,
-        Print["  (", Length[coverageArtifactFailures], " test(s) with instrumentation artifacts ignored)"]
-      ];
-      noCovFailed = realFailedCount + Lookup[noCovReport, "TestsAbortedCount", 0];
-      (* Print details of real failed tests *)
-      If[realFailedCount > 0,
-        Do[
-          If[result["Outcome"] =!= "Success" &&
-             !MemberQ[coverageArtifactFailures, result],
-            Print["  Failed: ", result["TestID"]];
-            Print["    Outcome: ", result["Outcome"]];
-            If[result["Outcome"] === "MessagesFailure",
-              Print["    Expected: ", result["ExpectedMessages"]];
-              Print["    Actual: ", result["ActualMessages"]];
-            ];
-            If[result["Outcome"] === "Failure",
-              Print["    Expected: ", Short[result["ExpectedOutput"], 3]];
-              Print["    Actual: ", Short[result["ActualOutput"], 3]];
-            ];
-          ],
-          {result, Values[noCovReport["TestResults"]]}
-        ]
-      ]
-    ]
-  ];
-
   (* === Summary === *)
   Print["\n=== Test Results ==="];
-
-  (* Filter out coverage-artifact failures from main report *)
-  (* CoverageEvaluate, Insert, Values messages are instrumentation artifacts *)
-  mainArtifactFailures = Select[Values[report["TestResults"]],
-    #["Outcome"] === "MessagesFailure" &&
-    AnyTrue[#["ActualMessages"],
-      MatchQ[#, HoldPattern[MessageName[CoverageEvaluate | Insert | Values, _]]] &
-    ] &
-  ];
-  mainRealFailed = report["TestsFailedCount"] - Length[mainArtifactFailures];
   Print["Passed: ", report["TestsSucceededCount"]];
-  Print["Failed: ", mainRealFailed];
-  If[Length[mainArtifactFailures] > 0,
-    Print["  (", Length[mainArtifactFailures], " coverage artifact failure(s) ignored)"]
-  ];
+  Print["Failed: ", report["TestsFailedCount"]];
   Print["Aborted: ", Lookup[report, "TestsAbortedCount", 0]];
-  totalFailed = mainRealFailed + Lookup[report, "TestsAbortedCount", 0] + noCovFailed;
+  totalFailed = report["TestsFailedCount"] + Lookup[report, "TestsAbortedCount", 0];
 
   Print["\n=== Coverage Files Generated ==="];
   Print["  Mode: ", If[executionCoverageSuccess, "Execution", "Baseline"]];
