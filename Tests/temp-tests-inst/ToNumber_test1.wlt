@@ -1,0 +1,775 @@
+BeginTestSection["ToNumber"] 
+Begin["FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`"]
+
+FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`longTest = False;
+Needs @ "FernandoDuarte`LongRunRisk`Tools`ToNumber`";
+	$ContextPath = DeleteDuplicates @ Prepend[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`"];
+
+VerificationTest[
+	Off[General::stop];
+	Off[FindRoot::lstol];
+	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`";
+	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`";
+	Needs @ "FernandoDuarte`LongRunRisk`Model`EndogenousEq`";
+	Needs @ "FernandoDuarte`LongRunRisk`Model`ExogenousEq`";
+	Needs @ "FernandoDuarte`LongRunRisk`Tools`TimeAggregation`";
+	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`";
+	FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp = FernandoDuarte`LongRunRisk`Models;
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modBY = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp @ "BY";
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modBKY = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp @ "BKY";
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modNRC = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp @ "NRC";
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modDES = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp @ "DES";
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modNRCStochVol = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp @ "NRCStochVol";
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`mods = If[
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`longTest,
+		{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modBY, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modBKY, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modNRC, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modDES, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modNRCStochVol},
+		{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modBKY}
+	];
+	FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`expr[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t_, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m_, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`i_, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`mu_] := {
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`wc @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pd[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`i],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`bond[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nombond[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`bondexcret[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`bondfw[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`bondfwspread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`bondret[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`bondyield[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`excretc @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`excret[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`i],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`kappa0 @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`mu, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`kappa1 @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`mu, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nombondexcret[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nombondfw[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nombondfwspread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nombondret[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nombondyield[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`m],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nomrf @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nomsdf @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`retc @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ret[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`i],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`rf @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`sdf @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pi @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`dc @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`growth[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`dc, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, "TimeAggregation" -> 2, "numPeriods" -> 1],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`growth[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`dd, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 1, "TimeAggregation" -> 2],
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`AA * FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`dc[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t + 1] * FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`excret[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 1],
+		(FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`AA * FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`excret[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 1]) + FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`BB * FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nombondyield[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 2]
+	};
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ee = FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`expr[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 3, 1, 1];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1 = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ee[[1;;3]];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2 = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ee[[1;;2]];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optsList = {
+		{},
+		{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`maxMaturity -> 6},
+		{"FindRootOptions" -> {MaxIterations -> 100}},
+		{MaxIterations -> 100},
+		{"initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>},
+		{
+			"initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>,
+			MaxIterations -> 100
+		},
+		{
+			"initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>,
+			"FindRootOptions" -> {MaxIterations -> 100}
+		},
+		{
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`maxMaturity -> 6,
+			"initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>,
+			MaxIterations -> 100
+		},
+		{"PrintResidualsNorm" -> True},
+		{"CheckResiduals" -> True, "Tol" -> 1},
+		{"CheckResiduals" -> True, "Tol" -> (10. ^ -20)},
+		{
+			"PrintResidualsNorm" -> True, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`maxMaturity -> 6, "initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>,
+			MaxIterations -> 100
+		},
+		{"RecurrenceTableOptions" -> {"DependentVariables" -> Automatic}},
+		{DependentVariables -> Automatic}
+	};
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOptsList = If[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`longTest, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optsList[[1;;5]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optsList[[1;;2]]];
+	FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters = {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`delta -> 0.99};
+	FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution = {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`A[0] -> 4.6};
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optNewParam = {
+		"initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>,
+		MaxIterations -> 100
+	};
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`wc @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t;
+	AbortProtect[
+		Do[
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex = 0;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`stateVars = Map[
+				Slot[1][_]&,
+				DeleteDuplicates[
+					DeleteCases[
+						Cases[Variables @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel["stateVars"][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t], Pattern[FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`x, _][_] :> FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`x],
+						0
+					]
+				]
+			];
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel = Join[
+				Thread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`stateVars -> 1.],
+				{
+					FernandoDuarte`LongRunRisk`Model`Shocks`eps[_][_] -> 1,
+					FernandoDuarte`LongRunRisk`Model`Shocks`eps[_][_, _] -> 1.,
+					FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`mu -> 2., FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`AA -> -1., FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`BB -> 3.
+				}
+			];
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toNum = FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toEquation = FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toExogenousVars = FernandoDuarte`LongRunRisk`Tools`ToNumber`toExogenousVars;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`toStateVars = FernandoDuarte`LongRunRisk`Tools`ToNumber`toStateVars;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`processNewParameters = FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondE;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondVar;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCov = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCov;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCorr = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`uncondCorr;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`ev;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`var;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`cov = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`cov;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`corr = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`corr;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn = FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`outTests[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel["shortname"]][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex] = Apply[
+				And,
+				Flatten[
+					{
+						SameQ[Head @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn, Function],
+						Map[NumericQ,
+							Flatten[
+								If[
+									FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`longTest,
+									{
+										FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCov[#, #2]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1, Reverse[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1]}]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[
+												MapThread[
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCorr[#, #2]&,
+													{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[-2;;-1]]}
+												]
+											],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										],
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1]],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										],
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1]],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										],
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[
+												MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`cov[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1, Reverse @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1}]
+											],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										],
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[
+												MapThread[
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`corr[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&,
+													{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[-2;;-1]]}
+												]
+											],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										]
+									},
+									{
+										FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1]],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										],
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1]],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										]
+									}
+								]
+							]
+						]
+					}
+				]
+			];
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex + 1;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`outTests[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel["shortname"]][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex] = Apply[
+				And,
+				Flatten[
+					{
+						SameQ[Head @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn, Function],
+						Map[NumericQ,
+							Flatten[
+								If[
+									FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`longTest,
+									{
+										FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCov[#, #2]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1, Reverse @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1}], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										],
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+												MapThread[
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCorr[#, #2]&,
+													{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[-2;;-1]]}
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+											],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										],
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+												Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+											],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										],
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+												Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+											],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										],
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+												MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`cov[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1, Reverse @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1}],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+											],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										],
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+												MapThread[
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`corr[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&,
+													{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[-2;;-1]]}
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+											],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										]
+									},
+									{
+										FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+												Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+											],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										],
+										ReplaceRepeated[
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+												Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+											],
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+										]
+									}
+								]
+							]
+						]
+					}
+				]
+			];
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex + 1;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`outTests[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel["shortname"]][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex] = Apply[
+				And,
+				Flatten[
+					{
+						SameQ[Head @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn, Function],
+						Map[NumericQ,
+							ReplaceRepeated[
+								Flatten[
+									If[
+										FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`longTest,
+										{
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCov[#, #2]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1, Reverse @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1}], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+													MapThread[
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCorr[#, #2]&,
+														{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[-2;;-1]]}
+													],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+													Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+													Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+													MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`cov[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1, Reverse @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1}],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+													MapThread[
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`corr[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&,
+														{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1[[-2;;-1]]}
+													],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											]
+										},
+										{
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+													Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+													Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e1],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											]
+										}
+									]
+								],
+								FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum["Rules", FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel]
+							]
+						]
+					}
+				]
+			];
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex + 1;
+			Do[
+				FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn = FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt];
+				FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`outTests[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel["shortname"]][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex] = Apply[
+					And,
+					Flatten[
+						{
+							SameQ[Head @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn, Function],
+							Map[
+								NumericQ,
+								Flatten[
+									If[
+										FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`longTest,
+										{
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCov[#, #2]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2, Reverse[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2]}]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[
+													MapThread[
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCorr[#, #2]&,
+														{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[-2;;-1]]}
+													]
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2]],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2]],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[
+													MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`cov[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2, Reverse @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2}]
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[
+													MapThread[
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`corr[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&,
+														{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[-2;;-1]]}
+													]
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											]
+										},
+										{
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2]],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2]],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											]
+										}
+									]
+								]
+							]
+						}
+					]
+				];
+				FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex + 1;
+				FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`outTests[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel["shortname"]][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex] = Apply[
+					And,
+					Flatten[
+						{
+							SameQ[Head @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn, Function],
+							Map[
+								NumericQ,
+								Flatten[
+									If[
+										FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`longTest,
+										{
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Apply[Sequence, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+													MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCov[#, #2]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2, Reverse @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2}],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+													MapThread[
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCorr[#, #2]&,
+														{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[-2;;-1]]}
+													],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+													Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+													Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+													MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`cov[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2, Reverse @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2}],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+													MapThread[
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`corr[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&,
+														{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[-2;;-1]]}
+													],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											]
+										},
+										{
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Apply[Sequence, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt]] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+													Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											],
+											ReplaceRepeated[
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+													Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt
+												],
+												FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+											]
+										}
+									]
+								]
+							]
+						}
+					]
+				];
+				FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex + 1;
+				FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`outTests[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel["shortname"]][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex] = Apply[
+					And,
+					Flatten[
+						{
+							SameQ[Head @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`tn, Function],
+							Map[
+								NumericQ,
+								ReplaceRepeated[
+									Flatten[
+										If[
+											FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`longTest,
+											{
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+												ReplaceRepeated[
+													FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCov[#, #2]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2, Reverse @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2}], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+												],
+												ReplaceRepeated[
+													FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+														MapThread[
+															FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondCorr[#, #2]&,
+															{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[-2;;-1]]}
+														],
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+													],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+												],
+												ReplaceRepeated[
+													FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+														Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2],
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+													],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+												],
+												ReplaceRepeated[
+													FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+														Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2],
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+													],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+												],
+												ReplaceRepeated[
+													FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+														MapThread[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`cov[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, {FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2, Reverse @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2}],
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+													],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+												],
+												ReplaceRepeated[
+													FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+														MapThread[
+															FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`corr[#, #2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&,
+															{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[1;;2]], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2[[-2;;-1]]}
+														],
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+													],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+												]
+											},
+											{
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondE, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+												FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`uncondVar, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+												ReplaceRepeated[
+													FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+														Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`ev[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2],
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+													],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+												],
+												ReplaceRepeated[
+													FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[
+														Map[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`var[#, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t - 1]&, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`e2],
+														FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel
+													],
+													FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+												]
+											}
+										]
+									],
+									FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum["Rules", FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt]
+								]
+							]
+						}
+					]
+				];
+				FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex + 1;
+			,
+				{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOpt, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testOptsList}
+			];
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`outTests[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel["shortname"]][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex] = Apply[
+				And,
+				Map[NumericQ,
+					Flatten[
+						{
+							ReplaceRepeated[FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, "UpdatePd" -> False], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pd[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 1]],
+							FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pd[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 1], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, "UpdatePd" -> False] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+							ReplaceRepeated[
+								FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`pd[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 1], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum["Rules", FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, "UpdatePd" -> False],
+								FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+							],
+							ReplaceRepeated[FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, "UpdateBonds" -> False], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel][{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`bondyield[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 2], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nombondyield[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 3]}],
+							ReplaceRepeated[
+								FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+									{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`bondyield[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 2], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nombondyield[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 3]},
+									FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, "UpdateBonds" -> False
+								],
+								FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+							],
+							ReplaceRepeated[
+								ReplaceRepeated[
+									FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`bondyield[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 2], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`nombondyield[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`t, 3]}, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel],
+									FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum["Rules", FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, "UpdateBonds" -> False]
+								],
+								FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+							]
+						}
+					]
+				]
+			];
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex + 1;
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`outTests[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel["shortname"]][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex] = Apply[
+				And,
+				Map[NumericQ,
+					{
+						ReplaceRepeated[FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam],
+						FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+						ReplaceRepeated[
+							FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum["Rules", FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						],
+						ReplaceRepeated[FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, {}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam],
+						FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, {}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution] //. FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel,
+						ReplaceRepeated[
+							FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel] //. FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum["Rules", FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, {}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						],
+						ReplaceRepeated[
+							FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam],
+						ReplaceRepeated[
+							FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						],
+						ReplaceRepeated[
+							ReplaceRepeated[
+								FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel],
+								FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum["Rules", FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution]
+							],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						],
+						ReplaceRepeated[
+							FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optNewParam],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam],
+						ReplaceRepeated[
+							FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optNewParam],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						],
+						ReplaceRepeated[
+							ReplaceRepeated[
+								FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel],
+								FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum["Rules", FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optNewParam]
+							],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						],
+						ReplaceRepeated[
+							FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, {}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optNewParam],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam],
+						ReplaceRepeated[
+							FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+								FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, {}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optNewParam
+							],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						],
+						ReplaceRepeated[
+							ReplaceRepeated[
+								FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel],
+								FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum["Rules", FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, {}, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optNewParam]
+							],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						],
+						ReplaceRepeated[
+							FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+								FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optNewParam
+							],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam],
+						ReplaceRepeated[
+							FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+								FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optNewParam
+							],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						],
+						ReplaceRepeated[
+							ReplaceRepeated[
+								FernandoDuarte`LongRunRisk`Tools`ToNumber`toEquation[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`exprNewParam, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel],
+								FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum[
+									"Rules", FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`newParameters, FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`guessCoeffsSolution, Sequence @@ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`optNewParam
+								]
+							],
+							FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`numModel
+						]
+					}
+				]
+			];
+			FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testLoopIndex + 1;
+		,
+			{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`mods}
+		];
+	];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`noMissingTest = {};
+	Do[
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testNumber = Sort[
+			Cases[Keys @ SubValues @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`outTests,
+				RuleDelayed[
+					Verbatim[HoldPattern][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`outTests[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel["shortname"]][FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`i_Integer]],
+					FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`i
+				]
+			]
+		];
+		AppendTo[FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`noMissingTest, Equal[Range[0, Max @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testNumber], FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`testNumber]];
+	,
+		{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`thisModel, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`mods}
+	];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`out = Apply[
+		And,
+		Flatten[
+			{
+				Apply[And, FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`noMissingTest],
+				Apply[And, Values @ SubValues @ FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`outTests]
+			}
+		]
+	];
+	On[General::stop];
+	Off[FindRoot::lstol];
+	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`out
+	,
+	True
+	,
+	{}
+	,
+	TestID->"ToNumber_20251223-RCE6YM@@Tests/ToNumber.wlt:24,1-786,2"
+]
+
+$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
+
+End[]
+EndTestSection[]

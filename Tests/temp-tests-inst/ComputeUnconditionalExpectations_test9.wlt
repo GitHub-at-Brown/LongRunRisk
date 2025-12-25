@@ -1,0 +1,93 @@
+BeginTestSection["ComputeUnconditionalExpectations"] 
+Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`"]
+
+FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`longTest = False;
+Needs @ "PacletizedResourceFunctions`";
+Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`";
+	$ContextPath = DeleteDuplicates @ Prepend[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`"];
+	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`";
+	$ContextPath = DeleteDuplicates @ Prepend[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`"];
+
+(* === Shared State Setup === *)
+FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
+FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`msp = FernandoDuarte`LongRunRisk`Models;
+FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`modBY = FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`msp @ "BY";
+FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`modNRC = FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`msp @ "NRC";
+
+FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`stateVarsNoEps = {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sg, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`pi};
+FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`model = FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`modNRC;
+
+VerificationTest[
+	Apply[And,
+		{
+			Apply[And,
+				Map[MatchQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]&,
+					DeleteDuplicates[
+						Cases[
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`evNoEpsStateVarsProduct[
+								FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`pi[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t - 1] * FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`dd[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t, FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`i] * FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`eps["pi"][FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t - 1],
+								FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`model,
+								Append[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`stateVarsNoEps, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`dd]
+							],
+							RuleDelayed[
+								PatternTest[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`x_Symbol, Function[MatchQ[SymbolName[#], "eps"]]][__][__, ___],
+								Context @ FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`x
+							],
+							Infinity
+						]
+					]
+				]
+			],
+			Apply[And,
+				Map[MatchQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]&,
+					DeleteDuplicates[
+						Cases[
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`evNoEpsStateVarsProduct[
+								Times[
+									FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`pi[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t - 1],
+									FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`dd[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t, FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`i] * FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`eps["pi"][FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t] * FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`eps["pi"][FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t - 1]
+								],
+								FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`model,
+								Append[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`stateVarsNoEps, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`dd]
+							],
+							RuleDelayed[
+								PatternTest[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`x_Symbol, Function[MatchQ[SymbolName[#], "eps"]]][__][__, ___],
+								Context @ FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`x
+							],
+							Infinity
+						]
+					]
+				]
+			],
+			Apply[And,
+				Map[MatchQ[#, "FernandoDuarte`LongRunRisk`Model`Shocks`"]&,
+					DeleteDuplicates[
+						Cases[
+							FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`evNoEpsStateVarsProduct[
+								FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`pi[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t - 1] * FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`sg[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t] * FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`dd[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t, FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`i] * FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`eps["pi"][FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`t - 1],
+								FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`model,
+								Append[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`stateVarsNoEps, FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`dd]
+							],
+							RuleDelayed[
+								PatternTest[FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`x_Symbol, Function[MatchQ[SymbolName[#], "eps"]]][__][__, ___],
+								Context @ FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`x
+							],
+							Infinity
+						]
+					]
+				]
+			]
+		}
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"ComputeUnconditionalExpectations_20251223-XAEZFH@@Tests/ComputeUnconditionalExpectations.wlt:312,1-380,2"
+]
+
+$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
+
+End[]
+EndTestSection[]
