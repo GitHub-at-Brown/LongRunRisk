@@ -164,7 +164,7 @@ VerificationTest[
 	TestID->"CreateMomentsDatabase_20251223-YUYZXN@@Tests/CreateMomentsDatabase.wlt:24,1-181,2"
 ]
 
-$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
+$ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`Private`"];
 
 End[]
 EndTestSection[]

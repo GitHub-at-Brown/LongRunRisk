@@ -298,7 +298,7 @@ VerificationTest[
 	TestID->"SolveEulerEq_20251223-R6ABWE@@Tests/SolveEulerEq.wlt:24,1-315,2"
 ]
 
-$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
+$ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`"];
 
 End[]
 EndTestSection[]

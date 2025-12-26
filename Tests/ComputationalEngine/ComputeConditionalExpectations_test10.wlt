@@ -23,7 +23,7 @@ VerificationTest[
 	TestID->"ComputeConditionalExpectations_20251223-BSKL53@@Tests/ComputeConditionalExpectations.wlt:1444,1-1452,2"
 ]
 
-$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
+$ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`"];
 
 End[]
 EndTestSection[]

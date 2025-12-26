@@ -23,7 +23,5 @@ VerificationTest[
 	TestID->"ProcessModels_20251223-A7U14Y@@Tests/ProcessModels.wlt:803,1-813,2"
 ]
 
-$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
-
 End[]
 EndTestSection[]

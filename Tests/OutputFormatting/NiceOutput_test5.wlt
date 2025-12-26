@@ -31,7 +31,7 @@ VerificationTest[
 	TestID->"NiceOutput_20251223-K4B6I8@@Tests/NiceOutput.wlt:91,1-99,2"
 ]
 
-$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
+$ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`"];
 
 End[]
 EndTestSection[]

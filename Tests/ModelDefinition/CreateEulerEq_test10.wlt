@@ -1,7 +1,12 @@
-BeginTestSection["CreateEulerEq"] 
+BeginTestSection["CreateEulerEq"]
 Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateEulerEq`"]
 
 FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateEulerEq`longTest = False;
+
+(* Load required modules *)
+Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`";
+Needs @ "FernandoDuarte`LongRunRisk`Model`EndogenousEq`";
+$ContextPath = DeleteDuplicates @ Prepend[$ContextPath, "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
 
 (* === Shared State Setup === *)
 FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
@@ -63,7 +68,7 @@ VerificationTest[
 	TestID->"CreateEulerEq_20251223-HZWDF2@@Tests/CreateEulerEq.wlt:404,1-435,2"
 ]
 
-$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
+$ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
 
 End[]
 EndTestSection[]

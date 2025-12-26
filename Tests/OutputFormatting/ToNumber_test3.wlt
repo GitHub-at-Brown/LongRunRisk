@@ -830,7 +830,7 @@ VerificationTest[
 	TestID->"ToNumber_20251223-YWZA6G@@Tests/ToNumber.wlt:844,1-883,2"
 ]
 
-$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
+$ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`"];
 
 End[]
 EndTestSection[]

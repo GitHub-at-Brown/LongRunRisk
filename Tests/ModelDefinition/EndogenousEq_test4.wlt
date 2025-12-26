@@ -25,7 +25,5 @@ VerificationTest[
 	TestID->"EndogenousEq_20251223-077TRW@@Tests/EndogenousEq.wlt:72,1-92,2"
 ]
 
-$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
-
 End[]
 EndTestSection[]

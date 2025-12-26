@@ -108,7 +108,5 @@ VerificationTest[
 	TestID->"CreateEulerEq_20251223-IPFAFE@@Tests/CreateEulerEq.wlt:199,1-275,2"
 ]
 
-$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
-
 End[]
 EndTestSection[]

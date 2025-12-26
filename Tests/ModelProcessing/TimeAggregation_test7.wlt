@@ -38,7 +38,5 @@ VerificationTest[
 	TestID->"TimeAggregation_20251223-6IK7G0@@Tests/TimeAggregation.wlt:289,1-320,2"
 ]
 
-$ContextPath = Select[$ContextPath,  !(StringContainsQ[#1, "FernandoDuarte`LongRunRisk`"] && StringEndsQ[#1, "Private`"]) & ];
-
 End[]
 EndTestSection[]
