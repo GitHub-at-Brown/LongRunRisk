@@ -815,16 +815,25 @@ warmupParallelKernels[] := Module[{pacletDir},
 ];
 
 
-buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels, FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq}]] := With[
+(* Pattern 1: Config Association - must come BEFORE OptionsPattern *)
+buildModels[config_Association] :=
+	buildModelsInternal[FernandoDuarte`LongRunRisk`Tools`OptionsConfig`normalizeConfig[config]];
+
+(* Pattern 2: Legacy flat options *)
+buildModels[opts___?OptionQ] :=
+	buildModelsInternal[FernandoDuarte`LongRunRisk`Tools`OptionsConfig`normalizeConfig[{opts}]];
+
+(* Core implementation - accepts normalized config *)
+buildModelsInternal[config_Association] := With[
 	{
-		fromScratch = OptionValue["FromScratch"],
-		compileJacobians = OptionValue["CompileJacobians"],
-		createMoments = OptionValue["CreateMoments"],
-		numKernels = OptionValue["NumKernels"],
-		maxMaturity = OptionValue["MaxMaturity"],
-		modelFilter = OptionValue["Models"],
-		fileSuffix = OptionValue["FileSuffix"],
-		updateManifest = OptionValue["UpdateManifest"]
+		fromScratch = config["Build"]["FromScratch"],
+		compileJacobians = config["Build"]["CompileJacobians"],
+		createMoments = config["Build"]["CreateMoments"],
+		numKernels = config["Parallel"]["NumKernels"],
+		maxMaturity = config["Build"]["MaxMaturity"],
+		modelFilter = config["Build"]["Models"],
+		fileSuffix = config["Build"]["FileSuffix"],
+		updateManifest = config["Build"]["UpdateManifest"]
 	},
 	Module[
 		{
@@ -952,7 +961,7 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			(* run symbolic processing *)
 			model = First @ Values @ FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
 				KeyTake[catalogModels, {modelKey}],
-				FilterRules[Flatten @ {opts}, Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels]]
+				Sequence @@ FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Symbolic"]
 			];
 			logMemory["Phase1 processModels done: " <> shortname];
 
@@ -979,7 +988,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 			logMemory["Phase2 START: " <> shortname];
 			compiledFile = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 				processedModels[shortname],
-				compiledDir
+				compiledDir,
+				Sequence @@ FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Compile"]
 			];
 			logMemory["Phase2 END: " <> shortname];
 			, {modelKey, compileModels}
@@ -1079,7 +1089,8 @@ buildModels[opts : OptionsPattern[{buildModels, FernandoDuarte`LongRunRisk`Model
 						(* Create moments database *)
 						FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`createDatabase[
 							processedModels[shortname],
-							momentsFile
+							momentsFile,
+							Sequence @@ FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Moments"]
 						];
 
 						(* Compute hash and save metadata *)
