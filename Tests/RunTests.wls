@@ -27,7 +27,7 @@ Module[
 
   PacletDirectoryLoad[pacletRoot];
 
-  ignoreDirs = {"InteractiveTests", "GenerateCITests"};
+  ignoreDirs = {"InteractiveTests", "GenerateCITests", "temp-tests-inst", "Scripts"};
 
   verbose = MemberQ[$ScriptCommandLine, "--verbose" | "-v"];
   specificFiles = Select[$ScriptCommandLine, StringEndsQ[#, ".wlt"] &];
