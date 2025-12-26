@@ -67,6 +67,15 @@ Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
+(* Load OptionsConfig infrastructure (Phase 1 refactoring) *)
+(* Use Get with relative path for development; Needs will work once paclet is installed *)
+With[{optionsConfigPath = FileNameJoin[{DirectoryName[$InputFileName], "Tools", "OptionsConfig.wl"}]},
+	If[FileExistsQ[optionsConfigPath],
+		Get[optionsConfigPath],
+		Needs["FernandoDuarte`LongRunRisk`Tools`OptionsConfig`"]  (* Fallback for installed paclet *)
+	]
+];
+
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
 

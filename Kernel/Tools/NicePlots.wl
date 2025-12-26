@@ -59,8 +59,7 @@ yieldCurve[
 	{
 		params = model["params"],
 		maxMaturity = Evaluate@OptionValue[yieldCurve,"MaxMaturity"],
-		momF = Evaluate@OptionValue[yieldCurve,"MomentFunction"],
-		initialOpts=Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution]
+		momF = Evaluate@OptionValue[yieldCurve,"MomentFunction"]
 	},
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
@@ -80,12 +79,8 @@ yieldCurve[
 				},
 
 				Off[Reduce::ratnz];
-				(*set options*)					
-				SetOptions[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution, FilterRules[{opts},FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution]];
-			PrependTo[Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution],FilterRules[{opts},FindRoot]];
-			PrependTo[Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution],FilterRules[{opts},RecurrenceTable]];
-					
-				(*if coefficients for wc were not provided, compute them*)
+
+				(*Extract options locally - no global mutation*)
 				updateOpts = FilterRules[Flatten @ {opts}, Join[Options[updateCoeffs], Options[FindRoot], Options[RecurrenceTable]]];
 				recurrenceOpts = FilterRules[Flatten @ {opts}, Options[RecurrenceTable]];
 				coeffsWcList = Which[
@@ -104,8 +99,7 @@ yieldCurve[
 				];
 				(*compute unconditional expectation of bond yields*)
 				yE=Simplify@If[bondType==="nombond", momF@@{nombondyield[t,m],model}, momF@@{bondyield[t,m],model}];
-				(*restore options*)
-				SetOptions[FernandoDuarte`LongRunRisk`Model`ProcessModels`addCoeffsSolution,initialOpts];
+
 			On[Reduce::ratnz];
 			(*yield curve, plot with ListLinePlot[yieldCurve]*)
 			Table[{m,yE}/.m->mm,{mm,maxMaturity}]/.solNomBonds
