@@ -2,12 +2,18 @@
 
 (* === Shared State Setup === *)
 (* Load OptionsConfig via Get with relative path *)
-	With[{
-		testDir = DirectoryName[$TestFileName],
-		packageRoot = DirectoryName[DirectoryName[$TestFileName]]
-	},
-		Get[FileNameJoin[{packageRoot, "Kernel", "Tools", "OptionsConfig.wl"}]];
+	Module[{testFile = $TestFileName, packageRoot},
+	packageRoot = testFile;
+	While[
+		packageRoot =!= DirectoryName[packageRoot] && 
+			!FileExistsQ[FileNameJoin[{packageRoot, "PacletInfo.wl"}]],
+		packageRoot = DirectoryName[packageRoot]
 	];
+	If[!FileExistsQ[FileNameJoin[{packageRoot, "PacletInfo.wl"}]],
+		Throw["Cannot find PacletInfo.wl starting from " <> testFile]
+	];
+	Get[FileNameJoin[{packageRoot, "Kernel", "Tools", "OptionsConfig.wl"}]]
+];
 
 VerificationTest[
 	config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`defaultConfig[];
