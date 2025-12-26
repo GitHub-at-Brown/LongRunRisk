@@ -16,21 +16,35 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 On[General::shdw];
 
 (* Load models data from Resources *)
-Module[{pacletFile, pacletRoot, resourcesDir, modelsFile},
-  (* Find paclet root from loaded package *)
-  pacletFile = FindFile["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
-  pacletRoot = If[StringQ[pacletFile],
-    DirectoryName[pacletFile, 3],
-    (* Fallback: try $InputFileName *)
-    If[StringQ[$InputFileName] && $InputFileName =!= "",
-      Module[{d = DirectoryName[$InputFileName]},
-        While[!FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
-          d = DirectoryName[d]];
-        d
-      ],
-      Directory[]
+Module[{pacletFile, pacletRoot, resourcesDir, modelsFile, candidateRoots},
+  (* Try multiple methods to find paclet root, validate each *)
+  candidateRoots = {};
+
+  (* Method 1: Use $InputFileName and walk up to find PacletInfo.wl (works with wolframscript -file) *)
+  If[StringQ[$InputFileName] && $InputFileName =!= "",
+    Module[{d = DirectoryName[$InputFileName]},
+      While[!FileExistsQ@FileNameJoin[{d, "PacletInfo.wl"}] && d =!= DirectoryName[d],
+        d = DirectoryName[d]];
+      AppendTo[candidateRoots, d]
     ]
   ];
+
+  (* Method 2: Use Directory[] as paclet root (works with TestReport) *)
+  AppendTo[candidateRoots, Directory[]];
+
+  (* Method 3: Use FindFile on loaded package (works when paclet installed) *)
+  pacletFile = FindFile["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+  If[StringQ[pacletFile],
+    AppendTo[candidateRoots, DirectoryName[pacletFile, 3]]
+  ];
+
+  (* Find first candidate where Resources/Models.wl exists *)
+  pacletRoot = SelectFirst[
+    candidateRoots,
+    FileExistsQ[FileNameJoin[{#, "Resources", "Models.wl"}]] &,
+    First[candidateRoots] (* fallback to first candidate if none work *)
+  ];
+
   $testPacletRoot = pacletRoot;
 
   (* Load models data - Get@Get extracts from DefinitionData wrapper *)

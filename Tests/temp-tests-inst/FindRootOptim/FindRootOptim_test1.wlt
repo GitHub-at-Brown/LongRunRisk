@@ -6,20 +6,33 @@ Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 On[General::shdw];
 
 (* Load test data - must run AFTER package is loaded with Needs *)
-Module[{testDir, sourceFile, pacletFile, pacletRoot},
-  (* Try to find test directory using FindFile on the loaded package *)
-  pacletFile = FindFile["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+Module[{testDir, sourceFile, pacletFile, pacletRoot, candidateDirs},
+  (* Try multiple methods to find test directory, validate each *)
+  candidateDirs = {};
 
-  testDir = If[StringQ[pacletFile],
-    (* Found package file - derive test directory from paclet root *)
+  (* Method 1: Use $InputFileName if available (works with wolframscript -file) *)
+  If[StringQ[$InputFileName] && $InputFileName =!= "",
+    AppendTo[candidateDirs, DirectoryName[$InputFileName]]
+  ];
+
+  (* Method 2: Use Directory[] + expected test path (works with TestReport) *)
+  AppendTo[candidateDirs, FileNameJoin[{Directory[], "Tests", "FindRootOptim"}]];
+
+  (* Method 3: Use FindFile on loaded package (works when paclet installed) *)
+  pacletFile = FindFile["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+  If[StringQ[pacletFile],
     pacletRoot = DirectoryName[pacletFile, 3];
-    FileNameJoin[{pacletRoot, "Tests", "FindRootOptim"}],
-    (* Fallback: if FindFile fails, try using $InputFileName *)
-    If[StringQ[$InputFileName] && StringLength[$InputFileName] > 0,
-      DirectoryName[$InputFileName],
-      (* Last resort: current directory (will likely fail) *)
-      Directory[]
-    ]
+    AppendTo[candidateDirs, FileNameJoin[{pacletRoot, "Tests", "FindRootOptim"}]]
+  ];
+
+  (* Method 4: Current directory as last resort *)
+  AppendTo[candidateDirs, Directory[]];
+
+  (* Find first candidate where TestDataSource.wl exists *)
+  testDir = SelectFirst[
+    candidateDirs,
+    FileExistsQ[FileNameJoin[{#, "TestDataSource.wl"}]] &,
+    First[candidateDirs] (* fallback to first candidate if none work *)
   ];
 
   sourceFile = FileNameJoin[{testDir, "TestDataSource.wl"}];
