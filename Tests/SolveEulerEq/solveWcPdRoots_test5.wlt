@@ -86,15 +86,24 @@ loadKernels[modelKey_String] := Module[
 solveCoeffRoots = ToExpression["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`solveCoeffRoots"];
 solveWcPdRoots = ToExpression["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`solveWcPdRoots"];
 
-(* j symbol for pd coefficient index - use generic i and j *)
-jSym = Symbol["j"];
-iSym = Symbol["i"];
-extraParams = <|jSym -> 1, iSym -> 1|>;
+(* Helper to extract j symbol from kernel Vars - CRITICAL for correct context matching *)
+(* The j symbol must be in the same context as used in the kernel, not Global` *)
+(* Pattern: B[j][0] has structure where Head = B[j], so we need Head[Head[var]][[1]] to get j *)
+getJSymbolFromKernel[kernel_Association] := Module[{var, innerHead},
+  var = First[kernel["Vars"]];
+  (* var = B[j][0], Head[var] = B[j], Head[Head[var]] = B, Head[var][[1]] = j *)
+  innerHead = Head[var];  (* B[j] *)
+  If[Length[innerHead] > 0, innerHead[[1]], Symbol["j"]]
+];
 
 VerificationTest[
-    Module[{kernels, model, results},
+    Module[{kernels, model, results, jSym, extraParams},
       kernels = loadKernels["NRCStochVol"];
       model = kernels["Model"];
+
+      (* Extract j symbol from PdKernel to ensure correct context *)
+      jSym = getJSymbolFromKernel[kernels["PdKernel"]];
+      extraParams = <|jSym -> 1|>;
 
       results = Quiet@Check[
         solveWcPdRoots[model, kernels["WcKernel"], kernels["PdKernel"], extraParams],
