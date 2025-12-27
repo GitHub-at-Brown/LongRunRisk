@@ -47,7 +47,8 @@ Quiet[
 	URLSubmit::offline
 ];
 
-Needs["MaTeX`"];
+(* MaTeX may already be loaded from MaTeXInstall; Block suppresses duplicate Print warnings *)
+Block[{Print}, Needs["MaTeX`"]];
 
 (* Configure MaTeX if auto-detection failed for pdfLaTeX or Ghostscript *)
 With[{currentConfig = Quiet @ ConfigureMaTeX[]},
@@ -91,9 +92,9 @@ With[{currentConfig = Quiet @ ConfigureMaTeX[]},
 				]
 			];
 
-			(* Apply config if we have changes *)
+			(* Apply config if we have changes; Block suppresses MaTeX's own warning about missing gs *)
 			If[configChanges =!= {},
-				ConfigureMaTeX @@ configChanges;
+				Block[{Print}, ConfigureMaTeX @@ configChanges];
 				Print["MaTeX configured: ", configChanges]
 			]
 		]
