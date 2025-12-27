@@ -62,7 +62,7 @@ With[{currentConfig = Quiet @ ConfigureMaTeX[]},
 				StringMatchQ[$SystemID, "Linux*"] && Environment["CI"] === "true",
 				{
 					{"/github/home/bin/pdflatex"},
-					{"/usr/bin/gs", "/usr/local/bin/gs", "/github/home/bin/gs"}
+					{}  (* gs not available in test-paclet container *)
 				},
 				StringMatchQ[$SystemID, "MacOSX*"],
 				{
@@ -85,7 +85,7 @@ With[{currentConfig = Quiet @ ConfigureMaTeX[]},
 					Print["MaTeX: pdfLaTeX not found in fallback paths: ", pdflatexPaths]
 				]
 			];
-			If[needsGs,
+			If[needsGs && gsPaths =!= {},
 				If[gsPath =!= None,
 					AppendTo[configChanges, "Ghostscript" -> gsPath],
 					Print["MaTeX: Ghostscript not found in fallback paths: ", gsPaths]
