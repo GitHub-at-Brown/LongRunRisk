@@ -50,19 +50,24 @@ Quiet[
 
 Needs["MaTeX`"];
 
-(* Configure MaTeX for CI environment where PATH may not include TinyTeX *)
-(* Only override if auto-detection failed (paths are None) *)
-If[
-	Environment["CI"] === "true",
-	With[{
-		currentConfig = Quiet @ ConfigureMaTeX[],
-		ciPdflatex = "/github/home/bin/pdflatex",
-		ciGs = "/usr/bin/gs"
-	},
-		If[
-			("pdfLaTeX" /. currentConfig) === None || ("Ghostscript" /. currentConfig) === None,
-			If[FileExistsQ[ciPdflatex] && FileExistsQ[ciGs],
-				Quiet @ ConfigureMaTeX["pdfLaTeX" -> ciPdflatex, "Ghostscript" -> ciGs]
+(* Configure MaTeX if auto-detection failed *)
+With[{currentConfig = Quiet @ ConfigureMaTeX[]},
+	If[
+		("pdfLaTeX" /. currentConfig) === None || ("Ghostscript" /. currentConfig) === None,
+		Which[
+			(* Linux CI: use GitHub Actions paths *)
+			StringMatchQ[$SystemID, "Linux*"] && Environment["CI"] === "true",
+			With[{pdflatex = "/github/home/bin/pdflatex", gs = "/usr/bin/gs"},
+				If[FileExistsQ[pdflatex] && FileExistsQ[gs],
+					Quiet @ ConfigureMaTeX["pdfLaTeX" -> pdflatex, "Ghostscript" -> gs]
+				]
+			],
+			(* macOS: use Homebrew paths *)
+			StringMatchQ[$SystemID, "MacOSX*"],
+			With[{pdflatex = "/opt/homebrew/bin/pdflatex", gs = "/opt/homebrew/bin/gs"},
+				If[FileExistsQ[pdflatex] && FileExistsQ[gs],
+					Quiet @ ConfigureMaTeX["pdfLaTeX" -> pdflatex, "Ghostscript" -> gs]
+				]
 			]
 		]
 	]
