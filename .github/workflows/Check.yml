@@ -58,6 +58,12 @@ jobs:
         uses: actions/checkout@v5   
       - name: Add latex to path
         run: echo "$HOME/bin" >> $GITHUB_PATH
+      - name: Copy gs to shared location
+        run: |
+          # Copy gs to $HOME/bin so it's available in test-paclet's Docker container
+          # (test-paclet mounts /github/home but not /usr/bin)
+          cp /usr/bin/gs $HOME/bin/gs
+          chmod +x $HOME/bin/gs
       - name: Install LaTeX packages for MaTeX
         if: steps.cache-tinytex.outputs.cache-hit != 'true'
         env:

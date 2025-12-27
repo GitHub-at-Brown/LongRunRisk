@@ -59,7 +59,7 @@ With[{currentConfig = Quiet @ ConfigureMaTeX[]},
 			(* Determine fallback paths based on platform *)
 			{pdflatexPath, gsPath} = Which[
 				StringMatchQ[$SystemID, "Linux*"] && Environment["CI"] === "true",
-				{"/github/home/bin/pdflatex", "/usr/bin/gs"},
+				{"/github/home/bin/pdflatex", "/github/home/bin/gs"},
 				StringMatchQ[$SystemID, "MacOSX*"],
 				{"/opt/homebrew/bin/pdflatex", "/opt/homebrew/bin/gs"},
 				True,
