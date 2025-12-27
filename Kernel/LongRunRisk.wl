@@ -4,7 +4,8 @@
 (*Install dependencies*)
 
 
-Get[FileNameJoin[{DirectoryName[$InputFileName], "Tools", "Dependencies.wl"}]];
+Needs["FernandoDuarte`LongRunRisk`Tools`Dependencies`"];
+FernandoDuarte`LongRunRisk`Tools`Dependencies`initializeDependencies[];
 
 
 (* ::Section:: *)
@@ -16,14 +17,7 @@ Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
-(* Load OptionsConfig infrastructure (Phase 1 refactoring) *)
-(* Use Get with relative path for development; Needs will work once paclet is installed *)
-With[{optionsConfigPath = FileNameJoin[{DirectoryName[$InputFileName], "Tools", "OptionsConfig.wl"}]},
-	If[FileExistsQ[optionsConfigPath],
-		Get[optionsConfigPath],
-		Needs["FernandoDuarte`LongRunRisk`Tools`OptionsConfig`"]  (* Fallback for installed paclet *)
-	]
-];
+Needs["FernandoDuarte`LongRunRisk`Tools`OptionsConfig`"];
 
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
@@ -106,35 +100,8 @@ PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`T
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceTables`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];*)
-Needs["FernandoDuarte`LongRunRisk`Tools`CopyDefinitions`"];
-Needs["FernandoDuarte`LongRunRisk`Tools`CompoundScope`"];
-copyDefinitions = FernandoDuarte`LongRunRisk`Tools`CopyDefinitions`copyDefinitions;
-compoundScope = FernandoDuarte`LongRunRisk`Tools`CompoundScope`compoundScope;
-
-
-(* ::Subsection:: *)
-(*Helper functions*)
-
-
-(* ::Subsubsection:: *)
-(*reExport*)
-
-
-reExport[f_Symbol, g_Symbol]:=
-(
-	copyDefinitions[f,g];
-	MessageName[g,"usage"] = StringReplace[Information[g,"Usage"],SymbolName[f] :> SymbolName[g]]
-);
-(*exports all public symbols from oldContext to newContext*)
-reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunRisk`"]]:=compoundScope[
-	{
-		oldFullNames = Names[oldContext<>"*"],
-		oldNames = StringExtract[#,"`"->-1]&/@oldFullNames,
-		newNames = Capitalize/@oldNames,
-		newFullNames = StringJoin[newContext,#]&/@newNames
-	},
-	MapThread[reExport[Symbol@#1,Symbol@#2]&,{oldFullNames,newFullNames}];
-]
+Needs["FernandoDuarte`LongRunRisk`Tools`ReExport`"];
+reExport = FernandoDuarte`LongRunRisk`Tools`ReExport`reExport;
 
 
 (* ::Subsection:: *)
