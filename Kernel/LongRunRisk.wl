@@ -51,7 +51,7 @@ Quiet[
 Needs["MaTeX`"];
 
 (* Configure MaTeX for CI environment where PATH may not include TinyTeX *)
-(* Only override if auto-detection failed (configured paths don't exist) *)
+(* Only override if auto-detection failed (paths are None) *)
 If[
 	Environment["CI"] === "true",
 	With[{
@@ -60,7 +60,7 @@ If[
 		ciGs = "/usr/bin/gs"
 	},
 		If[
-			Not[FileExistsQ["pdfLaTeX" /. currentConfig]] || Not[FileExistsQ["Ghostscript" /. currentConfig]],
+			("pdfLaTeX" /. currentConfig) === None || ("Ghostscript" /. currentConfig) === None,
 			If[FileExistsQ[ciPdflatex] && FileExistsQ[ciGs],
 				Quiet @ ConfigureMaTeX["pdfLaTeX" -> ciPdflatex, "Ghostscript" -> ciGs]
 			]
