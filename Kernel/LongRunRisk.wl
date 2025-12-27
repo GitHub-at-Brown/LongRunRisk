@@ -49,13 +49,20 @@ Quiet[
 ];
 
 Needs["MaTeX`"];
-(*MaTeX`Developer`ResetConfiguration[];*)
 
-(*configure MaTeX if pdflatex and Ghostscript are installed with Homebrew*)
-(*ConfigureMaTeX[
-  "pdfLaTeX"   -> "/opt/homebrew/bin/pdflatex",
-  "Ghostscript" -> "/opt/homebrew/bin/gs"
-]*)
+(* Configure MaTeX for CI environment where PATH may not include TinyTeX *)
+(* The test-paclet action runs in its own Docker container with different PATH *)
+If[
+	Not[$Notebooks] && StringMatchQ[$SystemID, "Linux*"],
+	With[{
+		ciPdflatex = "/github/home/bin/pdflatex",
+		ciGs = "/usr/bin/gs"
+	},
+		If[FileExistsQ[ciPdflatex] && FileExistsQ[ciGs],
+			Quiet @ ConfigureMaTeX["pdfLaTeX" -> ciPdflatex, "Ghostscript" -> ciGs]
+		]
+	]
+]
 
 
 (* ::Section:: *)

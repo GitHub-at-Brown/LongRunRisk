@@ -140,7 +140,6 @@ jobs:
         env:
           WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
           RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
-          PATH: ${{ env.PATH }}:/github/home/bin
       - name: Check
         id: check-paclet
         uses: WolframResearch/check-paclet@v1.11.0
