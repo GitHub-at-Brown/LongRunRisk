@@ -53,7 +53,7 @@ Needs["MaTeX`"];
 (* Configure MaTeX for CI environment where PATH may not include TinyTeX *)
 (* The test-paclet action runs in its own Docker container with different PATH *)
 If[
-	Not[$Notebooks] && StringMatchQ[$SystemID, "Linux*"],
+	Environment["CI"] === "true",
 	With[{
 		ciPdflatex = "/github/home/bin/pdflatex",
 		ciGs = "/usr/bin/gs"
