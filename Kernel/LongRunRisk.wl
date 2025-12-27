@@ -18,24 +18,26 @@ If[
 	]
 ];
 
-(*install local version of MaTeX provided with LongRunRisk paclet if not already installed*)
-If[
-	{}===PacletFind["MaTeX"],
+(* Install local version of MaTeX provided with LongRunRisk paclet if not already installed *)
+(* Block Print to suppress "not configured" messages during install/load; we configure below *)
+Block[{Print},
 	If[
-		{}===PacletFind["MaTeXInstall"->"1.0.0"],
-		PacletInstall[
-			File[
-				FindFile[
-					"FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"
-				]
-			],
-			KeepExistingVersion->True,
-			ForceVersionInstall->True
-		]
-	];
-	(*Quiet@PacletizedResourceFunctions`NeedsDefinitions["MaTeXInstall`"];*)
-	Needs["MaTeXInstall`"];
-	MaTeXInstall`MaTeXInstall[];
+		{}===PacletFind["MaTeX"],
+		If[
+			{}===PacletFind["MaTeXInstall"->"1.0.0"],
+			PacletInstall[
+				File[
+					FindFile[
+						"FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"
+					]
+				],
+				KeepExistingVersion->True,
+				ForceVersionInstall->True
+			]
+		];
+		Needs["MaTeXInstall`"];
+		MaTeXInstall`MaTeXInstall[];
+	]
 ]
 
 (*load packages*)
@@ -48,7 +50,8 @@ Quiet[
 	URLSubmit::offline
 ];
 
-Needs["MaTeX`"];
+(* Block Print to suppress config warnings during MaTeX load; we configure manually below *)
+Block[{Print}, Needs["MaTeX`"]];
 
 (* Configure MaTeX if auto-detection failed *)
 With[{currentConfig = Quiet @ ConfigureMaTeX[]},
