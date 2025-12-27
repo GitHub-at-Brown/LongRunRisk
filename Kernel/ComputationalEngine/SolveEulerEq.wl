@@ -860,12 +860,13 @@ solveCoeffRoots[
 
           (* 1D *)
           reduceExpr = findRootInterval[conds, paramsAll, "Signs" -> signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts];
-          intervals  = extractIntervalsFromReduce[reduceExpr, coefList, Sequence @@ extractOpts];
+          (* Apply paramsAll to coefList so index variables (j, i) match those in reduceExpr *)
+          intervals  = extractIntervalsFromReduce[reduceExpr, coefList //. paramsAll, Sequence @@ extractOpts];
 
           roots = If[df === None,
             scanAndSolve[First@*f, #, Sequence @@ scanOpts] & /@ intervals
             ,
-            scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals  
+            scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals
           ];
           
           (* Substitute signs into the analytical solution *)
