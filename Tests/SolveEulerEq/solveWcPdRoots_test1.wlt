@@ -47,6 +47,9 @@ Module[{pacletFile, pacletRoot, resourcesDir, modelsFile, candidateRoots},
 
   $testPacletRoot = pacletRoot;
 
+  (* CRITICAL for TestPaclet compatibility *)
+  PacletDirectoryLoad[pacletRoot];
+
   (* Load models data - Get@Get extracts from DefinitionData wrapper *)
   resourcesDir = FileNameJoin[{pacletRoot, "Resources"}];
   modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
@@ -111,7 +114,7 @@ VerificationTest[
       wcResults[[1]]["Signs"] === signsWc
     ],
     True,
-    TestID -> "solveCoeffRoots-Signs-Key@@Tests/SolveEulerEq/solveWcPdRoots.wlt:80,3-104,4"
+    TestID -> "solveCoeffRoots-Signs-Key@@Tests/SolveEulerEq/solveWcPdRoots_test1.wlt:94,1-118,4"
   ]
 
 EndTestSection[]

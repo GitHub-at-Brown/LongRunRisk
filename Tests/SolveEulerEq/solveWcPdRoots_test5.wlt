@@ -47,6 +47,9 @@ Module[{pacletFile, pacletRoot, resourcesDir, modelsFile, candidateRoots},
 
   $testPacletRoot = pacletRoot;
 
+  (* CRITICAL for TestPaclet compatibility *)
+  PacletDirectoryLoad[pacletRoot];
+
   (* Load models data - Get@Get extracts from DefinitionData wrapper *)
   resourcesDir = FileNameJoin[{pacletRoot, "Resources"}];
   modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
@@ -106,7 +109,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveWcPdRoots-Wrapper-NRCStochVol-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:175,3-194,4"
+    TestID -> "solveWcPdRoots-Wrapper-NRCStochVol-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots_test5.wlt:94,1-113,4"
   ]
 
 EndTestSection[]

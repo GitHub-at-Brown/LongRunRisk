@@ -38,6 +38,9 @@ Module[{pacletFile, pacletRoot, resourcesDir, modelsFile},
   (* Store paclet root for use in tests *)
   $testPacletRoot = pacletRoot;
 
+  (* CRITICAL for TestPaclet compatibility *)
+  PacletDirectoryLoad[pacletRoot];
+
   (* Load models data - Get@Get extracts from DefinitionData wrapper *)
   resourcesDir = FileNameJoin[{pacletRoot, "Resources"}];
   modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
@@ -133,7 +136,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveCoeffRoots-pd-BY-numeric@@Tests/SolveEulerEq/solveCoeffRoots.wlt:119,3-176,4"
+    TestID -> "solveCoeffRoots-pd-BY-numeric@@Tests/SolveEulerEq/solveCoeffRoots_test2.wlt:83,1-140,4"
   ]
 
 EndTestSection[]

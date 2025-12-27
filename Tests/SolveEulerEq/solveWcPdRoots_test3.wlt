@@ -47,6 +47,9 @@ Module[{pacletFile, pacletRoot, resourcesDir, modelsFile, candidateRoots},
 
   $testPacletRoot = pacletRoot;
 
+  (* CRITICAL for TestPaclet compatibility *)
+  PacletDirectoryLoad[pacletRoot];
+
   (* Load models data - Get@Get extracts from DefinitionData wrapper *)
   resourcesDir = FileNameJoin[{pacletRoot, "Resources"}];
   modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
@@ -106,7 +109,7 @@ VerificationTest[
       KeyExistsQ[results[[1]], "Pd"]
     ],
     True,
-    TestID -> "solveWcPdRoots-Wrapper-BY-Structure@@Tests/SolveEulerEq/solveWcPdRoots.wlt:130,3-149,4"
+    TestID -> "solveWcPdRoots-Wrapper-BY-Structure@@Tests/SolveEulerEq/solveWcPdRoots_test3.wlt:94,1-113,4"
   ]
 
 EndTestSection[]

@@ -47,6 +47,9 @@ Module[{pacletFile, pacletRoot, resourcesDir, modelsFile, candidateRoots},
 
   $testPacletRoot = pacletRoot;
 
+  (* CRITICAL for TestPaclet compatibility *)
+  PacletDirectoryLoad[pacletRoot];
+
   (* Load models data - Get@Get extracts from DefinitionData wrapper *)
   resourcesDir = FileNameJoin[{pacletRoot, "Resources"}];
   modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
@@ -107,7 +110,7 @@ VerificationTest[
       wcPdResults[[1]]["SignsPd"] === signsPd
     ],
     True,
-    TestID -> "solveWcPdRoots-Original-Signs-Keys@@Tests/SolveEulerEq/solveWcPdRoots.wlt:107,3-127,4"
+    TestID -> "solveWcPdRoots-Original-Signs-Keys@@Tests/SolveEulerEq/solveWcPdRoots_test2.wlt:94,1-114,4"
   ]
 
 EndTestSection[]

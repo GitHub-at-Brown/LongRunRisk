@@ -47,6 +47,9 @@ Module[{pacletFile, pacletRoot, resourcesDir, modelsFile, candidateRoots},
 
   $testPacletRoot = pacletRoot;
 
+  (* CRITICAL for TestPaclet compatibility *)
+  PacletDirectoryLoad[pacletRoot];
+
   (* Load models data - Get@Get extracts from DefinitionData wrapper *)
   resourcesDir = FileNameJoin[{pacletRoot, "Resources"}];
   modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
@@ -114,7 +117,7 @@ tests = {
       wcResults[[1]]["Signs"] === signsWc
     ],
     True,
-    TestID -> "solveCoeffRoots-Signs-Key@@Tests/SolveEulerEq/solveWcPdRoots.wlt:80,3-104,4"
+    TestID -> "solveCoeffRoots-Signs-Key@@Tests/SolveEulerEq/solveWcPdRoots.wlt:97,3-121,4"
   ],
 
   (* Test: solveWcPdRoots (original) returns "SignsWc" and "SignsPd" keys *)
@@ -137,7 +140,7 @@ tests = {
       wcPdResults[[1]]["SignsPd"] === signsPd
     ],
     True,
-    TestID -> "solveWcPdRoots-Original-Signs-Keys@@Tests/SolveEulerEq/solveWcPdRoots.wlt:107,3-127,4"
+    TestID -> "solveWcPdRoots-Original-Signs-Keys@@Tests/SolveEulerEq/solveWcPdRoots.wlt:124,3-144,4"
   ],
 
   (* Test: solveWcPdRoots (wrapper) returns flat list with sign info for BY *)
@@ -159,7 +162,7 @@ tests = {
       KeyExistsQ[results[[1]], "Pd"]
     ],
     True,
-    TestID -> "solveWcPdRoots-Wrapper-BY-Structure@@Tests/SolveEulerEq/solveWcPdRoots.wlt:130,3-149,4"
+    TestID -> "solveWcPdRoots-Wrapper-BY-Structure@@Tests/SolveEulerEq/solveWcPdRoots.wlt:147,3-166,4"
   ],
 
   (* Test: solveWcPdRoots (wrapper) handles DES model
@@ -181,7 +184,7 @@ tests = {
        AllTrue[results, KeyExistsQ[#, "SignsPd"] &])
     ],
     True,
-    TestID -> "solveWcPdRoots-Wrapper-DES-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:153,3-171,4"
+    TestID -> "solveWcPdRoots-Wrapper-DES-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:170,3-188,4"
   ],
 
   (* Test: solveWcPdRoots (wrapper) handles NRCStochVol model
@@ -204,7 +207,7 @@ tests = {
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveWcPdRoots-Wrapper-NRCStochVol-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:175,3-194,4"
+    TestID -> "solveWcPdRoots-Wrapper-NRCStochVol-handles-gracefully@@Tests/SolveEulerEq/solveWcPdRoots.wlt:192,3-211,4"
   ]
 
 };
