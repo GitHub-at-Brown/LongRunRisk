@@ -127,19 +127,4 @@ VerificationTest[
   TestID -> "buildKernel-both-compilers-equivalent-results@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:114,1-128,2"
 ]
 
-(* Test isCompiledCode detects both function types *)
-VerificationTest[
-  Module[{kernelFC, kernelC, isCompiled},
-    Block[{$ContextPath = Prepend[$ContextPath, "CCompilerDriver`"]},
-      isCompiled = ToExpression["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`Private`isCompiledCode"];
-      kernelFC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "FunctionCompile"];
-      kernelC = bk[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "Compile"];
-      isCompiled[kernelFC["fC"]] && isCompiled[kernelC["fC"]]
-    ]
-  ],
-  True,
-  TimeConstraint -> timeLimit,
-  TestID -> "isCompiledCode-detects-both-types@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:131,1-143,2"
-]
-
 EndTestSection[]

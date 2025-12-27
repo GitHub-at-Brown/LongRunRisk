@@ -635,11 +635,6 @@ computeX0Mixed[f_, x0_List, lo_List, hi_List, blend_] := Module[
 ]
 
 
-
-(* isCompiledCode: detect both FunctionCompile'd and Compile'd functions *)
-isCompiledCode[f_] := MatchQ[f, _CompiledCodeFunction | _CompiledFunction]
-
-
 (* validateRoot: check if candidate root is valid *)
 (* Returns True if residual < tolerance *)
 (* Note: bounds are not enforced - they're initialization hints, not constraints *)
@@ -818,7 +813,7 @@ With[{
   method = OptionValue[Method],
   frSpec = OptionValue["FindRootOptions"]
 },
-  Module[{var, vars, fnum, dfnum, hasJacobian, isCompiled, fa, fb, isBracketed,
+  Module[{var, vars, fnum, dfnum, hasJacobian, fa, fb, isBracketed,
           frOpts, findRootOpts, acc, methods, res},
 
     (* Create iteration variables *)
@@ -831,17 +826,17 @@ With[{
       Function[{x}, f[{x}]],
       Function[{v}, f[v]]
     ];
-    dfnum = If[df === None,
-      None,
+
+    (* Check Jacobian availability *)
+    hasJacobian = (df =!= None && !MissingQ[df]);
+    dfnum = If[hasJacobian,
       If[dim == 1,
         Function[{x}, df[{x}]],
         Function[{v}, df[v]]
       ]
+      ,
+      None
     ];
-
-    (* Check Jacobian availability *)
-    hasJacobian = (df =!= None && !MissingQ[df]);
-    isCompiled = isCompiledCode[f];
 
     (* Check for bracketing (1D only) *)
     isBracketed = False;
@@ -876,7 +871,7 @@ With[{
         dim == 1,
         Join[
           (* Newton first - try even without Jacobian (numerical derivatives cheap for 1D) *)
-          If[!isCompiled && (method === Automatic || method === "Newton"),
+          If[method === Automatic || method === "Newton",
             {Function[tryNewton1D[fnum, dfnum, var, x0, lb, ub, findRootOpts]]},
             {}
           ],
@@ -898,13 +893,13 @@ With[{
         True,
         Join[
           (* Newton first - only if explicit Jacobian available (numerical derivatives too expensive for nD) *)
-          If[hasJacobian && !isCompiled && (method === Automatic || method === "Newton"),
+          If[hasJacobian && (method === Automatic || method === "Newton"),
             {Function[tryNewtonND[fnum, dfnum, vars, x0, lb, ub, findRootOpts]]},
             {}
           ],
           (* Optimization if bounds available *)
           If[lb =!= None,
-            {Function[tryOptimizationND[fnum, dfnum, vars, x0, lb, ub, hasJacobian && !isCompiled, findRootOpts]]},
+            {Function[tryOptimizationND[fnum, dfnum, vars, x0, lb, ub, hasJacobian, findRootOpts]]},
             {}
           ],
           (* Default FindRoot as fallback *)

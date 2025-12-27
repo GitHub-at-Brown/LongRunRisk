@@ -843,7 +843,7 @@ solveCoeffRoots[
 
           (* If kernel has no compiled Jacobian, set df to None *)
           (* Handles: Missing["NotCompiled"] from FunctionOnly mode, or $Failed from compilation failure *)
-          If[MissingQ[savedKernel["dfC"]] || FailureQ[savedKernel["dfC"]],
+          If[ MissingQ[savedKernel["dfC"]] || FailureQ[savedKernel["dfC"]] || savedKernel["dfC"]===None || savedKernel["dfC"]==={},
             df = None
           ];
 
@@ -861,14 +861,19 @@ solveCoeffRoots[
           (* 1D *)
           reduceExpr = findRootInterval[conds, paramsAll, "Signs" -> signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts];
           intervals  = extractIntervalsFromReduce[reduceExpr, coefList, Sequence @@ extractOpts];
-          roots = (scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals);
+
+          roots = If[df === None,
+            scanAndSolve[First@*f, #, Sequence @@ scanOpts] & /@ intervals
+            ,
+            scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals  
+          ];
           
-	          (* Substitute signs into the analytical solution *)
-	          signHead   = signHeadFromExpr[quadSol["Solution"], sName];
-	          signsRule  = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
-	          
-	          (* rest of the coefficients with all parameters substituted *)
-	          sol        = quadSol["Solution"] //. paramsAll //. signsRule ;
+          (* Substitute signs into the analytical solution *)
+          signHead   = signHeadFromExpr[quadSol["Solution"], sName];
+          signsRule  = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
+          
+          (* rest of the coefficients with all parameters substituted *)
+          sol        = quadSol["Solution"] //. paramsAll //. signsRule ;
 
           (* rule to substitute stock index if present *)
           (* jRule = First[
@@ -896,6 +901,8 @@ solveCoeffRoots[
         ]
       ]
     ];
+
+
 
 
 (* ::Subsection:: *)
