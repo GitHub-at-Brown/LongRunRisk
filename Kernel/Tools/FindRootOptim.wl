@@ -59,7 +59,6 @@ fastRoot::nobounds = "No bounds specified and FindRoot failed from x0=`1`.";
 fastRoot::badbounds = "Invalid bounds: lower bound `1` must be less than upper bound `2`.";
 fastRoot::badspec = "Invalid spec format `1`. Expected scalar, {lo, hi}, {x0, lo, hi}, or nested list.";
 fastRoot::noautox0 = "Cannot compute automatic starting point without bounds.";
-fastRoot::compiled = "Function is a CompiledCodeFunction; Newton+Jacobian unavailable, using fallback.";
 fastRoot::baddim = "Inconsistent dimensions in spec: `1`.";
 createCompiledEq::usage = "createCompiledEq[model, dir] compiles model equations to dir/$SystemID/{shortname}.mx. Returns file path on success.";
 buildEqMapFromModel::usage = "buildEqMapFromModel[model] extracts the equation map from a processed model for use in compilation and hash validation.";
@@ -483,11 +482,16 @@ findRootInterval[
 
     red =  Check[
     Quiet[
-      Reduce[ineqRootVar && rootSym > 0, rootSym, Reals],
+      Reduce[ineqRootVar && rootSym > 0, rootSym, Reals]
+      ,
       Reduce::ratnz (*ignore warning about solving exact system and numericizing the result*)
     ],
       (*try Rationalize if last attempt fails*)
-      Reduce[Rationalize[ineqRootVar, 0] && rootSym > 0, rootSym, Reals]
+      Quiet[
+        Reduce[Rationalize[ineqRootVar, 0] && rootSym > 0, rootSym, Reals]
+        ,
+        Reduce::ratnz
+      ];
     ];
 
     If[red === False,
@@ -498,10 +502,14 @@ findRootInterval[
     (*restore original variable names*)
     red = red /. Reverse@(Exp /@ rootRules);
     red = Refine[ 
-      Reduce[red, rootVarN, Reals], 
+      Quiet[
+        Reduce[red, rootVarN, Reals]
+        ,
+        Reduce::ratnz
+      ], 
         FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc > 0 && 
         FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[_] > 0
-      ]
+    ]
   ]
 ];
 
@@ -627,6 +635,7 @@ computeX0Mixed[f_, x0_List, lo_List, hi_List, blend_] := Module[
 ]
 
 
+
 (* isCompiledCode: detect both FunctionCompile'd and Compile'd functions *)
 isCompiledCode[f_] := MatchQ[f, _CompiledCodeFunction | _CompiledFunction]
 
@@ -665,28 +674,30 @@ validateRoot[f_, x_, acc_: 8] := Module[
 
 (* Method implementations for tryMethods *)
 
-(* 1D Newton with Jacobian *)
+(* 1D Newton with optional Jacobian *)
 tryNewton1D[fnum_, dfnum_, var_, x0_, lb_, ub_, findRootOpts_] := Module[
-  {spec, eq},
+  {spec, eq, jacOpt},
   spec = If[lb === None, {var, x0}, {var, x0, lb, ub}];
   eq = (fnum[var] == 0.);
+  jacOpt = If[dfnum === None, {}, {Jacobian -> dfnum[var]}];
   Quiet @ Check[
-    FindRoot[eq, spec, Method -> "Newton", Jacobian -> dfnum[var],
+    FindRoot[eq, spec, Method -> "Newton", Evaluate[Sequence @@ jacOpt],
       Evaluate[Sequence @@ findRootOpts]],
     $Failed
   ]
 ]
 
-(* nD Newton with Jacobian - requires matrix form *)
+(* nD Newton with optional Jacobian *)
 tryNewtonND[fnum_, dfnum_, vars_, x0_, lb_, ub_, findRootOpts_] := Module[
-  {spec, eq},
+  {spec, eq, jacOpt},
   spec = If[lb === None,
     MapThread[{#1, #2} &, {vars, x0}],
     MapThread[{#1, #2, #3, #4} &, {vars, x0, lb, ub}]
   ];
   eq = Thread[fnum[vars] == 0.];
+  jacOpt = If[dfnum === None, {}, {Jacobian -> dfnum[vars]}];
   Quiet @ Check[
-    FindRoot[eq, spec, Method -> "Newton", Jacobian -> dfnum[vars],
+    FindRoot[eq, spec, Method -> "Newton", Evaluate[Sequence @@ jacOpt],
       Evaluate[Sequence @@ findRootOpts]],
     $Failed
   ]
@@ -814,7 +825,8 @@ With[{
     vars = Table[Unique["x"], dim];
     var = If[dim == 1, vars[[1]], vars];
 
-    (* Numeric wrappers - use Block-local definitions to avoid context issues *)
+    (* Numeric wrappers - for compiled functions, we keep the original behavior *)
+    (* The NumericQ pattern approach doesn't work with Function syntax *)
     fnum = If[dim == 1,
       Function[{x}, f[{x}]],
       Function[{v}, f[v]]
@@ -829,12 +841,7 @@ With[{
 
     (* Check Jacobian availability *)
     hasJacobian = (df =!= None && !MissingQ[df]);
-    isCompiled = hasJacobian && isCompiledCode[f];
-
-    (* Warn if compiled function with Jacobian - Newton won't work *)
-    If[hasJacobian && isCompiled,
-      Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::compiled]
-    ];
+    isCompiled = isCompiledCode[f];
 
     (* Check for bracketing (1D only) *)
     isBracketed = False;
@@ -868,8 +875,8 @@ With[{
         (* 1D case *)
         dim == 1,
         Join[
-          (* Newton first if Jacobian available and not compiled and not forced otherwise *)
-          If[hasJacobian && !isCompiled && (method === Automatic || method === "Newton"),
+          (* Newton first (with or without explicit Jacobian), unless function is compiled *)
+          If[!isCompiled && (method === Automatic || method === "Newton"),
             {Function[tryNewton1D[fnum, dfnum, var, x0, lb, ub, findRootOpts]]},
             {}
           ],
@@ -890,8 +897,8 @@ With[{
         (* nD case *)
         True,
         Join[
-          (* Newton first if Jacobian available and not compiled *)
-          If[hasJacobian && !isCompiled && (method === Automatic || method === "Newton"),
+          (* Newton first (with or without explicit Jacobian), unless function is compiled *)
+          If[!isCompiled && (method === Automatic || method === "Newton"),
             {Function[tryNewtonND[fnum, dfnum, vars, x0, lb, ub, findRootOpts]]},
             {}
           ],
