@@ -123,8 +123,8 @@ Module[{
       Module[{subdirName, targetSubdir, subDataFiles},
         subdirName = FileBaseName[subdir];
 
-        (* Skip Resources (contains Models.wl which gets run as test), Scripts (utilities) *)
-        If[subdirName =!= "Resources" && subdirName =!= "Scripts",
+        (* Skip Resources (contains Models.wl which gets run as test) *)
+        If[subdirName =!= "Resources",
           (* Find .wl data files (not .wlt test files) in this subdirectory *)
           subDataFiles = FileNames["*.wl", subdir, 1];
           subDataFiles = Select[subDataFiles, !StringEndsQ[#, ".wlt"] &];
@@ -166,7 +166,7 @@ Module[{
   allFiles = FileNames["*.wlt", testsRoot, Infinity];
 
   (* Exclude non-automated test directories *)
-  excludedDirs = {"InteractiveTests", "GenerateCITests", "Scripts"};
+  excludedDirs = {"InteractiveTests", "GenerateCITests"};
   testFiles = Select[allFiles,
     FreeQ[FileNameSplit[#], Alternatives @@ excludedDirs] &
   ];
