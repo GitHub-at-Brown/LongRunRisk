@@ -3,24 +3,26 @@ Begin["FernandoDuarte`LongRunRisk`Tests`Model`EndogenousEq`"]
 
 Needs @ "FernandoDuarte`LongRunRisk`Model`EndogenousEq`";
 Needs @ "FernandoDuarte`LongRunRisk`Model`Parameters`";
+Needs @ "FernandoDuarte`LongRunRisk`";
 
 VerificationTest[
 	(* Test that parameters appearing in endogenous variables are in Parameters context *)
-	(* Use Block to ensure Parameters context is searched when resolving Symbol names *)
-	Block[{$ContextPath = DeleteDuplicates @ Prepend[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Parameters`"]},
-		Apply[And,
-			Map[SameQ[#, "FernandoDuarte`LongRunRisk`Model`Parameters`"]&,
-				Map[Context,
-					Cases[Map[Slot[1][FernandoDuarte`LongRunRisk`Tests`Model`EndogenousEq`t]&, Map[Symbol, FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars]],
-						RuleDelayed[
-							PatternTest[FernandoDuarte`LongRunRisk`Tests`Model`EndogenousEq`var_Symbol, Function[MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, SymbolName[#]]]],
-							FernandoDuarte`LongRunRisk`Tests`Model`EndogenousEq`var
-						],
-						Infinity
-					]
-				]
-			]
-		]
+	(* Use model's endogenousEq directly to avoid symbol resolution ambiguity *)
+	Module[{testModel, endoEqs, paramSymbols},
+		(* Get a test model *)
+		testModel = FernandoDuarte`LongRunRisk`Models["BY"];
+		endoEqs = testModel["endogenousEq"];
+
+		(* Extract all parameter symbols that appear in endogenous equations *)
+		paramSymbols = Cases[
+			Values[endoEqs],
+			FernandoDuarte`LongRunRisk`Tests`Model`EndogenousEq`var_Symbol /;
+				MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters, SymbolName[FernandoDuarte`LongRunRisk`Tests`Model`EndogenousEq`var]],
+			Infinity
+		];
+
+		(* Check all are in Parameters` context *)
+		Apply[And, Map[SameQ[Context[#], "FernandoDuarte`LongRunRisk`Model`Parameters`"]&, paramSymbols]]
 	]
 	,
 	True
