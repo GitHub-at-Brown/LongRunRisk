@@ -18,9 +18,10 @@ If[
 	]
 ];
 
-(* Install local version of MaTeX provided with LongRunRisk paclet if not already installed *)
+(* Install and load MaTeX *)
 If[
 	{}===PacletFind["MaTeX"],
+	(* Not installed: install via MaTeXInstall, which also loads MaTeX *)
 	If[
 		{}===PacletFind["MaTeXInstall"->"1.0.0"],
 		PacletInstall[
@@ -34,8 +35,10 @@ If[
 		]
 	];
 	Needs["MaTeXInstall`"];
-	MaTeXInstall`MaTeXInstall[];
-]
+	MaTeXInstall`MaTeXInstall[],
+	(* Already installed: just load it *)
+	Needs["MaTeX`"]
+];
 
 (*load packages*)
 (*Get["PacletizedResourceFunctions`"];*)
@@ -46,9 +49,6 @@ Quiet[
 	],
 	URLSubmit::offline
 ];
-
-(* MaTeX may already be loaded from MaTeXInstall; Block suppresses duplicate Print warnings *)
-Block[{Print}, Needs["MaTeX`"]];
 
 (* Configure MaTeX if auto-detection failed for pdfLaTeX or Ghostscript *)
 With[{currentConfig = Quiet @ ConfigureMaTeX[]},
