@@ -60,6 +60,17 @@ Module[
   Print["Total: ", totalTests, ", Passed: ", totalPassed, ", Failed: ", totalFailed, ", Aborted: ", totalAborted,
     " (" <> ToString[NumberForm[100.0 * totalPassed / Max[1, totalTests], {4, 1}]] <> "%)"];
 
+  (* Print failure details if any *)
+  If[totalFailed > 0,
+    Module[{failedTests},
+      failedTests = Select[report["TestResults"], #["Outcome"] === "Failure" &];
+      If[Length[failedTests] > 0,
+        Print["Failed test IDs: ", failedTests[[1, "TestID"]]];
+        Print["Failed test file: ", failedTests[[1, "TestFileName"]]];
+      ];
+    ]
+  ];
+
   If[totalFailed > 0 || totalAborted > 0,
     Quit[1],
     Quit[0]

@@ -899,11 +899,21 @@ tryTransforms[
 
 addCoeffsSolution::badextrainfo = "Closed-form coefficients from extra info did not validate; falling back to all-numerical solve.";
 
+(* addCoeffsSolution options - accepts updateCoeffs and RecurrenceTable options *)
+(* DEBUG: Setting Options for addCoeffsSolution *)
+Options[addCoeffsSolution] = {
+	"MaxMaturity" -> 12,
+	"initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>,
+	"RootSigns" -> Automatic,
+	"FindRootOptions" -> {},
+	"RecurrenceTableOptions" -> {},
+	"DependentVariables" -> Automatic
+};
 
 addCoeffsSolution[
 	model_,
-	ratio: "bond" | "nombond", 
-	opts : OptionsPattern[{updateCoeffs, RecurrenceTable}]]:=With[
+	ratio: "bond" | "nombond",
+	opts : OptionsPattern[{addCoeffsSolution, updateCoeffs, RecurrenceTable}]]:=With[
 	{
 		cs = model["coeffsSystem"][ratio],
 		ratioUncondE=model["ratioUncondE"][ratio],

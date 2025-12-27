@@ -123,8 +123,8 @@ Module[{
       Module[{subdirName, targetSubdir, subDataFiles},
         subdirName = FileBaseName[subdir];
 
-        (* Skip temp-tests-inst, Resources (contains Models.wl which gets run as test) *)
-        If[subdirName =!= "temp-tests-inst" && subdirName =!= "Resources",
+        (* Skip Resources (contains Models.wl which gets run as test) *)
+        If[subdirName =!= "Resources",
           (* Find .wl data files (not .wlt test files) in this subdirectory *)
           subDataFiles = FileNames["*.wl", subdir, 1];
           subDataFiles = Select[subDataFiles, !StringEndsQ[#, ".wlt"] &];
@@ -162,17 +162,21 @@ Module[{
   Instrumentation`CoverageProcess[baseline, coverageDir, "baseline.lcov"];
 
   (* === Prepare test files === *)
-  (* Use only the individual split test files from temp-tests-inst/ *)
-  (* Exclude _all.wlt files which are copies of the original multi-test files *)
-  allFiles = FileNames["*.wlt", FileNameJoin[{testsRoot, "temp-tests-inst"}], Infinity];
-  testFiles = Select[allFiles, !StringEndsQ[FileBaseName[#], "_all"] &];
+  (* Find all .wlt files in Tests/ recursively *)
+  allFiles = FileNames["*.wlt", testsRoot, Infinity];
+
+  (* Exclude non-automated test directories *)
+  excludedDirs = {"InteractiveTests", "GenerateCITests"};
+  testFiles = Select[allFiles,
+    FreeQ[FileNameSplit[#], Alternatives @@ excludedDirs] &
+  ];
 
   If[testFiles === {},
-    Print["No .wlt tests found in temp-tests-inst/"];
+    Print["No .wlt tests found outside ignored directories: ", StringRiffle[excludedDirs, ", "]];
     Quit[1]
   ];
 
-  Print["Found ", Length[testFiles], " individual test files in temp-tests-inst/ (excluding ", Length[allFiles] - Length[testFiles], " _all.wlt files)"];
+  Print["Found ", Length[testFiles], " test files in category subdirectories"];
 
   (* === Initialize coverage tracking state === *)
   executionCoverageSuccess = False;
