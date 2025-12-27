@@ -177,9 +177,6 @@ buildKernel[
         {body, Automatic}
     ];
 
-    (* Detect CI environment - disable C compilation there due to PacletCICD context isolation issues *)
-    inCI = TrueQ[Environment["GITHUB_ACTIONS"] === "true" || Environment["CI"] === "true"];
-
     compileOpts = If[compiler === "FunctionCompile",
       (* FunctionCompile options *)
       Join[
@@ -189,16 +186,15 @@ buildKernel[
           {}
         ]
       ],
-      (* Compile options - use C target only when not in CI *)
-      Join[
-        FilterRules[Flatten@{opts}, Options[Compile]],
-        If[perfGoal === "Speed" && !inCI,
-          {CompilationTarget -> "C", RuntimeOptions -> "Speed"},
-          If[!inCI,
-            {CompilationTarget -> "C"},
-            {} (* WVM-only in CI *)
-          ]
-        ]
+      (* Compile options - user options take precedence, then apply defaults *)
+      Module[{userOpts = FilterRules[Flatten@{opts}, Options[Compile]], defaults},
+        defaults = Join[
+          (* Default to C compilation if not specified *)
+          If[FreeQ[userOpts, CompilationTarget], {CompilationTarget -> "C"}, {}],
+          (* Add RuntimeOptions -> Speed if PerformanceGoal is Speed and not specified *)
+          If[perfGoal === "Speed" && FreeQ[userOpts, RuntimeOptions], {RuntimeOptions -> "Speed"}, {}]
+        ];
+        Join[userOpts, defaults]
       ]
     ];
 
