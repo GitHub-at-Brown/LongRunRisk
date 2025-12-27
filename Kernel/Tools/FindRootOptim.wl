@@ -875,7 +875,7 @@ With[{
         (* 1D case *)
         dim == 1,
         Join[
-          (* Newton first (with or without explicit Jacobian), unless function is compiled *)
+          (* Newton first - try even without Jacobian (numerical derivatives cheap for 1D) *)
           If[!isCompiled && (method === Automatic || method === "Newton"),
             {Function[tryNewton1D[fnum, dfnum, var, x0, lb, ub, findRootOpts]]},
             {}
@@ -897,8 +897,8 @@ With[{
         (* nD case *)
         True,
         Join[
-          (* Newton first (with or without explicit Jacobian), unless function is compiled *)
-          If[!isCompiled && (method === Automatic || method === "Newton"),
+          (* Newton first - only if explicit Jacobian available (numerical derivatives too expensive for nD) *)
+          If[hasJacobian && !isCompiled && (method === Automatic || method === "Newton"),
             {Function[tryNewtonND[fnum, dfnum, vars, x0, lb, ub, findRootOpts]]},
             {}
           ],

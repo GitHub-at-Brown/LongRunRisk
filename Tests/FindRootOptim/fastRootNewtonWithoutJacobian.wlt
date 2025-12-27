@@ -80,43 +80,9 @@ VerificationTest[
   TestID -> "1d-exponential-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
 ]
 
-(* ===== Test nD Functions Without Explicit Jacobian ===== *)
-
-(* 2D system: x^2 + y - 3 = 0, x + y^2 - 3 = 0 *)
-f2D[z_] := {z[[1]]^2 + z[[2]] - 3, z[[1]] + z[[2]]^2 - 3};
-expectedND2 = (-1 + Sqrt[13])/2 // N;  (* ~ 1.3027756377319946 *)
-
-VerificationTest[
-  Module[{result},
-    result = fastRoot[f2D, {{1.0, 1.5}, {1.0, 1.5}}, "Return" -> "Value"];
-    VectorQ[result, NumericQ] &&
-    Max[Abs[result - {expectedND2, expectedND2}]] < 10^-6
-  ],
-  True,
-  {},
-  TimeConstraint -> timeLimit,
-  TestID -> "2d-system-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
-]
-
-(* 3D linear system *)
-f3D[z_] := {z[[1]] + z[[2]] + z[[3]] - 3, z[[1]] - z[[2]] - 1, z[[2]] - z[[3]] - 1};
-
-VerificationTest[
-  Module[{result},
-    (* Use better starting point closer to solution *)
-    result = fastRoot[f3D, {{1.8, 2.2}, {0.8, 1.2}, {-0.2, 0.2}}, "Return" -> "Value"];
-    VectorQ[result, NumericQ] &&
-    Max[Abs[result - {2, 1, 0}]] < 10^-5
-  ],
-  True,
-  {},
-  TimeConstraint -> timeLimit,
-  TestID -> "3d-linear-system-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
-]
-
 (* ===== Test Method Priority ===== *)
 
-(* Verify Newton is tried first even without Jacobian *)
+(* Verify Newton is tried first even without Jacobian for 1D *)
 VerificationTest[
   Module[{result},
     (* Method -> Automatic should try Newton first *)
@@ -126,7 +92,7 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "newton-automatic-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "newton-automatic-1d-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
 ]
 
 VerificationTest[
@@ -138,7 +104,24 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "newton-explicit-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "newton-explicit-1d-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+]
+
+(* ===== Test 1D with Explicit Jacobian Still Works ===== *)
+
+f1DJac[z_] := z[[1]]^2 - 4;
+df1DJac[z_] := {2*z[[1]]};
+
+VerificationTest[
+  Module[{result},
+    (* With explicit Jacobian - should still work *)
+    result = fastRoot[f1DJac, {1.5, 3.}, Jacobian -> df1DJac, "Return" -> "Value"];
+    NumericQ[result] && Abs[result^2 - 4] < 10^-6
+  ],
+  True,
+  {},
+  TimeConstraint -> timeLimit,
+  TestID -> "1d-with-explicit-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
 ]
 
 (* ===== Test Edge Cases ===== *)
