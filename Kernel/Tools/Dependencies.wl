@@ -1,0 +1,97 @@
+(* ::Package:: *)
+
+(* ::Section:: *)
+(*Dependencies*)
+
+
+(* Install and configure bundled dependencies for the LongRunRisk paclet *)
+
+
+(* ::Subsection:: *)
+(*PacletizedResourceFunctions*)
+
+
+If[
+	{} === PacletFind["PacletizedResourceFunctions"],
+	PacletInstall[
+		File[
+			FindFile["FernandoDuarte/LongRunRisk/PacletizedResourceFunctions.paclet"]
+		],
+		KeepExistingVersion -> False,
+		ForceVersionInstall -> True
+	]
+];
+
+(* Warm up DefinitionData to avoid Symbol::symname message; disable internet to prevent cloud auth prompts *)
+Quiet[
+	Block[{$AllowInternet = False},
+		Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]
+	],
+	URLSubmit::offline
+];
+
+
+(* ::Subsection:: *)
+(*MaTeX*)
+
+
+(* Install and load MaTeX *)
+If[
+	{} === PacletFind["MaTeX"],
+	(* Not installed: install via MaTeXInstall, which also loads MaTeX *)
+	If[
+		{} === PacletFind["MaTeXInstall" -> "1.0.0"],
+		PacletInstall[
+			File[
+				FindFile["FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"]
+			],
+			KeepExistingVersion -> True,
+			ForceVersionInstall -> True
+		]
+	];
+	Needs["MaTeXInstall`"];
+	MaTeXInstall`MaTeXInstall[],
+	(* Already installed: just load it *)
+	Needs["MaTeX`"]
+];
+
+(* Configure MaTeX if auto-detection failed for pdfLaTeX or Ghostscript *)
+With[{currentConfig = Quiet @ ConfigureMaTeX[]},
+	Module[{pdflatexPath, gsPath, needsPdflatex, needsGs, configChanges},
+		needsPdflatex = ("pdfLaTeX" /. currentConfig) === None;
+		needsGs = ("Ghostscript" /. currentConfig) === None;
+
+		If[needsPdflatex || needsGs,
+			(* Determine fallback paths based on platform *)
+			{pdflatexPath, gsPath} = Which[
+				StringMatchQ[$SystemID, "Linux*"] && Environment["CI"] === "true",
+				{"/github/home/bin/pdflatex", None},
+				StringMatchQ[$SystemID, "MacOSX*"],
+				{"/opt/homebrew/bin/pdflatex", "/opt/homebrew/bin/gs"},
+				True,
+				{None, None}
+			];
+
+			(* Build config changes only for what's needed and exists *)
+			configChanges = {};
+			If[needsPdflatex && pdflatexPath =!= None,
+				If[FileExistsQ[pdflatexPath],
+					AppendTo[configChanges, "pdfLaTeX" -> pdflatexPath],
+					Print["MaTeX: pdfLaTeX not found at ", pdflatexPath]
+				]
+			];
+			If[needsGs && gsPath =!= None,
+				If[FileExistsQ[gsPath],
+					AppendTo[configChanges, "Ghostscript" -> gsPath],
+					Print["MaTeX: Ghostscript not found at ", gsPath]
+				]
+			];
+
+			(* Apply config if we have changes; Block suppresses MaTeX's own warning about missing gs *)
+			If[configChanges =!= {},
+				Block[{Print}, ConfigureMaTeX @@ configChanges];
+				Print["MaTeX configured: ", configChanges]
+			]
+		]
+	]
+];
