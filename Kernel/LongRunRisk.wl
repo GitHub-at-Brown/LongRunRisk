@@ -51,15 +51,19 @@ Quiet[
 Needs["MaTeX`"];
 
 (* Configure MaTeX for CI environment where PATH may not include TinyTeX *)
-(* The test-paclet action runs in its own Docker container with different PATH *)
+(* Only override if auto-detection failed (configured paths don't exist) *)
 If[
 	Environment["CI"] === "true",
 	With[{
+		currentConfig = Quiet @ ConfigureMaTeX[],
 		ciPdflatex = "/github/home/bin/pdflatex",
 		ciGs = "/usr/bin/gs"
 	},
-		If[FileExistsQ[ciPdflatex] && FileExistsQ[ciGs],
-			Quiet @ ConfigureMaTeX["pdfLaTeX" -> ciPdflatex, "Ghostscript" -> ciGs]
+		If[
+			Not[FileExistsQ["pdfLaTeX" /. currentConfig]] || Not[FileExistsQ["Ghostscript" /. currentConfig]],
+			If[FileExistsQ[ciPdflatex] && FileExistsQ[ciGs],
+				Quiet @ ConfigureMaTeX["pdfLaTeX" -> ciPdflatex, "Ghostscript" -> ciGs]
+			]
 		]
 	]
 ]
