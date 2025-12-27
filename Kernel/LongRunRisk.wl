@@ -71,7 +71,7 @@ With[{currentConfig = Quiet @ ConfigureMaTeX[]},
 			]
 		]
 	]
-]
+];
 
 
 (* ::Section:: *)
