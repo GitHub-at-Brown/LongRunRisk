@@ -97,8 +97,9 @@ toNumRules[
 				With[{sol=flattenCoeffs[solHierarchical, 1]},
 					Join[
 						sol,
-						allParams,
-						(* {
+						allParams
+						(*,
+						 {
 							FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc ->
 								(uncondEwc/.sol//.allParams),
 							FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[ind_] :>
