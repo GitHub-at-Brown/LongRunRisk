@@ -51,33 +51,43 @@ Needs["MaTeX`"];
 
 (* Configure MaTeX if auto-detection failed for pdfLaTeX or Ghostscript *)
 With[{currentConfig = Quiet @ ConfigureMaTeX[]},
-	Module[{pdflatexPath, gsPath, needsPdflatex, needsGs, configChanges},
+	Module[{pdflatexPaths, gsPaths, pdflatexPath, gsPath, needsPdflatex, needsGs, configChanges},
 		needsPdflatex = ("pdfLaTeX" /. currentConfig) === None;
 		needsGs = ("Ghostscript" /. currentConfig) === None;
 
 		If[needsPdflatex || needsGs,
-			(* Determine fallback paths based on platform *)
-			{pdflatexPath, gsPath} = Which[
+			(* Determine fallback paths based on platform - try multiple locations *)
+			{pdflatexPaths, gsPaths} = Which[
 				StringMatchQ[$SystemID, "Linux*"] && Environment["CI"] === "true",
-				{"/github/home/bin/pdflatex", "/github/home/bin/gs"},
+				{
+					{"/github/home/bin/pdflatex"},
+					{"/usr/bin/gs", "/usr/local/bin/gs", "/github/home/bin/gs"}
+				},
 				StringMatchQ[$SystemID, "MacOSX*"],
-				{"/opt/homebrew/bin/pdflatex", "/opt/homebrew/bin/gs"},
+				{
+					{"/opt/homebrew/bin/pdflatex", "/usr/local/bin/pdflatex"},
+					{"/opt/homebrew/bin/gs", "/usr/local/bin/gs"}
+				},
 				True,
-				{None, None}
+				{{}, {}}
 			];
+
+			(* Find first existing path for each *)
+			pdflatexPath = SelectFirst[pdflatexPaths, FileExistsQ, None];
+			gsPath = SelectFirst[gsPaths, FileExistsQ, None];
 
 			(* Build config changes only for what's needed and exists *)
 			configChanges = {};
-			If[needsPdflatex && pdflatexPath =!= None,
-				If[FileExistsQ[pdflatexPath],
+			If[needsPdflatex,
+				If[pdflatexPath =!= None,
 					AppendTo[configChanges, "pdfLaTeX" -> pdflatexPath],
-					Print["MaTeX: pdfLaTeX fallback not found at ", pdflatexPath]
+					Print["MaTeX: pdfLaTeX not found in fallback paths: ", pdflatexPaths]
 				]
 			];
-			If[needsGs && gsPath =!= None,
-				If[FileExistsQ[gsPath],
+			If[needsGs,
+				If[gsPath =!= None,
 					AppendTo[configChanges, "Ghostscript" -> gsPath],
-					Print["MaTeX: Ghostscript fallback not found at ", gsPath]
+					Print["MaTeX: Ghostscript not found in fallback paths: ", gsPaths]
 				]
 			];
 
