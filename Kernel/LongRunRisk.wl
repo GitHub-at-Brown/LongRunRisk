@@ -39,7 +39,7 @@ If[
 ]
 
 (*load packages*)
-(*Get["PacletizedResourceFunctions`"];*)
+Get["PacletizedResourceFunctions`"];
 (*run DefinitionData once to avoid Symbol::symname message; disable internet to prevent cloud auth prompts*)
 Quiet[
 	Block[{$AllowInternet = False},
