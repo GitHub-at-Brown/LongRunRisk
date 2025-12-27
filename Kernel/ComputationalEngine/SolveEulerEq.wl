@@ -841,6 +841,12 @@ solveCoeffRoots[
           If[bindResult === $Failed, Return[$Failed, Module]];
           {f, df} = bindResult;
 
+          (* If kernel has no compiled Jacobian, set df to None *)
+          (* Handles: Missing["NotCompiled"] from FunctionOnly mode, or $Failed from compilation failure *)
+          If[MissingQ[savedKernel["dfC"]] || FailureQ[savedKernel["dfC"]],
+            df = None
+          ];
+
           (* treat 1D and nD differently *)
           If[Length[coefList] > 1,
             (* nD: Delegate to solveND and return early with packaged result *)
