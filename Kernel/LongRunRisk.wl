@@ -19,25 +19,22 @@ If[
 ];
 
 (* Install local version of MaTeX provided with LongRunRisk paclet if not already installed *)
-(* Block Print to suppress "not configured" messages during install/load; we configure below *)
-Block[{Print},
+If[
+	{}===PacletFind["MaTeX"],
 	If[
-		{}===PacletFind["MaTeX"],
-		If[
-			{}===PacletFind["MaTeXInstall"->"1.0.0"],
-			PacletInstall[
-				File[
-					FindFile[
-						"FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"
-					]
-				],
-				KeepExistingVersion->True,
-				ForceVersionInstall->True
-			]
-		];
-		Needs["MaTeXInstall`"];
-		MaTeXInstall`MaTeXInstall[];
-	]
+		{}===PacletFind["MaTeXInstall"->"1.0.0"],
+		PacletInstall[
+			File[
+				FindFile[
+					"FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"
+				]
+			],
+			KeepExistingVersion->True,
+			ForceVersionInstall->True
+		]
+	];
+	Needs["MaTeXInstall`"];
+	MaTeXInstall`MaTeXInstall[];
 ]
 
 (*load packages*)
@@ -50,8 +47,7 @@ Quiet[
 	URLSubmit::offline
 ];
 
-(* Block Print to suppress config warnings during MaTeX load; we configure manually below *)
-Block[{Print}, Needs["MaTeX`"]];
+Needs["MaTeX`"];
 
 (* Configure MaTeX if auto-detection failed *)
 With[{currentConfig = Quiet @ ConfigureMaTeX[]},
@@ -62,14 +58,18 @@ With[{currentConfig = Quiet @ ConfigureMaTeX[]},
 			StringMatchQ[$SystemID, "Linux*"] && Environment["CI"] === "true",
 			With[{pdflatex = "/github/home/bin/pdflatex", gs = "/usr/bin/gs"},
 				If[FileExistsQ[pdflatex] && FileExistsQ[gs],
-					Quiet @ ConfigureMaTeX["pdfLaTeX" -> pdflatex, "Ghostscript" -> gs]
+					ConfigureMaTeX["pdfLaTeX" -> pdflatex, "Ghostscript" -> gs];
+					Print["MaTeX configured for CI: pdfLaTeX=", pdflatex, ", Ghostscript=", gs],
+					(* else: files not found *)
+					Print["MaTeX CI config failed: pdflatex exists=", FileExistsQ[pdflatex], ", gs exists=", FileExistsQ[gs]]
 				]
 			],
 			(* macOS: use Homebrew paths *)
 			StringMatchQ[$SystemID, "MacOSX*"],
 			With[{pdflatex = "/opt/homebrew/bin/pdflatex", gs = "/opt/homebrew/bin/gs"},
 				If[FileExistsQ[pdflatex] && FileExistsQ[gs],
-					Quiet @ ConfigureMaTeX["pdfLaTeX" -> pdflatex, "Ghostscript" -> gs]
+					ConfigureMaTeX["pdfLaTeX" -> pdflatex, "Ghostscript" -> gs];
+					Print["MaTeX configured for macOS: pdfLaTeX=", pdflatex, ", Ghostscript=", gs]
 				]
 			]
 		]
