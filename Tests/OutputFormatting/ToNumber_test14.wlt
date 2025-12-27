@@ -6,7 +6,7 @@ Needs @ "FernandoDuarte`LongRunRisk`Tools`ToNumber`";
 	$ContextPath = DeleteDuplicates @ Prepend[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`"];
 
 (* === Shared State Setup === *)
-FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
+Needs @ "FernandoDuarte`LongRunRisk`";
 FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp = FernandoDuarte`LongRunRisk`Models;
 FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modBY = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp @ "BY";
 FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modBKY = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp @ "BKY";

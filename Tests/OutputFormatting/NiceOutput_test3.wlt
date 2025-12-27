@@ -11,8 +11,7 @@ Needs @ "FernandoDuarte`LongRunRisk`Tools`NiceOutput`";
 	$ContextPath = DeleteDuplicates @ Prepend[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`"];
 
 VerificationTest[
-	FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
-	FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`msp = If[
+		FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`msp = If[
 		FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`longTest, FernandoDuarte`LongRunRisk`Models, KeyTake[FernandoDuarte`LongRunRisk`Models, {"BY", "BKY", "NRC", "DES", "NRCStochVol"}]
 	];
 	FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`modBY = FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`msp @ "BY";

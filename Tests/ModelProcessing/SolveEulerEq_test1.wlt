@@ -8,8 +8,7 @@ Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`";
 VerificationTest[
 	Off[General::stop];
 	If[!FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`longTest, Off[FindRoot::cvmit]];
-	FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
-	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`msp = FernandoDuarte`LongRunRisk`Models;
+		FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`msp = FernandoDuarte`LongRunRisk`Models;
 	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`modBY = FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`msp @ "BY";
 	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`modBKY = FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`msp @ "BKY";
 	FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`modNRC = FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`msp @ "NRC";

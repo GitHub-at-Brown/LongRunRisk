@@ -14,8 +14,7 @@ VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`ExogenousEq`";
 	Needs @ "FernandoDuarte`LongRunRisk`Tools`TimeAggregation`";
 	Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`";
-	FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
-	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp = FernandoDuarte`LongRunRisk`Models;
+		FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp = FernandoDuarte`LongRunRisk`Models;
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modBY = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp @ "BY";
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modBKY = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp @ "BKY";
 	FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`modNRC = FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`msp @ "NRC";

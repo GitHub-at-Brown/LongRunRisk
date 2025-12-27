@@ -11,7 +11,6 @@ Needs @ "FernandoDuarte`LongRunRisk`Tools`NiceOutput`";
 	$ContextPath = DeleteDuplicates @ Prepend[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`"];
 
 (* === Shared State Setup === *)
-FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
 FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`msp = If[
 		FernandoDuarte`LongRunRisk`Tests`Tools`NiceOutput`longTest, FernandoDuarte`LongRunRisk`Models, KeyTake[FernandoDuarte`LongRunRisk`Models, {"BY", "BKY", "NRC", "DES", "NRCStochVol"}]
 	];

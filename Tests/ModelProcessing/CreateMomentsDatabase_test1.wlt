@@ -8,8 +8,7 @@ Needs @ "FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`";
 VerificationTest[
 	Off[General::stop];
 	If[!FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`longTest, Off[FindRoot::cvmit]];
-	FernandoDuarte`LongRunRisk`Models = Get @ Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk", "Models.wl"};
-	Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongBKY.mx"};
+		Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongBKY.mx"};
 	Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongDES.mx"};
 	Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongNRC.mx"};
 	Get @ FileNameJoin @ {"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongNRCStochVol.mx"};
