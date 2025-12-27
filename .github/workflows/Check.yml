@@ -119,6 +119,18 @@ jobs:
           else
             echo "No MX file changes to commit"
           fi
+      - name: Debug environment before test
+        run: |
+          echo "=== Environment Debug ==="
+          echo "PATH=$PATH"
+          echo "HOME=$HOME"
+          echo "=== Checking executables ==="
+          which pdflatex || echo "pdflatex not found in PATH"
+          which gs || echo "gs not found in PATH"
+          echo "=== Contents of HOME/bin ==="
+          ls -la $HOME/bin/ || echo "bin dir not found"
+          echo "=== TinyTeX location ==="
+          ls -la $HOME/.TinyTeX/bin/ 2>/dev/null || echo ".TinyTeX not found"
       - name: Test
         id: test-paclet-step
         uses: WolframResearch/test-paclet@v1.11.0
@@ -128,6 +140,7 @@ jobs:
         env:
           WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
           RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
+          PATH: ${{ env.PATH }}:/github/home/bin
       - name: Check
         id: check-paclet
         uses: WolframResearch/check-paclet@v1.11.0
