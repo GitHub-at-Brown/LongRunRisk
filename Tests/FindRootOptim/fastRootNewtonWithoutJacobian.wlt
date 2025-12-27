@@ -35,7 +35,7 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "1d-quadratic-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "1d-quadratic-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt:29,1-39,2"
 ]
 
 (* Cubic function *)
@@ -49,7 +49,7 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "1d-cubic-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "1d-cubic-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt:44,1-53,2"
 ]
 
 (* Transcendental function *)
@@ -63,7 +63,7 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "1d-transcendental-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "1d-transcendental-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt:58,1-67,2"
 ]
 
 (* Exponential function *)
@@ -77,7 +77,7 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "1d-exponential-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "1d-exponential-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt:72,1-81,2"
 ]
 
 (* ===== Test Method Priority ===== *)
@@ -92,7 +92,7 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "newton-automatic-1d-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "newton-automatic-1d-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt:86,1-96,2"
 ]
 
 VerificationTest[
@@ -104,7 +104,7 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "newton-explicit-1d-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "newton-explicit-1d-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt:98,1-108,2"
 ]
 
 (* ===== Test 1D with Explicit Jacobian Still Works ===== *)
@@ -121,7 +121,7 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "1d-with-explicit-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "1d-with-explicit-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt:115,1-125,2"
 ]
 
 (* ===== Test Edge Cases ===== *)
@@ -138,7 +138,7 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "multiple-roots-finds-one@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "multiple-roots-finds-one@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt:132,1-142,2"
 ]
 
 (* Function with steep gradient *)
@@ -152,7 +152,7 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "steep-gradient-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "steep-gradient-without-jacobian@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt:147,1-156,2"
 ]
 
 (* ===== Test Different Starting Points ===== *)
@@ -169,7 +169,7 @@ VerificationTest[
   True,
   {},
   TimeConstraint -> timeLimit,
-  TestID -> "different-starting-points@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt"
+  TestID -> "different-starting-points@@Tests/FindRootOptim/fastRootNewtonWithoutJacobian.wlt:160,1-173,2"
 ]
 
 End[]
