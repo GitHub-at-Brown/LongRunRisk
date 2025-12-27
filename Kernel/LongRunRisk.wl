@@ -49,28 +49,42 @@ Quiet[
 
 Needs["MaTeX`"];
 
-(* Configure MaTeX if auto-detection failed *)
+(* Configure MaTeX if auto-detection failed for pdfLaTeX or Ghostscript *)
 With[{currentConfig = Quiet @ ConfigureMaTeX[]},
-	If[
-		("pdfLaTeX" /. currentConfig) === None || ("Ghostscript" /. currentConfig) === None,
-		Which[
-			(* Linux CI: use GitHub Actions paths *)
-			StringMatchQ[$SystemID, "Linux*"] && Environment["CI"] === "true",
-			With[{pdflatex = "/github/home/bin/pdflatex", gs = "/usr/bin/gs"},
-				If[FileExistsQ[pdflatex] && FileExistsQ[gs],
-					ConfigureMaTeX["pdfLaTeX" -> pdflatex, "Ghostscript" -> gs];
-					Print["MaTeX configured for CI: pdfLaTeX=", pdflatex, ", Ghostscript=", gs],
-					(* else: files not found *)
-					Print["MaTeX CI config failed: pdflatex exists=", FileExistsQ[pdflatex], ", gs exists=", FileExistsQ[gs]]
+	Module[{pdflatexPath, gsPath, needsPdflatex, needsGs, configChanges},
+		needsPdflatex = ("pdfLaTeX" /. currentConfig) === None;
+		needsGs = ("Ghostscript" /. currentConfig) === None;
+
+		If[needsPdflatex || needsGs,
+			(* Determine fallback paths based on platform *)
+			{pdflatexPath, gsPath} = Which[
+				StringMatchQ[$SystemID, "Linux*"] && Environment["CI"] === "true",
+				{"/github/home/bin/pdflatex", "/usr/bin/gs"},
+				StringMatchQ[$SystemID, "MacOSX*"],
+				{"/opt/homebrew/bin/pdflatex", "/opt/homebrew/bin/gs"},
+				True,
+				{None, None}
+			];
+
+			(* Build config changes only for what's needed and exists *)
+			configChanges = {};
+			If[needsPdflatex && pdflatexPath =!= None,
+				If[FileExistsQ[pdflatexPath],
+					AppendTo[configChanges, "pdfLaTeX" -> pdflatexPath],
+					Print["MaTeX: pdfLaTeX fallback not found at ", pdflatexPath]
 				]
-			],
-			(* macOS: use Homebrew paths *)
-			StringMatchQ[$SystemID, "MacOSX*"],
-			With[{pdflatex = "/opt/homebrew/bin/pdflatex", gs = "/opt/homebrew/bin/gs"},
-				If[FileExistsQ[pdflatex] && FileExistsQ[gs],
-					ConfigureMaTeX["pdfLaTeX" -> pdflatex, "Ghostscript" -> gs];
-					Print["MaTeX configured for macOS: pdfLaTeX=", pdflatex, ", Ghostscript=", gs]
+			];
+			If[needsGs && gsPath =!= None,
+				If[FileExistsQ[gsPath],
+					AppendTo[configChanges, "Ghostscript" -> gsPath],
+					Print["MaTeX: Ghostscript fallback not found at ", gsPath]
 				]
+			];
+
+			(* Apply config if we have changes *)
+			If[configChanges =!= {},
+				ConfigureMaTeX @@ configChanges;
+				Print["MaTeX configured: ", configChanges]
 			]
 		]
 	]
