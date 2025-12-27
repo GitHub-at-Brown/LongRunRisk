@@ -24,7 +24,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-free-finds-zero@@Tests/FindRootOptim/scanAndSolveOptions.wlt:36,3-45,4"
+    TestID -> "derivative-free-finds-zero@@Tests/FindRootOptim/scanAndSolveOptions_test2.wlt:19,1-28,4"
   ]
 
 EndTestSection[]

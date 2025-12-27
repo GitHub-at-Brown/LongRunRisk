@@ -17,6 +17,6 @@ r$ = Quiet@Check[pqs[eqns$, vars$, "ValidationOption" -> True, "DomainOption" ->
 conds$ = If[r$ === "fail", {}, r$["Conditions"]];
 radMap$ = If[r$ === "fail", <||>, r$["Diagnostics"]["SignRadicandMap"]];
 
-VerificationTest[AssociationQ[radMap$], True, TestID -> "radicand-map-present@@Tests/ParamQuadSolve/radicand-conditions-negative.wlt:22,1-22,147"]
+VerificationTest[AssociationQ[radMap$], True, TestID -> "radicand-map-present@@Tests/ParamQuadSolve/radicand-conditions-negative_test3.wlt:20,1-20,147"]
 
 EndTestSection[]

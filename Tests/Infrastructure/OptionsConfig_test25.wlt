@@ -90,6 +90,6 @@ VerificationTest[
 		"PdEquations" -> "B"
 	}],
 	False,
-	TestID -> "isNormalized-False-List@@Tests/OptionsConfig.wlt:220,1-226,2"
+	TestID -> "isNormalized-False-List@@Tests/Infrastructure/OptionsConfig_test25.wlt:88,1-94,2"
 ]
 

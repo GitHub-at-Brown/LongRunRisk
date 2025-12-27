@@ -23,6 +23,6 @@ VerificationTest[
 	config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`defaultConfig[];
 	config["Symbolic"]["PdEquations"],
 	"B",
-	TestID -> "defaultConfig-Symbolic-PdEquations@@Tests/OptionsConfig.wlt:30,1-35,2"
+	TestID -> "defaultConfig-Symbolic-PdEquations@@Tests/Infrastructure/OptionsConfig_test4.wlt:22,1-27,2"
 ]
 

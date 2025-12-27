@@ -434,7 +434,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> 60,
-  TestID -> "badCatalog-comprehensive-validation@@Tests/ValidateModels/validateModel.wlt:1321,1-1363,2"
+  TestID -> "badCatalog-comprehensive-validation@@Tests/ValidateModels/validateModel_test64.wlt:396,1-438,2"
 ]
 
 EndTestSection[]

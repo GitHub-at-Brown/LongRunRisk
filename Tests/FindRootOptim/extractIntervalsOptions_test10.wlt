@@ -12,7 +12,7 @@ VerificationTest[
     {{0.15, 0.25}},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "small-interval-small-shrink-no-collapse@@Tests/FindRootOptim/extractIntervalsOptions.wlt:74,3-80,4"
+    TestID -> "small-interval-small-shrink-no-collapse@@Tests/FindRootOptim/extractIntervalsOptions_test10.wlt:10,1-16,4"
   ]
 
 EndTestSection[]

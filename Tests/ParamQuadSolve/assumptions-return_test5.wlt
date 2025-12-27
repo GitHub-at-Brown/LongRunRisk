@@ -22,7 +22,7 @@ VerificationTest[
     StringContainsQ[ToString[ass, InputForm], "gamma"]
   ],
   True,
-  TestID -> "assumptions-combine-custom-and-defaults@@Tests/ParamQuadSolve/assumptions-return.wlt:68,1-83,2"
+  TestID -> "assumptions-combine-custom-and-defaults@@Tests/ParamQuadSolve/assumptions-return_test5.wlt:11,1-26,2"
 ]
 
 EndTestSection[]

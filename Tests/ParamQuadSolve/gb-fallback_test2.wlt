@@ -11,6 +11,6 @@ r$ = pqs[eq$, vars$, "DomainOption" -> Reals, "ValidationOption" -> False];
 steps$ = r$["Diagnostics"]["Steps"];
 lastVar$ = vars$[[-1]];
 
-VerificationTest[Length[Keys[r$["SignRootMap"]]] >= 1, True, TestID -> "sign-created-after-gb@@Tests/ParamQuadSolve/gb-fallback.wlt:15,1-15,146"]
+VerificationTest[Length[Keys[r$["SignRootMap"]]] >= 1, True, TestID -> "sign-created-after-gb@@Tests/ParamQuadSolve/gb-fallback_test2.wlt:14,1-14,146"]
 
 EndTestSection[]

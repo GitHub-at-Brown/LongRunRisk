@@ -38,7 +38,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "accumulates-multiple-errors@@Tests/ValidateModels/validateModel.wlt:390,1-406,2"
+  TestID -> "accumulates-multiple-errors@@Tests/ValidateModels/validateModel_test29.wlt:26,1-42,2"
 ]
 
 EndTestSection[]

@@ -26,7 +26,7 @@ $timeLimit = 5;
 VerificationTest[
   $validParamNameQ[mud[1]],
   True,
-  TestID -> "validParamNameQ-indexed-symbol@@Tests/ValidateModels/validateModel.wlt:86,1-90,2"
+  TestID -> "validParamNameQ-indexed-symbol@@Tests/ValidateModels/validateModel_test11.wlt:26,1-30,2"
 ]
 
 EndTestSection[]

@@ -27,7 +27,7 @@ VerificationTest[
   (* Test stripParamIndex with indexed param *)
   $stripParamIndex[mud[1]] === "mud",
   True,
-  TestID -> "stripParamIndex-indexed@@Tests/ValidateModels/validateModel.wlt:419,1-424,2"
+  TestID -> "stripParamIndex-indexed@@Tests/ValidateModels/validateModel_test31.wlt:26,1-31,2"
 ]
 
 EndTestSection[]

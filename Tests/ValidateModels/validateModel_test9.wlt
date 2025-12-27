@@ -26,7 +26,7 @@ $timeLimit = 5;
 VerificationTest[
   $numericValueQ["not a number"],
   False,
-  TestID -> "numericValueQ-string-false@@Tests/ValidateModels/validateModel.wlt:74,1-78,2"
+  TestID -> "numericValueQ-string-false@@Tests/ValidateModels/validateModel_test9.wlt:26,1-30,2"
 ]
 
 EndTestSection[]

@@ -48,7 +48,7 @@ VerificationTest[
     !FreeQ[res["DeferredEquations"][[Position[deferredEqs, 4][[1, 1]]]], A[4]]
   ],
   True,
-  TestID -> "orphan-longrunrisk-eq4-deferred@@Tests/ParamQuadSolve/orphan-variable-avoidance.wlt:60,1-102,2"
+  TestID -> "orphan-longrunrisk-eq4-deferred@@Tests/ParamQuadSolve/orphan-variable-avoidance_test3.wlt:10,1-52,2"
 ]
 
 EndTestSection[]

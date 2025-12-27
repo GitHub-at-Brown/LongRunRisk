@@ -18,7 +18,7 @@ VerificationTest[
     !StringContainsQ[ToString[ass, InputForm], "signA"]
   ],
   True,
-  TestID -> "assumptions-no-sign-when-no-quadratics@@Tests/ParamQuadSolve/assumptions-return.wlt:86,1-97,2"
+  TestID -> "assumptions-no-sign-when-no-quadratics@@Tests/ParamQuadSolve/assumptions-return_test6.wlt:11,1-22,2"
 ]
 
 EndTestSection[]

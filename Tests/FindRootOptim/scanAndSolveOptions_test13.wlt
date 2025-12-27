@@ -27,7 +27,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "multiple-roots-custom-options@@Tests/FindRootOptim/scanAndSolveOptions.wlt:210,3-222,4"
+    TestID -> "multiple-roots-custom-options@@Tests/FindRootOptim/scanAndSolveOptions_test13.wlt:19,1-31,4"
   ]
 
 EndTestSection[]

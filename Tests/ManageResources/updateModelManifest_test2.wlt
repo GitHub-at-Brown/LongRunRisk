@@ -23,7 +23,7 @@ $timeLimit = 5;
 VerificationTest[
   $getHash[<|"x" -> <|"b" -> 1, "a" -> 2|>|>] === $getHash[<|"x" -> <|"a" -> 2, "b" -> 1|>|>],
   True,
-  TestID -> "hash-nested-key-order-invariant@@Tests/ManageResources/updateModelManifest.wlt:29,1-33,2"
+  TestID -> "hash-nested-key-order-invariant@@Tests/ManageResources/updateModelManifest_test2.wlt:23,1-27,2"
 ]
 
 EndTestSection[]

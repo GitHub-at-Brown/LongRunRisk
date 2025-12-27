@@ -111,6 +111,6 @@ VerificationTest[
 	parallelOpts = {FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Parallel"]};
 	MemberQ[parallelOpts, "NumKernels" -> Automatic],
 	True,
-	TestID -> "splitConfig-Parallel-NumKernels@@Tests/OptionsConfig.wlt:286,1-292,2"
+	TestID -> "splitConfig-Parallel-NumKernels@@Tests/Infrastructure/OptionsConfig_test33.wlt:109,1-115,2"
 ]
 

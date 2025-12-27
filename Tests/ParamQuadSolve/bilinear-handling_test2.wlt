@@ -22,7 +22,7 @@ VerificationTest[
    Length[Keys[signMap]] >= 1 &&
    Module[{sk = First[Keys[signMap]]}, Simplify[signMap[sk]^2 == 4*(z - 1)]] &&
    MemberQ[conds, z >= 1]
- ], True, TestID -> "mixed-quadratic-linear-parameter-dependence@@Tests/ParamQuadSolve/bilinear-handling.wlt:24,1-40,2"
+ ], True, TestID -> "mixed-quadratic-linear-parameter-dependence@@Tests/ParamQuadSolve/bilinear-handling_test2.wlt:10,1-26,2"
 ]
 
 EndTestSection[]

@@ -46,7 +46,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-full-spec-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:310,3-318,4"
+    TestID -> "1D-full-spec-with-jacobian@@Tests/FindRootOptim/fastRootOptions_test24.wlt:42,1-50,4"
   ]
 
 EndTestSection[]

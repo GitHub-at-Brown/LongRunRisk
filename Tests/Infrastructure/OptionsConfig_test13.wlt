@@ -52,6 +52,6 @@ VerificationTest[
 	}];
 	config["Moments"]["maxMomentsLagsToCreate"],
 	10,
-	TestID -> "normalizeConfig-Legacy-MaxMomentsLags@@Tests/OptionsConfig.wlt:104,1-111,2"
+	TestID -> "normalizeConfig-Legacy-MaxMomentsLags@@Tests/Infrastructure/OptionsConfig_test13.wlt:49,1-56,2"
 ]
 

@@ -25,7 +25,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-single-model@@Tests/NiceOutput/toCatalog.wlt:163,1-172,2"
+  TestID -> "toCatalog-single-model@@Tests/NiceOutput/toCatalog_test11.wlt:20,1-29,2"
 ]
 
 EndTestSection[]

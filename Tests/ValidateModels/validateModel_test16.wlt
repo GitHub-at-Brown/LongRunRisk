@@ -38,7 +38,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "missing-name-key-fails@@Tests/ValidateModels/validateModel.wlt:128,1-144,2"
+  TestID -> "missing-name-key-fails@@Tests/ValidateModels/validateModel_test16.wlt:26,1-42,2"
 ]
 
 EndTestSection[]

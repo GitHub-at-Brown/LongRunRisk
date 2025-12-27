@@ -42,7 +42,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "bad-indexed-param-name-fails@@Tests/ValidateModels/validateModel.wlt:493,1-513,2"
+  TestID -> "bad-indexed-param-name-fails@@Tests/ValidateModels/validateModel_test35.wlt:26,1-46,2"
 ]
 
 EndTestSection[]

@@ -47,7 +47,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "index-gap-fails@@Tests/ValidateModels/validateModel.wlt:537,1-562,2"
+  TestID -> "index-gap-fails@@Tests/ValidateModels/validateModel_test37.wlt:26,1-51,2"
 ]
 
 EndTestSection[]

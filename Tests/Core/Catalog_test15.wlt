@@ -10,7 +10,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251223-O3EOWM@@Tests/Catalog.wlt:295,1-303,2"
+	TestID->"Catalog_20251223-O3EOWM@@Tests/Core/Catalog_test15.wlt:6,1-14,2"
 ]
 
 End[]

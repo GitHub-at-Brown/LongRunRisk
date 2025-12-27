@@ -28,7 +28,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "derivative-no-sign-change-no-hits@@Tests/FindRootOptim/scanAndSolveOptions.wlt:145,3-158,4"
+    TestID -> "derivative-no-sign-change-no-hits@@Tests/FindRootOptim/scanAndSolveOptions_test9.wlt:19,1-32,4"
   ]
 
 EndTestSection[]

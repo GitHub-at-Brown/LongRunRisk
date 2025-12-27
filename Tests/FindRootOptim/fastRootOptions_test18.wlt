@@ -47,7 +47,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions.wlt:241,3-250,4"
+    TestID -> "newton-fails-fallback@@Tests/FindRootOptim/fastRootOptions_test18.wlt:42,1-51,4"
   ]
 
 EndTestSection[]

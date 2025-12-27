@@ -47,7 +47,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "method-secant-nonbracketed@@Tests/FindRootOptim/fastRootOptions.wlt:56,3-65,4"
+    TestID -> "method-secant-nonbracketed@@Tests/FindRootOptim/fastRootOptions_test2.wlt:42,1-51,4"
   ]
 
 EndTestSection[]

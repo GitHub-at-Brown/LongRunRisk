@@ -18,7 +18,7 @@ $timeLimit = 10;
 VerificationTest[
   MemberQ[$Packages, "FernandoDuarte`LongRunRisk`Tools`ManageResources`"],
   True,
-  TestID -> "manageResources-package-loaded@@Tests/ProcessModels/pipelineIntegration.wlt:30,1-34,2"
+  TestID -> "manageResources-package-loaded@@Tests/ProcessModels/pipelineIntegration_test3.wlt:18,1-22,2"
 ]
 
 EndTestSection[]

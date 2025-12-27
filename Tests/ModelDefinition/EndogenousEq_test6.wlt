@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251223-J1CO3Y@@Tests/EndogenousEq.wlt:122,1-139,2"
+	TestID->"EndogenousEq_20251223-J1CO3Y@@Tests/ModelDefinition/EndogenousEq_test6.wlt:6,1-23,2"
 ]
 
 End[]

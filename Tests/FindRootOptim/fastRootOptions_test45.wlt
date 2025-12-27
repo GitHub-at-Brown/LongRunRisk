@@ -44,7 +44,7 @@ VerificationTest[
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
     TimeConstraint -> timeLimit,
-    TestID -> "error-badbounds-nD@@Tests/FindRootOptim/fastRootOptions.wlt:549,3-555,4"
+    TestID -> "error-badbounds-nD@@Tests/FindRootOptim/fastRootOptions_test45.wlt:42,1-48,4"
   ]
 
 EndTestSection[]

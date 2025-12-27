@@ -56,6 +56,6 @@ VerificationTest[
 	}];
 	config["Build"]["FromScratch"],
 	False,
-	TestID -> "normalizeConfig-Preserves-Defaults-1@@Tests/OptionsConfig.wlt:115,1-122,2"
+	TestID -> "normalizeConfig-Preserves-Defaults-1@@Tests/Infrastructure/OptionsConfig_test14.wlt:53,1-60,2"
 ]
 

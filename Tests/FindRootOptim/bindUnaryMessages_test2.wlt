@@ -30,7 +30,7 @@ VerificationTest[
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
     TimeConstraint -> timeLimit,
-    TestID -> "toofewsigns-returns-failed-empty-signs@@Tests/FindRootOptim/bindUnaryMessages.wlt:39,3-45,4"
+    TestID -> "toofewsigns-returns-failed-empty-signs@@Tests/FindRootOptim/bindUnaryMessages_test2.wlt:28,1-34,4"
   ]
 
 EndTestSection[]

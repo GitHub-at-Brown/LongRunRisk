@@ -24,7 +24,7 @@ $timeLimit = 5;
 VerificationTest[
   $setupParallelKernels[None],
   0,
-  TestID -> "setupParallelKernels-None-returns-zero@@Tests/ManageResources/buildModels.wlt:176,1-180,2"
+  TestID -> "setupParallelKernels-None-returns-zero@@Tests/ManageResources/buildModels_test15.wlt:24,1-28,2"
 ]
 
 EndTestSection[]

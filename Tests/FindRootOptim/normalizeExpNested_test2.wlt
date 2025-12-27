@@ -11,7 +11,7 @@ VerificationTest[
       f[E^a + E^b + E^c],
       Exp[a] + Exp[b] + Exp[c],
       TimeConstraint -> timeLimit,
-      TestID -> "multiple-E-powers-in-sum@@Tests/FindRootOptim/normalizeExpNested.wlt:16,5-21,6"
+      TestID -> "multiple-E-powers-in-sum@@Tests/FindRootOptim/normalizeExpNested_test2.wlt:10,1-15,6"
     ]
 
 EndTestSection[]

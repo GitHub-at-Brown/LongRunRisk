@@ -65,7 +65,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20251223-HZWDF2@@Tests/CreateEulerEq.wlt:404,1-435,2"
+	TestID->"CreateEulerEq_20251223-HZWDF2@@Tests/ModelDefinition/CreateEulerEq_test10.wlt:38,1-69,2"
 ]
 
 $ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];

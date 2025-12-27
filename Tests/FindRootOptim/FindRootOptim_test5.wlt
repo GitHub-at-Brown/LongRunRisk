@@ -72,7 +72,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "extractIntervalsFromReduce-exported@@Tests/FindRootOptim/FindRootOptim.wlt:88,1-96,2"
+  TestID -> "extractIntervalsFromReduce-exported@@Tests/FindRootOptim/FindRootOptim_test5.wlt:68,1-76,2"
 ]
 
 (* buildKernel, bindUnary, findRootInterval, and fastRoot are tested in findRootCoeff0EdgeCases.wlt *)

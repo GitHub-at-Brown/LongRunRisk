@@ -46,7 +46,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "1D-automatic-x0@@Tests/FindRootOptim/fastRootOptions.wlt:331,3-339,4"
+    TestID -> "1D-automatic-x0@@Tests/FindRootOptim/fastRootOptions_test26.wlt:42,1-50,4"
   ]
 
 EndTestSection[]

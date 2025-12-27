@@ -21,7 +21,7 @@ VerificationTest[
     ]
   ],
   True,
-  TestID -> "createCompiledEq-accepts-buildKernel-options@@Tests/FindRootOptim/createCompiledEq.wlt:111,1-122,2"
+  TestID -> "createCompiledEq-accepts-buildKernel-options@@Tests/FindRootOptim/createCompiledEq_test11.wlt:14,1-25,2"
 ]
 
 EndTestSection[]

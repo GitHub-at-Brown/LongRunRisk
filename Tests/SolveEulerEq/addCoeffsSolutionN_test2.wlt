@@ -14,7 +14,7 @@ $timeLimit = 5;
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs],
   Symbol,
-  TestID -> "updateCoeffs-symbol-exists@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:20,1-24,2"
+  TestID -> "updateCoeffs-symbol-exists@@Tests/SolveEulerEq/addCoeffsSolutionN_test2.wlt:14,1-18,2"
 ]
 
 EndTestSection[]

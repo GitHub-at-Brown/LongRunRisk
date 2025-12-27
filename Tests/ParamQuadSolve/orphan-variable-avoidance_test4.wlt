@@ -53,7 +53,7 @@ VerificationTest[
     orphanedVars === {}
   ],
   True,
-  TestID -> "orphan-no-orphans-in-deferred@@Tests/ParamQuadSolve/orphan-variable-avoidance.wlt:105,1-152,2"
+  TestID -> "orphan-no-orphans-in-deferred@@Tests/ParamQuadSolve/orphan-variable-avoidance_test4.wlt:10,1-57,2"
 ]
 
 EndTestSection[]

@@ -90,6 +90,6 @@ VerificationTest[
 		"Build" -> <||>
 	|>],
 	True,
-	TestID -> "isNormalized-True-Build@@Tests/OptionsConfig.wlt:204,1-210,2"
+	TestID -> "isNormalized-True-Build@@Tests/Infrastructure/OptionsConfig_test23.wlt:88,1-94,2"
 ]
 

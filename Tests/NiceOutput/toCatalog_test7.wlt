@@ -33,7 +33,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-stateVars-list@@Tests/NiceOutput/toCatalog.wlt:92,1-109,2"
+  TestID -> "toCatalog-preserves-stateVars-list@@Tests/NiceOutput/toCatalog_test7.wlt:20,1-37,2"
 ]
 
 EndTestSection[]

@@ -26,7 +26,7 @@ $timeLimit = 5;
 VerificationTest[
   $numericValueQ[(1 - gamma)/(1 - psi^(-1))],
   True,
-  TestID -> "numericValueQ-symbolic-expression@@Tests/ValidateModels/validateModel.wlt:68,1-72,2"
+  TestID -> "numericValueQ-symbolic-expression@@Tests/ValidateModels/validateModel_test8.wlt:26,1-30,2"
 ]
 
 EndTestSection[]

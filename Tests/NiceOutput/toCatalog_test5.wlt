@@ -25,7 +25,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-filters-to-specified-keys@@Tests/NiceOutput/toCatalog.wlt:58,1-67,2"
+  TestID -> "toCatalog-filters-to-specified-keys@@Tests/NiceOutput/toCatalog_test5.wlt:20,1-29,2"
 ]
 
 EndTestSection[]

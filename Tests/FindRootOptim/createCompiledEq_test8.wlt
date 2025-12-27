@@ -18,7 +18,7 @@ VerificationTest[
     MemberQ[Keys[opts], "PerformanceGoal"]
   ],
   True,
-  TestID -> "buildKernel-has-PerformanceGoal-option@@Tests/FindRootOptim/createCompiledEq.wlt:76,1-84,2"
+  TestID -> "buildKernel-has-PerformanceGoal-option@@Tests/FindRootOptim/createCompiledEq_test8.wlt:14,1-22,2"
 ]
 
 EndTestSection[]

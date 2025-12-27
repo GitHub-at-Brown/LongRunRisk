@@ -17,7 +17,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ComputeConditionalExpectations_20251223-PVOW6F@@Tests/ComputeConditionalExpectations.wlt:33,1-46,2"
+	TestID->"ComputeConditionalExpectations_20251223-PVOW6F@@Tests/ComputationalEngine/ComputeConditionalExpectations_test2.wlt:8,1-21,2"
 ]
 
 $ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`"];

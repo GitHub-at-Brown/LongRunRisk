@@ -35,7 +35,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251223-6IK7G0@@Tests/TimeAggregation.wlt:289,1-320,2"
+	TestID->"TimeAggregation_20251223-6IK7G0@@Tests/ModelProcessing/TimeAggregation_test7.wlt:8,1-39,2"
 ]
 
 End[]

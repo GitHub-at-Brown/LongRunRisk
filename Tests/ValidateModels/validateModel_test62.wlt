@@ -401,7 +401,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-NRCStochVol-wrong-time-var@@Tests/ValidateModels/validateModel.wlt:1298,1-1307,2"
+  TestID -> "badCatalog-NRCStochVol-wrong-time-var@@Tests/ValidateModels/validateModel_test62.wlt:396,1-405,2"
 ]
 
 EndTestSection[]

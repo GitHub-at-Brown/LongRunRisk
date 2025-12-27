@@ -29,7 +29,7 @@ VerificationTest[
     StringQ[hash] && StringLength[hash] == 64
   ],
   True,
-  TestID -> "getMomentsHash-returns-64-char-hex-string@@Tests/ManageResources/buildModels.wlt:68,1-77,2"
+  TestID -> "getMomentsHash-returns-64-char-hex-string@@Tests/ManageResources/buildModels_test7.wlt:24,1-33,2"
 ]
 
 EndTestSection[]

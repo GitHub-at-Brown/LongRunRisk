@@ -32,7 +32,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "buildKernel-produces-CompiledCodeFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:71,1-91,2"
+  TestID -> "buildKernel-produces-CompiledCodeFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases_test4.wlt:16,1-36,2"
 ]
 
 EndTestSection[]

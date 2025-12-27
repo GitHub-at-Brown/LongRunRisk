@@ -24,7 +24,7 @@ $timeLimit = 5;
 VerificationTest[
   MemberQ[Keys[Options[$buildModels]], "CreateMoments"],
   True,
-  TestID -> "buildModels-has-CreateMoments-option@@Tests/ManageResources/buildModels.wlt:24,1-28,2"
+  TestID -> "buildModels-has-CreateMoments-option@@Tests/ManageResources/buildModels_test1.wlt:24,1-28,2"
 ]
 
 EndTestSection[]

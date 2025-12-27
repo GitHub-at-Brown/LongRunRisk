@@ -48,7 +48,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "valid-multi-stock-passes@@Tests/ValidateModels/validateModel.wlt:564,1-590,2"
+  TestID -> "valid-multi-stock-passes@@Tests/ValidateModels/validateModel_test38.wlt:26,1-52,2"
 ]
 
 EndTestSection[]

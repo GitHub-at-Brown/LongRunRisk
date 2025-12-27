@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BS-incomplete-stock@@Tests/ValidateModels/validateModel.wlt:1276,1-1284,2"
+  TestID -> "badCatalog-BS-incomplete-stock@@Tests/ValidateModels/validateModel_test60.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

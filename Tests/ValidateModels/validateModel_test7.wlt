@@ -26,7 +26,7 @@ $timeLimit = 5;
 VerificationTest[
   $numericValueQ[10],
   True,
-  TestID -> "numericValueQ-integer@@Tests/ValidateModels/validateModel.wlt:62,1-66,2"
+  TestID -> "numericValueQ-integer@@Tests/ValidateModels/validateModel_test7.wlt:26,1-30,2"
 ]
 
 EndTestSection[]

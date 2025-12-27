@@ -14,7 +14,7 @@ $timeLimit = 5;
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs::usage],
   True,
-  TestID -> "updateCoeffs-has-usage@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:36,1-40,2"
+  TestID -> "updateCoeffs-has-usage@@Tests/SolveEulerEq/addCoeffsSolutionN_test4.wlt:14,1-18,2"
 ]
 
 EndTestSection[]

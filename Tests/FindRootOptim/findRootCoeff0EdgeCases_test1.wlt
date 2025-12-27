@@ -25,7 +25,7 @@ VerificationTest[
   True,
   {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval},
   TimeConstraint -> timeLimit,
-  TestID -> "findRootInterval-contradiction-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:15,1-28,2"
+  TestID -> "findRootInterval-contradiction-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases_test1.wlt:16,1-29,2"
 ]
 
 EndTestSection[]

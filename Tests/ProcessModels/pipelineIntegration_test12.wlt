@@ -22,7 +22,7 @@ VerificationTest[
     KeyExistsQ[model, "parameters"] && KeyExistsQ[model, "stateVars"]
   ],
   True,
-  TestID -> "BKY-model-has-required-keys@@Tests/ProcessModels/pipelineIntegration.wlt:96,1-104,2"
+  TestID -> "BKY-model-has-required-keys@@Tests/ProcessModels/pipelineIntegration_test12.wlt:18,1-26,2"
 ]
 
 EndTestSection[]

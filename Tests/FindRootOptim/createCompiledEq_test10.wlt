@@ -17,7 +17,7 @@ VerificationTest[
     OptionValue[bk, "CompileMode"]
   ],
   "FunctionOnly",
-  TestID -> "buildKernel-CompileMode-default-is-FunctionOnly@@Tests/FindRootOptim/createCompiledEq.wlt:96,1-103,2"
+  TestID -> "buildKernel-CompileMode-default-is-FunctionOnly@@Tests/FindRootOptim/createCompiledEq_test10.wlt:14,1-21,2"
 ]
 
 EndTestSection[]

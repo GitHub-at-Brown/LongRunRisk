@@ -11,7 +11,7 @@ VerificationTest[
       f[E^(a*E^b)],
       Exp[a*Exp[b]],
       TimeConstraint -> timeLimit,
-      TestID -> "E-power-in-exponent-expression@@Tests/FindRootOptim/normalizeExpNested.wlt:82,5-87,6"
+      TestID -> "E-power-in-exponent-expression@@Tests/FindRootOptim/normalizeExpNested_test13.wlt:10,1-15,6"
     ]
 
 EndTestSection[]

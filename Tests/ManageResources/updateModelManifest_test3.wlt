@@ -23,7 +23,7 @@ $timeLimit = 5;
 VerificationTest[
   $getHash[<|"z" -> {<|"b" -> 1|>, <|"a" -> 2|>}|>] === $getHash[<|"z" -> {<|"b" -> 1|>, <|"a" -> 2|>}|>],
   True,
-  TestID -> "hash-list-of-associations@@Tests/ManageResources/updateModelManifest.wlt:35,1-39,2"
+  TestID -> "hash-list-of-associations@@Tests/ManageResources/updateModelManifest_test3.wlt:23,1-27,2"
 ]
 
 EndTestSection[]

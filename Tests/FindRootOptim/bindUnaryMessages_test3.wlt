@@ -33,7 +33,7 @@ VerificationTest[
     True,
     {},
     TimeConstraint -> timeLimit,
-    TestID -> "valid-signs-succeeds@@Tests/FindRootOptim/bindUnaryMessages.wlt:48,3-57,4"
+    TestID -> "valid-signs-succeeds@@Tests/FindRootOptim/bindUnaryMessages_test3.wlt:28,1-37,4"
   ]
 
 EndTestSection[]

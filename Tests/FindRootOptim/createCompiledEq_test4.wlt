@@ -14,7 +14,7 @@ $timeLimit = 5;
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel::usage],
   True,
-  TestID -> "buildKernel-has-usage@@Tests/FindRootOptim/createCompiledEq.wlt:36,1-40,2"
+  TestID -> "buildKernel-has-usage@@Tests/FindRootOptim/createCompiledEq_test4.wlt:14,1-18,2"
 ]
 
 EndTestSection[]

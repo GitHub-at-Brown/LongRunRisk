@@ -18,7 +18,7 @@ VerificationTest[
    Sort[sol] === Sort[{x -> 1/2, y -> 2}] &&
    FreeQ[steps1, {"quadratic", _}] &&
    FreeQ[steps1, {"quartic", _}]
- ], True, TestID -> "bilinear-linear-behaviour@@Tests/ParamQuadSolve/bilinear-handling.wlt:9,1-21,2"
+ ], True, TestID -> "bilinear-linear-behaviour@@Tests/ParamQuadSolve/bilinear-handling_test1.wlt:10,1-22,2"
 ]
 
 EndTestSection[]

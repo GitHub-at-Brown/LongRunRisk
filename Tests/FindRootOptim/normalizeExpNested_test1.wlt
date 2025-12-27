@@ -11,7 +11,7 @@ VerificationTest[
       f[E^a * E^b],
       Exp[a] * Exp[b],
       TimeConstraint -> timeLimit,
-      TestID -> "multiple-E-powers-in-product@@Tests/FindRootOptim/normalizeExpNested.wlt:10,5-15,6"
+      TestID -> "multiple-E-powers-in-product@@Tests/FindRootOptim/normalizeExpNested_test1.wlt:10,1-15,6"
     ]
 
 EndTestSection[]

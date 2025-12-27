@@ -18,7 +18,7 @@ $timeLimit = 10;
 VerificationTest[
   AllTrue[Keys[FernandoDuarte`LongRunRisk`Model`Catalog`models], StringQ],
   True,
-  TestID -> "catalog-keys-are-strings@@Tests/ProcessModels/pipelineIntegration.wlt:80,1-84,2"
+  TestID -> "catalog-keys-are-strings@@Tests/ProcessModels/pipelineIntegration_test10.wlt:18,1-22,2"
 ]
 
 EndTestSection[]

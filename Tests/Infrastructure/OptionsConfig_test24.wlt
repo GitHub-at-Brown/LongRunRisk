@@ -90,6 +90,6 @@ VerificationTest[
 		"RandomKey" -> <||>
 	|>],
 	False,
-	TestID -> "isNormalized-False-RandomKey@@Tests/OptionsConfig.wlt:212,1-218,2"
+	TestID -> "isNormalized-False-RandomKey@@Tests/Infrastructure/OptionsConfig_test24.wlt:88,1-94,2"
 ]
 

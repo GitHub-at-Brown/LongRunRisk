@@ -11,7 +11,7 @@ VerificationTest[
   {},
   {extractIntervalsFromReduce::nointervals},
   TimeConstraint -> timeLimit,
-  TestID -> "extractIntervalsFromReduce-false-nd@@Tests/FindRootOptim/extractIntervalsFromReduce_nd.wlt:16,1-22,2"
+  TestID -> "extractIntervalsFromReduce-false-nd@@Tests/FindRootOptim/extractIntervalsFromReduce_nd_test2.wlt:9,1-15,2"
 ]
 
 EndTestSection[]

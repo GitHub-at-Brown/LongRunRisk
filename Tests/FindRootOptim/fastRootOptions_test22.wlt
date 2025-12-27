@@ -46,7 +46,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "quiet-computation-succeeds@@Tests/FindRootOptim/fastRootOptions.wlt:287,3-295,4"
+    TestID -> "quiet-computation-succeeds@@Tests/FindRootOptim/fastRootOptions_test22.wlt:42,1-50,4"
   ]
 
 EndTestSection[]

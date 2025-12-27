@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BYlowPers-bibRef-symbol@@Tests/ValidateModels/validateModel.wlt:1133,1-1141,2"
+  TestID -> "badCatalog-BYlowPers-bibRef-symbol@@Tests/ValidateModels/validateModel_test47.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

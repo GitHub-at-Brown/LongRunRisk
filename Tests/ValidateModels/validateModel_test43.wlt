@@ -41,7 +41,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "assumption-rhox-out-of-range-fails@@Tests/ValidateModels/validateModel.wlt:681,1-700,2"
+  TestID -> "assumption-rhox-out-of-range-fails@@Tests/ValidateModels/validateModel_test43.wlt:26,1-45,2"
 ]
 
 EndTestSection[]

@@ -34,7 +34,7 @@ VerificationTest[
     $getHash[catalog1] === $getHash[catalog2]
   ],
   True,
-  TestID -> "hash-complex-permutation-invariant@@Tests/ManageResources/updateModelManifest.wlt:138,1-153,2"
+  TestID -> "hash-complex-permutation-invariant@@Tests/ManageResources/updateModelManifest_test9.wlt:23,1-38,2"
 ]
 
 EndTestSection[]

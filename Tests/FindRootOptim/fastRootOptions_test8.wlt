@@ -47,7 +47,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "no-jacobian-bracketed-trig@@Tests/FindRootOptim/fastRootOptions.wlt:124,3-133,4"
+    TestID -> "no-jacobian-bracketed-trig@@Tests/FindRootOptim/fastRootOptions_test8.wlt:42,1-51,4"
   ]
 
 EndTestSection[]

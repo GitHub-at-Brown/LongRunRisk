@@ -25,7 +25,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-preserves-enabled-boolean@@Tests/NiceOutput/toCatalog.wlt:115,1-124,2"
+  TestID -> "toCatalog-preserves-enabled-boolean@@Tests/NiceOutput/toCatalog_test8.wlt:20,1-29,2"
 ]
 
 EndTestSection[]

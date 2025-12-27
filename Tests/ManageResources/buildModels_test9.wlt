@@ -31,7 +31,7 @@ VerificationTest[
     hash1 =!= hash2
   ],
   True,
-  TestID -> "getMomentsHash-differs-for-different-catalog@@Tests/ManageResources/buildModels.wlt:91,1-102,2"
+  TestID -> "getMomentsHash-differs-for-different-catalog@@Tests/ManageResources/buildModels_test9.wlt:24,1-35,2"
 ]
 
 EndTestSection[]

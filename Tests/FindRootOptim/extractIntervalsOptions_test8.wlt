@@ -12,7 +12,7 @@ VerificationTest[
     {{0.2, 0.8}, {5.2, 19.8}},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "mixed-bounded-unbounded-custom-options@@Tests/FindRootOptim/extractIntervalsOptions.wlt:60,3-66,4"
+    TestID -> "mixed-bounded-unbounded-custom-options@@Tests/FindRootOptim/extractIntervalsOptions_test8.wlt:10,1-16,4"
   ]
 
 EndTestSection[]

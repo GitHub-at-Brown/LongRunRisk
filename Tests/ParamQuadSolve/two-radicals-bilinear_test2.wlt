@@ -19,6 +19,6 @@ radVals$ = Values[res$["SignRootMap"]];
 radSq$ = Simplify[radVals$^2];
 rulesFor[v1_, v2_] := Thread[signKeys$ -> {v1, v2}];
 
-VerificationTest[Length[signKeys$] === 2, True, TestID -> "two-sign-variables@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:23,1-23,140"]
+VerificationTest[Length[signKeys$] === 2, True, TestID -> "two-sign-variables@@Tests/ParamQuadSolve/two-radicals-bilinear_test2.wlt:22,1-22,140"]
 
 EndTestSection[]

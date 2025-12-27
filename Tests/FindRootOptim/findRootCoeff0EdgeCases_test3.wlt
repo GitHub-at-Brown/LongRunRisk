@@ -30,7 +30,7 @@ VerificationTest[
   True,
   {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
   TimeConstraint -> timeLimit,
-  TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:50,1-68,2"
+  TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases_test3.wlt:16,1-34,2"
 ]
 
 EndTestSection[]

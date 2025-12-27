@@ -38,7 +38,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "wrong-type-name-integer@@Tests/ValidateModels/validateModel.wlt:167,1-183,2"
+  TestID -> "wrong-type-name-integer@@Tests/ValidateModels/validateModel_test18.wlt:26,1-42,2"
 ]
 
 EndTestSection[]

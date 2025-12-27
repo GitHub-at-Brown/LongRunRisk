@@ -18,7 +18,7 @@ $timeLimit = 10;
 VerificationTest[
   AllTrue[Values[FernandoDuarte`LongRunRisk`Model`Catalog`models], AssociationQ],
   True,
-  TestID -> "catalog-values-are-associations@@Tests/ProcessModels/pipelineIntegration.wlt:86,1-90,2"
+  TestID -> "catalog-values-are-associations@@Tests/ProcessModels/pipelineIntegration_test11.wlt:18,1-22,2"
 ]
 
 EndTestSection[]

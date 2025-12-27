@@ -21,7 +21,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"PacletizeResources_20251223-96HVAR@@Tests/PacletizeResources.wlt:13,1-32,2"
+	TestID->"PacletizeResources_20251223-96HVAR@@Tests/Core/PacletizeResources_test1.wlt:6,1-25,2"
 ]
 
 End[]

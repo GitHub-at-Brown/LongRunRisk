@@ -38,7 +38,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "non-numeric-param-value-fails@@Tests/ValidateModels/validateModel.wlt:324,1-340,2"
+  TestID -> "non-numeric-param-value-fails@@Tests/ValidateModels/validateModel_test26.wlt:26,1-42,2"
 ]
 
 EndTestSection[]

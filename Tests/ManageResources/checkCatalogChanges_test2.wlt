@@ -66,7 +66,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "checkCatalogChanges-detects-changed-new-removed@@Tests/ManageResources/checkCatalogChanges.wlt:65,1-121,2"
+  TestID -> "checkCatalogChanges-detects-changed-new-removed@@Tests/ManageResources/checkCatalogChanges_test2.wlt:14,1-70,2"
 ]
 
 EndTestSection[]

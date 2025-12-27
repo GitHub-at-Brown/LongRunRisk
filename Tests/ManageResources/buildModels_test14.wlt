@@ -33,7 +33,7 @@ VerificationTest[
     result
   ],
   False,
-  TestID -> "momentsUpToDate-false-when-hash-differs@@Tests/ManageResources/buildModels.wlt:157,1-170,2"
+  TestID -> "momentsUpToDate-false-when-hash-differs@@Tests/ManageResources/buildModels_test14.wlt:24,1-37,2"
 ]
 
 EndTestSection[]

@@ -47,7 +47,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "method-brent-bracketed@@Tests/FindRootOptim/fastRootOptions.wlt:67,3-76,4"
+    TestID -> "method-brent-bracketed@@Tests/FindRootOptim/fastRootOptions_test3.wlt:42,1-51,4"
   ]
 
 EndTestSection[]

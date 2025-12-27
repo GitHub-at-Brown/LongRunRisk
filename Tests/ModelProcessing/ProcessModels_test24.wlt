@@ -59,7 +59,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20251223-35DRFS@@Tests/ProcessModels.wlt:1239,1-1287,2"
+	TestID->"ProcessModels_20251223-35DRFS@@Tests/ModelProcessing/ProcessModels_test24.wlt:15,1-63,2"
 ]
 
 End[]

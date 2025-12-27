@@ -30,7 +30,7 @@ VerificationTest[
     hash1 === hash2
   ],
   True,
-  TestID -> "getMomentsHash-is-deterministic@@Tests/ManageResources/buildModels.wlt:79,1-89,2"
+  TestID -> "getMomentsHash-is-deterministic@@Tests/ManageResources/buildModels_test8.wlt:24,1-34,2"
 ]
 
 EndTestSection[]

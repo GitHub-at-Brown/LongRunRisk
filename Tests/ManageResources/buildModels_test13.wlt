@@ -33,7 +33,7 @@ VerificationTest[
     result
   ],
   True,
-  TestID -> "momentsUpToDate-true-when-hash-matches@@Tests/ManageResources/buildModels.wlt:142,1-155,2"
+  TestID -> "momentsUpToDate-true-when-hash-matches@@Tests/ManageResources/buildModels_test13.wlt:24,1-37,2"
 ]
 
 EndTestSection[]

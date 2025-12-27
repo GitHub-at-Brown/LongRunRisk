@@ -15,7 +15,7 @@ VerificationTest[
     {},
     SameTest -> MatchQ,
     TimeConstraint -> timeLimit,
-    TestID -> "no-messages-on-valid-input@@Tests/FindRootOptim/findRootIntervalMessages.wlt:80,3-89,4"
+    TestID -> "no-messages-on-valid-input@@Tests/FindRootOptim/findRootIntervalMessages_test8.wlt:10,1-19,4"
   ]
 
 EndTestSection[]

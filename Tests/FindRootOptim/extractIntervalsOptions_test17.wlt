@@ -12,7 +12,7 @@ VerificationTest[
     {{0.4, 0.6}, {2.4, 2.6}},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "mixed-inequality-types-custom-shrink@@Tests/FindRootOptim/extractIntervalsOptions.wlt:123,3-129,4"
+    TestID -> "mixed-inequality-types-custom-shrink@@Tests/FindRootOptim/extractIntervalsOptions_test17.wlt:10,1-16,4"
   ]
 
 EndTestSection[]

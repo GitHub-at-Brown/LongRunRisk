@@ -44,7 +44,7 @@ VerificationTest[
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badspec},
     TimeConstraint -> timeLimit,
-    TestID -> "error-badspec-string@@Tests/FindRootOptim/fastRootOptions.wlt:540,3-546,4"
+    TestID -> "error-badspec-string@@Tests/FindRootOptim/fastRootOptions_test44.wlt:42,1-48,4"
   ]
 
 EndTestSection[]

@@ -11,7 +11,7 @@ VerificationTest[
       f[Sin[E^a] + Cos[E^b]],
       Sin[Exp[a]] + Cos[Exp[b]],
       TimeConstraint -> timeLimit,
-      TestID -> "E-powers-inside-trigonometric-functions@@Tests/FindRootOptim/normalizeExpNested.wlt:34,5-39,6"
+      TestID -> "E-powers-inside-trigonometric-functions@@Tests/FindRootOptim/normalizeExpNested_test5.wlt:10,1-15,6"
     ]
 
 EndTestSection[]

@@ -99,6 +99,6 @@ VerificationTest[
 	numericalOpts = {FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Numerical"]};
 	MemberQ[numericalOpts, "MaxMaturity" -> 12],
 	True,
-	TestID -> "splitConfig-Numerical-MaxMaturity-12@@Tests/OptionsConfig.wlt:254,1-260,2"
+	TestID -> "splitConfig-Numerical-MaxMaturity-12@@Tests/Infrastructure/OptionsConfig_test29.wlt:97,1-103,2"
 ]
 

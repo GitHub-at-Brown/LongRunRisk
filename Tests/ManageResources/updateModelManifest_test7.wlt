@@ -40,7 +40,7 @@ VerificationTest[
   True,
   {FernandoDuarte`LongRunRisk`Tools`ManageResources`updateModelManifest::nocat},
   TimeConstraint -> $timeLimit,
-  TestID -> "rejects-non-association-catalog@@Tests/ManageResources/updateModelManifest.wlt:71,1-92,2"
+  TestID -> "rejects-non-association-catalog@@Tests/ManageResources/updateModelManifest_test7.wlt:23,1-44,2"
 ]
 
 EndTestSection[]

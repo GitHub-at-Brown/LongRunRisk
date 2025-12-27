@@ -69,7 +69,7 @@ VerificationTest[
   1.77 < solNA0[[1,2]] < 1.78,
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "A0-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim.wlt:72,1-77,2"
+  TestID -> "A0-coefficient-in-range@@Tests/FindRootOptim/FindRootOptim_test3.wlt:68,1-73,2"
 ]
 
 (* buildKernel, bindUnary, findRootInterval, and fastRoot are tested in findRootCoeff0EdgeCases.wlt *)

@@ -26,7 +26,7 @@ $timeLimit = 5;
 VerificationTest[
   $containsTimeDep[-mup + pi[t]],
   True,
-  TestID -> "containsTimeDep-expression-with-t@@Tests/ValidateModels/validateModel.wlt:38,1-42,2"
+  TestID -> "containsTimeDep-expression-with-t@@Tests/ValidateModels/validateModel_test3.wlt:26,1-30,2"
 ]
 
 EndTestSection[]

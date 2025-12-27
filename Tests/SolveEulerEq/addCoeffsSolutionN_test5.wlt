@@ -19,7 +19,7 @@ VerificationTest[
     ListQ[opts]
   ],
   True,
-  TestID -> "updateCoeffs-options-is-list@@Tests/SolveEulerEq/addCoeffsSolutionN.wlt:46,1-55,2"
+  TestID -> "updateCoeffs-options-is-list@@Tests/SolveEulerEq/addCoeffsSolutionN_test5.wlt:14,1-23,2"
 ]
 
 EndTestSection[]

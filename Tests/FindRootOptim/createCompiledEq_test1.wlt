@@ -14,7 +14,7 @@ $timeLimit = 5;
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq],
   Symbol,
-  TestID -> "createCompiledEq-symbol-exists@@Tests/FindRootOptim/createCompiledEq.wlt:14,1-18,2"
+  TestID -> "createCompiledEq-symbol-exists@@Tests/FindRootOptim/createCompiledEq_test1.wlt:14,1-18,2"
 ]
 
 EndTestSection[]

@@ -18,7 +18,7 @@ $timeLimit = 10;
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels::usage],
   True,
-  TestID -> "buildModels-has-usage@@Tests/ProcessModels/pipelineIntegration.wlt:58,1-62,2"
+  TestID -> "buildModels-has-usage@@Tests/ProcessModels/pipelineIntegration_test7.wlt:18,1-22,2"
 ]
 
 EndTestSection[]

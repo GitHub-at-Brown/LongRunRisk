@@ -11,6 +11,6 @@ r$ = pqs[eq$, vars$, "DomainOption" -> Reals, "ValidationOption" -> False];
 steps$ = r$["Diagnostics"]["Steps"];
 lastVar$ = vars$[[-1]];
 
-VerificationTest[MemberQ[steps$, {"quadraticGB", lastVar$}], True, TestID -> "gb-fallback-used@@Tests/ParamQuadSolve/gb-fallback.wlt:14,1-14,147"]
+VerificationTest[MemberQ[steps$, {"quadraticGB", lastVar$}], True, TestID -> "gb-fallback-used@@Tests/ParamQuadSolve/gb-fallback_test1.wlt:14,1-14,147"]
 
 EndTestSection[]

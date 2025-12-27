@@ -24,7 +24,7 @@ $timeLimit = 5;
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels::noroot],
   True,
-  TestID -> "buildModels-has-noroot-message@@Tests/ManageResources/buildModels.wlt:52,1-56,2"
+  TestID -> "buildModels-has-noroot-message@@Tests/ManageResources/buildModels_test5.wlt:24,1-28,2"
 ]
 
 EndTestSection[]

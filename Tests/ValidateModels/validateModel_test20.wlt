@@ -38,7 +38,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stateVars-missing-t-dependency@@Tests/ValidateModels/validateModel.wlt:207,1-223,2"
+  TestID -> "stateVars-missing-t-dependency@@Tests/ValidateModels/validateModel_test20.wlt:26,1-42,2"
 ]
 
 EndTestSection[]

@@ -23,7 +23,7 @@ $timeLimit = 5;
 VerificationTest[
   $getHash[<|"b" -> 1, "a" -> 2|>] === $getHash[<|"a" -> 2, "b" -> 1|>],
   True,
-  TestID -> "hash-key-order-invariant@@Tests/ManageResources/updateModelManifest.wlt:23,1-27,2"
+  TestID -> "hash-key-order-invariant@@Tests/ManageResources/updateModelManifest_test1.wlt:23,1-27,2"
 ]
 
 EndTestSection[]

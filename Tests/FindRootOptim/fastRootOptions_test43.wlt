@@ -44,7 +44,7 @@ VerificationTest[
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::noautox0},
     TimeConstraint -> timeLimit,
-    TestID -> "error-noautox0-scalar@@Tests/FindRootOptim/fastRootOptions.wlt:531,3-537,4"
+    TestID -> "error-noautox0-scalar@@Tests/FindRootOptim/fastRootOptions_test43.wlt:42,1-48,4"
   ]
 
 EndTestSection[]

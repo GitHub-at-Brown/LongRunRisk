@@ -29,7 +29,7 @@ VerificationTest[
     MemberQ[res["DeferredVariables"], w]
   ],
   True,
-  TestID -> "orphan-simple-avoidance@@Tests/ParamQuadSolve/orphan-variable-avoidance.wlt:9,1-32,2"
+  TestID -> "orphan-simple-avoidance@@Tests/ParamQuadSolve/orphan-variable-avoidance_test1.wlt:10,1-33,2"
 ]
 
 EndTestSection[]

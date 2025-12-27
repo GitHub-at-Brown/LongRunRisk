@@ -123,6 +123,6 @@ VerificationTest[
 	report = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`generateMigrationReport[];
 	StringContainsQ[report, "FromScratch"],
 	True,
-	TestID -> "generateMigrationReport-Has-Entry@@Tests/OptionsConfig.wlt:326,1-335,2"
+	TestID -> "generateMigrationReport-Has-Entry@@Tests/Infrastructure/OptionsConfig_test38.wlt:118,1-127,2"
 ]
 

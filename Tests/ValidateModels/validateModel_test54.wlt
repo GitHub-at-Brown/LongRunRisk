@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-NRCLLR-index-gap@@Tests/ValidateModels/validateModel.wlt:1210,1-1218,2"
+  TestID -> "badCatalog-NRCLLR-index-gap@@Tests/ValidateModels/validateModel_test54.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

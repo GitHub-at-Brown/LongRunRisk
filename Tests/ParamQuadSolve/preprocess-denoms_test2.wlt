@@ -16,6 +16,6 @@ hasExpDen$ = Simplify[condExpr$ /. Exp[A[0]] -> -1] === False;
 coeffKeysOK$ = AssociationQ[r$["Maps"]["CoeffMap"]] && Length[r$["Maps"]["CoeffMap"]] >= 1;
 noDummyInSol$ = FreeQ[r$["Solution"], _Symbol?(StringMatchQ[SymbolName[#], "c$*"] & )];
 
-VerificationTest[hasExpDen$, True, TestID -> "exp-denom-cond@@Tests/ParamQuadSolve/preprocess-denoms.wlt:20,1-20,119"]
+VerificationTest[hasExpDen$, True, TestID -> "exp-denom-cond@@Tests/ParamQuadSolve/preprocess-denoms_test2.wlt:19,1-19,119"]
 
 EndTestSection[]

@@ -46,7 +46,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "nD-bounds-new-format@@Tests/FindRootOptim/fastRootOptions.wlt:399,3-407,4"
+    TestID -> "nD-bounds-new-format@@Tests/FindRootOptim/fastRootOptions_test32.wlt:42,1-50,4"
   ]
 
 EndTestSection[]

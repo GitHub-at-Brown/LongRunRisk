@@ -33,7 +33,7 @@ VerificationTest[
     $validateCatalog[catalog]["Valid"]
   ],
   True,
-  TestID -> "valid-catalog-passes@@Tests/ValidateModels/validateModel.wlt:706,1-717,2"
+  TestID -> "valid-catalog-passes@@Tests/ValidateModels/validateModel_test44.wlt:26,1-37,2"
 ]
 
 EndTestSection[]

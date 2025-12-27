@@ -117,6 +117,6 @@ VerificationTest[
 	report = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`generateMigrationReport[];
 	report,
 	"No deprecated options used.",
-	TestID -> "generateMigrationReport-Empty@@Tests/OptionsConfig.wlt:317,1-324,2"
+	TestID -> "generateMigrationReport-Empty@@Tests/Infrastructure/OptionsConfig_test37.wlt:114,1-121,2"
 ]
 

@@ -125,6 +125,6 @@ VerificationTest[
 	config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`normalizeConfig[{}];
 	config["Build"]["FromScratch"],
 	False,
-	TestID -> "normalizeConfig-Empty-Returns-Defaults@@Tests/OptionsConfig.wlt:339,1-344,2"
+	TestID -> "normalizeConfig-Empty-Returns-Defaults@@Tests/Infrastructure/OptionsConfig_test39.wlt:124,1-129,2"
 ]
 

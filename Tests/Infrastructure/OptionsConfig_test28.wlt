@@ -96,6 +96,6 @@ VerificationTest[
 	buildOpts = {FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Build"]};
 	MemberQ[buildOpts, "MaxMaturity" -> 120],
 	True,
-	TestID -> "splitConfig-Build-MaxMaturity-120@@Tests/OptionsConfig.wlt:246,1-252,2"
+	TestID -> "splitConfig-Build-MaxMaturity-120@@Tests/Infrastructure/OptionsConfig_test28.wlt:94,1-100,2"
 ]
 

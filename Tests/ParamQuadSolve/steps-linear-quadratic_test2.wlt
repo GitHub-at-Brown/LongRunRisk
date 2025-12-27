@@ -10,6 +10,6 @@ vars$ = {x, y};
 r$ = pqs[eq$, vars$, "DomainOption" -> Reals, "ValidationOption" -> False];
 steps$ = r$["Diagnostics"]["Steps"];
 
-VerificationTest[MemberQ[steps$, {"linear", y}] || MemberQ[steps$, {"linear2", y}], True, TestID -> "has-linear-y@@Tests/ParamQuadSolve/steps-linear-quadratic.wlt:14,1-14,177"]
+VerificationTest[MemberQ[steps$, {"linear", y}] || MemberQ[steps$, {"linear2", y}], True, TestID -> "has-linear-y@@Tests/ParamQuadSolve/steps-linear-quadratic_test2.wlt:13,1-13,177"]
 
 EndTestSection[]

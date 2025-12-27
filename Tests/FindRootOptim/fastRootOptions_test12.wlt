@@ -48,7 +48,7 @@ VerificationTest[
     True,
     {},
     TimeConstraint -> timeLimit,
-    TestID -> "failure-nonnumeric-function-value@@Tests/FindRootOptim/fastRootOptions.wlt:170,3-180,4"
+    TestID -> "failure-nonnumeric-function-value@@Tests/FindRootOptim/fastRootOptions_test12.wlt:42,1-52,4"
   ]
 
 EndTestSection[]

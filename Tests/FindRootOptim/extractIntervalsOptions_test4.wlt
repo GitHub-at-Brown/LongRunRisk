@@ -12,7 +12,7 @@ VerificationTest[
     {{4.9, 5.1}},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "shrink-nearly-half-upperbound-collapses@@Tests/FindRootOptim/extractIntervalsOptions.wlt:32,3-38,4"
+    TestID -> "shrink-nearly-half-upperbound-collapses@@Tests/FindRootOptim/extractIntervalsOptions_test4.wlt:10,1-16,4"
   ]
 
 EndTestSection[]

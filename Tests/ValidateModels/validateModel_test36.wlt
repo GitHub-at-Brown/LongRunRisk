@@ -42,7 +42,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "non-positive-index-fails@@Tests/ValidateModels/validateModel.wlt:515,1-535,2"
+  TestID -> "non-positive-index-fails@@Tests/ValidateModels/validateModel_test36.wlt:26,1-46,2"
 ]
 
 EndTestSection[]

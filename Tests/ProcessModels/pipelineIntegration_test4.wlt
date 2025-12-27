@@ -18,7 +18,7 @@ $timeLimit = 10;
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels],
   Symbol,
-  TestID -> "processModels-symbol-exists@@Tests/ProcessModels/pipelineIntegration.wlt:40,1-44,2"
+  TestID -> "processModels-symbol-exists@@Tests/ProcessModels/pipelineIntegration_test4.wlt:18,1-22,2"
 ]
 
 EndTestSection[]

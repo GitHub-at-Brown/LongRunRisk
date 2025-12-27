@@ -36,7 +36,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "toCatalog-filters-out-extra-fields@@Tests/NiceOutput/toCatalog.wlt:137,1-157,2"
+  TestID -> "toCatalog-filters-out-extra-fields@@Tests/NiceOutput/toCatalog_test10.wlt:20,1-40,2"
 ]
 
 EndTestSection[]

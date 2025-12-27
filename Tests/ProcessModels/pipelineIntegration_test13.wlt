@@ -21,7 +21,7 @@ VerificationTest[
     KeyExistsQ[model, "enabled"] && BooleanQ[model["enabled"]]
   ],
   True,
-  TestID -> "BY-model-has-enabled-boolean@@Tests/ProcessModels/pipelineIntegration.wlt:106,1-113,2"
+  TestID -> "BY-model-has-enabled-boolean@@Tests/ProcessModels/pipelineIntegration_test13.wlt:18,1-25,2"
 ]
 
 EndTestSection[]

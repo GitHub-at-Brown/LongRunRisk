@@ -19,6 +19,6 @@ radVals$ = Values[res$["SignRootMap"]];
 radSq$ = Simplify[radVals$^2];
 rulesFor[v1_, v2_] := Thread[signKeys$ -> {v1, v2}];
 
-VerificationTest[AssociationQ[res$], True, TestID -> "returns-association@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:22,1-22,136"]
+VerificationTest[AssociationQ[res$], True, TestID -> "returns-association@@Tests/ParamQuadSolve/two-radicals-bilinear_test1.wlt:22,1-22,136"]
 
 EndTestSection[]

@@ -42,7 +42,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "incomplete-stock-params-fails@@Tests/ValidateModels/validateModel.wlt:364,1-384,2"
+  TestID -> "incomplete-stock-params-fails@@Tests/ValidateModels/validateModel_test28.wlt:26,1-46,2"
 ]
 
 EndTestSection[]

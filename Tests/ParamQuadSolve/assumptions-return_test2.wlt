@@ -20,7 +20,7 @@ VerificationTest[
     StringContainsQ[ToString[ass, InputForm], "psi"]
   ],
   True,
-  TestID -> "assumptions-include-defaults-automatic@@Tests/ParamQuadSolve/assumptions-return.wlt:22,1-35,2"
+  TestID -> "assumptions-include-defaults-automatic@@Tests/ParamQuadSolve/assumptions-return_test2.wlt:11,1-24,2"
 ]
 
 EndTestSection[]

@@ -26,7 +26,7 @@ $timeLimit = 5;
 VerificationTest[
   $containsTimeDep[42],
   False,
-  TestID -> "containsTimeDep-number@@Tests/ValidateModels/validateModel.wlt:50,1-54,2"
+  TestID -> "containsTimeDep-number@@Tests/ValidateModels/validateModel_test5.wlt:26,1-30,2"
 ]
 
 EndTestSection[]

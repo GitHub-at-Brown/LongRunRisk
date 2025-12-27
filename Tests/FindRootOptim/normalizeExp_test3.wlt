@@ -11,7 +11,7 @@ VerificationTest[
       f[Sin[x]],
       Sin[x],
       TimeConstraint -> timeLimit,
-      TestID -> "leaves-non-E-expressions-unchanged@@Tests/FindRootOptim/normalizeExp.wlt:22,5-27,6"
+      TestID -> "leaves-non-E-expressions-unchanged@@Tests/FindRootOptim/normalizeExp_test3.wlt:10,1-15,6"
     ]
 
 EndTestSection[]

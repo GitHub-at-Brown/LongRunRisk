@@ -29,7 +29,7 @@ VerificationTest[
     result["Valid"] && result["ErrorCount"] === 0
   ],
   True,
-  TestID -> "valid-model-passes-BKY@@Tests/ValidateModels/validateModel.wlt:108,1-115,2"
+  TestID -> "valid-model-passes-BKY@@Tests/ValidateModels/validateModel_test14.wlt:26,1-33,2"
 ]
 
 EndTestSection[]

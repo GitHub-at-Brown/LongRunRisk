@@ -12,7 +12,7 @@ VerificationTest[
     {{0.8, 1.7}, {10.3, 11.7}},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "second-interval-clipped-by-upperbound@@Tests/FindRootOptim/extractIntervalsOptions.wlt:109,3-115,4"
+    TestID -> "second-interval-clipped-by-upperbound@@Tests/FindRootOptim/extractIntervalsOptions_test15.wlt:10,1-16,4"
   ]
 
 EndTestSection[]

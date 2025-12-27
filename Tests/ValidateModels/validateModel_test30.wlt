@@ -27,7 +27,7 @@ VerificationTest[
   (* Test stripParamIndex helper *)
   $stripParamIndex[delta] === "delta",
   True,
-  TestID -> "stripParamIndex-symbol@@Tests/ValidateModels/validateModel.wlt:412,1-417,2"
+  TestID -> "stripParamIndex-symbol@@Tests/ValidateModels/validateModel_test30.wlt:26,1-31,2"
 ]
 
 EndTestSection[]

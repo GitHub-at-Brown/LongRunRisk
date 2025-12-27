@@ -17,7 +17,7 @@ VerificationTest[
     diagnostics["DeferredVariables"] === {}
   ],
   True,
-  TestID -> "onlyquad-all-covered@@Tests/ParamQuadSolve/only-quad-terms.wlt:15,1-28,2"
+  TestID -> "onlyquad-all-covered@@Tests/ParamQuadSolve/only-quad-terms_test2.wlt:8,1-21,2"
 ]
 
 EndTestSection[]

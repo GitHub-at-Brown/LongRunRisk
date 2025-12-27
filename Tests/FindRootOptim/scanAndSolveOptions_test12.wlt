@@ -30,7 +30,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "accuracy-goal-affects-automatic-tolerance@@Tests/FindRootOptim/scanAndSolveOptions.wlt:192,3-207,4"
+    TestID -> "accuracy-goal-affects-automatic-tolerance@@Tests/FindRootOptim/scanAndSolveOptions_test12.wlt:19,1-34,4"
   ]
 
 EndTestSection[]

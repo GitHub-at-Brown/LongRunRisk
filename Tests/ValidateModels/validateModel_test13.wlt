@@ -26,7 +26,7 @@ $timeLimit = 5;
 VerificationTest[
   $validateModel[$realModels["BY"]]["Valid"],
   True,
-  TestID -> "valid-model-passes-BY@@Tests/ValidateModels/validateModel.wlt:102,1-106,2"
+  TestID -> "valid-model-passes-BY@@Tests/ValidateModels/validateModel_test13.wlt:26,1-30,2"
 ]
 
 EndTestSection[]

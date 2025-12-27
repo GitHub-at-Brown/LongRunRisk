@@ -70,7 +70,7 @@ VerificationTest[
   {{0.001, 14.999}},
   SameTest -> tolSameTest,
   TimeConstraint -> timeLimit,
-  TestID -> "extractIntervalsFromReduce-simple-inequality@@Tests/FindRootOptim/FindRootOptim.wlt:99,1-105,2"
+  TestID -> "extractIntervalsFromReduce-simple-inequality@@Tests/FindRootOptim/FindRootOptim_test6.wlt:68,1-74,2"
 ]
 
 (* buildKernel, bindUnary, findRootInterval, and fastRoot are tested in findRootCoeff0EdgeCases.wlt *)

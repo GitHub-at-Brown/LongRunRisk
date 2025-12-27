@@ -70,7 +70,7 @@ VerificationTest[
   {A[0] -> 1.777113528819289},
   SameTest -> tolSameTest,
   TimeConstraint -> timeLimit,
-  TestID -> "dividend-model-A0-coefficient@@Tests/FindRootOptim/FindRootOptim.wlt:54,1-60,2"
+  TestID -> "dividend-model-A0-coefficient@@Tests/FindRootOptim/FindRootOptim_test1.wlt:68,1-74,2"
 ]
 
 (* buildKernel, bindUnary, findRootInterval, and fastRoot are tested in findRootCoeff0EdgeCases.wlt *)

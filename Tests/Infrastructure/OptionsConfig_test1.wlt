@@ -16,6 +16,6 @@ VerificationTest[
 ];
 	Head[FernandoDuarte`LongRunRisk`Tools`OptionsConfig`defaultConfig],
 	Symbol,
-	TestID -> "OptionsConfig-Load@@Tests/OptionsConfig.wlt:1,1-12,2"
+	TestID -> "OptionsConfig-Load@@Tests/Infrastructure/OptionsConfig_test1.wlt:3,1-20,2"
 ]
 

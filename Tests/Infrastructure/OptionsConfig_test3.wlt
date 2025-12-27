@@ -23,6 +23,6 @@ VerificationTest[
 		KeyExistsQ[config, #] &
 	],
 	True,
-	TestID -> "defaultConfig-Has-All-Subsystems@@Tests/OptionsConfig.wlt:21,1-28,2"
+	TestID -> "defaultConfig-Has-All-Subsystems@@Tests/Infrastructure/OptionsConfig_test3.wlt:20,1-27,2"
 ]
 

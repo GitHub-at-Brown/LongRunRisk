@@ -19,7 +19,7 @@ VerificationTest[
     StringContainsQ[ToString[ass, InputForm], "signA[2]^2 == 1"]
   ],
   True,
-  TestID -> "assumptions-multiple-sign-constraints@@Tests/ParamQuadSolve/assumptions-return.wlt:100,1-112,2"
+  TestID -> "assumptions-multiple-sign-constraints@@Tests/ParamQuadSolve/assumptions-return_test7.wlt:11,1-23,2"
 ]
 
 EndTestSection[]

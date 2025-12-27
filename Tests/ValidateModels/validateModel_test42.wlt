@@ -41,7 +41,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "assumption-theta-zero-fails@@Tests/ValidateModels/validateModel.wlt:660,1-679,2"
+  TestID -> "assumption-theta-zero-fails@@Tests/ValidateModels/validateModel_test42.wlt:26,1-45,2"
 ]
 
 EndTestSection[]

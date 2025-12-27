@@ -18,7 +18,7 @@ VerificationTest[
     MemberQ[Keys[opts], "SignSymbol"]
   ],
   True,
-  TestID -> "buildKernel-has-SignSymbol-option@@Tests/FindRootOptim/createCompiledEq.wlt:66,1-74,2"
+  TestID -> "buildKernel-has-SignSymbol-option@@Tests/FindRootOptim/createCompiledEq_test7.wlt:14,1-22,2"
 ]
 
 EndTestSection[]

@@ -14,7 +14,7 @@ $timeLimit = 5;
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel],
   Symbol,
-  TestID -> "buildKernel-symbol-exists@@Tests/FindRootOptim/createCompiledEq.wlt:20,1-24,2"
+  TestID -> "buildKernel-symbol-exists@@Tests/FindRootOptim/createCompiledEq_test2.wlt:14,1-18,2"
 ]
 
 EndTestSection[]

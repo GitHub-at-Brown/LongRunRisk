@@ -20,7 +20,7 @@ $timeLimit = 5;
 VerificationTest[
   $toCatalog[<||>, {"name", "shortname"}],
   <||>,
-  TestID -> "toCatalog-empty-catalog-returns-empty@@Tests/NiceOutput/toCatalog.wlt:20,1-24,2"
+  TestID -> "toCatalog-empty-catalog-returns-empty@@Tests/NiceOutput/toCatalog_test1.wlt:20,1-24,2"
 ]
 
 EndTestSection[]

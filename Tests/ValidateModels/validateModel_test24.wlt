@@ -40,7 +40,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stateVars-valid-symbols-pass@@Tests/ValidateModels/validateModel.wlt:282,1-300,2"
+  TestID -> "stateVars-valid-symbols-pass@@Tests/ValidateModels/validateModel_test24.wlt:26,1-44,2"
 ]
 
 EndTestSection[]

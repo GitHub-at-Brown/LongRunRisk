@@ -14,7 +14,7 @@ VerificationTest[
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::nocoeff},
     TimeConstraint -> timeLimit,
-    TestID -> "nocoeff-message-wrong-coefficient-name-indexed@@Tests/FindRootOptim/findRootIntervalMessages.wlt:69,3-77,4"
+    TestID -> "nocoeff-message-wrong-coefficient-name-indexed@@Tests/FindRootOptim/findRootIntervalMessages_test7.wlt:10,1-18,4"
   ]
 
 EndTestSection[]

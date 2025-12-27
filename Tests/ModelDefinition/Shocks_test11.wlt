@@ -29,7 +29,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Shocks_20251223-7O3J7T@@Tests/Shocks.wlt:234,1-261,2"
+	TestID->"Shocks_20251223-7O3J7T@@Tests/ModelDefinition/Shocks_test11.wlt:6,1-33,2"
 ]
 
 End[]

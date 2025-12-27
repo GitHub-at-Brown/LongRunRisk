@@ -59,7 +59,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "checkCatalogChanges-assoc-input-returns-structure@@Tests/ManageResources/checkCatalogChanges.wlt:14,1-63,2"
+  TestID -> "checkCatalogChanges-assoc-input-returns-structure@@Tests/ManageResources/checkCatalogChanges_test1.wlt:14,1-63,2"
 ]
 
 EndTestSection[]

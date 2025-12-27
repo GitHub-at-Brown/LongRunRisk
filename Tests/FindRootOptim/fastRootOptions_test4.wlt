@@ -46,7 +46,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "return-rule-option@@Tests/FindRootOptim/fastRootOptions.wlt:79,3-87,4"
+    TestID -> "return-rule-option@@Tests/FindRootOptim/fastRootOptions_test4.wlt:42,1-50,4"
   ]
 
 EndTestSection[]

@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BKYinf-psi-negative@@Tests/ValidateModels/validateModel.wlt:1188,1-1196,2"
+  TestID -> "badCatalog-BKYinf-psi-negative@@Tests/ValidateModels/validateModel_test52.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

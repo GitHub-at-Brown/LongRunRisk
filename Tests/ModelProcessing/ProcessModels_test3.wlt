@@ -16,7 +16,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20251223-KPUAP3@@Tests/ProcessModels.wlt:57,1-69,2"
+	TestID->"ProcessModels_20251223-KPUAP3@@Tests/ModelProcessing/ProcessModels_test3.wlt:9,1-20,2"
 ]
 
 End[]

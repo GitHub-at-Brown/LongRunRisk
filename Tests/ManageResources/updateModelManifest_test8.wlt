@@ -53,7 +53,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "writes-manifest-with-expected-content@@Tests/ManageResources/updateModelManifest.wlt:98,1-132,2"
+  TestID -> "writes-manifest-with-expected-content@@Tests/ManageResources/updateModelManifest_test8.wlt:23,1-57,2"
 ]
 
 EndTestSection[]

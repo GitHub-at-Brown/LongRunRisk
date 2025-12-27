@@ -18,7 +18,7 @@ VerificationTest[
     Sort[deferredVars] === {y, z}
   ],
   True,
-  TestID -> "onlyquad-deferred-output@@Tests/ParamQuadSolve/only-quad-terms.wlt:30,1-44,2"
+  TestID -> "onlyquad-deferred-output@@Tests/ParamQuadSolve/only-quad-terms_test3.wlt:8,1-22,2"
 ]
 
 EndTestSection[]

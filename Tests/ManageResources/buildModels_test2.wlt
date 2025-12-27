@@ -24,7 +24,7 @@ $timeLimit = 5;
 VerificationTest[
   MemberQ[Keys[Options[$buildModels]], "NumKernels"],
   True,
-  TestID -> "buildModels-has-NumKernels-option@@Tests/ManageResources/buildModels.wlt:30,1-34,2"
+  TestID -> "buildModels-has-NumKernels-option@@Tests/ManageResources/buildModels_test2.wlt:24,1-28,2"
 ]
 
 EndTestSection[]

@@ -25,7 +25,7 @@ VerificationTest[
     AllTrue[Simplify[res$["Verification"] /. (Alternatives @@ ((#[_]^2) & /@ heads)) -> 1], TrueQ]
   ],
   True,
-  TestID -> "verification-all-true@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:25,1-32,2"
+  TestID -> "verification-all-true@@Tests/ParamQuadSolve/two-radicals-bilinear_test4.wlt:22,1-29,2"
 ]
 
 EndTestSection[]

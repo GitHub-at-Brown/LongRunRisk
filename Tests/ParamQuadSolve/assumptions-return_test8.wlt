@@ -18,7 +18,7 @@ VerificationTest[
     AssociationQ[res] && KeyExistsQ[res, "Verification"]
   ],
   True,
-  TestID -> "assumptions-used-in-verification@@Tests/ParamQuadSolve/assumptions-return.wlt:115,1-126,2"
+  TestID -> "assumptions-used-in-verification@@Tests/ParamQuadSolve/assumptions-return_test8.wlt:11,1-22,2"
 ]
 
 EndTestSection[]

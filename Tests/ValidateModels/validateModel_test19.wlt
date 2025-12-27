@@ -38,7 +38,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "wrong-type-stateVars-string@@Tests/ValidateModels/validateModel.wlt:185,1-201,2"
+  TestID -> "wrong-type-stateVars-string@@Tests/ValidateModels/validateModel_test19.wlt:26,1-42,2"
 ]
 
 EndTestSection[]

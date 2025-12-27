@@ -12,7 +12,7 @@ VerificationTest[
     {{0.75, 1.25}, {3.25, 5.75}},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "two-intervals-different-collapse-behavior@@Tests/FindRootOptim/extractIntervalsOptions.wlt:39,3-45,4"
+    TestID -> "two-intervals-different-collapse-behavior@@Tests/FindRootOptim/extractIntervalsOptions_test5.wlt:10,1-16,4"
   ]
 
 EndTestSection[]

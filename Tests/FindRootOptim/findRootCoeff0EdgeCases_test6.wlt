@@ -26,7 +26,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "buildKernel-both-compilers-equivalent-results@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:114,1-128,2"
+  TestID -> "buildKernel-both-compilers-equivalent-results@@Tests/FindRootOptim/findRootCoeff0EdgeCases_test6.wlt:16,1-30,2"
 ]
 
 EndTestSection[]

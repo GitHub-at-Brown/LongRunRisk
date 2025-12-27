@@ -11,7 +11,7 @@ VerificationTest[
       f[E^a / E^b],
       Exp[a] / Exp[b],
       TimeConstraint -> timeLimit,
-      TestID -> "E-powers-in-division@@Tests/FindRootOptim/normalizeExpNested.wlt:88,5-93,6"
+      TestID -> "E-powers-in-division@@Tests/FindRootOptim/normalizeExpNested_test14.wlt:10,1-15,6"
     ]
 
 EndTestSection[]

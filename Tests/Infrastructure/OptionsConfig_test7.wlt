@@ -29,6 +29,6 @@ VerificationTest[
 	config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`defaultConfig[];
 	config["Build"]["FromScratch"],
 	False,
-	TestID -> "defaultConfig-Build-FromScratch@@Tests/OptionsConfig.wlt:51,1-56,2"
+	TestID -> "defaultConfig-Build-FromScratch@@Tests/Infrastructure/OptionsConfig_test7.wlt:28,1-33,2"
 ]
 

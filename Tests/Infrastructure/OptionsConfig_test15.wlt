@@ -60,6 +60,6 @@ VerificationTest[
 	}];
 	config["Numerical"]["MaxMaturity"],
 	12,
-	TestID -> "normalizeConfig-Preserves-Defaults-2@@Tests/OptionsConfig.wlt:124,1-131,2"
+	TestID -> "normalizeConfig-Preserves-Defaults-2@@Tests/Infrastructure/OptionsConfig_test15.wlt:57,1-64,2"
 ]
 

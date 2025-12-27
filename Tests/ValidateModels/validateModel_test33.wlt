@@ -42,7 +42,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "missing-param-detected@@Tests/ValidateModels/validateModel.wlt:447,1-467,2"
+  TestID -> "missing-param-detected@@Tests/ValidateModels/validateModel_test33.wlt:26,1-46,2"
 ]
 
 EndTestSection[]

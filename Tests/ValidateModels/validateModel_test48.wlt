@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BYverylowPers-non-numeric-param@@Tests/ValidateModels/validateModel.wlt:1144,1-1152,2"
+  TestID -> "badCatalog-BYverylowPers-non-numeric-param@@Tests/ValidateModels/validateModel_test48.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

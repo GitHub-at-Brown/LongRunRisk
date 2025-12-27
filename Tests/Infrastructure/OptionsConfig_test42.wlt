@@ -139,6 +139,6 @@ VerificationTest[
 	findRootOpts = "FindRootOptions" /. numericalOpts;
 	MemberQ[findRootOpts, PrecisionGoal -> 6],
 	True,
-	TestID -> "splitConfig-FindRootOptions-Custom-PrecisionGoal@@Tests/OptionsConfig.wlt:368,1-377,2"
+	TestID -> "splitConfig-FindRootOptions-Custom-PrecisionGoal@@Tests/Infrastructure/OptionsConfig_test42.wlt:134,1-143,2"
 ]
 

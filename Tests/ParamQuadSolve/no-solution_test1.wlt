@@ -11,6 +11,6 @@ r$ = pqs[eq$, vars$, "ValidationOption" -> True];
 leftover$ = r$["Diagnostics"]["LeftoverEquations"];
 ver$ = r$["Verification"];
 
-VerificationTest[AssociationQ[r$], True, TestID -> "assoc@@Tests/ParamQuadSolve/no-solution.wlt:14,1-14,110"]
+VerificationTest[AssociationQ[r$], True, TestID -> "assoc@@Tests/ParamQuadSolve/no-solution_test1.wlt:14,1-14,110"]
 
 EndTestSection[]

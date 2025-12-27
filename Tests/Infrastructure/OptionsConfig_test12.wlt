@@ -48,6 +48,6 @@ VerificationTest[
 	}];
 	config["Numerical"]["FindRoot"]["Options"],
 	{MaxIterations -> 50},
-	TestID -> "normalizeConfig-Legacy-FindRootOptions@@Tests/OptionsConfig.wlt:95,1-102,2"
+	TestID -> "normalizeConfig-Legacy-FindRootOptions@@Tests/Infrastructure/OptionsConfig_test12.wlt:45,1-52,2"
 ]
 

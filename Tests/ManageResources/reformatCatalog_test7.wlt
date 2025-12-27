@@ -27,7 +27,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "reformatCatalog-string-formatting-idempotent@@Tests/ManageResources/reformatCatalog.wlt:112,1-125,2"
+  TestID -> "reformatCatalog-string-formatting-idempotent@@Tests/ManageResources/reformatCatalog_test7.wlt:18,1-31,2"
 ]
 
 EndTestSection[]

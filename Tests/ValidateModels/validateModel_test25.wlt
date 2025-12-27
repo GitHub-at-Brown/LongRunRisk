@@ -38,7 +38,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "duplicate-parameter-fails@@Tests/ValidateModels/validateModel.wlt:306,1-322,2"
+  TestID -> "duplicate-parameter-fails@@Tests/ValidateModels/validateModel_test25.wlt:26,1-42,2"
 ]
 
 EndTestSection[]

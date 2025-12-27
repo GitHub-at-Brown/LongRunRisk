@@ -18,7 +18,7 @@ $timeLimit = 30;
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`reformatCatalog::usage],
   True,
-  TestID -> "reformatCatalog-has-usage@@Tests/ManageResources/reformatCatalog.wlt:24,1-28,2"
+  TestID -> "reformatCatalog-has-usage@@Tests/ManageResources/reformatCatalog_test2.wlt:18,1-22,2"
 ]
 
 EndTestSection[]

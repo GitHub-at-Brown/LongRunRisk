@@ -105,6 +105,6 @@ VerificationTest[
 	compileOpts = {FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Compile"]};
 	MemberQ[compileOpts, "Compiler" -> "Compile"],
 	True,
-	TestID -> "splitConfig-Compile-Compiler@@Tests/OptionsConfig.wlt:270,1-276,2"
+	TestID -> "splitConfig-Compile-Compiler@@Tests/Infrastructure/OptionsConfig_test31.wlt:103,1-109,2"
 ]
 

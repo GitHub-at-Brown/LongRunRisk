@@ -24,7 +24,7 @@ $timeLimit = 5;
 VerificationTest[
   $momentsUpToDate["/nonexistent/file.wl", "/nonexistent/meta.wl", "somehash"],
   False,
-  TestID -> "momentsUpToDate-false-for-nonexistent-files@@Tests/ManageResources/buildModels.wlt:121,1-125,2"
+  TestID -> "momentsUpToDate-false-for-nonexistent-files@@Tests/ManageResources/buildModels_test11.wlt:24,1-28,2"
 ]
 
 EndTestSection[]

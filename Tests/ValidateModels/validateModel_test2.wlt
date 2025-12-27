@@ -26,7 +26,7 @@ $timeLimit = 5;
 VerificationTest[
   $containsTimeDep[sx[-1 + t]],
   True,
-  TestID -> "containsTimeDep-lagged-sx[-1+t]@@Tests/ValidateModels/validateModel.wlt:32,1-36,2"
+  TestID -> "containsTimeDep-lagged-sx[-1+t]@@Tests/ValidateModels/validateModel_test2.wlt:26,1-30,2"
 ]
 
 EndTestSection[]

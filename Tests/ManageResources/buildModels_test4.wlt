@@ -24,7 +24,7 @@ $timeLimit = 5;
 VerificationTest[
   OptionValue[$buildModels, "NumKernels"],
   Automatic,
-  TestID -> "buildModels-NumKernels-default-is-Automatic@@Tests/ManageResources/buildModels.wlt:42,1-46,2"
+  TestID -> "buildModels-NumKernels-default-is-Automatic@@Tests/ManageResources/buildModels_test4.wlt:24,1-28,2"
 ]
 
 EndTestSection[]

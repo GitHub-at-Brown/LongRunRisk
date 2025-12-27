@@ -72,6 +72,6 @@ VerificationTest[
 	}];
 	merged["A"]["x"],
 	1,
-	TestID -> "mergeNested-Preserves-Nested-1@@Tests/OptionsConfig.wlt:154,1-162,2"
+	TestID -> "mergeNested-Preserves-Nested-1@@Tests/Infrastructure/OptionsConfig_test18.wlt:68,1-76,2"
 ]
 

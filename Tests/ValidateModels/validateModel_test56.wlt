@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-WCratioInf-zero-index@@Tests/ValidateModels/validateModel.wlt:1232,1-1240,2"
+  TestID -> "badCatalog-WCratioInf-zero-index@@Tests/ValidateModels/validateModel_test56.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

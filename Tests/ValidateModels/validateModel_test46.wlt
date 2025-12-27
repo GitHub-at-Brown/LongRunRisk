@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BY-missing-t-dependency@@Tests/ValidateModels/validateModel.wlt:1122,1-1130,2"
+  TestID -> "badCatalog-BY-missing-t-dependency@@Tests/ValidateModels/validateModel_test46.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

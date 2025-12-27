@@ -64,6 +64,6 @@ VerificationTest[
 	config3 = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`normalizeConfig[config2];
 	config3["Symbolic"]["PdEquations"],
 	"AB",
-	TestID -> "normalizeConfig-Already-Normalized-Override@@Tests/OptionsConfig.wlt:135,1-142,2"
+	TestID -> "normalizeConfig-Already-Normalized-Override@@Tests/Infrastructure/OptionsConfig_test16.wlt:61,1-68,2"
 ]
 

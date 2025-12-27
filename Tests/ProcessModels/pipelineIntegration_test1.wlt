@@ -18,7 +18,7 @@ $timeLimit = 10;
 VerificationTest[
   MemberQ[$Packages, "FernandoDuarte`LongRunRisk`Model`Catalog`"],
   True,
-  TestID -> "catalog-package-loaded@@Tests/ProcessModels/pipelineIntegration.wlt:18,1-22,2"
+  TestID -> "catalog-package-loaded@@Tests/ProcessModels/pipelineIntegration_test1.wlt:18,1-22,2"
 ]
 
 EndTestSection[]

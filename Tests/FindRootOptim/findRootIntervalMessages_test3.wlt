@@ -14,7 +14,7 @@ VerificationTest[
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval},
     TimeConstraint -> timeLimit,
-    TestID -> "emptyinterval-message-on-param-contradiction@@Tests/FindRootOptim/findRootIntervalMessages.wlt:31,3-39,4"
+    TestID -> "emptyinterval-message-on-param-contradiction@@Tests/FindRootOptim/findRootIntervalMessages_test3.wlt:10,1-18,4"
   ]
 
 EndTestSection[]

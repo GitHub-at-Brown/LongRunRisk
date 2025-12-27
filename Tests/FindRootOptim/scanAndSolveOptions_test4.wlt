@@ -28,7 +28,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "custom-bracket-grid-very-coarse@@Tests/FindRootOptim/scanAndSolveOptions.wlt:64,3-77,4"
+    TestID -> "custom-bracket-grid-very-coarse@@Tests/FindRootOptim/scanAndSolveOptions_test4.wlt:19,1-32,4"
   ]
 
 EndTestSection[]

@@ -31,7 +31,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "reformatCatalog-enabled-field-in-output@@Tests/ManageResources/reformatCatalog.wlt:89,1-106,2"
+  TestID -> "reformatCatalog-enabled-field-in-output@@Tests/ManageResources/reformatCatalog_test6.wlt:18,1-35,2"
 ]
 
 EndTestSection[]

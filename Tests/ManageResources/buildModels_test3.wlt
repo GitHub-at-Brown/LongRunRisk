@@ -24,7 +24,7 @@ $timeLimit = 5;
 VerificationTest[
   OptionValue[$buildModels, "CreateMoments"],
   True,
-  TestID -> "buildModels-CreateMoments-default-is-True@@Tests/ManageResources/buildModels.wlt:36,1-40,2"
+  TestID -> "buildModels-CreateMoments-default-is-True@@Tests/ManageResources/buildModels_test3.wlt:24,1-28,2"
 ]
 
 EndTestSection[]

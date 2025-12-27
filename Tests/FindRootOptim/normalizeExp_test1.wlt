@@ -11,7 +11,7 @@ VerificationTest[
       f[(E^a)[x]],
       Exp[a[x]],
       TimeConstraint -> timeLimit,
-      TestID -> "wraps-E^a-application-as-Exp@@Tests/FindRootOptim/normalizeExp.wlt:10,5-15,6"
+      TestID -> "wraps-E^a-application-as-Exp@@Tests/FindRootOptim/normalizeExp_test1.wlt:10,1-15,6"
     ]
 
 EndTestSection[]

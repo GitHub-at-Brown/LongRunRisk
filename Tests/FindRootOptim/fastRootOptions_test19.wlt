@@ -46,7 +46,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "narrow-interval-convergence@@Tests/FindRootOptim/fastRootOptions.wlt:253,3-261,4"
+    TestID -> "narrow-interval-convergence@@Tests/FindRootOptim/fastRootOptions_test19.wlt:42,1-50,4"
   ]
 
 EndTestSection[]

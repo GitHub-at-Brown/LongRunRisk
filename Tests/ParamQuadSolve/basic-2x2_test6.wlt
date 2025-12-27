@@ -20,7 +20,7 @@ VerificationTest[
    solveRules = Solve[eqns$, vars$, Reals];
    sameQ[r1_, r2_] := TrueQ@Simplify[(vars$ /. r1) == (vars$ /. r2)];
    Length[solveRules] == Length[ourRules] && AllTrue[solveRules, ssol |-> AnyTrue[ourRules, sameQ[#, ssol] &]]
- ], True, TestID -> "matches-Solve@@Tests/ParamQuadSolve/basic-2x2.wlt:21,1-29,2"
+ ], True, TestID -> "matches-Solve@@Tests/ParamQuadSolve/basic-2x2_test6.wlt:16,1-24,2"
 ]
 
 EndTestSection[]

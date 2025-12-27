@@ -28,7 +28,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:31,1-47,2"
+  TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases_test2.wlt:16,1-32,2"
 ]
 
 EndTestSection[]

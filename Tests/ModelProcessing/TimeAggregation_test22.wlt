@@ -80,7 +80,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"TimeAggregation_20251223-Q8KJ84@@Tests/TimeAggregation.wlt:1213,1-1242,2"
+	TestID->"TimeAggregation_20251223-Q8KJ84@@Tests/ModelProcessing/TimeAggregation_test22.wlt:55,1-84,2"
 ]
 
 End[]

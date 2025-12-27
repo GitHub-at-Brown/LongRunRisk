@@ -31,6 +31,6 @@ VerificationTest[
 	config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`defaultConfig[];
 	config["Parallel"]["NumKernels"],
 	Automatic,
-	TestID -> "defaultConfig-Parallel-NumKernels@@Tests/OptionsConfig.wlt:58,1-63,2"
+	TestID -> "defaultConfig-Parallel-NumKernels@@Tests/Infrastructure/OptionsConfig_test8.wlt:30,1-35,2"
 ]
 

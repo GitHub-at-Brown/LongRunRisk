@@ -133,6 +133,6 @@ VerificationTest[
 	findRootOpts = "FindRootOptions" /. numericalOpts;
 	MemberQ[findRootOpts, MaxIterations -> 75],
 	True,
-	TestID -> "splitConfig-FindRootOptions-Custom-MaxIterations@@Tests/OptionsConfig.wlt:357,1-366,2"
+	TestID -> "splitConfig-FindRootOptions-Custom-MaxIterations@@Tests/Infrastructure/OptionsConfig_test41.wlt:128,1-137,2"
 ]
 

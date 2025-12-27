@@ -77,6 +77,6 @@ VerificationTest[
 	}];
 	merged["A"]["y"],
 	99,
-	TestID -> "mergeNested-Overrides-Nested@@Tests/OptionsConfig.wlt:164,1-172,2"
+	TestID -> "mergeNested-Overrides-Nested@@Tests/Infrastructure/OptionsConfig_test19.wlt:73,1-81,2"
 ]
 

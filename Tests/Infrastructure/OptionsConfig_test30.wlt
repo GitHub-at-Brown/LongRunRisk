@@ -102,6 +102,6 @@ VerificationTest[
 	numericalOpts = {FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Numerical"]};
 	MatchQ[numericalOpts, {___, "FindRootOptions" -> {___}, ___}],
 	True,
-	TestID -> "splitConfig-Numerical-FindRootOptions@@Tests/OptionsConfig.wlt:262,1-268,2"
+	TestID -> "splitConfig-Numerical-FindRootOptions@@Tests/Infrastructure/OptionsConfig_test30.wlt:100,1-106,2"
 ]
 

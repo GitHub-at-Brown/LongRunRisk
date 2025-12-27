@@ -25,6 +25,6 @@ VerificationTest[
 	config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`defaultConfig[];
 	config["Numerical"]["MaxMaturity"],
 	12,
-	TestID -> "defaultConfig-Numerical-MaxMaturity@@Tests/OptionsConfig.wlt:37,1-42,2"
+	TestID -> "defaultConfig-Numerical-MaxMaturity@@Tests/Infrastructure/OptionsConfig_test5.wlt:24,1-29,2"
 ]
 

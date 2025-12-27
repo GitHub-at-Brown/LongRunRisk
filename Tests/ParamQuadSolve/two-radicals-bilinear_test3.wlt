@@ -19,6 +19,6 @@ radVals$ = Values[res$["SignRootMap"]];
 radSq$ = Simplify[radVals$^2];
 rulesFor[v1_, v2_] := Thread[signKeys$ -> {v1, v2}];
 
-VerificationTest[Sort[Simplify /@ radSq$] === Sort[{8, 13}], True, TestID -> "radicands-8-and-13@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:24,1-24,159"]
+VerificationTest[Sort[Simplify /@ radSq$] === Sort[{8, 13}], True, TestID -> "radicands-8-and-13@@Tests/ParamQuadSolve/two-radicals-bilinear_test3.wlt:22,1-22,159"]
 
 EndTestSection[]

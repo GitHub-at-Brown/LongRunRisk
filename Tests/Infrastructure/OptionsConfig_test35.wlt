@@ -114,6 +114,6 @@ config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`defaultConfig[];
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tools`OptionsConfig`validateConfig[<|"Symbolic" -> <||>|>],
 	False,
-	TestID -> "validateConfig-Incomplete-Invalid@@Tests/OptionsConfig.wlt:303,1-307,2"
+	TestID -> "validateConfig-Incomplete-Invalid@@Tests/Infrastructure/OptionsConfig_test35.wlt:114,1-118,2"
 ]
 

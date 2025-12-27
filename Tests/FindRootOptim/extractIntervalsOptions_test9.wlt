@@ -12,7 +12,7 @@ VerificationTest[
     {{1.4, 1.6}, {3.4, 3.6}, {5.4, 5.6}},
     SameTest -> tolSameTest,
     TimeConstraint -> timeLimit,
-    TestID -> "three-intervals-mixed-collapse@@Tests/FindRootOptim/extractIntervalsOptions.wlt:67,3-73,4"
+    TestID -> "three-intervals-mixed-collapse@@Tests/FindRootOptim/extractIntervalsOptions_test9.wlt:10,1-16,4"
   ]
 
 EndTestSection[]

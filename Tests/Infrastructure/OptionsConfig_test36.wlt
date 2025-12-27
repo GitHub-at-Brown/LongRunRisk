@@ -114,6 +114,6 @@ config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`defaultConfig[];
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tools`OptionsConfig`validateConfig["not an association"],
 	False,
-	TestID -> "validateConfig-Not-Association-Invalid@@Tests/OptionsConfig.wlt:309,1-313,2"
+	TestID -> "validateConfig-Not-Association-Invalid@@Tests/Infrastructure/OptionsConfig_test36.wlt:114,1-118,2"
 ]
 

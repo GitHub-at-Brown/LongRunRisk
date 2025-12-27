@@ -14,7 +14,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"Catalog_20251223-OX2LLT@@Tests/Catalog.wlt:54,1-66,2"
+	TestID->"Catalog_20251223-OX2LLT@@Tests/Core/Catalog_test4.wlt:6,1-18,2"
 ]
 
 End[]

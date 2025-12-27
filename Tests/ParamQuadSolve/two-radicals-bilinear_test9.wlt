@@ -27,7 +27,7 @@ VerificationTest[
     sameQ[r1_, r2_] := TrueQ@Simplify[(vars$ /. r1) == (vars$ /. r2)];
     Length[solveRules] == Length[ourRules] && AllTrue[solveRules, ssol |-> AnyTrue[ourRules, sameQ[#, ssol] &]]
   ],
-  True, TestID -> "matches-Solve@@Tests/ParamQuadSolve/two-radicals-bilinear.wlt:37,1-46,2"
+  True, TestID -> "matches-Solve@@Tests/ParamQuadSolve/two-radicals-bilinear_test9.wlt:22,1-31,2"
 ]
 
 EndTestSection[]

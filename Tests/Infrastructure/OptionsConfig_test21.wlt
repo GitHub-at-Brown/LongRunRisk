@@ -87,6 +87,6 @@ VerificationTest[
 	}];
 	merged["C"]["w"],
 	4,
-	TestID -> "mergeNested-Adds-New-Keys@@Tests/OptionsConfig.wlt:184,1-192,2"
+	TestID -> "mergeNested-Adds-New-Keys@@Tests/Infrastructure/OptionsConfig_test21.wlt:83,1-91,2"
 ]
 

@@ -30,7 +30,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"EndogenousEq_20251223-72QAYI@@Tests/EndogenousEq.wlt:93,1-121,2"
+	TestID->"EndogenousEq_20251223-72QAYI@@Tests/ModelDefinition/EndogenousEq_test5.wlt:6,1-34,2"
 ]
 
 End[]

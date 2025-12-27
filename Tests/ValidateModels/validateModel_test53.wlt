@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-NRC-invalid-symbol@@Tests/ValidateModels/validateModel.wlt:1199,1-1207,2"
+  TestID -> "badCatalog-NRC-invalid-symbol@@Tests/ValidateModels/validateModel_test53.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

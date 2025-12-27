@@ -90,6 +90,6 @@ VerificationTest[
 		"Symbolic" -> <||>
 	|>],
 	True,
-	TestID -> "isNormalized-True-Symbolic@@Tests/OptionsConfig.wlt:196,1-202,2"
+	TestID -> "isNormalized-True-Symbolic@@Tests/Infrastructure/OptionsConfig_test22.wlt:88,1-94,2"
 ]
 

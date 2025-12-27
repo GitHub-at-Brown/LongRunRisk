@@ -90,6 +90,6 @@ VerificationTest[
 	symbolicOpts = {FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Symbolic"]};
 	MemberQ[symbolicOpts, "PdEquations" -> "B"],
 	True,
-	TestID -> "splitConfig-Symbolic-PdEquations@@Tests/OptionsConfig.wlt:230,1-236,2"
+	TestID -> "splitConfig-Symbolic-PdEquations@@Tests/Infrastructure/OptionsConfig_test26.wlt:88,1-94,2"
 ]
 

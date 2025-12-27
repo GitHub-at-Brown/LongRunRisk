@@ -46,7 +46,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "method-secant-with-jacobian@@Tests/FindRootOptim/fastRootOptions.wlt:46,3-54,4"
+    TestID -> "method-secant-with-jacobian@@Tests/FindRootOptim/fastRootOptions_test1.wlt:42,1-50,4"
   ]
 
 EndTestSection[]

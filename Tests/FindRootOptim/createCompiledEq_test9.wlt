@@ -18,7 +18,7 @@ VerificationTest[
     MemberQ[Keys[opts], "CompileMode"]
   ],
   True,
-  TestID -> "buildKernel-has-CompileMode-option@@Tests/FindRootOptim/createCompiledEq.wlt:86,1-94,2"
+  TestID -> "buildKernel-has-CompileMode-option@@Tests/FindRootOptim/createCompiledEq_test9.wlt:14,1-22,2"
 ]
 
 EndTestSection[]

@@ -13,6 +13,6 @@ res$ = pqs[eqns$, vars$, "ValidationOption" -> True, "DomainOption" -> Reals];
 signSym$ = First[Keys[res$["SignRootMap"]]];
 rad$ = res$["SignRootMap"][signSym$];
 
-VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. signSym$ -> -1], TrueQ], True, TestID -> "subs-sign--1@@Tests/ParamQuadSolve/basic-2x2.wlt:19,1-19,168"]
+VerificationTest[AllTrue[Simplify[eqns$ /. res$["Solution"] /. signSym$ -> -1], TrueQ], True, TestID -> "subs-sign--1@@Tests/ParamQuadSolve/basic-2x2_test4.wlt:16,1-16,168"]
 
 EndTestSection[]

@@ -24,7 +24,7 @@ VerificationTest[
   (* Different content should produce different hashes *)
   $getHash[<|"a" -> 1|>] =!= $getHash[<|"a" -> 2|>],
   True,
-  TestID -> "hash-different-values-differ@@Tests/ManageResources/updateModelManifest.wlt:41,1-46,2"
+  TestID -> "hash-different-values-differ@@Tests/ManageResources/updateModelManifest_test4.wlt:23,1-28,2"
 ]
 
 EndTestSection[]

@@ -24,7 +24,7 @@ VerificationTest[
     StringContainsQ[ToString[ass, InputForm], "signA"]
   ],
   True,
-  TestID -> "assumptions-with-only-quad-terms@@Tests/ParamQuadSolve/assumptions-return.wlt:129,1-146,2"
+  TestID -> "assumptions-with-only-quad-terms@@Tests/ParamQuadSolve/assumptions-return_test9.wlt:11,1-28,2"
 ]
 
 EndTestSection[]

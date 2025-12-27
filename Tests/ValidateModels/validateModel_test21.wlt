@@ -39,7 +39,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "stateVars-empty-list-fails@@Tests/ValidateModels/validateModel.wlt:225,1-242,2"
+  TestID -> "stateVars-empty-list-fails@@Tests/ValidateModels/validateModel_test21.wlt:26,1-43,2"
 ]
 
 EndTestSection[]

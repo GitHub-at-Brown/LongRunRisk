@@ -69,6 +69,6 @@ Module[{sol2, sol3, sol1, sol7, eq6sub, sol6, sol7full, sol1full, sol3full, eq5s
 manualVals$ = (vars$ /. FixedPoint[(# /. #) &, #]) & /@ manualSols$ // N;
 residualsMan$ = eqResidualVec /@ manualVals$;
 
-VerificationTest[Length[pkgVals$] === 4, True, TestID -> "four-branches@@Tests/ParamQuadSolve/seven-by-seven.wlt:74,1-74,127"]
+VerificationTest[Length[pkgVals$] === 4, True, TestID -> "four-branches@@Tests/ParamQuadSolve/seven-by-seven_test3.wlt:72,1-72,127"]
 
 EndTestSection[]

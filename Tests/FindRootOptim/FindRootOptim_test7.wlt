@@ -73,7 +73,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> 5,
-  TestID -> "integration-parameter-chaining@@Tests/FindRootOptim/FindRootOptim.wlt:108,1-117,2"
+  TestID -> "integration-parameter-chaining@@Tests/FindRootOptim/FindRootOptim_test7.wlt:68,1-77,2"
 ]
 
 (* buildKernel, bindUnary, findRootInterval, and fastRoot are tested in findRootCoeff0EdgeCases.wlt *)

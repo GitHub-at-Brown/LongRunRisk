@@ -93,6 +93,6 @@ VerificationTest[
 	buildOpts = {FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Build"]};
 	MemberQ[buildOpts, "FromScratch" -> False],
 	True,
-	TestID -> "splitConfig-Build-FromScratch@@Tests/OptionsConfig.wlt:238,1-244,2"
+	TestID -> "splitConfig-Build-FromScratch@@Tests/Infrastructure/OptionsConfig_test27.wlt:91,1-97,2"
 ]
 

@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-infStochVol-index-gap@@Tests/ValidateModels/validateModel.wlt:1243,1-1251,2"
+  TestID -> "badCatalog-infStochVol-index-gap@@Tests/ValidateModels/validateModel_test57.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

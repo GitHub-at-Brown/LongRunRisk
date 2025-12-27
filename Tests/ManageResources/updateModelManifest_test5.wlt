@@ -24,7 +24,7 @@ VerificationTest[
   (* Canonicalize should sort keys recursively *)
   $canonicalize[<|"b" -> <|"d" -> 1, "c" -> 2|>, "a" -> 3|>],
   <|"a" -> 3, "b" -> <|"c" -> 2, "d" -> 1|>|>,
-  TestID -> "canonicalize-sorts-nested-keys@@Tests/ManageResources/updateModelManifest.wlt:48,1-53,2"
+  TestID -> "canonicalize-sorts-nested-keys@@Tests/ManageResources/updateModelManifest_test5.wlt:23,1-28,2"
 ]
 
 EndTestSection[]

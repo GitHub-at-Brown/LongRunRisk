@@ -38,7 +38,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "non-rule-parameter-entry-fails@@Tests/ValidateModels/validateModel.wlt:342,1-358,2"
+  TestID -> "non-rule-parameter-entry-fails@@Tests/ValidateModels/validateModel_test27.wlt:26,1-42,2"
 ]
 
 EndTestSection[]

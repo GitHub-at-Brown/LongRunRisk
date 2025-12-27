@@ -19,6 +19,6 @@ VerificationTest[
 	config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`defaultConfig[];
 	AssociationQ[config],
 	True,
-	TestID -> "defaultConfig-Returns-Association@@Tests/OptionsConfig.wlt:14,1-19,2"
+	TestID -> "defaultConfig-Returns-Association@@Tests/Infrastructure/OptionsConfig_test2.wlt:18,1-23,2"
 ]
 

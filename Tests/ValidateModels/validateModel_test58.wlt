@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-hassel-symbol-index@@Tests/ValidateModels/validateModel.wlt:1254,1-1262,2"
+  TestID -> "badCatalog-hassel-symbol-index@@Tests/ValidateModels/validateModel_test58.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

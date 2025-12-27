@@ -20,7 +20,7 @@ $timeLimit = 5;
 VerificationTest[
   AssociationQ[$toCatalog[<||>, {"name"}]],
   True,
-  TestID -> "toCatalog-empty-catalog-is-association@@Tests/NiceOutput/toCatalog.wlt:26,1-30,2"
+  TestID -> "toCatalog-empty-catalog-is-association@@Tests/NiceOutput/toCatalog_test2.wlt:20,1-24,2"
 ]
 
 EndTestSection[]

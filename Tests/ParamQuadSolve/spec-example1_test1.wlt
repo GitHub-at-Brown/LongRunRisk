@@ -19,6 +19,6 @@ ourRules$ = Map[(res$["Solution"] /. Thread[signKeys$ -> #]) &, assigns$];
 solveRules$ = Solve[eqns$, vars$];
 sameQ[r1_, r2_] := Quiet[Chop[N[(vars$ //. r1) - (vars$ //. r2), 50]] == ConstantArray[0, Length[vars$]]];
 
-VerificationTest[AssociationQ[res$], True, TestID -> "returns-association@@Tests/ParamQuadSolve/spec-example1.wlt:22,1-22,128"]
+VerificationTest[AssociationQ[res$], True, TestID -> "returns-association@@Tests/ParamQuadSolve/spec-example1_test1.wlt:22,1-22,128"]
 
 EndTestSection[]

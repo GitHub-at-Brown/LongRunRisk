@@ -10,7 +10,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20251223-ZYM4OJ@@Tests/ExogenousEq.wlt:13,1-21,2"
+	TestID->"ExogenousEq_20251223-ZYM4OJ@@Tests/ModelDefinition/ExogenousEq_test1.wlt:6,1-14,2"
 ]
 
 End[]

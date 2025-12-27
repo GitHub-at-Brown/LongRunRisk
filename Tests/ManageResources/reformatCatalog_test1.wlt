@@ -18,7 +18,7 @@ $timeLimit = 30;
 VerificationTest[
   Head[FernandoDuarte`LongRunRisk`Tools`ManageResources`reformatCatalog],
   Symbol,
-  TestID -> "reformatCatalog-symbol-exists@@Tests/ManageResources/reformatCatalog.wlt:18,1-22,2"
+  TestID -> "reformatCatalog-symbol-exists@@Tests/ManageResources/reformatCatalog_test1.wlt:18,1-22,2"
 ]
 
 EndTestSection[]

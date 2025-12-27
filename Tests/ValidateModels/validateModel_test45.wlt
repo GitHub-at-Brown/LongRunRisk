@@ -41,7 +41,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "catalog-identifies-invalid-models@@Tests/ValidateModels/validateModel.wlt:719,1-738,2"
+  TestID -> "catalog-identifies-invalid-models@@Tests/ValidateModels/validateModel_test45.wlt:26,1-45,2"
 ]
 
 EndTestSection[]

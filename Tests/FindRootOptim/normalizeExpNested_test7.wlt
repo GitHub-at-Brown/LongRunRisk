@@ -11,7 +11,7 @@ VerificationTest[
       f[(E^a)[x] * (E^b)[y]],
       Exp[a[x]] * Exp[b[y]],
       TimeConstraint -> timeLimit,
-      TestID -> "multiple-E-function-applications@@Tests/FindRootOptim/normalizeExpNested.wlt:46,5-51,6"
+      TestID -> "multiple-E-function-applications@@Tests/FindRootOptim/normalizeExpNested_test7.wlt:10,1-15,6"
     ]
 
 EndTestSection[]

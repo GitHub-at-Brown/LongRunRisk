@@ -108,6 +108,6 @@ VerificationTest[
 	momentsOpts = {FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Moments"]};
 	MemberQ[momentsOpts, "maxMomentsLagsToCreate" -> 8],
 	True,
-	TestID -> "splitConfig-Moments-MaxLags@@Tests/OptionsConfig.wlt:278,1-284,2"
+	TestID -> "splitConfig-Moments-MaxLags@@Tests/Infrastructure/OptionsConfig_test32.wlt:106,1-112,2"
 ]
 

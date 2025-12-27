@@ -18,7 +18,7 @@ VerificationTest[
     Length[opts] > 0
   ],
   True,
-  TestID -> "buildKernel-has-options@@Tests/FindRootOptim/createCompiledEq.wlt:46,1-54,2"
+  TestID -> "buildKernel-has-options@@Tests/FindRootOptim/createCompiledEq_test5.wlt:14,1-22,2"
 ]
 
 EndTestSection[]

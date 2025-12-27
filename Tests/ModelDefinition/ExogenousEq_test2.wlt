@@ -161,7 +161,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20251223-H81EM4@@Tests/ExogenousEq.wlt:22,1-181,2"
+	TestID->"ExogenousEq_20251223-H81EM4@@Tests/ModelDefinition/ExogenousEq_test2.wlt:6,1-165,2"
 ]
 
 End[]

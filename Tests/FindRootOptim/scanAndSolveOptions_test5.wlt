@@ -29,7 +29,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "custom-tolerance-tight@@Tests/FindRootOptim/scanAndSolveOptions.wlt:80,3-94,4"
+    TestID -> "custom-tolerance-tight@@Tests/FindRootOptim/scanAndSolveOptions_test5.wlt:19,1-33,4"
   ]
 
 EndTestSection[]

@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> 30,
-  TestID -> "badCatalog-all-models-invalid@@Tests/ValidateModels/validateModel.wlt:1310,1-1318,2"
+  TestID -> "badCatalog-all-models-invalid@@Tests/ValidateModels/validateModel_test63.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

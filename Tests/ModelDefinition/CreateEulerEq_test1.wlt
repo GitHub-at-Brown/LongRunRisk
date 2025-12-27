@@ -15,7 +15,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20251223-CKEXB0@@Tests/CreateEulerEq.wlt:13,1-27,2"
+	TestID->"CreateEulerEq_20251223-CKEXB0@@Tests/ModelDefinition/CreateEulerEq_test1.wlt:6,1-19,2"
 ]
 
 End[]

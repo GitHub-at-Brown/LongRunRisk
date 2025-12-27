@@ -113,6 +113,6 @@ VerificationTest[
 	config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`defaultConfig[];
 	FernandoDuarte`LongRunRisk`Tools`OptionsConfig`validateConfig[config],
 	True,
-	TestID -> "validateConfig-Default-Valid@@Tests/OptionsConfig.wlt:296,1-301,2"
+	TestID -> "validateConfig-Default-Valid@@Tests/Infrastructure/OptionsConfig_test34.wlt:112,1-117,2"
 ]
 

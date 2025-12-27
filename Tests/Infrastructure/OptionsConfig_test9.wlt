@@ -36,6 +36,6 @@ VerificationTest[
 	}];
 	config["Symbolic"]["PdEquations"],
 	"AB",
-	TestID -> "normalizeConfig-Legacy-PdEquations@@Tests/OptionsConfig.wlt:67,1-75,2"
+	TestID -> "normalizeConfig-Legacy-PdEquations@@Tests/Infrastructure/OptionsConfig_test9.wlt:32,1-40,2"
 ]
 

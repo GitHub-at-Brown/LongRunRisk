@@ -44,6 +44,6 @@ VerificationTest[
 	}];
 	config["Parallel"]["NumKernels"],
 	4,
-	TestID -> "normalizeConfig-Legacy-NumKernels@@Tests/OptionsConfig.wlt:86,1-93,2"
+	TestID -> "normalizeConfig-Legacy-NumKernels@@Tests/Infrastructure/OptionsConfig_test11.wlt:41,1-48,2"
 ]
 

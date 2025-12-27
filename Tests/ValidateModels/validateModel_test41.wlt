@@ -41,7 +41,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "assumption-psi-negative-fails@@Tests/ValidateModels/validateModel.wlt:639,1-658,2"
+  TestID -> "assumption-psi-negative-fails@@Tests/ValidateModels/validateModel_test41.wlt:26,1-45,2"
 ]
 
 EndTestSection[]

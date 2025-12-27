@@ -18,7 +18,7 @@ $timeLimit = 10;
 VerificationTest[
   Length[FernandoDuarte`LongRunRisk`Model`Catalog`models] > 0,
   True,
-  TestID -> "catalog-has-models@@Tests/ProcessModels/pipelineIntegration.wlt:74,1-78,2"
+  TestID -> "catalog-has-models@@Tests/ProcessModels/pipelineIntegration_test9.wlt:18,1-22,2"
 ]
 
 EndTestSection[]

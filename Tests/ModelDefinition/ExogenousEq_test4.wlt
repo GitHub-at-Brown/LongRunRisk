@@ -22,7 +22,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ExogenousEq_20251223-GBWLQP@@Tests/ExogenousEq.wlt:211,1-231,2"
+	TestID->"ExogenousEq_20251223-GBWLQP@@Tests/ModelDefinition/ExogenousEq_test4.wlt:6,1-26,2"
 ]
 
 End[]

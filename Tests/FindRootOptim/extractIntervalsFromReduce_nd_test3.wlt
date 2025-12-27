@@ -13,7 +13,7 @@ VerificationTest[
     {4.999,  1.*^5}
   }},
   TimeConstraint -> timeLimit,
-  TestID -> "extractIntervalsFromReduce-nd-padding@@Tests/FindRootOptim/extractIntervalsFromReduce_nd.wlt:26,1-34,2"
+  TestID -> "extractIntervalsFromReduce-nd-padding@@Tests/FindRootOptim/extractIntervalsFromReduce_nd_test3.wlt:9,1-17,2"
 ]
 
 EndTestSection[]

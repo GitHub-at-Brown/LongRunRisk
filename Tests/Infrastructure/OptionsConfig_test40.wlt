@@ -127,6 +127,6 @@ VerificationTest[
 	config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`normalizeConfig["PdEquations" -> "AB"];
 	config["Symbolic"]["PdEquations"],
 	"AB",
-	TestID -> "normalizeConfig-Single-Rule@@Tests/OptionsConfig.wlt:348,1-353,2"
+	TestID -> "normalizeConfig-Single-Rule@@Tests/Infrastructure/OptionsConfig_test40.wlt:126,1-131,2"
 ]
 

@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-BKY-missing-phipx@@Tests/ValidateModels/validateModel.wlt:1155,1-1163,2"
+  TestID -> "badCatalog-BKY-missing-phipx@@Tests/ValidateModels/validateModel_test49.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

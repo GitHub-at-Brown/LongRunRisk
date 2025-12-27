@@ -24,7 +24,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "isCompiledCode-detects-both-types@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:131,1-143,2"
+  TestID -> "isCompiledCode-detects-both-types@@Tests/FindRootOptim/findRootCoeff0EdgeCases_test7.wlt:16,1-28,2"
 ]
 
 EndTestSection[]

@@ -93,7 +93,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"CreateEulerEq_20251223-UIA984@@Tests/CreateEulerEq.wlt:339,1-403,2"
+	TestID->"CreateEulerEq_20251223-UIA984@@Tests/ModelDefinition/CreateEulerEq_test9.wlt:33,1-97,2"
 ]
 
 End[]

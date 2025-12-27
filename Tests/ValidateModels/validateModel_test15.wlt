@@ -27,7 +27,7 @@ VerificationTest[
   (* Test that all catalog models pass validation *)
   $validateCatalog[$realModels]["Valid"],
   True,
-  TestID -> "all-catalog-models-valid@@Tests/ValidateModels/validateModel.wlt:117,1-122,2"
+  TestID -> "all-catalog-models-valid@@Tests/ValidateModels/validateModel_test15.wlt:26,1-31,2"
 ]
 
 EndTestSection[]

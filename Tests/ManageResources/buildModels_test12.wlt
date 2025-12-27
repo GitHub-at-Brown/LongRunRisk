@@ -33,7 +33,7 @@ VerificationTest[
     result
   ],
   False,
-  TestID -> "momentsUpToDate-false-when-meta-missing@@Tests/ManageResources/buildModels.wlt:127,1-140,2"
+  TestID -> "momentsUpToDate-false-when-meta-missing@@Tests/ManageResources/buildModels_test12.wlt:24,1-37,2"
 ]
 
 EndTestSection[]

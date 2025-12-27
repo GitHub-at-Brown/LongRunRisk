@@ -11,7 +11,7 @@ eir = If[NameQ["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`extractIntervalsF
 VerificationTest[
     eir[0 < x < 0.0015, x, "InteriorShrink" -> 0.001, "RootUpperBound" -> 1],
     {{0.00075, 0.00075}},
-    TestID -> "collapses-narrow-interval-to-midpoint@@Tests/FindRootOptim/extractIntervalsFromReduce.wlt:37,3-41,4"
+    TestID -> "collapses-narrow-interval-to-midpoint@@Tests/FindRootOptim/extractIntervalsFromReduce_test5.wlt:11,1-15,4"
   ]
 
 EndTestSection[]

@@ -400,7 +400,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "badCatalog-DES-invalid-symbol-ab@@Tests/ValidateModels/validateModel.wlt:1287,1-1295,2"
+  TestID -> "badCatalog-DES-invalid-symbol-ab@@Tests/ValidateModels/validateModel_test61.wlt:396,1-404,2"
 ]
 
 EndTestSection[]

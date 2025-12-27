@@ -29,7 +29,7 @@ VerificationTest[
   True,
   {FernandoDuarte`LongRunRisk`Tools`ManageResources`updateModelManifest::noroot},
   TimeConstraint -> $timeLimit,
-  TestID -> "fails-when-root-not-found@@Tests/ManageResources/updateModelManifest.wlt:59,1-69,2"
+  TestID -> "fails-when-root-not-found@@Tests/ManageResources/updateModelManifest_test6.wlt:23,1-33,2"
 ]
 
 EndTestSection[]

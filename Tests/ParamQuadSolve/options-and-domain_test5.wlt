@@ -26,6 +26,6 @@ signHeadOK$ = And @@ (Head /@ Keys[rSign$["SignRootMap"]] === Table[sg, {Length[
 rRad$ = Quiet[pqs[{x^2 - 1 == 0, y^2 - x == 0}, {x, y}, "DomainOption" -> Reals, "ValidationOption" -> False], {Power::infy, Infinity::indet}];
 radCondOK$ = Module[{sk = Keys[rRad$["SignRootMap"]]}, MemberQ[rRad$["Conditions"], First[sk] >= 0]];
 
-VerificationTest[signHeadOK$, True, TestID -> "signsymbol-head@@Tests/ParamQuadSolve/options-and-domain.wlt:33,1-33,122"]
+VerificationTest[signHeadOK$, True, TestID -> "signsymbol-head@@Tests/ParamQuadSolve/options-and-domain_test5.wlt:29,1-29,122"]
 
 EndTestSection[]

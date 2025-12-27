@@ -13,6 +13,6 @@ rules$ = If[Length[signs$] == 0, {r$["Solution"]}, (r$["Solution"] /. Thread[sig
 tuples$ = N[(vars$ /. #) & /@ rules$, 30];
 uniqueX$ = DeleteDuplicates[tuples$[[All, 1]], (Abs[#1 - #2] < 1.*^-12) &];
 
-VerificationTest[Length[rules$] >= 1, True, TestID -> "enumerated@@Tests/ParamQuadSolve/degenerate-discriminant.wlt:16,1-16,130"]
+VerificationTest[Length[rules$] >= 1, True, TestID -> "enumerated@@Tests/ParamQuadSolve/degenerate-discriminant_test1.wlt:16,1-16,130"]
 
 EndTestSection[]

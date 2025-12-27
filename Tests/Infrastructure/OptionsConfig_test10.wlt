@@ -40,6 +40,6 @@ VerificationTest[
 	}];
 	config["Build"]["FromScratch"],
 	True,
-	TestID -> "normalizeConfig-Legacy-FromScratch@@Tests/OptionsConfig.wlt:77,1-84,2"
+	TestID -> "normalizeConfig-Legacy-FromScratch@@Tests/Infrastructure/OptionsConfig_test10.wlt:37,1-44,2"
 ]
 

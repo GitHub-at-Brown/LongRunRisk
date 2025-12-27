@@ -19,6 +19,6 @@ ourRules$ = Map[(res$["Solution"] /. Thread[signKeys$ -> #]) &, assigns$];
 solveRules$ = Solve[eqns$, vars$];
 sameQ[r1_, r2_] := Quiet[Chop[N[(vars$ //. r1) - (vars$ //. r2), 50]] == ConstantArray[0, Length[vars$]]];
 
-VerificationTest[Length[signKeys$] === 1, True, TestID -> "one-sign-variable@@Tests/ParamQuadSolve/spec-example1.wlt:23,1-23,131"]
+VerificationTest[Length[signKeys$] === 1, True, TestID -> "one-sign-variable@@Tests/ParamQuadSolve/spec-example1_test2.wlt:22,1-22,131"]
 
 EndTestSection[]

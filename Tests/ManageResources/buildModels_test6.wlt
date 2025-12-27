@@ -24,7 +24,7 @@ $timeLimit = 5;
 VerificationTest[
   StringQ[FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels::nocat],
   True,
-  TestID -> "buildModels-has-nocat-message@@Tests/ManageResources/buildModels.wlt:58,1-62,2"
+  TestID -> "buildModels-has-nocat-message@@Tests/ManageResources/buildModels_test6.wlt:24,1-28,2"
 ]
 
 EndTestSection[]

@@ -41,7 +41,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> $timeLimit,
-  TestID -> "extra-param-detected@@Tests/ValidateModels/validateModel.wlt:426,1-445,2"
+  TestID -> "extra-param-detected@@Tests/ValidateModels/validateModel_test32.wlt:26,1-45,2"
 ]
 
 EndTestSection[]

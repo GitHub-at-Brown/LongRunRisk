@@ -28,7 +28,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "tolerance-deduplication-single-root@@Tests/FindRootOptim/scanAndSolveOptions.wlt:112,3-125,4"
+    TestID -> "tolerance-deduplication-single-root@@Tests/FindRootOptim/scanAndSolveOptions_test7.wlt:19,1-32,4"
   ]
 
 EndTestSection[]

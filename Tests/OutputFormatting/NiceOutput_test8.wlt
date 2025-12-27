@@ -53,7 +53,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"NiceOutput_20251223-1LRLAE@@Tests/NiceOutput.wlt:151,1-178,2"
+	TestID->"NiceOutput_20251223-1LRLAE@@Tests/OutputFormatting/NiceOutput_test8.wlt:30,1-57,2"
 ]
 
 $ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`"];

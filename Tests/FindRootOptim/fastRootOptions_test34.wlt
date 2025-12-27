@@ -48,7 +48,7 @@ VerificationTest[
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds},
     TimeConstraint -> timeLimit,
-    TestID -> "disambiguation-flat-is-1D-bounds@@Tests/FindRootOptim/fastRootOptions.wlt:421,3-431,4"
+    TestID -> "disambiguation-flat-is-1D-bounds@@Tests/FindRootOptim/fastRootOptions_test34.wlt:42,1-52,4"
   ]
 
 EndTestSection[]

@@ -11,7 +11,7 @@ VerificationTest[
       f[E^(E^a)],
       Exp[Exp[a]],
       TimeConstraint -> timeLimit,
-      TestID -> "doubly-nested-E-power@@Tests/FindRootOptim/normalizeExpNested.wlt:22,5-27,6"
+      TestID -> "doubly-nested-E-power@@Tests/FindRootOptim/normalizeExpNested_test3.wlt:10,1-15,6"
     ]
 
 EndTestSection[]

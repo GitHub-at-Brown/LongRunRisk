@@ -18,7 +18,7 @@ VerificationTest[
     MemberQ[Keys[opts], "CoeffName"]
   ],
   True,
-  TestID -> "buildKernel-has-CoeffName-option@@Tests/FindRootOptim/createCompiledEq.wlt:56,1-64,2"
+  TestID -> "buildKernel-has-CoeffName-option@@Tests/FindRootOptim/createCompiledEq_test6.wlt:14,1-22,2"
 ]
 
 EndTestSection[]
