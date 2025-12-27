@@ -98,12 +98,12 @@ toNumRules[
 					Join[
 						sol,
 						allParams,
-						{
+						(* {
 							FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc ->
 								(uncondEwc/.sol//.allParams),
 							FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[ind_] :>
 								(uncondEpd/.(FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j->ind)/.sol//.allParams)
-						}
+						} *)
 					](*Join*)
 				](*With*)
 			](*With*)
@@ -285,7 +285,7 @@ processNewParameters[newParameters : {___Rule} | _Association, parameters : {___
 	Return[{}],
 	With[
 		{
-			newParametersA=(Association@newParameters)(*//.newParameters*)//.parameters,
+			newParametersA=(Association@newParameters)//.newParameters//.parameters,
 			parametersA=(Association@parameters)//.parameters
 		},
 		(*Echo[newParametersA,"newParametersA"];
