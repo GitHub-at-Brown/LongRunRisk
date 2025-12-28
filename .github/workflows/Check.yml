@@ -158,7 +158,7 @@ jobs:
         if: always() && env.PACLET_WORKFLOW_VALUES
         uses: actions/upload-artifact@v5
         with:
-          name: paclet-workflow-values
+          name: test-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
           if-no-files-found: ignore
       - name: Upload test results
@@ -183,7 +183,7 @@ jobs:
         if: always() && env.PACLET_WORKFLOW_VALUES
         uses: actions/upload-artifact@v5
         with:
-          name: paclet-workflow-values
+          name: check-workflow-values
           path: ${{ env.PACLET_WORKFLOW_VALUES }}
           if-no-files-found: ignore
       # - name: Setup tmate session
