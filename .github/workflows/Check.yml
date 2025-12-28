@@ -131,18 +131,24 @@ jobs:
           ls -la $HOME/bin/ || echo "bin dir not found"
           echo "=== TinyTeX location ==="
           ls -la $HOME/.TinyTeX/bin/ 2>/dev/null || echo ".TinyTeX not found"
+      - name: Configure Wolfram init.m for C compiler
+        run: |
+          # Create Wolfram Kernel directory if it doesn't exist
+          mkdir -p /root/.WolframEngine/Kernel
+          # Write init.m to configure C compiler on every kernel startup
+          cat > /root/.WolframEngine/Kernel/init.m << 'EOF'
+          (* CI/CD C Compiler Configuration *)
+          Quiet[
+            Needs["CCompilerDriver`"];
+            CCompilerDriver`$CCompiler = "GCC";
+            CCompilerDriver`$CCompilerInstallation = "/usr/bin";
+          ];
+          EOF
+          echo "Created init.m:"
+          cat /root/.WolframEngine/Kernel/init.m
       - name: Test
         id: test-paclet-step
-        uses: WolframResearch/test-paclet@v1.11.0
-        with:
-          debug: "true"
-          paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
-        env:
-          WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
-          RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
-          CC: /usr/bin/gcc
-          CXX: /usr/bin/g++
-          WOLFRAMINIT: '-pwfile !cloudlm.wolfram.com -entitlement ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }} -run Needs[\"CCompilerDriver`\"];CCompilerDriver`$CCompiler=\"GCC\"'
+        run: wolframscript -f Tests/RunTests.wls
       - name: Check
         id: check-paclet
         uses: WolframResearch/check-paclet@v1.11.0
@@ -153,9 +159,6 @@ jobs:
         env:
           WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
           RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
-          CC: /usr/bin/gcc
-          CXX: /usr/bin/g++
-          WOLFRAMINIT: '-pwfile !cloudlm.wolfram.com -entitlement ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }} -run Needs[\"CCompilerDriver`\"];CCompilerDriver`$CCompiler=\"GCC\"'
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
