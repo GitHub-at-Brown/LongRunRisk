@@ -153,6 +153,7 @@ jobs:
         env:
           PACLET_CICD_VERSION: ${{ env.PACLET_CICD_VERSION }}
           DEBUG: "true"
+          LONGRUNRISK_TESTS_DIR: Tests/_Debug
         run: wolframscript -f Tests/RunTests.wls
       - name: Upload workflow values
         if: always() && env.PACLET_WORKFLOW_VALUES
