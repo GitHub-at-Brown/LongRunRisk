@@ -8,7 +8,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"FakeFailingTest-Arithmetic@@Tests/Core/FakeFailingTest.wlt:4,1-11,2"
+	TestID->"FakeFailingTest-Arithmetic@@Tests/Core/FakeFailingTest_test1.wlt:4,1-11,2"
 ]
 
 VerificationTest[
@@ -18,7 +18,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"FakeFailingTest-String@@Tests/Core/FakeFailingTest.wlt:14,1-21,2"
+	TestID->"FakeFailingTest-String@@Tests/Core/FakeFailingTest_test1.wlt:14,1-21,2"
 ]
 
 End[]
