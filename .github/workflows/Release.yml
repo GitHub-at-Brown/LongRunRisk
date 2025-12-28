@@ -32,8 +32,10 @@ jobs:
           (* CI/CD C Compiler Configuration *)
           Quiet[
             Needs["CCompilerDriver`"];
-            CCompilerDriver`$CCompiler = "GCC";
-            CCompilerDriver`$CCompilerInstallation = "/usr/bin";
+            (* Force compiler detection with explicit installation path *)
+            CCompilerDriver`$CCompilerInstallation = "/usr";
+            (* Refresh compiler list to detect gcc *)
+            CCompilerDriver`CCompilers[True];
           ];
           EOF
       - name: Checkout
@@ -80,8 +82,10 @@ jobs:
           (* CI/CD C Compiler Configuration *)
           Quiet[
             Needs["CCompilerDriver`"];
-            CCompilerDriver`$CCompiler = "GCC";
-            CCompilerDriver`$CCompilerInstallation = "/usr/bin";
+            (* Force compiler detection with explicit installation path *)
+            CCompilerDriver`$CCompilerInstallation = "/usr";
+            (* Refresh compiler list to detect gcc *)
+            CCompilerDriver`CCompilers[True];
           ];
           EOF
       - name: Checkout
