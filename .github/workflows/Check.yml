@@ -2,7 +2,7 @@ name: Check-Test
 on:
   workflow_dispatch:
   push:
-    branches: [develop, "fix/gha-summary-truncation"]
+    branches: [develop]
   pull_request:
     branches: [main, develop]
 concurrency:
@@ -29,26 +29,131 @@ jobs:
       CXX: /usr/bin/g++
     timeout-minutes: 360
     steps:
+      - name: Install system dependencies
+        run: |
+          apt-get update -y
+          apt-get install -y perl ghostscript wget git build-essential libc6-dev
+      - name: Verify C compiler
+        run: |
+          gcc --version
+          g++ --version
+          which gcc
+          which g++
+          wolframscript -code 'Needs["CCompilerDriver`"]; Print["CCompilers found: ", CCompilerDriver`CCompilers[]]; Print["Default compiler: ", CCompilerDriver`$CCompiler]; f = Compile[{{x, _Real}}, x^2, CompilationTarget -> "C"]; Print["Compiled successfully: ", Head[f] === CompiledFunction]'
+      - name: Restore TinyTeX cache
+        id: cache-tinytex
+        uses: actions/cache@v5
+        with:
+          path: |
+            /github/home/bin
+            /github/home/.TinyTeX
+          key: tinytex-${{ runner.os }}-latex-standalone-lm-svn-prov-v1
+          restore-keys: |
+            tinytex-${{ runner.os }}-
+      - name: Install TinyTeX
+        if: steps.cache-tinytex.outputs.cache-hit != 'true'
+        run: wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v5   
+      - name: Add latex to path
+        run: echo "$HOME/bin" >> $GITHUB_PATH
+      - name: Install LaTeX packages for MaTeX
+        if: steps.cache-tinytex.outputs.cache-hit != 'true'
+        env:
+          TEXLIVE_DOWNLOADER: wget
+        run: |
+          # Work around occasional CTAN mirror failures on CI by pinning a
+          # known-good TeX Live repository for tlmgr.
+          for repo in \
+            https://mirrors.rit.edu/CTAN/systems/texlive/tlnet \
+            https://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet \
+            https://ftp.fau.de/ctan/systems/texlive/tlnet \
+            https://mirror.ctan.org/systems/texlive/tlnet
+          do
+            echo "Trying TeX Live repository: $repo"
+            if wget -q --spider --timeout=20 --tries=2 "$repo/tlpkg/texlive.tlpdb.sha512"; then
+              echo "Using TeX Live repository: $repo"
+              tlmgr option repository "$repo"
+              break
+            fi
+          done
+          tlmgr option repository
+          tlmgr update --self --all
+          tlmgr path add
+          fmtutil-sys --all
+          tlmgr --version
+          tlmgr install latex standalone lm svn-prov
+          tlmgr path add
+          tlmgr list --only-installed
+      - name: Load paclet
+        env:
+          LONGRUNRISK_SKIP_CHECK: "false"
+        run: |
+          wolframscript -code '
+            Print["=== Load paclet ==="];
+            Print["$SystemID: ", $SystemID];
+            t0 = AbsoluteTime[];
+            PacletDirectoryLoad["."];
+
+            Needs["FernandoDuarte`LongRunRisk`"];
+            Print["Paclet loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
+
+            Print["Pipeline status:"];
+            status = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[All];
+            Scan[Print["  ", #, ": ", status[#]] &, Keys[status]];
+            Print["=== Paclet load complete ==="]
+          '
+      - name: Commit MX files if updated
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          # Check if there are new/modified MX files in the platform subfolder
+          if [ -n "$(git status --porcelain Resources/CompiledFunctions/Linux-x86-64/)" ]; then
+            echo "MX files were updated, committing..."
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add Resources/CompiledFunctions/Linux-x86-64/*.mx
+            git commit -m "Update compiled MX files for Linux-x86-64"
+            git push
+          else
+            echo "No MX file changes to commit"
+          fi
+      - name: Debug environment before test
+        run: |
+          echo "=== Environment Debug ==="
+          echo "PATH=$PATH"
+          echo "HOME=$HOME"
+          echo "=== Checking executables ==="
+          which pdflatex || echo "pdflatex not found in PATH"
+          which gs || echo "gs not found in PATH"
+          echo "=== Contents of HOME/bin ==="
+          ls -la $HOME/bin/ || echo "bin dir not found"
+          echo "=== TinyTeX location ==="
+          ls -la $HOME/.TinyTeX/bin/ 2>/dev/null || echo ".TinyTeX not found"
+      - name: Configure Wolfram init.m for C compiler
+        run: |
+          # Create Wolfram Kernel directory if it doesn't exist
+          mkdir -p /root/.WolframEngine/Kernel
+          # Write init.m to configure C compiler on every kernel startup
+          cat > /root/.WolframEngine/Kernel/init.m << 'EOF'
+          (* CI/CD C Compiler Configuration *)
+          Quiet[
+            Needs["CCompilerDriver`"];
+            (* Force compiler detection with explicit installation path *)
+            CCompilerDriver`$CCompilerInstallation = "/usr";
+            (* Refresh compiler list to detect gcc *)
+            CCompilerDriver`CCompilers[True];
+          ];
+          EOF
+          echo "Created init.m:"
+          cat /root/.WolframEngine/Kernel/init.m
       - name: Test
         id: test-paclet-step
         env:
           PACLET_CICD_VERSION: ${{ env.PACLET_CICD_VERSION }}
           DEBUG: "true"
-          LONGRUNRISK_TESTS_DIR: Tests/_Debug
         run: wolframscript -f Tests/RunTests.wls
-      - name: Debug step summary HTML
-        if: always()
-        run: |
-          echo "=== build/test-results/step-summary.md ==="
-          ls -la build/test-results || true
-          test -f build/test-results/step-summary.md || exit 0
-          echo "=== <table> lines (first 20) ==="
-          grep -n "<table" build/test-results/step-summary.md | head -n 20 || true
-          echo "=== width=100% checks (first 20) ==="
-          grep -n "width=\\\"100%\\\"" build/test-results/step-summary.md | head -n 20 || true
       - name: Upload workflow values
         if: always() && env.PACLET_WORKFLOW_VALUES
         uses: actions/upload-artifact@v5
@@ -62,6 +167,24 @@ jobs:
         with:
           name: test-results
           path: build/test-results/
+          if-no-files-found: ignore
+      - name: Check
+        id: check-paclet
+        uses: WolframResearch/check-paclet@v1.11.0
+        with:
+          debug: "true"
+          target: Check
+          paclet_cicd_version: ${{ env.PACLET_CICD_VERSION }}
+        env:
+          WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
+          RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
+      - name: UploadWorkflowValues
+        id: upload-workflow-values-step
+        if: always() && env.PACLET_WORKFLOW_VALUES
+        uses: actions/upload-artifact@v5
+        with:
+          name: check-workflow-values
+          path: ${{ env.PACLET_WORKFLOW_VALUES }}
           if-no-files-found: ignore
       # - name: Setup tmate session
       #   if: always()
