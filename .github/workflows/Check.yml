@@ -142,6 +142,7 @@ jobs:
           RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
           CC: /usr/bin/gcc
           CXX: /usr/bin/g++
+          WOLFRAMINIT: '-pwfile !cloudlm.wolfram.com -entitlement ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }} -run Needs[\"CCompilerDriver`\"];CCompilerDriver`$CCompiler=\"GCC\"'
       - name: Check
         id: check-paclet
         uses: WolframResearch/check-paclet@v1.11.0
@@ -154,6 +155,7 @@ jobs:
           RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
           CC: /usr/bin/gcc
           CXX: /usr/bin/g++
+          WOLFRAMINIT: '-pwfile !cloudlm.wolfram.com -entitlement ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }} -run Needs[\"CCompilerDriver`\"];CCompilerDriver`$CCompiler=\"GCC\"'
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
