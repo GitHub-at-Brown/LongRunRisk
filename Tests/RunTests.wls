@@ -98,7 +98,9 @@ fixGitHubStepSummaryLayout[ ] := Module[{file, str, out},
     str,
     {
       "<table>" -> "<table width=\"100%\">",
-      "<td><pre" -> "<td width=\"100%\"><pre"
+      "<tr><td><strong>" -> "<tr><td width=\"1%\"><strong>",
+      "<td width=\"100%\"><pre" -> "<td width=\"99%\"><pre",
+      "<td><pre" -> "<td width=\"99%\"><pre"
     }
   ];
 
