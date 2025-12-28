@@ -2,7 +2,13 @@
 (* ::Package:: *)
 
 (* Test runner using Wolfram PacletCICD for full GitHub Actions integration.
-   Installs PacletCICD if needed and delegates to Wolfram`PacletCICD`TestPaclet. *)
+   Installs PacletCICD if needed and delegates to Wolfram`PacletCICD`TestPaclet.
+
+   This script mirrors the behavior of WolframResearch/test-paclet action:
+   - Uses ConsoleType -> "GitHub" for proper GitHub Actions annotations
+   - Enables MarkdownSummary for job summary tab output
+   - Blocks DefinitionNotebookClient console functions to prevent conflicts
+   - Does NOT print raw results; lets TestPaclet handle all output *)
 
 print[a___] := WriteString["stdout", a, "\n"];
 
@@ -50,28 +56,31 @@ If[!FileExistsQ[FileNameJoin[{$pacletRoot, "PacletInfo.wl"}]],
   Exit[1]
 ];
 
-(* Load the paclet *)
-PacletDirectoryLoad[$pacletRoot];
-
 (* Get debug flag from environment *)
 $debug = TrueQ[Interpreter["Boolean"][Environment["DEBUG"]]];
 
 print["Testing paclet at: ", $pacletRoot];
 
-(* Run tests using PacletCICD TestPaclet *)
+(* Run tests using PacletCICD TestPaclet
+   Block console group functions to match test-paclet action behavior *)
 $result = Block[
-  {Print = print},
+  {
+    Print = print,
+    DefinitionNotebookClient`BeginConsoleGroup = Null &,
+    DefinitionNotebookClient`EndConsoleGroup = Null &
+  },
   Wolfram`PacletCICD`TestPaclet[
     $pacletRoot,
     "AnnotateTestIDs" -> True,
     "Debug" -> $debug,
-    "ConsoleType" -> "GitHub"
+    "ConsoleType" -> "GitHub",
+    "MarkdownSummary" -> True,
+    "SetWorkflowValue" -> True
   ]
 ];
 
-print[$result];
-
-(* Exit with appropriate code *)
+(* Exit with appropriate code based on result *)
+(* Do NOT print $result - TestPaclet handles all output including markdown summary *)
 If[FailureQ[$result] || MatchQ[$result, _Wolfram`PacletCICD`TestPaclet],
   Exit[1],
   Exit[0]
