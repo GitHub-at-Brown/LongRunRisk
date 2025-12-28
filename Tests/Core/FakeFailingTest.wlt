@@ -1,13 +1,25 @@
-(* Fake failing test to verify CI artifact and summary display *)
+BeginTestSection["FakeFailingTest"]
+Begin["FernandoDuarte`LongRunRisk`Tests`FakeFailingTest`"]
 
 VerificationTest[
-    1 + 1,
-    3,
-    TestID -> "FakeFailingTest-Arithmetic"
+	1 + 1
+	,
+	3
+	,
+	{}
+	,
+	TestID->"FakeFailingTest-Arithmetic@@Tests/Core/FakeFailingTest.wlt:4,1-11,2"
 ]
 
 VerificationTest[
-    "hello",
-    "world",
-    TestID -> "FakeFailingTest-String"
+	"hello"
+	,
+	"world"
+	,
+	{}
+	,
+	TestID->"FakeFailingTest-String@@Tests/Core/FakeFailingTest.wlt:14,1-21,2"
 ]
+
+End[]
+EndTestSection[]
