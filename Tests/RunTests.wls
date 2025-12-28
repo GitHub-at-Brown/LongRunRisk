@@ -62,26 +62,29 @@ $debug = TrueQ[Interpreter["Boolean"][Environment["DEBUG"]]];
 print["Testing paclet at: ", $pacletRoot];
 
 (* Run tests using PacletCICD TestPaclet
-   Block console group functions to match test-paclet action behavior *)
-$result = Block[
+   Block console group functions to match test-paclet action behavior
+   Use With to ensure result is consumed and not printed to stdout *)
+With[
   {
-    Print = print,
-    DefinitionNotebookClient`BeginConsoleGroup = Null &,
-    DefinitionNotebookClient`EndConsoleGroup = Null &
+    res = Block[
+      {
+        Print = print,
+        DefinitionNotebookClient`BeginConsoleGroup = Null &,
+        DefinitionNotebookClient`EndConsoleGroup = Null &
+      },
+      Wolfram`PacletCICD`TestPaclet[
+        $pacletRoot,
+        "AnnotateTestIDs" -> True,
+        "Debug" -> $debug,
+        "ConsoleType" -> "GitHub",
+        "MarkdownSummary" -> True,
+        "SetWorkflowValue" -> True
+      ]
+    ]
   },
-  Wolfram`PacletCICD`TestPaclet[
-    $pacletRoot,
-    "AnnotateTestIDs" -> True,
-    "Debug" -> $debug,
-    "ConsoleType" -> "GitHub",
-    "MarkdownSummary" -> True,
-    "SetWorkflowValue" -> True
+  (* Exit with appropriate code based on result *)
+  If[FailureQ[res] || MatchQ[res, _Wolfram`PacletCICD`TestPaclet],
+    Exit[1],
+    Exit[0]
   ]
-];
-
-(* Exit with appropriate code based on result *)
-(* Do NOT print $result - TestPaclet handles all output including markdown summary *)
-If[FailureQ[$result] || MatchQ[$result, _Wolfram`PacletCICD`TestPaclet],
-  Exit[1],
-  Exit[0]
 ];
