@@ -56,24 +56,70 @@ If[!FileExistsQ[FileNameJoin[{$pacletRoot, "PacletInfo.wl"}]],
   Exit[1]
 ];
 
+(* Choose which directory to search for *.wlt files.
+   Default is the paclet root (matches Wolfram/PacletCICD action behavior).
+   Set LONGRUNRISK_TESTS_DIR to a relative path (from paclet root) or an
+   absolute path to speed up debugging. *)
+$testsDir = Module[{raw, abs, rel},
+   raw = Replace[Environment["LONGRUNRISK_TESTS_DIR"], Except[_String] -> Automatic];
+   Which[
+     raw === Automatic,
+       $pacletRoot,
+     DirectoryQ[abs = ExpandFileName[raw]],
+       abs,
+     DirectoryQ[rel = FileNameJoin[{$pacletRoot, raw}]],
+       rel,
+     True,
+       print["::error::Invalid LONGRUNRISK_TESTS_DIR: ", raw];
+       print["::error::Expected an existing directory (absolute or relative to paclet root)."];
+       Exit[1]
+   ]
+];
+
 (* Get debug flag from environment *)
 $debug = TrueQ[Interpreter["Boolean"][Environment["DEBUG"]]];
 
 print["Testing paclet at: ", $pacletRoot];
+print["Test discovery directory: ", $testsDir];
+
+(* GitHub Actions Summary rendering can show code blocks inside HTML tables
+   with a very narrow value column (appearing like only the first character is
+   shown).  Make the generated tables full-width and force the code-value
+   column to expand. *)
+fixGitHubStepSummaryLayout[ ] := Module[{file, str, out},
+  file = Environment["GITHUB_STEP_SUMMARY"];
+  If[! StringQ[file] || StringTrim[file] === "" || ! FileExistsQ[file], Return[Null]];
+  (* PacletCICD keeps the summary stream open; close it so we can safely rewrite. *)
+  Quiet[Close /@ Streams[file]];
+  str = ReadString[file];
+  If[! StringQ[str], Return[Null]];
+
+  out = StringReplace[
+    str,
+    {
+      "<table>" -> "<table width=\"100%\">",
+      "<td><pre" -> "<td width=\"100%\"><pre"
+    }
+  ];
+
+  If[out =!= str,
+    Export[file, out, "String"]
+  ];
+];
 
 (* Run tests using PacletCICD TestPaclet
    Block console group functions to match test-paclet action behavior
    Use With to ensure result is consumed and not printed to stdout *)
 With[
   {
-    res = Block[
+    res = Wolfram`PacletCICD`Private`noExit @ Block[
       {
         Print = print,
         DefinitionNotebookClient`BeginConsoleGroup = Null &,
         DefinitionNotebookClient`EndConsoleGroup = Null &
       },
       Wolfram`PacletCICD`TestPaclet[
-        $pacletRoot,
+        $testsDir,
         "AnnotateTestIDs" -> True,
         "Debug" -> $debug,
         "ConsoleType" -> "GitHub",
@@ -82,6 +128,7 @@ With[
       ]
     ]
   },
+  Quiet @ fixGitHubStepSummaryLayout[ ];
   (* Exit with appropriate code based on result *)
   If[FailureQ[res] || MatchQ[res, _Wolfram`PacletCICD`TestPaclet],
     Exit[1],
