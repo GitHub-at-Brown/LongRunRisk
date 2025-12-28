@@ -82,30 +82,23 @@ $debug = TrueQ[Interpreter["Boolean"][Environment["DEBUG"]]];
 print["Testing paclet at: ", $pacletRoot];
 print["Test discovery directory: ", $testsDir];
 
-(* GitHub Actions Summary rendering can show code blocks inside HTML tables
-   with a very narrow value column (appearing like only the first character is
-   shown).  Make the generated tables full-width and force the code-value
-   column to expand. *)
-fixGitHubStepSummaryLayout[ ] := Module[{file, str, out},
-  file = Environment["GITHUB_STEP_SUMMARY"];
-  If[! StringQ[file] || StringTrim[file] === "" || ! FileExistsQ[file], Return[Null]];
-  (* PacletCICD keeps the summary stream open; close it so we can safely rewrite. *)
-  Quiet[Close /@ Streams[file]];
-  str = ReadString[file];
-  If[! StringQ[str], Return[Null]];
+getTestReports[res_] := Which[
+  AssociationQ[res], res,
+  MatchQ[res, _Failure | _Success], res["Result"],
+  True, $Failed
+];
 
-  out = StringReplace[
-    str,
+writeGitHubSummary[reports_Association] := Module[{summaryFile},
+  summaryFile = Environment["GITHUB_STEP_SUMMARY"];
+  If[! StringQ[summaryFile] || StringTrim[summaryFile] === "", Return[Null]];
+  Block[
     {
-      "<table>" -> "<table width=\"100%\">",
-      "<tr><td><strong>" -> "<tr><td width=\"1%\"><strong>",
-      "<td width=\"100%\"><pre" -> "<td width=\"99%\"><pre",
-      "<td><pre" -> "<td width=\"99%\"><pre"
-    }
-  ];
-
-  If[out =!= str,
-    Export[file, out, "String"]
+      Wolfram`PacletCICD`Private`$gitHub = True,
+      Wolfram`PacletCICD`Private`$markdownSummary = True,
+      Wolfram`PacletCICD`Private`$gitHubStepSummary =
+        Wolfram`PacletCICD`Private`getGitHubSS[ ]
+    },
+    Wolfram`PacletCICD`Private`generateTestSummary[reports]
   ];
 ];
 
@@ -125,12 +118,17 @@ With[
         "AnnotateTestIDs" -> True,
         "Debug" -> $debug,
         "ConsoleType" -> "GitHub",
-        "MarkdownSummary" -> True,
+        "MarkdownSummary" -> False,
         "SetWorkflowValue" -> True
       ]
     ]
   },
-  Quiet @ fixGitHubStepSummaryLayout[ ];
+  Module[{reports},
+    reports = getTestReports[res];
+    If[AssociationQ[reports],
+      Quiet @ writeGitHubSummary[reports]
+    ]
+  ];
   (* Exit with appropriate code based on result *)
   If[FailureQ[res] || MatchQ[res, _Wolfram`PacletCICD`TestPaclet],
     Exit[1],
