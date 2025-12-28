@@ -18,7 +18,13 @@ jobs:
       options: --user root
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
+      CC: /usr/bin/gcc
+      CXX: /usr/bin/g++
     steps:
+      - name: Install system dependencies
+        run: |
+          apt-get update -y
+          apt-get install -y build-essential libc6-dev
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v5
@@ -33,6 +39,8 @@ jobs:
         env:
           WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
           RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
+          CC: /usr/bin/gcc
+          CXX: /usr/bin/g++
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES
@@ -49,7 +57,13 @@ jobs:
       options: --user root
     env:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
+      CC: /usr/bin/gcc
+      CXX: /usr/bin/g++
     steps:
+      - name: Install system dependencies
+        run: |
+          apt-get update -y
+          apt-get install -y build-essential libc6-dev
       - name: Checkout
         id: checkout-code-step
         uses: actions/checkout@v5
@@ -64,6 +78,8 @@ jobs:
         env:
           WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
           RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
+          CC: /usr/bin/gcc
+          CXX: /usr/bin/g++
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES

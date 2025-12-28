@@ -140,6 +140,8 @@ jobs:
         env:
           WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
           RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
+          CC: /usr/bin/gcc
+          CXX: /usr/bin/g++
       - name: Check
         id: check-paclet
         uses: WolframResearch/check-paclet@v1.11.0
@@ -150,6 +152,8 @@ jobs:
         env:
           WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
           RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
+          CC: /usr/bin/gcc
+          CXX: /usr/bin/g++
       - name: UploadWorkflowValues
         id: upload-workflow-values-step
         if: always() && env.PACLET_WORKFLOW_VALUES

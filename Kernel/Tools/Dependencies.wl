@@ -83,9 +83,11 @@ installAndConfigureMaTeX[] := Module[{},
 
 	(* Configure MaTeX if auto-detection failed for pdfLaTeX or Ghostscript *)
 	With[{currentConfig = Quiet @ MaTeX`ConfigureMaTeX[]},
-		Module[{pdflatexPath, gsPath, needsPdflatex, needsGs, configChanges},
-			needsPdflatex = ("pdfLaTeX" /. currentConfig) === None;
-			needsGs = ("Ghostscript" /. currentConfig) === None;
+		Module[{pdflatexPath, gsPath, needsPdflatex, needsGs, configChanges, validConfig},
+			(* Validate that currentConfig is a proper list of rules before using ReplaceAll *)
+			validConfig = MatchQ[currentConfig, {(_Rule | _RuleDelayed) ...}];
+			needsPdflatex = If[validConfig, ("pdfLaTeX" /. currentConfig) === None, True];
+			needsGs = If[validConfig, ("Ghostscript" /. currentConfig) === None, True];
 
 			If[needsPdflatex || needsGs,
 				(* Determine fallback paths based on platform *)
