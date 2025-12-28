@@ -9,16 +9,31 @@ print[a___] := WriteString["stdout", a, "\n"];
 (* Get PacletCICD version from environment or use default *)
 $pacletCICDVersion = Replace[Environment["PACLET_CICD_VERSION"], Except[_String] -> "0.36.2"];
 
-(* Install PacletCICD if not already available *)
-If[!PacletNewerQ[PacletObject["Wolfram/PacletCICD"], $pacletCICDVersion],
-  print["Installing Wolfram/PacletCICD version ", $pacletCICDVersion, "..."];
-  PacletInstall[
-    "https://github.com/WolframResearch/PacletCICD/releases/download/v" <>
-      $pacletCICDVersion <> "/Wolfram__PacletCICD-" <> $pacletCICDVersion <> ".paclet"
-  ];
+(* Check if PacletCICD is installed and up to date *)
+$existingPaclet = PacletFind["Wolfram/PacletCICD"];
+$needsInstall = If[$existingPaclet === {},
+  True,
+  (* Check version *)
+  !OrderedQ[{$pacletCICDVersion, $existingPaclet[[1]]["Version"]}, VersionOrder]
 ];
 
-print["Loading Wolfram`PacletCICD` from ", FindFile["Wolfram`PacletCICD`"]];
+If[$needsInstall,
+  print["Installing Wolfram/PacletCICD version ", $pacletCICDVersion, "..."];
+  $pacletURL = "https://github.com/WolframResearch/PacletCICD/releases/download/v" <>
+    $pacletCICDVersion <> "/Wolfram__PacletCICD-" <> $pacletCICDVersion <> ".paclet";
+  print["From: ", $pacletURL];
+  $installed = PacletInstall[$pacletURL];
+  print["Installed: ", $installed];
+];
+
+$pacletCICDPath = FindFile["Wolfram`PacletCICD`"];
+print["Loading Wolfram`PacletCICD` from ", $pacletCICDPath];
+
+If[$pacletCICDPath === $Failed,
+  print["::error::Failed to find Wolfram`PacletCICD` after installation"];
+  Exit[1]
+];
+
 Needs["Wolfram`PacletCICD`"];
 
 (* Find paclet root *)
@@ -47,7 +62,7 @@ print["Testing paclet at: ", $pacletRoot];
 $result = Block[
   {Print = print},
   Wolfram`PacletCICD`TestPaclet[
-    Directory[$pacletRoot],
+    $pacletRoot,
     "AnnotateTestIDs" -> True,
     "Debug" -> $debug,
     "ConsoleType" -> "GitHub"
