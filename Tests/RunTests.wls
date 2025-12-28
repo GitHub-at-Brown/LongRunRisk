@@ -2,13 +2,15 @@
 (* ::Package:: *)
 
 (* Aggregate runner for automated test suites.
-   Skips interactive notebooks and CI test generators. *)
+   Skips interactive notebooks and CI test generators.
+   Exports JUnit XML and JSON reports for CI artifact upload. *)
 
 Module[
   {
-    testsRoot, pacletRoot, ignoreDirs, verbose, specificFiles,
+    testsRoot, pacletRoot, buildDir, ignoreDirs, verbose, specificFiles,
     allTestFiles, testFiles, report,
-    totalPassed, totalFailed, totalAborted, totalTests
+    totalPassed, totalFailed, totalAborted, totalTests,
+    exportJUnitXML, exportJSONReport, testResults
   },
 
   Needs["MUnit`"];
@@ -26,6 +28,10 @@ Module[
   ];
 
   PacletDirectoryLoad[pacletRoot];
+
+  (* Create build directory for test artifacts *)
+  buildDir = FileNameJoin[{pacletRoot, "build", "test-results"}];
+  If[!DirectoryQ[buildDir], CreateDirectory[buildDir]];
 
   ignoreDirs = {"InteractiveTests", "GenerateCITests"};
 
@@ -60,13 +66,90 @@ Module[
   Print["Total: ", totalTests, ", Passed: ", totalPassed, ", Failed: ", totalFailed, ", Aborted: ", totalAborted,
     " (" <> ToString[NumberForm[100.0 * totalPassed / Max[1, totalTests], {4, 1}]] <> "%)"];
 
+  (* Export JUnit XML for GitHub Actions integration *)
+  exportJUnitXML[rep_, file_] := Module[
+    {results, testcases, xml, totalTime},
+    results = Values[rep["TestResults"]];
+    totalTime = Total[Replace[#["AbsoluteTimeUsed"], _Missing -> 0] & /@ results];
+    testcases = Map[
+      Function[{tr},
+        With[{
+          name = Replace[tr["TestID"], _Missing -> "unknown"],
+          time = Replace[tr["AbsoluteTimeUsed"], _Missing -> 0],
+          outcome = tr["Outcome"]
+        },
+          XMLElement["testcase", {
+            "name" -> ToString[name],
+            "time" -> ToString[time],
+            "classname" -> "LongRunRisk"
+          },
+            Switch[outcome,
+              "Failure",
+              {XMLElement["failure", {"message" -> "Test failed"}, {ToString[tr["ActualOutput"]]}]},
+              "MessagesFailure",
+              {XMLElement["failure", {"message" -> "Unexpected messages"}, {ToString[tr["ActualMessages"]]}]},
+              "Error",
+              {XMLElement["error", {"message" -> "Test error"}, {}]},
+              _,
+              {}
+            ]
+          ]
+        ]
+      ],
+      results
+    ];
+    xml = XMLElement["testsuites", {}, {
+      XMLElement["testsuite", {
+        "name" -> "LongRunRisk",
+        "tests" -> ToString[Length[results]],
+        "failures" -> ToString[rep["TestsFailedCount"]],
+        "errors" -> ToString[Replace[rep["TestsAbortedCount"], _Missing -> 0]],
+        "time" -> ToString[totalTime]
+      }, testcases]
+    }];
+    Export[file, xml, "XML"]
+  ];
+
+  (* Export JSON summary *)
+  exportJSONReport[rep_, file_] := Module[
+    {results, summary, details},
+    results = Values[rep["TestResults"]];
+    summary = <|
+      "totalTests" -> Length[results],
+      "passed" -> rep["TestsSucceededCount"],
+      "failed" -> rep["TestsFailedCount"],
+      "aborted" -> Replace[rep["TestsAbortedCount"], _Missing -> 0],
+      "successRate" -> N[100 * rep["TestsSucceededCount"] / Max[1, Length[results]]],
+      "timestamp" -> DateString["ISODateTime"]
+    |>;
+    details = Map[
+      <|
+        "testID" -> Replace[#["TestID"], _Missing -> "unknown"],
+        "outcome" -> #["Outcome"],
+        "time" -> Replace[#["AbsoluteTimeUsed"], _Missing -> 0]
+      |> &,
+      results
+    ];
+    Export[file, <|"summary" -> summary, "tests" -> details|>, "JSON"]
+  ];
+
+  (* Export artifacts *)
+  Print["Exporting test artifacts to: ", buildDir];
+  exportJUnitXML[report, FileNameJoin[{buildDir, "junit.xml"}]];
+  exportJSONReport[report, FileNameJoin[{buildDir, "test-report.json"}]];
+  Print["Artifacts exported successfully"];
+
   (* Print failure details if any *)
   If[totalFailed > 0,
     Module[{failedTests},
-      failedTests = Select[report["TestResults"], #["Outcome"] === "Failure" &];
-      If[Length[failedTests] > 0,
-        Print["Failed test IDs: ", failedTests[[1, "TestID"]]];
-        Print["Failed test file: ", failedTests[[1, "TestFileName"]]];
+      failedTests = Select[Values[report["TestResults"]], #["Outcome"] === "Failure" &];
+      Print["\n=== Failed Tests ==="];
+      Scan[
+        Print["  ", Replace[#["TestID"], _Missing -> "unknown"]] &,
+        Take[failedTests, UpTo[10]]
+      ];
+      If[Length[failedTests] > 10,
+        Print["  ... and ", Length[failedTests] - 10, " more"]
       ];
     ]
   ];

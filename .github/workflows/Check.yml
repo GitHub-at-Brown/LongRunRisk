@@ -151,6 +151,13 @@ jobs:
       - name: Test
         id: test-paclet-step
         run: wolframscript -f Tests/RunTests.wls
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: test-results
+          path: build/test-results/
+          if-no-files-found: ignore
       - name: Check
         id: check-paclet
         uses: WolframResearch/check-paclet@v1.11.0
