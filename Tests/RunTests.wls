@@ -3,17 +3,42 @@
 
 (* Aggregate runner for automated test suites.
    Skips interactive notebooks and CI test generators.
-   Exports JUnit XML and JSON reports for CI artifact upload. *)
+   Exports JUnit XML and JSON reports for CI artifact upload.
+   Emulates PacletCICD TestPaclet output for GitHub Actions integration. *)
 
 Module[
   {
     testsRoot, pacletRoot, buildDir, ignoreDirs, verbose, specificFiles,
     allTestFiles, testFiles, report,
     totalPassed, totalFailed, totalAborted, totalTests,
-    exportJUnitXML, exportJSONReport, testResults
+    exportJUnitXML, exportJSONReport, testResults,
+    isGitHubActions, ghOutput, ghSummary, setGHOutput, writeGHSummary
   },
 
   Needs["MUnit`"];
+
+  (* Detect GitHub Actions environment *)
+  isGitHubActions = StringQ[Environment["GITHUB_ACTIONS"]];
+  ghOutput = Environment["GITHUB_OUTPUT"];
+  ghSummary = Environment["GITHUB_STEP_SUMMARY"];
+
+  (* Helper to set GitHub Actions output variables *)
+  setGHOutput[name_String, value_] := If[
+    isGitHubActions && StringQ[ghOutput],
+    With[{stream = OpenAppend[ghOutput]},
+      WriteString[stream, name <> "=" <> ToString[value] <> "\n"];
+      Close[stream];
+    ]
+  ];
+
+  (* Helper to write GitHub Actions step summary *)
+  writeGHSummary[markdown_String] := If[
+    isGitHubActions && StringQ[ghSummary],
+    With[{stream = OpenAppend[ghSummary]},
+      WriteString[stream, markdown];
+      Close[stream];
+    ]
+  ];
 
   testsRoot = DirectoryName[$InputFileName];
 
@@ -23,7 +48,7 @@ Module[
   ];
 
   If[! FileExistsQ@FileNameJoin[{pacletRoot, "PacletInfo.wl"}],
-    Print["Could not locate PacletInfo.wl"];
+    Print["::error::Could not locate PacletInfo.wl"];
     Quit[1];
   ];
 
@@ -139,13 +164,65 @@ Module[
   exportJSONReport[report, FileNameJoin[{buildDir, "test-report.json"}]];
   Print["Artifacts exported successfully"];
 
-  (* Print failure details if any *)
+  (* Set GitHub Actions output variables *)
+  setGHOutput["tests_total", totalTests];
+  setGHOutput["tests_passed", totalPassed];
+  setGHOutput["tests_failed", totalFailed];
+  setGHOutput["tests_aborted", totalAborted];
+  setGHOutput["success_rate", ToString[NumberForm[100.0 * totalPassed / Max[1, totalTests], {5, 2}]]];
+
+  (* Generate GitHub Actions step summary *)
+  Module[{summaryMD, statusIcon, failedTests, successRate},
+    successRate = 100.0 * totalPassed / Max[1, totalTests];
+    statusIcon = If[totalFailed == 0 && totalAborted == 0, ":white_check_mark:", ":x:"];
+
+    summaryMD = StringJoin[
+      "## ", statusIcon, " Test Results\n\n",
+      "| Metric | Count |\n",
+      "|--------|-------|\n",
+      "| Total Tests | ", ToString[totalTests], " |\n",
+      "| :white_check_mark: Passed | ", ToString[totalPassed], " |\n",
+      "| :x: Failed | ", ToString[totalFailed], " |\n",
+      "| :warning: Aborted | ", ToString[totalAborted], " |\n",
+      "| Success Rate | ", ToString[NumberForm[successRate, {5, 1}]], "% |\n\n"
+    ];
+
+    (* Add failed test details *)
+    If[totalFailed > 0,
+      failedTests = Select[Values[report["TestResults"]], #["Outcome"] =!= "Success" &];
+      summaryMD = summaryMD <> "<details>\n<summary>:x: Failed Tests (" <> ToString[Length[failedTests]] <> ")</summary>\n\n";
+      summaryMD = summaryMD <> "| Test ID | Outcome |\n|---------|--------|\n";
+      Scan[
+        Function[{tr},
+          summaryMD = summaryMD <> "| `" <> ToString[Replace[tr["TestID"], _Missing -> "unknown"]] <>
+            "` | " <> ToString[tr["Outcome"]] <> " |\n"
+        ],
+        Take[failedTests, UpTo[50]]
+      ];
+      If[Length[failedTests] > 50,
+        summaryMD = summaryMD <> "\n*...and " <> ToString[Length[failedTests] - 50] <> " more*\n"
+      ];
+      summaryMD = summaryMD <> "\n</details>\n";
+    ];
+
+    writeGHSummary[summaryMD];
+  ];
+
+  (* Print failure details to console *)
   If[totalFailed > 0,
     Module[{failedTests},
       failedTests = Select[Values[report["TestResults"]], #["Outcome"] === "Failure" &];
       Print["\n=== Failed Tests ==="];
       Scan[
-        Print["  ", Replace[#["TestID"], _Missing -> "unknown"]] &,
+        Function[{tr},
+          With[{testID = Replace[tr["TestID"], _Missing -> "unknown"]},
+            (* Use GitHub Actions error annotation format *)
+            If[isGitHubActions,
+              Print["::error title=Test Failed::", testID],
+              Print["  ", testID]
+            ]
+          ]
+        ],
         Take[failedTests, UpTo[10]]
       ];
       If[Length[failedTests] > 10,
