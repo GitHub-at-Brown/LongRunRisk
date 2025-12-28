@@ -107,6 +107,14 @@ fixGitHubStepSummaryLayout[ ] := Module[{file, str, out},
   ];
 ];
 
+saveStepSummaryCopy[ ] := Module[{src, dest},
+  src = Environment["GITHUB_STEP_SUMMARY"];
+  If[! StringQ[src] || StringTrim[src] === "" || ! FileExistsQ[src], Return[Null]];
+  dest = FileNameJoin[{$pacletRoot, "build", "test-results", "step-summary.md"}];
+  Quiet @ CreateDirectory[DirectoryName[dest], CreateIntermediateDirectories -> True];
+  Quiet @ CopyFile[src, dest, OverwriteTarget -> True];
+];
+
 (* Run tests using PacletCICD TestPaclet
    Block console group functions to match test-paclet action behavior
    Use With to ensure result is consumed and not printed to stdout *)
@@ -129,6 +137,7 @@ With[
     ]
   },
   Quiet @ fixGitHubStepSummaryLayout[ ];
+  Quiet @ saveStepSummaryCopy[ ];
   (* Exit with appropriate code based on result *)
   If[FailureQ[res] || MatchQ[res, _Wolfram`PacletCICD`TestPaclet],
     Exit[1],

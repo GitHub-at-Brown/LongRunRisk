@@ -42,11 +42,13 @@ jobs:
       - name: Debug step summary HTML
         if: always()
         run: |
-          echo "GITHUB_STEP_SUMMARY=$GITHUB_STEP_SUMMARY"
+          echo "=== build/test-results/step-summary.md ==="
+          ls -la build/test-results || true
+          test -f build/test-results/step-summary.md || exit 0
           echo "=== <table> lines (first 20) ==="
-          grep -n "<table" "$GITHUB_STEP_SUMMARY" | head -n 20 || true
+          grep -n "<table" build/test-results/step-summary.md | head -n 20 || true
           echo "=== width=100% checks (first 20) ==="
-          grep -n "width=\\\"100%\\\"" "$GITHUB_STEP_SUMMARY" | head -n 20 || true
+          grep -n "width=\\\"100%\\\"" build/test-results/step-summary.md | head -n 20 || true
       - name: Upload workflow values
         if: always() && env.PACLET_WORKFLOW_VALUES
         uses: actions/upload-artifact@v5
