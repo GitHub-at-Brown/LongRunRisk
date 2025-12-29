@@ -15,6 +15,8 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`Dependencies`"]
 
 
 initializeDependencies::usage = "initializeDependencies[] installs and configures bundled dependencies (PacletizedResourceFunctions, MaTeX) for the LongRunRisk paclet.";
+initializeDependencies::pdflatex = "pdfLaTeX not found at `1`.";
+initializeDependencies::gs = "Ghostscript not found at `1`.";
 
 
 (* ::Section:: *)
@@ -105,20 +107,19 @@ installAndConfigureMaTeX[] := Module[{},
 				If[needsPdflatex && pdflatexPath =!= None,
 					If[FileExistsQ[pdflatexPath],
 						AppendTo[configChanges, "pdfLaTeX" -> pdflatexPath],
-						Print["MaTeX: pdfLaTeX not found at ", pdflatexPath]
+						Message[initializeDependencies::pdflatex, pdflatexPath]
 					]
 				];
 				If[needsGs && gsPath =!= None,
 					If[FileExistsQ[gsPath],
 						AppendTo[configChanges, "Ghostscript" -> gsPath],
-						Print["MaTeX: Ghostscript not found at ", gsPath]
+						Message[initializeDependencies::gs, gsPath]
 					]
 				];
 
 				(* Apply config if we have changes; Block suppresses MaTeX's own warning about missing gs *)
 				If[configChanges =!= {},
-					Block[{Print}, MaTeX`ConfigureMaTeX @@ configChanges];
-					Print["MaTeX configured: ", configChanges]
+					Block[{Print}, MaTeX`ConfigureMaTeX @@ configChanges]
 				]
 			]
 		]

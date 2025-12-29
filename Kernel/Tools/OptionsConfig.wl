@@ -63,6 +63,7 @@ $DeprecatedOptionsUsed = <||>;
 
 normalizeConfig::deprecated = "Option `1` is deprecated. Use `2` instead.";
 normalizeConfig::ambiguous = "Option `1` has different meanings in different contexts. Specify explicitly using config[\"`2`\"][\"`3`\"].";
+normalizeConfig::unknown = "Unknown option `1` (ignored).";
 validateConfig::invalid = "Invalid config structure: `1`";
 
 
@@ -272,7 +273,7 @@ normalizeConfig[opts_List] := Module[{config = defaultConfig[]},
 				(* Unknown option - ignore silently unless warnings enabled *)
 				True,
 				If[$OptionsConfigWarnings,
-					Print["Warning: Unknown option ", optName, " (ignored)"]
+					Message[normalizeConfig::unknown, optName]
 				]
 			]
 		],
