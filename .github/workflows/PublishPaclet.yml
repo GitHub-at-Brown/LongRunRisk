@@ -3,9 +3,11 @@ on:
   workflow_dispatch:
   push: 
     branches:  ['release/*']
-env: 
+env:
   RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
   WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
+  # Ensure WolframKernel always starts with the entitlement (prevents "No valid password found")
+  WOLFRAMINIT: -pwfile !cloudlm.wolfram.com -entitlement ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
   WLPR_PACLET_SITE: https://resources.wolframcloud.com/PacletRepository/pacletsite
   ENGINE_TAG: 14.3.0
   PACLET_CICD_VERSION: 0.36.2

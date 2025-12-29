@@ -13,6 +13,8 @@ on:
           - Execution
 env:
   WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
+  # Ensure WolframKernel always starts with the entitlement (prevents "No valid password found")
+  WOLFRAMINIT: -pwfile !cloudlm.wolfram.com -entitlement ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
   ENGINE_TAG: 14.3.0
 jobs:
   Coverage:
