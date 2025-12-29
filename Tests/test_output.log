@@ -1,461 +1,0 @@
-Performing '-file' parsing. File->Tests/RunTests.wls
-Local Evaluation
-Using WolframKernel at:"/Applications/Wolfram.app/Contents/MacOS/WolframKernel"
-
-TestReport: ComputeConditionalExpectations.wlt | 18 SuccessEvaluating tests (18)Elapsed time 2s
-
-TestReport: ComputeConditionalExpectations.wlt | 18 SuccessEvaluating tests (18)Elapsed time 3s
-Installing bundled MaTeX package...
-
-TestReport: ComputeConditionalExpectations.wlt | 18 SuccessEvaluating tests (18)Elapsed time 7s
-
-TestReport: ComputeConditionalExpectations.wlt | 18 SuccessEvaluating tests (18)Elapsed time 7s
-
-TestReport: ComputeConditionalExpectations.wlt | 18 SuccessEvaluating tests (18)Elapsed time 7s
-
-TestReport: ComputeConditionalExpectations.wlt | 18 SuccessEvaluating tests (18)Elapsed time 8s
-
-TestReport: ComputeConditionalExpectations.wlt | 18 SuccessEvaluating tests (18)Elapsed time 8s
-
-TestReport: ComputeConditionalExpectations.wlt | 26 SuccessEvaluating tests (26)Elapsed time 8s
-
-TestReport: ComputeUnconditionalExpectations.wlt | 39 SuccessEvaluating tests (39)Elapsed time 9s
-
-TestReport: CreateEulerEq.wlt | 51 SuccessEvaluating tests (51)Elapsed time 9s
-
-TestReport: CreateEulerEq.wlt | 52 SuccessEvaluating tests (52)Elapsed time 10s
-
-TestReport: CreateEulerEq.wlt | 52 SuccessEvaluating tests (52)Elapsed time 10s
-
-TestReport: CreateEulerEq.wlt | 52 SuccessEvaluating tests (52)Elapsed time 10s
-
-TestReport: CreateEulerEq.wlt | 52 SuccessEvaluating tests (52)Elapsed time 11s
-
-TestReport: CreateEulerEq.wlt | 52 SuccessEvaluating tests (52)Elapsed time 11s
-
-TestReport: CreateEulerEq.wlt | 52 SuccessEvaluating tests (52)Elapsed time 12s
-
-TestReport: CreateEulerEq.wlt | 52 SuccessEvaluating tests (52)Elapsed time 12s
-
-TestReport: CreateEulerEq.wlt | 52 SuccessEvaluating tests (52)Elapsed time 12s
-
-TestReport: CreateEulerEq.wlt | 52 SuccessEvaluating tests (52)Elapsed time 13s
-
-TestReport: CreateEulerEq.wlt | 54 SuccessEvaluating tests (54)Elapsed time 13s
-
-TestReport: CreateEulerEq.wlt | 54 SuccessEvaluating tests (54)Elapsed time 14s
-
-TestReport: CreateEulerEq.wlt | 54 SuccessEvaluating tests (54)Elapsed time 14s
-
-TestReport: CreateEulerEq.wlt | 54 SuccessEvaluating tests (54)Elapsed time 14s
-
-TestReport: CreateEulerEq.wlt | 54 SuccessEvaluating tests (54)Elapsed time 15s
-
-TestReport: CreateEulerEq.wlt | 54 SuccessEvaluating tests (54)Elapsed time 15s
-
-TestReport: CreateEulerEq.wlt | 54 SuccessEvaluating tests (54)Elapsed time 16s
-
-TestReport: CreateEulerEq.wlt | 54 SuccessEvaluating tests (54)Elapsed time 16s
-
-TestReport: CreateEulerEq.wlt | 54 SuccessEvaluating tests (54)Elapsed time 16s
-
-TestReport: CreateEulerEq.wlt | 60 SuccessEvaluating tests (60)Elapsed time 17s
-
-TestReport: CreateEulerEq.wlt | 60 SuccessEvaluating tests (60)Elapsed time 17s
-
-TestReport: CreateEulerEq.wlt | 60 SuccessEvaluating tests (60)Elapsed time 18s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 18s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 18s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 19s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 19s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 20s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 20s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 20s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 21s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 21s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 22s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 22s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 23s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 23s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 23s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 24s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 24s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 25s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 25s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 25s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 26s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 26s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 27s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 27s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 27s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 28s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 28s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 29s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 29s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 29s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 30s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 30s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 31s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 31s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 31s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 32s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 32s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 33s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 33s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 33s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 34s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 34s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 35s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 35s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 35s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 36s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 36s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 37s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 37s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 37s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 38s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 38s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 39s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 39s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 39s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 40s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 40s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 41s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 41s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 41s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 42s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 42s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 43s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 43s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 43s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 44s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 44s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 45s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 45s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 45s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 46s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 46s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 47s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 47s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 47s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 48s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 48s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 49s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 49s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 50s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 50s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 50s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 51s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 51s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 52s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 52s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 52s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 53s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 53s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 54s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 54s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 54s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 55s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 55s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 56s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 56s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 56s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 57s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 57s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 58s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 58s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 58s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 59s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 59s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m00s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m00s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m00s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m01s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m01s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m02s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m02s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m02s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m03s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m03s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m04s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m04s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m04s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m05s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m05s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m06s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m06s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m06s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m07s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m07s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m08s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m08s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m08s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m09s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m09s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m10s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m10s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m10s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m11s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m11s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m12s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m12s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m12s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m13s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m13s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m14s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m14s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m14s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m15s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m15s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m16s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m16s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m17s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m17s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m17s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m18s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m18s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m19s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m19s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m19s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m20s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m20s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m21s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m21s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m21s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m22s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m22s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m23s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m23s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m23s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m24s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m24s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m25s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m25s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m25s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m26s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m26s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m27s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m27s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m27s
-
-TestReport: CreateMomentsDatabase.wlt | 64 SuccessEvaluating tests (64)Elapsed time 1m28s
-
-TestReport: ExogenousEq.wlt | 78 SuccessEvaluating tests (78)Elapsed time 1m28s
-Compile[f (function)]: LeafCount=27, ByteCount=840, MemoryInUse=1337MB, MemoryLimit=30GB
-
-TestReport: bindUnaryMessages.wlt | 85 SuccessEvaluating tests (85)Elapsed time 1m29s
-Compile[f (function)]: SUCCESS
-Compile[f (function)]: LeafCount=19, ByteCount=600, MemoryInUse=1349MB, MemoryLimit=30GB
-
-TestReport: findRootCoeff0EdgeCases.wlt | 180 SuccessEvaluating tests (180)Elapsed time 1m29s
-Compile[f (function)]: SUCCESS
-Compile[f (function)]: LeafCount=23, ByteCount=712, MemoryInUse=1349MB, MemoryLimit=30GB
-
-TestReport: findRootCoeff0EdgeCases.wlt | 181 SuccessEvaluating tests (181)Elapsed time 1m30s
-Compile[f (function)]: SUCCESS
-FunctionCompile[f (function)]: LeafCount=15, ByteCount=488, MemoryInUse=1349MB, MemoryLimit=30GB
-
-TestReport: findRootCoeff0EdgeCases.wlt | 182 SuccessEvaluating tests (182)Elapsed time 1m30s
-
-TestReport: findRootCoeff0EdgeCases.wlt | 182 SuccessEvaluating tests (182)Elapsed time 1m30s
-
-TestReport: findRootCoeff0EdgeCases.wlt | 182 SuccessEvaluating tests (182)Elapsed time 1m31s
-
-TestReport: findRootCoeff0EdgeCases.wlt | 182 SuccessEvaluating tests (182)Elapsed time 1m31s
-
-TestReport: findRootCoeff0EdgeCases.wlt | 182 SuccessEvaluating tests (182)Elapsed time 1m31s
-
-TestReport: findRootCoeff0EdgeCases.wlt | 182 SuccessEvaluating tests (182)Elapsed time 1m32s
-FunctionCompile[f (function)]: SUCCESS
-FunctionCompile[df (jacobian)]: LeafCount=10, ByteCount=352, MemoryInUse=1824MB, MemoryLimit=29GB
-FunctionCompile[df (jacobian)]: SUCCESS
-Compile[f (function)]: LeafCount=15, ByteCount=488, MemoryInUse=1826MB, MemoryLimit=29GB
-
-TestReport: findRootCoeff0EdgeCases.wlt | 183 SuccessEvaluating tests (183)Elapsed time 1m32s
-Compile[f (function)]: SUCCESS
-FunctionCompile[f (function)]: LeafCount=15, ByteCount=488, MemoryInUse=1826MB, MemoryLimit=29GB
-
-TestReport: findRootCoeff0EdgeCases.wlt | 184 SuccessEvaluating tests (184)Elapsed time 1m33s
-FunctionCompile[f (function)]: SUCCESS
-Compile[f (function)]: LeafCount=15, ByteCount=488, MemoryInUse=1826MB, MemoryLimit=29GB
-Compile[f (function)]: SUCCESS
-FunctionCompile[f (function)]: LeafCount=15, ByteCount=488, MemoryInUse=1826MB, MemoryLimit=29GB
-FunctionCompile[f (function)]: SUCCESS
-Compile[f (function)]: LeafCount=15, ByteCount=488, MemoryInUse=1826MB, MemoryLimit=29GB
-
-TestReport: findRootCoeff0EdgeCases.wlt | 185 SuccessEvaluating tests (185)Elapsed time 1m33s
-Compile[f (function)]: SUCCESS
-$Aborted
