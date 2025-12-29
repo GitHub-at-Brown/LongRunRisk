@@ -79,6 +79,26 @@ $testsDir = Module[{raw, abs, rel},
 (* Get debug flag from environment *)
 $debug = TrueQ[Interpreter["Boolean"][Environment["DEBUG"]]];
 
+(* Choose which directory to search for *.wlt files.
+   Default is the paclet root (matches Wolfram/PacletCICD action behavior).
+   Set LONGRUNRISK_TESTS_DIR to a relative path (from paclet root) or an
+   absolute path to speed up debugging. *)
+$testsDir = Module[{raw, abs, rel},
+   raw = Replace[Environment["LONGRUNRISK_TESTS_DIR"], Except[_String] -> Automatic];
+   Which[
+     raw === Automatic,
+       $pacletRoot,
+     DirectoryQ[abs = ExpandFileName[raw]],
+       abs,
+     DirectoryQ[rel = FileNameJoin[{$pacletRoot, raw}]],
+       rel,
+     True,
+       print["::error::Invalid LONGRUNRISK_TESTS_DIR: ", raw];
+       print["::error::Expected an existing directory (absolute or relative to paclet root)."];
+       Exit[1]
+   ]
+];
+
 print["Testing paclet at: ", $pacletRoot];
 print["Test discovery directory: ", $testsDir];
 
