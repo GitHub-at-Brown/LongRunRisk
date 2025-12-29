@@ -28,7 +28,7 @@ defaultConfig::usage = "defaultConfig[] returns the default nested configuration
 
 normalizeConfig::usage = "normalizeConfig[opts] converts legacy flat options to nested config Association, or merges an already-normalized config with defaults.";
 
-splitConfig::usage = "splitConfig[config, subsystem] extracts subsystem options as a flat list of Rules suitable for Sequence @@ injection into OptionsPattern functions.";
+splitConfig::usage = "splitConfig[config, subsystem] extracts subsystem options and returns a Sequence of Rules for direct use in OptionsPattern functions. Do NOT apply Sequence @@ to the result.";
 
 validateConfig::usage = "validateConfig[config] validates config structure and issues warnings if $OptionsConfigWarnings is True.";
 
@@ -95,10 +95,10 @@ defaultConfig[] := <|
 	"Compile" -> <|
 		"CoeffName" -> "A",
 		"SignSymbol" -> "signA",
-		"PerformanceGoal" -> "Speed",
-		"CompileMode" -> "FunctionOnly",
+		"PerformanceGoal" -> "Quality",(*"Speed",*)
+		"CompileMode" -> "Both",
 		"Compiler" -> "Compile",
-		"RuntimeOptions" -> "Speed",
+		"RuntimeOptions" -> Automatic,(*"Speed",*)
 		"CompilationTarget" -> "C"
 	|>,
 	"Numerical" -> <|

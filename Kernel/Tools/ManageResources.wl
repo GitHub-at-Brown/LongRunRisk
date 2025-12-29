@@ -961,7 +961,7 @@ buildModelsInternal[config_Association] := With[
 			(* run symbolic processing *)
 			model = First @ Values @ FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
 				KeyTake[catalogModels, {modelKey}],
-				Sequence @@ FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Symbolic"]
+				FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Symbolic"]
 			];
 			logMemory["Phase1 processModels done: " <> shortname];
 
@@ -989,7 +989,7 @@ buildModelsInternal[config_Association] := With[
 			compiledFile = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 				processedModels[shortname],
 				compiledDir,
-				Sequence @@ FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Compile"]
+				FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Compile"]
 			];
 			logMemory["Phase2 END: " <> shortname];
 			, {modelKey, compileModels}
@@ -1090,7 +1090,7 @@ buildModelsInternal[config_Association] := With[
 						FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`createDatabase[
 							processedModels[shortname],
 							momentsFile,
-							Sequence @@ FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Moments"]
+							FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Moments"]
 						];
 
 						(* Compute hash and save metadata *)
