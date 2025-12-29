@@ -82,6 +82,15 @@ Options for function compilation.
 
 Note: during `buildModels` compilation, `createCompiledEq` derives `"CoeffName"`/`"SignSymbol"` per equation from the processed model and passes them explicitly to `buildKernel`, so `config["Compile"]["CoeffName"]` and `config["Compile"]["SignSymbol"]` do not currently affect `buildModels` output.
 
+### buildKernel Default Differences
+
+`buildKernel` has different defaults than the central config for some options. The central config values are used during `buildModels`, but standalone `buildKernel` calls use these function-level defaults:
+
+| Option | `buildKernel` Default | Config Default | Notes |
+| --- | --- | --- | --- |
+| `"PerformanceGoal"` | `"Speed"` | `"Quality"` | Standalone uses Speed |
+| `"CompileMode"` | `"FunctionOnly"` | `"Both"` | Standalone compiles fewer components |
+
 ### buildKernel Additional Options (not in config)
 
 These options exist in `buildKernel` but are not part of the centralized config:
@@ -258,6 +267,14 @@ These options are defined on individual functions and are not part of the centra
 | --- | --- | --- | --- |
 | `yieldCurve` | `"MaxMaturity"` | `12` | Maximum maturity |
 | `yieldCurve` | `"MomentFunction"` | `uncondE` | Moment function to use |
+| `visualizeCoeffs` | `"ShowSelector"` | `True` | Show model selector UI |
+| `visualizeCoeffs` | `"ShowDetails"` | `True` | Show coefficient details |
+
+### Pipeline Monitor
+
+| Function | Option | Default | Description |
+| --- | --- | --- | --- |
+| `checkModels` | `"AutoBuild"` | `Automatic` | Auto-build missing models: `True`, `False`, or `Automatic` (detects CI) |
 
 ### Time Aggregation
 
@@ -349,11 +366,30 @@ The `legacyOptionMap` in OptionsConfig.wl maps flat option names to their nested
 | `"RecurrenceTableOptions"` | `{"Numerical", "RecurrenceTable", "Options"}` |
 | `"NumKernels"` | `{"Parallel", "NumKernels"}` |
 | `"PdEquations"` | `{"Symbolic", "PdEquations"}` |
-| `"CompileMode"` | `{"Compile", "CompileMode"}` |
+| `"SimplifyOptions"` | `{"Symbolic", "SimplifyOptions"}` |
 | `"Compiler"` | `{"Compile", "Compiler"}` |
+| `"CompileMode"` | `{"Compile", "CompileMode"}` |
+| `"CoeffName"` | `{"Compile", "CoeffName"}` |
+| `"PerformanceGoal"` | `{"Compile", "PerformanceGoal"}` |
+| `"RuntimeOptions"` | `{"Compile", "RuntimeOptions"}` |
+| `"CompilationTarget"` | `{"Compile", "CompilationTarget"}` |
+| `"maxMomentsLagsToCreate"` | `{"Moments", "maxMomentsLagsToCreate"}` |
+| `"startSequenceAtLag"` | `{"Moments", "startSequenceAtLag"}` |
+| `"simplifyDownValues"` | `{"Moments", "simplifyDownValues"}` |
 | `"FromScratch"` | `{"Build", "FromScratch"}` |
+| `"CompileJacobians"` | `{"Build", "CompileJacobians"}` |
+| `"CreateMoments"` | `{"Build", "CreateMoments"}` |
 | `"Models"` | `{"Build", "Models"}` |
-| ... | (see OptionsConfig.wl for complete list) |
+| `"FileSuffix"` | `{"Build", "FileSuffix"}` |
+| `"UpdateManifest"` | `{"Build", "UpdateManifest"}` |
+| `"initialGuess"` | `{"Numerical", "initialGuess"}` |
+| `"RootSigns"` | `{"Numerical", "RootSigns"}` |
+| `"Signs"` | `{"Numerical", "Signs"}` |
+| `"UpdatePd"` | `{"Numerical", "UpdatePd"}` |
+| `"UpdateBond"` | `{"Numerical", "UpdateBond"}` |
+| `"UpdateNomBond"` | `{"Numerical", "UpdateNomBond"}` |
+| `"UpdateBonds"` | `{"Numerical", "UpdateBonds"}` |
+| `"ReduceTimeLimit"` | `{"Numerical", "ReduceTimeLimit"}` |
 
 ### Ambiguous Options
 
