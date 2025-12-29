@@ -79,48 +79,8 @@ $testsDir = Module[{raw, abs, rel},
 (* Get debug flag from environment *)
 $debug = TrueQ[Interpreter["Boolean"][Environment["DEBUG"]]];
 
-(* Choose which directory to search for *.wlt files.
-   Default is the paclet root (matches Wolfram/PacletCICD action behavior).
-   Set LONGRUNRISK_TESTS_DIR to a relative path (from paclet root) or an
-   absolute path to speed up debugging. *)
-$testsDir = Module[{raw, abs, rel},
-   raw = Replace[Environment["LONGRUNRISK_TESTS_DIR"], Except[_String] -> Automatic];
-   Which[
-     raw === Automatic,
-       $pacletRoot,
-     DirectoryQ[abs = ExpandFileName[raw]],
-       abs,
-     DirectoryQ[rel = FileNameJoin[{$pacletRoot, raw}]],
-       rel,
-     True,
-       print["::error::Invalid LONGRUNRISK_TESTS_DIR: ", raw];
-       print["::error::Expected an existing directory (absolute or relative to paclet root)."];
-       Exit[1]
-   ]
-];
-
 print["Testing paclet at: ", $pacletRoot];
 print["Test discovery directory: ", $testsDir];
-
-getTestReports[res_] := Which[
-  AssociationQ[res], res,
-  MatchQ[res, _Failure | _Success], res["Result"],
-  True, $Failed
-];
-
-writeGitHubSummary[reports_Association] := Module[{summaryFile},
-  summaryFile = Environment["GITHUB_STEP_SUMMARY"];
-  If[! StringQ[summaryFile] || StringTrim[summaryFile] === "", Return[Null]];
-  Block[
-    {
-      Wolfram`PacletCICD`Private`$gitHub = True,
-      Wolfram`PacletCICD`Private`$markdownSummary = True,
-      Wolfram`PacletCICD`Private`$gitHubStepSummary =
-        Wolfram`PacletCICD`Private`getGitHubSS[ ]
-    },
-    Wolfram`PacletCICD`Private`generateTestSummary[reports]
-  ];
-];
 
 (* Run tests using PacletCICD TestPaclet
    Block console group functions to match test-paclet action behavior
@@ -130,25 +90,19 @@ With[
     res = Wolfram`PacletCICD`Private`noExit @ Block[
       {
         Print = print,
-        DefinitionNotebookClient`BeginConsoleGroup = Null &,
-        DefinitionNotebookClient`EndConsoleGroup = Null &
+        DefinitionNotebookClient`BeginConsoleGroup,
+        DefinitionNotebookClient`EndConsoleGroup
       },
       Wolfram`PacletCICD`TestPaclet[
         $testsDir,
         "AnnotateTestIDs" -> True,
         "Debug" -> $debug,
         "ConsoleType" -> "GitHub",
-        "MarkdownSummary" -> False,
+        "MarkdownSummary" -> True,
         "SetWorkflowValue" -> True
       ]
     ]
   },
-  Module[{reports},
-    reports = getTestReports[res];
-    If[AssociationQ[reports],
-      Quiet @ writeGitHubSummary[reports]
-    ]
-  ];
   (* Exit with appropriate code based on result *)
   If[FailureQ[res] || MatchQ[res, _Wolfram`PacletCICD`TestPaclet],
     Exit[1],
