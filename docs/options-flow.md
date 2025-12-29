@@ -313,3 +313,1014 @@ For detailed options flow in each file, see:
 - [`tools-findroot-dependencies.md`](./options/tools-findroot-dependencies.md) - FindRootOptim.wl, Dependencies.wl
 - [`tools-options-resources-pipeline.md`](./options/tools-options-resources-pipeline.md) - OptionsConfig.wl, ManageResources.wl, PipelineMonitor.wl
 - [`main-longrunrisk.md`](./options/main-longrunrisk.md) - LongRunRisk.wl (main package file)
+
+---
+
+## Bottom-Up Options Flow Chains
+
+This section shows option flow from the bottom up: starting from each individual option and tracing upward through the functions that consume it, then the functions that pass it, up to the user-facing entry points.
+
+### Solver Options (ParamQuadSolve.wl)
+
+#### Option: "DomainOption"
+
+```
+"DomainOption"
+    ^
+    |
+paramQuadSolve  (ParamQuadSolve.wl, terminal consumer)
+    ^
+    |
+solveCoeffsSystem  (ProcessModels.wl, passes via "paramQuadSolveOptions")
+    ^
+    |
+processModels  (ProcessModels.wl)
+    ^
+    |
+buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+    ^
+    |
+normalizeConfig / splitConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "Assumptions"
+
+```
+"Assumptions"
+    ^
+    |
+paramQuadSolve  (ParamQuadSolve.wl, terminal consumer)
+    ^
+    |
+solveCoeffsSystem  (ProcessModels.wl, passes via "paramQuadSolveOptions")
+    ^
+    |
+processModels  (ProcessModels.wl)
+    ^
+    |
+buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+    ^
+    |
+normalizeConfig / splitConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "Method" (Solver)
+
+```
+"Method"
+    ^
+    |
+paramQuadSolve  (ParamQuadSolve.wl, terminal consumer)
+    ^
+    |
+solveCoeffsSystem  (ProcessModels.wl, passes via "paramQuadSolveOptions")
+    ^
+    |
+processModels  (ProcessModels.wl)
+    ^
+    |
+buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+    ^
+    |
+normalizeConfig / splitConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "MonomialOrder"
+
+```
+"MonomialOrder"
+    ^
+    |
+paramQuadSolve  (ParamQuadSolve.wl, terminal consumer -> GroebnerBasis)
+    ^
+    |
+solveCoeffsSystem  (ProcessModels.wl, passes via "paramQuadSolveOptions")
+    ^
+    |
+processModels  (ProcessModels.wl)
+    ^
+    |
+buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+    ^
+    |
+normalizeConfig / splitConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "TimeoutOption"
+
+```
+"TimeoutOption"
+    ^
+    |
+paramQuadSolve  (ParamQuadSolve.wl, terminal consumer)
+    ^
+    |
+solveCoeffsSystem  (ProcessModels.wl, passes via "paramQuadSolveOptions")
+    ^
+    |
+processModels  (ProcessModels.wl)
+    ^
+    |
+buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+    ^
+    |
+normalizeConfig / splitConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "SimplifyTimeout"
+
+```
+"SimplifyTimeout"
+    ^
+    |
+paramQuadSolve  (ParamQuadSolve.wl, terminal consumer -> Simplify/FullSimplify)
+    ^
+    |
+solveCoeffsSystem  (ProcessModels.wl, passes via "paramQuadSolveOptions")
+    ^
+    |
+processModels  (ProcessModels.wl)
+    ^
+    |
+buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+    ^
+    |
+normalizeConfig / splitConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "SimplifyOptions"
+
+```
+"SimplifyOptions"
+    ^
+    |
+solveCoeffsSystem  (ProcessModels.wl, terminal consumer -> Simplify)
+    ^
+    |
+processModels  (ProcessModels.wl)
+    ^
+    |
+buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+    ^
+    |
+normalizeConfig / splitConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "paramQuadSolveOptions"
+
+```
+"paramQuadSolveOptions"
+    ^
+    |
+solveCoeffsSystem  (ProcessModels.wl, unpacks and forwards to paramQuadSolve)
+    ^
+    |
+processModels  (ProcessModels.wl)
+    ^
+    |
+buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+    ^
+    |
+normalizeConfig / splitConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "PdEquations"
+
+```
+"PdEquations"
+    ^
+    |
+solveCoeffsSystem  (ProcessModels.wl, terminal consumer)
+    ^
+    |
+processModels  (ProcessModels.wl)
+    ^
+    |
+buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+    ^
+    |
+normalizeConfig / splitConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+### Compilation Options (FindRootOptim.wl)
+
+#### Option: "CoeffName"
+
+```
+"CoeffName"
+    ^
+    |
+buildKernel  (FindRootOptim.wl, terminal consumer -> Compile/FunctionCompile)
+    ^
+    |
+createCompiledEq  (FindRootOptim.wl)
+    ^
+    |
+buildModelsInternal [Phase 2: Compile]  (ManageResources.wl)
+    ^
+    |
+splitConfig[config, "Compile"]  (OptionsConfig.wl)
+    ^
+    |
+normalizeConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "SignSymbol"
+
+```
+"SignSymbol"
+    ^
+    |
++-- buildKernel  (FindRootOptim.wl, terminal consumer)
+|       ^
+|       |
+|   createCompiledEq  (FindRootOptim.wl)
+|       ^
+|       |
+|   buildModelsInternal [Phase 2: Compile]  (ManageResources.wl)
+|
++-- paramQuadSolve  (ParamQuadSolve.wl, terminal consumer)
+        ^
+        |
+    solveCoeffsSystem  (ProcessModels.wl)
+        ^
+        |
+    buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+        ^
+        |
+    splitConfig  (OptionsConfig.wl)
+        ^
+        |
+    normalizeConfig  (OptionsConfig.wl)
+        ^
+        |
+    BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "PerformanceGoal"
+
+```
+"PerformanceGoal"
+    ^
+    |
+buildKernel  (FindRootOptim.wl, terminal consumer -> Compile/FunctionCompile)
+    ^
+    |
+createCompiledEq  (FindRootOptim.wl)
+    ^
+    |
+buildModelsInternal [Phase 2: Compile]  (ManageResources.wl)
+    ^
+    |
+splitConfig[config, "Compile"]  (OptionsConfig.wl)
+    ^
+    |
+normalizeConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "CompileMode"
+
+```
+"CompileMode"
+    ^
+    |
+buildKernel  (FindRootOptim.wl, terminal consumer)
+    ^
+    |
+createCompiledEq  (FindRootOptim.wl)
+    ^
+    |
+buildModelsInternal [Phase 2: Compile]  (ManageResources.wl)
+    ^
+    |
+splitConfig[config, "Compile"]  (OptionsConfig.wl)
+    ^
+    |
+normalizeConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "Compiler"
+
+```
+"Compiler"
+    ^
+    |
+buildKernel  (FindRootOptim.wl, terminal consumer -> selects Compile vs FunctionCompile)
+    ^
+    |
+createCompiledEq  (FindRootOptim.wl)
+    ^
+    |
+buildModelsInternal [Phase 2: Compile]  (ManageResources.wl)
+    ^
+    |
+splitConfig[config, "Compile"]  (OptionsConfig.wl)
+    ^
+    |
+normalizeConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "FlattenExpressions"
+
+```
+"FlattenExpressions"
+    ^
+    |
+buildKernel  (FindRootOptim.wl, terminal consumer)
+    ^
+    |
+createCompiledEq  (FindRootOptim.wl)
+    ^
+    |
+buildModelsInternal [Phase 2: Compile]  (ManageResources.wl)
+    ^
+    |
+splitConfig[config, "Compile"]  (OptionsConfig.wl)
+    ^
+    |
+normalizeConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+### Numerical Options (SolveEulerEq.wl)
+
+#### Option: "initialGuess"
+
+```
+"initialGuess"
+    ^
+    |
+solveCoeffRoots  (SolveEulerEq.wl, provides starting values)
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
++-- addCoeffsSolutionN  (SolveEulerEq.wl)
+|       ^
+|       |
+|   buildModelsInternal [Phase 3: Numerical]  (ManageResources.wl)
+|       ^
+|       |
+|   BuildModels  (LongRunRisk.wl, user entry point)
+|
++-- toNumRules  (ToNumber.wl)
+|       ^
+|       |
+|   ToNum  (LongRunRisk.wl, user entry point)
+|
++-- yieldCurve  (NicePlots.wl)
+        ^
+        |
+    YieldCurve  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "FindRootOptions"
+
+```
+"FindRootOptions"
+    ^
+    |
+fastRoot  (FindRootOptim.wl, unpacks and forwards to FindRoot)
+    ^
+    |
+scanAndSolve  (FindRootOptim.wl)
+    ^
+    |
+solveCoeffRoots  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
++-- addCoeffsSolutionN  (SolveEulerEq.wl)
+|       ^
+|       |
+|   buildModelsInternal [Phase 3: Numerical]  (ManageResources.wl)
+|       ^
+|       |
+|   BuildModels  (LongRunRisk.wl, user entry point)
+|
++-- toNumRules  (ToNumber.wl)
+|       ^
+|       |
+|   ToNum  (LongRunRisk.wl, user entry point)
+|
++-- yieldCurve  (NicePlots.wl)
+        ^
+        |
+    YieldCurve  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "RecurrenceTableOptions"
+
+```
+"RecurrenceTableOptions"
+    ^
+    |
+addCoeffsSolution  (ProcessModels.wl, forwards to RecurrenceTable)
+    ^
+    |
+processModels  (ProcessModels.wl)
+    ^
+    |
+buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+    ^
+    |
+normalizeConfig / splitConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "MaxMaturity"
+
+```
+"MaxMaturity"
+    ^
+    |
++-- addCoeffsSolution  (ProcessModels.wl, loop control)
+|       ^
+|       |
+|   processModels  (ProcessModels.wl)
+|       ^
+|       |
+|   buildModelsInternal [Phase 1: Symbolic]  (ManageResources.wl)
+|
++-- updateCoeffsSol  (SolveEulerEq.wl, loop control)
+|       ^
+|       |
+|   updateCoeffs  (SolveEulerEq.wl)
+|       ^
+|       |
+|   +-- addCoeffsSolutionN  (SolveEulerEq.wl)
+|   |       ^
+|   |       |
+|   |   buildModelsInternal [Phase 3: Numerical]  (ManageResources.wl)
+|   |
+|   +-- toNumRules  (ToNumber.wl)
+|   |       ^
+|   |       |
+|   |   ToNum  (LongRunRisk.wl, user entry point)
+|   |
+|   +-- yieldCurve  (NicePlots.wl)
+|           ^
+|           |
+|       YieldCurve  (LongRunRisk.wl, user entry point)
+|
++-- updateCoeffsBond  (SolveEulerEq.wl, loop control)
+        ^
+        |
+    updateCoeffsSol  (SolveEulerEq.wl)
+        ^
+        |
+    [continues as above]
+```
+
+#### Option: "RootSigns"
+
+```
+"RootSigns"
+    ^
+    |
+solveCoeffRoots  (SolveEulerEq.wl, sign selection for quadratic roots)
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
++-- addCoeffsSolutionN  (SolveEulerEq.wl)
+|       ^
+|       |
+|   buildModelsInternal [Phase 3: Numerical]  (ManageResources.wl)
+|       ^
+|       |
+|   BuildModels  (LongRunRisk.wl, user entry point)
+|
++-- toNumRules  (ToNumber.wl)
+|       ^
+|       |
+|   ToNum  (LongRunRisk.wl, user entry point)
+|
++-- yieldCurve  (NicePlots.wl)
+        ^
+        |
+    YieldCurve  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "UpdatePd"
+
+```
+"UpdatePd"
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl, terminal consumer - controls what to update)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
++-- toNumRules  (ToNumber.wl)
+|       ^
+|       |
+|   ToNum  (LongRunRisk.wl, user entry point)
+|
++-- yieldCurve  (NicePlots.wl)
+        ^
+        |
+    YieldCurve  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "UpdateBond"
+
+```
+"UpdateBond"
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl, terminal consumer - controls what to update)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
++-- toNumRules  (ToNumber.wl)
+|       ^
+|       |
+|   ToNum  (LongRunRisk.wl, user entry point)
+|
++-- yieldCurve  (NicePlots.wl)
+        ^
+        |
+    YieldCurve  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "UpdateBonds"
+
+```
+"UpdateBonds"
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl, terminal consumer - controls what to update)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
++-- toNumRules  (ToNumber.wl)
+|       ^
+|       |
+|   ToNum  (LongRunRisk.wl, user entry point)
+|
++-- yieldCurve  (NicePlots.wl)
+        ^
+        |
+    YieldCurve  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "PrintResidualsNorm"
+
+```
+"PrintResidualsNorm"
+    ^
+    |
+checks  (SolveEulerEq.wl, terminal consumer - controls output)
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
++-- toNumRules  (ToNumber.wl)
+|       ^
+|       |
+|   ToNum  (LongRunRisk.wl, user entry point)
+|
++-- yieldCurve  (NicePlots.wl)
+        ^
+        |
+    YieldCurve  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "CheckResiduals"
+
+```
+"CheckResiduals"
+    ^
+    |
+checks  (SolveEulerEq.wl, terminal consumer - enables validation)
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
++-- toNumRules  (ToNumber.wl)
+|       ^
+|       |
+|   ToNum  (LongRunRisk.wl, user entry point)
+|
++-- yieldCurve  (NicePlots.wl)
+        ^
+        |
+    YieldCurve  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "Tol"
+
+```
+"Tol"
+    ^
+    |
+checks  (SolveEulerEq.wl, terminal consumer - tolerance threshold)
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
++-- toNumRules  (ToNumber.wl)
+|       ^
+|       |
+|   ToNum  (LongRunRisk.wl, user entry point)
+|
++-- yieldCurve  (NicePlots.wl)
+        ^
+        |
+    YieldCurve  (LongRunRisk.wl, user entry point)
+```
+
+### Root Finding Options (FindRootOptim.wl)
+
+#### Option: Jacobian
+
+```
+Jacobian
+    ^
+    |
+fastRoot  (FindRootOptim.wl, passes to FindRoot)
+    ^
+    |
+scanAndSolve  (FindRootOptim.wl)
+    ^
+    |
+solveCoeffRoots  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
+[multiple entry points: BuildModels, ToNum, YieldCurve]
+```
+
+#### Option: Method (FindRoot)
+
+```
+Method  (for FindRoot)
+    ^
+    |
+fastRoot  (FindRootOptim.wl, controls algorithm: Newton/Brent/Secant)
+    ^
+    |
+scanAndSolve  (FindRootOptim.wl)
+    ^
+    |
+solveCoeffRoots  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
+[multiple entry points: BuildModels, ToNum, YieldCurve]
+```
+
+#### Option: "SecantBlend"
+
+```
+"SecantBlend"
+    ^
+    |
+fastRoot  (FindRootOptim.wl, terminal consumer - blend factor)
+    ^
+    |
+scanAndSolve  (FindRootOptim.wl)
+    ^
+    |
+solveCoeffRoots  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
+[multiple entry points: BuildModels, ToNum, YieldCurve]
+```
+
+#### Option: "Return"
+
+```
+"Return"
+    ^
+    |
+fastRoot  (FindRootOptim.wl, terminal consumer - output format)
+    ^
+    |
+scanAndSolve  (FindRootOptim.wl)
+    ^
+    |
+solveCoeffRoots  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffsSol  (SolveEulerEq.wl)
+    ^
+    |
+updateCoeffs  (SolveEulerEq.wl)
+    ^
+    |
+[multiple entry points: BuildModels, ToNum, YieldCurve]
+```
+
+### Moments Options (CreateMomentsDatabase.wl)
+
+#### Option: "maxMomentsLagsToCreate"
+
+```
+"maxMomentsLagsToCreate"
+    ^
+    |
+createDatabase  (CreateMomentsDatabase.wl, terminal consumer - loop control)
+    ^
+    |
+buildModelsInternal [Phase 4: Moments]  (ManageResources.wl)
+    ^
+    |
+splitConfig[config, "Moments"]  (OptionsConfig.wl)
+    ^
+    |
+normalizeConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "startSequenceAtLag"
+
+```
+"startSequenceAtLag"
+    ^
+    |
+createDatabase  (CreateMomentsDatabase.wl, terminal consumer)
+    ^
+    |
+buildModelsInternal [Phase 4: Moments]  (ManageResources.wl)
+    ^
+    |
+splitConfig[config, "Moments"]  (OptionsConfig.wl)
+    ^
+    |
+normalizeConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "simplifyDownValues"
+
+```
+"simplifyDownValues"
+    ^
+    |
+createDatabase  (CreateMomentsDatabase.wl, terminal consumer)
+    ^
+    |
+buildModelsInternal [Phase 4: Moments]  (ManageResources.wl)
+    ^
+    |
+splitConfig[config, "Moments"]  (OptionsConfig.wl)
+    ^
+    |
+normalizeConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "IterationLimit"
+
+```
+"IterationLimit"
+    ^
+    |
+createDatabase  (CreateMomentsDatabase.wl, terminal consumer -> Block[{$IterationLimit}])
+    ^
+    |
+buildModelsInternal [Phase 4: Moments]  (ManageResources.wl)
+    ^
+    |
+splitConfig[config, "Moments"]  (OptionsConfig.wl)
+    ^
+    |
+normalizeConfig  (OptionsConfig.wl)
+    ^
+    |
+BuildModels  (LongRunRisk.wl, user entry point)
+```
+
+### Time Aggregation Options (TimeAggregation.wl)
+
+#### Option: "v0"
+
+```
+"v0"
+    ^
+    |
+growth  (TimeAggregation.wl, terminal consumer)
+    ^
+    |
+Growth  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "Order"
+
+```
+"Order"
+    ^
+    |
+growth  (TimeAggregation.wl, terminal consumer)
+    ^
+    |
+Growth  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "TimeAggregation"
+
+```
+"TimeAggregation"
+    ^
+    |
+timeSeriesVector  (TimeAggregation.wl, terminal consumer)
+    ^
+    |
+gt  (TimeAggregation.wl)
+    ^
+    |
+growth  (TimeAggregation.wl)
+    ^
+    |
+Growth  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "numPeriods"
+
+```
+"numPeriods"
+    ^
+    |
+timeSeriesVector  (TimeAggregation.wl, terminal consumer)
+    ^
+    |
+gt  (TimeAggregation.wl)
+    ^
+    |
+growth  (TimeAggregation.wl)
+    ^
+    |
+Growth  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "Variable"
+
+```
+"Variable"
+    ^
+    |
+g  (TimeAggregation.wl, terminal consumer)
+    ^
+    |
+gt  (TimeAggregation.wl)
+    ^
+    |
+growth  (TimeAggregation.wl)
+    ^
+    |
+Growth  (LongRunRisk.wl, user entry point)
+```
+
+### Visualization Options
+
+#### Option: "ShowSelector"
+
+```
+"ShowSelector"
+    ^
+    |
+visualizeCoeffs  (VisualizeCoeffs.wl, terminal consumer - UI control)
+    ^
+    |
+VisualizeCoeffs  (LongRunRisk.wl, user entry point)
+```
+
+#### Option: "ShowDetails"
+
+```
+"ShowDetails"
+    ^
+    |
+visualizeCoeffs  (VisualizeCoeffs.wl, terminal consumer - UI control)
+    ^
+    |
+VisualizeCoeffs  (LongRunRisk.wl, user entry point)
+```
+
+### Pipeline Options
+
+#### Option: "AutoBuild"
+
+```
+"AutoBuild"
+    ^
+    |
+checkModels  (PipelineMonitor.wl, terminal consumer)
+    ^
+    |
+CheckModels  (LongRunRisk.wl, user entry point)
+```
+
+---
+
+## Bottom-Up Summary by Entry Point
+
+This table shows which options ultimately flow to each user-facing function:
+
+| Entry Point | Options That Flow to It |
+|-------------|------------------------|
+| `BuildModels` | All solver options, all compilation options, all numerical options, all moments options, "SignSymbol", "MaxMaturity", "RecurrenceTableOptions" |
+| `ToNum` | "initialGuess", "FindRootOptions", "MaxMaturity", "RootSigns", "UpdatePd", "UpdateBond", "UpdateBonds", "PrintResidualsNorm", "CheckResiduals", "Tol", Jacobian, Method, "SecantBlend", "Return" |
+| `YieldCurve` | Same as `ToNum` |
+| `Growth` | "v0", "Order", "TimeAggregation", "numPeriods", "Variable" |
+| `VisualizeCoeffs` | "ShowSelector", "ShowDetails" |
+| `CheckModels` | "AutoBuild" |
+| `PlotCoeffs` | Inherits from `updateCoeffs` (same as `ToNum`) |
