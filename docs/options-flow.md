@@ -2227,3 +2227,179 @@ This table shows which options ultimately flow to each user-facing function:
 | `VisualizeCoeffs` | "ShowSelector", "ShowDetails" |
 | `CheckModels` | "AutoBuild" |
 | `PlotCoeffs` | Inherits from `updateCoeffs` (same as `ToNum`) |
+
+---
+
+## Allowed/Valid Values Reference
+
+This section documents the allowed values for each option, organized by subsystem.
+
+### Symbolic Subsystem Options
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"PdEquations"` | `"B"` | `"B"`, `"AB"`, `"Both"` |
+| `"SimplifyOptions"` | `{TimeConstraint -> {5, 300}}` | List of valid `Simplify` options |
+| `"paramQuadSolveOptions"` | (nested) | Association of paramQuadSolve options (see below) |
+
+#### paramQuadSolveOptions (nested)
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"DomainOption"` | `Reals` | `Reals`, `Complexes`, `Integers`, or any valid Wolfram domain |
+| `"Assumptions"` | `Automatic` | `Automatic`, or any valid assumption expression |
+| `"Method"` | `Automatic` | `Automatic`, or solver method specification |
+| `"MonomialOrder"` | `Automatic` | `Automatic`, `"Lexicographic"`, `"DegreeLexicographic"`, `"DegreeReverseLexicographic"`, or custom ordering |
+| `"ValidationOption"` | `True` | `True`, `False` |
+| `"ReturnOption"` | `"All"` | `"All"`, `"First"`, `"Minimal"` |
+| `"TimeoutOption"` | `600` | Positive real number (seconds) |
+| `"SimplifyTimeout"` | `Automatic` | `Automatic`, or positive real number (seconds) |
+| `"DiagnosticsOption"` | `False` | `True`, `False` |
+| `"OnlyQuadTerms"` | `False` | `True`, `False` |
+| `"SignSymbol"` | `signA` (Symbol) | Any valid Wolfram symbol |
+| `"GroebnerMemoryFraction"` | `0.5` | Real number in range `[0, 1]` |
+| `"GroebnerMemoryFloor"` | `1*1024^3` (1 GB) | Positive integer (bytes) |
+| `"GroebnerMemoryCap"` | `16*1024^3` (16 GB) | Positive integer (bytes) |
+
+### Compile Subsystem Options
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"CoeffName"` | `"A"` | String (coefficient variable name prefix) |
+| `"SignSymbol"` | `"signA"` | String (sign symbol name) |
+| `"PerformanceGoal"` | `"Quality"` | `"Speed"`, `"Quality"` |
+| `"CompileMode"` | `"Both"` | `"Both"`, `"FunctionOnly"`, `"JacobianOnly"` |
+| `"Compiler"` | `"Compile"` | `"Compile"`, `"FunctionCompile"` |
+| `"RuntimeOptions"` | `Automatic` | `Automatic`, or list of `Compile` runtime options |
+| `"CompilationTarget"` | `"C"` | `"C"`, `"WVM"`, `"MVM"` |
+| `"FlattenExpressions"` | `Automatic` | `Automatic`, `True`, `False` |
+| `"AllowCompileDuringCoverage"` | `False` | `True`, `False` |
+
+### Numerical Subsystem Options
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"initialGuess"` | `<\|"Ewc" -> {4}, "Epd" -> {{4}}\|>` | Association with keys `"Ewc"` and/or `"Epd"`, values are lists of starting guesses |
+| `"MaxMaturity"` | `12` | Positive integer (bond maturity in periods) |
+| `"RootSigns"` | `Automatic` | `Automatic`, `All`, or explicit list of sign combinations like `{{1, 1}, {1, -1}, ...}` |
+| `"Signs"` | `{}` | List of explicit sign values, e.g., `{signA -> 1}` |
+| `"UpdatePd"` | `False` | `True`, `False` |
+| `"UpdateBond"` | `False` | `True`, `False` |
+| `"UpdateNomBond"` | `False` | `True`, `False` |
+| `"UpdateBonds"` | `False` | `True`, `False` (updates both real and nominal bonds) |
+| `"ReduceTimeLimit"` | `5.` | Positive real number (seconds) |
+
+#### FindRoot Nested Options (`config["Numerical"]["FindRoot"]`)
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"MaxIterations"` | `100` | Positive integer |
+| `"PrecisionGoal"` | `Automatic` | `Automatic`, or positive real number |
+| `"AccuracyGoal"` | `Automatic` | `Automatic`, or positive real number |
+| `"WorkingPrecision"` | `MachinePrecision` | `MachinePrecision`, or positive integer for arbitrary precision |
+| `"Options"` | `{}` | List of additional `FindRoot` options |
+
+#### RecurrenceTable Nested Options (`config["Numerical"]["RecurrenceTable"]`)
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"DependentVariables"` | `Automatic` | `Automatic`, or list of variable symbols |
+| `"Options"` | `{}` | List of additional `RecurrenceTable` options |
+
+#### Scan Nested Options (`config["Numerical"]["Scan"]`)
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"FastRootOptions"` | `{}` | List of options for `fastRoot` |
+| `"UnboundedPad"` | `1000` | Positive real number (padding for unbounded intervals) |
+| `"ScanMethod"` | `"Grid"` | `"Grid"` (other methods may be added) |
+
+#### Checks Nested Options (`config["Numerical"]["Checks"]`)
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"PrintResidualsNorm"` | `False` | `True`, `False` |
+| `"CheckResiduals"` | `False` | `True`, `False` |
+| `"Tol"` | `10.^-16` | Positive real number (tolerance threshold) |
+
+### Moments Subsystem Options
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"maxMomentsLagsToCreate"` | `8` | Positive integer |
+| `"startSequenceAtLag"` | `3` | Non-negative integer |
+| `"simplifyDownValues"` | `False` | `True`, `False` |
+| `"IterationLimit"` | `$IterationLimit/4` | Positive integer |
+
+### Parallel Subsystem Options
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"NumKernels"` | `Automatic` | `Automatic` (uses `$ProcessorCount`), `None` (no parallelization), or positive integer |
+
+### Build Subsystem Options
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"Models"` | `All` | `All`, or list of model shortnames like `{"BY", "BKY", "Schorfheide"}` |
+| `"FromScratch"` | `False` | `True`, `False` |
+| `"CompileJacobians"` | `True` | `True`, `False` |
+| `"CreateMoments"` | `True` | `True`, `False` |
+| `"MaxMaturity"` | `120` | Positive integer (currently reserved/unused) |
+| `"FileSuffix"` | `""` | String (appended to checkpoint file names) |
+| `"UpdateManifest"` | `True` | `True`, `False` |
+
+### Function-Level Options
+
+#### Root Finding (fastRoot, scanAndSolve)
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `Jacobian` | `None` | `None`, or compiled Jacobian function |
+| `Method` | `Automatic` | `Automatic`, `"Newton"`, `"Brent"`, `"Secant"` |
+| `"SecantBlend"` | `0.5` | Real number in range `[0, 1]` |
+| `"Return"` | `"Value"` | `"Value"`, `"Rule"` |
+| `"FindRootOptions"` | `Automatic` | `Automatic`, list of options, or function generating options |
+| `"BracketGrid"` | `32` | Positive integer (grid size for root bracketing) |
+| `"Tolerance"` | `Automatic` | `Automatic`, or positive real number |
+
+#### Interval Extraction (extractIntervalsFromReduce)
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"InteriorShrink"` | `0.001` | Positive real number (fraction to shrink intervals) |
+| `"RootUpperBound"` | `15` | Positive real number |
+| `"UnboundedPad"` | `1.*^5` | Positive real number |
+
+#### Time Aggregation (growth, g, timeSeriesVector)
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"v0"` | `Function[{t,j,h,k,v,im},0]` | Pure function with 6 arguments |
+| `"Order"` | `1` | Positive integer (power series order) |
+| `"TimeAggregation"` | `1` | Positive integer (months to aggregate) |
+| `"numPeriods"` | `1` | Positive integer |
+| `"Variable"` | `"Flow"` | `"Flow"`, `"Stock"`, `"Ratio"` |
+
+#### Visualization (visualizeCoeffs, yieldCurve)
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"ShowSelector"` | `True` | `True`, `False` |
+| `"ShowDetails"` | `True` | `True`, `False` |
+| `"MomentFunction"` | `uncondE` | Any moment function symbol (e.g., `uncondE`, `condE`) |
+
+#### Pipeline (checkModels)
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"AutoBuild"` | `Automatic` | `True`, `False`, `Automatic` (auto-detects CI environment) |
+
+#### Internal Functions (not user-accessible)
+
+| Option | Default | Allowed Values |
+|--------|---------|----------------|
+| `"MaxIterations"` (lagStateVarst) | `100` | Positive integer |
+| `"TimeConstraint"` (lagStateVarst) | `30` | Positive real number (seconds) |
+| `"Level0Pattern"` | `_Symbol[0]\|_Symbol[_][0]` | Valid Wolfram pattern |
+| `"SimplifyFunction"` | `Simplify` | `Simplify`, `FullSimplify`, or custom simplification function |
