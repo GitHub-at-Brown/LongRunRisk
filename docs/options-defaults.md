@@ -8,7 +8,7 @@ The package uses a centralized configuration system defined in `Kernel/Tools/Opt
 
 - **Normalized config**: All options are organized into subsystem sections
 - **Legacy support**: Flat options are automatically mapped to the correct subsystem
-- **Validation**: Config structure is validated at entry points
+- **Structure checks**: `normalizeConfig` merges user config with `defaultConfig[]`; `validateConfig` exists for explicit checks but is not currently called by `buildModels`
 
 ### Config Subsystems
 
@@ -79,6 +79,8 @@ Options for function compilation.
 | `"Compiler"` | `"Compile"` | `"Compile"` or `"FunctionCompile"` |
 | `"RuntimeOptions"` | `Automatic` | Runtime options for compiled function |
 | `"CompilationTarget"` | `"C"` | Compilation target |
+
+Note: during `buildModels` compilation, `createCompiledEq` derives `"CoeffName"`/`"SignSymbol"` per equation from the processed model and passes them explicitly to `buildKernel`, so `config["Compile"]["CoeffName"]` and `config["Compile"]["SignSymbol"]` do not currently affect `buildModels` output.
 
 ### buildKernel Additional Options (not in config)
 
@@ -175,7 +177,7 @@ Options for the build pipeline orchestration.
 | `"FromScratch"` | `False` | Force complete rebuild |
 | `"CompileJacobians"` | `True` | Compile separate Jacobian files |
 | `"CreateMoments"` | `True` | Create moments database |
-| `"MaxMaturity"` | `120` | Maximum maturity for moments |
+| `"MaxMaturity"` | `120` | Reserved for moments max maturity (currently unused in `buildModels`) |
 | `"FileSuffix"` | `""` | Suffix for checkpoint files |
 | `"UpdateManifest"` | `True` | Update model manifest |
 
@@ -330,7 +332,7 @@ Some option names appear in multiple contexts with different meanings or default
 
 | Option | Contexts | Notes |
 | --- | --- | --- |
-| `"MaxMaturity"` | Numerical (12), Build (120) | Different defaults for different purposes |
+| `"MaxMaturity"` | Numerical (12), Build (120) | Build value currently unused; Numerical value affects bond solving |
 | `"SignSymbol"` | Symbolic (Symbol `signA`), Compile (String `"signA"`) | Different types in different contexts |
 | `"FindRootOptions"` | updateCoeffsSol (list), fastRoot/scanAndSolve (Automatic/list/function) | Different expected shapes |
 | `"SimplifyOptions"` | Multiple functions | Same default `{TimeConstraint -> {5, 300}}` |

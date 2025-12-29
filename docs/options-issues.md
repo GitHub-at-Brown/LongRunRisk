@@ -42,7 +42,7 @@ The centralized config defaults to `"Both"` (compile function and Jacobian toget
 
 **Location:**
 - `Kernel/Tools/FindRootOptim.wl:89` — `"FlattenExpressions" -> Automatic`
-- `Kernel/Tools/FindRootOptim.wl:1488` — used in hash computation
+- `Kernel/Tools/FindRootOptim.wl:1495` — used in hash computation
 
 **Description:**
 The `FlattenExpressions` option exists in `buildKernel` and is used in the compiled file hash computation, but it is not part of the centralized config system. This means:
@@ -196,11 +196,27 @@ getStartingValues // Options = {
 };
 ```
 
-The `getStartingValues` function is defined with options but doesn't appear to be called anywhere in the codebase (based on grep results from earlier session).
+The `getStartingValues` function is defined with options but doesn't appear to be called anywhere in the current codebase (based on repo search).
 
 **Impact:** Dead code.
 
 **Recommendation:** Remove if truly unused, or implement if intended for future use.
+
+---
+
+### Issue: `config["Build"]["MaxMaturity"]` defined but unused
+
+**Location:**
+- `Kernel/Tools/OptionsConfig.wl:150` — `config["Build"]["MaxMaturity"]` default 120
+- `Kernel/Tools/OptionsConfig.wl:374` — included in `splitConfig[config, "Build"]`
+- `Kernel/Tools/ManageResources.wl:835` — read into `maxMaturity` but never used
+
+**Description:**
+`config["Build"]["MaxMaturity"]` is part of the default config and is extracted by `splitConfig`, but the build pipeline does not currently use it when creating moments (or elsewhere). In `buildModelsInternal`, it is read into a local `maxMaturity` variable but never referenced.
+
+**Impact:** Users may think moments maturity can be configured via `Build["MaxMaturity"]`, but changing it has no effect.
+
+**Recommendation:** Either wire this into the moments stage (or remove it from the config/docs until implemented).
 
 ---
 
@@ -233,7 +249,7 @@ The same option name `FindRootOptions` is used with different expected shapes:
 **Description:**
 `MaxMaturity` has two different meanings:
 1. Numerical context: maximum maturity for bond coefficient solving (default 12)
-2. Build context: maximum maturity for moments database (default 120)
+2. Build context: intended maximum maturity for moments database (default 120), currently unused by `buildModels`
 
 The `ambiguousOptions` mapping in OptionsConfig.wl defaults to Numerical context.
 
@@ -323,9 +339,9 @@ While `validateConfig` checks structure, there's no validation of option values.
 ### Issue: No mechanism to discover available options
 
 **Description:**
-Users must read documentation or source code to know what options are available. There's no `AvailableOptions[]` or similar discovery mechanism.
+`defaultConfig[]` in `Kernel/Tools/OptionsConfig.wl` provides a public, programmatic way to discover the full nested default config, but there's no higher-level helper (e.g. `AvailableOptions["Compile"]`) and no indication of which config entries are currently ignored/unwired.
 
-**Recommendation:** Consider adding `$DefaultConfig` or similar public symbol for discovery.
+**Recommendation:** Document `defaultConfig[]` as the primary discovery mechanism; optionally add a convenience wrapper (e.g. `AvailableOptions["Compile"]`) for nicer output.
 
 ---
 
@@ -344,6 +360,7 @@ Users must read documentation or source code to know what options are available.
 | getStartingValues unused | Low | Open |
 | FindRootOptions shape mismatch | Low | Open |
 | MaxMaturity ambiguous | Low | Open (documented) |
+| Build MaxMaturity unused | Low | Open |
 | UnboundedPad default mismatch | Low | Open |
 | Jacobian compilation options | High | **FIXED** |
 | Hash validation options | High | **FIXED** |
