@@ -145,7 +145,7 @@ defaultConfig[] := <|
 	"Build" -> <|
 		"Models" -> All,
 		"FromScratch" -> False,
-		"CompileJacobians" -> False,
+		"CompileJacobians" -> True,
 		"CreateMoments" -> True,
 		"MaxMaturity" -> 120,
 		"FileSuffix" -> "",

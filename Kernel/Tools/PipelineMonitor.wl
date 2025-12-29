@@ -36,7 +36,8 @@ resolveAutoBuild[opt_] := Which[
 checkModels[OptionsPattern[]] := With[
 	{autoBuild = resolveAutoBuild[OptionValue["AutoBuild"]]},
 Module[
-	{config, changes, status, shortnames, catalogModels, allStatus, incompleteModels, hasCatalogChanges},
+	{config, changes, status, shortnames, modelsToBuild, catalogModels, allStatus,
+	 incompleteModels, hasCatalogChanges, allShortnames},
 
 	(* Guard against parallel/subkernel contexts *)
 	If[TrueQ[$ParallelEvaluationEnvironment] || $KernelID =!= 0,
@@ -83,22 +84,26 @@ Module[
 	(* Get catalog to map keys to shortnames *)
 	catalogModels = FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`getCatalogModels[];
 
-	(* Determine which models to report on: union of changed/new and incomplete *)
+	(* Get all enabled model shortnames for display *)
+	allShortnames = Values[catalogModels[[All, "shortname"]]];
+
+	(* Determine which models need to be built *)
 	If[hasCatalogChanges,
-		shortnames = DeleteDuplicates@Join[
+		modelsToBuild = DeleteDuplicates@Join[
 			Map[catalogModels[#]["shortname"] &, Join[changes["Changed"], changes["New"]]],
 			incompleteModels
 		],
 		(* No catalog changes, just incomplete pipelines *)
-		shortnames = incompleteModels;
+		modelsToBuild = incompleteModels;
 		(* Mark as "incomplete pipeline" run *)
 		changes = <|changes, "IncompletePipeline" -> True|>
 	];
 
-	status = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[shortnames];
+	(* Show ALL models in the status display, but only build incomplete ones *)
+	status = allStatus;
 
 	(* Show report and prompt for build *)
-	showPipelineReport[changes, status, shortnames, autoBuild]
+	showPipelineReport[changes, status, modelsToBuild, autoBuild]
 ]];
 
 (* Config loading - robust with fallbacks for all platforms *)
@@ -155,7 +160,9 @@ openOrCreateConfigFile[] := Module[{file, defaults, create},
 ];
 
 (* Pipeline report and build prompt *)
-showPipelineReport[changes_, status_, shortnames_, autoBuild_:False] := Module[
+(* status: Association of ALL models with their pipeline status *)
+(* modelsToBuild: List of shortnames that need building (incomplete ones) *)
+showPipelineReport[changes_, status_, modelsToBuild_, autoBuild_:False] := Module[
 	{dialogResult, buildResult, grid, title},
 
 	(* AutoBuild mode: skip prompts and build directly *)
@@ -164,12 +171,12 @@ showPipelineReport[changes_, status_, shortnames_, autoBuild_:False] := Module[
 			Null
 		];
 		buildResult = FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels[
-			"Models" -> shortnames
+			"Models" -> modelsToBuild
 		];
 		Return[buildResult]
 	];
 
-	(* Build status grid *)
+	(* Build status grid showing ALL models *)
 	grid = formatStatusGrid[status];
 
 	(* Choose title based on whether it's catalog changes or incomplete pipeline *)
@@ -180,7 +187,7 @@ showPipelineReport[changes_, status_, shortnames_, autoBuild_:False] := Module[
 
 	If[$Notebooks =!= True,
 		(* Terminal mode *)
-		showTerminalReport[changes, status, shortnames],
+		showTerminalReport[changes, status, modelsToBuild],
 
 		(* Notebook mode: use DialogInput for value return *)
 		dialogResult = DialogInput[
@@ -188,10 +195,10 @@ showPipelineReport[changes_, status_, shortnames_, autoBuild_:False] := Module[
 				Style[title, "Title", 16, Bold],
 				Style[DateString[], "Subtitle", Gray],
 				"",
-				formatChangeSummary[changes, shortnames],
+				formatChangeSummary[changes, modelsToBuild],
 				"",
-				Style["Pipeline Status:", Bold],
-				Pane[grid, ImageSize -> {500, 150}, Scrollbars -> {False, Automatic}],
+				Style["Pipeline Status (all models):", Bold],
+				Pane[grid, ImageSize -> {500, 200}, Scrollbars -> {False, Automatic}],
 				"",
 				Row[{
 					Button["Build Now", DialogReturn["Build"]],
@@ -204,10 +211,10 @@ showPipelineReport[changes_, status_, shortnames_, autoBuild_:False] := Module[
 
 		(* Check result and run build *)
 		If[dialogResult === "Build",
-			PrintTemporary["Building models: ", shortnames, "..."];
-			(* Pass SHORTNAMES to buildModels *)
+			PrintTemporary["Building models: ", modelsToBuild, "..."];
+			(* Build only the incomplete models *)
 			buildResult = FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels[
-				"Models" -> shortnames
+				"Models" -> modelsToBuild
 			];
 			If[buildResult === $Failed,
 				MessageDialog["Build failed. Check messages for details."],
@@ -274,9 +281,9 @@ printStatusTable[status_Association] := Module[{},
 	Null
 ];
 
-formatChangeSummary[changes_Association, shortnames_List : {}] := Column[{
+formatChangeSummary[changes_Association, modelsToBuild_List : {}] := Column[{
 	If[TrueQ[changes["IncompletePipeline"]],
-		Row[{Style["Models with incomplete pipelines: ", Bold], StringRiffle[shortnames, ", "]}],
+		Row[{Style["Models needing build: ", Bold], StringRiffle[modelsToBuild, ", "]}],
 		Nothing],
 	If[changes["New"] =!= {},
 		Row[{Style["New models: ", Bold], StringRiffle[changes["New"], ", "]}],
@@ -289,6 +296,9 @@ formatChangeSummary[changes_Association, shortnames_List : {}] := Column[{
 		Nothing],
 	If[TrueQ[changes["FirstRun"]],
 		Style["(First run - initializing)", Italic, Gray],
+		Nothing],
+	If[!TrueQ[changes["IncompletePipeline"]] && modelsToBuild =!= {},
+		Row[{Style["Will build: ", Bold], StringRiffle[modelsToBuild, ", "]}],
 		Nothing]
 }, Spacings -> 0.3];
 

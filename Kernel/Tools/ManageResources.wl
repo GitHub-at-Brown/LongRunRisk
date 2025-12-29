@@ -41,6 +41,7 @@ Returns <|shortname -> <|\"MainStage\"->..., \"NeedsJacobians\"->..., \"Reason\"
 Begin["`Private`"];
 
 Needs["PacletizedResourceFunctions`"]
+Needs["FernandoDuarte`LongRunRisk`Tools`OptionsConfig`"]
 
 (* Live catalog loading - tracks file modification time *)
 $catalogFile = None;
@@ -709,7 +710,8 @@ resolveCompiledMxFile[compiledDir_String, shortname_String, fileSuffix_String : 
 
 (* helper: determine what stage a model needs to start from *)
 determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
-	compiledDir_, momentsDir_, compileJacobians_, createMoments_] := Module[
+	compiledDir_, momentsDir_, compileJacobians_, createMoments_,
+	compileMode_String : "FunctionOnly", compilerChoice_String : "Compile", flattenOpt_ : Automatic] := Module[
 	{shortname, catalogHash, savedModel, mxFile, validation},
 
 	shortname = catalogModels[modelKey]["shortname"];
@@ -731,7 +733,7 @@ determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
 
 	(* Check: Compiled file valid - prefer platform-specific subfolder *)
 	mxFile = resolveCompiledMxFile[compiledDir, shortname];
-	validation = validateCompiledFile[mxFile, savedModel];
+	validation = validateCompiledFile[mxFile, savedModel, compileMode, compilerChoice, flattenOpt];
 	If[!validation["Valid"],
 		Return[<|"MainStage" -> "Compile", "NeedsJacobians" -> compileJacobians,
 			"Reason" -> validation["Reason"]|>]
@@ -758,7 +760,7 @@ determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
 	(* Check jacobians independently - prefer platform-specific subfolder *)
 	If[compileJacobians,
 		With[{jacFile = resolveCompiledMxFile[compiledDir, shortname, "_jacobians"]},
-			validation = validateCompiledFile[jacFile, savedModel, "JacobianOnly"];
+			validation = validateCompiledFile[jacFile, savedModel, "JacobianOnly", compilerChoice, flattenOpt];
 			If[!validation["Valid"],
 				Return[<|"MainStage" -> "UpToDate", "NeedsJacobians" -> True,
 					"Reason" -> "jacobians: " <> validation["Reason"]|>]
@@ -833,7 +835,10 @@ buildModelsInternal[config_Association] := With[
 		maxMaturity = config["Build"]["MaxMaturity"],
 		modelFilter = config["Build"]["Models"],
 		fileSuffix = config["Build"]["FileSuffix"],
-		updateManifest = config["Build"]["UpdateManifest"]
+		updateManifest = config["Build"]["UpdateManifest"],
+		(* Compile options for hash validation *)
+		compileMode = config["Compile"]["CompileMode"],
+		compilerChoice = config["Compile"]["Compiler"]
 	},
 	Module[
 		{
@@ -905,7 +910,8 @@ buildModelsInternal[config_Association] := With[
 		(* determine status for each enabled model *)
 		modelStatuses = Association @ Table[
 			k -> determineModelStatus[k, catalogModels, savedModels, manifest,
-				compiledDir, momentsDir, compileJacobians, createMoments],
+				compiledDir, momentsDir, compileJacobians, createMoments,
+				compileMode, compilerChoice],
 			{k, Keys[enabledModels]}
 		];
 
@@ -1004,7 +1010,8 @@ buildModelsInternal[config_Association] := With[
 				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 					processedModels[shortname],
 					compiledDir,
-					"CompileMode" -> "JacobianOnly"
+					"CompileMode" -> "JacobianOnly",
+					"Compiler" -> compilerChoice
 				];
 				logMemory["Jacobian END: " <> shortname];
 				, {modelKey, modelsNeedingJacobians}
@@ -1352,10 +1359,15 @@ getModelPipelineStatus[] := getModelPipelineStatus[All];
 
 getModelPipelineStatus[shortnames_] := Module[
 	{root, catalogModels, savedModels, manifest, compiledDir, momentsDir,
-	 enabledModels, modelKeys, result},
+	 enabledModels, modelKeys, result, config, compileMode, compilerChoice},
 
 	root = findPacletRoot[];
 	If[root === $Failed, Return[$Failed]];
+
+	(* Load config for compile options *)
+	config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`normalizeConfig[{}];
+	compileMode = config["Compile"]["CompileMode"];
+	compilerChoice = config["Compile"]["Compiler"];
 
 	(* Load all required data *)
 	catalogModels = getCatalogModels[];
@@ -1379,7 +1391,7 @@ getModelPipelineStatus[shortnames_] := Module[
 	result = Association @ Table[
 		catalogModels[key]["shortname"] ->
 			determineModelStatus[key, catalogModels, savedModels, manifest,
-				compiledDir, momentsDir, False, True],
+				compiledDir, momentsDir, False, True, compileMode, compilerChoice],
 		{key, modelKeys}
 	];
 

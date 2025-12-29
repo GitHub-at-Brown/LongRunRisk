@@ -17,16 +17,16 @@ This document describes the comprehensive refactoring of the LongRunRisk test in
 
 ## Table of Contents
 
-1. [Background](#background)
-2. [The Problem](#the-problem)
-3. [Original Test Structure](#original-test-structure)
-4. [The Solution](#the-solution)
-5. [Implementation Details](#implementation-details)
-6. [Testing Methodology](#testing-methodology)
-7. [Key Technical Patterns](#key-technical-patterns)
-8. [Results and Validation](#results-and-validation)
-9. [Lessons Learned](#lessons-learned)
-10. [References](#references)
+- [Background](#background)
+- [The Problem](#the-problem)
+- [Original Test Structure](#original-test-structure)
+- [The Solution](#the-solution)
+- [Implementation Details](#implementation-details)
+- [Testing Methodology](#testing-methodology)
+- [Key Technical Patterns](#key-technical-patterns)
+- [Results and Validation](#results-and-validation)
+- [Lessons Learned](#lessons-learned)
+- [References](#references)
 
 ---
 
