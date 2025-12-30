@@ -947,14 +947,17 @@ simplifyWithDummySubstitution[expr_, opts:OptionsPattern[{simplifyWithDummySubst
 
     transformed = expr /. allTransformRules;
 
-    (* Use TimeConstrained with hard timeout to prevent memory explosion from runaway Simplify *)
-    simplified = Quiet[
-      TimeConstrained[
-        Assuming[augmentedAss, simplifyFn[transformed, Sequence @@ simplifyOpts]],
-        tcVal,
-        transformed (* return transformed but unsimplified on timeout *)
-      ],
-      {Simplify::time, FullSimplify::time}
+    (* Use LocalEvaluate for memory isolation and TimeConstrained for hard timeout *)
+    simplified = LocalEvaluate[
+      Block[{$HistoryLength = 0},
+        TimeConstrained[
+          Assuming[augmentedAss,
+            Quiet[simplifyFn[transformed, Sequence @@ simplifyOpts], {Simplify::time, FullSimplify::time}]
+          ],
+          tcVal,
+          transformed (* return transformed but unsimplified on timeout *)
+        ]
+      ]
     ];
 
     simplified /. allRestoreRules
