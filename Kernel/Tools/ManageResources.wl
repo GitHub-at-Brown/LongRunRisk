@@ -574,7 +574,8 @@ buildModels // Options = {
 	"Models" -> All,  (* All or list of shortnames *)
 	"PdEquations" -> "B",  (* "B" | "AB" | "Both" - controls which pd equations to compute/compile *)
 	"FileSuffix" -> "",  (* suffix for checkpoint files; "_BY" writes to Models_BY.wl *)
-	"UpdateManifest" -> True  (* whether to update ModelManifest.wl at end *)
+	"UpdateManifest" -> True,  (* whether to update ModelManifest.wl at end *)
+	"Verbose" -> True  (* whether to print memory usage during pipeline *)
 };
 
 
@@ -836,6 +837,7 @@ buildModelsInternal[config_Association] := With[
 		modelFilter = config["Build"]["Models"],
 		fileSuffix = config["Build"]["FileSuffix"],
 		updateManifest = config["Build"]["UpdateManifest"],
+		verbose = config["Build"]["Verbose"],
 		(* Compile options for hash validation *)
 		compileMode = config["Compile"]["CompileMode"],
 		compilerChoice = config["Compile"]["Compiler"]
@@ -947,7 +949,8 @@ buildModelsInternal[config_Association] := With[
 
 		(* execute pipeline with cascade *)
 		symbolicModels = Lookup[modelsByStage, "Symbolic", {}];
-
+		(* Disable history to prevent memory accumulation from Out[] values *)
+		$HistoryLength = 0;
 
 		(* Memory profiling helper *)
 			$memoryProfileLog = {};
@@ -955,6 +958,9 @@ buildModelsInternal[config_Association] := With[
 				memGB = N[mem / 1024^3];
 				kernelGB = wolframKernelMemoryGB[];
 				AppendTo[$memoryProfileLog, <|"Label" -> label, "MemoryGB" -> memGB, "KernelRSSGB" -> kernelGB, "Time" -> DateString["ISODateTime"]|>];
+				If[TrueQ[verbose],
+					Print[label, " | Memory: ", NumberForm[memGB, {4, 2}], " GB | RSS: ", If[MissingQ[kernelGB], "N/A", ToString[NumberForm[kernelGB, {4, 2}]] <> " GB"]]
+				];
 			];
 		logMemory["buildModels START"];
 

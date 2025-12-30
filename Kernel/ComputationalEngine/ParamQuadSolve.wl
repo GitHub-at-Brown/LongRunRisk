@@ -81,7 +81,8 @@ Options[paramQuadSolve] = {
   "SignSymbol" -> signA,
   "GroebnerMemoryFraction" -> 0.5,  (* fraction of MemoryAvailable[] to use *)
   "GroebnerMemoryFloor" -> 1*1024^3,  (* minimum memory limit in bytes *)
-  "GroebnerMemoryCap" -> 16*1024^3  (* maximum memory limit in bytes *)
+  "GroebnerMemoryCap" -> 16*1024^3,  (* maximum memory limit in bytes *)
+  "Verbose" -> True  (* whether to print memory usage during solving *)
 };
 
 Options[simplifyWithDummySubstitution] = {
@@ -117,7 +118,8 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
       signHead        = OptionValue["SignSymbol"],
       gbMemFraction   = OptionValue["GroebnerMemoryFraction"],
       gbMemFloor      = OptionValue["GroebnerMemoryFloor"],
-      gbMemCap        = OptionValue["GroebnerMemoryCap"]
+      gbMemCap        = OptionValue["GroebnerMemoryCap"],
+      verbose         = OptionValue["Verbose"]
     },
     With[
       {
@@ -145,7 +147,21 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         dens, denConds, canPolys, coeffMap, seqRes, solved, signMap, signRadMap, leftover, steps, solRules,
         signRootMap, conditions, verif, out, t0, t1, solRulesDesym, signRootMapDesym, signRadMapDesym, diagExtra,
         radicandsRaw, uniqueRadicands, radicandConditions, signVars, signAssumptions, fullAss,
-        methodTag, allowGroebner},
+        methodTag, allowGroebner, logMem},
+
+        (* Memory logging helper *)
+        logMem[label_String] := If[TrueQ[verbose],
+          With[{memGB = N[MemoryInUse[] / 1024^3]},
+            Print["[paramQuadSolve] ", label, " | Memory: ", NumberForm[memGB, {4, 2}], " GB"]
+          ]
+        ];
+
+        (* Debug: print option values *)
+        If[TrueQ[verbose],
+          Print["[paramQuadSolve] Options: timeout=", timeout, ", simplifyTimeout=", simplifyTimeout,
+                ", simpBudget=", simpBudget, ", doValidate=", doValidate]
+        ];
+
         If[methodSpec === $Failed, Return[$Failed]];
         methodTag = methodSpec["Tag"];
         allowGroebner = methodSpec["AllowGroebner"];
@@ -154,7 +170,9 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         If[vars === {}, Message[paramQuadSolve::emptyvar]; Return[$Failed]];
         If[eqns === {}, Message[paramQuadSolve::emptyeq]; Return[$Failed]];
         t0 = AbsoluteTime[];
+        logMem["START"];
         pairsFull = toPolyAndDen /@ eqns;
+        logMem["toPolyAndDen done"];
         polysFull = pairsFull[[All, 1]];
         densFull = pairsFull[[All, 2]];
         eqVarSets = varsInPoly[#, vars] & /@ polysFull;
@@ -194,12 +212,15 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         ];
         denConds = collectDenominatorConditions[dens];
         {canPolys, coeffMap} = canonicalizeCoefficients[eqPolys, varsToSolve];
+        logMem["canonicalizeCoefficients done"];
         (* TimeConstraint returns best simplification found within budget *)
         coeffMap = Map[
           Simplify[#, Assumptions -> ass, TimeConstraint -> simpBudget] &,
           coeffMap
         ];
+        logMem["Simplify coeffMap done"];
         seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead, gbOrderUsed, allowGroebner, gbMemLimit, simpBudget], N@timeout, $Failed];
+        logMem["sequentialSolve done"];
         If[!MatchQ[seqRes, {__}], Message[paramQuadSolve::solvefail]; Return[$Failed]];
         {solved, signMap, signRadMap, leftover, steps} = seqRes;
         solRules = Normal[solved];
@@ -214,6 +235,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
           N@timeout,
           $Failed
         ];
+        logMem["FixedPoint substitution done"];
         If[solRules === $Failed, Message[paramQuadSolve::solvefail]; Return[$Failed]];
         signRootMap = Association[signMap];
         (* substitute original coefficient expressions back *)
@@ -223,18 +245,50 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         signVars = Keys[signRootMapDesym];
         signAssumptions = If[signVars === {}, True, And @@ Thread[(signVars)^2 == 1]];
         fullAss = expandPatternAssumptions[eqns, ass && signAssumptions];
+        logMem["coefficient desymbolization done"];
+        If[TrueQ[verbose],
+          Print["[paramQuadSolve] DATA SIZES BEFORE LocalEvaluate:"];
+          Print["  signRootMapDesym: ", Length[signRootMapDesym], " entries, ", ByteCount[signRootMapDesym], " bytes"];
+          Print["  signRadMapDesym: ", Length[signRadMapDesym], " entries, ", ByteCount[signRadMapDesym], " bytes"];
+          Print["  fullAss: ", ByteCount[fullAss], " bytes"];
+        ];
+        logMem["BEFORE LocalEvaluate simplifySignMap"];
 
         (* Apply square root simplification *)
         {signRootMapDesym, signRadMapDesym} = LocalEvaluate[
-          simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss]
+          Block[{$HistoryLength = 0},
+            simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss]
+          ]
         ];
+        logMem["LocalEvaluate simplifySignMap done"];
+        If[TrueQ[verbose],
+          Print["[paramQuadSolve] DATA SIZES AFTER LocalEvaluate:"];
+          Print["  signRootMapDesym: ", Length[signRootMapDesym], " entries, ", ByteCount[signRootMapDesym], " bytes"];
+          Print["  signRadMapDesym: ", Length[signRadMapDesym], " entries, ", ByteCount[signRadMapDesym], " bytes"];
+        ];
+        logMem["CHECKPOINT A - before doValidate check"];
 
         If[TrueQ[doValidate],
+          logMem["CHECKPOINT B - inside doValidate block"];
+          (* Debug: show sizes before simplification *)
+          If[TrueQ[verbose],
+            logMem["CHECKPOINT C - before DEBUG prints"];
+            Print["[paramQuadSolve] DEBUG: solRulesDesym length=", Length[solRulesDesym],
+                  ", bytes=", ByteCount[solRulesDesym]];
+            logMem["CHECKPOINT D - after solRulesDesym ByteCount"];
+            Print["[paramQuadSolve] DEBUG: fullAss bytes=", ByteCount[fullAss]];
+            logMem["CHECKPOINT E - after fullAss ByteCount"];
+            Print["[paramQuadSolve] DEBUG: simpBudget=", simpBudget];
+            logMem["CHECKPOINT F - after all DEBUG prints"];
+          ];
+          logMem["BEFORE simplifyWithDummySubstitution solRulesDesym"];
           (* Simplify solRulesDesym using dummy substitution to prevent memory explosion *)
+          (* Note: Cannot use LocalEvaluate here because simplifyWithDummySubstitution is not available in local kernel *)
           solRulesDesym = simplifyWithDummySubstitution[solRulesDesym,
             "Assumptions" -> fullAss,
             TimeConstraint -> simpBudget
           ];
+          logMem["simplifyWithDummySubstitution solRulesDesym done"];
 
           (* Simplify signRootMapDesym and signRadMapDesym *)
           signRootMapDesym = KeyValueMap[
@@ -246,6 +300,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             ],
             signRootMapDesym
           ] // Association;
+          logMem["simplifyWithDummySubstitution signRootMapDesym done"];
           signRadMapDesym = KeyValueMap[
             Function[{key, val},
               key -> simplifyWithDummySubstitution[val,
@@ -255,6 +310,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             ],
             signRadMapDesym
           ] // Association;
+          logMem["simplifyWithDummySubstitution signRadMapDesym done"];
         ];
         radicandsRaw = Values[signRadMapDesym];
         uniqueRadicands = DeleteDuplicates[radicandsRaw];
@@ -270,6 +326,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             ],
             {}
           ];
+        logMem["Simplify radicandConditions done"];
         conditions = DeleteCases[Flatten@{denConds, radicandConditions}, True];
         verif = If[TrueQ[doValidate],
           TimeConstrained[
@@ -310,7 +367,9 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
           ],
           Missing["NotEvaluated"]
         ];
+        logMem["Verification done"];
         t1 = AbsoluteTime[];
+        logMem["END"];
         out = <|
           "Solution" -> Sort@solRulesDesym,
           "SignRootMap" -> signRootMapDesym,
@@ -823,8 +882,7 @@ simplifyWithDummySubstitution[expr_, opts:OptionsPattern[{simplifyWithDummySubst
   {ass, level0Pattern, simplifyFn, simplifyOpts, baseLevel0Symbols, expToDummy, expTransformRules,
    tanhTransformRules, dummyToExp, dummyToTanh, sqrtToDummy, dummyToSqrt,
    sqrtDummies, expDummies, dummyPositiveAss, augmentedAss,
-   allTransformRules, allRestoreRules, exprTransformed, allSqrtRadicands,
-   simplified},
+   allTransformRules, allRestoreRules, exprTransformed, allSqrtRadicands},
 
   (* Extract our custom options *)
   (* True means inherit from outer Assuming context via $Assumptions *)
@@ -833,7 +891,6 @@ simplifyWithDummySubstitution[expr_, opts:OptionsPattern[{simplifyWithDummySubst
   simplifyFn = OptionValue["SimplifyFunction"];
   (* Pass through Simplify options directly *)
   simplifyOpts = FilterRules[Flatten[{opts}], Options[Simplify]];
-
   (* Step 1: Find level-0 symbols and create exp transform rules *)
   baseLevel0Symbols = Union[Cases[expr, level0Pattern, Infinity]];
 
@@ -881,18 +938,40 @@ simplifyWithDummySubstitution[expr_, opts:OptionsPattern[{simplifyWithDummySubst
   allRestoreRules = Join[dummyToTanh, dummyToExp, dummyToSqrt];
 
   (* Step 4: Transform, simplify with Assuming, restore *)
-  simplified = Quiet[
-    Assuming[augmentedAss, simplifyFn[expr /. allTransformRules, Sequence @@ simplifyOpts]],
-    {Simplify::time, FullSimplify::time}
-  ];
+  (* Extract TimeConstraint for outer TimeConstrained wrapper as a hard timeout *)
+  Module[{tcOpts, tcVal, transformed, simplified},
+    tcOpts = Cases[simplifyOpts, HoldPattern[TimeConstraint -> v_] :> v];
+    tcVal = If[tcOpts === {}, 60, First[tcOpts]]; (* default 60s hard timeout *)
+    (* Handle nested TimeConstraint format {perStep, total} *)
+    tcVal = If[ListQ[tcVal], Last[tcVal] + 1, tcVal + 1]; (* add 1s buffer over soft timeout *)
 
-  simplified /. allRestoreRules
+    transformed = expr /. allTransformRules;
+
+    (* Use TimeConstrained with hard timeout to prevent memory explosion from runaway Simplify *)
+    simplified = Quiet[
+      TimeConstrained[
+        Assuming[augmentedAss, simplifyFn[transformed, Sequence @@ simplifyOpts]],
+        tcVal,
+        transformed (* return transformed but unsimplified on timeout *)
+      ],
+      {Simplify::time, FullSimplify::time}
+    ];
+
+    simplified /. allRestoreRules
+  ]
 ];
 
-(* Overload for list of rules - simplify RHS of each *)
-simplifyWithDummySubstitution[rules:{__Rule}, opts:OptionsPattern[]] := Map[
-  #[[1]] -> simplifyWithDummySubstitution[#[[2]], opts] &,
-  rules
+(* Overload for list of rules - simplify RHS of each with garbage collection hints *)
+simplifyWithDummySubstitution[rules:{__Rule}, opts:OptionsPattern[]] := Module[
+  {n = Length[rules], result},
+  (* Process each rule individually with memory management *)
+  Table[
+    result = rules[[i, 1]] -> simplifyWithDummySubstitution[rules[[i, 2]], opts];
+    (* Clear system cache periodically to prevent memory accumulation *)
+    If[Mod[i, 2] == 0, ClearSystemCache[]];
+    result,
+    {i, n}
+  ]
 ];
 
 

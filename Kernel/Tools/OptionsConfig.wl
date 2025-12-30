@@ -149,7 +149,8 @@ defaultConfig[] := <|
 		"CreateMoments" -> True,
 		"MaxMaturity" -> 120,
 		"FileSuffix" -> "",
-		"UpdateManifest" -> True
+		"UpdateManifest" -> True,
+		"Verbose" -> True
 	|>
 |>;
 
@@ -373,7 +374,8 @@ splitConfig[config_Association, "Build"] := Sequence @@ Flatten[{
 	"CreateMoments" -> config["Build"]["CreateMoments"],
 	"MaxMaturity" -> config["Build"]["MaxMaturity"],
 	"FileSuffix" -> config["Build"]["FileSuffix"],
-	"UpdateManifest" -> config["Build"]["UpdateManifest"]
+	"UpdateManifest" -> config["Build"]["UpdateManifest"],
+	"Verbose" -> config["Build"]["Verbose"]
 }];
 
 
