@@ -214,12 +214,29 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         {canPolys, coeffMap} = canonicalizeCoefficients[eqPolys, varsToSolve];
         logMem["canonicalizeCoefficients done"];
         (* TimeConstraint returns best simplification found within budget *)
-        coeffMap = Map[
-          Simplify[#, Assumptions -> ass, TimeConstraint -> simpBudget] &,
-          coeffMap
+        coeffMap = With[
+          {localCoeffMap = coeffMap, localAss = ass, localBudget = simpBudget},
+          LocalEvaluate[
+            Block[{$HistoryLength = 0},
+              Map[Simplify[#, Assumptions -> localAss, TimeConstraint -> localBudget] &, localCoeffMap]
+            ]
+          ]
         ];
         logMem["Simplify coeffMap done"];
-        seqRes = TimeConstrained[sequentialSolve[canPolys, varsToSolve, ass, signHead, gbOrderUsed, allowGroebner, gbMemLimit, simpBudget], N@timeout, $Failed];
+        seqRes = TimeConstrained[
+          With[{localCanPolys = canPolys, localVarsToSolve = varsToSolve, localAss = ass,
+                localSignHead = signHead, localGbOrder = gbOrderUsed, localAllowGroebner = allowGroebner,
+                localGbMemLimit = gbMemLimit, localSimpBudget = simpBudget},
+            LocalEvaluate[
+              Block[{$HistoryLength = 0},
+                sequentialSolve[localCanPolys, localVarsToSolve, localAss, localSignHead,
+                                localGbOrder, localAllowGroebner, localGbMemLimit, localSimpBudget]
+              ]
+            ]
+          ],
+          N@timeout,
+          $Failed
+        ];
         logMem["sequentialSolve done"];
         If[!MatchQ[seqRes, {__}], Message[paramQuadSolve::solvefail]; Return[$Failed]];
         {solved, signMap, signRadMap, leftover, steps} = seqRes;
@@ -255,9 +272,12 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         logMem["BEFORE LocalEvaluate simplifySignMap"];
 
         (* Apply square root simplification *)
-        {signRootMapDesym, signRadMapDesym} = LocalEvaluate[
-          Block[{$HistoryLength = 0},
-            simplifySignMap[signRootMapDesym, signRadMapDesym, fullAss]
+        {signRootMapDesym, signRadMapDesym} = With[
+          {localSignRootMap = signRootMapDesym, localSignRadMap = signRadMapDesym, localFullAss = fullAss},
+          LocalEvaluate[
+            Block[{$HistoryLength = 0},
+              simplifySignMap[localSignRootMap, localSignRadMap, localFullAss]
+            ]
           ]
         ];
         logMem["LocalEvaluate simplifySignMap done"];
@@ -330,37 +350,44 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         conditions = DeleteCases[Flatten@{denConds, radicandConditions}, True];
         verif = If[TrueQ[doValidate],
           TimeConstrained[
-            Module[{polys0, exprs, zeroQuick, checked},
-              polys0 = Subtract@@@eqnsUsed;
-              exprs = normalizeSigns[polys0 /. solRulesDesym, signHead];
-              zeroQuick = PossibleZeroQ[#, Assumptions -> fullAss] & /@ exprs;
-              checked = MapIndexed[
-                Function[{pair, idx},
-                  With[{zq = pair[[1]], expr = pair[[2]]},
-                    If[zq === True,
-                      True,
-                      Module[{noAss, withAss},
-                        noAss = TimeConstrained[
-                          Quiet[Simplify[expr == 0, TimeConstraint -> simpBudget], {Simplify::time}],
-                          simpBudget + 0.5,
-                          expr == 0 (* unchanged on timeout *)
-                        ];
-                        If[TrueQ[noAss],
-                          True,
-                          withAss = TimeConstrained[
-                            Quiet[Simplify[expr == 0, Assumptions -> fullAss, TimeConstraint -> simpBudget], {Simplify::time}],
-                            simpBudget + 0.5,
-                            expr == 0
-                          ];
-                          withAss
+            With[{localEqnsUsed = eqnsUsed, localSolRulesDesym = solRulesDesym,
+                  localSignHead = signHead, localFullAss = fullAss, localSimpBudget = simpBudget},
+              LocalEvaluate[
+                Block[{$HistoryLength = 0},
+                  Module[{polys0, exprs, zeroQuick, checked},
+                    polys0 = Subtract @@@ localEqnsUsed;
+                    exprs = normalizeSigns[polys0 /. localSolRulesDesym, localSignHead];
+                    zeroQuick = PossibleZeroQ[#, Assumptions -> localFullAss] & /@ exprs;
+                    checked = MapIndexed[
+                      Function[{pair, idx},
+                        With[{zq = pair[[1]], expr = pair[[2]]},
+                          If[zq === True,
+                            True,
+                            Module[{noAss, withAss},
+                              noAss = TimeConstrained[
+                                Quiet[Simplify[expr == 0, TimeConstraint -> localSimpBudget], {Simplify::time}],
+                                localSimpBudget + 0.5,
+                                expr == 0 (* unchanged on timeout *)
+                              ];
+                              If[TrueQ[noAss],
+                                True,
+                                withAss = TimeConstrained[
+                                  Quiet[Simplify[expr == 0, Assumptions -> localFullAss, TimeConstraint -> localSimpBudget], {Simplify::time}],
+                                  localSimpBudget + 0.5,
+                                  expr == 0
+                                ];
+                                withAss
+                              ]
+                            ]
+                          ]
                         ]
-                      ]
-                    ]
+                      ],
+                      Transpose[{zeroQuick, exprs}]
+                    ];
+                    checked
                   ]
-                ],
-                Transpose[{zeroQuick, exprs}]
-              ];
-              checked
+                ]
+              ]
             ],
             N@timeout,
             $Failed

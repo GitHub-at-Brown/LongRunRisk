@@ -756,9 +756,23 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						(*Echo[solA["Conditions"][[1]],"solAConditions"];*)
 						(*Echo[solB["Conditions"][[1]],"solBConditions"];*)
 						(*simplify using assumptions*)
-						solA["Solution"]=Quiet[Assuming[solA["Conditions"],Simplify[solA["Solution"],Sequence @@ simplifyOpts]],{Simplify::time}];
+						solA["Solution"]=With[
+							{localSol = solA["Solution"], localCond = solA["Conditions"], localOpts = simplifyOpts},
+							LocalEvaluate[
+								Block[{$HistoryLength = 0},
+									Quiet[Assuming[localCond, Simplify[localSol, Sequence @@ localOpts]], {Simplify::time}]
+								]
+							]
+						];
 						logMem["simplify solA Solution done"];
-					    solB["Solution"]=Quiet[Assuming[solB["Conditions"],Simplify[solB["Solution"],Sequence @@ simplifyOpts]],{Simplify::time}];
+					    solB["Solution"]=With[
+							{localSol = solB["Solution"], localCond = solB["Conditions"], localOpts = simplifyOpts},
+							LocalEvaluate[
+								Block[{$HistoryLength = 0},
+									Quiet[Assuming[localCond, Simplify[localSol, Sequence @@ localOpts]], {Simplify::time}]
+								]
+							]
+						];
 						logMem["simplify solB Solution done"];
 						(*Echo[solA["Solution"][[1]],"solASolution"];*)
 						(*Echo[solB["Solution"][[1]],"solBSolution"];*)
@@ -785,14 +799,16 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								solA["varsA0"] = Prepend[newVarsA,modelCoeffsSysWc[[2,1]]];
 								With[
 									{
-										eqA0Unsimplified = Prepend[newSysA,wcCoeffEq]/.solA["Solution"]
+										eqA0Unsimplified = Prepend[newSysA,wcCoeffEq]/.solA["Solution"],
+										localAssumeA = assumeA,
+										localSimplifyOpts = simplifyOpts
 									},
 									solA["eqA0"] = LocalEvaluate[
 										Block[{$HistoryLength = 0},
 											Assuming[
-												assumeA,
+												localAssumeA,
 												Quiet[
-													FullSimplify[eqA0Unsimplified,Sequence @@ simplifyOpts],
+													FullSimplify[eqA0Unsimplified,Sequence @@ localSimplifyOpts],
 													{FullSimplify::time,FullSimplify::gtime}
 												]
 											]
@@ -809,7 +825,10 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								},
 								With[
 									{
-										eqB0=Prepend[newSysB,pdCoeffEq]/.solB["Solution"]
+										eqB0=Prepend[newSysB,pdCoeffEq]/.solB["Solution"],
+										localAssumeB = assumeB,
+										localSimplifyOpts = simplifyOpts,
+										localSolASolution = solA["Solution"]
 									},
 									solB["pdMode"] = pdMode;
 									solB["varsB0"] = Prepend[newVarsB,modelCoeffsSysPd[[2,1]]];
@@ -818,9 +837,9 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 										solB["eqB0"] = LocalEvaluate[
 											Block[{$HistoryLength = 0},
 												Assuming[
-													assumeB,
+													localAssumeB,
 													Quiet[
-														FullSimplify[eqB0,Sequence @@ simplifyOpts],
+														FullSimplify[eqB0,Sequence @@ localSimplifyOpts],
 														{FullSimplify::time,FullSimplify::gtime}
 													]
 												]
@@ -833,9 +852,9 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 										solB["eqAB0"] = LocalEvaluate[
 											Block[{$HistoryLength = 0},
 												Assuming[
-													assumeB,
+													localAssumeB,
 													Quiet[
-														FullSimplify[eqB0/.solA["Solution"],Sequence @@ simplifyOpts],
+														FullSimplify[eqB0/.localSolASolution,Sequence @@ localSimplifyOpts],
 														{FullSimplify::time,FullSimplify::gtime}
 													]
 												]
@@ -913,15 +932,23 @@ tryTransforms[
 			If[nKernels > 0,
 				CloseKernels[];
 				LaunchKernels[nKernels];
-				results = 
+				results =
 					ParallelTable[
 						simplifyOne[transform],
 						{transform, transformsList}
 					];
 				CloseKernels[],
-				results = Table[
-					simplifyOne[transform],
-					{transform, transformsList}
+				(* Sequential fallback with memory isolation *)
+				results = With[
+					{localExpr = expr, localAss = ass, localOpts = simplifyOpts, localTransforms = transformsList},
+					LocalEvaluate[
+						Block[{$HistoryLength = 0},
+							Table[
+								Assuming[localAss, Quiet[Simplify[localExpr /. transform, Sequence @@ localOpts], {Simplify::time}]],
+								{transform, localTransforms}
+							]
+						]
+					]
 				]
 			]
 		];
