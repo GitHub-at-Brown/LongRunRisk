@@ -652,7 +652,7 @@ solveCoeffsSystem // Options = {
 	"SimplifyOptions" -> {TimeConstraint -> {5, 300}},
 	"paramQuadSolveOptions" -> {},
 	"PdEquations" -> "B",  (* "B" | "AB" | "Both" - controls which pd equations to compute *)
-	"Verbose" -> True  (* whether to print memory usage during solving *)
+	"Verbose" -> False  (* whether to print memory usage during solving *)
 };
 
 

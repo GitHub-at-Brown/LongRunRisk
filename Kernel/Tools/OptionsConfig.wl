@@ -150,7 +150,7 @@ defaultConfig[] := <|
 		"MaxMaturity" -> 120,
 		"FileSuffix" -> "",
 		"UpdateManifest" -> True,
-		"Verbose" -> True
+		"Verbose" -> False
 	|>
 |>;
 

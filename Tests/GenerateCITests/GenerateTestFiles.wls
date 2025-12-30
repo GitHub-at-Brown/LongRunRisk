@@ -1,7 +1,7 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Preliminaries*)
 
 
@@ -220,7 +220,7 @@
 (*LongRunRisk`*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`Catalog`*)
 
 
@@ -391,7 +391,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`EndogenousEq`*)
 
 
@@ -621,7 +621,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`ExogenousEq`*)
 
 
@@ -725,7 +725,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`ProcessModels`*)
 
 
@@ -1148,7 +1148,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`Shocks`*)
 
 
@@ -1442,7 +1442,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`ComputeConditionalExpectations`*)
 
 
@@ -1754,7 +1754,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -2317,7 +2317,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`CreateMomentsDatabase`*)
 
 
@@ -2468,7 +2468,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`SolveEulerEq`*)
 
 
@@ -3331,7 +3331,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Tools`NiceOutput`*)
 
 
@@ -3505,7 +3505,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Tools`TimeAggregation`*)
 
 
@@ -3949,7 +3949,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Tools`ToNumber`*)
 
 
@@ -4702,7 +4702,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*PacletizeResources*)
 
 
@@ -4822,7 +4822,6 @@
 (*report["MessagesFailure"] ==={} (* should be True for no message failures *)*)
 (*report["Failure"]==={}  (* should be True for no failures *)*)
 (*report["NotEvaluated"] ==={} (* should be True for all tests evaluated *)*)
-(**)
 
 
 (* ::Input:: *)

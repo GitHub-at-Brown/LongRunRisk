@@ -82,7 +82,7 @@ Options[paramQuadSolve] = {
   "GroebnerMemoryFraction" -> 0.5,  (* fraction of MemoryAvailable[] to use *)
   "GroebnerMemoryFloor" -> 1*1024^3,  (* minimum memory limit in bytes *)
   "GroebnerMemoryCap" -> 16*1024^3,  (* maximum memory limit in bytes *)
-  "Verbose" -> True  (* whether to print memory usage during solving *)
+  "Verbose" -> False  (* whether to print memory usage during solving *)
 };
 
 Options[simplifyWithDummySubstitution] = {
