@@ -905,7 +905,7 @@ tryTransforms[
 				simplifyOne = Function[{tr},
 					Assuming[
 						ass,
-						Simplify[expr /. tr, Sequence @@ simplifyOpts]
+						Quiet[Simplify[expr /. tr, Sequence @@ simplifyOpts], {Simplify::time}]
 					]
 				],
 				nKernels = Min[Length[transformsList], $ProcessorCount]
@@ -913,20 +913,15 @@ tryTransforms[
 			If[nKernels > 0,
 				CloseKernels[];
 				LaunchKernels[nKernels];
-				results = Quiet[
+				results = 
 					ParallelTable[
 						simplifyOne[transform],
 						{transform, transformsList}
-					],
-					{Simplify::time}
-				];
+					];
 				CloseKernels[],
-				results = Quiet[
-					Table[
-						simplifyOne[transform],
-						{transform, transformsList}
-					],
-					{Simplify::time}
+				results = Table[
+					simplifyOne[transform],
+					{transform, transformsList}
 				]
 			]
 		];
