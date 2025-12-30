@@ -147,10 +147,10 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         dens, denConds, canPolys, coeffMap, seqRes, solved, signMap, signRadMap, leftover, steps, solRules,
         signRootMap, conditions, verif, out, t0, t1, solRulesDesym, signRootMapDesym, signRadMapDesym, diagExtra,
         radicandsRaw, uniqueRadicands, radicandConditions, signVars, signAssumptions, fullAss,
-        methodTag, allowGroebner, logMem},
+        methodTag, allowGroebner, logMemory},
 
         (* Memory logging helper *)
-        logMem[label_String] := If[TrueQ[verbose],
+        logMemory[label_String] := If[TrueQ[verbose],
           With[{memGB = N[MemoryInUse[] / 1024^3]},
             Print["[paramQuadSolve] ", label, " | Memory: ", NumberForm[memGB, {4, 2}], " GB"]
           ]
@@ -170,9 +170,9 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         If[vars === {}, Message[paramQuadSolve::emptyvar]; Return[$Failed]];
         If[eqns === {}, Message[paramQuadSolve::emptyeq]; Return[$Failed]];
         t0 = AbsoluteTime[];
-        logMem["START"];
+        logMemory["START"];
         pairsFull = toPolyAndDen /@ eqns;
-        logMem["toPolyAndDen done"];
+        logMemory["toPolyAndDen done"];
         polysFull = pairsFull[[All, 1]];
         densFull = pairsFull[[All, 2]];
         eqVarSets = varsInPoly[#, vars] & /@ polysFull;
@@ -212,7 +212,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         ];
         denConds = collectDenominatorConditions[dens];
         {canPolys, coeffMap} = canonicalizeCoefficients[eqPolys, varsToSolve];
-        logMem["canonicalizeCoefficients done"];
+        logMemory["canonicalizeCoefficients done"];
         (* TimeConstraint returns best simplification found within budget *)
         coeffMap = With[
           {localCoeffMap = coeffMap, localAss = ass, localBudget = simpBudget},
@@ -222,7 +222,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             ]
           ]
         ];
-        logMem["Simplify coeffMap done"];
+        logMemory["Simplify coeffMap done"];
         seqRes = TimeConstrained[
           With[{localCanPolys = canPolys, localVarsToSolve = varsToSolve, localAss = ass,
                 localSignHead = signHead, localGbOrder = gbOrderUsed, localAllowGroebner = allowGroebner,
@@ -237,7 +237,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
           N@timeout,
           $Failed
         ];
-        logMem["sequentialSolve done"];
+        logMemory["sequentialSolve done"];
         If[!MatchQ[seqRes, {__}], Message[paramQuadSolve::solvefail]; Return[$Failed]];
         {solved, signMap, signRadMap, leftover, steps} = seqRes;
         solRules = Normal[solved];
@@ -252,7 +252,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
           N@timeout,
           $Failed
         ];
-        logMem["FixedPoint substitution done"];
+        logMemory["FixedPoint substitution done"];
         If[solRules === $Failed, Message[paramQuadSolve::solvefail]; Return[$Failed]];
         signRootMap = Association[signMap];
         (* substitute original coefficient expressions back *)
@@ -262,14 +262,14 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         signVars = Keys[signRootMapDesym];
         signAssumptions = If[signVars === {}, True, And @@ Thread[(signVars)^2 == 1]];
         fullAss = expandPatternAssumptions[eqns, ass && signAssumptions];
-        logMem["coefficient desymbolization done"];
+        logMemory["coefficient desymbolization done"];
         If[TrueQ[verbose],
           Print["[paramQuadSolve] DATA SIZES BEFORE LocalEvaluate:"];
           Print["  signRootMapDesym: ", Length[signRootMapDesym], " entries, ", ByteCount[signRootMapDesym], " bytes"];
           Print["  signRadMapDesym: ", Length[signRadMapDesym], " entries, ", ByteCount[signRadMapDesym], " bytes"];
           Print["  fullAss: ", ByteCount[fullAss], " bytes"];
         ];
-        logMem["BEFORE LocalEvaluate simplifySignMap"];
+        logMemory["BEFORE LocalEvaluate simplifySignMap"];
 
         (* Apply square root simplification *)
         {signRootMapDesym, signRadMapDesym} = With[
@@ -280,35 +280,35 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             ]
           ]
         ];
-        logMem["LocalEvaluate simplifySignMap done"];
+        logMemory["LocalEvaluate simplifySignMap done"];
         If[TrueQ[verbose],
           Print["[paramQuadSolve] DATA SIZES AFTER LocalEvaluate:"];
           Print["  signRootMapDesym: ", Length[signRootMapDesym], " entries, ", ByteCount[signRootMapDesym], " bytes"];
           Print["  signRadMapDesym: ", Length[signRadMapDesym], " entries, ", ByteCount[signRadMapDesym], " bytes"];
         ];
-        logMem["CHECKPOINT A - before doValidate check"];
+        logMemory["CHECKPOINT A - before doValidate check"];
 
         If[TrueQ[doValidate],
-          logMem["CHECKPOINT B - inside doValidate block"];
+          logMemory["CHECKPOINT B - inside doValidate block"];
           (* Debug: show sizes before simplification *)
           If[TrueQ[verbose],
-            logMem["CHECKPOINT C - before DEBUG prints"];
+            logMemory["CHECKPOINT C - before DEBUG prints"];
             Print["[paramQuadSolve] DEBUG: solRulesDesym length=", Length[solRulesDesym],
                   ", bytes=", ByteCount[solRulesDesym]];
-            logMem["CHECKPOINT D - after solRulesDesym ByteCount"];
+            logMemory["CHECKPOINT D - after solRulesDesym ByteCount"];
             Print["[paramQuadSolve] DEBUG: fullAss bytes=", ByteCount[fullAss]];
-            logMem["CHECKPOINT E - after fullAss ByteCount"];
+            logMemory["CHECKPOINT E - after fullAss ByteCount"];
             Print["[paramQuadSolve] DEBUG: simpBudget=", simpBudget];
-            logMem["CHECKPOINT F - after all DEBUG prints"];
+            logMemory["CHECKPOINT F - after all DEBUG prints"];
           ];
-          logMem["BEFORE simplifyWithDummySubstitution solRulesDesym"];
+          logMemory["BEFORE simplifyWithDummySubstitution solRulesDesym"];
           (* Simplify solRulesDesym using dummy substitution to prevent memory explosion *)
           (* Note: Cannot use LocalEvaluate here because simplifyWithDummySubstitution is not available in local kernel *)
           solRulesDesym = simplifyWithDummySubstitution[solRulesDesym,
             "Assumptions" -> fullAss,
             TimeConstraint -> simpBudget
           ];
-          logMem["simplifyWithDummySubstitution solRulesDesym done"];
+          logMemory["simplifyWithDummySubstitution solRulesDesym done"];
 
           (* Simplify signRootMapDesym and signRadMapDesym *)
           signRootMapDesym = KeyValueMap[
@@ -320,7 +320,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             ],
             signRootMapDesym
           ] // Association;
-          logMem["simplifyWithDummySubstitution signRootMapDesym done"];
+          logMemory["simplifyWithDummySubstitution signRootMapDesym done"];
           signRadMapDesym = KeyValueMap[
             Function[{key, val},
               key -> simplifyWithDummySubstitution[val,
@@ -330,7 +330,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             ],
             signRadMapDesym
           ] // Association;
-          logMem["simplifyWithDummySubstitution signRadMapDesym done"];
+          logMemory["simplifyWithDummySubstitution signRadMapDesym done"];
         ];
         radicandsRaw = Values[signRadMapDesym];
         uniqueRadicands = DeleteDuplicates[radicandsRaw];
@@ -346,7 +346,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             ],
             {}
           ];
-        logMem["Simplify radicandConditions done"];
+        logMemory["Simplify radicandConditions done"];
         conditions = DeleteCases[Flatten@{denConds, radicandConditions}, True];
         verif = If[TrueQ[doValidate],
           TimeConstrained[
@@ -394,9 +394,9 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
           ],
           Missing["NotEvaluated"]
         ];
-        logMem["Verification done"];
+        logMemory["Verification done"];
         t1 = AbsoluteTime[];
-        logMem["END"];
+        logMemory["END"];
         out = <|
           "Solution" -> Sort@solRulesDesym,
           "SignRootMap" -> signRootMapDesym,
