@@ -137,13 +137,17 @@ Options for numerical coefficient solving.
 
 ### Scan Options (nested at `config["Numerical"]["Scan"]`)
 
+**Note:** These options are defined in `defaultConfig` but are NOT extracted by `splitConfig["Numerical"]`. See `options-issues.md` for details.
+
 | Option | Default | Description |
 | --- | --- | --- |
 | `"FastRootOptions"` | `{}` | Options for fastRoot |
-| `"UnboundedPad"` | `1000` | Padding for unbounded intervals |
+| `"UnboundedPad"` | `1000` | Padding for unbounded intervals (function default is `1.*^5`) |
 | `"ScanMethod"` | `"Grid"` | Scanning method |
 
 ### Checks Options (nested at `config["Numerical"]["Checks"]`)
+
+**Note:** These options are defined in `defaultConfig` but are NOT extracted by `splitConfig["Numerical"]`. The `checks` function uses its own `Options` declaration.
 
 | Option | Default | Description |
 | --- | --- | --- |

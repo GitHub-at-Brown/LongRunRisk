@@ -41,7 +41,7 @@ Root nodes are functions that consume an option without receiving it from anothe
 
 ## paramQuadSolveOptions
 
-**Default**: Nested Association with 12 sub-options | **Source**: `OptionsConfig.wl:78-93`
+**Default**: Nested Association with 14 sub-options | **Source**: `OptionsConfig.wl:78-93`
 
 ### Tree
 
@@ -585,7 +585,7 @@ Minor inconsistency: `buildModelsParallel` ignores this option and always update
 | paramQuadSolveOptions | Symbolic | Not forwarded by processModels | High |
 | CoeffName | Compile | Dead code - model-derived | Low |
 | SignSymbol (Compile) | Compile | Dead code - model-derived | Low |
-| MaxMaturity (Numerical) | Numerical | Hard-coded in addCoeffsSolutionN | High |
+| MaxMaturity (Numerical) | Numerical | Hard-coded in addCoeffsSolutionN (but splitConfig does forward it) | Medium |
 | Scan Options | Numerical | Dead config - not extracted by splitConfig | Medium |
 | Signs | Numerical | Extracted but not consumed | Low |
 | Checks | Numerical | Config bypassed, own Options used | Medium |

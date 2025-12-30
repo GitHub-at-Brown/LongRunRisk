@@ -102,7 +102,8 @@ ORCHESTRATION LAYER
 | Line 246 | Forwards to `solveCoeffsSystem` |
 
 **How received:** Via `OptionsPattern` with inheritance from `solveCoeffsSystem`
-**How forwarded:** Via OptionsPattern mechanism to downstream functions
+
+**⚠️ GAP:** While `processModels` declares `OptionsPattern` with inheritance, at Line 246-247 it only explicitly forwards `"PdEquations"` to `solveCoeffsSystem`. `SimplifyOptions` is NOT forwarded, so downstream functions use their own defaults. See `options-issues.md` for details.
 
 ## Terminal Consumers
 

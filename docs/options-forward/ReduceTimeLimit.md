@@ -60,13 +60,15 @@ NUMERICAL SOLVING PATH (nD only)
 | Lines 803-904 | Function definition |
 | Lines 851-858 | For nD case: passes to `solveND` |
 
-**nD delegation:**
+**⚠️ GAP - Hardcoded Value:** Despite `splitConfig` extracting `ReduceTimeLimit` from config, `solveCoeffRoots` **hard-codes** `"ReduceTimeLimit" -> 5.` in the call to `solveND`, ignoring any configured value. See `options-issues.md` for details.
+
+**nD delegation (showing hardcoded value):**
 ```wolfram
 If[Length[coefList] > 1,
   Return[
     solveND[f, df, conds, paramsAll, signs, coefList, cName, sName,
             findOpts, extractOpts, scanOpts, quadSol["Solution"],
-            "ReduceTimeLimit" -> 5.],
+            "ReduceTimeLimit" -> 5.],  (* <-- HARDCODED, ignores config *)
     Module
   ]
 ]

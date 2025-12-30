@@ -110,7 +110,8 @@ ORCHESTRATION LAYER
 | Lines 244-250 | Calls `solveCoeffsSystem` |
 
 **How received:** Via `OptionsPattern` with inheritance from `solveCoeffsSystem`
-**How forwarded:** Via OptionsPattern mechanism
+
+**⚠️ GAP:** While `processModels` declares `OptionsPattern` with inheritance, at Lines 246-247 it only explicitly forwards `"PdEquations"` to `solveCoeffsSystem`. `paramQuadSolveOptions` is NOT forwarded, so `solveCoeffsSystem` uses its default `{}`, ignoring all 14 configured sub-options. See `options-issues.md` for details.
 
 ### `solveCoeffsSystem` in `Kernel/Model/ProcessModels.wl`
 

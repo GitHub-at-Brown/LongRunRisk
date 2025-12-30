@@ -73,10 +73,12 @@ The following options exist in `buildKernel` but are not in `OptionsConfig.wl`:
 *   **Evidence**: `addCoeffsSolutionN` is called without options (ManageResources.wl:1043-1044) and hardcodes `"MaxMaturity"->12` (SolveEulerEq.wl:1043).
 *   **Severity**: **CRITICAL** - the config value of 120 is completely dead. Users cannot control MaxMaturity via config.
 
-### `MaxMaturity` (Numerical) - Correctly Forwarded
+### `MaxMaturity` (Numerical) - Partially Forwarded
 *   **Central Config**: `Numerical.MaxMaturity -> 12`
-*   **Status**: This value IS correctly forwarded via `splitConfig["Numerical"]` to functions like `updateCoeffsSol`.
-*   **Note**: The dual `MaxMaturity` options (Build: 120, Numerical: 12) exist for different purposes, but Build.MaxMaturity is dead.
+*   **Status**: This value IS correctly forwarded via `splitConfig["Numerical"]` to functions like `updateCoeffsSol` when called directly.
+*   **Issue**: However, `buildModels` calls `addCoeffsSolutionN` (SolveEulerEq.wl:1036-1046) which hard-codes `"MaxMaturity"->12`, bypassing the config system.
+*   **Severity**: Medium - direct `updateCoeffs` calls respect config, but `buildModels` pipeline ignores it.
+*   **Note**: The dual `MaxMaturity` options (Build: 120, Numerical: 12) exist for different purposes; Build.MaxMaturity is dead, Numerical.MaxMaturity is bypassed in buildModels.
 
 ## Propagation Issues
 
@@ -92,9 +94,9 @@ The following options exist in `buildKernel` but are not in `OptionsConfig.wl`:
 *   **Severity**: Medium - fortunately defaults match, but config changes would be ignored.
 
 ### `paramQuadSolveOptions` Not Forwarded - HIGH
-*   **Central Config**: `Symbolic.paramQuadSolveOptions` contains 12 sub-options
+*   **Central Config**: `Symbolic.paramQuadSolveOptions` contains 14 sub-options
 *   **Issue**: Same as `SimplifyOptions` - `processModels` only forwards `PdEquations`, not `paramQuadSolveOptions`.
-*   **Result**: `solveCoeffsSystem` uses its own default `{}` for `paramQuadSolveOptions`, ignoring all 12 configured sub-options.
+*   **Result**: `solveCoeffsSystem` uses its own default `{}` for `paramQuadSolveOptions`, ignoring all 14 configured sub-options.
 *   **Severity**: High - users cannot configure solver behavior (DomainOption, Method, TimeoutOption, etc.) via `buildModels`.
 
 ### `ReduceTimeLimit` Hardcoded - HIGH

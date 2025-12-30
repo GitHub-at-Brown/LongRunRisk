@@ -219,14 +219,16 @@ fastRoot[f, spec, opts...]  (FindRootOptim.wl)
 
 ### Compilation Options (FindRootOptim.wl)
 
-| Option | Default | Purpose |
-|--------|---------|---------|
-| `"CoeffName"` | `"A"` | Coefficient symbol name |
-| `"SignSymbol"` | `"signA"` | Sign symbol name |
-| `"PerformanceGoal"` | `"Speed"` | Optimization level |
-| `"CompileMode"` | `"FunctionOnly"` | Compile function/Jacobian/both |
-| `"Compiler"` | `"Compile"` | Compile vs FunctionCompile |
-| `"FlattenExpressions"` | `Automatic` | Flatten before compile |
+Note: These are `buildKernel` function defaults. Central config defaults differ for some options (see `options-defaults.md`).
+
+| Option | Default (buildKernel) | Config Default | Purpose |
+|--------|----------------------|----------------|---------|
+| `"CoeffName"` | `"A"` | `"A"` | Coefficient symbol name |
+| `"SignSymbol"` | `"signA"` | `"signA"` | Sign symbol name |
+| `"PerformanceGoal"` | `"Speed"` | `"Quality"` | Optimization level |
+| `"CompileMode"` | `"FunctionOnly"` | `"Both"` | Compile function/Jacobian/both |
+| `"Compiler"` | `"Compile"` | `"Compile"` | Compile vs FunctionCompile |
+| `"FlattenExpressions"` | `Automatic` | (not in config) | Flatten before compile |
 
 ### Numerical Options (SolveEulerEq.wl)
 
@@ -301,18 +303,18 @@ User Entry Points
 
 For detailed options flow in each file, see:
 
-- [`model-shocks-exogenous.md`](./options/model-shocks-exogenous.md) - Shocks.wl, ExogenousEq.wl
-- [`model-parameters-endogenous.md`](./options/model-parameters-endogenous.md) - Parameters.wl, EndogenousEq.wl
-- [`model-catalog-processmodels.md`](./options/model-catalog-processmodels.md) - Catalog.wl, ProcessModels.wl
-- [`engine-unconditional-euler.md`](./options/engine-unconditional-euler.md) - ComputeUnconditionalExpectations.wl, CreateEulerEq.wl
-- [`engine-conditional-quadsolve.md`](./options/engine-conditional-quadsolve.md) - ComputeConditionalExpectations.wl, ParamQuadSolve.wl
-- [`engine-moments-solveeuler.md`](./options/engine-moments-solveeuler.md) - CreateMomentsDatabase.wl, SolveEulerEq.wl
-- [`tools-visualize-validate-output.md`](./options/tools-visualize-validate-output.md) - VisualizeCoeffs.wl, ValidateModels.wl, NiceOutput.wl
-- [`tools-time-copy-compound.md`](./options/tools-time-copy-compound.md) - TimeAggregation.wl, CopyDefinitions.wl, CompoundScope.wl
-- [`tools-number-plots-reexport.md`](./options/tools-number-plots-reexport.md) - ToNumber.wl, NicePlots.wl, ReExport.wl
-- [`tools-findroot-dependencies.md`](./options/tools-findroot-dependencies.md) - FindRootOptim.wl, Dependencies.wl
-- [`tools-options-resources-pipeline.md`](./options/tools-options-resources-pipeline.md) - OptionsConfig.wl, ManageResources.wl, PipelineMonitor.wl
-- [`main-longrunrisk.md`](./options/main-longrunrisk.md) - LongRunRisk.wl (main package file)
+- [`model-shocks-exogenous.md`](./options-backward/model-shocks-exogenous.md) - Shocks.wl, ExogenousEq.wl
+- [`model-parameters-endogenous.md`](./options-backward/model-parameters-endogenous.md) - Parameters.wl, EndogenousEq.wl
+- [`model-catalog-processmodels.md`](./options-backward/model-catalog-processmodels.md) - Catalog.wl, ProcessModels.wl
+- [`engine-unconditional-euler.md`](./options-backward/engine-unconditional-euler.md) - ComputeUnconditionalExpectations.wl, CreateEulerEq.wl
+- [`engine-conditional-quadsolve.md`](./options-backward/engine-conditional-quadsolve.md) - ComputeConditionalExpectations.wl, ParamQuadSolve.wl
+- [`engine-moments-solveeuler.md`](./options-backward/engine-moments-solveeuler.md) - CreateMomentsDatabase.wl, SolveEulerEq.wl
+- [`tools-visualize-validate-output.md`](./options-backward/tools-visualize-validate-output.md) - VisualizeCoeffs.wl, ValidateModels.wl, NiceOutput.wl
+- [`tools-time-copy-compound.md`](./options-backward/tools-time-copy-compound.md) - TimeAggregation.wl, CopyDefinitions.wl, CompoundScope.wl
+- [`tools-number-plots-reexport.md`](./options-backward/tools-number-plots-reexport.md) - ToNumber.wl, NicePlots.wl, ReExport.wl
+- [`tools-findroot-dependencies.md`](./options-backward/tools-findroot-dependencies.md) - FindRootOptim.wl, Dependencies.wl
+- [`tools-options-resources-pipeline.md`](./options-backward/tools-options-resources-pipeline.md) - OptionsConfig.wl, ManageResources.wl, PipelineMonitor.wl
+- [`main-longrunrisk.md`](./options-backward/main-longrunrisk.md) - LongRunRisk.wl (main package file)
 
 ---
 
