@@ -4824,9 +4824,6 @@
 (*report["NotEvaluated"] ==={} (* should be True for all tests evaluated *)*)
 
 
-report["Failure"]
-
-
 (* ::Input:: *)
 (*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> True]*)
 
