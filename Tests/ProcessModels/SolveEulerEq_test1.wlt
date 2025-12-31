@@ -294,7 +294,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"SolveEulerEq_20251223-R6ABWE@@Tests/ModelProcessing/SolveEulerEq_test1.wlt:8,1-298,2"
+	TestID->"SolveEulerEq_20251223-R6ABWE@@Tests/ProcessModels/SolveEulerEq_test1.wlt:8,1-298,2"
 ]
 
 $ContextPath = DeleteCases[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`"];

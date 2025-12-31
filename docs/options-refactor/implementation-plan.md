@@ -1,4 +1,4 @@
-Great — here’s the **companion “implementation plan”** that turns the option map into a **mechanical refactor**:
+Here’s the **companion “implementation plan”** that turns the option map into a **mechanical refactor**:
 
 * **where each `Options[...]` lives** (file-by-file),
 * **where OptionsValidation runs** (and how),
@@ -680,4 +680,3 @@ This layout **implements** your decisions mechanically:
 
 ---
 
-If you want, I can now produce the **exact post-refactor `Options[...]` blocks** for each owner function (with your renamed options inserted), and a **checklist of the exact `OptionValue[...]` calls that must be deleted/moved** to satisfy the “single owner consumes” rule for `Signs`, `MaxMaturity`, `FromScratch`, and `CreateMoments`.

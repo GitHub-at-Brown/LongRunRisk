@@ -572,5 +572,3 @@ Run these searches and ensure each is handled exactly once / in the right place:
 * `OptionValue["SymbolicSignSymbol"]` → **only in** `paramQuadSolve`
 
 ---
-
-If you want, I can give you an **even more mechanical “diff script” style checklist** (like: “in SolveEulerEq.wl line 862 replace the `findRootInterval[...]` call with …”) for each of the line anchors you have (803–904, 212–261, 85–91, etc.). The above is already aligned with those anchors, but I can rewrite it as a pure “replace this exact expression” list if that’s how you want to execute the refactor.

@@ -214,4 +214,3 @@ If you only want the **user-visible changes** you’ll feel immediately when ref
 
   * use **built-in option symbols** and/or bundle rules in `"FindRootOptions"`.
 
-If you want, next I can also provide the *companion “new canonical options registry” file layout* (what file owns each `Options[...]` declaration, where OptionsValidation runs, and what each wrapper’s `OptionsPattern[{...}]` list should be) so this mapping becomes a straightforward mechanical refactor.

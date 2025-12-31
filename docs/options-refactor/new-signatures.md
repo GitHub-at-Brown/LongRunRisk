@@ -488,4 +488,3 @@ If you want it to still forward extra build options to `buildOneModelFn`, keep t
 
 ---
 
-If you want, I can also write the **exact “call graph patch list”** (like a checklist: “Edit these 17 call sites; replace X with Y”) so you can apply it mechanically with search/replace across the paclet.

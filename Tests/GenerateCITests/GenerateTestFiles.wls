@@ -212,7 +212,7 @@
 (*]*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Generate Tests*)
 
 
@@ -220,7 +220,7 @@
 (*LongRunRisk`*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Catalog`*)
 
 
@@ -391,7 +391,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`EndogenousEq`*)
 
 
@@ -621,7 +621,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ExogenousEq`*)
 
 
@@ -725,7 +725,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ProcessModels`*)
 
 
@@ -1148,7 +1148,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Shocks`*)
 
 
@@ -1442,7 +1442,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeConditionalExpectations`*)
 
 
@@ -1754,7 +1754,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -2127,7 +2127,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateEulerEq`*)
 
 
@@ -2317,7 +2317,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateMomentsDatabase`*)
 
 
@@ -2468,7 +2468,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`SolveEulerEq`*)
 
 
@@ -3331,7 +3331,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`NiceOutput`*)
 
 
@@ -3505,7 +3505,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`TimeAggregation`*)
 
 
@@ -3949,7 +3949,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`ToNumber`*)
 
 
@@ -4702,7 +4702,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*PacletizeResources*)
 
 
@@ -4798,9 +4798,9 @@
 
 
 (* ::Code:: *)
-(*(*succeed=#["ReportSucceeded"]&/@testResults[[2]]["Result"];*)
+(*succeed=#["ReportSucceeded"]&/@testResults[[2]]["Result"];*)
 (*Keys@Pick[testResults[[2]]["Result"],Values@succeed,False]*)
-(*testResults[[2]]["Result"]["./Tests/CreateMomentsDatabase.wlt"]["Results"]*)
+(*(*testResults[[2]]["Result"]["./Tests/CreateMomentsDatabase.wlt"]["Results"]*)
 (*testResults[[2]]["Result"]["./Tests/ValidateModels/validateModel.wlt"]*)*)
 
 
@@ -4822,6 +4822,9 @@
 (*report["MessagesFailure"] ==={} (* should be True for no message failures *)*)
 (*report["Failure"]==={}  (* should be True for no failures *)*)
 (*report["NotEvaluated"] ==={} (* should be True for all tests evaluated *)*)
+
+
+report["Failure"]
 
 
 (* ::Input:: *)

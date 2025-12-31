@@ -447,13 +447,3 @@ Search for remaining multi-owner reads:
 * `OptionValue["CoeffName"]` only in `buildKernel`
 
 ---
-
-If you want, next I can also give you **the exact new function signatures** (for the ones that must switch from `OptionValue[...]` to positional arguments) so you can apply the refactor with minimal guesswork—for example:
-
-* `findRootInterval[..., coeffName_String, compileSignSymbol_String, signsSpec_]`
-* `bindUnary[..., signsSpec_]`
-* `updateCoeffsBond[..., maxMaturity_Integer, ...]`
-* `checkCoeffs[..., maxMaturity_Integer, ...]`
-* `addCoeffsSolution[..., buildMaxMaturity_Integer, ...]`
-
-…matching exactly the option ownership you want.

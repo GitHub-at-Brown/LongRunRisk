@@ -47,12 +47,3 @@ It also sets a standard invalid‑value message on each owner (`owner::optx`).
 
 ---
 
-## Assumptions this file matches
-
-This file matches the **post‑refactor option names** we discussed:
-
-* `"BuildMaxMaturity"` (build/process max maturity split)
-* `"SymbolicSignSymbol"` vs `"CompileSignSymbol"` (split from `SignSymbol`)
-* `fastRoot` uses `"ReturnType"` (not `"Return"`)
-
-If you decide on different final names, tell me what you chose and I’ll regenerate the file accordingly (same structure, just rename the option keys and predicates).

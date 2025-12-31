@@ -357,7 +357,3 @@ This gives you:
 2. **single owner per option name** (by construction)
 3. **pass-through for nested options** (no redeclaration; only `OptionsPattern` + `FilterRules`)
 4. broadly matches the “Wolfram options” guidelines you uploaded.
-
-If you want, in the next step I can take your current option list (from your `options-ownership.md`) and propose **an explicit new option table**: *old name → new name → owner → public/internal → notes*, including the exact renames for the multi-owner set.
-
-[1]: https://reference.wolfram.com/language/ref/OptionValue.html?utm_source=chatgpt.com "OptionValue - Wolfram Language Documentation"
