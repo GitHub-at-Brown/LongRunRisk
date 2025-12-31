@@ -16,7 +16,10 @@ This document is deliberately **implementation‑ready**: it lists every file to
 2. Baseline: the full test suite is already confirmed to be passing in all modalities; no pre-change run is required.
 
 3. Implement phases **in order**. At the end of each phase:
-   - Run the same test command.
+   - Run the test command.
+     ```bash
+     wolframscript Tests/RunTests.wls --all
+     ```
    - Fix any failures introduced by that phase.
    - Commit with a message like `phase N: <short description>`.
 
