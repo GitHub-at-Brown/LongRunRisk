@@ -28,7 +28,7 @@ buildEqMapFromModel
 buildKernel::usage = "buildKernel[expr, vars, params] compiles expr into a kernel optimized for root-finding.
 vars: the coefficient variables (e.g., {A[0]}) to solve for.
 params: the parameter symbols present in expr.
-Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"PerformanceGoal\" (\"Quality\" | \"Speed\"; Speed uses WVM with OptimizationLevel 0).
+Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"PerformanceGoal\" (default \"Quality\"; \"Quality\" | \"Speed\").
 Returns an Association with keys: \"fC\", \"dfC\", \"Vars\", \"ParamOrder\", \"SignIndex\", \"CoeffName\", \"SignSymbol\".";
 buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
 buildKernel::unusedvars = "Some vars were not found in the expression: `1`.";
@@ -83,7 +83,7 @@ Quiet[CCompilerDriver`CCompilers[True], {CCompilerDriver`CreateLibrary::nocomp}]
 buildKernel//Options = {
 	"CoeffName" -> "A",
 	"SignSymbol" -> "signA",
-	"PerformanceGoal" -> "Speed", (* "Speed" | "Quality" *)
+	"PerformanceGoal" -> "Quality", (* "Speed" | "Quality" *)
 	"CompileMode" -> "FunctionOnly",  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
 	"Compiler" -> "Compile",  (* "Compile" | "FunctionCompile" - Compile uses C target *)
 	"FlattenExpressions" -> Automatic,  (* True | False | Automatic (auto at LeafCount > 5000) *)
