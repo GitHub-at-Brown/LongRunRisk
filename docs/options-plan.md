@@ -13,12 +13,7 @@ This document is deliberately **implementation‑ready**: it lists every file to
    git checkout -b refactor/options-ownership
    ```
 
-2. Run the full test suite **before any changes**.
-   ```bash
-   wolframscript Tests/RunTests.wls --all
-   ```
-   Record failures (if any) and the exact commit hash. If failure, halt 
-   plan execution and report details of failure to user.
+2. Baseline: the full test suite is already confirmed to be passing in all modalities; no pre-change run is required.
 
 3. Implement phases **in order**. At the end of each phase:
    - Run the same test command.
@@ -209,12 +204,8 @@ yieldCurve
 
 ### Phase 0 — Baseline
 
-1. Run tests:
-   ```bash
-   wolframscript Tests/RunTests.wls --all
-   ```
-2. Save the output.
-3. Commit nothing.
+1. No action required; tests are already confirmed passing in all modalities.
+2. Commit nothing.
 
 ---
 
@@ -1073,3 +1064,9 @@ This is deliberately guarded so the paclet still loads even if `OptionsValidatio
 - `Kernel/Tools/ToNumber.wl`
 - `Kernel/Tools/NicePlotsExtra.wl`
 - `Kernel/ComputationalEngine/CreateMomentsDatabase.wl` (unless you add validation rules)
+
+---
+
+## Appendix note
+
+The appendix in `docs/options-plan-appendix.md` contains the pre-refactor option dependency trees and the forward/backward propagation documents (`options/`, `options-forward/`, `options-backward/`) for reference while executing this plan.

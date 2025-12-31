@@ -3,6 +3,8 @@
 # Appendix: Option trees and dependency documents 
 
 This appendix is a companion to `options-plan.md`.
+
+Note: This appendix reflects the pre-refactor state of the option system (dependency trees and propagation paths prior to the refactor).
 ## Contents
 
 - `options/` (33 files)
@@ -9564,4 +9566,3 @@ numberFormattingTemplate
 </details>
 
 ---
-
