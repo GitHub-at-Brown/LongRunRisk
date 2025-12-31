@@ -756,8 +756,8 @@ DOWNSTREAM USAGE
 | Location | What happens |
 |----------|--------------|
 | Lines 568-578 | Option declaration in `Options[buildModels]` |
-| Line 821 | Pattern: `buildModels[config_Association]` |
-| Line 825 | Pattern: `buildModels[opts___?OptionQ]` |
+| Line 822 | Pattern: `buildModels[config_Association]` |
+| Line 826 | Pattern: `buildModels[opts___?OptionQ]` |
 
 **How received:** Via `OptionsPattern` or config Association
 **How forwarded:** Config passed to `buildModelsInternal`
@@ -783,8 +783,8 @@ DOWNSTREAM USAGE
 
 | Location | What happens |
 |----------|--------------|
-| Line 829 | Receives normalized config as parameter |
-| Line 998 | Calls `createCompiledEq` with `splitConfig[config, "Compile"]` |
+| Line 830 | Receives normalized config as parameter |
+| Line 1001 | Calls `createCompiledEq` with `splitConfig[config, "Compile"]` |
 
 **How forwarded:** Via `splitConfig[config, "Compile"]`
 
@@ -854,7 +854,7 @@ Used to locate the coefficient variable to solve for (e.g., A[0], B[1][0]).
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API |
 | Config | `defaultConfig` | OptionsConfig.wl | 96 | Default value |
 | Config | `splitConfig` | OptionsConfig.wl | 308-316 | Extracts Compile options |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 998 | Forwards via splitConfig |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 830, 1001-1004 | Forwards via splitConfig |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1476-1533 | Extracts from eqMap, forwards to buildKernel |
 | **Consumer** | `buildKernel` | FindRootOptim.wl | 83, 102, 133, 354 | Validation, storage |
 | **Consumer** | `findRootInterval` | FindRootOptim.wl | 431, 443, 456-462 | Root variable extraction |
@@ -938,8 +938,8 @@ ORCHESTRATION LAYER
 | Location | What happens |
 |----------|--------------|
 | Lines 568-578 | Option declaration in `Options[buildModels]` |
-| Line 821 | Pattern: `buildModels[config_Association]` |
-| Line 825 | Pattern: `buildModels[opts___?OptionQ]` |
+| Line 822 | Pattern: `buildModels[config_Association]` |
+| Line 826 | Pattern: `buildModels[opts___?OptionQ]` |
 
 **How received:** Via `OptionsPattern` or config Association
 **How forwarded:** Config passed to `buildModelsInternal`
@@ -971,8 +971,8 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 829 | Receives normalized config as parameter |
-| Lines 995-998 | Calls `createCompiledEq` with `splitConfig[config, "Compile"]` |
+| Line 830 | Receives normalized config as parameter |
+| Lines 1001-1004 | Calls `createCompiledEq` with `splitConfig[config, "Compile"]` |
 
 **How forwarded:** Via `splitConfig[config, "Compile"]`
 
@@ -1020,7 +1020,7 @@ Compile[
 | Config | `defaultConfig` | OptionsConfig.wl | 102 | Default "C" |
 | Config | `normalizeConfig` | OptionsConfig.wl | 174 | Legacy mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 308-316 | Extracts Compile options |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 995-998 | Forwards via splitConfig |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 830, 1001-1004 | Forwards via splitConfig |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1476-1533 | Hash, forwards via FilterRules |
 | **Consumer** | `buildKernel` | FindRootOptim.wl | 193, 254-259 | **Terminal consumer** |
 | Built-in | `Compile` | (System) | N/A | Ultimate consumer |
@@ -1101,9 +1101,9 @@ BUILD ORCHESTRATION
 │
 └─ buildModelsInternal[config_Association]
    │
-   ├─ compileJacobians = config["Build"]["CompileJacobians"]  (line 832)
+   ├─ compileJacobians = config["Build"]["CompileJacobians"]  (line 833)
    │
-   ├─ determineModelStatus[..., compileJacobians, ...]  (line 912-914)
+   ├─ determineModelStatus[..., compileJacobians, ...]  (line 913-916)
    │  │  ◄── INTERMEDIATE FORWARDER
    │  │
    │  └─ Returns "NeedsJacobians" -> compileJacobians
@@ -1114,7 +1114,7 @@ BUILD ORCHESTRATION
           createCompiledEq[model, compiledDir,
             "CompileMode" -> "JacobianOnly", ...]
         , {modelKey, modelsNeedingJacobians}]
-      ]  ◄── TERMINAL CONSUMER (lines 1005-1020)
+      ]  ◄── TERMINAL CONSUMER (lines 1011-1020)
 ```
 
 ## Configuration Management Layer
@@ -1147,9 +1147,9 @@ BUILD ORCHESTRATION
 
 | Location | What happens |
 |----------|--------------|
-| Lines 1138-1143 | Does NOT declare CompileJacobians |
-| Lines 1188-1189 | Passes through via filteredOpts |
-| Lines 1191-1210 | Forwards to each parallel buildModels call |
+| Lines 1144-1149 | Does NOT declare CompileJacobians |
+| Lines 1194-1195 | Passes through via filteredOpts |
+| Lines 1197-1210 | Forwards to each parallel buildModels call |
 
 ## Intermediate Forwarder
 
@@ -1180,8 +1180,8 @@ If[compileJacobians,
 
 | Location | What happens |
 |----------|--------------|
-| Line 832 | `compileJacobians = config["Build"]["CompileJacobians"]` |
-| Lines 1005-1020 | Jacobian compilation phase |
+| Line 833 | `compileJacobians = config["Build"]["CompileJacobians"]` |
+| Lines 1011-1020 | Jacobian compilation phase |
 
 **Jacobian compilation phase:**
 ```wolfram
@@ -1206,11 +1206,11 @@ If[compileJacobians && Length[modelsNeedingJacobians] > 0,
 | Config | `defaultConfig` | OptionsConfig.wl | 148 | Default True |
 | Config | `splitConfig` | OptionsConfig.wl | 368-377 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 568-578, 821-826 | Public API |
-| Entry | `buildModelsParallel` | ManageResources.wl | 1145, 1188-1189 | Parallel orchestrator |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 832 | Extracts from config |
-| Forwarder | `buildModelsInternal` | ManageResources.wl | 912-914 | Passes to determineModelStatus |
+| Entry | `buildModelsParallel` | ManageResources.wl | 1145, 1194-1195 | Parallel orchestrator |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 833 | Extracts from config |
+| Forwarder | `buildModelsInternal` | ManageResources.wl | 913-916 | Passes to determineModelStatus |
 | Forwarder | `determineModelStatus` | ManageResources.wl | 712-772 | Validates and returns status |
-| **Consumer** | `buildModelsInternal` | ManageResources.wl | 1005-1020 | **Jacobian compilation** |
+| **Consumer** | `buildModelsInternal` | ManageResources.wl | 1011-1020 | **Jacobian compilation** |
 
 ## Output Files
 
@@ -1285,8 +1285,8 @@ ORCHESTRATION LAYER
 | Location | What happens |
 |----------|--------------|
 | Lines 568-578 | Option declaration in `Options[buildModels]` |
-| Line 821 | Pattern: `buildModels[config_Association]` |
-| Line 825 | Pattern: `buildModels[opts___?OptionQ]` |
+| Line 822 | Pattern: `buildModels[config_Association]` |
+| Line 826 | Pattern: `buildModels[opts___?OptionQ]` |
 | Lines 822, 826 | Normalizes via `normalizeConfig[]` |
 
 **How received:** Via `OptionsPattern` or config Association
@@ -1319,10 +1319,10 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 829 | Receives normalized config as parameter |
-| Line 840 | Extracts: `compileMode = config["Compile"]["CompileMode"]` |
-| Lines 995-998 | Standard call to `createCompiledEq` with splitConfig |
-| Line 1013 | Override call with `"CompileMode" -> "JacobianOnly"` |
+| Line 830 | Receives normalized config as parameter |
+| Line 842 | Extracts: `compileMode = config["Compile"]["CompileMode"]` |
+| Lines 1001-1004 | Standard call to `createCompiledEq` with splitConfig |
+| Line 1019 | Override call with `"CompileMode" -> "JacobianOnly"` |
 
 **How forwarded:** Via `splitConfig[config, "Compile"]` or explicit override
 
@@ -1390,7 +1390,7 @@ Switch[compileMode,
 | Config | `defaultConfig` | OptionsConfig.wl | 99 | Default "Both" |
 | Config | `normalizeConfig` | OptionsConfig.wl | 170 | Legacy mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 308-316 | Extracts Compile options |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 840, 998, 1013 | Extracts, forwards, overrides |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 842, 1001-1004, 1019 | Extracts, forwards, overrides |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1480, 1487, 1495 | Filename, caching |
 | **Consumer** | `buildKernel` | FindRootOptim.wl | 87, 105, 162, 282-350 | **Terminal consumer** |
 
@@ -1497,8 +1497,8 @@ ORCHESTRATION LAYER
 | Location | What happens |
 |----------|--------------|
 | Lines 568-578 | Option declaration in `Options[buildModels]` |
-| Line 821 | Pattern: `buildModels[config_Association]` |
-| Line 825 | Pattern: `buildModels[opts___?OptionQ]` |
+| Line 822 | Pattern: `buildModels[config_Association]` |
+| Line 826 | Pattern: `buildModels[opts___?OptionQ]` |
 | Lines 822, 826 | Normalizes via `normalizeConfig[]` |
 
 **How received:** Via `OptionsPattern` or config Association
@@ -1531,10 +1531,10 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 829 | Receives normalized config as parameter |
-| Line 841 | Extracts: `compilerChoice = config["Compile"]["Compiler"]` |
-| Lines 995-998 | Calls `createCompiledEq` with `splitConfig[config, "Compile"]` |
-| Line 1014 | Also passes directly as `"Compiler" -> compilerChoice` |
+| Line 830 | Receives normalized config as parameter |
+| Line 843 | Extracts: `compilerChoice = config["Compile"]["Compiler"]` |
+| Lines 1001-1004 | Calls `createCompiledEq` with `splitConfig[config, "Compile"]` |
+| Line 1020 | Also passes directly as `"Compiler" -> compilerChoice` |
 
 **How forwarded:** Via `splitConfig[config, "Compile"]` or explicit rule
 
@@ -1585,7 +1585,7 @@ Switch[compiler,
 | Config | `defaultConfig` | OptionsConfig.wl | 100 | Default "Compile" |
 | Config | `normalizeConfig` | OptionsConfig.wl | 169 | Legacy mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 308-316 | Extracts Compile options |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 841, 998, 1014 | Extracts and forwards |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 843, 1001-1004, 1020 | Extracts and forwards |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1476-1533 | Extracts, forwards to buildKernel |
 | **Consumer** | `buildKernel` | FindRootOptim.wl | 88, 106, 180-199 | **Terminal consumer** |
 | Internal | `compileWithDiagnostics` | FindRootOptim.wl | 246 | Actual compilation call |
@@ -1669,9 +1669,9 @@ BUILD ORCHESTRATION
 │
 └─ buildModelsInternal[config_Association]
    │
-   ├─ createMoments = config["Build"]["CreateMoments"]  (line 833)
+   ├─ createMoments = config["Build"]["CreateMoments"]  (line 834)
    │
-   ├─ determineModelStatus[..., createMoments, ...]  (line 912-914)
+   ├─ determineModelStatus[..., createMoments, ...]  (line 913-916)
    │  │  ◄── INTERMEDIATE FORWARDER
    │  │
    │  └─ If[createMoments,
@@ -1687,7 +1687,7 @@ BUILD ORCHESTRATION
           createDatabase[model, momentsFile,
             splitConfig[config, "Moments"]]
         , {modelKey, momentsModels}]
-      ]  ◄── TERMINAL CONSUMER #2 (lines 1072-1122)
+      ]  ◄── TERMINAL CONSUMER #2 (lines 1077-1122)
 ```
 
 ## Configuration Management Layer
@@ -1718,10 +1718,10 @@ BUILD ORCHESTRATION
 
 | Location | What happens |
 |----------|--------------|
-| Lines 1138-1143 | Option declaration: `"CreateMoments" -> True` |
-| Line 1154 | `createMoments = OptionValue["CreateMoments"]` |
-| Line 1195 | Forces `"CreateMoments" -> False` in parallel workers |
-| Lines 1261-1272 | Sequential moments phase if True |
+| Lines 1144-1149 | Option declaration: `"CreateMoments" -> True` |
+| Line 1160 | `createMoments = OptionValue["CreateMoments"]` |
+| Line 1201 | Forces `"CreateMoments" -> False` in parallel workers |
+| Lines 1266-1275 | Sequential moments phase if True |
 
 ## Intermediate Forwarder
 
@@ -1729,7 +1729,7 @@ BUILD ORCHESTRATION
 
 | Location | What happens |
 |----------|--------------|
-| Lines 911-916 | Forwards createMoments as 8th positional argument |
+| Lines 913-916 | Forwards createMoments as 8th positional argument |
 
 ```wolfram
 modelStatuses = Association @ Table[
@@ -1765,8 +1765,8 @@ If[createMoments,
 
 | Location | What happens |
 |----------|--------------|
-| Line 833 | `createMoments = config["Build"]["CreateMoments"]` |
-| Lines 1072-1122 | Phase 4 conditional execution |
+| Line 834 | `createMoments = config["Build"]["CreateMoments"]` |
+| Lines 1077-1122 | Phase 4 conditional execution |
 
 **Phase 4 gate:**
 ```wolfram
@@ -1794,8 +1794,8 @@ If[createMoments,
 
 | Location | What happens |
 |----------|--------------|
-| Line 1154 | `createMoments = OptionValue["CreateMoments"]` |
-| Lines 1261-1272 | Sequential moments phase |
+| Line 1160 | `createMoments = OptionValue["CreateMoments"]` |
+| Lines 1266-1275 | Sequential moments phase |
 
 **Sequential phase:**
 ```wolfram
@@ -1818,11 +1818,11 @@ If[createMoments && Length[successModels] > 0,
 | Config | `defaultConfig` | OptionsConfig.wl | 149 | Default True |
 | Config | `splitConfig` | OptionsConfig.wl | 368-377 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 568-578, 821-826 | Public API |
-| Entry | `buildModelsParallel` | ManageResources.wl | 1138-1275 | Parallel orchestrator |
-| Forwarder | `buildModelsInternal` | ManageResources.wl | 911-916 | Passes to determineModelStatus |
+| Entry | `buildModelsParallel` | ManageResources.wl | 1144-1278 | Parallel orchestrator |
+| Forwarder | `buildModelsInternal` | ManageResources.wl | 913-916 | Passes to determineModelStatus |
 | **Consumer** | `determineModelStatus` | ManageResources.wl | 748-758 | **Cache validation** |
-| **Consumer** | `buildModelsInternal` | ManageResources.wl | 1072-1122 | **Phase 4 gate** |
-| **Consumer** | `buildModelsParallel` | ManageResources.wl | 1261-1272 | **Sequential moments** |
+| **Consumer** | `buildModelsInternal` | ManageResources.wl | 1077-1122 | **Phase 4 gate** |
+| **Consumer** | `buildModelsParallel` | ManageResources.wl | 1266-1275 | **Sequential moments** |
 
 ## Parallel Build Strategy
 
@@ -1866,7 +1866,7 @@ ENTRY POINTS
 │
 └─ buildModelsParallel[models, opts...]
    ├─ Filters OUT FileSuffix from user options (line 1189)
-   └─ Generates: "FileSuffix" -> "_" <> modelName  (line 1197)
+   └─ Generates: "FileSuffix" -> "_" <> modelName  (line 1203)
 
 CONFIGURATION LAYER
 │
@@ -1878,17 +1878,17 @@ BUILD ORCHESTRATION
 │
 └─ buildModelsInternal[config_Association]
    │
-   ├─ fileSuffix = config["Build"]["FileSuffix"]  (line 837)
+   ├─ fileSuffix = config["Build"]["FileSuffix"]  (line 838)
    │
    ├─ modelsFileCheckpoint = FileNameJoin[{
    │    resourcesDir, "Models" <> fileSuffix <> ".wl"
-   │  }]  ◄── TERMINAL CONSUMER #1 (line 860)
+   │  }]  ◄── TERMINAL CONSUMER #1 (line 862)
    │
-   ├─ saveModels[..., modelsFileCheckpoint]  (lines 979, 1054, 1125)
+   ├─ saveModels[..., modelsFileCheckpoint]  (lines 985, 1060, 1131)
    │
    └─ If[TrueQ[updateManifest] && fileSuffix === "",
         updateModelManifest[]
-      ]  ◄── TERMINAL CONSUMER #2 (line 1129)
+      ]  ◄── TERMINAL CONSUMER #2 (line 1135)
 ```
 
 ## Configuration Management Layer
@@ -1919,10 +1919,10 @@ BUILD ORCHESTRATION
 
 | Location | What happens |
 |----------|--------------|
-| Lines 1138-1143 | Does NOT declare FileSuffix (not user-accessible) |
-| Lines 1188-1189 | Explicitly filters OUT FileSuffix from user options |
-| Line 1197 | Auto-generates: `"FileSuffix" -> "_" <> m` for each model |
-| Lines 1244-1252 | Deletes temporary checkpoint files after merge |
+| Lines 1144-1149 | Does NOT declare FileSuffix (not user-accessible) |
+| Lines 1194-1195 | Explicitly filters OUT FileSuffix from user options |
+| Line 1203 | Auto-generates: `"FileSuffix" -> "_" <> m` for each model |
+| Lines 1250-1255 | Deletes temporary checkpoint files after merge |
 
 **Filter pattern:**
 ```wolfram
@@ -1936,8 +1936,8 @@ filteredOpts = FilterRules[{opts},
 
 | Location | What happens |
 |----------|--------------|
-| Line 837 | `fileSuffix = config["Build"]["FileSuffix"]` |
-| Line 860 | Creates checkpoint file path |
+| Line 838 | `fileSuffix = config["Build"]["FileSuffix"]` |
+| Line 862 | Creates checkpoint file path |
 
 **Checkpoint file path:**
 ```wolfram
@@ -1951,15 +1951,15 @@ modelsFileCheckpoint = FileNameJoin[{resourcesDir, "Models" <> fileSuffix <> ".w
 | `"_NRC"` | `Resources/Models_NRC.wl` (checkpoint) |
 
 **Checkpoint saves:**
-- Line 979: After symbolic phase
-- Line 1054: After compile phase
-- Line 1125: After numerical phase
+- Line 985: After symbolic phase
+- Line 1060: After numerical phase
+- Line 1131: Final save after merge
 
 ### Terminal Consumer #2: Manifest Update Gate in `buildModelsInternal`
 
 | Location | What happens |
 |----------|--------------|
-| Line 1129 | Conditional manifest update |
+| Line 1135 | Conditional manifest update |
 
 **Gate logic:**
 ```wolfram
@@ -1993,7 +1993,7 @@ buildModelsParallel
 │
 ├─ Merge all checkpoint files into Models.wl
 │
-└─ Delete temporary checkpoint files (lines 1244-1252)
+└─ Delete temporary checkpoint files (lines 1250-1255)
 ```
 
 ## Summary Table
@@ -2003,9 +2003,9 @@ buildModelsParallel
 | Config | `defaultConfig` | OptionsConfig.wl | 151 | Default "" |
 | Config | `splitConfig` | OptionsConfig.wl | 368-377 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 568-578, 821-826 | Public API |
-| Entry | `buildModelsParallel` | ManageResources.wl | 1145, 1188-1189, 1197 | Parallel orchestrator |
-| **Consumer** | `buildModelsInternal` | ManageResources.wl | 860 | **Checkpoint file path** |
-| **Consumer** | `buildModelsInternal` | ManageResources.wl | 1129 | **Manifest update gate** |
+| Entry | `buildModelsParallel` | ManageResources.wl | 1145, 1194-1195, 1203 | Parallel orchestrator |
+| **Consumer** | `buildModelsInternal` | ManageResources.wl | 862 | **Checkpoint file path** |
+| **Consumer** | `buildModelsInternal` | ManageResources.wl | 1135 | **Manifest update gate** |
 
 ## Key Characteristics
 
@@ -2287,7 +2287,7 @@ BUILD ORCHESTRATION
 │
 └─ buildModelsInternal[config_Association]
    │
-   ├─ fromScratch = config["Build"]["FromScratch"]  (line 831)
+   ├─ fromScratch = config["Build"]["FromScratch"]  (line 832)
    │
    └─ If[fromScratch,
         cleanAllOutputs[root];
@@ -2332,10 +2332,10 @@ BUILD ORCHESTRATION
 
 | Location | What happens |
 |----------|--------------|
-| Lines 1138-1143 | Option declaration: `"FromScratch" -> False` |
-| Line 1155 | `fromScratch = OptionValue["FromScratch"]` |
-| Lines 1169-1172 | `If[fromScratch, cleanAllOutputs[root]]` |
-| Line 1197 | Forces `"FromScratch" -> False` in parallel workers |
+| Lines 1144-1149 | Option declaration: `"FromScratch" -> False` |
+| Line 1161 | `fromScratch = OptionValue["FromScratch"]` |
+| Lines 1176-1178 | `If[fromScratch, cleanAllOutputs[root]]` |
+| Line 1202 | Forces `"FromScratch" -> False` in parallel workers |
 
 ## Terminal Consumers
 
@@ -2343,7 +2343,7 @@ BUILD ORCHESTRATION
 
 | Location | What happens |
 |----------|--------------|
-| Line 831 | `fromScratch = config["Build"]["FromScratch"]` (With clause) |
+| Line 832 | `fromScratch = config["Build"]["FromScratch"]` (With clause) |
 | Lines 896-901 | Cleanup trigger |
 
 **Cleanup logic:**
@@ -2359,8 +2359,8 @@ If[fromScratch,
 
 | Location | What happens |
 |----------|--------------|
-| Line 1155 | `fromScratch = OptionValue["FromScratch"]` |
-| Lines 1169-1172 | `If[fromScratch, cleanAllOutputs[root]]` |
+| Line 1161 | `fromScratch = OptionValue["FromScratch"]` |
+| Lines 1176-1178 | `If[fromScratch, cleanAllOutputs[root]]` |
 
 ### `cleanAllOutputs` Helper in `Kernel/Tools/ManageResources.wl`
 
@@ -2382,9 +2382,9 @@ If[fromScratch,
 | Config | `defaultConfig` | OptionsConfig.wl | 147 | Default False |
 | Config | `splitConfig` | OptionsConfig.wl | 368-377 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 568-578, 821-826 | Public API |
-| Entry | `buildModelsParallel` | ManageResources.wl | 1138-1275 | Parallel orchestrator |
-| **Consumer** | `buildModelsInternal` | ManageResources.wl | 831, 896-901 | **Cleanup trigger** |
-| **Consumer** | `buildModelsParallel` | ManageResources.wl | 1155, 1169-1172 | **Cleanup trigger** |
+| Entry | `buildModelsParallel` | ManageResources.wl | 1144-1278 | Parallel orchestrator |
+| **Consumer** | `buildModelsInternal` | ManageResources.wl | 832, 898-901 | **Cleanup trigger** |
+| **Consumer** | `buildModelsParallel` | ManageResources.wl | 1161, 1176-1178 | **Cleanup trigger** |
 | Helper | `cleanAllOutputs` | ManageResources.wl | 586-610 | Deletion logic |
 
 ## Key Characteristics
@@ -2500,7 +2500,7 @@ This provides a "soft timeout" that gracefully degrades to an alternative comput
 | Config | `defaultConfig` | OptionsConfig.wl | 140 | Default $IterationLimit/4 |
 | Config | `splitConfig` | OptionsConfig.wl | 354-359 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API |
-| Forwarder | `buildModelsInternal` | ManageResources.wl | 1097-1101 | Forwards to createDatabase |
+| Forwarder | `buildModelsInternal` | ManageResources.wl | 1103-1106 | Forwards to createDatabase |
 | Forwarder | `createDatabase` | CreateMomentsDatabase.wl | 314-619 | Forwards to helpers |
 | Forwarders | `totCovLong`, etc. | CreateMomentsDatabase.wl | Various | Pure forwarders |
 | **Consumer** | `uncondCovLongExo` | CreateMomentsDatabase.wl | 122-219 | **Terminal consumer** |
@@ -2567,7 +2567,7 @@ BUILD ORCHESTRATION
 │
 └─ buildModelsInternal[config_Association]
    │
-   └─ maxMaturity = config["Build"]["MaxMaturity"]  (line 835)
+   └─ maxMaturity = config["Build"]["MaxMaturity"]  (line 836)
       │
       └─ (Variable bound but NOT forwarded to downstream functions)
 
@@ -2626,7 +2626,7 @@ NUMERICAL PHASE (where maxMaturity is actually used)
 
 | Location | What happens |
 |----------|--------------|
-| Line 835 | `maxMaturity = config["Build"]["MaxMaturity"]` |
+| Line 836 | `maxMaturity = config["Build"]["MaxMaturity"]` |
 
 **Critical Finding:** The extracted `maxMaturity` variable is bound in the `With` clause but is NOT forwarded to downstream numerical functions.
 
@@ -2683,7 +2683,7 @@ addCoeffsSolutionN[model_] := Module[{k},
 | Config | Ambiguous handling | OptionsConfig.wl | 196-199 | Disambiguation |
 | Config | `splitConfig` | OptionsConfig.wl | 368-377 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 568-578, 821-826 | Public API |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 835 | Extracts but doesn't forward |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 836 | Extracts but doesn't forward |
 | Hard-coded | `addCoeffsSolutionN` | SolveEulerEq.wl | 1036-1046 | Uses MaxMaturity=12 |
 | Consumer | `updateCoeffsBond` | SolveEulerEq.wl | 697-712 | Bond template evaluation |
 | Consumer | `checkCoeffs` | SolveEulerEq.wl | 500-514 | Bond equation validation |
@@ -2936,7 +2936,7 @@ BUILD ORCHESTRATION
 
 | Location | What happens |
 |----------|--------------|
-| Line 836 | `modelFilter = config["Build"]["Models"]` |
+| Line 837 | `modelFilter = config["Build"]["Models"]` |
 | Line 871 | `enabledModels = selectEnabledModels[catalogModels]` |
 | Lines 875-878 | Apply filter to enabledModels |
 
@@ -2978,8 +2978,8 @@ If[modelFilter === All || modelFilter === "All",
 | Config | `defaultConfig` | OptionsConfig.wl | 146 | Default All |
 | Config | `splitConfig` | OptionsConfig.wl | 368-375 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API |
-| Entry | `buildModelsParallel` | ManageResources.wl | 1145-1275 | Parallel variant |
-| **Consumer** | `buildModelsInternal` | ManageResources.wl | 836, 875-878 | **Filtering logic** |
+| Entry | `buildModelsParallel` | ManageResources.wl | 1144-1278 | Parallel variant |
+| **Consumer** | `buildModelsInternal` | ManageResources.wl | 837, 875-878 | **Filtering logic** |
 
 ## Key Characteristics
 
@@ -3068,10 +3068,10 @@ MOMENTS PHASE (Phase 4)
 
 | Location | What happens |
 |----------|--------------|
-| Lines 1138-1143 | Option declaration: `"NumKernels" -> Automatic` |
-| Line 1156 | Extraction with resolution |
-| Line 1176 | `LaunchKernels[numKernels]` |
-| Line 1266 | Forwards to buildModels |
+| Lines 1144-1149 | Option declaration: `"NumKernels" -> Automatic` |
+| Line 1162 | Extraction with resolution |
+| Line 1182 | `LaunchKernels[numKernels]` |
+| Line 1269 | Forwards to buildModels |
 
 ## Terminal Consumers
 
@@ -3109,8 +3109,8 @@ n = Switch[numKernels,
 | Config | `defaultConfig` | OptionsConfig.wl | 143 | Default Automatic |
 | Config | `splitConfig` | OptionsConfig.wl | 363-365 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 568-578, 821-826 | Public API |
-| Entry | `buildModelsParallel` | ManageResources.wl | 1138-1275 | Parallel orchestrator |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 834, 1084 | Extracts and uses |
+| Entry | `buildModelsParallel` | ManageResources.wl | 1144-1278 | Parallel orchestrator |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 835, 1090 | Extracts and uses |
 | **Consumer** | `setupParallelKernels` | ManageResources.wl | 776-790 | Launches kernels |
 | Consumer | `warmupParallelKernels` | ManageResources.wl | 794-817 | Initializes kernels |
 
@@ -3182,8 +3182,8 @@ ORCHESTRATION LAYER
 |----------|--------------|
 | Lines 568-578 | Option declaration in `Options[buildModels]` |
 | Line 575 | `"PdEquations" -> "B"` with comment about valid values |
-| Line 821 | Pattern: `buildModels[config_Association]` - receives normalized config |
-| Line 825 | Pattern: `buildModels[opts___?OptionQ]` - receives flat legacy options |
+| Line 822 | Pattern: `buildModels[config_Association]` - receives normalized config |
+| Line 826 | Pattern: `buildModels[opts___?OptionQ]` - receives flat legacy options |
 | Lines 822, 826 | Normalizes via `normalizeConfig[]` |
 
 **How received:** Via `OptionsPattern` in function definition
@@ -3193,9 +3193,9 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Lines 1138-1143 | Option declaration |
-| Line 1142 | `"PdEquations" -> "B"` |
-| Lines 1193-1199 | Forwards to recursive `buildModels` calls |
+| Lines 1144-1149 | Option declaration |
+| Line 1148 | `"PdEquations" -> "B"` |
+| Lines 1197-1205 | Forwards to recursive `buildModels` calls |
 
 **How received:** Via `OptionsPattern` with inheritance from `buildModels`
 **How forwarded:** Passed to `buildModels` in parallel table
@@ -3233,9 +3233,9 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 829 | Receives normalized config as parameter |
-| Line 970 | Extracts Symbolic options: `splitConfig[config, "Symbolic"]` |
-| Line 970 | Passes extracted options to `processModels` |
+| Line 830 | Receives normalized config as parameter |
+| Line 976 | Extracts Symbolic options: `splitConfig[config, "Symbolic"]` |
+| Line 974 | Passes extracted options to `processModels` |
 
 **How received:** Normalized config Association
 **How forwarded:** Via `splitConfig[config, "Symbolic"]` which returns `Sequence` including `"PdEquations" -> value`
@@ -3305,11 +3305,11 @@ pdMode = Lookup[model["coeffsParamQuadSolve"]["pd"], "pdMode", "B"];
 | Layer | Function | File | Lines | Role |
 |-------|----------|------|-------|------|
 | Entry | `buildModels` | ManageResources.wl | 575, 821-826 | Public API, normalizes config |
-| Entry | `buildModelsParallel` | ManageResources.wl | 1142, 1193-1199 | Parallel variant, forwards to buildModels |
+| Entry | `buildModelsParallel` | ManageResources.wl | 1144, 1197-1205 | Parallel variant, forwards to buildModels |
 | Config | `defaultConfig` | OptionsConfig.wl | 76 | Default value |
 | Config | `normalizeConfig` | OptionsConfig.wl | 167, 245-292 | Legacy option mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 300-304 | Extracts Symbolic subsystem options |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 970 | Extracts and forwards via splitConfig |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 830, 974 | Extracts and forwards via splitConfig |
 | Forwarder | `processModels` | ProcessModels.wl | 79, 246-247 | Forwards via OptionValue extraction |
 | **Consumer** | `solveCoeffsSystem` | ProcessModels.wl | 640, 770, 776, 779, 791 | **Terminal consumer** |
 
@@ -3401,8 +3401,8 @@ ORCHESTRATION LAYER
 | Location | What happens |
 |----------|--------------|
 | Lines 568-578 | Option declaration in `Options[buildModels]` |
-| Line 821 | Pattern: `buildModels[config_Association]` |
-| Line 825 | Pattern: `buildModels[opts___?OptionQ]` |
+| Line 822 | Pattern: `buildModels[config_Association]` |
+| Line 826 | Pattern: `buildModels[opts___?OptionQ]` |
 | Lines 822, 826 | Normalizes via `normalizeConfig[]` |
 
 **How received:** Via `OptionsPattern` or config Association
@@ -3435,8 +3435,8 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 829 | Receives normalized config as parameter |
-| Lines 995-998 | Calls `createCompiledEq` with `splitConfig[config, "Compile"]` |
+| Line 830 | Receives normalized config as parameter |
+| Lines 1001-1004 | Calls `createCompiledEq` with `splitConfig[config, "Compile"]` |
 
 **How forwarded:** Via `splitConfig[config, "Compile"]`
 
@@ -3487,7 +3487,7 @@ If[perfGoal === "Speed" && FreeQ[userOpts, RuntimeOptions],
 | Config | `defaultConfig` | OptionsConfig.wl | 98 | Default "Quality" |
 | Config | `normalizeConfig` | OptionsConfig.wl | 172 | Legacy mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 308-316 | Extracts Compile options |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 995-998 | Forwards via splitConfig |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 830, 1001-1004 | Forwards via splitConfig |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1476-1533 | Forwards via FilterRules |
 | **Consumer** | `buildKernel` | FindRootOptim.wl | 86, 104, 180-198 | **Terminal consumer** |
 
@@ -4078,8 +4078,8 @@ ORCHESTRATION LAYER
 | Location | What happens |
 |----------|--------------|
 | Lines 568-578 | Option declaration in `Options[buildModels]` |
-| Line 821 | Pattern: `buildModels[config_Association]` |
-| Line 825 | Pattern: `buildModels[opts___?OptionQ]` |
+| Line 822 | Pattern: `buildModels[config_Association]` |
+| Line 826 | Pattern: `buildModels[opts___?OptionQ]` |
 
 **How received:** Via `OptionsPattern` or config Association
 **How forwarded:** Config passed to `buildModelsInternal`
@@ -4111,8 +4111,8 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 829 | Receives normalized config as parameter |
-| Lines 995-998 | Calls `createCompiledEq` with `splitConfig[config, "Compile"]` |
+| Line 830 | Receives normalized config as parameter |
+| Lines 1001-1004 | Calls `createCompiledEq` with `splitConfig[config, "Compile"]` |
 
 **How forwarded:** Via `splitConfig[config, "Compile"]`
 
@@ -4169,7 +4169,7 @@ Compile[
 | Config | `defaultConfig` | OptionsConfig.wl | 101 | Default Automatic |
 | Config | `normalizeConfig` | OptionsConfig.wl | 173 | Legacy mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 308-316 | Extracts Compile options |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 995-998 | Forwards via splitConfig |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 830, 1001-1004 | Forwards via splitConfig |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1476-1533 | Forwards via FilterRules |
 | **Consumer** | `buildKernel` | FindRootOptim.wl | 189-198, 254-259 | **Terminal consumer** |
 | Built-in | `Compile` | (System) | N/A | Ultimate consumer |
@@ -4547,7 +4547,7 @@ ambiguousOptions = <|
 | Config | `defaultConfig` | OptionsConfig.wl | 89, 97 | Default values | Symbol/String |
 | Config | `ambiguousOptions` | OptionsConfig.wl | 200-203 | Context mapping | N/A |
 | Config | `splitConfig` | OptionsConfig.wl | 303, 310 | Extraction | Both |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 998 | Forwards | Both |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 830, 1001-1004 | Forwards | Both |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1476-1533 | Forwards to buildKernel | String |
 | **Consumer** | `buildKernel` | FindRootOptim.wl | 85, 103, 140, 354 | Sign index detection | String |
 | **Consumer** | `findRootInterval` | FindRootOptim.wl | 432, 444, 469 | Pattern matching | String |
@@ -4815,8 +4815,8 @@ ORCHESTRATION LAYER
 | Location | What happens |
 |----------|--------------|
 | Lines 568-578 | Option declaration in `Options[buildModels]` |
-| Line 821 | Pattern: `buildModels[config_Association]` |
-| Line 825 | Pattern: `buildModels[opts___?OptionQ]` |
+| Line 822 | Pattern: `buildModels[config_Association]` |
+| Line 826 | Pattern: `buildModels[opts___?OptionQ]` |
 | Lines 822, 826 | Normalizes via `normalizeConfig[]` |
 
 **How received:** Via `OptionsPattern` in function definition
@@ -4826,8 +4826,8 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Lines 1138-1143 | Option declaration |
-| Lines 1193-1199 | Forwards to recursive `buildModels` calls |
+| Lines 1144-1149 | Option declaration |
+| Lines 1197-1205 | Forwards to recursive `buildModels` calls |
 
 **How received:** Via `OptionsPattern` with inheritance from `buildModels`
 **How forwarded:** Passed to `buildModels` in parallel table
@@ -4859,8 +4859,8 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 829 | Receives normalized config as parameter |
-| Line 970 | Extracts Symbolic options: `splitConfig[config, "Symbolic"]` |
+| Line 830 | Receives normalized config as parameter |
+| Line 976 | Extracts Symbolic options: `splitConfig[config, "Symbolic"]` |
 
 **How received:** Normalized config Association
 **How forwarded:** Via `splitConfig[config, "Symbolic"]`
@@ -4937,11 +4937,11 @@ simplifyOpts = Flatten[{
 | Layer | Function | File | Lines | Role |
 |-------|----------|------|-------|------|
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API, normalizes config |
-| Entry | `buildModelsParallel` | ManageResources.wl | 1138-1275 | Parallel variant |
+| Entry | `buildModelsParallel` | ManageResources.wl | 1144-1278 | Parallel variant |
 | Config | `defaultConfig` | OptionsConfig.wl | 77 | Default value |
 | Config | `normalizeConfig` | OptionsConfig.wl | 168 | Legacy option mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 300-304 | Extracts Symbolic subsystem options |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 970 | Extracts and forwards via splitConfig |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 830, 974 | Extracts and forwards via splitConfig |
 | Forwarder | `processModels` | ProcessModels.wl | 79, 246 | Forwards via OptionsPattern |
 | **Consumer** | `simplifyCoeffsSystem` | ProcessModels.wl | 556-558, 563-566, 587, 596 | Passes to FullSimplify |
 | **Consumer** | `solveCoeffsSystem` | ProcessModels.wl | 637-649, 728-796 | Passes to Simplify/FullSimplify |
@@ -5253,7 +5253,7 @@ ENTRY POINTS
 └─ buildModelsParallel[models, opts...]
    ├─ Filters OUT UpdateManifest from user options (line 1189)
    ├─ Forces "UpdateManifest" -> False in parallel workers (line 1198)
-   └─ Unconditionally calls updateModelManifest[] after merge (line 1239)
+   └─ Unconditionally calls updateModelManifest[] after merge (line 1245)
 
 CONFIGURATION LAYER
 │
@@ -5265,11 +5265,11 @@ BUILD ORCHESTRATION
 │
 └─ buildModelsInternal[config_Association]
    │
-   ├─ updateManifest = config["Build"]["UpdateManifest"]  (line 838)
+   ├─ updateManifest = config["Build"]["UpdateManifest"]  (line 839)
    │
    └─ If[TrueQ[updateManifest] && fileSuffix === "",
         updateModelManifest[]
-      ]  ◄── TERMINAL CONSUMER (line 1129)
+      ]  ◄── TERMINAL CONSUMER (line 1135)
          │
          └─ updateModelManifest[]  (lines 184-216)
             │
@@ -5307,10 +5307,10 @@ BUILD ORCHESTRATION
 
 | Location | What happens |
 |----------|--------------|
-| Lines 1138-1143 | Does NOT declare UpdateManifest |
-| Lines 1188-1189 | Filters OUT UpdateManifest from user options |
-| Line 1198 | Forces `"UpdateManifest" -> False` for parallel workers |
-| Line 1239 | Unconditionally calls `updateModelManifest[]` after merge |
+| Lines 1144-1149 | Does NOT declare UpdateManifest |
+| Lines 1194-1195 | Filters OUT UpdateManifest from user options |
+| Line 1204 | Forces `"UpdateManifest" -> False` for parallel workers |
+| Line 1245 | Unconditionally calls `updateModelManifest[]` after merge |
 
 **Filter pattern:**
 ```wolfram
@@ -5324,8 +5324,8 @@ filteredOpts = FilterRules[{opts},
 
 | Location | What happens |
 |----------|--------------|
-| Line 838 | `updateManifest = config["Build"]["UpdateManifest"]` |
-| Line 1129 | Conditional manifest update |
+| Line 839 | `updateManifest = config["Build"]["UpdateManifest"]` |
+| Line 1135 | Conditional manifest update |
 
 **Manifest update gate:**
 ```wolfram
@@ -5375,7 +5375,7 @@ updateModelManifest[] := Module[
 | Phase | UpdateManifest Behavior |
 |-------|-------------------------|
 | Parallel workers | Forced to False (line 1198) |
-| After merge | Unconditionally True (line 1239) |
+| After merge | Unconditionally True (line 1245) |
 
 ```
 buildModelsParallel
@@ -5410,8 +5410,8 @@ UpdateManifest is NOT forwarded to any downstream functions:
 | Config | `defaultConfig` | OptionsConfig.wl | 152 | Default True |
 | Config | `splitConfig` | OptionsConfig.wl | 368-377 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 568-578, 821-826 | Public API |
-| Entry | `buildModelsParallel` | ManageResources.wl | 1145, 1188-1189, 1198, 1239 | Parallel orchestrator |
-| **Consumer** | `buildModelsInternal` | ManageResources.wl | 838, 1129 | **Conditional update** |
+| Entry | `buildModelsParallel` | ManageResources.wl | 1145, 1194-1195, 1204, 1245 | Parallel orchestrator |
+| **Consumer** | `buildModelsInternal` | ManageResources.wl | 839, 1135 | **Conditional update** |
 | Helper | `updateModelManifest` | ManageResources.wl | 184-216 | Manifest generation |
 
 ## Key Characteristics
@@ -5722,7 +5722,7 @@ NUMERICAL SOLVING PATH
 | Location | What happens |
 |----------|--------------|
 | Lines 568-578 | Option declaration in `Options[buildModels]` |
-| Line 821 | Pattern: `buildModels[config_Association]` |
+| Line 822 | Pattern: `buildModels[config_Association]` |
 
 **How received:** Via config Association
 **How forwarded:** Via `splitConfig[config, "Numerical"]`
@@ -5927,7 +5927,7 @@ MOMENTS CREATION PATH
 
 | Location | What happens |
 |----------|--------------|
-| Lines 1097-1101 | Calls `createDatabase` with `splitConfig[config, "Moments"]` |
+| Lines 1103-1106 | Calls `createDatabase` with `splitConfig[config, "Moments"]` |
 
 ## Terminal Consumer
 
@@ -5956,7 +5956,7 @@ tempPos = Table[{T, uncondCov[v1[t], v2[t + T], model]}, {T, seqStart, maxLag + 
 | Config | `defaultConfig` | OptionsConfig.wl | 137 | Default 8 |
 | Config | `splitConfig` | OptionsConfig.wl | 354-359 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API |
-| Forwarder | `buildModelsInternal` | ManageResources.wl | 1097-1101 | Forwards to createDatabase |
+| Forwarder | `buildModelsInternal` | ManageResources.wl | 1103-1106 | Forwards to createDatabase |
 | **Consumer** | `createDatabase` | CreateMomentsDatabase.wl | 314-619 | **Terminal consumer** |
 
 ## Key Characteristics
@@ -6041,8 +6041,8 @@ ORCHESTRATION LAYER
 | Location | What happens |
 |----------|--------------|
 | Lines 568-578 | Option declaration in `Options[buildModels]` |
-| Line 821 | Pattern: `buildModels[config_Association]` |
-| Line 825 | Pattern: `buildModels[opts___?OptionQ]` |
+| Line 822 | Pattern: `buildModels[config_Association]` |
+| Line 826 | Pattern: `buildModels[opts___?OptionQ]` |
 | Lines 822, 826 | Normalizes via `normalizeConfig[]` |
 
 **How received:** Via `OptionsPattern` or config Association
@@ -6075,8 +6075,8 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 829 | Receives normalized config as parameter |
-| Lines 968-970 | Calls `processModels` with `splitConfig[config, "Symbolic"]` |
+| Line 830 | Receives normalized config as parameter |
+| Lines 974-977 | Calls `processModels` with `splitConfig[config, "Symbolic"]` |
 
 **How received:** Normalized config Association
 **How forwarded:** Via `splitConfig[config, "Symbolic"]`
@@ -6158,10 +6158,10 @@ memCap = OptionValue["GroebnerMemoryCap"]
 | Layer | Function | File | Lines | Role |
 |-------|----------|------|-------|------|
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API, normalizes config |
-| Entry | `buildModelsParallel` | ManageResources.wl | 1138-1275 | Parallel variant |
+| Entry | `buildModelsParallel` | ManageResources.wl | 1144-1278 | Parallel variant |
 | Config | `defaultConfig` | OptionsConfig.wl | 78-93 | Default nested Association |
 | Config | `splitConfig` | OptionsConfig.wl | 300-304 | Extracts Symbolic subsystem options |
-| Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 968-970 | Extracts and forwards via splitConfig |
+| Orchestrator | `buildModelsInternal` | ManageResources.wl | 830, 974-977 | Extracts and forwards via splitConfig |
 | Forwarder | `processModels` | ProcessModels.wl | 77-79, 244-250 | Forwards via OptionsPattern |
 | Forwarder | `solveCoeffsSystem` | ProcessModels.wl | 637-650, 684-701 | Extracts and forwards via Sequence @@ |
 | **Consumer** | `paramQuadSolve` | ParamQuadSolve.wl | 70-85, 104-347 | **Terminal consumer** |
@@ -6311,7 +6311,7 @@ If[OptionValue["simplifyDownValues"],
 | Config | `defaultConfig` | OptionsConfig.wl | 139 | Default False |
 | Config | `splitConfig` | OptionsConfig.wl | 354-359 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API |
-| Forwarder | `buildModelsInternal` | ManageResources.wl | 1097-1101 | Forwards to createDatabase |
+| Forwarder | `buildModelsInternal` | ManageResources.wl | 1103-1106 | Forwards to createDatabase |
 | **Consumer** | `createDatabase` | CreateMomentsDatabase.wl | 591-614 | **Terminal consumer** |
 
 ## Key Characteristics
@@ -6432,7 +6432,7 @@ covLong[v1, v2, q_ /; q >= seqStart] = seqfun[tempPos, q, v1, v2]
 | Config | `defaultConfig` | OptionsConfig.wl | 138 | Default 3 |
 | Config | `splitConfig` | OptionsConfig.wl | 354-359 | Extraction |
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API |
-| Forwarder | `buildModelsInternal` | ManageResources.wl | 1097-1101 | Forwards to createDatabase |
+| Forwarder | `buildModelsInternal` | ManageResources.wl | 1103-1106 | Forwards to createDatabase |
 | **Consumer** | `createDatabase` | CreateMomentsDatabase.wl | 314-619 | **Terminal consumer** |
 
 ## Key Characteristics
