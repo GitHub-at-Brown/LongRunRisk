@@ -575,7 +575,7 @@ buildModels // Options = {
 	"PdEquations" -> "B",  (* "B" | "AB" | "Both" - controls which pd equations to compute/compile *)
 	"FileSuffix" -> "",  (* suffix for checkpoint files; "_BY" writes to Models_BY.wl *)
 	"UpdateManifest" -> True,  (* whether to update ModelManifest.wl at end *)
-	"Verbose" -> False  (* whether to print memory usage during pipeline *)
+	"Verbose" -> True  (* whether to print memory usage during pipeline *)
 };
 
 

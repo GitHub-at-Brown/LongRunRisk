@@ -84,8 +84,8 @@ buildKernel//Options = {
 	"CoeffName" -> "A",
 	"SignSymbol" -> "signA",
 	"PerformanceGoal" -> "Quality", (* "Speed" | "Quality" *)
-	"CompileMode" -> "FunctionOnly",  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
-	"Compiler" -> "Compile",  (* "Compile" | "FunctionCompile" - Compile uses C target *)
+	"CompileMode" -> "Both",  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
+	"Compiler" -> "FunctionCompile",  (* "Compile" | "FunctionCompile" - Compile uses C target *)
 	"FlattenExpressions" -> True,  (* True | False | Automatic (auto at LeafCount > 5000) *)
 	"AllowCompileDuringCoverage" -> False  (* True to force compilation even during coverage *)
 };
@@ -178,7 +178,7 @@ buildKernel[
       (* FunctionCompile options *)
       Join[
         FilterRules[Flatten@{opts}, Options[FunctionCompile]],
-        {CompilerRuntimeErrorAction -> None, CompilerOptions -> {"OptimizationLevel" -> 0}}
+        {CompilerRuntimeErrorAction -> None, CompilerOptions -> {"OptimizationLevel" -> 4}}
       ],
       (* Compile options - user options take precedence, then apply defaults *)
       Module[{userOpts = FilterRules[Flatten@{opts}, Options[Compile]], defaults},
