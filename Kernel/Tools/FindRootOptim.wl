@@ -183,7 +183,7 @@ buildKernel[
         FilterRules[Flatten@{opts}, Options[FunctionCompile]],
         If[perfGoal === "Speed",
           {CompilerRuntimeErrorAction -> None, CompilerOptions -> {"AbortHandling" -> False, "OptimizationLevel" -> 0}},
-          {}
+          {CompilerRuntimeErrorAction -> None, CompilerOptions -> {"OptimizationLevel" -> 4}}
         ]
       ],
       (* Compile options - user options take precedence, then apply defaults *)

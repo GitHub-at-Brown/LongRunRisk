@@ -959,7 +959,7 @@ buildModelsInternal[config_Association] := With[
 				kernelGB = wolframKernelMemoryGB[];
 				AppendTo[$memoryProfileLog, <|"Label" -> label, "MemoryGB" -> memGB, "KernelRSSGB" -> kernelGB, "Time" -> DateString["ISODateTime"]|>];
 				If[TrueQ[verbose],
-					Print[label, " | Memory: ", NumberForm[memGB, {4, 2}], " GB | RSS: ", If[MissingQ[kernelGB], "N/A", ToString[NumberForm[kernelGB, {4, 2}]] <> " GB"]]
+					Print[label, " | Wolfram Memory: ", NumberForm[memGB, {4, 2}], " GB | Physical RAM: ", If[MissingQ[kernelGB], "N/A", ToString[NumberForm[kernelGB, {4, 2}]] <> " GB"]]
 				];
 			];
 		logMemory["buildModels START"];

@@ -75,6 +75,7 @@ defaultConfig[] := <|
 	"Symbolic" -> <|
 		"PdEquations" -> "B",
 		"SimplifyOptions" -> {TimeConstraint -> {5, 300}},
+		"Verbose" -> True,
 		"paramQuadSolveOptions" -> <|
 			"DomainOption" -> Reals,
 			"Assumptions" -> Automatic,
@@ -89,7 +90,8 @@ defaultConfig[] := <|
 			"SignSymbol" -> Symbol["signA"],
 			"GroebnerMemoryFraction" -> 0.5,
 			"GroebnerMemoryFloor" -> 1*1024^3,
-			"GroebnerMemoryCap" -> 16*1024^3
+			"GroebnerMemoryCap" -> 16*1024^3,
+			"Verbose" -> True
 		|>
 	|>,
 	"Compile" -> <|
@@ -97,7 +99,7 @@ defaultConfig[] := <|
 		"SignSymbol" -> "signA",
 		"PerformanceGoal" -> "Quality",(*"Speed",*)
 		"CompileMode" -> "Both",
-		"Compiler" -> "Compile",
+		"Compiler" -> "FunctionCompile",
 		"RuntimeOptions" -> Automatic,(*"Speed",*)
 		"CompilationTarget" -> "C"
 	|>,
@@ -150,7 +152,7 @@ defaultConfig[] := <|
 		"MaxMaturity" -> 120,
 		"FileSuffix" -> "",
 		"UpdateManifest" -> True,
-		"Verbose" -> False
+		"Verbose" -> True
 	|>
 |>;
 
@@ -301,6 +303,7 @@ normalizeConfig[{}] := defaultConfig[];
 splitConfig[config_Association, "Symbolic"] := Sequence @@ Flatten[{
 	"PdEquations" -> config["Symbolic"]["PdEquations"],
 	"SimplifyOptions" -> config["Symbolic"]["SimplifyOptions"],
+	"Verbose" -> config["Symbolic"]["Verbose"],
 	"paramQuadSolveOptions" -> config["Symbolic"]["paramQuadSolveOptions"]
 }];
 
