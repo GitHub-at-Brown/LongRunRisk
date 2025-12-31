@@ -620,8 +620,8 @@ saveModels[models_Association, file_String] := Module[{dataModels, modelsData},
 	dataModels = PacletizedResourceFunctions`DefinitionData[modelsData];
 	(* Ensure correct context before saving - prevents shadowing issues *)
 	dataModels = PacletizedResourceFunctions`DefinitionData @@ List @@ dataModels;
-	(* Block $ContextPath so Put writes full context prefix *)
-	Block[{$ContextPath = {"System`"}},
+	(* Block $ContextPath with ResourceSystemClient context to prevent Symbol::symname during Put *)
+	Block[{$ContextPath = {"ResourceSystemClient`DefinitionUtilities`", "System`"}},
 		Put[dataModels, file]
 	];
 	file
