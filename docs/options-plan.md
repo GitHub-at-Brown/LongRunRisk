@@ -76,6 +76,8 @@ This creates multiple “sources of truth” for defaults, because many defaults
 Example mismatches (pre‑refactor):
 
 - `buildModels // Options` says `"CompileJacobians" -> False` but `OptionsConfig` sets `"CompileJacobians" -> True`.
+- `buildKernel // Options` says `"PerformanceGoal" -> "Speed"` but `OptionsConfig` sets `"PerformanceGoal" -> "Quality"`.
+- `buildKernel // Options` says `"CompileMode" -> "FunctionOnly"` but `OptionsConfig` sets `"CompileMode" -> "Both"`.
 
 ### 2) `SignSymbol` is overloaded (symbolic vs compile)
 
@@ -960,10 +962,19 @@ InstallOptionsValidationRules[] := Module[
 
         FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSolve -> {
             "SymbolicSignSymbol" -> "Symbol",
-            "SubstitutionMode" -> {"Member", {"Explicit", "Implicit"}},
-            "SimplifyIntermediate" -> "Boolean",
-            "CollectCoefficients" -> "Boolean",
-            "Return" -> {"Member", {"Solution", "Equations"}},
+            "DomainOption" -> "Any",
+            "Assumptions" -> "Any",
+            "Method" -> "Any",
+            "MonomialOrder" -> "Any",
+            "ValidationOption" -> "Boolean",
+            "ReturnOption" -> {"Member", {"All", "Solution", "Equations"}},
+            "TimeoutOption" -> {"Integer", "Min" -> 0},
+            "SimplifyTimeout" -> "Any",
+            "DiagnosticsOption" -> "Boolean",
+            "OnlyQuadTerms" -> "Boolean",
+            "GroebnerMemoryFraction" -> {"Real", "Min" -> 0, "Max" -> 1},
+            "GroebnerMemoryFloor" -> {"Integer", "Min" -> 0},
+            "GroebnerMemoryCap" -> {"Integer", "Min" -> 0},
             "Verbose" -> "Boolean"
         },
 

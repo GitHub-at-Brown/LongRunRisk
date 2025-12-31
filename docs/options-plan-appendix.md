@@ -21,15 +21,15 @@ This appendix is a companion to `options-plan.md`.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
-    - createCompiledEq (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: config]
-      - buildKernel (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
-- safeReduceCall (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl)
-  - findRootInterval (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
-- solveWcPdRoots (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl)
-  - solveCoeffRoots (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - findRootInterval (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
+    - createCompiledEq (Kernel/Tools/FindRootOptim.wl) [pass: config]
+      - buildKernel (Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
+- safeReduceCall (Kernel/ComputationalEngine/SolveEulerEq.wl)
+  - findRootInterval (Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
+- solveWcPdRoots (Kernel/ComputationalEngine/SolveEulerEq.wl)
+  - solveCoeffRoots (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - findRootInterval (Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
 ```
 
 </details>
@@ -42,10 +42,10 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
-    - createCompiledEq (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: config]
-      - buildKernel (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: implicit]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
+    - createCompiledEq (Kernel/Tools/FindRootOptim.wl) [pass: config]
+      - buildKernel (Kernel/Tools/FindRootOptim.wl) [pass: implicit]
 ```
 
 </details>
@@ -58,8 +58,8 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
 ```
 
 </details>
@@ -72,10 +72,10 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
-    - createCompiledEq (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: explicit]
-      - buildKernel (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
+    - createCompiledEq (Kernel/Tools/FindRootOptim.wl) [pass: explicit]
+      - buildKernel (Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
 ```
 
 </details>
@@ -88,10 +88,10 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
-    - createCompiledEq (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: explicit]
-      - buildKernel (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
+    - createCompiledEq (Kernel/Tools/FindRootOptim.wl) [pass: explicit]
+      - buildKernel (Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
 ```
 
 </details>
@@ -104,9 +104,9 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModelsParallel (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [use]
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
+- buildModelsParallel (Kernel/Tools/ManageResources.wl) [use]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
 ```
 
 </details>
@@ -119,8 +119,8 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
 ```
 
 </details>
@@ -133,20 +133,20 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- processModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl)
-  - addCoeffsSolution (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl) [pass: implicit]
-- solveWcPdRoots (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl)
-  - solveCoeffRoots (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - scanAndSolve (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
-      - fastRoot (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
-        - fastRootCoreNew (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
-- toNum (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl)
-  - toNumRules (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl) [pass: explicit]
-    - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-      - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-- yieldCurve (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/NicePlots.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+- processModels (Kernel/Model/ProcessModels.wl)
+  - addCoeffsSolution (Kernel/Model/ProcessModels.wl) [pass: implicit]
+- solveWcPdRoots (Kernel/ComputationalEngine/SolveEulerEq.wl)
+  - solveCoeffRoots (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - scanAndSolve (Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
+      - fastRoot (Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
+        - fastRootCoreNew (Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
+- toNum (Kernel/Tools/ToNumber.wl)
+  - toNumRules (Kernel/Tools/ToNumber.wl) [pass: explicit]
+    - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+      - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+- yieldCurve (Kernel/Tools/NicePlots.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
 ```
 
 </details>
@@ -159,9 +159,9 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModelsParallel (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [use]
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
+- buildModelsParallel (Kernel/Tools/ManageResources.wl) [use]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
 ```
 
 </details>
@@ -174,8 +174,8 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
 ```
 
 </details>
@@ -188,18 +188,18 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- addCoeffsSolutionN (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
-- processModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl)
-  - addCoeffsSolution (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl) [pass: implicit]
-- toNum (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl)
-  - toNumRules (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl) [pass: explicit]
-    - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-      - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
-- yieldCurve (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/NicePlots.wl) [use]
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- addCoeffsSolutionN (Kernel/ComputationalEngine/SolveEulerEq.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- processModels (Kernel/Model/ProcessModels.wl)
+  - addCoeffsSolution (Kernel/Model/ProcessModels.wl) [pass: implicit]
+- toNum (Kernel/Tools/ToNumber.wl)
+  - toNumRules (Kernel/Tools/ToNumber.wl) [pass: explicit]
+    - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+      - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- yieldCurve (Kernel/Tools/NicePlots.wl) [use]
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
 ```
 
 </details>
@@ -212,9 +212,9 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- showPipelineReport (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/PipelineMonitor.wl)
-  - buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: explicit]
-    - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
+- showPipelineReport (Kernel/Tools/PipelineMonitor.wl)
+  - buildModels (Kernel/Tools/ManageResources.wl) [pass: explicit]
+    - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
 ```
 
 </details>
@@ -227,9 +227,9 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModelsParallel (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [use]
-  - buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: explicit]
-    - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
+- buildModelsParallel (Kernel/Tools/ManageResources.wl) [use]
+  - buildModels (Kernel/Tools/ManageResources.wl) [pass: explicit]
+    - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
 ```
 
 </details>
@@ -242,11 +242,11 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModelsParallel (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: implicit]
-    - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
-      - processModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl) [pass: config, use]
-        - solveCoeffsSystem (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl) [pass: explicit, use]
+- buildModelsParallel (Kernel/Tools/ManageResources.wl)
+  - buildModels (Kernel/Tools/ManageResources.wl) [pass: implicit]
+    - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
+      - processModels (Kernel/Model/ProcessModels.wl) [pass: config, use]
+        - solveCoeffsSystem (Kernel/Model/ProcessModels.wl) [pass: explicit, use]
 ```
 
 </details>
@@ -259,10 +259,10 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
-    - createCompiledEq (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: config]
-      - buildKernel (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
+    - createCompiledEq (Kernel/Tools/FindRootOptim.wl) [pass: config]
+      - buildKernel (Kernel/Tools/FindRootOptim.wl) [pass: implicit, use]
 ```
 
 </details>
@@ -275,15 +275,15 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- processModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl)
-  - addCoeffsSolution (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl) [pass: implicit, use]
-- toNum (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl)
-  - toNumRules (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl) [pass: explicit]
-    - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-      - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
-- yieldCurve (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/NicePlots.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- processModels (Kernel/Model/ProcessModels.wl)
+  - addCoeffsSolution (Kernel/Model/ProcessModels.wl) [pass: implicit, use]
+- toNum (Kernel/Tools/ToNumber.wl)
+  - toNumRules (Kernel/Tools/ToNumber.wl) [pass: explicit]
+    - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+      - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- yieldCurve (Kernel/Tools/NicePlots.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
 ```
 
 </details>
@@ -296,8 +296,8 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- solveCoeffRoots (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl)
-  - solveND (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit, use]
+- solveCoeffRoots (Kernel/ComputationalEngine/SolveEulerEq.wl)
+  - solveND (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit, use]
 ```
 
 </details>
@@ -310,18 +310,18 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- addCoeffsSolutionN (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
-- processModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl)
-  - addCoeffsSolution (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl) [pass: implicit]
-- toNum (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl)
-  - toNumRules (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl) [pass: explicit]
-    - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-      - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
-- yieldCurve (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/NicePlots.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- addCoeffsSolutionN (Kernel/ComputationalEngine/SolveEulerEq.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- processModels (Kernel/Model/ProcessModels.wl)
+  - addCoeffsSolution (Kernel/Model/ProcessModels.wl) [pass: implicit]
+- toNum (Kernel/Tools/ToNumber.wl)
+  - toNumRules (Kernel/Tools/ToNumber.wl) [pass: explicit]
+    - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+      - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- yieldCurve (Kernel/Tools/NicePlots.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
 ```
 
 </details>
@@ -334,10 +334,10 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
-    - createCompiledEq (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: config]
-      - buildKernel (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: implicit]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
+    - createCompiledEq (Kernel/Tools/FindRootOptim.wl) [pass: config]
+      - buildKernel (Kernel/Tools/FindRootOptim.wl) [pass: implicit]
 ```
 
 </details>
@@ -350,10 +350,10 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
-    - createCompiledEq (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: config]
-      - buildKernel (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
+    - createCompiledEq (Kernel/Tools/FindRootOptim.wl) [pass: config]
+      - buildKernel (Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
 ```
 
 </details>
@@ -366,8 +366,8 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- solveCoeffsSystem (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl)
-  - paramQuadSolve (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/ParamQuadSolve.wl) [pass: explicit, use]
+- solveCoeffsSystem (Kernel/Model/ProcessModels.wl)
+  - paramQuadSolve (Kernel/ComputationalEngine/ParamQuadSolve.wl) [pass: explicit, use]
 ```
 
 </details>
@@ -380,12 +380,12 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- safeReduceCall (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl)
-  - findRootInterval (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
-- solveWcPdRoots (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl)
-  - solveCoeffRoots (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - bindUnary (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
-    - findRootInterval (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
+- safeReduceCall (Kernel/ComputationalEngine/SolveEulerEq.wl)
+  - findRootInterval (Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
+- solveWcPdRoots (Kernel/ComputationalEngine/SolveEulerEq.wl)
+  - solveCoeffRoots (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - bindUnary (Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
+    - findRootInterval (Kernel/Tools/FindRootOptim.wl) [pass: explicit, use]
 ```
 
 </details>
@@ -398,9 +398,9 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- simplifyCoeffsSystem (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl) [use]
-- solveCoeffsSystem (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl) [use]
-- tryTransforms (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl) [use]
+- simplifyCoeffsSystem (Kernel/Model/ProcessModels.wl) [use]
+- solveCoeffsSystem (Kernel/Model/ProcessModels.wl) [use]
+- tryTransforms (Kernel/Model/ProcessModels.wl) [use]
 ```
 
 </details>
@@ -413,13 +413,13 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- toNum (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl)
-  - toNumRules (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl) [pass: explicit]
-    - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-      - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
-- yieldCurve (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/NicePlots.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- toNum (Kernel/Tools/ToNumber.wl)
+  - toNumRules (Kernel/Tools/ToNumber.wl) [pass: explicit]
+    - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+      - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- yieldCurve (Kernel/Tools/NicePlots.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
 ```
 
 </details>
@@ -432,16 +432,16 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- addCoeffsSolutionN (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
-- toNum (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl)
-  - toNumRules (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl) [pass: explicit]
-    - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
-      - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
-- yieldCurve (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/NicePlots.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- addCoeffsSolutionN (Kernel/ComputationalEngine/SolveEulerEq.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- toNum (Kernel/Tools/ToNumber.wl)
+  - toNumRules (Kernel/Tools/ToNumber.wl) [pass: explicit]
+    - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
+      - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- yieldCurve (Kernel/Tools/NicePlots.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
 ```
 
 </details>
@@ -454,8 +454,8 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
 ```
 
 </details>
@@ -468,13 +468,13 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- toNum (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl)
-  - toNumRules (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl) [pass: explicit]
-    - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-      - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
-- yieldCurve (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/NicePlots.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- toNum (Kernel/Tools/ToNumber.wl)
+  - toNumRules (Kernel/Tools/ToNumber.wl) [pass: explicit]
+    - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+      - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- yieldCurve (Kernel/Tools/NicePlots.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
 ```
 
 </details>
@@ -487,16 +487,16 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- addCoeffsSolutionN (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
-- toNum (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl)
-  - toNumRules (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl) [pass: explicit]
-    - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
-      - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
-- yieldCurve (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/NicePlots.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- addCoeffsSolutionN (Kernel/ComputationalEngine/SolveEulerEq.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- toNum (Kernel/Tools/ToNumber.wl)
+  - toNumRules (Kernel/Tools/ToNumber.wl) [pass: explicit]
+    - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: explicit]
+      - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
+- yieldCurve (Kernel/Tools/NicePlots.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit, use]
 ```
 
 </details>
@@ -509,16 +509,16 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- processModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl)
-  - addCoeffsSolution (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl) [pass: implicit]
-- toNum (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl)
-  - toNumRules (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ToNumber.wl) [pass: explicit]
-    - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-      - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-- yieldCurve (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/NicePlots.wl)
-  - updateCoeffs (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-    - updateCoeffsSol (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
-- getStartingValues (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/SolveEulerEq.wl) [use]
+- processModels (Kernel/Model/ProcessModels.wl)
+  - addCoeffsSolution (Kernel/Model/ProcessModels.wl) [pass: implicit]
+- toNum (Kernel/Tools/ToNumber.wl)
+  - toNumRules (Kernel/Tools/ToNumber.wl) [pass: explicit]
+    - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+      - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+- yieldCurve (Kernel/Tools/NicePlots.wl)
+  - updateCoeffs (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+    - updateCoeffsSol (Kernel/ComputationalEngine/SolveEulerEq.wl) [pass: implicit]
+- getStartingValues (Kernel/ComputationalEngine/SolveEulerEq.wl) [use]
 ```
 
 </details>
@@ -531,9 +531,9 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
-    - createDatabase (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/CreateMomentsDatabase.wl) [pass: config, use]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
+    - createDatabase (Kernel/ComputationalEngine/CreateMomentsDatabase.wl) [pass: config, use]
 ```
 
 </details>
@@ -546,7 +546,7 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- solveCoeffsSystem (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ProcessModels.wl) [use]
+- solveCoeffsSystem (Kernel/Model/ProcessModels.wl) [use]
 ```
 
 </details>
@@ -559,9 +559,9 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
-    - createDatabase (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/CreateMomentsDatabase.wl) [pass: config, use]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
+    - createDatabase (Kernel/ComputationalEngine/CreateMomentsDatabase.wl) [pass: config, use]
 ```
 
 </details>
@@ -574,9 +574,9 @@ Roots are nodes with no incoming edge for this option.
 
 Roots are nodes with no incoming edge for this option.
 
-- buildModels (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl)
-  - buildModelsInternal (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Tools/ManageResources.wl) [pass: config]
-    - createDatabase (/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/ComputationalEngine/CreateMomentsDatabase.wl) [pass: config, use]
+- buildModels (Kernel/Tools/ManageResources.wl)
+  - buildModelsInternal (Kernel/Tools/ManageResources.wl) [pass: config]
+    - createDatabase (Kernel/ComputationalEngine/CreateMomentsDatabase.wl) [pass: config, use]
 ```
 
 </details>
@@ -713,7 +713,7 @@ If[OptionValue["CheckResiduals"],
 
 **Location in config:** `config["Compile"]["CoeffName"]`
 **Default value:** `"A"`
-**Legacy mapping:** `"CoeffName" -> {"Compile", "CoeffName"}` in OptionsConfig.wl:170
+**Legacy mapping:** `"CoeffName" -> {"Compile", "CoeffName"}` in OptionsConfig.wl:171
 
 ## Complete Propagation Tree
 
@@ -904,7 +904,7 @@ solveCoeffRoots[..., savedKernel, ...]
 
 **Location in config:** `config["Compile"]["CompilationTarget"]`
 **Default value:** `"C"`
-**Legacy mapping:** `"CompilationTarget" -> {"Compile", "CompilationTarget"}` in OptionsConfig.wl:173
+**Legacy mapping:** `"CompilationTarget" -> {"Compile", "CompilationTarget"}` in OptionsConfig.wl:174
 
 ## Complete Propagation Tree
 
@@ -956,7 +956,7 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 173 | Legacy mapping: `"CompilationTarget" -> {"Compile", "CompilationTarget"}` |
+| Line 174 | Legacy mapping: `"CompilationTarget" -> {"Compile", "CompilationTarget"}` |
 
 ### `splitConfig` in `Kernel/Tools/OptionsConfig.wl`
 
@@ -1018,7 +1018,7 @@ Compile[
 |-------|----------|------|-------|------|
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API |
 | Config | `defaultConfig` | OptionsConfig.wl | 102 | Default "C" |
-| Config | `normalizeConfig` | OptionsConfig.wl | 173 | Legacy mapping |
+| Config | `normalizeConfig` | OptionsConfig.wl | 174 | Legacy mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 308-316 | Extracts Compile options |
 | Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 995-998 | Forwards via splitConfig |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1476-1533 | Hash, forwards via FilterRules |
@@ -1078,7 +1078,7 @@ buildModels[]  (* no CompilationTarget specified *)
 
 **Location in config:** `config["Build"]["CompileJacobians"]`
 **Default value:** `True`
-**Legacy mapping:** `"CompileJacobians" -> {"Build", "CompileJacobians"}` in OptionsConfig.wl:178
+**Legacy mapping:** `"CompileJacobians" -> {"Build", "CompileJacobians"}` in OptionsConfig.wl:179
 
 ## Complete Propagation Tree
 
@@ -1241,7 +1241,7 @@ When True, creates jacobian-only compiled function files:
 **Location in config:** `config["Compile"]["CompileMode"]`
 **Default value:** `"Both"`
 **Valid values:** `"Both"` | `"FunctionOnly"` | `"JacobianOnly"`
-**Legacy mapping:** `"CompileMode" -> {"Compile", "CompileMode"}` in OptionsConfig.wl:169
+**Legacy mapping:** `"CompileMode" -> {"Compile", "CompileMode"}` in OptionsConfig.wl:170
 
 ## Complete Propagation Tree
 
@@ -1304,7 +1304,7 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 169 | Legacy mapping: `"CompileMode" -> {"Compile", "CompileMode"}` |
+| Line 170 | Legacy mapping: `"CompileMode" -> {"Compile", "CompileMode"}` |
 
 ### `splitConfig` in `Kernel/Tools/OptionsConfig.wl`
 
@@ -1388,7 +1388,7 @@ Switch[compileMode,
 |-------|----------|------|-------|------|
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API |
 | Config | `defaultConfig` | OptionsConfig.wl | 99 | Default "Both" |
-| Config | `normalizeConfig` | OptionsConfig.wl | 169 | Legacy mapping |
+| Config | `normalizeConfig` | OptionsConfig.wl | 170 | Legacy mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 308-316 | Extracts Compile options |
 | Orchestrator | `buildModelsInternal` | ManageResources.wl | 840, 998, 1013 | Extracts, forwards, overrides |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1480, 1487, 1495 | Filename, caching |
@@ -1458,7 +1458,7 @@ buildModels["CompileMode" -> "FunctionOnly"]
 **Location in config:** `config["Compile"]["Compiler"]`
 **Default value:** `"Compile"`
 **Valid values:** `"Compile"` | `"FunctionCompile"`
-**Legacy mapping:** `"Compiler" -> {"Compile", "Compiler"}` in OptionsConfig.wl:168
+**Legacy mapping:** `"Compiler" -> {"Compile", "Compiler"}` in OptionsConfig.wl:169
 
 ## Complete Propagation Tree
 
@@ -1516,7 +1516,7 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 168 | Legacy mapping: `"Compiler" -> {"Compile", "Compiler"}` |
+| Line 169 | Legacy mapping: `"Compiler" -> {"Compile", "Compiler"}` |
 
 ### `splitConfig` in `Kernel/Tools/OptionsConfig.wl`
 
@@ -1583,7 +1583,7 @@ Switch[compiler,
 |-------|----------|------|-------|------|
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API |
 | Config | `defaultConfig` | OptionsConfig.wl | 100 | Default "Compile" |
-| Config | `normalizeConfig` | OptionsConfig.wl | 168 | Legacy mapping |
+| Config | `normalizeConfig` | OptionsConfig.wl | 169 | Legacy mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 308-316 | Extracts Compile options |
 | Orchestrator | `buildModelsInternal` | ManageResources.wl | 841, 998, 1014 | Extracts and forwards |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1476-1533 | Extracts, forwards to buildKernel |
@@ -1644,7 +1644,7 @@ buildModels[]
 
 **Location in config:** `config["Build"]["CreateMoments"]`
 **Default value:** `True`
-**Legacy mapping:** `"CreateMoments" -> {"Build", "CreateMoments"}` in OptionsConfig.wl:179
+**Legacy mapping:** `"CreateMoments" -> {"Build", "CreateMoments"}` in OptionsConfig.wl:180
 
 ## Complete Propagation Tree
 
@@ -1854,7 +1854,7 @@ If[createMoments && Length[successModels] > 0,
 
 **Location in config:** `config["Build"]["FileSuffix"]`
 **Default value:** `""`
-**Legacy mapping:** `"FileSuffix" -> {"Build", "FileSuffix"}` in OptionsConfig.wl:181
+**Legacy mapping:** `"FileSuffix" -> {"Build", "FileSuffix"}` in OptionsConfig.wl:182
 
 ## Complete Propagation Tree
 
@@ -2262,7 +2262,7 @@ addCoeffsSolutionN[model]
 
 **Location in config:** `config["Build"]["FromScratch"]`
 **Default value:** `False`
-**Legacy mapping:** `"FromScratch" -> {"Build", "FromScratch"}` in OptionsConfig.wl:177
+**Legacy mapping:** `"FromScratch" -> {"Build", "FromScratch"}` in OptionsConfig.wl:178
 
 ## Complete Propagation Tree
 
@@ -2409,7 +2409,7 @@ If[fromScratch,
 
 **Location in config:** `config["Moments"]["IterationLimit"]`
 **Default value:** `$IterationLimit/4`
-**Legacy mapping:** `"IterationLimit" -> {"Moments", "IterationLimit"}` in OptionsConfig.wl:177
+**Legacy mapping:** None (nested options passed as Association)
 
 ## Complete Propagation Tree
 
@@ -2710,7 +2710,7 @@ addCoeffsSolutionN[model_] := Module[{k},
 
 **Location in config:** `config["Numerical"]["MaxMaturity"]`
 **Default value:** `12`
-**Legacy mapping:** `"MaxMaturity" -> {"Numerical", "MaxMaturity"}` in OptionsConfig.wl:186
+**Legacy mapping:** Ambiguous - see OptionsConfig.wl:196-199
 **Note:** Different from Build subsystem's MaxMaturity (default 120)
 
 ## Complete Propagation Tree
@@ -2877,7 +2877,7 @@ addCoeffsSolutionN[model]
 
 **Location in config:** `config["Build"]["Models"]`
 **Default value:** `All`
-**Legacy mapping:** `"Models" -> {"Build", "Models"}` in OptionsConfig.wl:180
+**Legacy mapping:** `"Models" -> {"Build", "Models"}` in OptionsConfig.wl:181
 
 ## Complete Propagation Tree
 
@@ -3002,7 +3002,7 @@ If[modelFilter === All || modelFilter === "All",
 
 **Location in config:** `config["Parallel"]["NumKernels"]`
 **Default value:** `Automatic`
-**Legacy mapping:** `"NumKernels" -> {"Parallel", "NumKernels"}` in OptionsConfig.wl:165
+**Legacy mapping:** `"NumKernels" -> {"Parallel", "NumKernels"}` in OptionsConfig.wl:166
 
 ## Complete Propagation Tree
 
@@ -3145,7 +3145,7 @@ n = Switch[numKernels,
 **Location in config:** `config["Symbolic"]["PdEquations"]`
 **Default value:** `"B"`
 **Valid values:** `"B"` | `"AB"` | `"Both"`
-**Legacy mapping:** `"PdEquations" -> {"Symbolic", "PdEquations"}` in OptionsConfig.wl:166
+**Legacy mapping:** `"PdEquations" -> {"Symbolic", "PdEquations"}` in OptionsConfig.wl:167
 
 ## Complete Propagation Tree
 
@@ -3206,7 +3206,7 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 166 | Legacy mapping: `"PdEquations" -> {"Symbolic", "PdEquations"}` |
+| Line 167 | Legacy mapping: `"PdEquations" -> {"Symbolic", "PdEquations"}` |
 | Lines 245-292 | Converts legacy flat options to nested config Association |
 | Lines 256-258 | Maps legacy option to nested path via `legacyOptionMap` |
 
@@ -3307,7 +3307,7 @@ pdMode = Lookup[model["coeffsParamQuadSolve"]["pd"], "pdMode", "B"];
 | Entry | `buildModels` | ManageResources.wl | 575, 821-826 | Public API, normalizes config |
 | Entry | `buildModelsParallel` | ManageResources.wl | 1142, 1193-1199 | Parallel variant, forwards to buildModels |
 | Config | `defaultConfig` | OptionsConfig.wl | 76 | Default value |
-| Config | `normalizeConfig` | OptionsConfig.wl | 166, 245-292 | Legacy option mapping |
+| Config | `normalizeConfig` | OptionsConfig.wl | 167, 245-292 | Legacy option mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 300-304 | Extracts Symbolic subsystem options |
 | Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 970 | Extracts and forwards via splitConfig |
 | Forwarder | `processModels` | ProcessModels.wl | 79, 246-247 | Forwards via OptionValue extraction |
@@ -3361,7 +3361,7 @@ buildModelsParallel[models, "PdEquations" -> "B"]
 **Location in config:** `config["Compile"]["PerformanceGoal"]`
 **Default value:** `"Quality"`
 **Valid values:** `"Quality"` | `"Speed"`
-**Legacy mapping:** `"PerformanceGoal" -> {"Compile", "PerformanceGoal"}` in OptionsConfig.wl:171
+**Legacy mapping:** `"PerformanceGoal" -> {"Compile", "PerformanceGoal"}` in OptionsConfig.wl:172
 
 ## Complete Propagation Tree
 
@@ -3420,7 +3420,7 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 171 | Legacy mapping: `"PerformanceGoal" -> {"Compile", "PerformanceGoal"}` |
+| Line 172 | Legacy mapping: `"PerformanceGoal" -> {"Compile", "PerformanceGoal"}` |
 
 ### `splitConfig` in `Kernel/Tools/OptionsConfig.wl`
 
@@ -3485,7 +3485,7 @@ If[perfGoal === "Speed" && FreeQ[userOpts, RuntimeOptions],
 |-------|----------|------|-------|------|
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API |
 | Config | `defaultConfig` | OptionsConfig.wl | 98 | Default "Quality" |
-| Config | `normalizeConfig` | OptionsConfig.wl | 171 | Legacy mapping |
+| Config | `normalizeConfig` | OptionsConfig.wl | 172 | Legacy mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 308-316 | Extracts Compile options |
 | Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 995-998 | Forwards via splitConfig |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1476-1533 | Forwards via FilterRules |
@@ -3552,7 +3552,7 @@ buildModels[PerformanceGoal -> "Speed"]
 **Location in config:** `config["Numerical"]["RecurrenceTable"]`
 **Default value:** Nested Association (see below)
 **Flattened as:** `"RecurrenceTableOptions"` when extracted via splitConfig
-**Legacy mapping:** `"RecurrenceTableOptions" -> {"Numerical", "RecurrenceTable", "Options"}` in OptionsConfig.wl:164
+**Legacy mapping:** `"RecurrenceTableOptions" -> {"Numerical", "RecurrenceTable", "Options"}` in OptionsConfig.wl:165
 
 ## Default Structure
 
@@ -3724,7 +3724,7 @@ updateCoeffs[model, kernels, params, "RecurrenceTableOptions" -> {...}]
 
 **Location in config:** `config["Numerical"]["ReduceTimeLimit"]`
 **Default value:** `5.` (seconds)
-**Legacy mapping:** `"ReduceTimeLimit" -> {"Numerical", "ReduceTimeLimit"}` in OptionsConfig.wl:190
+**Legacy mapping:** `"ReduceTimeLimit" -> {"Numerical", "ReduceTimeLimit"}` in OptionsConfig.wl:191
 
 ## Complete Propagation Tree
 
@@ -3868,7 +3868,7 @@ When `safeReduceCall` times out (returns `$Failed`):
 **Location in config:** `config["Numerical"]["RootSigns"]`
 **Default value:** `Automatic`
 **Valid values:** `Automatic` | `All` | Custom Association
-**Legacy mapping:** `"RootSigns" -> {"Numerical", "RootSigns"}` in OptionsConfig.wl:184
+**Legacy mapping:** `"RootSigns" -> {"Numerical", "RootSigns"}` in OptionsConfig.wl:185
 
 ## Complete Propagation Tree
 
@@ -4044,7 +4044,7 @@ updateCoeffs[..., "RootSigns" -> <|"wc" -> {{1, -1}}, "pd" -> {{1, 1}}|>]
 
 **Location in config:** `config["Compile"]["RuntimeOptions"]`
 **Default value:** `Automatic` (commented alternative: `"Speed"`)
-**Legacy mapping:** `"RuntimeOptions" -> {"Compile", "RuntimeOptions"}` in OptionsConfig.wl:172
+**Legacy mapping:** `"RuntimeOptions" -> {"Compile", "RuntimeOptions"}` in OptionsConfig.wl:173
 
 ## Complete Propagation Tree
 
@@ -4096,7 +4096,7 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 172 | Legacy mapping: `"RuntimeOptions" -> {"Compile", "RuntimeOptions"}` |
+| Line 173 | Legacy mapping: `"RuntimeOptions" -> {"Compile", "RuntimeOptions"}` |
 
 ### `splitConfig` in `Kernel/Tools/OptionsConfig.wl`
 
@@ -4167,7 +4167,7 @@ Compile[
 |-------|----------|------|-------|------|
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API |
 | Config | `defaultConfig` | OptionsConfig.wl | 101 | Default Automatic |
-| Config | `normalizeConfig` | OptionsConfig.wl | 172 | Legacy mapping |
+| Config | `normalizeConfig` | OptionsConfig.wl | 173 | Legacy mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 308-316 | Extracts Compile options |
 | Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 995-998 | Forwards via splitConfig |
 | Forwarder | `createCompiledEq` | FindRootOptim.wl | 1476-1533 | Forwards via FilterRules |
@@ -4406,7 +4406,7 @@ Since the config value is not extracted, the function default (1e5) is used.
 **Location in config:** `config["Compile"]["SignSymbol"]`
 **Default value:** `"signA"` (string)
 **Also exists at:** `config["Symbolic"]["paramQuadSolveOptions"]["SignSymbol"]` as `Symbol["signA"]`
-**Legacy mapping:** `"SignSymbol" -> {"Compile", "SignSymbol"}` in OptionsConfig.wl:170 (ambiguous option)
+**Legacy mapping:** Ambiguous - see OptionsConfig.wl:201-203
 
 ## Type Duality
 
@@ -4608,7 +4608,7 @@ solveCoeffRoots[..., savedKernel, ...]
 
 **Location in config:** `config["Numerical"]["Signs"]`
 **Default value:** `{}`
-**Legacy mapping:** `"Signs" -> {"Numerical", "Signs"}` in OptionsConfig.wl:185
+**Legacy mapping:** `"Signs" -> {"Numerical", "Signs"}` in OptionsConfig.wl:186
 
 ## Complete Propagation Tree
 
@@ -4773,7 +4773,7 @@ RootSigns -> Automatic
 
 **Location in config:** `config["Symbolic"]["SimplifyOptions"]`
 **Default value:** `{TimeConstraint -> {5, 300}}`
-**Legacy mapping:** `"SimplifyOptions" -> {"Symbolic", "SimplifyOptions"}` in OptionsConfig.wl:167
+**Legacy mapping:** `"SimplifyOptions" -> {"Symbolic", "SimplifyOptions"}` in OptionsConfig.wl:168
 
 ## Complete Propagation Tree
 
@@ -4844,7 +4844,7 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 167 | Legacy mapping: `"SimplifyOptions" -> {"Symbolic", "SimplifyOptions"}` |
+| Line 168 | Legacy mapping: `"SimplifyOptions" -> {"Symbolic", "SimplifyOptions"}` |
 
 ### `splitConfig` in `Kernel/Tools/OptionsConfig.wl`
 
@@ -4939,7 +4939,7 @@ simplifyOpts = Flatten[{
 | Entry | `buildModels` | ManageResources.wl | 821-826 | Public API, normalizes config |
 | Entry | `buildModelsParallel` | ManageResources.wl | 1138-1275 | Parallel variant |
 | Config | `defaultConfig` | OptionsConfig.wl | 77 | Default value |
-| Config | `normalizeConfig` | OptionsConfig.wl | 167 | Legacy option mapping |
+| Config | `normalizeConfig` | OptionsConfig.wl | 168 | Legacy option mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 300-304 | Extracts Symbolic subsystem options |
 | Orchestrator | `buildModelsInternal` | ManageResources.wl | 829, 970 | Extracts and forwards via splitConfig |
 | Forwarder | `processModels` | ProcessModels.wl | 79, 246 | Forwards via OptionsPattern |
@@ -4995,7 +4995,7 @@ buildModels[SimplifyOptions -> {TimeConstraint -> {10, 600}}]
 
 **Location in config:** `config["Numerical"]["UpdateBond"]`
 **Default value:** `False`
-**Legacy mapping:** `"UpdateBond" -> {"Numerical", "UpdateBond"}` in OptionsConfig.wl:187
+**Legacy mapping:** `"UpdateBond" -> {"Numerical", "UpdateBond"}` in OptionsConfig.wl:188
 
 ## Complete Propagation Tree
 
@@ -5111,7 +5111,7 @@ If[OptionValue["UpdateBond"] || OptionValue["UpdateBonds"], ...]
 
 **Location in config:** `config["Numerical"]["UpdateBonds"]`
 **Default value:** `False`
-**Legacy mapping:** `"UpdateBonds" -> {"Numerical", "UpdateBonds"}` in OptionsConfig.wl:189
+**Legacy mapping:** `"UpdateBonds" -> {"Numerical", "UpdateBonds"}` in OptionsConfig.wl:190
 
 ## Complete Propagation Tree
 
@@ -5240,7 +5240,7 @@ If[OptionValue["UpdateNomBond"] || OptionValue["UpdateBonds"],
 
 **Location in config:** `config["Build"]["UpdateManifest"]`
 **Default value:** `True`
-**Legacy mapping:** `"UpdateManifest" -> {"Build", "UpdateManifest"}` in OptionsConfig.wl:182
+**Legacy mapping:** `"UpdateManifest" -> {"Build", "UpdateManifest"}` in OptionsConfig.wl:183
 
 ## Complete Propagation Tree
 
@@ -5438,7 +5438,7 @@ UpdateManifest is NOT forwarded to any downstream functions:
 
 **Location in config:** `config["Numerical"]["UpdateNomBond"]`
 **Default value:** `False`
-**Legacy mapping:** `"UpdateNomBond" -> {"Numerical", "UpdateNomBond"}` in OptionsConfig.wl:188
+**Legacy mapping:** `"UpdateNomBond" -> {"Numerical", "UpdateNomBond"}` in OptionsConfig.wl:189
 
 ## Complete Propagation Tree
 
@@ -5554,7 +5554,7 @@ If[OptionValue["UpdateNomBond"] || OptionValue["UpdateBonds"], ...]
 
 **Location in config:** `config["Numerical"]["UpdatePd"]`
 **Default value:** `False`
-**Legacy mapping:** `"UpdatePd" -> {"Numerical", "UpdatePd"}` in OptionsConfig.wl:186
+**Legacy mapping:** `"UpdatePd" -> {"Numerical", "UpdatePd"}` in OptionsConfig.wl:187
 
 ## Complete Propagation Tree
 
@@ -5670,7 +5670,7 @@ needsPd = stockFreeQ || TrueQ[OptionValue["UpdatePd"]]
 
 **Location in config:** `config["Numerical"]["initialGuess"]`
 **Default value:** `<|"Ewc" -> {4}, "Epd" -> {{4}}|>`
-**Legacy mapping:** `"initialGuess" -> {"Numerical", "initialGuess"}` in OptionsConfig.wl:183
+**Legacy mapping:** `"initialGuess" -> {"Numerical", "initialGuess"}` in OptionsConfig.wl:184
 
 ## Complete Propagation Tree
 
@@ -5759,7 +5759,7 @@ NUMERICAL SOLVING PATH
 
 | Location | What happens |
 |----------|--------------|
-| Line 183 | Legacy mapping: `"initialGuess" -> {"Numerical", "initialGuess"}` |
+| Line 184 | Legacy mapping: `"initialGuess" -> {"Numerical", "initialGuess"}` |
 
 ### `splitConfig` in `Kernel/Tools/OptionsConfig.wl`
 
@@ -5816,7 +5816,7 @@ NUMERICAL SOLVING PATH
 | Entry | `toNum` | ToNumber.wl | 64-98 | Direct API |
 | Entry | `updateCoeffs` | SolveEulerEq.wl | 765-796 | Direct API |
 | Config | `defaultConfig` | OptionsConfig.wl | 105 | Default value |
-| Config | `normalizeConfig` | OptionsConfig.wl | 183 | Legacy mapping |
+| Config | `normalizeConfig` | OptionsConfig.wl | 184 | Legacy mapping |
 | Config | `splitConfig` | OptionsConfig.wl | 320-350 | Extracts Numerical options |
 | Data | `modelsExtraInfo` | Catalog.wl | Various | Model-specific overrides |
 | Forwarder | `updateCoeffsSol` | SolveEulerEq.wl | 333-690 | Passes to getStartingValues |
@@ -5872,7 +5872,7 @@ updateCoeffs[model, kernels, params]  (* no initialGuess specified *)
 
 **Location in config:** `config["Moments"]["maxMomentsLagsToCreate"]`
 **Default value:** `8`
-**Legacy mapping:** `"maxMomentsLagsToCreate" -> {"Moments", "maxMomentsLagsToCreate"}` in OptionsConfig.wl:174
+**Legacy mapping:** `"maxMomentsLagsToCreate" -> {"Moments", "maxMomentsLagsToCreate"}` in OptionsConfig.wl:175
 
 ## Complete Propagation Tree
 
@@ -6221,7 +6221,7 @@ buildModels[<|"Symbolic" -> <|"paramQuadSolveOptions" -> <|"TimeoutOption" -> 12
 
 **Location in config:** `config["Moments"]["simplifyDownValues"]`
 **Default value:** `False`
-**Legacy mapping:** `"simplifyDownValues" -> {"Moments", "simplifyDownValues"}` in OptionsConfig.wl:176
+**Legacy mapping:** `"simplifyDownValues" -> {"Moments", "simplifyDownValues"}` in OptionsConfig.wl:177
 
 ## Complete Propagation Tree
 
@@ -6336,7 +6336,7 @@ If[OptionValue["simplifyDownValues"],
 
 **Location in config:** `config["Moments"]["startSequenceAtLag"]`
 **Default value:** `3`
-**Legacy mapping:** `"startSequenceAtLag" -> {"Moments", "startSequenceAtLag"}` in OptionsConfig.wl:175
+**Legacy mapping:** `"startSequenceAtLag" -> {"Moments", "startSequenceAtLag"}` in OptionsConfig.wl:176
 
 ## Complete Propagation Tree
 
@@ -7904,7 +7904,7 @@ Many options flow to functions defined in other files. Key destination files:
 4. **`ProcessModels.wl`**: Receives symbolic options from `BuildModels` via config
 5. **`OptionsConfig.wl`**: Normalizes and splits options for `BuildModels`
 
-For detailed options flow in these files, see their respective documentation in `/docs/options/`.
+For detailed options flow in these files, see the corresponding sections in this appendix.
 ````
 
 </details>
@@ -8194,7 +8194,7 @@ Options for `getStartingValues` (in FindRootOptim.wl) are accepted but not expli
 
 ## File: Parameters.wl
 
-**Location**: `/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/Parameters.wl`
+**Location**: `Kernel/Model/Parameters.wl`
 
 ### Summary
 
@@ -8219,7 +8219,7 @@ All definitions are direct symbol declarations with usage messages or simple var
 
 ## File: EndogenousEq.wl
 
-**Location**: `/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/EndogenousEq.wl`
+**Location**: `Kernel/Model/EndogenousEq.wl`
 
 ### Summary
 
@@ -8301,7 +8301,7 @@ This document analyzes the options handling patterns in the Shocks.wl and Exogen
 
 ## File: Shocks.wl
 
-**Path**: `/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/Shocks.wl`
+**Path**: `Kernel/Model/Shocks.wl`
 
 ### Summary
 
@@ -8328,7 +8328,7 @@ The file uses:
 
 ## File: ExogenousEq.wl
 
-**Path**: `/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/Kernel/Model/ExogenousEq.wl`
+**Path**: `Kernel/Model/ExogenousEq.wl`
 
 ### Summary
 
