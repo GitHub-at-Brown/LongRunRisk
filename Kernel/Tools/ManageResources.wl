@@ -624,7 +624,7 @@ saveModels[models_Association, file_String] := Module[{dataModels, modelsData},
 	   ToBoxes triggers clean serialization path that produces ByteArray directly,
 	   whereas Put without prior formatting uses WithContext wrapper and warns. *)
 	ToBoxes[dataModels];
-	Put[dataModels, file];
+	Put[dataModels, file]
 	file
 ];
 
