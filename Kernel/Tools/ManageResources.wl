@@ -581,53 +581,6 @@ buildModels // Options = {
 selectEnabledModels[catalog_Association] := Select[catalog, TrueQ[#["enabled"]] &];
 
 
-(* helper: resolve build settings from options *)
-resolveBuildSettings[opts_List] := Module[
-	{
-		fromScratch, compileJacobians, createMoments, numKernels,
-		buildMaxMaturity, modelFilter, fileSuffix, updateManifest, verbose,
-		compileMode, compilerChoice, flattenOpt, pdMode
-	},
-
-	(* Ensure dependent owners are loaded for OptionValue *)
-	PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
-	PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
-
-	(* buildModels options *)
-	fromScratch = OptionValue[buildModels, opts, "FromScratch"];
-	compileJacobians = OptionValue[buildModels, opts, "CompileJacobians"];
-	createMoments = OptionValue[buildModels, opts, "CreateMoments"];
-	numKernels = OptionValue[buildModels, opts, "NumKernels"];
-	buildMaxMaturity = OptionValue[buildModels, opts, "BuildMaxMaturity"];
-	modelFilter = OptionValue[buildModels, opts, "Models"];
-	fileSuffix = OptionValue[buildModels, opts, "FileSuffix"];
-	updateManifest = OptionValue[buildModels, opts, "UpdateManifest"];
-	verbose = OptionValue[buildModels, opts, "Verbose"];
-
-	(* buildKernel options *)
-	compileMode = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, opts, "CompileMode"];
-	compilerChoice = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, opts, "Compiler"];
-	flattenOpt = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, opts, "FlattenExpressions"];
-
-	(* solveCoeffsSystem options *)
-	pdMode = OptionValue[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem, opts, "PdEquations"];
-
-	<|
-		"FromScratch" -> fromScratch,
-		"CompileJacobians" -> compileJacobians,
-		"CreateMoments" -> createMoments,
-		"NumKernels" -> numKernels,
-		"BuildMaxMaturity" -> buildMaxMaturity,
-		"Models" -> modelFilter,
-		"FileSuffix" -> fileSuffix,
-		"UpdateManifest" -> updateManifest,
-		"Verbose" -> verbose,
-		"CompileMode" -> compileMode,
-		"Compiler" -> compilerChoice,
-		"FlattenExpressions" -> flattenOpt,
-		"PdEquations" -> pdMode
-	|>
-];
 
 
 (* helper: delete all generated outputs for from-scratch builds *)
@@ -862,36 +815,42 @@ warmupParallelKernels[] := Module[{pacletDir},
 ];
 
 
-(* Entry point: accepts options and resolves settings *)
-buildModels[opts___?OptionQ] := Module[
-	{optsList = Flatten@{opts}, settings},
-	settings = resolveBuildSettings[optsList];
-	buildModelsInternal[settings, optsList]
-];
-
-(* Core implementation - accepts resolved settings and original options *)
-buildModelsInternal[settings_Association, opts_List] := With[
+(* Main build orchestrator - uses multi-owner OptionsPattern for clean option handling *)
+buildModels[opts : OptionsPattern[{
+	buildModels,
+	FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel,
+	FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem,
+	FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs,
+	FindRoot, RecurrenceTable, Compile, FunctionCompile
+}]] := With[
 	{
-		fromScratch = settings["FromScratch"],
-		compileJacobians = settings["CompileJacobians"],
-		createMoments = settings["CreateMoments"],
-		numKernels = settings["NumKernels"],
-		buildMaxMaturity = settings["BuildMaxMaturity"],
-		modelFilter = settings["Models"],
-		fileSuffix = settings["FileSuffix"],
-		updateManifest = settings["UpdateManifest"],
-		verbose = settings["Verbose"],
-		compileMode = settings["CompileMode"],
-		compilerChoice = settings["Compiler"],
-		flattenOpt = settings["FlattenExpressions"],
-		pdMode = settings["PdEquations"],
-		(* Stage-specific option filters *)
-		symbolicStageOpts = FilterRules[opts, Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem]],
-		compileStageOpts = FilterRules[opts, Join[
+		(* Ensure dependent owners are loaded for OptionValue *)
+		dummy1 = PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"],
+		dummy2 = PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ProcessModels`"],
+		dummy3 = PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"]
+	},
+	With[{
+		(* Simple OptionValue extraction - works because all owners are in OptionsPattern *)
+		fromScratch = OptionValue["FromScratch"],
+		compileJacobians = OptionValue["CompileJacobians"],
+		createMoments = OptionValue["CreateMoments"],
+		numKernels = OptionValue["NumKernels"],
+		buildMaxMaturity = OptionValue["BuildMaxMaturity"],
+		modelFilter = OptionValue["Models"],
+		fileSuffix = OptionValue["FileSuffix"],
+		updateManifest = OptionValue["UpdateManifest"],
+		verbose = OptionValue["Verbose"],
+		compileMode = OptionValue["CompileMode"],
+		compilerChoice = OptionValue["Compiler"],
+		flattenOpt = OptionValue["FlattenExpressions"],
+		pdMode = OptionValue["PdEquations"],
+		(* Stage-specific option filters for FORWARDING to downstream functions *)
+		symbolicStageOpts = FilterRules[Flatten@{opts}, Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem]],
+		compileStageOpts = FilterRules[Flatten@{opts}, Join[
 			Options[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel],
 			Options[Compile], Options[FunctionCompile]
 		]],
-		numericalStageOpts = FilterRules[opts, Join[
+		numericalStageOpts = FilterRules[Flatten@{opts}, Join[
 			Options[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs],
 			Options[FindRoot], Options[RecurrenceTable]
 		]]
@@ -1191,7 +1150,7 @@ buildModelsInternal[settings_Association, opts_List] := With[
 
 		processedModels
 	]
-];
+]];
 
 
 (* === buildModelsParallel - parallel orchestrator === *)
@@ -1420,17 +1379,20 @@ getModelPipelineStatus[] := getModelPipelineStatus[All];
 
 getModelPipelineStatus[shortnames_] := Module[
 	{root, catalogModels, savedModels, manifest, compiledDir, momentsDir,
-	 enabledModels, modelKeys, result, settings, compileMode, compilerChoice, flattenOpt, pdMode},
+	 enabledModels, modelKeys, result, compileMode, compilerChoice, flattenOpt, pdMode},
 
 	root = findPacletRoot[];
 	If[root === $Failed, Return[$Failed]];
 
-	(* Resolve settings from defaults *)
-	settings = resolveBuildSettings[{}];
-	compileMode = settings["CompileMode"];
-	compilerChoice = settings["Compiler"];
-	flattenOpt = settings["FlattenExpressions"];
-	pdMode = settings["PdEquations"];
+	(* Ensure dependent owners are loaded for OptionValue *)
+	PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+	PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
+
+	(* Get defaults directly from option owners *)
+	compileMode = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, {}, "CompileMode"];
+	compilerChoice = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, {}, "Compiler"];
+	flattenOpt = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, {}, "FlattenExpressions"];
+	pdMode = OptionValue[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem, {}, "PdEquations"];
 
 	(* Load all required data *)
 	catalogModels = getCatalogModels[];
