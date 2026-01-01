@@ -620,10 +620,11 @@ saveModels[models_Association, file_String] := Module[{dataModels, modelsData},
 	dataModels = PacletizedResourceFunctions`DefinitionData[modelsData];
 	(* Ensure correct context before saving - prevents shadowing issues *)
 	dataModels = PacletizedResourceFunctions`DefinitionData @@ List @@ dataModels;
-	(* Block $ContextPath with ResourceSystemClient context to prevent Symbol::symname during Put *)
-	Block[{$ContextPath = {"ResourceSystemClient`DefinitionUtilities`", "System`"}},
-		Put[dataModels, file]
-	];
+	(* Trigger formatting before Put to avoid Symbol::symname warning.
+	   ToBoxes triggers clean serialization path that produces ByteArray directly,
+	   whereas Put without prior formatting uses WithContext wrapper and warns. *)
+	ToBoxes[dataModels];
+	Put[dataModels, file];
 	file
 ];
 
@@ -798,14 +799,6 @@ warmupParallelKernels[] := Module[{pacletDir},
 	(* Find paclet root directory *)
 	pacletDir = findPacletRoot[];
 	If[!StringQ[pacletDir], Return[$Failed]];
-
-	(* Needs["PacletizedResourceFunctions`"]; *)
-	Quiet[
-		Block[{$AllowInternet = False},
-			Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]
-		],
-		URLSubmit::offline
-	];
 
 	(* Register paclet and load required packages on parallel kernels *)
 	ParallelEvaluate[
