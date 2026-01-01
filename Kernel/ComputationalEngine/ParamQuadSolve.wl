@@ -979,7 +979,7 @@ simplifyWithDummySubstitution[expr_, opts:OptionsPattern[{simplifyWithDummySubst
       Block[{$HistoryLength = 0},
         TimeConstrained[
           Assuming[augmentedAss,
-            Quiet[simplifyFn[transformed, Sequence @@ simplifyOpts], {Simplify::time, FullSimplify::time}]
+            Quiet[simplifyFn[transformed, Sequence @@ simplifyOpts], {Simplify::time, Simplify::gtime, FullSimplify::time, FullSimplify::gtime}]
           ],
           tcVal,
           transformed (* return transformed but unsimplified on timeout *)
