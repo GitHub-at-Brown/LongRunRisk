@@ -339,7 +339,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
             If[uniqueRadicands === {},
               {},
               Flatten@{TimeConstrained[
-                Quiet[Simplify[Thread[uniqueRadicands >= 0], Assumptions -> fullAss, TimeConstraint -> simpBudget], {Simplify::time}],
+                Quiet[Simplify[Thread[uniqueRadicands >= 0], Assumptions -> fullAss, TimeConstraint -> simpBudget], {Simplify::time, Simplify::gtime}],
                 simpBudget + 0.5,
                 Thread[uniqueRadicands >= 0] (* return unchanged on timeout *)
               ]}
@@ -365,14 +365,14 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
                             True,
                             Module[{noAss, withAss},
                               noAss = TimeConstrained[
-                                Quiet[Simplify[expr == 0, TimeConstraint -> localSimpBudget], {Simplify::time}],
+                                Quiet[Simplify[expr == 0, TimeConstraint -> localSimpBudget], {Simplify::time, Simplify::gtime}],
                                 localSimpBudget + 0.5,
                                 expr == 0 (* unchanged on timeout *)
                               ];
                               If[TrueQ[noAss],
                                 True,
                                 withAss = TimeConstrained[
-                                  Quiet[Simplify[expr == 0, Assumptions -> localFullAss, TimeConstraint -> localSimpBudget], {Simplify::time}],
+                                  Quiet[Simplify[expr == 0, Assumptions -> localFullAss, TimeConstraint -> localSimpBudget], {Simplify::time, Simplify::gtime}],
                                   localSimpBudget + 0.5,
                                   expr == 0
                                 ];
@@ -718,9 +718,9 @@ selectQuadraticSubset[quadraticVars_List, eqVarSets_List, eqns_List, vars_List] 
 
 solveLinearFor[poly_, v_, ass_, simplifyTC_: 5] := Module[{a, b, rhs},
   a = Coefficient[poly, v, 1];
-  b = Quiet[Simplify[poly /. v -> 0, Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time}];
+  b = Quiet[Simplify[poly /. v -> 0, Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time, Simplify::gtime}];
   If[a === 0 || PossibleZeroQ[a, Assumptions -> ass], $Failed,
-    rhs = Quiet[Simplify[-b/a, Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time}];
+    rhs = Quiet[Simplify[-b/a, Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time, Simplify::gtime}];
     {v -> rhs, <||>, <||>}
   ]
 ];
@@ -733,13 +733,13 @@ solveLinearFor[poly_, v_, ass_, simplifyTC_: 5] := Module[{a, b, rhs},
 quadraticSolveParam[poly_, v_, signGen_, ass_, simplifyTC_: 5] := Module[{a, b, c, delta, alpha, beta, s, rule},
   a = Coefficient[poly, v, 2];
   b = Coefficient[poly, v, 1];
-  c = Quiet[Simplify[poly /. v -> 0, Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time}];
+  c = Quiet[Simplify[poly /. v -> 0, Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time, Simplify::gtime}];
   If[a === 0 || PossibleZeroQ[a, Assumptions -> ass], Return[solveLinearFor[poly, v, ass, simplifyTC]]];
-  delta = Quiet[Simplify[b^2 - 4 a c, Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time}];
+  delta = Quiet[Simplify[b^2 - 4 a c, Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time, Simplify::gtime}];
   s = signGen[];
-  alpha = Quiet[Simplify[-b/(2 a), Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time}];
-  beta  = Quiet[Simplify[1/(2 a), Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time}];
-  rule = v -> Quiet[Simplify[(alpha + beta*s*Sqrt[delta]), Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time}];
+  alpha = Quiet[Simplify[-b/(2 a), Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time, Simplify::gtime}];
+  beta  = Quiet[Simplify[1/(2 a), Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time, Simplify::gtime}];
+  rule = v -> Quiet[Simplify[(alpha + beta*s*Sqrt[delta]), Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time, Simplify::gtime}];
   {rule, <|s -> Sqrt[delta]|>, <|s -> delta|>}
 ];
 
@@ -752,7 +752,7 @@ quarticSolveParam[poly_, v_, signGen_, ass_, simplifyTC_: 5] := Module[
   {px = Expand[poly], lc, norm, a3, a2, a1, a0, shift, p, q, r,
    mVar, mSolutions, m, radR, radicalR, sign1, sign2, inner, exprY, exprV, rule, signAssoc, radAssoc,
    wDelta, sW, sY, wExpr, simp},
-  simp[expr_] := Quiet[Simplify[expr, Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time}];
+  simp[expr_] := Quiet[Simplify[expr, Assumptions -> ass, TimeConstraint -> simplifyTC], {Simplify::time, Simplify::gtime}];
   lc = Coefficient[px, v, 4];
   If[lc === 0, Return[$Failed]];
   norm = Expand[px/lc];
