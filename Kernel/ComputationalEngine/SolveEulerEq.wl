@@ -519,7 +519,13 @@ checkCoeffs[type_String, model_, sol_, params_, newParams_,
 
 updateCoeffsWcPd[key : "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, params_Association, newParams_Association, rootSignsNorm_, rootSigns_,
   solveCoeffRootsOpts_] :=
-    With[{kernelKey = <|"wc" -> "A", "pd" -> "B"|>[key]},
+    With[{
+      kernelKey = <|"wc" -> "A", "pd" -> "B"|>[key],
+      (* Filter to only options recognized by solveCoeffRoots and its downstream functions *)
+      filteredOpts = FilterRules[solveCoeffRootsOpts,
+        Join[Options[solveCoeffRoots], Options[extractIntervalsFromReduce],
+             Options[scanAndSolve], Options[fastRoot], Options[FindRoot]]]
+    },
       Module[{solAll, flattenedWithMeta, intervalIdx, solIdx},
         (* solAll structure: list of {list of <|"Interval"->..., "Signs"->..., "Sol"->...|>} per sign combo *)
         solAll = solveCoeffRoots[
@@ -528,7 +534,7 @@ updateCoeffsWcPd[key : "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, 
           params,
           newParams,
           "Signs" -> #,
-          solveCoeffRootsOpts
+          Sequence @@ filteredOpts
         ] & /@ rootSignsNorm[key];
 
         (* Flatten while preserving metadata: add interval index and solution index *)
@@ -833,7 +839,8 @@ solveCoeffRoots[
           extraParams (* putting extra params last in Join takes priority and overwrites paramsBase *)
         ],
         cName       = Lookup[savedKernel, "CoeffName"],
-        sName       = Lookup[savedKernel, "CompileSignSymbol"],
+        (* Support both new key "CompileSignSymbol" and legacy key "SignSymbol" *)
+        sName       = Lookup[savedKernel, "CompileSignSymbol", Lookup[savedKernel, "SignSymbol"]],
         extractOpts = FilterRules[Flatten@{opts}, Options[extractIntervalsFromReduce]],
         scanOpts    = FilterRules[
           Flatten@{opts},

@@ -106,11 +106,8 @@ reExport = FernandoDuarte`LongRunRisk`Tools`ReExport`reExport;
 (*Models*)
 
 
-(*load file with pre-processed models*)
-(*Get@Get[FindFile[File["FernandoDuarte/LongRunRisk/Models.wl"]]];*)
-
-
-(* load models *)
+(* load models via Get@Get pattern - requires PacletizedResourceFunctions loaded first *)
+Needs["PacletizedResourceFunctions`"];
 FernandoDuarte`LongRunRisk`Models = Get@Get@"FernandoDuarte/LongRunRisk/Models.wl";
 
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
