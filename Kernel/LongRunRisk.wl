@@ -17,8 +17,6 @@ Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
-Needs["FernandoDuarte`LongRunRisk`Tools`OptionsConfig`"];
-
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
 
@@ -308,6 +306,19 @@ PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`V
 reExport[#]&/@{
 	"FernandoDuarte`LongRunRisk`Tools`VisualizeCoeffs`"
 }
+
+
+(* ::Subsubsection:: *)
+(*OptionsValidationRules*)
+
+
+Quiet[
+	Check[
+		PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`OptionsValidationRules`"];
+		FernandoDuarte`LongRunRisk`Tools`OptionsValidationRules`InstallOptionsValidationRules[],
+		Null
+	]
+];
 
 
 (* ::Section:: *)

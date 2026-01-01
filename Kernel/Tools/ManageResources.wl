@@ -41,7 +41,6 @@ Returns <|shortname -> <|\"MainStage\"->..., \"NeedsJacobians\"->..., \"Reason\"
 Begin["`Private`"];
 
 Needs["PacletizedResourceFunctions`"]
-Needs["FernandoDuarte`LongRunRisk`Tools`OptionsConfig`"]
 
 (* Live catalog loading - tracks file modification time *)
 $catalogFile = None;
@@ -567,12 +566,11 @@ reformatCatalog[] := Module[
 
 buildModels // Options = {
 	"FromScratch" -> False,
-	"CompileJacobians" -> False,
+	"CompileJacobians" -> True,
 	"CreateMoments" -> True,
 	"NumKernels" -> Automatic,  (* Automatic | n | None *)
-	"MaxMaturity" -> 120,
+	"BuildMaxMaturity" -> 120,
 	"Models" -> All,  (* All or list of shortnames *)
-	"PdEquations" -> "B",  (* "B" | "AB" | "Both" - controls which pd equations to compute/compile *)
 	"FileSuffix" -> "",  (* suffix for checkpoint files; "_BY" writes to Models_BY.wl *)
 	"UpdateManifest" -> True,  (* whether to update ModelManifest.wl at end *)
 	"Verbose" -> False  (* whether to print memory usage during pipeline *)
@@ -581,6 +579,55 @@ buildModels // Options = {
 
 (* helper: select enabled models from catalog *)
 selectEnabledModels[catalog_Association] := Select[catalog, TrueQ[#["enabled"]] &];
+
+
+(* helper: resolve build settings from options *)
+resolveBuildSettings[opts_List] := Module[
+	{
+		fromScratch, compileJacobians, createMoments, numKernels,
+		buildMaxMaturity, modelFilter, fileSuffix, updateManifest, verbose,
+		compileMode, compilerChoice, flattenOpt, pdMode
+	},
+
+	(* Ensure dependent owners are loaded for OptionValue *)
+	PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+	PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
+
+	(* buildModels options *)
+	fromScratch = OptionValue[buildModels, opts, "FromScratch"];
+	compileJacobians = OptionValue[buildModels, opts, "CompileJacobians"];
+	createMoments = OptionValue[buildModels, opts, "CreateMoments"];
+	numKernels = OptionValue[buildModels, opts, "NumKernels"];
+	buildMaxMaturity = OptionValue[buildModels, opts, "BuildMaxMaturity"];
+	modelFilter = OptionValue[buildModels, opts, "Models"];
+	fileSuffix = OptionValue[buildModels, opts, "FileSuffix"];
+	updateManifest = OptionValue[buildModels, opts, "UpdateManifest"];
+	verbose = OptionValue[buildModels, opts, "Verbose"];
+
+	(* buildKernel options *)
+	compileMode = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, opts, "CompileMode"];
+	compilerChoice = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, opts, "Compiler"];
+	flattenOpt = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, opts, "FlattenExpressions"];
+
+	(* solveCoeffsSystem options *)
+	pdMode = OptionValue[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem, opts, "PdEquations"];
+
+	<|
+		"FromScratch" -> fromScratch,
+		"CompileJacobians" -> compileJacobians,
+		"CreateMoments" -> createMoments,
+		"NumKernels" -> numKernels,
+		"BuildMaxMaturity" -> buildMaxMaturity,
+		"Models" -> modelFilter,
+		"FileSuffix" -> fileSuffix,
+		"UpdateManifest" -> updateManifest,
+		"Verbose" -> verbose,
+		"CompileMode" -> compileMode,
+		"Compiler" -> compilerChoice,
+		"FlattenExpressions" -> flattenOpt,
+		"PdEquations" -> pdMode
+	|>
+];
 
 
 (* helper: delete all generated outputs for from-scratch builds *)
@@ -668,10 +715,8 @@ validCoeffsSolutionN[model_] := With[
 
 
 (* helper: validate compiled .mx file against model - matches pattern from FindRootOptim.wl *)
-(* Note: compilerChoice and flattenOpt must match defaults in FindRootOptim.wl buildKernel/createCompiledEq *)
-validateCompiledFile[mxFile_String, model_Association, compileMode_String : "FunctionOnly",
-	compilerChoice_String : "Compile", flattenOpt_ : Automatic] := Module[
-	{savedData, expectedHash, eqMap, pdMode},
+validateCompiledFile[mxFile_String, model_Association, compileMode_String, compilerChoice_String, flattenOpt_, pdMode_String] := Module[
+	{savedData, expectedHash, eqMap},
 
 	If[!FileExistsQ[mxFile], Return[<|"Valid" -> False, "Reason" -> "file missing"|>]];
 
@@ -685,7 +730,6 @@ validateCompiledFile[mxFile_String, model_Association, compileMode_String : "Fun
 	];
 
 	(* Compute expected hash - same logic as createCompiledEq in FindRootOptim.wl *)
-	pdMode = Lookup[model["coeffsParamQuadSolve"]["pd"], "pdMode", "B"];
 	eqMap = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildEqMapFromModel[model];
 	expectedHash = Hash[{compileMode, compilerChoice, flattenOpt, pdMode, eqMap}, "Expression"];
 
@@ -712,7 +756,7 @@ resolveCompiledMxFile[compiledDir_String, shortname_String, fileSuffix_String : 
 (* helper: determine what stage a model needs to start from *)
 determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
 	compiledDir_, momentsDir_, compileJacobians_, createMoments_,
-	compileMode_String : "FunctionOnly", compilerChoice_String : "Compile", flattenOpt_ : Automatic] := Module[
+	compileMode_String : "FunctionOnly", compilerChoice_String : "Compile", flattenOpt_ : Automatic, pdMode_String : "B"] := Module[
 	{shortname, catalogHash, savedModel, mxFile, validation},
 
 	shortname = catalogModels[modelKey]["shortname"];
@@ -734,7 +778,7 @@ determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
 
 	(* Check: Compiled file valid - prefer platform-specific subfolder *)
 	mxFile = resolveCompiledMxFile[compiledDir, shortname];
-	validation = validateCompiledFile[mxFile, savedModel, compileMode, compilerChoice, flattenOpt];
+	validation = validateCompiledFile[mxFile, savedModel, compileMode, compilerChoice, flattenOpt, pdMode];
 	If[!validation["Valid"],
 		Return[<|"MainStage" -> "Compile", "NeedsJacobians" -> compileJacobians,
 			"Reason" -> validation["Reason"]|>]
@@ -761,7 +805,7 @@ determineModelStatus[modelKey_, catalogModels_, savedModels_, manifest_,
 	(* Check jacobians independently - prefer platform-specific subfolder *)
 	If[compileJacobians,
 		With[{jacFile = resolveCompiledMxFile[compiledDir, shortname, "_jacobians"]},
-			validation = validateCompiledFile[jacFile, savedModel, "JacobianOnly", compilerChoice, flattenOpt];
+			validation = validateCompiledFile[jacFile, savedModel, "JacobianOnly", compilerChoice, flattenOpt, pdMode];
 			If[!validation["Valid"],
 				Return[<|"MainStage" -> "UpToDate", "NeedsJacobians" -> True,
 					"Reason" -> "jacobians: " <> validation["Reason"]|>]
@@ -818,29 +862,39 @@ warmupParallelKernels[] := Module[{pacletDir},
 ];
 
 
-(* Pattern 1: Config Association - must come BEFORE OptionsPattern *)
-buildModels[config_Association] :=
-	buildModelsInternal[FernandoDuarte`LongRunRisk`Tools`OptionsConfig`normalizeConfig[config]];
+(* Entry point: accepts options and resolves settings *)
+buildModels[opts___?OptionQ] := Module[
+	{optsList = Flatten@{opts}, settings},
+	settings = resolveBuildSettings[optsList];
+	buildModelsInternal[settings, optsList]
+];
 
-(* Pattern 2: Legacy flat options *)
-buildModels[opts___?OptionQ] :=
-	buildModelsInternal[FernandoDuarte`LongRunRisk`Tools`OptionsConfig`normalizeConfig[{opts}]];
-
-(* Core implementation - accepts normalized config *)
-buildModelsInternal[config_Association] := With[
+(* Core implementation - accepts resolved settings and original options *)
+buildModelsInternal[settings_Association, opts_List] := With[
 	{
-		fromScratch = config["Build"]["FromScratch"],
-		compileJacobians = config["Build"]["CompileJacobians"],
-		createMoments = config["Build"]["CreateMoments"],
-		numKernels = config["Parallel"]["NumKernels"],
-		maxMaturity = config["Build"]["MaxMaturity"],
-		modelFilter = config["Build"]["Models"],
-		fileSuffix = config["Build"]["FileSuffix"],
-		updateManifest = config["Build"]["UpdateManifest"],
-		verbose = config["Build"]["Verbose"],
-		(* Compile options for hash validation *)
-		compileMode = config["Compile"]["CompileMode"],
-		compilerChoice = config["Compile"]["Compiler"]
+		fromScratch = settings["FromScratch"],
+		compileJacobians = settings["CompileJacobians"],
+		createMoments = settings["CreateMoments"],
+		numKernels = settings["NumKernels"],
+		buildMaxMaturity = settings["BuildMaxMaturity"],
+		modelFilter = settings["Models"],
+		fileSuffix = settings["FileSuffix"],
+		updateManifest = settings["UpdateManifest"],
+		verbose = settings["Verbose"],
+		compileMode = settings["CompileMode"],
+		compilerChoice = settings["Compiler"],
+		flattenOpt = settings["FlattenExpressions"],
+		pdMode = settings["PdEquations"],
+		(* Stage-specific option filters *)
+		symbolicStageOpts = FilterRules[opts, Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem]],
+		compileStageOpts = FilterRules[opts, Join[
+			Options[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel],
+			Options[Compile], Options[FunctionCompile]
+		]],
+		numericalStageOpts = FilterRules[opts, Join[
+			Options[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs],
+			Options[FindRoot], Options[RecurrenceTable]
+		]]
 	},
 	Module[
 		{
@@ -913,7 +967,7 @@ buildModelsInternal[config_Association] := With[
 		modelStatuses = Association @ Table[
 			k -> determineModelStatus[k, catalogModels, savedModels, manifest,
 				compiledDir, momentsDir, compileJacobians, createMoments,
-				compileMode, compilerChoice],
+				compileMode, compilerChoice, flattenOpt, pdMode],
 			{k, Keys[enabledModels]}
 		];
 
@@ -973,7 +1027,7 @@ buildModelsInternal[config_Association] := With[
 			(* run symbolic processing *)
 			model = First @ Values @ FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
 				KeyTake[catalogModels, {modelKey}],
-				FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Symbolic"]
+				Sequence @@ symbolicStageOpts
 			];
 			logMemory["Phase1 processModels done: " <> shortname];
 
@@ -1001,7 +1055,7 @@ buildModelsInternal[config_Association] := With[
 			compiledFile = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 				processedModels[shortname],
 				compiledDir,
-				FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Compile"]
+				Sequence @@ compileStageOpts
 			];
 			logMemory["Phase2 END: " <> shortname];
 			, {modelKey, compileModels}
@@ -1047,7 +1101,9 @@ buildModelsInternal[config_Association] := With[
 				shortname = catalogModels[modelKey]["shortname"];
 				logMemory["Phase3 START: " <> shortname];
 				With[{solN = FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[
-					processedModels[shortname]
+					processedModels[shortname],
+					buildMaxMaturity,
+					Sequence @@ numericalStageOpts
 				]},
 				processedModels[shortname] = Append[processedModels[shortname], "coeffsSolutionN" -> solN];
 				(* Verify coeffsSolutionN was computed correctly *)
@@ -1102,8 +1158,7 @@ buildModelsInternal[config_Association] := With[
 						(* Create moments database *)
 						FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`createDatabase[
 							processedModels[shortname],
-							momentsFile,
-							FernandoDuarte`LongRunRisk`Tools`OptionsConfig`splitConfig[config, "Moments"]
+							momentsFile
 						];
 
 						(* Compute hash and save metadata *)
@@ -1365,15 +1420,17 @@ getModelPipelineStatus[] := getModelPipelineStatus[All];
 
 getModelPipelineStatus[shortnames_] := Module[
 	{root, catalogModels, savedModels, manifest, compiledDir, momentsDir,
-	 enabledModels, modelKeys, result, config, compileMode, compilerChoice},
+	 enabledModels, modelKeys, result, settings, compileMode, compilerChoice, flattenOpt, pdMode},
 
 	root = findPacletRoot[];
 	If[root === $Failed, Return[$Failed]];
 
-	(* Load config for compile options *)
-	config = FernandoDuarte`LongRunRisk`Tools`OptionsConfig`normalizeConfig[{}];
-	compileMode = config["Compile"]["CompileMode"];
-	compilerChoice = config["Compile"]["Compiler"];
+	(* Resolve settings from defaults *)
+	settings = resolveBuildSettings[{}];
+	compileMode = settings["CompileMode"];
+	compilerChoice = settings["Compiler"];
+	flattenOpt = settings["FlattenExpressions"];
+	pdMode = settings["PdEquations"];
 
 	(* Load all required data *)
 	catalogModels = getCatalogModels[];
@@ -1397,7 +1454,7 @@ getModelPipelineStatus[shortnames_] := Module[
 	result = Association @ Table[
 		catalogModels[key]["shortname"] ->
 			determineModelStatus[key, catalogModels, savedModels, manifest,
-				compiledDir, momentsDir, False, True, compileMode, compilerChoice],
+				compiledDir, momentsDir, False, True, compileMode, compilerChoice, flattenOpt, pdMode],
 		{key, modelKeys}
 	];
 

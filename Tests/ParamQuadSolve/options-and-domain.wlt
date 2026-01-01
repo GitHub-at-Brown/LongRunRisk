@@ -59,13 +59,13 @@ VerificationTest[
   Module[{x, y, sg, eq, vars, rSign, signHeadOK},
     eq = {x^2 - 5 == 0, y + 2 x - 3 == 0};
     vars = {x, y};
-    rSign = Quiet[pqs[eq, vars, "SignSymbol" -> sg, "DomainOption" -> Reals], {Power::infy, Infinity::indet}];
+    rSign = Quiet[pqs[eq, vars, "SymbolicSignSymbol" -> sg, "DomainOption" -> Reals], {Power::infy, Infinity::indet}];
     signHeadOK = And @@ (Head /@ Keys[rSign["SignRootMap"]] === Table[sg, {Length[Keys[rSign["SignRootMap"]]]}]);
     signHeadOK
   ],
   True,
   {},
-  TestID -> "signsymbol-head@@Tests/ParamQuadSolve/options-and-domain.wlt:58,1-69,2"
+  TestID -> "symbolicsignsymbol-head@@Tests/ParamQuadSolve/options-and-domain.wlt:58,1-69,2"
 ]
 
 VerificationTest[
