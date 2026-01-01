@@ -924,7 +924,7 @@ tryTransforms[
 				simplifyOne = Function[{tr},
 					Assuming[
 						ass,
-						Quiet[Simplify[expr /. tr, Sequence @@ simplifyOpts], {Simplify::time}]
+						Quiet[Simplify[expr /. tr, Sequence @@ simplifyOpts], {Simplify::time, Simplify::gtime}]
 					]
 				],
 				nKernels = Min[Length[transformsList], $ProcessorCount]
@@ -944,7 +944,7 @@ tryTransforms[
 					LocalEvaluate[
 						Block[{$HistoryLength = 0},
 							Table[
-								Assuming[localAss, Quiet[Simplify[localExpr /. transform, Sequence @@ localOpts], {Simplify::time}]],
+								Assuming[localAss, Quiet[Simplify[localExpr /. transform, Sequence @@ localOpts], {Simplify::time, Simplify::gtime}]],
 								{transform, localTransforms}
 							]
 						]
