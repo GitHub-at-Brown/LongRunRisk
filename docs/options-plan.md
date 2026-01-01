@@ -74,7 +74,7 @@ This creates multiple “sources of truth” for defaults, because many defaults
 Example mismatches (pre‑refactor):
 
 - `buildModels // Options` says `"CompileJacobians" -> False` but `OptionsConfig` sets `"CompileJacobians" -> True`.
-- `buildKernel // Options` says `"PerformanceGoal" -> "Speed"` but `OptionsConfig` sets `"PerformanceGoal" -> "Quality"`.
+- `buildKernel // Options` says `"PerformanceGoal" -> "Speed"` and `OptionsConfig` now also sets `"PerformanceGoal" -> "Speed"`.
 - `buildKernel // Options` says `"CompileMode" -> "FunctionOnly"` but `OptionsConfig` sets `"CompileMode" -> "Both"`.
 
 ### 2) `SignSymbol` is overloaded (symbolic vs compile)
@@ -235,7 +235,7 @@ Options[paramQuadSolve] = {
     "GroebnerMemoryFraction" -> 0.5,  (* fraction of MemoryAvailable[] to use *)
     "GroebnerMemoryFloor" -> 1*1024^3,  (* minimum memory limit in bytes *)
     "GroebnerMemoryCap" -> 16*1024^3,  (* maximum memory limit in bytes *)
-    "Verbose" -> False  (* whether to print memory usage during solving *)
+    "Verbose" -> True  (* whether to print memory usage during solving *)
 };
 ```
 Replace with:
@@ -255,7 +255,7 @@ Options[paramQuadSolve] = {
     "GroebnerMemoryFraction" -> 0.5,  (* fraction of MemoryAvailable[] to use *)
     "GroebnerMemoryFloor" -> 1*1024^3,  (* minimum memory limit in bytes *)
     "GroebnerMemoryCap" -> 16*1024^3,  (* maximum memory limit in bytes *)
-    "Verbose" -> False  (* whether to print memory usage during solving *)
+    "Verbose" -> True  (* whether to print memory usage during solving *)
 };
 ```
 
@@ -564,7 +564,7 @@ buildModels // Options = {
     "PdEquations" -> "B",
     "FileSuffix" -> "",
     "UpdateManifest" -> True,
-    "Verbose" -> False
+    "Verbose" -> True
 };
 ```
 Replace with:
@@ -578,7 +578,7 @@ buildModels // Options = {
     "Models" -> All,
     "FileSuffix" -> "",
     "UpdateManifest" -> True,
-    "Verbose" -> False
+    "Verbose" -> True
 };
 ```
 

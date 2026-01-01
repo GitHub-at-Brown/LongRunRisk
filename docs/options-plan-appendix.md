@@ -3416,7 +3416,7 @@ ORCHESTRATION LAYER
 
 | Location | What happens |
 |----------|--------------|
-| Line 98 | Default: `"PerformanceGoal" -> "Quality"` (commented: `"Speed"`) |
+| Line 98 | Default: `"PerformanceGoal" -> "Speed"` |
 
 ### `normalizeConfig` in `Kernel/Tools/OptionsConfig.wl`
 
@@ -4198,13 +4198,13 @@ buildModels["PerformanceGoal" -> "Speed", "RuntimeOptions" -> Automatic]
   → Compile[..., RuntimeOptions -> "Speed", ...]
 ```
 
-### Path C: Automatic with PerformanceGoal="Quality"
+### Path C: Automatic with PerformanceGoal="Speed"
 ```
-buildModels["PerformanceGoal" -> "Quality", "RuntimeOptions" -> Automatic]
+buildModels["PerformanceGoal" -> "Speed", "RuntimeOptions" -> Automatic]
   → ... → buildKernel
-  → perfGoal = "Quality"
-  → No RuntimeOptions default added
-  → Compile uses its own default
+  → perfGoal = "Speed"
+  → RuntimeOptions -> "Speed" added
+  → Compile uses speed optimizations
 ```
 
 ## Interaction with PerformanceGoal

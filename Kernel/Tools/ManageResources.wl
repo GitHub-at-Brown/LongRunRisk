@@ -573,7 +573,7 @@ buildModels // Options = {
 	"Models" -> All,  (* All or list of shortnames *)
 	"FileSuffix" -> "",  (* suffix for checkpoint files; "_BY" writes to Models_BY.wl *)
 	"UpdateManifest" -> True,  (* whether to update ModelManifest.wl at end *)
-	"Verbose" -> False  (* whether to print memory usage during pipeline *)
+	"Verbose" -> True  (* whether to print memory usage during pipeline *)
 };
 
 

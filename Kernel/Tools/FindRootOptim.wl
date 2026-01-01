@@ -90,7 +90,7 @@ buildKernel // Options = {
 	"CoeffName" -> "A",
 	"CompileSignSymbol" -> "signA",
 	"PerformanceGoal" -> "Speed", (* "Speed" | "Quality" *)
-	"CompileMode" -> "FunctionOnly",  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
+	"CompileMode" -> "Both",  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
 	"Compiler" -> "Compile",  (* "Compile" | "FunctionCompile" - Compile uses C target *)
 	"FlattenExpressions" -> Automatic,  (* True | False | Automatic (auto at LeafCount > 5000) *)
 	"AllowCompileDuringCoverage" -> False  (* True to force compilation even during coverage *)

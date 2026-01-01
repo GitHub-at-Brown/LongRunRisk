@@ -18,7 +18,7 @@ VerificationTest[
     True | $Failed,
     SameTest -> MatchQ,
     TimeConstraint -> timeLimit,
-    TestID -> "InstallOptionsValidationRules-returns-true@@Tests/Infrastructure/OptionsValidationRules.wlt:11,1-16,2"
+    TestID -> "InstallOptionsValidationRules-returns-true@@Tests/Infrastructure/OptionsValidationRules.wlt:11,1-22,2"
 ]
 
 (* Test: buildModels with invalid FromScratch value triggers warning *)
@@ -45,7 +45,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "buildModels-invalid-FromScratch-triggers-validation@@Tests/Infrastructure/OptionsValidationRules.wlt:20,1-39,2"
+    TestID -> "buildModels-invalid-FromScratch-triggers-validation@@Tests/Infrastructure/OptionsValidationRules.wlt:26,1-49,2"
 ]
 
 End[]
