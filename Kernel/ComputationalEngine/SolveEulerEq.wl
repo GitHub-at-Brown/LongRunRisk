@@ -839,8 +839,7 @@ solveCoeffRoots[
           extraParams (* putting extra params last in Join takes priority and overwrites paramsBase *)
         ],
         cName       = Lookup[savedKernel, "CoeffName"],
-        (* Support both new key "CompileSignSymbol" and legacy key "SignSymbol" *)
-        sName       = Lookup[savedKernel, "CompileSignSymbol", Lookup[savedKernel, "SignSymbol"]],
+        sName       = Lookup[savedKernel, "CompileSignSymbol"],
         extractOpts = FilterRules[Flatten@{opts}, Options[extractIntervalsFromReduce]],
         scanOpts    = FilterRules[
           Flatten@{opts},

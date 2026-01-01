@@ -679,8 +679,7 @@ jSym = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j;
 VerificationTest[
     Module[{kernels, signSymbol},
       kernels = loadKernels["BY"];
-      (* Support both new key "CompileSignSymbol" and legacy key "SignSymbol" *)
-      signSymbol = Lookup[kernels["WcKernel"], "CompileSignSymbol", Lookup[kernels["WcKernel"], "SignSymbol"]];
+      signSymbol = Lookup[kernels["WcKernel"], "CompileSignSymbol"];
 
       (* Sign symbol should be "signA" for wc kernel *)
       StringQ[signSymbol] && signSymbol === "signA"
@@ -774,8 +773,7 @@ jSym = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j;
 VerificationTest[
     Module[{kernels, signSymbol},
       kernels = loadKernels["BY"];
-      (* Support both new key "CompileSignSymbol" and legacy key "SignSymbol" *)
-      signSymbol = Lookup[kernels["PdKernel"], "CompileSignSymbol", Lookup[kernels["PdKernel"], "SignSymbol"]];
+      signSymbol = Lookup[kernels["PdKernel"], "CompileSignSymbol"];
 
       (* Sign symbol should be "signB" for pd kernel *)
       StringQ[signSymbol] && signSymbol === "signB"
