@@ -47,14 +47,6 @@ installPacletizedResourceFunctions[] := Module[{},
 			ForceVersionInstall -> True
 		]
 	];
-
-	(* Warm up DefinitionData to avoid Symbol::symname message; disable internet to prevent cloud auth prompts *)
-	Quiet[
-		Block[{$AllowInternet = False},
-			Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]
-		],
-		URLSubmit::offline
-	];
 ]
 
 

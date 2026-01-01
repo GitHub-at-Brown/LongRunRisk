@@ -84,9 +84,9 @@ buildKernel//Options = {
 	"CoeffName" -> "A",
 	"SignSymbol" -> "signA",
 	"PerformanceGoal" -> "Quality", (* "Speed" | "Quality" *)
-	"CompileMode" -> "FunctionOnly",  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
-	"Compiler" -> "Compile",  (* "Compile" | "FunctionCompile" - Compile uses C target *)
-	"FlattenExpressions" -> Automatic,  (* True | False | Automatic (auto at LeafCount > 5000) *)
+	"CompileMode" -> "Both",  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
+	"Compiler" -> "FunctionCompile",  (* "Compile" | "FunctionCompile" - Compile uses C target *)
+	"FlattenExpressions" -> True,  (* True | False | Automatic (auto at LeafCount > 5000) *)
 	"AllowCompileDuringCoverage" -> False  (* True to force compilation even during coverage *)
 };
 
@@ -155,36 +155,30 @@ buildKernel[
     z = Values@zRules;
     body  = N[body, MachinePrecision];
 
-    (* Apply expression flattening if requested - ONLY for FunctionOnly mode *)
-    (* D[Inactive[Module][...], x] produces garbage, so cannot flatten for Jacobian *)
+    (* Apply expression flattening if requested - EXPERIMENTAL: flatten both function and Jacobian *)
+    (* WARNING: D[Inactive[Module][...], x] may produce garbage - this is an experiment *)
     flattenOpt = OptionValue["FlattenExpressions"];
-    {flatBody, flatType} = If[
-        compileMode === "FunctionOnly",
-        With[{lc = LeafCount[body]},
-            Switch[flattenOpt,
-                True,
+    {flatBody, flatType} = With[{lc = LeafCount[body]},
+        Switch[flattenOpt,
+            True,
+            flattenForCompileBody[body],
+            Automatic,
+            If[lc > 5000,
                 flattenForCompileBody[body],
-                Automatic,
-                If[lc > 5000,
-                    flattenForCompileBody[body],
-                    {body, Automatic}
-                ],
-                _,
                 {body, Automatic}
-            ]
-        ],
-        (* For JacobianOnly or Both: no flattening *)
-        {body, Automatic}
+            ],
+            _,
+            {body, Automatic}
+        ]
     ];
+    Echo[Head[flatBody], "Head of flatBody immediately after assignment"];
+    Echo[Short[flatBody, 2], "flatBody value (abbreviated)"];
 
     compileOpts = If[compiler === "FunctionCompile",
       (* FunctionCompile options *)
       Join[
         FilterRules[Flatten@{opts}, Options[FunctionCompile]],
-        If[perfGoal === "Speed",
-          {CompilerRuntimeErrorAction -> None, CompilerOptions -> {"AbortHandling" -> False, "OptimizationLevel" -> 0}},
-          {CompilerRuntimeErrorAction -> None, CompilerOptions -> {"OptimizationLevel" -> 4}}
-        ]
+        {CompilerRuntimeErrorAction -> None, CompilerOptions -> {"OptimizationLevel" -> 4}}
       ],
       (* Compile options - user options take precedence, then apply defaults *)
       Module[{userOpts = FilterRules[Flatten@{opts}, Options[Compile]], defaults},
@@ -233,6 +227,11 @@ buildKernel[
 		(* allowCompileDuringCoverage: if True, skip the coverage check and compile anyway *)
 		compileWithDiagnostics[func_, label_String, compOpts_List, useCompiler_String, allowCompileDuringCoverage_:False] := Module[
 		  {result},
+      Echo[label,"label"];
+      Echo[func,"func"];
+      Echo[compOpts,"compOpts"];
+      Echo[useCompiler,"useCompiler"];
+
 
 		  (* Skip compilation during coverage to avoid Instrumentation paclet crash *)
 		  If[!TrueQ[allowCompileDuringCoverage] && insideCoverageEvaluate[],
@@ -245,6 +244,9 @@ buildKernel[
 		    result = MemoryConstrained[
 		      If[useCompiler === "FunctionCompile",
 		        (* FunctionCompile path *)
+            Echo[Options[FunctionCompile],"FunctionCompile Options"];
+            Echo[compOpts,"compOpts"];
+
 		        FunctionCompile[func, Sequence @@ compOpts],
 		        (* Compile path - extract args and body from Function, convert types *)
 		        With[{
@@ -279,69 +281,157 @@ buildKernel[
 				b=body,
 				bType=inferType[body]
 			},
+			Echo[compileMode, "compileMode value"];
 			Switch[compileMode,
 				"FunctionOnly",
 				With[{
 					b2 = flatBody,
 					bType2 = If[flatType === Automatic, inferType[flatBody], flatType]
 				},
+					Echo[Head[flatBody], "Head of flatBody"];
+					Echo[Head[b2], "Head of b2"];
+					Echo[MatchQ[Head[b2], Inactive[_]], "Is b2 Inactive?"];
 					{
 						If[MatchQ[Head[b2], Inactive[_]],
 							(* Flattened: use Activate pattern *)
 							(* Note: Head[Inactive[Module][...]] is Inactive[Module], not Inactive *)
+							(Echo["Taking FLATTENED path"];
 							compileWithDiagnostics[
 								Activate[Inactive[Function][args, Inactive[TypeHint][b2, bType2]]],
 								"f (function)",
 								compileOpts,
 								compiler,
 								allowCompileDuringCoverage
-							],
+							]),
 							(* Not flattened: original path *)
+							(Echo["Taking UNFLATTENED path"];
 							compileWithDiagnostics[
 								Function[Evaluate@args, Evaluate@TypeHint[b2, bType2]],
 								"f (function)",
 								compileOpts,
 								compiler,
 								allowCompileDuringCoverage
-							]
+							])
 						],
 						Missing["NotCompiled"]
 					}
 				],
 				"JacobianOnly",
 				With[{db = N[D[body, {z}], MachinePrecision]},
-					With[{dbType = inferType[db]},
-						{
-							Missing["NotCompiled"],
-							compileWithDiagnostics[
-								Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
-								"df (jacobian)",
-								compileOpts,
-								compiler,
-								allowCompileDuringCoverage
+					(* Apply flattening to jacobian using same logic as for function *)
+					With[{
+						flatDbPair = With[{lc = LeafCount[db]},
+							Switch[flattenOpt,
+								True,
+								flattenForCompileBody[db],
+								Automatic,
+								If[lc > 5000,
+									flattenForCompileBody[db],
+									{db, Automatic}
+								],
+								_,
+								{db, Automatic}
 							]
-						}
+						]
+					},
+						With[{
+							flatDb = flatDbPair[[1]],
+							flatDbType = If[flatDbPair[[2]] === Automatic, inferType[flatDbPair[[1]]], flatDbPair[[2]]]
+						},
+							Echo[Head[flatDb], "Head of flatDb (jacobian)"];
+							Echo[MatchQ[Head[flatDb], Inactive[_]], "Is flatDb Inactive?"];
+							{
+								Missing["NotCompiled"],
+								If[MatchQ[Head[flatDb], Inactive[_]],
+									(* Flattened jacobian *)
+									(Echo["Taking FLATTENED jacobian path"];
+									compileWithDiagnostics[
+										Activate[Inactive[Function][args, Inactive[TypeHint][flatDb, flatDbType]]],
+										"df (jacobian)",
+										compileOpts,
+										compiler,
+										allowCompileDuringCoverage
+									]),
+									(* Unflattened jacobian *)
+									(Echo["Taking UNFLATTENED jacobian path"];
+									compileWithDiagnostics[
+										Function[Evaluate@args,Evaluate@TypeHint[flatDb, flatDbType]],
+										"df (jacobian)",
+										compileOpts,
+										compiler,
+										allowCompileDuringCoverage
+									])
+								]
+							}
+						]
 					]
 				],
 				"Both",
 				With[{db = N[D[body, {z}], MachinePrecision]},
-					With[{dbType = inferType[db]},
-						{
-							compileWithDiagnostics[
-								Function[Evaluate@args,Evaluate@TypeHint[b,bType]],
-								"f (function)",
-								compileOpts,
-								compiler,
-								allowCompileDuringCoverage
-							],
-							compileWithDiagnostics[
-								Function[Evaluate@args,Evaluate@TypeHint[db,dbType]],
-								"df (jacobian)",
-								compileOpts,
-								compiler,
-								allowCompileDuringCoverage
+					(* Apply flattening to jacobian using same logic as for function *)
+					With[{
+						flatDbPair = With[{lc = LeafCount[db]},
+							Switch[flattenOpt,
+								True,
+								flattenForCompileBody[db],
+								Automatic,
+								If[lc > 5000,
+									flattenForCompileBody[db],
+									{db, Automatic}
+								],
+								_,
+								{db, Automatic}
 							]
-						}
+						]
+					},
+						With[{
+							flatDb = flatDbPair[[1]],
+							flatDbType = If[flatDbPair[[2]] === Automatic, inferType[flatDbPair[[1]]], flatDbPair[[2]]]
+						},
+							Echo["Both mode - using flatBody for function and flatDb for jacobian"];
+							Echo[Head[flatDb], "Head of flatDb (jacobian)"];
+							Echo[MatchQ[Head[flatDb], Inactive[_]], "Is flatDb Inactive?"];
+							{
+								If[MatchQ[Head[flatBody], Inactive[_]],
+									(* Flattened function *)
+									compileWithDiagnostics[
+										Activate[Inactive[Function][args, Inactive[TypeHint][flatBody, flatType]]],
+										"f (function)",
+										compileOpts,
+										compiler,
+										allowCompileDuringCoverage
+									],
+									(* Unflattened function *)
+									compileWithDiagnostics[
+										Function[Evaluate@args,Evaluate@TypeHint[flatBody, flatType]],
+										"f (function)",
+										compileOpts,
+										compiler,
+										allowCompileDuringCoverage
+									]
+								],
+								If[MatchQ[Head[flatDb], Inactive[_]],
+									(* Flattened jacobian *)
+									(Echo["Taking FLATTENED jacobian path"];
+									compileWithDiagnostics[
+										Activate[Inactive[Function][args, Inactive[TypeHint][flatDb, flatDbType]]],
+										"df (jacobian)",
+										compileOpts,
+										compiler,
+										allowCompileDuringCoverage
+									]),
+									(* Unflattened jacobian *)
+									(Echo["Taking UNFLATTENED jacobian path"];
+									compileWithDiagnostics[
+										Function[Evaluate@args,Evaluate@TypeHint[flatDb, flatDbType]],
+										"df (jacobian)",
+										compileOpts,
+										compiler,
+										allowCompileDuringCoverage
+									])
+								]
+							}
+						]
 					]
 				],
 				_, (* invalid CompileMode *)
@@ -1220,7 +1310,11 @@ flattenForCompileBody[expr_] := Module[
         300,  (* 5 minute timeout *)
         $Failed
     ];
+    Echo[result === $Failed, "RecursiveRewrite timed out?"];
     If[result === $Failed, Return[{expr, returnType}]];
+
+    Echo[MatchQ[result, {_String, {__RuleDelayed}}], "RecursiveRewrite format OK?"];
+    Echo[Short[result, 3], "RecursiveRewrite result"];
     If[!MatchQ[result, {_String, {__RuleDelayed}}],
         Return[{expr, returnType}]
     ];
@@ -1232,6 +1326,7 @@ flattenForCompileBody[expr_] := Module[
     compRules = Cases[rules, (v_ :> val_) /; !FreeQ[val, _String]];
 
     (* If no computed rules, return original *)
+    Echo[Length[compRules], "Number of computed rules"];
     If[Length[compRules] == 0, Return[{expr, returnType}]];
 
     (* Create unique symbols for intermediate variables *)

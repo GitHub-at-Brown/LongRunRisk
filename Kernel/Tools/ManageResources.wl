@@ -575,7 +575,7 @@ buildModels // Options = {
 	"PdEquations" -> "B",  (* "B" | "AB" | "Both" - controls which pd equations to compute/compile *)
 	"FileSuffix" -> "",  (* suffix for checkpoint files; "_BY" writes to Models_BY.wl *)
 	"UpdateManifest" -> True,  (* whether to update ModelManifest.wl at end *)
-	"Verbose" -> False  (* whether to print memory usage during pipeline *)
+	"Verbose" -> True  (* whether to print memory usage during pipeline *)
 };
 
 
@@ -620,10 +620,11 @@ saveModels[models_Association, file_String] := Module[{dataModels, modelsData},
 	dataModels = PacletizedResourceFunctions`DefinitionData[modelsData];
 	(* Ensure correct context before saving - prevents shadowing issues *)
 	dataModels = PacletizedResourceFunctions`DefinitionData @@ List @@ dataModels;
-	(* Block $ContextPath so Put writes full context prefix *)
-	Block[{$ContextPath = {"System`"}},
-		Put[dataModels, file]
-	];
+	(* Trigger formatting before Put to avoid Symbol::symname warning.
+	   ToBoxes triggers clean serialization path that produces ByteArray directly,
+	   whereas Put without prior formatting uses WithContext wrapper and warns. *)
+	ToBoxes[dataModels];
+	Put[dataModels, file];
 	file
 ];
 
@@ -798,14 +799,6 @@ warmupParallelKernels[] := Module[{pacletDir},
 	(* Find paclet root directory *)
 	pacletDir = findPacletRoot[];
 	If[!StringQ[pacletDir], Return[$Failed]];
-
-	(* Needs["PacletizedResourceFunctions`"]; *)
-	Quiet[
-		Block[{$AllowInternet = False},
-			Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]
-		],
-		URLSubmit::offline
-	];
 
 	(* Register paclet and load required packages on parallel kernels *)
 	ParallelEvaluate[

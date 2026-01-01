@@ -82,7 +82,7 @@ Options[paramQuadSolve] = {
   "GroebnerMemoryFraction" -> 0.5,  (* fraction of MemoryAvailable[] to use *)
   "GroebnerMemoryFloor" -> 1*1024^3,  (* minimum memory limit in bytes *)
   "GroebnerMemoryCap" -> 16*1024^3,  (* maximum memory limit in bytes *)
-  "Verbose" -> False  (* whether to print memory usage during solving *)
+  "Verbose" -> True  (* whether to print memory usage during solving *)
 };
 
 Options[simplifyWithDummySubstitution] = {
@@ -147,7 +147,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         dens, denConds, canPolys, coeffMap, seqRes, solved, signMap, signRadMap, leftover, steps, solRules,
         signRootMap, conditions, verif, out, t0, t1, solRulesDesym, signRootMapDesym, signRadMapDesym, diagExtra,
         radicandsRaw, uniqueRadicands, radicandConditions, signVars, signAssumptions, fullAss,
-        methodTag, allowGroebner, logMemory, varHead, varContexts, useLocalEvaluate},
+        methodTag, allowGroebner, logMemory},
 
         (* Memory logging helper *)
         logMemory[label_String] := If[TrueQ[verbose],
@@ -169,9 +169,6 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         (* Input validation *)
         If[vars === {}, Message[paramQuadSolve::emptyvar]; Return[$Failed]];
         If[eqns === {}, Message[paramQuadSolve::emptyeq]; Return[$Failed]];
-        varHead[v_] := If[Head[v] === Symbol, v, Head[v]];
-        varContexts = Context /@ (varHead /@ vars);
-        useLocalEvaluate = AllTrue[varContexts, MemberQ[{"Global`", "System`"}, #] &];
         t0 = AbsoluteTime[];
         logMemory["START"];
         pairsFull = toPolyAndDen /@ eqns;
@@ -230,13 +227,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
           With[{localCanPolys = canPolys, localVarsToSolve = varsToSolve, localAss = ass,
                 localSignHead = signHead, localGbOrder = gbOrderUsed, localAllowGroebner = allowGroebner,
                 localGbMemLimit = gbMemLimit, localSimpBudget = simpBudget},
-            If[useLocalEvaluate,
-              LocalEvaluate[
-                Block[{$HistoryLength = 0},
-                  sequentialSolve[localCanPolys, localVarsToSolve, localAss, localSignHead,
-                                  localGbOrder, localAllowGroebner, localGbMemLimit, localSimpBudget]
-                ]
-              ],
+            LocalEvaluate[
               Block[{$HistoryLength = 0},
                 sequentialSolve[localCanPolys, localVarsToSolve, localAss, localSignHead,
                                 localGbOrder, localAllowGroebner, localGbMemLimit, localSimpBudget]
@@ -283,12 +274,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         (* Apply square root simplification *)
         {signRootMapDesym, signRadMapDesym} = With[
           {localSignRootMap = signRootMapDesym, localSignRadMap = signRadMapDesym, localFullAss = fullAss},
-          If[useLocalEvaluate,
-            LocalEvaluate[
-              Block[{$HistoryLength = 0},
-                simplifySignMap[localSignRootMap, localSignRadMap, localFullAss]
-              ]
-            ],
+          LocalEvaluate[
             Block[{$HistoryLength = 0},
               simplifySignMap[localSignRootMap, localSignRadMap, localFullAss]
             ]
@@ -366,43 +352,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
           TimeConstrained[
             With[{localEqnsUsed = eqnsUsed, localSolRulesDesym = solRulesDesym,
                   localSignHead = signHead, localFullAss = fullAss, localSimpBudget = simpBudget},
-              If[useLocalEvaluate,
-                LocalEvaluate[
-                  Block[{$HistoryLength = 0},
-                    Module[{polys0, exprs, zeroQuick, checked},
-                      polys0 = Subtract @@@ localEqnsUsed;
-                      exprs = normalizeSigns[polys0 /. localSolRulesDesym, localSignHead];
-                      zeroQuick = PossibleZeroQ[#, Assumptions -> localFullAss] & /@ exprs;
-                      checked = MapIndexed[
-                        Function[{pair, idx},
-                          With[{zq = pair[[1]], expr = pair[[2]]},
-                            If[zq === True,
-                              True,
-                              Module[{noAss, withAss},
-                                noAss = TimeConstrained[
-                                  Quiet[Simplify[expr == 0, TimeConstraint -> localSimpBudget], {Simplify::time}],
-                                  localSimpBudget + 0.5,
-                                  expr == 0 (* unchanged on timeout *)
-                                ];
-                                If[TrueQ[noAss],
-                                  True,
-                                  withAss = TimeConstrained[
-                                    Quiet[Simplify[expr == 0, Assumptions -> localFullAss, TimeConstraint -> localSimpBudget], {Simplify::time}],
-                                    localSimpBudget + 0.5,
-                                    expr == 0
-                                  ];
-                                  withAss
-                                ]
-                              ]
-                            ]
-                          ]
-                        ],
-                        Transpose[{zeroQuick, exprs}]
-                      ];
-                      checked
-                    ]
-                  ]
-                ],
+              LocalEvaluate[
                 Block[{$HistoryLength = 0},
                   Module[{polys0, exprs, zeroQuick, checked},
                     polys0 = Subtract @@@ localEqnsUsed;
