@@ -819,14 +819,7 @@ buildModels[opts : OptionsPattern[{
 	FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem,
 	FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs,
 	FindRoot, RecurrenceTable, Compile, FunctionCompile
-}]] := With[
-	{
-		(* Ensure dependent owners are loaded for OptionValue *)
-		dummy1 = PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"],
-		dummy2 = PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ProcessModels`"],
-		dummy3 = PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"]
-	},
-	With[{
+}]] := With[{
 		(* Simple OptionValue extraction - works because all owners are in OptionsPattern *)
 		fromScratch = OptionValue["FromScratch"],
 		compileJacobians = OptionValue["CompileJacobians"],
@@ -1147,7 +1140,7 @@ buildModels[opts : OptionsPattern[{
 
 		processedModels
 	]
-]];
+];
 
 
 (* === buildModelsParallel - parallel orchestrator === *)
