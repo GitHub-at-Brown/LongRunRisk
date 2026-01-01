@@ -283,25 +283,19 @@ $pacletRoot = Module[{d},
 
 
 loadModelKernels[shortname_String] := Module[
-  {file, fileNew, fileLegacy, data},
+  {file, data},
 
   (* Return cached if available *)
   If[KeyExistsQ[$kernelCache, shortname],
     Return[$kernelCache[shortname]]
   ];
 
-  (* Build file path - prefer platform-specific subfolder; fall back to legacy flat layout *)
-  fileNew = FileNameJoin[{$pacletRoot, "Resources", "CompiledFunctions", $SystemID, shortname <> ".mx"}];
-  fileLegacy = FileNameJoin[{$pacletRoot, "Resources", "CompiledFunctions", shortname <> ".mx"}];
-  file = Which[
-    FileExistsQ[fileNew], fileNew,
-    FileExistsQ[fileLegacy], fileLegacy,
-    True, fileNew
-  ];
+  (* Build file path using platform-specific subfolder *)
+  file = FileNameJoin[{$pacletRoot, "Resources", "CompiledFunctions", $SystemID, shortname <> ".mx"}];
 
   (* Check file exists *)
   If[!FileExistsQ[file],
-    Message[loadModelKernels::nofile, shortname, StringRiffle[{fileNew, fileLegacy}, " or "]];
+    Message[loadModelKernels::nofile, shortname, file];
     Return[$Failed]
   ];
 
