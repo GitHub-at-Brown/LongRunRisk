@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     10737,        277]
-NotebookOptionsPosition[      9716,        251]
-NotebookOutlinePosition[     10196,        269]
-CellTagsIndexPosition[     10153,        266]
+NotebookDataLength[     14135,        363]
+NotebookOptionsPosition[     12900,        334]
+NotebookOutlinePosition[     13377,        352]
+CellTagsIndexPosition[     13334,        349]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -34,6 +34,17 @@ Cell[BoxData[
  InitializationCell->False,
  CellLabel->"In[1]:=",ExpressionUUID->"6cc0a46a-f018-41a4-86af-a98edd5e79bb"],
 
+Cell[BoxData[{
+ RowBox[{"PacletUninstall", "[", "\"\<FernandoDuarte/LongRunRisk\>\"", 
+  "]"}], "\n", 
+ RowBox[{"PacletUninstall", "[", "\"\<PacletizedResourceFunctions\>\"", 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.97620516165823*^9, 3.976205166166566*^9}, 
+   3.976205196878624*^9, {3.976205355853696*^9, 3.976205356252873*^9}, {
+   3.976205671632204*^9, 
+   3.976205673720716*^9}},ExpressionUUID->"ebe79b79-f51e-49dc-bc75-\
+2d81d98df97c"],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[{
@@ -43,12 +54,16 @@ Cell[BoxData[{
     RowBox[{"NotebookDirectory", "[", "]"}], ",", "1"}], "]"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"PacletDirectoryLoad", "[", "pacletDir", "]"}], ";"}]}], "Input",
- CellLabel->"In[2]:=",ExpressionUUID->"be3bd1cc-731a-41c7-84e0-e3399fb9b507"],
+ CellChangeTimes->{{3.97620516165823*^9, 3.976205166166566*^9}, 
+   3.976205196878624*^9, {3.976205355853696*^9, 3.976205356252873*^9}, {
+   3.976205671632204*^9, 
+   3.976205673720716*^9}},ExpressionUUID->"533f46a0-9c82-4282-be67-\
+266b9a884d5b"],
 
 Cell[BoxData["\<\"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/\
 MyPackages/LongRunRisk/\"\>"], "Output",
- CellChangeTimes->{3.9752535397711163`*^9},
- CellLabel->"Out[2]=",ExpressionUUID->"9e46e7fa-5aff-44c8-811d-ac78db45a7a9"]
+ CellChangeTimes->{3.9762051665996428`*^9, 3.9762056417467613`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"598800f7-08d1-476c-afdd-12b2980c81c5"]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -91,21 +106,88 @@ Cell[BoxData[{
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{
-   RowBox[{"If", "[", 
+  RowBox[{"If", "[", 
+   RowBox[{
     RowBox[{
-     RowBox[{
-      RowBox[{"FileNames", "[", "resourceDir", "]"}], "===", 
-      RowBox[{"{", "}"}]}], ",", 
-     RowBox[{"CreateDirectory", "[", "resourceDir", "]"}]}], "]"}], ";"}], 
-  "\n"}], "\n", 
+     RowBox[{"FileNames", "[", "resourceDir", "]"}], "===", 
+     RowBox[{"{", "}"}]}], ",", 
+    RowBox[{"CreateDirectory", "[", "resourceDir", "]"}]}], "]"}], ";"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"toPacletize", " ", "=", " ", 
     RowBox[{"{", 
      RowBox[{"\"\<NeedsDefinitions\>\"", ",", "\"\<SetSymbolsContext\>\"", 
       ",", "\"\<DefinitionData\>\"", ",", "\"\<RecursiveRewrite\>\""}], 
-     "}"}]}], ";"}], " "}], "\n", 
+     "}"}]}], ";"}], " ", "\n", "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Remove", " ", "the", " ", "resource", " ", "object", " ", "if", " ", "it",
+     " ", "exists"}], "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ResourceRemove", "[", 
+     RowBox[{"ResourceObject", "[", "#", "]"}], "]"}], "&"}], "/@", 
+   "toPacletize"}], "\n", "\n", 
+  RowBox[{"(*", 
+   RowBox[{"Delete", " ", "cache"}], "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"DeleteDirectory", "[", 
+   RowBox[{
+    RowBox[{"FileNameJoin", "[", 
+     RowBox[{"{", 
+      RowBox[{
+      "$UserBaseDirectory", ",", "\"\<ApplicationData\>\"", 
+       ",", "\"\<ResourceSystemClient\>\""}], "}"}], "]"}], ",", 
+    RowBox[{"DeleteContents", "->", "True"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"DeleteDirectory", "[", 
+   RowBox[{
+    RowBox[{"FileNameJoin", "[", 
+     RowBox[{"{", 
+      RowBox[{
+      "$UserBaseDirectory", ",", "\"\<ApplicationData\>\"", 
+       ",", "\"\<FunctionRepository\>\""}], "}"}], "]"}], ",", 
+    RowBox[{"DeleteContents", "->", "True"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"DeleteDirectory", "[", 
+   RowBox[{
+    RowBox[{"FileNameJoin", "[", 
+     RowBox[{"{", 
+      RowBox[{
+      "$UserBaseDirectory", ",", "\"\<ApplicationData\>\"", 
+       ",", "\"\<ResourceSystemClient\>\""}], "}"}], "]"}], ",", 
+    RowBox[{"DeleteContents", "->", "True"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DeleteDirectory", "[", 
+    RowBox[{
+     RowBox[{"FileNameJoin", "[", 
+      RowBox[{"{", 
+       RowBox[{
+       "$UserBaseDirectory", ",", "\"\<ApplicationData\>\"", 
+        ",", "\"\<FunctionRepository\>\""}], "}"}], "]"}], ",", 
+     RowBox[{"DeleteContents", "->", "True"}]}], "]"}], ";"}], "\n", "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Update", " ", "each", " ", "ResourceFunction", " ", "to", " ", "latest", " ",
+     "from", " ", "repository"}], "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ResourceUpdate", "[", 
+    RowBox[{"ResourceObject", "[", "#", "]"}], "]"}], "&"}], "/@", 
+  "toPacletize"}]}], "Code",
+ InitializationCell->False,
+ CellChangeTimes->{{3.9732774439960546`*^9, 3.973277444486072*^9}, {
+   3.973300793957636*^9, 3.973300801902275*^9}, {3.9733030823088093`*^9, 
+   3.973303091196885*^9}, {3.973875804913336*^9, 3.9738758059630127`*^9}, 
+   3.9749917443217697`*^9, {3.9751530860274487`*^9, 3.9751530937275057`*^9}, 
+   3.975200011387603*^9, 3.9762051393843803`*^9, 3.976205370033457*^9, {
+   3.9762055002741737`*^9, 
+   3.976205580793003*^9}},ExpressionUUID->"605abd3f-0626-402e-8123-\
+a27e9f629830"],
+
+Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{
@@ -142,8 +224,9 @@ Cell[BoxData[{
    3.973300793957636*^9, 3.973300801902275*^9}, {3.9733030823088093`*^9, 
    3.973303091196885*^9}, {3.973875804913336*^9, 3.9738758059630127`*^9}, 
    3.9749917443217697`*^9, {3.9751530860274487`*^9, 3.9751530937275057`*^9}, 
-   3.975200011387603*^9},
- CellLabel->"In[6]:=",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830"],
+   3.975200011387603*^9, {3.9762051393843803`*^9, 
+   3.9762051412605677`*^9}},ExpressionUUID->"ba150e7f-dce7-4a16-8eac-\
+ff9dcb41edbc"],
 
 Cell[BoxData[{
  RowBox[{
@@ -250,7 +333,7 @@ Cell[BoxData[{
  CellLabel->"In[11]:=",ExpressionUUID->"3956ada6-b3a3-4044-91bb-fb1bc711cae5"]
 },
 WindowSize->{1070, 842},
-WindowMargins->{{-1525, Automatic}, {-68, Automatic}},
+WindowMargins->{{348, Automatic}, {Automatic, 24}},
 DockedCells->{},
 TaggingRules-><|"CodeFormatter" -> <|"ToolbarState" -> False|>|>,
 FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
@@ -270,15 +353,18 @@ CellTagsIndex->{}
 Notebook[{
 Cell[554, 20, 629, 14, 72, "Code",ExpressionUUID->"6cc0a46a-f018-41a4-86af-a98edd5e79bb",
  InitializationCell->False],
+Cell[1186, 36, 443, 9, 49, "Input",ExpressionUUID->"ebe79b79-f51e-49dc-bc75-2d81d98df97c"],
 Cell[CellGroupData[{
-Cell[1208, 38, 341, 7, 49, "Input",ExpressionUUID->"be3bd1cc-731a-41c7-84e0-e3399fb9b507"],
-Cell[1552, 47, 235, 3, 33, "Output",ExpressionUUID->"9e46e7fa-5aff-44c8-811d-ac78db45a7a9"]
+Cell[1654, 49, 511, 11, 49, "Input",ExpressionUUID->"533f46a0-9c82-4282-be67-266b9a884d5b"],
+Cell[2168, 62, 259, 3, 33, "Output",ExpressionUUID->"598800f7-08d1-476c-afdd-12b2980c81c5"]
 }, Open  ]],
-Cell[1802, 53, 1434, 36, 204, "Code",ExpressionUUID->"a97b263c-42f7-427b-86ba-5ebf4618f28c",
+Cell[2442, 68, 1434, 36, 204, "Code",ExpressionUUID->"a97b263c-42f7-427b-86ba-5ebf4618f28c",
  InitializationCell->False],
-Cell[3239, 91, 2038, 54, 299, "Code",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830",
+Cell[3879, 106, 3033, 81, 280, "Code",ExpressionUUID->"605abd3f-0626-402e-8123-a27e9f629830",
  InitializationCell->False],
-Cell[5280, 147, 4432, 102, 519, "Input",ExpressionUUID->"3956ada6-b3a3-4044-91bb-fb1bc711cae5"]
+Cell[6915, 189, 1546, 39, 242, "Code",ExpressionUUID->"ba150e7f-dce7-4a16-8eac-ff9dcb41edbc",
+ InitializationCell->False],
+Cell[8464, 230, 4432, 102, 519, "Input",ExpressionUUID->"3956ada6-b3a3-4044-91bb-fb1bc711cae5"]
 }
 ]
 *)

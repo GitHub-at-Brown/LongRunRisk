@@ -620,10 +620,11 @@ saveModels[models_Association, file_String] := Module[{dataModels, modelsData},
 	dataModels = PacletizedResourceFunctions`DefinitionData[modelsData];
 	(* Ensure correct context before saving - prevents shadowing issues *)
 	dataModels = PacletizedResourceFunctions`DefinitionData @@ List @@ dataModels;
-	(* Block $ContextPath so Put writes full context prefix *)
-	Block[{$ContextPath = {"System`"}},
-		Put[dataModels, file]
-	];
+	(* Trigger formatting before Put to avoid Symbol::symname warning.
+	   ToBoxes triggers clean serialization path that produces ByteArray directly,
+	   whereas Put without prior formatting uses WithContext wrapper and warns. *)
+	ToBoxes[dataModels];
+	Put[dataModels, file];
 	file
 ];
 
@@ -796,14 +797,6 @@ warmupParallelKernels[] := Module[{pacletDir},
 	pacletDir = findPacletRoot[];
 	If[!StringQ[pacletDir], Return[$Failed]];
 
-	(* Needs["PacletizedResourceFunctions`"]; *)
-	Quiet[
-		Block[{$AllowInternet = False},
-			Module[{warmup}, warmup = Null; PacletizedResourceFunctions`DefinitionData[warmup];]
-		],
-		URLSubmit::offline
-	];
-
 	(* Register paclet and load required packages on parallel kernels *)
 	ParallelEvaluate[
 		PacletDirectoryLoad[#];
@@ -972,7 +965,7 @@ buildModels[opts : OptionsPattern[{
 				kernelGB = wolframKernelMemoryGB[];
 				AppendTo[$memoryProfileLog, <|"Label" -> label, "MemoryGB" -> memGB, "KernelRSSGB" -> kernelGB, "Time" -> DateString["ISODateTime"]|>];
 				If[TrueQ[verbose],
-					Print[label, " | Memory: ", NumberForm[memGB, {4, 2}], " GB | RSS: ", If[MissingQ[kernelGB], "N/A", ToString[NumberForm[kernelGB, {4, 2}]] <> " GB"]]
+					Print[label, " | Wolfram Memory: ", NumberForm[memGB, {4, 2}], " GB | Physical RAM: ", If[MissingQ[kernelGB], "N/A", ToString[NumberForm[kernelGB, {4, 2}]] <> " GB"]]
 				];
 			];
 		logMemory["buildModels START"];
