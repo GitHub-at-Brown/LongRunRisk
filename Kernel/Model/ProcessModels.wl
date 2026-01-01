@@ -1000,7 +1000,7 @@ addCoeffsSolution[
 				,
 				(*use the closed form to make the system of equations smaller*)
 				coeffInfo=infoModel["coeffs"][ratio];(*Join[infoModel["coeffs"][ratio],If[ratio==="wc",{},infoModel["coeffs"]["wc"]]];*)
-				solvedQ=Quiet[Simplify[#,Assumptions->n>=1 && Element[n,Integers],TimeConstraint->{5,15}]&/@(system[[2;;-1]]//.coeffInfo/.dependentParameters),Simplify::gtime];
+				solvedQ=(Quiet[Simplify[#,Assumptions->n>=1 && Element[n,Integers],TimeConstraint->{5,15}],{Simplify::time,Simplify::gtime}]&)/@(system[[2;;-1]]//.coeffInfo/.dependentParameters);
 				notSolvedQ=Not/@(BooleanQ/@solvedQ);
 				If[
 					(*if not all equations are solved*)
@@ -1009,7 +1009,7 @@ addCoeffsSolution[
 					(*try again for unsolved equations by substituting out gamma*)
 					solvedQ=With[
 						{
-							solvedQgamma=Quiet[Simplify[#,Assumptions->n>=1 && Element[n,Integers],TimeConstraint->{5,15}]&/@(Pick[system[[2;;-1]],notSolvedQ]//.coeffInfo//.FernandoDuarte`LongRunRisk`Model`Parameters`gamma->(1+(-1+1/FernandoDuarte`LongRunRisk`Model`Parameters`psi) FernandoDuarte`LongRunRisk`Model`Parameters`theta)),Simplify::gtime]
+							solvedQgamma=(Quiet[Simplify[#,Assumptions->n>=1 && Element[n,Integers],TimeConstraint->{5,15}],{Simplify::time,Simplify::gtime}]&)/@(Pick[system[[2;;-1]],notSolvedQ]//.coeffInfo//.FernandoDuarte`LongRunRisk`Model`Parameters`gamma->(1+(-1+1/FernandoDuarte`LongRunRisk`Model`Parameters`psi) FernandoDuarte`LongRunRisk`Model`Parameters`theta))
 						},
 						ReplacePart[solvedQ,Thread[Position[notSolvedQ,True]->solvedQgamma]]
 					];

@@ -830,7 +830,7 @@ simplifySquareRoot[radicand_, ass : Except[_List] : Automatic, tc_: 5] := Module
       Assumptions -> Replace[ass, Automatic -> defaultAssumptions[]],
       TimeConstraint -> tc
     ],
-    {FullSimplify::time}
+    {FullSimplify::time, FullSimplify::gtime}
   ];
 
   simplified
