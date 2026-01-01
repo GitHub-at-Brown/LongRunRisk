@@ -262,18 +262,18 @@ processModels[
 	];
 
 	(*create recursions for bonds*)
-	models = EchoTiming[
-		With[{addCoeffsOpts = FilterRules[Flatten@{opts}, Options[addCoeffsSolution]]},
-			Append[
-				#,
-				"coeffsSolution" -> <|
-					"bond" -> addCoeffsSolution[#,"bond", Sequence @@ addCoeffsOpts],
-					"nombond" -> addCoeffsSolution[#,"nombond", Sequence @@ addCoeffsOpts]
-				|>
-			]& /@ models
-		],
-		"addCoeffsSolution"
-	];
+models = EchoTiming[
+	With[{addCoeffsOpts = FilterRules[Flatten@{opts}, Join[Options[updateCoeffs], Options[RecurrenceTable]]]},
+		Append[
+			#,
+			"coeffsSolution" -> <|
+				"bond" -> addCoeffsSolution[#,"bond", Sequence @@ addCoeffsOpts],
+				"nombond" -> addCoeffsSolution[#,"nombond", Sequence @@ addCoeffsOpts]
+			|>
+		]& /@ models
+	],
+	"addCoeffsSolution"
+];
 
 	(*add a list of existing Keys called Properties*)
 	models=Append[
@@ -966,21 +966,10 @@ tryTransforms[
 
 addCoeffsSolution::badextrainfo = "Closed-form coefficients from extra info did not validate; falling back to all-numerical solve.";
 
-(* addCoeffsSolution options - accepts updateCoeffs and RecurrenceTable options *)
-(* DEBUG: Setting Options for addCoeffsSolution *)
-Options[addCoeffsSolution] = {
-	"MaxMaturity" -> 12,
-	"initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>,
-	"RootSigns" -> Automatic,
-	"FindRootOptions" -> {},
-	"RecurrenceTableOptions" -> {},
-	"DependentVariables" -> Automatic
-};
-
 addCoeffsSolution[
 	model_,
 	ratio: "bond" | "nombond",
-	opts : OptionsPattern[{addCoeffsSolution, updateCoeffs, RecurrenceTable}]]:=With[
+	opts : OptionsPattern[{updateCoeffs, RecurrenceTable}]]:=With[
 	{
 		cs = model["coeffsSystem"][ratio],
 		ratioUncondE=model["ratioUncondE"][ratio],
@@ -1095,7 +1084,7 @@ addCoeffsSolution[
 						{
 							recurrenceTableOpts=Flatten[{
 								Evaluate[FilterRules[Flatten@{opts}, Options[RecurrenceTable]]],
-								Evaluate[First@OptionValue[addCoeffsSolution,{"RecurrenceTableOptions"}]]
+								Evaluate[OptionValue[updateCoeffs, {opts}, "RecurrenceTableOptions"]]
 							}],
 							bondCoefficientRules=unknowns /. (x_[n][j_Integer] :> RuleDelayed[x[m_][j], Symbol["`Private`"<>(SymbolName@x)<>IntegerString[j]][m]])
 						},

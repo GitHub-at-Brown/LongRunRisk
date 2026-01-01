@@ -34,11 +34,7 @@ InstallOptionsValidationRules[] := Module[
             "Models" -> "Any",
             "FileSuffix" -> "String",
             "UpdateManifest" -> "Boolean",
-            "Verbose" -> "Boolean",
-            "CompileMode" -> {"Member", {"Both", "JacobianOnly", "FunctionOnly"}},
-            "Compiler" -> {"Member", {"Compile", "FunctionCompile"}},
-            "FlattenExpressions" -> ("Boolean" | Automatic),
-            "PdEquations" -> {"Member", {"A", "B", "AB", "Both"}}
+            "Verbose" -> "Boolean"
         },
 
         FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel -> {
@@ -73,7 +69,7 @@ InstallOptionsValidationRules[] := Module[
         },
 
         FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem -> {
-            "PdEquations" -> {"Member", {"A", "B", "AB", "Both"}},
+            "PdEquations" -> {"Member", {"B", "AB", "Both"}},
             "Verbose" -> "Boolean"
         }
     |>;

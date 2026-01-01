@@ -573,11 +573,7 @@ buildModels // Options = {
 	"Models" -> All,  (* All or list of shortnames *)
 	"FileSuffix" -> "",  (* suffix for checkpoint files; "_BY" writes to Models_BY.wl *)
 	"UpdateManifest" -> True,  (* whether to update ModelManifest.wl at end *)
-	"Verbose" -> True,  (* whether to print memory usage during pipeline *)
-	"CompileMode" -> "Both",  (* "Both" | "FunctionOnly" | "JacobianOnly" - passed to buildKernel *)
-	"Compiler" -> "FunctionCompile",  (* "Compile" | "FunctionCompile" - passed to buildKernel *)
-	"FlattenExpressions" -> True,  (* True | False | Automatic - passed to buildKernel *)
-	"PdEquations" -> "B"  (* "B" | "AB" | "Both" - passed to solveCoeffsSystem *)
+	"Verbose" -> True  (* whether to print memory usage during pipeline *)
 };
 
 
@@ -830,12 +826,18 @@ buildModels[opts : OptionsPattern[{
 		fileSuffix = OptionValue["FileSuffix"],
 		updateManifest = OptionValue["UpdateManifest"],
 		verbose = OptionValue["Verbose"],
-		compileMode = OptionValue["CompileMode"],
-		compilerChoice = OptionValue["Compiler"],
-		flattenOpt = OptionValue["FlattenExpressions"],
-		pdMode = OptionValue["PdEquations"],
+		compileMode = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, Flatten@{opts}, "CompileMode"],
+		compilerChoice = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, Flatten@{opts}, "Compiler"],
+		flattenOpt = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, Flatten@{opts}, "FlattenExpressions"],
+		pdMode = OptionValue[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem, Flatten@{opts}, "PdEquations"],
 		(* Stage-specific option filters for FORWARDING to downstream functions *)
-		symbolicStageOpts = FilterRules[Flatten@{opts}, Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem]],
+		symbolicStageOpts = FilterRules[Flatten@{opts}, Join[
+			Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem],
+			Options[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs],
+			Options[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`getStartingValues],
+			Options[FindRoot],
+			Options[RecurrenceTable]
+		]],
 		compileStageOpts = FilterRules[Flatten@{opts}, Join[
 			Options[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel],
 			Options[Compile], Options[FunctionCompile]
