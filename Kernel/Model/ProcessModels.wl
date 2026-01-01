@@ -711,7 +711,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						solA=paramQuadSolve[
 							sysA,
 							varsA,
-							"SignSymbol" -> Symbol[
+							"SymbolicSignSymbol" -> Symbol[
 								"sign"<>SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc]
 							],
 							Assumptions->assumeA,
@@ -722,7 +722,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						solB=paramQuadSolve[
 							sysB,
 							varsB,
-							"SignSymbol" -> Symbol[
+							"SymbolicSignSymbol" -> Symbol[
 								"sign"<>SymbolName[Head@FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd]
 							],
 							Assumptions->assumeB,

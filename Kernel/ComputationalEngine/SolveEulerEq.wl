@@ -82,10 +82,9 @@ signHeadFromExpr[expr_, sName_Symbol] := sName;
 
 
 (* Step 1: safeReduceCall - wraps findRootInterval with timeout for nD *)
-safeReduceCall[conds_, paramsAll_, signs_, cName_, sName_, findOpts_, timeout_] :=
+safeReduceCall[conds_, paramsAll_, signs_, cName_, sName_, timeout_] :=
   TimeConstrained[
-    findRootInterval[conds, paramsAll,
-      "Signs" -> signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts],
+    findRootInterval[conds, paramsAll, cName, sName, signs],
     timeout,
     $Failed
   ];
@@ -210,7 +209,7 @@ solveND // Options = {
 };
 
 solveND[f_, df_, conds_, paramsAll_, signs_, coefList_, cName_, sName_,
-	        findOpts_, extractOpts_, scanOpts_, solTemplate_,
+	        extractOpts_, scanOpts_, solTemplate_,
 	        opts : OptionsPattern[{solveND}]] :=
 	  Module[{reduceExpr, rub, pad, acc, tol, signHead, signsRule, sol, result},
 
@@ -243,7 +242,7 @@ solveND[f_, df_, conds_, paramsAll_, signs_, coefList_, cName_, sName_,
 
     (* Stage 1: Safe reduce call with timeout *)
     reduceExpr = safeReduceCall[conds, paramsAll, signs, cName, sName,
-      findOpts, OptionValue["ReduceTimeLimit"]];
+      OptionValue["ReduceTimeLimit"]];
 
     (* Stage 2: Try smart intervals with Infinity padding *)
     result = trySmartIntervals[f, df, reduceExpr, coefList, extractOpts, scanOpts, rub, pad];
@@ -520,16 +519,22 @@ checkCoeffs[type_String, model_, sol_, params_, newParams_,
 
 updateCoeffsWcPd[key : "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, params_Association, newParams_Association, rootSignsNorm_, rootSigns_,
   solveCoeffRootsOpts_] :=
-    With[{kernelKey = <|"wc" -> "A", "pd" -> "B"|>[key]},
+    With[{
+      kernelKey = <|"wc" -> "A", "pd" -> "B"|>[key],
+      (* Filter to only options recognized by solveCoeffRoots and its downstream functions *)
+      filteredOpts = FilterRules[solveCoeffRootsOpts,
+        Join[Options[solveCoeffRoots], Options[extractIntervalsFromReduce],
+             Options[scanAndSolve], Options[fastRoot], Options[FindRoot]]]
+    },
       Module[{solAll, flattenedWithMeta, intervalIdx, solIdx},
         (* solAll structure: list of {list of <|"Interval"->..., "Signs"->..., "Sol"->...|>} per sign combo *)
         solAll = solveCoeffRoots[
           coeffsParamQuadSolve[key],
           kernels[kernelKey],
           params,
-          #,
           newParams,
-          solveCoeffRootsOpts
+          "Signs" -> #,
+          Sequence @@ filteredOpts
         ] & /@ rootSignsNorm[key];
 
         (* Flatten while preserving metadata: add interval index and solution index *)
@@ -800,108 +805,106 @@ updateCoeffs[args__]:=Module[
 (*solveCoeffRoots*)
 
 
+solveCoeffRoots // Options = {
+  "Signs" -> {}
+};
+
+
 solveCoeffRoots[
   quadSol_Association,
   savedKernel_Association,
   paramsBase_Association,
-  signs : ({} | {_Integer ..}) : {},
   extraParams_Association : <||>,
-  opts : OptionsPattern[{solveCoeffRoots, findRootInterval, extractIntervalsFromReduce, scanAndSolve, fastRoot, FindRoot}]
-] /; AllTrue[signs, (# === 1 || # === -1) &] :=
-   With[
+  opts : OptionsPattern[{solveCoeffRoots, extractIntervalsFromReduce, scanAndSolve, fastRoot, FindRoot}]
+] := With[
     {
-        (*paramsBase = (Association @ model["params"]) //. model["params"] // N,
-		quadSol     = model["coeffsParamQuadSolve"][coeffKey],*)
-		coefList   = savedKernel["Vars"]
-      },
-      With[
-        {
-          conds      = quadSol["Conditions"],
-          paramsAll = Join[
-            paramsBase,
-            Association @ If[
-	            (* if j not present as Key in extraParams add j->1 with j extracted from coefName *)
-              AnyTrue[Keys[extraParams], MatchQ[Replace[#, s_Symbol :> SymbolName[s]], "i" | "j"] &],
-              <||>(*{}*),
-              Association@Flatten@Cases[First@coefList, s_Symbol /; MemberQ[{"i", "j"}, SymbolName[s]] :> (s -> 1), {2}, Heads -> True]
-            ],
-            extraParams (*putting extra params last in Join takes priority and overwrites paramsBase*)
+      signs = OptionValue["Signs"],
+      coefList = savedKernel["Vars"]
+    },
+    (* Validate signs *)
+    If[signs =!= {} && !AllTrue[signs, (# === 1 || # === -1) &],
+      Return[$Failed, With]
+    ];
+    With[
+      {
+        conds      = quadSol["Conditions"],
+        paramsAll = Join[
+          paramsBase,
+          Association @ If[
+            (* if j not present as Key in extraParams add j->1 with j extracted from coefName *)
+            AnyTrue[Keys[extraParams], MatchQ[Replace[#, s_Symbol :> SymbolName[s]], "i" | "j"] &],
+            <||>,
+            Association@Flatten@Cases[First@coefList, s_Symbol /; MemberQ[{"i", "j"}, SymbolName[s]] :> (s -> 1), {2}, Heads -> True]
           ],
-          cName       = Lookup[savedKernel, "CoeffName"],
-          sName       = Lookup[savedKernel, "SignSymbol"],
-          findOpts    = FilterRules[Flatten@{opts}, Options[findRootInterval]],
-          extractOpts = FilterRules[Flatten@{opts}, Options[extractIntervalsFromReduce]],
-          scanOpts    = FilterRules[
-            Flatten@{opts},
-            Join[Options[scanAndSolve], Options[FindRoot], Options[fastRoot]]
+          extraParams (* putting extra params last in Join takes priority and overwrites paramsBase *)
+        ],
+        cName       = Lookup[savedKernel, "CoeffName"],
+        sName       = Lookup[savedKernel, "CompileSignSymbol"],
+        extractOpts = FilterRules[Flatten@{opts}, Options[extractIntervalsFromReduce]],
+        scanOpts    = FilterRules[
+          Flatten@{opts},
+          Join[Options[scanAndSolve], Options[FindRoot], Options[fastRoot]]
+        ]
+      },
+      Module[{f, df, reduceExpr, intervals, roots, sol0Rules, sol, solRules, signHead, signsRule, bindResult},
+        bindResult = bindUnary[savedKernel, paramsAll, signs];
+        If[bindResult === $Failed, Return[$Failed, Module]];
+        {f, df} = bindResult;
+
+        (* If kernel has no compiled Jacobian, set df to None *)
+        (* Handles: Missing["NotCompiled"] from FunctionOnly mode, or $Failed from compilation failure *)
+        If[MissingQ[savedKernel["dfC"]] || FailureQ[savedKernel["dfC"]] || savedKernel["dfC"] === None || savedKernel["dfC"] === {},
+          df = None
+        ];
+
+        (* treat 1D and nD differently *)
+        If[Length[coefList] > 1,
+          (* nD: Delegate to solveND and return early with packaged result *)
+          Return[
+            solveND[f, df, conds, paramsAll, signs, coefList, cName, sName,
+                    extractOpts, scanOpts, quadSol["Solution"],
+                    "ReduceTimeLimit" -> 5.],
+            Module  (* Return from enclosing Module *)
           ]
-        },
-        Module[{f, df, reduceExpr, intervals, roots, sol0Rules, sol, solRules, signHead, signsRule, jRule, bindResult},
-          bindResult = bindUnary[savedKernel, paramsAll, "Signs" -> signs];
-          If[bindResult === $Failed, Return[$Failed, Module]];
-          {f, df} = bindResult;
+        ];
 
-          (* If kernel has no compiled Jacobian, set df to None *)
-          (* Handles: Missing["NotCompiled"] from FunctionOnly mode, or $Failed from compilation failure *)
-          If[ MissingQ[savedKernel["dfC"]] || FailureQ[savedKernel["dfC"]] || savedKernel["dfC"]===None || savedKernel["dfC"]==={},
-            df = None
-          ];
+        (* 1D *)
+        reduceExpr = findRootInterval[conds, paramsAll, cName, sName, signs];
+        (* Apply paramsAll to coefList so index variables (j, i) match those in reduceExpr *)
+        intervals  = extractIntervalsFromReduce[reduceExpr, coefList //. paramsAll, Sequence @@ extractOpts];
 
-          (* treat 1D and nD differently *)
-          If[Length[coefList] > 1,
-            (* nD: Delegate to solveND and return early with packaged result *)
-            Return[
-              solveND[f, df, conds, paramsAll, signs, coefList, cName, sName,
-                      findOpts, extractOpts, scanOpts, quadSol["Solution"],
-                      "ReduceTimeLimit" -> 5.],
-              Module  (* Return from enclosing Module *)
-            ]
-          ];
+        roots = If[df === None,
+          scanAndSolve[First@*f, #, Sequence @@ scanOpts] & /@ intervals
+          ,
+          scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals
+        ];
 
-          (* 1D *)
-          reduceExpr = findRootInterval[conds, paramsAll, "Signs" -> signs, "CoeffName" -> cName, "SignSymbol" -> sName, Sequence @@ findOpts];
-          (* Apply paramsAll to coefList so index variables (j, i) match those in reduceExpr *)
-          intervals  = extractIntervalsFromReduce[reduceExpr, coefList //. paramsAll, Sequence @@ extractOpts];
+        (* Substitute signs into the analytical solution *)
+        signHead   = signHeadFromExpr[quadSol["Solution"], sName];
+        signsRule  = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
 
-          roots = If[df === None,
-            scanAndSolve[First@*f, #, Sequence @@ scanOpts] & /@ intervals
-            ,
-            scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals
-          ];
-          
-          (* Substitute signs into the analytical solution *)
-          signHead   = signHeadFromExpr[quadSol["Solution"], sName];
-          signsRule  = If[signs === {}, {}, Table[signHead[i] -> signs[[i]], {i, Length@signs}]];
-          
-          (* rest of the coefficients with all parameters substituted *)
-          sol        = quadSol["Solution"] //. paramsAll //. signsRule ;
+        (* rest of the coefficients with all parameters substituted *)
+        sol        = quadSol["Solution"] //. paramsAll //. signsRule;
 
-          (* rule to substitute stock index if present *)
-          (* jRule = First[
-               KeySelect[paramsAll, MatchQ[Replace[#, s_Symbol :> SymbolName[s]], "i" | "j"] &],
-               <||>
-             ]; *)
-  
-          (* Create rules for the root variable (e.g. B[1][0] -> value) *)
-          sol0Rules  = Map[Thread[(coefList /. paramsAll(*jRule*)) -> #] &, roots, {2}];
+        (* Create rules for the root variable (e.g. B[1][0] -> value) *)
+        sol0Rules  = Map[Thread[(coefList /. paramsAll) -> #] &, roots, {2}];
 
-          (* Combine root rule with the rest of the solution *)
-          solRules   = Map[Join[{#}, sol /. #] &, sol0Rules, {2}];
-          
-          MapThread[
-            <|
-              "Interval" -> #1,
-              "Roots"    -> #2,
-              "Error"    -> (RealAbs /@ (f /@ #2)),
-              "Sol"      -> Association /@ #3,
-              "Signs"    -> signs
-            |> &,
-            {intervals, roots, solRules}
-          ]
+        (* Combine root rule with the rest of the solution *)
+        solRules   = Map[Join[{#}, sol /. #] &, sol0Rules, {2}];
 
+        MapThread[
+          <|
+            "Interval" -> #1,
+            "Roots"    -> #2,
+            "Error"    -> (RealAbs /@ (f /@ #2)),
+            "Sol"      -> Association /@ #3,
+            "Signs"    -> signs
+          |> &,
+          {intervals, roots, solRules}
         ]
       ]
-    ];
+    ]
+  ];
 
 
 
@@ -931,7 +934,7 @@ solveWcPdRoots[
   allResults = {};
   
   Do[
-    resCoeff = Quiet[Check[solveCoeffRoots[model["coeffsParamQuadSolve"]["wc"], savedKernelWc, (Association@model["params"])//.model["params"]//N, sWc, extraParams, opts], $Failed], CompiledFunction::cfn];
+    resCoeff = Quiet[Check[solveCoeffRoots[model["coeffsParamQuadSolve"]["wc"], savedKernelWc, (Association@model["params"])//.model["params"]//N, extraParams, "Signs" -> sWc, opts], $Failed], CompiledFunction::cfn];
     If[resCoeff =!= $Failed,
       Do[
         resWcPd = Quiet[Check[solveWcPdRoots[model, savedKernelWc, savedKernelPd, sWc, sPd, extraParams, opts], $Failed], CompiledFunction::cfn];
@@ -966,8 +969,8 @@ solveWcPdRoots[
 		    model["coeffsParamQuadSolve"]["wc"],
 		    savedKernelWc,
 		    (Association@model["params"])//.model["params"]//N,
-		    signsWc,
 		    extraParams,
+		    "Signs" -> signsWc,
 		    optSeq
 	    ]
     },
@@ -979,8 +982,8 @@ solveWcPdRoots[
               model["coeffsParamQuadSolve"]["pd"],
               savedKernelPd,
               (Association@model["params"])//.model["params"]//N,
-              signsPd,
               Join[extraParams, #],
+              "Signs" -> signsPd,
               optSeq
             ] & /@ wr["Sol"])
           },
@@ -1033,17 +1036,28 @@ getStartingValues[
 (*addCoeffsSolutionN*)
 
 
-addCoeffsSolutionN[model_] := Module[{k},
-	k=FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`loadModelKernels[model["shortname"]];
-	updateCoeffs[
-		model,
-		k,
-		"UpdatePd"->True,
-		"UpdateBonds"->True,
-		"MaxMaturity"->12,
-		"RootSigns" -> All
-	]
+(* Main definition with buildMaxMaturity parameter *)
+addCoeffsSolutionN[model_Association, buildMaxMaturity_Integer, opts : OptionsPattern[{updateCoeffs, FindRoot, RecurrenceTable}]] := Module[
+	{k, updateOpts},
+	k = FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`loadModelKernels[model["shortname"]];
+	updateOpts = Join[
+		FilterRules[{opts}, Options[updateCoeffs]],
+		{
+			"UpdatePd" -> True,
+			"UpdateBonds" -> True,
+			"MaxMaturity" -> buildMaxMaturity,
+			"RootSigns" -> All
+		}
+	];
+	updateCoeffs[model, k, Sequence @@ updateOpts]
 ];
+
+(* Convenience wrapper with default maturity of 12 *)
+addCoeffsSolutionN[model_Association, opts : OptionsPattern[{updateCoeffs, FindRoot, RecurrenceTable}]] :=
+	addCoeffsSolutionN[model, 12, opts];
+
+(* Legacy single-argument form *)
+addCoeffsSolutionN[model_Association] := addCoeffsSolutionN[model, 12];
 
 
 (* ::Subsection:: *)

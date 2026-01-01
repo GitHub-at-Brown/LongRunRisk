@@ -133,10 +133,10 @@ VerificationTest[
   Module[{opts, bk},
     bk = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel;
     opts = Options[bk];
-    MemberQ[Keys[opts], "SignSymbol"]
+    MemberQ[Keys[opts], "CompileSignSymbol"]
   ],
   True,
-  TestID -> "buildKernel-has-SignSymbol-option@@Tests/FindRootOptim/createCompiledEq.wlt:132,1-140,2"
+  TestID -> "buildKernel-has-CompileSignSymbol-option@@Tests/FindRootOptim/createCompiledEq.wlt:132,1-140,2"
 ]
 
 (* --- merged from: createCompiledEq_test8.wlt --- *)

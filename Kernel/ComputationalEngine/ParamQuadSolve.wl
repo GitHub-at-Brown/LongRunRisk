@@ -78,7 +78,7 @@ Options[paramQuadSolve] = {
   "SimplifyTimeout" -> Automatic,
   "DiagnosticsOption" -> False,
   "OnlyQuadTerms" -> False,
-  "SignSymbol" -> signA,
+  "SymbolicSignSymbol" -> signA,
   "GroebnerMemoryFraction" -> 0.5,  (* fraction of MemoryAvailable[] to use *)
   "GroebnerMemoryFloor" -> 1*1024^3,  (* minimum memory limit in bytes *)
   "GroebnerMemoryCap" -> 16*1024^3,  (* maximum memory limit in bytes *)
@@ -115,7 +115,7 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
       simplifyTimeout = OptionValue["SimplifyTimeout"],
       diagnosticsQ    = OptionValue["DiagnosticsOption"],
       onlyQuadQ       = TrueQ @ OptionValue["OnlyQuadTerms"],
-      signHead        = OptionValue["SignSymbol"],
+      signHead        = OptionValue["SymbolicSignSymbol"],
       gbMemFraction   = OptionValue["GroebnerMemoryFraction"],
       gbMemFloor      = OptionValue["GroebnerMemoryFloor"],
       gbMemCap        = OptionValue["GroebnerMemoryCap"],

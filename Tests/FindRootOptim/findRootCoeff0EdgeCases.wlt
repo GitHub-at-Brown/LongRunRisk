@@ -20,14 +20,13 @@ VerificationTest[
     fri[
       A[0] < 0 && A[0] > 0,  (* Contradiction containing coefficient *)
       <|x -> 2|>,
-      {},
-      "CoeffName" -> "A", "SignSymbol" -> "signA"
+      "A", "signA"
     ] === $Failed
   ],
   True,
   {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval},
   TimeConstraint -> timeLimit,
-  TestID -> "findRootInterval-contradiction-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:18,1-31,2"
+  TestID -> "findRootInterval-contradiction-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:18,1-30,2"
 ]
 
 (* --- merged from: findRootCoeff0EdgeCases_test2.wlt --- *)
@@ -52,14 +51,14 @@ VerificationTest[
         {B[0]},
         {x},
         "CoeffName" -> "B",
-        "SignSymbol" -> "signB"
+        "CompileSignSymbol" -> "signB"
       ];
-      kernel["CoeffName"] === "B" && kernel["SignSymbol"] === "signB"
+      kernel["CoeffName"] === "B" && kernel["CompileSignSymbol"] === "signB"
     ]
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:47,1-63,2"
+  TestID -> "buildKernel-coeffname-signsymbol-options@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:46,1-62,2"
 ]
 
 (* --- merged from: findRootCoeff0EdgeCases_test3.wlt --- *)
@@ -84,16 +83,16 @@ VerificationTest[
         {A[0]},
         {x},
         "CoeffName" -> "A",
-        "SignSymbol" -> "signA"
+        "CompileSignSymbol" -> "signA"
       ];
-      result = bu[kernel, <|x -> 2|>, "Signs" -> {1}];  (* Only 1 sign, but need 2 *)
+      result = bu[kernel, <|x -> 2|>, {1}];  (* Only 1 sign, but need 2 *)
       result === $Failed
     ]
   ],
   True,
   {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
   TimeConstraint -> timeLimit,
-  TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:79,1-97,2"
+  TestID -> "bindUnary-insufficient-signs-returns-failed@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:78,1-96,2"
 ]
 
 (* --- merged from: findRootCoeff0EdgeCases_test4.wlt --- *)
@@ -118,7 +117,7 @@ VerificationTest[
         {A[0]},
         {x},
         "CoeffName" -> "A",
-        "SignSymbol" -> "signA",
+        "CompileSignSymbol" -> "signA",
         "CompileMode" -> "Both",
         "Compiler" -> "FunctionCompile"  (* Required for CompiledCodeFunction *)
       ];
@@ -131,7 +130,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "buildKernel-produces-CompiledCodeFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:113,1-135,2"
+  TestID -> "buildKernel-produces-CompiledCodeFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:112,1-134,2"
 ]
 
 (* --- merged from: findRootCoeff0EdgeCases_test5.wlt --- *)
@@ -156,7 +155,7 @@ VerificationTest[
         {A[0]},
         {x},
         "CoeffName" -> "A",
-        "SignSymbol" -> "signA",
+        "CompileSignSymbol" -> "signA",
         "Compiler" -> "Compile"
       ];
       (* Kernel should have expected structure - compilation may be skipped under instrumentation *)
@@ -167,7 +166,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "buildKernel-Compile-produces-CompiledFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:151,1-171,2"
+  TestID -> "buildKernel-Compile-produces-CompiledFunction@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:150,1-170,2"
 ]
 
 (* --- merged from: findRootCoeff0EdgeCases_test6.wlt --- *)
@@ -197,7 +196,7 @@ VerificationTest[
   ],
   True,
   TimeConstraint -> timeLimit,
-  TestID -> "buildKernel-both-compilers-equivalent-results@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:187,1-201,2"
+  TestID -> "buildKernel-both-compilers-equivalent-results@@Tests/FindRootOptim/findRootCoeff0EdgeCases.wlt:186,1-200,2"
 ]
 
 End[]

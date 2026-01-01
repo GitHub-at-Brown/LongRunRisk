@@ -95,8 +95,8 @@ VerificationTest[
             model["coeffsParamQuadSolve"]["wc"],
             kernels["WcKernel"],
             paramsBase,
-            signsWc,
-            <||>
+            <||>,
+            "Signs" -> signsWc
           ],
           60
         ],
@@ -213,8 +213,8 @@ VerificationTest[
             model["coeffsParamQuadSolve"]["wc"],
             kernels["WcKernel"],
             paramsBase,
-            signsWc,
-            <||>
+            <||>,
+            "Signs" -> signsWc
           ],
           60
         ],
@@ -233,8 +233,8 @@ VerificationTest[
             model["coeffsParamQuadSolve"]["pd"],
             kernels["PdKernel"],
             paramsBase,
-            signsPd,
-            Join[extraParamsPd, jAsoc]
+            Join[extraParamsPd, jAsoc],
+            "Signs" -> signsPd
           ],
           60
         ],
@@ -460,8 +460,8 @@ VerificationTest[
             model["coeffsParamQuadSolve"]["wc"],
             kernels["WcKernel"],
             paramsBase,
-            signsWc,
-            <||>
+            <||>,
+            "Signs" -> signsWc
           ],
           60
         ],
@@ -575,8 +575,8 @@ VerificationTest[
             model["coeffsParamQuadSolve"]["wc"],
             kernels["WcKernel"],
             paramsBase,
-            signsWc,
-            <||>
+            <||>,
+            "Signs" -> signsWc
           ],
           60
         ],
@@ -679,14 +679,14 @@ jSym = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j;
 VerificationTest[
     Module[{kernels, signSymbol},
       kernels = loadKernels["BY"];
-      signSymbol = kernels["WcKernel"]["SignSymbol"];
+      signSymbol = Lookup[kernels["WcKernel"], "CompileSignSymbol"];
 
-      (* SignSymbol should be "signA" for wc kernel *)
+      (* Sign symbol should be "signA" for wc kernel *)
       StringQ[signSymbol] && signSymbol === "signA"
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "kernel-SignSymbol-wc@@Tests/SolveEulerEq/solveCoeffRoots.wlt:679,1-690,4"
+    TestID -> "kernel-CompileSignSymbol-wc@@Tests/SolveEulerEq/solveCoeffRoots.wlt:679,1-691,4"
   ]
 
 (* --- merged from: solveCoeffRoots_test7.wlt --- *)
@@ -773,14 +773,14 @@ jSym = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j;
 VerificationTest[
     Module[{kernels, signSymbol},
       kernels = loadKernels["BY"];
-      signSymbol = kernels["PdKernel"]["SignSymbol"];
+      signSymbol = Lookup[kernels["PdKernel"], "CompileSignSymbol"];
 
-      (* SignSymbol should be "signB" for pd kernel *)
+      (* Sign symbol should be "signB" for pd kernel *)
       StringQ[signSymbol] && signSymbol === "signB"
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "kernel-SignSymbol-pd@@Tests/SolveEulerEq/solveCoeffRoots.wlt:773,1-784,4"
+    TestID -> "kernel-CompileSignSymbol-pd@@Tests/SolveEulerEq/solveCoeffRoots.wlt:774,1-786,4"
   ]
 
 (* --- merged from: solveCoeffRoots_test8.wlt --- *)
@@ -883,8 +883,8 @@ VerificationTest[
               model["coeffsParamQuadSolve"]["pd"],
               kernels["PdKernel"],
               paramsBase,
-              signsPd,
-              <|jSym -> 1|>
+              <|jSym -> 1|>,
+              "Signs" -> signsPd
             ],
             60
           ],
@@ -899,7 +899,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveCoeffRoots-pd-no-cfne-messages@@Tests/SolveEulerEq/solveCoeffRoots.wlt:869,1-903,4"
+    TestID -> "solveCoeffRoots-pd-no-cfne-messages@@Tests/SolveEulerEq/solveCoeffRoots.wlt:871,1-905,4"
   ]
 
 End[]

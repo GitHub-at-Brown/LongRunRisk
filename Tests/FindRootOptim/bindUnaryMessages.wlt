@@ -21,14 +21,14 @@ Module[{expr, vars, params, signA},
   expr = signA[1] * gamma + signA[2] * delta - A[0];
   vars = {A[0]};
   params = {gamma, delta};
-  kernel = buildKernel[expr, vars, params, "SignSymbol" -> "signA"];
+  kernel = buildKernel[expr, vars, params, "CompileSignSymbol" -> "signA"];
 ];
 
 gamma = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`gamma"];
 delta = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`delta"];
 
 VerificationTest[
-    bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, "Signs" -> {1}] === $Failed,
+    bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, {1}] === $Failed,
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
     TimeConstraint -> timeLimit,
@@ -55,14 +55,14 @@ Module[{expr, vars, params, signA},
   expr = signA[1] * gamma + signA[2] * delta - A[0];
   vars = {A[0]};
   params = {gamma, delta};
-  kernel = buildKernel[expr, vars, params, "SignSymbol" -> "signA"];
+  kernel = buildKernel[expr, vars, params, "CompileSignSymbol" -> "signA"];
 ];
 
 gamma = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`gamma"];
 delta = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`delta"];
 
 VerificationTest[
-    bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, "Signs" -> {}] === $Failed,
+    bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, {}] === $Failed,
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary::toofewsigns},
     TimeConstraint -> timeLimit,
@@ -89,7 +89,7 @@ Module[{expr, vars, params, signA},
   expr = signA[1] * gamma + signA[2] * delta - A[0];
   vars = {A[0]};
   params = {gamma, delta};
-  kernel = buildKernel[expr, vars, params, "SignSymbol" -> "signA"];
+  kernel = buildKernel[expr, vars, params, "CompileSignSymbol" -> "signA"];
 ];
 
 gamma = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`gamma"];
@@ -97,7 +97,7 @@ delta = ToExpression["FernandoDuarte`LongRunRisk`Tests`FindRootOptim`delta"];
 
 VerificationTest[
     Module[{result},
-      result = bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, "Signs" -> {1, -1}];
+      result = bindUnary[kernel, <|gamma -> 1.0, delta -> 2.0|>, {1, -1}];
       MatchQ[result, {_Function, _Function}]
     ],
     True,

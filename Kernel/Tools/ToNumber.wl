@@ -93,7 +93,7 @@ toNumRules[
 	With[{newParams=processNewParameters[newParameters,params]},
 		With[{allParams=Normal@Join[Association@params,Association@newParams]},
 			With[{solHierarchical=updateCoeffs[model,kernels,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,optsUpdateCoeffs]},
-				(* Extract flat rules from first A solution for backward compatibility *)
+				(* Extract flat rules from first A solution *)
 				With[{sol=flattenCoeffs[solHierarchical, 1]},
 					Join[
 						sol,

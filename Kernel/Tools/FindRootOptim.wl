@@ -28,18 +28,24 @@ buildEqMapFromModel
 buildKernel::usage = "buildKernel[expr, vars, params] compiles expr into a kernel optimized for root-finding.
 vars: the coefficient variables (e.g., {A[0]}) to solve for.
 params: the parameter symbols present in expr.
-Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"PerformanceGoal\" (default \"Quality\"; \"Quality\" | \"Speed\").
-Returns an Association with keys: \"fC\", \"dfC\", \"Vars\", \"ParamOrder\", \"SignIndex\", \"CoeffName\", \"SignSymbol\".";
+Options: \"CoeffName\" (default \"A\"), \"CompileSignSymbol\" (default \"signA\"), \"PerformanceGoal\" (default \"Quality\"; \"Quality\" | \"Speed\").
+Returns an Association with keys: \"fC\", \"dfC\", \"Vars\", \"ParamOrder\", \"SignIndex\", \"CoeffName\", \"CompileSignSymbol\".";
 buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
 buildKernel::unusedvars = "Some vars were not found in the expression: `1`.";
 buildKernel::badcompilemode = "Invalid CompileMode `1`. Expected \"Both\", \"FunctionOnly\", or \"JacobianOnly\".";
-bindUnary::usage   = "bindUnary[kernel, paramValues] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.
-Options: \"Signs\" (default {}).";
+bindUnary::usage = "bindUnary[kernel, paramValues, signs] specializes the compiled kernel with numeric parameters, returning a pair of functions {f, df}.
+kernel: Association from buildKernel.
+paramValues: Association of parameter -> value.
+signs: List of sign values (default {}). Length must match Max[kernel[\"SignIndex\"]].";
 bindUnary::toofewsigns = "Expected at least `1` sign values, but got `2`.";
 bindUnary::toomanysigns = "Expected exactly `1` sign values, but got `2`.";
-findRootInterval::usage  = "findRootInterval[conds, paramValues] returns a Reduce expression constraining the root variable.
+findRootInterval::usage = "findRootInterval[conds, paramValues, coeffName, signSym, signs] returns a Reduce expression constraining the root variable.
 Pass the result to extractIntervalsFromReduce to obtain numeric intervals.
-Options: \"CoeffName\" (default \"A\"), \"SignSymbol\" (default \"signA\"), \"Signs\" (default {}).";
+conds: system of conditions/inequalities.
+paramValues: Association of parameter -> value.
+coeffName: String, the coefficient name (e.g., \"A\").
+signSym: String, the sign symbol name (e.g., \"signA\").
+signs: List of sign values (default {}), e.g., {1, -1}.";
 extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.
 Options: \"InteriorShrink\" (default 0.001), \"RootUpperBound\" (default 15).";
 extractIntervalsFromReduce::nointervals = "Could not extract any valid intervals from reduced expression `1`.";
@@ -80,9 +86,9 @@ Quiet[CCompilerDriver`CCompilers[True], {CCompilerDriver`CreateLibrary::nocomp}]
 (*buildKernel*)
 
 
-buildKernel//Options = {
+buildKernel // Options = {
 	"CoeffName" -> "A",
-	"SignSymbol" -> "signA",
+	"CompileSignSymbol" -> "signA",
 	"PerformanceGoal" -> "Quality", (* "Speed" | "Quality" *)
 	"CompileMode" -> "Both",  (* "Both" | "FunctionOnly" | "JacobianOnly" *)
 	"Compiler" -> "FunctionCompile",  (* "Compile" | "FunctionCompile" - Compile uses C target *)
@@ -100,7 +106,7 @@ buildKernel[
 ] := With[
   {
     coeffName = OptionValue["CoeffName"],
-    signSym = OptionValue["SignSymbol"],
+    signSym = OptionValue["CompileSignSymbol"],
     perfGoal = OptionValue["PerformanceGoal"],
     compileMode = OptionValue["CompileMode"],
     compiler = OptionValue["Compiler"],
@@ -441,7 +447,7 @@ buildKernel[
 		]
 	];
 
-    <|"fC"->fC, "dfC"->dfC, "Vars"->vars, "ParamOrder"->params, "SignIndex"->idx, "CoeffName"->coeffName, "SignSymbol"->signSym|>
+    <|"fC"->fC, "dfC"->dfC, "Vars"->vars, "ParamOrder"->params, "SignIndex"->idx, "CoeffName"->coeffName, "CompileSignSymbol"->signSym|>
   ]
 ];
 
@@ -450,19 +456,12 @@ buildKernel[
 (*bindUnary*)
 
 
-bindUnary // Options = {
-	"Signs" -> {}
-};
-
-
 (* bind: feed scalars to the scalar-args kernel *)
 bindUnary[
 	k_Association,
 	paramValues_Association,
-	opts : OptionsPattern[{bindUnary}]
-] := With[
-  {signs = OptionValue["Signs"]},
-  Module[
+	signs_List : {}
+] := Module[
   {paramsj, paramOrder, a, s, idx = k["SignIndex"], maxIdx},
   
   (*if j present as Key in paramValues, find its associated value*)
@@ -510,31 +509,20 @@ bindUnary[
 		  }
 	   ]
    ]
-]];  (* Close outer With *)
+];
 
 
 (* ::Subsection:: *)
 (*findRootInterval*)
 
 
-findRootInterval//Options = {
-    "CoeffName" -> "A",
-    "SignSymbol" -> "signA",
-    "Signs" -> {}
-};
-
-
 findRootInterval[
 	conds_,
 	paramValues_Association,
-	opts : OptionsPattern[{findRootInterval}]
-] := With[
-  {
-    coeffName = OptionValue["CoeffName"],
-    signSym = OptionValue["SignSymbol"],
-    signs = OptionValue["Signs"]
-  },
-  Module[
+	coeffName_String,
+	signSym_String,
+	signs_List : {}
+] := Module[
     {condExpr, condNorm, ineq, red, rootVar, signHead,
      signsRule, paramsRules, rootSym, rootRules, rootVarN, ineqRootVar},
 
@@ -593,10 +581,9 @@ findRootInterval[
         ,
         Reduce::ratnz
       ], 
-        FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc > 0 && 
+        FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc > 0 &&
         FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[_] > 0
     ]
-  ]
 ];
 
 
@@ -1531,7 +1518,7 @@ With[{
 				"Vars" -> wcVars,
 				"Params" -> paramsA,
 				"CoeffName" -> wcCoeffName,
-				"SignSymbol" -> If[wcSigns === {}, "sign" <> SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc], SymbolName @ Head @ First @ wcSigns]
+				"CompileSignSymbol" -> If[wcSigns === {}, "sign" <> SymbolName[FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc], SymbolName @ Head @ First @ wcSigns]
 			|>
 		|>,
 		If[MatchQ[pdMode, "B" | "Both"] && KeyExistsQ[quadSolPd, "eqB0"],
@@ -1541,7 +1528,7 @@ With[{
 					"Vars" -> pdVars,
 					"Params" -> Join[paramsA, paramsStocks, wcCoeffs],
 					"CoeffName" -> pdCoeffName,
-					"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
+					"CompileSignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
 				|>
 			|>,
 			<||>
@@ -1553,7 +1540,7 @@ With[{
 					"Vars" -> pdVars,
 					"Params" -> Join[paramsA, paramsStocks, {First @ wcCoeffs}, wcSignRootMap],
 					"CoeffName" -> pdCoeffName,
-					"SignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
+					"CompileSignSymbol" -> If[pdSigns === {}, "sign" <> SymbolName[Head @ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd], SymbolName @ Head @ First @ pdSigns]
 				|>
 			|>,
 			<||>
@@ -1610,7 +1597,7 @@ Module[{kernels, file, platformDir, currentHash, savedData, savedHash, savedSyst
 			eqMap[eq]["Vars"],
 			eqMap[eq]["Params"],
 			"CoeffName" -> eqMap[eq]["CoeffName"],
-			"SignSymbol" -> eqMap[eq]["SignSymbol"],
+			"CompileSignSymbol" -> eqMap[eq]["CompileSignSymbol"],
 			Sequence @@ buildKernelOpts
 		],
 		{eq, Keys @ eqMap}

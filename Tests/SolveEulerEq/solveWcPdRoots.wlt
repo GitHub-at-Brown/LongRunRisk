@@ -105,8 +105,8 @@ VerificationTest[
           model["coeffsParamQuadSolve"]["wc"],
           kernels["WcKernel"],
           paramsBase,
-          signsWc,
-          <||>
+          <||>,
+          "Signs" -> signsWc
         ],
         $Failed
       ];

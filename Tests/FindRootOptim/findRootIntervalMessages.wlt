@@ -11,7 +11,7 @@ fri = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval;
 
 VerificationTest[
     Block[{A},
-      fri[A[0] < 0 && A[0] > 0, <||>, {}, "CoeffName" -> "A"]
+      fri[A[0] < 0 && A[0] > 0, <||>, "A", "signA"]
     ] === $Failed,
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval},
@@ -29,7 +29,7 @@ fri = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval;
 
 VerificationTest[
     Block[{A},
-      fri[A[0] > 10 && A[0] < 5, <||>, {}, "CoeffName" -> "A"]
+      fri[A[0] > 10 && A[0] < 5, <||>, "A", "signA"]
     ] === $Failed,
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval},
@@ -47,7 +47,7 @@ fri = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval;
 
 VerificationTest[
     Block[{A},
-      fri[A[0] > 0 && A[0] > 0 && A[0] < -1, <||>, {}, "CoeffName" -> "A"]
+      fri[A[0] > 0 && A[0] > 0 && A[0] < -1, <||>, "A", "signA"]
     ] === $Failed,
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::emptyinterval},
@@ -65,7 +65,7 @@ fri = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval;
 
 VerificationTest[
     Block[{x},
-      fri[x > 0 && x < 10, <||>, {}, "CoeffName" -> "A"]
+      fri[x > 0 && x < 10, <||>, "A", "signA"]
     ] === $Failed,
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::nocoeff},
@@ -83,7 +83,7 @@ fri = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval;
 
 VerificationTest[
     Block[{a},
-      fri[a > 0, <|a -> 1|>, {}, "CoeffName" -> "A"]
+      fri[a > 0, <|a -> 1|>, "A", "signA"]
     ] === $Failed,
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::nocoeff},
@@ -101,7 +101,7 @@ fri = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval;
 
 VerificationTest[
     Block[{B},
-      fri[B[0] > 1 && B[0] < 5, <||>, {}, "CoeffName" -> "A"]
+      fri[B[0] > 1 && B[0] < 5, <||>, "A", "signA"]
     ] === $Failed,
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::nocoeff},
@@ -119,7 +119,7 @@ fri = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval;
 
 VerificationTest[
     Block[{B},
-      fri[B[1][0] > 1 && B[1][0] < 5, <||>, {}, "CoeffName" -> "A"]
+      fri[B[1][0] > 1 && B[1][0] < 5, <||>, "A", "signA"]
     ] === $Failed,
     True,
     {FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval::nocoeff},
@@ -137,7 +137,7 @@ fri = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`findRootInterval;
 
 VerificationTest[
     Block[{A},
-      fri[A[0] > 1 && A[0] < 5, <||>, {}, "CoeffName" -> "A"]
+      fri[A[0] > 1 && A[0] < 5, <||>, "A", "signA"]
     ],
     _,
     {},

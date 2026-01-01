@@ -43,8 +43,7 @@ Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"]
 (*Yield curve*)
 
 
-yieldCurve//Options={
-	"MaxMaturity" -> 12,
+yieldCurve // Options = {
 	"MomentFunction" -> uncondE
 };
 
@@ -58,8 +57,8 @@ yieldCurve[
 ]:= With[
 	{
 		params = model["params"],
-		maxMaturity = Evaluate@OptionValue[yieldCurve,"MaxMaturity"],
-		momF = Evaluate@OptionValue[yieldCurve,"MomentFunction"]
+		maxMaturity = OptionValue[updateCoeffs, {opts}, "MaxMaturity"],
+		momF = OptionValue[yieldCurve, {opts}, "MomentFunction"]
 	},
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
