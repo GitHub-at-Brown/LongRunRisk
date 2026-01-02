@@ -1,11 +1,11 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
-(*Install dependencies*)
+(*Initialization*)
 
 
-Needs["FernandoDuarte`LongRunRisk`Tools`Dependencies`"];
-FernandoDuarte`LongRunRisk`Tools`Dependencies`initializeDependencies[];
+Needs["FernandoDuarte`LongRunRisk`Tools`Initialization`"];
+FernandoDuarte`LongRunRisk`Tools`Initialization`initializeDependencies[];
 
 
 (* ::Section:: *)

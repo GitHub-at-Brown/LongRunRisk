@@ -150,9 +150,11 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         methodTag, allowGroebner, logMemory},
 
         (* Memory logging helper *)
-        logMemory[label_String] := If[TrueQ[verbose],
-          With[{memGB = N[MemoryInUse[] / 1024^3]},
-            Print["[paramQuadSolve] ", label, " | Memory: ", NumberForm[memGB, {4, 2}], " GB"]
+        logMemory[label_String] := Module[{mem = MemoryInUse[], memGB, kernelGB},
+          memGB = N[mem / 1024^3];
+          kernelGB = FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`wolframKernelMemoryGB[];
+          If[TrueQ[verbose],
+            Print["[paramQuadSolve] ", label, " | Wolfram Memory: ", NumberForm[memGB, {4, 2}], " GB | Physical RAM: ", If[MissingQ[kernelGB], "N/A", ToString[NumberForm[kernelGB, {4, 2}]] <> " GB"]]
           ]
         ];
 

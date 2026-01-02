@@ -1,13 +1,13 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
-(*Dependencies*)
+(*Initialization*)
 
 
 (* Install and configure bundled dependencies for the LongRunRisk paclet *)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Tools`Dependencies`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Tools`Initialization`"]
 
 
 (* ::Subsection:: *)

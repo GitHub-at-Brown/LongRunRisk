@@ -698,9 +698,11 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						},
 
 						(* Memory logging helper *)
-						logMemory[label_String] := If[TrueQ[verbose],
-							With[{memGB = N[MemoryInUse[] / 1024^3]},
-								Print["[", shortname, "] ", label, " | Memory: ", NumberForm[memGB, {4, 2}], " GB"]
+						logMemory[label_String] := Module[{mem = MemoryInUse[], memGB, kernelGB},
+							memGB = N[mem / 1024^3];
+							kernelGB = FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`wolframKernelMemoryGB[];
+							If[TrueQ[verbose],
+								Print["[", shortname, "] ", label, " | Wolfram Memory: ", NumberForm[memGB, {4, 2}], " GB | Physical RAM: ", If[MissingQ[kernelGB], "N/A", ToString[NumberForm[kernelGB, {4, 2}]] <> " GB"]]
 							]
 						];
 

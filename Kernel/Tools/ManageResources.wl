@@ -620,12 +620,7 @@ saveModels[models_Association, file_String] := Module[{dataModels, modelsData},
 	dataModels = PacletizedResourceFunctions`DefinitionData[modelsData];
 	(* Ensure correct context before saving - prevents shadowing issues *)
 	dataModels = PacletizedResourceFunctions`DefinitionData @@ List @@ dataModels;
-	(* Trigger formatting before Put to avoid Symbol::symname warning.
-	   ToBoxes triggers clean serialization path that produces ByteArray directly,
-	   whereas Put without prior formatting uses WithContext wrapper and warns. *)
-	ToBoxes[dataModels];
-	Put[dataModels, file];
-	file
+	Put[dataModels, file]
 ];
 
 
