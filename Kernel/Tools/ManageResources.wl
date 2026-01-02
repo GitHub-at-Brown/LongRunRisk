@@ -572,7 +572,7 @@ buildModels // Options = {
 	"CompileJacobians" -> True,
 	"CreateMoments" -> True,
 	"NumKernels" -> Automatic,  (* Automatic | n | None *)
-	"BuildMaxMaturity" -> 120,
+	"BuildMaxMaturity" -> 60,
 	"Models" -> All,  (* All or list of shortnames *)
 	"FileSuffix" -> "",  (* suffix for checkpoint files; "_BY" writes to Models_BY.wl *)
 	"UpdateManifest" -> True,  (* whether to update ModelManifest.wl at end *)
