@@ -167,9 +167,6 @@ showPipelineReport[changes_, status_, modelsToBuild_, autoBuild_:False] := Modul
 
 	(* AutoBuild mode: skip prompts and build directly *)
 	If[TrueQ[autoBuild],
-		If[$Notebooks =!= True,
-			Null
-		];
 		buildResult = FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels[
 			"Models" -> modelsToBuild
 		];
