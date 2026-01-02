@@ -628,7 +628,14 @@ saveModels[models_Association, file_String] := Module[{dataModels, modelsData},
 
 
 (* helper: load models from Models.wl - Get@Get triggers DefinitionData UpValue *)
-loadModels[file_String] := If[FileExistsQ[file], Get@Get[file], <||>];
+loadModels[file_String] := If[
+	FileExistsQ[file]
+	,
+	Needs["PacletizedResourceFunctions`"];
+	Get@Get[file]
+	,
+	<||>
+];
 
 
 (* helper: compute hash for moments cache *)
@@ -1387,7 +1394,7 @@ getModelPipelineStatus[shortnames_] := Module[
 	manifest = loadManifestSafe[FileNameJoin[{root, "Resources", "ModelManifest.wl"}]];
 	compiledDir = FileNameJoin[{root, "Resources", "CompiledFunctions"}];
 	momentsDir = FileNameJoin[{root, "Resources", "MomentsLookupTables"}];
-
+	
 	enabledModels = Select[catalogModels, TrueQ[#["enabled"]] &];
 
 	(* Filter by shortnames if specified *)
