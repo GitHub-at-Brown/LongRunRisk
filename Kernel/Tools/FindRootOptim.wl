@@ -1559,9 +1559,9 @@ createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsP
 With[{
 	shortname = model["shortname"],
 	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile, Options @ Compile]],
-	compileMode = ("CompileMode" /. Flatten @ {opts}) /. "CompileMode" -> "FunctionOnly",
-	compilerChoice = ("Compiler" /. Flatten @ {opts}) /. "Compiler" -> "Compile",
-	flattenOpt = ("FlattenExpressions" /. Flatten @ {opts}) /. "FlattenExpressions" -> Automatic,
+	compileMode = OptionValue[buildKernel, Flatten @ {opts}, "CompileMode"],
+	compilerChoice = OptionValue[buildKernel, Flatten @ {opts}, "Compiler"],
+	flattenOpt = OptionValue[buildKernel, Flatten @ {opts}, "FlattenExpressions"],
 	pdMode = Lookup[model["coeffsParamQuadSolve"]["pd"], "pdMode", "B"],
 	eqMap = buildEqMapFromModel[model]
 },
