@@ -686,7 +686,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "kernel-CompileSignSymbol-wc@@Tests/SolveEulerEq/solveCoeffRoots.wlt:679,1-691,4"
+    TestID -> "kernel-CompileSignSymbol-wc@@Tests/SolveEulerEq/solveCoeffRoots.wlt:679,1-690,4"
   ]
 
 (* --- merged from: solveCoeffRoots_test7.wlt --- *)
@@ -780,7 +780,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "kernel-CompileSignSymbol-pd@@Tests/SolveEulerEq/solveCoeffRoots.wlt:774,1-786,4"
+    TestID -> "kernel-CompileSignSymbol-pd@@Tests/SolveEulerEq/solveCoeffRoots.wlt:773,1-784,4"
   ]
 
 (* --- merged from: solveCoeffRoots_test8.wlt --- *)
@@ -899,7 +899,7 @@ VerificationTest[
     ],
     True,
     TimeConstraint -> timeLimit,
-    TestID -> "solveCoeffRoots-pd-no-cfne-messages@@Tests/SolveEulerEq/solveCoeffRoots.wlt:871,1-905,4"
+    TestID -> "solveCoeffRoots-pd-no-cfne-messages@@Tests/SolveEulerEq/solveCoeffRoots.wlt:869,1-903,4"
   ]
 
 End[]

@@ -8,7 +8,7 @@
 (* ::Input:: *)
 (*inputFilePath = $InputFileName /. "" :> NotebookFileName[];*)
 (*inputFileDir = DirectoryName @ inputFilePath;*)
-(*pacletDir = DirectoryName[inputFileDir,2];*)
+(*pacletDir = DirectoryName[inputFileDir,2]*)
 (**)
 (*Quiet[PacletUninstall["FernandoDuarte/LongRunRisk"]];*)
 (*Needs["PacletTools`"];*)
@@ -25,7 +25,7 @@
 (*confirm=False;(*True pauses after every test to manually accept/reject test, False accepts all tests*)*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*helper functions*)
 
 
@@ -212,7 +212,7 @@
 (*]*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Generate Tests*)
 
 
@@ -220,7 +220,7 @@
 (*LongRunRisk`*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`Catalog`*)
 
 
@@ -391,7 +391,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`EndogenousEq`*)
 
 
@@ -621,7 +621,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`ExogenousEq`*)
 
 
@@ -725,7 +725,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`ProcessModels`*)
 
 
@@ -1148,7 +1148,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`Shocks`*)
 
 
@@ -1442,7 +1442,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`ComputeConditionalExpectations`*)
 
 
@@ -1754,7 +1754,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -2127,7 +2127,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`CreateEulerEq`*)
 
 
@@ -2317,7 +2317,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`CreateMomentsDatabase`*)
 
 
@@ -4702,7 +4702,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*PacletizeResources*)
 
 

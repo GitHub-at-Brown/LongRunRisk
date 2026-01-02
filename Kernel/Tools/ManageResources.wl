@@ -40,7 +40,10 @@ Returns <|shortname -> <|\"MainStage\"->..., \"NeedsJacobians\"->..., \"Reason\"
 
 Begin["`Private`"];
 
-Needs["PacletizedResourceFunctions`"]
+Needs["PacletizedResourceFunctions`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
 (* Live catalog loading - tracks file modification time *)
 $catalogFile = None;
@@ -807,27 +810,26 @@ warmupParallelKernels[] := Module[{pacletDir},
 buildModels[opts : OptionsPattern[{
 	buildModels,
 	FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel,
-	FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem,
 	FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs,
 	FindRoot, RecurrenceTable, Compile, FunctionCompile
 }]] := With[{
-		(* Simple OptionValue extraction - works because all owners are in OptionsPattern *)
-		fromScratch = OptionValue["FromScratch"],
-		compileJacobians = OptionValue["CompileJacobians"],
-		createMoments = OptionValue["CreateMoments"],
-		numKernels = OptionValue["NumKernels"],
-		buildMaxMaturity = OptionValue["BuildMaxMaturity"],
-		modelFilter = OptionValue["Models"],
-		fileSuffix = OptionValue["FileSuffix"],
-		updateManifest = OptionValue["UpdateManifest"],
-		verbose = OptionValue["Verbose"],
-		compileMode = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, Flatten@{opts}, "CompileMode"],
-		compilerChoice = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, Flatten@{opts}, "Compiler"],
-		flattenOpt = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, Flatten@{opts}, "FlattenExpressions"],
-		pdMode = OptionValue[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem, Flatten@{opts}, "PdEquations"],
+		(* Extract options - two-argument form is sufficient when inside the function *)
+		fromScratch = OptionValue[buildModels, "FromScratch"],
+		compileJacobians = OptionValue[buildModels, "CompileJacobians"],
+		createMoments = OptionValue[buildModels, "CreateMoments"],
+		numKernels = OptionValue[buildModels, "NumKernels"],
+		buildMaxMaturity = OptionValue[buildModels, "BuildMaxMaturity"],
+		modelFilter = OptionValue[buildModels, "Models"],
+		fileSuffix = OptionValue[buildModels, "FileSuffix"],
+		updateManifest = OptionValue[buildModels, "UpdateManifest"],
+		verbose = OptionValue[buildModels, "Verbose"],
+		compileMode = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, "CompileMode"],
+		compilerChoice = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, "Compiler"],
+		flattenOpt = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, "FlattenExpressions"],
+		pdMode = "B",  (* Default value - solveCoeffsSystem is private so can't access its options *)
 		(* Stage-specific option filters for FORWARDING to downstream functions *)
+		(* Note: solveCoeffsSystem is private so we can't access its options *)
 		symbolicStageOpts = FilterRules[Flatten@{opts}, Join[
-			Options[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem],
 			Options[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs],
 			Options[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`getStartingValues],
 			Options[FindRoot],
@@ -885,11 +887,7 @@ buildModels[opts : OptionsPattern[{
 			Return[<||>]
 		];
 
-		(* load dependencies early - needed for determineModelStatus *)
-		Needs["PacletizedResourceFunctions`"];
-		Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
-		Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
-		Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+		(* Dependencies loaded at package initialization (see Begin["`Private`"]) *)
 
 		(* load saved state from canonical file *)
 		savedModels = loadModels[modelsFileCanonical];
@@ -1157,10 +1155,10 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 
 	startTime = AbsoluteTime[];
 
-	(* Get options *)
-	createMoments = OptionValue["CreateMoments"];
-	fromScratch = OptionValue["FromScratch"];
-	numKernels = Replace[OptionValue["NumKernels"], {
+	(* Get options - two-argument form is sufficient when inside the function *)
+	createMoments = OptionValue[buildModelsParallel, "CreateMoments"];
+	fromScratch = OptionValue[buildModelsParallel, "FromScratch"];
+	numKernels = Replace[OptionValue[buildModelsParallel, "NumKernels"], {
 		Automatic -> Min[Length[models], $ProcessorCount],
 		None -> 1
 	}];
@@ -1270,7 +1268,7 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 			buildModels[
 				"Models" -> {m},
 				"CreateMoments" -> True,
-				"NumKernels" -> OptionValue["NumKernels"]
+				"NumKernels" -> OptionValue[buildModelsParallel, "NumKernels"]
 			],
 			{m, successModels}
 		];,
@@ -1379,7 +1377,7 @@ getModelPipelineStatus[shortnames_] := Module[
 	compileMode = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, {}, "CompileMode"];
 	compilerChoice = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, {}, "Compiler"];
 	flattenOpt = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, {}, "FlattenExpressions"];
-	pdMode = OptionValue[FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem, {}, "PdEquations"];
+	pdMode = "B";  (* Default - solveCoeffsSystem is private so can't access its options *)
 
 	(* Load all required data *)
 	catalogModels = getCatalogModels[];
