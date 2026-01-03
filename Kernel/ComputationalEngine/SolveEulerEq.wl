@@ -579,6 +579,7 @@ updateCoeffsWcPd[key : "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, 
 
 
 updateCoeffsSol::badkernelstructure = "savedKernels must contain a \"kernels\" key with \"A\" and \"B\" sub-keys. Got: `1`";
+updateCoeffsSol::dropbadbond = "Dropping coefficient solutions with invalid bond or nominal bond recurrences at indices `1`.";
 
 
 updateCoeffsSol[
@@ -654,6 +655,40 @@ updateCoeffsSol[
 		]
 	];
 
+	(* Drop solutions with invalid bond or nominal bond recurrences *)
+	With[
+		{
+			invalidBondQ = Function[sol,
+				!FreeQ[sol, Missing["Overflow"] | Missing["RecurrenceTableFailed"] |
+					Overflow | Indeterminate | DirectedInfinity | ComplexInfinity]
+			]
+		},
+		Module[{solCount, badIdx, goodIdx},
+			solCount = Length[solWc];
+			badIdx = {};
+			If[solBond =!= Nothing,
+				badIdx = Union[badIdx, Select[Range[solCount], invalidBondQ[solBond[[#]]] &]]
+			];
+			If[solNomBond =!= Nothing,
+				badIdx = Union[badIdx, Select[Range[solCount], invalidBondQ[solNomBond[[#]]] &]]
+			];
+			If[badIdx =!= {},
+				Message[updateCoeffsSol::dropbadbond, badIdx];
+				goodIdx = Complement[Range[solCount], badIdx];
+				solWc = solWc[[goodIdx]];
+				If[needsPd && solPd =!= Nothing,
+					solPd = solPd[[goodIdx]]
+				];
+				If[solBond =!= Nothing,
+					solBond = solBond[[goodIdx]]
+				];
+				If[solNomBond =!= Nothing,
+					solNomBond = solNomBond[[goodIdx]]
+				]
+			]
+		]
+	];
+
 	(* Step 4: Run checks if requested - extract coefficients for checking *)
 	If[doChecks,
 		With[{wcCoeffsFlat = Map[#["A"] &, solWc]},
@@ -714,27 +749,80 @@ updateCoeffsBond[
 	coeffsWc : (_List | _Association),
 	opts : OptionsPattern[{RecurrenceTable}]
 ] := Module[
-	{recurrenceTableOpts, newParams, fillValue, solveOneWc},
+	{
+		recurrenceTableOpts, newParams, fillValue, buildExprs, overflowQ, resolveWorkingPrecision,
+		withRecurrencePrecision, mergeRecurrenceOpts, applyRecurrenceTableOpts, setNumericPrecision, solveOneWc
+	},
 
 	recurrenceTableOpts = FilterRules[Flatten @ {opts}, Options[RecurrenceTable]];
 	newParams = processNewParameters[newParameters, modelParameters];
 	fillValue = Missing["Overflow"];
 
+	mergeRecurrenceOpts[existing_List, extra_List] := Normal @ Merge[
+		{Association @ existing, Association @ extra},
+		Last
+	];
+
+	applyRecurrenceTableOpts[expr_, recOpts_List] := expr /. Inactive[RecurrenceTable][eqns_, vars_, iter_, rtOpts___] :> With[
+		{merged = mergeRecurrenceOpts[Flatten @ {rtOpts}, recOpts]},
+		Inactive[RecurrenceTable][eqns, vars, iter, Sequence @@ merged]
+	];
+
+	buildExprs[wc_, recOpts_List] := applyRecurrenceTableOpts[
+		(#[maxMaturity] & /@ modelCoeffsSolution) //. newParameters //. modelParameters /. wc /.
+			(x_Symbol?(MatchQ[SymbolName[#], "RecurrenceTableOptions"] &) -> recOpts),
+		recOpts
+	];
+
+	overflowQ[expr_] := !FreeQ[expr,
+		Overflow | Missing["Overflow"] | Indeterminate | DirectedInfinity | ComplexInfinity
+	];
+
+	resolveWorkingPrecision[recOpts_List] := Module[{wp},
+		wp = WorkingPrecision /. recOpts /. Options[RecurrenceTable];
+		Which[
+			wp === Automatic || wp === MachinePrecision, 50,
+			NumberQ[wp], Max[wp, 50],
+			True, 50
+		]
+	];
+
+	withRecurrencePrecision[recOpts_List, wp_] := Module[{optsNoWp},
+		optsNoWp = DeleteCases[recOpts, WorkingPrecision -> _];
+		Append[optsNoWp, WorkingPrecision -> wp]
+	];
+
+	setNumericPrecision[expr_, wp_] := expr /. {
+		r_Real :> SetPrecision[r, wp],
+		c_Complex :> SetPrecision[c, wp]
+	};
+
 	solveOneWc[wc_] := Module[
-		{exprs, solNum, solInfo, expectedLen, computedLen, templateN, lastRules, paddedRules},
+		{
+			exprs, solNum, solInfo, expectedLen, computedLen, templateN, lastRules, paddedRules,
+			wp, wpInit, recOptsHP
+		},
 
 		(* Build expressions and substitute parameters *)
-		exprs = (
-			(#[maxMaturity] & /@ modelCoeffsSolution) //. newParameters //. modelParameters /. wc /.
-				(x_Symbol?(MatchQ[SymbolName[#], "RecurrenceTableOptions"] &) -> recurrenceTableOpts)
-		);
+		exprs = buildExprs[wc, recurrenceTableOpts];
 
-		(* Evaluate RecurrenceTable with overflow messages suppressed *)
-		solNum = Quiet[
-			Activate[exprs[[1]]],
-			{General::ovfl, General::stop, RecurrenceTable::excptn}
+		wpInit = WorkingPrecision /. recurrenceTableOpts /. Options[RecurrenceTable];
+		If[NumberQ[wpInit] && wpInit =!= Automatic && wpInit =!= MachinePrecision,
+			exprs = setNumericPrecision[exprs, wpInit]
 		];
+
+		(* Evaluate RecurrenceTable *)
+		solNum = Activate[exprs[[1]]];
 		solInfo = Activate[exprs[[2]]];
+
+		(* Retry with higher precision if overflow occurred *)
+		If[overflowQ[solNum],
+			wp = resolveWorkingPrecision[recurrenceTableOpts];
+			recOptsHP = withRecurrencePrecision[recurrenceTableOpts, wp];
+			exprs = setNumericPrecision[buildExprs[wc, recOptsHP], wp];
+			solNum = Activate[exprs[[1]]];
+			solInfo = Activate[exprs[[2]]];
+		];
 
 		expectedLen = Length[solInfo];
 		computedLen = If[ListQ[solNum], Length[solNum], 0];
