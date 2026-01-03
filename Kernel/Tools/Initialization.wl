@@ -146,19 +146,32 @@ installAndConfigureMaTeX[] := Module[{pdflatexPath, gsPath},
 	(* Install and load MaTeX *)
 	If[
 		{} === PacletFind["MaTeX"],
-		(* Not installed: install via MaTeXInstall, which also loads MaTeX *)
-		If[
-			{} === PacletFind["MaTeXInstall" -> "1.0.0"],
+		(* Not installed: install directly from bundled paclet.
+		   In CI, MaTeXInstall can hang during auto-detection, so we bypass it
+		   and directly install the MaTeX paclet, then configure it ourselves. *)
+		If[inCIEnvironment[],
+			(* CI: Direct install of bundled MaTeX paclet *)
+			Print["MaTeX: Installing bundled paclet directly (CI mode)"];
 			PacletInstall[
-				File[
-					FindFile["FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"]
-				],
-				KeepExistingVersion -> True,
+				File[FindFile["FernandoDuarte/LongRunRisk/MaTeX-1.7.10.paclet"]],
 				ForceVersionInstall -> True
-			]
-		];
-		Needs["MaTeXInstall`"];
-		MaTeXInstall`MaTeXInstall[],
+			];
+			Needs["MaTeX`"],
+			(* Local: Use MaTeXInstall for full installation experience *)
+			Print["Installing bundled MaTeX package..."];
+			If[
+				{} === PacletFind["MaTeXInstall" -> "1.0.0"],
+				PacletInstall[
+					File[
+						FindFile["FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"]
+					],
+					KeepExistingVersion -> True,
+					ForceVersionInstall -> True
+				]
+			];
+			Needs["MaTeXInstall`"];
+			MaTeXInstall`MaTeXInstall[]
+		],
 		(* Already installed: just load it *)
 		Needs["MaTeX`"]
 	];
