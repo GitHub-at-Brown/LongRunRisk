@@ -107,8 +107,8 @@ preConfigureMaTeX[] := Module[
 	configDir = FileNameJoin[{$UserBaseDirectory, "ApplicationData", "MaTeX"}];
 	configFile = FileNameJoin[{configDir, "config.m"}];
 
-	(* In CI, always write config to ensure correct paths; locally, skip if exists *)
-	If[!inCIEnvironment[] && FileExistsQ[configFile], Return[Null]];
+	(* Locally, skip if config already exists *)
+	If[FileExistsQ[configFile], Return[Null]];
 
 	{pdflatexPath, gsPath} = getMaTeXPaths[];
 
@@ -127,14 +127,41 @@ preConfigureMaTeX[] := Module[
 	Put[config, configFile];
 ]
 
+(* CI-specific pre-configuration: Set Ghostscript to None to prevent
+   RunProcess[{gs, "--version"}] hang in MaTeX's checkConfig[].
+   This is called BEFORE MaTeX loads, so when NiceOutput.wl triggers
+   Needs["MaTeX`"], MaTeX will read this config and skip the gs check. *)
+preConfigureMaTeXForCI[pdflatexPath_] := Module[
+	{configDir, configFile, config},
+
+	configDir = FileNameJoin[{$UserBaseDirectory, "ApplicationData", "MaTeX"}];
+	configFile = FileNameJoin[{configDir, "config.m"}];
+
+	(* Config with Ghostscript=None to skip the problematic RunProcess check *)
+	config = <|
+		"pdfLaTeX" -> pdflatexPath,
+		"Ghostscript" -> None,
+		"CacheSize" -> 100,
+		"WorkingDirectory" -> Automatic
+	|>;
+
+	If[!DirectoryQ[configDir],
+		CreateDirectory[configDir, CreateIntermediateDirectories -> True]
+	];
+	Put[config, configFile];
+	Print["MaTeX config written: pdfLaTeX=", pdflatexPath, ", Ghostscript=None"];
+]
+
 
 installAndConfigureMaTeX[] := Module[{pdflatexPath, gsPath},
-	(* In CI, don't load MaTeX during initialization.
-	   MaTeX's checkConfig[] runs RunProcess[{gs, "--version"}] which hangs in
-	   Docker containers. Tests don't need MaTeX, so deferring its loading
-	   prevents the hang while preserving functionality for local development. *)
+	(* In CI, pre-configure MaTeX with Ghostscript=None to prevent the
+	   RunProcess[{gs, "--version"}] hang when MaTeX eventually loads.
+	   MaTeX may be loaded by other packages (e.g., NiceOutput), so we must
+	   ensure the config file exists before any potential load. *)
 	If[inCIEnvironment[],
-		Print["MaTeX: Deferring initialization in CI (will load on first use)"];
+		{pdflatexPath, gsPath} = getMaTeXPaths[];
+		preConfigureMaTeXForCI[pdflatexPath];
+		Print["MaTeX: Pre-configured for CI, deferring load"];
 		Return[Null]
 	];
 
