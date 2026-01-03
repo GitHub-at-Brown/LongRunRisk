@@ -116,12 +116,24 @@ jobs:
           wolframscript -code '
             Print["=== Load paclet ==="];
             Print["$SystemID: ", $SystemID];
+            Print["Time: ", DateString[]];
 
             t0 = AbsoluteTime[];
+            Print["[", Round[AbsoluteTime[] - t0, 0.1], "s] Loading paclet directory..."];
             PacletDirectoryLoad["."];
+            Print["[", Round[AbsoluteTime[] - t0, 0.1], "s] Paclet directory loaded"];
 
+            Print["[", Round[AbsoluteTime[] - t0, 0.1], "s] Loading Initialization..."];
+            Needs["FernandoDuarte`LongRunRisk`Tools`Initialization`"];
+            Print["[", Round[AbsoluteTime[] - t0, 0.1], "s] Initialization loaded"];
+
+            Print["[", Round[AbsoluteTime[] - t0, 0.1], "s] Calling initializeDependencies..."];
+            FernandoDuarte`LongRunRisk`Tools`Initialization`initializeDependencies[];
+            Print["[", Round[AbsoluteTime[] - t0, 0.1], "s] Dependencies initialized"];
+
+            Print["[", Round[AbsoluteTime[] - t0, 0.1], "s] Loading main package..."];
             Needs["FernandoDuarte`LongRunRisk`"];
-            Print["Paclet loaded in ", Round[AbsoluteTime[] - t0, 0.1], " seconds"];
+            Print["[", Round[AbsoluteTime[] - t0, 0.1], "s] Main package loaded"];
 
             Print["Pipeline status:"];
             status = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[All];
