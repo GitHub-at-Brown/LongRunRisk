@@ -129,49 +129,41 @@ preConfigureMaTeX[] := Module[
 
 
 installAndConfigureMaTeX[] := Module[{pdflatexPath, gsPath},
+	(* In CI, skip MaTeX entirely - it's not needed for tests and its initialization
+	   hangs due to executable validation even with pre-configuration *)
+	If[inCIEnvironment[],
+		Print["MaTeX: Skipping in CI environment (not needed for tests)"];
+		Return[Null]
+	];
+
 	(* First, check if required executables exist *)
 	{pdflatexPath, gsPath} = getMaTeXPaths[];
 
-	(* If pdflatex doesn't exist, skip MaTeX entirely to prevent hang *)
+	(* If pdflatex doesn't exist, skip MaTeX entirely *)
 	If[pdflatexPath === None,
-		If[inCIEnvironment[],
-			Print["MaTeX: Skipping - pdfLaTeX not found, cannot initialize safely"]
-		];
 		Return[Null]
 	];
 
 	(* Pre-configure MaTeX before loading to prevent auto-detection hangs *)
 	preConfigureMaTeX[];
 
-	(* Install and load MaTeX *)
+	(* Install and load MaTeX - only runs locally *)
 	If[
 		{} === PacletFind["MaTeX"],
-		(* Not installed: install directly from bundled paclet.
-		   In CI, MaTeXInstall can hang during auto-detection, so we bypass it
-		   and directly install the MaTeX paclet, then configure it ourselves. *)
-		If[inCIEnvironment[],
-			(* CI: Direct install of bundled MaTeX paclet *)
-			Print["MaTeX: Installing bundled paclet directly (CI mode)"];
+		(* Not installed: Use MaTeXInstall for full installation experience *)
+		Print["Installing bundled MaTeX package..."];
+		If[
+			{} === PacletFind["MaTeXInstall" -> "1.0.0"],
 			PacletInstall[
-				File[FindFile["FernandoDuarte/LongRunRisk/MaTeX-1.7.10.paclet"]],
+				File[
+					FindFile["FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"]
+				],
+				KeepExistingVersion -> True,
 				ForceVersionInstall -> True
-			];
-			Needs["MaTeX`"],
-			(* Local: Use MaTeXInstall for full installation experience *)
-			Print["Installing bundled MaTeX package..."];
-			If[
-				{} === PacletFind["MaTeXInstall" -> "1.0.0"],
-				PacletInstall[
-					File[
-						FindFile["FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"]
-					],
-					KeepExistingVersion -> True,
-					ForceVersionInstall -> True
-				]
-			];
-			Needs["MaTeXInstall`"];
-			MaTeXInstall`MaTeXInstall[]
-		],
+			]
+		];
+		Needs["MaTeXInstall`"];
+		MaTeXInstall`MaTeXInstall[],
 		(* Already installed: just load it *)
 		Needs["MaTeX`"]
 	];
