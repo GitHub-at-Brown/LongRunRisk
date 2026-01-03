@@ -129,70 +129,108 @@ preConfigureMaTeX[] := Module[
 
 
 installAndConfigureMaTeX[] := Module[{pdflatexPath, gsPath},
-	(* In CI, skip MaTeX entirely - it's not needed for tests and its initialization
-	   hangs due to executable validation even with pre-configuration *)
-	If[inCIEnvironment[],
-		Print["MaTeX: Skipping in CI environment (not needed for tests)"];
-		Return[Null]
-	];
-
 	(* First, check if required executables exist *)
 	{pdflatexPath, gsPath} = getMaTeXPaths[];
 
-	(* If pdflatex doesn't exist, skip MaTeX entirely *)
+	(* If pdflatex doesn't exist, skip MaTeX setup *)
 	If[pdflatexPath === None,
+		If[inCIEnvironment[],
+			Print["MaTeX: pdfLaTeX not found, skipping setup"]
+		];
 		Return[Null]
 	];
 
-	(* Pre-configure MaTeX before loading to prevent auto-detection hangs *)
-	preConfigureMaTeX[];
-
-	(* Install and load MaTeX - only runs locally *)
-	If[
-		{} === PacletFind["MaTeX"],
-		(* Not installed: Use MaTeXInstall for full installation experience *)
-		Print["Installing bundled MaTeX package..."];
-		If[
-			{} === PacletFind["MaTeXInstall" -> "1.0.0"],
-			PacletInstall[
-				File[
-					FindFile["FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"]
-				],
-				KeepExistingVersion -> True,
-				ForceVersionInstall -> True
-			]
-		];
-		Needs["MaTeXInstall`"];
-		MaTeXInstall`MaTeXInstall[],
-		(* Already installed: just load it *)
-		Needs["MaTeX`"]
+	(* Pre-configure MaTeX before loading to prevent auto-detection.
+	   MaTeX's checkConfig[] runs RunProcess[{gs, "--version"}] which can hang
+	   in CI environments. By setting Ghostscript to None in CI, we skip that check.
+	   Users can still use MaTeX for basic LaTeX rendering; Ghostscript is only
+	   needed for certain output format conversions. *)
+	If[inCIEnvironment[],
+		(* In CI: Configure with gs=None to prevent RunProcess hang during checkConfig *)
+		preConfigureMaTeXForCI[pdflatexPath],
+		(* Locally: Normal configuration with both paths *)
+		preConfigureMaTeX[]
 	];
 
-	(* Verify configuration and update if needed *)
-	With[{currentConfig = Quiet @ MaTeX`ConfigureMaTeX[]},
-		Module[{needsPdflatex, needsGs, configChanges, validConfig},
-			(* Validate that currentConfig is a proper list of rules before using ReplaceAll *)
-			validConfig = MatchQ[currentConfig, {(_Rule | _RuleDelayed) ...}];
-			needsPdflatex = If[validConfig, ("pdfLaTeX" /. currentConfig) === None, True];
-			needsGs = If[validConfig, ("Ghostscript" /. currentConfig) === None, True];
+	(* Install MaTeX paclet if not already installed *)
+	If[
+		{} === PacletFind["MaTeX"],
+		If[inCIEnvironment[],
+			(* CI: Direct paclet install - faster and avoids MaTeXInstall complexity *)
+			Print["MaTeX: Installing bundled paclet"];
+			PacletInstall[
+				File[FindFile["FernandoDuarte/LongRunRisk/MaTeX-1.7.10.paclet"]],
+				ForceVersionInstall -> True
+			],
+			(* Local: Use MaTeXInstall for full installation experience *)
+			Print["Installing bundled MaTeX package..."];
+			If[
+				{} === PacletFind["MaTeXInstall" -> "1.0.0"],
+				PacletInstall[
+					File[
+						FindFile["FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"]
+					],
+					KeepExistingVersion -> True,
+					ForceVersionInstall -> True
+				]
+			];
+			Needs["MaTeXInstall`"];
+			MaTeXInstall`MaTeXInstall[]
+		]
+	];
 
-			If[needsPdflatex || needsGs,
-				(* Build config changes only for what's needed - paths already verified *)
-				configChanges = {};
-				If[needsPdflatex && pdflatexPath =!= None,
-					AppendTo[configChanges, "pdfLaTeX" -> pdflatexPath]
-				];
-				If[needsGs && gsPath =!= None,
-					AppendTo[configChanges, "Ghostscript" -> gsPath]
-				];
+	(* Load MaTeX *)
+	Needs["MaTeX`"];
 
-				(* Apply config if we have changes *)
-				If[configChanges =!= {},
-					MaTeX`ConfigureMaTeX @@ configChanges
+	(* Verify configuration and update if needed - only locally since CI config
+	   is already set correctly and we want to avoid triggering checkConfig's
+	   RunProcess calls *)
+	If[!inCIEnvironment[],
+		With[{currentConfig = Quiet @ MaTeX`ConfigureMaTeX[]},
+			Module[{needsPdflatex, needsGs, configChanges, validConfig},
+				validConfig = MatchQ[currentConfig, {(_Rule | _RuleDelayed) ...}];
+				needsPdflatex = If[validConfig, ("pdfLaTeX" /. currentConfig) === None, True];
+				needsGs = If[validConfig, ("Ghostscript" /. currentConfig) === None, True];
+
+				If[needsPdflatex || needsGs,
+					configChanges = {};
+					If[needsPdflatex && pdflatexPath =!= None,
+						AppendTo[configChanges, "pdfLaTeX" -> pdflatexPath]
+					];
+					If[needsGs && gsPath =!= None,
+						AppendTo[configChanges, "Ghostscript" -> gsPath]
+					];
+					If[configChanges =!= {},
+						MaTeX`ConfigureMaTeX @@ configChanges
+					]
 				]
 			]
 		]
 	];
+]
+
+(* CI-specific MaTeX configuration: set Ghostscript to None to prevent
+   RunProcess[{gs, "--version"}] hang in checkConfig[]. MaTeX will still
+   work for basic LaTeX rendering. *)
+preConfigureMaTeXForCI[pdflatexPath_] := Module[
+	{configDir, configFile, config},
+
+	configDir = FileNameJoin[{$UserBaseDirectory, "ApplicationData", "MaTeX"}];
+	configFile = FileNameJoin[{configDir, "config.m"}];
+
+	(* Build config with gs=None to skip Ghostscript verification *)
+	config = <|
+		"pdfLaTeX" -> pdflatexPath,
+		"Ghostscript" -> None,  (* Prevents RunProcess hang *)
+		"CacheSize" -> 100,
+		"WorkingDirectory" -> Automatic
+	|>;
+
+	If[!DirectoryQ[configDir],
+		CreateDirectory[configDir, CreateIntermediateDirectories -> True]
+	];
+	Put[config, configFile];
+	Print["MaTeX: Pre-configured with pdfLaTeX=", pdflatexPath, ", Ghostscript=None"];
 ]
 
 
