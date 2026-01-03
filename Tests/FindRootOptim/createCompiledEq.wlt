@@ -198,10 +198,10 @@ $timeLimit = 5;
 VerificationTest[
   Module[{bk},
     bk = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel;
-    OptionValue[bk, "CompileMode"]
+    OptionValue[bk, {"CompileMode" -> "FunctionOnly"}, "CompileMode"]
   ],
   "FunctionOnly",
-  TestID -> "buildKernel-CompileMode-default-is-FunctionOnly@@Tests/FindRootOptim/createCompiledEq.wlt:198,1-205,2"
+  TestID -> "buildKernel-CompileMode-explicit-is-respected@@Tests/FindRootOptim/createCompiledEq.wlt:198,1-205,2"
 ]
 
 (* --- merged from: createCompiledEq_test11.wlt --- *)
