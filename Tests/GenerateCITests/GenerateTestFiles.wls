@@ -1126,17 +1126,17 @@
 (*And@@Flatten[( *)
 (*NumberQ/@Flatten[Values/@{modelsP[#]["coeffsSolutionN"][[1,"A"]],*)
 (*modelsP[#]["coeffsSolutionN"][[1,"Stocks",1,1,"B"]]}]*)
-(*)&/@Keys[modelsP]]*)
+(* )&/@Keys[modelsP]]*)
 (*,"ConfirmResults"->confirm];*)
 
 (* ::Input:: *)
 (*ResourceFunction["WriteUnitTest"][testFilePath,*)
 (*(*Bond and NomBond values are either numeric or Missing["Overflow"] sentinel*)*)
-(*And@@Flatten[(*)
+(*And@@Flatten[( *)
 (*Map[(NumberQ[#] || MatchQ[#, _Missing]) &,*)
 (*Flatten[Values/@{modelsP[#]["coeffsSolutionN"][[1,"Bond"]],*)
 (*modelsP[#]["coeffsSolutionN"][[1,"NomBond"]]}]]*)
-(*)&/@Keys[modelsP]]*)
+(* )&/@Keys[modelsP]]*)
 (*,"ConfirmResults"->confirm];*)
 
 
