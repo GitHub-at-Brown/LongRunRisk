@@ -3,19 +3,23 @@
 (* ::Section:: *)
 (*Initialization*)
 
+(* Simple CI debug output *)
+If[Environment["CI"] === "true", Print["[LRR] Loading LongRunRisk.wl..."]];
 
 Needs["FernandoDuarte`LongRunRisk`Tools`Initialization`"];
 FernandoDuarte`LongRunRisk`Tools`Initialization`initializeDependencies[];
+If[Environment["CI"] === "true", Print["[LRR] Dependencies initialized"]];
 
 
 (* ::Section:: *)
 (*Load sub-contexts*)
 
-
+If[Environment["CI"] === "true", Print["[LRR] Loading sub-contexts..."]];
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+If[Environment["CI"] === "true", Print["[LRR] Sub-contexts loaded"]];
 
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
