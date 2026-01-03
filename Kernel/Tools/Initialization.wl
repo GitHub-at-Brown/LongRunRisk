@@ -54,12 +54,19 @@ installPacletizedResourceFunctions[] := Module[{},
 (*MaTeX*)
 
 
+(* Detect if running in CI environment *)
+inCIEnvironment[] := Or[
+	StringQ[Environment["CI"]] && StringMatchQ[Environment["CI"], "true", IgnoreCase -> True],
+	StringQ[Environment["GITHUB_ACTIONS"]] && StringMatchQ[Environment["GITHUB_ACTIONS"], "true", IgnoreCase -> True],
+	StringQ[Environment["WOLFRAMSCRIPT_ENTITLEMENTID"]]
+]
+
 (* Pre-configure MaTeX by creating its config file BEFORE loading it.
    This prevents MaTeX from running auto-detection (which can hang on
    ReadList["!which pdflatex"] or runProcess[{gs, "--version"}]).
    MaTeX looks for config at $UserBaseDirectory/ApplicationData/MaTeX/config.m *)
 preConfigureMaTeX[] := Module[
-	{configDir, configFile, pdflatexPath, gsPath, config},
+	{configDir, configFile, pdflatexPath, gsPath, config, isCI, isLinux},
 
 	configDir = FileNameJoin[{$UserBaseDirectory, "ApplicationData", "MaTeX"}];
 	configFile = FileNameJoin[{configDir, "config.m"}];
@@ -67,40 +74,31 @@ preConfigureMaTeX[] := Module[
 	(* Only pre-configure if config doesn't exist yet *)
 	If[FileExistsQ[configFile], Return[Null]];
 
+	isCI = inCIEnvironment[];
+	isLinux = StringMatchQ[$SystemID, "Linux*"];
+
 	(* Determine paths based on platform *)
 	{pdflatexPath, gsPath} = Which[
-		(* GitHub Actions Linux environment *)
-		StringMatchQ[$SystemID, "Linux*"] && Environment["CI"] === "true",
-		{
-			(* TinyTeX installs pdflatex here *)
-			If[FileExistsQ["/github/home/bin/pdflatex"],
-				"/github/home/bin/pdflatex",
-				None
-			],
-			(* Ghostscript from apt-get install *)
-			If[FileExistsQ["/usr/bin/gs"],
-				"/usr/bin/gs",
-				None
-			]
-		},
+		(* GitHub Actions Linux environment - use expected paths even if files
+		   don't exist yet, to prevent auto-detection from running *)
+		isLinux && isCI,
+		{"/github/home/bin/pdflatex", "/usr/bin/gs"},
+
 		(* macOS with Homebrew *)
 		StringMatchQ[$SystemID, "MacOSX*"],
 		{
-			If[FileExistsQ["/opt/homebrew/bin/pdflatex"],
-				"/opt/homebrew/bin/pdflatex",
-				If[FileExistsQ["/Library/TeX/texbin/pdflatex"],
-					"/Library/TeX/texbin/pdflatex",
-					None
-				]
+			Which[
+				FileExistsQ["/opt/homebrew/bin/pdflatex"], "/opt/homebrew/bin/pdflatex",
+				FileExistsQ["/Library/TeX/texbin/pdflatex"], "/Library/TeX/texbin/pdflatex",
+				True, None
 			],
-			If[FileExistsQ["/opt/homebrew/bin/gs"],
-				"/opt/homebrew/bin/gs",
-				If[FileExistsQ["/usr/local/bin/gs"],
-					"/usr/local/bin/gs",
-					None
-				]
+			Which[
+				FileExistsQ["/opt/homebrew/bin/gs"], "/opt/homebrew/bin/gs",
+				FileExistsQ["/usr/local/bin/gs"], "/usr/local/bin/gs",
+				True, None
 			]
 		},
+
 		(* Other Unix systems *)
 		True,
 		{None, None}
@@ -157,7 +155,7 @@ installAndConfigureMaTeX[] := Module[{},
 			If[needsPdflatex || needsGs,
 				(* Determine fallback paths based on platform *)
 				{pdflatexPath, gsPath} = Which[
-					StringMatchQ[$SystemID, "Linux*"] && Environment["CI"] === "true",
+					StringMatchQ[$SystemID, "Linux*"] && inCIEnvironment[],
 					{"/github/home/bin/pdflatex", "/usr/bin/gs"},
 					StringMatchQ[$SystemID, "MacOSX*"],
 					{"/opt/homebrew/bin/pdflatex", "/opt/homebrew/bin/gs"},
