@@ -54,7 +54,13 @@ installPacletizedResourceFunctions[] := Module[{},
 (*MaTeX*)
 
 
+(* Detect CI environment - skip MaTeX there as it's not needed for testing *)
+inCIEnvironment[] := StringQ[Environment["CI"]] && Environment["CI"] === "true";
+
 installAndConfigureMaTeX[] := Module[{},
+	(* Skip MaTeX in CI - not needed for testing and can hang on auto-detection *)
+	If[inCIEnvironment[], Return[Null]];
+
 	(* Install and load MaTeX *)
 	If[
 		{} === PacletFind["MaTeX"],
