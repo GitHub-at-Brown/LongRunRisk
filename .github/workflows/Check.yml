@@ -86,6 +86,27 @@ jobs:
           tlmgr install latex standalone lm svn-prov
           tlmgr path add
           tlmgr list --only-installed
+      - name: Verify LaTeX executables
+        run: |
+          echo "=== Verifying LaTeX executables ==="
+          echo "HOME=$HOME"
+          echo "Checking pdflatex at /github/home/bin/pdflatex..."
+          if [ -f "/github/home/bin/pdflatex" ]; then
+            echo "pdflatex exists"
+            ls -la /github/home/bin/pdflatex
+            /github/home/bin/pdflatex --version | head -1
+          else
+            echo "ERROR: pdflatex NOT found at /github/home/bin/pdflatex"
+            echo "Contents of /github/home/bin/:"
+            ls -la /github/home/bin/ 2>/dev/null || echo "Directory does not exist"
+          fi
+          echo "Checking gs at /usr/bin/gs..."
+          if [ -f "/usr/bin/gs" ]; then
+            echo "gs exists"
+            /usr/bin/gs --version
+          else
+            echo "ERROR: gs NOT found at /usr/bin/gs"
+          fi
       - name: Load paclet
         env:
           LONGRUNRISK_SKIP_CHECK: "false"
@@ -95,6 +116,13 @@ jobs:
           wolframscript -code '
             Print["=== Load paclet ==="];
             Print["$SystemID: ", $SystemID];
+
+            (* Debug: Check environment and file existence before loading *)
+            Print["MATEX_PDFLATEX env: ", Environment["MATEX_PDFLATEX"]];
+            Print["MATEX_GHOSTSCRIPT env: ", Environment["MATEX_GHOSTSCRIPT"]];
+            Print["pdflatex exists: ", FileExistsQ["/github/home/bin/pdflatex"]];
+            Print["gs exists: ", FileExistsQ["/usr/bin/gs"]];
+
             t0 = AbsoluteTime[];
             PacletDirectoryLoad["."];
 

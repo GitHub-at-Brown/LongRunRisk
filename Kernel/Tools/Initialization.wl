@@ -61,39 +61,37 @@ inCIEnvironment[] := Or[
 	StringQ[Environment["WOLFRAMSCRIPT_ENTITLEMENTID"]]
 ]
 
-(* Get MaTeX executable paths, preferring environment variables *)
-getMaTeXPaths[] := Module[{pdflatexPath, gsPath, envPdflatex, envGs},
+(* Get MaTeX executable paths - ALWAYS verify file existence *)
+getMaTeXPaths[] := Module[{pdflatexPath, gsPath, envPdflatex, envGs, candidates},
 	(* Check for explicit environment variables first *)
 	envPdflatex = Environment["MATEX_PDFLATEX"];
 	envGs = Environment["MATEX_GHOSTSCRIPT"];
 
-	(* Use environment variables if set, otherwise detect based on platform *)
-	pdflatexPath = If[StringQ[envPdflatex] && FileExistsQ[envPdflatex],
+	(* Build candidate list for pdflatex - all paths that might contain it *)
+	candidates = Select[{
 		envPdflatex,
-		Which[
-			StringMatchQ[$SystemID, "Linux*"] && inCIEnvironment[],
-			"/github/home/bin/pdflatex",
-			StringMatchQ[$SystemID, "MacOSX*"] && FileExistsQ["/opt/homebrew/bin/pdflatex"],
-			"/opt/homebrew/bin/pdflatex",
-			StringMatchQ[$SystemID, "MacOSX*"] && FileExistsQ["/Library/TeX/texbin/pdflatex"],
-			"/Library/TeX/texbin/pdflatex",
-			True,
-			None
-		]
-	];
+		"/github/home/bin/pdflatex",
+		"/opt/homebrew/bin/pdflatex",
+		"/Library/TeX/texbin/pdflatex",
+		"/usr/local/bin/pdflatex",
+		"/usr/bin/pdflatex"
+	}, StringQ];
+	(* Find first candidate that actually exists *)
+	pdflatexPath = SelectFirst[candidates, FileExistsQ, None];
 
-	gsPath = If[StringQ[envGs] && FileExistsQ[envGs],
+	(* Build candidate list for gs *)
+	candidates = Select[{
 		envGs,
-		Which[
-			StringMatchQ[$SystemID, "Linux*"] && inCIEnvironment[],
-			"/usr/bin/gs",
-			StringMatchQ[$SystemID, "MacOSX*"] && FileExistsQ["/opt/homebrew/bin/gs"],
-			"/opt/homebrew/bin/gs",
-			StringMatchQ[$SystemID, "MacOSX*"] && FileExistsQ["/usr/local/bin/gs"],
-			"/usr/local/bin/gs",
-			True,
-			None
-		]
+		"/usr/bin/gs",
+		"/opt/homebrew/bin/gs",
+		"/usr/local/bin/gs"
+	}, StringQ];
+	(* Find first candidate that actually exists *)
+	gsPath = SelectFirst[candidates, FileExistsQ, None];
+
+	(* Debug output in CI *)
+	If[inCIEnvironment[],
+		Print["getMaTeXPaths: pdflatex=", pdflatexPath, ", gs=", gsPath]
 	];
 
 	{pdflatexPath, gsPath}
@@ -130,7 +128,18 @@ preConfigureMaTeX[] := Module[
 ]
 
 
-installAndConfigureMaTeX[] := Module[{},
+installAndConfigureMaTeX[] := Module[{pdflatexPath, gsPath},
+	(* First, check if required executables exist *)
+	{pdflatexPath, gsPath} = getMaTeXPaths[];
+
+	(* If pdflatex doesn't exist, skip MaTeX entirely to prevent hang *)
+	If[pdflatexPath === None,
+		If[inCIEnvironment[],
+			Print["MaTeX: Skipping - pdfLaTeX not found, cannot initialize safely"]
+		];
+		Return[Null]
+	];
+
 	(* Pre-configure MaTeX before loading to prevent auto-detection hangs *)
 	preConfigureMaTeX[];
 
@@ -156,29 +165,20 @@ installAndConfigureMaTeX[] := Module[{},
 
 	(* Verify configuration and update if needed *)
 	With[{currentConfig = Quiet @ MaTeX`ConfigureMaTeX[]},
-		Module[{pdflatexPath, gsPath, needsPdflatex, needsGs, configChanges, validConfig},
+		Module[{needsPdflatex, needsGs, configChanges, validConfig},
 			(* Validate that currentConfig is a proper list of rules before using ReplaceAll *)
 			validConfig = MatchQ[currentConfig, {(_Rule | _RuleDelayed) ...}];
 			needsPdflatex = If[validConfig, ("pdfLaTeX" /. currentConfig) === None, True];
 			needsGs = If[validConfig, ("Ghostscript" /. currentConfig) === None, True];
 
 			If[needsPdflatex || needsGs,
-				(* Determine fallback paths based on platform *)
-				{pdflatexPath, gsPath} = getMaTeXPaths[];
-
-				(* Build config changes only for what's needed and exists *)
+				(* Build config changes only for what's needed - paths already verified *)
 				configChanges = {};
 				If[needsPdflatex && pdflatexPath =!= None,
-					If[FileExistsQ[pdflatexPath],
-						AppendTo[configChanges, "pdfLaTeX" -> pdflatexPath],
-						Message[initializeDependencies::pdflatex, pdflatexPath]
-					]
+					AppendTo[configChanges, "pdfLaTeX" -> pdflatexPath]
 				];
 				If[needsGs && gsPath =!= None,
-					If[FileExistsQ[gsPath],
-						AppendTo[configChanges, "Ghostscript" -> gsPath],
-						Message[initializeDependencies::gs, gsPath]
-					]
+					AppendTo[configChanges, "Ghostscript" -> gsPath]
 				];
 
 				(* Apply config if we have changes *)
