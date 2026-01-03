@@ -3,19 +3,32 @@
 (* ::Section:: *)
 (*Initialization*)
 
+(* CI timing diagnostic *)
+$LRRLoadStart = AbsoluteTime[];
+$LRRTimingEnabled = StringQ[Environment["CI"]] && Environment["CI"] === "true";
+lrrTiming[msg_] := If[$LRRTimingEnabled, Print["[", Round[AbsoluteTime[] - $LRRLoadStart, 0.1], "s] ", msg]];
+
+lrrTiming["Starting LongRunRisk.wl load"];
 
 Needs["FernandoDuarte`LongRunRisk`Tools`Initialization`"];
+lrrTiming["Initialization loaded"];
 FernandoDuarte`LongRunRisk`Tools`Initialization`initializeDependencies[];
+lrrTiming["Dependencies initialized"];
 
 
 (* ::Section:: *)
 (*Load sub-contexts*)
 
 
+lrrTiming["Loading sub-contexts..."];
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
+lrrTiming["Parameters loaded"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
+lrrTiming["Shocks loaded"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+lrrTiming["ExogenousEq loaded"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+lrrTiming["EndogenousEq loaded"];
 
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
@@ -107,14 +120,19 @@ reExport = FernandoDuarte`LongRunRisk`Tools`ReExport`reExport;
 
 
 (* load models via Get@Get pattern - requires PacletizedResourceFunctions loaded first *)
+lrrTiming["Loading PacletizedResourceFunctions..."];
 Needs["PacletizedResourceFunctions`"];
+lrrTiming["Loading Models.wl..."];
 FernandoDuarte`LongRunRisk`Models = Get@Get@"FernandoDuarte/LongRunRisk/Models.wl";
+lrrTiming["Models.wl loaded"];
 
+lrrTiming["Loading Catalog..."];
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 FernandoDuarte`LongRunRisk`Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];
-
+lrrTiming["Catalog loaded"];
 
 (* load moments lookup tables *)
+lrrTiming["Loading moments lookup tables..."];
 Needs["PacletTools`"];
 pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
 filesMom = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources"|>}];
@@ -122,6 +140,7 @@ Map[
 	Get@#&,
 	Flatten@StringCases[filesMom,__~~"MomentsLookupTables"~~__~~".mx"]
 ];
+lrrTiming["Moments lookup tables loaded"];
 
 (* load compiled functions -- commented out since done automatically downstream *)
 (*filesComp= PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",\[LeftAssociation]"Root"\[Rule]"Resources/CompiledFunctions"\[RightAssociation]}];
@@ -332,18 +351,22 @@ EndPackage[];
 (*Load and build models*)
 
 
+lrrTiming["Before CheckModels..."];
 Quiet[
 	Check[
 		If[!TrueQ[$ParallelEvaluationEnvironment] && $KernelID === 0 &&
 			(* Skip CheckModels if LONGRUNRISK_SKIP_CHECK=true (for CI warmup) *)
 			!MemberQ[{"true", "1"}, ToLowerCase[ToString[Environment["LONGRUNRISK_SKIP_CHECK"]]]],
 			(* Only run if not in parallel context and main kernel *)
-			FernandoDuarte`LongRunRisk`CheckModels[]
+			lrrTiming["Running CheckModels..."];
+			FernandoDuarte`LongRunRisk`CheckModels[];
+			lrrTiming["CheckModels completed"]
 		],
 		Null
 	],
 	All
 ];
+lrrTiming["LongRunRisk.wl load complete"];
 
 
 (* Protect all package symbols after EndPackage[]; *)
