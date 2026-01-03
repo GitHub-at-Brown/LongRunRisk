@@ -126,7 +126,12 @@ trySmartIntervals[f_, df_, reduceExpr_, coefList_, extractOpts_, scanOpts_, rub_
             ] &,
             {a, b}
           ];
-          frRes = fastRoot[f, {x0, aFinite, bFinite}, Jacobian -> df, Sequence @@ scanOpts];
+          frRes = fastRoot[
+            f,
+            MapThread[{#1, #2, #3} &, {x0, aFinite, bFinite}],
+            Jacobian -> df,
+            Sequence @@ scanOpts
+          ];
           If[!FailureQ[frRes],
             AppendTo[finalRoots, {frRes}];
             AppendTo[finalIntervals, iv]
@@ -149,7 +154,12 @@ tryArtificialBox[f_, df_, coefList_, scanOpts_, rub_, pad_] :=
     b = artificialBounds[[All, 2]];
     x0 = (a + b) / 2.;
 
-    frRes = fastRoot[f, {x0, a, b}, Jacobian -> df, Sequence @@ scanOpts];
+    frRes = fastRoot[
+      f,
+      MapThread[{#1, #2, #3} &, {x0, a, b}],
+      Jacobian -> df,
+      Sequence @@ scanOpts
+    ];
     If[!FailureQ[frRes],
       {{{frRes}}, {artificialBounds}},  (* Double-wrap root for Map[..., {2}] compatibility *)
       $Failed
@@ -913,10 +923,12 @@ solveCoeffRoots[
         (* Apply paramsAll to coefList so index variables (j, i) match those in reduceExpr *)
         intervals  = extractIntervalsFromReduce[reduceExpr, coefList //. paramsAll, Sequence @@ extractOpts];
 
+        firstScalar[val_] := If[ListQ[val], First[val], val];
+
         roots = If[df === None,
-          scanAndSolve[First@*f, #, Sequence @@ scanOpts] & /@ intervals
+          scanAndSolve[firstScalar@*f, #, Sequence @@ scanOpts] & /@ intervals
           ,
-          scanAndSolve[First@*f, First@*df, #, Sequence @@ scanOpts] & /@ intervals
+          scanAndSolve[firstScalar@*f, firstScalar@*df, #, Sequence @@ scanOpts] & /@ intervals
         ];
 
         (* Substitute signs into the analytical solution *)

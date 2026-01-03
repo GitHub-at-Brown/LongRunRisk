@@ -1,7 +1,7 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Preliminaries*)
 
 
@@ -220,7 +220,7 @@
 (*LongRunRisk`*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Catalog`*)
 
 
@@ -391,7 +391,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`EndogenousEq`*)
 
 
@@ -621,7 +621,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ExogenousEq`*)
 
 
@@ -725,7 +725,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ProcessModels`*)
 
 
@@ -1129,6 +1129,7 @@
 (* )&/@Keys[modelsP]]*)
 (*,"ConfirmResults"->confirm];*)
 
+
 (* ::Input:: *)
 (*ResourceFunction["WriteUnitTest"][testFilePath,*)
 (*(*Bond and NomBond values are either numeric or Missing["Overflow"] sentinel*)*)
@@ -1156,7 +1157,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Shocks`*)
 
 
@@ -1450,7 +1451,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeConditionalExpectations`*)
 
 
@@ -1762,7 +1763,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -2135,7 +2136,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateEulerEq`*)
 
 
@@ -2325,7 +2326,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateMomentsDatabase`*)
 
 
@@ -2476,7 +2477,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`SolveEulerEq`*)
 
 
@@ -2500,6 +2501,7 @@
 (*With[{context=context},*)
 (*ResourceFunction["WriteUnitTest"][testFilePath,*)
 (*Needs@context;*)
+(*Needs@"PacletizedResourceFunctions`";*)
 (*$ContextPath = DeleteDuplicates@Prepend[$ContextPath,"FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`"];*)
 (*True*)
 (*,"ConfirmResults"->confirm];*)
@@ -2605,9 +2607,9 @@
 (*    savedKernels = loadModelKernels[thisModel];*)
 (**)
 (*    (* WC: updateCoeffs vs updateCoeffsSol (A rules match) *)*)
-(*    optsWc = {"MaxIterations" -> 100};*)
-(*    resWc = Quiet@updateCoeffs[thisModel, optsWc];*)
-(*    resWcSol = Quiet@updateCoeffsSol[thisModel, savedKernels, {}, {}, optsWc];*)
+(*    optsWc = {"FindRootOptions" -> {"MaxIterations" -> 100}};*)
+(*    resWc = Quiet@updateCoeffs[thisModel, Sequence @@ optsWc];*)
+(*    resWcSol = Quiet@updateCoeffsSol[thisModel, savedKernels, {}, {}, Sequence @@ optsWc];*)
 (**)
 (*    outTests[thisModel["shortname"]][ind] = And @@ {*)
 (*      ListQ[resWc] && resWc =!= {},*)
@@ -2620,12 +2622,18 @@
 (*    ind = ind + 1;*)
 (**)
 (*    (* UpdatePd option: extract wc/pd from hierarchical structure *)*)
-(*    Ewc0 = 4.6;*)
+(*    trueA0=thisModel["coeffsSolutionN"][[1]]["A"][A[0]];*)
+(*    intervalRealA0=thisModel["coeffsSolutionN"][[1]]["IntervalA"];*)
+(*    Ewc0 = Mean[{trueA0,Mean[intervalRealA0]}];*)
 (**)
+(*    trueB0=thisModel["coeffsSolutionN"][[1]]["Stocks",1][[1]]["B"][B[1][0]];*)
+(*    intervalRealB0=thisModel["coeffsSolutionN"][[1]]["Stocks",1][[1]]["IntervalB"];*)
+(*    Epd0 = Mean[{trueB0,Mean[intervalRealB0]}];*)
+(*    *)
 (*    resNoPd = Quiet@updateCoeffs[*)
 (*      thisModel,*)
 (*      "UpdatePd" -> False,*)
-(*      "initialGuess" -> <|"Ewc" -> {Ewc0}, "Epd" -> {{5.5}}|>*)
+(*      "initialGuess" -> <|"Ewc" -> {Ewc0}, "Epd" -> {{Epd0}}|>*)
 (*    ];*)
 (*    outTests[thisModel["shortname"]][ind] = coeffsQWcRules[wcRulesFirst[resNoPd]];*)
 (*    ind = ind + 1;*)
@@ -2633,7 +2641,7 @@
 (*    resWcPd = Quiet@updateCoeffs[*)
 (*      thisModel,*)
 (*      "UpdatePd" -> True,*)
-(*      "initialGuess" -> <|"Ewc" -> {Ewc0}, "Epd" -> {{5.5}}|>*)
+(*      "initialGuess" -> <|"Ewc" -> {Ewc0}, "Epd" -> {{Epd0}}|>*)
 (*    ];*)
 (**)
 (*    coeffsWc = wcRulesFirst[resWcPd];*)
@@ -2648,10 +2656,10 @@
 (*    (* initialGuess interval forms *)*)
 (*    outTests[thisModel["shortname"]][ind] = And @@ {*)
 (*      coeffsQWcRules[*)
-(*        wcRulesFirst @ Quiet@updateCoeffs[thisModel, "initialGuess" -> <|"Ewc" -> {1, 8}|>, "MaxIterations" -> 100]*)
+(*        wcRulesFirst @ Quiet@updateCoeffs[thisModel, "initialGuess" -> <|"Ewc" -> intervalRealA0|>, Sequence @@ optsWc]*)
 (*      ],*)
 (*      coeffsQWcRules[*)
-(*        wcRulesFirst @ Quiet@updateCoeffs[thisModel, "initialGuess" -> <|"Ewc" -> {4, 1, 8}|>, "MaxIterations" -> 100]*)
+(*        wcRulesFirst @ Quiet@updateCoeffs[thisModel, "initialGuess" -> <|"Ewc" -> Append[Ewc0,trueA0]|>, Sequence @@ optsWc]*)
 (*      ]*)
 (*    };*)
 (*    ind = ind + 1;*)
@@ -2689,7 +2697,7 @@
 (*        (0.1 + (FernandoDuarte`LongRunRisk`Model`Parameters`psi /. thisModel["params"]))*)
 (*    };*)
 (**)
-(*    resWcNewBondParams = Quiet@updateCoeffs[thisModel, {}, newBondParams, {}, optsWc];*)
+(*    resWcNewBondParams = Quiet@updateCoeffs[thisModel, savedKernels, newBondParams, {}, Sequence @@ optsWc];*)
 (*    wcCoeffSetsNew = resWcNewBondParams[[All, "A"]];*)
 (**)
 (*    solBondNew = updateCoeffsBond[*)
@@ -4713,7 +4721,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*PacletizeResources*)
 
 
@@ -4767,7 +4775,7 @@
 (*cleanUp[];*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Results*)
 
 

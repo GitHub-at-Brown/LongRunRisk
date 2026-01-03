@@ -39,6 +39,7 @@ paramValues: Association of parameter -> value.
 signs: List of sign values (default {}). Length must match Max[kernel[\"SignIndex\"]].";
 bindUnary::toofewsigns = "Expected at least `1` sign values, but got `2`.";
 bindUnary::toomanysigns = "Expected exactly `1` sign values, but got `2`.";
+bindUnary::runtime = "Compiled kernel evaluation failed at least once; treating those points as non-numeric.";
 findRootInterval::usage = "findRootInterval[conds, paramValues, coeffName, signSym, signs] returns a Reduce expression constraining the root variable.
 Pass the result to extractIntervalsFromReduce to obtain numeric intervals.
 conds: system of conditions/inequalities.
@@ -460,7 +461,7 @@ bindUnary[
 	paramValues_Association,
 	signs_List : {}
 ] := Module[
-  {paramsj, paramOrder, a, s, idx = k["SignIndex"], maxIdx},
+  {paramsj, paramOrder, a, s, idx = k["SignIndex"], maxIdx, runtimeErrorCount = 0, safeCall},
   
   (*if j present as Key in paramValues, find its associated value*)
   paramsj = First[
@@ -497,13 +498,30 @@ bindUnary[
 	  (* Return early if sign extraction failed *)
 	  If[s === $Failed, Return[$Failed, Module]];
 
+	  safeCall[fun_, args_] := Module[{res},
+	    res = Quiet[
+	      Check[fun[Sequence @@ args], $Failed, CompiledCodeFunction::runtime],
+	      CompiledCodeFunction::runtime
+	    ];
+	    If[res === $Failed,
+	      runtimeErrorCount = runtimeErrorCount + 1;
+	      If[runtimeErrorCount == 1,
+	        Message[bindUnary::runtime]
+	      ];
+	      Return[Indeterminate]
+	    ];
+	    res
+	  ];
+	
 	  With[
 		  {
-			  kfC=k["fC"],kdfC=k["dfC"],suffix=Join[a,s]
+			  kfC = k["fC"],
+			  kdfC = k["dfC"],
+			  suffix = Join[a, s]
 		  },
 		  {
-			  Function[{z},kfC[Sequence@@Join[Flatten@{z},suffix]]],
-			  Function[{z},kdfC[Sequence@@Join[Flatten@{z},suffix]]]
+			  Function[{z}, safeCall[kfC, Join[Flatten@{z}, suffix]]],
+			  Function[{z}, safeCall[kdfC, Join[Flatten@{z}, suffix]]]
 		  }
 	   ]
    ]
@@ -1096,6 +1114,9 @@ scanAndSolve//Options = {
 
 
 (* -------- With derivative -------- *)
+scanAndSolve::runtime =
+  "Encountered `1` runtime errors while evaluating the compiled function; treating those points as non-numeric.";
+
 scanAndSolve[
 	f_,
 	df_,
@@ -1135,7 +1156,8 @@ scanAndSolve[
 			    ]
 			 },
 			 Module[
-			    {fnum, dfnum, xs, ys, tol, zeroRoots, signs, ints, roots, fastOpts, acc},
+			    {fnum, dfnum, xs, ys, tol, zeroRoots, signs, ints, roots, fastOpts, acc,
+			     runtimeErrors = 0, safeEval},
 			    (* Get AccuracyGoal, defaulting to 8 if not specified or Automatic *)
 			    acc = Replace[
 			      AccuracyGoal /. findRootOpts /. AccuracyGoal -> 8,
@@ -1146,22 +1168,47 @@ scanAndSolve[
 			      Evaluate @ frFindRootOpts
 			    }];
 			    (* fnum/dfnum: wrap scalar in list, pass vector through (consistent with fastRootCore) *)
-			    fnum[x_?NumberQ] := f[{x}];
-			    fnum[v_?(VectorQ[#, NumberQ]&)] := f[v];
-			    dfnum[x_?NumberQ] := df[{x}];
-			    dfnum[v_?(VectorQ[#, NumberQ]&)] := df[v];
+			    safeEval[val_] := Module[{res},
+			      res = Quiet[
+			        Check[val, $Failed, CompiledCodeFunction::runtime],
+			        CompiledCodeFunction::runtime
+			      ];
+			      If[res === $Failed, runtimeErrors = runtimeErrors + 1];
+			      res
+			    ];
+			
+			    fnum[x_?NumberQ] := safeEval[f[{x}]];
+			    fnum[v_?(VectorQ[#, NumberQ]&)] := safeEval[f[v]];
+			    dfnum[x_?NumberQ] := safeEval[df[{x}]];
+			    dfnum[v_?(VectorQ[#, NumberQ]&)] := safeEval[df[v]];
 			
 			    xs = N @ Subdivide[a, b, bins];        (* length = bins + 1 *)
 			    ys = fnum /@ xs;
+			    valid = NumericQ /@ ys;
+			    ysNum = Map[If[NumericQ[#], #, Indeterminate] &, ys];
 			
 			    tol = Replace[tolOpt, Automatic -> 10.^(-acc)];
 			
-			    (* grid hits: use a listable selector *)
-			    zeroRoots = Pick[xs, UnitStep[tol - Abs[ys]], 1];
+			    (* grid hits: only where numeric *)
+			    zeroRoots = Pick[
+			      xs,
+			      MapThread[If[#2, UnitStep[tol - Abs[#1]], 0] &, {ysNum, valid}],
+			      1
+			    ];
 			
-			    signs = Sign[ys];
+			    signs = MapThread[If[#2, Sign[#1], 0] &, {ysNum, valid}];
 			    (* sign-change subintervals; selector length == bins *)
-			    ints  = Pick[Partition[xs, 2, 1], Most[signs]*Rest[signs], -1];
+			    ints  = Pick[
+			      Partition[xs, 2, 1],
+			      MapThread[
+			        If[#1 && #2, #3*#4, 0] &,
+			        {Most[valid], Rest[valid], Most[signs], Rest[signs]}
+			      ],
+			      -1
+			    ];
+			
+			    If[!ListQ[zeroRoots], zeroRoots = {}];
+			    If[!ListQ[ints], ints = {}];
 			
 			    (* fastRoot returns numeric value directly with default "Return" -> "Value" *)
 			    (* New API: fastRoot[f, spec, Jacobian -> df, opts] *)
@@ -1171,6 +1218,11 @@ scanAndSolve[
 			         $Failed
 			       ]) & /@ ints,
 			      NumberQ
+			    ];
+			    If[!ListQ[roots], roots = {}];
+			
+			    If[runtimeErrors > 0,
+			      Message[scanAndSolve::runtime, runtimeErrors]
 			    ];
 			
 			    (* Use With to inject tol value into pure function at definition time *)
