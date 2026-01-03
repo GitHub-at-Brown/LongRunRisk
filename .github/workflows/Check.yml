@@ -89,6 +89,8 @@ jobs:
       - name: Load paclet
         env:
           LONGRUNRISK_SKIP_CHECK: "false"
+          MATEX_PDFLATEX: /github/home/bin/pdflatex
+          MATEX_GHOSTSCRIPT: /usr/bin/gs
         run: |
           wolframscript -code '
             Print["=== Load paclet ==="];
