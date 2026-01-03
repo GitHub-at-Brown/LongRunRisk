@@ -177,8 +177,6 @@ buildKernel[
             {body, Automatic}
         ]
     ];
-    Echo[Head[flatBody], "Head of flatBody immediately after assignment"];
-    Echo[Short[flatBody, 2], "flatBody value (abbreviated)"];
 
     compileOpts = If[compiler === "FunctionCompile",
       (* FunctionCompile options *)
