@@ -693,21 +693,67 @@ updateCoeffsSol[
 (*updateCoeffsBond*)
 
 
+updateCoeffsBond::ovflpad = "RecurrenceTable overflow: computed up to maturity `1`; padding remaining maturities up to `2` with Missing[\"Overflow\"].";
+updateCoeffsBond::recfail = "RecurrenceTable failed completely for bond coefficients; returning Missing[\"RecurrenceTableFailed\"].";
+
 updateCoeffsBond[
-modelCoeffsSolution_,
-modelParameters: (_List | _Association),
-newParameters: (_List | _Association),
-maxMaturity_, coeffsWc : (_List | _Association),
-opts : OptionsPattern[{RecurrenceTable}]
-]:=Module[{solFirst,solRest},
-	With[{newParams=processNewParameters[newParameters,modelParameters]},
-		Association@Flatten@MapThread[Flatten@{#1,#2/.#1}&,
-		Activate[
-			(#[maxMaturity]&/@modelCoeffsSolution)//.newParameters//.modelParameters/.#/.
-				(x_Symbol?(MatchQ[SymbolName[#],"RecurrenceTableOptions"]&)->FilterRules[Flatten@{opts}, Options[RecurrenceTable]])
+	modelCoeffsSolution_,
+	modelParameters : (_List | _Association),
+	newParameters : (_List | _Association),
+	maxMaturity_,
+	coeffsWc : (_List | _Association),
+	opts : OptionsPattern[{RecurrenceTable}]
+] := Module[
+	{recurrenceTableOpts, newParams, fillValue, solveOneWc},
+
+	recurrenceTableOpts = FilterRules[Flatten @ {opts}, Options[RecurrenceTable]];
+	newParams = processNewParameters[newParameters, modelParameters];
+	fillValue = Missing["Overflow"];
+
+	solveOneWc[wc_] := Module[
+		{exprs, solNum, solInfo, expectedLen, computedLen, templateN, lastRules, paddedRules},
+
+		(* Build expressions and substitute parameters *)
+		exprs = (
+			(#[maxMaturity] & /@ modelCoeffsSolution) //. newParameters //. modelParameters /. wc /.
+				(x_Symbol?(MatchQ[SymbolName[#], "RecurrenceTableOptions"] &) -> recurrenceTableOpts)
+		);
+
+		(* Evaluate RecurrenceTable with overflow messages suppressed *)
+		solNum = Quiet[
+			Activate[exprs[[1]]],
+			{General::ovfl, General::stop, RecurrenceTable::excptn}
+		];
+		solInfo = Activate[exprs[[2]]];
+
+		expectedLen = Length[solInfo];
+		computedLen = If[ListQ[solNum], Length[solNum], 0];
+
+		(* Guard: complete failure *)
+		If[computedLen == 0,
+			Message[updateCoeffsBond::recfail];
+			Return[Missing["RecurrenceTableFailed"], Module]
+		];
+
+		(* Pad if partial result *)
+		If[computedLen > 0 && computedLen < expectedLen,
+			templateN = computedLen - 1;
+			lastRules = solNum[[computedLen]];
+			paddedRules = (
+				lastRules /. (lhs_ -> _) :> ((lhs /. (h_)[templateN] :> h[#]) -> fillValue)
+			) & /@ Range[computedLen, expectedLen - 1];
+			Message[updateCoeffsBond::ovflpad, templateN, expectedLen - 1];
+			solNum = Join[solNum, paddedRules]
+		];
+
+		(* Combine numerical solution with info *)
+		Association @ Flatten @ MapThread[
+			Flatten @ {#1, #2 /. #1} &,
+			{solNum, solInfo}
 		]
-		]&/@coeffsWc
-	]
+	];
+
+	solveOneWc /@ coeffsWc
 ]
 
 
