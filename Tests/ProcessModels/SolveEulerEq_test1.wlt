@@ -58,7 +58,10 @@ VerificationTest[
 						Cases[Map[Keys, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol], FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var_[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`i_Integer][FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`j_Integer] :> Context[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`var]]
 					]
 				],
-				Apply[And, Map[NumberQ, Map[Values, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol]]]
+				If[Equal[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`bond, 1],
+					Apply[And, Map[Function[v, Or[NumberQ[v], MatchQ[v, _Missing]]], Map[Values, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol]]],
+					Apply[And, Map[NumberQ, Map[Values, FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`sol]]]
+				]
 			}
 		]
 	];
@@ -144,14 +147,14 @@ VerificationTest[
 				FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffsQWcRules[
 					FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst[
 						Quiet[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`thisModel, "initialGuess" -> <|"Ewc" -> {1, 8}|>]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`thisModel, "initialGuess" -> <|"Ewc" -> {1, 8}|>, "MaxIterations" -> 100]
 						]
 					]
 				],
 				FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffsQWcRules[
 					FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst[
 						Quiet[
-							FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`thisModel, "initialGuess" -> <|"Ewc" -> {4, 1, 8}|>]
+							FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`thisModel, "initialGuess" -> <|"Ewc" -> {4, 1, 8}|>, "MaxIterations" -> 100]
 						]
 					]
 				]

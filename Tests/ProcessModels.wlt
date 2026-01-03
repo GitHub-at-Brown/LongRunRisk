@@ -9,7 +9,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-0I4VIE"
+	TestID->"ProcessModels_20260102-YD7QKB"
 ]
 VerificationTest[
 	Needs @ "FernandoDuarte`LongRunRisk`Model`Catalog`";
@@ -19,7 +19,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-LWLCHC"
+	TestID->"ProcessModels_20260102-NVK2WJ"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`longTest = False;
@@ -29,7 +29,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-BSSJGS"
+	TestID->"ProcessModels_20260102-8HYFGI"
 ]
 VerificationTest[
 	Apply[And, {MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Catalog`"], MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`ProcessModels`"]}]
@@ -38,7 +38,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-ZQSNKI"
+	TestID->"ProcessModels_20260102-HM31D0"
 ]
 VerificationTest[
 	Apply[And,
@@ -52,7 +52,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-1FIMUW"
+	TestID->"ProcessModels_20260102-3AP9DH"
 ]
 VerificationTest[
 	Needs @ "PacletizedResourceFunctions`";
@@ -65,7 +65,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-WZESRB"
+	TestID->"ProcessModels_20260102-SM5QWC"
 ]
 VerificationTest[
 	Apply[And, Map[StringQ, Keys @ FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`modelsP]]
@@ -74,7 +74,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-9G3D52"
+	TestID->"ProcessModels_20260102-MH4KED"
 ]
 VerificationTest[
 	Apply[And,
@@ -99,7 +99,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-HOAYIK"
+	TestID->"ProcessModels_20260102-HBF7E6"
 ]
 VerificationTest[
 	Apply[And,
@@ -143,7 +143,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-84E5B0"
+	TestID->"ProcessModels_20260102-W7H6E8"
 ]
 VerificationTest[
 	Apply[And,
@@ -157,7 +157,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-5MLRL6"
+	TestID->"ProcessModels_20260102-JHFJXI"
 ]
 VerificationTest[
 	Apply[And,
@@ -173,7 +173,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-LX5KIV"
+	TestID->"ProcessModels_20260102-2HC2KR"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`longTest,
@@ -316,7 +316,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-MTLLQX"
+	TestID->"ProcessModels_20260102-CPVVZ2"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`longTest,
@@ -427,7 +427,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-GZFAML"
+	TestID->"ProcessModels_20260102-X0NY0W"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`longTest,
@@ -562,7 +562,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-LQSN00"
+	TestID->"ProcessModels_20260102-6C8TF6"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`longTest,
@@ -641,7 +641,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-GJAXHY"
+	TestID->"ProcessModels_20260102-1LB7QV"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`longTest,
@@ -680,7 +680,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-MX3IVO"
+	TestID->"ProcessModels_20260102-XYKTDB"
 ]
 VerificationTest[
 	Apply[And,
@@ -742,7 +742,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-RB8469"
+	TestID->"ProcessModels_20260102-SW9L4O"
 ]
 VerificationTest[
 	Apply[And,
@@ -758,7 +758,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-G2RWLC"
+	TestID->"ProcessModels_20260102-7192WT"
 ]
 VerificationTest[
 	Apply[And,
@@ -798,7 +798,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-7V4KEI"
+	TestID->"ProcessModels_20260102-UYTL19"
 ]
 VerificationTest[
 	Apply[And,
@@ -809,7 +809,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-FECOQ3"
+	TestID->"ProcessModels_20260102-80HIGR"
 ]
 VerificationTest[
 	FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`modelPNRC = FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`modelsP @ "NRC";
@@ -883,7 +883,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-J4IS5K"
+	TestID->"ProcessModels_20260102-2JULD9"
 ]
 VerificationTest[
 	Apply[And,
@@ -985,7 +985,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-E43U6L"
+	TestID->"ProcessModels_20260102-8H3SK5"
 ]
 VerificationTest[
 	Apply[And,
@@ -1087,7 +1087,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-47QXI3"
+	TestID->"ProcessModels_20260102-OAAYCM"
 ]
 VerificationTest[
 	Apply[And,
@@ -1105,7 +1105,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-JG4L0M"
+	TestID->"ProcessModels_20260102-G5DWZI"
 ]
 VerificationTest[
 	Apply[And,
@@ -1207,7 +1207,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-UWEJKE"
+	TestID->"ProcessModels_20260102-QPZFW7"
 ]
 VerificationTest[
 	Apply[And,
@@ -1234,7 +1234,7 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-IODBON"
+	TestID->"ProcessModels_20260102-OWV8Y4"
 ]
 VerificationTest[
 	If[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`longTest,
@@ -1283,8 +1283,9 @@ VerificationTest[
 	,
 	{}
 	,
-	TestID->"ProcessModels_20260101-S5DX36"
+	TestID->"ProcessModels_20260102-TO77RK"
 ]
+(* Test: A and B coefficients are always numeric *)
 VerificationTest[
 	Apply[And,
 		Flatten[
@@ -1296,9 +1297,7 @@ VerificationTest[
 								Values,
 								{
 									Part[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`modelsP[#]["coeffsSolutionN"], 1, "A"],
-									Part[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`modelsP[#]["coeffsSolutionN"], 1, "Stocks", 1, 1, "B"],
-									Part[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`modelsP[#]["coeffsSolutionN"], 1, "Bond"],
-									Part[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`modelsP[#]["coeffsSolutionN"], 1, "NomBond"]
+									Part[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`modelsP[#]["coeffsSolutionN"], 1, "Stocks", 1, 1, "B"]
 								}
 							]
 						]
@@ -1309,18 +1308,38 @@ VerificationTest[
 		]
 	]
 	,
-	False
+	True
 	,
-	{
-		General::ovfl, General::ovfl, General::ovfl, General::stop, General::ovfl, General::ovfl,
-		General::ovfl, General::ovfl, General::ovfl, General::ovfl, General::ovfl, General::ovfl,
-		RecurrenceTable::excptn, MapThread::mptc, General::ovfl, General::ovfl, General::ovfl,
-		General::ovfl, General::ovfl, General::ovfl, General::ovfl, General::ovfl, General::ovfl,
-		General::ovfl, General::ovfl, RecurrenceTable::excptn, MapThread::mptc, Values::invrl,
-		Values::invrl
-	}
+	{}
 	,
-	TestID->"ProcessModels_20260101-AGI8T3"
+	TestID->"ProcessModels-coeffsSolutionN-A-B-numeric"
+]
+(* Test: Bond and NomBond values are either numeric or Missing["Overflow"] sentinel *)
+VerificationTest[
+	Apply[And,
+		Flatten[
+			Map[
+				Function[{modelKey},
+					With[{
+						bondVals = Values @ Part[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`modelsP[modelKey]["coeffsSolutionN"], 1, "Bond"],
+						nomBondVals = Values @ Part[FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`modelsP[modelKey]["coeffsSolutionN"], 1, "NomBond"]
+					},
+						Map[
+							(NumberQ[#] || MatchQ[#, _Missing]) &,
+							Flatten[{bondVals, nomBondVals}]
+						]
+					]
+				],
+				Keys @ FernandoDuarte`LongRunRisk`Tests`Model`ProcessModels`modelsP
+			]
+		]
+	]
+	,
+	True
+	,
+	{}
+	,
+	TestID->"ProcessModels-coeffsSolutionN-Bond-numeric-or-Missing"
 ] 
 VerificationTest[
     (* Clean Private contexts before next test file *)
