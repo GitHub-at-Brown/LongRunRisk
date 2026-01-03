@@ -58,7 +58,7 @@ installPacletizedResourceFunctions[] := Module[{},
    This prevents MaTeX from running auto-detection (which can hang on
    ReadList["!which pdflatex"] or runProcess[{gs, "--version"}]).
    MaTeX looks for config at $UserBaseDirectory/ApplicationData/MaTeX/config.m *)
-preConfigure MaTeX[] := Module[
+preConfigureMaTeX[] := Module[
 	{configDir, configFile, pdflatexPath, gsPath, config},
 
 	configDir = FileNameJoin[{$UserBaseDirectory, "ApplicationData", "MaTeX"}];
@@ -124,7 +124,7 @@ preConfigure MaTeX[] := Module[
 
 installAndConfigureMaTeX[] := Module[{},
 	(* Pre-configure MaTeX before loading to prevent auto-detection hangs *)
-	preConfigure MaTeX[];
+	preConfigureMaTeX[];
 
 	(* Install and load MaTeX *)
 	If[
