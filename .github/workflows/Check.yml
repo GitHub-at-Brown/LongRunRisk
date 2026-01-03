@@ -123,6 +123,9 @@ jobs:
             Print["pdflatex exists: ", FileExistsQ["/github/home/bin/pdflatex"]];
             Print["gs exists: ", FileExistsQ["/usr/bin/gs"]];
 
+            (* Debug: Check if MaTeX is pre-installed *)
+            Print["MaTeX paclet search: ", PacletFind["MaTeX"]];
+
             t0 = AbsoluteTime[];
             PacletDirectoryLoad["."];
 
