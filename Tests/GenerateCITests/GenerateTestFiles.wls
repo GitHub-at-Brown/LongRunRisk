@@ -212,7 +212,7 @@
 (*]*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Generate Tests*)
 
 
@@ -4806,7 +4806,7 @@
 
 
 (* ::Input:: *)
-(*pacletBaseDir="/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk/";(*DirectoryName[NotebookDirectory[],2]*)*)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
 (*Needs["Wolfram`PacletCICD`"];*)
 (*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir];*)
 (*(*testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]];*)*)
@@ -4834,17 +4834,89 @@
 (*    ($Context = c; $ContextPath = cp)*)
 (*  ]*)
 (*];*)
-(**)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
 (*testDir = FileNameJoin[{pacletBaseDir,"Tests/"}];*)
 (*testFiles = FileNames["*.wlt", testDir, Infinity];*)
 (*report = pacletCICDTestContext[TestReport[testFiles]["ResultsByOutcome"]];*)
 (*report["MessagesFailure"] ==={} (* should be True for no message failures *)*)
 (*report["Failure"]==={}  (* should be True for no failures *)*)
 (*report["NotEvaluated"] ==={} (* should be True for all tests evaluated *)*)
+(**)
+(*report["Failure"]*)
 
 
-(* ::Input:: *)
-(*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> True]*)
+  (* Try multiple methods to find test directory, validate each *)
+  candidateDirs = {};
+
+  (* Method 1: Use $InputFileName if available (works with wolframscript -file) *)
+  If[StringQ[$InputFileName] && $InputFileName =!= "",
+    AppendTo[candidateDirs, DirectoryName[$InputFileName]]
+  ];
+
+  (* Method 2: Use Directory[] + expected test path (works with TestReport) *)
+  AppendTo[candidateDirs, FileNameJoin[{Directory[], "Tests", "FindRootOptim"}]];
+
+  (* Method 3: Use FindFile on loaded package (works when paclet installed) *)
+  pacletFile = FindFile["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
+  If[StringQ[pacletFile],
+    pacletRoot = DirectoryName[pacletFile, 3];
+    AppendTo[candidateDirs, FileNameJoin[{pacletRoot, "Tests", "FindRootOptim"}]]
+  ];
+
+  (* Method 4: Use FindFile on file TestDataSource.wl directly *)
+  pacletFile = FindFile["TestDataSource.wl"];
+  If[StringQ[pacletFile],
+    pacletRoot = DirectoryName[pacletFile, 3];
+    AppendTo[candidateDirs, FileNameJoin[{pacletRoot, "Tests", "FindRootOptim"}]]
+  ];
+
+  (* Method 5: Current directory as last resort *)
+  AppendTo[candidateDirs, Directory[]];
+
+  (* Find first candidate where TestDataSource.wl exists *)
+  testDir = SelectFirst[
+    candidateDirs,
+    FileExistsQ[FileNameJoin[{#, "TestDataSource.wl"}]] &,
+    First[candidateDirs] (* fallback to first candidate if none work *)
+  ];
+
+  sourceFile = FileNameJoin[{testDir, "TestDataSource.wl"}];
+
+  (* Load test data from source file *)
+  If[FileExistsQ[sourceFile],
+    Get[sourceFile],
+    (* File not found - set dummy variables so tests fail instead of error *)
+    solNA0 = {}; solNAB0 = {}; paramsA = <||>;
+  ];
+
+
+PacletUninstall["FernandoDuarte/LongRunRisk"]
+
+
+pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
+fileName = FileNameJoin[{pacletObj[[1]]["Location"],"Resources","TestFiles","TestDataSource.wl"}];
+Get@fileName
+
+
+PacletDirectoryUnload["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk"]
+
+
+PacletDirectoryLoad["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk"]
+
+
+PacletInstall["FernandoDuarte/LongRunRisk"]
+
+
+
+
+
+Get@fileName
+
+
+eqA0
+
+
+  pacletFile = FindFile["TestDataSource.wl"]
 
 
 (* ::Section:: *)
