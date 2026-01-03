@@ -30,8 +30,10 @@ lrrTiming["ExogenousEq loaded"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 lrrTiming["EndogenousEq loaded"];
 
+lrrTiming["Setting ContextPath..."];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
+lrrTiming["ContextPath set"];
 
 
 (* Unprotect package symbols in case it is double-loaded *)
@@ -49,8 +51,9 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 (* ::Section:: *)
 (*Begin package*)
 
-
+lrrTiming["Before BeginPackage..."];
 BeginPackage["FernandoDuarte`LongRunRisk`"]
+lrrTiming["After BeginPackage"];
 
 
 (* ::Subsection:: *)
@@ -92,9 +95,9 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 (* ::Section:: *)
 (*Code*)
 
-
+lrrTiming["Before Begin Private..."];
 Begin["`Private`"]
-
+lrrTiming["After Begin Private"];
 
 (*FernandoDuarte`LongRunRisk`t=FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t;*)
 
@@ -102,7 +105,7 @@ Begin["`Private`"]
 (* ::Subsection:: *)
 (*Package dependencies*)
 
-
+lrrTiming["Loading ReExport..."];
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
