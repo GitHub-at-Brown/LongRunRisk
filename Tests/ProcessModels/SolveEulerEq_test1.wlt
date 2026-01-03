@@ -124,7 +124,8 @@ VerificationTest[
 		FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resNoPd = Quiet[
 			FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`thisModel,
 				"UpdatePd" -> False,
-				"initialGuess" -> <|"Ewc" -> {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`Ewc0}, "Epd" -> {{5.5}}|>
+				"initialGuess" -> <|"Ewc" -> {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`Ewc0}, "Epd" -> {{5.5}}|>,
+				"MaxIterations" -> 100
 			]
 		];
 		FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`outTests[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`thisModel["shortname"]][FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`ind] = FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`coeffsQWcRules @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst @ FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`resNoPd;
@@ -132,7 +133,8 @@ VerificationTest[
 		FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`resWcPd = Quiet[
 			FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs[FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`thisModel,
 				"UpdatePd" -> True,
-				"initialGuess" -> <|"Ewc" -> {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`Ewc0}, "Epd" -> {{5.5}}|>
+				"initialGuess" -> <|"Ewc" -> {FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`Ewc0}, "Epd" -> {{5.5}}|>,
+				"MaxIterations" -> 100
 			]
 		];
 		FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`coeffsWc = FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`wcRulesFirst @ FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`resWcPd;
