@@ -19,6 +19,7 @@ Off[General::shdw];
 Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 On[General::shdw];
+Needs["PacletizedResourceFunctions`"];
 
 (* Load models data from Resources *)
 Module[{pacletFile, pacletRoot, resourcesDir, modelsFile},

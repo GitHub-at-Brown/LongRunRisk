@@ -220,7 +220,7 @@
 (*LongRunRisk`*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`Catalog`*)
 
 
@@ -391,7 +391,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`EndogenousEq`*)
 
 
@@ -621,7 +621,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`ExogenousEq`*)
 
 
@@ -725,7 +725,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`ProcessModels`*)
 
 
@@ -1157,7 +1157,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Model`Shocks`*)
 
 
@@ -1451,7 +1451,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`ComputeConditionalExpectations`*)
 
 
@@ -1763,7 +1763,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -2136,7 +2136,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`CreateEulerEq`*)
 
 
@@ -2326,7 +2326,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ComputationalEngine`CreateMomentsDatabase`*)
 
 
@@ -3350,7 +3350,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Tools`NiceOutput`*)
 
 
@@ -3524,7 +3524,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Tools`TimeAggregation`*)
 
 
@@ -3968,7 +3968,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Tools`ToNumber`*)
 
 
@@ -4721,7 +4721,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*PacletizeResources*)
 
 
@@ -4775,7 +4775,7 @@
 (*cleanUp[];*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Results*)
 
 
