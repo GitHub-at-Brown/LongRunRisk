@@ -2,27 +2,14 @@
 
 (* ::Section:: *)
 (*Initialization*)
-
-Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
-print["Loading LongRunRisk.wl...", "Prefix" -> "[LRR]"];
-
-Needs["FernandoDuarte`LongRunRisk`Tools`Initialization`"];
-FernandoDuarte`LongRunRisk`Tools`Initialization`initializeDependencies[];
-print["Dependencies initialized", "Prefix" -> "[LRR]"];
-
+Get["FernandoDuarte`LongRunRisk`Tools`Initialization`"];
 
 (* ::Section:: *)
 (*Load sub-contexts*)
 
-print["Loading sub-contexts...", "Prefix" -> "[LRR]"];
-Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
-Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
-Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
-Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-print["Sub-contexts loaded", "Prefix" -> "[LRR]"];
 
-$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
-$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
+(* $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
+$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"]; *)
 
 
 (* Unprotect package symbols in case it is double-loaded *)
