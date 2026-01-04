@@ -41,6 +41,7 @@ Returns <|shortname -> <|\"MainStage\"->..., \"NeedsJacobians\"->..., \"Reason\"
 Begin["`Private`"];
 
 Needs["PacletizedResourceFunctions`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
@@ -575,8 +576,7 @@ buildModels // Options = {
 	"BuildMaxMaturity" -> 60,
 	"Models" -> All,  (* All or list of shortnames *)
 	"FileSuffix" -> "",  (* suffix for checkpoint files; "_BY" writes to Models_BY.wl *)
-	"UpdateManifest" -> True,  (* whether to update ModelManifest.wl at end *)
-	"Verbose" -> False  (* whether to print memory usage during pipeline *)
+	"UpdateManifest" -> True  (* whether to update ModelManifest.wl at end *)
 };
 
 
@@ -829,7 +829,6 @@ buildModels[opts : OptionsPattern[{
 		modelFilter = OptionValue[buildModels, "Models"],
 		fileSuffix = OptionValue[buildModels, "FileSuffix"],
 		updateManifest = OptionValue[buildModels, "UpdateManifest"],
-		verbose = OptionValue[buildModels, "Verbose"],
 		compileMode = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, "CompileMode"],
 		compilerChoice = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, "Compiler"],
 		flattenOpt = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, "FlattenExpressions"],
@@ -957,30 +956,20 @@ buildModels[opts : OptionsPattern[{
 		(* Disable history to prevent memory accumulation from Out[] values *)
 		$HistoryLength = 0;
 
-		(* Memory profiling helper *)
-			$memoryProfileLog = {};
-			logMemory[label_String] := Module[{mem = MemoryInUse[], memGB, kernelGB},
-				memGB = N[mem / 1024^3];
-				kernelGB = wolframKernelMemoryGB[];
-				AppendTo[$memoryProfileLog, <|"Label" -> label, "MemoryGB" -> memGB, "KernelRSSGB" -> kernelGB, "Time" -> DateString["ISODateTime"]|>];
-				If[TrueQ[verbose],
-					Print[label, " | Wolfram Memory: ", NumberForm[memGB, {4, 2}], " GB | Physical RAM: ", If[MissingQ[kernelGB], "N/A", ToString[NumberForm[kernelGB, {4, 2}]] <> " GB"]]
-				];
-			];
-		logMemory["buildModels START"];
+		print["[buildModels] START"];
 
 		(* Phase 1: Symbolic processing *)
 		Do[
 			shortname = catalogModels[modelKey]["shortname"];
 			PrintTemporary["Processing model ", shortname, "..."];
-			logMemory["Phase1 START: " <> shortname];
+			print["[buildModels] Phase1 START: " <> shortname];
 
 			(* run symbolic processing *)
 			model = First @ Values @ FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
 				KeyTake[catalogModels, {modelKey}],
 				Sequence @@ symbolicStageOpts
 			];
-			logMemory["Phase1 processModels done: " <> shortname];
+			print["[buildModels] Phase1 processModels done: " <> shortname];
 
 			(* store catalogHash with model *)
 			catalogHash = getCanonicalHash[catalogModels[modelKey]];
@@ -991,47 +980,47 @@ buildModels[opts : OptionsPattern[{
 
 			(* Clear system cache to free memory after each model *)
 			ClearSystemCache[];
-			logMemory["Phase1 END: " <> shortname];
+			print["[buildModels] Phase1 END: " <> shortname];
 
 			, {modelKey, symbolicModels}
 		];
 
 		(* Phase 2: Compile functions - cascade from Symbolic + models at Compile stage *)
-		logMemory["Phase2 START (Compile)"];
+		print["[buildModels] Phase2 START (Compile)"];
 		compileModels = DeleteDuplicates @ Join[symbolicModels, Lookup[modelsByStage, "Compile", {}]];
 		Do[
 			shortname = catalogModels[modelKey]["shortname"];
 			PrintTemporary["Compiling model ", shortname, "..."];
-			logMemory["Phase2 START: " <> shortname];
+			print["[buildModels] Phase2 START: " <> shortname];
 			compiledFile = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 				processedModels[shortname],
 				compiledDir,
 				Sequence @@ compileStageOpts
 			];
-			logMemory["Phase2 END: " <> shortname];
+			print["[buildModels] Phase2 END: " <> shortname];
 			, {modelKey, compileModels}
 		];
 
 		(* Jacobian track - runs after function compilation, before numerical *)
 		If[compileJacobians && Length[modelsNeedingJacobians] > 0,
-			logMemory["Jacobian compilation START"];
+			print["[buildModels] Jacobian compilation START"];
 			Do[
 				shortname = catalogModels[modelKey]["shortname"];
-				logMemory["Jacobian START: " <> shortname];
+				print["[buildModels] Jacobian START: " <> shortname];
 				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 					processedModels[shortname],
 					compiledDir,
 					"CompileMode" -> "JacobianOnly",
 					"Compiler" -> compilerChoice
 				];
-				logMemory["Jacobian END: " <> shortname];
+				print["[buildModels] Jacobian END: " <> shortname];
 				, {modelKey, modelsNeedingJacobians}
 			];
-			logMemory["Jacobian compilation END"]
+			print["[buildModels] Jacobian compilation END"]
 		];
 
 			(* Phase 3: Numerical solutions - cascade from Compile + models at Numerical stage *)
-			logMemory["Phase3 START (Numerical)"];
+			print["[buildModels] Phase3 START (Numerical)"];
 			phase3ContextFile = FileNameJoin[{root, "temp", "Phase3Context.wl"}];
 			Quiet[CreateDirectory[DirectoryName[phase3ContextFile]], {CreateDirectory::eexist}];
 			Put[
@@ -1042,15 +1031,14 @@ buildModels[opts : OptionsPattern[{
 					"processedModels" -> processedModels,
 					"catalogModels" -> catalogModels,
 					"savedModels" -> savedModels,
-					"modelsFileCheckpoint" -> modelsFileCheckpoint,
-					"logMemoryPresent" -> ValueQ[logMemory]
+					"modelsFileCheckpoint" -> modelsFileCheckpoint
 				|>,
 				phase3ContextFile
 			];
 			numericalModels = DeleteDuplicates @ Join[compileModels, Lookup[modelsByStage, "Numerical", {}]];
 			Do[
 				shortname = catalogModels[modelKey]["shortname"];
-				logMemory["Phase3 START: " <> shortname];
+				print["[buildModels] Phase3 START: " <> shortname];
 				With[{solN = FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[
 					processedModels[shortname],
 					buildMaxMaturity,
@@ -1065,7 +1053,7 @@ buildModels[opts : OptionsPattern[{
 
 			(* Checkpoint after each model's numerical solutions *)
 			saveModels[Merge[{savedModels, processedModels}, Last], modelsFileCheckpoint];
-			logMemory["Phase3 END: " <> shortname];
+			print["[buildModels] Phase3 END: " <> shortname];
 
 				, {modelKey, numericalModels}
 			];
@@ -1135,7 +1123,7 @@ buildModels[opts : OptionsPattern[{
 
 		(* save - merge with existing models to checkpoint file *)
 		saveModels[Merge[{savedModels, processedModels}, Last], modelsFileCheckpoint];
-		logMemory["buildModels END - Final save complete"];
+		print["[buildModels] END - Final save complete"];
 
 		(* update manifest only when using canonical file (empty suffix) *)
 		If[TrueQ[updateManifest] && fileSuffix === "", updateModelManifest[]];

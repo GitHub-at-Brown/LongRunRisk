@@ -32,6 +32,7 @@ Begin["`Private`"]
 (*Package dependencies*)
 
 
+Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
@@ -651,8 +652,7 @@ simplifyCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}
 solveCoeffsSystem // Options = {
 	"SimplifyOptions" -> {TimeConstraint -> {5, 300}},
 	"paramQuadSolveOptions" -> {},
-	"PdEquations" -> "B",  (* "B" | "AB" | "Both" - controls which pd equations to compute *)
-	"Verbose" -> False  (* whether to print memory usage during solving *)
+	"PdEquations" -> "B"  (* "B" | "AB" | "Both" - controls which pd equations to compute *)
 };
 
 
@@ -664,7 +664,6 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
         }],
         paramQuadSolveOpts=OptionValue["paramQuadSolveOptions"],
         modelCoeffsSys=model["coeffsSystem"],
-        verbose = OptionValue["Verbose"],
         shortname = model["shortname"]
 	},
 	With[
@@ -693,20 +692,10 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							solA,
 							solB,
 							conditionsA,
-							conditionsB,
-							logMemory
+							conditionsB
 						},
 
-						(* Memory logging helper *)
-						logMemory[label_String] := Module[{mem = MemoryInUse[], memGB, kernelGB},
-							memGB = N[mem / 1024^3];
-							kernelGB = FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`wolframKernelMemoryGB[];
-							If[TrueQ[verbose],
-								Print["[", shortname, "] ", label, " | Wolfram Memory: ", NumberForm[memGB, {4, 2}], " GB | Physical RAM: ", If[MissingQ[kernelGB], "N/A", ToString[NumberForm[kernelGB, {4, 2}]] <> " GB"]]
-							]
-						];
-
-						logMemory["solveCoeffsSystem START"];
+						print["[" <> shortname <> "] solveCoeffsSystem START"];
 
 						(*solve system of linear-quadratic equations for wc and pd coefficients*)
 						(*Echo[sysA[[1]],"sysA1"];*)
@@ -719,7 +708,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							Assumptions->assumeA,
 							Sequence @@ Normal[paramQuadSolveOpts]
 						];
-						logMemory["paramQuadSolve wc done"];
+						print["[" <> shortname <> "] paramQuadSolve wc done"];
 						(*Echo[solA[[1]],"solA1"];*)
 						solB=paramQuadSolve[
 							sysB,
@@ -730,7 +719,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							Assumptions->assumeB,
 							Sequence @@ Normal[paramQuadSolveOpts]
 						];
-						logMemory["paramQuadSolve pd done"];
+						print["[" <> shortname <> "] paramQuadSolve pd done"];
 						If[FailureQ[solA] || FailureQ[solB],
 							Return["coeffsParamQuadSolve" -> $Failed, Module]
 						];
@@ -743,7 +732,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								Sequence @@ simplifyOpts
 							]
 						];
-						logMemory["simplify conditionsA done"];
+						print["[" <> shortname <> "] simplify conditionsA done"];
 						conditionsB=Assuming[assumeB,
 							simplifyWithDummySubstitution[solB["Conditions"],
 								"Assumptions" -> True,
@@ -751,7 +740,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								Sequence @@ simplifyOpts
 							]
 						];
-						logMemory["simplify conditionsB done"];
+						print["[" <> shortname <> "] simplify conditionsB done"];
 						solA["Conditions"]=assumeA && (And@@conditionsA);
 						solB["Conditions"]=assumeB && (And@@conditionsB);
 
@@ -766,7 +755,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								]
 							]
 						];
-						logMemory["simplify solA Solution done"];
+						print["[" <> shortname <> "] simplify solA Solution done"];
 					    solB["Solution"]=With[
 							{localSol = solB["Solution"], localCond = solB["Conditions"], localOpts = simplifyOpts},
 							LocalEvaluate[
@@ -775,14 +764,14 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								]
 							]
 						];
-						logMemory["simplify solB Solution done"];
+						print["[" <> shortname <> "] simplify solB Solution done"];
 						(*Echo[solA["Solution"][[1]],"solASolution"];*)
 						(*Echo[solB["Solution"][[1]],"solBSolution"];*)
 						(*try eliminating one of gamma, theta, psi and keep shortest expressions*)
 						solA["Solution"]=tryTransforms[#,assumeA,Sequence @@ simplifyOpts]&/@solA["Solution"];
-						logMemory["tryTransforms solA done"];
+						print["[" <> shortname <> "] tryTransforms solA done"];
 						solB["Solution"]=tryTransforms[#,assumeB,Sequence @@ simplifyOpts]&/@solB["Solution"];
-						logMemory["tryTransforms solB done"];
+						print["[" <> shortname <> "] tryTransforms solB done"];
 
 						(*create non-linear equation for unconditional mean of wc and pd and unsolved coeffs*)
 						With[
@@ -816,7 +805,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 											]
 										]
 									];
-									logMemory["LocalEvaluate eqA0 done"];
+									print["[" <> shortname <> "] LocalEvaluate eqA0 done"];
 								];
 							];
 							With[
@@ -847,7 +836,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 												]
 											]
 										];
-										logMemory["LocalEvaluate eqB0 done"];
+										print["[" <> shortname <> "] LocalEvaluate eqB0 done"];
 									];
 									(*pd plugging in wc coeffs - only if needed*)
 									If[MatchQ[pdMode, "AB" | "Both"],
@@ -862,7 +851,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 												]
 											]
 										];
-										logMemory["LocalEvaluate eqAB0 done"];
+										print["[" <> shortname <> "] LocalEvaluate eqAB0 done"];
 									];
 								]; (*With*)
 							]; (*With*)
@@ -871,7 +860,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						(*Echo[solB["eqB0"],"eqB0"];*)
 						(*Echo[solB["eqAB0"],"eqAB0"];*)
 						(*Echo[model["shortname"],"finishedcoeffsParamQuadSolve"]; *)
-						logMemory["solveCoeffsSystem END"];
+						print["[" <> shortname <> "] solveCoeffsSystem END"];
 						"coeffsParamQuadSolve" -> <|
 							"wc" -> solA,
 							"pd" -> solB

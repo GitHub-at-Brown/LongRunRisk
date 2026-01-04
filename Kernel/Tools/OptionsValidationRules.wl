@@ -13,6 +13,7 @@ InstallOptionsValidationRules[] := Module[
     Needs["PacletizedResourceFunctions`"];
 
     (* Ensure owners exist *)
+    PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`Common`"];
     PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
     PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
     PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
@@ -25,6 +26,12 @@ InstallOptionsValidationRules[] := Module[
     ];
 
     checksByOwner = <|
+        FernandoDuarte`LongRunRisk`Tools`Common`print -> {
+            "Verbose" -> {"Member", {True, False, "CI"}},
+            "Memory" -> "Boolean",
+            "Prefix" -> ("String" | None)
+        },
+
         FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels -> {
             "FromScratch" -> "Boolean",
             "CompileJacobians" -> "Boolean",
@@ -33,8 +40,7 @@ InstallOptionsValidationRules[] := Module[
             "BuildMaxMaturity" -> {"Integer", "Min" -> 1},
             "Models" -> "Any",
             "FileSuffix" -> "String",
-            "UpdateManifest" -> "Boolean",
-            "Verbose" -> "Boolean"
+            "UpdateManifest" -> "Boolean"
         },
 
         FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel -> {
@@ -64,13 +70,11 @@ InstallOptionsValidationRules[] := Module[
             "OnlyQuadTerms" -> "Boolean",
             "GroebnerMemoryFraction" -> {"Real", "Min" -> 0, "Max" -> 1},
             "GroebnerMemoryFloor" -> {"Integer", "Min" -> 0},
-            "GroebnerMemoryCap" -> {"Integer", "Min" -> 0},
-            "Verbose" -> "Boolean"
+            "GroebnerMemoryCap" -> {"Integer", "Min" -> 0}
         },
 
         FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem -> {
-            "PdEquations" -> {"Member", {"B", "AB", "Both"}},
-            "Verbose" -> "Boolean"
+            "PdEquations" -> {"Member", {"B", "AB", "Both"}}
         }
     |>;
 
