@@ -18,11 +18,7 @@ print;
 (*Usage*)
 
 
-print::usage = "print[msg] writes msg to stdout using WriteString, bypassing Print to avoid CheckPaclet warnings.\n" <>
-	"print[msg, opts] supports options:\n" <>
-	"  \"Verbose\" -> True|False|\"CI\" (default \"CI\", prints only when Environment[\"CI\"] is set)\n" <>
-	"  \"Memory\" -> True|False (include memory usage info)\n" <>
-	"  \"Prefix\" -> None|String (prepend a label like \"[LRR]\")";
+print::usage = "print[msg] writes msg to stdout using WriteString, bypassing Print to avoid CheckPaclet warnings.";
 
 
 (* ::Section:: *)
@@ -77,10 +73,13 @@ print[msg_String, opts : OptionsPattern[{print}]] := With[
 (*wolframKernelMemoryGB*)
 
 
-wolframKernelMemoryGB[] := Module[{raw, kb},
-	raw = Quiet @ Import["!ps -axo rss,comm | grep -i '[W]olframKernel' | awk '{sum+=$1} END {print sum}'", "String"];
-	kb = Quiet @ Check[ToExpression @ StringTrim[raw], $Failed];
-	If[NumberQ[kb], N[kb / 1024.^2], Missing["NotAvailable"]]
+wolframKernelMemoryGB[] := If[$OperatingSystem === "Windows",
+	Missing["NotAvailable"],
+	Module[{raw, kb},
+		raw = Quiet @ Import["!ps -axo rss,comm | grep -i '[W]olframKernel' | awk '{sum+=$1} END {print sum}'", "String"];
+		kb = Quiet @ Check[ToExpression @ StringTrim[raw], $Failed];
+		If[NumberQ[kb], N[kb / 1024.^2], Missing["NotAvailable"]]
+	]
 ]
 
 
