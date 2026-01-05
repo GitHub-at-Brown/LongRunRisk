@@ -380,7 +380,7 @@ runCICDTests[] := Module[
     },
     Wolfram`PacletCICD`TestPaclet[
       $testsDir,
-      "AnnotateTestIDs" -> True,
+      "AnnotateTestIDs" -> False,
       "Debug" -> $debug,
       "ConsoleType" -> consoleType,
       "MarkdownSummary" -> useMarkdownSummary,
