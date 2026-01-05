@@ -301,7 +301,20 @@ TestCreate[
 	MatchQ[FernandoDuarte`LongRunRisk`Tools`Common`Private`wolframKernelMemoryGB[], _?NumberQ | _Missing],
 	True,
 	{},
-	TestID -> "print-wolframKernelMemoryGB-ReturnsNumberOrMissing"
+	TestID -> "wolframKernelMemoryGB-Call-ReturnsNumberOrMissing"
+]
+
+(* Test: formatMemoryInfo shows N/A when wolframKernelMemoryGB returns Missing (Windows behavior) *)
+TestCreate[
+	Block[{FernandoDuarte`LongRunRisk`Tools`Common`Private`wolframKernelMemoryGB = Missing["NotAvailable"] &},
+		StringContainsQ[
+			FernandoDuarte`LongRunRisk`Tools`Common`Private`formatMemoryInfo[],
+			"Physical RAM: N/A"
+		]
+	],
+	True,
+	{},
+	TestID -> "formatMemoryInfo-WindowsBehavior-ShowsNA"
 ]
 
 End[]
