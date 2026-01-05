@@ -246,7 +246,7 @@ TestCreate[
 	OptionValue[print, "Verbose"],
 	"CI",
 	{},
-	TestID -> "print-OptionDefault-VerboseIsCI"
+	TestID -> "print-DefaultVerbose-IsCI"
 ]
 
 (* Test: Default Memory is False *)
@@ -254,7 +254,7 @@ TestCreate[
 	OptionValue[print, "Memory"],
 	False,
 	{},
-	TestID -> "print-OptionDefault-MemoryIsFalse"
+	TestID -> "print-DefaultMemory-IsFalse"
 ]
 
 (* Test: Default Prefix is None *)
@@ -262,7 +262,7 @@ TestCreate[
 	OptionValue[print, "Prefix"],
 	None,
 	{},
-	TestID -> "print-OptionDefault-PrefixIsNone"
+	TestID -> "print-DefaultPrefix-IsNone"
 ]
 
 (* Test: Options list is complete *)
@@ -270,7 +270,7 @@ TestCreate[
 	Sort[Keys[Options[print]]],
 	Sort[{"Memory", "Prefix", "Verbose"}],
 	{},
-	TestID -> "print-Options-AllThreePresent"
+	TestID -> "print-OptionsComplete-AllThreePresent"
 ]
 
 
@@ -286,7 +286,7 @@ TestCreate[
 	StringQ[$formatMemoryInfo[]],
 	True,
 	{},
-	TestID -> "formatMemoryInfo-Call-ReturnsString"
+	TestID -> "print-formatMemoryInfo-ReturnsString"
 ]
 
 (* Test: formatMemoryInfo contains expected markers *)
@@ -296,7 +296,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "formatMemoryInfo-Call-ContainsExpectedMarkers"
+	TestID -> "print-formatMemoryInfo-ContainsExpectedMarkers"
 ]
 
 (* Test: wolframKernelMemoryGB returns a number or Missing *)
@@ -304,7 +304,7 @@ TestCreate[
 	MatchQ[$wolframKernelMemoryGB[], _?NumberQ | _Missing],
 	True,
 	{},
-	TestID -> "wolframKernelMemoryGB-Call-ReturnsNumberOrMissing"
+	TestID -> "print-wolframKernelMemoryGB-ReturnsNumberOrMissing"
 ]
 
 End[]

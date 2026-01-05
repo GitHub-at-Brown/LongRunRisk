@@ -4839,6 +4839,7 @@
 (*    ($Context = c; $ContextPath = cp)*)
 (*  ]*)
 (*];*)
+(**)
 (*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
 (*testDir = FileNameJoin[{pacletBaseDir,"Tests/"}];*)
 (*testFiles = FileNames["*.wlt", testDir, Infinity];*)
@@ -4850,6 +4851,7 @@
 (*(* to debug tests *)*)
 (*report["Failure"]*)
 (*report["Failure"][[1,1]]*)
+(*report["Failure"][[-1,1]]*)
 
 
 (* ::Input:: *)
