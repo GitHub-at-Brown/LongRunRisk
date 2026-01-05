@@ -18,7 +18,7 @@ print;
 (*Usage*)
 
 
-print::usage = "print[msg] writes msg to stdout using WriteString, bypassing Print to avoid CheckPaclet warnings.";
+print::usage = "print[msg] writes msg to $Output using WriteString.";
 
 
 (* ::Section:: *)
@@ -60,7 +60,7 @@ print[msg_String, opts : OptionsPattern[{print}]] := With[
 			If[showMemory, formatMemoryInfo[], ""]
 		];
 
-		WriteString["stdout", output <> "\n"]
+		WriteString[First@$Output, output <> "\n"]
 	]
 ]
 

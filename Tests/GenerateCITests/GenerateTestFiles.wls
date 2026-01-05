@@ -212,7 +212,7 @@
 (*]*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Generate Tests*)
 
 
@@ -4788,7 +4788,15 @@
 
 
 (* ::Section:: *)
-(*Paclet Test*)
+(*Run All Tests Together*)
+
+
+(* ::Input:: *)
+(*Once[*)
+(*Quiet[PacletUninstall["Wolfram/PacletCICD"]];*)
+(*PacletInstall[ResourceObject["Wolfram/PacletCICD"]];*)
+(*PacletFind["Wolfram/PacletCICD"]*)
+(*]*)
 
 
 (* ::Input:: *)
@@ -4800,27 +4808,24 @@
 
 
 (* ::Input:: *)
-(*Quiet[PacletUninstall["Wolfram/PacletCICD"]];*)
-(*PacletInstall[ResourceObject["Wolfram/PacletCICD"]];*)
-(*PacletFind["Wolfram/PacletCICD"]*)
-
-
-(* ::Input:: *)
 (*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
 (*Needs["Wolfram`PacletCICD`"];*)
-(*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir];*)
+(*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir,"AnnotateTestIDs"->False];*)
+(**)
+(*(* to suppress output, run: *)*)
 (*(*testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]];*)*)
+(**)
+(*And@@Values@((#["ReportSucceeded"])&/@testResults["Result"]) (* should be True for no failures *)*)
+(**)
+(*(* to debug tests *)*)
+(*(*succeed=#["ReportSucceeded"]&/@testResults[[2]]["Result"];*)
+(*Keys@Pick[testResults[[2]]["Result"],Values@succeed,False]*)
+(*testResults[[2]]["Result"]["./Tests/CreateMomentsDatabase.wlt"]["Results"]*)
+(*testResults[[2]]["Result"]["./Tests/ValidateModels/validateModel.wlt"]*)*)
 
 
 (* ::Input:: *)
-(*And@@Values@((#["ReportSucceeded"])&/@testResults["Result"]) (* should be True for no failures *)*)
-
-
-(* ::Code:: *)
-(*succeed=#["ReportSucceeded"]&/@testResults[[2]]["Result"];*)
-(*Keys@Pick[testResults[[2]]["Result"],Values@succeed,False]*)
-(*(*testResults[[2]]["Result"]["./Tests/CreateMomentsDatabase.wlt"]["Results"]*)
-(*testResults[[2]]["Result"]["./Tests/ValidateModels/validateModel.wlt"]*)*)
+(*Quit[]*)
 
 
 (* ::Input:: *)
@@ -4842,89 +4847,9 @@
 (*report["Failure"]==={}  (* should be True for no failures *)*)
 (*report["NotEvaluated"] ==={} (* should be True for all tests evaluated *)*)
 (**)
+(*(* to debug tests *)*)
 (*report["Failure"]*)
-
-
-  (* Try multiple methods to find test directory, validate each *)
-  candidateDirs = {};
-
-  (* Method 1: Use $InputFileName if available (works with wolframscript -file) *)
-  If[StringQ[$InputFileName] && $InputFileName =!= "",
-    AppendTo[candidateDirs, DirectoryName[$InputFileName]]
-  ];
-
-  (* Method 2: Use Directory[] + expected test path (works with TestReport) *)
-  AppendTo[candidateDirs, FileNameJoin[{Directory[], "Tests", "FindRootOptim"}]];
-
-  (* Method 3: Use FindFile on loaded package (works when paclet installed) *)
-  pacletFile = FindFile["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
-  If[StringQ[pacletFile],
-    pacletRoot = DirectoryName[pacletFile, 3];
-    AppendTo[candidateDirs, FileNameJoin[{pacletRoot, "Tests", "FindRootOptim"}]]
-  ];
-
-  (* Method 4: Use FindFile on file TestDataSource.wl directly *)
-  pacletFile = FindFile["TestDataSource.wl"];
-  If[StringQ[pacletFile],
-    pacletRoot = DirectoryName[pacletFile, 3];
-    AppendTo[candidateDirs, FileNameJoin[{pacletRoot, "Tests", "FindRootOptim"}]]
-  ];
-
-  (* Method 5: Current directory as last resort *)
-  AppendTo[candidateDirs, Directory[]];
-
-  (* Find first candidate where TestDataSource.wl exists *)
-  testDir = SelectFirst[
-    candidateDirs,
-    FileExistsQ[FileNameJoin[{#, "TestDataSource.wl"}]] &,
-    First[candidateDirs] (* fallback to first candidate if none work *)
-  ];
-
-  sourceFile = FileNameJoin[{testDir, "TestDataSource.wl"}];
-
-  (* Load test data from source file *)
-  If[FileExistsQ[sourceFile],
-    Get[sourceFile],
-    (* File not found - set dummy variables so tests fail instead of error *)
-    solNA0 = {}; solNAB0 = {}; paramsA = <||>;
-  ];
-
-
-PacletUninstall["FernandoDuarte/LongRunRisk"]
-
-
-pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
-fileName = FileNameJoin[{pacletObj[[1]]["Location"],"Resources","TestFiles","TestDataSource.wl"}];
-Get@fileName
-
-
-PacletDirectoryUnload["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk"]
-
-
-PacletDirectoryLoad["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk"]
-
-
-PacletInstall["FernandoDuarte/LongRunRisk"]
-
-
-
-
-
-Get@fileName
-
-
-eqA0
-
-
-  pacletFile = FindFile["TestDataSource.wl"]
-
-
-(* ::Section:: *)
-(*Run All Tests Together*)
-
-
-(* ::Input:: *)
-(*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> False]*)
+(*report["Failure"][[1,1]]*)
 
 
 (* ::Input:: *)
@@ -4936,17 +4861,14 @@ eqA0
 (*PacletDirectoryLoad[pacletBaseDir];*)
 (*testFileNames=FileNames["*.wlt",FileNameJoin[{pacletBaseDir,"Tests"}],Infinity];*)
 (*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];*)
-
-
-(* ::Input:: *)
+(**)
 (*trAll=TestReport[testFileNames]*)
 (*trAll["ReportSucceeded"]  (* should be True for no failures *)*)
 (*trAll["TestsFailedWrongResults"]*)
 (*trAll["TestsFailedWithMessages"]*)
-
-
-(* ::Input:: *)
-(*(**)
+(**)
+(*(* to debug *)*)
+(*(* *)
 (*ex=(trAll["TestsFailedWrongResults"][[1]])["ExpectedOutput"];*)
 (*ac=(trAll["TestsFailedWrongResults"][[1]])["ActualOutput"];*)
 (**)

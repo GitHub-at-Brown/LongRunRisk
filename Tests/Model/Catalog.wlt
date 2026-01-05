@@ -1,20 +1,26 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
-(*Catalog Tests*)
+(*Kernel/Model/Catalog.wl Tests*)
 
 
-BeginTestSection["Catalog Tests"]
+BeginTestSection["Kernel/Model/Catalog.wl Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`Model`Catalog`"]
 
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"];
 
 (* ::Subsection:: *)
+(*Load Test Helpers*)
+
+
+Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
+
+
+(* ::Subsection:: *)
 (*Test Helpers*)
 
 (* Extract BibTeX keys from references.bib file *)
-$pacletDir = DirectoryName[FindFile["FernandoDuarte`LongRunRisk`"], 2];
 $bibFile = FileNameJoin[{$pacletDir, "Resources", "BibTeX", "references.bib"}];
 
 $bibKeys = Module[{content, matches},
@@ -39,7 +45,7 @@ TestCreate[
 	AssociationQ[models],
 	True,
 	{},
-	TestID -> "models-IsAssociation"
+	TestID -> "models-Structure-IsAssociation"
 ]
 
 (* Test: models keys are strings *)
@@ -47,7 +53,7 @@ TestCreate[
 	AllTrue[Keys[models], StringQ],
 	True,
 	{},
-	TestID -> "models-KeysAreStrings"
+	TestID -> "models-Keys-AreStrings"
 ]
 
 (* Test: Each model entry is an Association *)
@@ -55,7 +61,7 @@ TestCreate[
 	AllTrue[Values[models], AssociationQ],
 	True,
 	{},
-	TestID -> "models-ValuesAreAssociations"
+	TestID -> "models-Values-AreAssociations"
 ]
 
 (* Test: Each model's keys are strings *)
@@ -63,7 +69,7 @@ TestCreate[
 	AllTrue[Values[models], AllTrue[Keys[#], StringQ] &],
 	True,
 	{},
-	TestID -> "models-ModelKeysAreStrings"
+	TestID -> "models-ModelKeys-AreStrings"
 ]
 
 (* Test: Each model has exactly the required keys *)
@@ -74,7 +80,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-HasExactRequiredKeys"
+	TestID -> "models-RequiredKeys-AllPresent"
 ]
 
 
@@ -89,7 +95,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-StringFieldsAreStrings"
+	TestID -> "models-StringFields-AreStrings"
 ]
 
 (* Test: bibRef is "None", "none", "n/a", or a valid BibTeX key *)
@@ -100,7 +106,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-BibRefIsValid"
+	TestID -> "models-BibRef-IsValid"
 ]
 
 (* Test: enabled is Boolean *)
@@ -108,7 +114,7 @@ TestCreate[
 	AllTrue[Values[models], BooleanQ[#["enabled"]] &],
 	True,
 	{},
-	TestID -> "models-EnabledIsBoolean"
+	TestID -> "models-Enabled-IsBoolean"
 ]
 
 (* Test: stateVars is a list *)
@@ -116,7 +122,7 @@ TestCreate[
 	AllTrue[Values[models], ListQ[#["stateVars"]] &],
 	True,
 	{},
-	TestID -> "models-StateVarsIsList"
+	TestID -> "models-StateVars-IsList"
 ]
 
 (* Test: parameters is a list of rules *)
@@ -124,7 +130,7 @@ TestCreate[
 	AllTrue[Values[models], MatchQ[#["parameters"], {___Rule}] &],
 	True,
 	{},
-	TestID -> "models-ParametersIsListOfRules"
+	TestID -> "models-Parameters-IsListOfRules"
 ]
 
 
@@ -146,7 +152,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-ParametersEvaluateToNumbers"
+	TestID -> "models-Parameters-EvaluateToNumbers"
 ]
 
 
@@ -159,7 +165,7 @@ TestCreate[
 	Module[{exoVarBaseNames, checkModel},
 		(* Get base names of exogenous variables (e.g., "xeq" -> "x") *)
 		exoVarBaseNames = StringDrop[#, -2] & /@
-			FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars;
+			$exogenousVars;
 
 		checkModel[model_] := Module[{stateVars, exoSymbols},
 			stateVars = model["stateVars"];
@@ -176,7 +182,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-ExogenousVarsInCorrectContext"
+	TestID -> "models-ExogenousVars-InCorrectContext"
 ]
 
 (* Test: Shocks are in the correct context *)
@@ -197,13 +203,13 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-ShocksInCorrectContext"
+	TestID -> "models-Shocks-InCorrectContext"
 ]
 
 (* Test: All parameters are in the Parameters context *)
 TestCreate[
 	Module[{paramNames, checkModel},
-		paramNames = FernandoDuarte`LongRunRisk`Model`Parameters`$parameters;
+		paramNames = $parameters;
 
 		checkModel[model_] := Module[{params, paramSymbols},
 			params = model["parameters"];
@@ -220,7 +226,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-ParametersInCorrectContext"
+	TestID -> "models-Parameters-InCorrectContext"
 ]
 
 (* Test: State variables do not contain endogenous variables *)
@@ -228,7 +234,7 @@ TestCreate[
 	Module[{endoVarBaseNames, checkModel},
 		(* Get base names of endogenous variables *)
 		endoVarBaseNames = StringDrop[#, -2] & /@
-			FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars;
+			$endogenousVars;
 
 		checkModel[model_] := Module[{stateVars, endoSymbols},
 			stateVars = model["stateVars"];
@@ -245,7 +251,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-NoEndogenousVarsInStateVars"
+	TestID -> "models-StateVars-NoEndogenousVars"
 ]
 
 
@@ -258,7 +264,7 @@ TestCreate[
 	AssociationQ[modelsExtraInfo],
 	True,
 	{},
-	TestID -> "modelsExtraInfo-IsAssociation"
+	TestID -> "modelsExtraInfo-Structure-IsAssociation"
 ]
 
 (* Test: All values in modelsExtraInfo are Associations *)
@@ -266,7 +272,7 @@ TestCreate[
 	AllTrue[modelsExtraInfo, AssociationQ],
 	True,
 	{},
-	TestID -> "modelsExtraInfo-ValuesAreAssociations"
+	TestID -> "modelsExtraInfo-Values-AreAssociations"
 ]
 
 (* Test: Models in modelsExtraInfo are a subset of those in models *)
@@ -274,7 +280,7 @@ TestCreate[
 	SubsetQ[Keys[models], Keys[modelsExtraInfo]],
 	True,
 	{},
-	TestID -> "modelsExtraInfo-SubsetOfModels"
+	TestID -> "modelsExtraInfo-Keys-SubsetOfModels"
 ]
 
 
@@ -287,7 +293,7 @@ TestCreate[
 	AllTrue[Values[modelsExtraInfo], initialGuessQ[#, "Ewc", VectorQ] &],
 	True,
 	{},
-	TestID -> "modelsExtraInfo-EwcIsVector"
+	TestID -> "modelsExtraInfo-Ewc-IsVector"
 ]
 
 (* Test: If initialGuess is provided, Epd is a 2-dimensional array *)
@@ -295,7 +301,7 @@ TestCreate[
 	AllTrue[Values[modelsExtraInfo], Function[model, initialGuessQ[model, "Epd", ArrayQ[#, 2] &]]],
 	True,
 	{},
-	TestID -> "modelsExtraInfo-EpdIs2DArray"
+	TestID -> "modelsExtraInfo-Epd-Is2DArray"
 ]
 
 
@@ -311,7 +317,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-ValidateCatalogValid"
+	TestID -> "validateCatalog-Models-ReturnsValid"
 ]
 
 

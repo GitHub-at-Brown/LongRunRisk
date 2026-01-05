@@ -38,13 +38,13 @@
 (* Utilities                                                                  *)
 (* -------------------------------------------------------------------------- *)
 
-print[a___] := WriteString["stdout", a, "\n"];
+printToStdout[a___] := WriteString["stdout", a, "\n"];
 
 printSection[title_] := (
-  print[""];
-  print[StringJoin[Table["=", 70]]];
-  print["  ", title];
-  print[StringJoin[Table["=", 70]]];
+  printToStdout[""];
+  printToStdout[StringJoin[Table["=", 70]]];
+  printToStdout["  ", title];
+  printToStdout[StringJoin[Table["=", 70]]];
 );
 
 hasFlag[flags__] := AnyTrue[{flags}, MemberQ[$ScriptCommandLine, #] &];
@@ -74,25 +74,25 @@ $subprocessMode = hasFlag["--subprocess"];
 
 (* Show help and exit *)
 If[$showHelp,
-  print["Usage: wolframscript Tests/RunTests.wls [OPTIONS]"];
-  print[""];
-  print["Modalities:"];
-  print["  --local, -l      Local testing with PacletDirectoryLoad (fastest)"];
-  print["  --simulate, -s   PacletCICD environment simulation (catches context issues)"];
-  print["  --cicd, -c       Full PacletCICD TestPaclet (matches GitHub Actions)"];
-  print["  --all, -a        Run all three modalities sequentially (each in fresh kernel)"];
-  print[""];
-  print["Options:"];
-  print["  --verbose, -v    Show detailed progress"];
-  print["  --help, -h       Show this help message"];
-  print["  --dir <path>     Test directory (relative to paclet root or absolute)"];
-  print[""];
-  print["Environment variables:"];
-  print["  LONGRUNRISK_TESTS_DIR   Alternative to --dir"];
-  print["  PACLET_CICD_VERSION     PacletCICD version (default: 0.36.2)"];
-  print["  DEBUG                   Enable debug output"];
-  print[""];
-  print["Default: --cicd (for backward compatibility with CI)"];
+  printToStdout["Usage: wolframscript Tests/RunTests.wls [OPTIONS]"];
+  printToStdout[""];
+  printToStdout["Modalities:"];
+  printToStdout["  --local, -l      Local testing with PacletDirectoryLoad (fastest)"];
+  printToStdout["  --simulate, -s   PacletCICD environment simulation (catches context issues)"];
+  printToStdout["  --cicd, -c       Full PacletCICD TestPaclet (matches GitHub Actions)"];
+  printToStdout["  --all, -a        Run all three modalities sequentially (each in fresh kernel)"];
+  printToStdout[""];
+  printToStdout["Options:"];
+  printToStdout["  --verbose, -v    Show detailed progress"];
+  printToStdout["  --help, -h       Show this help message"];
+  printToStdout["  --dir <path>     Test directory (relative to paclet root or absolute)"];
+  printToStdout[""];
+  printToStdout["Environment variables:"];
+  printToStdout["  LONGRUNRISK_TESTS_DIR   Alternative to --dir"];
+  printToStdout["  PACLET_CICD_VERSION     PacletCICD version (default: 0.36.2)"];
+  printToStdout["  DEBUG                   Enable debug output"];
+  printToStdout[""];
+  printToStdout["Default: --cicd (for backward compatibility with CI)"];
   Exit[0]
 ];
 
@@ -125,7 +125,7 @@ While[
 ];
 
 If[!FileExistsQ[FileNameJoin[{$pacletRoot, "PacletInfo.wl"}]],
-  print["::error::Could not locate PacletInfo.wl"];
+  printToStdout["::error::Could not locate PacletInfo.wl"];
   Exit[1]
 ];
 
@@ -143,8 +143,8 @@ $testsDir = Module[{fromFlag, fromEnv, raw, abs, rel},
     DirectoryQ[rel = FileNameJoin[{$pacletRoot, raw}]],
       rel,
     True,
-      print["::error::Invalid test directory: ", raw];
-      print["::error::Expected an existing directory (absolute or relative to paclet root)."];
+      printToStdout["::error::Invalid test directory: ", raw];
+      printToStdout["::error::Expected an existing directory (absolute or relative to paclet root)."];
       Exit[1]
   ]
 ];
@@ -157,7 +157,7 @@ runModalityInSubprocess[modalityFlag_, modalityName_] := Module[
   {args, dirFlag, result},
 
   printSection["MODALITY: " <> modalityName <> " (subprocess)"];
-  print["Spawning fresh kernel..."];
+  printToStdout["Spawning fresh kernel..."];
 
   (* Build command-line arguments *)
   args = {"-file", $scriptPath, modalityFlag, "--subprocess"};
@@ -197,19 +197,19 @@ runLocalTests[] := Module[
   printSection["MODALITY: Local Testing (PacletDirectoryLoad)"];
 
   (* Load paclet *)
-  print["Loading paclet..."];
+  printToStdout["Loading paclet..."];
   If[FailureQ[PacletDirectoryLoad[$pacletRoot]],
-    print["::error::Failed to load paclet"];
+    printToStdout["::error::Failed to load paclet"];
     Return[$Failed]
   ];
 
   (* Find test files *)
   testFiles = Sort[FileNames["*.wlt", $testsDir, Infinity]];
   If[Length[testFiles] == 0,
-    print["::warning::No .wlt files found in ", $testsDir];
+    printToStdout["::warning::No .wlt files found in ", $testsDir];
     Return[True]
   ];
-  print["Found ", Length[testFiles], " test files"];
+  printToStdout["Found ", Length[testFiles], " test files"];
 
   (* Run tests *)
   startTime = AbsoluteTime[];
@@ -224,15 +224,15 @@ runLocalTests[] := Module[
   failed = report["TestsFailedCount"];
   total = passed + failed;
 
-  print[""];
-  print["Results: ", passed, "/", total, " passed (",
+  printToStdout[""];
+  printToStdout["Results: ", passed, "/", total, " passed (",
     ToString[NumberForm[100.0 * passed / Max[total, 1], {4, 1}]], "%)"];
-  print["Duration: ", ToString[NumberForm[duration, {5, 2}]], " seconds"];
+  printToStdout["Duration: ", ToString[NumberForm[duration, {5, 2}]], " seconds"];
 
   If[failed > 0,
-    print[""];
-    print["Failed tests:"];
-    Scan[print["  - ", #["TestID"]] &, Values[report["TestsFailed"]]];
+    printToStdout[""];
+    printToStdout["Failed tests:"];
+    Scan[printToStdout["  - ", #["TestID"]] &, Values[report["TestsFailed"]]];
   ];
 
   failed == 0
@@ -249,20 +249,20 @@ runSimulateTests[] := Module[
   printSection["MODALITY: PacletCICD Environment Simulation"];
 
   (* Load paclet first (needed for resource resolution) *)
-  print["Loading paclet..."];
+  printToStdout["Loading paclet..."];
   If[FailureQ[PacletDirectoryLoad[$pacletRoot]],
-    print["::error::Failed to load paclet"];
+    printToStdout["::error::Failed to load paclet"];
     Return[$Failed]
   ];
 
   (* Find test files *)
   testFiles = Sort[FileNames["*.wlt", $testsDir, Infinity]];
   If[Length[testFiles] == 0,
-    print["::warning::No .wlt files found in ", $testsDir];
+    printToStdout["::warning::No .wlt files found in ", $testsDir];
     Return[True]
   ];
-  print["Found ", Length[testFiles], " test files"];
-  print["Running with isolated context (simulating PacletCICD)..."];
+  printToStdout["Found ", Length[testFiles], " test files"];
+  printToStdout["Running with isolated context (simulating PacletCICD)..."];
 
   (* Save current context state *)
   savedContext = $Context;
@@ -293,24 +293,24 @@ runSimulateTests[] := Module[
   failed = report["TestsFailedCount"];
   total = passed + failed;
 
-  print[""];
-  print["Results: ", passed, "/", total, " passed (",
+  printToStdout[""];
+  printToStdout["Results: ", passed, "/", total, " passed (",
     ToString[NumberForm[100.0 * passed / Max[total, 1], {4, 1}]], "%)"];
-  print["Duration: ", ToString[NumberForm[duration, {5, 2}]], " seconds"];
+  printToStdout["Duration: ", ToString[NumberForm[duration, {5, 2}]], " seconds"];
 
   (* Check for specific failure types *)
   If[Length[outcomeResults["MessagesFailure"]] > 0,
-    print[""];
-    print["Message failures (unexpected messages): ", Length[outcomeResults["MessagesFailure"]]];
+    printToStdout[""];
+    printToStdout["Message failures (unexpected messages): ", Length[outcomeResults["MessagesFailure"]]];
     If[$verbose,
-      Scan[print["  - ", #["TestID"]] &, outcomeResults["MessagesFailure"]]
+      Scan[printToStdout["  - ", #["TestID"]] &, outcomeResults["MessagesFailure"]]
     ];
   ];
 
   If[Length[outcomeResults["Failure"]] > 0,
-    print[""];
-    print["Test failures: ", Length[outcomeResults["Failure"]]];
-    Scan[print["  - ", #["TestID"]] &, outcomeResults["Failure"]];
+    printToStdout[""];
+    printToStdout["Test failures: ", Length[outcomeResults["Failure"]]];
+    Scan[printToStdout["  - ", #["TestID"]] &, outcomeResults["Failure"]];
   ];
 
   failed == 0
@@ -336,7 +336,7 @@ runCICDTests[] := Module[
   useWorkflowValue = isGitHubActions;
 
   If[!isGitHubActions,
-    print["Running locally (not in GitHub Actions)"]
+    printToStdout["Running locally (not in GitHub Actions)"]
   ];
 
   (* Get PacletCICD version from environment or use default *)
@@ -350,31 +350,31 @@ runCICDTests[] := Module[
   ];
 
   If[needsInstall,
-    print["Installing Wolfram/PacletCICD version ", pacletCICDVersion, "..."];
+    printToStdout["Installing Wolfram/PacletCICD version ", pacletCICDVersion, "..."];
     pacletURL = "https://github.com/WolframResearch/PacletCICD/releases/download/v" <>
       pacletCICDVersion <> "/Wolfram__PacletCICD-" <> pacletCICDVersion <> ".paclet";
-    print["From: ", pacletURL];
+    printToStdout["From: ", pacletURL];
     installed = PacletInstall[pacletURL];
-    print["Installed: ", installed];
+    printToStdout["Installed: ", installed];
   ];
 
   pacletCICDPath = FindFile["Wolfram`PacletCICD`"];
-  print["Loading Wolfram`PacletCICD` from ", pacletCICDPath];
+  printToStdout["Loading Wolfram`PacletCICD` from ", pacletCICDPath];
 
   If[pacletCICDPath === $Failed,
-    print["::error::Failed to find Wolfram`PacletCICD` after installation"];
+    printToStdout["::error::Failed to find Wolfram`PacletCICD` after installation"];
     Return[$Failed]
   ];
 
   Needs["Wolfram`PacletCICD`"];
 
-  print["Testing paclet at: ", $pacletRoot];
-  print["Test discovery directory: ", $testsDir];
+  printToStdout["Testing paclet at: ", $pacletRoot];
+  printToStdout["Test discovery directory: ", $testsDir];
 
   (* Run tests using PacletCICD TestPaclet *)
   res = Wolfram`PacletCICD`Private`noExit @ Block[
     {
-      Print = print,
+      Print = printToStdout,
       DefinitionNotebookClient`BeginConsoleGroup,
       DefinitionNotebookClient`EndConsoleGroup
     },
@@ -403,8 +403,8 @@ $results = <||>;
 
 If[$subprocessMode || $modalityCount == 1,
   (* Direct execution mode *)
-  print["Paclet root: ", $pacletRoot];
-  print["Test directory: ", $testsDir];
+  printToStdout["Paclet root: ", $pacletRoot];
+  printToStdout["Test directory: ", $testsDir];
 
   If[$runLocal,
     $results["Local"] = runLocalTests[];
@@ -419,10 +419,10 @@ If[$subprocessMode || $modalityCount == 1,
   ];
 ,
   (* Subprocess mode for kernel isolation *)
-  print["Paclet root: ", $pacletRoot];
-  print["Test directory: ", $testsDir];
-  print[""];
-  print["Running ", $modalityCount, " modalities in separate kernels for isolation..."];
+  printToStdout["Paclet root: ", $pacletRoot];
+  printToStdout["Test directory: ", $testsDir];
+  printToStdout[""];
+  printToStdout["Running ", $modalityCount, " modalities in separate kernels for isolation..."];
 
   If[$runLocal,
     $results["Local"] = runModalityInSubprocess["--local", "Local Testing"];
@@ -442,7 +442,7 @@ If[Length[$results] > 1,
   printSection["SUMMARY"];
   KeyValueMap[
     Function[{modality, result},
-      print["  ", modality, ": ",
+      printToStdout["  ", modality, ": ",
         Which[
           result === True, "PASSED",
           result === False, "FAILED",

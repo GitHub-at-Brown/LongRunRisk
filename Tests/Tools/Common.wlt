@@ -1,36 +1,20 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
-(*Common Tests*)
+(*Kernel/Tools/Common.wl Tests*)
 
 
-BeginTestSection["Common Tests"]
+BeginTestSection["Kernel/Tools/Common.wl Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`Tools`Common`"]
 
 Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
 
 
 (* ::Subsection:: *)
-(*Test Helpers*)
+(*Load Test Helpers*)
 
 
-(* CaptureStdout runs code in a subprocess and captures stdout *)
-(* This is necessary because WriteString["stdout", ...] bypasses $Output *)
-(* Note: Uses $pacletDir to load the paclet in the subprocess *)
-$pacletDir = DirectoryName[FindFile["FernandoDuarte`LongRunRisk`"], 2];
-
-CaptureStdout[code_String] := Module[{tmpFile, result},
-	tmpFile = CreateFile[];
-	WriteString[tmpFile, StringJoin[
-		"PacletDirectoryLoad[\"", $pacletDir, "\"];\n",
-		"Needs[\"FernandoDuarte`LongRunRisk`Tools`Common`\"];\n",
-		code
-	]];
-	Close[tmpFile];
-	result = RunProcess[{"wolframscript", "-script", tmpFile}];
-	DeleteFile[tmpFile];
-	result["StandardOutput"]
-]
+Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
 
 
 (* ::Subsection:: *)
@@ -40,32 +24,32 @@ CaptureStdout[code_String] := Module[{tmpFile, result},
 (* Test: print returns Null with Verbose -> False and produces no output *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"test message\", \"Verbose\" -> False]"];
+		stdout = captureStdout[print["test message", "Verbose" -> False]];
 		IntermediateTest[stdout, "", TestID -> "stdout-empty"];
 		print["test message", "Verbose" -> False]
 	],
 	Null,
 	{},
-	TestID -> "print-ReturnsNull-VerboseFalse"
+	TestID -> "print-VerboseFalse-ReturnsNull"
 ]
 
 (* Test: print returns Null with Verbose -> True and produces output *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"test message\", \"Verbose\" -> True]"];
+		stdout = captureStdout[print["test message", "Verbose" -> True]];
 		IntermediateTest[StringContainsQ[stdout, "test message"], True, TestID -> "stdout-contains-message"];
 		IntermediateTest[StringEndsQ[stdout, "\n"], True, TestID -> "stdout-ends-newline"];
 		print["test message", "Verbose" -> True]
 	],
 	Null,
 	{},
-	TestID -> "print-ReturnsNull-VerboseTrue"
+	TestID -> "print-VerboseTrue-ReturnsNull"
 ]
 
 (* Test: print returns Null with all options and produces correct output *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"full test\", \"Verbose\" -> True, \"Memory\" -> True, \"Prefix\" -> \"[TEST]\"]"];
+		stdout = captureStdout[print["full test", "Verbose" -> True, "Memory" -> True, "Prefix" -> "[TEST]"]];
 		IntermediateTest[StringContainsQ[stdout, "[TEST]"], True, TestID -> "stdout-contains-prefix"];
 		IntermediateTest[StringContainsQ[stdout, "full test"], True, TestID -> "stdout-contains-message"];
 		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], True, TestID -> "stdout-contains-memory"];
@@ -73,7 +57,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-ReturnsNull-AllOptions"
+	TestID -> "print-AllOptions-ReturnsNull"
 ]
 
 
@@ -84,25 +68,25 @@ TestCreate[
 (* Test: Verbose -> "CI" produces no output when CI env is not set *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"ci test\", \"Verbose\" -> \"CI\"]"];
+		stdout = captureStdout[print["ci test", "Verbose" -> "CI"]];
 		IntermediateTest[stdout, "", TestID -> "stdout-empty-no-ci-env"];
 		print["ci test", "Verbose" -> "CI"]
 	],
 	Null,
 	{},
-	TestID -> "print-VerboseCI-ReturnsNull"
+	TestID -> "print-VerboseCINoEnv-ReturnsNull"
 ]
 
 (* Test: Verbose with invalid value behaves as False (no output) *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"fallback test\", \"Verbose\" -> \"invalid\"]"];
+		stdout = captureStdout[print["fallback test", "Verbose" -> "invalid"]];
 		IntermediateTest[stdout, "", TestID -> "stdout-empty-invalid-verbose"];
 		print["fallback test", "Verbose" -> "invalid"]
 	],
 	Null,
 	{},
-	TestID -> "print-VerboseInvalid-ReturnsNull"
+	TestID -> "print-VerboseInvalidValue-ReturnsNull"
 ]
 
 
@@ -113,20 +97,20 @@ TestCreate[
 (* Test: Memory -> False does not include memory info *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"memory test\", \"Verbose\" -> True, \"Memory\" -> False]"];
+		stdout = captureStdout[print["memory test", "Verbose" -> True, "Memory" -> False]];
 		IntermediateTest[StringContainsQ[stdout, "memory test"], True, TestID -> "stdout-contains-message"];
 		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], False, TestID -> "stdout-no-memory-info"];
 		print["memory test", "Verbose" -> True, "Memory" -> False]
 	],
 	Null,
 	{},
-	TestID -> "print-MemoryFalse-ReturnsNull"
+	TestID -> "print-MemoryFalse-NoMemoryInfo"
 ]
 
 (* Test: Memory -> True includes memory info *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"memory test\", \"Verbose\" -> True, \"Memory\" -> True]"];
+		stdout = captureStdout[print["memory test", "Verbose" -> True, "Memory" -> True]];
 		IntermediateTest[StringContainsQ[stdout, "memory test"], True, TestID -> "stdout-contains-message"];
 		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], True, TestID -> "stdout-has-memory-info"];
 		IntermediateTest[StringContainsQ[stdout, "Physical RAM:"], True, TestID -> "stdout-has-ram-info"];
@@ -134,7 +118,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-MemoryTrue-ReturnsNull"
+	TestID -> "print-MemoryTrue-IncludesMemoryInfo"
 ]
 
 
@@ -145,39 +129,39 @@ TestCreate[
 (* Test: Prefix -> None produces no prefix in output *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"no prefix message\", \"Verbose\" -> True, \"Prefix\" -> None]"];
+		stdout = captureStdout[print["no prefix message", "Verbose" -> True, "Prefix" -> None]];
 		IntermediateTest[StringStartsQ[stdout, "no prefix message"], True, TestID -> "stdout-starts-with-message"];
 		print["no prefix message", "Verbose" -> True, "Prefix" -> None]
 	],
 	Null,
 	{},
-	TestID -> "print-PrefixNone-ReturnsNull"
+	TestID -> "print-PrefixNone-NoPrefix"
 ]
 
 (* Test: Prefix -> "INFO" adds prefix to output *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"info message\", \"Verbose\" -> True, \"Prefix\" -> \"INFO\"]"];
+		stdout = captureStdout[print["info message", "Verbose" -> True, "Prefix" -> "INFO"]];
 		IntermediateTest[StringStartsQ[stdout, "INFO "], True, TestID -> "stdout-starts-with-prefix"];
 		IntermediateTest[StringContainsQ[stdout, "info message"], True, TestID -> "stdout-contains-message"];
 		print["info message", "Verbose" -> True, "Prefix" -> "INFO"]
 	],
 	Null,
 	{},
-	TestID -> "print-PrefixINFO-ReturnsNull"
+	TestID -> "print-PrefixINFO-AddsPrefix"
 ]
 
 (* Test: Prefix -> "[DEBUG]" adds bracketed prefix to output *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"debug message\", \"Verbose\" -> True, \"Prefix\" -> \"[DEBUG]\"]"];
+		stdout = captureStdout[print["debug message", "Verbose" -> True, "Prefix" -> "[DEBUG]"]];
 		IntermediateTest[StringStartsQ[stdout, "[DEBUG] "], True, TestID -> "stdout-starts-with-debug-prefix"];
 		IntermediateTest[StringContainsQ[stdout, "debug message"], True, TestID -> "stdout-contains-message"];
 		print["debug message", "Verbose" -> True, "Prefix" -> "[DEBUG]"]
 	],
 	Null,
 	{},
-	TestID -> "print-PrefixDEBUG-ReturnsNull"
+	TestID -> "print-PrefixDEBUG-AddsPrefix"
 ]
 
 
@@ -188,7 +172,7 @@ TestCreate[
 (* Test: Prefix + Memory combination produces correct output format *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"combined test\", \"Verbose\" -> True, \"Prefix\" -> \"LOG\", \"Memory\" -> True]"];
+		stdout = captureStdout[print["combined test", "Verbose" -> True, "Prefix" -> "LOG", "Memory" -> True]];
 		IntermediateTest[StringStartsQ[stdout, "LOG "], True, TestID -> "stdout-starts-with-prefix"];
 		IntermediateTest[StringContainsQ[stdout, "combined test"], True, TestID -> "stdout-contains-message"];
 		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], True, TestID -> "stdout-has-memory"];
@@ -196,19 +180,19 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-PrefixAndMemory-ReturnsNull"
+	TestID -> "print-PrefixAndMemory-CombinesCorrectly"
 ]
 
 (* Test: Verbose False overrides other options (no output despite prefix/memory) *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"should not appear\", \"Verbose\" -> False, \"Memory\" -> True, \"Prefix\" -> \"[HIDDEN]\"]"];
+		stdout = captureStdout[print["should not appear", "Verbose" -> False, "Memory" -> True, "Prefix" -> "[HIDDEN]"]];
 		IntermediateTest[stdout, "", TestID -> "stdout-empty-verbose-false-overrides"];
 		print["should not appear", "Verbose" -> False, "Memory" -> True, "Prefix" -> "[HIDDEN]"]
 	],
 	Null,
 	{},
-	TestID -> "print-VerboseFalseOverridesAll-ReturnsNull"
+	TestID -> "print-VerboseFalseWithOptions-OverridesAll"
 ]
 
 
@@ -219,37 +203,37 @@ TestCreate[
 (* Test: Empty string message produces empty line (just newline) *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"\", \"Verbose\" -> True]"];
+		stdout = captureStdout[print["", "Verbose" -> True]];
 		IntermediateTest[stdout, "\n", TestID -> "stdout-only-newline"];
 		print["", "Verbose" -> True]
 	],
 	Null,
 	{},
-	TestID -> "print-EmptyMessage-ReturnsNull"
+	TestID -> "print-EmptyMessage-OutputsNewlineOnly"
 ]
 
 (* Test: Message with special characters is preserved *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"Test with special chars: !@#$%^&*()\", \"Verbose\" -> True]"];
+		stdout = captureStdout[print["Test with special chars: !@#$%^&*()", "Verbose" -> True]];
 		IntermediateTest[StringContainsQ[stdout, "!@#$%^&*()"], True, TestID -> "stdout-preserves-special-chars"];
 		print["Test with special chars: !@#$%^&*()", "Verbose" -> True]
 	],
 	Null,
 	{},
-	TestID -> "print-SpecialCharacters-ReturnsNull"
+	TestID -> "print-SpecialCharacters-PreservesAll"
 ]
 
 (* Test: Message with unicode characters is preserved *)
 TestCreate[
 	Module[{stdout},
-		stdout = CaptureStdout["print[\"Unicode test: \\[Alpha]\\[Beta]\\[Gamma]\", \"Verbose\" -> True]"];
+		stdout = captureStdout[print["Unicode test: \[Alpha]\[Beta]\[Gamma]", "Verbose" -> True]];
 		IntermediateTest[StringLength[stdout] > 0, True, TestID -> "stdout-has-content"];
 		print["Unicode test: \[Alpha]\[Beta]\[Gamma]", "Verbose" -> True]
 	],
 	Null,
 	{},
-	TestID -> "print-UnicodeCharacters-ReturnsNull"
+	TestID -> "print-UnicodeCharacters-PreservesAll"
 ]
 
 
@@ -262,7 +246,7 @@ TestCreate[
 	OptionValue[print, "Verbose"],
 	"CI",
 	{},
-	TestID -> "print-DefaultVerbose-IsCI"
+	TestID -> "print-OptionDefault-VerboseIsCI"
 ]
 
 (* Test: Default Memory is False *)
@@ -270,7 +254,7 @@ TestCreate[
 	OptionValue[print, "Memory"],
 	False,
 	{},
-	TestID -> "print-DefaultMemory-IsFalse"
+	TestID -> "print-OptionDefault-MemoryIsFalse"
 ]
 
 (* Test: Default Prefix is None *)
@@ -278,7 +262,7 @@ TestCreate[
 	OptionValue[print, "Prefix"],
 	None,
 	{},
-	TestID -> "print-DefaultPrefix-IsNone"
+	TestID -> "print-OptionDefault-PrefixIsNone"
 ]
 
 (* Test: Options list is complete *)
@@ -286,7 +270,7 @@ TestCreate[
 	Sort[Keys[Options[print]]],
 	Sort[{"Memory", "Prefix", "Verbose"}],
 	{},
-	TestID -> "print-OptionsComplete-AllThreePresent"
+	TestID -> "print-Options-AllThreePresent"
 ]
 
 
@@ -302,7 +286,7 @@ TestCreate[
 	StringQ[$formatMemoryInfo[]],
 	True,
 	{},
-	TestID -> "print-formatMemoryInfo-ReturnsString"
+	TestID -> "formatMemoryInfo-Call-ReturnsString"
 ]
 
 (* Test: formatMemoryInfo contains expected markers *)
@@ -312,7 +296,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "print-formatMemoryInfo-ContainsExpectedMarkers"
+	TestID -> "formatMemoryInfo-Call-ContainsExpectedMarkers"
 ]
 
 (* Test: wolframKernelMemoryGB returns a number or Missing *)
@@ -320,7 +304,7 @@ TestCreate[
 	MatchQ[$wolframKernelMemoryGB[], _?NumberQ | _Missing],
 	True,
 	{},
-	TestID -> "print-wolframKernelMemoryGB-ReturnsNumberOrMissing"
+	TestID -> "wolframKernelMemoryGB-Call-ReturnsNumberOrMissing"
 ]
 
 End[]
