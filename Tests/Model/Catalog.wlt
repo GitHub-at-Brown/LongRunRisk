@@ -8,11 +8,10 @@ BeginTestSection["Catalog Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`Model`Catalog`"]
 
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
-
+Needs["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"];
 
 (* ::Subsection:: *)
 (*Test Helpers*)
-
 
 (* Extract BibTeX keys from references.bib file *)
 $pacletDir = DirectoryName[FindFile["FernandoDuarte`LongRunRisk`"], 2];
@@ -307,7 +306,7 @@ TestCreate[
 (* Test: validateCatalog returns Valid = True for models *)
 TestCreate[
 	Module[{result},
-		result = FernandoDuarte`LongRunRisk`Tools`ValidateModels`validateCatalog[models];
+		result = validateCatalog[models];
 		result["Valid"]
 	],
 	True,
