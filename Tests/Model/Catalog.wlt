@@ -7,14 +7,7 @@
 BeginTestSection["Catalog Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`Model`Catalog`"]
 
-Off[General::shdw];
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
-Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
-Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
-Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
-Needs["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"];
-On[General::shdw];
 
 
 (* ::Subsection:: *)
@@ -314,7 +307,7 @@ TestCreate[
 (* Test: validateCatalog returns Valid = True for models *)
 TestCreate[
 	Module[{result},
-		result = validateCatalog[models];
+		result = FernandoDuarte`LongRunRisk`Tools`ValidateModels`validateCatalog[models];
 		result["Valid"]
 	],
 	True,

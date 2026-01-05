@@ -7,9 +7,7 @@
 BeginTestSection["Common Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`Tools`Common`"]
 
-Off[General::shdw];
 Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
-On[General::shdw];
 
 
 (* ::Subsection:: *)
