@@ -94,3 +94,48 @@ For coefficient functions (`coefwc`, `coefpd`, `coefb`, `coefnb`):
     Not /@ InexactNumberQ /@ Select[Flatten@Cases[ch, x_[i_][j_] :> {i, j}], NumberQ]
     }
   ```
+
+## WLT Verification Results
+
+**File**: `/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk-clean-up/Tests/Model/EndogenousEq.wlt`
+
+**Verification Date**: 2026-01-05
+
+### Compliance Table
+
+| Guideline | Status | Notes |
+|-----------|--------|-------|
+| Uses `TestCreate` exclusively (no `VerificationTest`) | PASS | All 15 tests use `TestCreate` |
+| Third argument for expected messages always present | PASS | All tests include `{}` for expected messages |
+| TestID format: `"SymbolName-Scenario-Behavior"` | PASS | All TestIDs follow the pattern (e.g., `"pdeq-Existence-CanBeFound"`, `"$endogenousVars-ExogenousVars-InCorrectContext"`) |
+| BeginTestSection names file being tested | PASS | `"Kernel/Model/EndogenousEq.wl Tests"` correctly references source file |
+| Proper context isolation with `Begin`/`End` | PASS | Uses `Begin["FernandoDuarte`LongRunRisk`Tests`Model`EndogenousEq`"]` and `End[]` |
+| `Needs` statements for required contexts | PASS | Loads `EndogenousEq`, `ExogenousEq`, `Parameters`, and `Shocks` contexts |
+| Only loads contexts actually used | PASS | All four loaded contexts are used in the tests |
+| Load shared helpers via `$TestFileName` | PASS | `Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]]` |
+| No `Quiet` in test assertions | PASS | No `Quiet` usage found anywhere in the file |
+| No `Off`/`On` to suppress messages | PASS | No `Off`/`On` usage found |
+| No `TimeConstraint`/`MemoryConstraint`/`MetaInformation` | PASS | None of these options used |
+| No paclet initialization boilerplate | PASS | No `PacletDirectoryLoad` or path resolution blocks |
+| Proper access to private functions (full qualification) | PASS | Private symbols like `Private`A`, `Private`B`, etc. are fully qualified |
+| No hard-wired numbering in comments | PASS | Uses descriptive section headers without numbers |
+
+### Summary
+
+The file `Tests/Model/EndogenousEq.wlt` is **fully compliant** with the wolfram-testing skill guidelines.
+
+**Strengths**:
+- Clean structure with proper `BeginTestSection`/`EndTestSection` and `Begin`/`End` blocks
+- All tests use `TestCreate` with the required three positional arguments
+- TestIDs are descriptive and follow the `SymbolName-Scenario-Behavior` pattern
+- Proper use of `Module` and `With` for lexical scoping
+- Private symbols are correctly accessed via full qualification
+- No message suppression in test assertions
+
+**Test Coverage** (15 tests total):
+- Symbol existence tests (1 test)
+- Context validation tests (4 tests)
+- Context isolation tests (2 tests)
+- Default argument tests (1 test)
+- Formula logic tests (4 tests)
+- Coefficient index tests (4 tests - tests A, B, R, P coefficients)

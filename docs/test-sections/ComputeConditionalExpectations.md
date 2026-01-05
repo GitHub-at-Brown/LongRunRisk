@@ -373,3 +373,68 @@ lagStateVarst[foo`pi[t] eps["pi"][t] bar`delta, t-1, modNRC] === lagStateVarst[p
 lagStateVarst[pi[foo`t], t-1, modNRC] === FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[foo`t]
 lagStateVarst[pi[t], t-1, modNRC] === (lagStateVarst[pi[foo`t], foo`t-1, modNRC] /. foo`t -> t)
 ```
+
+---
+
+## WLT Verification Results
+
+**File Verified**: `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt`
+
+**Verification Date**: 2026-01-05
+
+**Guidelines Reference**: wolfram-testing skill (user-level)
+
+### Compliance Summary
+
+| Guideline | Status | Notes |
+|-----------|--------|-------|
+| Use `TestCreate` exclusively | PASS | All 67 tests use `TestCreate`, no `VerificationTest` |
+| Third argument for expected messages | PASS | All tests include `{}` as the third argument |
+| TestID format `SymbolName-Scenario-Behavior` | PASS | All TestIDs follow the pattern (e.g., `ev-ShockTimesInflation-EqualsPhip`) |
+| BeginTestSection names file being tested | PASS | `"Kernel/ComputationalEngine/ComputeConditionalExpectations.wl Tests"` |
+| Load shared helpers via `$TestFileName` | PASS | `Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]]` |
+| Use `Needs` for required contexts | PASS | Loads main paclet and specific submodule |
+| Only load contexts actually used | PASS | Both `Needs` statements are used (main paclet for `Models`, submodule for `ev`/`var`) |
+| No `Quiet` in test assertions | PASS | No message suppression in any test |
+| Context isolation with `Begin`/`End` | PASS | Proper test context: `FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeConditionalExpectations`` |
+| No `TimeConstraint`/`MemoryConstraint`/`MetaInformation` | PASS | None used |
+| Private functions fully qualified | PASS | `lagStateVarst` accessed via `...`Private`lagStateVarst` |
+| One assertion per behavior | PASS | Each `TestCreate` has a single assertion |
+| No paclet initialization boilerplate | PASS | No `PacletDirectoryLoad` or complex path resolution |
+| Test stands alone at top level | PASS | All tests are top-level expressions |
+
+### Test Structure Analysis
+
+**Total Tests**: 67
+
+**Test Categories**:
+- Context Verification: 2 tests
+- Basic Expectation (`ev`): 1 test
+- Product Expectations: 4 tests
+- Consumption-Inflation Cross-Expectations: 5 tests
+- Volatility State Variable: 7 tests
+- Volatility Squared: 4 tests
+- First Moment Expectations: 5 tests
+- Shock-Inflation Expectations: 4 tests
+- Inflation at Different Information Sets: 5 tests
+- Second Moment Expectations: 4 tests
+- Conditional Variance (`var`): 4 tests
+- Law of Iterated Expectations: 8 tests
+- Martingale Property: 7 tests
+- Context Handling (`ev`): 2 tests
+- `lagStateVarst` Basic Functionality: 3 tests
+- `lagStateVarst` Parameter Handling: 3 tests
+- `lagStateVarst` Equilibrium Variables: 2 tests
+- `lagStateVarst` Listable Property: 1 test
+- `lagStateVarst` Context Handling: 5 tests
+
+### Overall Assessment
+
+**Status**: COMPLIANT
+
+The WLT file fully adheres to the wolfram-testing skill guidelines. The file demonstrates excellent test organization with:
+- Clear sectioning using Wolfram notebook-style comments
+- Comprehensive coverage of the `ev`, `var`, and `lagStateVarst` functions
+- Proper use of test fixtures via module-level variables (`$testModel`, `$pi`, etc.)
+- Consistent TestID naming convention throughout
+- No shortcuts or message suppression in test assertions

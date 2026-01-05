@@ -163,3 +163,55 @@
 - **Test completeness check**: Verifies no test indices are missing (`noMissingTest`)
 
 - **Final aggregation**: All individual tests must pass for the overall test to pass
+
+## WLT Verification Results
+
+**File verified**: `/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk-clean-up/Tests/ComputationalEngine/CreateMomentsDatabase.wlt`
+
+**Verification date**: 2026-01-05
+
+### Compliance Table
+
+| Guideline | Status | Notes |
+|-----------|--------|-------|
+| Use `TestCreate` exclusively (no `VerificationTest`) | PASS | All tests use `TestCreate` |
+| Third argument for expected messages always present | PASS | All `TestCreate` calls include `{}` as third argument |
+| TestID format: `"SymbolName-Scenario-Behavior"` | PASS | All 20 TestIDs follow the convention (e.g., `"covLong-BKY-MomentsNoStocksAreNumeric"`) |
+| `BeginTestSection` names file being tested | PASS | Uses `"Kernel/ComputationalEngine/CreateMomentsDatabase.wl Tests"` |
+| Context isolation with `Begin`/`End` | PASS | Uses `Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`"]` |
+| `Needs` statements at file beginning | PASS | All 4 `Needs` calls appear immediately after `Begin` |
+| Only load contexts actually used | WARNING | Three contexts loaded but no symbols visibly used: `ComputeUnconditionalExpectations`, `ComputeConditionalExpectations`, `Model`Catalog`. These may be implicit dependencies for lookup tables. |
+| No `Quiet` in test assertions | PASS | No `Quiet` usage in the file |
+| Load shared helpers via `$TestFileName` | PASS | Uses `Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]]` |
+| Avoid `TimeConstraint`, `MemoryConstraint`, `MetaInformation` | PASS | None of these options are used |
+| No paclet initialization boilerplate | PASS | No `PacletDirectoryLoad` or path-resolution blocks |
+| Private function access via full qualification | PASS | Private symbols `exo` and `exoStocks` accessed with full paths |
+| No hardcoded numbering in comments | PASS | All comments use descriptive text without numbering |
+| One assertion per behavior | PASS | Each `TestCreate` tests a single aspect |
+| Clean structure with subsections | PASS | Logical organization with Subsection markers |
+
+### Summary
+
+**Overall Status**: COMPLIANT (with minor observations)
+
+The WLT file `CreateMomentsDatabase.wlt` is well-structured and follows the wolfram-testing skill guidelines. Key strengths:
+
+- Proper use of `TestCreate` with all required arguments
+- Consistent TestID naming convention
+- Correct context isolation and `Needs` placement
+- No message suppression in test assertions
+- Private symbols correctly accessed via full qualification
+- Clean, readable structure with logical test groupings
+
+**Minor observation**: The file loads three additional contexts (`ComputeUnconditionalExpectations`, `ComputeConditionalExpectations`, `Model`Catalog`) that don't have visibly used symbols in the test code. These appear to be implicit dependencies required for the lookup table symbols (`covLong*`) to function correctly when moments are computed. If these are truly needed as transitive dependencies, consider adding a brief comment explaining why they are loaded.
+
+**Test count**: 20 test cases covering:
+- Lookup table existence and symbol definition (2 tests)
+- Moments without stocks for BKY and NRC models (2 tests)
+- Moments with one stock (2 tests)
+- Moments with two stocks (2 tests)
+- Three-variable moments (2 tests)
+- Four-variable moments (2 tests)
+- Stock variable moments for 3 and 4 variables (4 tests)
+- Public symbol export verification (3 tests)
+- Options validation (1 test)

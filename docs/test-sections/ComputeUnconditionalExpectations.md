@@ -295,3 +295,51 @@ And@@{
   Simplify[uncondE[wc[t],modBY]]===A[0]
 }
 ```
+
+---
+
+## WLT Verification Results
+
+Verification of `/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk-clean-up/Tests/ComputationalEngine/ComputeUnconditionalExpectations.wlt` against wolfram-testing skill guidelines.
+
+### Compliance Table
+
+| Guideline | Status | Notes |
+|-----------|--------|-------|
+| Use `TestCreate` exclusively (not `VerificationTest`) | PASS | All 26 tests use `TestCreate` |
+| Always include third argument for expected messages | PASS | All tests include `{}` as the third argument |
+| TestID format: `"SymbolName-Scenario-Behavior"` | PASS | All TestIDs follow the pattern (e.g., `"uncondE-PiFirstMoment-ReturnsMup"`) |
+| BeginTestSection names file being tested | PASS | Uses `"Kernel/ComputationalEngine/ComputeUnconditionalExpectations.wl Tests"` |
+| Context isolation with Begin/End | PASS | Uses proper test context `FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`` |
+| Needs statements at file beginning | PASS | Three `Needs` statements placed after `Begin` |
+| Load shared helpers via `$TestFileName` | PASS | Uses `Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]]` |
+| No `Quiet` in test assertions | PASS | No `Quiet` usage in any test assertions |
+| No `Off`/`On` for message suppression | PASS | No message suppression mechanisms used |
+| Private functions accessed via full qualification | PASS | `evNoEpsStateVarsProduct` accessed via full path including `Private`` |
+| Only load contexts actually used | WARNING | `ComputeConditionalExpectations` is loaded but no symbols from it appear to be used directly in tests |
+| Avoid `TimeConstraint`, `MemoryConstraint`, `MetaInformation` | PASS | None of these options are used |
+| No hard-wired numbering in comments | PASS | Section headers use descriptive names without numbers |
+| One assertion per behavior | PASS | Each `TestCreate` tests a single behavior |
+| No paclet initialization boilerplate | PASS | No `PacletDirectoryLoad` or complex path-resolution blocks |
+
+### Summary
+
+**Overall Status**: COMPLIANT (with one minor warning)
+
+The WLT file follows all wolfram-testing skill guidelines. The file demonstrates:
+
+- Proper structure with `BeginTestSection`/`EndTestSection` and `Begin`/`End` for context isolation
+- Consistent use of `TestCreate` with proper three-argument form
+- Well-formatted TestIDs following the `"SymbolName-Scenario-Behavior"` pattern
+- Appropriate use of fixtures defined in the test context
+- Correct access to private functions via full qualification
+- Clean loading of shared test helpers
+
+**Warning**: The `Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"]` statement loads a context whose symbols do not appear to be directly used in the test assertions. This may be an indirect dependency (the module under test may require it) but should be verified. If not needed, consider removing it per the guideline "Only load contexts you actually use."
+
+**Test Count**: 26 tests covering:
+- Basic unconditional expectations (`uncondE`)
+- Second moments and variance (`uncondVar`)
+- Covariance (`uncondCov`)
+- Correlation (`uncondCorr`)
+- Private helper function `evNoEpsStateVarsProduct` with multiple scenarios

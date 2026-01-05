@@ -14,7 +14,7 @@ Needs["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"];
 (*Load Test Helpers*)
 
 
-Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
+Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1}];
 
 
 (* ::Subsection:: *)
@@ -160,98 +160,48 @@ TestCreate[
 (*models - Context Tests*)
 
 
-(* Test: Exogenous variables are in the correct context *)
-TestCreate[
-	Module[{exoVarBaseNames, checkModel},
-		(* Get base names of exogenous variables (e.g., "xeq" -> "x") *)
-		exoVarBaseNames = StringDrop[#, -2] & /@
-			$exogenousVars;
+(* Test: Symbols in model fields are in correct contexts *)
+With[{
+	ctx = "FernandoDuarte`LongRunRisk`Model`",
+	specs = {
+		(* Exogenous variables in stateVars should be in ExogenousEq`Private` *)
+		<|"field" -> "stateVars", "type" -> "functionHead",
+		  "names" -> StringDrop[$exogenousVars, -2],
+		  "context" -> "ExogenousEq`Private`", "id" -> "ExogenousVars-InCorrectContext"|>,
 
-		checkModel[model_] := Module[{stateVars, exoSymbols},
-			stateVars = model["stateVars"];
-			(* Find symbols in stateVars whose names match exogenous variable base names *)
-			exoSymbols = Cases[
-				stateVars,
-				var_Symbol?(MemberQ[exoVarBaseNames, SymbolName[#]] &)[__] :> var,
-				Infinity
-			];
-			(* All such symbols should be in ExogenousEq`Private` context *)
-			AllTrue[exoSymbols, Context[#] === "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`" &]
-		];
-		AllTrue[Values[models], checkModel]
-	],
-	True,
-	{},
-	TestID -> "models-ExogenousVars-InCorrectContext"
-]
+		(* Shocks (eps) in stateVars should be in Shocks` *)
+		<|"field" -> "stateVars", "type" -> "curriedHead",
+		  "names" -> {"eps"},
+		  "context" -> "Shocks`", "id" -> "Shocks-InCorrectContext"|>,
 
-(* Test: Shocks are in the correct context *)
-TestCreate[
-	Module[{checkModel},
-		checkModel[model_] := Module[{stateVars, shockSymbols},
-			stateVars = model["stateVars"];
-			(* Find symbols named "eps" with arguments like eps["pi"][t] *)
-			shockSymbols = Cases[
-				stateVars,
-				var_Symbol?(SymbolName[#] === "eps" &)[__][__] :> var,
-				Infinity
-			];
-			(* All such symbols should be in Shocks` context *)
-			AllTrue[shockSymbols, Context[#] === "FernandoDuarte`LongRunRisk`Model`Shocks`" &]
-		];
-		AllTrue[Values[models], checkModel]
-	],
-	True,
-	{},
-	TestID -> "models-Shocks-InCorrectContext"
-]
+		(* Parameters should be in Parameters` *)
+		<|"field" -> "parameters", "type" -> "bareSymbol",
+		  "names" -> $parameters,
+		  "context" -> "Parameters`", "id" -> "Parameters-InCorrectContext"|>,
 
-(* Test: All parameters are in the Parameters context *)
-TestCreate[
-	Module[{paramNames, checkModel},
-		paramNames = $parameters;
-
-		checkModel[model_] := Module[{params, paramSymbols},
-			params = model["parameters"];
-			(* Find symbols whose names match known parameter names *)
-			paramSymbols = Cases[
-				params,
-				var_Symbol?(MemberQ[paramNames, SymbolName[#]] &) :> var,
-				Infinity
-			];
-			(* All such symbols should be in Parameters` context *)
-			AllTrue[paramSymbols, Context[#] === "FernandoDuarte`LongRunRisk`Model`Parameters`" &]
-		];
-		AllTrue[Values[models], checkModel]
-	],
-	True,
-	{},
-	TestID -> "models-Parameters-InCorrectContext"
-]
-
-(* Test: State variables do not contain endogenous variables *)
-TestCreate[
-	Module[{endoVarBaseNames, checkModel},
-		(* Get base names of endogenous variables *)
-		endoVarBaseNames = StringDrop[#, -2] & /@
-			$endogenousVars;
-
-		checkModel[model_] := Module[{stateVars, endoSymbols},
-			stateVars = model["stateVars"];
-			(* Find any symbols whose names match endogenous variable base names *)
-			endoSymbols = Cases[
-				stateVars,
-				var_Symbol?(MemberQ[endoVarBaseNames, SymbolName[#]] &)[__] :> var,
-				Infinity
-			];
-			(* Should be empty - no endogenous variables in state vars *)
-			endoSymbols === {}
-		];
-		AllTrue[Values[models], checkModel]
-	],
-	True,
-	{},
-	TestID -> "models-StateVars-NoEndogenousVars"
+		(* Endogenous variables should NOT be in stateVars (use None for absence check) *)
+		<|"field" -> "stateVars", "type" -> "functionHead",
+		  "names" -> StringDrop[$endogenousVars, -2],
+		  "context" -> None, "id" -> "StateVars-NoEndogenousVars"|>
+	}
+},
+	Map[
+		Function[spec,
+			TestCreate[
+				checkModelsFieldContext[
+					models,
+					spec["field"],
+					spec["type"],
+					spec["names"],
+					Replace[spec["context"], s_String :> ctx <> s]
+				],
+				True,
+				{},
+				TestID -> "models-" <> spec["id"]
+			]
+		],
+		specs
+	]
 ]
 
 

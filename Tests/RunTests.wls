@@ -17,7 +17,7 @@
    Environment variables:
      LONGRUNRISK_TESTS_DIR   Alternative to --dir
      PACLET_CICD_VERSION     PacletCICD version (default: 0.36.2)
-     DEBUG                   Enable debug output
+     DEBUG                   Enable debug output in Wolfram`PacletCICD`TestPaclet
 
    Examples:
      wolframscript Tests/RunTests.wls --local

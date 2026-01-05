@@ -464,3 +464,71 @@ And@@Simplify@{
   (Context/@Keys@procP) === Context/@(Keys@KeyTake[p, Keys@procP])
 }
 ```
+
+## WLT Verification Results
+
+Verification of `/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk-clean-up/Tests/Tools/ToNumber.wlt` against wolfram-testing skill guidelines.
+
+### Compliance Table
+
+| Guideline | Status | Notes |
+|-----------|--------|-------|
+| Use `TestCreate` exclusively (no `VerificationTest`) | PASS | All 25 tests use `TestCreate` |
+| Always include third argument for expected messages | PASS | All tests include `{}` as third argument |
+| TestID format: `"SymbolName-Scenario-Behavior"` | PASS | All TestIDs follow the pattern (e.g., `"processNewParameters-EqualParameters-ValuesAreNumbers"`) |
+| BeginTestSection names file being tested | PASS | Uses `"Kernel/Tools/ToNumber.wl Tests"` |
+| Context isolation with Begin/End | PASS | Properly wrapped in `Begin["FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`"]` and `End[]` |
+| Use `Needs` for required contexts | PASS | Has `Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"]` |
+| Load shared helpers via `$TestFileName` | PASS | Uses `Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]]` |
+| Only load contexts actually used | PASS | Only loads the ToNumber context which is used |
+| No `TimeConstraint`/`MemoryConstraint`/`MetaInformation` | PASS | None present |
+| No paclet initialization boilerplate | PASS | No `PacletDirectoryLoad` or complex path resolution |
+| Prefer unqualified symbols after `Needs` | PASS | Uses `processNewParameters` unqualified |
+| Full qualification for message names | PASS | Uses full paths like `FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::subsetparam` |
+| No `Quiet` in test assertions | ISSUE | `Quiet` used in helper functions `checkAbrt` (line 33) and `checkMsg` (lines 39-43), and in test assertion (line 242) |
+
+### Issues Found
+
+**Issue: Use of `Quiet` in test helpers and assertions**
+
+The file uses `Quiet` in ways that could mask test failures:
+
+1. **Line 33** - `checkAbrt` helper:
+   ```wolfram
+   checkAbrt[expr_] := TrueQ @ Quiet @ CheckAbort[expr, True];
+   ```
+
+2. **Lines 37-47** - `checkMsg` helper uses `Quiet` around the expression being tested:
+   ```wolfram
+   checkMsg[expr_, msg_] := Module[{c},
+       CheckAbort[
+           Quiet[
+               AbortProtect[
+                   c = Check[expr;, True, msg];
+               ];
+           ];
+           ...
+   ```
+
+3. **Lines 242-243** - Direct use of `Quiet` in a test assertion:
+   ```wolfram
+   procP = Quiet[processNewParameters[newP, p],
+       FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::param];
+   ```
+
+**Recommendation**: The helper functions `checkAbrt` and `checkMsg` are designed to check for aborts and specific messages, so the use of `Quiet` is somewhat intentional to avoid side effects. However, per the wolfram-testing guidelines, this pattern could mask unexpected issues. Consider:
+- For message testing, use the third argument of `TestCreate` to specify expected messages instead of helper functions with `Quiet`
+- For abort testing, consider restructuring to avoid `Quiet` or document why it's necessary for these specific test helpers
+
+### Summary
+
+The WLT file is **largely compliant** with the wolfram-testing skill guidelines. It follows best practices for:
+- Test structure and organization
+- TestID naming conventions
+- Context isolation
+- Package loading
+- Helper file inclusion
+
+The main area for improvement is the use of `Quiet` in test helper functions and one test assertion, which could potentially mask unexpected failures. This is a **minor issue** since the helpers are specifically designed to test abort and message behavior, but it diverges from the strict guideline of "never suppress messages in test assertions."
+
+**Overall Assessment**: 12/13 guidelines fully compliant (92%)

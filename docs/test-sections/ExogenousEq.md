@@ -82,3 +82,46 @@ For exogenous variables (entries of `$exogenousVars`):
     Not@(xeq[t] === xeq[foo`t])
     }
   ```
+
+## WLT Verification Results
+
+**File verified:** `/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk-clean-up/Tests/Model/ExogenousEq.wlt`
+
+**Verification date:** 2026-01-05
+
+### Compliance Table
+
+| Guideline | Status | Notes |
+|-----------|--------|-------|
+| Use `TestCreate` exclusively (never `VerificationTest`) | PASS | All 22 tests use `TestCreate` |
+| Always include third argument for expected messages | PASS | All tests include `{}` as third argument |
+| TestID format `"SymbolName-Scenario-Behavior"` | PASS | All TestIDs follow the pattern |
+| BeginTestSection names file being tested | PASS | `"Kernel/Model/ExogenousEq.wl Tests"` |
+| Context isolation with `Begin`/`End` | PASS | Uses `Begin["FernandoDuarte`LongRunRisk`Tests`Model`ExogenousEq`"]` |
+| Load shared helpers via `$TestFileName` | PASS | `Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]]` |
+| Use `Needs` for required contexts | PASS | Two `Needs` statements at file start |
+| Only load contexts actually used | PASS | Both `ExogenousEq` and `Parameters` are used |
+| No `Quiet` in test assertions | PASS | No suppression of messages in tests |
+| No `Off`/`On` in test assertions | PASS | No message toggling present |
+| Avoid `TimeConstraint`/`MemoryConstraint`/`MetaInformation` | PASS | None present |
+| No hardwired numbering in comments | PASS | Uses descriptive section headers |
+| Prefer unqualified symbols after `Needs` | PASS | Symbols like `$exogenousVars`, `xeq` used unqualified |
+| One assertion per behavior | PASS | Each test verifies a single behavior |
+
+### Summary
+
+The WLT file `Tests/Model/ExogenousEq.wlt` is **fully compliant** with the wolfram-testing skill guidelines.
+
+**Strengths:**
+- Clean structure with proper sectioning using Wolfram Language comment markers
+- Comprehensive test coverage including symbol existence, context verification, and isolation tests
+- Well-designed helper function (`headSymbolInContextQ`) for reusable context checking
+- TestIDs are descriptive and follow the `SymbolName-Scenario-Behavior` convention consistently
+- Proper use of `Module` for complex tests with local variables
+
+**Test Count:** 22 tests covering:
+- Symbol existence (1 test)
+- `$exogenousVars` structure (3 tests)
+- Individual context verification (11 tests)
+- Generic context tests (3 tests)
+- Context isolation behavior (6 tests)

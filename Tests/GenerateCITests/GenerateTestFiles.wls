@@ -554,7 +554,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ProcessModels`*)
 
 
@@ -986,7 +986,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Shocks`*)
 
 
@@ -1592,7 +1592,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -1965,7 +1965,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateEulerEq`*)
 
 
@@ -2155,7 +2155,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateMomentsDatabase`*)
 
 
@@ -2306,7 +2306,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`SolveEulerEq`*)
 
 
@@ -3179,7 +3179,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`NiceOutput`*)
 
 
@@ -3353,7 +3353,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`TimeAggregation`*)
 
 
@@ -4550,7 +4550,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*PacletizeResources*)
 
 
@@ -4857,6 +4857,70 @@
 (**)
 (*Table[ex[[1,i]]===ac[[1,i]],{i,1,Length[ex[[1]]]}]*)
 (**)*)
+
+
+trAll["TestsFailedWrongResults"][[1,1]]
+
+
+makeSymbolExtractionPattern[extractType_String, matchNames_List] :=
+	With[{nameSet = AssociationThread[matchNames -> True]},
+		Switch[extractType,
+			"functionHead", s_Symbol[__] /; KeyExistsQ[nameSet, SymbolName[s]] :> s,
+			"bareSymbol", s_Symbol /; KeyExistsQ[nameSet, SymbolName[s]] :> s,
+			"curriedHead", s_Symbol[__][__] /; KeyExistsQ[nameSet, SymbolName[s]] :> s
+		]
+	]
+	
+(* Verify symbols extracted from equations are in expected context *)
+verifySymbolContext[sourceVars_List, extractType_String, matchNames_List, expectedContext_String] :=
+	With[{
+		exprs = (#[t]) & /@ (Symbol /@ sourceVars),
+		pattern = makeSymbolExtractionPattern[extractType, matchNames]
+	},
+		nonEmptyAndAllInContextQ[Cases[exprs, pattern, Infinity], expectedContext]
+	]
+
+
+\!\(
+TagBox[
+RowBox[{"verifySymbolContext", "[", "\n", 
+RowBox[{"$endogenousVars", ",", "\n", 
+RowBox[{
+RowBox[{"<|", 
+RowBox[{
+RowBox[{"\"\<type\>\"", "->", "\"\<bareSymbol\>\""}], ",", 
+RowBox[{"\"\<names\>\"", "->", 
+RowBox[{"{", "\"\<eps\>\"", "}"}]}], ",", 
+RowBox[{"\"\<context\>\"", "->", "\"\<Shocks`\>\""}], ",", 
+RowBox[{"\"\<id\>\"", "->", "\"\<Shocks\>\""}]}], "|>"}], "[", "\"\<type\>\"", "]"}], ",", "\n", 
+RowBox[{
+RowBox[{"<|", 
+RowBox[{
+RowBox[{"\"\<type\>\"", "->", "\"\<bareSymbol\>\""}], ",", 
+RowBox[{"\"\<names\>\"", "->", 
+RowBox[{"{", "\"\<eps\>\"", "}"}]}], ",", 
+RowBox[{"\"\<context\>\"", "->", "\"\<Shocks`\>\""}], ",", 
+RowBox[{"\"\<id\>\"", "->", "\"\<Shocks\>\""}]}], "|>"}], "[", "\"\<names\>\"", "]"}], ",", "\n", 
+RowBox[{"\"\<FernandoDuarte`LongRunRisk`Model`\>\"", "<>", 
+RowBox[{
+RowBox[{"<|", 
+RowBox[{
+RowBox[{"\"\<type\>\"", "->", "\"\<bareSymbol\>\""}], ",", 
+RowBox[{"\"\<names\>\"", "->", 
+RowBox[{"{", "\"\<eps\>\"", "}"}]}], ",", 
+RowBox[{"\"\<context\>\"", "->", "\"\<Shocks`\>\""}], ",", 
+RowBox[{"\"\<id\>\"", "->", "\"\<Shocks\>\""}]}], "|>"}], "[", "\"\<context\>\"", "]"}]}]}], "\n", "]"}],
+HoldForm]\)
+
+
+sourceVars=$endogenousVars
+extractType=<|"type"->"bareSymbol","names"->{"eps"},"context"->"Shocks`","id"->"Shocks"|>["type"]
+matchNames=<|"type"->"bareSymbol","names"->{"eps"},"context"->"Shocks`","id"->"Shocks"|>["names"]
+"FernandoDuarte`LongRunRisk`Model`"<><|"type"->"bareSymbol","names"->{"eps"},"context"->"Shocks`","id"->"Shocks"|>["context"]
+
+
+exprs = (#[t]) & /@ (Symbol /@ sourceVars),
+pattern = makeSymbolExtractionPattern[extractType, matchNames]
 
 
 (* ::Subsection:: *)

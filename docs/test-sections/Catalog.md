@@ -105,3 +105,73 @@ For each model (each entry of models)
    )
 ```
 - Load `Needs["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"]`, test that validateCatalog[models]["Valid"] is True
+
+## WLT Verification Results
+
+**File**: `/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk-clean-up/Tests/Model/Catalog.wlt`
+
+**Verification Date**: 2026-01-05
+
+### Compliance Summary
+
+| Guideline | Status | Notes |
+|-----------|--------|-------|
+| Uses `TestCreate` exclusively | PASS | All 21 tests use `TestCreate`, no `VerificationTest` found |
+| Third argument for messages | PASS | All tests include `{}` as the third argument for expected messages |
+| TestID format | PASS | All TestIDs follow `"SymbolName-Scenario-Behavior"` pattern, adapted appropriately for data structure tests |
+| BeginTestSection naming | PASS | `"Kernel/Model/Catalog.wl Tests"` correctly references the file being tested |
+| Context isolation | PASS | Uses `Begin["FernandoDuarte`LongRunRisk`Tests`Model`Catalog`"]` and `End[]` |
+| Needs statements present | PASS | Loads required contexts at file start |
+| Only loads used contexts | PASS | Both `Needs` statements are for contexts actually used (`Catalog` for `models`, `modelsExtraInfo`; `ValidateModels` for `validateCatalog`) |
+| Loads shared helpers | PASS | Uses `Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]]` |
+| No Quiet in test assertions | PASS | No `Quiet` or `Off`/`On` used in test assertions |
+| No paclet initialization boilerplate | PASS | No `PacletDirectoryLoad` or complex path resolution blocks |
+| Avoids TimeConstraint/MemoryConstraint/MetaInformation | PASS | None of these options are used |
+| One assertion per behavior | PASS | Each test validates a single specific property |
+| Tests stand alone at top level | PASS | All `TestCreate` calls are at top level, not nested in control structures |
+
+### TestID Verification
+
+All 21 TestIDs follow the recommended pattern:
+
+| TestID | Pattern Compliance |
+|--------|-------------------|
+| `models-Structure-IsAssociation` | PASS - data structure test |
+| `models-Keys-AreStrings` | PASS - data structure test |
+| `models-Values-AreAssociations` | PASS - data structure test |
+| `models-ModelKeys-AreStrings` | PASS - data structure test |
+| `models-RequiredKeys-AllPresent` | PASS - data structure test |
+| `models-StringFields-AreStrings` | PASS - field type test |
+| `models-BibRef-IsValid` | PASS - validation test |
+| `models-Enabled-IsBoolean` | PASS - field type test |
+| `models-StateVars-IsList` | PASS - field type test |
+| `models-Parameters-IsListOfRules` | PASS - field type test |
+| `models-Parameters-EvaluateToNumbers` | PASS - behavior test |
+| `models-ExogenousVars-InCorrectContext` | PASS - context test |
+| `models-Shocks-InCorrectContext` | PASS - context test |
+| `models-Parameters-InCorrectContext` | PASS - context test |
+| `models-StateVars-NoEndogenousVars` | PASS - validation test |
+| `modelsExtraInfo-Structure-IsAssociation` | PASS - data structure test |
+| `modelsExtraInfo-Values-AreAssociations` | PASS - data structure test |
+| `modelsExtraInfo-Keys-SubsetOfModels` | PASS - validation test |
+| `modelsExtraInfo-Ewc-IsVector` | PASS - field type test |
+| `modelsExtraInfo-Epd-Is2DArray` | PASS - field type test |
+| `validateCatalog-Models-ReturnsValid` | PASS - function test |
+
+### Structure Verification
+
+- **File header**: Uses Wolfram Language package format with proper section markers
+- **BeginTestSection/EndTestSection**: Properly wraps all tests
+- **Begin/End context**: Properly isolates test symbols
+- **Helper functions**: `initialGuessQ` and `$bibKeys` defined locally for test use
+- **Test organization**: Logically grouped by category with subsection markers
+
+### Overall Assessment
+
+**FULLY COMPLIANT** - The test file adheres to all wolfram-testing skill guidelines. The file demonstrates proper:
+- Use of `TestCreate` with all required arguments
+- Descriptive TestID naming adapted for data structure tests
+- Context isolation and proper package loading
+- Clean test assertions without message suppression
+- Minimal helper functions defined locally
+- Logical organization with clear sectioning
