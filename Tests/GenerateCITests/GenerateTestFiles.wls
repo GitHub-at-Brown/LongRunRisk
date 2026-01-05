@@ -1,7 +1,7 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Preliminaries*)
 
 
@@ -4788,125 +4788,15 @@
 
 
 (* ::Section:: *)
-(*Run All Tests Together*)
-
-
-(* ::Input:: *)
-(*Once[*)
-(*Quiet[PacletUninstall["Wolfram/PacletCICD"]];*)
-(*PacletInstall[ResourceObject["Wolfram/PacletCICD"]];*)
-(*PacletFind["Wolfram/PacletCICD"]*)
-(*]*)
-
-
-(* ::Input:: *)
-(*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> False]*)
-
-
-(* ::Input:: *)
-(*Quit[]*)
-
-
-(* ::Input:: *)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
-(*Needs["Wolfram`PacletCICD`"];*)
-(*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir,"AnnotateTestIDs"->False];*)
-(**)
-(*(* to suppress output, run: *)*)
-(*(*testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]];*)*)
-(**)
-(*And@@Values@((#["ReportSucceeded"])&/@testResults["Result"]) (* should be True for no failures *)*)
-(**)
-(*(* to debug tests *)*)
-(*(*succeed=#["ReportSucceeded"]&/@testResults[[2]]["Result"];*)
-(*Keys@Pick[testResults[[2]]["Result"],Values@succeed,False]*)
-(*testResults[[2]]["Result"]["./Tests/CreateMomentsDatabase.wlt"]["Results"]*)
-(*testResults[[2]]["Result"]["./Tests/ValidateModels/validateModel.wlt"]*)*)
-
-
-(* ::Input:: *)
-(*Quit[]*)
-
-
-(* ::Input:: *)
-(*(*simulate PacletCICD testing environment*)*)
-(*ClearAll[pacletCICDTestContext];*)
-(*SetAttributes[pacletCICDTestContext, HoldFirst];*)
-(*pacletCICDTestContext[expr_] := Module[{c = $Context, cp = $ContextPath},*)
-(*  WithCleanup[*)
-(*    ($Context = "PacletCICDTest`"; $ContextPath = {"PacletCICDTest`", "System`"}),*)
-(*    expr,*)
-(*    ($Context = c; $ContextPath = cp)*)
-(*  ]*)
-(*];*)
-(**)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
-(*testDir = FileNameJoin[{pacletBaseDir,"Tests/"}];*)
-(*testFiles = FileNames["*.wlt", testDir, Infinity];*)
-(*report = pacletCICDTestContext[TestReport[testFiles]["ResultsByOutcome"]];*)
-(*report["MessagesFailure"] ==={} (* should be True for no message failures *)*)
-(*report["Failure"]==={}  (* should be True for no failures *)*)
-(*report["NotEvaluated"] ==={} (* should be True for all tests evaluated *)*)
-(**)
-(*(* to debug tests *)*)
-(*report["Failure"]*)
-(*report["Failure"][[1,1]]*)
-(*report["Failure"][[-1,1]]*)
-
-
-(* ::Input:: *)
-(*Quit[]*)
-
-
-(* ::Input:: *)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];*)
-(*PacletDirectoryLoad[pacletBaseDir];*)
-(*testFileNames=FileNames["*.wlt",FileNameJoin[{pacletBaseDir,"Tests"}],Infinity];*)
-(*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];*)
-(**)
-(*trAll=TestReport[testFileNames]*)
-(*trAll["ReportSucceeded"]  (* should be True for no failures *)*)
-(*trAll["TestsFailedWrongResults"]*)
-(*trAll["TestsFailedWithMessages"]*)
-(**)
-(*(* to debug *)*)
-(*(* *)
-(*ex=(trAll["TestsFailedWrongResults"][[1]])["ExpectedOutput"];*)
-(*ac=(trAll["TestsFailedWrongResults"][[1]])["ActualOutput"];*)
-(**)
-(*Table[ex[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
-(*Table[ac[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
-(**)
-(*Table[ex[[1,i]]===ac[[1,i]],{i,1,Length[ex[[1]]]}]*)
-(**)
-(*ex=(tr["TestsFailedWithMessages"][[1]])["ExpectedMessages"]*)
-(*ac=(tr["TestsFailedWithMessages"][[1]])["ActualMessages"]*)
-(**)
-(*Table[ex[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
-(*Table[ac[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
-(**)
-(*Table[ex[[1,i]]===ac[[1,i]],{i,1,Length[ex[[1]]]}]*)
-(**)*)
-
-
-(* ::Input:: *)
-(*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> True]*)
-
-
-(* ::Section:: *)
-(*Run Individual Tests Separately*)
+(*Run Tests Separately*)
 
 
 (* ::Input:: *)
 (*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> False];*)
-(*Quit[];*)
 
 
 (* ::Input:: *)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];*)
-(*PacletDirectoryLoad[pacletBaseDir];*)
-(*testFileNames = FileNames[FileNameJoin[{pacletBaseDir,"Tests","*.wlt"}]];*)
-(*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];*)
+(*Quit[];*)
 
 
 (* ::Input:: *)
@@ -5019,6 +4909,146 @@
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
 (*And@@Flatten@expected*)
+
+
+(* ::Input:: *)
+(*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> True]*)
+
+
+(* ::Section:: *)
+(*Run Tests*)
+
+
+(* ::Input:: *)
+(*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> False]*)
+
+
+(* ::Subsection:: *)
+(*Use PacletCICD`TestPaclet*)
+
+
+(* ::Input:: *)
+(*Once[*)
+(*Quiet[PacletUninstall["Wolfram/PacletCICD"]];*)
+(*PacletInstall[ResourceObject["Wolfram/PacletCICD"]];*)
+(*PacletFind["Wolfram/PacletCICD"]*)
+(*]*)
+
+
+(* ::Input:: *)
+(*Quit[]*)
+
+
+(* ::Input:: *)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
+(*Needs["Wolfram`PacletCICD`"];*)
+(*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir,"AnnotateTestIDs"->False];*)
+(**)
+(*(* to suppress output, run: *)*)
+(*(*testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]];*)*)
+(**)
+(*And@@Values@((#["ReportSucceeded"])&/@testResults["Result"]) (* should be True for no failures *)*)
+(**)
+(*(* to debug tests *)*)
+(*(*succeed=#["ReportSucceeded"]&/@testResults[[2]]["Result"];*)
+(*Keys@Pick[testResults[[2]]["Result"],Values@succeed,False]*)
+(*testResults[[2]]["Result"]["./Tests/CreateMomentsDatabase.wlt"]["Results"]*)
+(*testResults[[2]]["Result"]["./Tests/ValidateModels/validateModel.wlt"]*)*)
+
+
+(* ::Subsection:: *)
+(*Simulate PacletCICD environment*)
+
+
+(* ::Input:: *)
+(*Quit[]*)
+
+
+(* ::Input:: *)
+(*(*simulate PacletCICD testing environment*)*)
+(*ClearAll[pacletCICDTestContext];*)
+(*SetAttributes[pacletCICDTestContext, HoldFirst];*)
+(*pacletCICDTestContext[expr_] := Module[{c = $Context, cp = $ContextPath},*)
+(*  WithCleanup[*)
+(*    ($Context = "PacletCICDTest`"; $ContextPath = {"PacletCICDTest`", "System`"}),*)
+(*    expr,*)
+(*    ($Context = c; $ContextPath = cp)*)
+(*  ]*)
+(*];*)
+(**)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
+(*testDir = FileNameJoin[{pacletBaseDir,"Tests/"}];*)
+(*testFiles = FileNames["*.wlt", testDir, Infinity];*)
+(*report = pacletCICDTestContext[TestReport[testFiles]["ResultsByOutcome"]];*)
+(*report["MessagesFailure"] ==={} (* should be True for no message failures *)*)
+(*report["Failure"]==={}  (* should be True for no failures *)*)
+(*report["NotEvaluated"] ==={} (* should be True for all tests evaluated *)*)
+(**)
+(*(* to debug tests *)*)
+(*(*report["Failure"]*)
+(*report["Failure"][[1,1]]*)
+(*report["Failure"][[4,1]]*)
+(*report["Failure"][[-1,1]]*)*)
+
+
+(* ::Subsection:: *)
+(*Local Testing*)
+
+
+(* ::Input:: *)
+(*Quit[]*)
+
+
+(* ::Input:: *)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];*)
+(*PacletDirectoryLoad[pacletBaseDir];*)
+(*testFileNames=FileNames["*.wlt",FileNameJoin[{pacletBaseDir,"Tests"}],Infinity];*)
+(*(*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];*)*)
+(**)
+(*trAll=TestReport[testFileNames]*)
+(*trAll["ReportSucceeded"]  (* should be True for no failures *)*)
+(*trAll["TestsFailedWrongResults"]*)
+(*trAll["TestsFailedWithMessages"]*)
+(**)
+(*(* to debug *)*)
+(*(* *)
+(*ex=(trAll["TestsFailedWrongResults"][[1]])["ExpectedOutput"];*)
+(*ac=(trAll["TestsFailedWrongResults"][[1]])["ActualOutput"];*)
+(**)
+(*Table[ex[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
+(*Table[ac[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
+(**)
+(*Table[ex[[1,i]]===ac[[1,i]],{i,1,Length[ex[[1]]]}]*)
+(**)
+(*ex=(tr["TestsFailedWithMessages"][[1]])["ExpectedMessages"]*)
+(*ac=(tr["TestsFailedWithMessages"][[1]])["ActualMessages"]*)
+(**)
+(*Table[ex[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
+(*Table[ac[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
+(**)
+(*Table[ex[[1,i]]===ac[[1,i]],{i,1,Length[ex[[1]]]}]*)
+(**)*)
+
+
+(* ::Subsection:: *)
+(*Local Testing Files Individually*)
+
+
+(* ::Input:: *)
+(*Quit[];*)
+
+
+(* ::Input:: *)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
+(*PacletDirectoryLoad[pacletBaseDir];*)
+(*testFolder = FileNameJoin[{pacletBaseDir,"Tests/"}];*)
+(*testFileNames = FileNames["*.wlt", testFolder, Infinity];*)
+(**)
+(*trIndiv = TestReport[TestReport[#]&/@testFileNames]*)
+(**)
+(*trIndiv["ReportSucceeded"]  (* should be True for no failures *)*)
+(*trIndiv["TestsFailedWrongResults"]*)
+(*trIndiv["TestsFailedWithMessages"]*)
 
 
 (* ::Input:: *)

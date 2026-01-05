@@ -278,12 +278,9 @@ TestCreate[
 (*Internal Logic Tests via Private Functions*)
 
 
-$formatMemoryInfo = ToExpression["FernandoDuarte`LongRunRisk`Tools`Common`Private`formatMemoryInfo"];
-$wolframKernelMemoryGB = ToExpression["FernandoDuarte`LongRunRisk`Tools`Common`Private`wolframKernelMemoryGB"];
-
 (* Test: formatMemoryInfo returns a string *)
 TestCreate[
-	StringQ[$formatMemoryInfo[]],
+	StringQ[FernandoDuarte`LongRunRisk`Tools`Common`Private`formatMemoryInfo[]],       
 	True,
 	{},
 	TestID -> "print-formatMemoryInfo-ReturnsString"
@@ -291,7 +288,7 @@ TestCreate[
 
 (* Test: formatMemoryInfo contains expected markers *)
 TestCreate[
-	Module[{result = $formatMemoryInfo[]},
+	Module[{result = FernandoDuarte`LongRunRisk`Tools`Common`Private`formatMemoryInfo[]},  
 		StringContainsQ[result, "Wolfram Memory:"] && StringContainsQ[result, "Physical RAM:"]
 	],
 	True,
@@ -301,7 +298,7 @@ TestCreate[
 
 (* Test: wolframKernelMemoryGB returns a number or Missing *)
 TestCreate[
-	MatchQ[$wolframKernelMemoryGB[], _?NumberQ | _Missing],
+	MatchQ[FernandoDuarte`LongRunRisk`Tools`Common`Private`wolframKernelMemoryGB[], _?NumberQ | _Missing],
 	True,
 	{},
 	TestID -> "print-wolframKernelMemoryGB-ReturnsNumberOrMissing"
