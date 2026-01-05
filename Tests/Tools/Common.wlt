@@ -314,7 +314,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "formatMemoryInfo-WindowsBehavior-ShowsNA"
+	TestID -> "formatMemoryInfo-MissingKernelMemory-ShowsNA"
 ]
 
 End[]
