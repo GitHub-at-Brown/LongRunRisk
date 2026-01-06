@@ -8,6 +8,9 @@ BeginTestSection["Kernel/Model/Catalog.wl Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`Model`Catalog`"]
 
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"];
 
 (* ::Subsection:: *)
@@ -161,8 +164,8 @@ TestCreate[
 
 
 (* Test: Symbols in model fields are in correct contexts *)
-With[{
-	ctx = "FernandoDuarte`LongRunRisk`Model`",
+Module[{ctx, specs},
+	ctx = "FernandoDuarte`LongRunRisk`Model`";
 	specs = {
 		(* Exogenous variables in stateVars should be in ExogenousEq`Private` *)
 		<|"field" -> "stateVars", "type" -> "functionHead",
@@ -183,8 +186,7 @@ With[{
 		<|"field" -> "stateVars", "type" -> "functionHead",
 		  "names" -> StringDrop[$endogenousVars, -2],
 		  "context" -> None, "id" -> "StateVars-NoEndogenousVars"|>
-	}
-},
+	};
 	Map[
 		Function[spec,
 			TestCreate[

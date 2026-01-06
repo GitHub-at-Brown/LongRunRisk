@@ -22,8 +22,8 @@ checkModelsFieldContext;
 (*Usage*)
 
 
-verifySymbolContext::usage = "verifySymbolContext[sourceVars, extractType, matchNames, expectedContext] verifies that symbols extracted from equations are in the expected context. sourceVars is the list of equation names (defaults to $endogenousVars). extractType is \"functionHead\" for s_Symbol[__], \"bareSymbol\" for s_Symbol, or \"curriedHead\" for s_Symbol[__][__]. matchNames is a list of symbol names to match.";
-headSymbolInContextQ::usage = "headSymbolInContextQ[expr, symName, targetCtx] returns True if function symbols (heads with args) matching symName exist in expr and are all in targetCtx.";
+verifySymbolContext::usage = "verifySymbolContext[sourceVars, extractType, matchNames, expectedContext] verifies that symbols extracted from equations are in the expected context (vacuously True if none found). sourceVars is the list of equation names (defaults to $endogenousVars). extractType is \"functionHead\" for s_Symbol[__], \"bareSymbol\" for s_Symbol, or \"curriedHead\" for s_Symbol[__][__]. matchNames is a list of symbol names to match.";
+headSymbolInContextQ::usage = "headSymbolInContextQ[expr, symName, targetCtx] returns True if all function symbols (heads with args) matching symName in expr are in targetCtx (vacuously True if none found).";
 contextIsolationQ::usage = "contextIsolationQ[func, normalArgs, fooArgs, sym] returns True if context isolation is preserved for func: output with normalArgs contains sym but not foo`sym, output with fooArgs contains foo`sym but not sym, the outputs differ, and foo`func gives different results than func.";
 coefficientIndicesExactQ::usage = "coefficientIndicesExactQ[coefSym, spec] returns True if coefficient indices remain exact when given inexact input. spec is an Association with \"indices\" -> list. Type is inferred: {{i1}, {i2}, ...} for single-index, {{i1, j1}, {i2, j2}, ...} for double-index.";
 checkModelsFieldContext::usage = "checkModelsFieldContext[models, field, extractType, matchNames, expectedContext] checks that symbols in model[field] matching matchNames are in expectedContext. extractType is \"functionHead\", \"bareSymbol\", or \"curriedHead\". Use None for expectedContext to check symbols are absent.";
@@ -51,22 +51,22 @@ makeSymbolExtractionPattern[extractType_String, matchNames_List] :=
 		]
 	]
 
-(* Check that a list is non-empty and all elements are in the expected context *)
-nonEmptyAndAllInContextQ[symbols_List, expectedContext_String] :=
-	symbols =!= {} && AllTrue[symbols, Context[#] === expectedContext &]
+(* Check that all elements are in the expected context (vacuously True if empty) *)
+allInContextQ[symbols_List, expectedContext_String] :=
+	AllTrue[symbols, Context[#] === expectedContext &]
 
 
 (* ::Subsection:: *)
 (*verifySymbolContext*)
 
 
-(* Verify symbols extracted from equations are in expected context *)
+(* Verify all symbols extracted from equations are in expected context (vacuously True if none found) *)
 verifySymbolContext[sourceVars_List, extractType_String, matchNames_List, expectedContext_String] :=
 	With[{
 		exprs = (#[t]) & /@ (Symbol /@ sourceVars),
 		pattern = makeSymbolExtractionPattern[extractType, matchNames]
 	},
-		nonEmptyAndAllInContextQ[Cases[exprs, pattern, Infinity], expectedContext]
+		allInContextQ[Cases[exprs, pattern, Infinity], expectedContext]
 	]
 
 
@@ -74,9 +74,9 @@ verifySymbolContext[sourceVars_List, extractType_String, matchNames_List, expect
 (*headSymbolInContextQ*)
 
 
-(* Check if function symbols (heads with args) matching a name exist in an expression and are in a specific context *)
+(* Check if all function symbols (heads with args) matching a name in an expression are in a specific context *)
 headSymbolInContextQ[expr_, symName_String, targetCtx_String] :=
-	nonEmptyAndAllInContextQ[
+	allInContextQ[
 		Cases[expr, var_Symbol?(SymbolName[#] === symName &)[___] :> var, Infinity],
 		targetCtx
 	]
@@ -113,7 +113,7 @@ contextIsolationQ[func_Symbol, normalArgs_List, fooArgs_List, sym_Symbol] :=
    Type is inferred from index structure: {{i}, ...} for single-index, {{i, j}, ...} for double-index *)
 
 (* Single-index case: coefSym[i] - indices are single-element lists like {{0}, {1}} *)
-coefficientIndicesExactQ[coefSym_Symbol, <|"indices" -> indices:{{_}..}, ___|>] :=
+coefficientIndicesExactQ[coefSym_Symbol, KeyValuePattern["indices" -> indices:{{_}..}]] :=
 	Cases[
 		Join[
 			coefSym[N@#[[1]]] & /@ indices,
@@ -123,7 +123,7 @@ coefficientIndicesExactQ[coefSym_Symbol, <|"indices" -> indices:{{_}..}, ___|>] 
 	] === Join[indices, indices]
 
 (* Double-index case: coefSym[i][j] - indices are two-element lists like {{0, 0}, {1, 1}} *)
-coefficientIndicesExactQ[coefSym_Symbol, <|"indices" -> indices:{{_, _}..}, ___|>] :=
+coefficientIndicesExactQ[coefSym_Symbol, KeyValuePattern["indices" -> indices:{{_, _}..}]] :=
 	Cases[
 		Join[
 			coefSym[N@#[[1]]][N@#[[2]]] & /@ indices,

@@ -36,15 +36,15 @@ TestCreate[
 
 
 (* Test: Symbols used in endogenous equations are in correct contexts *)
-With[{
-	ctx = "FernandoDuarte`LongRunRisk`Model`",
+Module[{ctx, specs},
+	ctx = "FernandoDuarte`LongRunRisk`Model`";
 	specs = {
 		(* Exogenous variables like x[t], pi[t] should be in ExogenousEq`Private` *)
 		<|"type" -> "functionHead", "names" -> StringDrop[$exogenousVars, -2],
 		  "context" -> "ExogenousEq`Private`", "id" -> "ExogenousVars"|>,
 
-		(* Shock symbol eps should be in Shocks` *)
-		<|"type" -> "bareSymbol", "names" -> {"eps"},
+		(* Shock symbol eps (curried as eps["pi"][t]) should be in Shocks` *)
+		<|"type" -> "curriedHead", "names" -> {"eps"},
 		  "context" -> "Shocks`", "id" -> "Shocks"|>,
 
 		(* Parameters should be in Parameters` *)
@@ -54,8 +54,7 @@ With[{
 		(* Endogenous variables like wc[t], pd[t] should be in EndogenousEq`Private` *)
 		<|"type" -> "functionHead", "names" -> StringDrop[$endogenousVars, -2],
 		  "context" -> "EndogenousEq`Private`", "id" -> "EndogenousVars"|>
-	}
-},
+	};
 	Map[
 		Function[spec,
 			TestCreate[

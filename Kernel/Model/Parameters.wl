@@ -98,6 +98,8 @@ BeginPackage["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 	phidcd::usage = "Exposure of dividend growth to stochastic volatility of consumption growth and dividend growth shocks.";
 	phidpd::usage = "Exposure of dividend growth to stochastic volatility of inflation and dividend growth shocks.";
 	taugd::usage = "Correlation between shocks to consumption growth and dividend growth.";
+	
+	$parameters::usage = "List of all model parameter names.";
 
 
 (* ::Subsubsection:: *)
