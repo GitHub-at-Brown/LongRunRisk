@@ -221,7 +221,7 @@ TestCreate[
 
 (* Test: All values in modelsExtraInfo are Associations *)
 TestCreate[
-	AllTrue[modelsExtraInfo, AssociationQ],
+	AllTrue[Values[modelsExtraInfo], AssociationQ],
 	True,
 	{},
 	TestID -> "modelsExtraInfo-Values-AreAssociations"

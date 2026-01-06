@@ -80,14 +80,6 @@ TestCreate[
 	TestID -> "dd-Existence-InPrivateContext"
 ]
 
-(* Test: Symbol dc is in the correct Private context *)
-TestCreate[
-	Context[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc],
-	"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`",
-	{},
-	TestID -> "dc-Context-InPrivate"
-]
-
 (* Test: Symbol dd is in the correct Private context *)
 TestCreate[
 	Context[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd],
@@ -99,43 +91,11 @@ TestCreate[
 
 (* ::Subsection:: *)
 (*Exogenous Variables - Context Test*)
-
-
-(* Test: All exogenous variables are in Private context *)
 TestCreate[
-	verifySymbolContext[$exogenousVars, "functionHead", StringDrop[$exogenousVars, -2],
-		"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"],
-	True,
+	Values@verifySymbolContext[$exogenousVars],
+	{True,True,True,True},
 	{},
-	TestID -> "$exogenousVars-Context-AllInPrivate"
-]
-
-
-(* ::Subsection:: *)
-(*Shocks - Context Tests*)
-
-
-(* Test: All shocks are in Shocks context *)
-TestCreate[
-	verifySymbolContext[$exogenousVars, "curriedHead", {"eps"},
-		"FernandoDuarte`LongRunRisk`Model`Shocks`"],
-	True,
-	{},
-	TestID -> "eps-Context-AllInShocks"
-]
-
-
-(* ::Subsection:: *)
-(*Parameters - Context Tests*)
-
-
-(* Test: All parameters are in Parameters context *)
-TestCreate[
-	verifySymbolContext[$exogenousVars, "bareSymbol", $parameters,
-		"FernandoDuarte`LongRunRisk`Model`Parameters`"],
-	True,
-	{},
-	TestID -> "parameters-Context-AllInParameters"
+	TestID -> "$exogenousVars-verifySymbolContext-InCorrectContext"
 ]
 
 

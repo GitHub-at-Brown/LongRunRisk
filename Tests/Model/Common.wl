@@ -61,14 +61,31 @@ allInContextQ[symbols_List, expectedContext_String] :=
 
 
 (* Verify all symbols extracted from equations are in expected context (vacuously True if none found) *)
-verifySymbolContext[sourceVars_List, extractType_String, matchNames_List, expectedContext_String] :=
+verifySymbolContext[sourceVars_List] := Module[{exprs,symCtx},
+	Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+	Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+	Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
+	(* Expected contexts by type of variable *)
 	With[{
-		exprs = (#[t]) & /@ (Symbol /@ sourceVars),
-		pattern = makeSymbolExtractionPattern[extractType, matchNames]
+		matchNamesContext = <|
+			FernandoDuarte`LongRunRisk`Model`Parameters`$parameters -> "FernandoDuarte`LongRunRisk`Model`Parameters`",
+			FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`$exogenousVarsPrivate -> "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`",
+			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`$endogenousVarsPrivate -> "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`",
+			{First@FernandoDuarte`LongRunRisk`Model`Shocks`$shocks} -> "FernandoDuarte`LongRunRisk`Model`Shocks`"
+		|>
 	},
-		allInContextQ[Cases[exprs, pattern, Infinity], expectedContext]
+	
+	(* Evaluate equations *)
+		exprs=FirstCase[DownValues[#], _[lhs_, rhs_] :> rhs, Nothing] & /@ sourceVars;
+	(* Find context of each symbol *)
+		symCtx=DeleteDuplicates@Cases[exprs,(  s_Symbol[__][__] | s_Symbol[__] | s_Symbol):>{Context[s],SymbolName[s]},Infinity];
+	(* True means context of symbols is as expected *)
+		AssociationThread[
+		{"Parameters","Exogenous Vars","Endogenous Vars","Shocks"},
+		KeyValueMap[And@@Cases[symCtx,{ctx_,sym_}/;MemberQ[#1,sym] :> (ctx==#2)]&, matchNamesContext]
+		]
+		]
 	]
-
 
 (* ::Subsection:: *)
 (*headSymbolInContextQ*)

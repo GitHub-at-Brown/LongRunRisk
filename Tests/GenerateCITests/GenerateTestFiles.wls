@@ -1,7 +1,7 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Preliminaries*)
 
 
@@ -220,7 +220,7 @@
 (*LongRunRisk`*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`EndogenousEq`*)
 
 
@@ -450,7 +450,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ExogenousEq`*)
 
 

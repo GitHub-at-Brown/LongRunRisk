@@ -21,17 +21,19 @@ Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1
 (*Test Helpers*)
 
 
-(* Shock names and indices used across tests *)
+(* Shock names and indices used across tests - wrapped in Block to protect symbolic placeholders *)
 $scalarShockNames = {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"};
-$stockIndices = {1, i, j};
+Block[{i, j, t},
+	$stockIndices = {1, i, j};
 
-(* Cache rulesE[t] to avoid repeated rule construction *)
-$rulesEt = rulesE[t];
+	(* Cache rulesE[t] to avoid repeated rule construction *)
+	$rulesEt = rulesE[t];
 
-(* All scalar and stock shocks *)
-$allShocks = Join[
-	eps[#][t] & /@ $scalarShockNames,
-	eps["dd"][t, #] & /@ $stockIndices
+	(* All scalar and stock shocks *)
+	$allShocks = Join[
+		eps[#][t] & /@ $scalarShockNames,
+		eps["dd"][t, #] & /@ $stockIndices
+	];
 ];
 
 (* Helper for testing unevaluated expressions *)

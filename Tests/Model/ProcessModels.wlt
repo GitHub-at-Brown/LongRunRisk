@@ -37,7 +37,7 @@ $modelsTest = KeyTake[models, {"BY", "BKY", "NRC"}];
 $modelsP = KeyTake[FernandoDuarte`LongRunRisk`Models, {"BY", "BKY", "NRC"}];
 
 (* Common test predicates *)
-endoVarBaseNames = StringDrop[#, -2] & /@ $endogenousVars;
+$endoVarBaseNames = StringDrop[#, -2] & /@ $endogenousVars;
 
 
 (* ::Subsection:: *)
@@ -188,7 +188,7 @@ TestCreate[
 		Function[model,
 			FreeQ[
 				model["stateVars"][FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t],
-				var_Symbol?(MemberQ[endoVarBaseNames, SymbolName[#]] &)[__]
+				var_Symbol?(MemberQ[$endoVarBaseNames, SymbolName[#]] &)[__]
 			]
 		]
 	],
@@ -203,7 +203,7 @@ TestCreate[
 		Function[model,
 			FreeQ[
 				Values[model["exogenousEq"]],
-				var_Symbol?(MemberQ[endoVarBaseNames, SymbolName[#]] &)[__]
+				var_Symbol?(MemberQ[$endoVarBaseNames, SymbolName[#]] &)[__]
 			]
 		]
 	],
@@ -256,35 +256,39 @@ TestCreate[
 
 
 (* Test: equations evaluate dc, dd, wc, sdf, bondyield *)
-TestCreate[
-	Module[{checkEvaluates},
-		checkEvaluates[model_Association, var_] := With[
-			{eqs = Normal[Join[model["exogenousEq"], model["endogenousEq"]]]},
-			(var /. eqs) =!= var
-		];
-		AllTrue[Values[$modelsP], checkEvaluates[#, dc[t]] &] &&
-		AllTrue[Values[$modelsP], checkEvaluates[#, dd[t, i]] &] &&
-		AllTrue[Values[$modelsP], checkEvaluates[#, wc[t]] &] &&
-		AllTrue[Values[$modelsP], checkEvaluates[#, sdf[t]] &] &&
-		AllTrue[Values[$modelsP], checkEvaluates[#, bondyield[t]] &]
-	],
-	True,
-	{},
-	TestID -> "processModels-Equations-EvaluateVariables"
+Block[{t, i},
+	TestCreate[
+		Module[{checkEvaluates},
+			checkEvaluates[model_Association, var_] := With[
+				{eqs = Normal[Join[model["exogenousEq"], model["endogenousEq"]]]},
+				(var /. eqs) =!= var
+			];
+			AllTrue[Values[$modelsP], checkEvaluates[#, dc[t]] &] &&
+			AllTrue[Values[$modelsP], checkEvaluates[#, dd[t, i]] &] &&
+			AllTrue[Values[$modelsP], checkEvaluates[#, wc[t]] &] &&
+			AllTrue[Values[$modelsP], checkEvaluates[#, sdf[t]] &] &&
+			AllTrue[Values[$modelsP], checkEvaluates[#, bondyield[t]] &]
+		],
+		True,
+		{},
+		TestID -> "processModels-Equations-EvaluateVariables"
+	]
 ]
 
 (* Test: equations do not evaluate non-variables *)
-TestCreate[
-	AllTrue[Values[$modelsP],
-		Function[model,
-			With[{eqs = Normal[Join[model["exogenousEq"], model["endogenousEq"]]]},
-				(notVar[t] /. eqs) === notVar[t]
+Block[{t, notVar},
+	TestCreate[
+		AllTrue[Values[$modelsP],
+			Function[model,
+				With[{eqs = Normal[Join[model["exogenousEq"], model["endogenousEq"]]]},
+					(notVar[t] /. eqs) === notVar[t]
+				]
 			]
-		]
-	],
-	True,
-	{},
-	TestID -> "processModels-Equations-DoNotEvaluateNonVariables"
+		],
+		True,
+		{},
+		TestID -> "processModels-Equations-DoNotEvaluateNonVariables"
+	]
 ]
 
 
