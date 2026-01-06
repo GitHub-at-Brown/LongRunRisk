@@ -71,7 +71,7 @@ TestCreate[
 		originalCI = Environment["CI"];
 		SetEnvironment["CI" -> None];
 		stdout = captureStdout[result = print["ci test", "Verbose" -> "CI"]];
-		SetEnvironment["CI" -> originalCI];
+		SetEnvironment["CI" -> Replace[originalCI, $Failed -> None]];
 		IntermediateTest[stdout, "", TestID -> "stdout-empty-no-ci-env"];
 		result
 	],
