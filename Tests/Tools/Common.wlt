@@ -67,10 +67,13 @@ TestCreate[
 
 (* Test: Verbose -> "CI" produces no output when CI env is not set *)
 TestCreate[
-	Module[{stdout},
-		stdout = captureStdout[print["ci test", "Verbose" -> "CI"]];
+	Module[{stdout, result, originalCI},
+		originalCI = Environment["CI"];
+		SetEnvironment["CI" -> None];
+		stdout = captureStdout[result = print["ci test", "Verbose" -> "CI"]];
+		SetEnvironment["CI" -> originalCI];
 		IntermediateTest[stdout, "", TestID -> "stdout-empty-no-ci-env"];
-		print["ci test", "Verbose" -> "CI"]
+		result
 	],
 	Null,
 	{},
