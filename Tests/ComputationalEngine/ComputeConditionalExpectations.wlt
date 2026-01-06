@@ -7,8 +7,9 @@
 BeginTestSection["Kernel/ComputationalEngine/ComputeConditionalExpectations.wl Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeConditionalExpectations`"]
 
-Needs["FernandoDuarte`LongRunRisk`"];
+(* Needs["FernandoDuarte`LongRunRisk`"]; *)
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
+Needs["PacletizedResourceFunctions`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)
@@ -20,9 +21,10 @@ Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
 (* ::Subsection:: *)
 (*Test Setup*)
 
+$models = Get[Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]];
 
 (* Model for testing - NRC model with inflation dynamics *)
-$testModel = FernandoDuarte`LongRunRisk`Models["NRC"];
+$testModel = $models["NRC"];
 
 (* State variable symbols *)
 $pi = FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi;

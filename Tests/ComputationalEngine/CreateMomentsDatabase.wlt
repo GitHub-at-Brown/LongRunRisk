@@ -11,7 +11,7 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
-
+Needs["PacletizedResourceFunctions`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)
@@ -39,8 +39,7 @@ exoStocks = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase
 
 (* Load processed models from the Models.wl resource file *)
 (* This file contains DefinitionData that needs to be Get twice - first to get the path, second to load the data *)
-FernandoDuarte`LongRunRisk`Models = Get[Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]];
-$modelsData = FernandoDuarte`LongRunRisk`Models;
+$modelsData = Get[Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]];
 
 $covLongLookupTables = <|
 	"BKY" -> FileNameJoin[{"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongBKY.mx"}],

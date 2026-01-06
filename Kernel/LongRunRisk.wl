@@ -99,7 +99,7 @@ reExport = FernandoDuarte`LongRunRisk`Tools`ReExport`reExport;
 
 (* load models via Get@Get pattern - requires PacletizedResourceFunctions loaded first *)
 Needs["PacletizedResourceFunctions`"];
-FernandoDuarte`LongRunRisk`Models = Get@Get@"FernandoDuarte/LongRunRisk/Models.wl";
+FernandoDuarte`LongRunRisk`Models = Get@Get@"FernandoDuarte/LongRunRisk/Models.wl"; (* is this safer?: FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}] *)
 
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 FernandoDuarte`LongRunRisk`Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];

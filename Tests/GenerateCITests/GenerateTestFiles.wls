@@ -4829,7 +4829,7 @@
 
 
 (* ::Input:: *)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];*)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
 (*PacletDirectoryLoad[pacletBaseDir];*)
 (*testFileNames=FileNames["*.wlt",FileNameJoin[{pacletBaseDir,"Tests","Model"}],Infinity];*)
 (*(*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];*)*)
@@ -4857,96 +4857,6 @@
 (**)
 (*Table[ex[[1,i]]===ac[[1,i]],{i,1,Length[ex[[1]]]}]*)
 (**)*)
-
-
-trAll["TestsFailedWrongResults"][[1,1]]
-
-
-Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
-Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
-
-
-makeSymbolExtractionPattern[extractType_String, matchNames_List] :=
-	With[{nameSet = AssociationThread[matchNames -> True]},
-		Switch[extractType,
-			"functionHead", s_Symbol[__] /; KeyExistsQ[nameSet, SymbolName[s]] :> s,
-			"bareSymbol", s_Symbol /; KeyExistsQ[nameSet, SymbolName[s]] :> s,
-			"curriedHead", s_Symbol[__][__] /; KeyExistsQ[nameSet, SymbolName[s]] :> s
-		]
-	]
-	
-(* Verify symbols extracted from equations are in expected context *)
-verifySymbolContext[sourceVars_List, extractType_String, matchNames_List, expectedContext_String] :=
-	With[{
-		exprs = (#[t]) & /@ (Symbol /@ sourceVars),
-		pattern = makeSymbolExtractionPattern[extractType, matchNames]
-	},
-		nonEmptyAndAllInContextQ[Cases[exprs, pattern, Infinity], expectedContext]
-	]
-	
-(* Check that a list is non-empty and all elements are in the expected context *)
-nonEmptyAndAllInContextQ[symbols_List, expectedContext_String] :=
-	symbols =!= {} && AllTrue[symbols, Context[#] === expectedContext &]
-	
-	
-	And@@((#==="FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`")&/@(Context/@
-	
-	Cases[
-	((#[t])&/@(Symbol/@$endogenousVars)),var_Symbol?(MemberQ[StringDrop[#,-2]&/@FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars,SymbolName[#]]&)[__]:>var
-	,
-	Infinity
-	]))
-
-
-s$_Symbol/;KeyExistsQ[<|"eps"->True|>,SymbolName[s$]]:>s$
-
-
-\!\(
-TagBox[
-RowBox[{"verifySymbolContext", "[", "\n", 
-RowBox[{"$endogenousVars", ",", "\n", 
-RowBox[{
-RowBox[{"<|", 
-RowBox[{
-RowBox[{"\"\<type\>\"", "->", "\"\<bareSymbol\>\""}], ",", 
-RowBox[{"\"\<names\>\"", "->", 
-RowBox[{"{", "\"\<eps\>\"", "}"}]}], ",", 
-RowBox[{"\"\<context\>\"", "->", "\"\<Shocks`\>\""}], ",", 
-RowBox[{"\"\<id\>\"", "->", "\"\<Shocks\>\""}]}], "|>"}], "[", "\"\<type\>\"", "]"}], ",", "\n", 
-RowBox[{
-RowBox[{"<|", 
-RowBox[{
-RowBox[{"\"\<type\>\"", "->", "\"\<bareSymbol\>\""}], ",", 
-RowBox[{"\"\<names\>\"", "->", 
-RowBox[{"{", "\"\<eps\>\"", "}"}]}], ",", 
-RowBox[{"\"\<context\>\"", "->", "\"\<Shocks`\>\""}], ",", 
-RowBox[{"\"\<id\>\"", "->", "\"\<Shocks\>\""}]}], "|>"}], "[", "\"\<names\>\"", "]"}], ",", "\n", 
-RowBox[{"\"\<FernandoDuarte`LongRunRisk`Model`\>\"", "<>", 
-RowBox[{
-RowBox[{"<|", 
-RowBox[{
-RowBox[{"\"\<type\>\"", "->", "\"\<bareSymbol\>\""}], ",", 
-RowBox[{"\"\<names\>\"", "->", 
-RowBox[{"{", "\"\<eps\>\"", "}"}]}], ",", 
-RowBox[{"\"\<context\>\"", "->", "\"\<Shocks`\>\""}], ",", 
-RowBox[{"\"\<id\>\"", "->", "\"\<Shocks\>\""}]}], "|>"}], "[", "\"\<context\>\"", "]"}]}]}], "\n", "]"}],
-HoldForm]\)
-
-
-sourceVars=$endogenousVars
-extractType=<|"type"->"bareSymbol","names"->{"eps"},"context"->"Shocks`","id"->"Shocks"|>["type"]
-matchNames=<|"type"->"bareSymbol","names"->{"eps"},"context"->"Shocks`","id"->"Shocks"|>["names"]
-expectedContext="FernandoDuarte`LongRunRisk`Model`"<><|"type"->"bareSymbol","names"->{"eps"},"context"->"Shocks`","id"->"Shocks"|>["context"]
-exprs = (#[t]) & /@ (Symbol /@ sourceVars);
-pattern = makeSymbolExtractionPattern[extractType, matchNames];
-
-
-pattern = makeSymbolExtractionPattern[extractType, matchNames]
-nameSet = AssociationThread[matchNames -> True]
-
-symbols = Cases[exprs, s$_Symbol/;KeyExistsQ[<|"eps"->True|>,SymbolName[s$]]:>s$, Infinity]
-nonEmptyAndAllInContextQ[symbols, expectedContext]
 
 
 (* ::Subsection:: *)

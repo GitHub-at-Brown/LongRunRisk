@@ -7,9 +7,10 @@
 BeginTestSection["Kernel/ComputationalEngine/CreateEulerEq.wl Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateEulerEq`"]
 
-Needs["FernandoDuarte`LongRunRisk`"];
+(* Needs["FernandoDuarte`LongRunRisk`"]; *)
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
+Needs["PacletizedResourceFunctions`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)
@@ -26,10 +27,10 @@ Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
 $t = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`t;
 
 (* Load processed models for testing (via FernandoDuarte`LongRunRisk`Models) *)
-$processedModels = FernandoDuarte`LongRunRisk`Models;
-$modBY = $processedModels["BY"];
-$modNRC = $processedModels["NRC"];
-$modDES = $processedModels["DES"];
+$models = Get[Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]];
+$modBY = $models["BY"];
+$modNRC = $models["NRC"];
+$modDES = $models["DES"];
 $mods = {$modBY, $modNRC, $modDES};
 
 (* Reference to return symbols in the correct context *)

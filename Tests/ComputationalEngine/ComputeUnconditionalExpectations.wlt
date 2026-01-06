@@ -10,7 +10,7 @@ Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditional
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
-
+Needs["PacletizedResourceFunctions`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)

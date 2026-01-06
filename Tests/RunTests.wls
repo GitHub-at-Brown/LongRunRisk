@@ -26,6 +26,10 @@
      wolframscript Tests/RunTests.wls --all
      wolframscript Tests/RunTests.wls                 # defaults to --cicd
 
+   Logging (via shell redirection):
+     wolframscript Tests/RunTests.wls --verbose > tests.log 2>&1      # save to file
+     wolframscript Tests/RunTests.wls --verbose 2>&1 | tee tests.log  # save and display
+
    Exit codes:
      0 - All tests passed in all requested modalities
      1 - One or more tests failed or error occurred
