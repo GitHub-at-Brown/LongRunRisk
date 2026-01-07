@@ -16,7 +16,8 @@ Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 (*Load Test Helpers*)
 
 
-Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1}];
+Get @ FileNameJoin[{DirectoryName[$TestFileName, 2], "TestHelpers.wl"}];
+Get @ FileNameJoin[{DirectoryName[$TestFileName, 1], "CETestHelpers.wl"}];
 
 
 (* ::Subsection:: *)

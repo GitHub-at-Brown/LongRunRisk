@@ -14,7 +14,8 @@ Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 (*Load Test Helpers*)
 
 
-Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1}];
+Get @ FileNameJoin[{DirectoryName[$TestFileName, 2], "TestHelpers.wl"}];
+Get @ FileNameJoin[{DirectoryName[$TestFileName, 1], "ToolsTestHelpers.wl"}];
 
 
 (* ::Subsection:: *)
