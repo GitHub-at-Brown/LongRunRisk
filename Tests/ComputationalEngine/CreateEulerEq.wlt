@@ -10,13 +10,12 @@ Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateEulerEq`"]
 (* Needs["FernandoDuarte`LongRunRisk`"]; *)
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-Needs["PacletizedResourceFunctions`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)
 
 
-Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
+Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1}];
 
 
 (* ::Subsection:: *)
@@ -26,8 +25,6 @@ Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
 (* Reference to the time variable in the correct context *)
 $t = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`t;
 
-(* Load processed models for testing (via FernandoDuarte`LongRunRisk`Models) *)
-$models = Get[Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]];
 $modBY = $models["BY"];
 $modNRC = $models["NRC"];
 $modDES = $models["DES"];

@@ -10,14 +10,13 @@ Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`"]
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-Needs["PacletizedResourceFunctions`"];
 
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)
 
 
-Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
+Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1}];
 
 
 (* ::Subsection:: *)
@@ -25,13 +24,10 @@ Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
 
 
 (* Load models for testing - use fast subset: BKY, DES *)
-$testModels = Module[{allModels},
-	allModels = Get[Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]];
-	<|
-		"BKY" -> allModels["BKY"],
-		"DES" -> allModels["DES"]
-	|>
-];
+$testModels = <|
+	"BKY" -> $models["BKY"],
+	"DES" -> $models["DES"]
+|>;
 
 (* Pre-compute results once per model to avoid redundant expensive computations *)
 $bkyResult = updateCoeffs[

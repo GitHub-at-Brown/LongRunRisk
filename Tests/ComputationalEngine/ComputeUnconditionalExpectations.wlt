@@ -10,21 +10,20 @@ Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditional
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
-Needs["PacletizedResourceFunctions`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)
 
 
-Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
+Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1}];
 
 
 (* ::Subsection:: *)
 (*Test Fixtures*)
 
 
-(* Load models for testing *)
-$models = Get[Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]];
 $modBY = $models["BY"];
 $modNRC = $models["NRC"];
 
@@ -35,16 +34,6 @@ $dd = FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd;
 $wc = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`wc;
 $pd = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`pd;
 $A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A;
-$eps = FernandoDuarte`LongRunRisk`Model`Shocks`eps;
-
-(* Parameter aliases *)
-$mup = FernandoDuarte`LongRunRisk`Model`Parameters`mup;
-$Esg = FernandoDuarte`LongRunRisk`Model`Parameters`Esg;
-$rhop = FernandoDuarte`LongRunRisk`Model`Parameters`rhop;
-$xip = FernandoDuarte`LongRunRisk`Model`Parameters`xip;
-$phip = FernandoDuarte`LongRunRisk`Model`Parameters`phip;
-$rhog = FernandoDuarte`LongRunRisk`Model`Parameters`rhog;
-$phig = FernandoDuarte`LongRunRisk`Model`Parameters`phig;
 
 (* Private function alias *)
 $evNoEps = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`evNoEpsStateVarsProduct;
@@ -59,14 +48,14 @@ $stateVarsNoEps = {$sg, $pi};
 
 TestCreate[
 	uncondE[$pi[t], $modNRC],
-	$mup,
+	mup,
 	{},
 	TestID -> "uncondE-PiFirstMoment-ReturnsMup"
 ]
 
 TestCreate[
 	uncondE[$sg[t], $modNRC],
-	$Esg,
+	Esg,
 	{},
 	TestID -> "uncondE-SgFirstMoment-ReturnsEsg"
 ]
@@ -79,7 +68,7 @@ TestCreate[
 TestCreate[
 	Simplify[
 		uncondE[$pi[t]^2, $modNRC] -
-		($mup^2 + ($xip^2 + 2 $rhop $xip $phip + $phip^2) / (1 - $rhop^2))
+		(mup^2 + (xip^2 + 2 rhop xip phip + phip^2) / (1 - rhop^2))
 	] === 0,
 	True,
 	{},
@@ -89,7 +78,7 @@ TestCreate[
 TestCreate[
 	Simplify[
 		uncondE[$sg[t]^2, $modNRC] -
-		($Esg^2 + $phig^2 / (1 - $rhog^2))
+		(Esg^2 + phig^2 / (1 - rhog^2))
 	] === 0,
 	True,
 	{},
@@ -97,7 +86,7 @@ TestCreate[
 ]
 
 TestCreate[
-	Simplify[uncondE[$pi[t] $sg[t], $modNRC] - ($Esg $mup)] === 0,
+	Simplify[uncondE[$pi[t] $sg[t], $modNRC] - (Esg mup)] === 0,
 	True,
 	{},
 	TestID -> "uncondE-PiTimesSg-MatchesProduct"
@@ -130,7 +119,7 @@ TestCreate[
 TestCreate[
 	Simplify[
 		uncondVar[$pi[t], $modNRC] -
-		($xip^2 + 2 $rhop $xip $phip + $phip^2) / (1 - $rhop^2)
+		(xip^2 + 2 rhop xip phip + phip^2) / (1 - rhop^2)
 	] === 0,
 	True,
 	{},
@@ -138,7 +127,7 @@ TestCreate[
 ]
 
 TestCreate[
-	Simplify[uncondVar[$sg[t], $modNRC] - $phig^2 / (1 - $rhog^2)] === 0,
+	Simplify[uncondVar[$sg[t], $modNRC] - phig^2 / (1 - rhog^2)] === 0,
 	True,
 	{},
 	TestID -> "uncondVar-Sg-MatchesFormula"
@@ -175,8 +164,8 @@ TestCreate[
 
 TestCreate[
 	With[{ev = $evNoEps, model = $modNRC, vars = $stateVarsNoEps},
-		ev[$pi[t] $eps["pi"][t - 1], model, vars] ===
-		ev[$eps["pi"][t - 1] $pi[t], model, vars]
+		ev[$pi[t] eps["pi"][t - 1], model, vars] ===
+		ev[eps["pi"][t - 1] $pi[t], model, vars]
 	],
 	True,
 	{},
@@ -218,8 +207,8 @@ TestCreate[
 
 
 TestCreate[
-	$evNoEps[$pi[t] $eps["pi"][t + 1], $modNRC, $stateVarsNoEps],
-	$pi[t] $eps["pi"][1 + t],
+	$evNoEps[$pi[t] eps["pi"][t + 1], $modNRC, $stateVarsNoEps],
+	$pi[t] eps["pi"][1 + t],
 	{},
 	TestID -> "evNoEpsStateVarsProduct-FutureShock-Preserved"
 ]
@@ -243,8 +232,8 @@ TestCreate[
 
 TestCreate[
 	With[{vars1 = Append[$stateVarsNoEps, myVariable], vars2 = Append[$stateVarsNoEps, $dd]},
-		$evNoEps[$pi[t] $eps["pi"][t - 1], $modNRC, vars1] ===
-		$evNoEps[$eps["pi"][t - 1] $pi[t], $modNRC, vars2]
+		$evNoEps[$pi[t] eps["pi"][t - 1], $modNRC, vars1] ===
+		$evNoEps[eps["pi"][t - 1] $pi[t], $modNRC, vars2]
 	],
 	True,
 	{},
@@ -264,7 +253,7 @@ TestCreate[
 
 
 TestCreate[
-	With[{result = $evNoEps[$pi[t - 1] $dd[t, i] $eps["pi"][t - 1], $modNRC, Append[$stateVarsNoEps, $dd]]},
+	With[{result = $evNoEps[$pi[t - 1] $dd[t, i] eps["pi"][t - 1], $modNRC, Append[$stateVarsNoEps, $dd]]},
 		AllTrue[
 			Cases[result, x_Symbol?(MatchQ[SymbolName[#], "eps"] &)[__][__, ___] :> Context@x, Infinity],
 			# === "FernandoDuarte`LongRunRisk`Model`Shocks`" &
@@ -304,15 +293,15 @@ TestCreate[
 
 
 TestCreate[
-	$evNoEps[$wc[t] $eps["pi"][t - 1], $modNRC, $stateVarsNoEps],
-	$wc[t] $eps["pi"][-1 + t],
+	$evNoEps[$wc[t] eps["pi"][t - 1], $modNRC, $stateVarsNoEps],
+	$wc[t] eps["pi"][-1 + t],
 	{},
 	TestID -> "evNoEpsStateVarsProduct-WcEpsLagged-ProductPreserved"
 ]
 
 TestCreate[
-	With[{result = $evNoEps[$wc[t] $eps["pi"][t], $modNRC, {$wc}]},
-		Coefficient[result, $pi[t - 1]] === $rhop $A[1] $eps["pi"][t]
+	With[{result = $evNoEps[$wc[t] eps["pi"][t], $modNRC, {$wc}]},
+		Coefficient[result, $pi[t - 1]] === rhop $A[1] eps["pi"][t]
 	],
 	True,
 	{},
@@ -325,7 +314,7 @@ TestCreate[
 
 
 TestCreate[
-	With[{result = $evNoEps[$A[0] $wc[t] $eps["pi"][t - 1], $modNRC, $stateVarsNoEps]},
+	With[{result = $evNoEps[$A[0] $wc[t] eps["pi"][t - 1], $modNRC, $stateVarsNoEps]},
 		AllTrue[
 			Cases[result, x_Symbol?(MatchQ[SymbolName[#], "A"] &)[_] :> Context@x, Infinity],
 			# === "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`" &
@@ -337,8 +326,8 @@ TestCreate[
 ]
 
 TestCreate[
-	$evNoEps[$pd[t, i] $eps["pi"][t - 1], $modNRC, $stateVarsNoEps],
-	$pd[t, i] $eps["pi"][-1 + t],
+	$evNoEps[$pd[t, i] eps["pi"][t - 1], $modNRC, $stateVarsNoEps],
+	$pd[t, i] eps["pi"][-1 + t],
 	{},
 	TestID -> "evNoEpsStateVarsProduct-PdEpsLagged-ProductPreserved"
 ]

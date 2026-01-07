@@ -11,13 +11,12 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
-Needs["PacletizedResourceFunctions`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)
 
 
-Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
+Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1}];
 
 
 (* ::Subsection:: *)
@@ -37,10 +36,6 @@ $longTest = False;
 exo = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`Private`exo;
 exoStocks = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`Private`exoStocks;
 
-(* Load processed models from the Models.wl resource file *)
-(* This file contains DefinitionData that needs to be Get twice - first to get the path, second to load the data *)
-$modelsData = Get[Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]];
-
 $covLongLookupTables = <|
 	"BKY" -> FileNameJoin[{"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongBKY.mx"}],
 	"DES" -> FileNameJoin[{"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongDES.mx"}],
@@ -53,8 +48,8 @@ Scan[Get, Values[$covLongLookupTables]];
 
 (* Select models based on test mode *)
 $testModels = If[$longTest,
-	{$modelsData["BKY"], $modelsData["NRC"], $modelsData["DES"], $modelsData["NRCStochVol"]},
-	{$modelsData["BKY"], $modelsData["NRC"]}
+	{$models["BKY"], $models["NRC"], $models["DES"], $models["NRCStochVol"]},
+	{$models["BKY"], $models["NRC"]}
 ];
 
 (* Helper to get covLong symbol for a model *)
@@ -167,7 +162,7 @@ TestCreate[
 
 (* Test: All moments without stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMomentsNoStocks[$modelsData["BKY"]]],
+	allNumericQ[computeMomentsNoStocks[$models["BKY"]]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsNoStocksAreNumeric"
@@ -175,7 +170,7 @@ TestCreate[
 
 (* Test: All moments without stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMomentsNoStocks[$modelsData["NRC"]]],
+	allNumericQ[computeMomentsNoStocks[$models["NRC"]]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsNoStocksAreNumeric"
@@ -188,7 +183,7 @@ TestCreate[
 
 (* Test: All moments with one stock evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMomentsOneStock[$modelsData["BKY"]]],
+	allNumericQ[computeMomentsOneStock[$models["BKY"]]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsOneStockAreNumeric"
@@ -196,7 +191,7 @@ TestCreate[
 
 (* Test: All moments with one stock evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMomentsOneStock[$modelsData["NRC"]]],
+	allNumericQ[computeMomentsOneStock[$models["NRC"]]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsOneStockAreNumeric"
@@ -209,7 +204,7 @@ TestCreate[
 
 (* Test: All moments with two stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMomentsTwoStocks[$modelsData["BKY"]]],
+	allNumericQ[computeMomentsTwoStocks[$models["BKY"]]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsTwoStocksAreNumeric"
@@ -217,7 +212,7 @@ TestCreate[
 
 (* Test: All moments with two stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMomentsTwoStocks[$modelsData["NRC"]]],
+	allNumericQ[computeMomentsTwoStocks[$models["NRC"]]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsTwoStocksAreNumeric"
@@ -230,7 +225,7 @@ TestCreate[
 
 (* Test: All 3-variable moments without stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMoments3Vars[$modelsData["BKY"]]],
+	allNumericQ[computeMoments3Vars[$models["BKY"]]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsThreeVarsAreNumeric"
@@ -238,7 +233,7 @@ TestCreate[
 
 (* Test: All 3-variable moments without stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMoments3Vars[$modelsData["NRC"]]],
+	allNumericQ[computeMoments3Vars[$models["NRC"]]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsThreeVarsAreNumeric"
@@ -251,7 +246,7 @@ TestCreate[
 
 (* Test: All 4-variable moments without stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMoments4Vars[$modelsData["BKY"]]],
+	allNumericQ[computeMoments4Vars[$models["BKY"]]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsFourVarsAreNumeric"
@@ -259,7 +254,7 @@ TestCreate[
 
 (* Test: All 4-variable moments without stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMoments4Vars[$modelsData["NRC"]]],
+	allNumericQ[computeMoments4Vars[$models["NRC"]]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsFourVarsAreNumeric"
@@ -272,7 +267,7 @@ TestCreate[
 
 (* Test: All 3-variable moments with stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMomentsStocks3Vars[$modelsData["BKY"]]],
+	allNumericQ[computeMomentsStocks3Vars[$models["BKY"]]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsStocksThreeVarsAreNumeric"
@@ -280,7 +275,7 @@ TestCreate[
 
 (* Test: All 3-variable moments with stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMomentsStocks3Vars[$modelsData["NRC"]]],
+	allNumericQ[computeMomentsStocks3Vars[$models["NRC"]]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsStocksThreeVarsAreNumeric"
@@ -288,7 +283,7 @@ TestCreate[
 
 (* Test: All 4-variable moments with stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMomentsStocks4Vars[$modelsData["BKY"]]],
+	allNumericQ[computeMomentsStocks4Vars[$models["BKY"]]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsStocksFourVarsAreNumeric"
@@ -296,7 +291,7 @@ TestCreate[
 
 (* Test: All 4-variable moments with stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMomentsStocks4Vars[$modelsData["NRC"]]],
+	allNumericQ[computeMomentsStocks4Vars[$models["NRC"]]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsStocksFourVarsAreNumeric"
