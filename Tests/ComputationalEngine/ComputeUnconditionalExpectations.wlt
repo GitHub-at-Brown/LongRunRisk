@@ -8,10 +8,6 @@ BeginTestSection["Kernel/ComputationalEngine/ComputeUnconditionalExpectations.wl
 Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeUnconditionalExpectations`"]
 
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
-Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
-Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
-Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
-Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)

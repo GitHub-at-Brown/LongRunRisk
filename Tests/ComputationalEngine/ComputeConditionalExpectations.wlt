@@ -9,8 +9,6 @@ Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`ComputeConditionalEx
 
 (* Needs["FernandoDuarte`LongRunRisk`"]; *)
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
-Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
-Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)

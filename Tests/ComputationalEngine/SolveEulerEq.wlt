@@ -8,8 +8,6 @@ BeginTestSection["Kernel/ComputationalEngine/SolveEulerEq.wl Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`SolveEulerEq`"]
 
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
-Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
-Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
 
 (* ::Subsection:: *)
