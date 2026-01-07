@@ -46,8 +46,8 @@ $covLongLookupTables = <|
 (* Load lookup tables - use Scan for side effects *)
 Scan[Get, Values[$covLongLookupTables]];
 
-(* Select models based on test mode *)
-$testModels = If[$longTest,
+(* Select models based on test mode - use local variable to avoid conflicts with Common`$testModels *)
+$localTestModels = If[$longTest,
 	{$modBKY, $modNRC, $modDES, $modNRCStochVol},
 	{$modBKY, $modNRC}
 ];
@@ -136,7 +136,7 @@ TestCreate[
 
 (* Test: covLong symbols are defined after loading lookup tables *)
 TestCreate[
-	AllTrue[$testModels, Length[DownValues[Evaluate[getCovLongSymbol[#]]]] > 0 &],
+	AllTrue[$localTestModels, Length[DownValues[Evaluate[getCovLongSymbol[#]]]] > 0 &],
 	True,
 	{},
 	TestID -> "covLong-LookupTables-SymbolsDefined"
