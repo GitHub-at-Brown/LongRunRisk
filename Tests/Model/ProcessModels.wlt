@@ -50,7 +50,7 @@ TestCreate[
 	AllTrue[Keys[$modelsP], StringQ],
 	True,
 	{},
-	TestID -> "processModels-Keys-AreStrings"
+	TestID -> "[processModels] Model keys are strings"
 ]
 
 (* Test: String fields have correct type including exogenousVars and endogenousVars *)
@@ -65,7 +65,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "processModels-StringFields-AreStrings"
+	TestID -> "[processModels] String fields including variable lists are strings"
 ]
 
 (* Test: Parameters evaluate to numbers after substitution *)
@@ -80,7 +80,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "processModels-Parameters-EvaluateToNumbers"
+	TestID -> "[processModels] Parameters evaluate to numbers after substitution"
 ]
 
 (* Test: Known models are present *)
@@ -89,7 +89,7 @@ TestCreate[
 	SubsetQ[Keys[$modelsP], {"BY", "BKY", "NRC"}],
 	True,
 	{},
-	TestID -> "processModels-KnownModels-ArePresent"
+	TestID -> "[processModels] Known models BY, BKY, NRC are present"
 ]
 
 (* Test: Models are associations and each model is also an association *)
@@ -98,7 +98,7 @@ TestCreate[
 	AllTrue[Values[$modelsP], AssociationQ],
 	True,
 	{},
-	TestID -> "processModels-Structure-AreAssociations"
+	TestID -> "[processModels] Models and their values are Associations"
 ]
 
 
@@ -111,7 +111,7 @@ TestCreate[
 	AllTrue[Values[$modelsP], MatchQ[#["stateVars"], _Function] &],
 	True,
 	{},
-	TestID -> "processModels-StateVars-AreFunction"
+	TestID -> "[processModels] StateVars field is a Function"
 ]
 
 (* Test: stateVars applied to t returns a List *)
@@ -119,7 +119,7 @@ TestCreate[
 	AllTrue[Values[$modelsP], ListQ[#["stateVars"][t]] &],
 	True,
 	{},
-	TestID -> "processModels-StateVars-AppliedToT-ReturnsList"
+	TestID -> "[processModels] StateVars applied to t returns List"
 ]
 
 (* Test: stateVars function takes one argument *)
@@ -134,7 +134,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "processModels-StateVars-SingleArgument"
+	TestID -> "[processModels] StateVars function takes single argument"
 ]
 
 (* Test: stateVars function argument is named t *)
@@ -149,7 +149,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "processModels-StateVars-ArgumentNamedT"
+	TestID -> "[processModels] StateVars function argument is named t"
 ]
 
 (* Test: stateVars evaluated at t matches raw catalog stateVars *)
@@ -162,7 +162,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "processModels-StateVars-EvaluationMatchesCatalog"
+	TestID -> "[processModels] StateVars at t matches raw catalog stateVars"
 ]
 
 
@@ -175,7 +175,7 @@ TestCreate[
 	AllTrue[Values[$modelsP], NumberQ[#["numStocks"]] &],
 	True,
 	{},
-	TestID -> "processModels-NumStocks-IsNumber"
+	TestID -> "[processModels] NumStocks field is numeric"
 ]
 
 
@@ -195,7 +195,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "processModels-StateVars-NoEndogenousVars"
+	TestID -> "[processModels] StateVars exclude endogenous variables"
 ]
 
 (* Test: exogenousEq does not contain endogenous variables *)
@@ -210,7 +210,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "processModels-ExogenousEq-NoEndogenousVars"
+	TestID -> "[processModels] ExogenousEq excludes endogenous variables"
 ]
 
 
@@ -227,7 +227,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "processModels-KeysAndShortnames-ArePreserved"
+	TestID -> "[processModels] Keys and shortnames preserved after processing"
 ]
 
 
@@ -240,7 +240,7 @@ TestCreate[
 	AllTrue[Keys[$modelsP["BKY"]["exogenousEq"]], MatchQ[#, _PatternTest] &],
 	True,
 	{},
-	TestID -> "processModels-ExogenousEqKeys-ArePatternTest"
+	TestID -> "[processModels] ExogenousEq keys are PatternTest expressions"
 ]
 
 (* Test: Keys in endogenousEq are PatternTest expressions *)
@@ -248,7 +248,7 @@ TestCreate[
 	AllTrue[Keys[$modelsP["BKY"]["endogenousEq"]], MatchQ[#, _PatternTest] &],
 	True,
 	{},
-	TestID -> "processModels-EndogenousEqKeys-ArePatternTest"
+	TestID -> "[processModels] EndogenousEq keys are PatternTest expressions"
 ]
 
 
@@ -272,7 +272,7 @@ Block[{t, i},
 		],
 		True,
 		{},
-		TestID -> "processModels-Equations-EvaluateVariables"
+		TestID -> "[processModels] Equations evaluate dc, dd, wc, sdf, bondyield"
 	]
 ]
 
@@ -288,7 +288,7 @@ Block[{t, notVar},
 		],
 		True,
 		{},
-		TestID -> "processModels-Equations-DoNotEvaluateNonVariables"
+		TestID -> "[processModels] Equations do not evaluate non-variables"
 	]
 ]
 
@@ -312,7 +312,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "processModels-Coefficients-AB-AreNumeric"
+	TestID -> "[processModels] A and B coefficients are numeric"
 ]
 
 (* Test: Bond values are numeric or Missing sentinel *)
@@ -330,7 +330,45 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "processModels-Coefficients-Bonds-AreNumericOrMissing"
+	TestID -> "[processModels] Bond values are numeric or Missing sentinel"
+]
+
+
+(* ::Subsection:: *)
+(*Tests Needing Refactoring*)
+(*TODO: The following test was copied from docs/test-files/ProcessModels.wlt and needs refactoring to use TestCreate and semantic TestIDs*)
+
+
+(* Test: processModels preserves model content when renaming *)
+(* Original TestID: ProcessModels_20260103-HIY034 *)
+(* This test verifies that processModels output is identical regardless of the model key name used *)
+VerificationTest[
+	Module[{modelBY, modelBKY, modelBKYP, modelBYP, newModels, newModelsSameName, newModelsRename,
+	        newModelsP, newModelsSameNameP, newModelsRenameP},
+		modelBY = $modelsTest["BY"];
+		modelBKY = $modelsTest["BKY"];
+		modelBKYP = processModels[<|"BKY" -> modelBKY|>];
+		modelBYP = processModels[<|"BY" -> modelBY|>];
+		newModels = <|"myModel" -> modelBKY, "BY" -> modelBY|>;
+		newModelsSameName = <|"BY" -> modelBY|>;
+		newModelsRename = <|"myModel" -> modelBY|>;
+		newModelsP = processModels[newModels];
+		newModelsSameNameP = processModels[newModelsSameName];
+		newModelsRenameP = processModels[newModelsRename];
+		And[
+			(* BKY model under different name produces same result *)
+			KeyDrop[newModelsP["myModel"], "coeffsSolution"] === KeyDrop[modelBKYP["BKY"], "coeffsSolution"],
+			(* BY model produces same result *)
+			KeyDrop[newModelsP["BY"], "coeffsSolution"] === KeyDrop[modelBYP["BY"], "coeffsSolution"],
+			(* BY model with same name produces same result *)
+			KeyDrop[newModelsSameNameP["BY"], "coeffsSolution"] === KeyDrop[modelBYP["BY"], "coeffsSolution"],
+			(* BY model renamed produces same result *)
+			KeyDrop[newModelsRenameP["myModel"], "coeffsSolution"] === KeyDrop[modelBYP["BY"], "coeffsSolution"]
+		]
+	],
+	True,
+	{},
+	TestID -> "[processModels] Renaming model key preserves content"
 ]
 
 

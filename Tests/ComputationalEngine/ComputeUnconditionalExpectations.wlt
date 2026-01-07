@@ -37,14 +37,14 @@ TestCreate[
 	uncondE[$pi[t], $modNRC],
 	mup,
 	{},
-	TestID -> "uncondE-PiFirstMoment-ReturnsMup"
+	TestID -> "[uncondE] First moment of pi returns mup"
 ]
 
 TestCreate[
 	uncondE[$sg[t], $modNRC],
 	Esg,
 	{},
-	TestID -> "uncondE-SgFirstMoment-ReturnsEsg"
+	TestID -> "[uncondE] First moment of sg returns Esg"
 ]
 
 
@@ -59,7 +59,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "uncondE-PiSquared-MatchesFormula"
+	TestID -> "[uncondE] Second moment of pi matches analytical formula"
 ]
 
 TestCreate[
@@ -69,14 +69,14 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "uncondE-SgSquared-MatchesFormula"
+	TestID -> "[uncondE] Second moment of sg matches analytical formula"
 ]
 
 TestCreate[
 	simplifiesZeroQ[uncondE[$pi[t] $sg[t], $modNRC] - (Esg mup)],
 	True,
 	{},
-	TestID -> "uncondE-PiTimesSg-MatchesProduct"
+	TestID -> "[uncondE] Cross-moment pi*sg equals product of means"
 ]
 
 
@@ -88,14 +88,14 @@ TestCreate[
 	Simplify[uncondE[$wc[t], $modNRC]],
 	$A[0],
 	{},
-	TestID -> "uncondE-WcNRC-ReturnsAZero"
+	TestID -> "[uncondE] Wealth-consumption ratio in NRC returns A[0]"
 ]
 
 TestCreate[
 	Simplify[uncondE[$wc[t], $modBY]],
 	$A[0],
 	{},
-	TestID -> "uncondE-WcBY-ReturnsAZero"
+	TestID -> "[uncondE] Wealth-consumption ratio in BY returns A[0]"
 ]
 
 
@@ -110,14 +110,14 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "uncondVar-Pi-MatchesFormula"
+	TestID -> "[uncondVar] Variance of pi matches analytical formula"
 ]
 
 TestCreate[
 	simplifiesZeroQ[uncondVar[$sg[t], $modNRC] - phig^2 / (1 - rhog^2)],
 	True,
 	{},
-	TestID -> "uncondVar-Sg-MatchesFormula"
+	TestID -> "[uncondVar] Variance of sg matches analytical formula"
 ]
 
 
@@ -129,7 +129,7 @@ TestCreate[
 	simplifiesZeroQ[uncondCov[$pi[t], $sg[t], $modNRC]],
 	True,
 	{},
-	TestID -> "uncondCov-PiSg-IsZero"
+	TestID -> "[uncondCov] Covariance of pi and sg is zero"
 ]
 
 
@@ -141,7 +141,7 @@ TestCreate[
 	Simplify[uncondCorr[$pi[t], $pi[t], $modNRC]],
 	1,
 	{},
-	TestID -> "uncondCorr-SelfCorrelation-ReturnsOne"
+	TestID -> "[uncondCorr] Self-correlation of pi returns one"
 ]
 
 
@@ -156,7 +156,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "evNoEpsStateVarsProduct-PiEps-Commutative"
+	TestID -> "[evNoEps] pi*eps product is commutative"
 ]
 
 TestCreate[
@@ -166,7 +166,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "evNoEpsStateVarsProduct-PiSgLagged-Commutative"
+	TestID -> "[evNoEps] pi*sg lagged product is commutative"
 ]
 
 
@@ -178,14 +178,14 @@ TestCreate[
 	$evNoEps[$pi[t], $modNRC, $stateVarsNoEps],
 	$pi[t],
 	{},
-	TestID -> "evNoEpsStateVarsProduct-SinglePi-Passthrough"
+	TestID -> "[evNoEps] Single pi passes through unchanged"
 ]
 
 TestCreate[
 	$evNoEps[$pi[t] $sg[t], $modNRC, $stateVarsNoEps],
 	$pi[t] $sg[t],
 	{},
-	TestID -> "evNoEpsStateVarsProduct-PiSgSameTime-Passthrough"
+	TestID -> "[evNoEps] Same-time pi*sg passes through unchanged"
 ]
 
 
@@ -197,7 +197,7 @@ TestCreate[
 	$evNoEps[$pi[t] eps["pi"][t + 1], $modNRC, $stateVarsNoEps],
 	$pi[t] eps["pi"][1 + t],
 	{},
-	TestID -> "evNoEpsStateVarsProduct-FutureShock-Preserved"
+	TestID -> "[evNoEps] Future shock in product is preserved"
 ]
 
 
@@ -209,7 +209,7 @@ TestCreate[
 	$evNoEps[$pi[t] foo[t - 1], $modNRC, $stateVarsNoEps],
 	$pi[t] foo[t - 1],
 	{},
-	TestID -> "evNoEpsStateVarsProduct-NonStateVar-Preserved"
+	TestID -> "[evNoEps] Non-state variable foo is preserved in product"
 ]
 
 
@@ -224,14 +224,14 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "evNoEpsStateVarsProduct-IrrelevantVar-NoEffect"
+	TestID -> "[evNoEps] Irrelevant state variables do not affect result"
 ]
 
 TestCreate[
 	$evNoEps[$pi[t], $modNRC, Append[$stateVarsNoEps, irrelevantVar]],
 	$pi[t],
 	{},
-	TestID -> "evNoEpsStateVarsProduct-SinglePiWithIrrelevant-Passthrough"
+	TestID -> "[evNoEps] Single pi with irrelevant var passes through"
 ]
 
 
@@ -248,7 +248,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "evNoEpsStateVarsProduct-ShockContext-IsCorrect"
+	TestID -> "[evNoEps] Shock symbols maintain correct Shocks context"
 ]
 
 
@@ -262,7 +262,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "evNoEpsStateVarsProduct-PiWithSgLagged-PiIsLagged"
+	TestID -> "[evNoEps] pi[t] with lagged sg substitutes pi to earlier time"
 ]
 
 TestCreate[
@@ -271,7 +271,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "evNoEpsStateVarsProduct-PiWithSgLagged-SgPreserved"
+	TestID -> "[evNoEps] Lagged sg[t-1] is preserved in result"
 ]
 
 
@@ -283,7 +283,7 @@ TestCreate[
 	$evNoEps[$wc[t] eps["pi"][t - 1], $modNRC, $stateVarsNoEps],
 	$wc[t] eps["pi"][-1 + t],
 	{},
-	TestID -> "evNoEpsStateVarsProduct-WcEpsLagged-ProductPreserved"
+	TestID -> "[evNoEps] wc*eps lagged product is preserved"
 ]
 
 TestCreate[
@@ -292,7 +292,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "evNoEpsStateVarsProduct-WcEps-CoefficientCorrect"
+	TestID -> "[evNoEps] wc*eps coefficient of pi[t-1] is correct"
 ]
 
 
@@ -309,15 +309,142 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "evNoEpsStateVarsProduct-ACoeff-CorrectContext"
+	TestID -> "[evNoEps] A coefficient maintains correct Private context"
 ]
 
 TestCreate[
 	$evNoEps[$pd[t, i] eps["pi"][t - 1], $modNRC, $stateVarsNoEps],
 	$pd[t, i] eps["pi"][-1 + t],
 	{},
-	TestID -> "evNoEpsStateVarsProduct-PdEpsLagged-ProductPreserved"
+	TestID -> "[evNoEps] pd*eps lagged product is preserved"
 ]
+
+
+(* ::Subsection:: *)
+(*Tests Needing Refactoring*)
+(*TODO: The following tests exist in docs/test-files/ComputeUnconditionalExpectations.wlt*)
+(*      and need to be refactored to use TestCreate with semantic TestIDs*)
+
+
+(*
+   createSystem Tests (Long Tests - require longTest=True)
+   =======================================================
+   Original Location: docs/test-files/ComputeUnconditionalExpectations.wlt
+
+   TestID: ComputeUnconditionalExpectations_20260103-OBY80L
+   Description: Tests createSystem internal function for orders 1-4
+   - Validates nameRules structure and content
+   - Validates system equations structure
+   - Validates unknowns list
+   - Validates solution consistency with system equations
+
+   TestID: ComputeUnconditionalExpectations_20260103-HS5V50
+   Description: Validates solved values match analytical formulas
+   - pi1 (first moment of pi)
+   - sg1 (first moment of sg)
+   - pi2 (second moment of pi)
+   - sg2 (second moment of sg)
+   - pi1sg1 (cross moment)
+
+   TestID: ComputeUnconditionalExpectations_20260103-N1A9JC
+   Description: Verifies all solutions evaluate to numbers with NRC parameters
+   - All nameRules values should be numeric after parameter substitution
+
+
+   Extended uncondE Tests (Long Tests)
+   ===================================
+   Original Location: docs/test-files/ComputeUnconditionalExpectations.wlt
+
+   TestID: ComputeUnconditionalExpectations_20260103-HY9B6Z
+   Description: Comprehensive uncondE tests including:
+
+   Wealth-consumption ratio tests:
+   - uncondE[wc[t], modNRC] === A[0]
+   - uncondE[wc[t], modBY] === A[0]
+
+   Higher moment factorization:
+   - uncondE[pi[t]^3 * sg[t], modNRC] factorization property
+   - uncondE[pi[t]^3 * sg[t], modNRC] analytical formula verification
+
+   Consumption growth tests:
+   - uncondE[dc[t], modNRC] === muc
+   - uncondE[dc[t]^2, modNRC] analytical formula
+   - uncondE[pi[t] * dc[t], modNRC] analytical formula
+   - uncondE[sg[t] * dc[t], modNRC] === muc * Esg
+
+   Autocovariance tests:
+   - uncondE[sg[t] * sg[t+1], modNRC] autocovariance formula
+   - uncondE[sg[t] * sg[t-1], modNRC] autocovariance formula
+   - uncondE[pi[t] * pi[t+1], modNRC] autocovariance formula
+   - uncondE[pi[t] * pi[t-1], modNRC] autocovariance formula
+
+   Cross-moment tests:
+   - uncondE[pi[t] * sg[t+1], modNRC] cross-moment
+   - uncondE[pi[t-1] * dc[t], modNRC] lagged cross-moment
+
+
+   evNoEpsStateVarsProduct Extended Tests
+   ======================================
+   Original Location: docs/test-files/ComputeUnconditionalExpectations.wlt
+
+   TestID: ComputeUnconditionalExpectations_20260103-9UJQ9B
+   Description: Comprehensive evNoEpsStateVarsProduct tests
+   - Commutativity: pi[t] * eps["pi"][t-1] vs eps["pi"][t-1] * pi[t]
+   - Single variable passthrough: pi[t]
+   - Same-time products: pi[t] * sg[t]
+   - Lagged products with substitution: pi[t-1] * sg[t]
+   - Shock products with substitution: pi[t] * eps["pi"][t]
+   - Future shocks preserved: pi[t] * eps["pi"][t+1]
+   - Non-state variable dd handling
+   - dd as state variable expansion
+   - Additional commutativity checks
+
+   TestID: ComputeUnconditionalExpectations_20260103-KP8SCE
+   Description: Shock context verification for complex products with dd variable
+   - Verifies eps symbols maintain correct Shocks` context
+
+   TestID: ComputeUnconditionalExpectations_20260103-QVZAKT
+   Description: Time lag verification tests
+   - pi[t] * sg[t-1] removes pi[t], preserves sg[t-1]
+   - Sum expressions pi[t] * sg[t-1] + pi[t-1] * sg[t] substitution behavior
+
+   TestID: ComputeUnconditionalExpectations_20260103-Q9QZME
+   Description: Non-state variable preservation
+   - pi[t] * foo[t-1] preserves foo
+   - Future shock factorization: eps["pi"][t+1] * eps["pi"][t] * pi[t]
+
+   TestID: ComputeUnconditionalExpectations_20260103-OGD12F
+   Description: Irrelevant variable handling
+   - Adding myVariable or dd doesn't affect result
+   - Single pi with irrelevant var
+   - anotherIrrelevantVar handling
+
+   TestID: ComputeUnconditionalExpectations_20260103-1LGRKM
+   Description: FreeQ tests for dd variable interactions
+   - Various combinations of pi, dd, eps at different time indices
+   - uncondEStep tests for dc * sg products
+
+   TestID: ComputeUnconditionalExpectations_20260103-7CMLD8
+   Description: wc and pd coefficient tests
+   - wc[t] * eps["pi"][t-1] product preservation
+   - wc[t] * eps["pi"][t] coefficient extraction
+   - A coefficient context verification (multiple scenarios)
+   - pd[t,i] * eps["pi"][t-1] product preservation
+   - pd[t,i] * eps["pi"][t] coefficient extraction
+   - B coefficient context verification (multiple scenarios)
+
+
+   REFACTORING NOTES:
+   ==================
+   - The createSystem tests require the internal Private` function to be accessible
+   - Consider splitting the large bundled tests into individual TestCreate calls
+   - Extended uncondE tests cover important autocovariance and cross-moment functionality
+   - evNoEpsStateVarsProduct tests should be split by functionality (commutativity, passthrough, context, etc.)
+   - Many tests in the original file use Apply[And, {...}] pattern - each assertion should be a separate test
+
+   To run the original tests, execute:
+   TestReport @ FileNameJoin[{$PackageDirectory, "docs", "test-files", "ComputeUnconditionalExpectations.wlt"}]
+*)
 
 
 End[]

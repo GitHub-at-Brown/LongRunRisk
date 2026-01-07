@@ -49,7 +49,7 @@ TestCreate[
 	AssociationQ[models],
 	True,
 	{},
-	TestID -> "models-Structure-IsAssociation"
+	TestID -> "[models] Structure is Association"
 ]
 
 (* Test: models keys are strings *)
@@ -57,7 +57,7 @@ TestCreate[
 	AllTrue[Keys[models], StringQ],
 	True,
 	{},
-	TestID -> "models-Keys-AreStrings"
+	TestID -> "[models] All keys are strings"
 ]
 
 (* Test: Each model entry is an Association *)
@@ -65,7 +65,7 @@ TestCreate[
 	AllTrue[Values[models], AssociationQ],
 	True,
 	{},
-	TestID -> "models-Values-AreAssociations"
+	TestID -> "[models] Each model entry is Association"
 ]
 
 (* Test: Each model's keys are strings *)
@@ -73,7 +73,7 @@ TestCreate[
 	AllTrue[Values[models], AllTrue[Keys[#], StringQ] &],
 	True,
 	{},
-	TestID -> "models-ModelKeys-AreStrings"
+	TestID -> "[models] Each model has string keys"
 ]
 
 (* Test: Each model has exactly the required keys *)
@@ -84,7 +84,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-RequiredKeys-AllPresent"
+	TestID -> "[models] Required keys present in each model entry"
 ]
 
 
@@ -99,7 +99,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-StringFields-AreStrings"
+	TestID -> "[models] Name shortname bibRef desc are strings"
 ]
 
 (* Test: bibRef is "None", "none", "n/a", or a valid BibTeX key *)
@@ -110,7 +110,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-BibRef-IsValid"
+	TestID -> "[models] BibRef is none or valid BibTeX key"
 ]
 
 (* Test: enabled is Boolean *)
@@ -118,7 +118,7 @@ TestCreate[
 	AllTrue[Values[models], BooleanQ[#["enabled"]] &],
 	True,
 	{},
-	TestID -> "models-Enabled-IsBoolean"
+	TestID -> "[models] Enabled field is Boolean"
 ]
 
 (* Test: stateVars is a list *)
@@ -126,7 +126,7 @@ TestCreate[
 	AllTrue[Values[models], ListQ[#["stateVars"]] &],
 	True,
 	{},
-	TestID -> "models-StateVars-IsList"
+	TestID -> "[models] StateVars field is list"
 ]
 
 (* Test: parameters is a list of rules *)
@@ -134,7 +134,7 @@ TestCreate[
 	AllTrue[Values[models], MatchQ[#["parameters"], {___Rule}] &],
 	True,
 	{},
-	TestID -> "models-Parameters-IsListOfRules"
+	TestID -> "[models] Parameters field is list of rules"
 ]
 
 
@@ -156,7 +156,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "models-Parameters-EvaluateToNumbers"
+	TestID -> "[models] Parameters evaluate to numbers after substitution"
 ]
 
 
@@ -171,22 +171,22 @@ Module[{ctx, specs},
 		(* Exogenous variables in stateVars should be in ExogenousEq`Private` *)
 		<|"field" -> "stateVars", "type" -> "functionHead",
 		  "names" -> StringDrop[$exogenousVars, -2],
-		  "context" -> "ExogenousEq`Private`", "id" -> "ExogenousVars-InCorrectContext"|>,
+		  "context" -> "ExogenousEq`Private`", "id" -> "Exogenous vars in ExogenousEq Private context"|>,
 
 		(* Shocks (eps) in stateVars should be in Shocks` *)
 		<|"field" -> "stateVars", "type" -> "curriedHead",
 		  "names" -> {"eps"},
-		  "context" -> "Shocks`", "id" -> "Shocks-InCorrectContext"|>,
+		  "context" -> "Shocks`", "id" -> "Shocks in Shocks context"|>,
 
 		(* Parameters should be in Parameters` *)
 		<|"field" -> "parameters", "type" -> "bareSymbol",
 		  "names" -> $parameters,
-		  "context" -> "Parameters`", "id" -> "Parameters-InCorrectContext"|>,
+		  "context" -> "Parameters`", "id" -> "Parameters in Parameters context"|>,
 
 		(* Endogenous variables should NOT be in stateVars (use None for absence check) *)
 		<|"field" -> "stateVars", "type" -> "functionHead",
 		  "names" -> StringDrop[$endogenousVars, -2],
-		  "context" -> None, "id" -> "StateVars-NoEndogenousVars"|>
+		  "context" -> None, "id" -> "StateVars excludes endogenous variables"|>
 	};
 	Map[
 		Function[spec,
@@ -200,7 +200,7 @@ Module[{ctx, specs},
 				],
 				True,
 				{},
-				TestID -> "models-" <> spec["id"]
+				TestID -> "[models] " <> spec["id"]
 			]
 		],
 		specs
@@ -217,7 +217,7 @@ TestCreate[
 	AssociationQ[modelsExtraInfo],
 	True,
 	{},
-	TestID -> "modelsExtraInfo-Structure-IsAssociation"
+	TestID -> "[modelsExtraInfo] Structure is Association"
 ]
 
 (* Test: All values in modelsExtraInfo are Associations *)
@@ -225,7 +225,7 @@ TestCreate[
 	AllTrue[Values[modelsExtraInfo], AssociationQ],
 	True,
 	{},
-	TestID -> "modelsExtraInfo-Values-AreAssociations"
+	TestID -> "[modelsExtraInfo] All values are Associations"
 ]
 
 (* Test: Models in modelsExtraInfo are a subset of those in models *)
@@ -233,7 +233,7 @@ TestCreate[
 	SubsetQ[Keys[models], Keys[modelsExtraInfo]],
 	True,
 	{},
-	TestID -> "modelsExtraInfo-Keys-SubsetOfModels"
+	TestID -> "[modelsExtraInfo] Keys are subset of models keys"
 ]
 
 
@@ -246,7 +246,7 @@ TestCreate[
 	AllTrue[Values[modelsExtraInfo], initialGuessQ[#, "Ewc", VectorQ] &],
 	True,
 	{},
-	TestID -> "modelsExtraInfo-Ewc-IsVector"
+	TestID -> "[modelsExtraInfo] Ewc initial guess is vector"
 ]
 
 (* Test: If initialGuess is provided, Epd is a 2-dimensional array *)
@@ -254,7 +254,7 @@ TestCreate[
 	AllTrue[Values[modelsExtraInfo], Function[model, initialGuessQ[model, "Epd", ArrayQ[#, 2] &]]],
 	True,
 	{},
-	TestID -> "modelsExtraInfo-Epd-Is2DArray"
+	TestID -> "[modelsExtraInfo] Epd initial guess is 2D array"
 ]
 
 
@@ -270,7 +270,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "validateCatalog-Models-ReturnsValid"
+	TestID -> "[validateCatalog] Returns Valid True for models"
 ]
 
 
