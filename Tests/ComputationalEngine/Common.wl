@@ -11,14 +11,6 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`Common`"]
 (*Public symbols*)
 
 
-$models;
-
-(* Model aliases *)
-$modBY; $modBKY; $modNRC; $modDES; $modNRCStochVol;
-
-(* Standard test model sets *)
-$testModels; $testModelsCore;
-
 (* ExogenousEq Private symbols *)
 $pi; $dc; $sg; $dd;
 
@@ -39,50 +31,11 @@ simplifiesZeroQ; allNumericQ; exportedSymbolQ;
 (*Usage*)
 
 
-$models::usage = "$models is an Association of pre-processed models loaded from the Models.wl resource.";
-
-
 (* ::Section:: *)
 (*Code*)
 
 
 Begin["`Private`"]
-
-
-(* ::Subsection:: *)
-(*Load Dependencies*)
-
-
-Needs["PacletizedResourceFunctions`"];
-
-
-(* ::Subsection:: *)
-(*Load Pre-processed Models*)
-
-
-$models = Get[Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]];
-
-
-(* ::Subsection:: *)
-(*Model Aliases*)
-
-
-$modBY = $models["BY"];
-$modBKY = $models["BKY"];
-$modNRC = $models["NRC"];
-$modDES = $models["DES"];
-$modNRCStochVol = $models["NRCStochVol"];
-
-
-(* ::Subsection:: *)
-(*Standard Test Model Sets*)
-
-
-(* Core models for fast tests *)
-$testModelsCore = {$modBKY, $modNRC};
-
-(* Full model set for comprehensive tests *)
-$testModels = {$modBY, $modBKY, $modNRC, $modDES, $modNRCStochVol};
 
 
 (* ::Subsection:: *)

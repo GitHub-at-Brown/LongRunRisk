@@ -14,6 +14,15 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tests`Common`"]
 captureStdout;
 $pacletDir;
 
+(* Pre-processed models *)
+$models;
+
+(* Model aliases *)
+$modBY; $modBKY; $modNRC; $modDES; $modNRCStochVol;
+
+(* Standard test model sets *)
+$testModels; $testModelsCore;
+
 
 (* ::Subsubsection:: *)
 (*Usage*)
@@ -21,6 +30,14 @@ $pacletDir;
 
 captureStdout::usage = "captureStdout[expr] captures output written to $Output during evaluation of expr and returns it as a string.";
 $pacletDir::usage = "$pacletDir is the root directory of the paclet containing the current test file.";
+$models::usage = "$models is an Association of pre-processed models loaded from the Models.wl resource.";
+$modBY::usage = "$modBY is the BY model.";
+$modBKY::usage = "$modBKY is the BKY model.";
+$modNRC::usage = "$modNRC is the NRC model.";
+$modDES::usage = "$modDES is the DES model.";
+$modNRCStochVol::usage = "$modNRCStochVol is the NRCStochVol model.";
+$testModelsCore::usage = "$testModelsCore is a minimal set of models for fast tests.";
+$testModels::usage = "$testModels is the full set of models for comprehensive tests.";
 
 
 (* ::Section:: *)
@@ -28,6 +45,42 @@ $pacletDir::usage = "$pacletDir is the root directory of the paclet containing t
 
 
 Begin["`Private`"]
+
+
+(* ::Subsection:: *)
+(*Load Dependencies*)
+
+
+Needs["PacletizedResourceFunctions`"];
+
+
+(* ::Subsection:: *)
+(*Load Pre-processed Models*)
+
+
+$models = Get[Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]];
+
+
+(* ::Subsection:: *)
+(*Model Aliases*)
+
+
+$modBY = $models["BY"];
+$modBKY = $models["BKY"];
+$modNRC = $models["NRC"];
+$modDES = $models["DES"];
+$modNRCStochVol = $models["NRCStochVol"];
+
+
+(* ::Subsection:: *)
+(*Standard Test Model Sets*)
+
+
+(* Core models for fast tests *)
+$testModelsCore = {$modBKY, $modNRC};
+
+(* Full model set for comprehensive tests *)
+$testModels = {$modBY, $modBKY, $modNRC, $modDES, $modNRCStochVol};
 
 
 (* ::Subsection:: *)

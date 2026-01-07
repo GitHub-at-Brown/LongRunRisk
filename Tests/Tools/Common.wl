@@ -11,8 +11,6 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tests`Tools`Common`"]
 (*Public symbols*)
 
 
-$processedModels;
-$testModels; $modBY;
 $nft; $sft;
 $g; $timeSeriesVector; $gt;
 $baseParams;
@@ -22,9 +20,6 @@ $baseParams;
 (*Usage*)
 
 
-$processedModels::usage = "$processedModels is an Association of pre-processed models loaded from the Models.wl resource.";
-$testModels::usage = "$testModels is a small subset of $processedModels for faster tests.";
-$modBY::usage = "$modBY is the BY model from $testModels.";
 $nft::usage = "$nft is an alias for NiceOutput`Private`numberFormattingTemplate.";
 $sft::usage = "$sft is an alias for NiceOutput`Private`stringFormattingTemplate.";
 $g::usage = "$g is an alias for TimeAggregation`Private`g.";
@@ -38,24 +33,6 @@ $baseParams::usage = "$baseParams is a shared fixture of base parameters for ToN
 
 
 Begin["`Private`"]
-
-
-(* ::Subsection:: *)
-(*Load Dependencies*)
-
-
-Needs["PacletizedResourceFunctions`"];
-
-
-(* ::Subsection:: *)
-(*Load Pre-processed Models*)
-
-
-$processedModels = Get[Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]]];
-
-(* Use a small subset for faster tests *)
-$testModels = KeyTake[$processedModels, {"BY", "BKY", "NRC"}];
-$modBY = $testModels["BY"];
 
 
 (* ::Subsection:: *)

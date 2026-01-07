@@ -24,7 +24,7 @@ Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1
 (* Test: info returns Column with OpenerView structure *)
 TestCreate[
 	Module[{result},
-		result = PacletizedResourceFunctions`SetSymbolsContext @ info[$testModels];
+		result = PacletizedResourceFunctions`SetSymbolsContext @ info[$testModelsCore];
 		AllTrue[{
 			Head[result] === Column,
 			Head[result[[1]]] === List,
@@ -39,7 +39,7 @@ TestCreate[
 (* Test: info output has Grid elements inside OpenerViews *)
 TestCreate[
 	Module[{result},
-		result = PacletizedResourceFunctions`SetSymbolsContext @ info[$testModels];
+		result = PacletizedResourceFunctions`SetSymbolsContext @ info[$testModelsCore];
 		AllTrue[Head /@ result[[1, ;; , 1, 2]], MatchQ[#, Grid] &]
 	],
 	True,
@@ -54,16 +54,16 @@ TestCreate[
 
 (* Test: info displays shortname when model key differs from shortname *)
 TestCreate[
-	Module[{justBY, infoBY, newBY, infoNewBY},
-		justBY = <|"BY" -> $modBY|>;
-		infoBY = PacletizedResourceFunctions`SetSymbolsContext @ info[justBY];
-		newBY = <|"myModel" -> $modBY|>;
-		infoNewBY = PacletizedResourceFunctions`SetSymbolsContext @ info[newBY];
+	Module[{justBKY, infoBKY, newBKY, infoNewBKY},
+		justBKY = <|"BKY" -> $modBKY|>;
+		infoBKY = PacletizedResourceFunctions`SetSymbolsContext @ info[justBKY];
+		newBKY = <|"myModel" -> $modBKY|>;
+		infoNewBKY = PacletizedResourceFunctions`SetSymbolsContext @ info[newBKY];
 		AllTrue[{
-			(* Original key "BY" shows shortname "BY" *)
-			infoBY[[1, 1, 1, 1]] == "BY",
-			(* New key "myModel" still shows shortname "BY" *)
-			infoNewBY[[1, 1, 1, 1]] == "BY"
+			(* Original key "BKY" shows shortname "BKY" *)
+			infoBKY[[1, 1, 1, 1]] == "BKY",
+			(* New key "myModel" still shows shortname "BKY" *)
+			infoNewBKY[[1, 1, 1, 1]] == "BKY"
 		}, TrueQ]
 	],
 	True,
@@ -73,20 +73,20 @@ TestCreate[
 
 (* Test: info output structure is consistent regardless of key name *)
 TestCreate[
-	Module[{justBY, infoBY, newBY, infoNewBY},
-		justBY = <|"BY" -> $modBY|>;
-		infoBY = PacletizedResourceFunctions`SetSymbolsContext @ info[justBY];
-		newBY = <|"myModel" -> $modBY|>;
-		infoNewBY = PacletizedResourceFunctions`SetSymbolsContext @ info[newBY];
+	Module[{justBKY, infoBKY, newBKY, infoNewBKY},
+		justBKY = <|"BKY" -> $modBKY|>;
+		infoBKY = PacletizedResourceFunctions`SetSymbolsContext @ info[justBKY];
+		newBKY = <|"myModel" -> $modBKY|>;
+		infoNewBKY = PacletizedResourceFunctions`SetSymbolsContext @ info[newBKY];
 		AllTrue[{
-			Head[infoBY] === Column,
-			Head[infoBY[[1]]] === List,
-			Head[infoBY[[1, 1]]] === OpenerView,
-			AllTrue[Head /@ infoBY[[1, ;; , 1, 2]], MatchQ[#, Grid] &],
-			Head[infoNewBY] === Column,
-			Head[infoNewBY[[1]]] === List,
-			Head[infoNewBY[[1, 1]]] === OpenerView,
-			AllTrue[Head /@ infoNewBY[[1, ;; , 1, 2]], MatchQ[#, Grid] &]
+			Head[infoBKY] === Column,
+			Head[infoBKY[[1]]] === List,
+			Head[infoBKY[[1, 1]]] === OpenerView,
+			AllTrue[Head /@ infoBKY[[1, ;; , 1, 2]], MatchQ[#, Grid] &],
+			Head[infoNewBKY] === Column,
+			Head[infoNewBKY[[1]]] === List,
+			Head[infoNewBKY[[1, 1]]] === OpenerView,
+			AllTrue[Head /@ infoNewBKY[[1, ;; , 1, 2]], MatchQ[#, Grid] &]
 		}, TrueQ]
 	],
 	True,
