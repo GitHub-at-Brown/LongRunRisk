@@ -14,22 +14,12 @@ Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 (*Load Test Helpers*)
 
 
-Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
+Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1}];
 
 
 (* ::Subsection:: *)
 (*Test Helpers*)
 
-
-(* Shared fixture: base parameter set used across all tests *)
-(* Block ensures all parameter symbols belong to the correct context *)
-$baseParams = Block[{$Context = "FernandoDuarte`LongRunRisk`Model`Parameters`"},
-	{
-		delta -> 0.998`, Esx -> 0.0078`, gamma -> 10, muc -> 0.0015`, phisxs -> 2.3`*^-6,
-		phix -> 0.044`, psi -> 1.5`, rhox -> 0.979`, theta -> (1 - gamma)/(1 - 1/psi),
-		vx -> 0.987`, mud[1] -> 0.0015`, phidxd[1] -> 4.5`, rhodx[1] -> 3
-	}
-];
 
 (* Returns True if evaluation of expr returns $Aborted *)
 SetAttributes[checkAbrt, HoldAll];
@@ -64,7 +54,19 @@ TestCreate[
 	TestID -> "processNewParameters-EqualParameters-ValuesAreNumbers"
 ]
 
-(* Test: When old and new parameters are equal, keys match *)
+(* Test: When old and new parameters are equal, keys match by name *)
+TestCreate[
+	With[{p = $baseParams, newP = $baseParams},
+		Module[{procP = processNewParameters[newP, p]},
+			Sort[(SymbolName @* Replace[h_[_] :> h]) /@ Keys @ procP] === Sort[(SymbolName @* Replace[h_[_] :> h]) /@ Keys @ newP]
+		]
+	],
+	True,
+	{},
+	TestID -> "processNewParameters-EqualParameters-KeysMatchByName"
+]
+
+(* Test: When old and new parameters are equal, keys match with context *)
 TestCreate[
 	With[{p = $baseParams, newP = $baseParams},
 		Module[{procP = processNewParameters[newP, p]},
@@ -73,7 +75,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "processNewParameters-EqualParameters-KeysMatch"
+	TestID -> "processNewParameters-EqualParameters-KeysMatchWithContext"
 ]
 
 (* Test: When old and new parameters are equal, processed keys are subset of old parameters *)
@@ -105,7 +107,7 @@ TestCreate[
 
 (* Test: When new parameters are subset of old, values are numbers *)
 TestCreate[
-	With[{p = $baseParams, newP = {delta -> 0.9, Esx -> 1}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1}},
 		AllTrue[Values @ processNewParameters[newP, p], NumberQ]
 	],
 	True,
@@ -113,16 +115,28 @@ TestCreate[
 	TestID -> "processNewParameters-SubsetParameters-ValuesAreNumbers"
 ]
 
-(* Test: When new parameters are subset of old, keys match new parameters *)
+(* Test: When new parameters are subset of old, keys match new parameters by name *)
 TestCreate[
 	With[{p = $baseParams, newP = {delta -> 0.9, Esx -> 1}},
 		Module[{procP = processNewParameters[newP, p]},
-			Sort @ Keys @ procP === Sort @ Keys @ newP
+			Sort[(SymbolName @* Replace[h_[_] :> h]) /@ Keys @ procP] === Sort[(SymbolName @* Replace[h_[_] :> h]) /@ Keys @ newP]
 		]
 	],
 	True,
 	{},
-	TestID -> "processNewParameters-SubsetParameters-KeysMatchNew"
+	TestID -> "processNewParameters-SubsetParameters-KeysMatchNewByName"
+]
+
+(* Test: When new parameters are subset of old, procP keys are in correct context *)
+TestCreate[
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1}},
+		Module[{procP = processNewParameters[newP, p]},
+			AllTrue[Keys @ procP, Context[#] === "FernandoDuarte`LongRunRisk`Model`Parameters`" &]
+		]
+	],
+	True,
+	{},
+	TestID -> "processNewParameters-SubsetParameters-KeysInCorrectContext"
 ]
 
 
@@ -147,7 +161,7 @@ TestCreate[
 
 (* Test: When new parameters are NOT a subset, aborts *)
 TestCreate[
-	With[{p = $baseParams, newP = {delta -> 0.9, Esx -> 1, phip -> 3}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`phip -> 3}},
 		checkAbrt[processNewParameters[newP, p]]
 	],
 	True,
@@ -157,7 +171,7 @@ TestCreate[
 
 (* Test: When new parameters are NOT a subset, issues subsetparam message *)
 TestCreate[
-	With[{p = $baseParams, newP = {delta -> 0.9, Esx -> 1, phip -> 3}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`phip -> 3}},
 		checkMsg[processNewParameters[newP, p],
 			FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::subsetparam]
 	],
@@ -173,7 +187,7 @@ TestCreate[
 
 (* Test: psi=1 in new parameters aborts *)
 TestCreate[
-	With[{p = $baseParams, newP = {delta -> 0.9, Esx -> 1, psi -> 1}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1}},
 		checkAbrt[processNewParameters[newP, p]]
 	],
 	True,
@@ -183,7 +197,7 @@ TestCreate[
 
 (* Test: psi=1 issues psi message *)
 TestCreate[
-	With[{p = $baseParams, newP = {delta -> 0.9, Esx -> 1, psi -> 1}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1}},
 		checkMsg[processNewParameters[newP, p],
 			FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::psi]
 	],
@@ -194,7 +208,7 @@ TestCreate[
 
 (* Test: psi=1. (numeric) also aborts *)
 TestCreate[
-	With[{p = $baseParams, newP = {delta -> 0.9, Esx -> 1, psi -> 1.}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.}},
 		checkAbrt[processNewParameters[newP, p]]
 	],
 	True,
@@ -209,7 +223,7 @@ TestCreate[
 
 (* Test: When all three {gamma, psi, theta} provided and theta exactly correct, does not abort *)
 TestCreate[
-	With[{p = $baseParams, newP = {gamma -> 10, theta -> (1 - gamma)/(1 - 1/psi), psi -> 1.5`}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 10, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> (1 - FernandoDuarte`LongRunRisk`Model`Parameters`gamma)/(1 - 1/FernandoDuarte`LongRunRisk`Model`Parameters`psi), FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.5`}},
 		Not @ checkAbrt[processNewParameters[newP, p]]
 	],
 	True,
@@ -219,7 +233,7 @@ TestCreate[
 
 (* Test: When all three {gamma, psi, theta} provided and theta exactly correct, values are numbers *)
 TestCreate[
-	With[{p = $baseParams, newP = {gamma -> 10, theta -> (1 - gamma)/(1 - 1/psi), psi -> 1.5`}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 10, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> (1 - FernandoDuarte`LongRunRisk`Model`Parameters`gamma)/(1 - 1/FernandoDuarte`LongRunRisk`Model`Parameters`psi), FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.5`}},
 		AllTrue[Values @ processNewParameters[newP, p], NumberQ]
 	],
 	True,
@@ -229,7 +243,7 @@ TestCreate[
 
 (* Test: When theta is NOT exactly correct, issues param message *)
 TestCreate[
-	With[{p = $baseParams, newP = {gamma -> 10, theta -> 3.23`, psi -> 1.5`}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 10, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> 3.23`, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.5`}},
 		checkMsg[processNewParameters[newP, p],
 			FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::param]
 	],
@@ -240,13 +254,13 @@ TestCreate[
 
 (* Test: When theta is NOT exactly correct, theta is recalculated to correct value *)
 TestCreate[
-	With[{p = $baseParams, newP = {gamma -> 10, theta -> 3.23`, psi -> 1.5`}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 10, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> 3.23`, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.5`}},
 		Module[{procP},
 			procP = Quiet[processNewParameters[newP, p],
 				FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::param];
 			(* theta should be (1-10)/(1-1/1.5) = -9/(1/3) = -27 *)
 			(* Use 10^-10 tolerance for floating point comparison *)
-			Abs[(theta /. procP) + 27] < 10^-10
+			Abs[(FernandoDuarte`LongRunRisk`Model`Parameters`theta /. procP) + 27] < 10^-10
 		]
 	],
 	True,
@@ -261,7 +275,7 @@ TestCreate[
 
 (* Test: Solve for gamma from {psi, theta} - values are numbers *)
 TestCreate[
-	With[{p = $baseParams, newP = {psi -> 2, theta -> -3.`}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 2, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> -3.`}},
 		AllTrue[Values @ processNewParameters[newP, p], NumberQ]
 	],
 	True,
@@ -271,10 +285,10 @@ TestCreate[
 
 (* Test: Solve for gamma from {psi, theta} - gamma has correct value 2.5 *)
 TestCreate[
-	With[{p = $baseParams, newP = {psi -> 2, theta -> -3.`}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 2, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> -3.`}},
 		Module[{procP = processNewParameters[newP, p]},
 			(* gamma = 1 - theta*(1-1/psi) = 1 - (-3)*(1-1/2) = 1 + 3*0.5 = 2.5 *)
-			Abs[(gamma /. procP) - 2.5] < 10^-10
+			Abs[(FernandoDuarte`LongRunRisk`Model`Parameters`gamma /. procP) - 2.5] < 10^-10
 		]
 	],
 	True,
@@ -284,10 +298,10 @@ TestCreate[
 
 (* Test: Solve for theta from {gamma, psi} - theta has correct value -3 *)
 TestCreate[
-	With[{p = $baseParams, newP = {psi -> 2, gamma -> 2.5}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 2, FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 2.5}},
 		Module[{procP = processNewParameters[newP, p]},
 			(* theta = (1-gamma)/(1-1/psi) = (1-2.5)/(1-0.5) = -1.5/0.5 = -3 *)
-			Abs[(theta /. procP) + 3] < 10^-10
+			Abs[(FernandoDuarte`LongRunRisk`Model`Parameters`theta /. procP) + 3] < 10^-10
 		]
 	],
 	True,
@@ -297,10 +311,10 @@ TestCreate[
 
 (* Test: Solve for psi from {gamma, theta} - psi has correct value 2 *)
 TestCreate[
-	With[{p = $baseParams, newP = {gamma -> 2.5, theta -> -3.`}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 2.5, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> -3.`}},
 		Module[{procP = processNewParameters[newP, p]},
 			(* psi = 1/(1-(1-gamma)/theta) = 1/(1-(-1.5)/(-3)) = 1/(1-0.5) = 2 *)
-			Abs[(psi /. procP) - 2] < 10^-10
+			Abs[(FernandoDuarte`LongRunRisk`Model`Parameters`psi /. procP) - 2] < 10^-10
 		]
 	],
 	True,
@@ -315,7 +329,7 @@ TestCreate[
 
 (* Test: theta provided without gamma or psi aborts *)
 TestCreate[
-	With[{p = $baseParams, newP = {delta -> 0.9, Esx -> 1, theta -> 1.}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> 1.}},
 		checkAbrt[processNewParameters[newP, p]]
 	],
 	True,
@@ -325,7 +339,7 @@ TestCreate[
 
 (* Test: theta provided without gamma or psi issues theta message *)
 TestCreate[
-	With[{p = $baseParams, newP = {delta -> 0.9, Esx -> 1, theta -> 1.}},
+	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> 1.}},
 		checkMsg[processNewParameters[newP, p],
 			FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::theta]
 	],

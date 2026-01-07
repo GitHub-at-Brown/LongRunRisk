@@ -14,36 +14,7 @@ Needs["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
 (*Load Test Helpers*)
 
 
-Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
-
-
-(* ::Subsection:: *)
-(*Setup*)
-
-
-(* Install PacletizedResourceFunctions for tests *)
-$prf = Module[{distributedPaclet},
-	distributedPaclet = FileNameJoin[{$pacletDir, "Resources", "PacletizedResourceFunctions.paclet"}];
-	If[FileExistsQ[distributedPaclet],
-		PacletInstall[distributedPaclet, "IgnoreVersion" -> True];
-	];
-	Length[PacletFind["PacletizedResourceFunctions"]] > 0
-];
-
-(* Load PacletizedResourceFunctions once for all tests *)
-Needs["PacletizedResourceFunctions`"];
-
-(* Load preprocessed models from Resources/Models.wl - these have all required keys *)
-(* Using the paclet specification pattern that works in both local and CI environments *)
-$processedModels = Get @ Get[FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}]];
-
-(* Use a small subset for faster tests *)
-$testModels = KeyTake[$processedModels, {"BY", "BKY", "NRC"}];
-$modBY = $testModels["BY"];
-
-(* Alias for private context to improve readability *)
-$nft = FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`numberFormattingTemplate;
-$sft = FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`stringFormattingTemplate;
+Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1}];
 
 
 (* ::Subsection:: *)
@@ -239,19 +210,6 @@ TestCreate[
 	True,
 	{},
 	TestID -> "info-Symbol-IsAccessible"
-]
-
-
-(* ::Subsection:: *)
-(*PacletizedResourceFunctions Tests*)
-
-
-(* Test: PacletizedResourceFunctions is installed *)
-TestCreate[
-	$prf,
-	True,
-	{},
-	TestID -> "PacletizedResourceFunctions-Installation-Succeeds"
 ]
 
 

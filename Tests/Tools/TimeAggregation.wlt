@@ -13,17 +13,7 @@ Needs["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
 (*Load Test Helpers*)
 
 
-Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
-
-
-(* ::Subsection:: *)
-(*Private Symbol References*)
-
-
-(* Reference private symbols for testing *)
-$g = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g;
-$timeSeriesVector = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`timeSeriesVector;
-$gt = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`gt;
+Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1}];
 
 
 (* ::Subsection:: *)
