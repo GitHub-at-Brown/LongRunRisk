@@ -8,6 +8,9 @@ BeginTestSection["Kernel/ComputationalEngine/CreateMomentsDatabase.wl Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`"]
 
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)

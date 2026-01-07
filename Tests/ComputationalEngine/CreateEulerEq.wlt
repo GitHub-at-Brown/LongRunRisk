@@ -9,6 +9,7 @@ Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateEulerEq`"]
 
 (* Needs["FernandoDuarte`LongRunRisk`"]; *)
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateEulerEq`"];
+Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)
