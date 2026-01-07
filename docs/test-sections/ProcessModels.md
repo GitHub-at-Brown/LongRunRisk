@@ -56,16 +56,25 @@
 #### Basic Structure Tests
 
 - Model keys are strings
+
+  📍 `Tests/Model/ProcessModels.wlt:48-53`
+
   ```wolfram
   And@@(StringQ/@Keys[modelsP])
   ```
 
 - String fields have correct type
+
+  📍 `Tests/Model/ProcessModels.wlt:56-68`
+
   ```wolfram
   And@@(StringQ/@Flatten@({modelsP[#]["name"], modelsP[#]["shortname"], modelsP[#]["bibRef"], modelsP[#]["desc"], modelsP[#]["exogenousVars"], modelsP[#]["endogenousVars"]}&/@Keys[modelsP]))
   ```
 
 - Parameters evaluate to numbers
+
+  📍 `Tests/Model/ProcessModels.wlt:71-83`
+
   ```wolfram
   And@@{
     And@@(NumberQ/@Flatten[Values[Association@modelsTest[#]["parameters"]//.modelsTest[#]["parameters"]//N]&/@(Keys@modelsTest)]),
@@ -74,6 +83,9 @@
   ```
 
 - Known models can be found
+
+  📍 `Tests/Model/ProcessModels.wlt:86-92`
+
   ```wolfram
   And@@{
     And@@(MemberQ[Keys[modelsTest],#]&/@{"BY","BKY"}),
@@ -82,6 +94,9 @@
   ```
 
 - Models and modelsP are associations, and each model is also an association
+
+  📍 `Tests/Model/ProcessModels.wlt:95-101`
+
   ```wolfram
   And@@{
     AllTrue[modelsTest,AssociationQ],
@@ -91,7 +106,7 @@
   }
   ```
 
-#### Context Verification for Variables
+#### Context Verification for Variables ⚠️ MISSING FROM WLT (longTest only)
 
 For exogenous variables (all in `"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"`):
 
@@ -166,6 +181,9 @@ For coefficients (wc, pd, bond ratios in `"FernandoDuarte`LongRunRisk`Model`Endo
 #### Variable Exclusion Tests
 
 - `"stateVars"` and `"exogenousEq"` should not contain endogenous variables
+
+  📍 `Tests/Model/ProcessModels.wlt:186-213` (2 tests)
+
   ```wolfram
   And@@{
     And@@(MatchQ[{},#]&/@(Cases[modelsP[#]["stateVars"],var_Symbol?(MemberQ[StringDrop[#,-2]&/@FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars,SymbolName[#]]&)[__]:>var,Infinity]&/@Keys[modelsP])),
@@ -176,6 +194,9 @@ For coefficients (wc, pd, bond ratios in `"FernandoDuarte`LongRunRisk`Model`Endo
 #### Model Key and Shortname Preservation
 
 - Keys and shortname are preserved after processing
+
+  📍 `Tests/Model/ProcessModels.wlt:221-230`
+
   ```wolfram
   And@@{
     SubsetQ[Keys[modelsTest], Keys[modelsP]],
@@ -186,6 +207,9 @@ For coefficients (wc, pd, bond ratios in `"FernandoDuarte`LongRunRisk`Model`Endo
 #### StateVars Function Structure
 
 - `stateVars` are functions of one variable (time)
+
+  📍 `Tests/Model/ProcessModels.wlt:109-165` (5 tests)
+
   ```wolfram
   And@@{
     And@@(MatchQ[Function,#]&/@(Head/@((modelsP[#]["stateVars"])&/@Keys[modelsP]))),
@@ -199,11 +223,14 @@ For coefficients (wc, pd, bond ratios in `"FernandoDuarte`LongRunRisk`Model`Endo
 #### Numeric Field Tests
 
 - `numStocks` is a number
+
+  📍 `Tests/Model/ProcessModels.wlt:173-178`
+
   ```wolfram
   And@@(NumberQ/@(modelsP[#]["numStocks"]&/@(Keys@modelsP)))
   ```
 
-#### Hand-Written Expression Comparison (NRC Model)
+#### Hand-Written Expression Comparison (NRC Model) ⚠️ MISSING FROM WLT
 
 - Compare processed model output to known correct expressions
   ```wolfram
@@ -219,7 +246,7 @@ For coefficients (wc, pd, bond ratios in `"FernandoDuarte`LongRunRisk`Model`Endo
   }
   ```
 
-#### Endogenous Variable Full Expansion Tests
+#### Endogenous Variable Full Expansion Tests ⚠️ MISSING FROM WLT
 
 For `wc[t]` after repeated substitution:
 
@@ -248,6 +275,9 @@ For `bondexcret[t,i]` after repeated substitution:
 #### Equation Key Structure
 
 - Keys in `exogenousEq` and `endogenousEq` are `PatternTest` expressions
+
+  📍 `Tests/Model/ProcessModels.wlt:238-251` (2 tests)
+
   ```wolfram
   And@@{
     AllTrue[Head/@(Keys@modelsP["BKY"]["exogenousEq"]), MatchQ[#,PatternTest]&],
@@ -258,6 +288,9 @@ For `bondexcret[t,i]` after repeated substitution:
 #### Equation Evaluation Tests
 
 - `exogenousEq` and `endogenousEq` evaluate expressions that are exogenous or endogenous variables
+
+  📍 `Tests/Model/ProcessModels.wlt:259-276`
+
   ```wolfram
   And@@{
     And@@(Not/@((Head[dc[t]]===Head[(dc[t]/.Normal[Join[modelsP[#]["exogenousEq"],modelsP[#]["endogenousEq"]]])])&/@Keys[modelsP])),
@@ -269,13 +302,16 @@ For `bondexcret[t,i]` after repeated substitution:
   ```
 
 - `exogenousEq` and `endogenousEq` do not evaluate expressions that are neither exogenous nor endogenous variables
+
+  📍 `Tests/Model/ProcessModels.wlt:279-292`
+
   ```wolfram
   And@@{
     And@@((Head[notVar[t]]===Head[(notVar[t]/.Normal[Join[modelsP[#]["exogenousEq"],modelsP[#]["endogenousEq"]]])])&/@Keys[modelsP])
   }
   ```
 
-#### Model Renaming Tests
+#### Model Renaming Tests ⚠️ MISSING FROM WLT (longTest only)
 
 - Shortname different from model key is handled correctly
   ```wolfram
@@ -303,6 +339,9 @@ For `bondexcret[t,i]` after repeated substitution:
 #### Coefficient Solution Tests
 
 - A and B coefficients are always numeric
+
+  📍 `Tests/Model/ProcessModels.wlt:300-315`
+
   ```wolfram
   And@@Flatten[(
     NumberQ/@Flatten[Values/@{modelsP[#]["coeffsSolutionN"][[1,"A"]],
@@ -311,6 +350,9 @@ For `bondexcret[t,i]` after repeated substitution:
   ```
 
 - Bond and NomBond values are either numeric or `Missing["Overflow"]` sentinel
+
+  📍 `Tests/Model/ProcessModels.wlt:318-333`
+
   ```wolfram
   And@@Flatten[(
     Map[(NumberQ[#] || MatchQ[#, _Missing]) &,

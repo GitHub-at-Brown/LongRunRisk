@@ -2,6 +2,8 @@
 
 #### Package Loading
 
+:round_pushpin: `Tests/Model/Shocks.wlt:43-61`
+
 - Context is on `$ContextPath` after loading
   ```
   MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Shocks`"]
@@ -15,6 +17,8 @@
 ---
 
 #### Shock Moments (Standard Normal Properties)
+
+:round_pushpin: `Tests/Model/Shocks.wlt:64-98`
 
 All shocks should have standard normal distribution moments when evaluated with `rulesE[t]`.
 
@@ -86,6 +90,8 @@ All shocks should have standard normal distribution moments when evaluated with 
 
 #### Shock Independence
 
+:round_pushpin: `Tests/Model/Shocks.wlt:101-133`
+
 - Shocks are uncorrelated (cross-products have zero expectation)
   ```
   And @@ (
@@ -107,6 +113,8 @@ All shocks should have standard normal distribution moments when evaluated with 
 ---
 
 #### Correlation Structure
+
+:round_pushpin: `Tests/Model/Shocks.wlt:136-146`
 
 - `taugd` is correlation between shocks to consumption and dividends
   ```
@@ -135,6 +143,8 @@ All shocks should have standard normal distribution moments when evaluated with 
 ---
 
 #### Rule Application Boundaries
+
+:round_pushpin: `Tests/Model/Shocks.wlt:162-256`
 
 Tests confirming that `rulesE[t]` only applies to shocks at time `t`, returning other expressions unevaluated.
 
@@ -209,6 +219,8 @@ Tests confirming that `rulesE[t]` only applies to shocks at time `t`, returning 
 ---
 
 #### Context Independence
+
+:round_pushpin: `Tests/Model/Shocks.wlt:259-299`
 
 - `rulesE` works for symbols in any context (not just the original)
   ```

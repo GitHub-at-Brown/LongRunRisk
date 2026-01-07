@@ -1,5 +1,5 @@
 ### Catalog.wl
-- Symbol models
+- Symbol models (📍 `Tests/Model/Catalog.wlt:42-87`)
   - is an association
   - its keys are strings
      ```
@@ -15,7 +15,7 @@ For each model (each entry of models)
   - its keys are strings
 
   - keys are exactly the set {"name", "shortname", "bibRef", "desc", "enabled", "parameters"} (not ordered)
-  - "name", "shortname", "bibRef", "desc" are strings
+  - "name", "shortname", "bibRef", "desc" are strings (📍 `Tests/Model/Catalog.wlt:90-137`)
     ```
     And @@ (StringQ /@
     Flatten@({models[#]["name"], models[#]["shortname"], models[#]["bibRef"],
@@ -29,12 +29,12 @@ For each model (each entry of models)
     ```
   - "stateVars" is a list
   - "parameters" is a list of rules
-  - "parameters" evaluates to numbers after applying "parameters" repeatedly to values
+  - "parameters" evaluates to numbers after applying "parameters" repeatedly to values (📍 `Tests/Model/Catalog.wlt:140-159`)
     ```
     And @@ (NumberQ /@
     Flatten[(models[#]["parameters"][[;; , 2]] //. models[#]["parameters"]) & /@ Keys[models]])
     ```
-  - exogenous variables are in context "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`
+  - exogenous variables are in context "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private` (📍 `Tests/Model/Catalog.wlt:162-207`)
     ```
     And @@ ((And @@ ((# ===
                 "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`") & /@ \
@@ -70,7 +70,7 @@ For each model (each entry of models)
                   FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars,
                   SymbolName[#]] &)[__] :> var, Infinity] & /@ Keys[models]))
     ```
-- Symbol modelsExtraInfo
+- Symbol modelsExtraInfo (📍 `Tests/Model/Catalog.wlt:210-236`)
   - is an association
 
 ```
@@ -85,7 +85,7 @@ For each model (each entry of models)
    SubsetQ[Keys[models], Keys[modelsExtraInfo]]
    }
 ```
-- if provided, initial guess for Ewc is a vector and for Epd is 2-dimensional array
+- if provided, initial guess for Ewc is a vector and for Epd is 2-dimensional array (📍 `Tests/Model/Catalog.wlt:239-257`)
 ```
  And @@ (
    Flatten@(
@@ -104,7 +104,7 @@ For each model (each entry of models)
      )
    )
 ```
-- Load `Needs["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"]`, test that validateCatalog[models]["Valid"] is True
+- Load `Needs["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"]`, test that validateCatalog[models]["Valid"] is True (📍 `Tests/Model/Catalog.wlt:260-273`)
 
 ## WLT Verification Results
 

@@ -8,6 +8,8 @@ This section tests the `ComputationalEngine`ComputeConditionalExpectations`` mod
 
 - Verify the package context is properly loaded on `$ContextPath`
 
+  📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:34-47` (2 tests)
+
 ```wolfram
 MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"]
 ```
@@ -33,6 +35,8 @@ modNRC = msp["NRC"];
 
 ## Basic Conditional Expectation Tests
 
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:55-60` (1 test)
+
 - Verify expectation of shock times inflation equals the shock loading parameter
 
 ```wolfram
@@ -42,6 +46,8 @@ ev[eps["pi"][t+1] pi[t+1], t-1, modNRC] === FernandoDuarte`LongRunRisk`Model`Par
 ---
 
 ## Product Expectations (Cross-terms)
+
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:68-101` (4 tests)
 
 Tests for conditional expectations of products of state variables:
 
@@ -77,6 +83,8 @@ Tests for conditional expectations of products of state variables:
 
 ## Consumption and Inflation Cross-Expectations
 
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:109-150` (5 tests)
+
 - Consumption and inflation at different time horizons
 
 ```wolfram
@@ -108,6 +116,8 @@ Tests for conditional expectations of products of state variables:
 ---
 
 ## Volatility State Variable Tests
+
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:158-216` (7 tests)
 
 - Volatility products at various lags
 
@@ -151,6 +161,8 @@ Tests for conditional expectations of products of state variables:
 
 ## Volatility Squared Expectations
 
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:224-253` (4 tests)
+
 ```wolfram
 0 === (ev[sg[t+1]^2, t, modNRC] - ((Esg + rhog(sg[t]-Esg))^2 + phig^2) // Simplify)
 0 === (ev[sg[t]^2, t, modNRC] - sg[t]^2 // Simplify)
@@ -161,6 +173,8 @@ Tests for conditional expectations of products of state variables:
 ---
 
 ## First Moment Expectations
+
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:261-298` (5 tests)
 
 - Volatility first moments
 
@@ -181,6 +195,8 @@ Tests for conditional expectations of products of state variables:
 
 ## Shock-Inflation Expectations
 
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:306-336` (4 tests)
+
 - Future shock times future inflation
 
 ```wolfram
@@ -200,6 +216,8 @@ Tests for conditional expectations of products of state variables:
 
 ## Inflation Expectations at Different Information Sets
 
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:344-381` (5 tests)
+
 ```wolfram
 0 === (ev[pi[t+2], t+2, modNRC] - pi[t+2] // Simplify)
 0 === (ev[pi[t+2], t+1, modNRC] - (mup + rhop(pi[t+1]-mup) + xip eps["pi"][t+1]) // Simplify)
@@ -212,6 +230,8 @@ Tests for conditional expectations of products of state variables:
 
 ## Second Moment Expectations
 
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:389-418` (4 tests)
+
 ```wolfram
 0 === (ev[pi[t+1]^2, t, modNRC] - ((mup + rhop(pi[t]-mup) + xip eps["pi"][t])^2 + phip^2) // Simplify)
 0 === (ev[dc[t+1]^2, t, modNRC] - ((muc + rhocp(pi[t]-mup) + xic sg[t-1] eps["pi"][t])^2 + phic^2) // Simplify)
@@ -223,6 +243,8 @@ Tests for conditional expectations of products of state variables:
 
 ## Conditional Variance Tests
 
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:426-455` (4 tests)
+
 ```wolfram
 0 === (var[pi[t+1], t, modNRC] - phip^2 // Simplify)
 0 === (var[dc[t+1], t, modNRC] - phic^2 // Simplify)
@@ -233,6 +255,8 @@ Tests for conditional expectations of products of state variables:
 ---
 
 ## Law of Iterated Expectations
+
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:463-585` (15 tests)
 
 Tests verifying E[E[X|F_t]|F_{t-1}] = E[X|F_{t-1}]:
 
@@ -288,6 +312,8 @@ ev[dd[t,i], t-1, modNRC] === ev[dd[t,i] ev[eps["pi"][t+1]^2, t, modNRC], t-1, mo
 
 ## Context Handling Tests
 
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:593-611` (2 tests)
+
 - Variable context invariance: `ev` works regardless of variable symbol context
 
 ```wolfram
@@ -309,6 +335,8 @@ ev[foo`pi[bar`t+1], goo`t, modNRC] === FernandoDuarte`LongRunRisk`Model`Exogenou
 ---
 
 ## lagStateVarst Function Tests
+
+📍 `Tests/ComputationalEngine/ComputeConditionalExpectations.wlt:619-754` (14 tests)
 
 The `lagStateVarst` function substitutes state variables with their lagged expressions.
 

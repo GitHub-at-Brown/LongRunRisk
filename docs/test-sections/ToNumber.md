@@ -78,7 +78,7 @@ optsList = {
 
 ---
 
-#### toNum Function Tests
+#### toNum Function Tests ⚠️ MISSING FROM WLT
 
 - **Test: `toNum[thisModel]` returns a Function**
 
@@ -125,7 +125,7 @@ NumericQ /@ Flatten@{
 
 ---
 
-#### Options Handling Tests
+#### Options Handling Tests ⚠️ MISSING FROM WLT
 
 - **Test: "UpdatePd" and "UpdateBonds" options (always ignored)**
 
@@ -143,7 +143,7 @@ NumericQ /@ Flatten@{
 
 ---
 
-#### New Parameters and Initial Guess Tests
+#### New Parameters and Initial Guess Tests ⚠️ MISSING FROM WLT
 
 - **Test: Pass new parameters**
 
@@ -186,7 +186,9 @@ exprNewParam//toNum[thisModel,newParameters,guessCoeffsSolution,Sequence@@optNew
 
 ---
 
-### processNewParameters Function Tests
+### processNewParameters Function Tests ✅ IMPLEMENTED IN WLT
+
+📍 **Location**: `Tests/Tools/ToNumber.wlt:48-388`
 
 #### Helper Functions for Testing
 
@@ -218,6 +220,8 @@ checkMsg[expr_, msg_] :=
 
 #### Test: Old and new parameters are equal
 
+📍 `Tests/Tools/ToNumber.wlt:48-101` (5 tests)
+
 ```wolfram
 p = {delta->0.998`, Esx->0.0078`, gamma->10, muc->0.0015`, phisxs->2.3`*^-6,
      phix->0.044`, psi->1.5`, rhox->0.979`, theta->(1-gamma)/(1-1/psi),
@@ -244,6 +248,8 @@ And@@Simplify@{
 
 #### Test: New parameters are subset of old parameters
 
+📍 `Tests/Tools/ToNumber.wlt:108-140` (3 tests)
+
 ```wolfram
 p = {delta->0.998`, Esx->0.0078`, gamma->10, muc->0.0015`, phisxs->2.3`*^-6,
      phix->0.044`, psi->1.5`, rhox->0.979`, theta->(1-gamma)/(1-1/psi),
@@ -263,6 +269,8 @@ And@@Simplify@{
 ---
 
 #### Test: New parameters is empty
+
+📍 `Tests/Tools/ToNumber.wlt:147-155` (1 test)
 
 ```wolfram
 p = {delta->0.998`, Esx->0.0078`, gamma->10, muc->0.0015`, phisxs->2.3`*^-6,
@@ -284,6 +292,8 @@ And@@Simplify@{
 
 #### Test: New parameters are NOT a subset of old parameters (should abort)
 
+📍 `Tests/Tools/ToNumber.wlt:162-181` (2 tests)
+
 ```wolfram
 p = {delta->0.998`, Esx->0.0078`, gamma->10, muc->0.0015`, phisxs->2.3`*^-6,
      phix->0.044`, psi->1.5`, rhox->0.979`, theta->(1-gamma)/(1-1/psi),
@@ -303,6 +313,8 @@ And@@Simplify@{
 
 #### Test: psi=1 in new parameters aborts
 
+📍 `Tests/Tools/ToNumber.wlt:188-217` (3 tests)
+
 ```wolfram
 p = {delta->0.998`, Esx->0.0078`, gamma->10, muc->0.0015`, phisxs->2.3`*^-6,
      phix->0.044`, psi->1.5`, rhox->0.979`, theta->(1-gamma)/(1-1/psi),
@@ -320,6 +332,8 @@ And@@Simplify@{
 
 #### Test: psi=1. (numeric) in new parameters also aborts
 
+📍 `Tests/Tools/ToNumber.wlt:209-217` (included in psi=1 tests)
+
 ```wolfram
 newP = {delta->0.9, Esx->1, psi->1.};
 
@@ -333,6 +347,8 @@ And@@Simplify@{
 ---
 
 #### Test: gamma, psi, theta relationship (theta exactly correct)
+
+📍 `Tests/Tools/ToNumber.wlt:224-242` (2 tests)
 
 When all three are provided and theta = (1-gamma)/(1-1/psi), no message is issued.
 
@@ -355,6 +371,8 @@ And@@Simplify@{
 ---
 
 #### Test: gamma, psi, theta relationship (theta NOT exactly correct)
+
+📍 `Tests/Tools/ToNumber.wlt:244-269` (2 tests)
 
 When theta is provided but doesn't match the formula, a message is issued and theta is recalculated.
 
@@ -380,6 +398,8 @@ And@@Simplify@{
 
 #### Test: Solve for gamma from {psi, theta}
 
+📍 `Tests/Tools/ToNumber.wlt:276-297` (2 tests)
+
 ```wolfram
 newP = {psi->2, theta->-3.`};
 procP = processNewParameters[newP, p];
@@ -397,6 +417,8 @@ And@@Simplify@{
 ---
 
 #### Test: Solve for theta from {gamma, psi}
+
+📍 `Tests/Tools/ToNumber.wlt:299-310` (1 test)
 
 ```wolfram
 newP = {psi->2, gamma->2.5};
@@ -416,6 +438,8 @@ And@@Simplify@{
 
 #### Test: Solve for psi from {gamma, theta}
 
+📍 `Tests/Tools/ToNumber.wlt:312-323` (1 test)
+
 ```wolfram
 newP = {gamma->2.5, theta->-3.`};
 procP = processNewParameters[newP, p];
@@ -434,6 +458,8 @@ And@@Simplify@{
 
 #### Test: theta provided without gamma or psi aborts
 
+📍 `Tests/Tools/ToNumber.wlt:330-349` (2 tests)
+
 ```wolfram
 newP = {delta->0.9, Esx->1, theta->1.};
 
@@ -447,6 +473,8 @@ And@@Simplify@{
 ---
 
 #### Test: processNewParameters preserves contexts of old parameters
+
+📍 `Tests/Tools/ToNumber.wlt:356-388` (2 tests)
 
 ```wolfram
 p = {context1`delta->0.998`, context1`Esx->0.0078`, foo`gamma->10, muc->0.0015`,

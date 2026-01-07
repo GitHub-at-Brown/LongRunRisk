@@ -6,6 +6,8 @@ This module provides time aggregation utilities for converting high-frequency da
 
 #### Context Loading and Symbol Availability
 
+📍 `Tests/Tools/TimeAggregation.wlt:24-37`
+
 - **Context is loaded and on $ContextPath**
 ```wolfram
 MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"]
@@ -24,6 +26,8 @@ Not[Names["*growth"] === {}]
 
 ##### Basic Identity Tests (No Aggregation)
 
+📍 `Tests/Tools/TimeAggregation.wlt:44-58`
+
 - **growth with default parameters returns identity**
 ```wolfram
 growth[dc, t] == dc[t]
@@ -31,6 +35,8 @@ growth[dc, t, "TimeAggregation" -> 1, "numPeriods" -> 1] == dc[t]
 ```
 
 ##### Tent-Shaped Coefficients
+
+📍 `Tests/Tools/TimeAggregation.wlt:65-86`
 
 - **TimeAggregation=3 produces tent-shaped coefficients**
 ```wolfram
@@ -49,6 +55,8 @@ growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1] ==
 ```
 
 ##### Expansion Around v0
+
+📍 `Tests/Tools/TimeAggregation.wlt:93-124`
 
 - **Constant v0 with different argument counts yields same result**
 ```wolfram
@@ -82,6 +90,8 @@ FreeQ[growth[dc, t, "TimeAggregation" -> 12, "numPeriods" -> 1,
 ```
 
 ##### Constant Term Properties
+
+📍 `Tests/Tools/TimeAggregation.wlt:131-165`
 
 - **For v0 independent of j, constant term in expansion is 0**
 ```wolfram
@@ -126,6 +136,8 @@ growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1,
 ```
 
 ##### v0 as Function of Variable Type (v)
+
+📍 `Tests/Tools/TimeAggregation.wlt:172-206`
 
 - **v0 responds to variable type**
 ```wolfram
@@ -178,6 +190,8 @@ FreeQ[growth[dc, t, "TimeAggregation" -> 12, "numPeriods" -> 1,
 
 ##### Order Parameter Tests
 
+📍 `Tests/Tools/TimeAggregation.wlt:213-263`
+
 - **Order parameter controls maximum power in expansion (dc variable)**
 ```wolfram
 Cases[Expand@growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 0],
@@ -222,6 +236,8 @@ gt = FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`gt;
 
 ##### Basic gt Tests
 
+📍 `Tests/Tools/TimeAggregation.wlt:270-304`
+
 - **gt with default and various option forms (h=3, k=2)**
 ```wolfram
 gt[dc, t] == dc[t]
@@ -246,6 +262,8 @@ gt[dd, t, i, {"TimeAggregation" -> 3, "numPeriods" -> 2}] ==
 ```
 
 ##### gt with Stock Variable Type
+
+📍 `Tests/Tools/TimeAggregation.wlt:311-345`
 
 - **gt with Variable->Stock returns simple sum**
 ```wolfram
@@ -275,6 +293,8 @@ gt[dd, t, i, {"TimeAggregation" -> 3, "numPeriods" -> 2}, "Variable" -> "Stock"]
 
 ##### Basic g with timeSeriesVector
 
+📍 `Tests/Tools/TimeAggregation.wlt:352-372`
+
 - **g with timeSeriesVector for flow variables (h=3, k=1)**
 ```wolfram
 g[timeSeriesVector[dc, t, "TimeAggregation" -> 3], 3] ==
@@ -292,6 +312,8 @@ g[timeSeriesVector[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1], 3, 1] ==
 ```
 
 ##### g Returns Unevaluated for Wrong Vector Length
+
+📍 `Tests/Tools/TimeAggregation.wlt:379-396`
 
 - **g with incorrect vector length returns unevaluated**
 ```wolfram
@@ -319,6 +341,8 @@ g[timeSeriesVector[dc, t, "numPeriods" -> 1], 1, 1, "Variable" -> "Flow"] == dc[
 ```
 
 ##### g with Variable->Stock
+
+📍 `Tests/Tools/TimeAggregation.wlt:403-419`
 
 - **Variable->Stock returns simple sum**
 ```wolfram
@@ -351,6 +375,8 @@ g[timeSeriesVector[dc, t, "TimeAggregation" -> 3][[;; 4]], 3, "Variable" -> "Sto
 
 ##### g with Indexed Variables
 
+📍 `Tests/Tools/TimeAggregation.wlt:426-446`
+
 - **g with dd variable (indexed)**
 ```wolfram
 g[timeSeriesVector[dd, t, i], 1] == dd[t, i]
@@ -368,6 +394,8 @@ g[timeSeriesVector[dd, t, i, {"TimeAggregation" -> 3, "numPeriods" -> 1}], 3, 1]
 
 ##### g with Bond Returns
 
+📍 `Tests/Tools/TimeAggregation.wlt:453-473`
+
 - **g with bondret variable**
 ```wolfram
 g[timeSeriesVector[bondret, t, m, "TimeAggregation" -> 3], 3] ==
@@ -384,6 +412,8 @@ g[timeSeriesVector[bondret, t, m, {"TimeAggregation" -> 3, "numPeriods" -> 1}], 
 ---
 
 #### Tests for `timeSeriesVector`
+
+📍 `Tests/Tools/TimeAggregation.wlt:480-521`
 
 - **timeSeriesVector generates correct lag sequences**
 ```wolfram

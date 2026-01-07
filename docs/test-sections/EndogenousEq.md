@@ -1,11 +1,11 @@
 ### EndogenousEq.wl
 
-- Symbol `pdeq` should exist (can be found)
+- Symbol `pdeq` should exist (can be found) | :round_pushpin: `Tests/Model/EndogenousEq.wlt:25-31`
   ```
   Not[Names["*pdeq"] === {}]
   ```
 
-For endogenous variables (entries of `$endogenousVars`):
+For endogenous variables (entries of `$endogenousVars`): | :round_pushpin: `Tests/Model/EndogenousEq.wlt:38-44`
 - All exogenous variables are in context `"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"`
   ```
   And @@ ((# ===
@@ -45,7 +45,7 @@ For endogenous variables (entries of `$endogenousVars`):
             SymbolName[#]] &)[__] :> var, Infinity]))
   ```
 
-- Equation variables use different contexts for `t` argument (context isolation)
+- Equation variables use different contexts for `t` argument (context isolation) | :round_pushpin: `Tests/Model/EndogenousEq.wlt:52-75`
   ```
   And @@ {
     FreeQ[bondyieldeq[t, m], foo`t],
@@ -57,7 +57,7 @@ For endogenous variables (entries of `$endogenousVars`):
     }
   ```
 
-- Equation variables use different contexts for `m` argument (context isolation)
+- Equation variables use different contexts for `m` argument (context isolation) | :round_pushpin: `Tests/Model/EndogenousEq.wlt:52-75`
   ```
   And @@ {
     FreeQ[bondyieldeq[t, m], foo`m],
@@ -68,7 +68,7 @@ For endogenous variables (entries of `$endogenousVars`):
     }
   ```
 
-- Default values for optional arguments work correctly
+- Default values for optional arguments work correctly | :round_pushpin: `Tests/Model/EndogenousEq.wlt:82-100`
   ```
   And @@ {
     bondfweq[t, m] === bondfweq[t, m, 1],
@@ -78,7 +78,7 @@ For endogenous variables (entries of `$endogenousVars`):
     }
   ```
 
-For coefficient functions (`coefwc`, `coefpd`, `coefb`, `coefnb`):
+For coefficient functions (`coefwc`, `coefpd`, `coefb`, `coefnb`): | :round_pushpin: `Tests/Model/EndogenousEq.wlt:160-190`
 - Indices of coefficients are exact integers (not inexact/floating-point numbers)
   - Applies to `coefwc[i]`, `coefpd[i][j]`, `coefb[i][j]`, `coefnb[i][j]`
   - Must remain exact after `N[]` application to the coefficient (not the index)

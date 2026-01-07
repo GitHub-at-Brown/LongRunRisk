@@ -170,6 +170,9 @@ And @@ {
 ### UpdatePd Option Tests
 
 - **Test**: UpdatePd=False returns only wealth-consumption coefficients
+
+  📍 `Tests/ComputationalEngine/SolveEulerEq.wlt:206-219`
+
 ```wolfram
 trueA0=thisModel["coeffsSolutionN"][[1]]["A"][A[0]];
 intervalRealA0=thisModel["coeffsSolutionN"][[1]]["IntervalA"];
@@ -188,6 +191,9 @@ coeffsQWcRules[wcRulesFirst[resNoPd]]
 ```
 
 - **Test**: UpdatePd=True returns both WC and PD coefficients
+
+  📍 `Tests/ComputationalEngine/SolveEulerEq.wlt:223-253` (2 tests)
+
 ```wolfram
 resWcPd = Quiet@updateCoeffs[
   thisModel,
@@ -209,6 +215,9 @@ coeffsQPdRules[coeffsPd]
 ### Initial Guess Interval Forms
 
 - **Test**: Different initial guess formats work correctly
+
+  📍 `Tests/ComputationalEngine/SolveEulerEq.wlt:261-293` (2 tests)
+
 ```wolfram
 And @@ {
   coeffsQWcRules[
@@ -227,6 +236,9 @@ And @@ {
 ### updateCoeffsBond Basic Tests
 
 - **Test**: Real and nominal bond coefficients have expected structure
+
+  📍 `Tests/ComputationalEngine/SolveEulerEq.wlt:362-401` (3 tests)
+
 ```wolfram
 maxMaturity = 12;
 wcCoeffSets = resWc[[All, "A"]];
@@ -348,7 +360,7 @@ out = And @@ {
 
 The file also contains a more detailed legacy test block with additional coverage:
 
-### Argument Parsing Tests (longTest only)
+### Argument Parsing Tests (longTest only) ⚠️ MISSING FROM WLT
 
 - **Test**: Positional arguments parse correctly
 ```wolfram
@@ -389,7 +401,7 @@ solWc=updateCoeffs[thisModel,optsWc];
 (solWc==updateCoeffsSol[thisModel,{},{},optsWc]==updateCoeffsWc[thisModel["coeffsSolution"]["wc"],thisModel["params"],{},optsWc])
 ```
 
-### Initial Guess Sensitivity (longTest only)
+### Initial Guess Sensitivity (longTest only) ⚠️ MISSING FROM WLT
 
 - **Test**: One iteration stays close to initial guess
 ```wolfram
@@ -398,7 +410,7 @@ solWc2=updateCoeffs[thisModel, "MaxIterations"->1,"initialGuess" -> <|"Ewc"->{1}
 (FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[0]/.solWc1) > (FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A[0]/.solWc2)
 ```
 
-### MaxIterations Option Tests (longTest only)
+### MaxIterations Option Tests (longTest only) ⚠️ MISSING FROM WLT
 
 - **Test**: MaxIterations controls iteration count
 ```wolfram
@@ -420,7 +432,7 @@ And@@{
 }
 ```
 
-### PrintResidualsNorm Option Tests (longTest only)
+### PrintResidualsNorm Option Tests (longTest only) ⚠️ MISSING FROM WLT
 
 - **Test**: PrintResidualsNorm controls message output
 ```wolfram
@@ -431,7 +443,7 @@ m2=Block[{$MessagePrePrint=Sow,$MessageList={}},Reap[Module[{},updateCoeffs[this
 NumberQ@(ReleaseHold@First@Flatten@Last@m2)
 ```
 
-### CheckResiduals Option Tests (longTest only)
+### CheckResiduals Option Tests (longTest only) ⚠️ MISSING FROM WLT
 
 - **Test**: CheckResiduals controls abort on large residuals
 ```wolfram
@@ -440,7 +452,7 @@ c2=TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"CheckResiduals"->True],Abort[]
 And@@{c1,c2}
 ```
 
-### Tol Option Tests (longTest only)
+### Tol Option Tests (longTest only) ⚠️ MISSING FROM WLT
 
 - **Test**: Tolerance controls residual checking threshold
 ```wolfram
@@ -466,9 +478,12 @@ coeffsQWc[coeffsWc]
 coeffsQPd[coeffsPd]
 ```
 
-### Options Inheritance Tests (longTest only)
+### Options Inheritance Tests
 
 - **Test**: updateCoeffs inherits options from updateCoeffsSol and checks
+
+  📍 `Tests/ComputationalEngine/SolveEulerEq.wlt:510-530` (2 tests)
+
 ```wolfram
 And@@{
   SubsetQ[Options[updateCoeffs],Options[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`updateCoeffsSol]],
@@ -479,6 +494,9 @@ And@@{
 ### Initial Guess Format Tests
 
 - **Test**: Interval and point+interval initial guess formats work
+
+  📍 `Tests/ComputationalEngine/SolveEulerEq.wlt:261-293` (2 tests)
+
 ```wolfram
 And@@{
   coeffsQWc[updateCoeffs[thisModel,"initialGuess" -> <|"Ewc"->{1,8}|>]],
@@ -498,6 +516,9 @@ And@@{
 ### Bond Coefficient Tests (Legacy)
 
 - **Test**: Bond coefficients have expected structure
+
+  📍 `Tests/ComputationalEngine/SolveEulerEq.wlt:362-401` (3 tests)
+
 ```wolfram
 maxMaturity=12;
 solBond=updateCoeffsBond[thisModel["coeffsSolution"]["bond"],thisModel["params"],{},maxMaturity,solWc];
@@ -535,7 +556,7 @@ And@@{
 }
 ```
 
-### RecurrenceTable Options (longTest only)
+### RecurrenceTable Options (longTest only) ⚠️ MISSING FROM WLT
 
 - **Test**: Pass options to RecurrenceTable
 ```wolfram
@@ -547,7 +568,7 @@ And@@{
 }
 ```
 
-### updateCoeffs Bond Integration (longTest only)
+### updateCoeffs Bond Integration (longTest only) ⚠️ MISSING FROM WLT
 
 - **Test**: updateCoeffs with UpdateBond matches updateCoeffsBond
 ```wolfram
@@ -568,7 +589,7 @@ Sort@Join[
 ]
 ```
 
-### Bond PrintResidualsNorm Tests (longTest only)
+### Bond PrintResidualsNorm Tests (longTest only) ⚠️ MISSING FROM WLT
 
 - **Test**: PrintResidualsNorm works for bond updates
 ```wolfram
@@ -579,7 +600,7 @@ m2=Block[{$MessagePrePrint=Sow,$MessageList={}},Reap[updateCoeffs[thisModel,"Upd
 NumberQ@(ReleaseHold@First@Flatten@Last@m2)
 ```
 
-### Bond CheckResiduals Tests (longTest only)
+### Bond CheckResiduals Tests (longTest only) ⚠️ MISSING FROM WLT
 
 - **Test**: CheckResiduals works for bond updates
 ```wolfram
@@ -588,7 +609,7 @@ c2=TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"UpdateBond"->True,"CheckResidu
 And@@{c1,c2}
 ```
 
-### Bond Tol Tests (longTest only)
+### Bond Tol Tests (longTest only) ⚠️ MISSING FROM WLT
 
 - **Test**: Tolerance works for bond updates
 ```wolfram

@@ -17,6 +17,9 @@
   ```
 
 - Load models and covariance lookup tables, compute moments and verify all are numeric
+
+  📍 `Tests/ComputationalEngine/CreateMomentsDatabase.wlt:130-285` (16 tests)
+
   ```
   Off[General::stop];
   If[Not@longTest, Off[FindRoot::cvmit]];

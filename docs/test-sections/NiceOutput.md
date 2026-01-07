@@ -42,6 +42,9 @@
   ```
 
 - Context is in `$ContextPath`
+
+  📍 `Tests/Tools/NiceOutput.wlt:199-205`
+
   ```
   And @@ {
     MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]
@@ -49,11 +52,17 @@
   ```
 
 - Symbol `info` can be found
+
+  📍 `Tests/Tools/NiceOutput.wlt:207-213`
+
   ```
   Not[Names["*info"] === {}]
   ```
 
 - `info` returns correctly formatted model information table
+
+  📍 `Tests/Tools/NiceOutput.wlt:25-48`
+
   ```
   myModelsInfo = PacletizedResourceFunctions`SetSymbolsContext@info[msp];
   And @@ {
@@ -65,6 +74,9 @@
   ```
 
 - `info` is correct when model key does not match shortname
+
+  📍 `Tests/Tools/NiceOutput.wlt:55-95`
+
   ```
   justBY = <|"BY" -> msp["BY"]|>;
   infoBY = PacletizedResourceFunctions`SetSymbolsContext@info[justBY];
@@ -94,6 +106,9 @@
   ```
 
 - `numberFormattingTemplate` formats numbers correctly
+
+  📍 `Tests/Tools/NiceOutput.wlt:102-168`
+
   ```
   With[{localPi = 3.14},
     {
@@ -114,6 +129,9 @@
   ```
 
 - `stringFormattingTemplate` adds linebreaks and tabs for long strings
+
+  📍 `Tests/Tools/NiceOutput.wlt:175-192`
+
   ```
   Not@StringFreeQ[
     FernandoDuarte`LongRunRisk`Tools`NiceOutput`Private`stringFormattingTemplate[

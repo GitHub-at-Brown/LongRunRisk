@@ -33,6 +33,9 @@ MemberQ[$ContextPath,"FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnco
 ```
 
 - Verify `uncondE` function is accessible
+
+  📍 `Tests/ComputationalEngine/ComputeUnconditionalExpectations.wlt:35-98` (7 tests for uncondE)
+
 ```wolfram
 Not[Names["*uncondE"]==={}]
 ```
@@ -138,6 +141,9 @@ And@@{
   - Product of state variables
   - Cross-time products with lag substitution
   - Products with shock terms
+
+  📍 `Tests/ComputationalEngine/ComputeUnconditionalExpectations.wlt:151-212` (9 tests)
+
 ```wolfram
 stateVarsNoEps={sg,pi};
 model=modNRC;
@@ -163,6 +169,9 @@ And@@{
 #### Shock Context Verification
 
 - Verify shocks have correct context ("FernandoDuarte`LongRunRisk`Model`Shocks`")
+
+  📍 `Tests/ComputationalEngine/ComputeUnconditionalExpectations.wlt:241-251`
+
 ```wolfram
 And@@{
   And@@(MatchQ[#,"FernandoDuarte`LongRunRisk`Model`Shocks`"]&/@(DeleteDuplicates@Cases[evNoEpsStateVarsProduct[pi[t-1]dd[t,i]eps["pi"][t-1],model,Append[stateVarsNoEps,dd]],x_Symbol?(MatchQ[SymbolName[#],"eps"]&)[__][__,___]:>Context@x,Infinity])),
@@ -176,6 +185,9 @@ And@@{
 #### Time Lag Verification
 
 - Verify variables are lagged to correct time periods
+
+  📍 `Tests/ComputationalEngine/ComputeUnconditionalExpectations.wlt:258-274` (2 tests)
+
 ```wolfram
 And@@{
   {}===Cases[evNoEpsStateVarsProduct[pi[t]sg[t-1],model,stateVarsNoEps],_Symbol?(MatchQ[SymbolName[#],"pi"]&)[t],Infinity],
@@ -204,6 +216,9 @@ And@@{
 #### Irrelevant Variable Handling
 
 - Test that adding irrelevant variables to state variable list does not affect results
+
+  📍 `Tests/ComputationalEngine/ComputeUnconditionalExpectations.wlt:219-234` (2 tests)
+
 ```wolfram
 And@@{
   evNoEpsStateVarsProduct[pi[t]eps["pi"][t-1],model,Append[stateVarsNoEps,myVariable]]===evNoEpsStateVarsProduct[eps["pi"][t-1]pi[t],model,Append[stateVarsNoEps,dd]],
@@ -239,6 +254,9 @@ And@@{
 #### Wealth-Consumption and Price-Dividend Ratio Tests
 
 - Test evNoEpsStateVarsProduct with wc (wealth-consumption) and pd (price-dividend) ratios
+
+  📍 `Tests/ComputationalEngine/ComputeUnconditionalExpectations.wlt:281-319` (4 tests)
+
 ```wolfram
 And@@{
   evNoEpsStateVarsProduct[wc[t]eps["pi"][t-1],model,stateVarsNoEps]===wc[t] eps["pi"][-1+t],

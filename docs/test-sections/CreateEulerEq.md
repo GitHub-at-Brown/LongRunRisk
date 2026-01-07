@@ -39,6 +39,9 @@
   ```
 
 - Symbol `eulereq` should exist (can be found)
+
+  📍 `Tests/ComputationalEngine/CreateEulerEq.wlt:68-73`
+
   ```
   (*should be true if uncondE can be found*)
   Not[Names["*eulereq"]==={}]
@@ -47,6 +50,9 @@
 **Test eulereq, nomeulereq:**
 
 - Euler equations are linear in state variables
+
+  📍 `Tests/ComputationalEngine/CreateEulerEq.wlt:89-103`
+
   ```
   (*euler eq linear in state variables*)
   And@@(
@@ -59,6 +65,9 @@
   ```
 
 - Euler equations contain all expected coefficients (wc, pd, bond, nombond)
+
+  📍 `Tests/ComputationalEngine/CreateEulerEq.wlt:111-164` (4 tests)
+
   ```
   (*euler eq has all wc coefficients*)
   And@@Flatten@{
@@ -72,6 +81,9 @@
 **Test findEulerEqConstants:**
 
 - Number of equations for coefficients equals number of state variables plus 1 (for constant term)
+
+  📍 `Tests/ComputationalEngine/CreateEulerEq.wlt:172-229` (4 tests)
+
   ```
   If[longTest,
   (*number of equations for the coefficients equals number of state variables plus 1 (for the term that does not multiply any state var)*)
@@ -87,6 +99,9 @@
   ```
 
 - Equations for coefficients do not contain time variable `t`
+
+  📍 `Tests/ComputationalEngine/CreateEulerEq.wlt:237-274` (4 tests)
+
   ```
   (*eq for coefficients do not have t*)
   If[longTest,
@@ -102,6 +117,9 @@
   ```
 
 - Equations are time-invariant (same for any time period)
+
+  📍 `Tests/ComputationalEngine/CreateEulerEq.wlt:282-323` (4 tests)
+
   ```
   If[longTest,
   (*equations are the same for any time period*)
@@ -117,6 +135,9 @@
   ```
 
 - Unknowns in Euler equation are in context `"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"`
+
+  📍 `Tests/ComputationalEngine/CreateEulerEq.wlt:331-358`
+
   ```
   If[longTest,
   (*unknowns in Euler eq are in context "FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"*)
@@ -131,6 +152,9 @@
   ```
 
 - Each equation evaluates to True or False when evaluated numerically
+
+  📍 `Tests/ComputationalEngine/CreateEulerEq.wlt:390-399`
+
   ```
   (*each equation evaluates to True or False when evaluated numerically*)
   checkBoolean[model_]:=Module[{e0,e1,e2,e3,e0p,e1p,e2p,e3p},

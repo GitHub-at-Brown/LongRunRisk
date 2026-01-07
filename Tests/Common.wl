@@ -77,10 +77,10 @@ $modNRCStochVol = $models["NRCStochVol"];
 
 
 (* Core models for fast tests *)
-$testModelsCore = {$modBKY, $modNRC};
+$testModelsCore = <|"BKY" -> $modBKY, "NRC" -> $modNRC|>;
 
 (* Full model set for comprehensive tests *)
-$testModels = {$modBY, $modBKY, $modNRC, $modDES, $modNRCStochVol};
+$testModels = <|"BY" -> $modBY, "BKY" -> $modBKY, "NRC" -> $modNRC, "DES" -> $modDES, "NRCStochVol" -> $modNRCStochVol|>;
 
 
 (* ::Subsection:: *)

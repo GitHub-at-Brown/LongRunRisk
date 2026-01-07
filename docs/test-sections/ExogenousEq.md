@@ -1,12 +1,12 @@
 ### ExogenousEq.wl
 
-- Symbol `xeq` should exist (can be found)
+- Symbol `xeq` should exist (can be found) 📍 `Tests/Model/ExogenousEq.wlt:25-30`
   ```
   Not[Names["*xeq"] === {}]
   ```
 
 For exogenous variables (entries of `$exogenousVars`):
-- All exogenous variables are in context `"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"` (individual checks)
+- All exogenous variables are in context `"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"` (individual checks) ⚠️ MISSING FROM WLT
   ```
   And @@ {
     MemberQ[DeleteDuplicates@(Context /@ Cases[xeq[t],
@@ -46,7 +46,7 @@ For exogenous variables (entries of `$exogenousVars`):
     }
   ```
 
-- All exogenous variables are in context `"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"` (generic check)
+- All exogenous variables are in context `"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"` (generic check) ⚠️ MISSING FROM WLT
   ```
   And @@ ((# ===
       "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`") & /@
@@ -55,14 +55,14 @@ For exogenous variables (entries of `$exogenousVars`):
           SymbolName[#]] &)[__] :> var, Infinity]))
   ```
 
-- All shocks are in context `"FernandoDuarte`LongRunRisk`Model`Shocks`"`
+- All shocks are in context `"FernandoDuarte`LongRunRisk`Model`Shocks`"` ⚠️ MISSING FROM WLT
   ```
   And @@ ((# === "FernandoDuarte`LongRunRisk`Model`Shocks`") & /@
     (Context /@ Cases[(#[t]) & /@ (Symbol /@ $exogenousVars),
       var_Symbol?(MatchQ[SymbolName[#], "eps"] &)[__][__] :> var, Infinity]))
   ```
 
-- All parameters are in context `"FernandoDuarte`LongRunRisk`Model`Parameters`"`
+- All parameters are in context `"FernandoDuarte`LongRunRisk`Model`Parameters`"` ⚠️ MISSING FROM WLT
   ```
   And @@ ((# ===
       "FernandoDuarte`LongRunRisk`Model`Parameters`") & /@
@@ -71,7 +71,7 @@ For exogenous variables (entries of `$exogenousVars`):
           SymbolName[#]] &) :> var, Infinity]))
   ```
 
-- Equation variables use different contexts for `t` argument (context isolation)
+- Equation variables use different contexts for `t` argument (context isolation) 📍 `Tests/Model/ExogenousEq.wlt:107-112`
   ```
   And @@ {
     FreeQ[xeq[t], foo`t],
