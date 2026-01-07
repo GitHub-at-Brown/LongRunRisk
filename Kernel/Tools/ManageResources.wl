@@ -447,8 +447,8 @@ boxToString[OverscriptBox[base_, over_]] := StringJoin["Overscript[", boxToStrin
 boxToString[UnderscriptBox[base_, under_]] := StringJoin["Underscript[", boxToString[base], ", ", boxToString[under], "]"];
 
 (* Catch-all for unknown boxes - try to convert content recursively *)
-boxToString[box_[args___]] /; StringEndsQ[SymbolName[box], "Box"] :=
-  StringJoin["(*UnhandledBox:", SymbolName[box], "*)", StringRiffle[boxToString /@ {args}, " "]];
+boxToString[box_[args___]] /; StringEndsQ[SymbolName[box], "Box"] := StringJoin[
+	"(*UnhandledBox:", SymbolName[box], "*)", StringRiffle[boxToString /@ {args}, " "]]
 
 (* Final fallback *)
 boxToString[x_] := ToString[x, InputForm];
@@ -639,8 +639,7 @@ loadModels[file_String] := If[
 
 
 (* helper: compute hash for moments cache *)
-getMomentsHash[catalogEntry_Association, model_Association] :=
-	getCanonicalHash[<|
+getMomentsHash[catalogEntry_Association, model_Association] := getCanonicalHash[<|
 		"catalog" -> catalogEntry,
 		"exogenousEq" -> model["exogenousEq"],
 		"endogenousEq" -> model["endogenousEq"]

@@ -31,10 +31,8 @@ copyDefinitions = FernandoDuarte`LongRunRisk`Tools`CopyDefinitions`copyDefinitio
 compoundScope = FernandoDuarte`LongRunRisk`Tools`CompoundScope`compoundScope;
 
 
-reExport[f_Symbol, g_Symbol] := (
-	copyDefinitions[f, g];
-	MessageName[g, "usage"] = StringReplace[Information[g, "Usage"], SymbolName[f] :> SymbolName[g]]
-)
+reExport[f_Symbol, g_Symbol] := (copyDefinitions[f, g];
+	MessageName[g, "usage"] = StringReplace[Information[g, "Usage"], SymbolName[f] :> SymbolName[g]])
 
 (* Exports all public symbols from oldContext to newContext *)
 reExport[oldContext_String, Optional[newContext_String, "FernandoDuarte`LongRunRisk`"]] := compoundScope[

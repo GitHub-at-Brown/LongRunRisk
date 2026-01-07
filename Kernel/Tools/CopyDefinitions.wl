@@ -59,8 +59,8 @@ copyDefinitions[f_?symbolQ, g_?symbolQ] := Module[{fDef},
 ]
 
 (* Copy to a new symbol in a specific context *)
-copyDefinitions[f_?symbolQ, ctx_String /; StringMatchQ[ctx, __ ~~ "`"]] :=
-	With[{name = SymbolName[Unevaluated[f]]},
+copyDefinitions[f_?symbolQ, ctx_String /; StringMatchQ[ctx, __ ~~ "`"]] := With[
+	{name = SymbolName[Unevaluated[f]]},
 		ToExpression[
 			StringJoin[ctx, name],
 			InputForm,

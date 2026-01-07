@@ -774,10 +774,8 @@ DownValues[categorize] = Activate @ DownValues @ categorize;
 
 (*split additive terms of expr based on categorize, use FindSequenceFunction for each category, combine terms*)
 (*splitAndFindSequenceFunction can be used like FindSequenceFunction*)
-splitAndFindSequenceFunction[expr_, q_] :=
-	Module[
-		{denTempPos, numTempPos, categorizedTempPos, tempPosSeqFun, pos}
-		,
+splitAndFindSequenceFunction[expr_, q_] := Module[
+	{denTempPos, numTempPos, categorizedTempPos, tempPosSeqFun, pos},
 		denTempPos = MapAt[Denominator, Together @ expr, {;;, 2}]; (*denominator*)
 		numTempPos = Numerator @ Together @ expr; (*numerator*)
 		categorizedTempPos = Table[
@@ -807,8 +805,8 @@ seqfun::seqfun="Sequence function not found for uncondCov[`1`[t], `2`[t+`3`]].";
 
 
 (*seqfun tries FindSequenceFunction, then splitAndFindSequenceFunction, then fails with a message*)
-seqfun[list_, q_, v1_:v1, v2_:v2] :=
-	With[{sf = FindSequenceFunction[list, q]},
+seqfun[list_, q_, v1_:v1, v2_:v2] := With[
+	{sf = FindSequenceFunction[list, q]},
 		If[
 			FreeQ[sf, FindSequenceFunction],
 			sf,

@@ -102,8 +102,7 @@ paramQuadSolve::solvefail = "Solver failed or timed out.";
 paramQuadSolve::gbmem = "GroebnerBasis exceeded memory limit (`1` GB). Consider simplifying the system or increasing GroebnerMemoryCap.";
 
 
-paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
-  With[
+paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] := With[
     {
       domain          = OptionValue["DomainOption"],
       userAss         = OptionValue["Assumptions"],
@@ -807,8 +806,8 @@ simplifySquareRoot[radicand_, ass : Except[_List] : Automatic, tc_: 5] := Module
 ];
 
 (* Overload that tries multiple parameter transformations and picks the best one *)
-simplifySquareRoot[radicand_, transforms_List /; VectorQ[transforms, ListQ], ass : Except[_List] : Automatic, tc_: 5] :=
-  Module[{results},
+simplifySquareRoot[radicand_, transforms_List /; VectorQ[transforms, ListQ], ass : Except[_List] : Automatic, tc_: 5] := Module[
+  {results},
     results = Table[
       simplifySquareRoot[radicand /. transform, ass, tc],
       {transform, transforms}
@@ -1108,8 +1107,7 @@ buildAssumptions[userAss_] := Module[{base = defaultAssumptions[]},
 (*expandPatternAssumptions*)
 
 
-expandPatternAssumptions[expr_, ass_] :=
-  And @@ DeleteCases[
+expandPatternAssumptions[expr_, ass_] := And @@ DeleteCases[
     If[Head@ass === And, List @@ ass, {ass}] /.
       (op : (Element | Greater | GreaterEqual | Less | LessEqual | Equal | Unequal))[p_, v_] /;
         !FreeQ[p, Blank | BlankSequence | BlankNullSequence] :>

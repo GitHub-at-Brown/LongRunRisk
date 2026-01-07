@@ -63,9 +63,7 @@ safeRest[_] := {};
    (meaning all vars are unverified and should be kept in the system).
    Takes the raw Verification value, expected length, and optional label, model name, and vars for warnings. *)
 safeVerification[verif_List, len_Integer, _String : "", _String : "", _List : {}] := TrueQ /@ verif;
-safeVerification[other_, len_Integer, label_String : "", modelName_String : "", vars_List : {}] := (
-	ConstantArray[False, len]
-);
+safeVerification[other_, len_Integer, label_String : "", modelName_String : "", vars_List : {}] := ConstantArray[False, len]
 
 
 (* ::Subsection:: *)
@@ -78,9 +76,7 @@ safeVerification[other_, len_Integer, label_String : "", modelName_String : "", 
 processModels[
 	modelsCatalog_Association,
 	opts:OptionsPattern[{solveCoeffsSystem, updateCoeffs, getStartingValues, FindRoot, RecurrenceTable}]
-]:=
-	Module[
-	{
+]:= Module[{
 		keys=Keys[modelsCatalog],
 		models = KeyMap[Replace[#, Thread[Keys[modelsCatalog]->Values@(#["shortname"]&/@modelsCatalog) ] ]&,modelsCatalog],(*rename Keys to shortname*)
 		contextPath=$ContextPath,

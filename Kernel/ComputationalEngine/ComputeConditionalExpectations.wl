@@ -113,8 +113,8 @@ Kernel/Model/Catalog.wl.";
 
 
  Attributes[lagStateVarst]={HoldFirst};
-  lagStateVarst[expr_, conditionalTime_, model_, OptionsPattern[]] :=
-    Module[{mapAllt, lagt, intermediate, iterations, maxIter, timeLimit, result,sn=model["shortname"]},
+  lagStateVarst[expr_, conditionalTime_, model_, OptionsPattern[]] := Module[
+    {mapAllt, lagt, intermediate, iterations, maxIter, timeLimit, result,sn=model["shortname"]},
       maxIter = OptionValue["MaxIterations"];
       timeLimit = OptionValue["TimeConstraint"];
 
@@ -156,14 +156,14 @@ Kernel/Model/Catalog.wl.";
 (*modelContextRules*)
 
 
-parametersContextPattern[parameter_String, context_String] := 
-	(y_Symbol ? (MatchQ[parameter, SymbolName[#]]&)) :> ToExpression[context <> parameter]
+parametersContextPattern[parameter_String, context_String] := (y_Symbol ? (MatchQ[parameter, SymbolName[#]]&)) :>
+	ToExpression[context <> parameter]
 
-shocksContextPattern[shock_String, context_String] := 
-	(y_Symbol ? (MatchQ[shock, SymbolName[#]]&)[z__String][t__]) :> ToExpression[context <> shock][z][t]
+shocksContextPattern[shock_String, context_String] := (y_Symbol ? (MatchQ[shock, SymbolName[#]]&)[z__String][t__]) :>
+	ToExpression[context <> shock][z][t]
 
-eqsContextPattern[var_String, context_String] :=
-	(y_Symbol ? (MatchQ[var, SymbolName[#]]&)[s__, i___]) :> ToExpression[context <> var][s, i]
+eqsContextPattern[var_String, context_String] := (y_Symbol ? (MatchQ[var, SymbolName[#]]&)[s__, i___]) :>
+	ToExpression[context <> var][s, i]
 
 parametersContextRules = parametersContextPattern[
 	#,

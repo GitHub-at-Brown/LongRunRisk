@@ -339,23 +339,18 @@ allParamTable[m_]:=OpenerView[
 
 
 (* replace i by 1, 2, ..., numStocks *)
-iToNum[s_String] :=
-	StringReplace[
-		s, 
-		{
-			"[i]" -> "[" <> IntegerString[i] <> "]",
-			"{(i)}" -> "{(" <> IntegerString[i] <> ")}"
-		}
-	]
+iToNum[s_String] := StringReplace[
+	s,
+	{
+		"[i]" -> "[" <> IntegerString[i] <> "]",
+		"{(i)}" -> "{(" <> IntegerString[i] <> ")}"
+	}]
 
-iToNum[s_String, numStocks_Integer] :=
-	Table[iToNum[s], {i, 1, numStocks}]
+iToNum[s_String, numStocks_Integer] := Table[iToNum[s], {i, 1, numStocks}]
 
-iToNum[s:s1_String -> s2_String, numStocks_Integer:1] :=
-	Table[iToNum[s1] -> iToNum[s2], {i, 1, numStocks}]
+iToNum[s:s1_String -> s2_String, numStocks_Integer:1] := Table[iToNum[s1] -> iToNum[s2], {i, 1, numStocks}]
 
-iToNum[s : <|(_String -> _String)..|>, numStocks_Integer:1] :=
-	Map[iToNum[#, numStocks]&, (Normal @ s)]
+iToNum[s : <|(_String -> _String)..|>, numStocks_Integer:1] := Map[iToNum[#, numStocks]&, Normal @ s]
 
 
 (* ::Subsection:: *)
@@ -706,11 +701,9 @@ normalizeWhitespace[str_String] := StringTrim[
 ];
 
 
-stringFormattingTemplate[str_String, lineLength_Number : 40] :=
-	StringReplace[
-		InsertLinebreaks[normalizeWhitespace[str], lineLength],
-		"\n" -> "\n\t\t\t"
-	];
+stringFormattingTemplate[str_String, lineLength_Number : 40] := StringReplace[
+	InsertLinebreaks[normalizeWhitespace[str], lineLength],
+	"\n" -> "\n\t\t\t"]
 
 
 (* ::Subsubsection:: *)

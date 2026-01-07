@@ -41,8 +41,8 @@ SetAttributes[compoundScope, HoldAll];
 compoundScope[scope : With | Block | Module : With, {}, expr_] := expr
 
 (* Main case: process list of assignments/expressions *)
-compoundScope[scope : With | Block | Module : With, {x_, xs___}, expr_] :=
-	If[MatchQ[Unevaluated[x], HoldPattern[(Set | SetDelayed)[_Symbol, _]]],
+compoundScope[scope : With | Block | Module : With, {x_, xs___}, expr_] := If[
+	MatchQ[Unevaluated[x], HoldPattern[(Set | SetDelayed)[_Symbol, _]]],
 		(* x is an assignment - wrap in scoping construct *)
 		scope[{x}, compoundScope[scope, {xs}, expr]],
 		(* x is code to evaluate - use CompoundExpression *)
@@ -50,12 +50,11 @@ compoundScope[scope : With | Block | Module : With, {x_, xs___}, expr_] :=
 	]
 
 (* Handle CompoundExpression (semicolon-separated) input *)
-compoundScope[scope : With | Block | Module : With, compound_CompoundExpression, expr_] :=
-	Function[Null, compoundScope[scope, {##}, expr], HoldAll] @@ Unevaluated[compound]
+compoundScope[scope : With | Block | Module : With, compound_CompoundExpression, expr_] := Function[Null,
+	compoundScope[scope, {##}, expr], HoldAll] @@ Unevaluated[compound]
 
 (* Single variable (not in list) - wrap in list *)
-compoundScope[scope : With | Block | Module : With, var_, expr_] :=
-	compoundScope[scope, {var}, expr]
+compoundScope[scope : With | Block | Module : With, var_, expr_] := compoundScope[scope, {var}, expr]
 
 
 (* ::Section:: *)

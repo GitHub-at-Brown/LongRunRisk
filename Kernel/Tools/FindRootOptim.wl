@@ -628,28 +628,28 @@ parseSpec[x0_?NumericQ] := <|"dim" -> 1, "x0" -> N[x0], "lower" -> None, "upper"
 parseSpec[Automatic] := <|"dim" -> 1, "x0" -> Automatic, "lower" -> None, "upper" -> None|>
 
 (* 1D bounds only (2 elements): {lo, hi} *)
-parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi > lo :=
-  <|"dim" -> 1, "x0" -> Automatic, "lower" -> N[lo], "upper" -> N[hi]|>
+parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi > lo := <|
+	"dim" -> 1, "x0" -> Automatic, "lower" -> N[lo], "upper" -> N[hi]|>
 
 (* 1D bounds with bad order *)
-parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi <= lo :=
-  (Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, lo, hi]; $Failed)
+parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi <= lo := (Message[
+	FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, lo, hi]; $Failed)
 
 (* 1D full spec (3 elements): {x0, lo, hi} or {Automatic, lo, hi} *)
-parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi > lo :=
-  <|"dim" -> 1, "x0" -> If[x0 === Automatic, Automatic, N[x0]], "lower" -> N[lo], "upper" -> N[hi]|>
+parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi > lo := <|
+	"dim" -> 1, "x0" -> If[x0 === Automatic, Automatic, N[x0]], "lower" -> N[lo], "upper" -> N[hi]|>
 
 (* 1D full spec with bad bounds *)
-parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi <= lo :=
-  (Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, lo, hi]; $Failed)
+parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi <= lo := (Message[
+	FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, lo, hi]; $Failed)
 
 (* nD start only - NESTED SINGLETON {{x0_vec}} *)
-parseSpec[{v_?(VectorQ[#, NumericQ] &)}] :=
-  <|"dim" -> Length[v], "x0" -> N[v], "lower" -> None, "upper" -> None|>
+parseSpec[{v_?(VectorQ[#, NumericQ] &)}] := <|
+	"dim" -> Length[v], "x0" -> N[v], "lower" -> None, "upper" -> None|>
 
 (* nD bounds only - nested, each inner has {lo, hi} *)
-parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; And @@ ((#[[2]] > #[[1]]) & /@ nested) :=
-  <|"dim" -> Length[nested], "x0" -> Automatic, "lower" -> N[nested[[All, 1]]], "upper" -> N[nested[[All, 2]]]|>
+parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; And @@ ((#[[2]] > #[[1]]) & /@ nested) := <|
+	"dim" -> Length[nested], "x0" -> Automatic, "lower" -> N[nested[[All, 1]]], "upper" -> N[nested[[All, 2]]]|>
 
 (* nD bounds with bad order *)
 parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; !And @@ ((#[[2]] > #[[1]]) & /@ nested) := Module[
@@ -658,8 +658,7 @@ parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; !And @@ ((#[[2]] > #[[1]]) 
 ]
 
 (* nD full spec - nested, each inner has {x0|Automatic, lo, hi} *)
-parseSpec[nested : {{(_?NumericQ | Automatic), _?NumericQ, _?NumericQ} ..}] /; And @@ ((#[[3]] > #[[2]]) & /@ nested) :=
-  <|
+parseSpec[nested : {{(_?NumericQ | Automatic), _?NumericQ, _?NumericQ} ..}] /; And @@ ((#[[3]] > #[[2]]) & /@ nested) := <|
     "dim" -> Length[nested],
     "x0" -> (nested[[All, 1]] /. x_?NumericQ :> N[x]),
     "lower" -> N[nested[[All, 2]]],
@@ -788,8 +787,7 @@ tryNewtonND[fnum_, dfnum_, vars_, x0_, lb_, ub_, findRootOpts_] := Module[
 ]
 
 (* 1D Brent (requires bracketed interval) *)
-tryBrent1D[fnum_, var_, lb_, ub_, findRootOpts_] :=
-  Quiet @ Check[
+tryBrent1D[fnum_, var_, lb_, ub_, findRootOpts_] := Quiet @ Check[
     FindRoot[fnum[var] == 0., {var, lb, ub}, Method -> "Brent",
       Evaluate[Sequence @@ findRootOpts]],
     $Failed
@@ -895,8 +893,7 @@ tryMethods[methodFuncs_List, f_, acc_] := Module[
 
 (* New fastRootCore: unified core implementation *)
 (* Takes parsed spec components, returns result in requested format *)
-fastRootCoreNew[f_, df_, x0_, lb_, ub_, dim_, opts : OptionsPattern[{fastRoot, FindRoot}]] :=
-With[{
+fastRootCoreNew[f_, df_, x0_, lb_, ub_, dim_, opts : OptionsPattern[{fastRoot, FindRoot}]] := With[{
   ret = OptionValue["Return"],
   blend = N[OptionValue["SecantBlend"]],
   method = OptionValue[Method],
@@ -1528,8 +1525,7 @@ extractIntervalsFromReduce[
 
 
 (* Extracts equation map from a processed model - used by createCompiledEq and for hash validation *)
-buildEqMapFromModel[model_Association] :=
-With[{
+buildEqMapFromModel[model_Association] := With[{
 	quadSol = model["coeffsParamQuadSolve"],
 	modelParamsKeys = Keys @ model["params"],
 	coeffsSystem = model["coeffsSystem"]
@@ -1605,8 +1601,7 @@ With[{
 
 (* createCompiledEq inherits "CompileMode" from buildKernel via OptionsPattern *)
 
-createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile, Compile}]] :=
-With[{
+createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile, Compile}]] := With[{
 	shortname = model["shortname"],
 	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile, Options @ Compile]],
 	compileMode = OptionValue[buildKernel, Flatten @ {opts}, "CompileMode"],

@@ -82,8 +82,7 @@ signHeadFromExpr[expr_, sName_Symbol] := sName;
 
 
 (* Step 1: safeReduceCall - wraps findRootInterval with timeout for nD *)
-safeReduceCall[conds_, paramsAll_, signs_, cName_, sName_, timeout_] :=
-  TimeConstrained[
+safeReduceCall[conds_, paramsAll_, signs_, cName_, sName_, timeout_] := TimeConstrained[
     findRootInterval[conds, paramsAll, cName, sName, signs],
     timeout,
     $Failed
@@ -98,8 +97,8 @@ convertInfinityBounds[a_List, b_List, pad_?NumericQ] := {
 
 
 (* Step 3: trySmartIntervals - attempts root-finding with Reduce-derived intervals *)
-trySmartIntervals[f_, df_, reduceExpr_, coefList_, extractOpts_, scanOpts_, rub_, pad_] :=
-  Module[{intervals, finalRoots = {}, finalIntervals = {}},
+trySmartIntervals[f_, df_, reduceExpr_, coefList_, extractOpts_, scanOpts_, rub_, pad_] := Module[
+  {intervals, finalRoots = {}, finalIntervals = {}},
     If[reduceExpr === $Failed, Return[$Failed]];
 
     intervals = extractIntervalsFromReduce[reduceExpr, coefList,
@@ -146,8 +145,8 @@ trySmartIntervals[f_, df_, reduceExpr_, coefList_, extractOpts_, scanOpts_, rub_
 
 
 (* Step 4: tryArtificialBox - fallback with artificial finite bounds *)
-tryArtificialBox[f_, df_, coefList_, scanOpts_, rub_, pad_] :=
-  Module[{d, a, b, x0, frRes, artificialBounds},
+tryArtificialBox[f_, df_, coefList_, scanOpts_, rub_, pad_] := Module[
+  {d, a, b, x0, frRes, artificialBounds},
     d = Length[coefList];
     artificialBounds = Prepend[ConstantArray[{-pad, pad}, d - 1], {0., rub}];
     a = artificialBounds[[All, 1]];
@@ -168,8 +167,8 @@ tryArtificialBox[f_, df_, coefList_, scanOpts_, rub_, pad_] :=
 
 
 (* Step 5: nMinimizeFallback - optimization-based fallback *)
-nMinimizeFallback[f_, coefList_, reduceExpr_, rub_, pad_, tol_] :=
-  Module[{d, vars, coefToVar, objFn, boxConstraints,
+nMinimizeFallback[f_, coefList_, reduceExpr_, rub_, pad_, tol_] := Module[
+  {d, vars, coefToVar, objFn, boxConstraints,
           mappedReduceExpr, constraints, nmRes, artificialBounds},
 
     d = Length[coefList];
@@ -220,8 +219,8 @@ solveND // Options = {
 
 solveND[f_, df_, conds_, paramsAll_, signs_, coefList_, cName_, sName_,
 	        extractOpts_, scanOpts_, solTemplate_,
-	        opts : OptionsPattern[{solveND}]] :=
-	  Module[{reduceExpr, rub, pad, acc, tol, signHead, signsRule, sol, result},
+	        opts : OptionsPattern[{solveND}]] := Module[
+  {reduceExpr, rub, pad, acc, tol, signHead, signsRule, sol, result},
 
     (* Extract options from extractIntervalsFromReduce *)
     rub = Lookup[Flatten@{extractOpts}, "RootUpperBound", 15.];
@@ -405,10 +404,8 @@ normalizeRootSigns[rootSigns_, signIndex_Association] := Module[
 ]
 
 (* Fallback when signIndex is not an Association *)
-normalizeRootSigns[rootSigns_, signIndex_] := (
-  Message[normalizeRootSigns::badsignidx, Head[signIndex]];
-  $Failed
-)
+normalizeRootSigns[rootSigns_, signIndex_] := (Message[
+	normalizeRootSigns::badsignidx, Head[signIndex]]; $Failed)
 
 
 (* ::Subsubsection:: *)
@@ -434,8 +431,8 @@ extractSignIndex[kernels_Association] := <|
 (*computeWcCoeffs*)
 
 
-computeWcCoeffs[model_, kernels_, params_, newParams_, rootSignsNorm_, rootSigns_, opts_] :=
-  Module[{rawResults},
+computeWcCoeffs[model_, kernels_, params_, newParams_, rootSignsNorm_, rootSigns_, opts_] := Module[
+  {rawResults},
     rawResults = filterSolutions[
       updateCoeffsWcPd["wc", model["coeffsParamQuadSolve"], kernels,
                        params, newParams, rootSignsNorm, rootSigns, opts],
@@ -460,8 +457,8 @@ computeWcCoeffs[model_, kernels_, params_, newParams_, rootSignsNorm_, rootSigns
 
 
 computePdCoeffs[model_, kernels_, params_, newParams_, solWc_,
-                rootSignsNorm_, rootSigns_, numStocks_, opts_] :=
-  Module[{renameToB, computeBForASolution},
+                rootSignsNorm_, rootSigns_, numStocks_, opts_] := Module[
+  {renameToB, computeBForASolution},
     (* For each A solution, compute B solutions for all stocks *)
     (* solWc is now a list of associations with keys: IntervalA, SignsA, SolutionIndexA, IntervalIndexA, A *)
 
@@ -501,8 +498,7 @@ computePdCoeffs[model_, kernels_, params_, newParams_, solWc_,
 
 
 checkCoeffs[type_String, model_, sol_, params_, newParams_,
-            maxMaturity_, numStocks_, opts_] :=
-  Switch[type,
+            maxMaturity_, numStocks_, opts_] := Switch[type,
     "wc",
       checks[First @ model["coeffsSystem"]["wc"], sol, params, newParams, opts],
     "pd",
@@ -522,8 +518,7 @@ checkCoeffs[type_String, model_, sol_, params_, newParams_,
 
 
 updateCoeffsWcPd[key : "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, params_Association, newParams_Association, rootSignsNorm_, rootSigns_,
-  solveCoeffRootsOpts_] :=
-    With[{
+  solveCoeffRootsOpts_] := With[{
       kernelKey = <|"wc" -> "A", "pd" -> "B"|>[key],
       (* Filter to only options recognized by solveCoeffRoots and its downstream functions *)
       filteredOpts = FilterRules[solveCoeffRootsOpts,
@@ -898,10 +893,8 @@ updateCoeffsSol[
 	newParameters_List,
 	guessCoeffsSolution_List,
 	opts___
-] := (
-	Message[updateCoeffsSol::badkernelstructure, Short[savedKernels, 2]];
-	$Failed
-)
+] := (Message[
+	updateCoeffsSol::badkernelstructure, Short[savedKernels, 2]]; $Failed)
 
 
 (*inherit default options from updateCoeffsSol, checks*)
@@ -1193,8 +1186,7 @@ addCoeffsSolutionN[model_Association, buildMaxMaturity_Integer, opts : OptionsPa
 ];
 
 (* Convenience wrapper with default maturity of 12 *)
-addCoeffsSolutionN[model_Association, opts : OptionsPattern[{updateCoeffs, FindRoot, RecurrenceTable}]] :=
-	addCoeffsSolutionN[model, 12, opts];
+addCoeffsSolutionN[model_Association, opts : OptionsPattern[{updateCoeffs, FindRoot, RecurrenceTable}]] := addCoeffsSolutionN[model, 12, opts]
 
 (* Legacy single-argument form *)
 addCoeffsSolutionN[model_Association] := addCoeffsSolutionN[model, 12];

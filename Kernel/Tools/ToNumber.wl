@@ -184,9 +184,8 @@ GlobalProperties[] :={
 Attributes[clone] = {HoldAll};
 
 
-clone[s_Symbol, new_Symbol] :=
-	With[
-	    {
+clone[s_Symbol, new_Symbol] := With[
+    {
 	    clone = new, sopts = Options[Unevaluated[s]]
 	    },
         With[{setProp = (#[clone] = (#[s] /. HoldPattern[s] :> clone)
@@ -207,14 +206,14 @@ clone[s_Symbol, new_Symbol] :=
 SetAttributes[withUserDefs, HoldAll];
 
 
-withUserDefs[sym_Symbol, {defs__}, code_] :=
-    Module[{s, inSym},
+withUserDefs[sym_Symbol, {defs__}, code_] := Module[
+    {s, inSym},
         clone[sym, s];
         With[{evalSym = sym},
             Block[{evalSym},
                 defs;
-                evalSym[args___] /; !TrueQ[inSym] :=
-                    Block[{evalSym, inSym = True},
+                evalSym[args___] /; !TrueQ[inSym] := Block[
+                    {evalSym, inSym = True},
                         clone[s, evalSym];
                         With[{result = evalSym[args]},
                             result /; result =!= Unevaluated[evalSym[args]]
@@ -230,8 +229,7 @@ withUserDefs[sym_Symbol, {defs__}, code_] :=
 (*moms*)
 
 
-moms[fun_, expr_, model_] :=
-    withUserDefs[fun, {fun[x___] := fun[x, model]}, expr];
+moms[fun_, expr_, model_] := withUserDefs[fun, {fun[x___] := fun[x, model]}, expr]
 
 
 (* ::Subsubsection:: *)

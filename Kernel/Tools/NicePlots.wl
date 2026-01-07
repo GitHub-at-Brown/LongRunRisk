@@ -114,9 +114,8 @@ Variance ratios over horizons*)
 
 
 
-plotCoeffs[model_Association, sol_List, params_List, Ewc0_List, opts: OptionsPattern[]] :=
-	With[
-		{
+plotCoeffs[model_Association, sol_List, params_List, Ewc0_List, opts: OptionsPattern[]] := With[
+	{
 			activateLast = {MapThread},
 			system = model["coeffsSystem"]["wc"],
 			parameters = Quiet[processNewParameters[params,model["params"]]]
