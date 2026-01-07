@@ -24,20 +24,6 @@ Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1
 (*Test Fixtures*)
 
 
-$modBY = $models["BY"];
-$modNRC = $models["NRC"];
-
-(* Symbol aliases for readability *)
-$pi = FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi;
-$sg = FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg;
-$dd = FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd;
-$wc = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`wc;
-$pd = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`pd;
-$A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A;
-
-(* Private function alias *)
-$evNoEps = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`evNoEpsStateVarsProduct;
-
 (* State variables without shocks *)
 $stateVarsNoEps = {$sg, $pi};
 
@@ -66,27 +52,27 @@ TestCreate[
 
 
 TestCreate[
-	Simplify[
+	simplifiesZeroQ[
 		uncondE[$pi[t]^2, $modNRC] -
 		(mup^2 + (xip^2 + 2 rhop xip phip + phip^2) / (1 - rhop^2))
-	] === 0,
+	],
 	True,
 	{},
 	TestID -> "uncondE-PiSquared-MatchesFormula"
 ]
 
 TestCreate[
-	Simplify[
+	simplifiesZeroQ[
 		uncondE[$sg[t]^2, $modNRC] -
 		(Esg^2 + phig^2 / (1 - rhog^2))
-	] === 0,
+	],
 	True,
 	{},
 	TestID -> "uncondE-SgSquared-MatchesFormula"
 ]
 
 TestCreate[
-	Simplify[uncondE[$pi[t] $sg[t], $modNRC] - (Esg mup)] === 0,
+	simplifiesZeroQ[uncondE[$pi[t] $sg[t], $modNRC] - (Esg mup)],
 	True,
 	{},
 	TestID -> "uncondE-PiTimesSg-MatchesProduct"
@@ -117,17 +103,17 @@ TestCreate[
 
 
 TestCreate[
-	Simplify[
+	simplifiesZeroQ[
 		uncondVar[$pi[t], $modNRC] -
 		(xip^2 + 2 rhop xip phip + phip^2) / (1 - rhop^2)
-	] === 0,
+	],
 	True,
 	{},
 	TestID -> "uncondVar-Pi-MatchesFormula"
 ]
 
 TestCreate[
-	Simplify[uncondVar[$sg[t], $modNRC] - phig^2 / (1 - rhog^2)] === 0,
+	simplifiesZeroQ[uncondVar[$sg[t], $modNRC] - phig^2 / (1 - rhog^2)],
 	True,
 	{},
 	TestID -> "uncondVar-Sg-MatchesFormula"
@@ -139,7 +125,7 @@ TestCreate[
 
 
 TestCreate[
-	Simplify[uncondCov[$pi[t], $sg[t], $modNRC]] === 0,
+	simplifiesZeroQ[uncondCov[$pi[t], $sg[t], $modNRC]],
 	True,
 	{},
 	TestID -> "uncondCov-PiSg-IsZero"

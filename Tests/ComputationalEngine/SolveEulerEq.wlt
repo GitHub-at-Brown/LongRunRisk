@@ -23,15 +23,9 @@ Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1
 (*Test Setup*)
 
 
-(* Load models for testing - use fast subset: BKY, DES *)
-$testModels = <|
-	"BKY" -> $models["BKY"],
-	"DES" -> $models["DES"]
-|>;
-
 (* Pre-compute results once per model to avoid redundant expensive computations *)
 $bkyResult = updateCoeffs[
-	$testModels["BKY"],
+	$modBKY,
 	"UpdatePd" -> True,
 	"UpdateBonds" -> True,
 	"MaxMaturity" -> 5,
@@ -39,7 +33,7 @@ $bkyResult = updateCoeffs[
 ];
 
 $desResult = updateCoeffs[
-	$testModels["DES"],
+	$modDES,
 	"FindRootOptions" -> {"MaxIterations" -> 100}
 ];
 
@@ -103,7 +97,7 @@ pdRulesFirstBundle[res_, numStocks_] := Module[{a = firstASol[res], stocks},
 (* Note: Actual coefficient symbols are A, B, R for wc, pd, bond respectively *)
 coeffsQWcRules[model_, solRules_] := With[
 	{numStateVars = Length[model["stateVars"][t]]},
-	coeffsQ[solRules, FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A, numStateVars]
+	coeffsQ[solRules, $A, numStateVars]
 ];
 
 coeffsQPdRules[model_, solRules_] := With[
@@ -113,7 +107,7 @@ coeffsQPdRules[model_, solRules_] := With[
 	},
 	coeffsQ[
 		solRules,
-		FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B,
+		$B,
 		numStateVars,
 		numStocks
 	]
@@ -123,7 +117,7 @@ coeffsQBondRules[model_, solRules_, maxMaturity_] := With[
 	{numStateVars = Length[model["stateVars"][t]]},
 	coeffsQ[
 		solRules,
-		FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`R,
+		$R,
 		numStateVars,
 		maxMaturity + 1,
 		1
@@ -134,7 +128,7 @@ coeffsQNomBondRules[model_, solRules_, maxMaturity_] := With[
 	{numStateVars = Length[model["stateVars"][t]]},
 	coeffsQ[
 		solRules,
-		FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`P,
+		$P,
 		numStateVars,
 		maxMaturity + 1,
 		1
@@ -184,7 +178,7 @@ TestCreate[
 TestCreate[
 	Module[{wcRules},
 		wcRules = wcRulesFirst[$bkyResult];
-		wcRules =!= $Failed && coeffsQWcRules[$testModels["BKY"], wcRules]
+		wcRules =!= $Failed && coeffsQWcRules[$modBKY, wcRules]
 	],
 	True,
 	{},
@@ -196,7 +190,7 @@ TestCreate[
 TestCreate[
 	Module[{wcRules},
 		wcRules = wcRulesFirst[$desResult];
-		wcRules =!= $Failed && coeffsQWcRules[$testModels["DES"], wcRules]
+		wcRules =!= $Failed && coeffsQWcRules[$modDES, wcRules]
 	],
 	True,
 	{},
@@ -212,12 +206,12 @@ TestCreate[
 TestCreate[
 	Module[{result, wcRules},
 		result = updateCoeffs[
-			$testModels["BKY"],
+			$modBKY,
 			"UpdatePd" -> False,
 			"FindRootOptions" -> {"MaxIterations" -> 100}
 		];
 		wcRules = wcRulesFirst[result];
-		wcRules =!= $Failed && coeffsQWcRules[$testModels["BKY"], wcRules]
+		wcRules =!= $Failed && coeffsQWcRules[$modBKY, wcRules]
 	],
 	True,
 	{},
@@ -228,13 +222,13 @@ TestCreate[
 (* Test: UpdatePd=True returns both WC and PD coefficients *)
 TestCreate[
 	Module[{wcRules, pdRules, numStocks},
-		numStocks = $testModels["BKY"]["numStocks"];
+		numStocks = $modBKY["numStocks"];
 		wcRules = wcRulesFirst[$bkyResult];
 		pdRules = pdRulesFirstBundle[$bkyResult, numStocks];
 		AllTrue[
 			{
 				wcRules =!= $Failed,
-				coeffsQWcRules[$testModels["BKY"], wcRules],
+				coeffsQWcRules[$modBKY, wcRules],
 				pdRules =!= $Failed
 			},
 			TrueQ
@@ -249,9 +243,9 @@ TestCreate[
 (* Test: PD coefficients have expected structure when UpdatePd=True *)
 TestCreate[
 	Module[{pdRules, numStocks},
-		numStocks = $testModels["BKY"]["numStocks"];
+		numStocks = $modBKY["numStocks"];
 		pdRules = pdRulesFirstBundle[$bkyResult, numStocks];
-		pdRules =!= $Failed && MatchQ[pdRules, {__}] && coeffsQPdRules[$testModels["BKY"], pdRules]
+		pdRules =!= $Failed && MatchQ[pdRules, {__}] && coeffsQPdRules[$modBKY, pdRules]
 	],
 	True,
 	{},
@@ -268,12 +262,12 @@ TestCreate[
 	Module[{result, wcRules},
 		(* Test with interval format *)
 		result = updateCoeffs[
-			$testModels["BKY"],
+			$modBKY,
 			"initialGuess" -> <|"Ewc" -> {1, 8}|>,
 			"FindRootOptions" -> {"MaxIterations" -> 100}
 		];
 		wcRules = wcRulesFirst[result];
-		wcRules =!= $Failed && coeffsQWcRules[$testModels["BKY"], wcRules]
+		wcRules =!= $Failed && coeffsQWcRules[$modBKY, wcRules]
 	],
 	True,
 	{},
@@ -286,12 +280,12 @@ TestCreate[
 	Module[{result, wcRules},
 		(* Test with point plus interval format *)
 		result = updateCoeffs[
-			$testModels["BKY"],
+			$modBKY,
 			"initialGuess" -> <|"Ewc" -> {4, 1, 8}|>,
 			"FindRootOptions" -> {"MaxIterations" -> 100}
 		];
 		wcRules = wcRulesFirst[result];
-		wcRules =!= $Failed && coeffsQWcRules[$testModels["BKY"], wcRules]
+		wcRules =!= $Failed && coeffsQWcRules[$modBKY, wcRules]
 	],
 	True,
 	{},
@@ -370,7 +364,7 @@ TestCreate[
 		maxMaturity = 5;
 		firstA = firstASol[$bkyResult];
 		bondRules = Normal[firstA["Bond"]];
-		MatchQ[bondRules, {__Rule}] && coeffsQBondRules[$testModels["BKY"], bondRules, maxMaturity]
+		MatchQ[bondRules, {__Rule}] && coeffsQBondRules[$modBKY, bondRules, maxMaturity]
 	],
 	True,
 	{},
@@ -384,7 +378,7 @@ TestCreate[
 		maxMaturity = 5;
 		firstA = firstASol[$bkyResult];
 		nomBondRules = Normal[firstA["NomBond"]];
-		MatchQ[nomBondRules, {__Rule}] && coeffsQNomBondRules[$testModels["BKY"], nomBondRules, maxMaturity]
+		MatchQ[nomBondRules, {__Rule}] && coeffsQNomBondRules[$modBKY, nomBondRules, maxMaturity]
 	],
 	True,
 	{},
@@ -470,7 +464,7 @@ TestCreate[
 (* Test: addCoeffsSolutionN computes all coefficient types *)
 TestCreate[
 	Module[{result},
-		result = addCoeffsSolutionN[$testModels["BKY"], 5];
+		result = addCoeffsSolutionN[$modBKY, 5];
 		MatchQ[result, {__}] && AllTrue[result, AssociationQ[#] && KeyExistsQ[#, "Bond"] &]
 	],
 	True,
@@ -482,7 +476,7 @@ TestCreate[
 (* Test: addCoeffsSolutionN default maturity is 12 *)
 TestCreate[
 	Module[{result, bondKeys, maxIdx},
-		result = addCoeffsSolutionN[$testModels["BKY"]];
+		result = addCoeffsSolutionN[$modBKY];
 		(* Check that bond coefficients go up to maturity 12 *)
 		bondKeys = Keys[First[result]["Bond"]];
 		maxIdx = Max[Cases[bondKeys, _[i_][_] :> i]];
@@ -497,7 +491,7 @@ TestCreate[
 (* Test: addCoeffsSolutionN respects explicit maturity argument *)
 TestCreate[
 	Module[{result, bondKeys, maxIdx},
-		result = addCoeffsSolutionN[$testModels["BKY"], 3];
+		result = addCoeffsSolutionN[$modBKY, 3];
 		bondKeys = Keys[First[result]["Bond"]];
 		maxIdx = Max[Cases[bondKeys, _[i_][_] :> i]];
 		maxIdx === 3

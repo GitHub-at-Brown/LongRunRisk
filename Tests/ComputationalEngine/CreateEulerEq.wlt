@@ -22,19 +22,7 @@ Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1
 (*Test Fixtures*)
 
 
-(* Reference to the time variable in the correct context *)
-$t = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`t;
-
-$modBY = $models["BY"];
-$modNRC = $models["NRC"];
-$modDES = $models["DES"];
 $mods = {$modBY, $modNRC, $modDES};
-
-(* Reference to return symbols in the correct context *)
-$retc = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`retc;
-$ret = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`ret;
-$bondret = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bondret;
-$nombondret = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombondret;
 
 (* Compute Euler equations for all models *)
 $eeAll = With[{t = $t},
@@ -49,37 +37,25 @@ $eeAll = With[{t = $t},
 (* Coefficient extractors *)
 $coeffWcAll = With[{t = $t},
 	Function[model,
-		Table[
-			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefwc[i],
-			{i, Length[model["stateVars"][t]]}
-		]
+		Table[$coefwc[i], {i, Length[model["stateVars"][t]]}]
 	] /@ $mods
 ];
 
 $coeffPdAll = With[{t = $t},
 	Function[model,
-		Table[
-			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefpd[i],
-			{i, Length[model["stateVars"][t]]}
-		]
+		Table[$coefpd[i], {i, Length[model["stateVars"][t]]}]
 	] /@ $mods
 ];
 
 $coeffBondAll = With[{t = $t},
 	Function[model,
-		Table[
-			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefb[i],
-			{i, Length[model["stateVars"][t]]}
-		]
+		Table[$coefb[i], {i, Length[model["stateVars"][t]]}]
 	] /@ $mods
 ];
 
 $coeffNomBondAll = With[{t = $t},
 	Function[model,
-		Table[
-			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`coefnb[i],
-			{i, Length[model["stateVars"][t]]}
-		]
+		Table[$coefnb[i], {i, Length[model["stateVars"][t]]}]
 	] /@ $mods
 ];
 

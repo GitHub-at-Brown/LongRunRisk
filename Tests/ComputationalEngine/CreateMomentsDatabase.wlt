@@ -48,26 +48,13 @@ Scan[Get, Values[$covLongLookupTables]];
 
 (* Select models based on test mode *)
 $testModels = If[$longTest,
-	{$models["BKY"], $models["NRC"], $models["DES"], $models["NRCStochVol"]},
-	{$models["BKY"], $models["NRC"]}
+	{$modBKY, $modNRC, $modDES, $modNRCStochVol},
+	{$modBKY, $modNRC}
 ];
 
 (* Helper to get covLong symbol for a model *)
 getCovLongSymbol[model_] := Symbol["FernandoDuarte`LongRunRisk`covLong" <> model["shortname"]];
 
-(* Helper to check if all elements are numeric *)
-allNumericQ[list_] := AllTrue[Flatten[list], NumericQ];
-
-(* Helper to check if a symbol is properly exported (has usage, values, or definitions) *)
-exportedSymbolQ[s_Symbol] := AnyTrue[
-	{
-		ValueQ[s],
-		OwnValues[s] =!= {},
-		DownValues[s] =!= {},
-		StringQ[MessageName[s, "usage"]]
-	},
-	TrueQ
-];
 
 (* Compute moments without stocks for a model *)
 computeMomentsNoStocks[model_] := Module[{covLong, testMoments},
@@ -162,7 +149,7 @@ TestCreate[
 
 (* Test: All moments without stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMomentsNoStocks[$models["BKY"]]],
+	allNumericQ[computeMomentsNoStocks[$modBKY]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsNoStocksAreNumeric"
@@ -170,7 +157,7 @@ TestCreate[
 
 (* Test: All moments without stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMomentsNoStocks[$models["NRC"]]],
+	allNumericQ[computeMomentsNoStocks[$modNRC]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsNoStocksAreNumeric"
@@ -183,7 +170,7 @@ TestCreate[
 
 (* Test: All moments with one stock evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMomentsOneStock[$models["BKY"]]],
+	allNumericQ[computeMomentsOneStock[$modBKY]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsOneStockAreNumeric"
@@ -191,7 +178,7 @@ TestCreate[
 
 (* Test: All moments with one stock evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMomentsOneStock[$models["NRC"]]],
+	allNumericQ[computeMomentsOneStock[$modNRC]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsOneStockAreNumeric"
@@ -204,7 +191,7 @@ TestCreate[
 
 (* Test: All moments with two stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMomentsTwoStocks[$models["BKY"]]],
+	allNumericQ[computeMomentsTwoStocks[$modBKY]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsTwoStocksAreNumeric"
@@ -212,7 +199,7 @@ TestCreate[
 
 (* Test: All moments with two stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMomentsTwoStocks[$models["NRC"]]],
+	allNumericQ[computeMomentsTwoStocks[$modNRC]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsTwoStocksAreNumeric"
@@ -225,7 +212,7 @@ TestCreate[
 
 (* Test: All 3-variable moments without stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMoments3Vars[$models["BKY"]]],
+	allNumericQ[computeMoments3Vars[$modBKY]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsThreeVarsAreNumeric"
@@ -233,7 +220,7 @@ TestCreate[
 
 (* Test: All 3-variable moments without stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMoments3Vars[$models["NRC"]]],
+	allNumericQ[computeMoments3Vars[$modNRC]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsThreeVarsAreNumeric"
@@ -246,7 +233,7 @@ TestCreate[
 
 (* Test: All 4-variable moments without stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMoments4Vars[$models["BKY"]]],
+	allNumericQ[computeMoments4Vars[$modBKY]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsFourVarsAreNumeric"
@@ -254,7 +241,7 @@ TestCreate[
 
 (* Test: All 4-variable moments without stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMoments4Vars[$models["NRC"]]],
+	allNumericQ[computeMoments4Vars[$modNRC]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsFourVarsAreNumeric"
@@ -267,7 +254,7 @@ TestCreate[
 
 (* Test: All 3-variable moments with stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMomentsStocks3Vars[$models["BKY"]]],
+	allNumericQ[computeMomentsStocks3Vars[$modBKY]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsStocksThreeVarsAreNumeric"
@@ -275,7 +262,7 @@ TestCreate[
 
 (* Test: All 3-variable moments with stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMomentsStocks3Vars[$models["NRC"]]],
+	allNumericQ[computeMomentsStocks3Vars[$modNRC]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsStocksThreeVarsAreNumeric"
@@ -283,7 +270,7 @@ TestCreate[
 
 (* Test: All 4-variable moments with stocks evaluate to numbers for BKY model *)
 TestCreate[
-	allNumericQ[computeMomentsStocks4Vars[$models["BKY"]]],
+	allNumericQ[computeMomentsStocks4Vars[$modBKY]],
 	True,
 	{},
 	TestID -> "covLong-BKY-MomentsStocksFourVarsAreNumeric"
@@ -291,7 +278,7 @@ TestCreate[
 
 (* Test: All 4-variable moments with stocks evaluate to numbers for NRC model *)
 TestCreate[
-	allNumericQ[computeMomentsStocks4Vars[$models["NRC"]]],
+	allNumericQ[computeMomentsStocks4Vars[$modNRC]],
 	True,
 	{},
 	TestID -> "covLong-NRC-MomentsStocksFourVarsAreNumeric"

@@ -23,20 +23,7 @@ Scan[Get @ FileNameJoin[{DirectoryName[$TestFileName, #], "Common.wl"}] &, {2, 1
 (*Test Setup*)
 
 (* Model for testing - NRC model with inflation dynamics *)
-$testModel = $models["NRC"];
-
-(* State variable symbols *)
-$pi = FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi;
-$dc = FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc;
-$sg = FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sg;
-$dd = FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd;
-
-(* Endogenous symbols *)
-$A = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A;
-$R = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`R;
-
-(* Private function *)
-$lagStateVarst = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst;
+$testModel = $modNRC;
 
 
 (* ::Subsection:: *)
@@ -79,8 +66,8 @@ TestCreate[
 
 (* Test: Dividend and inflation product expectation *)
 TestCreate[
-	Simplify[ev[$dd[t+1,i] $pi[t+1], t, $testModel] -
-		((mup + rhop($pi[t]-mup) + xip eps["pi"][t])*(mud[i] + rhodp[i]($pi[t]-mup) + xid[i] $sg[t-1] eps["pi"][t]))] === 0,
+	simplifiesZeroQ[ev[$dd[t+1,i] $pi[t+1], t, $testModel] -
+		((mup + rhop($pi[t]-mup) + xip eps["pi"][t])*(mud[i] + rhodp[i]($pi[t]-mup) + xid[i] $sg[t-1] eps["pi"][t]))],
 	True,
 	{},
 	TestID -> "ev-DividendInflationProduct-Simplifies"
@@ -88,8 +75,8 @@ TestCreate[
 
 (* Test: Dividend and consumption product expectation *)
 TestCreate[
-	Simplify[ev[$dd[t+1,i] $dc[t+1], t, $testModel] -
-		((mud[i] + rhodp[i]($pi[t]-mup) + xid[i] $sg[t-1] eps["pi"][t])*(muc + rhocp($pi[t]-mup) + xic $sg[t-1] eps["pi"][t]) + phic phidc[i])] === 0,
+	simplifiesZeroQ[ev[$dd[t+1,i] $dc[t+1], t, $testModel] -
+		((mud[i] + rhodp[i]($pi[t]-mup) + xid[i] $sg[t-1] eps["pi"][t])*(muc + rhocp($pi[t]-mup) + xic $sg[t-1] eps["pi"][t]) + phic phidc[i])],
 	True,
 	{},
 	TestID -> "ev-DividendConsumptionProduct-Simplifies"
@@ -97,8 +84,8 @@ TestCreate[
 
 (* Test: Three-term product: volatility, consumption, and inflation *)
 TestCreate[
-	Simplify[ev[$sg[t+3] $dc[t+2] $pi[t+1], t, $testModel] -
-		((Esg + rhog^3 ($sg[t]-Esg))*((mup + rhop($pi[t]-mup) + xip eps["pi"][t])*(muc + rhocp rhop($pi[t]-mup) + rhocp xip eps["pi"][t]) + rhocp phip^2 + xic phip $sg[t]))] === 0,
+	simplifiesZeroQ[ev[$sg[t+3] $dc[t+2] $pi[t+1], t, $testModel] -
+		((Esg + rhog^3 ($sg[t]-Esg))*((mup + rhop($pi[t]-mup) + xip eps["pi"][t])*(muc + rhocp rhop($pi[t]-mup) + rhocp xip eps["pi"][t]) + rhocp phip^2 + xic phip $sg[t]))],
 	True,
 	{},
 	TestID -> "ev-VolatilityConsumptionInflation-Simplifies"
@@ -106,8 +93,8 @@ TestCreate[
 
 (* Test: Inflation squared expectation *)
 TestCreate[
-	Simplify[ev[$pi[t+2] $pi[t+1], t, $testModel] -
-		((mup + rhop($pi[t]-mup) + xip eps["pi"][t])*(mup + rhop^2 ($pi[t]-mup) + rhop xip eps["pi"][t]) + rhop phip^2 + xip phip)] === 0,
+	simplifiesZeroQ[ev[$pi[t+2] $pi[t+1], t, $testModel] -
+		((mup + rhop($pi[t]-mup) + xip eps["pi"][t])*(mup + rhop^2 ($pi[t]-mup) + rhop xip eps["pi"][t]) + rhop phip^2 + xip phip)],
 	True,
 	{},
 	TestID -> "ev-InflationSquared-Simplifies"
@@ -120,7 +107,7 @@ TestCreate[
 
 (* Test: Consumption and inflation at t+1 information *)
 TestCreate[
-	Simplify[ev[$dc[t+2] $pi[t+1], t+1, $testModel] - $pi[t+1] ev[$dc[t+2], t+1, $testModel]] === 0,
+	simplifiesZeroQ[ev[$dc[t+2] $pi[t+1], t+1, $testModel] - $pi[t+1] ev[$dc[t+2], t+1, $testModel]],
 	True,
 	{},
 	TestID -> "ev-ConsumptionInflation-AtTPlus1Info"
@@ -128,8 +115,8 @@ TestCreate[
 
 (* Test: Consumption and inflation at t information *)
 TestCreate[
-	Simplify[ev[$dc[t+2] $pi[t+1], t, $testModel] -
-		((mup + rhop($pi[t]-mup) + xip eps["pi"][t])*(muc + rhocp rhop($pi[t]-mup) + rhocp xip eps["pi"][t]) + rhocp phip^2 + xic phip $sg[t])] === 0,
+	simplifiesZeroQ[ev[$dc[t+2] $pi[t+1], t, $testModel] -
+		((mup + rhop($pi[t]-mup) + xip eps["pi"][t])*(muc + rhocp rhop($pi[t]-mup) + rhocp xip eps["pi"][t]) + rhocp phip^2 + xic phip $sg[t])],
 	True,
 	{},
 	TestID -> "ev-ConsumptionInflation-AtTInfo"
@@ -137,8 +124,8 @@ TestCreate[
 
 (* Test: Same-period consumption and inflation *)
 TestCreate[
-	Simplify[ev[$dc[t+1] $pi[t+1], t, $testModel] -
-		(mup + rhop($pi[t]-mup) + xip eps["pi"][t])*(muc + rhocp($pi[t]-mup) + xic $sg[t-1] eps["pi"][t])] === 0,
+	simplifiesZeroQ[ev[$dc[t+1] $pi[t+1], t, $testModel] -
+		(mup + rhop($pi[t]-mup) + xip eps["pi"][t])*(muc + rhocp($pi[t]-mup) + xic $sg[t-1] eps["pi"][t])],
 	True,
 	{},
 	TestID -> "ev-ConsumptionInflation-SamePeriod"
@@ -146,8 +133,8 @@ TestCreate[
 
 (* Test: Known consumption-inflation at time t *)
 TestCreate[
-	Simplify[ev[$dc[t] $pi[t], t, $testModel] -
-		$pi[t]*(muc + rhocp($pi[t-1]-mup) + xic $sg[t-2] eps["pi"][t-1] + phic eps["dc"][t])] === 0,
+	simplifiesZeroQ[ev[$dc[t] $pi[t], t, $testModel] -
+		$pi[t]*(muc + rhocp($pi[t-1]-mup) + xic $sg[t-2] eps["pi"][t-1] + phic eps["dc"][t])],
 	True,
 	{},
 	TestID -> "ev-ConsumptionInflation-KnownAtT"
@@ -155,8 +142,8 @@ TestCreate[
 
 (* Test: Known consumption-inflation at time t-1 *)
 TestCreate[
-	Simplify[ev[$dc[t-1] $pi[t-1], t, $testModel] -
-		$pi[t-1]*(muc + rhocp($pi[t-2]-mup) + xic $sg[t-3] eps["pi"][t-2] + phic eps["dc"][t-1])] === 0,
+	simplifiesZeroQ[ev[$dc[t-1] $pi[t-1], t, $testModel] -
+		$pi[t-1]*(muc + rhocp($pi[t-2]-mup) + xic $sg[t-3] eps["pi"][t-2] + phic eps["dc"][t-1])],
 	True,
 	{},
 	TestID -> "ev-ConsumptionInflation-KnownAtTMinus1"
@@ -169,8 +156,8 @@ TestCreate[
 
 (* Test: Volatility products at various lags - recursive form *)
 TestCreate[
-	Simplify[ev[$sg[t+2] $sg[t+1]^2, t, $testModel] -
-		((1-rhog) Esg ev[$sg[t+1]^2, t, $testModel] + rhog ev[$sg[t+1]^3, t, $testModel])] === 0,
+	simplifiesZeroQ[ev[$sg[t+2] $sg[t+1]^2, t, $testModel] -
+		((1-rhog) Esg ev[$sg[t+1]^2, t, $testModel] + rhog ev[$sg[t+1]^3, t, $testModel])],
 	True,
 	{},
 	TestID -> "ev-VolatilityProduct-RecursiveForm"
@@ -178,8 +165,8 @@ TestCreate[
 
 (* Test: Volatility products - expanded form *)
 TestCreate[
-	Simplify[ev[$sg[t+2] $sg[t+1]^2, t, $testModel] -
-		((1-rhog) Esg ((Esg + rhog($sg[t]-Esg))^2 + phig^2) + rhog((Esg + rhog($sg[t]-Esg))^3 + 3 phig^2 (Esg + rhog($sg[t]-Esg))))] === 0,
+	simplifiesZeroQ[ev[$sg[t+2] $sg[t+1]^2, t, $testModel] -
+		((1-rhog) Esg ((Esg + rhog($sg[t]-Esg))^2 + phig^2) + rhog((Esg + rhog($sg[t]-Esg))^3 + 3 phig^2 (Esg + rhog($sg[t]-Esg))))],
 	True,
 	{},
 	TestID -> "ev-VolatilityProduct-ExpandedForm"
@@ -187,8 +174,8 @@ TestCreate[
 
 (* Test: Volatility cross-products t+2 and t+1 *)
 TestCreate[
-	Simplify[ev[$sg[t+2] $sg[t+1], t, $testModel] -
-		((Esg + rhog^2 ($sg[t]-Esg))*(Esg + rhog($sg[t]-Esg)) + rhog phig^2)] === 0,
+	simplifiesZeroQ[ev[$sg[t+2] $sg[t+1], t, $testModel] -
+		((Esg + rhog^2 ($sg[t]-Esg))*(Esg + rhog($sg[t]-Esg)) + rhog phig^2)],
 	True,
 	{},
 	TestID -> "ev-VolatilityCross-TPlus2TPlus1"
@@ -196,8 +183,8 @@ TestCreate[
 
 (* Test: Volatility cross-products t+3 and t+1 *)
 TestCreate[
-	Simplify[ev[$sg[t+3] $sg[t+1], t, $testModel] -
-		((Esg + rhog^3 ($sg[t]-Esg))*(Esg + rhog($sg[t]-Esg)) + rhog^2 phig^2)] === 0,
+	simplifiesZeroQ[ev[$sg[t+3] $sg[t+1], t, $testModel] -
+		((Esg + rhog^3 ($sg[t]-Esg))*(Esg + rhog($sg[t]-Esg)) + rhog^2 phig^2)],
 	True,
 	{},
 	TestID -> "ev-VolatilityCross-TPlus3TPlus1"
@@ -205,8 +192,8 @@ TestCreate[
 
 (* Test: Volatility and inflation product *)
 TestCreate[
-	Simplify[ev[$sg[t+1] $pi[t+1], t, $testModel] -
-		((Esg + rhog($sg[t]-Esg))*(mup + rhop($pi[t]-mup) + xip eps["pi"][t]))] === 0,
+	simplifiesZeroQ[ev[$sg[t+1] $pi[t+1], t, $testModel] -
+		((Esg + rhog($sg[t]-Esg))*(mup + rhop($pi[t]-mup) + xip eps["pi"][t]))],
 	True,
 	{},
 	TestID -> "ev-VolatilityInflation-Product"
@@ -214,7 +201,7 @@ TestCreate[
 
 (* Test: Known volatility-inflation at t *)
 TestCreate[
-	Simplify[ev[$sg[t] $pi[t], t, $testModel] - $sg[t] $pi[t]] === 0,
+	simplifiesZeroQ[ev[$sg[t] $pi[t], t, $testModel] - $sg[t] $pi[t]],
 	True,
 	{},
 	TestID -> "ev-VolatilityInflation-KnownAtT"
@@ -222,7 +209,7 @@ TestCreate[
 
 (* Test: Known volatility-inflation at t-1 *)
 TestCreate[
-	Simplify[ev[$sg[t-1] $pi[t-1], t, $testModel] - $sg[t-1] $pi[t-1]] === 0,
+	simplifiesZeroQ[ev[$sg[t-1] $pi[t-1], t, $testModel] - $sg[t-1] $pi[t-1]],
 	True,
 	{},
 	TestID -> "ev-VolatilityInflation-KnownAtTMinus1"
@@ -235,7 +222,7 @@ TestCreate[
 
 (* Test: Volatility squared at t+1 given t *)
 TestCreate[
-	Simplify[ev[$sg[t+1]^2, t, $testModel] - ((Esg + rhog($sg[t]-Esg))^2 + phig^2)] === 0,
+	simplifiesZeroQ[ev[$sg[t+1]^2, t, $testModel] - ((Esg + rhog($sg[t]-Esg))^2 + phig^2)],
 	True,
 	{},
 	TestID -> "ev-VolatilitySquared-TPlus1GivenT"
@@ -243,7 +230,7 @@ TestCreate[
 
 (* Test: Volatility squared at t given t (known) *)
 TestCreate[
-	Simplify[ev[$sg[t]^2, t, $testModel] - $sg[t]^2] === 0,
+	simplifiesZeroQ[ev[$sg[t]^2, t, $testModel] - $sg[t]^2],
 	True,
 	{},
 	TestID -> "ev-VolatilitySquared-Known"
@@ -251,7 +238,7 @@ TestCreate[
 
 (* Test: Volatility squared at t+1 given t-1 *)
 TestCreate[
-	Simplify[ev[$sg[t+1]^2, t-1, $testModel] - ((Esg + rhog^2 ($sg[t-1]-Esg))^2 + (rhog^2+1) phig^2)] === 0,
+	simplifiesZeroQ[ev[$sg[t+1]^2, t-1, $testModel] - ((Esg + rhog^2 ($sg[t-1]-Esg))^2 + (rhog^2+1) phig^2)],
 	True,
 	{},
 	TestID -> "ev-VolatilitySquared-TPlus1GivenTMinus1"
@@ -259,7 +246,7 @@ TestCreate[
 
 (* Test: Volatility squared at t+1 given t-2 *)
 TestCreate[
-	Simplify[ev[$sg[t+1]^2, t-2, $testModel] - ((Esg + rhog^3 ($sg[t-2]-Esg))^2 + (rhog^4+rhog^2+1) phig^2)] === 0,
+	simplifiesZeroQ[ev[$sg[t+1]^2, t-2, $testModel] - ((Esg + rhog^3 ($sg[t-2]-Esg))^2 + (rhog^4+rhog^2+1) phig^2)],
 	True,
 	{},
 	TestID -> "ev-VolatilitySquared-TPlus1GivenTMinus2"
@@ -272,7 +259,7 @@ TestCreate[
 
 (* Test: Volatility first moment at t+1 given t *)
 TestCreate[
-	Simplify[ev[$sg[t+1], t, $testModel] - (Esg + rhog($sg[t]-Esg))] === 0,
+	simplifiesZeroQ[ev[$sg[t+1], t, $testModel] - (Esg + rhog($sg[t]-Esg))],
 	True,
 	{},
 	TestID -> "ev-VolatilityFirst-TPlus1GivenT"
@@ -280,7 +267,7 @@ TestCreate[
 
 (* Test: Volatility first moment at t (known) *)
 TestCreate[
-	Simplify[ev[$sg[t], t, $testModel] - $sg[t]] === 0,
+	simplifiesZeroQ[ev[$sg[t], t, $testModel] - $sg[t]],
 	True,
 	{},
 	TestID -> "ev-VolatilityFirst-Known"
@@ -288,7 +275,7 @@ TestCreate[
 
 (* Test: Volatility first moment at t+1 given t-1 *)
 TestCreate[
-	Simplify[ev[$sg[t+1], t-1, $testModel] - (Esg + rhog^2 ($sg[t-1]-Esg))] === 0,
+	simplifiesZeroQ[ev[$sg[t+1], t-1, $testModel] - (Esg + rhog^2 ($sg[t-1]-Esg))],
 	True,
 	{},
 	TestID -> "ev-VolatilityFirst-TPlus1GivenTMinus1"
@@ -296,7 +283,7 @@ TestCreate[
 
 (* Test: Consumption first moment at t+1 given t-1 *)
 TestCreate[
-	Simplify[ev[$dc[t+1], t-1, $testModel] - (muc + rhocp rhop($pi[t-1]-mup) + rhocp xip eps["pi"][t-1])] === 0,
+	simplifiesZeroQ[ev[$dc[t+1], t-1, $testModel] - (muc + rhocp rhop($pi[t-1]-mup) + rhocp xip eps["pi"][t-1])],
 	True,
 	{},
 	TestID -> "ev-ConsumptionFirst-TPlus1GivenTMinus1"
@@ -304,7 +291,7 @@ TestCreate[
 
 (* Test: Consumption first moment at t given t-1 *)
 TestCreate[
-	Simplify[ev[$dc[t], t-1, $testModel] - (muc + rhocp($pi[t-1]-mup) + xic $sg[t-2] eps["pi"][t-1])] === 0,
+	simplifiesZeroQ[ev[$dc[t], t-1, $testModel] - (muc + rhocp($pi[t-1]-mup) + xic $sg[t-2] eps["pi"][t-1])],
 	True,
 	{},
 	TestID -> "ev-ConsumptionFirst-TGivenTMinus1"
@@ -317,7 +304,7 @@ TestCreate[
 
 (* Test: Future shock times future inflation (independent) *)
 TestCreate[
-	Simplify[ev[eps["pi"][t+2] $pi[t+1], t-1, $testModel]] === 0,
+	simplifiesZeroQ[ev[eps["pi"][t+2] $pi[t+1], t-1, $testModel]],
 	True,
 	{},
 	TestID -> "ev-ShockInflation-FutureIndependent"
@@ -325,7 +312,7 @@ TestCreate[
 
 (* Test: Current shock times future inflation *)
 TestCreate[
-	Simplify[ev[eps["pi"][t+1] $pi[t+1], t-1, $testModel] - phip] === 0,
+	simplifiesZeroQ[ev[eps["pi"][t+1] $pi[t+1], t-1, $testModel] - phip],
 	True,
 	{},
 	TestID -> "ev-ShockInflation-CurrentShock"
@@ -333,7 +320,7 @@ TestCreate[
 
 (* Test: Past shock times future inflation *)
 TestCreate[
-	Simplify[ev[eps["pi"][t] $pi[t+1], t-1, $testModel] - (rhop phip + xip)] === 0,
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t+1], t-1, $testModel] - (rhop phip + xip)],
 	True,
 	{},
 	TestID -> "ev-ShockInflation-PastShock"
@@ -341,8 +328,8 @@ TestCreate[
 
 (* Test: Known shock times future inflation *)
 TestCreate[
-	Simplify[ev[eps["pi"][t-1] $pi[t+1], t-1, $testModel] -
-		((mup + rhop^2 ($pi[t-1]-mup) + rhop xip eps["pi"][t-1]) eps["pi"][t-1])] === 0,
+	simplifiesZeroQ[ev[eps["pi"][t-1] $pi[t+1], t-1, $testModel] -
+		((mup + rhop^2 ($pi[t-1]-mup) + rhop xip eps["pi"][t-1]) eps["pi"][t-1])],
 	True,
 	{},
 	TestID -> "ev-ShockInflation-KnownShock"
@@ -355,7 +342,7 @@ TestCreate[
 
 (* Test: Inflation at t+2 given t+2 (known) *)
 TestCreate[
-	Simplify[ev[$pi[t+2], t+2, $testModel] - $pi[t+2]] === 0,
+	simplifiesZeroQ[ev[$pi[t+2], t+2, $testModel] - $pi[t+2]],
 	True,
 	{},
 	TestID -> "ev-Inflation-TPlus2Known"
@@ -363,7 +350,7 @@ TestCreate[
 
 (* Test: Inflation at t+2 given t+1 *)
 TestCreate[
-	Simplify[ev[$pi[t+2], t+1, $testModel] - (mup + rhop($pi[t+1]-mup) + xip eps["pi"][t+1])] === 0,
+	simplifiesZeroQ[ev[$pi[t+2], t+1, $testModel] - (mup + rhop($pi[t+1]-mup) + xip eps["pi"][t+1])],
 	True,
 	{},
 	TestID -> "ev-Inflation-TPlus2GivenTPlus1"
@@ -371,7 +358,7 @@ TestCreate[
 
 (* Test: Inflation at t+2 given t *)
 TestCreate[
-	Simplify[ev[$pi[t+2], t, $testModel] - (mup + rhop^2 ($pi[t]-mup) + rhop xip eps["pi"][t])] === 0,
+	simplifiesZeroQ[ev[$pi[t+2], t, $testModel] - (mup + rhop^2 ($pi[t]-mup) + rhop xip eps["pi"][t])],
 	True,
 	{},
 	TestID -> "ev-Inflation-TPlus2GivenT"
@@ -379,7 +366,7 @@ TestCreate[
 
 (* Test: Inflation at t+2 given t-1 *)
 TestCreate[
-	Simplify[ev[$pi[t+2], t-1, $testModel] - (mup + rhop^3 ($pi[t-1]-mup) + rhop^2 xip eps["pi"][t-1])] === 0,
+	simplifiesZeroQ[ev[$pi[t+2], t-1, $testModel] - (mup + rhop^3 ($pi[t-1]-mup) + rhop^2 xip eps["pi"][t-1])],
 	True,
 	{},
 	TestID -> "ev-Inflation-TPlus2GivenTMinus1"
@@ -387,7 +374,7 @@ TestCreate[
 
 (* Test: Inflation at t+2 given t-2 *)
 TestCreate[
-	Simplify[ev[$pi[t+2], t-2, $testModel] - (mup + rhop^4 ($pi[t-2]-mup) + rhop^3 xip eps["pi"][t-2])] === 0,
+	simplifiesZeroQ[ev[$pi[t+2], t-2, $testModel] - (mup + rhop^4 ($pi[t-2]-mup) + rhop^3 xip eps["pi"][t-2])],
 	True,
 	{},
 	TestID -> "ev-Inflation-TPlus2GivenTMinus2"
@@ -400,7 +387,7 @@ TestCreate[
 
 (* Test: Inflation squared second moment *)
 TestCreate[
-	Simplify[ev[$pi[t+1]^2, t, $testModel] - ((mup + rhop($pi[t]-mup) + xip eps["pi"][t])^2 + phip^2)] === 0,
+	simplifiesZeroQ[ev[$pi[t+1]^2, t, $testModel] - ((mup + rhop($pi[t]-mup) + xip eps["pi"][t])^2 + phip^2)],
 	True,
 	{},
 	TestID -> "ev-SecondMoment-InflationSquared"
@@ -408,7 +395,7 @@ TestCreate[
 
 (* Test: Consumption squared second moment *)
 TestCreate[
-	Simplify[ev[$dc[t+1]^2, t, $testModel] - ((muc + rhocp($pi[t]-mup) + xic $sg[t-1] eps["pi"][t])^2 + phic^2)] === 0,
+	simplifiesZeroQ[ev[$dc[t+1]^2, t, $testModel] - ((muc + rhocp($pi[t]-mup) + xic $sg[t-1] eps["pi"][t])^2 + phic^2)],
 	True,
 	{},
 	TestID -> "ev-SecondMoment-ConsumptionSquared"
@@ -416,7 +403,7 @@ TestCreate[
 
 (* Test: Volatility squared second moment *)
 TestCreate[
-	Simplify[ev[$sg[t+1]^2, t, $testModel] - ((Esg + rhog($sg[t]-Esg))^2 + phig^2)] === 0,
+	simplifiesZeroQ[ev[$sg[t+1]^2, t, $testModel] - ((Esg + rhog($sg[t]-Esg))^2 + phig^2)],
 	True,
 	{},
 	TestID -> "ev-SecondMoment-VolatilitySquared"
@@ -424,7 +411,7 @@ TestCreate[
 
 (* Test: Dividend squared second moment *)
 TestCreate[
-	Simplify[ev[$dd[t+1,i]^2, t, $testModel] - ((mud[i] + rhodp[i]($pi[t]-mup) + xid[i] $sg[t-1] eps["pi"][t])^2 + phidc[i]^2)] === 0,
+	simplifiesZeroQ[ev[$dd[t+1,i]^2, t, $testModel] - ((mud[i] + rhodp[i]($pi[t]-mup) + xid[i] $sg[t-1] eps["pi"][t])^2 + phidc[i]^2)],
 	True,
 	{},
 	TestID -> "ev-SecondMoment-DividendSquared"
@@ -437,7 +424,7 @@ TestCreate[
 
 (* Test: Inflation variance *)
 TestCreate[
-	Simplify[var[$pi[t+1], t, $testModel] - phip^2] === 0,
+	simplifiesZeroQ[var[$pi[t+1], t, $testModel] - phip^2],
 	True,
 	{},
 	TestID -> "var-Inflation-EqualsPhipSquared"
@@ -445,7 +432,7 @@ TestCreate[
 
 (* Test: Consumption variance *)
 TestCreate[
-	Simplify[var[$dc[t+1], t, $testModel] - phic^2] === 0,
+	simplifiesZeroQ[var[$dc[t+1], t, $testModel] - phic^2],
 	True,
 	{},
 	TestID -> "var-Consumption-EqualsPhicSquared"
@@ -453,7 +440,7 @@ TestCreate[
 
 (* Test: Volatility variance *)
 TestCreate[
-	Simplify[var[$sg[t+1], t, $testModel] - phig^2] === 0,
+	simplifiesZeroQ[var[$sg[t+1], t, $testModel] - phig^2],
 	True,
 	{},
 	TestID -> "var-Volatility-EqualsPhigSquared"
@@ -461,7 +448,7 @@ TestCreate[
 
 (* Test: Dividend variance *)
 TestCreate[
-	Simplify[var[$dd[t+1,i], t, $testModel] - phidc[i]^2] === 0,
+	simplifiesZeroQ[var[$dd[t+1,i], t, $testModel] - phidc[i]^2],
 	True,
 	{},
 	TestID -> "var-Dividend-EqualsPhidcSquared"
@@ -474,7 +461,7 @@ TestCreate[
 
 (* Test: LIE for inflation *)
 TestCreate[
-	Simplify[ev[$pi[t+1], t-1, $testModel] - ev[ev[$pi[t+1], t, $testModel], t-1, $testModel]] === 0,
+	simplifiesZeroQ[ev[$pi[t+1], t-1, $testModel] - ev[ev[$pi[t+1], t, $testModel], t-1, $testModel]],
 	True,
 	{},
 	TestID -> "ev-LIE-Inflation"
@@ -482,7 +469,7 @@ TestCreate[
 
 (* Test: LIE for consumption *)
 TestCreate[
-	Simplify[ev[$dc[t+1], t-1, $testModel] - ev[ev[$dc[t+1], t, $testModel], t-1, $testModel]] === 0,
+	simplifiesZeroQ[ev[$dc[t+1], t-1, $testModel] - ev[ev[$dc[t+1], t, $testModel], t-1, $testModel]],
 	True,
 	{},
 	TestID -> "ev-LIE-Consumption"
@@ -490,7 +477,7 @@ TestCreate[
 
 (* Test: LIE for volatility *)
 TestCreate[
-	Simplify[ev[$sg[t+1], t-1, $testModel] - ev[ev[$sg[t+1], t, $testModel], t-1, $testModel]] === 0,
+	simplifiesZeroQ[ev[$sg[t+1], t-1, $testModel] - ev[ev[$sg[t+1], t, $testModel], t-1, $testModel]],
 	True,
 	{},
 	TestID -> "ev-LIE-Volatility"
@@ -498,7 +485,7 @@ TestCreate[
 
 (* Test: LIE for dividend *)
 TestCreate[
-	Simplify[ev[$dd[t+1,i], t-1, $testModel] - ev[ev[$dd[t+1,i], t, $testModel], t-1, $testModel]] === 0,
+	simplifiesZeroQ[ev[$dd[t+1,i], t-1, $testModel] - ev[ev[$dd[t+1,i], t, $testModel], t-1, $testModel]],
 	True,
 	{},
 	TestID -> "ev-LIE-Dividend"
@@ -506,7 +493,7 @@ TestCreate[
 
 (* Test: LIE for inflation-consumption product *)
 TestCreate[
-	Simplify[ev[$pi[t+1] $dc[t+1], t-1, $testModel] - ev[ev[$pi[t+1] $dc[t+1], t, $testModel], t-1, $testModel]] === 0,
+	simplifiesZeroQ[ev[$pi[t+1] $dc[t+1], t-1, $testModel] - ev[ev[$pi[t+1] $dc[t+1], t, $testModel], t-1, $testModel]],
 	True,
 	{},
 	TestID -> "ev-LIE-InflationConsumptionProduct"
@@ -514,7 +501,7 @@ TestCreate[
 
 (* Test: LIE for consumption-volatility product *)
 TestCreate[
-	Simplify[ev[$dc[t+1] $sg[t+1], t-1, $testModel] - ev[ev[$dc[t+1] $sg[t+1], t, $testModel], t-1, $testModel]] === 0,
+	simplifiesZeroQ[ev[$dc[t+1] $sg[t+1], t-1, $testModel] - ev[ev[$dc[t+1] $sg[t+1], t, $testModel], t-1, $testModel]],
 	True,
 	{},
 	TestID -> "ev-LIE-ConsumptionVolatilityProduct"
@@ -522,7 +509,7 @@ TestCreate[
 
 (* Test: LIE for volatility squared *)
 TestCreate[
-	Simplify[ev[$sg[t+1]^2, t-1, $testModel] - ev[ev[$sg[t+1]^2, t, $testModel], t-1, $testModel]] === 0,
+	simplifiesZeroQ[ev[$sg[t+1]^2, t-1, $testModel] - ev[ev[$sg[t+1]^2, t, $testModel], t-1, $testModel]],
 	True,
 	{},
 	TestID -> "ev-LIE-VolatilitySquared"
@@ -530,7 +517,7 @@ TestCreate[
 
 (* Test: LIE for dividend t+2 *)
 TestCreate[
-	Simplify[ev[$dd[t+2,i], t-1, $testModel] - ev[ev[$dd[t+2,i], t, $testModel], t-1, $testModel]] === 0,
+	simplifiesZeroQ[ev[$dd[t+2,i], t-1, $testModel] - ev[ev[$dd[t+2,i], t, $testModel], t-1, $testModel]],
 	True,
 	{},
 	TestID -> "ev-LIE-DividendTPlus2"
@@ -617,7 +604,7 @@ TestCreate[
 
 (* Test: Time index context sensitivity *)
 TestCreate[
-	ev[$pi[foo`t+1], t, $testModel] === FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[1+foo`t],
+	ev[$pi[foo`t+1], t, $testModel] === $pi[1+foo`t],
 	True,
 	{},
 	TestID -> "ev-Context-TimeIndexSensitivity"
