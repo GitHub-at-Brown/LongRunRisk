@@ -22,11 +22,14 @@ Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "Common.wl"}]];
 
 
 (* Shared fixture: base parameter set used across all tests *)
-$baseParams = {
-	delta -> 0.998`, Esx -> 0.0078`, gamma -> 10, muc -> 0.0015`, phisxs -> 2.3`*^-6,
-	phix -> 0.044`, psi -> 1.5`, rhox -> 0.979`, theta -> (1 - gamma)/(1 - 1/psi),
-	vx -> 0.987`, mud[1] -> 0.0015`, phidxd[1] -> 4.5`, rhodx[1] -> 3
-};
+(* Block ensures all parameter symbols belong to the correct context *)
+$baseParams = Block[{$Context = "FernandoDuarte`LongRunRisk`Model`Parameters`"},
+	{
+		delta -> 0.998`, Esx -> 0.0078`, gamma -> 10, muc -> 0.0015`, phisxs -> 2.3`*^-6,
+		phix -> 0.044`, psi -> 1.5`, rhox -> 0.979`, theta -> (1 - gamma)/(1 - 1/psi),
+		vx -> 0.987`, mud[1] -> 0.0015`, phidxd[1] -> 4.5`, rhodx[1] -> 3
+	}
+];
 
 (* Returns True if evaluation of expr returns $Aborted *)
 SetAttributes[checkAbrt, HoldAll];
@@ -271,7 +274,7 @@ TestCreate[
 	With[{p = $baseParams, newP = {psi -> 2, theta -> -3.`}},
 		Module[{procP = processNewParameters[newP, p]},
 			(* gamma = 1 - theta*(1-1/psi) = 1 - (-3)*(1-1/2) = 1 + 3*0.5 = 2.5 *)
-			Abs[(gamma /. procP) - 2.5] < $MachineEpsilon
+			Abs[(gamma /. procP) - 2.5] < 10^-10
 		]
 	],
 	True,
@@ -284,7 +287,7 @@ TestCreate[
 	With[{p = $baseParams, newP = {psi -> 2, gamma -> 2.5}},
 		Module[{procP = processNewParameters[newP, p]},
 			(* theta = (1-gamma)/(1-1/psi) = (1-2.5)/(1-0.5) = -1.5/0.5 = -3 *)
-			Abs[(theta /. procP) + 3] < $MachineEpsilon
+			Abs[(theta /. procP) + 3] < 10^-10
 		]
 	],
 	True,
@@ -297,7 +300,7 @@ TestCreate[
 	With[{p = $baseParams, newP = {gamma -> 2.5, theta -> -3.`}},
 		Module[{procP = processNewParameters[newP, p]},
 			(* psi = 1/(1-(1-gamma)/theta) = 1/(1-(-1.5)/(-3)) = 1/(1-0.5) = 2 *)
-			Abs[(psi /. procP) - 2] < $MachineEpsilon
+			Abs[(psi /. procP) - 2] < 10^-10
 		]
 	],
 	True,

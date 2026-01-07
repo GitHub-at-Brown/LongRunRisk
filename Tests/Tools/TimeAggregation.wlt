@@ -82,13 +82,14 @@ TestCreate[
 ]
 
 (* Test: TimeAggregation=12 produces correct coefficient pattern *)
+(* Uses mathematical equivalence rather than structural matching for robustness *)
 TestCreate[
-	(growth[dc, t, "TimeAggregation" -> 12, "numPeriods" -> 1] /.
-		Plus -> List /. Times -> List /. dc[{x__, t}] -> -x /. dc[t] -> 0) ===
-		{{1/12, 22}, {1/6, 21}, {1/4, 20}, {1/3, 19}, {5/12, 18}, {1/2, 17},
-		 {7/12, 16}, {2/3, 15}, {3/4, 14}, {5/6, 13}, {11/12, 12}, 11,
-		 {11/12, 10}, {5/6, 9}, {3/4, 8}, {2/3, 7}, {7/12, 6}, {1/2, 5},
-		 {5/12, 4}, {1/3, 3}, {1/4, 2}, {1/6, 1}, {1/12, 0}},
+	Module[{result, expected},
+		result = growth[dc, t, "TimeAggregation" -> 12, "numPeriods" -> 1];
+		(* Expected tent-shaped coefficients: 1/12, 2/12, ..., 11/12, 1, 11/12, ..., 1/12 *)
+		expected = Sum[Min[j + 1, 23 - j]/12 * dc[t - j], {j, 0, 22}];
+		PossibleZeroQ[Simplify[result - expected]]
+	],
 	True,
 	{},
 	TestID -> "growth-TimeAgg12-CoefficientPattern"

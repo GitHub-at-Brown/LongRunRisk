@@ -37,8 +37,8 @@ TestCreate[
 TestCreate[
 	Module[{stdout},
 		stdout = captureStdout[print["test message", "Verbose" -> True]];
-		IntermediateTest[StringContainsQ[stdout, "test message"], True, TestID -> "stdout-contains-message"];
-		IntermediateTest[StringEndsQ[stdout, "\n"], True, TestID -> "stdout-ends-newline"];
+		IntermediateTest[StringContainsQ[stdout, "test message"], True, TestID -> "VerboseTrue-stdout-contains-message"];
+		IntermediateTest[StringEndsQ[stdout, "\n"], True, TestID -> "VerboseTrue-stdout-ends-newline"];
 		print["test message", "Verbose" -> True]
 	],
 	Null,
@@ -50,9 +50,9 @@ TestCreate[
 TestCreate[
 	Module[{stdout},
 		stdout = captureStdout[print["full test", "Verbose" -> True, "Memory" -> True, "Prefix" -> "[TEST]"]];
-		IntermediateTest[StringContainsQ[stdout, "[TEST]"], True, TestID -> "stdout-contains-prefix"];
-		IntermediateTest[StringContainsQ[stdout, "full test"], True, TestID -> "stdout-contains-message"];
-		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], True, TestID -> "stdout-contains-memory"];
+		IntermediateTest[StringContainsQ[stdout, "[TEST]"], True, TestID -> "AllOptions-stdout-contains-prefix"];
+		IntermediateTest[StringContainsQ[stdout, "full test"], True, TestID -> "AllOptions-stdout-contains-message"];
+		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], True, TestID -> "AllOptions-stdout-contains-memory"];
 		print["full test", "Verbose" -> True, "Memory" -> True, "Prefix" -> "[TEST]"]
 	],
 	Null,
@@ -69,11 +69,13 @@ TestCreate[
 TestCreate[
 	Module[{stdout, result, originalCI},
 		originalCI = Environment["CI"];
-		SetEnvironment["CI" -> None];
-		stdout = captureStdout[result = print["ci test", "Verbose" -> "CI"]];
-		SetEnvironment["CI" -> Replace[originalCI, $Failed -> None]];
-		IntermediateTest[stdout, "", TestID -> "stdout-empty-no-ci-env"];
-		result
+		WithCleanup[
+			SetEnvironment["CI" -> None],
+			stdout = captureStdout[result = print["ci test", "Verbose" -> "CI"]];
+			IntermediateTest[stdout, "", TestID -> "stdout-empty-no-ci-env"];
+			result,
+			SetEnvironment["CI" -> Replace[originalCI, $Failed -> None]]
+		]
 	],
 	Null,
 	{},
@@ -101,8 +103,8 @@ TestCreate[
 TestCreate[
 	Module[{stdout},
 		stdout = captureStdout[print["memory test", "Verbose" -> True, "Memory" -> False]];
-		IntermediateTest[StringContainsQ[stdout, "memory test"], True, TestID -> "stdout-contains-message"];
-		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], False, TestID -> "stdout-no-memory-info"];
+		IntermediateTest[StringContainsQ[stdout, "memory test"], True, TestID -> "MemoryFalse-stdout-contains-message"];
+		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], False, TestID -> "MemoryFalse-stdout-no-memory-info"];
 		print["memory test", "Verbose" -> True, "Memory" -> False]
 	],
 	Null,
@@ -114,9 +116,9 @@ TestCreate[
 TestCreate[
 	Module[{stdout},
 		stdout = captureStdout[print["memory test", "Verbose" -> True, "Memory" -> True]];
-		IntermediateTest[StringContainsQ[stdout, "memory test"], True, TestID -> "stdout-contains-message"];
-		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], True, TestID -> "stdout-has-memory-info"];
-		IntermediateTest[StringContainsQ[stdout, "Physical RAM:"], True, TestID -> "stdout-has-ram-info"];
+		IntermediateTest[StringContainsQ[stdout, "memory test"], True, TestID -> "MemoryTrue-stdout-contains-message"];
+		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], True, TestID -> "MemoryTrue-stdout-has-memory-info"];
+		IntermediateTest[StringContainsQ[stdout, "Physical RAM:"], True, TestID -> "MemoryTrue-stdout-has-ram-info"];
 		print["memory test", "Verbose" -> True, "Memory" -> True]
 	],
 	Null,
@@ -145,8 +147,8 @@ TestCreate[
 TestCreate[
 	Module[{stdout},
 		stdout = captureStdout[print["info message", "Verbose" -> True, "Prefix" -> "INFO"]];
-		IntermediateTest[StringStartsQ[stdout, "INFO "], True, TestID -> "stdout-starts-with-prefix"];
-		IntermediateTest[StringContainsQ[stdout, "info message"], True, TestID -> "stdout-contains-message"];
+		IntermediateTest[StringStartsQ[stdout, "INFO "], True, TestID -> "PrefixINFO-stdout-starts-with-prefix"];
+		IntermediateTest[StringContainsQ[stdout, "info message"], True, TestID -> "PrefixINFO-stdout-contains-message"];
 		print["info message", "Verbose" -> True, "Prefix" -> "INFO"]
 	],
 	Null,
@@ -158,8 +160,8 @@ TestCreate[
 TestCreate[
 	Module[{stdout},
 		stdout = captureStdout[print["debug message", "Verbose" -> True, "Prefix" -> "[DEBUG]"]];
-		IntermediateTest[StringStartsQ[stdout, "[DEBUG] "], True, TestID -> "stdout-starts-with-debug-prefix"];
-		IntermediateTest[StringContainsQ[stdout, "debug message"], True, TestID -> "stdout-contains-message"];
+		IntermediateTest[StringStartsQ[stdout, "[DEBUG] "], True, TestID -> "PrefixDEBUG-stdout-starts-with-prefix"];
+		IntermediateTest[StringContainsQ[stdout, "debug message"], True, TestID -> "PrefixDEBUG-stdout-contains-message"];
 		print["debug message", "Verbose" -> True, "Prefix" -> "[DEBUG]"]
 	],
 	Null,
@@ -176,9 +178,9 @@ TestCreate[
 TestCreate[
 	Module[{stdout},
 		stdout = captureStdout[print["combined test", "Verbose" -> True, "Prefix" -> "LOG", "Memory" -> True]];
-		IntermediateTest[StringStartsQ[stdout, "LOG "], True, TestID -> "stdout-starts-with-prefix"];
-		IntermediateTest[StringContainsQ[stdout, "combined test"], True, TestID -> "stdout-contains-message"];
-		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], True, TestID -> "stdout-has-memory"];
+		IntermediateTest[StringStartsQ[stdout, "LOG "], True, TestID -> "PrefixAndMemory-stdout-starts-with-prefix"];
+		IntermediateTest[StringContainsQ[stdout, "combined test"], True, TestID -> "PrefixAndMemory-stdout-contains-message"];
+		IntermediateTest[StringContainsQ[stdout, "Wolfram Memory:"], True, TestID -> "PrefixAndMemory-stdout-has-memory"];
 		print["combined test", "Verbose" -> True, "Prefix" -> "LOG", "Memory" -> True]
 	],
 	Null,
