@@ -95,8 +95,6 @@ toNumRules[
 			With[{solHierarchical=updateCoeffs[model,kernels,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,optsUpdateCoeffs]},
 				(* Extract flat rules from first A solution *)
 				With[{sol=flattenCoeffs[solHierarchical, 1]},
-				Echo[(uncondEwc/.sol//.allParams),"(uncondEwc/.sol//.allParams)"];
-				Echo[(uncondEpd/.(FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j->ind)/.sol//.allParams),"(uncondEpd/.(FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j->ind)/.sol//.allParams)"];
 					Join[
 						sol,
 						allParams
