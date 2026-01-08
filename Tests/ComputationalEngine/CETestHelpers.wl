@@ -21,7 +21,10 @@ $A; $B; $R; $P; $wc; $pd; $t; $retc; $ret; $bondret; $nombondret;
 $coefwc; $coefpd; $coefb; $coefnb;
 
 (* ComputationalEngine Private symbols *)
-$evNoEps; $lagStateVarst;
+$evNoEps; $lagStateVarst; $createSystem; $uncondEStep;
+
+(* createSystem solution symbols *)
+$pi1; $sg1; $pi2; $sg2; $pi1sg1;
 
 (* Test utilities *)
 simplifiesZeroQ; allNumericQ; exportedSymbolQ;
@@ -71,6 +74,19 @@ $nombondret = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombondret;
 
 $evNoEps = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`evNoEpsStateVarsProduct;
 $lagStateVarst = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`Private`lagStateVarst;
+$createSystem = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`createSystem;
+$uncondEStep = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`uncondEStep;
+
+
+(* ::Subsection:: *)
+(*createSystem Solution Symbols*)
+
+
+$pi1 = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi1;
+$sg1 = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sg1;
+$pi2 = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi2;
+$sg2 = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`sg2;
+$pi1sg1 = FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`Private`pi1sg1;
 
 
 (* ::Subsection:: *)

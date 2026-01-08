@@ -756,100 +756,824 @@ TestCreate[
 
 
 (* ::Subsection:: *)
-(*Tests Needing Refactoring*)
-(*TODO: The following tests exist in docs/test-files/ComputeConditionalExpectations.wlt*)
-(*      and need to be refactored to use TestCreate with semantic TestIDs*)
+(*ev - Consumption Expectations at Past Time Points*)
 
 
-(*
-   Bundled Assertion Tests from docs/test-files/ComputeConditionalExpectations.wlt
-   ================================================================================
-   These tests contain multiple assertions bundled together using Apply[And, {...}]
-   and should be split into individual TestCreate calls for better diagnostics.
+(* Test: Consumption at t-1 conditional on t-1 *)
+TestCreate[
+	simplifiesZeroQ[ev[$dc[t-1], t-1, $testModel] -
+		(muc + rhocp($pi[t-2]-mup) + xic $sg[t-3] eps["pi"][t-2] + phic eps["dc"][t-1])],
+	True,
+	{},
+	TestID -> "[ev] Consumption at t-1 given t-1 simplifies correctly"
+]
+
+(* Test: Consumption at t-2 conditional on t-1 *)
+TestCreate[
+	simplifiesZeroQ[ev[$dc[t-2], t-1, $testModel] -
+		(muc + rhocp($pi[t-3]-mup) + xic $sg[t-4] eps["pi"][t-3] + phic eps["dc"][t-2])],
+	True,
+	{},
+	TestID -> "[ev] Consumption at t-2 given t-1 equals realized value"
+]
+
+(* Test: Consumption at t+1 conditional on t *)
+TestCreate[
+	simplifiesZeroQ[ev[$dc[t+1], t, $testModel] -
+		(muc + rhocp($pi[t]-mup) + xic $sg[t-1] eps["pi"][t])],
+	True,
+	{},
+	TestID -> "[ev] Consumption at t+1 given t simplifies correctly"
+]
+
+(* Test: Consumption at t+1 conditional on t-1 *)
+TestCreate[
+	simplifiesZeroQ[ev[$dc[t+1], t-1, $testModel] -
+		(muc + rhocp rhop($pi[t-1]-mup) + rhocp xip eps["pi"][t-1])],
+	True,
+	{},
+	TestID -> "[ev] Consumption at t+1 given t-1 uses AR(1) inflation"
+]
+
+(* Test: Consumption at t+1 conditional on t-2 *)
+TestCreate[
+	simplifiesZeroQ[ev[$dc[t+1], t-2, $testModel] -
+		(muc + rhocp rhop^2 ($pi[t-2]-mup) + rhocp rhop xip eps["pi"][t-2])],
+	True,
+	{},
+	TestID -> "[ev] Consumption at t+1 given t-2 uses two-step AR(1)"
+]
 
 
-   TestID: ComputeConditionalExpectations_20260103-L8VFP4
-   Location: docs/test-files/ComputeConditionalExpectations.wlt lines 537-1066
-   Description: Large bundled test containing:
-
-   Consumption expectations at multiple past time points:
-   - ev[dc[t], t-1, modNRC] conditional on t-1
-   - ev[dc[t], t-2, modNRC] conditional on t-2
-   - ev[dc[t+1], t-2, modNRC] future consumption conditional on t-2
-
-   Model exogenous equation consistency checks:
-   - Verification that ev results match model equations
-   - Cross-validation of dc, pi, sg expectations with exogenousEq definitions
-
-   Extended shock-inflation product tests with various time indices:
-   - eps["pi"][t] * pi[t+k] for k = -2, -1, 0, 1, 2
-   - eps["dc"][t] * dc[t+k] products
-   - Mixed shock-variable products at different conditioning times
+(* ::Subsection:: *)
+(*ev - Extended Shock-Inflation Products by Conditioning Time*)
 
 
-   TestID: ComputeConditionalExpectations_20260103-XEP7ZK
-   Location: docs/test-files/ComputeConditionalExpectations.wlt lines 1067-1336
-   Description: Extended martingale and shock expectation tests:
-
-   Additional martingale tests with eps["sg"] (sigma/volatility shock):
-   - ev[sg[t] * eps["sg"][t+1], t-1, modNRC] === 0
-   - ev[pi[t] * eps["sg"][t+1], t-1, modNRC] === 0
-   - ev[dc[t] * eps["sg"][t+1], t-1, modNRC] === 0
-   - Verification of martingale property: E[X_t | F_{t-1}] = E[E[X_t*eps^2 | F_t] | F_{t-1}]
-
-   Extended state variable times future shock tests:
-   - pi[t] x eps["sg"][t+1]: Inflation times future volatility shock
-   - sg[t] x eps["dc"][t+1]: Volatility times future consumption shock
-   - Cross-shock products: eps["pi"][t] * eps["sg"][t+1]
-   - Three-way products: pi[t] * sg[t] * eps["dc"][t+1]
+(* ::Subsubsection:: *)
+(*Conditioning on t-1*)
 
 
-   TestID: ComputeConditionalExpectations_20260103-MMV269
-   Location: docs/test-files/ComputeConditionalExpectations.wlt lines 1360-1443
-   Description: lagStateVarst extended tests:
+(* Test: Future shock times future inflation equals zero *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t+2] $pi[t+1], t-1, $testModel]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t+2] times pi[t+1] given t-1 equals zero"
+]
 
-   Additional lagStateVarst expansion tests (t+1 given t-1):
-   - lagStateVarst[pi[t+1], t-1, modNRC] - two-step ahead expansion
-   - lagStateVarst[sg[t+1], t-1, modNRC] - volatility two-step expansion
-   - lagStateVarst[dc[t+1], t-1, modNRC] - consumption two-step expansion
-   - Verification of recursive structure: lagStateVarst[x[t+1], t-1] = lagStateVarst[lagStateVarst[x[t+1], t], t-1]
+(* Test: Same-time shock times inflation at t+1 equals phip *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t+1] $pi[t+1], t-1, $testModel] - phip],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t+1] times pi[t+1] given t-1 equals phip"
+]
 
-   Product with shock at same time index tests:
-   - lagStateVarst[pi[t] * eps["pi"][t], t-1, modNRC]
-   - lagStateVarst[sg[t] * eps["sg"][t], t-1, modNRC]
-   - Verification of shock coefficient extraction
+(* Test: Past shock times future inflation uses loading *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t+1], t-1, $testModel] - (rhop phip + xip)],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t+1] given t-1 equals rhop*phip+xip"
+]
 
-   Extended context handling with multiple different contexts (foo, bar, goo):
-   - lagStateVarst[foo`pi[t] * bar`sg[t], t-1, modNRC]
-   - lagStateVarst[goo`dc[t] * foo`eps["pi"][t], t-1, modNRC]
-   - Verification that context does not affect mathematical result
+(* Test: Known shock times future inflation factors out *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t-1] $pi[t+1], t-1, $testModel] -
+		((mup + rhop^2 ($pi[t-1]-mup) + rhop xip eps["pi"][t-1]) eps["pi"][t-1])],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t-1] times pi[t+1] given t-1 factors"
+]
 
-   Cross-time-index tests with mixed context symbols:
-   - lagStateVarst[foo`pi[t] * bar`pi[t-1], t-2, modNRC]
-   - lagStateVarst[pi[t] * goo`sg[t-1] * eps["pi"][t-1], t-2, modNRC]
-   - Verification of proper substitution across time indices
+(* Test: Earlier known shock times future inflation *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t-2] $pi[t+1], t-1, $testModel] -
+		((mup + rhop^2 ($pi[t-1]-mup) + rhop xip eps["pi"][t-1]) eps["pi"][t-2])],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t-2] times pi[t+1] given t-1 factors"
+]
 
 
-   REFACTORING NOTES:
-   ==================
-   - Each bundled test contains 20-50 individual assertions that should be separate tests
-   - The L8VFP4 test (529 lines) should be split into ~15-20 tests organized by:
-     * Past time conditioning tests
-     * Exogenous equation consistency tests
-     * Shock-variable product tests by time index
-   - The XEP7ZK test (269 lines) should be split into ~10-15 tests organized by:
-     * eps["sg"] martingale tests
-     * Cross-shock product tests
-     * Multi-variable product tests
-   - The MMV269 test (83 lines) should be split into ~8-12 tests organized by:
-     * Two-step ahead expansion tests
-     * Same-time shock product tests
-     * Multi-context tests
-     * Cross-time-index tests
+(* ::Subsubsection:: *)
+(*Conditioning on t*)
 
-   To run the original tests, execute:
-   TestReport @ FileNameJoin[{$PackageDirectory, "docs", "test-files", "ComputeConditionalExpectations.wlt"}]
-*)
+
+(* Test: Future shock times future inflation given t *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t+2] $pi[t+1], t, $testModel]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t+2] times pi[t+1] given t equals zero"
+]
+
+(* Test: Same-time shock times inflation given t *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t+1] $pi[t+1], t, $testModel] - phip],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t+1] times pi[t+1] given t equals phip"
+]
+
+(* Test: Current shock times future inflation given t *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t+1], t, $testModel] -
+		((mup + rhop($pi[t]-mup) + xip eps["pi"][t]) eps["pi"][t])],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t+1] given t uses current value"
+]
+
+(* Test: Past shock times future inflation given t *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t-1] $pi[t+1], t, $testModel] -
+		((mup + rhop($pi[t]-mup) + xip eps["pi"][t]) eps["pi"][t-1])],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t-1] times pi[t+1] given t factors"
+]
+
+(* Test: Earlier shock times future inflation given t *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t-2] $pi[t+1], t, $testModel] -
+		((mup + rhop($pi[t]-mup) + xip eps["pi"][t]) eps["pi"][t-2])],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t-2] times pi[t+1] given t factors"
+]
+
+
+(* ::Subsubsection:: *)
+(*Conditioning on t+1*)
+
+
+(* Test: Future shock times inflation given t+1 *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t+2] $pi[t+1], t+1, $testModel]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t+2] times pi[t+1] given t+1 equals zero"
+]
+
+(* Test: Same-time shock times inflation given t+1 is realized *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t+1] $pi[t+1], t+1, $testModel] - eps["pi"][t+1] $pi[t+1]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t+1] times pi[t+1] given t+1 equals product"
+]
+
+(* Test: Past shock times inflation given t+1 is realized *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t+1], t+1, $testModel] - eps["pi"][t] $pi[t+1]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t+1] given t+1 equals product"
+]
+
+(* Test: Earlier shock times inflation given t+1 is realized *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t-1] $pi[t+1], t+1, $testModel] - eps["pi"][t-1] $pi[t+1]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t-1] times pi[t+1] given t+1 equals product"
+]
+
+(* Test: Much earlier shock times inflation given t+1 *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t-2] $pi[t+1], t+1, $testModel] - eps["pi"][t-2] $pi[t+1]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t-2] times pi[t+1] given t+1 equals product"
+]
+
+
+(* ::Subsection:: *)
+(*ev - Shock Times Inflation at Different Target Times*)
+
+
+(* ::Subsubsection:: *)
+(*Target inflation at t+2*)
+
+
+(* Test: Shock at t times inflation at t+2 given t-2 *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t+2], t-2, $testModel] -
+		rhop (rhop phip + xip)],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t+2] given t-2 simplifies"
+]
+
+(* Test: Shock at t times inflation at t+2 given t-1 *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t+2], t-1, $testModel] -
+		rhop (rhop phip + xip)],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t+2] given t-1 simplifies"
+]
+
+(* Test: Shock at t times inflation at t+2 given t *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t+2], t, $testModel] -
+		((mup + rhop^2 ($pi[t]-mup) + rhop xip eps["pi"][t]) eps["pi"][t])],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t+2] given t uses current value"
+]
+
+(* Test: Shock at t times inflation at t+2 given t+1 *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t+2], t+1, $testModel] -
+		((mup + rhop($pi[t+1]-mup) + xip eps["pi"][t+1]) eps["pi"][t])],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t+2] given t+1 simplifies"
+]
+
+
+(* ::Subsubsection:: *)
+(*Target inflation at t+1*)
+
+
+(* Test: Shock at t times inflation at t+1 given t-2 *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t+1], t-2, $testModel] - (rhop phip + xip)],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t+1] given t-2 equals rhop*phip+xip"
+]
+
+
+(* ::Subsubsection:: *)
+(*Target inflation at t*)
+
+
+(* Test: Shock at t times inflation at t given t-2 equals phip *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t], t-2, $testModel] - phip],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t] given t-2 equals phip"
+]
+
+(* Test: Shock at t times inflation at t given t-1 equals phip *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t], t-1, $testModel] - phip],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t] given t-1 equals phip"
+]
+
+(* Test: Shock at t times inflation at t given t is realized *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t], t, $testModel] - eps["pi"][t] $pi[t]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t] given t equals product"
+]
+
+(* Test: Shock at t times inflation at t given t+1 is realized *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t], t+1, $testModel] - eps["pi"][t] $pi[t]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t] given t+1 equals product"
+]
+
+
+(* ::Subsubsection:: *)
+(*Target inflation at past times*)
+
+
+(* Test: Shock at t times inflation at t-1 given t-2 equals zero *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t-1], t-2, $testModel]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t-1] given t-2 equals zero"
+]
+
+(* Test: Shock at t times inflation at t-2 given t-2 equals zero *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t-2], t-2, $testModel]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t-2] given t-2 equals zero"
+]
+
+(* Test: Shock at t times inflation at t-1 given t-1 equals zero *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t-1], t-1, $testModel]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t-1] given t-1 equals zero"
+]
+
+(* Test: Shock at t times inflation at t-2 given t-1 equals zero *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t-2], t-1, $testModel]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t-2] given t-1 equals zero"
+]
+
+(* Test: Shock at t times inflation at t-1 given t is realized *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t-1], t, $testModel] - eps["pi"][t] $pi[t-1]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t-1] given t equals product"
+]
+
+(* Test: Shock at t times inflation at t-2 given t is realized *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t-2], t, $testModel] - eps["pi"][t] $pi[t-2]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t-2] given t equals product"
+]
+
+(* Test: Shock at t times inflation at t-1 given t+1 is realized *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t-1], t+1, $testModel] - eps["pi"][t] $pi[t-1]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t-1] given t+1 equals product"
+]
+
+(* Test: Shock at t times inflation at t-2 given t+1 is realized *)
+TestCreate[
+	simplifiesZeroQ[ev[eps["pi"][t] $pi[t-2], t+1, $testModel] - eps["pi"][t] $pi[t-2]],
+	True,
+	{},
+	TestID -> "[ev] eps[pi][t] times pi[t-2] given t+1 equals product"
+]
+
+
+(* ::Subsection:: *)
+(*ev - First Moment Expectations at Various Information Sets*)
+
+
+(* Test: Inflation at t+1 given t uses AR(1) *)
+TestCreate[
+	simplifiesZeroQ[ev[$pi[t+1], t, $testModel] -
+		(mup + rhop($pi[t]-mup) + xip eps["pi"][t])],
+	True,
+	{},
+	TestID -> "[ev] Inflation at t+1 given t uses AR(1) formula"
+]
+
+(* Test: Consumption at t+1 given t *)
+TestCreate[
+	simplifiesZeroQ[ev[$dc[t+1], t, $testModel] -
+		(muc + rhocp($pi[t]-mup) + xic $sg[t-1] eps["pi"][t])],
+	True,
+	{},
+	TestID -> "[ev] Consumption at t+1 given t simplifies correctly"
+]
+
+(* Test: Volatility at t+1 given t *)
+TestCreate[
+	simplifiesZeroQ[ev[$sg[t+1], t, $testModel] -
+		(Esg + rhog($sg[t]-Esg))],
+	True,
+	{},
+	TestID -> "[ev] Volatility at t+1 given t uses AR(1)"
+]
+
+(* Test: Dividend at t+1 given t *)
+TestCreate[
+	simplifiesZeroQ[ev[$dd[t+1,i], t, $testModel] -
+		(mud[i] + rhodp[i]($pi[t]-mup) + xid[i] $sg[t-1] eps["pi"][t])],
+	True,
+	{},
+	TestID -> "[ev] Dividend at t+1 given t simplifies correctly"
+]
+
+
+(* ::Subsection:: *)
+(*ev - Law of Iterated Expectations Extended Tests*)
+
+
+(* ::Subsubsection:: *)
+(*Iterated expectations for state variable products*)
+
+
+(* Test: Iterated expectations for pi*dc product *)
+TestCreate[
+	simplifiesZeroQ[ev[$pi[t+1] $dc[t+1], t-1, $testModel] -
+		ev[ev[$pi[t+1] $dc[t+1], t, $testModel], t-1, $testModel]],
+	True,
+	{},
+	TestID -> "[ev] Iterated expectations hold for pi*dc product"
+]
+
+(* Test: Iterated expectations for dc*sg product *)
+TestCreate[
+	simplifiesZeroQ[ev[$dc[t+1] $sg[t+1], t-1, $testModel] -
+		ev[ev[$dc[t+1] $sg[t+1], t, $testModel], t-1, $testModel]],
+	True,
+	{},
+	TestID -> "[ev] Iterated expectations hold for dc*sg product"
+]
+
+(* Test: Iterated expectations for sg squared *)
+TestCreate[
+	simplifiesZeroQ[ev[$sg[t+1]^2, t-1, $testModel] -
+		ev[ev[$sg[t+1]^2, t, $testModel], t-1, $testModel]],
+	True,
+	{},
+	TestID -> "[ev] Iterated expectations hold for sg squared"
+]
+
+(* Test: Iterated expectations for dd at t+2 *)
+TestCreate[
+	simplifiesZeroQ[ev[$dd[t+2,i], t-1, $testModel] -
+		ev[ev[$dd[t+2,i], t, $testModel], t-1, $testModel]],
+	True,
+	{},
+	TestID -> "[ev] Iterated expectations hold for dd at t+2"
+]
+
+
+(* ::Subsubsection:: *)
+(*State variable times future shock martingale tests*)
+
+
+(* Test: Inflation times future pi shock equals zero *)
+TestCreate[
+	ev[$pi[t] eps["pi"][t+1], t-1, $testModel] === 0 &&
+	ev[ev[$pi[t] eps["pi"][t+1], t, $testModel], t-1, $testModel] === 0,
+	True,
+	{},
+	TestID -> "[ev] pi[t]*eps[pi][t+1] martingale property holds"
+]
+
+(* Test: Inflation times future dc shock equals zero *)
+TestCreate[
+	ev[$pi[t] eps["dc"][t+1], t-1, $testModel] === 0 &&
+	ev[ev[$pi[t] eps["dc"][t+1], t, $testModel], t-1, $testModel] === 0,
+	True,
+	{},
+	TestID -> "[ev] pi[t]*eps[dc][t+1] martingale property holds"
+]
+
+(* Test: Inflation times future sg shock equals zero *)
+TestCreate[
+	ev[$pi[t] eps["sg"][t+1], t-1, $testModel] === 0 &&
+	ev[ev[$pi[t] eps["sg"][t+1], t, $testModel], t-1, $testModel] === 0,
+	True,
+	{},
+	TestID -> "[ev] pi[t]*eps[sg][t+1] martingale property holds"
+]
+
+(* Test: Volatility times future pi shock equals zero *)
+TestCreate[
+	ev[$sg[t] eps["pi"][t+1], t-1, $testModel] === 0 &&
+	ev[ev[$sg[t] eps["pi"][t+1], t, $testModel], t-1, $testModel] === 0,
+	True,
+	{},
+	TestID -> "[ev] sg[t]*eps[pi][t+1] martingale property holds"
+]
+
+(* Test: Volatility times future dc shock equals zero *)
+TestCreate[
+	ev[$sg[t] eps["dc"][t+1], t-1, $testModel] === 0 &&
+	ev[ev[$sg[t] eps["dc"][t+1], t, $testModel], t-1, $testModel] === 0,
+	True,
+	{},
+	TestID -> "[ev] sg[t]*eps[dc][t+1] martingale property holds"
+]
+
+(* Test: Volatility times future sg shock equals zero *)
+TestCreate[
+	ev[$sg[t] eps["sg"][t+1], t-1, $testModel] === 0 &&
+	ev[ev[$sg[t] eps["sg"][t+1], t, $testModel], t-1, $testModel] === 0,
+	True,
+	{},
+	TestID -> "[ev] sg[t]*eps[sg][t+1] martingale property holds"
+]
+
+
+(* ::Subsubsection:: *)
+(*Squared state variable times future shock*)
+
+
+(* Test: Inflation squared times future pi shock iterated *)
+TestCreate[
+	ev[$pi[t]^2 eps["pi"][t+2], t-1, $testModel] ===
+	ev[ev[$pi[t]^2 eps["pi"][t+2], t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] pi[t]^2*eps[pi][t+2] iterated expectations hold"
+]
+
+(* Test: Inflation squared times future dc shock iterated *)
+TestCreate[
+	ev[$pi[t]^2 eps["dc"][t+2], t-1, $testModel] ===
+	ev[ev[$pi[t]^2 eps["dc"][t+2], t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] pi[t]^2*eps[dc][t+2] iterated expectations hold"
+]
+
+(* Test: Inflation squared times future sg shock iterated *)
+TestCreate[
+	ev[$pi[t]^2 eps["sg"][t+2], t-1, $testModel] ===
+	ev[ev[$pi[t]^2 eps["sg"][t+2], t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] pi[t]^2*eps[sg][t+2] iterated expectations hold"
+]
+
+(* Test: Volatility squared times future pi shock iterated *)
+TestCreate[
+	ev[$sg[t]^2 eps["pi"][t+2], t-1, $testModel] ===
+	ev[ev[$sg[t]^2 eps["pi"][t+2], t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] sg[t]^2*eps[pi][t+2] iterated expectations hold"
+]
+
+(* Test: Volatility squared times future dc shock iterated *)
+TestCreate[
+	ev[$sg[t]^2 eps["dc"][t+2], t-1, $testModel] ===
+	ev[ev[$sg[t]^2 eps["dc"][t+2], t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] sg[t]^2*eps[dc][t+2] iterated expectations hold"
+]
+
+(* Test: Volatility squared times future sg shock iterated *)
+TestCreate[
+	ev[$sg[t]^2 eps["sg"][t+2], t-1, $testModel] ===
+	ev[ev[$sg[t]^2 eps["sg"][t+2], t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] sg[t]^2*eps[sg][t+2] iterated expectations hold"
+]
+
+
+(* ::Subsubsection:: *)
+(*Martingale property with squared shocks*)
+
+
+(* Test: Inflation times pi shock squared uses martingale *)
+TestCreate[
+	ev[$pi[t], t-1, $testModel] === ev[$pi[t] ev[eps["pi"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$pi[t] eps["pi"][t+1]^2, t-1, $testModel] === ev[ev[$pi[t] eps["pi"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] pi[t]*eps[pi][t+1]^2 martingale holds"
+]
+
+(* Test: Inflation times sg shock squared uses martingale *)
+TestCreate[
+	ev[$pi[t], t-1, $testModel] === ev[$pi[t] ev[eps["sg"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$pi[t] eps["sg"][t+1]^2, t-1, $testModel] === ev[ev[$pi[t] eps["sg"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] pi[t]*eps[sg][t+1]^2 martingale holds"
+]
+
+(* Test: Inflation times dc shock squared uses martingale *)
+TestCreate[
+	ev[$pi[t], t-1, $testModel] === ev[$pi[t] ev[eps["dc"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$pi[t] eps["dc"][t+1]^2, t-1, $testModel] === ev[ev[$pi[t] eps["dc"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] pi[t]*eps[dc][t+1]^2 martingale holds"
+]
+
+(* Test: Volatility times pi shock squared uses martingale *)
+TestCreate[
+	ev[$sg[t], t-1, $testModel] === ev[$sg[t] ev[eps["pi"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$sg[t] eps["pi"][t+1]^2, t-1, $testModel] === ev[ev[$sg[t] eps["pi"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] sg[t]*eps[pi][t+1]^2 martingale holds"
+]
+
+(* Test: Volatility times sg shock squared uses martingale *)
+TestCreate[
+	ev[$sg[t], t-1, $testModel] === ev[$sg[t] ev[eps["sg"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$sg[t] eps["sg"][t+1]^2, t-1, $testModel] === ev[ev[$sg[t] eps["sg"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] sg[t]*eps[sg][t+1]^2 martingale holds"
+]
+
+(* Test: Volatility times dc shock squared uses martingale *)
+TestCreate[
+	ev[$sg[t], t-1, $testModel] === ev[$sg[t] ev[eps["dc"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$sg[t] eps["dc"][t+1]^2, t-1, $testModel] === ev[ev[$sg[t] eps["dc"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] sg[t]*eps[dc][t+1]^2 martingale holds"
+]
+
+(* Test: Consumption times pi shock squared uses martingale *)
+TestCreate[
+	ev[$dc[t], t-1, $testModel] === ev[$dc[t] ev[eps["pi"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$dc[t] eps["pi"][t+1]^2, t-1, $testModel] === ev[ev[$dc[t] eps["pi"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] dc[t]*eps[pi][t+1]^2 martingale holds"
+]
+
+(* Test: Consumption times sg shock squared uses martingale *)
+TestCreate[
+	ev[$dc[t], t-1, $testModel] === ev[$dc[t] ev[eps["sg"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$dc[t] eps["sg"][t+1]^2, t-1, $testModel] === ev[ev[$dc[t] eps["sg"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] dc[t]*eps[sg][t+1]^2 martingale holds"
+]
+
+(* Test: Consumption times dc shock squared uses martingale *)
+TestCreate[
+	ev[$dc[t], t-1, $testModel] === ev[$dc[t] ev[eps["dc"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$dc[t] eps["dc"][t+1]^2, t-1, $testModel] === ev[ev[$dc[t] eps["dc"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] dc[t]*eps[dc][t+1]^2 martingale holds"
+]
+
+(* Test: Dividend times pi shock squared uses martingale *)
+TestCreate[
+	ev[$dd[t,i], t-1, $testModel] === ev[$dd[t,i] ev[eps["pi"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$dd[t,i] eps["pi"][t+1]^2, t-1, $testModel] === ev[ev[$dd[t,i] eps["pi"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] dd[t,i]*eps[pi][t+1]^2 martingale holds"
+]
+
+(* Test: Dividend times sg shock squared uses martingale *)
+TestCreate[
+	ev[$dd[t,i], t-1, $testModel] === ev[$dd[t,i] ev[eps["sg"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$dd[t,i] eps["sg"][t+1]^2, t-1, $testModel] === ev[ev[$dd[t,i] eps["sg"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] dd[t,i]*eps[sg][t+1]^2 martingale holds"
+]
+
+(* Test: Dividend times dc shock squared uses martingale *)
+TestCreate[
+	ev[$dd[t,i], t-1, $testModel] === ev[$dd[t,i] ev[eps["dc"][t+1]^2, t, $testModel], t-1, $testModel] &&
+	ev[$dd[t,i] eps["dc"][t+1]^2, t-1, $testModel] === ev[ev[$dd[t,i] eps["dc"][t+1]^2, t, $testModel], t-1, $testModel],
+	True,
+	{},
+	TestID -> "[ev] dd[t,i]*eps[dc][t+1]^2 martingale holds"
+]
+
+
+(* ::Subsection:: *)
+(*ev - Extended Context Handling Tests*)
+
+
+(* Test: Context in expression with different conditioning context *)
+TestCreate[
+	ev[$pi[foo`t+1], t, $testModel] === $pi[1+foo`t],
+	True,
+	{},
+	TestID -> "[ev] Expression context foo`t differs from conditioning context"
+]
+
+(* Test: Conditioning on different context *)
+TestCreate[
+	ev[$pi[t+1], foo`t, $testModel] === $pi[1+t],
+	True,
+	{},
+	TestID -> "[ev] Conditioning on foo`t leaves expression unchanged"
+]
+
+(* Test: Both expression and conditioning with same non-standard context *)
+TestCreate[
+	ev[foo`pi[foo`t+1], foo`t, $testModel] /. foo`t -> t === ev[$pi[t+1], t, $testModel],
+	True,
+	{},
+	TestID -> "[ev] foo` context in both simplifies same as standard"
+]
+
+(* Test: Mixed contexts in expression *)
+TestCreate[
+	ev[foo`pi[bar`t+1], t, $testModel] === $pi[1+bar`t],
+	True,
+	{},
+	TestID -> "[ev] Mixed foo`pi with bar`t simplifies correctly"
+]
+
+(* Test: Non-standard context expression with another context conditioning *)
+TestCreate[
+	ev[foo`pi[t+1], bar`t, $testModel] === $pi[1+t],
+	True,
+	{},
+	TestID -> "[ev] foo`pi conditioned on bar`t leaves unchanged"
+]
+
+(* Test: Three different contexts *)
+TestCreate[
+	ev[foo`pi[bar`t+1], goo`t, $testModel] === $pi[1+bar`t],
+	True,
+	{},
+	TestID -> "[ev] Three different contexts simplifies correctly"
+]
+
+
+(* ::Subsection:: *)
+(*lagStateVarst - Two-Step Ahead Expansion Tests*)
+
+
+(* Test: Inflation at t+1 given t-1 expanded *)
+TestCreate[
+	$lagStateVarst[$pi[t+1], t-1, $testModel] ===
+		(mup + rhop(rhop($pi[t-1]-mup) + xip eps["pi"][t-1] + phip eps["pi"][t]) +
+		 xip eps["pi"][t] + phip eps["pi"][1+t]),
+	True,
+	{},
+	TestID -> "[lagStateVarst] Inflation at t+1 given t-1 fully expands"
+]
+
+(* Test: Recursive structure for inflation *)
+TestCreate[
+	$lagStateVarst[$pi[t+1], t, $testModel] ===
+		($lagStateVarst[$pi[t], t-1, $testModel] /. t -> t+1),
+	True,
+	{},
+	TestID -> "[lagStateVarst] Recursive structure holds for inflation"
+]
+
+
+(* ::Subsection:: *)
+(*lagStateVarst - Product with Same-Time Shock Tests*)
+
+
+(* Test: Inflation times shock at same time *)
+TestCreate[
+	$lagStateVarst[$pi[t] eps["pi"][t], t-1, $testModel] ===
+		(eps["pi"][t] (mup + rhop($pi[t-1]-mup) + xip eps["pi"][t-1] + phip eps["pi"][t])),
+	True,
+	{},
+	TestID -> "[lagStateVarst] pi[t]*eps[pi][t] expands inflation"
+]
+
+
+(* ::Subsection:: *)
+(*lagStateVarst - Extended Context Handling Tests*)
+
+
+(* Test: Non-standard context with different time symbol *)
+TestCreate[
+	$lagStateVarst[$pi[foo`t], t-1, $testModel] === $pi[foo`t],
+	True,
+	{},
+	TestID -> "[lagStateVarst] Different time symbol foo`t unchanged"
+]
+
+(* Test: Product of pi in two contexts equals pi squared *)
+TestCreate[
+	$lagStateVarst[foo`pi[t] $pi[t], t-1, $testModel] ===
+	$lagStateVarst[foo`pi[t]^2, t-1, $testModel] &&
+	$lagStateVarst[foo`pi[t]^2, t-1, $testModel] === $lagStateVarst[$pi[t]^2, t-1, $testModel],
+	True,
+	{},
+	TestID -> "[lagStateVarst] foo`pi*pi equals pi^2 expansion"
+]
+
+(* Test: Product with shock and delta in different contexts *)
+TestCreate[
+	$lagStateVarst[foo`pi[t] eps["pi"][t] bar`delta, t-1, $testModel] ===
+	$lagStateVarst[$pi[t] foo`eps["pi"][t] delta, t-1, $testModel],
+	True,
+	{},
+	TestID -> "[lagStateVarst] Context-mixed product expands equivalently"
+]
+
+
+(* ::Subsection:: *)
+(*lagStateVarst - Cross-Time Index with Context Tests*)
+
+
+(* Test: Product with different time variables in contexts *)
+TestCreate[
+	ExpandAll[$lagStateVarst[$pi[foo`t] $pi[t], foo`t-1, $testModel]] ===
+	ExpandAll[$pi[t] $lagStateVarst[$pi[foo`t], foo`t-1, $testModel]],
+	True,
+	{},
+	TestID -> "[lagStateVarst] pi[foo`t]*pi[t] factors out pi[t]"
+]
+
+(* Test: Past inflation with current in different context *)
+TestCreate[
+	$lagStateVarst[$pi[foo`t-1] $pi[t], foo`t-1, $testModel] ===
+	$pi[foo`t-1] $pi[t],
+	True,
+	{},
+	TestID -> "[lagStateVarst] pi[foo`t-1]*pi[t] given foo`t-1 unchanged"
+]
 
 
 End[]

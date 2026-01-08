@@ -335,40 +335,50 @@ TestCreate[
 
 
 (* ::Subsection:: *)
-(*Tests Needing Refactoring*)
-(*TODO: The following test was copied from docs/test-files/ProcessModels.wlt and needs refactoring to use TestCreate and semantic TestIDs*)
+(*processModels - Model Renaming Tests*)
 
 
-(* Test: processModels preserves model content when renaming *)
-(* Original TestID: ProcessModels_20260103-HIY034 *)
-(* This test verifies that processModels output is identical regardless of the model key name used *)
-VerificationTest[
-	Module[{modelBY, modelBKY, modelBKYP, modelBYP, newModels, newModelsSameName, newModelsRename,
-	        newModelsP, newModelsSameNameP, newModelsRenameP},
-		modelBY = $modelsTest["BY"];
+(* Helper: Compare processed models excluding coeffsSolution which may have numeric precision differences *)
+normalizeProcessedModel = KeyDrop[#, "coeffsSolution"] &;
+
+(* Test: Output structure is invariant to input key for BKY model *)
+TestCreate[
+	Module[{modelBKY, originalKeyResult, renamedKeyResult},
 		modelBKY = $modelsTest["BKY"];
-		modelBKYP = processModels[<|"BKY" -> modelBKY|>];
-		modelBYP = processModels[<|"BY" -> modelBY|>];
-		newModels = <|"myModel" -> modelBKY, "BY" -> modelBY|>;
-		newModelsSameName = <|"BY" -> modelBY|>;
-		newModelsRename = <|"myModel" -> modelBY|>;
-		newModelsP = processModels[newModels];
-		newModelsSameNameP = processModels[newModelsSameName];
-		newModelsRenameP = processModels[newModelsRename];
-		And[
-			(* BKY model under different name produces same result *)
-			KeyDrop[newModelsP["myModel"], "coeffsSolution"] === KeyDrop[modelBKYP["BKY"], "coeffsSolution"],
-			(* BY model produces same result *)
-			KeyDrop[newModelsP["BY"], "coeffsSolution"] === KeyDrop[modelBYP["BY"], "coeffsSolution"],
-			(* BY model with same name produces same result *)
-			KeyDrop[newModelsSameNameP["BY"], "coeffsSolution"] === KeyDrop[modelBYP["BY"], "coeffsSolution"],
-			(* BY model renamed produces same result *)
-			KeyDrop[newModelsRenameP["myModel"], "coeffsSolution"] === KeyDrop[modelBYP["BY"], "coeffsSolution"]
-		]
+		originalKeyResult = processModels[<|"BKY" -> modelBKY|>];
+		renamedKeyResult = processModels[<|"myModel" -> modelBKY|>];
+		normalizeProcessedModel[renamedKeyResult["myModel"]] === normalizeProcessedModel[originalKeyResult["BKY"]]
 	],
 	True,
 	{},
-	TestID -> "[processModels] Renaming model key preserves content"
+	TestID -> "[processModels] Output structure is invariant to input key for BKY"
+]
+
+(* Test: Output structure is invariant to input key for BY model *)
+TestCreate[
+	Module[{modelBY, originalKeyResult, renamedKeyResult},
+		modelBY = $modelsTest["BY"];
+		originalKeyResult = processModels[<|"BY" -> modelBY|>];
+		renamedKeyResult = processModels[<|"myModel" -> modelBY|>];
+		normalizeProcessedModel[renamedKeyResult["myModel"]] === normalizeProcessedModel[originalKeyResult["BY"]]
+	],
+	True,
+	{},
+	TestID -> "[processModels] Output structure is invariant to input key for BY"
+]
+
+(* Test: Batch processing preserves isolation between models *)
+TestCreate[
+	Module[{modelBY, modelBKY, standaloneResult, batchResult},
+		modelBY = $modelsTest["BY"];
+		modelBKY = $modelsTest["BKY"];
+		standaloneResult = processModels[<|"BY" -> modelBY|>];
+		batchResult = processModels[<|"myModel" -> modelBKY, "BY" -> modelBY|>];
+		normalizeProcessedModel[batchResult["BY"]] === normalizeProcessedModel[standaloneResult["BY"]]
+	],
+	True,
+	{},
+	TestID -> "[processModels] Batch processing preserves isolation between models"
 ]
 
 

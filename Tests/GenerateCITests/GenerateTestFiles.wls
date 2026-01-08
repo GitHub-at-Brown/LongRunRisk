@@ -1592,7 +1592,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -3797,7 +3797,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`ToNumber`*)
 
 
@@ -4550,7 +4550,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*PacletizeResources*)
 
 

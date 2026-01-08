@@ -42,18 +42,17 @@ Begin["`Private`"]
 
 (* Build a pattern rule that extracts symbols matching given names.
    extractType: "functionHead" for s_Symbol[__], "bareSymbol" for s_Symbol, "curriedHead" for s_Symbol[__][__] *)
-makeSymbolExtractionPattern[extractType_String, matchNames_List] :=
-	With[{nameSet = AssociationThread[matchNames -> True]},
-		Switch[extractType,
-			"functionHead", s_Symbol[__] /; KeyExistsQ[nameSet, SymbolName[s]] :> s,
-			"bareSymbol", s_Symbol /; KeyExistsQ[nameSet, SymbolName[s]] :> s,
-			"curriedHead", s_Symbol[__][__] /; KeyExistsQ[nameSet, SymbolName[s]] :> s
-		]
+makeSymbolExtractionPattern[extractType_String, matchNames_List] := With[
+	{nameSet = AssociationThread[matchNames -> True]},
+	Switch[extractType,
+		"functionHead", s_Symbol[__] /; KeyExistsQ[nameSet, SymbolName[s]] :> s,
+		"bareSymbol", s_Symbol /; KeyExistsQ[nameSet, SymbolName[s]] :> s,
+		"curriedHead", s_Symbol[__][__] /; KeyExistsQ[nameSet, SymbolName[s]] :> s
 	]
+]
 
 (* Check that all elements are in the expected context (vacuously True if empty) *)
-allInContextQ[symbols_List, expectedContext_String] :=
-	AllTrue[symbols, Context[#] === expectedContext &]
+allInContextQ[symbols_List, expectedContext_String] := AllTrue[symbols, Context[#] === expectedContext &]
 
 
 (* ::Subsection:: *)
@@ -92,11 +91,10 @@ verifySymbolContext[sourceVars_List] := Module[{exprs,symCtx},
 
 
 (* Check if all function symbols (heads with args) matching a name in an expression are in a specific context *)
-headSymbolInContextQ[expr_, symName_String, targetCtx_String] :=
-	allInContextQ[
-		Cases[expr, var_Symbol?(SymbolName[#] === symName &)[___] :> var, Infinity],
-		targetCtx
-	]
+headSymbolInContextQ[expr_, symName_String, targetCtx_String] := allInContextQ[
+	Cases[expr, var_Symbol?(SymbolName[#] === symName &)[___] :> var, Infinity],
+	targetCtx
+]
 
 
 (* ::Subsection:: *)
@@ -104,22 +102,21 @@ headSymbolInContextQ[expr_, symName_String, targetCtx_String] :=
 
 
 (* Check context isolation - func output with sym vs foo`sym remain distinct *)
-contextIsolationQ[func_Symbol, normalArgs_List, fooArgs_List, sym_Symbol] :=
-	With[{
-		exprNormal = func @@ normalArgs,
-		exprFoo = func @@ fooArgs,
-		fooSym = Symbol["foo`" <> SymbolName[sym]],
-		fooFunc = Symbol["foo`" <> SymbolName[func]]
-	},
-		And[
-			FreeQ[exprNormal, fooSym],
-			!FreeQ[exprNormal, sym],
-			FreeQ[exprFoo, sym],
-			!FreeQ[exprFoo, fooSym],
-			exprNormal =!= exprFoo,
-			(fooFunc @@ normalArgs) =!= exprNormal
-		]
+contextIsolationQ[func_Symbol, normalArgs_List, fooArgs_List, sym_Symbol] := With[{
+	exprNormal = func @@ normalArgs,
+	exprFoo = func @@ fooArgs,
+	fooSym = Symbol["foo`" <> SymbolName[sym]],
+	fooFunc = Symbol["foo`" <> SymbolName[func]]
+},
+	And[
+		FreeQ[exprNormal, fooSym],
+		!FreeQ[exprNormal, sym],
+		FreeQ[exprFoo, sym],
+		!FreeQ[exprFoo, fooSym],
+		exprNormal =!= exprFoo,
+		(fooFunc @@ normalArgs) =!= exprNormal
 	]
+]
 
 
 (* ::Subsection:: *)
@@ -130,24 +127,22 @@ contextIsolationQ[func_Symbol, normalArgs_List, fooArgs_List, sym_Symbol] :=
    Type is inferred from index structure: {{i}, ...} for single-index, {{i, j}, ...} for double-index *)
 
 (* Single-index case: coefSym[i] - indices are single-element lists like {{0}, {1}} *)
-coefficientIndicesExactQ[coefSym_Symbol, KeyValuePattern["indices" -> indices:{{_}..}]] :=
-	Cases[
-		Join[
-			coefSym[N@#[[1]]] & /@ indices,
-			N[coefSym[#[[1]]]] & /@ indices
-		],
-		coefSym[i_] :> {i}
-	] === Join[indices, indices]
+coefficientIndicesExactQ[coefSym_Symbol, KeyValuePattern["indices" -> indices:{{_}..}]] := Cases[
+	Join[
+		coefSym[N@#[[1]]] & /@ indices,
+		N[coefSym[#[[1]]]] & /@ indices
+	],
+	coefSym[i_] :> {i}
+] === Join[indices, indices]
 
 (* Double-index case: coefSym[i][j] - indices are two-element lists like {{0, 0}, {1, 1}} *)
-coefficientIndicesExactQ[coefSym_Symbol, KeyValuePattern["indices" -> indices:{{_, _}..}]] :=
-	Cases[
-		Join[
-			coefSym[N@#[[1]]][N@#[[2]]] & /@ indices,
-			N[coefSym[#[[1]]][#[[2]]]] & /@ indices
-		],
-		coefSym[i_][j_] :> {i, j}
-	] === Join[indices, indices]
+coefficientIndicesExactQ[coefSym_Symbol, KeyValuePattern["indices" -> indices:{{_, _}..}]] := Cases[
+	Join[
+		coefSym[N@#[[1]]][N@#[[2]]] & /@ indices,
+		N[coefSym[#[[1]]][#[[2]]]] & /@ indices
+	],
+	coefSym[i_][j_] :> {i, j}
+] === Join[indices, indices]
 
 
 (* ::Subsection:: *)
@@ -156,19 +151,19 @@ coefficientIndicesExactQ[coefSym_Symbol, KeyValuePattern["indices" -> indices:{{
 
 (* Check symbols in model fields are in expected context (or absent if None).
    expectedContext: context string, or None to check symbols are absent *)
-checkModelsFieldContext[models_Association, field_String, extractType_String, matchNames_List, expectedContext_] :=
-	With[{pattern = makeSymbolExtractionPattern[extractType, matchNames]},
-		AllTrue[Values[models],
-			Function[model,
-				With[{symbols = Cases[model[field], pattern, Infinity]},
-					If[expectedContext === None,
-						symbols === {},
-						AllTrue[symbols, Context[#] === expectedContext &]
-					]
+checkModelsFieldContext[models_Association, field_String, extractType_String, matchNames_List, expectedContext_] := With[
+	{pattern = makeSymbolExtractionPattern[extractType, matchNames]},
+	AllTrue[Values[models],
+		Function[model,
+			With[{symbols = Cases[model[field], pattern, Infinity]},
+				If[expectedContext === None,
+					symbols === {},
+					AllTrue[symbols, Context[#] === expectedContext &]
 				]
 			]
 		]
 	]
+]
 
 
 (* ::Section:: *)
