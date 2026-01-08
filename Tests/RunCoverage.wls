@@ -80,6 +80,140 @@ Module[{
   CreateDirectory[instrumentedDir, CreateIntermediateDirectories -> True];
   CreateDirectory[coverageDir, CreateIntermediateDirectories -> True];
 
+  (* === LCOV Post-Processing Helper ===
+     The Instrumentation package creates FN (function) entries at the line where
+     the function name starts, but DA (line data) entries only for lines with
+     executable code. When a function definition spans multiple lines with the
+     name on a different line than := and body, the FN line has no DA entry.
+     This causes genhtml to report "unexpected category UNK" errors.
+
+     This helper adds DA:line,0 entries for any FN line missing a DA entry.
+
+     Patterns that cause FN/DA mismatch (validated against Instrumentation v1.10):
+       - Function name split across lines: f[\n  x_\n] := body
+       - := at end of line: f[x_] :=\n  body
+       - /; at end of line: f[x_] /;\n  cond := body
+       - /; condition := at line end: f[x_] /; cond :=\n  body
+       - Optional argument split: f[x_,\n  y_:0] := body
+       - Pattern test split: f[\n  x_?NumericQ\n] := body
+       - Compound ( alone: f[x_] := (\n  body\n)
+       - Association/List after :=\n: f[x_] :=\n  <|...|> or {...}
+
+     Patterns that are SAFE (do NOT cause issues):
+       - /. at end of line: x /.\n  {rule} is fine
+       - List/Assoc opener same line: f[x_] := <|\n  ...|> is fine
+
+     Note: LCOV format may use either:
+       - FN:line,name (standard format)
+       - FNL:index,line + FNA:index,count,name (Wolfram Instrumentation format)
+     This function handles both. *)
+  fixLcovForGenhtml[lcovPath_String] := Module[{
+      content, lines, currentFile, fnLines, daLines,
+      result, fileFnLines, fileDALines, missingDALines, newDAEntries,
+      totalFixed
+    },
+    If[!FileExistsQ[lcovPath],
+      Print["Warning: LCOV file not found: ", lcovPath];
+      Return[$Failed]
+    ];
+
+    content = Import[lcovPath, "Text"];
+    lines = StringSplit[content, "\n"];
+
+    (* Track FN and DA lines per source file *)
+    currentFile = None;
+    fnLines = <||>;  (* file -> {line numbers} *)
+    daLines = <||>;  (* file -> {line numbers} *)
+
+    (* Parse LCOV to extract FN and DA line numbers per file *)
+    Do[
+      Which[
+        (* Source file marker *)
+        StringStartsQ[line, "SF:"],
+          currentFile = StringDrop[line, 3];
+          If[!KeyExistsQ[fnLines, currentFile], fnLines[currentFile] = {}];
+          If[!KeyExistsQ[daLines, currentFile], daLines[currentFile] = {}],
+        (* Function definition line - standard format: FN:line,name *)
+        StringStartsQ[line, "FN:"] && currentFile =!= None,
+          Module[{parts, lineNum},
+            parts = StringSplit[StringDrop[line, 3], ","];
+            If[Length[parts] >= 1,
+              lineNum = ToExpression[parts[[1]]];
+              If[IntegerQ[lineNum],
+                AppendTo[fnLines[currentFile], lineNum]
+              ]
+            ]
+          ],
+        (* Function definition line - Wolfram format: FNL:index,line *)
+        StringStartsQ[line, "FNL:"] && currentFile =!= None,
+          Module[{parts, lineNum},
+            parts = StringSplit[StringDrop[line, 4], ","];
+            If[Length[parts] >= 2,
+              lineNum = ToExpression[parts[[2]]];
+              If[IntegerQ[lineNum],
+                AppendTo[fnLines[currentFile], lineNum]
+              ]
+            ]
+          ],
+        (* Line data: DA:line,count *)
+        StringStartsQ[line, "DA:"] && currentFile =!= None,
+          Module[{parts, lineNum},
+            parts = StringSplit[StringDrop[line, 3], ","];
+            If[Length[parts] >= 1,
+              lineNum = ToExpression[parts[[1]]];
+              If[IntegerQ[lineNum],
+                AppendTo[daLines[currentFile], lineNum]
+              ]
+            ]
+          ],
+        (* End of record resets current file *)
+        line === "end_of_record",
+          currentFile = None
+      ],
+      {line, lines}
+    ];
+
+    (* Build new LCOV content with missing DA entries added *)
+    currentFile = None;
+    result = {};
+    totalFixed = 0;
+
+    Do[
+      Which[
+        StringStartsQ[line, "SF:"],
+          currentFile = StringDrop[line, 3];
+          AppendTo[result, line],
+        (* Insert missing DA entries before LF (lines found) or end_of_record *)
+        (StringStartsQ[line, "LF:"] || line === "end_of_record") && currentFile =!= None,
+          (* Find FN lines without DA entries for this file *)
+          fileFnLines = Lookup[fnLines, currentFile, {}];
+          fileDALines = Lookup[daLines, currentFile, {}];
+          missingDALines = Complement[fileFnLines, fileDALines];
+
+          (* Add DA:line,0 for each missing line *)
+          If[Length[missingDALines] > 0,
+            newDAEntries = ("DA:" <> ToString[#] <> ",0") & /@ Sort[missingDALines];
+            result = Join[result, newDAEntries];
+            totalFixed += Length[missingDALines];
+            If[verbose,
+              Print["  Added ", Length[missingDALines], " missing DA entries for ", FileBaseName[currentFile]]
+            ]
+          ];
+
+          AppendTo[result, line];
+          If[line === "end_of_record", currentFile = None],
+        True,
+          AppendTo[result, line]
+      ],
+      {line, lines}
+    ];
+
+    (* Write fixed LCOV file *)
+    Export[lcovPath, StringRiffle[result, "\n"], "Text"];
+
+    totalFixed
+  ];
+
   (* === Load Instrumentation === *)
   Needs["Instrumentation`"];
   Needs["MUnit`"];
@@ -160,6 +294,7 @@ Module[{
   (* Write baseline LCOV - shows code structure *)
   Print["Generating baseline coverage (code structure)..."];
   Instrumentation`CoverageProcess[baseline, coverageDir, "baseline.lcov"];
+  fixLcovForGenhtml[FileNameJoin[{coverageDir, "baseline.lcov"}]];
 
   (* === Prepare test files === *)
   (* Find all .wlt files in Tests/ recursively *)
@@ -219,7 +354,8 @@ Module[{
   If[executionCoverageSuccess,
     (* Write real execution coverage data *)
     Print["Generating execution coverage data..."];
-    Instrumentation`CoverageProcess[runData, coverageDir, "tests.lcov"],
+    Instrumentation`CoverageProcess[runData, coverageDir, "tests.lcov"];
+    fixLcovForGenhtml[FileNameJoin[{coverageDir, "tests.lcov"}]],
     (* Fall back: copy baseline as placeholder *)
     Print["Using baseline as tests.lcov (no execution tracking)"];
     CopyFile[
@@ -255,6 +391,7 @@ Module[{
       " (same as baseline - execution tracking disabled)"
     ]
   ];
+  Print["  (LCOV files post-processed for genhtml compatibility)"];
 
   Print["\nTo generate HTML report, run:"];
   Print["  cd ", pacletRoot];
