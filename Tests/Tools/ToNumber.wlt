@@ -1150,7 +1150,7 @@ TestCreate[
 		}], NumericQ]
 	],
 	True,
-	{Reduce::inex, Reduce::naqs, FernandoDuarte`LongRunRisk`ComputationalEngine`FindRootOptim`Private`bindUnary::runtime},
+	{},
 	TestID -> "[toNum] RecurrenceTableOptions evaluates to numbers"
 ]
 
