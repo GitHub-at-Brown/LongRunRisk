@@ -269,12 +269,12 @@ TestCreate[
 
 (* Test: Both compiler modes produce equivalent results *)
 TestCreate[
-	Module[{kernelFC, kernelC, fFC, fC},
+	Module[{kernelFC, kernelC, fFC, fC, dfFC, dfC},
 		$withCCompilerDriver[
 			kernelFC = buildKernel[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "FunctionCompile"];
 			kernelC = buildKernel[x^2 - A[0], {A[0]}, {x}, "Compiler" -> "Compile"];
-			{fFC, _} = bindUnary[kernelFC, <|x -> 2|>, {}];
-			{fC, _} = bindUnary[kernelC, <|x -> 2|>, {}];
+			{fFC, dfFC} = bindUnary[kernelFC, <|x -> 2|>, {}];
+			{fC, dfC} = bindUnary[kernelC, <|x -> 2|>, {}];
 			Abs[fFC[1] - fC[1]] < 10^-10
 		]
 	],
