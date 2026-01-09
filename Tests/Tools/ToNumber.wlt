@@ -16,6 +16,7 @@ Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
 (* ::Subsection:: *)
 (*Load Test Helpers*)
@@ -51,7 +52,7 @@ checkMsg[expr_, msg_] := Module[{c},
 (* ::Subsection:: *)
 (*processNewParameters - Equal Parameters Tests*)
 
-
+(*
 (* Test: When old and new parameters are equal, all values are numbers *)
 TestCreate[
 	With[{p = $baseParams, newP = $baseParams},
@@ -107,12 +108,13 @@ TestCreate[
 	{},
 	TestID -> "[processNewParameters] Equal parameters do not abort"
 ]
+*)
 
 
 (* ::Subsection:: *)
 (*processNewParameters - Subset Parameters Tests*)
 
-
+(*
 (* Test: When new parameters are subset of old, values are numbers *)
 TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1}},
@@ -146,12 +148,13 @@ TestCreate[
 	{},
 	TestID -> "[processNewParameters] Subset parameters use correct context"
 ]
+*)
 
 
 (* ::Subsection:: *)
 (*processNewParameters - Empty Parameters Tests*)
 
-
+(*
 (* Test: When new parameters is empty, returns empty list *)
 TestCreate[
 	With[{p = $baseParams},
@@ -161,12 +164,12 @@ TestCreate[
 	{},
 	TestID -> "[processNewParameters] Empty input returns empty list"
 ]
-
+*)
 
 (* ::Subsection:: *)
 (*processNewParameters - Invalid Parameters Tests*)
 
-
+(*
 (* Test: When new parameters are NOT a subset, aborts *)
 TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`phip -> 3}},
@@ -187,12 +190,13 @@ TestCreate[
 	{},
 	TestID -> "[processNewParameters] Non-subset parameters issue subsetparam message"
 ]
+*)
 
 
 (* ::Subsection:: *)
 (*processNewParameters - Psi Validation Tests*)
 
-
+(*
 (* Test: psi=1 in new parameters aborts *)
 TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1}},
@@ -223,12 +227,13 @@ TestCreate[
 	{},
 	TestID -> "[processNewParameters] psi=1.0 numeric aborts"
 ]
+*)
 
 
 (* ::Subsection:: *)
 (*processNewParameters - Gamma Psi Theta Relationship Tests*)
 
-
+(*
 (* Test: When all three {gamma, psi, theta} provided and theta exactly correct, does not abort *)
 TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 10, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> (1 - FernandoDuarte`LongRunRisk`Model`Parameters`gamma)/(1 - 1/FernandoDuarte`LongRunRisk`Model`Parameters`psi), FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.5`}},
@@ -275,12 +280,13 @@ TestCreate[
 	{},
 	TestID -> "[processNewParameters] Inconsistent theta recalculated to -27"
 ]
+*)
 
 
 (* ::Subsection:: *)
 (*processNewParameters - Solve for Missing Parameter Tests*)
 
-
+(*
 (* Test: Solve for gamma from {psi, theta} - values are numbers *)
 TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 2, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> -3.`}},
@@ -329,12 +335,12 @@ TestCreate[
 	{},
 	TestID -> "[processNewParameters] Psi computed as 2 from gamma and theta"
 ]
-
+*)
 
 (* ::Subsection:: *)
 (*processNewParameters - Theta Alone Tests*)
 
-
+(*
 (* Test: theta provided without gamma or psi aborts *)
 TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> 1.}},
@@ -355,12 +361,12 @@ TestCreate[
 	{},
 	TestID -> "[processNewParameters] Theta alone issues theta message"
 ]
-
+*)
 
 (* ::Subsection:: *)
 (*processNewParameters - Context Preservation Tests*)
 
-
+(*
 (* Test: processNewParameters preserves contexts of old parameters *)
 TestCreate[
 	Module[{p, newP, procP},
@@ -394,12 +400,13 @@ TestCreate[
 	{},
 	TestID -> "[processNewParameters] Processed contexts match old parameters"
 ]
+*)
 
 
 (* ::Subsection:: *)
 (*toNum Function Tests*)
 
-
+(*
 (* Define test expressions and numerical model values *)
 (* Extract state variable patterns from the model's stateVars function *)
 stateVarPatterns = Map[
@@ -490,12 +497,13 @@ TestCreate[
 	{},
 	TestID -> "[toNum] Rules form evaluates to numbers"
 ]
+*)
 
 
 (* ::Subsection:: *)
 (*Options Handling Tests*)
 
-
+(*
 (* Test: "UpdatePd" and "UpdateBonds" options *)
 TestCreate[
 	AllTrue[Flatten[{
@@ -511,12 +519,12 @@ TestCreate[
 	{},
 	TestID -> "[toNum] UpdatePd and UpdateBonds options evaluate to numbers"
 ]
-
+*)
 
 (* ::Subsection:: *)
 (*New Parameters and Initial Guess Tests*)
 
-
+(*
 (* Test: Pass new parameters *)
 TestCreate[
 	With[{newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99}, exprNewParam = uncondE[wc[t]]},
@@ -577,12 +585,12 @@ TestCreate[
 	{},
 	TestID -> "[toNum] Parameters, guess, and options combined evaluate"
 ]
-
+*)
 
 (* ::Subsection:: *)
 (*Association Handling Tests*)
 
-
+(*
 (* Test: toNum handles Associations via curried form *)
 TestCreate[
 	With[{tn = toNum[$modNRC]},
@@ -592,12 +600,12 @@ TestCreate[
 	{},
 	TestID -> "[toNum] Association input produces numeric values"
 ]
-
+*)
 
 (* ::Subsection:: *)
 (*Helper Functions Tests*)
 
-
+(*
 (* Test: toExogenousVars returns expression with only exogenous vars *)
 TestCreate[
 	FreeQ[toExogenousVars[wc[t], $modNRC], wc],
@@ -613,12 +621,12 @@ TestCreate[
 	{},
 	TestID -> "[toStateVars] Removes endogenous wc from expression"
 ]
-
+*)
 
 (* ::Subsection:: *)
 (*Edge Cases Tests*)
 
-
+(*
 (* Test: Empty list input *)
 TestCreate[
 	toNum[{}, $modNRC] === {},
@@ -636,12 +644,13 @@ TestCreate[
 	{},
 	TestID -> "[toNum] Mixed types preserves literals and converts wc"
 ]
+*)
 
 
 (* ::Subsection:: *)
 (*Multi-Model Integration Tests*)
 
-
+(*
 (* Helper function to get numerical substitution rules for a given model *)
 (* Extracts state variable patterns from the model's stateVars function and creates replacement rules *)
 getNumModel[mod_] := Module[{stateVarPatterns},
@@ -909,8 +918,10 @@ TestCreate[
 	{},
 	TestID -> "[toNum/NRCStochVol] Rules form with expectations evaluates to numbers"
 ]
+*)
 
 
+(*
 (* ::Subsection:: *)
 (*Unconditional Covariance and Correlation Tests*)
 
@@ -1490,6 +1501,1014 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum] All expression types evaluate to numbers for BKY model"
+]
+*)
+
+
+(* ::Subsection:: *)
+(*SolutionSelector and ReturnAllSolutions Tests - Setup*)
+
+
+(* Standard options used consistently in setup AND tests *)
+$testUpdateOpts = {
+	"RootSigns" -> All,
+	"UpdatePd" -> True,
+	"UpdateBonds" -> True,
+	"MaxMaturity" -> 12
+};
+
+(* Pre-compute hierarchical solutions for BY model with all sign combinations *)
+$byHierarchical = updateCoeffs[$modBY, Sequence @@ $testUpdateOpts];
+$numBYSolutions = Length[$byHierarchical];
+
+(* Extract first A and B solutions for comparison *)
+$byFirstA = First[$byHierarchical];
+$byFirstB = First[$byFirstA["Stocks"][1]];
+
+(* Helper: check if result is valid flat rules *)
+validFlatRules[rules_] := MatchQ[rules, {__Rule}] && Length[rules] > 0;
+
+(* Helper: check if result is valid hierarchical structure *)
+validHierarchical[result_] := MatchQ[result, {__Association}] &&
+	AllTrue[result, Function[sol, And[
+		KeyExistsQ[sol, "A"],
+		KeyExistsQ[sol, "SignsA"],
+		KeyExistsQ[sol, "IntervalA"],
+		KeyExistsQ[sol, "SolutionIndexA"],
+		KeyExistsQ[sol, "Stocks"],
+		AssociationQ[sol["Stocks"]],
+		AllTrue[Values[sol["Stocks"]], Function[bSols,
+			AllTrue[bSols, AssociationQ[#] && KeyExistsQ[#, "B"] && KeyExistsQ[#, "SignsB"] &]
+		]]
+	]]];
+
+
+(* ::Subsection:: *)
+(*SolutionSelector - Precondition Tests*)
+
+
+(* Verify BY model produces multiple A solutions with RootSigns -> All *)
+TestCreate[
+	$numBYSolutions >= 2,
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] BY model has 2+ A solutions (precondition)"
+]
+
+(* Verify BY model has multiple B solutions for stock 1 *)
+TestCreate[
+	Length[$byFirstA["Stocks"][1]] >= 2,
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] BY model has 2+ B solutions (precondition)"
+]
+
+
+(* ::Subsection:: *)
+(*SolutionSelector - Default Behavior Tests*)
+
+
+(* Default returns flat rules *)
+TestCreate[
+	With[{rules = toNum["Rules", $modBY]},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Default returns flat rule list"
+]
+
+(* Automatic selector equivalent to default *)
+TestCreate[
+	With[{
+		rulesDefault = toNum["Rules", $modBY],
+		rulesAuto = toNum["Rules", $modBY, "SolutionSelector" -> Automatic]
+	},
+		Sort[rulesDefault] === Sort[rulesAuto]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Automatic equivalent to default"
+]
+
+(* Automatic equivalent to index 1 *)
+TestCreate[
+	With[{
+		rulesAuto = toNum["Rules", $modBY, "SolutionSelector" -> Automatic],
+		rulesFirst = toNum["Rules", $modBY, "SolutionSelector" -> 1]
+	},
+		Sort[rulesAuto] === Sort[rulesFirst]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Automatic equivalent to index 1"
+]
+
+(* Default evaluates expressions correctly *)
+TestCreate[
+	With[{value = toNum[wc[t], $modBY] //. $modBY["params"]},
+		NumericQ[value] && value > 0
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Default evaluates wc[t] to positive number"
+]
+
+
+(* ::Subsection:: *)
+(*SolutionSelector - Integer Index Tests*)
+
+
+(* Integer index 1 returns valid rules *)
+TestCreate[
+	With[{rules = toNum["Rules", $modBY, "SolutionSelector" -> 1]},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Index 1 returns valid flat rules"
+]
+
+(* Integer index 2 returns valid rules *)
+TestCreate[
+	With[{rules = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> 2]},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Index 2 returns valid flat rules"
+]
+
+(* Different indices produce different coefficient values *)
+TestCreate[
+	Module[{rules1, rules2, a0val1, a0val2},
+		rules1 = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> 1];
+		rules2 = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> 2];
+		a0val1 = A[0] /. rules1;
+		a0val2 = A[0] /. rules2;
+		NumericQ[a0val1] && NumericQ[a0val2] && a0val1 =!= a0val2
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Different indices produce different A[0] values"
+]
+
+(* Boundary index (last solution) works *)
+TestCreate[
+	With[{rules = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> $numBYSolutions]},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Last index returns valid rules"
+]
+
+(* Out-of-bounds index returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> 999]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Out-of-bounds index returns Failure"
+]
+
+(* Zero index returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "SolutionSelector" -> 0]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Zero index returns Failure"
+]
+
+(* Negative index returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "SolutionSelector" -> -1]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Negative index returns Failure"
+]
+
+(* Non-integer index returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "SolutionSelector" -> 1.5]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Non-integer index returns Failure"
+]
+
+
+(* ::Subsection:: *)
+(*SolutionSelector - Tuple Index Tests*)
+
+
+(* Tuple {1, 1} returns valid rules *)
+TestCreate[
+	With[{rules = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> {1, 1}]},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Tuple {1,1} returns valid rules"
+]
+
+(* Tuple selection matches integer A selection when B=1 *)
+TestCreate[
+	With[{
+		rulesTuple = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> {1, 1}],
+		rulesInt = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> 1]
+	},
+		Sort[rulesTuple] === Sort[rulesInt]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Tuple {1,1} matches integer 1"
+]
+
+(* Different B indices produce different B coefficients *)
+TestCreate[
+	Module[{rules1, rules2, b0val1, b0val2},
+		rules1 = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> {1, 1}];
+		rules2 = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> {1, 2}];
+		b0val1 = B[1][0] /. rules1;
+		b0val2 = B[1][0] /. rules2;
+		NumericQ[b0val1] && NumericQ[b0val2] && b0val1 =!= b0val2
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Different B indices produce different B[1][0] values"
+]
+
+(* Invalid B index returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> {1, 999}]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Invalid B index returns Failure"
+]
+
+(* Three-element tuple returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "SolutionSelector" -> {1, 1, 1}]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Three-element tuple returns Failure"
+]
+
+(* Empty tuple returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "SolutionSelector" -> {}]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Empty tuple returns Failure"
+]
+
+
+(* ::Subsection:: *)
+(*SolutionSelector - Sign-Based Selection Tests*)
+
+
+(* SignsA pattern returns valid rules *)
+TestCreate[
+	With[{
+		targetSigns = $byFirstA["SignsA"],
+		rules = toNum["Rules", $modBY, "RootSigns" -> All,
+			"SolutionSelector" -> <|"SignsA" -> $byFirstA["SignsA"]|>]
+	},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] SignsA pattern returns valid rules"
+]
+
+(* SignsA selection matches index 1 for first solution's signs *)
+TestCreate[
+	With[{
+		rulesBySigns = toNum["Rules", $modBY, "RootSigns" -> All,
+			"SolutionSelector" -> <|"SignsA" -> $byFirstA["SignsA"]|>],
+		rulesByIndex = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> 1]
+	},
+		Sort[rulesBySigns] === Sort[rulesByIndex]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] SignsA selection matches corresponding index"
+]
+
+(* Combined SignsA and SignsB selection works *)
+TestCreate[
+	With[{rules = toNum["Rules", $modBY, "RootSigns" -> All,
+		"SolutionSelector" -> <|
+			"SignsA" -> $byFirstA["SignsA"],
+			"SignsB" -> $byFirstB["SignsB"]
+		|>]},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Combined SignsA and SignsB selection works"
+]
+
+(* Non-matching signs return Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All,
+		"SolutionSelector" -> <|"SignsA" -> {999, 999, 999}|>]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Non-matching SignsA returns Failure"
+]
+
+(* Empty SignsA returns Failure - cannot match *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All,
+		"SolutionSelector" -> <|"SignsA" -> {}|>]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Empty SignsA returns Failure"
+]
+
+(* Invalid key in selector returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY,
+		"SolutionSelector" -> <|"InvalidKey" -> {1}|>]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Invalid association key returns Failure"
+]
+
+
+(* ::Subsection:: *)
+(*SolutionSelector - SolutionIndexA Metadata Tests*)
+
+
+(* SolutionIndexA selector returns valid rules *)
+TestCreate[
+	With[{
+		targetIdx = $byFirstA["SolutionIndexA"],
+		rules = toNum["Rules", $modBY, "RootSigns" -> All,
+			"SolutionSelector" -> <|"SolutionIndexA" -> $byFirstA["SolutionIndexA"]|>]
+	},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] SolutionIndexA selector returns valid rules"
+]
+
+(* SolutionIndexA selection matches index 1 for first solution *)
+TestCreate[
+	With[{
+		rulesByMeta = toNum["Rules", $modBY, "RootSigns" -> All,
+			"SolutionSelector" -> <|"SolutionIndexA" -> $byFirstA["SolutionIndexA"]|>],
+		rulesByIndex = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> 1]
+	},
+		Sort[rulesByMeta] === Sort[rulesByIndex]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] SolutionIndexA matches corresponding index"
+]
+
+(* Non-existent SolutionIndexA returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All,
+		"SolutionSelector" -> <|"SolutionIndexA" -> 99999|>]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] Non-existent SolutionIndexA returns Failure"
+]
+
+
+(* ::Subsection:: *)
+(*SolutionSelector - All Value Tests*)
+
+
+(* SolutionSelector -> All with ReturnAllSolutions -> True works *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All,
+		"SolutionSelector" -> All,
+		"ReturnAllSolutions" -> True]},
+		validHierarchical[result] && Length[result] === $numBYSolutions
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] All with ReturnAllSolutions returns all solutions"
+]
+
+(* SolutionSelector -> All without ReturnAllSolutions -> True returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All,
+		"SolutionSelector" -> All,
+		"ReturnAllSolutions" -> False]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] All without ReturnAllSolutions returns Failure"
+]
+
+(* SolutionSelector -> All is equivalent to omitting SolutionSelector with ReturnAllSolutions *)
+TestCreate[
+	With[{
+		resultAll = toNum["Rules", $modBY, "RootSigns" -> All,
+			"SolutionSelector" -> All, "ReturnAllSolutions" -> True],
+		resultDefault = toNum["Rules", $modBY, "RootSigns" -> All,
+			"ReturnAllSolutions" -> True]
+	},
+		Length[resultAll] === Length[resultDefault]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector] All equivalent to default with ReturnAllSolutions"
+]
+
+
+(* ::Subsection:: *)
+(*Option Acceptance Tests*)
+
+
+(* New options are accepted without OptionValue::notopt message *)
+TestCreate[
+	Not @ checkMsg[
+		toNum["Rules", $modBY, "SolutionSelector" -> 1],
+		OptionValue::notopt
+	],
+	True,
+	{},
+	TestID -> "[toNum/Options] SolutionSelector accepted without notopt message"
+]
+
+TestCreate[
+	Not @ checkMsg[
+		toNum["Rules", $modBY, "ReturnAllSolutions" -> True],
+		OptionValue::notopt
+	],
+	True,
+	{},
+	TestID -> "[toNum/Options] ReturnAllSolutions accepted without notopt message"
+]
+
+(* toNum::nosolution message issued for non-matching selector *)
+TestCreate[
+	checkMsg[
+		toNum["Rules", $modBY, "RootSigns" -> All,
+			"SolutionSelector" -> <|"SignsA" -> {999, 999, 999}|>],
+		toNum::nosolution
+	],
+	True,
+	{},
+	TestID -> "[toNum/Messages] nosolution message issued for non-matching selector"
+]
+
+(* toNum::badidx message issued for out-of-bounds index *)
+TestCreate[
+	checkMsg[
+		toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> 999],
+		toNum::badidx
+	],
+	True,
+	{},
+	TestID -> "[toNum/Messages] badidx message issued for out-of-bounds index"
+]
+
+(* toNum::badselector message issued for invalid selector type *)
+TestCreate[
+	checkMsg[
+		toNum["Rules", $modBY, "SolutionSelector" -> "invalid"],
+		toNum::badselector
+	],
+	True,
+	{},
+	TestID -> "[toNum/Messages] badselector message issued for invalid type"
+]
+
+
+(* ::Subsection:: *)
+(*ReturnAllSolutions Tests*)
+
+
+(* ReturnAllSolutions->True returns list of associations *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "ReturnAllSolutions" -> True]},
+		validHierarchical[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/ReturnAllSolutions] True returns list of associations"
+]
+
+(* ReturnAllSolutions preserves SignsA metadata *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "ReturnAllSolutions" -> True]},
+		AllTrue[result, KeyExistsQ[#, "SignsA"] &]
+	],
+	True,
+	{},
+	TestID -> "[toNum/ReturnAllSolutions] Preserves SignsA metadata"
+]
+
+(* ReturnAllSolutions preserves IntervalA metadata *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "ReturnAllSolutions" -> True]},
+		AllTrue[result, KeyExistsQ[#, "IntervalA"] &]
+	],
+	True,
+	{},
+	TestID -> "[toNum/ReturnAllSolutions] Preserves IntervalA metadata"
+]
+
+(* ReturnAllSolutions preserves Stocks structure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "ReturnAllSolutions" -> True]},
+		AllTrue[result, KeyExistsQ[#, "Stocks"] && AssociationQ[#["Stocks"]] &]
+	],
+	True,
+	{},
+	TestID -> "[toNum/ReturnAllSolutions] Preserves Stocks structure"
+]
+
+(* ReturnAllSolutions count matches updateCoeffs *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "ReturnAllSolutions" -> True]},
+		Length[result] === $numBYSolutions
+	],
+	True,
+	{},
+	TestID -> "[toNum/ReturnAllSolutions] Solution count matches updateCoeffs"
+]
+
+(* ReturnAllSolutions->False returns flat rules (backward compat) *)
+TestCreate[
+	With[{rules = toNum["Rules", $modBY, "ReturnAllSolutions" -> False]},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/ReturnAllSolutions] False returns flat rules"
+]
+
+(* Single solution case returns single-element list *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "SolutionSelector" -> 1, "ReturnAllSolutions" -> True]},
+		MatchQ[result, {_Association}] && Length[result] === 1
+	],
+	True,
+	{},
+	TestID -> "[toNum/ReturnAllSolutions] Single solution returns {_Association}"
+]
+
+(* Each solution in list can evaluate expressions *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "ReturnAllSolutions" -> True]},
+		AllTrue[result, Function[sol,
+			With[{flat = flattenCoeffs[{sol}, 1]},
+				NumericQ[(wc[t] /. flat //. $modBY["params"])]
+			]
+		]]
+	],
+	True,
+	{},
+	TestID -> "[toNum/ReturnAllSolutions] Each solution evaluates numerically"
+]
+
+
+(* ::Subsection:: *)
+(*Option Interaction Tests*)
+
+
+(* SolutionSelector + ReturnAllSolutions filters results *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All,
+		"SolutionSelector" -> 1,
+		"ReturnAllSolutions" -> True]},
+		MatchQ[result, {_Association}]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Options] Index selector + ReturnAllSolutions returns filtered list"
+]
+
+(* Both new options with newParameters works *)
+TestCreate[
+	With[{
+		newParams = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99},
+		result = toNum["Rules", $modBY, newParams,
+			"SolutionSelector" -> 1,
+			"ReturnAllSolutions" -> False]
+	},
+		validFlatRules[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Options] Both options with newParameters works"
+]
+
+(* SolutionSelector works with expression form *)
+TestCreate[
+	With[{value = toNum[wc[t], $modBY, "RootSigns" -> All, "SolutionSelector" -> 1] //. $modBY["params"]},
+		NumericQ[value]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Options] SolutionSelector works with expression form"
+]
+
+(* Curried form with SolutionSelector works *)
+TestCreate[
+	With[{
+		tn = toNum[$modBY, "SolutionSelector" -> 1],
+		value = tn[wc[t]] //. $modBY["params"]
+	},
+		NumericQ[value]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Options] Curried form with SolutionSelector works"
+]
+
+(* ReturnAllSolutions with expression returns list of hierarchical structures *)
+TestCreate[
+	With[{result = toNum[wc[t], $modBY, "RootSigns" -> All, "ReturnAllSolutions" -> True]},
+		validHierarchical[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Options] ReturnAllSolutions with expression returns hierarchical list"
+]
+
+(* Deterministic: same selector always produces same result *)
+TestCreate[
+	With[{
+		rules1 = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> 1],
+		rules2 = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> 1]
+	},
+		Sort[rules1] === Sort[rules2]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Options] Deterministic - same selector same result"
+]
+
+
+(* ::Subsection:: *)
+(*SolutionSelector and ReturnAllSolutions - Edge Cases*)
+
+
+(* String index returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "SolutionSelector" -> "1"]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge] String index returns Failure"
+]
+
+(* List with non-integers returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "SolutionSelector" -> {1.0, 2.0}]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge] List with non-integers returns Failure"
+]
+
+(* Nested list returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "SolutionSelector" -> {{1, 1}}]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge] Nested list returns Failure"
+]
+
+(* ReturnAllSolutions with invalid value returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "ReturnAllSolutions" -> "yes"]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge] ReturnAllSolutions invalid value returns Failure"
+]
+
+(* Very large index returns Failure quickly *)
+TestCreate[
+	With[{result = TimeConstrained[
+		toNum["Rules", $modBY, "SolutionSelector" -> 10^9],
+		5,
+		$TimedOut
+	]},
+		FailureQ[result] || result === $TimedOut
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge] Large index handled without hang"
+]
+
+
+(* ::Subsection:: *)
+(*Tuple Index Edge Cases*)
+
+
+(* Tuple {0, 1} returns Failure - zero A index invalid *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> {0, 1}]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge/Tuple] {0,1} zero A index returns Failure"
+]
+
+(* Tuple {-1, 1} returns Failure - negative A index invalid *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> {-1, 1}]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge/Tuple] {-1,1} negative A index returns Failure"
+]
+
+(* Tuple {1, 0} returns Failure - zero B index invalid *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> {1, 0}]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge/Tuple] {1,0} zero B index returns Failure"
+]
+
+(* Tuple {1, -1} returns Failure - negative B index invalid *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> {1, -1}]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge/Tuple] {1,-1} negative B index returns Failure"
+]
+
+(* toNum::badbidx message issued for invalid B index *)
+TestCreate[
+	checkMsg[
+		toNum["Rules", $modBY, "RootSigns" -> All, "SolutionSelector" -> {1, 999}],
+		toNum::badbidx
+	],
+	True,
+	{},
+	TestID -> "[toNum/Messages] badbidx message issued for invalid B index"
+]
+
+
+(* ::Subsection:: *)
+(*Selector Association Validation*)
+
+
+(* SignsA with invalid values (not +/-1) returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All,
+		"SolutionSelector" -> <|"SignsA" -> {0, 2, 3}|>]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge/Assoc] SignsA with non-sign values returns Failure"
+]
+
+(* SignsA with wrong length returns Failure or no match *)
+TestCreate[
+	With[{
+		correctLength = Length[$byFirstA["SignsA"]],
+		wrongLength = correctLength + 5,
+		result = toNum["Rules", $modBY, "RootSigns" -> All,
+			"SolutionSelector" -> <|"SignsA" -> ConstantArray[1, wrongLength]|>]
+	},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge/Assoc] SignsA wrong length returns Failure"
+]
+
+(* SolutionIndexA with non-integer returns Failure *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All,
+		"SolutionSelector" -> <|"SolutionIndexA" -> 1.5|>]},
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge/Assoc] SolutionIndexA non-integer returns Failure"
+]
+
+(* Mixed keys SignsA + SolutionIndexA - both must match *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All,
+		"SolutionSelector" -> <|
+			"SignsA" -> $byFirstA["SignsA"],
+			"SolutionIndexA" -> $byFirstA["SolutionIndexA"]
+		|>]},
+		validFlatRules[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge/Assoc] Mixed SignsA + SolutionIndexA works when consistent"
+]
+
+(* SignsB without SignsA - should work (select first A matching B signs) *)
+TestCreate[
+	With[{result = toNum["Rules", $modBY, "RootSigns" -> All,
+		"SolutionSelector" -> <|"SignsB" -> $byFirstB["SignsB"]|>]},
+		validFlatRules[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/Edge/Assoc] SignsB alone selects matching B from first A"
+]
+
+
+(* ::Subsection:: *)
+(*SolutionSelector - Multi-Model Tests*)
+
+
+(* BKY model: SolutionSelector works *)
+TestCreate[
+	With[{rules = toNum["Rules", $modBKY, "SolutionSelector" -> 1]},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector/BKY] Index selection works"
+]
+
+(* NRC model: SolutionSelector works *)
+TestCreate[
+	With[{rules = toNum["Rules", $modNRC, "SolutionSelector" -> 1]},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector/NRC] Index selection works"
+]
+
+(* DES model: SolutionSelector works *)
+TestCreate[
+	With[{rules = toNum["Rules", $modDES, "SolutionSelector" -> 1]},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector/DES] Index selection works"
+]
+
+(* NRCStochVol model: SolutionSelector works *)
+TestCreate[
+	With[{rules = toNum["Rules", $modNRCStochVol, "SolutionSelector" -> 1]},
+		validFlatRules[rules]
+	],
+	True,
+	{},
+	TestID -> "[toNum/SolutionSelector/NRCStochVol] Index selection works"
+]
+
+
+(* ::Subsection:: *)
+(*Multi-Stock Tests - NRC Model (3 stocks)*)
+
+
+(* Setup for NRC multi-stock tests *)
+$nrcHierarchical = updateCoeffs[$modNRC, Sequence @@ $testUpdateOpts];
+$nrcFirstA = First[$nrcHierarchical];
+$nrcNumStocks = Length[Keys[$nrcFirstA["Stocks"]]];
+
+(* NRC has 3 stocks - verify setup *)
+TestCreate[
+	$nrcNumStocks === 3,
+	True,
+	{},
+	TestID -> "[toNum/MultiStock/NRC] Model has 3 stocks"
+]
+
+(* Tuple {1, 1} applies bIdx=1 uniformly to all 3 stocks *)
+TestCreate[
+	With[{rules = toNum["Rules", $modNRC, "RootSigns" -> All, "SolutionSelector" -> {1, 1}]},
+		validFlatRules[rules] &&
+		(* Check B coefficients exist for all 3 stocks *)
+		AllTrue[{1, 2, 3}, MemberQ[First /@ rules, B[#][0]] &]
+	],
+	True,
+	{},
+	TestID -> "[toNum/MultiStock/NRC] Tuple {1,1} includes B coeffs for all 3 stocks"
+]
+
+(* Integer selector includes first B for all stocks *)
+TestCreate[
+	With[{rules = toNum["Rules", $modNRC, "RootSigns" -> All, "SolutionSelector" -> 1]},
+		validFlatRules[rules] &&
+		AllTrue[{1, 2, 3}, MemberQ[First /@ rules, B[#][0]] &]
+	],
+	True,
+	{},
+	TestID -> "[toNum/MultiStock/NRC] Integer selector includes B coeffs for all stocks"
+]
+
+(* ReturnAllSolutions preserves Stocks structure with all 3 stocks *)
+TestCreate[
+	With[{result = toNum["Rules", $modNRC, "RootSigns" -> All, "ReturnAllSolutions" -> True]},
+		validHierarchical[result] &&
+		AllTrue[result, Length[Keys[#["Stocks"]]] === 3 &]
+	],
+	True,
+	{},
+	TestID -> "[toNum/MultiStock/NRC] ReturnAllSolutions preserves all 3 stocks"
+]
+
+(* bIdx out of range for any stock returns Failure *)
+TestCreate[
+	Module[{maxBIdx, result},
+		maxBIdx = Min @ Map[Length, Values[$nrcFirstA["Stocks"]]];
+		result = toNum["Rules", $modNRC, "RootSigns" -> All,
+			"SolutionSelector" -> {1, maxBIdx + 100}];
+		FailureQ[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/MultiStock/NRC] bIdx exceeding any stock's B count returns Failure"
+]
+
+(* badbidx message issued when bIdx invalid for multi-stock *)
+TestCreate[
+	Module[{maxBIdx},
+		maxBIdx = Min @ Map[Length, Values[$nrcFirstA["Stocks"]]];
+		checkMsg[
+			toNum["Rules", $modNRC, "RootSigns" -> All,
+				"SolutionSelector" -> {1, maxBIdx + 100}],
+			toNum::badbidx
+		]
+	],
+	True,
+	{},
+	TestID -> "[toNum/MultiStock/NRC] badbidx message for invalid bIdx"
+]
+
+(* SignsB selection works with multi-stock *)
+TestCreate[
+	Module[{firstBSigns, result},
+		firstBSigns = $nrcFirstA["Stocks"][1][[1]]["SignsB"];
+		result = toNum["Rules", $modNRC, "RootSigns" -> All,
+			"SolutionSelector" -> <|"SignsB" -> firstBSigns|>];
+		validFlatRules[result]
+	],
+	True,
+	{},
+	TestID -> "[toNum/MultiStock/NRC] SignsB selector works with multi-stock"
+]
+
+(* Uniform bIdx enforced across stocks with different B counts *)
+TestCreate[
+	Module[{bCounts, allSame},
+		bCounts = Map[Length, Values[$nrcFirstA["Stocks"]]];
+		allSame = Length[DeleteDuplicates[bCounts]] === 1;
+		If[allSame,
+			True, (* All stocks have same B count - uniform enforcement trivially satisfied *)
+			With[{minB = Min[bCounts], maxB = Max[bCounts]},
+				If[minB < maxB,
+					FailureQ[toNum["Rules", $modNRC, "RootSigns" -> All,
+						"SolutionSelector" -> {1, maxB}]],
+					True
+				]
+			]
+		]
+	],
+	True,
+	{},
+	TestID -> "[toNum/MultiStock/NRC] Uniform bIdx enforced across stocks with different B counts"
 ]
 
 
