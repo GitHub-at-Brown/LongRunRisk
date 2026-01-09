@@ -50,7 +50,7 @@ TestCreate[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Model`Shocks`"],
 	True,
 	{},
-	TestID -> "Shocks-PackageLoading-ContextOnPath"
+	TestID -> "[Shocks] Package loading context is on path"
 ]
 
 (* Test: Symbol rulesE should exist *)
@@ -58,7 +58,7 @@ TestCreate[
 	Not[Names["*rulesE"] === {}],
 	True,
 	{},
-	TestID -> "rulesE-Existence-CanBeFound"
+	TestID -> "[rulesE] Symbol can be found"
 ]
 
 
@@ -71,7 +71,7 @@ TestCreate[
 	($allShocks /. $rulesEt),
 	ConstantArray[0, Length[$allShocks]],
 	{},
-	TestID -> "eps-AllShocks-FirstMomentZero"
+	TestID -> "[eps] All shocks have first moment zero"
 ]
 
 (* Test: All shocks have variance equal to one *)
@@ -79,7 +79,7 @@ TestCreate[
 	($allShocks^2 /. $rulesEt),
 	ConstantArray[1, Length[$allShocks]],
 	{},
-	TestID -> "eps-AllShocks-SecondMomentOne"
+	TestID -> "[eps] All shocks have second moment one"
 ]
 
 (* Test: All shocks have zero third moment *)
@@ -87,7 +87,7 @@ TestCreate[
 	($allShocks^3 /. $rulesEt),
 	ConstantArray[0, Length[$allShocks]],
 	{},
-	TestID -> "eps-AllShocks-ThirdMomentZero"
+	TestID -> "[eps] All shocks have third moment zero"
 ]
 
 (* Test: All shocks have fourth moment equal to three *)
@@ -95,7 +95,7 @@ TestCreate[
 	($allShocks^4 /. $rulesEt),
 	ConstantArray[3, Length[$allShocks]],
 	{},
-	TestID -> "eps-AllShocks-FourthMomentThree"
+	TestID -> "[eps] All shocks have fourth moment three"
 ]
 
 
@@ -111,7 +111,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "eps-ScalarShocks-Uncorrelated"
+	TestID -> "[eps] Scalar shocks are uncorrelated"
 ]
 
 (* Test: Stock shocks are uncorrelated with scalar shocks (except dc) *)
@@ -122,7 +122,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "eps-StockShocks-UncorrelatedWithScalars"
+	TestID -> "[eps] Stock shocks are uncorrelated with scalars"
 ]
 
 (* Test: Independence in higher moments (E[x^2 y^2] = 1 for independent shocks) *)
@@ -130,7 +130,7 @@ TestCreate[
 	(eps["x"][t]^2 * eps["pi"][t]^2 /. $rulesEt),
 	1,
 	{},
-	TestID -> "eps-Independence-HigherMoments"
+	TestID -> "[eps] Independence holds for higher moments"
 ]
 
 
@@ -143,7 +143,7 @@ TestCreate[
 	Table[eps["dd"][t, k] * eps["dc"][t], {k, $stockIndices}] /. $rulesEt,
 	{taugd[1], taugd[i], taugd[j]},
 	{},
-	TestID -> "taugd-CorrelationStructure-ConsumptionDividendShocks"
+	TestID -> "[taugd] Correlation structure for consumption dividend shocks"
 ]
 
 
@@ -156,7 +156,7 @@ TestCreate[
 	((eps["x"][t] + eps["pi"][t])^2 // Expand) /. $rulesEt,
 	2, (* E[x^2] + E[pi^2] + 2E[x*pi] = 1 + 1 + 0 = 2 *)
 	{},
-	TestID -> "eps-Linearity-VarianceSum"
+	TestID -> "[eps] Linearity property holds for variance sums"
 ]
 
 
@@ -169,7 +169,7 @@ TestCreate[
 	AllTrue[$scalarShockNames, unevaluatedQ[eps[#][t + 1]] &],
 	True,
 	{},
-	TestID -> "rulesE-ScalarShocksDifferentTime-Unevaluated"
+	TestID -> "[rulesE] Scalar shocks with different time remain unevaluated"
 ]
 
 (* Test: Scalar shocks with symbol (not string) names are not evaluated *)
@@ -177,7 +177,7 @@ TestCreate[
 	AllTrue[$scalarShockNames, unevaluatedQ[eps[ToExpression @ #][t]] &],
 	True,
 	{},
-	TestID -> "rulesE-ScalarShocksSymbolNames-Unevaluated"
+	TestID -> "[rulesE] Scalar shocks symbol names remain unevaluated"
 ]
 
 (* Test: Stock shocks at different times or with symbol names are not evaluated *)
@@ -185,7 +185,7 @@ TestCreate[
 	AllTrue[{eps["dd"][t + 1, i], eps[dd][t, i]}, unevaluatedQ],
 	True,
 	{},
-	TestID -> "rulesE-StockShocksDifferentTimeOrSymbol-Unevaluated"
+	TestID -> "[rulesE] Stock shocks with different time or symbol remain unevaluated"
 ]
 
 
@@ -198,7 +198,7 @@ TestCreate[
 	AllTrue[$scalarShockNames, unevaluatedQ[eps[#]] &],
 	True,
 	{},
-	TestID -> "rulesE-ScalarShocksNoTime-Unevaluated"
+	TestID -> "[rulesE] Scalar shocks without time remain unevaluated"
 ]
 
 (* Test: Stock shock without arguments is not evaluated *)
@@ -206,7 +206,7 @@ TestCreate[
 	unevaluatedQ[eps["dd"]],
 	True,
 	{},
-	TestID -> "rulesE-StockShockNoArgs-Unevaluated"
+	TestID -> "[rulesE] Stock shock without args remains unevaluated"
 ]
 
 
@@ -223,7 +223,7 @@ TestCreate[
 	AllTrue[$invalidScalarNames, unevaluatedQ[eps[#]] &],
 	True,
 	{},
-	TestID -> "rulesE-InvalidScalarShockNames-Unevaluated"
+	TestID -> "[rulesE] Invalid scalar shock names remain unevaluated"
 ]
 
 (* Test: Invalid stock shock name is not evaluated *)
@@ -231,7 +231,7 @@ TestCreate[
 	unevaluatedQ[eps["ddd"]],
 	True,
 	{},
-	TestID -> "rulesE-InvalidStockShockName-Unevaluated"
+	TestID -> "[rulesE] Invalid stock shock name remains unevaluated"
 ]
 
 (* Test: Invalid scalar shock names with various time arguments are not evaluated *)
@@ -242,7 +242,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "rulesE-InvalidScalarShocksWithTime-Unevaluated"
+	TestID -> "[rulesE] Invalid scalar shocks with time remain unevaluated"
 ]
 
 (* Test: Stock shocks with various non-matching times are not evaluated *)
@@ -253,7 +253,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "rulesE-StockShocksVariousTimes-Unevaluated"
+	TestID -> "[rulesE] Stock shocks with various times remain unevaluated"
 ]
 
 
@@ -266,7 +266,7 @@ TestCreate[
 	AllTrue[$scalarShockNames, (NewContext`eps[#][t] /. $rulesEt) === 0 &],
 	True,
 	{},
-	TestID -> "rulesE-NewContextScalarShocks-FirstMomentZero"
+	TestID -> "[rulesE] New context scalar shocks have first moment zero"
 ]
 
 (* Test: rulesE works for stock shocks in any context - first moment *)
@@ -274,7 +274,7 @@ TestCreate[
 	AllTrue[$stockIndices, (NewContext`eps["dd"][t, #] /. $rulesEt) === 0 &],
 	True,
 	{},
-	TestID -> "rulesE-NewContextStockShocks-FirstMomentZero"
+	TestID -> "[rulesE] New context stock shocks have first moment zero"
 ]
 
 (* Test: rulesE works for eps symbols in original package context - second moment *)
@@ -285,7 +285,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "rulesE-OriginalContextScalarShocks-SecondMomentOne"
+	TestID -> "[rulesE] Original context scalar shocks have second moment one"
 ]
 
 (* Test: rulesE works for stock shocks in original package context - second moment *)
@@ -296,7 +296,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "rulesE-OriginalContextStockShocks-SecondMomentOne"
+	TestID -> "[rulesE] Original context stock shocks have second moment one"
 ]
 
 

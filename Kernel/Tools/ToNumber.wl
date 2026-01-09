@@ -65,12 +65,18 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectat
 toNum["Rules",model_Association,rest__]:= toNumRules[model,rest,{},ReleaseHold@If[KeyExistsQ[model["extraInfo"],"initialGuess"],"initialGuess"->model["extraInfo"]["initialGuess"],Hold@Sequence[] ] ];
 
 (*convenience forms that apply rules to expr or allow for postfix notation expr//toNum*)
-toNum[expr_/;Not@AssociationQ[expr],model_Association,rest__]:= ReplaceRepeated[toEquation[expr,model], toNum["Rules", model, rest] ] 
+toNum[expr_/;Not@AssociationQ[expr],model_Association,rest__]:= With[
+	{rules = toNum["Rules", model, rest]},
+	If[FailureQ[rules], rules, ReplaceRepeated[toEquation[expr,model], rules]]
+]
 toNum[model_Association,rest__]:=Function[{expr}, toNum[expr,model,rest]]
 
 (*if rest not provided, use model["params"]*)
 toNum["Rules",model_Association]:= toNum["Rules", model,model["params"],{}];
-toNum[expr_/;Not@AssociationQ[expr],model_Association]:= toNum[expr,model,model["params"],{}]
+toNum[expr_/;Not@AssociationQ[expr],model_Association]:= With[
+	{rules = toNum["Rules", model]},
+	If[FailureQ[rules], rules, ReplaceRepeated[toEquation[expr,model], rules]]
+]
 toNum[model_Association]:=toNum[model,model["params"],{}]
 
 
@@ -93,20 +99,24 @@ toNumRules[
 	With[{newParams=processNewParameters[newParameters,params]},
 		With[{allParams=Normal@Join[Association@params,Association@newParams]},
 			With[{solHierarchical=updateCoeffs[model,kernels,allParams,guessCoeffsSolution,"UpdatePd"->True,"UpdateBonds"->True,optsUpdateCoeffs]},
-				(* Extract flat rules from first A solution *)
-				With[{sol=flattenCoeffs[solHierarchical, 1]},
-					Join[
-						sol,
-						allParams
-						,
-						 {
-							FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc ->
-								(uncondEwc/.sol//.allParams),
-							FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[ind_] :>
-								(uncondEpd/.(FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j->ind)/.sol//.allParams)
-						}
-					](*Join*)
-				](*With*)
+				(* Propagate Failure from updateCoeffs *)
+				If[FailureQ[solHierarchical],
+					solHierarchical,
+					(* Extract flat rules from first A solution *)
+					With[{sol=flattenCoeffs[solHierarchical, 1]},
+						Join[
+							sol,
+							allParams
+							,
+							 {
+								FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc ->
+									(uncondEwc/.sol//.allParams),
+								FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[ind_] :>
+									(uncondEpd/.(FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j->ind)/.sol//.allParams)
+							}
+						](*Join*)
+					](*With*)
+				](*If*)
 			](*With*)
 		](*With*)
 	](*With*)

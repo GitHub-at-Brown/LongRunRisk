@@ -28,7 +28,7 @@ TestCreate[
 	Names["*pdeq"] =!= {},
 	True,
 	{},
-	TestID -> "pdeq-Existence-CanBeFound"
+	TestID -> "[pdeq] Symbol can be found"
 ]
 
 
@@ -41,7 +41,7 @@ TestCreate[
 	Values@verifySymbolContext[$endogenousVars],
 	{True,True,True,True},
 	{},
-	TestID -> "$endogenousVars-verifySymbolContext-InCorrectContext"
+	TestID -> "[$endogenousVars] Symbols have correct context"
 ]
 
 
@@ -96,7 +96,7 @@ Block[{t, m},
 		],
 		True,
 		{},
-		TestID -> "BondFunctions-DefaultArguments-DefaultToOne"
+		TestID -> "[Bond functions] Default arguments default to one"
 	]
 ]
 
@@ -114,7 +114,7 @@ Block[{t, m},
 		],
 		True,
 		{},
-		TestID -> "BondYieldFunctions-Definition-UsePrivateSymbols"
+		TestID -> "[Bond yield functions] Definitions use private symbols"
 	]
 ]
 
@@ -129,7 +129,7 @@ Block[{t, m, h},
 		],
 		True,
 		{},
-		TestID -> "ForwardEqFunctions-Definition-MatchFormula"
+		TestID -> "[Forward eq functions] Definitions match formula"
 	]
 ]
 
@@ -149,7 +149,7 @@ Block[{t, h},
 		],
 		True,
 		{},
-		TestID -> "RiskFreeEqFunctions-Definition-UsePrivateYields"
+		TestID -> "[Risk free eq functions] Definitions use private yields"
 	]
 ]
 

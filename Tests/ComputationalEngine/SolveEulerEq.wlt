@@ -146,7 +146,7 @@ TestCreate[
 	MatchQ[$bkyResult, {__}],
 	True,
 	{},
-	TestID -> "updateCoeffs-BKY-ReturnsNonEmptyList"
+	TestID -> "[updateCoeffs] BKY returns non-empty list"
 ]
 
 
@@ -155,7 +155,7 @@ TestCreate[
 	MatchQ[$desResult, {__}],
 	True,
 	{},
-	TestID -> "updateCoeffs-DES-ReturnsNonEmptyList"
+	TestID -> "[updateCoeffs] DES returns non-empty list"
 ]
 
 
@@ -167,7 +167,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-Result-HasExpectedKeys"
+	TestID -> "[updateCoeffs] Result has expected keys"
 ]
 
 
@@ -183,7 +183,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-BKY-WcCoeffsValidStructure"
+	TestID -> "[updateCoeffs] BKY wc coefficients have valid structure"
 ]
 
 
@@ -195,7 +195,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-DES-WcCoeffsValidStructure"
+	TestID -> "[updateCoeffs] DES wc coefficients have valid structure"
 ]
 
 
@@ -216,7 +216,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-UpdatePdFalse-ReturnsWcCoeffs"
+	TestID -> "[updateCoeffs] UpdatePd False returns only wc coefficients"
 ]
 
 
@@ -237,7 +237,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-UpdatePdTrue-ReturnsBothWcAndPd"
+	TestID -> "[updateCoeffs] UpdatePd True returns both wc and pd coefficients"
 ]
 
 
@@ -250,7 +250,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-UpdatePdTrue-PdCoeffsValidStructure"
+	TestID -> "[updateCoeffs] UpdatePd True pd coefficients have valid structure"
 ]
 
 
@@ -272,7 +272,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-IntervalInitialGuess-Works"
+	TestID -> "[updateCoeffs] Interval initial guess works correctly"
 ]
 
 
@@ -290,7 +290,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-PointIntervalInitialGuess-Works"
+	TestID -> "[updateCoeffs] Point interval initial guess works correctly"
 ]
 
 
@@ -303,7 +303,7 @@ TestCreate[
 	MemberQ[Keys[Options[updateCoeffs]], "PrintResidualsNorm"],
 	True,
 	{},
-	TestID -> "updateCoeffs-PrintResidualsNormOption-IsRecognized"
+	TestID -> "[updateCoeffs] PrintResidualsNorm option is recognized"
 ]
 
 (* Test: CheckResiduals option is recognized *)
@@ -311,7 +311,7 @@ TestCreate[
 	MemberQ[Keys[Options[updateCoeffs]], "CheckResiduals"],
 	True,
 	{},
-	TestID -> "updateCoeffs-CheckResidualsOption-IsRecognized"
+	TestID -> "[updateCoeffs] CheckResiduals option is recognized"
 ]
 
 
@@ -327,7 +327,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "loadModelKernels-BKY-ReturnsAssociation"
+	TestID -> "[loadModelKernels] BKY returns association"
 ]
 
 
@@ -339,7 +339,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "loadModelKernels-BKY-HasKernelsKey"
+	TestID -> "[loadModelKernels] BKY has kernels key"
 ]
 
 
@@ -351,7 +351,7 @@ TestCreate[
 	],
 	True,
 	{FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`loadModelKernels::nofile},
-	TestID -> "loadModelKernels-InvalidModel-ReturnsFailed"
+	TestID -> "[loadModelKernels] Invalid model returns Failed"
 ]
 
 
@@ -369,7 +369,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-BKY-BondCoeffsValidStructure"
+	TestID -> "[updateCoeffs] BKY bond coefficients have valid structure"
 ]
 
 
@@ -383,7 +383,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-BKY-NomBondCoeffsValidStructure"
+	TestID -> "[updateCoeffs] BKY nominal bond coefficients have valid structure"
 ]
 
 
@@ -398,7 +398,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-BKY-BondMaxMaturityCorrect"
+	TestID -> "[updateCoeffs] BKY bond max maturity is correct"
 ]
 
 
@@ -414,7 +414,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "flattenCoeffs-AllRules-ReturnsRuleList"
+	TestID -> "[flattenCoeffs] All rules returns rule list"
 ]
 
 
@@ -426,7 +426,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "flattenCoeffs-SingleSolution-ReturnsRuleList"
+	TestID -> "[flattenCoeffs] Single solution returns rule list"
 ]
 
 
@@ -442,7 +442,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "flattenCoeffsBundles-AllBundles-ReturnsListOfRuleLists"
+	TestID -> "[flattenCoeffsBundles] All bundles returns list of rule lists"
 ]
 
 
@@ -454,7 +454,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "flattenCoeffsBundles-SingleASolution-ReturnsListOfRuleLists"
+	TestID -> "[flattenCoeffsBundles] Single solution returns list of rule lists"
 ]
 
 
@@ -470,7 +470,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "addCoeffsSolutionN-BKY-ComputesAllCoeffTypes"
+	TestID -> "[addCoeffsSolutionN] BKY computes all coefficient types"
 ]
 
 
@@ -485,7 +485,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "addCoeffsSolutionN-DefaultMaturity-Is12"
+	TestID -> "[addCoeffsSolutionN] Default maturity is 12"
 ]
 
 
@@ -499,7 +499,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "addCoeffsSolutionN-ExplicitMaturity-RespectsArgument"
+	TestID -> "[addCoeffsSolutionN] Explicit maturity respects argument"
 ]
 
 
@@ -515,7 +515,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-Options-InheritsFromUpdateCoeffsSol"
+	TestID -> "[updateCoeffs] Options inherit from updateCoeffsSol"
 ]
 
 
@@ -527,7 +527,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "updateCoeffs-Options-InheritsFromChecks"
+	TestID -> "[updateCoeffs] Options inherit from Checks"
 ]
 
 

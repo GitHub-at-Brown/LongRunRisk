@@ -53,17 +53,17 @@ checkMsg[expr_, msg_] := Module[{c},
 
 
 (* Test: When old and new parameters are equal, all values are numbers *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = $baseParams},
 		AllTrue[Values @ processNewParameters[newP, p], NumberQ]
 	],
 	True,
 	{},
 	TestID -> "[processNewParameters] Equal parameters produce numeric values"
-] *)
+]
 
 (* Test: When old and new parameters are equal, keys match by name *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = $baseParams},
 		Module[{procP = processNewParameters[newP, p]},
 			Sort[(SymbolName @* Replace[h_[_] :> h]) /@ Keys @ procP] === Sort[(SymbolName @* Replace[h_[_] :> h]) /@ Keys @ newP]
@@ -72,10 +72,10 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Equal parameters preserve key names"
-] *)
+]
 
 (* Test: When old and new parameters are equal, keys match with context *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = $baseParams},
 		Module[{procP = processNewParameters[newP, p]},
 			Sort @ Keys @ procP === Sort @ Keys @ newP
@@ -84,10 +84,10 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Equal parameters preserve key contexts"
-] *)
+]
 
 (* Test: When old and new parameters are equal, processed keys are subset of old parameters *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = $baseParams},
 		Module[{procP = processNewParameters[newP, p]},
 			SubsetQ[Keys @ p, Keys @ procP]
@@ -96,17 +96,17 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Processed keys subset of original parameters"
-] *)
+]
 
 (* Test: When old and new parameters are equal, does not abort *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = $baseParams},
 		Not @ checkAbrt[processNewParameters[newP, p]]
 	],
 	True,
 	{},
 	TestID -> "[processNewParameters] Equal parameters do not abort"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -114,17 +114,17 @@ checkMsg[expr_, msg_] := Module[{c},
 
 
 (* Test: When new parameters are subset of old, values are numbers *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1}},
 		AllTrue[Values @ processNewParameters[newP, p], NumberQ]
 	],
 	True,
 	{},
 	TestID -> "[processNewParameters] Subset parameters produce numeric values"
-] *)
+]
 
 (* Test: When new parameters are subset of old, keys match new parameters by name *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {delta -> 0.9, Esx -> 1}},
 		Module[{procP = processNewParameters[newP, p]},
 			Sort[(SymbolName @* Replace[h_[_] :> h]) /@ Keys @ procP] === Sort[(SymbolName @* Replace[h_[_] :> h]) /@ Keys @ newP]
@@ -133,10 +133,10 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Subset parameters match by name"
-] *)
+]
 
 (* Test: When new parameters are subset of old, procP keys are in correct context *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1}},
 		Module[{procP = processNewParameters[newP, p]},
 			AllTrue[Keys @ procP, Context[#] === "FernandoDuarte`LongRunRisk`Model`Parameters`" &]
@@ -145,7 +145,7 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Subset parameters use correct context"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -153,14 +153,14 @@ checkMsg[expr_, msg_] := Module[{c},
 
 
 (* Test: When new parameters is empty, returns empty list *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams},
 		processNewParameters[{}, p] === {}
 	],
 	True,
 	{},
 	TestID -> "[processNewParameters] Empty input returns empty list"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -168,17 +168,17 @@ checkMsg[expr_, msg_] := Module[{c},
 
 
 (* Test: When new parameters are NOT a subset, aborts *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`phip -> 3}},
 		checkAbrt[processNewParameters[newP, p]]
 	],
 	True,
 	{},
 	TestID -> "[processNewParameters] Non-subset parameters abort"
-] *)
+]
 
 (* Test: When new parameters are NOT a subset, issues subsetparam message *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`phip -> 3}},
 		checkMsg[processNewParameters[newP, p],
 			FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::subsetparam]
@@ -186,7 +186,7 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Non-subset parameters issue subsetparam message"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -194,17 +194,17 @@ checkMsg[expr_, msg_] := Module[{c},
 
 
 (* Test: psi=1 in new parameters aborts *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1}},
 		checkAbrt[processNewParameters[newP, p]]
 	],
 	True,
 	{},
 	TestID -> "[processNewParameters] psi=1 aborts"
-] *)
+]
 
 (* Test: psi=1 issues psi message *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1}},
 		checkMsg[processNewParameters[newP, p],
 			FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::psi]
@@ -212,17 +212,17 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] psi=1 issues psi message"
-] *)
+]
 
 (* Test: psi=1. (numeric) also aborts *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.}},
 		checkAbrt[processNewParameters[newP, p]]
 	],
 	True,
 	{},
 	TestID -> "[processNewParameters] psi=1.0 numeric aborts"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -230,27 +230,27 @@ checkMsg[expr_, msg_] := Module[{c},
 
 
 (* Test: When all three {gamma, psi, theta} provided and theta exactly correct, does not abort *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 10, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> (1 - FernandoDuarte`LongRunRisk`Model`Parameters`gamma)/(1 - 1/FernandoDuarte`LongRunRisk`Model`Parameters`psi), FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.5`}},
 		Not @ checkAbrt[processNewParameters[newP, p]]
 	],
 	True,
 	{},
 	TestID -> "[processNewParameters] Exact gamma-psi-theta triple does not abort"
-] *)
+]
 
 (* Test: When all three {gamma, psi, theta} provided and theta exactly correct, values are numbers *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 10, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> (1 - FernandoDuarte`LongRunRisk`Model`Parameters`gamma)/(1 - 1/FernandoDuarte`LongRunRisk`Model`Parameters`psi), FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.5`}},
 		AllTrue[Values @ processNewParameters[newP, p], NumberQ]
 	],
 	True,
 	{},
 	TestID -> "[processNewParameters] Exact gamma-psi-theta triple produces numbers"
-] *)
+]
 
 (* Test: When theta is NOT exactly correct, issues param message *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 10, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> 3.23`, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.5`}},
 		checkMsg[processNewParameters[newP, p],
 			FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::param]
@@ -258,10 +258,10 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Inconsistent theta issues param message"
-] *)
+]
 
 (* Test: When theta is NOT exactly correct, theta is recalculated to correct value *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 10, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> 3.23`, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.5`}},
 		Module[{procP},
 			procP = Quiet[processNewParameters[newP, p],
@@ -274,7 +274,7 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Inconsistent theta recalculated to -27"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -282,17 +282,17 @@ checkMsg[expr_, msg_] := Module[{c},
 
 
 (* Test: Solve for gamma from {psi, theta} - values are numbers *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 2, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> -3.`}},
 		AllTrue[Values @ processNewParameters[newP, p], NumberQ]
 	],
 	True,
 	{},
 	TestID -> "[processNewParameters] Solving for gamma produces numbers"
-] *)
+]
 
 (* Test: Solve for gamma from {psi, theta} - gamma has correct value 2.5 *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 2, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> -3.`}},
 		Module[{procP = processNewParameters[newP, p]},
 			(* gamma = 1 - theta*(1-1/psi) = 1 - (-3)*(1-1/2) = 1 + 3*0.5 = 2.5 *)
@@ -302,10 +302,10 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Gamma computed as 2.5 from psi and theta"
-] *)
+]
 
 (* Test: Solve for theta from {gamma, psi} - theta has correct value -3 *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 2, FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 2.5}},
 		Module[{procP = processNewParameters[newP, p]},
 			(* theta = (1-gamma)/(1-1/psi) = (1-2.5)/(1-0.5) = -1.5/0.5 = -3 *)
@@ -315,10 +315,10 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Theta computed as -3 from gamma and psi"
-] *)
+]
 
 (* Test: Solve for psi from {gamma, theta} - psi has correct value 2 *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 2.5, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> -3.`}},
 		Module[{procP = processNewParameters[newP, p]},
 			(* psi = 1/(1-(1-gamma)/theta) = 1/(1-(-1.5)/(-3)) = 1/(1-0.5) = 2 *)
@@ -328,7 +328,7 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Psi computed as 2 from gamma and theta"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -336,17 +336,17 @@ checkMsg[expr_, msg_] := Module[{c},
 
 
 (* Test: theta provided without gamma or psi aborts *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> 1.}},
 		checkAbrt[processNewParameters[newP, p]]
 	],
 	True,
 	{},
 	TestID -> "[processNewParameters] Theta alone without gamma or psi aborts"
-] *)
+]
 
 (* Test: theta provided without gamma or psi issues theta message *)
-(* TestCreate[
+TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> 1.}},
 		checkMsg[processNewParameters[newP, p],
 			FernandoDuarte`LongRunRisk`Tools`ToNumber`processNewParameters::theta]
@@ -354,7 +354,7 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Theta alone issues theta message"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -362,7 +362,7 @@ checkMsg[expr_, msg_] := Module[{c},
 
 
 (* Test: processNewParameters preserves contexts of old parameters *)
-(* TestCreate[
+TestCreate[
 	Module[{p, newP, procP},
 		p = {context1`delta -> 0.998`, context1`Esx -> 0.0078`, foo`gamma -> 10, muc -> 0.0015`,
 			phisxs -> 2.3`*^-6, phix -> 0.044`, psi -> 1.5`, rhox -> 0.979`,
@@ -376,10 +376,10 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] New parameter contexts do not match old"
-] *)
+]
 
 (* Test: processNewParameters preserves contexts - procP contexts match old parameters *)
-(* TestCreate[
+TestCreate[
 	Module[{p, newP, procP},
 		p = {context1`delta -> 0.998`, context1`Esx -> 0.0078`, foo`gamma -> 10, muc -> 0.0015`,
 			phisxs -> 2.3`*^-6, phix -> 0.044`, psi -> 1.5`, rhox -> 0.979`,
@@ -393,7 +393,7 @@ checkMsg[expr_, msg_] := Module[{c},
 	True,
 	{},
 	TestID -> "[processNewParameters] Processed contexts match old parameters"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -440,15 +440,15 @@ e2 = ee[[1 ;; 2]];
 
 
 (* Test: toNum[thisModel] returns a Function *)
-(* TestCreate[
+TestCreate[
 	Head[toNum[$modNRC]] === Function,
 	True,
 	{},
 	TestID -> "[toNum] Curried form returns Function"
-] *)
+]
 
 (* Test: Numerical evaluation of expressions *)
-(* TestCreate[
+TestCreate[
 	With[{tn = toNum[$modNRC]},
 		AllTrue[Flatten[{
 			((e1 // tn) //. numModel),
@@ -461,10 +461,10 @@ e2 = ee[[1 ;; 2]];
 	True,
 	{},
 	TestID -> "[toNum] Expressions with expectations evaluate to numbers"
-] *)
+]
 
 (* Test: toNum[expression, thisModel] form *)
-(* TestCreate[
+TestCreate[
 	AllTrue[Flatten[{
 		((toNum[e1, $modNRC]) //. numModel),
 		(((toNum[uncondE /@ e1, $modNRC])) //. numModel),
@@ -475,10 +475,10 @@ e2 = ee[[1 ;; 2]];
 	True,
 	{},
 	TestID -> "[toNum] Two-argument form evaluates to numbers"
-] *)
+]
 
 (* Test: toNum["Rules", thisModel] form *)
-(* TestCreate[
+TestCreate[
 	AllTrue[Flatten[{
 		((toEquation[e1, $modNRC]) //. numModel),
 		(((toEquation[uncondE /@ e1, $modNRC])) //. numModel),
@@ -489,7 +489,7 @@ e2 = ee[[1 ;; 2]];
 	True,
 	{},
 	TestID -> "[toNum] Rules form evaluates to numbers"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -497,7 +497,7 @@ e2 = ee[[1 ;; 2]];
 
 
 (* Test: "UpdatePd" and "UpdateBonds" options *)
-(* TestCreate[
+TestCreate[
 	AllTrue[Flatten[{
 		pd[t, 1] // toNum[$modNRC, "UpdatePd" -> False] //. numModel,
 		toNum[pd[t, 1], $modNRC, "UpdatePd" -> False] //. numModel,
@@ -510,7 +510,7 @@ e2 = ee[[1 ;; 2]];
 	True,
 	{},
 	TestID -> "[toNum] UpdatePd and UpdateBonds options evaluate to numbers"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -518,7 +518,7 @@ e2 = ee[[1 ;; 2]];
 
 
 (* Test: Pass new parameters *)
-(* TestCreate[
+TestCreate[
 	With[{newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99}, exprNewParam = uncondE[wc[t]]},
 		AllTrue[{
 			exprNewParam // toNum[$modNRC, newParameters] //. numModel,
@@ -529,10 +529,10 @@ e2 = ee[[1 ;; 2]];
 	True,
 	{},
 	TestID -> "[toNum] New parameters evaluate to numbers"
-] *)
+]
 
 (* Test: Pass initial guess for coefficients *)
-(* TestCreate[
+TestCreate[
 	With[{exprNewParam = uncondE[wc[t]], guessCoeffsSolution = {A[0] -> 4.6}},
 		AllTrue[{
 			exprNewParam // toNum[$modNRC, {}, guessCoeffsSolution] //. numModel,
@@ -543,10 +543,10 @@ e2 = ee[[1 ;; 2]];
 	True,
 	{},
 	TestID -> "[toNum] Initial guess for coefficients evaluates to numbers"
-] *)
+]
 
 (* Test: Pass both new parameters and initial guess *)
-(* TestCreate[
+TestCreate[
 	With[{newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99}, exprNewParam = uncondE[wc[t]], guessCoeffsSolution = {A[0] -> 4.6}},
 		AllTrue[{
 			exprNewParam // toNum[$modNRC, newParameters, guessCoeffsSolution] //. numModel,
@@ -557,10 +557,10 @@ e2 = ee[[1 ;; 2]];
 	True,
 	{},
 	TestID -> "[toNum] Parameters with initial guess evaluate to numbers"
-] *)
+]
 
 (* Test: New parameters, guess, and options combined *)
-(* TestCreate[
+TestCreate[
 	With[{
 		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99},
 		exprNewParam = uncondE[wc[t]],
@@ -576,7 +576,7 @@ e2 = ee[[1 ;; 2]];
 	True,
 	{},
 	TestID -> "[toNum] Parameters, guess, and options combined evaluate"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -584,14 +584,14 @@ e2 = ee[[1 ;; 2]];
 
 
 (* Test: toNum handles Associations via curried form *)
-(* TestCreate[
+TestCreate[
 	With[{tn = toNum[$modNRC]},
 		(wc[t] // tn /. numModel) // AllTrue[#, NumericQ]&
 	],
 	True,
 	{},
 	TestID -> "[toNum] Association input produces numeric values"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -599,20 +599,20 @@ e2 = ee[[1 ;; 2]];
 
 
 (* Test: toExogenousVars returns expression with only exogenous vars *)
-(* TestCreate[
+TestCreate[
 	FreeQ[toExogenousVars[wc[t], $modNRC], wc],
 	True,
 	{},
 	TestID -> "[toExogenousVars] Removes endogenous wc from expression"
-] *)
+]
 
 (* Test: toStateVars returns expression with only state vars *)
-(* TestCreate[
+TestCreate[
 	FreeQ[toStateVars[wc[t], $modNRC], wc],
 	True,
 	{},
 	TestID -> "[toStateVars] Removes endogenous wc from expression"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -620,22 +620,22 @@ e2 = ee[[1 ;; 2]];
 
 
 (* Test: Empty list input *)
-(* TestCreate[
+TestCreate[
 	toNum[{}, $modNRC] === {},
 	True,
 	{},
 	TestID -> "[toNum] Empty list input returns empty list"
-] *)
+]
 
 (* Test: Mixed types input *)
-(* TestCreate[
+TestCreate[
 	With[{res = toNum[{1.0, "text", wc[t]}, $modNRC] //. numModel},
 		MatchQ[res, {1.0, "text", _?NumericQ}]
 	],
 	True,
 	{},
 	TestID -> "[toNum] Mixed types preserves literals and converts wc"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -672,7 +672,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 
 
 (* Test: BY model curried toNum evaluates expressions to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{tn, numMod, testExprs},
 		tn = toNum[$modBY];
 		numMod = getNumModel[$modBY];
@@ -688,10 +688,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/BY] Curried form with expectations evaluates to numbers"
-] *)
+]
 
 (* Test: BY model expression toNum form evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, testExprs},
 		numMod = getNumModel[$modBY];
 		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
@@ -706,10 +706,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/BY] Expression form with expectations evaluates to numbers"
-] *)
+]
 
 (* Test: BY model Rules toNum form evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, testExprs, rules},
 		numMod = getNumModel[$modBY];
 		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
@@ -725,7 +725,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/BY] Rules form with expectations evaluates to numbers"
-] *)
+]
 
 
 (* ::Subsubsection:: *)
@@ -733,7 +733,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 
 
 (* Test: BKY model curried toNum evaluates expressions to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{tn, numMod, testExprs},
 		tn = toNum[$modBKY];
 		numMod = getNumModel[$modBKY];
@@ -749,10 +749,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/BKY] Curried form with expectations evaluates to numbers"
-] *)
+]
 
 (* Test: BKY model expression toNum form evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, testExprs},
 		numMod = getNumModel[$modBKY];
 		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
@@ -767,10 +767,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/BKY] Expression form with expectations evaluates to numbers"
-] *)
+]
 
 (* Test: BKY model Rules toNum form evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, testExprs, rules},
 		numMod = getNumModel[$modBKY];
 		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
@@ -786,7 +786,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/BKY] Rules form with expectations evaluates to numbers"
-] *)
+]
 
 
 (* ::Subsubsection:: *)
@@ -794,7 +794,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 
 
 (* Test: DES model curried toNum evaluates expressions to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{tn, numMod, testExprs},
 		tn = toNum[$modDES];
 		numMod = getNumModel[$modDES];
@@ -810,10 +810,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/DES] Curried form with expectations evaluates to numbers"
-] *)
+]
 
 (* Test: DES model expression toNum form evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, testExprs},
 		numMod = getNumModel[$modDES];
 		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
@@ -828,10 +828,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/DES] Expression form with expectations evaluates to numbers"
-] *)
+]
 
 (* Test: DES model Rules toNum form evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, testExprs, rules},
 		numMod = getNumModel[$modDES];
 		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
@@ -847,7 +847,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/DES] Rules form with expectations evaluates to numbers"
-] *)
+]
 
 
 (* ::Subsubsection:: *)
@@ -855,7 +855,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 
 
 (* Test: NRCStochVol model curried toNum evaluates expressions to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{tn, numMod, testExprs},
 		tn = toNum[$modNRCStochVol];
 		numMod = getNumModel[$modNRCStochVol];
@@ -871,10 +871,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/NRCStochVol] Curried form with expectations evaluates to numbers"
-] *)
+]
 
 (* Test: NRCStochVol model expression toNum form evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, testExprs},
 		numMod = getNumModel[$modNRCStochVol];
 		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
@@ -889,10 +889,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/NRCStochVol] Expression form with expectations evaluates to numbers"
-] *)
+]
 
 (* Test: NRCStochVol model Rules toNum form evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, testExprs, rules},
 		numMod = getNumModel[$modNRCStochVol];
 		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
@@ -908,7 +908,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum/NRCStochVol] Rules form with expectations evaluates to numbers"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -916,7 +916,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 
 
 (* Test: uncondCov evaluates to numbers across models *)
-(* TestCreate[
+TestCreate[
 	Module[{testExprs, numMod, res},
 		testExprs = {wc[t], pd[t, 1]};
 		numMod = getNumModel[$modNRC];
@@ -926,10 +926,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[uncondCov] Evaluates to numbers for NRC model"
-] *)
+]
 
 (* Test: uncondCorr evaluates to numbers across models *)
-(* TestCreate[
+TestCreate[
 	Module[{testExprs, numMod, res},
 		testExprs = {wc[t], pd[t, 1]};
 		numMod = getNumModel[$modNRC];
@@ -939,10 +939,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[uncondCorr] Evaluates to numbers for NRC model"
-] *)
+]
 
 (* Test: uncondCov evaluates to numbers for BKY model *)
-(* TestCreate[
+TestCreate[
 	Module[{testExprs, numMod, res},
 		testExprs = {wc[t], pd[t, 1]};
 		numMod = getNumModel[$modBKY];
@@ -952,10 +952,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[uncondCov] Evaluates to numbers for BKY model"
-] *)
+]
 
 (* Test: uncondCorr evaluates to numbers for BKY model *)
-(* TestCreate[
+TestCreate[
 	Module[{testExprs, numMod, res},
 		testExprs = {wc[t], pd[t, 1]};
 		numMod = getNumModel[$modBKY];
@@ -965,7 +965,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[uncondCorr] Evaluates to numbers for BKY model"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -973,7 +973,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 
 
 (* Test: cov evaluates to numbers across models *)
-(* TestCreate[
+TestCreate[
 	Module[{testExprs, numMod, res},
 		testExprs = {wc[t], pd[t, 1]};
 		numMod = getNumModel[$modNRC];
@@ -983,10 +983,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[cov] Evaluates to numbers for NRC model"
-] *)
+]
 
 (* Test: corr evaluates to numbers across models *)
-(* TestCreate[
+TestCreate[
 	Module[{testExprs, numMod, res},
 		testExprs = {wc[t], pd[t, 1]};
 		numMod = getNumModel[$modNRC];
@@ -996,10 +996,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[corr] Evaluates to numbers for NRC model"
-] *)
+]
 
 (* Test: cov evaluates to numbers for BKY model *)
-(* TestCreate[
+TestCreate[
 	Module[{testExprs, numMod, res},
 		testExprs = {wc[t], pd[t, 1]};
 		numMod = getNumModel[$modBKY];
@@ -1009,10 +1009,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[cov] Evaluates to numbers for BKY model"
-] *)
+]
 
 (* Test: corr evaluates to numbers for BKY model *)
-(* TestCreate[
+TestCreate[
 	Module[{testExprs, numMod, res},
 		testExprs = {wc[t], pd[t, 1]};
 		numMod = getNumModel[$modBKY];
@@ -1022,7 +1022,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[corr] Evaluates to numbers for BKY model"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -1030,7 +1030,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 
 
 (* Test: maxMaturity option evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{tn, numMod, testExprs},
 		tn = toNum[$modNRC, maxMaturity -> 6];
 		numMod = getNumModel[$modNRC];
@@ -1043,10 +1043,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum] maxMaturity option evaluates to numbers"
-] *)
+]
 
 (* Test: FindRootOptions option evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{tn, numMod, testExprs},
 		tn = toNum[$modNRC, "FindRootOptions" -> {MaxIterations -> 100}];
 		numMod = getNumModel[$modNRC];
@@ -1059,10 +1059,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum] FindRootOptions option evaluates to numbers"
-] *)
+]
 
 (* Test: MaxIterations option evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{tn, numMod, testExprs},
 		tn = toNum[$modNRC, MaxIterations -> 100];
 		numMod = getNumModel[$modNRC];
@@ -1075,10 +1075,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum] MaxIterations option evaluates to numbers"
-] *)
+]
 
 (* Test: initialGuess option evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{tn, numMod, testExprs},
 		tn = toNum[$modNRC, "initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>];
 		numMod = getNumModel[$modNRC];
@@ -1091,10 +1091,10 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum] initialGuess option evaluates to numbers"
-] *)
+]
 
 (* Test: Combined initialGuess and MaxIterations options evaluate to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{tn, numMod, testExprs},
 		tn = toNum[$modNRC, "initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>, MaxIterations -> 100];
 		numMod = getNumModel[$modNRC];
@@ -1107,7 +1107,7 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 	True,
 	{},
 	TestID -> "[toNum] Combined initialGuess and MaxIterations evaluate to numbers"
-] *)
+]
 
 (* Test: CheckResiduals with large tolerance evaluates to numbers *)
 TestCreate[
@@ -1126,8 +1126,20 @@ TestCreate[
 	TestID -> "[toNum] CheckResiduals with large tolerance evaluates to numbers"
 ]
 
+(* Test: CheckResiduals with zero tolerance returns Failure *)
+TestCreate[
+	Module[{tn, result},
+		tn = toNum[$modNRC, "CheckResiduals" -> True, "Tol" -> 0];
+		result = tn[wc[t]];
+		FailureQ[result]
+	],
+	True,
+	{FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid},
+	TestID -> "[toNum] CheckResiduals with zero tolerance returns Failure"
+]
+
 (* Test: RecurrenceTableOptions evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{tn, numMod, testExprs},
 		tn = toNum[$modNRC, "RecurrenceTableOptions" -> {"DependentVariables" -> Automatic}];
 		numMod = getNumModel[$modNRC];
@@ -1140,10 +1152,10 @@ TestCreate[
 	True,
 	{Reduce::inex, Reduce::naqs, FernandoDuarte`LongRunRisk`ComputationalEngine`FindRootOptim`Private`bindUnary::runtime},
 	TestID -> "[toNum] RecurrenceTableOptions evaluates to numbers"
-] *)
+]
 
 (* Test: DependentVariables option evaluates to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{tn, numMod, testExprs},
 		tn = toNum[$modNRC, DependentVariables -> Automatic];
 		numMod = getNumModel[$modNRC];
@@ -1156,7 +1168,7 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum] DependentVariables option evaluates to numbers"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -1164,7 +1176,7 @@ TestCreate[
 
 
 (* Test: UpdatePd option for BY model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod},
 		numMod = getNumModel[$modBY];
 		AllTrue[Flatten[{
@@ -1176,10 +1188,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/BY] UpdatePd option evaluates to numbers"
-] *)
+]
 
 (* Test: UpdateBonds option for BY model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod},
 		numMod = getNumModel[$modBY];
 		AllTrue[Flatten[{
@@ -1191,10 +1203,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/BY] UpdateBonds option evaluates to numbers"
-] *)
+]
 
 (* Test: UpdatePd option for BKY model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod},
 		numMod = getNumModel[$modBKY];
 		AllTrue[Flatten[{
@@ -1206,10 +1218,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/BKY] UpdatePd option evaluates to numbers"
-] *)
+]
 
 (* Test: UpdateBonds option for BKY model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod},
 		numMod = getNumModel[$modBKY];
 		AllTrue[Flatten[{
@@ -1221,10 +1233,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/BKY] UpdateBonds option evaluates to numbers"
-] *)
+]
 
 (* Test: UpdatePd option for DES model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod},
 		numMod = getNumModel[$modDES];
 		AllTrue[Flatten[{
@@ -1236,10 +1248,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/DES] UpdatePd option evaluates to numbers"
-] *)
+]
 
 (* Test: UpdateBonds option for DES model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod},
 		numMod = getNumModel[$modDES];
 		AllTrue[Flatten[{
@@ -1251,10 +1263,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/DES] UpdateBonds option evaluates to numbers"
-] *)
+]
 
 (* Test: UpdatePd option for NRCStochVol model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod},
 		numMod = getNumModel[$modNRCStochVol];
 		AllTrue[Flatten[{
@@ -1266,10 +1278,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/NRCStochVol] UpdatePd option evaluates to numbers"
-] *)
+]
 
 (* Test: UpdateBonds option for NRCStochVol model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod},
 		numMod = getNumModel[$modNRCStochVol];
 		AllTrue[Flatten[{
@@ -1281,7 +1293,7 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/NRCStochVol] UpdateBonds option evaluates to numbers"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -1289,7 +1301,7 @@ TestCreate[
 
 
 (* Test: New parameters with BY model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, newParameters, exprNewParam},
 		numMod = getNumModel[$modBY];
 		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
@@ -1303,10 +1315,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/BY] New parameters evaluate to numbers"
-] *)
+]
 
 (* Test: Initial guess with BY model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, exprNewParam, guessCoeffsSolution},
 		numMod = getNumModel[$modBY];
 		exprNewParam = uncondE[wc[t]];
@@ -1320,10 +1332,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/BY] Initial guess evaluates to numbers"
-] *)
+]
 
 (* Test: Combined new parameters and guess with BY model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, newParameters, exprNewParam, guessCoeffsSolution},
 		numMod = getNumModel[$modBY];
 		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
@@ -1338,10 +1350,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/BY] Combined parameters and guess evaluate to numbers"
-] *)
+]
 
 (* Test: New parameters with BKY model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, newParameters, exprNewParam},
 		numMod = getNumModel[$modBKY];
 		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
@@ -1355,10 +1367,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/BKY] New parameters evaluate to numbers"
-] *)
+]
 
 (* Test: Combined parameters, guess, and options with BKY model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, newParameters, exprNewParam, guessCoeffsSolution},
 		numMod = getNumModel[$modBKY];
 		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
@@ -1373,10 +1385,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/BKY] Combined parameters, guess, and options evaluate to numbers"
-] *)
+]
 
 (* Test: New parameters with DES model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, newParameters, exprNewParam},
 		numMod = getNumModel[$modDES];
 		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
@@ -1390,10 +1402,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/DES] New parameters evaluate to numbers"
-] *)
+]
 
 (* Test: New parameters with NRCStochVol model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, newParameters, exprNewParam},
 		numMod = getNumModel[$modNRCStochVol];
 		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
@@ -1407,7 +1419,7 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/NRCStochVol] New parameters evaluate to numbers"
-] *)
+]
 
 
 (* ::Subsection:: *)
@@ -1415,7 +1427,7 @@ TestCreate[
 
 
 (* Test: All expression types evaluate to numbers for NRC model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, allExprs},
 		numMod = getNumModel[$modNRC];
 		allExprs = {
@@ -1430,10 +1442,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum] All expression types evaluate to numbers for NRC model"
-] *)
+]
 
 (* Test: Growth expressions evaluate to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, growthExprs},
 		numMod = getNumModel[$modNRC];
 		growthExprs = {
@@ -1445,10 +1457,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum] Growth expressions evaluate to numbers"
-] *)
+]
 
 (* Test: Composite expressions with arithmetic evaluate to numbers *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, compositeExprs},
 		numMod = getNumModel[$modNRC];
 		compositeExprs = {
@@ -1460,10 +1472,10 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum] Composite arithmetic expressions evaluate to numbers"
-] *)
+]
 
 (* Test: All expression types evaluate to numbers for BKY model *)
-(* TestCreate[
+TestCreate[
 	Module[{numMod, allExprs},
 		numMod = getNumModel[$modBKY];
 		allExprs = {
@@ -1478,7 +1490,7 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum] All expression types evaluate to numbers for BKY model"
-] *)
+]
 
 
 End[]

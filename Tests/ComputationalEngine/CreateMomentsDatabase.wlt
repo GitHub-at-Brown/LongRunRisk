@@ -132,7 +132,7 @@ TestCreate[
 	AllTrue[Values[$covLongLookupTables], FileExistsQ[FindFile[#]] &],
 	True,
 	{},
-	TestID -> "covLong-LookupTables-FilesExist"
+	TestID -> "[covLong] Lookup table files exist"
 ]
 
 (* Test: covLong symbols are defined after loading lookup tables *)
@@ -140,7 +140,7 @@ TestCreate[
 	AllTrue[$localTestModels, Length[DownValues[Evaluate[getCovLongSymbol[#]]]] > 0 &],
 	True,
 	{},
-	TestID -> "covLong-LookupTables-SymbolsDefined"
+	TestID -> "[covLong] Lookup table symbols are defined"
 ]
 
 
@@ -153,7 +153,7 @@ TestCreate[
 	allNumericQ[computeMomentsNoStocks[$modBKY]],
 	True,
 	{},
-	TestID -> "covLong-BKY-MomentsNoStocksAreNumeric"
+	TestID -> "[covLong] BKY moments without stocks are numeric"
 ]
 
 (* Test: All moments without stocks evaluate to numbers for NRC model *)
@@ -161,7 +161,7 @@ TestCreate[
 	allNumericQ[computeMomentsNoStocks[$modNRC]],
 	True,
 	{},
-	TestID -> "covLong-NRC-MomentsNoStocksAreNumeric"
+	TestID -> "[covLong] NRC moments without stocks are numeric"
 ]
 
 
@@ -174,7 +174,7 @@ TestCreate[
 	allNumericQ[computeMomentsOneStock[$modBKY]],
 	True,
 	{},
-	TestID -> "covLong-BKY-MomentsOneStockAreNumeric"
+	TestID -> "[covLong] BKY moments with one stock are numeric"
 ]
 
 (* Test: All moments with one stock evaluate to numbers for NRC model *)
@@ -182,7 +182,7 @@ TestCreate[
 	allNumericQ[computeMomentsOneStock[$modNRC]],
 	True,
 	{},
-	TestID -> "covLong-NRC-MomentsOneStockAreNumeric"
+	TestID -> "[covLong] NRC moments with one stock are numeric"
 ]
 
 
@@ -195,7 +195,7 @@ TestCreate[
 	allNumericQ[computeMomentsTwoStocks[$modBKY]],
 	True,
 	{},
-	TestID -> "covLong-BKY-MomentsTwoStocksAreNumeric"
+	TestID -> "[covLong] BKY moments with two stocks are numeric"
 ]
 
 (* Test: All moments with two stocks evaluate to numbers for NRC model *)
@@ -203,7 +203,7 @@ TestCreate[
 	allNumericQ[computeMomentsTwoStocks[$modNRC]],
 	True,
 	{},
-	TestID -> "covLong-NRC-MomentsTwoStocksAreNumeric"
+	TestID -> "[covLong] NRC moments with two stocks are numeric"
 ]
 
 
@@ -216,7 +216,7 @@ TestCreate[
 	allNumericQ[computeMoments3Vars[$modBKY]],
 	True,
 	{},
-	TestID -> "covLong-BKY-MomentsThreeVarsAreNumeric"
+	TestID -> "[covLong] BKY moments with three vars are numeric"
 ]
 
 (* Test: All 3-variable moments without stocks evaluate to numbers for NRC model *)
@@ -224,7 +224,7 @@ TestCreate[
 	allNumericQ[computeMoments3Vars[$modNRC]],
 	True,
 	{},
-	TestID -> "covLong-NRC-MomentsThreeVarsAreNumeric"
+	TestID -> "[covLong] NRC moments with three vars are numeric"
 ]
 
 
@@ -237,7 +237,7 @@ TestCreate[
 	allNumericQ[computeMoments4Vars[$modBKY]],
 	True,
 	{},
-	TestID -> "covLong-BKY-MomentsFourVarsAreNumeric"
+	TestID -> "[covLong] BKY moments with four vars are numeric"
 ]
 
 (* Test: All 4-variable moments without stocks evaluate to numbers for NRC model *)
@@ -245,7 +245,7 @@ TestCreate[
 	allNumericQ[computeMoments4Vars[$modNRC]],
 	True,
 	{},
-	TestID -> "covLong-NRC-MomentsFourVarsAreNumeric"
+	TestID -> "[covLong] NRC moments with four vars are numeric"
 ]
 
 
@@ -258,7 +258,7 @@ TestCreate[
 	allNumericQ[computeMomentsStocks3Vars[$modBKY]],
 	True,
 	{},
-	TestID -> "covLong-BKY-MomentsStocksThreeVarsAreNumeric"
+	TestID -> "[covLong] BKY moments with stocks and three vars are numeric"
 ]
 
 (* Test: All 3-variable moments with stocks evaluate to numbers for NRC model *)
@@ -266,7 +266,7 @@ TestCreate[
 	allNumericQ[computeMomentsStocks3Vars[$modNRC]],
 	True,
 	{},
-	TestID -> "covLong-NRC-MomentsStocksThreeVarsAreNumeric"
+	TestID -> "[covLong] NRC moments with stocks and three vars are numeric"
 ]
 
 (* Test: All 4-variable moments with stocks evaluate to numbers for BKY model *)
@@ -274,7 +274,7 @@ TestCreate[
 	allNumericQ[computeMomentsStocks4Vars[$modBKY]],
 	True,
 	{},
-	TestID -> "covLong-BKY-MomentsStocksFourVarsAreNumeric"
+	TestID -> "[covLong] BKY moments with stocks and four vars are numeric"
 ]
 
 (* Test: All 4-variable moments with stocks evaluate to numbers for NRC model *)
@@ -282,7 +282,7 @@ TestCreate[
 	allNumericQ[computeMomentsStocks4Vars[$modNRC]],
 	True,
 	{},
-	TestID -> "covLong-NRC-MomentsStocksFourVarsAreNumeric"
+	TestID -> "[covLong] NRC moments with stocks and four vars are numeric"
 ]
 
 
@@ -295,7 +295,7 @@ TestCreate[
 	exportedSymbolQ[uncondCovLongExo],
 	True,
 	{},
-	TestID -> "uncondCovLongExo-Export-IsPublic"
+	TestID -> "[uncondCovLongExo] Symbol is exported as public"
 ]
 
 (* Test: uncondVarLongExo is exported *)
@@ -303,7 +303,7 @@ TestCreate[
 	exportedSymbolQ[uncondVarLongExo],
 	True,
 	{},
-	TestID -> "uncondVarLongExo-Export-IsPublic"
+	TestID -> "[uncondVarLongExo] Symbol is exported as public"
 ]
 
 (* Test: createDatabase is exported *)
@@ -311,7 +311,7 @@ TestCreate[
 	exportedSymbolQ[createDatabase],
 	True,
 	{},
-	TestID -> "createDatabase-Export-IsPublic"
+	TestID -> "[createDatabase] Symbol is exported as public"
 ]
 
 
@@ -324,7 +324,7 @@ TestCreate[
 	Sort[Keys[Options[createDatabase]]],
 	Sort[{"maxMomentsLagsToCreate", "startSequenceAtLag", "simplifyDownValues"}],
 	{},
-	TestID -> "createDatabase-Options-ExpectedKeys"
+	TestID -> "[createDatabase] Options have expected keys"
 ]
 
 

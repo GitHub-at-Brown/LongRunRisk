@@ -31,7 +31,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-VerboseFalse-ReturnsNull"
+	TestID -> "[print] Verbose False returns Null"
 ]
 
 (* Test: print returns Null with Verbose -> True and produces output *)
@@ -44,7 +44,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-VerboseTrue-ReturnsNull"
+	TestID -> "[print] Verbose True returns Null"
 ]
 
 (* Test: print returns Null with all options and produces correct output *)
@@ -58,7 +58,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-AllOptions-ReturnsNull"
+	TestID -> "[print] All options returns Null"
 ]
 
 
@@ -80,7 +80,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-VerboseCINoEnv-ReturnsNull"
+	TestID -> "[print] Verbose CI without env returns Null"
 ]
 
 (* Test: Verbose with invalid value behaves as False (no output) *)
@@ -92,7 +92,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-VerboseInvalidValue-ReturnsNull"
+	TestID -> "[print] Verbose invalid value returns Null"
 ]
 
 
@@ -110,7 +110,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-MemoryFalse-NoMemoryInfo"
+	TestID -> "[print] Memory False excludes memory info"
 ]
 
 (* Test: Memory -> True includes memory info *)
@@ -124,7 +124,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-MemoryTrue-IncludesMemoryInfo"
+	TestID -> "[print] Memory True includes memory info"
 ]
 
 
@@ -141,7 +141,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-PrefixNone-NoPrefix"
+	TestID -> "[print] Prefix None produces no prefix"
 ]
 
 (* Test: Prefix -> "INFO" adds prefix to output *)
@@ -154,7 +154,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-PrefixINFO-AddsPrefix"
+	TestID -> "[print] Prefix INFO adds prefix"
 ]
 
 (* Test: Prefix -> "[DEBUG]" adds bracketed prefix to output *)
@@ -167,7 +167,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-PrefixDEBUG-AddsPrefix"
+	TestID -> "[print] Prefix DEBUG adds bracketed prefix"
 ]
 
 
@@ -186,7 +186,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-PrefixAndMemory-CombinesCorrectly"
+	TestID -> "[print] Prefix and Memory combine correctly"
 ]
 
 (* Test: Verbose False overrides other options (no output despite prefix/memory) *)
@@ -198,7 +198,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-VerboseFalseWithOptions-OverridesAll"
+	TestID -> "[print] Verbose False overrides other options"
 ]
 
 
@@ -215,7 +215,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-EmptyMessage-OutputsNewlineOnly"
+	TestID -> "[print] Empty message outputs newline only"
 ]
 
 (* Test: Message with special characters is preserved *)
@@ -227,7 +227,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-SpecialCharacters-PreservesAll"
+	TestID -> "[print] Special characters are preserved"
 ]
 
 (* Test: Message with unicode characters is preserved *)
@@ -239,7 +239,7 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "print-UnicodeCharacters-PreservesAll"
+	TestID -> "[print] Unicode characters are preserved"
 ]
 
 
@@ -252,7 +252,7 @@ TestCreate[
 	OptionValue[print, "Verbose"],
 	"CI",
 	{},
-	TestID -> "print-DefaultVerbose-IsCI"
+	TestID -> "[print] Default Verbose is CI"
 ]
 
 (* Test: Default Memory is False *)
@@ -260,7 +260,7 @@ TestCreate[
 	OptionValue[print, "Memory"],
 	False,
 	{},
-	TestID -> "print-DefaultMemory-IsFalse"
+	TestID -> "[print] Default Memory is False"
 ]
 
 (* Test: Default Prefix is None *)
@@ -268,7 +268,7 @@ TestCreate[
 	OptionValue[print, "Prefix"],
 	None,
 	{},
-	TestID -> "print-DefaultPrefix-IsNone"
+	TestID -> "[print] Default Prefix is None"
 ]
 
 (* Test: Options list is complete *)
@@ -276,7 +276,7 @@ TestCreate[
 	Sort[Keys[Options[print]]],
 	Sort[{"Memory", "Prefix", "Verbose"}],
 	{},
-	TestID -> "print-OptionsComplete-AllThreePresent"
+	TestID -> "[print] Options list is complete"
 ]
 
 
@@ -289,7 +289,7 @@ TestCreate[
 	StringQ[FernandoDuarte`LongRunRisk`Tools`Common`Private`formatMemoryInfo[]],       
 	True,
 	{},
-	TestID -> "print-formatMemoryInfo-ReturnsString"
+	TestID -> "[formatMemoryInfo] Returns a string"
 ]
 
 (* Test: formatMemoryInfo contains expected markers *)
@@ -299,7 +299,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "print-formatMemoryInfo-ContainsExpectedMarkers"
+	TestID -> "[formatMemoryInfo] Contains expected markers"
 ]
 
 (* Test: wolframKernelMemoryGB returns a number or Missing *)
@@ -307,7 +307,7 @@ TestCreate[
 	MatchQ[FernandoDuarte`LongRunRisk`Tools`Common`Private`wolframKernelMemoryGB[], _?NumberQ | _Missing],
 	True,
 	{},
-	TestID -> "wolframKernelMemoryGB-Call-ReturnsNumberOrMissing"
+	TestID -> "[wolframKernelMemoryGB] Returns number or Missing"
 ]
 
 (* Test: formatMemoryInfo shows N/A when wolframKernelMemoryGB returns Missing (Windows behavior) *)
@@ -320,7 +320,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "formatMemoryInfo-MissingKernelMemory-ShowsNA"
+	TestID -> "[formatMemoryInfo] Missing kernel memory shows NA"
 ]
 
 End[]

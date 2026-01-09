@@ -26,7 +26,7 @@ TestCreate[
 	MemberQ[$ContextPath, "FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"],
 	True,
 	{},
-	TestID -> "TimeAggregation-Context-OnContextPath"
+	TestID -> "[TimeAggregation] Context is on ContextPath"
 ]
 
 (* Test: Public symbol growth is accessible *)
@@ -34,7 +34,7 @@ TestCreate[
 	NameQ["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`growth"],
 	True,
 	{},
-	TestID -> "growth-Export-IsPublic"
+	TestID -> "[growth] Symbol is exported as public"
 ]
 
 
@@ -47,7 +47,7 @@ TestCreate[
 	growth[dc, t] === dc[t],
 	True,
 	{},
-	TestID -> "growth-DefaultParams-ReturnsIdentity"
+	TestID -> "[growth] Default parameters returns identity"
 ]
 
 (* Test: growth with explicit defaults returns identity *)
@@ -55,7 +55,7 @@ TestCreate[
 	growth[dc, t, "TimeAggregation" -> 1, "numPeriods" -> 1] === dc[t],
 	True,
 	{},
-	TestID -> "growth-ExplicitDefaults-ReturnsIdentity"
+	TestID -> "[growth] Explicit defaults returns identity"
 ]
 
 
@@ -69,7 +69,7 @@ TestCreate[
 		1/3 (dc[-4 + t] + 2 dc[-3 + t] + 3 dc[-2 + t] + 2 dc[-1 + t] + dc[t]),
 	True,
 	{},
-	TestID -> "growth-TimeAgg3-TentShapedCoefficients"
+	TestID -> "[growth] TimeAggregation 3 produces tent-shaped coefficients"
 ]
 
 (* Test: TimeAggregation=12 produces correct coefficient pattern *)
@@ -83,7 +83,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "growth-TimeAgg12-CoefficientPattern"
+	TestID -> "[growth] TimeAggregation 12 produces correct coefficient pattern"
 ]
 
 
@@ -103,7 +103,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "growth-ConstantV0-NumericalResult"
+	TestID -> "[growth] Constant v0 yields expected numerical result"
 ]
 
 (* Test: v0 as function of h with h=3 excludes h12 symbol *)
@@ -112,7 +112,7 @@ TestCreate[
 		"v0" -> Function[{t, j, h, k, v, im}, If[h == 12, h12, hnot12]]], h12],
 	True,
 	{},
-	TestID -> "growth-V0FunctionOfH-H3ExcludesH12"
+	TestID -> "[growth] v0 function of h with h=3 excludes h12 symbol"
 ]
 
 (* Test: v0 as function of h with h=12 excludes hnot12 symbol *)
@@ -121,7 +121,7 @@ TestCreate[
 		"v0" -> Function[{t, j, h, k, v, im}, If[h == 12, h12, hnot12]]], hnot12],
 	True,
 	{},
-	TestID -> "growth-V0FunctionOfH-H12ExcludesHnot12"
+	TestID -> "[growth] v0 function of h with h=12 excludes hnot12 symbol"
 ]
 
 
@@ -138,7 +138,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "growth-V0IndepOfJ-ConstantTermZero"
+	TestID -> "[growth] v0 independent of j gives constant term zero"
 ]
 
 (* Test: v0 independent of j with numPeriods=3 gives constant term 0 *)
@@ -150,7 +150,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "growth-V0SquaredH-ConstantTermZero"
+	TestID -> "[growth] v0 squared h with numPeriods 3 gives constant term zero"
 ]
 
 (* Test: v0 dependent on j may have non-zero constant term *)
@@ -162,7 +162,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "growth-V0DependsOnJ-ConstantTermNonZero"
+	TestID -> "[growth] v0 dependent on j may have non-zero constant term"
 ]
 
 
@@ -176,7 +176,7 @@ TestCreate[
 		"v0" -> Function[{t, j, h, k, v, im}, If[v === dc, Edc, 0]]], Edc],
 	True,
 	{},
-	TestID -> "growth-V0VarType-DcUsesEdc"
+	TestID -> "[growth] v0 responds to dc variable type with Edc"
 ]
 
 (* Test: v0 with pi variable does not use Edc *)
@@ -185,7 +185,7 @@ TestCreate[
 		"v0" -> Function[{t, j, h, k, v, im}, If[v === dc, Edc, 0]]], Edc],
 	True,
 	{},
-	TestID -> "growth-V0VarType-PiExcludesEdc"
+	TestID -> "[growth] v0 with pi variable excludes Edc"
 ]
 
 (* Test: v0 responds to dd variable type *)
@@ -194,7 +194,7 @@ TestCreate[
 		"v0" -> Function[{t, j, h, k, v, im}, If[v === dd, Edd, 0]]], Edd],
 	True,
 	{},
-	TestID -> "growth-V0VarType-DdUsesEdd"
+	TestID -> "[growth] v0 responds to dd variable type with Edd"
 ]
 
 (* Test: v0 with dc variable does not use Edd *)
@@ -203,7 +203,7 @@ TestCreate[
 		"v0" -> Function[{t, j, h, k, v, im}, If[v === dd, Edd, 0]]], Edd],
 	True,
 	{},
-	TestID -> "growth-V0VarType-DcExcludesEdd"
+	TestID -> "[growth] v0 with dc variable excludes Edd"
 ]
 
 
@@ -216,7 +216,7 @@ TestCreate[
 	FreeQ[Expand@growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 0], dc[__]],
 	True,
 	{},
-	TestID -> "growth-Order0-NoDcTerms"
+	TestID -> "[growth] Order 0 produces no dc terms"
 ]
 
 (* Test: Order=1 produces max power 1 *)
@@ -225,7 +225,7 @@ TestCreate[
 		coef_. *dc[__]^p_. :> p] === 1,
 	True,
 	{},
-	TestID -> "growth-Order1-MaxPower1"
+	TestID -> "[growth] Order 1 produces max power 1"
 ]
 
 (* Test: Order=2 produces max power 2 *)
@@ -234,7 +234,7 @@ TestCreate[
 		coef_. *dc[__]^p_. :> p] === 2,
 	True,
 	{},
-	TestID -> "growth-Order2-MaxPower2"
+	TestID -> "[growth] Order 2 produces max power 2"
 ]
 
 (* Test: Order=3 produces max power 3 *)
@@ -243,7 +243,7 @@ TestCreate[
 		coef_. *dc[__]^p_. :> p] === 3,
 	True,
 	{},
-	TestID -> "growth-Order3-MaxPower3"
+	TestID -> "[growth] Order 3 produces max power 3"
 ]
 
 (* Test: Order parameter with indexed variable dd *)
@@ -251,7 +251,7 @@ TestCreate[
 	FreeQ[Expand@growth[dd, t, i, "TimeAggregation" -> 3, "numPeriods" -> 1, "Order" -> 0], dd[__, i]],
 	True,
 	{},
-	TestID -> "growth-Order0Indexed-NoDdTerms"
+	TestID -> "[growth] Order 0 with indexed variable produces no dd terms"
 ]
 
 (* Test: Order=1 with indexed variable dd *)
@@ -260,7 +260,7 @@ TestCreate[
 		coef_. *dd[__, i]^p_. :> p] === 1,
 	True,
 	{},
-	TestID -> "growth-Order1Indexed-MaxPower1"
+	TestID -> "[growth] Order 1 with indexed variable produces max power 1"
 ]
 
 
@@ -273,7 +273,7 @@ TestCreate[
 	$gt[dc, t] === dc[t],
 	True,
 	{},
-	TestID -> "gt-DefaultParams-ReturnsIdentity"
+	TestID -> "[gt] Default parameters returns identity"
 ]
 
 (* Test: gt with list form options *)
@@ -287,7 +287,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "gt-ListFormOptions-CorrectResult"
+	TestID -> "[gt] List form options produces correct result"
 ]
 
 (* Test: gt with indexed variable dd *)
@@ -301,7 +301,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "gt-IndexedVariable-CorrectResult"
+	TestID -> "[gt] Indexed variable produces correct result"
 ]
 
 
@@ -314,7 +314,7 @@ TestCreate[
 	$gt[dc, t, "Variable" -> "Stock"] === dc[t],
 	True,
 	{},
-	TestID -> "gt-StockDefault-ReturnsIdentity"
+	TestID -> "[gt] Stock variable with defaults returns identity"
 ]
 
 (* Test: gt with Variable->Stock and TimeAggregation=3 *)
@@ -322,7 +322,7 @@ TestCreate[
 	$gt[dc, t, "TimeAggregation" -> 3, "Variable" -> "Stock"] === dc[-2 + t] + dc[-1 + t] + dc[t],
 	True,
 	{},
-	TestID -> "gt-StockTimeAgg3-SimpleSum"
+	TestID -> "[gt] Stock variable with TimeAggregation 3 produces simple sum"
 ]
 
 (* Test: gt with indexed variable and Variable->Stock *)
@@ -330,7 +330,7 @@ TestCreate[
 	$gt[dd, t, i, {"numPeriods" -> 2}, "Variable" -> "Stock"] === dd[-1 + t, i] + dd[t, i],
 	True,
 	{},
-	TestID -> "gt-StockIndexed-NumPeriods2"
+	TestID -> "[gt] Stock indexed variable with numPeriods 2 produces sum"
 ]
 
 (* Test: gt with combined options for Stock *)
@@ -342,7 +342,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "gt-StockCombinedOptions-SimpleSum"
+	TestID -> "[gt] Stock with combined options produces simple sum"
 ]
 
 
@@ -361,7 +361,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "g-TimeSeriesVectorFlow-CorrectResult"
+	TestID -> "[g] Time series vector for flow variables produces correct result"
 ]
 
 (* Test: g with numPeriods option *)
@@ -369,7 +369,7 @@ TestCreate[
 	$g[$timeSeriesVector[dc, t, "numPeriods" -> 1], 1, 1] === dc[t],
 	True,
 	{},
-	TestID -> "g-NumPeriods1-ReturnsIdentity"
+	TestID -> "[g] numPeriods 1 returns identity"
 ]
 
 
@@ -383,7 +383,7 @@ TestCreate[
 		FernandoDuarte`LongRunRisk`Tools`TimeAggregation`Private`g[{dc[t]}, 3],
 	True,
 	{},
-	TestID -> "g-WrongVectorLength-ReturnsUnevaluated"
+	TestID -> "[g] Wrong vector length returns unevaluated"
 ]
 
 (* Test: g with truncated vector returns unevaluated *)
@@ -393,7 +393,7 @@ TestCreate[
 			{dc[t], dc[-1 + t], dc[-2 + t], dc[-3 + t]}, 3],
 	True,
 	{},
-	TestID -> "g-TruncatedVector-ReturnsUnevaluated"
+	TestID -> "[g] Truncated vector returns unevaluated"
 ]
 
 
@@ -407,7 +407,7 @@ TestCreate[
 		dc[-2 + t] + dc[-1 + t] + dc[t],
 	True,
 	{},
-	TestID -> "g-Stock-SimpleSum"
+	TestID -> "[g] Stock variable produces simple sum"
 ]
 
 (* Test: g with truncated vector for Stock *)
@@ -416,7 +416,7 @@ TestCreate[
 		dc[-2 + t] + dc[-1 + t] + dc[t],
 	True,
 	{},
-	TestID -> "g-StockTruncated-SimpleSum"
+	TestID -> "[g] Stock with truncated vector produces simple sum"
 ]
 
 
@@ -429,7 +429,7 @@ TestCreate[
 	$g[$timeSeriesVector[dd, t, i], 1] === dd[t, i],
 	True,
 	{},
-	TestID -> "g-IndexedDefault-ReturnsIdentity"
+	TestID -> "[g] Indexed variable with defaults returns identity"
 ]
 
 (* Test: g with indexed variable and TimeAggregation *)
@@ -443,7 +443,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "g-IndexedTimeAgg3-CorrectResult"
+	TestID -> "[g] Indexed variable with TimeAggregation 3 produces correct result"
 ]
 
 
@@ -462,7 +462,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "g-BondRetTimeAgg3-CorrectResult"
+	TestID -> "[g] Bond return with TimeAggregation 3 produces correct result"
 ]
 
 (* Test: g with bondret numPeriods *)
@@ -470,7 +470,7 @@ TestCreate[
 	$g[$timeSeriesVector[bondret, t, m, "numPeriods" -> 1], 1, 1] === bondret[t, m],
 	True,
 	{},
-	TestID -> "g-BondRetNumPeriods1-ReturnsIdentity"
+	TestID -> "[g] Bond return with numPeriods 1 returns identity"
 ]
 
 
@@ -483,7 +483,7 @@ TestCreate[
 	$timeSeriesVector[dc, t] === {dc[t]},
 	True,
 	{},
-	TestID -> "timeSeriesVector-Default-SingleElement"
+	TestID -> "[timeSeriesVector] Default parameters produces single element"
 ]
 
 (* Test: timeSeriesVector with TimeAggregation=3 *)
@@ -492,7 +492,7 @@ TestCreate[
 		{dc[t], dc[-1 + t], dc[-2 + t], dc[-3 + t], dc[-4 + t]},
 	True,
 	{},
-	TestID -> "timeSeriesVector-TimeAgg3-FiveElements"
+	TestID -> "[timeSeriesVector] TimeAggregation 3 produces five elements"
 ]
 
 (* Test: timeSeriesVector with numPeriods=6 *)
@@ -501,7 +501,7 @@ TestCreate[
 		{dc[t], dc[-1 + t], dc[-2 + t], dc[-3 + t], dc[-4 + t], dc[-5 + t]},
 	True,
 	{},
-	TestID -> "timeSeriesVector-NumPeriods6-SixElements"
+	TestID -> "[timeSeriesVector] numPeriods 6 produces six elements"
 ]
 
 (* Test: timeSeriesVector with combined options has correct length *)
@@ -509,7 +509,7 @@ TestCreate[
 	Length[$timeSeriesVector[dc, t, {"TimeAggregation" -> 12, "numPeriods" -> 3}]] === 47,
 	True,
 	{},
-	TestID -> "timeSeriesVector-CombinedOptions-47Elements"
+	TestID -> "[timeSeriesVector] Combined options produces 47 elements"
 ]
 
 (* Test: timeSeriesVector list and rule forms equivalent *)
@@ -518,7 +518,7 @@ TestCreate[
 		$timeSeriesVector[dc, t, "TimeAggregation" -> 12, "numPeriods" -> 3],
 	True,
 	{},
-	TestID -> "timeSeriesVector-ListRuleEquivalent-SameResult"
+	TestID -> "[timeSeriesVector] List and rule forms are equivalent"
 ]
 
 

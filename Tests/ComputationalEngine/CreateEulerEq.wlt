@@ -70,7 +70,7 @@ TestCreate[
 	Names["*eulereq"] =!= {},
 	True,
 	{},
-	TestID -> "eulereq-Symbol-Exists"
+	TestID -> "[eulereq] Symbol exists"
 ]
 
 
@@ -100,7 +100,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "eulereq-AllModels-LinearInStateVars"
+	TestID -> "[eulereq] All models are linear in state vars"
 ]
 
 
@@ -119,7 +119,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "eulereq-AllModels-ContainsWcCoeffs"
+	TestID -> "[eulereq] All models contain wc coefficients"
 ]
 
 (* Test: Euler equations contain all expected pd coefficients *)
@@ -133,7 +133,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "eulereq-AllModels-ContainsPdCoeffs"
+	TestID -> "[eulereq] All models contain pd coefficients"
 ]
 
 (* Test: Euler equations contain all expected bond coefficients *)
@@ -147,7 +147,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "eulereq-AllModels-ContainsBondCoeffs"
+	TestID -> "[eulereq] All models contain bond coefficients"
 ]
 
 (* Test: Nominal Euler equations contain all expected nombond coefficients *)
@@ -161,7 +161,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "nomeulereq-AllModels-ContainsNomBondCoeffs"
+	TestID -> "[nomeulereq] All models contain nominal bond coefficients"
 ]
 
 
@@ -181,7 +181,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Retc-EquationCount"
+	TestID -> "[findEulerEqConstants] Retc equation count is correct"
 ]
 
 (* Test: Number of equations equals number of state variables plus one for ret *)
@@ -196,7 +196,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Ret-EquationCount"
+	TestID -> "[findEulerEqConstants] Ret equation count is correct"
 ]
 
 (* Test: Number of equations equals number of state variables plus one for bondret *)
@@ -211,7 +211,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Bondret-EquationCount"
+	TestID -> "[findEulerEqConstants] Bondret equation count is correct"
 ]
 
 (* Test: Number of equations equals number of state variables plus one for nombondret *)
@@ -226,7 +226,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Nombondret-EquationCount"
+	TestID -> "[findEulerEqConstants] Nombondret equation count is correct"
 ]
 
 
@@ -241,7 +241,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Retc-TimeIndependent"
+	TestID -> "[findEulerEqConstants] Retc results are time independent"
 ]
 
 (* Test: Equations for coefficients do not contain time variable t for ret *)
@@ -251,7 +251,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Ret-TimeIndependent"
+	TestID -> "[findEulerEqConstants] Ret results are time independent"
 ]
 
 (* Test: Equations for coefficients do not contain time variable t for bondret *)
@@ -261,7 +261,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Bondret-TimeIndependent"
+	TestID -> "[findEulerEqConstants] Bondret results are time independent"
 ]
 
 (* Test: Equations for coefficients do not contain time variable t for nombondret *)
@@ -271,7 +271,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Nombondret-TimeIndependent"
+	TestID -> "[findEulerEqConstants] Nombondret results are time independent"
 ]
 
 
@@ -287,7 +287,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Retc-TimeInvariant"
+	TestID -> "[findEulerEqConstants] Retc results are time invariant"
 ]
 
 (* Test: Equations are time-invariant for ret *)
@@ -298,7 +298,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Ret-TimeInvariant"
+	TestID -> "[findEulerEqConstants] Ret results are time invariant"
 ]
 
 (* Test: Equations are time-invariant for bondret *)
@@ -309,7 +309,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Bondret-TimeInvariant"
+	TestID -> "[findEulerEqConstants] Bondret results are time invariant"
 ]
 
 (* Test: Equations are time-invariant for nombondret *)
@@ -320,7 +320,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Nombondret-TimeInvariant"
+	TestID -> "[findEulerEqConstants] Nombondret results are time invariant"
 ]
 
 
@@ -355,7 +355,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-Unknowns-ContextScope"
+	TestID -> "[findEulerEqConstants] Unknowns have correct context scope"
 ]
 
 
@@ -396,7 +396,7 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "findEulerEqConstants-AllModels-NumericEvalToBoolean"
+	TestID -> "[findEulerEqConstants] All models evaluate to Boolean"
 ]
 
 

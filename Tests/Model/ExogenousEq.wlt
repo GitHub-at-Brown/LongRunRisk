@@ -27,7 +27,7 @@ TestCreate[
 	NameQ["FernandoDuarte`LongRunRisk`Model`ExogenousEq`xeq"],
 	True,
 	{},
-	TestID -> "xeq-Existence-SymbolDefined"
+	TestID -> "[xeq] Symbol is defined"
 ]
 
 
@@ -40,7 +40,7 @@ TestCreate[
 	ListQ[$exogenousVars] && Length[$exogenousVars] > 0,
 	True,
 	{},
-	TestID -> "$exogenousVars-Structure-IsNonEmptyList"
+	TestID -> "[$exogenousVars] Structure is non-empty list"
 ]
 
 (* Test: $exogenousVars contains expected canonical order *)
@@ -48,7 +48,7 @@ TestCreate[
 	$exogenousVars,
 	{"xeq", "pieq", "pibareq", "dceq", "sgeq", "sxeq", "sceq", "speq", "ddeq"},
 	{},
-	TestID -> "$exogenousVars-Contents-CanonicalOrder"
+	TestID -> "[$exogenousVars] Contents are in canonical order"
 ]
 
 (* Test: $exogenousVarsStocks and $exogenousVarsNoStocks are disjoint and cover $exogenousVars *)
@@ -57,7 +57,7 @@ TestCreate[
 	Intersection[$exogenousVarsStocks, $exogenousVarsNoStocks] === {},
 	True,
 	{},
-	TestID -> "$exogenousVars-Subsets-DisjointAndComplete"
+	TestID -> "[$exogenousVars] Subsets are disjoint and complete"
 ]
 
 
@@ -70,7 +70,7 @@ TestCreate[
 	NameQ["FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dc"],
 	True,
 	{},
-	TestID -> "dc-Existence-InPrivateContext"
+	TestID -> "[dc] Symbol exists in private context"
 ]
 
 (* Test: Symbol dd exists in Private context *)
@@ -78,7 +78,7 @@ TestCreate[
 	NameQ["FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd"],
 	True,
 	{},
-	TestID -> "dd-Existence-InPrivateContext"
+	TestID -> "[dd] Symbol exists in private context"
 ]
 
 (* Test: Symbol dd is in the correct Private context *)
@@ -86,7 +86,7 @@ TestCreate[
 	Context[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`dd],
 	"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`",
 	{},
-	TestID -> "dd-Context-InPrivate"
+	TestID -> "[dd] Context is in private"
 ]
 
 
@@ -96,7 +96,7 @@ TestCreate[
 	Values@verifySymbolContext[$exogenousVars],
 	{True,True,True,True},
 	{},
-	TestID -> "$exogenousVars-verifySymbolContext-InCorrectContext"
+	TestID -> "[$exogenousVars] Symbols have correct context"
 ]
 
 
@@ -109,7 +109,7 @@ TestCreate[
 	contextIsolationQ[xeq, {t}, {foo`t}, t],
 	True,
 	{},
-	TestID -> "xeq-ContextIsolation-TArgument"
+	TestID -> "[xeq] Context isolation for t argument"
 ]
 
 

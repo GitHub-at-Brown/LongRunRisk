@@ -1280,7 +1280,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeConditionalExpectations`*)
 
 
@@ -2866,7 +2866,7 @@
 (*(*test: big tolerance, computation does not abort*)*)
 (*c1=Not@TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"CheckResiduals"->True,"Tol"->1],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
 (*(*test: low tolerance, computation aborts*)*)
-(*c2=TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"CheckResiduals"->True,"Tol"->10.^-20],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
+(*c2=TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"CheckResiduals"->True,"Tol"->10.^-10],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
 (*outTests[thisModel["shortname"]][ind]=And@@{c1,c2};*)
 (*(*Echo[{ind,outTests[thisModel["shortname"]][ind]},"ind, outTests"];*)*)
 (*ind=ind+1;*)
@@ -3129,7 +3129,7 @@
 (*(*test: big tolerance, computation does not abort*)*)
 (*c1=Not@TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"UpdateBond"->True,"CheckResiduals"->True,"Tol"->1],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
 (*(*test: low tolerance, computation aborts*)*)
-(*c2=TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"UpdateBond"->True,"CheckResiduals"->True,"Tol"->10.^-20],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
+(*c2=TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"UpdateBond"->True,"CheckResiduals"->True,"Tol"->10.^-10],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
 (*outTests[thisModel["shortname"]][ind]=And@@{c1,c2};*)
 (*(*Echo[{ind,outTests[thisModel["shortname"]][ind]},"ind, outTests"];*)*)
 (*ind=ind+1;*)
@@ -3870,7 +3870,7 @@
 (*{maxMaturity->6,"initialGuess" -> <|"Ewc"->{4},"Epd"->{{4}}|>,MaxIterations->100},*)
 (*{"PrintResidualsNorm"->True},*)
 (*{"CheckResiduals"->True,"Tol"->1},*)
-(*{"CheckResiduals"->True,"Tol"->10.^-20},*)
+(*{"CheckResiduals"->True,"Tol"->10.^-10},*)
 (*{"PrintResidualsNorm"->True,maxMaturity->6,"initialGuess" -> <|"Ewc"->{4},"Epd"->{{4}}|>,MaxIterations->100},*)
 (*{"RecurrenceTableOptions"->{"DependentVariables"->Automatic}},*)
 (*{DependentVariables->Automatic}*)
@@ -4550,7 +4550,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*PacletizeResources*)
 
 

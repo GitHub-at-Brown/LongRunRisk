@@ -1452,7 +1452,7 @@ TestCreate[
 
 (* Test: Both expression and conditioning with same non-standard context *)
 TestCreate[
-	ev[foo`pi[foo`t+1], foo`t, $testModel] /. foo`t -> t === ev[$pi[t+1], t, $testModel],
+	(ev[foo`pi[foo`t+1], foo`t, $testModel] /. foo`t -> t) === ev[$pi[t+1], t, $testModel],
 	True,
 	{},
 	TestID -> "[ev] foo` context in both simplifies same as standard"
