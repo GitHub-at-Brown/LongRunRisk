@@ -5,17 +5,21 @@
    Generates LCOV files for use with lcov/genhtml.
 
    Usage:
-     wolframscript Tests/RunCoverage.wls [--mode=Auto|Baseline|Execution] [--verbose]
+     wolframscript Tests/RunCoverage.wls [--mode=Auto|Baseline|Execution] [--verbose] [--no-html]
 
    Modes:
      Auto      - Try execution coverage, fall back to baseline if it fails (default)
      Baseline  - Only generate baseline coverage (code structure, no execution)
      Execution - Attempt execution coverage, fail if it doesn't work
+
+   Options:
+     --verbose, -v  - Print detailed progress information
+     --no-html      - Skip HTML report generation (by default, generates and opens HTML report)
 *)
 
 Module[{
     (* Configuration *)
-    coverageMode, verbose,
+    coverageMode, verbose, generateHtml,
     (* Paths *)
     testsRoot, pacletRoot, kernelDir, resourcesDir,
     instrumentedDir, instrumentedKernel, coverageDir,
@@ -30,6 +34,7 @@ Module[{
   (* === Parse command-line arguments === *)
   coverageMode = "Auto";
   verbose = False;
+  generateHtml = True;
 
   Map[
     Function[arg,
@@ -37,7 +42,9 @@ Module[{
         StringMatchQ[arg, "--mode=" ~~ __],
           coverageMode = StringReplace[arg, "--mode=" -> ""],
         arg === "--verbose" || arg === "-v",
-          verbose = True
+          verbose = True,
+        arg === "--no-html",
+          generateHtml = False
       ]
     ],
     $ScriptCommandLine
@@ -393,11 +400,51 @@ Module[{
   ];
   Print["  (LCOV files post-processed for genhtml compatibility)"];
 
-  Print["\nTo generate HTML report, run:"];
-  Print["  cd ", pacletRoot];
-  Print["  lcov -a build/coverage/baseline.lcov -a build/coverage/tests.lcov -o build/coverage/combined.lcov"];
-  Print["  genhtml build/coverage/combined.lcov -o build/coverage/html"];
-  Print["  open build/coverage/html/index.html"];
+  (* Generate HTML report or print instructions *)
+  If[generateHtml,
+    (* Run lcov/genhtml to generate HTML report *)
+    Print["\n=== Generating HTML Coverage Report ==="];
+    Module[{lcovResult, genhtmlResult, openResult, htmlIndexPath},
+      (* Combine baseline and test coverage *)
+      Print["Running lcov to combine coverage files..."];
+      lcovResult = RunProcess[
+        {"lcov", "-a", "build/coverage/baseline.lcov", "-a", "build/coverage/tests.lcov", "-o", "build/coverage/combined.lcov"},
+        ProcessDirectory -> pacletRoot
+      ];
+      If[lcovResult["ExitCode"] =!= 0,
+        Print["Error: lcov failed with exit code ", lcovResult["ExitCode"]];
+        Print[lcovResult["StandardError"]];
+        Print["\nTo generate HTML report manually, run:"];
+        Print["  cd ", pacletRoot];
+        Print["  lcov -a build/coverage/baseline.lcov -a build/coverage/tests.lcov -o build/coverage/combined.lcov"];
+        Print["  genhtml build/coverage/combined.lcov -o build/coverage/html"];
+        Print["  open build/coverage/html/index.html"],
+        (* lcov succeeded, run genhtml *)
+        Print["Running genhtml to create HTML report..."];
+        genhtmlResult = RunProcess[
+          {"genhtml", "build/coverage/combined.lcov", "-o", "build/coverage/html"},
+          ProcessDirectory -> pacletRoot
+        ];
+        If[genhtmlResult["ExitCode"] =!= 0,
+          Print["Error: genhtml failed with exit code ", genhtmlResult["ExitCode"]];
+          Print[genhtmlResult["StandardError"]],
+          (* genhtml succeeded, open in browser *)
+          htmlIndexPath = FileNameJoin[{pacletRoot, "build", "coverage", "html", "index.html"}];
+          Print["Opening coverage report: ", htmlIndexPath];
+          openResult = RunProcess[{"open", htmlIndexPath}];
+          If[openResult["ExitCode"] =!= 0,
+            Print["Note: Could not open browser automatically. Open manually: ", htmlIndexPath]
+          ]
+        ]
+      ]
+    ],
+    (* Just print instructions *)
+    Print["\nTo generate HTML report, run:"];
+    Print["  cd ", pacletRoot];
+    Print["  lcov -a build/coverage/baseline.lcov -a build/coverage/tests.lcov -o build/coverage/combined.lcov"];
+    Print["  genhtml build/coverage/combined.lcov -o build/coverage/html"];
+    Print["  open build/coverage/html/index.html"]
+  ];
 
   (* Exit with failure if any tests failed OR aborted *)
   If[totalFailed > 0,
