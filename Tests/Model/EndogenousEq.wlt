@@ -65,7 +65,7 @@ Block[{t, m},
 					contextIsolationQ[func, {t, m}, argSpec["fooArgs"], argSpec["sym"]],
 					True,
 					{},
-					TestID -> SymbolName[func] <> "-ContextIsolation-" <> argSpec["id"]
+					TestID -> "[" <> SymbolName[func] <> "] Context isolation " <> argSpec["id"]
 				]
 			],
 			funcs,
@@ -182,7 +182,7 @@ Block[{j},
 					coefficientIndicesExactQ[Symbol[ctx <> spec["name"]], spec],
 					True,
 					{},
-					TestID -> "Coefficient" <> spec["name"] <> "-InexactInput-IndicesRemainExact"
+					TestID -> "[Coefficient " <> spec["name"] <> "] Inexact input indices remain exact"
 				]
 			],
 			specs

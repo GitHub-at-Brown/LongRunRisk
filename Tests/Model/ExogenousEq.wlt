@@ -92,6 +92,9 @@ TestCreate[
 
 (* ::Subsection:: *)
 (*Exogenous Variables - Context Test*)
+
+
+(* Test: All exogenous variable symbols are in their expected contexts *)
 TestCreate[
 	Values@verifySymbolContext[$exogenousVars],
 	{True,True,True,True},

@@ -1,10 +1,10 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
-(*Pacletized Resources Tests*)
+(*Paclet/PacletizeResources Tests*)
 
 
-BeginTestSection["Pacletized Resources Tests"]
+BeginTestSection["Paclet/PacletizeResources Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`Paclet`PacletizeResources`"]
 
 Needs["FernandoDuarte`LongRunRisk`"];
