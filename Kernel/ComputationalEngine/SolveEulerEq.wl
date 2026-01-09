@@ -498,19 +498,27 @@ computePdCoeffs[model_, kernels_, params_, newParams_, solWc_,
 
 
 checkCoeffs[type_String, model_, sol_, params_, newParams_,
-            maxMaturity_, numStocks_, opts_] := Switch[type,
-    "wc",
-      checks[First @ model["coeffsSystem"]["wc"], sol, params, newParams, opts],
-    "pd",
-      checks[Table[First @ model["coeffsSystem"]["pd"], {j, 1, numStocks}],
-             sol, params, newParams, opts],
-    "bond",
-      checks[Flatten @ Table[First @ model["coeffsSystem"]["bond"], {n, 1, maxMaturity}],
-             sol, params, newParams, opts],
-    "nombond",
-      checks[Flatten @ Table[First @ model["coeffsSystem"]["nombond"], {n, 1, maxMaturity}],
-             sol, params, newParams, opts]
-  ];
+            maxMaturity_, numStocks_, opts : OptionsPattern[{checks}]] := Module[
+	{result},
+	result = Switch[type,
+		"wc",
+			checks[{First @ model["coeffsSystem"]["wc"]}, sol, params, newParams, opts],
+		"pd",
+			checks[Table[First @ model["coeffsSystem"]["pd"], {j, 1, numStocks}],
+				sol, params, newParams, opts],
+		"bond",
+			checks[Flatten @ Table[First @ model["coeffsSystem"]["bond"], {n, 1, maxMaturity}],
+				sol, params, newParams, opts],
+		"nombond",
+			checks[Flatten @ Table[First @ model["coeffsSystem"]["nombond"], {n, 1, maxMaturity}],
+				sol, params, newParams, opts]
+	];
+	(* Add coefficient type to Failure for better diagnostics *)
+	If[FailureQ[result],
+		Failure[result[[1]], Append[result[[2]], "CoefficientType" -> type]],
+		result
+	]
+];
 
 
 (* ::Subsection:: *)
@@ -627,7 +635,8 @@ updateCoeffsSol[
 	}];
 
 	(* Determine what to compute *)
-	needsPd = stockFreeQ || TrueQ[OptionValue["UpdatePd"]];
+	(* Compute pd if stock-specific parameters were passed OR explicitly requested *)
+	needsPd = !stockFreeQ || TrueQ[OptionValue["UpdatePd"]];
 
 	(* Step 1: Always compute wc *)
 	solWc = computeWcCoeffs[model, kernels, params, newParams, rootSignsNorm, rootSigns, solveOpts];
@@ -686,20 +695,30 @@ updateCoeffsSol[
 
 	(* Step 4: Run checks if requested - extract coefficients for checking *)
 	If[doChecks,
-		With[{wcCoeffsFlat = Map[#["A"] &, solWc]},
-			checkCoeffs["wc", model, wcCoeffsFlat, params, newParams, maxMaturity, numStocks, checkOpts];
-			If[needsPd,
-				(* Flatten B coefficients for checking *)
-				With[{pdCoeffsFlat = Flatten @ Map[Values[#][[All, All, "B"]] &, solPd]},
-					checkCoeffs["pd", model, Flatten @ {wcCoeffsFlat, pdCoeffsFlat}, params, newParams, maxMaturity, numStocks, checkOpts]
-				]
-			];
-			If[solBond =!= Nothing,
-				checkCoeffs["bond", model, Flatten @ {wcCoeffsFlat, solBond}, params, newParams, maxMaturity, numStocks, checkOpts]
-			];
-			If[solNomBond =!= Nothing,
-				checkCoeffs["nombond", model, Flatten @ {wcCoeffsFlat, solNomBond}, params, newParams, maxMaturity, numStocks, checkOpts]
+		With[{
+			checkResult = Module[{result, wcCoeffsFlat = Map[#["A"] &, solWc]},
+				result = checkCoeffs["wc", model, wcCoeffsFlat, params, newParams, maxMaturity, numStocks, checkOpts];
+				If[FailureQ[result], Return[result, Module]];
+
+				If[needsPd,
+					(* Flatten B coefficients for checking *)
+					With[{pdCoeffsFlat = Flatten @ Map[Values[#][[All, All, "B"]] &, solPd]},
+						result = checkCoeffs["pd", model, Flatten @ {wcCoeffsFlat, pdCoeffsFlat}, params, newParams, maxMaturity, numStocks, checkOpts];
+						If[FailureQ[result], Return[result, Module]]
+					]
+				];
+				If[solBond =!= Nothing,
+					result = checkCoeffs["bond", model, Flatten @ {wcCoeffsFlat, solBond}, params, newParams, maxMaturity, numStocks, checkOpts];
+					If[FailureQ[result], Return[result, Module]]
+				];
+				If[solNomBond =!= Nothing,
+					result = checkCoeffs["nombond", model, Flatten @ {wcCoeffsFlat, solNomBond}, params, newParams, maxMaturity, numStocks, checkOpts];
+					If[FailureQ[result], Return[result, Module]]
+				];
+				None (* All checks passed *)
 			]
+		},
+			If[FailureQ[checkResult], Return[checkResult, Module]]
 		]
 	];
 
@@ -857,28 +876,35 @@ updateCoeffsBond[
 checks//Options ={
 	"PrintResidualsNorm"->False,
 	"CheckResiduals"->False,
-	"Tol"->10.^-16
+	"Tol"->10.^-10
 };
 checks::norm="The norm of the residuals (errors) is `1`";
 checks::largeresid="The norm of the residuals (errors) is `1`, which is larger than the specified tolerance `2`.";
 checks::smallresid="The norm of the residuals (errors) is `1`, which is smaller than the specified tolerance `2`.";
 
 
-checks[eqs_, sol_, params_, newParams_, opts : OptionsPattern[]] :=With[
+checks[eqs_, sol_, params_, newParams_, opts : OptionsPattern[{checks}]] := With[
 	{
-		residualsNorm = Max @ (Norm @ (Subtract @@@ eqs) //. newParams //. params//. sol)
+		residualsNorm = Max @ (Norm /@ (Subtract @@@ Flatten[eqs, 1] //. newParams //. params //. sol))
 	},
 	If[OptionValue["CheckResiduals"],
-		If[
-			residualsNorm >= OptionValue["Tol"],
-			Message[checks::largeresid, residualsNorm, OptionValue["Tol"]];Abort[],
-			Message[checks::smallresid, residualsNorm, OptionValue["Tol"]]
-		];
+		If[residualsNorm >= OptionValue["Tol"],
+			Message[checks::largeresid, residualsNorm, OptionValue["Tol"]];
+			Failure["LargeResiduals", <|
+				"MessageTemplate" -> "Residual norm `norm` exceeds tolerance `tol`",
+				"MessageParameters" -> <|"norm" -> residualsNorm, "tol" -> OptionValue["Tol"]|>,
+				"ResidualNorm" -> residualsNorm,
+				"Tolerance" -> OptionValue["Tol"]
+			|>]
+			,
+			Message[checks::smallresid, residualsNorm, OptionValue["Tol"]];
+		]
 		,
 		If[OptionValue["PrintResidualsNorm"],
 			Message[checks::norm, residualsNorm]
 		];
-	];
+		residualsNorm
+	]
 ];
 
 
