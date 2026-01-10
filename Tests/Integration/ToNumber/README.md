@@ -41,9 +41,9 @@ wolframscript phase9_10_diagnostics_tests.wls
 - **PHASES_9_10_DETAILED_EXPLANATION.md** - Deep dive into warnings and performance (400 lines)
 - **README.md** - This file
 
-### Minimal Reproducible Examples
-- **Phase9_MRE_CopyPaste.wl** - Copy-paste ready examples for notebooks
-- **Phase9_MRE_Examples.wls** - Executable demonstration of warnings
+### Minimal Reproducible Examples (in `docs/`)
+- **docs/Phase9_MRE_CopyPaste.wl** - Copy-paste ready examples for notebooks
+- **docs/Phase9_MRE_Examples.wls** - Executable demonstration of warnings
 
 ## Test Scripts
 
@@ -87,7 +87,7 @@ wolframscript phase9_10_diagnostics_tests.wls
 4. **Refine::lpsub** - Unbounded during refinement (completes successfully)
 5. **MIMETypeToFormatList::fmterr** - MIME formatting (cosmetic)
 
-**See:** `Phase9_MRE_CopyPaste.wl` for examples you can run to reproduce each warning.
+**See:** `docs/Phase9_MRE_CopyPaste.wl` for examples you can run to reproduce each warning.
 
 **Bottom Line:** These warnings indicate **working numerical solvers**, not errors in ToNum.
 
@@ -181,7 +181,7 @@ All 5 economic models tested:
 
 ### For Users
 1. **Use symbol keys** for parameter overrides: `{gamma -> 15}` ✓
-2. **Expect solver warnings** - they're normal (see Phase9_MRE files)
+2. **Expect solver warnings** - they're normal (see `docs/Phase9_MRE_*.wl*` files)
 3. **NRC operations may take 5-6 seconds** - this is acceptable
 4. **SolutionSelector -> All requires ReturnAllSolutions -> True**
 
@@ -200,8 +200,8 @@ All 5 economic models tested:
 → Read `PHASES_9_10_DETAILED_EXPLANATION.md`
 
 **Want to reproduce a specific warning?**
-→ Copy from `Phase9_MRE_CopyPaste.wl` (notebook format)
-→ or run `Phase9_MRE_Examples.wls` (executable script)
+→ Copy from `docs/Phase9_MRE_CopyPaste.wl` (notebook format)
+→ or run `docs/Phase9_MRE_Examples.wls` (executable script)
 
 **Want to run tests yourself?**
 → Execute `phase*.wls` files in order (see Quick Start above)
