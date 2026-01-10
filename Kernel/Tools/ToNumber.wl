@@ -73,18 +73,26 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectat
 (*toNum*)
 
 
-(* Handler for options-only calls - ensures model["params"] is used as default *)
-(* toNum["Rules", model_Association, opts:OptionsPattern[{toNumRules, updateCoeffs}]] /; Length[{opts}] > 0 :=
-	(Echo[{opts},"opts"];toNum["Rules", model, model["params"], (*{},*) opts]); *)
+(* ::Text:: *)
+(* Fix for infinite recursion issue: *)
+(* The problem was that toNum["Rules", model] would match the generic expr_ pattern,*)
+(* which then called toNum["Rules", model, newParameters, opts], matching again,*)
+(* creating an infinite loop: toNum["Rules", m] -> toNum["Rules", m, {}] -> ... *)
+(* *)
+(* Solution: Add explicit "Rules" patterns that prevent fallthrough to generic expr pattern *)
 
-(*uses starting point from modelsExtraInfo in Catalog.wl if available and initial guess is passed by user*)
-toNum["Rules",model_Association,rest__]:= toNumRules[model,rest]; 
+(* Explicit patterns for toNum["Rules", ...] to prevent matching generic expr_ pattern *)
+(* Pattern 1: toNum["Rules", model] with no additional arguments *)
+toNum["Rules", model_Association] := toNum["Rules", model, {}];
 
- (* ,ReleaseHold@If[KeyExistsQ[model["extraInfo"],"initialGuess"],"initialGuess"->model["extraInfo"]["initialGuess"],Hold@Sequence[] ]*) 
+(* Pattern 2: toNum["Rules", model, rest...] with additional arguments *)
+(* Pass rest directly to toNumRules which will parse it with its own pattern *)
+toNum["Rules", model_Association, rest__] := toNumRules[model, rest];
 
 (*convenience forms that apply rules to expr or allow for postfix notation expr//toNum*)
+(* CRITICAL: Guard with expr =!= "Rules" to prevent fallthrough from explicit Rules patterns *)
 toNum[
-	expr_ /; Not@AssociationQ[expr],
+	expr_ /; Not@AssociationQ[expr] && expr =!= "Rules",
 	model_Association,
 	Longest[newParameters : {(_Rule) ...} : {}, 1],
 	opts : OptionsPattern[{toNumRules, updateCoeffs}]
@@ -243,8 +251,10 @@ evaluateExprHierarchical[expr_, model_, solHierarchical_, allParams_] := Map[
 toNum[model_Association,rest__]:=Function[{expr}, toNum[expr,model,rest]]
 
 (*if rest not provided, use model["params"]*)
-toNum["Rules",model_Association]:= toNum["Rules", model (*,model["params"]*), {}];
-toNum[expr_/;Not@AssociationQ[expr],model_Association]:= With[
+(* Delete old toNum["Rules",model_Association] definition - it's now handled by explicit patterns above *)
+
+(* Guard this pattern against "Rules" to match only non-Rules expressions *)
+toNum[expr_/;Not@AssociationQ[expr] && expr =!= "Rules",model_Association]:= With[
 	{rules = toNum["Rules", model]},
 	(* Use FixedPoint with limit to prevent infinite recursion *)
 	If[FailureQ[rules], rules, FixedPoint[ReplaceAll[#, rules] &, toEquation[expr,model], 10]]
