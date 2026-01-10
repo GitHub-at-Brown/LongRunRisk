@@ -19,6 +19,7 @@ InstallOptionsValidationRules[] := Module[
     PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
     PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
     PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
+    PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 
     makeMsgs[owner_Symbol] := Module[{base = SymbolName[owner]},
         owner::optx = "`1` is not a valid option for " <> base <> ".";
@@ -75,6 +76,11 @@ InstallOptionsValidationRules[] := Module[
 
         FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem -> {
             "PdEquations" -> {"Member", {"B", "AB", "Both"}}
+        },
+
+        FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum -> {
+            "SolutionSelector" -> "Any", (* Complex validation: Automatic, All, Integer, {a,b}, or Association *)
+            "ReturnAllSolutions" -> "Boolean"
         }
     |>;
 
