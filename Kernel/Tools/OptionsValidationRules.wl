@@ -54,7 +54,7 @@ InstallOptionsValidationRules[] := Module[
         },
 
         FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`solveCoeffRoots -> {
-            "Signs" -> "Any" (* keep permissive; or enforce list of ±1 if desired *)
+            "Signs" -> "Any" (* keep permissive; or enforce list of +1 and -1 if desired *)
         },
 
         FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSolve -> {
@@ -79,7 +79,13 @@ InstallOptionsValidationRules[] := Module[
         },
 
         FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum -> {
-            "SolutionSelector" -> "Any", (* Complex validation: Automatic, All, Integer, {a,b}, or Association *)
+            "SolutionSelector" -> (
+                Automatic |                    (* default: use first A solution *)
+                All |                          (* return all solutions (requires ReturnAllSolutions->True) *)
+                _Integer |                     (* select n-th A solution by index *)
+                {_Integer, _Integer} |         (* {aIdx, bIdx} tuple for specific A and B solutions *)
+                _Association                   (* filter by SignsA, SignsB, SolutionIndexA, IntervalA, etc. *)
+            ),
             "ReturnAllSolutions" -> "Boolean"
         }
     |>;
