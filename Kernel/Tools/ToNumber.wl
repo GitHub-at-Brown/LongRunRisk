@@ -74,26 +74,181 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectat
 
 
 (* Handler for options-only calls - ensures model["params"] is used as default *)
-toNum["Rules", model_Association, opts:OptionsPattern[{toNumRules, updateCoeffs}]] /; Length[{opts}] > 0 :=
-	toNum["Rules", model, model["params"], {}, opts];
+(* toNum["Rules", model_Association, opts:OptionsPattern[{toNumRules, updateCoeffs}]] /; Length[{opts}] > 0 :=
+	(Echo[{opts},"opts"];toNum["Rules", model, model["params"], (*{},*) opts]); *)
 
 (*uses starting point from modelsExtraInfo in Catalog.wl if available and initial guess is passed by user*)
-toNum["Rules",model_Association,rest__]:= toNumRules[model,rest,ReleaseHold@If[KeyExistsQ[model["extraInfo"],"initialGuess"],"initialGuess"->model["extraInfo"]["initialGuess"],Hold@Sequence[] ] ];
+toNum["Rules",model_Association,rest__]:= toNumRules[model,rest]; 
+
+ (* ,ReleaseHold@If[KeyExistsQ[model["extraInfo"],"initialGuess"],"initialGuess"->model["extraInfo"]["initialGuess"],Hold@Sequence[] ]*) 
 
 (*convenience forms that apply rules to expr or allow for postfix notation expr//toNum*)
-toNum[expr_/;Not@AssociationQ[expr],model_Association,rest__]:= With[
-	{rules = toNum["Rules", model, rest]},
-	If[FailureQ[rules], rules, ReplaceRepeated[toEquation[expr,model], rules]]
+toNum[
+	expr_ /; Not@AssociationQ[expr],
+	model_Association,
+	Longest[newParameters : {(_Rule) ...} : {}, 1],
+	opts : OptionsPattern[{toNumRules, updateCoeffs}]
+] := With[
+	{
+		(* Get rules or hierarchical structure based on options *)
+		rulesOrSol = toNum["Rules", model, newParameters, opts],
+		(* Compute effective parameters to ensure consistency with toNumRules *)
+		params = model["params"]
+	},
+	(* Echo[rulesOrSol, "rulesOrSol in toNum expr"]; *)
+
+	If[FailureQ[rulesOrSol],
+		rulesOrSol,
+
+		With[{
+			(* Process parameters exactly as toNumRules does to ensure correct evaluation context *)
+			allParams = Normal@Join[
+				Association@params,
+				Association@processNewParameters[newParameters, params]
+			]
+		},
+			(* Check if we have a hierarchical structure (List of Associations with "A", "Stocks" etc) *)
+			If[MatchQ[rulesOrSol, {__Association} /; KeyExistsQ[First[rulesOrSol], "A"]],
+				(* Hierarchical Evaluation *)
+				evaluateExprHierarchical[toEquation[expr, model], model, rulesOrSol, allParams],
+				
+				(* Standard Flat Evaluation *)
+				ReplaceRepeated[toEquation[expr, model], rulesOrSol]
+			]
+		]
+	]
 ]
+
+(* ... existing toNum definitions ... *)
+
+(* ::Subsection:: *)
+(*Hierarchical Evaluation Helpers*)
+
+(* Detect dependencies: Returns <|"Type" -> "A"|"Stock"|"Mixed", "Stocks" -> {indices}|> *)
+detectExpressionType[expr_, model_] := Module[
+	{
+		stockIndices = {}
+	},
+	(* Detect B[i][...] patterns where i is a stock index *)
+	(* B is the specific symbol used for price-dividend coefficients in EndogenousEq *)
+
+	(* Matches B[i][j] or B[i][t] etc. where i is integer stock index *)
+	stockIndices = Cases[expr,
+		B[i_Integer][___] :> i,
+		Infinity
+	] // Union;
+
+	If[Length[stockIndices] > 0,
+		If[Length[stockIndices] == 1,
+			<|"Type" -> "Stock", "Stocks" -> stockIndices|>,
+			<|"Type" -> "Mixed", "Stocks" -> stockIndices|>
+		],
+		<|"Type" -> "A", "Stocks" -> {}|>
+	]
+];
+
+(* Main hierarchical evaluator *)
+evaluateExprHierarchical[expr_, model_, solHierarchical_, allParams_] := Map[
+	Function[aSol,
+		Module[{exprA, typeInfo, res, baseMeta},
+			(* 1. Evaluate A-level (Macro) dependencies *)
+			(* Substitute A, Bonds, and global Params using the CORRECT allParams *)
+			exprA = expr /. aSol["A"] /. allParams;
+			
+			(* Robust Bond handling: Check existence AND MissingQ *)
+			If[KeyExistsQ[aSol, "Bond"] && !MissingQ[aSol["Bond"]], 
+				exprA = exprA /. aSol["Bond"]
+			];
+			If[KeyExistsQ[aSol, "NomBond"] && !MissingQ[aSol["NomBond"]], 
+				exprA = exprA /. aSol["NomBond"]
+			];
+			
+			(* Preserve all metadata from aSol except the heavy solution payloads *)
+			baseMeta = KeyDrop[aSol, {"A", "Stocks", "Bond", "NomBond"}];
+			
+			(* 2. Detect remaining dependencies (Stocks) *)
+			typeInfo = detectExpressionType[exprA, model];
+			
+			Switch[typeInfo["Type"],
+				"A",
+					(* No stock dependencies left *)
+					Join[
+						baseMeta,
+						Association["Value" -> exprA]
+					],
+				
+				"Stock",
+					(* Single stock dependency *)
+					With[{i = First[typeInfo["Stocks"]]},
+						Join[
+							baseMeta,
+							Association[
+								"Stocks" -> Association[
+									i -> Map[
+										Function[bSol,
+											Association[
+												"IntervalB" -> bSol["IntervalB"], 
+												"SignsB" -> bSol["SignsB"],
+												"Value" -> (exprA /. bSol["B"])
+											]
+										],
+										aSol["Stocks"][i]
+									]
+								]
+							]
+						]
+					],
+					
+				"Mixed",
+					(* Multiple stocks: Cartesian Product *)
+					Module[{stocks = typeInfo["Stocks"], bCombinations, stockKeys},
+						(* Get list of B-solutions for each involved stock *)
+						(* Structure: { { {B->..}, {B->..} }_stock1, { {B->..} }_stock2 } *)
+						bCombinations = Tuples[
+							Table[
+								(* Tag each B-sol with its stock index for identification if needed *)
+								Map[{stockIdx, #} &, aSol["Stocks"][stockIdx]], 
+								{stockIdx, stocks}
+							]
+						];
+						
+						Join[
+							baseMeta,
+							Association[
+								"Combinations" -> Map[
+									Function[combo, (* combo is list of {stockIdx, bSol} *)
+										Module[{mergedRules, meta},
+											mergedRules = Flatten[combo[[All, 2, "B"]]];
+											meta = Association @ Map[
+												#[[1]] -> DeleteCases[#[[2]], "B"] &, 
+												combo
+											];
+											
+											Association[
+												"StockSolutions" -> meta,
+												"Value" -> (exprA /. mergedRules)
+											]
+										]
+									],
+									bCombinations
+								]
+							]
+						]
+					]
+			]
+		]
+	],
+	solHierarchical
+];
 toNum[model_Association,rest__]:=Function[{expr}, toNum[expr,model,rest]]
 
 (*if rest not provided, use model["params"]*)
-toNum["Rules",model_Association]:= toNum["Rules", model,model["params"],{}];
+toNum["Rules",model_Association]:= toNum["Rules", model (*,model["params"]*), {}];
 toNum[expr_/;Not@AssociationQ[expr],model_Association]:= With[
 	{rules = toNum["Rules", model]},
 	If[FailureQ[rules], rules, ReplaceRepeated[toEquation[expr,model], rules]]
 ]
-toNum[model_Association]:=toNum[model,model["params"],{}]
+toNum[model_Association]:=toNum[model (*,model["params"]*), {}]
 
 
 (* Options for toNumRules *)
@@ -105,7 +260,7 @@ Options[toNumRules] = {
 toNumRules[
 	model_Association,
 	Longest[newParameters : {(_Rule)...} : {}, 1],
-	Longest[guessCoeffsSolution_List : {}, 2],
+	(* Longest[guessCoeffsSolution_List : {}, 2], *)
 	opts : OptionsPattern[{toNumRules, updateCoeffs}]
 ] := With[
 	{
@@ -115,10 +270,16 @@ toNumRules[
 		uncondEpd = model["ratioUncondE"]["pd"],
 		optsUpdateCoeffs = Sequence @@ Flatten @ {FilterRules[Flatten @ {opts}, Flatten[Options /@ {updateCoeffs}]]},
 		selectorOpt = OptionValue["SolutionSelector"],
-		returnAllOpt = OptionValue["ReturnAllSolutions"]
+		returnAllOpt = OptionValue["ReturnAllSolutions"],
+		guessCoeffsSolution = {}
 	},
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
+	
+	Echo[newParameters,"newParameters"];
+	Echo[guessCoeffsSolution,"guessCoeffsSolution"];
+	Echo[{opts},"optstoNumRules"];
+	
 	(* Validate ReturnAllSolutions option *)
 	If[!MatchQ[returnAllOpt, True | False],
 		Message[toNum::badreturnall, returnAllOpt];
@@ -136,7 +297,9 @@ toNumRules[
 
 		With[{newParams = processNewParameters[newParameters, params]},
 			With[{allParams = Normal @ Join[Association @ params, Association @ newParams]},
-				With[{solHierarchical = updateCoeffs[model, kernels, allParams, guessCoeffsSolution, "UpdatePd" -> True, "UpdateBonds" -> True, optsUpdateCoeffs]},
+			Echo[allParams,"allParams"];
+				With[{solHierarchical = updateCoeffs[model, {}, newParameters, guessCoeffsSolution, "UpdatePd" -> True, "UpdateBonds" -> True, optsUpdateCoeffs]},
+				Echo[solHierarchical,"solHierarchical"];
 					(* Propagate Failure from updateCoeffs *)
 					If[FailureQ[solHierarchical],
 						solHierarchical,
@@ -170,12 +333,14 @@ selectAndFormatSolutions[solHierarchical_List, selector_, returnAll_, allParams_
 			If[FailureQ[sol],
 				sol,
 				Join[
-					sol,
-					allParams,
+					sol
+					,
+					allParams
+					(*,
 					{
 						FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc -> (uncondEwc /. sol //. allParams),
 						FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[ind_] :> (uncondEpd /. (FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`j -> ind) /. sol //. allParams)
-					}
+					}*)
 				]
 			]
 		]
