@@ -112,8 +112,8 @@ toNum[
 				(* Hierarchical Evaluation *)
 				evaluateExprHierarchical[toEquation[expr, model], model, rulesOrSol, allParams],
 				
-				(* Standard Flat Evaluation *)
-				ReplaceRepeated[toEquation[expr, model], rulesOrSol]
+				(* Standard Flat Evaluation - use FixedPoint with limit to prevent infinite recursion *)
+				FixedPoint[ReplaceAll[#, rulesOrSol] &, toEquation[expr, model], 10]
 			]
 		]
 	]
@@ -246,7 +246,8 @@ toNum[model_Association,rest__]:=Function[{expr}, toNum[expr,model,rest]]
 toNum["Rules",model_Association]:= toNum["Rules", model (*,model["params"]*), {}];
 toNum[expr_/;Not@AssociationQ[expr],model_Association]:= With[
 	{rules = toNum["Rules", model]},
-	If[FailureQ[rules], rules, ReplaceRepeated[toEquation[expr,model], rules]]
+	(* Use FixedPoint with limit to prevent infinite recursion *)
+	If[FailureQ[rules], rules, FixedPoint[ReplaceAll[#, rules] &, toEquation[expr,model], 10]]
 ]
 toNum[model_Association]:=toNum[model (*,model["params"]*), {}]
 
@@ -275,11 +276,11 @@ toNumRules[
 	},
 	Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 
-	
-	Echo[newParameters,"newParameters"];
+	(* Debug output disabled to prevent output bloat *)
+	(* Echo[newParameters,"newParameters"];
 	Echo[guessCoeffsSolution,"guessCoeffsSolution"];
-	Echo[{opts},"optstoNumRules"];
-	
+	Echo[{opts},"optstoNumRules"]; *)
+
 	(* Validate ReturnAllSolutions option *)
 	If[!MatchQ[returnAllOpt, True | False],
 		Message[toNum::badreturnall, returnAllOpt];
@@ -297,9 +298,9 @@ toNumRules[
 
 		With[{newParams = processNewParameters[newParameters, params]},
 			With[{allParams = Normal @ Join[Association @ params, Association @ newParams]},
-			Echo[allParams,"allParams"];
+			(* Echo[allParams,"allParams"]; *)
 				With[{solHierarchical = updateCoeffs[model, {}, newParameters, guessCoeffsSolution, "UpdatePd" -> True, "UpdateBonds" -> True, optsUpdateCoeffs]},
-				Echo[solHierarchical,"solHierarchical"];
+				(* Echo[solHierarchical,"solHierarchical"]; *)
 					(* Propagate Failure from updateCoeffs *)
 					If[FailureQ[solHierarchical],
 						solHierarchical,
@@ -314,7 +315,7 @@ toNumRules[
 
 (* Helper: Select and format solutions based on selector and returnAll options *)
 selectAndFormatSolutions[solHierarchical_List, selector_, returnAll_, allParams_, uncondEwc_, uncondEpd_, numStocks_] := Module[
-	{selectedSolutions, result},
+	{selectedSolutions},
 
 	(* Select solutions based on selector *)
 	selectedSolutions = selectSolutions[solHierarchical, selector, numStocks];
@@ -442,7 +443,7 @@ selectByTupleIndex[solHierarchical_List, {aIdx_Integer, bIdx_Integer}, numStocks
 
 (* Helper: Select by association (SignsA, SignsB, SolutionIndexA) *)
 selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := Module[
-	{validKeys, selectorKeys, matchingASols, result},
+	{validKeys, selectorKeys, matchingASols},
 
 	validKeys = {"SignsA", "SignsB", "SolutionIndexA", "SolutionIndexB"};
 	selectorKeys = Keys[selector];

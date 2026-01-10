@@ -605,7 +605,8 @@ updateCoeffsSol[
 
 	Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 	Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
-
+  Echo[newParameters,"updateCoeffsSol newParameters"];
+  Echo[guessCoeffsSolution,"guessCoeffsSolution newParameters"];
 	(* Initialize parameters *)
 	params = (Association @ model["params"]) //. model["params"] // N;
 	newParams = (Association @ newParameters) //. newParameters // N;
