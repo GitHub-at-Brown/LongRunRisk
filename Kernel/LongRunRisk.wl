@@ -58,13 +58,11 @@ YieldCurve;
 (*Symbol/@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`$exogenousVarsPrivate
 Symbol/@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`$endogenousVarsPrivate*)
 
+(* PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"]
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"]; *)
+(* $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
+$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"]; *)
 
-(*
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"]
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
-$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
-*)
 
 
 (* ::Section:: *)
@@ -74,7 +72,7 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 Begin["`Private`"]
 
 
-(*FernandoDuarte`LongRunRisk`t=FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t;*)
+(* FernandoDuarte`LongRunRisk`t=FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t; *)
 
 
 (* ::Subsection:: *)
@@ -423,3 +421,16 @@ UsingFrontEnd[
 	};
 ]
 *)
+
+
+(* ::Subsection:: *)
+(*Display formatting*)
+
+
+(* Strip qualification from subcontexts for cleaner display in documentation *)
+Unprotect[MakeBoxes];
+
+MakeBoxes[sym_Symbol /; StringMatchQ[Context[sym], "FernandoDuarte`LongRunRisk`*`*"], StandardForm] :=
+  RowBox[{SymbolName[sym]}]
+
+Protect[MakeBoxes];
