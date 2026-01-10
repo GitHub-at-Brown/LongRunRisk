@@ -8,8 +8,8 @@ Get["FernandoDuarte`LongRunRisk`Tools`Initialization`"];
 (*Load sub-contexts*)
 
 
-(* $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
-$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"]; *)
+$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
+$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
 
 
 (* Unprotect package symbols in case it is double-loaded *)
