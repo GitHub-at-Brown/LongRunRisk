@@ -86,7 +86,7 @@ InstallOptionsValidationRules[] := Module[
                 {_Integer, _Integer} |         (* {aIdx, bIdx} tuple: aIdx selects A solution, bIdx selects B solution for each stock *)
                 _Association                   (* filter by: "SignsA" -> {1,-1,...}, "SignsB" -> {1,...},
                                                   "SolutionIndexA" -> n, "SolutionIndexB" -> m,
-                                                  "IntervalA" -> {...}, "IntervalB" -> {...} *)
+                                                  "IntervalA" -> {lower, upper}, "IntervalB" -> {lower, upper} *)
             ),
             "ReturnAllSolutions" -> "Boolean"
         }
