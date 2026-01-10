@@ -279,7 +279,7 @@ selectByTupleIndex[solHierarchical_List, {aIdx_Integer, bIdx_Integer}, numStocks
 selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := Module[
 	{validKeys, selectorKeys, matchingASols, result},
 
-	validKeys = {"SignsA", "SignsB", "SolutionIndexA", "SolutionIndexB", "IntervalA", "IntervalB"};
+	validKeys = {"SignsA", "SignsB", "SolutionIndexA", "SolutionIndexB"};
 	selectorKeys = Keys[selector];
 
 	(* Check for invalid keys *)
@@ -318,8 +318,7 @@ selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := M
 	matchingASols = Select[solHierarchical, Function[aSol,
 		And[
 			If[KeyExistsQ[selector, "SignsA"], aSol["SignsA"] === selector["SignsA"], True],
-			If[KeyExistsQ[selector, "SolutionIndexA"], aSol["SolutionIndexA"] === selector["SolutionIndexA"], True],
-			If[KeyExistsQ[selector, "IntervalA"], aSol["IntervalA"] === selector["IntervalA"], True]
+			If[KeyExistsQ[selector, "SolutionIndexA"], aSol["SolutionIndexA"] === selector["SolutionIndexA"], True]
 		]
 	]];
 
