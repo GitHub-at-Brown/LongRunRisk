@@ -79,28 +79,8 @@ providing parameters.", "Notes", CellChangeTimes ->
         {3.90755855326333*^9, 3.9075587707605333*^9}}, CellID -> 1390259878, 
       ExpressionUUID -> "fa0b4e1f-541f-4c0e-9c20-31dd8aba80d2"], 
      Cell[CellGroupData[
-       {Cell[TextData[{Cell[BoxData[DynamicBox[ToBoxes[If[MatchQ[CurrentValue[
-                  EvaluationNotebook[], {TaggingRules, "Openers", 
-                   "AllOptsTable"}], Open | True], Style[Graphics[
-                  {Thickness[0.18], RGBColor[0.8509803921568627, 
-                    0.396078431372549, 0], Line[{{-1.8, 0.5}, {0, 0}, 
-                     {1.8, 0.5}}]}, AspectRatio -> 1, PlotRange -> 
-                   {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
-                  0.68*Inherited], Rotate[Style[Graphics[{Thickness[0.18], 
-                    RGBColor[0.8509803921568627, 0.396078431372549, 0], 
-                    Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 
-                    1, PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], 
-                  Magnification -> 0.68*Inherited], Rational[1, 2]*Pi, 
-                 {-1.65, -1}]]], ImageSizeCache -> {13.600000000000001, 
-                {4.8511425781250015, 8.748857421875}}]], ExpressionUUID -> 
-             "2196e920-c81e-4a17-8192-82eb4fed600d"], 
-           Cell[BoxData[TemplateBox[{1}, "Spacer1"]], ExpressionUUID -> 
-             "41def8f2-7393-4576-ad5a-a7ee006b2203"], 
-           "List of all options"}], "NotesSubsection", "AllOptsTable", 
-         ShowGroupOpener -> False, WholeCellGroupOpener -> True, 
-         CellMargins -> {{Inherited, Inherited}, {8, Inherited}}, 
-         CacheGraphics -> False, CellID -> 1157069475, ExpressionUUID -> 
-          "7df18c7d-401d-48b0-a631-68dff45d8a8f"],
+       {Cell["List of all options", "Subsection", CellID -> 1157069475,
+         ExpressionUUID -> "7df18c7d-401d-48b0-a631-68dff45d8a8f"],
         Cell[BoxData[GridBox[{{Cell["      ", "TableRowIcon", 
               ExpressionUUID -> "63bdfea0-aa3a-4f32-9610-da02b483e4a9"], 
              Cell["\"SolutionSelector\"", "TableText", ExpressionUUID -> 
