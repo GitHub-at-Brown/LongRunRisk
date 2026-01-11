@@ -1548,6 +1548,10 @@ validFlatRules[rules_] := MatchQ[rules, {(_Rule | _RuleDelayed) ..}] && Length[r
 $pkgA = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`A;
 $pkgB = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`B;
 
+(* Aliases for Parameters symbols *)
+$pkgGamma = FernandoDuarte`LongRunRisk`Model`Parameters`gamma;
+$pkgPsi = FernandoDuarte`LongRunRisk`Model`Parameters`psi;
+
 (* Helper: check if result is valid hierarchical structure *)
 validHierarchical[result_] := MatchQ[result, {__Association}] &&
 	AllTrue[result, Function[sol, And[
@@ -2619,6 +2623,149 @@ TestCreate[
 	TestID -> "[toNum/MultiStock/NRC] Uniform bIdx enforced across stocks with different B counts"
 ]
 
+
+(* ::Subsection:: *)
+(*toNum Advanced Examples Tests*)
+
+TestCreate[
+	Module[{baseRules, overrideRules}, baseRules = toNum["Rules", $modBY]; overrideRules = toNum["Rules", $modBY, {$pkgGamma -> 15.}]; overrideRules =!= baseRules],
+	True,
+	{},
+	TestID -> "[toNum] Single parameter override changes output rules"
+]
+
+TestCreate[
+	Module[{baseRules, multiOverride}, baseRules = toNum["Rules", $modBY]; multiOverride = toNum["Rules", $modBY, {$pkgGamma -> 12., $pkgPsi -> 2.5}]; multiOverride =!= baseRules],
+	True,
+	{},
+	TestID -> "[toNum] Multiple parameter override changes output rules"
+]
+
+TestCreate[
+	Module[{exprTest, baseExprValue, overrideExprValue}, exprTest = $pkgA[0] + $pkgA[1]; baseExprValue = toNum[exprTest, $modBY]; overrideExprValue = toNum[exprTest, $modBY, {$pkgGamma -> 20.}]; NumericQ[baseExprValue] && NumericQ[overrideExprValue] && baseExprValue != overrideExprValue],
+	True,
+	{},
+	TestID -> "[toNum] Parameter override affects expression evaluation"
+]
+
+TestCreate[
+	checkAbrt[toNum["Rules", $modBY, {invalidParameterName -> 1.}]],
+	True,
+	{},
+	TestID -> "[toNum] Invalid parameter name aborts"
+]
+
+TestCreate[
+	Module[{stringKeyResult}, stringKeyResult = CheckAbort[toNum["Rules", $modBY, {"gamma" -> 15.}], $Aborted]; stringKeyResult === $Aborted || FailureQ[stringKeyResult]],
+	True,
+	{Rest::normal, Rest::normal, processNewParameters::subsetparam},
+	TestID -> "[toNum] String keys for parameters fail"
+]
+
+TestCreate[
+	Module[{largeExpr, largeResult}, largeExpr = Sum[$pkgA[i], {i, 0, 2}] + $pkgB[1][0] + $pkgB[1][1] + $pkgB[1][2]; largeResult = toNum[largeExpr, $modBY]; NumericQ[largeResult] &&  !FailureQ[largeResult]],
+	True,
+	{},
+	TestID -> "[toNum] Complex expression evaluates to numeric"
+]
+
+TestCreate[
+	FailureQ[toNum["Rules", $modBY, "ReturnAllSolutions" -> "true"]],
+	True,
+	{toNum::badreturnall},
+	TestID -> "[toNum] ReturnAllSolutions string value fails"
+]
+
+TestCreate[
+	FailureQ[toNum["Rules", $modBY, "ReturnAllSolutions" -> 1]],
+	True,
+	{toNum::badreturnall},
+	TestID -> "[toNum] ReturnAllSolutions integer value fails"
+]
+
+TestCreate[
+	AllTrue[Values[$testModels], MatchQ[toNum["Rules", #1], {__Rule}] & ],
+	True,
+	{},
+	TestID -> "[toNum] All models produce valid flat rules"
+]
+
+TestCreate[
+	AllTrue[Values[$testModels], MatchQ[toNum["Rules", #1, "ReturnAllSolutions" -> True], {__Association}] & ],
+	True,
+	{},
+	TestID -> "[toNum] All models produce valid hierarchical solutions"
+]
+
+TestCreate[
+	AllTrue[Values[$testModels], NumericQ[toNum[$pkgA[0], #1]] & ],
+	True,
+	{},
+	TestID -> "[toNum] A[0] is numeric for all models"
+]
+
+TestCreate[
+	$modBY["numStocks"],
+	1,
+	{},
+	TestID -> "[Model] BY has 1 stock"
+]
+
+TestCreate[
+	$modBKY["numStocks"],
+	1,
+	{},
+	TestID -> "[Model] BKY has 1 stock"
+]
+
+TestCreate[
+	$modNRC["numStocks"],
+	3,
+	{},
+	TestID -> "[Model] NRC has 3 stocks"
+]
+
+TestCreate[
+	Length[$modDES["stateVars"][t]],
+	7,
+	{},
+	TestID -> "[Model] DES has 7 state variables"
+]
+
+TestCreate[
+	AllTrue[Select[Values[$testModels], #1["numStocks"] > 0 & ], NumericQ[toNum[$pkgB[1][0], #1]] & ],
+	True,
+	{},
+	TestID -> "[toNum] B[1][0] is numeric for all models with stocks"
+]
+
+TestCreate[
+	Module[{expr, result}, expr = $pkgA[0] + 2*$pkgA[1] + 3*$pkgA[2]; result = toNum[expr, $modNRC]; NumericQ[result]],
+	True,
+	{},
+	TestID -> "[toNum] Multiple A terms evaluate to numeric"
+]
+
+TestCreate[
+	Module[{expr, result}, expr = $pkgB[1][0] + $pkgB[1][1] + $pkgB[1][2]; result = toNum[expr, $modNRC]; NumericQ[result]],
+	True,
+	{},
+	TestID -> "[toNum] Multiple B terms evaluate to numeric"
+]
+
+TestCreate[
+	Module[{expr, result}, expr = $pkgA[0] + $pkgA[1] + $pkgB[1][0] + $pkgB[1][1]; result = toNum[expr, $modNRC]; NumericQ[result]],
+	True,
+	{},
+	TestID -> "[toNum] Mixed A and B terms evaluate to numeric"
+]
+
+TestCreate[
+	Module[{expr, result}, expr = Sum[$pkgA[i], {i, 0, 2}] + Sum[$pkgB[1][j], {j, 0, 2}]; result = toNum[expr, $modNRC]; NumericQ[result]],
+	True,
+	{},
+	TestID -> "[toNum] Summation expressions evaluate to numeric"
+]
 
 End[]
 EndTestSection[]
