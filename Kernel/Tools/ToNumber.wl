@@ -45,6 +45,7 @@ toNum::badidx = "Solution index `1` is out of range [1, `2`].";
 toNum::badbidx = "B solution index `1` for stock `2` is out of range [1, `3`].";
 toNum::badreturnall = "ReturnAllSolutions must be True or False, not `1`.";
 toNum::selectorallrequiresreturnall = "SolutionSelector -> All requires ReturnAllSolutions -> True.";
+toNum::emptysigns = "SignsA -> {} is empty. Omit SignsA to match any solution, or specify sign patterns like {1}, {-1}, or {1, -1, 1}.";
 
 
 (*Get["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
@@ -470,12 +471,16 @@ selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := M
 		Return[Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>]]
 	];
 
-	(* Validate SignsA if present - empty list {} is valid for 1D models *)
+	(* Validate SignsA if present *)
 	If[KeyExistsQ[selector, "SignsA"],
 		With[{signsA = selector["SignsA"]},
-			If[!ListQ[signsA],
-				Message[toNum::badselector, selector];
-				Return[Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>]]
+			Which[
+				!ListQ[signsA],
+					Message[toNum::badselector, selector];
+					Return[Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>]],
+				signsA === {},
+					Message[toNum::emptysigns];
+					Return[Failure["EmptySigns", <|"MessageTemplate" -> toNum::emptysigns|>]]
 			]
 		]
 	];

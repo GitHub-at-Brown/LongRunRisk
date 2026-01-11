@@ -1846,14 +1846,14 @@ TestCreate[
 	TestID -> "[toNum/SolutionSelector] Non-matching SignsA returns Failure"
 ]
 
-(* Empty SignsA returns Failure - validation error *)
+(* Empty SignsA returns Failure with helpful message *)
 TestCreate[
 	With[{result = toNum["Rules", $modNRC, "RootSigns" -> All,
 		"SolutionSelector" -> <|"SignsA" -> {}|>]},
 		FailureQ[result]
 	],
 	True,
-	{toNum::badselector},
+	{toNum::emptysigns},
 	TestID -> "[toNum/SolutionSelector] Empty SignsA returns Failure"
 ]
 
@@ -2128,7 +2128,6 @@ TestCreate[
 ]
 
 (* Both new options with newParameters works *)
-(* Note: OptionValue::nodef warnings are expected as model parameters pass through options filtering *)
 TestCreate[
 	Module[{newParams, result},
 		newParams = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
@@ -2138,7 +2137,7 @@ TestCreate[
 		validFlatRules[result]
 	],
 	True,
-	{OptionValue::nodef, OptionValue::nodef},
+	{},
 	TestID -> "[toNum/Options] Both options with newParameters works"
 ]
 
