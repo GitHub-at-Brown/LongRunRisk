@@ -133,121 +133,28 @@ toNum[
 (* ::Subsection:: *)
 (*Hierarchical Evaluation Helpers*)
 
-(* Detect dependencies: Returns <|"Type" -> "A"|"Stock"|"Mixed", "Stocks" -> {indices}|> *)
-detectExpressionType[expr_, model_] := Module[
-	{
-		stockIndices = {}
-	},
-	(* Detect B[i][...] patterns where i is a stock index *)
-	(* B is the specific symbol used for price-dividend coefficients in EndogenousEq *)
-
-	(* Matches B[i][j] or B[i][t] etc. where i is integer stock index *)
-	stockIndices = Cases[expr,
-		B[i_Integer][___] :> i,
-		Infinity
-	] // Union;
-
-	If[Length[stockIndices] > 0,
-		If[Length[stockIndices] == 1,
-			<|"Type" -> "Stock", "Stocks" -> stockIndices|>,
-			<|"Type" -> "Mixed", "Stocks" -> stockIndices|>
-		],
-		<|"Type" -> "A", "Stocks" -> {}|>
-	]
-];
-
-(* Main hierarchical evaluator *)
-evaluateExprHierarchical[expr_, model_, solHierarchical_, allParams_] := Map[
-	Function[aSol,
-		Module[{exprA, typeInfo, res, baseMeta},
-			(* 1. Evaluate A-level (Macro) dependencies *)
-			(* Substitute A, Bonds, and global Params using the CORRECT allParams *)
-			exprA = expr /. aSol["A"] /. allParams;
-			
-			(* Robust Bond handling: Check existence AND MissingQ *)
-			If[KeyExistsQ[aSol, "Bond"] && !MissingQ[aSol["Bond"]], 
-				exprA = exprA /. aSol["Bond"]
-			];
-			If[KeyExistsQ[aSol, "NomBond"] && !MissingQ[aSol["NomBond"]], 
-				exprA = exprA /. aSol["NomBond"]
-			];
-			
-			(* Preserve all metadata from aSol except the heavy solution payloads *)
-			baseMeta = KeyDrop[aSol, {"A", "Stocks", "Bond", "NomBond"}];
-			
-			(* 2. Detect remaining dependencies (Stocks) *)
-			typeInfo = detectExpressionType[exprA, model];
-			
-			Switch[typeInfo["Type"],
-				"A",
-					(* No stock dependencies left *)
-					Join[
-						baseMeta,
-						Association["Value" -> exprA]
-					],
-				
-				"Stock",
-					(* Single stock dependency *)
-					With[{i = First[typeInfo["Stocks"]]},
-						Join[
-							baseMeta,
-							Association[
-								"Stocks" -> Association[
-									i -> Map[
-										Function[bSol,
-											Association[
-												"IntervalB" -> bSol["IntervalB"], 
-												"SignsB" -> bSol["SignsB"],
-												"Value" -> (exprA /. bSol["B"])
-											]
-										],
-										aSol["Stocks"][i]
-									]
-								]
+(* Simplified evaluator: always evaluate all coefficients via Cartesian product *)
+evaluateExprHierarchical[expr_, model_, solHierarchical_, allParams_] := Flatten[
+	Map[
+		Function[aSol,
+			With[{baseMeta = KeyDrop[aSol, {"A", "Stocks", "Bond", "NomBond"}]},
+				Map[
+					Function[bIndices,
+						With[{rules = Join[flattenCoeffsForIndices[aSol, bIndices], allParams]},
+							Join[
+								baseMeta,
+								If[Length[bIndices] > 0, <|"BIndices" -> bIndices|>, <||>],
+								<|"Value" -> FixedPoint[ReplaceAll[#, rules] &, expr, 10]|>
 							]
 						]
 					],
-					
-				"Mixed",
-					(* Multiple stocks: Cartesian Product *)
-					Module[{stocks = typeInfo["Stocks"], bCombinations, stockKeys},
-						(* Get list of B-solutions for each involved stock *)
-						(* Structure: { { {B->..}, {B->..} }_stock1, { {B->..} }_stock2 } *)
-						bCombinations = Tuples[
-							Table[
-								(* Tag each B-sol with its stock index for identification if needed *)
-								Map[{stockIdx, #} &, aSol["Stocks"][stockIdx]], 
-								{stockIdx, stocks}
-							]
-						];
-						
-						Join[
-							baseMeta,
-							Association[
-								"Combinations" -> Map[
-									Function[combo, (* combo is list of {stockIdx, bSol} *)
-										Module[{mergedRules, meta},
-											mergedRules = Flatten[combo[[All, 2, "B"]]];
-											meta = Association @ Map[
-												#[[1]] -> DeleteCases[#[[2]], "B"] &, 
-												combo
-											];
-											
-											Association[
-												"StockSolutions" -> meta,
-												"Value" -> (exprA /. mergedRules)
-											]
-										]
-									],
-									bCombinations
-								]
-							]
-						]
-					]
+					allBIndexCombinations[aSol]
+				]
 			]
-		]
+		],
+		solHierarchical
 	],
-	solHierarchical
+	1
 ];
 toNum[model_Association,rest__]:=Function[{expr}, toNum[expr,model,rest]]
 
@@ -553,27 +460,38 @@ hasValidBSolutions[aSol_Association] := AllTrue[
 	Length[#] > 0 &
 ];
 
-(* Helper: Flatten coefficients from selected solutions based on selector type *)
-flattenCoeffsFromSelected[selectedSolutions_List, selector_, numStocks_] := Module[{aSol, stockKeys},
-	(* Always take the first selected A solution *)
-	aSol = First[selectedSolutions];
-	stockKeys = Keys[aSol["Stocks"]];
+(* Helper: Flatten all rules for one A solution with specific B indices *)
+flattenCoeffsForIndices[aSol_Association, bIndices_Association] := Join[
+	Normal[aSol["A"]],
+	Flatten @ KeyValueMap[
+		Normal[aSol["Stocks"][#1][[#2]]["B"]] &,
+		bIndices
+	],
+	If[!MissingQ[aSol["Bond"]], Normal[aSol["Bond"]], {}],
+	If[!MissingQ[aSol["NomBond"]], Normal[aSol["NomBond"]], {}]
+]
 
-	(* Check for empty B solutions - use If/Else to ensure proper control flow *)
+(* Helper: Generate all B index combinations for an A solution *)
+allBIndexCombinations[aSol_Association] := With[
+	{stockKeys = Keys[aSol["Stocks"]]},
+	If[Length[stockKeys] == 0,
+		{<||>},
+		Map[
+			AssociationThread[stockKeys, #] &,
+			Tuples[Table[Range[Length[aSol["Stocks"][sk]]], {sk, stockKeys}]]
+		]
+	]
+]
+
+(* Helper: Flatten coefficients from selected solutions based on selector type *)
+flattenCoeffsFromSelected[selectedSolutions_List, selector_, numStocks_] := Module[
+	{aSol = First[selectedSolutions], stockKeys},
+	stockKeys = Keys[aSol["Stocks"]];
 	If[!hasValidBSolutions[aSol],
-		(* Empty B solutions - return Failure *)
 		Message[toNum::nosolution, selector];
 		Failure["NoSolution", <|"MessageTemplate" -> toNum::nosolution, "MessageParameters" -> {selector}|>],
-		(* Valid B solutions - build flat rules: A coeffs + first B for each stock + bonds *)
-		Join[
-			Normal[aSol["A"]],
-			Flatten @ Table[
-				Normal[aSol["Stocks"][stockKey][[1]]["B"]],
-				{stockKey, stockKeys}
-			],
-			If[!MissingQ[aSol["Bond"]], Normal[aSol["Bond"]], {}],
-			If[!MissingQ[aSol["NomBond"]], Normal[aSol["NomBond"]], {}]
-		]
+		(* Use helper with all indices = 1 *)
+		flattenCoeffsForIndices[aSol, AssociationThread[stockKeys, ConstantArray[1, Length[stockKeys]]]]
 	]
 ]
 

@@ -100,64 +100,7 @@ providing parameters.", "Notes", CellChangeTimes ->
          ShowGroupOpener -> False, WholeCellGroupOpener -> True, 
          CellMargins -> {{Inherited, Inherited}, {8, Inherited}}, 
          CacheGraphics -> False, CellID -> 1157069475, ExpressionUUID -> 
-          "7df18c7d-401d-48b0-a631-68dff45d8a8f"], 
-        Cell[BoxData[RowBox[{"all", " ", "List", " ", "of", " ", "options", 
-            " ", RowBox[{"DynamicBox", "[", RowBox[{RowBox[{"ToBoxes", "[", 
-                  RowBox[{"If", "[", RowBox[{RowBox[{"MatchQ", "[", RowBox[
-                         {RowBox[{"CurrentValue", "[", RowBox[{RowBox[
-                          {"EvaluationNotebook", "[", "]"}], ",", RowBox[
-                          {"{", RowBox[{"TaggingRules", ",", "\"Openers\"", 
-                          ",", "\"AllOptsTable\""}], "}"}]}], "]"}], ",", 
-                          RowBox[{"Open", "|", "True"}]}], "]"}], ",", 
-                      RowBox[{"Style", "[", RowBox[{RowBox[{"Graphics", "[", 
-                          RowBox[{RowBox[{"{", RowBox[{RowBox[{"Thickness", 
-                          "[", "0.18`", "]"}], ",", RowBox[{"RGBColor", "[", 
-                          RowBox[{"0.8509803921568627`", ",", 
-                          "0.396078431372549`", ",", "0"}], "]"}], ",", 
-                          RowBox[{"Line", "[", RowBox[{"{", RowBox[{RowBox[
-                          {"{", RowBox[{RowBox[{"-", "1.8`"}], ",", "0.5`"}], 
-                          "}"}], ",", RowBox[{"{", RowBox[{"0", ",", "0"}], 
-                          "}"}], ",", RowBox[{"{", RowBox[{"1.8`", ",", 
-                          "0.5`"}], "}"}]}], "}"}], "]"}]}], "}"}], ",", 
-                          RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
-                          RowBox[{"PlotRange", "\[Rule]", RowBox[{"{", RowBox[
-                          {RowBox[{"{", RowBox[{RowBox[{"-", "3"}], ",", 
-                          "4"}], "}"}], ",", RowBox[{"{", RowBox[{RowBox[
-                          {"-", "1"}], ",", "1"}], "}"}]}], "}"}]}], ",", 
-                          RowBox[{"ImageSize", "\[Rule]", "20"}]}], "]"}], 
-                          ",", RowBox[{"Magnification", "\[Rule]", RowBox[
-                          {"0.68`", " ", "Inherited"}]}]}], "]"}], ",", 
-                      RowBox[{"Rotate", "[", RowBox[{RowBox[{"Style", "[", 
-                          RowBox[{RowBox[{"Graphics", "[", RowBox[{RowBox[
-                          {"{", RowBox[{RowBox[{"Thickness", "[", "0.18`", 
-                          "]"}], ",", RowBox[{"RGBColor", "[", RowBox[
-                          {"0.8509803921568627`", ",", "0.396078431372549`", 
-                          ",", "0"}], "]"}], ",", RowBox[{"Line", "[", RowBox[
-                          {"{", RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", 
-                          "1.8`"}], ",", "0.5`"}], "}"}], ",", RowBox[{"{", 
-                          RowBox[{"0", ",", "0"}], "}"}], ",", RowBox[{"{", 
-                          RowBox[{"1.8`", ",", "0.5`"}], "}"}]}], "}"}], 
-                          "]"}]}], "}"}], ",", RowBox[{"AspectRatio", 
-                          "\[Rule]", "1"}], ",", RowBox[{"PlotRange", 
-                          "\[Rule]", RowBox[{"{", RowBox[{RowBox[{"{", RowBox[
-                          {RowBox[{"-", "3"}], ",", "4"}], "}"}], ",", RowBox[
-                          {"{", RowBox[{RowBox[{"-", "1"}], ",", "1"}], 
-                          "}"}]}], "}"}]}], ",", RowBox[{"ImageSize", 
-                          "\[Rule]", "20"}]}], "]"}], ",", RowBox[
-                          {"Magnification", "\[Rule]", RowBox[{"0.68`", " ", 
-                          "Inherited"}]}]}], "]"}], ",", RowBox[{RowBox[
-                          {"Rational", "[", RowBox[{"1", ",", "2"}], "]"}], 
-                          " ", "\[Pi]"}], ",", RowBox[{"{", RowBox[{RowBox[
-                          {"-", "1.65`"}], ",", RowBox[{"-", "1"}]}], 
-                          "}"}]}], "]"}]}], "]"}], "]"}], ",", 
-                RowBox[{"ImageSizeCache", "\[Rule]", RowBox[{"{", RowBox[
-                     {"13.600000000000001`", ",", RowBox[{"{", RowBox[
-                         {"4.8511425781250015`", ",", "8.748857421875`"}], 
-                        "}"}]}], "}"}]}]}], "]"}], " ", TemplateBox[{1}, 
-             "Spacer1"]}]], "Output", CellChangeTimes -> 
-          {3.977022476460388*^9, 3.977022780359887*^9}, 
-         CellLabel -> "Out[1]=", CellID -> 1352159937, ExpressionUUID -> 
-          "d17b701d-c9d6-414d-bd48-a22f8b001cdd"], 
+          "7df18c7d-401d-48b0-a631-68dff45d8a8f"],
         Cell[BoxData[GridBox[{{Cell["      ", "TableRowIcon", 
               ExpressionUUID -> "63bdfea0-aa3a-4f32-9610-da02b483e4a9"], 
              Cell["\"SolutionSelector\"", "TableText", ExpressionUUID -> 
