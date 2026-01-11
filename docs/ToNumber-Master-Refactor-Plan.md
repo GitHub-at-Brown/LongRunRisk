@@ -17,6 +17,7 @@
 |-------|--------|--------|--------------|
 | Phase 0: Bug Fixes | ✅ COMPLETE | a16fb4f | 8/10 bug coverage tests passing |
 | Phase 1: Extract Helpers | ✅ COMPLETE | a16fb4f | 254/270 total tests passing |
+| Test Fix: SolutionIndexB | ✅ COMPLETE | 97e8c9b | 9/10 bug coverage, 255/270 total passing |
 
 ### 🔄 Current Phase
 None - awaiting decision to proceed with Phase 2+
@@ -25,8 +26,9 @@ None - awaiting decision to proceed with Phase 2+
 - **Lines Added:** 64
 - **Lines Removed:** 50
 - **Net Change:** +14 lines (helper functions offset DRY elimination)
-- **Test Status:** No regressions, 2 new bug coverage test issues identified
+- **Test Status:** 255/270 passing (improvement from 254), 9/10 bug coverage passing
 - **Code Quality:** Eliminated 10+ DRY violations, standardized error handling
+- **Test Improvements:** Fixed SolutionIndexB test to expect rejection (commit 97e8c9b)
 
 ---
 
@@ -111,13 +113,14 @@ Updated `flattenCoeffsFromSelected` to use `makeFailure["NoBSolutions", toNum::n
 
 **Implementation:** ✅ **REMOVED**
 - Removed `"SolutionIndexB"` from `validKeys` at line 367
-- Test now fails as expected (documents that parameter was removed)
+- Test updated (commit 97e8c9b) to expect `toNum::badselector` failure
 - Can be re-added when implementation is needed
 
 ### Validation Results
-- ✅ Existing tests: 254/270 passing (no regressions)
-- ✅ Bug coverage tests: 8/10 passing (2 pre-existing MessagesFailure issues)
+- ✅ Existing tests: 255/270 passing (improved from 254)
+- ✅ Bug coverage tests: 9/10 passing (1 test fixed, 2 pre-existing MessagesFailure issues)
 - ✅ Main comparison operator bug: FIXED
+- ✅ SolutionIndexB test: Fixed to expect rejection instead of silent acceptance
 
 ---
 
