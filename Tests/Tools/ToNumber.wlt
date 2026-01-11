@@ -2705,21 +2705,18 @@ TestCreate[
 	TestID -> "[toNum/BugCoverage] User-constructed Real SignsA pattern works"
 ]
 
-(* Bug Coverage: SolutionIndexB is accepted but currently unused *)
-(* This documents current behavior - SolutionIndexB is ignored *)
+(* Bug Coverage: SolutionIndexB is now rejected as invalid selector key *)
+(* SolutionIndexB was removed from validKeys since it was never implemented *)
 TestCreate[
-	Module[{rulesWithB, rulesWithoutB},
-		rulesWithB = toNum["Rules", $modNRC, "RootSigns" -> All,
+	Module[{result},
+		result = toNum["Rules", $modNRC, "RootSigns" -> All,
 			"SolutionSelector" -> <|"SignsA" -> $nrcFirstA["SignsA"], "SolutionIndexB" -> 1|>];
-		rulesWithoutB = toNum["Rules", $modNRC, "RootSigns" -> All,
-			"SolutionSelector" -> <|"SignsA" -> $nrcFirstA["SignsA"]|>];
-		(* Currently SolutionIndexB is accepted but ignored, so results should be identical *)
-		(* If this test fails after implementation, that's expected - update the test *)
-		Sort[rulesWithB] === Sort[rulesWithoutB]
+		(* Should return Failure with badselector message *)
+		FailureQ[result] && result["MessageTemplate"] === toNum::badselector
 	],
 	True,
-	{},
-	TestID -> "[toNum/BugCoverage] SolutionIndexB currently ignored (documents behavior)"
+	{toNum::badselector},
+	TestID -> "[toNum/BugCoverage] SolutionIndexB rejected as invalid selector key"
 ]
 
 (* Bug Coverage: Empty Stocks case *)
