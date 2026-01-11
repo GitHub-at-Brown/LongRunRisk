@@ -46,6 +46,7 @@ toNum::badbidx = "B solution index `1` for stock `2` is out of range [1, `3`].";
 toNum::badreturnall = "ReturnAllSolutions must be True or False, not `1`.";
 toNum::selectorallrequiresreturnall = "SolutionSelector -> All requires ReturnAllSolutions -> True.";
 toNum::emptysigns = "SignsA -> {} is empty. Omit SignsA to match any solution, or specify sign patterns like {1}, {-1}, or {1, -1, 1}.";
+toNum::nobsolutions = "No valid B solutions found for one or more stocks. The model may be unsolvable with the given parameters.";
 
 
 (*Get["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
@@ -68,6 +69,35 @@ Begin["`Private`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
+
+
+(* ::Subsection:: *)
+(*Helper Functions*)
+
+
+(* Single source of truth for rule application *)
+applyRules[expr_, rules_, maxIter_:10] :=
+	FixedPoint[ReplaceAll[#, rules] &, expr, maxIter]
+
+(* Standardized failure creation *)
+makeFailure[tag_String, msgTemplate_, params_List:{}] :=
+	Failure[tag, <|"MessageTemplate" -> msgTemplate, "MessageParameters" -> params|>]
+
+(* Single source for A solution association structure *)
+buildASolutionAssoc[aSol_, stocks_] := Association[
+	"IntervalA" -> aSol["IntervalA"],
+	"SignsA" -> aSol["SignsA"],
+	"SolutionIndexA" -> aSol["SolutionIndexA"],
+	"IntervalIndexA" -> aSol["IntervalIndexA"],
+	"A" -> aSol["A"],
+	"Stocks" -> stocks,
+	If[!MissingQ[aSol["Bond"]], "Bond" -> aSol["Bond"], Nothing],
+	If[!MissingQ[aSol["NomBond"]], "NomBond" -> aSol["NomBond"], Nothing]
+]
+
+(* Clear predicate for result type *)
+isHierarchicalResult[result_] :=
+	MatchQ[result, {__Association} /; KeyExistsQ[First[result], "A"]]
 
 
 (* ::Subsection:: *)
@@ -117,12 +147,12 @@ toNum[
 			]
 		},
 			(* Check if we have a hierarchical structure (List of Associations with "A", "Stocks" etc) *)
-			If[MatchQ[rulesOrSol, {__Association} /; KeyExistsQ[First[rulesOrSol], "A"]],
+			If[isHierarchicalResult[rulesOrSol],
 				(* Hierarchical Evaluation *)
 				evaluateExprHierarchical[toEquation[expr, model], model, rulesOrSol, allParams],
-				
-				(* Standard Flat Evaluation - use FixedPoint with limit to prevent infinite recursion *)
-				FixedPoint[ReplaceAll[#, rulesOrSol] &, toEquation[expr, model], 10]
+
+				(* Standard Flat Evaluation *)
+				applyRules[toEquation[expr, model], rulesOrSol]
 			]
 		]
 	]
@@ -144,7 +174,7 @@ evaluateExprHierarchical[expr_, model_, solHierarchical_, allParams_] := Flatten
 							Join[
 								baseMeta,
 								If[Length[bIndices] > 0, <|"BIndices" -> bIndices|>, <||>],
-								<|"Value" -> FixedPoint[ReplaceAll[#, rules] &, expr, 10]|>
+								<|"Value" -> applyRules[expr, rules]|>
 							]
 						]
 					],
@@ -164,8 +194,7 @@ toNum[model_Association,rest__]:=Function[{expr}, toNum[expr,model,rest]]
 (* Guard this pattern against "Rules" to match only non-Rules expressions *)
 toNum[expr_/;Not@AssociationQ[expr] && expr =!= "Rules",model_Association]:= With[
 	{rules = toNum["Rules", model]},
-	(* Use FixedPoint with limit to prevent infinite recursion *)
-	If[FailureQ[rules], rules, FixedPoint[ReplaceAll[#, rules] &, toEquation[expr,model], 10]]
+	If[FailureQ[rules], rules, applyRules[toEquation[expr,model], rules]]
 ]
 toNum[model_Association]:=toNum[model (*,model["params"]*), {}]
 
@@ -202,7 +231,7 @@ toNumRules[
 	(* Validate ReturnAllSolutions option *)
 	If[!MatchQ[returnAllOpt, True | False],
 		Message[toNum::badreturnall, returnAllOpt];
-		Return[Failure["InvalidOption", <|"MessageTemplate" -> toNum::badreturnall, "MessageParameters" -> {returnAllOpt}|>]]
+		Return[makeFailure["InvalidOption", toNum::badreturnall, {returnAllOpt}]]
 	];
 
 	(* Determine effective selector: when ReturnAllSolutions->True and selector is Automatic, use All *)
@@ -211,7 +240,7 @@ toNumRules[
 		(* Validate SolutionSelector -> All requires ReturnAllSolutions -> True *)
 		If[effectiveSelector === All && !returnAllOpt,
 			Message[toNum::selectorallrequiresreturnall];
-			Return[Failure["InvalidOption", <|"MessageTemplate" -> toNum::selectorallrequiresreturnall|>]]
+			Return[makeFailure["InvalidOption", toNum::selectorallrequiresreturnall]]
 		];
 
 		With[{newParams = processNewParameters[newParameters, params]},
@@ -281,19 +310,19 @@ selectSolutions[solHierarchical_List, selector_, numStocks_] := Module[{numASolu
 		_Integer?Positive,
 			If[selector > numASolutions,
 				Message[toNum::badidx, selector, numASolutions];
-				Failure["IndexOutOfRange", <|"MessageTemplate" -> toNum::badidx, "MessageParameters" -> {selector, numASolutions}|>],
+				makeFailure["IndexOutOfRange", toNum::badidx, {selector, numASolutions}],
 				{solHierarchical[[selector]]}
 			],
 
 		(* Invalid integer (zero, negative) *)
 		_Integer,
 			Message[toNum::badidx, selector, numASolutions];
-			Failure["IndexOutOfRange", <|"MessageTemplate" -> toNum::badidx, "MessageParameters" -> {selector, numASolutions}|>],
+			makeFailure["IndexOutOfRange", toNum::badidx, {selector, numASolutions}],
 
 		(* Non-integer Real (like 1.5) *)
 		_Real,
 			Message[toNum::badselector, selector];
-			Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>],
+			makeFailure["InvalidSelector", toNum::badselector, {selector}],
 
 		(* Tuple {aIdx, bIdx} *)
 		{_Integer, _Integer},
@@ -306,12 +335,12 @@ selectSolutions[solHierarchical_List, selector_, numStocks_] := Module[{numASolu
 		(* Invalid list (wrong length, non-integers, nested, empty) *)
 		_List,
 			Message[toNum::badselector, selector];
-			Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>],
+			makeFailure["InvalidSelector", toNum::badselector, {selector}],
 
 		(* Any other invalid selector *)
 		_,
 			Message[toNum::badselector, selector];
-			Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>]
+			makeFailure["InvalidSelector", toNum::badselector, {selector}]
 	]
 ];
 
@@ -323,11 +352,11 @@ selectByTupleIndex[solHierarchical_List, {aIdx_Integer, bIdx_Integer}, numStocks
 	Which[
 		aIdx < 1 || aIdx > numASolutions,
 			Message[toNum::badidx, aIdx, numASolutions];
-			Failure["IndexOutOfRange", <|"MessageTemplate" -> toNum::badidx, "MessageParameters" -> {aIdx, numASolutions}|>],
+			makeFailure["IndexOutOfRange", toNum::badidx, {aIdx, numASolutions}],
 
 		bIdx < 1,
 			Message[toNum::badbidx, bIdx, 1, "varies"];
-			Failure["IndexOutOfRange", <|"MessageTemplate" -> toNum::badbidx, "MessageParameters" -> {bIdx, 1, "varies"}|>],
+			makeFailure["IndexOutOfRange", toNum::badbidx, {bIdx, 1, "varies"}],
 
 		True,
 			aSol = solHierarchical[[aIdx]];
@@ -339,21 +368,15 @@ selectByTupleIndex[solHierarchical_List, {aIdx_Integer, bIdx_Integer}, numStocks
 			If[invalidStock =!= None,
 				With[{numBSols = Length[aSol["Stocks"][invalidStock]]},
 					Message[toNum::badbidx, bIdx, invalidStock, numBSols];
-					Failure["IndexOutOfRange", <|"MessageTemplate" -> toNum::badbidx, "MessageParameters" -> {bIdx, invalidStock, numBSols}|>]
+					makeFailure["IndexOutOfRange", toNum::badbidx, {bIdx, invalidStock, numBSols}]
 				],
 				(* All validations passed - return modified A solution *)
-				{Association[
-					"IntervalA" -> aSol["IntervalA"],
-					"SignsA" -> aSol["SignsA"],
-					"SolutionIndexA" -> aSol["SolutionIndexA"],
-					"IntervalIndexA" -> aSol["IntervalIndexA"],
-					"A" -> aSol["A"],
-					"Stocks" -> Association @ Table[
+				{buildASolutionAssoc[
+					aSol,
+					Association @ Table[
 						stockKey -> {aSol["Stocks"][stockKey][[bIdx]]},
 						{stockKey, stockKeys}
-					],
-					If[!MissingQ[aSol["Bond"]], "Bond" -> aSol["Bond"], Nothing],
-					If[!MissingQ[aSol["NomBond"]], "NomBond" -> aSol["NomBond"], Nothing]
+					]
 				]}
 			]
 	]
@@ -363,19 +386,19 @@ selectByTupleIndex[solHierarchical_List, {aIdx_Integer, bIdx_Integer}, numStocks
 selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := Module[
 	{validKeys, selectorKeys, matchingASols},
 
-	validKeys = {"SignsA", "SignsB", "SolutionIndexA", "SolutionIndexB"};
+	validKeys = {"SignsA", "SignsB", "SolutionIndexA"};
 	selectorKeys = Keys[selector];
 
 	(* Check for invalid keys *)
 	If[!SubsetQ[validKeys, selectorKeys],
 		Message[toNum::badselector, selector];
-		Return[Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>]]
+		Return[makeFailure["InvalidSelector", toNum::badselector, {selector}]]
 	];
 
 	(* Empty association is invalid *)
 	If[Length[selector] == 0,
 		Message[toNum::badselector, selector];
-		Return[Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>]]
+		Return[makeFailure["InvalidSelector", toNum::badselector, {selector}]]
 	];
 
 	(* Validate SignsA if present *)
@@ -384,10 +407,10 @@ selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := M
 			Which[
 				!ListQ[signsA],
 					Message[toNum::badselector, selector];
-					Return[Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>]],
+					Return[makeFailure["InvalidSelector", toNum::badselector, {selector}]],
 				signsA === {},
 					Message[toNum::emptysigns];
-					Return[Failure["EmptySigns", <|"MessageTemplate" -> toNum::emptysigns|>]]
+					Return[makeFailure["EmptySigns", toNum::emptysigns]]
 			]
 		]
 	];
@@ -397,7 +420,7 @@ selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := M
 		With[{idxA = selector["SolutionIndexA"]},
 			If[!IntegerQ[idxA],
 				Message[toNum::badselector, selector];
-				Return[Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>]]
+				Return[makeFailure["InvalidSelector", toNum::badselector, {selector}]]
 			]
 		]
 	];
@@ -405,14 +428,14 @@ selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := M
 	(* Filter A solutions by SignsA and/or SolutionIndexA *)
 	matchingASols = Select[solHierarchical, Function[aSol,
 		And[
-			If[KeyExistsQ[selector, "SignsA"], aSol["SignsA"] === selector["SignsA"], True],
-			If[KeyExistsQ[selector, "SolutionIndexA"], aSol["SolutionIndexA"] === selector["SolutionIndexA"], True]
+			If[KeyExistsQ[selector, "SignsA"], aSol["SignsA"] == selector["SignsA"], True],
+			If[KeyExistsQ[selector, "SolutionIndexA"], aSol["SolutionIndexA"] == selector["SolutionIndexA"], True]
 		]
 	]];
 
 	If[Length[matchingASols] == 0,
 		Message[toNum::nosolution, selector];
-		Return[Failure["NoSolution", <|"MessageTemplate" -> toNum::nosolution, "MessageParameters" -> {selector}|>]]
+		Return[makeFailure["NoSolution", toNum::nosolution, {selector}]]
 	];
 
 	(* If SignsB is specified, filter B solutions within each A solution *)
@@ -420,23 +443,14 @@ selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := M
 		matchingASols = Map[Function[aSol,
 			With[{filteredStocks = Association @ KeyValueMap[
 				Function[{stockKey, bSolList},
-					stockKey -> Select[bSolList, #["SignsB"] === selector["SignsB"] &]
+					stockKey -> Select[bSolList, #["SignsB"] == selector["SignsB"] &]
 				],
 				aSol["Stocks"]
 			]},
 				(* Check that at least one B solution matches for each stock that has solutions *)
 				If[AnyTrue[Values[filteredStocks], Length[#] == 0 &],
 					Nothing,
-					Association[
-						"IntervalA" -> aSol["IntervalA"],
-						"SignsA" -> aSol["SignsA"],
-						"SolutionIndexA" -> aSol["SolutionIndexA"],
-						"IntervalIndexA" -> aSol["IntervalIndexA"],
-						"A" -> aSol["A"],
-						"Stocks" -> filteredStocks,
-						If[!MissingQ[aSol["Bond"]], "Bond" -> aSol["Bond"], Nothing],
-						If[!MissingQ[aSol["NomBond"]], "NomBond" -> aSol["NomBond"], Nothing]
-					]
+					buildASolutionAssoc[aSol, filteredStocks]
 				]
 			]
 		], matchingASols];
@@ -446,7 +460,7 @@ selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := M
 
 		If[Length[matchingASols] == 0,
 			Message[toNum::nosolution, selector];
-			Return[Failure["NoSolution", <|"MessageTemplate" -> toNum::nosolution, "MessageParameters" -> {selector}|>]]
+			Return[makeFailure["NoSolution", toNum::nosolution, {selector}]]
 		]
 	];
 
@@ -488,8 +502,8 @@ flattenCoeffsFromSelected[selectedSolutions_List, selector_, numStocks_] := Modu
 	{aSol = First[selectedSolutions], stockKeys},
 	stockKeys = Keys[aSol["Stocks"]];
 	If[!hasValidBSolutions[aSol],
-		Message[toNum::nosolution, selector];
-		Failure["NoSolution", <|"MessageTemplate" -> toNum::nosolution, "MessageParameters" -> {selector}|>],
+		Message[toNum::nobsolutions];
+		makeFailure["NoBSolutions", toNum::nobsolutions],
 		(* Use helper with all indices = 1 *)
 		flattenCoeffsForIndices[aSol, AssociationThread[stockKeys, ConstantArray[1, Length[stockKeys]]]]
 	]
