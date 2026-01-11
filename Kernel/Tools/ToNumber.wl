@@ -470,10 +470,10 @@ selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := M
 		Return[Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>]]
 	];
 
-	(* Validate SignsA if present *)
+	(* Validate SignsA if present - empty list {} is valid for 1D models *)
 	If[KeyExistsQ[selector, "SignsA"],
 		With[{signsA = selector["SignsA"]},
-			If[!ListQ[signsA] || Length[signsA] == 0,
+			If[!ListQ[signsA],
 				Message[toNum::badselector, selector];
 				Return[Failure["InvalidSelector", <|"MessageTemplate" -> toNum::badselector, "MessageParameters" -> {selector}|>]]
 			]
