@@ -606,360 +606,131 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 
 
 (* ::Subsubsection:: *)
-(*BY Model Tests*)
+(*Multi-Model Tests - Parameterized*)
 
 
-(* Test: BY model curried toNum evaluates expressions to numbers *)
-TestCreate[
-	Module[{tn, numMod, testExprs},
-		tn = toNum[$modBY];
-		numMod = getNumModel[$modBY];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		AllTrue[Flatten[{
-			(tn[testExprs] //. numMod),
-			(tn[uncondE /@ testExprs] //. numMod),
-			(tn[uncondVar /@ testExprs] //. numMod),
-			(tn[ev[#, t - 1] & /@ testExprs] //. numMod),
-			(tn[var[#, t - 1] & /@ testExprs] //. numMod)
-		}], NumericQ]
+(* Test models used for parameterized testing *)
+$multiTestModels = <|
+	"BY" -> $modBY,
+	"BKY" -> $modBKY,
+	"DES" -> $modDES,
+	"NRCStochVol" -> $modNRCStochVol
+|>;
+
+(* Test: Curried toNum form evaluates expressions to numbers across all models *)
+Table[
+	With[{mod = $multiTestModels[modelName], name = modelName},
+		TestCreate[
+			Module[{tn, numMod, testExprs},
+				tn = toNum[mod];
+				numMod = getNumModel[mod];
+				testExprs = {wc[t], pd[t, 1], bond[t, 3]};
+				AllTrue[Flatten[{
+					(tn[testExprs] //. numMod),
+					(tn[uncondE /@ testExprs] //. numMod),
+					(tn[uncondVar /@ testExprs] //. numMod),
+					(tn[ev[#, t - 1] & /@ testExprs] //. numMod),
+					(tn[var[#, t - 1] & /@ testExprs] //. numMod)
+				}], NumericQ]
+			],
+			True,
+			{},
+			TestID -> "[toNum/" <> name <> "] Curried form with expectations evaluates to numbers"
+		]
 	],
-	True,
-	{},
-	TestID -> "[toNum/BY] Curried form with expectations evaluates to numbers"
-]
+	{modelName, Keys[$multiTestModels]}
+];
 
-(* Test: BY model expression toNum form evaluates to numbers *)
-TestCreate[
-	Module[{numMod, testExprs},
-		numMod = getNumModel[$modBY];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		AllTrue[Flatten[{
-			(toNum[testExprs, $modBY] //. numMod),
-			(toNum[uncondE /@ testExprs, $modBY] //. numMod),
-			(toNum[uncondVar /@ testExprs, $modBY] //. numMod),
-			(toNum[ev[#, t - 1] & /@ testExprs, $modBY] //. numMod),
-			(toNum[var[#, t - 1] & /@ testExprs, $modBY] //. numMod)
-		}], NumericQ]
+(* Test: Expression toNum form evaluates to numbers across all models *)
+Table[
+	With[{mod = $multiTestModels[modelName], name = modelName},
+		TestCreate[
+			Module[{numMod, testExprs},
+				numMod = getNumModel[mod];
+				testExprs = {wc[t], pd[t, 1], bond[t, 3]};
+				AllTrue[Flatten[{
+					(toNum[testExprs, mod] //. numMod),
+					(toNum[uncondE /@ testExprs, mod] //. numMod),
+					(toNum[uncondVar /@ testExprs, mod] //. numMod),
+					(toNum[ev[#, t - 1] & /@ testExprs, mod] //. numMod),
+					(toNum[var[#, t - 1] & /@ testExprs, mod] //. numMod)
+				}], NumericQ]
+			],
+			True,
+			{},
+			TestID -> "[toNum/" <> name <> "] Expression form with expectations evaluates to numbers"
+		]
 	],
-	True,
-	{},
-	TestID -> "[toNum/BY] Expression form with expectations evaluates to numbers"
-]
+	{modelName, Keys[$multiTestModels]}
+];
 
-(* Test: BY model Rules toNum form evaluates to numbers *)
-TestCreate[
-	Module[{numMod, testExprs, rules},
-		numMod = getNumModel[$modBY];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		rules = toNum["Rules", $modBY];
-		AllTrue[Flatten[{
-			(toEquation[testExprs, $modBY] //. rules //. numMod),
-			(toEquation[uncondE /@ testExprs, $modBY] //. rules //. numMod),
-			(toEquation[uncondVar /@ testExprs, $modBY] //. rules //. numMod),
-			(toEquation[ev[#, t - 1] & /@ testExprs, $modBY] //. rules //. numMod),
-			(toEquation[var[#, t - 1] & /@ testExprs, $modBY] //. rules //. numMod)
-		}], NumericQ]
+(* Test: Rules toNum form evaluates to numbers across all models *)
+Table[
+	With[{mod = $multiTestModels[modelName], name = modelName},
+		TestCreate[
+			Module[{numMod, testExprs, rules},
+				numMod = getNumModel[mod];
+				testExprs = {wc[t], pd[t, 1], bond[t, 3]};
+				rules = toNum["Rules", mod];
+				AllTrue[Flatten[{
+					(toEquation[testExprs, mod] //. rules //. numMod),
+					(toEquation[uncondE /@ testExprs, mod] //. rules //. numMod),
+					(toEquation[uncondVar /@ testExprs, mod] //. rules //. numMod),
+					(toEquation[ev[#, t - 1] & /@ testExprs, mod] //. rules //. numMod),
+					(toEquation[var[#, t - 1] & /@ testExprs, mod] //. rules //. numMod)
+				}], NumericQ]
+			],
+			True,
+			{},
+			TestID -> "[toNum/" <> name <> "] Rules form with expectations evaluates to numbers"
+		]
 	],
-	True,
-	{},
-	TestID -> "[toNum/BY] Rules form with expectations evaluates to numbers"
-]
-
-
-(* ::Subsubsection:: *)
-(*BKY Model Tests*)
-
-
-(* Test: BKY model curried toNum evaluates expressions to numbers *)
-TestCreate[
-	Module[{tn, numMod, testExprs},
-		tn = toNum[$modBKY];
-		numMod = getNumModel[$modBKY];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		AllTrue[Flatten[{
-			(tn[testExprs] //. numMod),
-			(tn[uncondE /@ testExprs] //. numMod),
-			(tn[uncondVar /@ testExprs] //. numMod),
-			(tn[ev[#, t - 1] & /@ testExprs] //. numMod),
-			(tn[var[#, t - 1] & /@ testExprs] //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/BKY] Curried form with expectations evaluates to numbers"
-]
-
-(* Test: BKY model expression toNum form evaluates to numbers *)
-TestCreate[
-	Module[{numMod, testExprs},
-		numMod = getNumModel[$modBKY];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		AllTrue[Flatten[{
-			(toNum[testExprs, $modBKY] //. numMod),
-			(toNum[uncondE /@ testExprs, $modBKY] //. numMod),
-			(toNum[uncondVar /@ testExprs, $modBKY] //. numMod),
-			(toNum[ev[#, t - 1] & /@ testExprs, $modBKY] //. numMod),
-			(toNum[var[#, t - 1] & /@ testExprs, $modBKY] //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/BKY] Expression form with expectations evaluates to numbers"
-]
-
-(* Test: BKY model Rules toNum form evaluates to numbers *)
-TestCreate[
-	Module[{numMod, testExprs, rules},
-		numMod = getNumModel[$modBKY];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		rules = toNum["Rules", $modBKY];
-		AllTrue[Flatten[{
-			(toEquation[testExprs, $modBKY] //. rules //. numMod),
-			(toEquation[uncondE /@ testExprs, $modBKY] //. rules //. numMod),
-			(toEquation[uncondVar /@ testExprs, $modBKY] //. rules //. numMod),
-			(toEquation[ev[#, t - 1] & /@ testExprs, $modBKY] //. rules //. numMod),
-			(toEquation[var[#, t - 1] & /@ testExprs, $modBKY] //. rules //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/BKY] Rules form with expectations evaluates to numbers"
-]
-
-
-(* ::Subsubsection:: *)
-(*DES Model Tests*)
-
-
-(* Test: DES model curried toNum evaluates expressions to numbers *)
-TestCreate[
-	Module[{tn, numMod, testExprs},
-		tn = toNum[$modDES];
-		numMod = getNumModel[$modDES];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		AllTrue[Flatten[{
-			(tn[testExprs] //. numMod),
-			(tn[uncondE /@ testExprs] //. numMod),
-			(tn[uncondVar /@ testExprs] //. numMod),
-			(tn[ev[#, t - 1] & /@ testExprs] //. numMod),
-			(tn[var[#, t - 1] & /@ testExprs] //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/DES] Curried form with expectations evaluates to numbers"
-]
-
-(* Test: DES model expression toNum form evaluates to numbers *)
-TestCreate[
-	Module[{numMod, testExprs},
-		numMod = getNumModel[$modDES];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		AllTrue[Flatten[{
-			(toNum[testExprs, $modDES] //. numMod),
-			(toNum[uncondE /@ testExprs, $modDES] //. numMod),
-			(toNum[uncondVar /@ testExprs, $modDES] //. numMod),
-			(toNum[ev[#, t - 1] & /@ testExprs, $modDES] //. numMod),
-			(toNum[var[#, t - 1] & /@ testExprs, $modDES] //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/DES] Expression form with expectations evaluates to numbers"
-]
-
-(* Test: DES model Rules toNum form evaluates to numbers *)
-TestCreate[
-	Module[{numMod, testExprs, rules},
-		numMod = getNumModel[$modDES];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		rules = toNum["Rules", $modDES];
-		AllTrue[Flatten[{
-			(toEquation[testExprs, $modDES] //. rules //. numMod),
-			(toEquation[uncondE /@ testExprs, $modDES] //. rules //. numMod),
-			(toEquation[uncondVar /@ testExprs, $modDES] //. rules //. numMod),
-			(toEquation[ev[#, t - 1] & /@ testExprs, $modDES] //. rules //. numMod),
-			(toEquation[var[#, t - 1] & /@ testExprs, $modDES] //. rules //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/DES] Rules form with expectations evaluates to numbers"
-]
-
-
-(* ::Subsubsection:: *)
-(*NRCStochVol Model Tests*)
-
-
-(* Test: NRCStochVol model curried toNum evaluates expressions to numbers *)
-TestCreate[
-	Module[{tn, numMod, testExprs},
-		tn = toNum[$modNRCStochVol];
-		numMod = getNumModel[$modNRCStochVol];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		AllTrue[Flatten[{
-			(tn[testExprs] //. numMod),
-			(tn[uncondE /@ testExprs] //. numMod),
-			(tn[uncondVar /@ testExprs] //. numMod),
-			(tn[ev[#, t - 1] & /@ testExprs] //. numMod),
-			(tn[var[#, t - 1] & /@ testExprs] //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/NRCStochVol] Curried form with expectations evaluates to numbers"
-]
-
-(* Test: NRCStochVol model expression toNum form evaluates to numbers *)
-TestCreate[
-	Module[{numMod, testExprs},
-		numMod = getNumModel[$modNRCStochVol];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		AllTrue[Flatten[{
-			(toNum[testExprs, $modNRCStochVol] //. numMod),
-			(toNum[uncondE /@ testExprs, $modNRCStochVol] //. numMod),
-			(toNum[uncondVar /@ testExprs, $modNRCStochVol] //. numMod),
-			(toNum[ev[#, t - 1] & /@ testExprs, $modNRCStochVol] //. numMod),
-			(toNum[var[#, t - 1] & /@ testExprs, $modNRCStochVol] //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/NRCStochVol] Expression form with expectations evaluates to numbers"
-]
-
-(* Test: NRCStochVol model Rules toNum form evaluates to numbers *)
-TestCreate[
-	Module[{numMod, testExprs, rules},
-		numMod = getNumModel[$modNRCStochVol];
-		testExprs = {wc[t], pd[t, 1], bond[t, 3]};
-		rules = toNum["Rules", $modNRCStochVol];
-		AllTrue[Flatten[{
-			(toEquation[testExprs, $modNRCStochVol] //. rules //. numMod),
-			(toEquation[uncondE /@ testExprs, $modNRCStochVol] //. rules //. numMod),
-			(toEquation[uncondVar /@ testExprs, $modNRCStochVol] //. rules //. numMod),
-			(toEquation[ev[#, t - 1] & /@ testExprs, $modNRCStochVol] //. rules //. numMod),
-			(toEquation[var[#, t - 1] & /@ testExprs, $modNRCStochVol] //. rules //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/NRCStochVol] Rules form with expectations evaluates to numbers"
-]
+	{modelName, Keys[$multiTestModels]}
+];
 
 
 (* ::Subsection:: *)
-(*Unconditional Covariance and Correlation Tests*)
+(*Covariance and Correlation Tests - Parameterized*)
 
+(* Models used for covariance/correlation testing *)
+$covTestModels = <|"NRC" -> $modNRC, "BKY" -> $modBKY|>;
 
-(* Test: uncondCov evaluates to numbers across models *)
-TestCreate[
-	Module[{testExprs, numMod, res},
-		testExprs = {wc[t], pd[t, 1]};
-		numMod = getNumModel[$modNRC];
-		res = toNum[MapThread[uncondCov, {testExprs, Reverse[testExprs]}], $modNRC] //. numMod;
-		AllTrue[Flatten[{res}], NumericQ]
+(* Test: Unconditional covariance/correlation evaluate to numbers across models *)
+Table[
+	With[{mod = $covTestModels[modelName], name = modelName},
+		TestCreate[
+			Module[{testExprs, numMod, resCov, resCorr},
+				testExprs = {wc[t], pd[t, 1]};
+				numMod = getNumModel[mod];
+				resCov = toNum[MapThread[uncondCov, {testExprs, Reverse[testExprs]}], mod] //. numMod;
+				resCorr = toNum[MapThread[uncondCorr, {testExprs, Reverse[testExprs]}], mod] //. numMod;
+				AllTrue[Flatten[{resCov, resCorr}], NumericQ]
+			],
+			True,
+			{},
+			TestID -> "[uncondCov/uncondCorr/" <> name <> "] Evaluate to numbers"
+		]
 	],
-	True,
-	{},
-	TestID -> "[uncondCov] Evaluates to numbers for NRC model"
-]
+	{modelName, Keys[$covTestModels]}
+];
 
-(* Test: uncondCorr evaluates to numbers across models *)
-TestCreate[
-	Module[{testExprs, numMod, res},
-		testExprs = {wc[t], pd[t, 1]};
-		numMod = getNumModel[$modNRC];
-		res = toNum[MapThread[uncondCorr, {testExprs, Reverse[testExprs]}], $modNRC] //. numMod;
-		AllTrue[Flatten[{res}], NumericQ]
+(* Test: Conditional covariance/correlation evaluate to numbers across models *)
+Table[
+	With[{mod = $covTestModels[modelName], name = modelName},
+		TestCreate[
+			Module[{testExprs, numMod, resCov, resCorr},
+				testExprs = {wc[t], pd[t, 1]};
+				numMod = getNumModel[mod];
+				resCov = toNum[MapThread[cov[#1, #2, t - 1] &, {testExprs, Reverse[testExprs]}], mod] //. numMod;
+				resCorr = toNum[MapThread[corr[#1, #2, t - 1] &, {testExprs, Reverse[testExprs]}], mod] //. numMod;
+				AllTrue[Flatten[{resCov, resCorr}], NumericQ]
+			],
+			True,
+			{},
+			TestID -> "[cov/corr/" <> name <> "] Evaluate to numbers"
+		]
 	],
-	True,
-	{},
-	TestID -> "[uncondCorr] Evaluates to numbers for NRC model"
-]
-
-(* Test: uncondCov evaluates to numbers for BKY model *)
-TestCreate[
-	Module[{testExprs, numMod, res},
-		testExprs = {wc[t], pd[t, 1]};
-		numMod = getNumModel[$modBKY];
-		res = toNum[MapThread[uncondCov, {testExprs, Reverse[testExprs]}], $modBKY] //. numMod;
-		AllTrue[Flatten[{res}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[uncondCov] Evaluates to numbers for BKY model"
-]
-
-(* Test: uncondCorr evaluates to numbers for BKY model *)
-TestCreate[
-	Module[{testExprs, numMod, res},
-		testExprs = {wc[t], pd[t, 1]};
-		numMod = getNumModel[$modBKY];
-		res = toNum[MapThread[uncondCorr, {testExprs, Reverse[testExprs]}], $modBKY] //. numMod;
-		AllTrue[Flatten[{res}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[uncondCorr] Evaluates to numbers for BKY model"
-]
-
-
-(* ::Subsection:: *)
-(*Conditional Covariance and Correlation Tests*)
-
-
-(* Test: cov evaluates to numbers across models *)
-TestCreate[
-	Module[{testExprs, numMod, res},
-		testExprs = {wc[t], pd[t, 1]};
-		numMod = getNumModel[$modNRC];
-		res = toNum[MapThread[cov[#1, #2, t - 1] &, {testExprs, Reverse[testExprs]}], $modNRC] //. numMod;
-		AllTrue[Flatten[{res}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[cov] Evaluates to numbers for NRC model"
-]
-
-(* Test: corr evaluates to numbers across models *)
-TestCreate[
-	Module[{testExprs, numMod, res},
-		testExprs = {wc[t], pd[t, 1]};
-		numMod = getNumModel[$modNRC];
-		res = toNum[MapThread[corr[#1, #2, t - 1] &, {testExprs, Reverse[testExprs]}], $modNRC] //. numMod;
-		AllTrue[Flatten[{res}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[corr] Evaluates to numbers for NRC model"
-]
-
-(* Test: cov evaluates to numbers for BKY model *)
-TestCreate[
-	Module[{testExprs, numMod, res},
-		testExprs = {wc[t], pd[t, 1]};
-		numMod = getNumModel[$modBKY];
-		res = toNum[MapThread[cov[#1, #2, t - 1] &, {testExprs, Reverse[testExprs]}], $modBKY] //. numMod;
-		AllTrue[Flatten[{res}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[cov] Evaluates to numbers for BKY model"
-]
-
-(* Test: corr evaluates to numbers for BKY model *)
-TestCreate[
-	Module[{testExprs, numMod, res},
-		testExprs = {wc[t], pd[t, 1]};
-		numMod = getNumModel[$modBKY];
-		res = toNum[MapThread[corr[#1, #2, t - 1] &, {testExprs, Reverse[testExprs]}], $modBKY] //. numMod;
-		AllTrue[Flatten[{res}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[corr] Evaluates to numbers for BKY model"
+	{modelName, Keys[$covTestModels]}
 ]
 
 
@@ -1055,227 +826,102 @@ TestCreate[
 (*Multi-Model UpdatePd and UpdateBonds Tests*)
 
 
-(* Test: UpdatePd option for BY model *)
-TestCreate[
-	Module[{numMod},
-		numMod = getNumModel[$modBY];
-		AllTrue[Flatten[{
-			pd[t, 1] // toNum[$modBY, "UpdatePd" -> False] //. numMod,
-			toNum[pd[t, 1], $modBY, "UpdatePd" -> False] //. numMod,
-			toEquation[pd[t, 1], $modBY] //. toNum["Rules", $modBY, "UpdatePd" -> False] //. numMod
-		}], NumericQ]
+(* Test: UpdatePd option evaluates to numbers across all models *)
+Table[
+	With[{mod = $multiTestModels[modelName], name = modelName},
+		TestCreate[
+			Module[{numMod},
+				numMod = getNumModel[mod];
+				AllTrue[Flatten[{
+					pd[t, 1] // toNum[mod, "UpdatePd" -> False] //. numMod,
+					toNum[pd[t, 1], mod, "UpdatePd" -> False] //. numMod,
+					toEquation[pd[t, 1], mod] //. toNum["Rules", mod, "UpdatePd" -> False] //. numMod
+				}], NumericQ]
+			],
+			True,
+			{},
+			TestID -> "[toNum/" <> name <> "] UpdatePd option evaluates to numbers"
+		]
 	],
-	True,
-	{},
-	TestID -> "[toNum/BY] UpdatePd option evaluates to numbers"
-]
+	{modelName, Keys[$multiTestModels]}
+];
 
-(* Test: UpdateBonds option for BY model *)
-TestCreate[
-	Module[{numMod},
-		numMod = getNumModel[$modBY];
-		AllTrue[Flatten[{
-			{bondyield[t, 2], nombondyield[t, 3]} // toNum[$modBY, "UpdateBonds" -> False] //. numMod,
-			toNum[{bondyield[t, 2], nombondyield[t, 3]}, $modBY, "UpdateBonds" -> False] //. numMod,
-			toEquation[{bondyield[t, 2], nombondyield[t, 3]}, $modBY] //. toNum["Rules", $modBY, "UpdateBonds" -> False] //. numMod
-		}], NumericQ]
+(* Test: UpdateBonds option evaluates to numbers across all models *)
+Table[
+	With[{mod = $multiTestModels[modelName], name = modelName},
+		TestCreate[
+			Module[{numMod},
+				numMod = getNumModel[mod];
+				AllTrue[Flatten[{
+					{bondyield[t, 2], nombondyield[t, 3]} // toNum[mod, "UpdateBonds" -> False] //. numMod,
+					toNum[{bondyield[t, 2], nombondyield[t, 3]}, mod, "UpdateBonds" -> False] //. numMod,
+					toEquation[{bondyield[t, 2], nombondyield[t, 3]}, mod] //. toNum["Rules", mod, "UpdateBonds" -> False] //. numMod
+				}], NumericQ]
+			],
+			True,
+			{},
+			TestID -> "[toNum/" <> name <> "] UpdateBonds option evaluates to numbers"
+		]
 	],
-	True,
-	{},
-	TestID -> "[toNum/BY] UpdateBonds option evaluates to numbers"
-]
-
-(* Test: UpdatePd option for BKY model *)
-TestCreate[
-	Module[{numMod},
-		numMod = getNumModel[$modBKY];
-		AllTrue[Flatten[{
-			pd[t, 1] // toNum[$modBKY, "UpdatePd" -> False] //. numMod,
-			toNum[pd[t, 1], $modBKY, "UpdatePd" -> False] //. numMod,
-			toEquation[pd[t, 1], $modBKY] //. toNum["Rules", $modBKY, "UpdatePd" -> False] //. numMod
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/BKY] UpdatePd option evaluates to numbers"
-]
-
-(* Test: UpdateBonds option for BKY model *)
-TestCreate[
-	Module[{numMod},
-		numMod = getNumModel[$modBKY];
-		AllTrue[Flatten[{
-			{bondyield[t, 2], nombondyield[t, 3]} // toNum[$modBKY, "UpdateBonds" -> False] //. numMod,
-			toNum[{bondyield[t, 2], nombondyield[t, 3]}, $modBKY, "UpdateBonds" -> False] //. numMod,
-			toEquation[{bondyield[t, 2], nombondyield[t, 3]}, $modBKY] //. toNum["Rules", $modBKY, "UpdateBonds" -> False] //. numMod
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/BKY] UpdateBonds option evaluates to numbers"
-]
-
-(* Test: UpdatePd option for DES model *)
-TestCreate[
-	Module[{numMod},
-		numMod = getNumModel[$modDES];
-		AllTrue[Flatten[{
-			pd[t, 1] // toNum[$modDES, "UpdatePd" -> False] //. numMod,
-			toNum[pd[t, 1], $modDES, "UpdatePd" -> False] //. numMod,
-			toEquation[pd[t, 1], $modDES] //. toNum["Rules", $modDES, "UpdatePd" -> False] //. numMod
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/DES] UpdatePd option evaluates to numbers"
-]
-
-(* Test: UpdateBonds option for DES model *)
-TestCreate[
-	Module[{numMod},
-		numMod = getNumModel[$modDES];
-		AllTrue[Flatten[{
-			{bondyield[t, 2], nombondyield[t, 3]} // toNum[$modDES, "UpdateBonds" -> False] //. numMod,
-			toNum[{bondyield[t, 2], nombondyield[t, 3]}, $modDES, "UpdateBonds" -> False] //. numMod,
-			toEquation[{bondyield[t, 2], nombondyield[t, 3]}, $modDES] //. toNum["Rules", $modDES, "UpdateBonds" -> False] //. numMod
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/DES] UpdateBonds option evaluates to numbers"
-]
-
-(* Test: UpdatePd option for NRCStochVol model *)
-TestCreate[
-	Module[{numMod},
-		numMod = getNumModel[$modNRCStochVol];
-		AllTrue[Flatten[{
-			pd[t, 1] // toNum[$modNRCStochVol, "UpdatePd" -> False] //. numMod,
-			toNum[pd[t, 1], $modNRCStochVol, "UpdatePd" -> False] //. numMod,
-			toEquation[pd[t, 1], $modNRCStochVol] //. toNum["Rules", $modNRCStochVol, "UpdatePd" -> False] //. numMod
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/NRCStochVol] UpdatePd option evaluates to numbers"
-]
-
-(* Test: UpdateBonds option for NRCStochVol model *)
-TestCreate[
-	Module[{numMod},
-		numMod = getNumModel[$modNRCStochVol];
-		AllTrue[Flatten[{
-			{bondyield[t, 2], nombondyield[t, 3]} // toNum[$modNRCStochVol, "UpdateBonds" -> False] //. numMod,
-			toNum[{bondyield[t, 2], nombondyield[t, 3]}, $modNRCStochVol, "UpdateBonds" -> False] //. numMod,
-			toEquation[{bondyield[t, 2], nombondyield[t, 3]}, $modNRCStochVol] //. toNum["Rules", $modNRCStochVol, "UpdateBonds" -> False] //. numMod
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/NRCStochVol] UpdateBonds option evaluates to numbers"
-]
+	{modelName, Keys[$multiTestModels]}
+];
 
 
 (* ::Subsection:: *)
 (*Multi-Model Parameter Handling Tests*)
 
 
-(* Test: New parameters with BY model *)
-TestCreate[
-	Module[{numMod, newParameters, exprNewParam},
-		numMod = getNumModel[$modBY];
-		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
-		exprNewParam = uncondE[wc[t]];
-		AllTrue[{
-			exprNewParam // toNum[$modBY, newParameters] //. numMod,
-			toNum[exprNewParam, $modBY, newParameters] //. numMod,
-			toEquation[exprNewParam, $modBY] //. toNum["Rules", $modBY, newParameters] //. numMod
-		}, NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/BY] New parameters evaluate to numbers"
-]
-
 (* NOTE: guessCoeffsSolution test removed - parameter was removed from toNum function signature (see ToNumber.wl line 210) *)
+(* NOTE: MaxIterations must be passed via "FindRootOptions" sub-option *)
 
-(* Test: New parameters with BKY model *)
-TestCreate[
-	Module[{numMod, newParameters, exprNewParam},
-		numMod = getNumModel[$modBKY];
-		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
-		exprNewParam = uncondE[wc[t]];
-		AllTrue[{
-			exprNewParam // toNum[$modBKY, newParameters] //. numMod,
-			toNum[exprNewParam, $modBKY, newParameters] //. numMod,
-			toEquation[exprNewParam, $modBKY] //. toNum["Rules", $modBKY, newParameters] //. numMod
-		}, NumericQ]
+(* Test: New parameters evaluate to numbers across all models *)
+Table[
+	With[{mod = $multiTestModels[modelName], name = modelName},
+		TestCreate[
+			Module[{numMod, newParameters, exprNewParam},
+				numMod = getNumModel[mod];
+				newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
+				exprNewParam = uncondE[wc[t]];
+				AllTrue[{
+					exprNewParam // toNum[mod, newParameters] //. numMod,
+					toNum[exprNewParam, mod, newParameters] //. numMod,
+					toEquation[exprNewParam, mod] //. toNum["Rules", mod, newParameters] //. numMod
+				}, NumericQ]
+			],
+			True,
+			{},
+			TestID -> "[toNum/" <> name <> "] New parameters evaluate to numbers"
+		]
 	],
-	True,
-	{},
-	TestID -> "[toNum/BKY] New parameters evaluate to numbers"
-]
-
-(* NOTE: Tests removed:
-   - guessCoeffsSolution parameter was removed from toNum function signature
-   - MaxIterations must be passed via "FindRootOptions" sub-option *)
-
-(* Test: New parameters with DES model *)
-TestCreate[
-	Module[{numMod, newParameters, exprNewParam},
-		numMod = getNumModel[$modDES];
-		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
-		exprNewParam = uncondE[wc[t]];
-		AllTrue[{
-			exprNewParam // toNum[$modDES, newParameters] //. numMod,
-			toNum[exprNewParam, $modDES, newParameters] //. numMod,
-			toEquation[exprNewParam, $modDES] //. toNum["Rules", $modDES, newParameters] //. numMod
-		}, NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/DES] New parameters evaluate to numbers"
-]
-
-(* Test: New parameters with NRCStochVol model *)
-TestCreate[
-	Module[{numMod, newParameters, exprNewParam},
-		numMod = getNumModel[$modNRCStochVol];
-		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
-		exprNewParam = uncondE[wc[t]];
-		AllTrue[{
-			exprNewParam // toNum[$modNRCStochVol, newParameters] //. numMod,
-			toNum[exprNewParam, $modNRCStochVol, newParameters] //. numMod,
-			toEquation[exprNewParam, $modNRCStochVol] //. toNum["Rules", $modNRCStochVol, newParameters] //. numMod
-		}, NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/NRCStochVol] New parameters evaluate to numbers"
-]
+	{modelName, Keys[$multiTestModels]}
+];
 
 
 (* ::Subsection:: *)
-(*Extended Expression Types Tests*)
+(*Extended Expression Types Tests - Parameterized*)
 
-
-(* Test: All expression types evaluate to numbers for NRC model *)
-TestCreate[
-	Module[{numMod, allExprs},
-		numMod = getNumModel[$modNRC];
-		allExprs = {
-			wc[t], pd[t, 1], bond[t, 3], nombond[t, 3], bondexcret[t, 3], bondfw[t, 3],
-			bondfwspread[t, 3], bondret[t, 3], bondyield[t, 3], excretc[t], excret[t, 1],
-			kappa0[1], kappa1[1], nombondexcret[t, 3], nombondfw[t, 3], nombondfwspread[t, 3],
-			nombondret[t, 3], nombondyield[t, 3], nomrf[t], nomsdf[t], retc[t], ret[t, 1],
-			rf[t], sdf[t], pi[t], dc[t]
-		};
-		AllTrue[Flatten[{toNum[allExprs, $modNRC] //. numMod}], NumericQ]
+(* Test: All expression types evaluate to numbers across models *)
+Table[
+	With[{mod = $covTestModels[modelName], name = modelName},
+		TestCreate[
+			Module[{numMod, allExprs},
+				numMod = getNumModel[mod];
+				allExprs = {
+					wc[t], pd[t, 1], bond[t, 3], nombond[t, 3], bondexcret[t, 3], bondfw[t, 3],
+					bondfwspread[t, 3], bondret[t, 3], bondyield[t, 3], excretc[t], excret[t, 1],
+					kappa0[1], kappa1[1], nombondexcret[t, 3], nombondfw[t, 3], nombondfwspread[t, 3],
+					nombondret[t, 3], nombondyield[t, 3], nomrf[t], nomsdf[t], retc[t], ret[t, 1],
+					rf[t], sdf[t], pi[t], dc[t]
+				};
+				AllTrue[Flatten[{toNum[allExprs, mod] //. numMod}], NumericQ]
+			],
+			True,
+			{},
+			TestID -> "[toNum/" <> name <> "] All expression types evaluate to numbers"
+		]
 	],
-	True,
-	{},
-	TestID -> "[toNum] All expression types evaluate to numbers for NRC model"
-]
+	{modelName, Keys[$covTestModels]}
+];
 
 (* Test: Growth expressions evaluate to numbers *)
 TestCreate[
@@ -1305,24 +951,6 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum] Composite arithmetic expressions evaluate to numbers"
-]
-
-(* Test: All expression types evaluate to numbers for BKY model *)
-TestCreate[
-	Module[{numMod, allExprs},
-		numMod = getNumModel[$modBKY];
-		allExprs = {
-			wc[t], pd[t, 1], bond[t, 3], nombond[t, 3], bondexcret[t, 3], bondfw[t, 3],
-			bondfwspread[t, 3], bondret[t, 3], bondyield[t, 3], excretc[t], excret[t, 1],
-			kappa0[1], kappa1[1], nombondexcret[t, 3], nombondfw[t, 3], nombondfwspread[t, 3],
-			nombondret[t, 3], nombondyield[t, 3], nomrf[t], nomsdf[t], retc[t], ret[t, 1],
-			rf[t], sdf[t], pi[t], dc[t]
-		};
-		AllTrue[Flatten[{toNum[allExprs, $modBKY] //. numMod}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum] All expression types evaluate to numbers for BKY model"
 ]
 
 
@@ -2719,12 +2347,22 @@ TestCreate[
 	TestID -> "[toNum] B[1][0] is numeric for all models with stocks"
 ]
 
-TestCreate[
-	Module[{expr, result}, expr = $pkgA[0] + 2*$pkgA[1] + 3*$pkgA[2]; result = toNum[expr, $modNRC]; NumericQ[result]],
-	True,
-	{},
-	TestID -> "[toNum] Multiple A terms evaluate to numeric"
-]
+(* Test: Multiple A terms evaluate to numeric across models *)
+Table[
+	With[{mod = $testModels[modelName], name = modelName},
+		TestCreate[
+			Module[{expr, result},
+				expr = $pkgA[0] + 2*$pkgA[1] + 3*$pkgA[2];
+				result = toNum[expr, mod];
+				NumericQ[result]
+			],
+			True,
+			{},
+			TestID -> "[toNum/" <> name <> "] Multiple A terms evaluate to numeric"
+		]
+	],
+	{modelName, Keys[$testModels]}
+];
 
 TestCreate[
 	Module[{expr, result}, expr = $pkgB[1][0] + $pkgB[1][1] + $pkgB[1][2]; result = toNum[expr, $modNRC]; NumericQ[result]],
@@ -2733,11 +2371,21 @@ TestCreate[
 	TestID -> "[toNum] Multiple B terms evaluate to numeric"
 ]
 
-TestCreate[
-	Module[{expr, result}, expr = $pkgA[0] + $pkgA[1] + $pkgB[1][0] + $pkgB[1][1]; result = toNum[expr, $modNRC]; NumericQ[result]],
-	True,
-	{},
-	TestID -> "[toNum] Mixed A and B terms evaluate to numeric"
+(* Test: Mixed A and B terms evaluate to numeric across models with stocks *)
+Table[
+	With[{mod = $testModels[modelName], name = modelName},
+		TestCreate[
+			Module[{expr, result},
+				expr = $pkgA[0] + $pkgA[1] + $pkgB[1][0] + $pkgB[1][1];
+				result = toNum[expr, mod];
+				NumericQ[result]
+			],
+			True,
+			{},
+			TestID -> "[toNum/" <> name <> "] Mixed A and B terms evaluate to numeric"
+		]
+	],
+	{modelName, Select[Keys[$testModels], $testModels[#]["numStocks"] > 0 &]}
 ]
 
 TestCreate[
@@ -2783,22 +2431,6 @@ TestCreate[
 	TestID -> "[toNum/Docs] First rule RHS is numeric"
 ]
 
-(* Test: ToNum evaluates A[0] + A[1] to numeric *)
-TestCreate[
-	NumberQ[toNum[$pkgA[0] + $pkgA[1], $modBY]],
-	True,
-	{},
-	TestID -> "[toNum/Docs] Sum of A coefficients evaluates to numeric"
-]
-
-(* Test: ToNum evaluates B[1][0] + B[1][1] to numeric *)
-TestCreate[
-	NumberQ[toNum[$pkgB[1][0] + $pkgB[1][1], $modBY]],
-	True,
-	{},
-	TestID -> "[toNum/Docs] Sum of B coefficients evaluates to numeric"
-]
-
 (* Test: A[0] with different gamma produces different result *)
 TestCreate[
 	toNum[$pkgA[0], $modBY] =!= toNum[$pkgA[0], $modBY, {$pkgGamma -> 15.}],
@@ -2821,14 +2453,6 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/Docs] Curried form equals standard form"
-]
-
-(* Test: Curried form returns numeric *)
-TestCreate[
-	NumberQ[toNum[$modBY][$pkgA[0] + $pkgA[1]]],
-	True,
-	{},
-	TestID -> "[toNum/Docs] Curried form returns numeric"
 ]
 
 (* Test: Curried form with parameters equals standard form *)
@@ -2992,14 +2616,6 @@ TestCreate[
 (* Tests for NRC and other multi-stock models *)
 
 
-(* Test: NRC model has 3 stocks *)
-TestCreate[
-	$modNRC["numStocks"] === 3,
-	True,
-	{},
-	TestID -> "[toNum/Docs] NRC model has 3 stocks"
-]
-
 (* Test: NRC solutions list has 3 entries *)
 TestCreate[
 	With[{nrcSol = toNum["Rules", $modNRC, "ReturnAllSolutions" -> True]},
@@ -3028,110 +2644,30 @@ TestCreate[
 	TestID -> "[toNum/Docs] All NRC solutions have numeric Value"
 ]
 
-(* Test: A expression evaluates to numeric *)
-TestCreate[
-	NumberQ[toNum[$pkgA[0] + $pkgA[1] + $pkgA[2], $modBY]],
-	True,
-	{},
-	TestID -> "[toNum/Docs] A[0] + A[1] + A[2] evaluates to numeric"
-]
-
-(* Test: B[1][0] evaluates to numeric *)
-TestCreate[
-	NumberQ[toNum[$pkgB[1][0], $modBY]],
-	True,
-	{},
-	TestID -> "[toNum/Docs] B[1][0] evaluates to numeric"
-]
-
-(* Test: Mixed A and B expression evaluates to numeric *)
-TestCreate[
-	NumberQ[toNum[$pkgA[0] + $pkgB[1][0], $modBY]],
-	True,
-	{},
-	TestID -> "[toNum/Docs] Mixed A and B expression evaluates to numeric"
-]
-
 
 (* ::Subsection:: *)
 (*toNum - Model Comparison Tests*)
 (* Tests validating different model behaviors *)
 
+(* Test: Models have expected solution counts and keys - Parameterized *)
+$expectedSolutionCounts = <|"BY" -> 1, "NRC" -> 3, "DES" -> 3, "NRCStochVol" -> 1|>;
+$solutionTestModels = <|"BY" -> $modBY, "NRC" -> $modNRC, "DES" -> $modDES, "NRCStochVol" -> $modNRCStochVol|>;
 
-(* Test: DES model has 1 stock *)
-TestCreate[
-	$modDES["numStocks"] === 1,
-	True,
-	{},
-	TestID -> "[toNum/Docs] DES model has 1 stock"
-]
-
-(* Test: DES model has 7 state variables *)
-TestCreate[
-	Length[$modDES["stateVars"][t]] === 7,
-	True,
-	{},
-	TestID -> "[toNum/Docs] DES model has 7 state variables"
-]
-
-(* Test: BY ReturnAllSolutions returns rule list *)
-TestCreate[
-	MatchQ[toNum["Rules", $modBY], {__Rule}],
-	True,
-	{},
-	TestID -> "[toNum/Docs] BY Rules returns list of rules"
-]
-
-(* Test: BY ReturnAllSolutions returns association list *)
-TestCreate[
-	MatchQ[toNum["Rules", $modBY, "ReturnAllSolutions" -> True], {__Association}],
-	True,
-	{},
-	TestID -> "[toNum/Docs] BY ReturnAllSolutions returns Association list"
-]
-
-(* Test: BY has 1 solution with expected keys *)
-TestCreate[
-	With[{bySolutions = toNum["Rules", $modBY, "ReturnAllSolutions" -> True]},
-		And @@ {Length[bySolutions] === 1,
-			Keys[bySolutions[[1]]] === {"IntervalA", "SignsA", "SolutionIndexA", "IntervalIndexA", "A", "Stocks", "Bond", "NomBond"}}
+Table[
+	With[{mod = $solutionTestModels[modelName], expectedCount = $expectedSolutionCounts[modelName], name = modelName},
+		TestCreate[
+			With[{solutions = toNum["Rules", mod, "ReturnAllSolutions" -> True]},
+				And[
+					Length[solutions] === expectedCount,
+					Keys[solutions[[1]]] === {"IntervalA", "SignsA", "SolutionIndexA", "IntervalIndexA", "A", "Stocks", "Bond", "NomBond"}
+				]
+			],
+			True,
+			{},
+			TestID -> "[toNum/Docs/" <> name <> "] Has expected solution count and keys"
+		]
 	],
-	True,
-	{},
-	TestID -> "[toNum/Docs] BY has 1 solution with expected keys"
-]
-
-(* Test: NRC has 3 solutions with expected keys *)
-TestCreate[
-	With[{bySolutions = toNum["Rules", $modNRC, "ReturnAllSolutions" -> True]},
-		And @@ {Length[bySolutions] === 3,
-			Keys[bySolutions[[1]]] === {"IntervalA", "SignsA", "SolutionIndexA", "IntervalIndexA", "A", "Stocks", "Bond", "NomBond"}}
-	],
-	True,
-	{},
-	TestID -> "[toNum/Docs] NRC has 3 solutions with expected keys"
-]
-
-(* Test: DES has 3 solutions with expected keys *)
-TestCreate[
-	With[{bySolutions = toNum["Rules", $modDES, "ReturnAllSolutions" -> True]},
-		And @@ {Length[bySolutions] === 3,
-			Keys[bySolutions[[1]]] === {"IntervalA", "SignsA", "SolutionIndexA", "IntervalIndexA", "A", "Stocks", "Bond", "NomBond"}}
-	],
-	True,
-	{},
-	TestID -> "[toNum/Docs] DES has 3 solutions with expected keys"
-]
-
-(* Test: NRCStochVol has 1 solution with expected keys *)
-TestCreate[
-	With[{bySolutions = toNum["Rules", $modNRCStochVol, "ReturnAllSolutions" -> True]},
-		{Length[bySolutions] === 1,
-			Keys[bySolutions[[1]]] === {"IntervalA", "SignsA", "SolutionIndexA", "IntervalIndexA", "A", "Stocks", "Bond", "NomBond"}}
-	],
-	{True, True},
-	{},
-	TestID -> "[toNum/Docs] NRCStochVol has 1 solution with expected keys"
+	{modelName, Keys[$expectedSolutionCounts]}
 ]
 
 
@@ -3139,14 +2675,6 @@ TestCreate[
 (*toNum - SolutionSelector Documentation Tests*)
 (* Tests from official documentation for SolutionSelector *)
 
-
-(* Test: Default selector equals Automatic *)
-TestCreate[
-	toNum["Rules", $modBY] === toNum["Rules", $modBY, "SolutionSelector" -> Automatic],
-	True,
-	{},
-	TestID -> "[toNum/Docs] Default selector equals Automatic"
-]
 
 (* Test: Selector 2 differs from default for NRC *)
 TestCreate[
@@ -3239,14 +2767,6 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[toNum/Docs] MaxMaturity controls bond coefficient range"
-]
-
-(* Test: Duplicate default selector test *)
-TestCreate[
-	toNum["Rules", $modBY] === toNum["Rules", $modBY, "SolutionSelector" -> Automatic],
-	True,
-	{},
-	TestID -> "[toNum/Docs] Default selector equals Automatic (variant)"
 ]
 
 (* Test: Rules form equals expression evaluation *)
