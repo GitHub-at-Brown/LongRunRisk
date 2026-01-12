@@ -163,14 +163,14 @@ TestCreate[
 (* ::Subsection:: *)
 (*processNewParameters - Invalid Parameters Tests*)
 
-(* Test: When new parameters are NOT a subset, aborts *)
+(* Test: When new parameters are NOT a subset, returns Failure *)
 TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`phip -> 3}},
-		checkAbrt[processNewParameters[newP, p]]
+		FailureQ[processNewParameters[newP, p]]
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Non-subset parameters abort"
+	TestID -> "[processNewParameters] Non-subset parameters return Failure"
 ]
 
 (* Test: When new parameters are NOT a subset, issues subsetparam message *)
@@ -188,14 +188,14 @@ TestCreate[
 (* ::Subsection:: *)
 (*processNewParameters - Psi Validation Tests*)
 
-(* Test: psi=1 in new parameters aborts *)
+(* Test: psi=1 in new parameters returns Failure *)
 TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1}},
-		checkAbrt[processNewParameters[newP, p]]
+		FailureQ[processNewParameters[newP, p]]
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] psi=1 aborts"
+	TestID -> "[processNewParameters] psi=1 returns Failure"
 ]
 
 (* Test: psi=1 issues psi message *)
@@ -209,14 +209,14 @@ TestCreate[
 	TestID -> "[processNewParameters] psi=1 issues psi message"
 ]
 
-(* Test: psi=1. (numeric) also aborts *)
+(* Test: psi=1. (numeric) also returns Failure *)
 TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.}},
-		checkAbrt[processNewParameters[newP, p]]
+		FailureQ[processNewParameters[newP, p]]
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] psi=1.0 numeric aborts"
+	TestID -> "[processNewParameters] psi=1.0 numeric returns Failure"
 ]
 
 
@@ -326,14 +326,14 @@ TestCreate[
 (* ::Subsection:: *)
 (*processNewParameters - Theta Alone Tests*)
 
-(* Test: theta provided without gamma or psi aborts *)
+(* Test: theta provided without gamma or psi returns Failure *)
 TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.9, FernandoDuarte`LongRunRisk`Model`Parameters`Esx -> 1, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> 1.}},
-		checkAbrt[processNewParameters[newP, p]]
+		FailureQ[processNewParameters[newP, p]]
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Theta alone without gamma or psi aborts"
+	TestID -> "[processNewParameters] Theta alone without gamma or psi returns Failure"
 ]
 
 (* Test: theta provided without gamma or psi issues theta message *)
@@ -2742,10 +2742,10 @@ TestCreate[
 ]
 
 TestCreate[
-	checkAbrt[toNum["Rules", $modBY, {invalidParameterName -> 1.}]],
+	FailureQ[toNum["Rules", $modBY, {invalidParameterName -> 1.}]],
 	True,
 	{},
-	TestID -> "[toNum] Invalid parameter name aborts"
+	TestID -> "[toNum] Invalid parameter name returns Failure"
 ]
 
 TestCreate[
@@ -3469,12 +3469,12 @@ TestCreate[
 (* Tests validating error handling and failure modes from documentation notebook *)
 
 
-(* Test: Invalid string parameter gamma causes Abort *)
+(* Test: Invalid string parameter gamma returns Failure *)
 TestCreate[
-	CheckAbort[toNum[$pkgA[0], $modBY, {"gamma" -> 15.0}], $Aborted] === $Aborted,
+	FailureQ[toNum[$pkgA[0], $modBY, {"gamma" -> 15.0}]],
 	True,
 	{Rest::normal, Rest::normal, processNewParameters::subsetparam},
-	TestID -> "[toNum/Docs] Invalid string parameter gamma causes Abort"
+	TestID -> "[toNum/Docs] Invalid string parameter gamma returns Failure"
 ]
 
 (* Test: SolutionSelector All without ReturnAllSolutions fails *)
@@ -3501,20 +3501,20 @@ TestCreate[
 	TestID -> "[toNum/Docs] SolutionSelector with non-integer value fails"
 ]
 
-(* Test: Invalid parameter name causes Abort *)
+(* Test: Invalid parameter name returns Failure *)
 TestCreate[
-	CheckAbort[toNum["Rules", $modBY, {invalidParameterName -> 1.0}], $Aborted] === $Aborted,
+	FailureQ[toNum["Rules", $modBY, {invalidParameterName -> 1.0}]],
 	True,
 	{processNewParameters::subsetparam},
-	TestID -> "[toNum/Docs] Invalid parameter name causes Abort"
+	TestID -> "[toNum/Docs] Invalid parameter name returns Failure"
 ]
 
-(* Test: psi equal to 1 causes Abort *)
+(* Test: psi equal to 1 returns Failure *)
 TestCreate[
-	CheckAbort[toNum["Rules", $modBY, {$pkgPsi -> 1}], $Aborted] === $Aborted,
+	FailureQ[toNum["Rules", $modBY, {$pkgPsi -> 1}]],
 	True,
 	{processNewParameters::psi},
-	TestID -> "[toNum/Docs] psi equal to 1 causes Abort"
+	TestID -> "[toNum/Docs] psi equal to 1 returns Failure"
 ]
 
 
