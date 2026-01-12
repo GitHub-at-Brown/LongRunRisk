@@ -2,7 +2,7 @@
 
 BeginPackage["FernandoDuarte`LongRunRisk`Tools`OptionsValidationRules`"];
 
-InstallOptionsValidationRules::usage = "InstallOptionsValidationRules[] installs option validation rules via OptionsValidation.`";
+InstallOptionsValidationRules::usage = "InstallOptionsValidationRules[] installs validation rules via OptionsValidation.`";
 
 Begin["`Private`"];
 

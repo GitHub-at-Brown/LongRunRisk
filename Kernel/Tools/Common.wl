@@ -18,7 +18,7 @@ print;
 (*Usage*)
 
 
-print::usage = "print[msg] writes msg to $Output using WriteString.\nOptions:\n  \"Verbose\" -> True|False|\"CI\" (default \"CI\") - controls when printing occurs\n  \"Memory\" -> True|False (default False) - shows memory usage info\n  \"Prefix\" -> String|None (default None) - optional message prefix";
+print::usage = "print[msg] writes msg to $Output using WriteString.";
 
 
 (* ::Section:: *)

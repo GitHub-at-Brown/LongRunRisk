@@ -28,7 +28,6 @@ buildEqMapFromModel
 buildKernel::usage = "buildKernel[expr, vars, params] compiles expr into a kernel optimized for root-finding.
 vars: the coefficient variables (e.g., {A[0]}) to solve for.
 params: the parameter symbols present in expr.
-Options: \"CoeffName\" (default \"A\"), \"CompileSignSymbol\" (default \"signA\"), \"PerformanceGoal\" (default \"Quality\"; \"Quality\" | \"Speed\").
 Returns an Association with keys: \"fC\", \"dfC\", \"Vars\", \"ParamOrder\", \"SignIndex\", \"CoeffName\", \"CompileSignSymbol\".";
 buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
 buildKernel::unusedvars = "Some vars were not found in the expression: `1`.";
@@ -47,19 +46,16 @@ paramValues: Association of parameter -> value.
 coeffName: String, the coefficient name (e.g., \"A\").
 signSym: String, the sign symbol name (e.g., \"signA\").
 signs: List of sign values (default {}), e.g., {1, -1}.";
-extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.
-Options: \"InteriorShrink\" (default 0.001), \"RootUpperBound\" (default 15).";
+extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.";
 extractIntervalsFromReduce::nointervals = "Could not extract any valid intervals from reduced expression `1`.";
 findRootInterval::emptyinterval = "There are no real solutions for `1`. Try changing signs `2` or parameters.";
 findRootInterval::nocoeff = "Could not locate a root variable for coefficient head `1` in the conditions.";
 scanAndSolve::usage = "scanAndSolve[f, {min, max}] finds roots of f[x] in the range by grid subdivision.
-scanAndSolve[f, df, {min, max}] uses derivative df for Newton steps.
-Options: \"BracketGrid\" (default 32), \"Tolerance\" (default Automatic), \"FastRootOptions\", \"FindRootOptions\".";
-fastRoot::usage = "fastRoot[f, spec, opts] finds a root using a hybrid Newton/Brent/Secant strategy.
+scanAndSolve[f, df, {min, max}] uses derivative df for Newton steps.";
+fastRoot::usage = "fastRoot[f, spec] finds a root using a hybrid Newton/Brent/Secant strategy.
 Spec formats:
   1D: {x0, min, max} full | {min, max} bounds only | x0 start only
-  nD: {{x01,min1,max1},...} full | {{min1,max1},...} bounds only | {{x01,x02,...}} start only
-Options: Jacobian->df, Method->Automatic, \"SecantBlend\"->0.5, \"Return\"->\"Value\".";
+  nD: {{x01,min1,max1},...} full | {{min1,max1},...} bounds only | {{x01,x02,...}} start only";
 fastRoot::noconverge = "Failed to converge within `1` iterations starting from x0=`2` in bounds [`3`, `4`].";
 fastRoot::nonnumeric = "Function returned non-numeric value `1` at x=`2`.";
 fastRoot::nobounds = "No bounds specified and FindRoot failed from x0=`1`.";

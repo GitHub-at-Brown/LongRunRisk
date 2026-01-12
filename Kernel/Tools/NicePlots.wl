@@ -19,8 +19,8 @@ plotCoeffs
 (*Usage*)
 
 
-yieldCurve::usage = "yieldCurve[model, newParameters, coeffsWc, bondType, opts] plots the yield curve";
-plotCoeffs::usage = "plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts: OptionsPattern[]] plots the steps that FindRoot takes to solve for A[0]";
+yieldCurve::usage = "yieldCurve[model, newParameters, coeffsWc, bondType] plots the yield curve";
+plotCoeffs::usage = "plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List] plots the steps that FindRoot takes to solve for A[0]";
 
 
 (* ::Section:: *)

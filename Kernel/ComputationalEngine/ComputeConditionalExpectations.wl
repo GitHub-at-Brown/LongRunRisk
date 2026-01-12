@@ -21,10 +21,10 @@ corr
 (*Usage*)
 
 
-ev::usage = "ev[x, s, model] gives the expected value of x conditional on time s for model."; 
-var::usage = "var[x, s, model] gives the variance of x conditional on time s for model."; 
-cov::usage = "cov[x, y, s, model] gives the covariance of x and y conditional on time s for model."; 
-corr::usage = "corr[x, y, s, model] gives the correlation of x and y conditional on time s for model."; 
+ev::usage = "ev[x, s, model] gives the expected value of x conditional on time s for model. The first argument is held unevaluated (HoldFirst attribute)."; 
+var::usage = "var[x, s, model] gives the variance of x conditional on time s for model. The first argument is held unevaluated (HoldFirst attribute)."; 
+cov::usage = "cov[x, y, s, model] gives the covariance of x and y conditional on time s for model. The first two arguments are held unevaluated (HoldFirst attribute)."; 
+corr::usage = "corr[x, y, s, model] gives the correlation of x and y conditional on time s for model. The first two arguments are held unevaluated (HoldFirst attribute)."; 
 
 
 (* ::Section:: *)

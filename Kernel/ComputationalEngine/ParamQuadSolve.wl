@@ -21,10 +21,11 @@ simplifyWithDummySubstitution
 
 
 paramQuadSolve::usage =
-  "paramQuadSolve[eqns, vars, opts] returns an Association with keys \"Solution\", \"SignRootMap\", \"CoeffMap\", \"Conditions\", \"Assumptions\", \"Verification\", and \"Diagnostics\", or $Failed on error.\n\n\
+  "paramQuadSolve[eqns, vars] returns an Association with keys \"Solution\", \"SignRootMap\", \"CoeffMap\", \"Conditions\", \"Assumptions\", \"Verification\", and \"Diagnostics\", or $Failed on error.\n\n\
 paramQuadSolve is a symbolic solver for square systems with per-variable degree <= 2. The per-variable degree test means bilinear terms such as x*y are permitted, \
 but they do not classify either variable as \"quadratic\" on their own. The solver produces parametric solutions with signA[k] for square-root branches, \
-a reversible coefficient map, and validation.";
+a reversible coefficient map, and validation.\n\n\
+Additional return keys: \"Maps\" (sub-keys: \"Solution\", \"SignRootMap\", \"SignRadicandMap\", \"CoeffMap\"), \"DeferredVariables\", \"DeferredEquations\".";
 
 expandPatternAssumptions::usage =
   "expandPatternAssumptions[expr, assumptions] expands pattern-based assumptions by finding all matching instances in expr.\n\n\
@@ -34,17 +35,12 @@ For example, if expr contains x[1] and x[2], then Element[x[_], Reals] expands t
 Supports comparison operators: Element, Greater, GreaterEqual, Less, LessEqual, Equal, Unequal.";
 
 simplifyWithDummySubstitution::usage =
-  "simplifyWithDummySubstitution[expr, opts] simplifies expr by temporarily replacing Exp, Tanh, and Sqrt subexpressions with dummy symbols.\n\n\
+  "simplifyWithDummySubstitution[expr] simplifies expr by temporarily replacing Exp, Tanh, and Sqrt subexpressions with dummy symbols.\n\n\
 This prevents memory explosion during Simplify by converting:\n\
 - Level-0 symbols sym (e.g., A[0], B[j][0]) to Log[dummy], so E^sym becomes dummy\n\
 - Tanh[sym/2] to (dummy - 1)/(dummy + 1)\n\
 - Sqrt[radicand] to sqrtDummy\n\n\
 After simplification with positivity assumptions on dummies (via Assuming[...]), original forms are restored.\n\n\
-Options:\n\
-- \"Assumptions\" -> Automatic: User assumptions combined with dummy positivity for Assuming[] (Automatic uses defaultAssumptions[], True inherits from outer Assuming context via $Assumptions)\n\
-- \"Level0Pattern\" -> _Symbol[0] | _Symbol[_][0]: Pattern matching level-0 symbols\n\
-- \"SimplifyFunction\" -> Simplify: Function to use (Simplify or FullSimplify)\n\
-- Any Simplify options (e.g., TimeConstraint) are passed through directly\n\n\
 For a list of rules {lhs -> rhs, ...}, simplifies the RHS of each rule.";
 
 

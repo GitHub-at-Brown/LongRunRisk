@@ -18,7 +18,7 @@ processModels
 (*Usage*)
 
 
-processModels::usage = "processModels[modelsCatalog] performs symbolic processing on models, adding coefficient systems and solutions.\nprocessModels[modelsCatalog, opts] accepts options from solveCoeffsSystem, updateCoeffs, FindRoot, and RecurrenceTable.\nAdds keys: exogenousEq, endogenousEq, coeffsSystem, coeffsSolution, toStateVars, and more.";
+processModels::usage = "processModels[modelsCatalog] performs symbolic processing on models, adding coefficient systems and solutions.\nAdds keys: exogenousEq, endogenousEq, coeffsSystem, coeffsSolution, toStateVars, and more.";
 
 
 (* ::Section:: *)

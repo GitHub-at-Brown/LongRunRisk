@@ -26,9 +26,8 @@ buildModels::usage = "buildModels[] processes enabled models, compiles functions
 buildModels::noroot = "Could not locate paclet root directory.";
 buildModels::nocat = "Catalog models not found or invalid.";
 
-buildModelsParallel::usage = "buildModelsParallel[models] runs Symbolic+Compile+Numerical phases in parallel across models, then optionally runs Moments sequentially.
-Models is a list of shortnames like {\"BY\", \"NRC\", \"DES\"}.
-Options include \"CreateMoments\" (default True) and \"NumKernels\" (default Automatic).";
+buildModelsParallel::usage = "buildModelsParallel[models] runs Symbolic+Compile+Numerical phases in parallel across models, then runs Moments sequentially.
+Models is a list of shortnames like {\"BY\", \"NRC\", \"DES\"}.";
 
 checkCatalogForUI::usage = "checkCatalogForUI[] checks catalog changes without auto-reformatting.
 Returns <|\"Changed\"->{keys}, \"New\"->{keys}, \"Removed\"->{keys}, \"Validation\"->..., \"FirstRun\"->bool|> or $Failed.

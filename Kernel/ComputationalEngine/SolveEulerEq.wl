@@ -29,7 +29,7 @@ updateCoeffs::usage = "updateCoeffs[model] solves for the coefficients of the we
     "  - Bond, NomBond: bond coefficient rules (if computed)\n" <>
     "Use flattenCoeffs[result] to extract all coefficient rules as a flat list.";
 
-addCoeffsSolutionN::usage = "addCoeffsSolutionN[model] computes numerical solutions for all coefficient types (wc, pd, bond, nombond) using default parameters and model extraInfo.\naddCoeffsSolutionN[model, buildMaxMaturity] uses the specified maximum maturity (default 12).\naddCoeffsSolutionN[model, buildMaxMaturity, opts] passes options to updateCoeffs.";
+addCoeffsSolutionN::usage = "addCoeffsSolutionN[model] computes numerical solutions for all coefficient types (wc, pd, bond, nombond) using default parameters and model extraInfo.\naddCoeffsSolutionN[model, buildMaxMaturity] uses the specified maximum maturity (default 12).";
 
 flattenCoeffs::usage = "flattenCoeffs[updateCoeffsResult] extracts all coefficient rules from the hierarchical structure returned by updateCoeffs.\n" <>
     "flattenCoeffs[result, n] extracts rules from the n-th A solution only.\n" <>
