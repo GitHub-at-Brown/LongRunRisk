@@ -75,7 +75,7 @@ safeVerification[other_, len_Integer, label_String : "", modelName_String : "", 
 
 processModels[
 	modelsCatalog_Association,
-	opts:OptionsPattern[{solveCoeffsSystem, updateCoeffs, getStartingValues, FindRoot, RecurrenceTable}]
+	opts:OptionsPattern[{solveCoeffsSystem, updateCoeffs, FindRoot, RecurrenceTable}]
 ]:= Module[{
 		keys=Keys[modelsCatalog],
 		models = KeyMap[Replace[#, Thread[Keys[modelsCatalog]->Values@(#["shortname"]&/@modelsCatalog) ] ]&,modelsCatalog],(*rename Keys to shortname*)

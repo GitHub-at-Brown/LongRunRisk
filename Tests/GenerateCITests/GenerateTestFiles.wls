@@ -1,7 +1,7 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Preliminaries*)
 
 
@@ -4869,6 +4869,9 @@
 (*Quit[];*)
 
 
+(*after phase 0 and 1 completed*)
+
+
 (* ::Input:: *)
 (*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
 (*PacletDirectoryLoad[pacletBaseDir];*)
@@ -4886,65 +4889,29 @@
 (*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> True]*)
 
 
-trIndiv["TestsFailedWrongResults"]
-
-trIndiv["TestsFailedWrongResults"][[1]]["ExpectedOutput"]
-trIndiv["TestsFailedWrongResults"][[1]]["ActualOutput"]
-trIndiv["TestsFailedWrongResults"][[1]]["TestFileName"]
-trIndiv["TestsFailedWrongResults"][[1]]["TestID"]
-trIndiv["TestsFailedWrongResults"][[1]]["Input"]
+Quit[];
 
 
-trIndiv["TestsFailedWrongResults"][[2]]["ExpectedOutput"]
-trIndiv["TestsFailedWrongResults"][[2]]["ActualOutput"]
-trIndiv["TestsFailedWrongResults"][[2]]["TestFileName"]
-trIndiv["TestsFailedWrongResults"][[2]]["TestID"]
-trIndiv["TestsFailedWrongResults"][[2]]["Input"]
+Needs["FernandoDuarte`LongRunRisk`"]
 
 
-trIndiv["TestsFailedWrongResults"][[3]]["ExpectedOutput"]
-trIndiv["TestsFailedWrongResults"][[3]]["ActualOutput"]
-trIndiv["TestsFailedWrongResults"][[3]]["TestFileName"]
-trIndiv["TestsFailedWrongResults"][[3]]["TestID"]
-trIndiv["TestsFailedWrongResults"][[3]]["Input"]
+pacletBaseDir=DirectoryName[NotebookDirectory[],2]
+PacletDirectoryLoad[pacletBaseDir];
 
 
-(* ::Input:: *)
-(**)
+testToNum = TestReport["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk-clean-up/Tests/Tools/ToNumber.wlt"];
 
 
-trIndiv["TestsFailedWithMessages"][[1]]["ExpectedOutput"]
-trIndiv["TestsFailedWithMessages"][[1]]["ActualOutput"]
-trIndiv["TestsFailedWithMessages"][[1]]["TestFileName"]
-trIndiv["TestsFailedWithMessages"][[1]]["TestID"]
-trIndiv["TestsFailedWithMessages"][[1]]["Input"]
+testToNum
 
 
-(* ::Input:: *)
-(**)
+testToNum["ReportSucceeded"]  (* should be True for no failures *)
+testToNum["TestsFailedWrongResults"]
+testToNum["TestsFailedWithMessages"]
 
 
-Remove all the Echo commands in SolveEulerEq . wl and ToNumber . wl 
-
-
-Consider the tests
-
-1) "[toNum/SolutionSelector] Default returns flat rule list"
-2) "[toNum/SolutionSelector] Default expression form returns valid result"
-3) "[toNum/SolutionSelector] Automatic equivalent to default"
-4) "[toNum/Options] Both options with newParameters works"
-
-in the file
-
-"/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk-clean-up/Tests/Tools/ToNumber.wlt"
-
-For each test, run an interactive session in a fresh kernel with wolfram mcp, load the paclet, and run just the single test by 
-copy/pasting the test into the interactive session . For each test, set 5 minutes as 
-the maximum time it can run . If more than five minutes go by and the test has not finished
-running, cancel the test, close the kernel, and consider the test as failing .
-
-After running all four tests in this way, work on fixing all the issues that make the tests fail 
-Never run more than one of the tests at a time, always run interactively, never 
-with wolframscript or with a script and always with a 5 min time out .
-
-Spawn four parallel agents, each one working on one of the tests independently .
+Next steps:
+- update docs with new tests all passing except for ones not supposed to pass .
+- update consolidate confirm etc plan to refactor ToNumber 
+- implement plan
+- run tests 

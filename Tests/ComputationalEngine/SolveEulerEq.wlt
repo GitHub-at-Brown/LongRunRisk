@@ -255,46 +255,6 @@ TestCreate[
 
 
 (* ::Subsection:: *)
-(*updateCoeffs - Initial Guess Tests*)
-
-
-(* Test: Different initial guess formats work correctly *)
-TestCreate[
-	Module[{result, wcRules},
-		(* Test with interval format *)
-		result = updateCoeffs[
-			$modBKY,
-			"initialGuess" -> <|"Ewc" -> {1, 8}|>,
-			"FindRootOptions" -> {"MaxIterations" -> 100}
-		];
-		wcRules = wcRulesFirst[result];
-		wcRules =!= $Failed && coeffsQWcRules[$modBKY, wcRules]
-	],
-	True,
-	{},
-	TestID -> "[updateCoeffs] Interval initial guess works correctly"
-]
-
-
-(* Test: Point plus interval initial guess format works *)
-TestCreate[
-	Module[{result, wcRules},
-		(* Test with point plus interval format *)
-		result = updateCoeffs[
-			$modBKY,
-			"initialGuess" -> <|"Ewc" -> {4, 1, 8}|>,
-			"FindRootOptions" -> {"MaxIterations" -> 100}
-		];
-		wcRules = wcRulesFirst[result];
-		wcRules =!= $Failed && coeffsQWcRules[$modBKY, wcRules]
-	],
-	True,
-	{},
-	TestID -> "[updateCoeffs] Point interval initial guess works correctly"
-]
-
-
-(* ::Subsection:: *)
 (*updateCoeffs - Option Tests*)
 
 

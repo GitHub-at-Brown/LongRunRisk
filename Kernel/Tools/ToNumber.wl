@@ -24,8 +24,7 @@ processNewParameters
 toNum::usage = "toNum[model] gives a pure (or \"anonymous\") function that evaluates its argument numerically using the solution to model."<>"\n"<>
 			   "toNum[expr, model] evaluates expr numerically using the solution to model."<>"\n"<>
 			   "toNum[\"Rules\", model] gives substitution rules that can be used to evaluate expressions numerically."<>"\n"<>
-			   "toNum[..., parameters] uses the parameters provided in the list of rules parameters."<>"\n"<>
-			   "toNum[..., parameters, initialGuess] provides an initial estimate for the solution of the model.";
+			   "toNum[..., parameters] uses the parameters provided in the list of rules parameters.";
 toEquation::usage = "toEquation[model] gives a pure (or \"anonymous\") function that re-writes its argument in terms of lagged exogenous variables and shocks of model."<>"\n"<>
 					"toEquation[expr, model] re-writes expr in terms of lagged exogenous variables and shocks of model.";
 toExogenousVars::usage = "toExogenousVars[model] gives a pure (or \"anonymous\") function that re-writes its argument in terms of the exogenous variables of model."<>"\n"<>
@@ -47,12 +46,6 @@ toNum::badreturnall = "ReturnAllSolutions must be True or False, not `1`.";
 toNum::selectorallrequiresreturnall = "SolutionSelector -> All requires ReturnAllSolutions -> True.";
 toNum::emptysigns = "SignsA -> {} is empty. Omit SignsA to match any solution, or specify sign patterns like {1}, {-1}, or {1, -1, 1}.";
 toNum::nobsolutions = "No valid B solutions found for one or more stocks. The model may be unsolvable with the given parameters.";
-
-
-(*Get["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
-Get["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
-$ContextPath=AppendTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];*)
 
 
 (* ::Section:: *)
@@ -104,6 +97,45 @@ isHierarchicalResult[result_] :=
 (*toNum*)
 
 
+(* ::Subsection:: *)
+(*Internal Dispatcher and Evaluator*)
+
+
+(* Internal dispatcher: Routes to Rules extraction or expression evaluation *)
+iToNumDispatch["Rules", model_, rest___] := toNumRules[model, rest];
+
+iToNumDispatch[expr_, model_, newParams_:{}, opts:OptionsPattern[{toNumRules, updateCoeffs}]] :=
+	toNumEvaluate[expr, model, newParams, opts];
+
+
+(* Internal evaluator: Handles expression evaluation with rules *)
+toNumEvaluate[expr_, model_, newParams_:{}, opts:OptionsPattern[{toNumRules, updateCoeffs}]] :=
+Module[{rulesOrSol, allParams, transformed},
+	(* Get rules or hierarchical structure *)
+	rulesOrSol = toNumRules[model, newParams, opts];
+	If[FailureQ[rulesOrSol], Return[rulesOrSol]];
+
+	(* Compute all parameters *)
+	allParams = Normal@Join[
+		Association@model["params"],
+		Association@processNewParameters[newParams, model["params"]]
+	];
+
+	(* Transform expression to equation form *)
+	transformed = toEquation[expr, model];
+
+	(* Evaluate: hierarchical or flat *)
+	If[isHierarchicalResult[rulesOrSol],
+		evaluateExprHierarchical[transformed, model, rulesOrSol, allParams],
+		applyRules[transformed, rulesOrSol]
+	]
+]
+
+
+(* ::Subsection:: *)
+(*Public toNum Interface*)
+
+
 (* ::Text:: *)
 (* Fix for infinite recursion issue: *)
 (* The problem was that toNum["Rules", model] would match the generic expr_ pattern,*)
@@ -114,54 +146,33 @@ isHierarchicalResult[result_] :=
 
 (* Explicit patterns for toNum["Rules", ...] to prevent matching generic expr_ pattern *)
 (* Pattern 1: toNum["Rules", model] with no additional arguments *)
-toNum["Rules", model_Association] := toNum["Rules", model, {}];
+toNum["Rules", model_Association] := iToNumDispatch["Rules", model];
 
 (* Pattern 2: toNum["Rules", model, rest...] with additional arguments *)
-(* Pass rest directly to toNumRules which will parse it with its own pattern *)
-toNum["Rules", model_Association, rest__] := toNumRules[model, rest];
+toNum["Rules", model_Association, rest__] := iToNumDispatch["Rules", model, rest];
 
-(*convenience forms that apply rules to expr or allow for postfix notation expr//toNum*)
-(* CRITICAL: Guard with expr =!= "Rules" to prevent fallthrough from explicit Rules patterns *)
+(* Pattern 3: Expression evaluation with full arguments *)
 toNum[
 	expr_ /; Not@AssociationQ[expr] && expr =!= "Rules",
 	model_Association,
 	Longest[newParameters : {(_Rule) ...} : {}, 1],
 	opts : OptionsPattern[{toNumRules, updateCoeffs}]
-] := With[
-	{
-		(* Get rules or hierarchical structure based on options *)
-		rulesOrSol = toNum["Rules", model, newParameters, opts],
-		(* Compute effective parameters to ensure consistency with toNumRules *)
-		params = model["params"]
-	},
-	(* Echo[rulesOrSol, "rulesOrSol in toNum expr"]; *)
+] := iToNumDispatch[expr, model, newParameters, opts];
 
-	If[FailureQ[rulesOrSol],
-		rulesOrSol,
+(* Pattern 4: Curried form - returns function *)
+toNum[model_Association, rest__] := Function[{expr}, toNum[expr, model, rest]]
 
-		With[{
-			(* Process parameters exactly as toNumRules does to ensure correct evaluation context *)
-			allParams = Normal@Join[
-				Association@params,
-				Association@processNewParameters[newParameters, params]
-			]
-		},
-			(* Check if we have a hierarchical structure (List of Associations with "A", "Stocks" etc) *)
-			If[isHierarchicalResult[rulesOrSol],
-				(* Hierarchical Evaluation *)
-				evaluateExprHierarchical[toEquation[expr, model], model, rulesOrSol, allParams],
+(* Pattern 5: Simple expression evaluation without parameters *)
+toNum[expr_ /; Not@AssociationQ[expr] && expr =!= "Rules", model_Association] :=
+	iToNumDispatch[expr, model];
 
-				(* Standard Flat Evaluation *)
-				applyRules[toEquation[expr, model], rulesOrSol]
-			]
-		]
-	]
-]
+(* Pattern 6: Curried form with no parameters *)
+toNum[model_Association] := toNum[model, {}]
 
-(* ... existing toNum definitions ... *)
 
 (* ::Subsection:: *)
 (*Hierarchical Evaluation Helpers*)
+
 
 (* Simplified evaluator: always evaluate all coefficients via Cartesian product *)
 evaluateExprHierarchical[expr_, model_, solHierarchical_, allParams_] := Flatten[
@@ -186,17 +197,6 @@ evaluateExprHierarchical[expr_, model_, solHierarchical_, allParams_] := Flatten
 	],
 	1
 ];
-toNum[model_Association,rest__]:=Function[{expr}, toNum[expr,model,rest]]
-
-(*if rest not provided, use model["params"]*)
-(* Delete old toNum["Rules",model_Association] definition - it's now handled by explicit patterns above *)
-
-(* Guard this pattern against "Rules" to match only non-Rules expressions *)
-toNum[expr_/;Not@AssociationQ[expr] && expr =!= "Rules",model_Association]:= With[
-	{rules = toNum["Rules", model]},
-	If[FailureQ[rules], rules, applyRules[toEquation[expr,model], rules]]
-]
-toNum[model_Association]:=toNum[model (*,model["params"]*), {}]
 
 
 (* Options for toNumRules *)
@@ -527,10 +527,6 @@ toEquation[
 
 toEquation[model_Association]:=Function[{expr}, toEquation[expr,model]]
 
-(*ToEquation[expr_,model_Association, n_Integer?Positive]:= Nest[ToEquation[#,model]&,expr,n];
-ToEquation[model_Association, n_Integer?Positive]:=Function[{expr}, Nest[ToEquation[#,model]&,expr,n]];*)
-(*ReplaceAll[expr_,ToEquation[model_]]^:=ToEquation[expr,model]*)
-
 
 (* ::Subsection:: *)
 (*toExogenousVars*)
@@ -563,107 +559,35 @@ toStateVars[model_Association]:=Function[{expr}, toStateVars[expr,model]]
 
 
 (* ::Subsubsection:: *)
-(*GlobalProperties*)
-
-
-GlobalProperties[] :={
-    OwnValues, DownValues, SubValues, UpValues, NValues, FormatValues,
-    Options, DefaultValues, Attributes
-};
-
-
-(* ::Subsubsection:: *)
-(*clone*)
-
-
-Attributes[clone] = {HoldAll};
-
-
-clone[s_Symbol, new_Symbol] := With[
-    {
-	    clone = new, sopts = Options[Unevaluated[s]]
-	    },
-        With[{setProp = (#[clone] = (#[s] /. HoldPattern[s] :> clone)
-            )&},
-            Map[setProp, DeleteCases[GlobalProperties[], Options]];
-            If[sopts =!= {},
-                Options[clone] = (sopts /. HoldPattern[s] :> clone)
-            ];
-            HoldPattern[s] :> clone
-        ]
-    ]
-
-
-(* ::Subsubsection:: *)
-(*withUserDefs*)
-
-
-SetAttributes[withUserDefs, HoldAll];
-
-
-withUserDefs[sym_Symbol, {defs__}, code_] := Module[
-    {s, inSym},
-        clone[sym, s];
-        With[{evalSym = sym},
-            Block[{evalSym},
-                defs;
-                evalSym[args___] /; !TrueQ[inSym] := Block[
-                    {evalSym, inSym = True},
-                        clone[s, evalSym];
-                        With[{result = evalSym[args]},
-                            result /; result =!= Unevaluated[evalSym[args]]
-                        ]
-                    ];
-                code
-            ]
-        ]
-    ];
-
-
-(* ::Subsubsection:: *)
-(*moms*)
-
-
-moms[fun_, expr_, model_] := withUserDefs[fun, {fun[x___] := fun[x, model]}, expr]
-
-
-(* ::Subsubsection:: *)
 (*modelEval*)
 
 
+(* Moment symbols that need model injection *)
+$MomentSymbols = {
+	uncondE, uncondVar, uncondCov, uncondCorr,
+	ev, var, cov, corr,
+	FernandoDuarte`LongRunRisk`UncondE,
+	FernandoDuarte`LongRunRisk`UncondVar,
+	FernandoDuarte`LongRunRisk`UncondCov,
+	FernandoDuarte`LongRunRisk`UncondCorr,
+	FernandoDuarte`LongRunRisk`Ev,
+	FernandoDuarte`LongRunRisk`Var,
+	FernandoDuarte`LongRunRisk`Cov,
+	FernandoDuarte`LongRunRisk`Corr
+};
+
+
 modelEval::usage = "modelEval[expr, model] evaluates moments in expr using model.
-	For exmaple,
-		modelEval[\[IndentingNewLine]			uncondE[dc[t]]+uncondCov[x[t],x[t+1]]+cov[dc[t+1],dc[t+2],t],\[IndentingNewLine]			model\[IndentingNewLine]		]\[IndentingNewLine]	gives the same as\[IndentingNewLine]		uncondE[dc[t],model]+uncondCov[x[t],x[t+1],model]+cov[dc[t+1],dc[t+2],t,model]
-"
+	For example,
+		modelEval[uncondE[dc[t]]+uncondCov[x[t],x[t+1]]+cov[dc[t+1],dc[t+2],t], model]
+	gives the same as
+		uncondE[dc[t],model]+uncondCov[x[t],x[t+1],model]+cov[dc[t+1],dc[t+2],t,model]
+";
 
 
-modelEval[expr_, model_] := Fold[
-	ReverseApplied[moms[#1, #2, model]&]
-	,
-	expr(*/.{
-		FernandoDuarte`LongRunRisk`UncondE -> uncondE,
-		FernandoDuarte`LongRunRisk`UncondVar -> uncondVar,
-		FernandoDuarte`LongRunRisk`UncondCov -> uncondCov,
-		FernandoDuarte`LongRunRisk`UncondCorr -> uncondCorr,
-		FernandoDuarte`LongRunRisk`Ev -> ev,
-		FernandoDuarte`LongRunRisk`Var -> var,
-		FernandoDuarte`LongRunRisk`Cov -> cov,
-		FernandoDuarte`LongRunRisk`Corr -> corr
-	}*)
-	,
-	{
-		uncondE, uncondVar, uncondCov, uncondCorr,
-		ev, var, cov, corr,
-		FernandoDuarte`LongRunRisk`UncondE,
-		FernandoDuarte`LongRunRisk`UncondVar,
-		FernandoDuarte`LongRunRisk`UncondCov,
-		FernandoDuarte`LongRunRisk`UncondCorr,
-		FernandoDuarte`LongRunRisk`Ev,
-		FernandoDuarte`LongRunRisk`Var,
-		FernandoDuarte`LongRunRisk`Cov,
-		FernandoDuarte`LongRunRisk`Corr
-	}
-];
+(* Simple pattern-based model injection *)
+modelEval[expr_, model_] := expr /.
+	(f_ /; MemberQ[$MomentSymbols, f])[args___] :> f[args, model];
 
 
 (* ::Subsection:: *)
@@ -676,76 +600,106 @@ processNewParameters::theta="Please provide psi or gamma with theta.";
 processNewParameters::subsetparam="Parameters `1` in newParameters are not a subset of parameters.";
 
 
-processNewParameters[newParameters : {___Rule} | _Association, parameters : {___Rule} | _Association]:=If[
-	newParameters==={},
-	Return[{}],
-	With[
-		{
-			newParametersA=(Association@newParameters)//.newParameters//.parameters,
-			parametersA=(Association@parameters)//.parameters
-		},
-		(*Echo[newParametersA,"newParametersA"];
-		Echo[parametersA,"parametersA"];*)
-		Module[
-			{
-				newParametersSplit,
-				parametersSplit,
-				newParametersString,
-				processedParameters,
-				thetaNew,
-				system,
-				processedParametersA,
-				posNew
-			},
-			(*newParameters and parameters may have symbols in different contexts, split keys into context, symbol name and index*)
-			newParametersSplit=KeyMap[Replace[{x_Symbol[j_Integer]:>{Context@x,SymbolName@x,j},x_Symbol:>{Context@x,SymbolName@x}}],newParametersA];
-			parametersSplit=KeyMap[Replace[{x_Symbol[j_Integer]:>{Context@x,SymbolName@x,j},x_Symbol:>{Context@x,SymbolName@x}}],parametersA];
-			If[
-				Not@SubsetQ[Map[Rest,Keys@parametersSplit],Map[Rest,Keys@newParametersSplit]],
-				(*abort with message if newParameters has a parameter not in parameters*)
-				Message[processNewParameters::subsetparam,Pick[newParameters,MemberQ[Map[Rest,Keys@parametersSplit],#]&/@Map[Rest,Keys@newParametersSplit],False]];
-				Abort[];
+(* Helper: Parse symbol into {context, name} or {context, name, index} *)
+splitParamKey[sym_Symbol] := {Context[sym], SymbolName[sym]}
+splitParamKey[sym_Symbol[idx_Integer]] := {Context[sym], SymbolName[sym], idx}
+
+
+(* Helper: Apply key splitting to association *)
+normalizeParamKeys[params_] := KeyMap[splitParamKey, Association[params]]
+
+
+(* Helper: Validate new params are subset of base params *)
+validateParamSubset[newNorm_, baseNorm_] := Module[{newKeys, baseKeys, invalid},
+	newKeys = Rest /@ Keys[newNorm];  (* Drop context *)
+	baseKeys = Rest /@ Keys[baseNorm];
+	invalid = Pick[Keys[newNorm], MemberQ[baseKeys, #]& /@ newKeys, False];
+	If[invalid =!= {},
+		Message[processNewParameters::subsetparam, invalid];
+		makeFailure["InvalidParameters", processNewParameters::subsetparam, {invalid}],
+		Success["Validation", <|"ValidatedParams" -> newNorm|>]
+	]
+]
+
+
+(* Helper: Handle gamma/psi/theta constraints *)
+enforceGammaPsiTheta[paramsNorm_] := Module[
+	{paramsStr, gamma, psi, theta, count, thetaNew, system},
+
+	(* Convert to string-keyed lookup *)
+	paramsStr = Normal@KeyMap[#[[2]]&, paramsNorm];
+
+	(* Extract values *)
+	gamma = Lookup[paramsStr, "gamma", Missing[]];
+	psi = Lookup[paramsStr, "psi", Missing[]];
+	theta = Lookup[paramsStr, "theta", Missing[]];
+
+	(* Check psi=1 *)
+	If[!MissingQ[psi] && N[psi] === 1.,
+		Message[processNewParameters::psi];
+		Return[makeFailure["InvalidPsi", processNewParameters::psi, {}]]
+	];
+
+	(* Count how many of {gamma, psi, theta} are provided *)
+	count = Count[{gamma, psi, theta}, _?(!MissingQ[#]&)];
+
+	Switch[count,
+		3, (* All provided - validate theta *)
+			thetaNew = (1 - gamma)/(1 - 1/psi);
+			If[RealAbs[theta - thetaNew] >= $MachineEpsilon,
+				Message[processNewParameters::param, thetaNew]
 			];
-			(*process gamma, psi, theta*)
-			newParametersString = Normal@KeyMap[#[[2]]&,newParametersSplit];
-			If[1.===N@("psi"/.newParametersString), Message[processNewParameters::psi]; Abort[]; ]; (*psi=1 aborts*)
-			processedParameters = Switch[
-				Count[MemberQ[Keys@newParametersString,#]&/@{"gamma","psi","theta"},True],
-					3,
-						(*when gamma, psi, theta all provided, ignore theta and issue message unless theta is exactly (1-gamma)/(1-1/psi)*)	
-						thetaNew=(1-("gamma"/.newParametersString))/(1-1/("psi"/.newParametersString));
-						If[
-							RealAbs[("theta"/.newParametersString)-thetaNew]>=$MachineEpsilon,
-							Message[processNewParameters::param,thetaNew]
-						];
-						Prepend[
-							(*remove old theta*)
-							KeySelect[newParametersSplit,Not@StringMatchQ["theta",#[[2]]]&],
-							(*insert new theta with context Global*)
-							{"Global`","theta"}->thetaNew
-						],		
-					2,
-						(*when 2 of {gamma, psi, theta} are provided, solve for the third and add to newParameters*)
-						system = ( (1-ToExpression@("gamma"/.newParametersString))/(1-1/ToExpression@("psi"/.newParametersString)) == (ToExpression@("theta"/.newParametersString)) );
-						Prepend[newParametersSplit,KeyMap[{"Context`",SymbolName@#}&,Association@SolveAlways[system,Reals]]],
-					1,
-						(*if theta provided without gamma or psi, abort*)
-						If[
-							MemberQ[Keys[newParametersSplit][[;;,2]],"theta"],
-							Message[processNewParameters::theta];Abort[];,
-							newParametersSplit
-						],
-					(*otherwise, return newParametersSplit unchanged*)
-					_,
-					newParametersSplit
-			];
-			(*make keys of newParameters match context of keys of parameters that have the same SymbolName*)
-			processedParametersA=Association@processedParameters;
-			posNew=Position[Rest/@Keys@parametersSplit,#]&/@Rest/@Keys@processedParametersA;
-			Thread[Extract[Keys@parametersA,Flatten[posNew,1]]->(Values@processedParametersA)]
-		](*Module*)
-	](*With*)
-](*If*)
+			(* Remove old theta and insert computed one *)
+			Prepend[
+				KeySelect[paramsNorm, #[[2]] =!= "theta" &],
+				{"Global`", "theta"} -> thetaNew
+			],
+		2, (* Two provided - solve for third *)
+			system = ((1 - ToExpression@gamma)/(1 - 1/ToExpression@psi) == ToExpression@theta);
+			Prepend[
+				paramsNorm,
+				KeyMap[{"Context`", SymbolName@#}&, Association@SolveAlways[system, Reals]]
+			],
+		1, (* One provided *)
+			If[!MissingQ[theta],
+				Message[processNewParameters::theta];
+				makeFailure["MissingParams", processNewParameters::theta, {}],
+				paramsNorm
+			],
+		_, (* Zero or other *)
+			paramsNorm
+	]
+]
+
+
+(* Helper: Map normalized keys back to original contexts *)
+reconcileContexts[processedNorm_, baseParams_] := Module[{baseSplit, positions},
+	baseSplit = normalizeParamKeys[baseParams];
+	positions = Position[Rest /@ Keys[baseSplit], #]& /@ (Rest /@ Keys[processedNorm]);
+	Thread[Extract[Keys[Association[baseParams]], Flatten[positions, 1]] -> Values[processedNorm]]
+]
+
+
+processNewParameters[newParameters : {___Rule} | _Association, parameters : {___Rule} | _Association] :=
+Module[{newNorm, baseNorm, validated, constrained},
+	(* Empty parameters - return empty *)
+	If[newParameters === {}, Return[{}]];
+
+	(* Normalize parameters with repeated substitution *)
+	newNorm = normalizeParamKeys[(Association@newParameters) //. newParameters //. parameters];
+	baseNorm = normalizeParamKeys[(Association@parameters) //. parameters];
+
+	(* Validate subset *)
+	validated = validateParamSubset[newNorm, baseNorm];
+	If[FailureQ[validated], Return[validated]];
+
+	(* Enforce gamma/psi/theta constraints *)
+	constrained = enforceGammaPsiTheta[newNorm];
+	If[FailureQ[constrained], Return[constrained]];
+
+	(* Reconcile contexts and return *)
+	reconcileContexts[constrained, parameters]
+]
 
 
 (* ::Section::Closed:: *)

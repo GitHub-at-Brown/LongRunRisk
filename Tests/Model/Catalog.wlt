@@ -34,12 +34,6 @@ $bibKeys = Module[{content, matches},
 	matches
 ];
 
-(* Helper for checking initialGuess fields *)
-initialGuessQ[model_, key_, pred_] := Module[{ig = Lookup[model, "initialGuess", <||>]},
-	!KeyExistsQ[ig, key] || pred[ig[key]]
-]
-
-
 (* ::Subsection:: *)
 (*models - Structure Tests*)
 
@@ -234,27 +228,6 @@ TestCreate[
 	True,
 	{},
 	TestID -> "[modelsExtraInfo] Keys are subset of models keys"
-]
-
-
-(* ::Subsection:: *)
-(*modelsExtraInfo - Initial Guess Tests*)
-
-
-(* Test: If initialGuess is provided, Ewc is a vector *)
-TestCreate[
-	AllTrue[Values[modelsExtraInfo], initialGuessQ[#, "Ewc", VectorQ] &],
-	True,
-	{},
-	TestID -> "[modelsExtraInfo] Ewc initial guess is vector"
-]
-
-(* Test: If initialGuess is provided, Epd is a 2-dimensional array *)
-TestCreate[
-	AllTrue[Values[modelsExtraInfo], Function[model, initialGuessQ[model, "Epd", ArrayQ[#, 2] &]]],
-	True,
-	{},
-	TestID -> "[modelsExtraInfo] Epd initial guess is 2D array"
 ]
 
 

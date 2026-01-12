@@ -1,11 +1,11 @@
 # Master Refactor Plan: ToNumber.wl
 
 ## Document Status
-- **Version:** 1.2
+- **Version:** 1.3
 - **Date:** 2026-01-11
-- **Last Updated:** 2026-01-11 (Implementation Progress - Phase 0 & 1 Complete)
+- **Last Updated:** 2026-01-11 (Added Phase 1.5 - Remove Non-Functional initialGuess Option)
 - **Sources:** Codex Analysis, Gemini Analysis, Claude Analysis, **Test Validation**
-- **API Contract:** NO CHANGES to public API
+- **API Contract:** NO CHANGES to public API (Phase 1.5 removes non-functional option)
 
 ---
 
@@ -20,7 +20,7 @@
 | Test Fix: SolutionIndexB | ✅ COMPLETE | 97e8c9b | 9/10 bug coverage, 255/270 total passing |
 
 ### 🔄 Current Phase
-None - awaiting decision to proceed with Phase 2+
+Phase 1.5: Remove Non-Functional initialGuess Option (PLANNED)
 
 ### 📊 Implementation Metrics
 - **Lines Added:** 64
@@ -200,6 +200,89 @@ isHierarchicalResult[result_] :=
 - ✅ Code behavior unchanged
 - ✅ DRY violations eliminated: 10+ duplicate patterns removed
 - ✅ Code more maintainable with clear, reusable helpers
+
+---
+
+## Phase 1.5: Remove Non-Functional initialGuess Option
+
+**Objective:** Remove dead code for the "initialGuess" option that has no effect on solver behavior.
+
+**Status:** 📋 **PLANNED** (Detailed plan: `/Users/fduarte/.claude/plans/tender-munching-cocoa.md`)
+
+### Background
+
+Investigation revealed that the "initialGuess" option is completely non-functional:
+
+1. **`getStartingValues` function** retrieves the option but is **never called** anywhere in the codebase
+2. **Solver chain ignores it**: The actual solver (`updateCoeffsSol` → `solveWcPdRoots` → `solveCoeffRoots` → `scanAndSolve` → `fastRoot`) uses interval-based heuristics (midpoint or grid scanning) and never accepts user-provided initial guesses
+3. **Dead code exists** across 11 files with zero effect on results
+
+### Files to Modify
+
+#### Core Implementation Files (6 files)
+1. **Kernel/ComputationalEngine/SolveEulerEq.wl** - Remove `getStartingValues` function and option definition
+2. **Kernel/Tools/ToNumber.wl** - Update usage documentation
+3. **Kernel/Model/ProcessModels.wl** - Remove from OptionsPattern
+4. **Kernel/Tools/ManageResources.wl** - Remove from FilterRules
+5. **Kernel/Model/Catalog.wl** - Remove "initialGuess" from modelsExtraInfo
+
+#### Test Generator (1 file)
+6. **Tests/GenerateCITests/GenerateTestFiles.wls** - ⚠️ **CRITICAL: Edit this, NOT .wlt files**
+   - Remove "initialGuess" from SolveEulerEq and ToNumber test sections
+   - Regenerate .wlt files after editing
+
+#### Manual Test Files (2 files)
+7. **Tests/Model/Catalog.wlt** - Remove initialGuessQ helper and related tests
+8. **test_initialGuess.wls** - Delete investigation test file
+
+#### Notebooks (2 files - Optional)
+9. **Scripts/RunProcessModels.nb** - Remove initialGuess constructions
+10. **Tests/InteractiveTests/RunInteractiveTests.nb** - Remove extraInfo checks
+11. **Documentation .nb files** - Skip for now (binary files, high risk)
+
+### Implementation Phases
+
+**Phase A: Core Code Changes**
+- Remove getStartingValues function and option definitions
+- Update usage documentation
+
+**Phase B: Test Generator Changes**
+- Edit GenerateTestFiles.wls (NOT manual .wlt edits)
+- Regenerate test files
+
+**Phase C: Manual Test Changes**
+- Update Catalog.wlt
+- Delete test_initialGuess.wls
+
+**Phase D: Notebook Updates (Optional)**
+- Update interactive notebooks
+- Skip documentation .nb files
+
+### Verification Strategy
+
+1. **Static Scan**: `rg -n "initialGuess|getStartingValues"` - verify clean
+2. **Generator Verification**: Confirm regenerated .wlt files have no "initialGuess"
+3. **Build Check**: `PacletBuild[Directory[]]` - clean build
+4. **Targeted Tests**: Run affected test files individually
+5. **Full Regression**: `run_tests.wls` - verify 0 regressions from baseline (255/270)
+6. **Functional Test**: Verify ToNum still works without the option
+
+### Expected Outcomes
+
+**Lines Removed:**
+- ~34 lines from getStartingValues function
+- ~1 line from option definitions
+- ~50+ lines from test generator
+- ~10 lines from Catalog.wl
+- ~80 lines from investigation test file
+- **Total: ~175 lines removed**
+
+**Test Impact:**
+- Tests in Catalog.wlt: 3 tests removed (testing dead code)
+- All other tests: No change (option was ignored anyway)
+- Expected baseline: 255/270 tests passing (no regression)
+
+**Risk:** Low - Pure dead code removal with no behavior changes
 
 ---
 
@@ -543,13 +626,14 @@ Dispatch.wl       (depends on Rules, Evaluation, ModelTransform)
 |-------|--------|------|--------------|
 | Phase 0 | Low | Low | None |
 | Phase 1 | Low | Low | Phase 0 |
-| Phase 2 | Medium | Medium | Phase 1 |
-| Phase 3 | Medium | Medium | Phase 1 |
-| Phase 4 | Medium | High | Phase 1, 2, 3 |
+| Phase 1.5 | Low | Low | Phase 1 |
+| Phase 2 | Medium | Medium | Phase 1.5 |
+| Phase 3 | Medium | Medium | Phase 1.5 |
+| Phase 4 | Medium | High | Phase 1.5, 2, 3 |
 | Phase 5 | High | Medium | Phase 4 |
 | Phase 6 | Low | Low | Phase 5 |
 
-**Recommended Approach:** Complete Phases 0-3 first. These deliver the most value with least risk. Phases 4-6 can be done later as needed.
+**Recommended Approach:** Complete Phases 0-1.5 first (bug fixes, helper extraction, dead code removal). Then Phases 2-3 (simplify metaprogramming and parameters). These deliver the most value with least risk. Phases 4-6 can be done later as needed.
 
 ---
 

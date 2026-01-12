@@ -550,7 +550,7 @@ TestCreate[
 		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99},
 		exprNewParam = uncondE[wc[t]],
 		guessCoeffsSolution = {A[0] -> 4.6},
-		optNewParam = {"initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>, MaxIterations -> 100}
+		optNewParam = {MaxIterations -> 100}
 	},
 		AllTrue[{
 			exprNewParam // toNum[$modNRC, newParameters, Sequence @@ optNewParam] //. numModel,
@@ -1055,38 +1055,6 @@ TestCreate[
 	TestID -> "[toNum] MaxIterations option evaluates to numbers"
 ]
 
-(* Test: initialGuess option evaluates to numbers *)
-TestCreate[
-	Module[{tn, numMod, testExprs},
-		tn = toNum[$modNRC, "initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>];
-		numMod = getNumModel[$modNRC];
-		testExprs = {wc[t], pd[t, 1]};
-		AllTrue[Flatten[{
-			(tn[testExprs] //. numMod),
-			(tn[uncondE /@ testExprs] //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum] initialGuess option evaluates to numbers"
-]
-
-(* Test: Combined initialGuess and MaxIterations options evaluate to numbers *)
-TestCreate[
-	Module[{tn, numMod, testExprs},
-		tn = toNum[$modNRC, "initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>, MaxIterations -> 100];
-		numMod = getNumModel[$modNRC];
-		testExprs = {wc[t], pd[t, 1]};
-		AllTrue[Flatten[{
-			(tn[testExprs] //. numMod),
-			(tn[uncondE /@ testExprs] //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum] Combined initialGuess and MaxIterations evaluate to numbers"
-]
-
 (* Test: CheckResiduals with large tolerance evaluates to numbers *)
 TestCreate[
 	Module[{tn, numMod, testExprs},
@@ -1355,9 +1323,9 @@ TestCreate[
 		exprNewParam = uncondE[wc[t]];
 		guessCoeffsSolution = {A[0] -> 4.6};
 		AllTrue[{
-			exprNewParam // toNum[$modBKY, newParameters, guessCoeffsSolution, "initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>, MaxIterations -> 100] //. numMod,
-			toNum[exprNewParam, $modBKY, newParameters, guessCoeffsSolution, "initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>, MaxIterations -> 100] //. numMod,
-			toEquation[exprNewParam, $modBKY] //. toNum["Rules", $modBKY, newParameters, guessCoeffsSolution, "initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>, MaxIterations -> 100] //. numMod
+			exprNewParam // toNum[$modBKY, newParameters, guessCoeffsSolution, MaxIterations -> 100] //. numMod,
+			toNum[exprNewParam, $modBKY, newParameters, guessCoeffsSolution, MaxIterations -> 100] //. numMod,
+			toEquation[exprNewParam, $modBKY] //. toNum["Rules", $modBKY, newParameters, guessCoeffsSolution, MaxIterations -> 100] //. numMod
 		}, NumericQ]
 	],
 	True,

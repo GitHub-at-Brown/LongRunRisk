@@ -836,7 +836,6 @@ buildModels[opts : OptionsPattern[{
 		(* Note: solveCoeffsSystem is private so we can't access its options *)
 		symbolicStageOpts = FilterRules[Flatten@{opts}, Join[
 			Options[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs],
-			Options[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`getStartingValues],
 			Options[FindRoot],
 			Options[RecurrenceTable]
 		]],

@@ -333,7 +333,6 @@ clearKernelCache[] := ($kernelCache = <||>);
 
 
 updateCoeffsSol//Options={
-	"initialGuess" -> <|"Ewc"->{4},"Epd"->{{4}}|>,
 	"FindRootOptions"->{},(*{MaxIterations->100},*) (*"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)
 	"RecurrenceTableOptions"->{"DependentVariables"->Automatic},
 	"UpdatePd"->False,
@@ -1151,42 +1150,6 @@ solveWcPdRoots[
       wcResults
     ]
   ]
-];
-
-
-(* ::Subsection:: *)
-(*getStartingValues*)
-
-
-(* helper for addCoeffsSolutionN - retrieves initial guesses from model extraInfo *)
-getStartingValues // Options = {
-	"initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>
-};
-
-
-getStartingValues[
-	ratio_String,
-	infoModel_Association : <||>,
-	opts : OptionsPattern[{getStartingValues}]
-] := With[
-	{
-		iEv = "E" <> ratio,
-		ig = First @ OptionValue[getStartingValues, Flatten @ {opts}, {"initialGuess"}]
-	},
-	Which[
-		(* option provided and non-empty *)
-		And[
-			KeyExistsQ[ig, iEv],
-			Not[SameQ[ig, {}]] || Not[SameQ[ig[iEv], {}]]
-		],
-		ig[iEv],
-		(* from infoModel["initialGuess"] *)
-		KeyExistsQ[infoModel, "initialGuess"] && KeyExistsQ[infoModel["initialGuess"], iEv],
-		infoModel["initialGuess"][iEv],
-		(* default *)
-		True,
-		Switch[ratio, "wc", {4}, "pd", {{4}}]
-	]
 ];
 
 
