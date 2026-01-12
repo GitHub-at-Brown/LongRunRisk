@@ -98,14 +98,14 @@ TestCreate[
 	TestID -> "[processNewParameters] Processed keys subset of original parameters"
 ]
 
-(* Test: When old and new parameters are equal, does not abort *)
+(* Test: When old and new parameters are equal, does not return Failure *)
 TestCreate[
 	With[{p = $baseParams, newP = $baseParams},
-		Not @ checkAbrt[processNewParameters[newP, p]]
+		Not @ FailureQ[processNewParameters[newP, p]]
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Equal parameters do not abort"
+	TestID -> "[processNewParameters] Equal parameters do not return Failure"
 ]
 
 
@@ -223,14 +223,14 @@ TestCreate[
 (* ::Subsection:: *)
 (*processNewParameters - Gamma Psi Theta Relationship Tests*)
 
-(* Test: When all three {gamma, psi, theta} provided and theta exactly correct, does not abort *)
+(* Test: When all three {gamma, psi, theta} provided and theta exactly correct, does not return Failure *)
 TestCreate[
 	With[{p = $baseParams, newP = {FernandoDuarte`LongRunRisk`Model`Parameters`gamma -> 10, FernandoDuarte`LongRunRisk`Model`Parameters`theta -> (1 - FernandoDuarte`LongRunRisk`Model`Parameters`gamma)/(1 - 1/FernandoDuarte`LongRunRisk`Model`Parameters`psi), FernandoDuarte`LongRunRisk`Model`Parameters`psi -> 1.5`}},
-		Not @ checkAbrt[processNewParameters[newP, p]]
+		Not @ FailureQ[processNewParameters[newP, p]]
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Exact gamma-psi-theta triple does not abort"
+	TestID -> "[processNewParameters] Exact gamma-psi-theta triple does not return Failure"
 ]
 
 (* Test: When all three {gamma, psi, theta} provided and theta exactly correct, values are numbers *)
@@ -2749,7 +2749,7 @@ TestCreate[
 ]
 
 TestCreate[
-	Module[{stringKeyResult}, stringKeyResult = CheckAbort[toNum["Rules", $modBY, {"gamma" -> 15.}], $Aborted]; stringKeyResult === $Aborted || FailureQ[stringKeyResult]],
+	FailureQ[toNum["Rules", $modBY, {"gamma" -> 15.}]],
 	True,
 	{Rest::normal, Rest::normal, processNewParameters::subsetparam},
 	TestID -> "[toNum] String keys for parameters fail"
