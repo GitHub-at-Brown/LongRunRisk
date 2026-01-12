@@ -1,0 +1,60 @@
+
+TestReport: ToNumber.wlt (88.55%) [===================================     ] 220 Success,12 MessagesFailureEvaluating 232 of 262 testsElapsed time: 2m58s | Remaining time: …
+
+TestReport: ToNumber.wlt (88.93%) [====================================    ] 221 Success,12 MessagesFailureEvaluating 233 of 262 testsElapsed time: 2m58s | Remaining time: …
+
+TestReport: ToNumber.wlt (89.31%) [====================================    ] 222 Success,12 MessagesFailureEvaluating 234 of 262 testsElapsed time: 2m58s | Remaining time: …
+
+TestReport: ToNumber.wlt (89.31%) [====================================    ] 222 Success,12 MessagesFailureEvaluating 234 of 262 testsElapsed time: 2m59s | Remaining time: …
+
+TestReport: ToNumber.wlt (90.08%) [====================================    ] 224 Success,12 MessagesFailureEvaluating 236 of 262 testsElapsed time: 2m59s | Remaining time: …
+
+TestReport: ToNumber.wlt (90.08%) [====================================    ] 224 Success,12 MessagesFailureEvaluating 236 of 262 testsElapsed time: 3m00s | Remaining time: …
+
+TestReport: ToNumber.wlt (90.08%) [====================================    ] 224 Success,12 MessagesFailureEvaluating 236 of 262 testsElapsed time: 3m00s | Remaining time: …
+
+TestReport: ToNumber.wlt (91.22%) [====================================    ] 227 Success,12 MessagesFailureEvaluating 239 of 262 testsElapsed time: 3m00s | Remaining time: …
+
+TestReport: ToNumber.wlt (93.13%) [=====================================   ] 232 Success,12 MessagesFailureEvaluating 244 of 262 testsElapsed time: 3m01s | Remaining time: …
+Total MessagesFailure: 13
+
+All MessagesFailure tests:
+1. [processNewParameters] Non-subset parameters return Failure
+   Expected: HoldForm[{}]
+   Actual: {HoldForm[Message[MessageName[processNewParameters, subsetparam], {{FernandoDuarte`LongRunRisk`Model`Parameters`, phip}}]]}
+2. [processNewParameters] psi=1 returns Failure
+   Expected: HoldForm[{}]
+   Actual: {HoldForm[Message[MessageName[processNewParameters, psi]]]}
+3. [processNewParameters] psi=1.0 numeric returns Failure
+   Expected: HoldForm[{}]
+   Actual: {HoldForm[Message[MessageName[processNewParameters, psi]]]}
+4. [processNewParameters] Theta alone without gamma or psi returns Failure
+   Expected: HoldForm[{}]
+   Actual: {HoldForm[Message[MessageName[processNewParameters, theta]]]}
+5. [toNum] maxMaturity option evaluates to numbers
+   Expected: HoldForm[{}]
+   Actual: {HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[maxMaturity], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[maxMaturity], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[maxMaturity], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[General, stop], HoldForm[MessageName[OptionValue, nodef]]]]}
+6. [toNum] MaxIterations option evaluates to numbers
+   Expected: HoldForm[{}]
+   Actual: {HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[MaxIterations], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[MaxIterations], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[MaxIterations], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[General, stop], HoldForm[MessageName[OptionValue, nodef]]]]}
+7. [toNum] DependentVariables option evaluates to numbers
+   Expected: HoldForm[{}]
+   Actual: {HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[DependentVariables], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[DependentVariables], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[DependentVariables], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[General, stop], HoldForm[MessageName[OptionValue, nodef]]]]}
+8. [toNum/BugCoverage] User-constructed SignsA pattern works
+   Expected: HoldForm[{}]
+   Actual: {HoldForm[Message[MessageName[toNum, nobsolutions]]]}
+9. [toNum/BugCoverage] User-constructed Real SignsA pattern works
+   Expected: HoldForm[{}]
+   Actual: {HoldForm[Message[MessageName[toNum, nobsolutions]]]}
+10. [toNum] Invalid parameter name returns Failure
+   Expected: HoldForm[{}]
+   Actual: {HoldForm[Message[MessageName[processNewParameters, subsetparam], {{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`, invalidParameterName}}]]}
+11. [toNum] String keys for parameters fail
+   Expected: HoldForm[{MessageName[Rest, normal], MessageName[Rest, normal], MessageName[processNewParameters, subsetparam]}]
+   Actual: {HoldForm[Message[MessageName[processNewParameters, subsetparam], {FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`splitParamKey[gamma]}]]}
+12. [toNum] Multiple A terms evaluate to numeric
+   Expected: HoldForm[{}]
+   Actual: {HoldForm[Message[MessageName[Reduce, inex]]], HoldForm[Message[MessageName[Reduce, naqs], HoldForm[Null]]], HoldForm[Message[MessageName[Reduce, naqs], HoldForm[Null]]], HoldForm[Message[MessageName[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary, runtime]]]}
+13. [toNum/Docs] Invalid string parameter gamma returns Failure
+   Expected: HoldForm[{MessageName[Rest, normal], MessageName[Rest, normal], MessageName[processNewParameters, subsetparam]}]
+   Actual: {HoldForm[Message[MessageName[processNewParameters, subsetparam], {FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`splitParamKey[gamma]}]]}

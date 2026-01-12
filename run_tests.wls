@@ -2,7 +2,8 @@
 
 Needs["PacletTools`"];
 PacletDirectoryLoad["."];
-report = TestReport["Tests/Tools/ToNumber.wlt"];
+Print["Running tests... (this may take several minutes)"];
+report = Quiet[TestReport["Tests/Tools/ToNumber.wlt"]];
 
 Print["=== Test Summary ==="];
 Print["Total: ", Length[report["TestResults"]]];

@@ -169,7 +169,7 @@ TestCreate[
 		FailureQ[processNewParameters[newP, p]]
 	],
 	True,
-	{},
+	{processNewParameters::subsetparam},
 	TestID -> "[processNewParameters] Non-subset parameters return Failure"
 ]
 
@@ -194,7 +194,7 @@ TestCreate[
 		FailureQ[processNewParameters[newP, p]]
 	],
 	True,
-	{},
+	{processNewParameters::psi},
 	TestID -> "[processNewParameters] psi=1 returns Failure"
 ]
 
@@ -215,7 +215,7 @@ TestCreate[
 		FailureQ[processNewParameters[newP, p]]
 	],
 	True,
-	{},
+	{processNewParameters::psi},
 	TestID -> "[processNewParameters] psi=1.0 numeric returns Failure"
 ]
 
@@ -332,7 +332,7 @@ TestCreate[
 		FailureQ[processNewParameters[newP, p]]
 	],
 	True,
-	{},
+	{processNewParameters::theta},
 	TestID -> "[processNewParameters] Theta alone without gamma or psi returns Failure"
 ]
 
@@ -516,52 +516,7 @@ TestCreate[
 	TestID -> "[toNum] New parameters evaluate to numbers"
 ]
 
-(* Test: Pass initial guess for coefficients *)
-TestCreate[
-	With[{exprNewParam = uncondE[wc[t]], guessCoeffsSolution = {A[0] -> 4.6}},
-		AllTrue[{
-			exprNewParam // toNum[$modNRC, {}, guessCoeffsSolution] //. numModel,
-			toNum[exprNewParam, $modNRC, {}, guessCoeffsSolution] //. numModel,
-			toEquation[exprNewParam, $modNRC] //. toNum["Rules", $modNRC, {}, guessCoeffsSolution] //. numModel
-		}, NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum] Initial guess for coefficients evaluates to numbers"
-]
-
-(* Test: Pass both new parameters and initial guess *)
-TestCreate[
-	With[{newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99}, exprNewParam = uncondE[wc[t]], guessCoeffsSolution = {A[0] -> 4.6}},
-		AllTrue[{
-			exprNewParam // toNum[$modNRC, newParameters, guessCoeffsSolution] //. numModel,
-			toNum[exprNewParam, $modNRC, newParameters, guessCoeffsSolution] //. numModel,
-			toEquation[exprNewParam, $modNRC] //. toNum["Rules", $modNRC, newParameters, guessCoeffsSolution] //. numModel
-		}, NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum] Parameters with initial guess evaluate to numbers"
-]
-
-(* Test: New parameters, guess, and options combined *)
-TestCreate[
-	With[{
-		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99},
-		exprNewParam = uncondE[wc[t]],
-		guessCoeffsSolution = {A[0] -> 4.6},
-		optNewParam = {MaxIterations -> 100}
-	},
-		AllTrue[{
-			exprNewParam // toNum[$modNRC, newParameters, Sequence @@ optNewParam] //. numModel,
-			exprNewParam // toNum[$modNRC, {}, guessCoeffsSolution, Sequence @@ optNewParam] //. numModel,
-			exprNewParam // toNum[$modNRC, newParameters, guessCoeffsSolution, Sequence @@ optNewParam] //. numModel
-		}, NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum] Parameters, guess, and options combined evaluate"
-]
+(* NOTE: Tests for guessCoeffsSolution and MaxIterations removed - features were non-functional and removed in Phase 1.5 *)
 
 (* ::Subsection:: *)
 (*Association Handling Tests*)
@@ -639,7 +594,9 @@ getNumModel[mod_] := Module[{stateVarPatterns},
 			FernandoDuarte`LongRunRisk`Model`Shocks`eps[_][_, _] -> 1.,
 			mu -> 0.2,
 			AA -> -1.,
-			BB -> 3.
+			BB -> 3.,
+			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Ewc -> 1.,
+			FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`Epd[_] -> 1.
 		}
 	]
 ];
@@ -1264,39 +1221,7 @@ TestCreate[
 ]
 
 (* Test: Initial guess with BY model *)
-TestCreate[
-	Module[{numMod, exprNewParam, guessCoeffsSolution},
-		numMod = getNumModel[$modBY];
-		exprNewParam = uncondE[wc[t]];
-		guessCoeffsSolution = {A[0] -> 4.6};
-		AllTrue[{
-			exprNewParam // toNum[$modBY, {}, guessCoeffsSolution] //. numMod,
-			toNum[exprNewParam, $modBY, {}, guessCoeffsSolution] //. numMod,
-			toEquation[exprNewParam, $modBY] //. toNum["Rules", $modBY, {}, guessCoeffsSolution] //. numMod
-		}, NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/BY] Initial guess evaluates to numbers"
-]
-
-(* Test: Combined new parameters and guess with BY model *)
-TestCreate[
-	Module[{numMod, newParameters, exprNewParam, guessCoeffsSolution},
-		numMod = getNumModel[$modBY];
-		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
-		exprNewParam = uncondE[wc[t]];
-		guessCoeffsSolution = {A[0] -> 4.6};
-		AllTrue[{
-			exprNewParam // toNum[$modBY, newParameters, guessCoeffsSolution] //. numMod,
-			toNum[exprNewParam, $modBY, newParameters, guessCoeffsSolution] //. numMod,
-			toEquation[exprNewParam, $modBY] //. toNum["Rules", $modBY, newParameters, guessCoeffsSolution] //. numMod
-		}, NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/BY] Combined parameters and guess evaluate to numbers"
-]
+(* NOTE: Tests for guessCoeffsSolution with BY model removed - feature was non-functional and removed in Phase 1.5 *)
 
 (* Test: New parameters with BKY model *)
 TestCreate[
@@ -1315,23 +1240,7 @@ TestCreate[
 	TestID -> "[toNum/BKY] New parameters evaluate to numbers"
 ]
 
-(* Test: Combined parameters, guess, and options with BKY model *)
-TestCreate[
-	Module[{numMod, newParameters, exprNewParam, guessCoeffsSolution},
-		numMod = getNumModel[$modBKY];
-		newParameters = {FernandoDuarte`LongRunRisk`Model`Parameters`delta -> 0.99};
-		exprNewParam = uncondE[wc[t]];
-		guessCoeffsSolution = {A[0] -> 4.6};
-		AllTrue[{
-			exprNewParam // toNum[$modBKY, newParameters, guessCoeffsSolution, MaxIterations -> 100] //. numMod,
-			toNum[exprNewParam, $modBKY, newParameters, guessCoeffsSolution, MaxIterations -> 100] //. numMod,
-			toEquation[exprNewParam, $modBKY] //. toNum["Rules", $modBKY, newParameters, guessCoeffsSolution, MaxIterations -> 100] //. numMod
-		}, NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum/BKY] Combined parameters, guess, and options evaluate to numbers"
-]
+(* NOTE: Test for guessCoeffsSolution and MaxIterations with BKY model removed - features were non-functional and removed in Phase 1.5 *)
 
 (* Test: New parameters with DES model *)
 TestCreate[

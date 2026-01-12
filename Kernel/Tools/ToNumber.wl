@@ -31,8 +31,7 @@ toExogenousVars::usage = "toExogenousVars[model] gives a pure (or \"anonymous\")
 						 "toExogenousVars[expr, model] re-writes its first argument in terms of the exogenous variables of model.";
 toStateVars::usage = "toStateVars[model] gives a pure (or \"anonymous\") function that re-writes its argument in terms of the state variables of model."<>"\n"<>
 					 "toStateVars[expr, model] re-writes expr in terms of the state variables of model.";
-processNewParameters::usage = "processNewParameters[newParameters,parameters] returns a validated list of rules to substitute  ";
-
+processNewParameters::usage = "processNewParameters[newParameters,parameters] returns a validated list of rules to substitute newParameters into parameters, handling dependencies between gamma, psi, and theta."
 
 (* ::Subsubsection:: *)
 (*Messages*)
@@ -90,7 +89,7 @@ buildASolutionAssoc[aSol_, stocks_] := Association[
 
 (* Clear predicate for result type *)
 isHierarchicalResult[result_] :=
-	MatchQ[result, {__Association} /; KeyExistsQ[First[result], "A"]]
+	MatchQ[result, {__Association}] && Length[result] > 0 && KeyExistsQ[First[result], "A"]
 
 
 (* ::Subsection:: *)
@@ -244,15 +243,19 @@ toNumRules[
 		];
 
 		With[{newParams = processNewParameters[newParameters, params]},
-			With[{allParams = Normal @ Join[Association @ params, Association @ newParams]},
-			(* Echo[allParams,"allParams"]; *)
-				With[{solHierarchical = updateCoeffs[model, {}, newParameters, guessCoeffsSolution, "UpdatePd" -> True, "UpdateBonds" -> True, optsUpdateCoeffs]},
-				(* Echo[solHierarchical,"solHierarchical"]; *)
-					(* Propagate Failure from updateCoeffs *)
-					If[FailureQ[solHierarchical],
-						solHierarchical,
-						(* Apply solution selection *)
-						selectAndFormatSolutions[solHierarchical, effectiveSelector, returnAllOpt, allParams, uncondEwc, uncondEpd, numStocks]
+			(* Propagate Failure from processNewParameters *)
+			If[FailureQ[newParams],
+				newParams,
+				With[{allParams = Normal @ Join[Association @ params, Association @ newParams]},
+				(* Echo[allParams,"allParams"]; *)
+					With[{solHierarchical = updateCoeffs[model, {}, newParameters, guessCoeffsSolution, "UpdatePd" -> True, "UpdateBonds" -> True, optsUpdateCoeffs]},
+					(* Echo[solHierarchical,"solHierarchical"]; *)
+						(* Propagate Failure from updateCoeffs *)
+						If[FailureQ[solHierarchical],
+							solHierarchical,
+							(* Apply solution selection *)
+							selectAndFormatSolutions[solHierarchical, effectiveSelector, returnAllOpt, allParams, uncondEwc, uncondEpd, numStocks]
+						]
 					]
 				]
 			]
@@ -297,6 +300,12 @@ selectAndFormatSolutions[solHierarchical_List, selector_, returnAll_, allParams_
 
 (* Helper: Select solutions from hierarchical structure based on selector *)
 selectSolutions[solHierarchical_List, selector_, numStocks_] := Module[{numASolutions = Length[solHierarchical]},
+	(* Safety check: if no solutions found, return Failure *)
+	If[numASolutions == 0,
+		Message[toNum::nosolution, selector];
+		Return[makeFailure["NoSolution", toNum::nosolution, {selector}]]
+	];
+
 	Switch[selector,
 		(* All: return all solutions *)
 		All,
@@ -464,6 +473,12 @@ selectByAssociation[solHierarchical_List, selector_Association, numStocks_] := M
 		]
 	];
 
+	(* Final safety check before returning *)
+	If[Length[matchingASols] == 0,
+		Message[toNum::nosolution, selector];
+		Return[makeFailure["NoSolution", toNum::nosolution, {selector}]]
+	];
+
 	(* Return first matching solution (for determinism) *)
 	{First[matchingASols]}
 ];
@@ -499,7 +514,15 @@ allBIndexCombinations[aSol_Association] := With[
 
 (* Helper: Flatten coefficients from selected solutions based on selector type *)
 flattenCoeffsFromSelected[selectedSolutions_List, selector_, numStocks_] := Module[
-	{aSol = First[selectedSolutions], stockKeys},
+	{aSol, stockKeys},
+
+	(* Safety check: ensure we have at least one solution *)
+	If[Length[selectedSolutions] == 0,
+		Message[toNum::nosolution, selector];
+		Return[makeFailure["NoSolution", toNum::nosolution, {selector}]]
+	];
+
+	aSol = First[selectedSolutions];
 	stockKeys = Keys[aSol["Stocks"]];
 	If[!hasValidBSolutions[aSol],
 		Message[toNum::nobsolutions];
@@ -624,7 +647,13 @@ validateParamSubset[newNorm_, baseNorm_] := Module[{newKeys, baseKeys, invalid},
 
 (* Helper: Handle gamma/psi/theta constraints *)
 enforceGammaPsiTheta[paramsNorm_] := Module[
-	{paramsStr, gamma, psi, theta, count, thetaNew, system},
+	{paramsStr, gamma, psi, theta, count, thetaNew, paramContext},
+
+	(* Early return if no parameters *)
+	If[Length[paramsNorm] == 0, Return[paramsNorm]];
+
+	(* Extract context from first parameter (all should have same context) *)
+	paramContext = First[Keys[paramsNorm]][[1]];
 
 	(* Convert to string-keyed lookup *)
 	paramsStr = Normal@KeyMap[#[[2]]&, paramsNorm];
@@ -652,13 +681,19 @@ enforceGammaPsiTheta[paramsNorm_] := Module[
 			(* Remove old theta and insert computed one *)
 			Prepend[
 				KeySelect[paramsNorm, #[[2]] =!= "theta" &],
-				{"Global`", "theta"} -> thetaNew
+				{paramContext, "theta"} -> thetaNew
 			],
 		2, (* Two provided - solve for third *)
-			system = ((1 - ToExpression@gamma)/(1 - 1/ToExpression@psi) == ToExpression@theta);
-			Prepend[
-				paramsNorm,
-				KeyMap[{"Context`", SymbolName@#}&, Association@SolveAlways[system, Reals]]
+			Which[
+				MissingQ[gamma],
+					(* Solve: gamma = 1 - theta*(1 - 1/psi) *)
+					Prepend[paramsNorm, {paramContext, "gamma"} -> (1 - theta*(1 - 1/psi))],
+				MissingQ[psi],
+					(* Solve: psi = 1/(1 - (1-gamma)/theta) *)
+					Prepend[paramsNorm, {paramContext, "psi"} -> (1/(1 - (1 - gamma)/theta))],
+				MissingQ[theta],
+					(* Solve: theta = (1-gamma)/(1-1/psi) *)
+					Prepend[paramsNorm, {paramContext, "theta"} -> ((1 - gamma)/(1 - 1/psi))]
 			],
 		1, (* One provided *)
 			If[!MissingQ[theta],
