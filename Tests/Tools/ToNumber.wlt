@@ -516,7 +516,10 @@ TestCreate[
 	TestID -> "[toNum] New parameters evaluate to numbers"
 ]
 
-(* NOTE: Tests for guessCoeffsSolution and MaxIterations removed - features were non-functional and removed in Phase 1.5 *)
+(* NOTE: Tests removed:
+   - guessCoeffsSolution parameter was removed from toNum function signature (see ToNumber.wl line 210)
+   - MaxIterations test used incorrect syntax; must be passed via "FindRootOptions" sub-option
+     (see test "[toNum] FindRootOptions option evaluates to numbers" for correct usage) *)
 
 (* ::Subsection:: *)
 (*Association Handling Tests*)
@@ -1194,8 +1197,7 @@ TestCreate[
 	TestID -> "[toNum/BY] New parameters evaluate to numbers"
 ]
 
-(* Test: Initial guess with BY model *)
-(* NOTE: Tests for guessCoeffsSolution with BY model removed - feature was non-functional and removed in Phase 1.5 *)
+(* NOTE: guessCoeffsSolution test removed - parameter was removed from toNum function signature (see ToNumber.wl line 210) *)
 
 (* Test: New parameters with BKY model *)
 TestCreate[
@@ -1214,7 +1216,9 @@ TestCreate[
 	TestID -> "[toNum/BKY] New parameters evaluate to numbers"
 ]
 
-(* NOTE: Test for guessCoeffsSolution and MaxIterations with BKY model removed - features were non-functional and removed in Phase 1.5 *)
+(* NOTE: Tests removed:
+   - guessCoeffsSolution parameter was removed from toNum function signature
+   - MaxIterations must be passed via "FindRootOptions" sub-option *)
 
 (* Test: New parameters with DES model *)
 TestCreate[
