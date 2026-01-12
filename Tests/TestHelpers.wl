@@ -49,10 +49,16 @@ Begin["`Private`"]
 
 (* ::Subsection:: *)
 (*Load Dependencies*)
-
-
-Needs["PacletizedResourceFunctions`"];
-
+Quiet[
+	Block[{$AllowInternet = False},
+		Needs["PacletizedResourceFunctions`"];
+		Module[{warmup},
+			warmup = Null;
+			PacletizedResourceFunctions`DefinitionData[warmup];
+		]
+	],
+	URLSubmit::offline
+];
 
 (* ::Subsection:: *)
 (*Load Pre-processed Models*)
