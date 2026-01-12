@@ -964,7 +964,21 @@ TestCreate[
 (*Options Handling Integration Tests*)
 
 
-(* NOTE: Test for maxMaturity option removed - feature was non-functional and removed in Phase 1.5 *)
+(* Test: MaxMaturity option evaluates to numbers *)
+TestCreate[
+	Module[{tn, numMod, testExprs},
+		tn = toNum[$modNRC, "MaxMaturity" -> 6];
+		numMod = getNumModel[$modNRC];
+		testExprs = {wc[t], pd[t, 1]};
+		AllTrue[Flatten[{
+			(tn[testExprs] //. numMod),
+			(tn[uncondE /@ testExprs] //. numMod)
+		}], NumericQ]
+	],
+	True,
+	{},
+	TestID -> "[toNum] MaxMaturity option evaluates to numbers"
+]
 
 (* Test: FindRootOptions option evaluates to numbers *)
 TestCreate[
@@ -982,7 +996,8 @@ TestCreate[
 	TestID -> "[toNum] FindRootOptions option evaluates to numbers"
 ]
 
-(* NOTE: Test for MaxIterations option removed - feature was non-functional and removed in Phase 1.5 *)
+(* NOTE: MaxIterations must be passed via "FindRootOptions" sub-option, not as top-level option.
+   See test "[toNum] FindRootOptions option evaluates to numbers" above for correct usage *)
 
 (* Test: CheckResiduals with large tolerance evaluates to numbers *)
 TestCreate[
@@ -1029,7 +1044,8 @@ TestCreate[
 	TestID -> "[toNum] RecurrenceTableOptions evaluates to numbers"
 ]
 
-(* NOTE: Test for DependentVariables option removed - feature was non-functional and removed in Phase 1.5 *)
+(* NOTE: DependentVariables must be passed via "RecurrenceTableOptions" sub-option, not as top-level option.
+   See test "[toNum] RecurrenceTableOptions evaluates to numbers" above for correct usage *)
 
 
 (* ::Subsection:: *)

@@ -23,7 +23,7 @@ dceq::usage = "dceq[t] gives the exogenous dynamics of real consumption growth."
 sgeq::usage = "sgeq[t] gives the exogenous dynamics of the nominal-real covariance (NRC).";
 sxeq::usage = "sxeq[t] gives the exogenous dynamics of stochastic volatility of long-run risk.";
 sceq::usage = "sceq[t] gives the exogenous dynamics of stochastic volatility of real consumption growth.";
-speq::usage = "speq[t] gives the exogenous dynamics of long-run risk stochastic volatility of inflation.";
+speq::usage = "speq[t] gives the exogenous dynamics of stochastic volatility of inflation.";
 ddeq::usage = "ddeq[t, i] gives the exogenous dynamics of real dividend growth for stock i.";
 
 

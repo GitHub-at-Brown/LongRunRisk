@@ -20,10 +20,8 @@ createDatabase
 (*Usage*)
 
 
-uncondVarLongExo::usage = "uncondVarLongExo[toExogenous, expression] computes the unconditional variance of expression using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
-					      "uncondVarLongExo[toExogenous, expression, covfun] uses the covariance function covfun.";
-uncondCovLongExo::usage = "uncondCovLongExo[toExogenous, expression1, expression2] computes the unconditional covariance of expression1 and expression2 using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
-					      "uncondCovLongExo[toExogenous, expression1, expression2, covfun] computes the unconditional covariance of expression1 and expression2 using the covariance function covfun.";
+uncondVarLongExo::usage = "uncondVarLongExo[model, expression, covfun] computes the unconditional variance of expression using the model Association to map endogenous variables to exogenous variables, and covfun to compute covariances of exogenous variables.";
+uncondCovLongExo::usage = "uncondCovLongExo[model, expression1, expression2, covfun] computes the unconditional covariance of expression1 and expression2 using the model Association to map endogenous variables to exogenous variables, and covfun to compute covariances of exogenous variables.\nOptions:\n  \"maxMomentsLagsToCreate\" - maximum lags for moments (default 2)\n  \"startSequenceAtLag\" - starting lag (default 0)\n  \"simplifyDownValues\" - whether to simplify (default True)";
 createDatabase::usage = "createDatabase[model_Association, covLongFilename_String] computes moments for model, memoizes the results, and stores them in covLongFilename.";
 
 

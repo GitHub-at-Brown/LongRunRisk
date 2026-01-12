@@ -611,6 +611,129 @@ This file is an initialization script, not a package with exported symbols.
 
 ---
 
+## Proposed Fixes
+
+### Issue 1: `uncondVarLongExo` (CreateMomentsDatabase.wl)
+
+**Current:**
+```wolfram
+uncondVarLongExo::usage = "uncondVarLongExo[toExogenous, expression] computes the unconditional variance of expression using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>"\t\t\t\t\t      "uncondVarLongExo[toExogenous, expression, covfun] uses the covariance function covfun.";
+```
+
+**Proposed:**
+```wolfram
+uncondVarLongExo::usage = "uncondVarLongExo[model, expression, covfun] computes the unconditional variance of expression using the model Association to map endogenous variables to exogenous variables, and covfun to compute covariances of exogenous variables.";
+```
+
+---
+
+### Issue 2: `uncondCovLongExo` (CreateMomentsDatabase.wl)
+
+**Current:**
+```wolfram
+uncondCovLongExo::usage = "uncondCovLongExo[toExogenous, expression1, expression2] computes the unconditional covariance of expression1 and expression2 using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>"\t\t\t\t\t      "uncondCovLongExo[toExogenous, expression1, expression2, covfun] computes the unconditional covariance of expression1 and expression2 using the covariance function covfun.";
+```
+
+**Proposed:**
+```wolfram
+uncondCovLongExo::usage = "uncondCovLongExo[model, expression1, expression2, covfun] computes the unconditional covariance of expression1 and expression2 using the model Association to map endogenous variables to exogenous variables, and covfun to compute covariances of exogenous variables.\nOptions:\n  \"maxMomentsLagsToCreate\" - maximum lags for moments (default 2)\n  \"startSequenceAtLag\" - starting lag (default 0)\n  \"simplifyDownValues\" - whether to simplify (default True)";
+```
+
+---
+
+### Issue 3: `addCoeffsSolutionN` (SolveEulerEq.wl)
+
+**Current:**
+```wolfram
+addCoeffsSolutionN::usage = "addCoeffsSolutionN[model] computes numerical solutions for all coefficient types (wc, pd, bond, nombond) using default parameters and model extraInfo.";
+```
+
+**Proposed:**
+```wolfram
+addCoeffsSolutionN::usage = "addCoeffsSolutionN[model] computes numerical solutions for all coefficient types (wc, pd, bond, nombond) using default parameters and model extraInfo.\naddCoeffsSolutionN[model, buildMaxMaturity] uses the specified maximum maturity (default 12).\naddCoeffsSolutionN[model, buildMaxMaturity, opts] passes options to updateCoeffs.";
+```
+
+---
+
+### Issue 4: `speq` (ExogenousEq.wl)
+
+**Current:**
+```wolfram
+speq::usage = "speq[t] gives the exogenous dynamics of long-run risk stochastic volatility of inflation.";
+```
+
+**Proposed:**
+```wolfram
+speq::usage = "speq[t] gives the exogenous dynamics of stochastic volatility of inflation.";
+```
+
+---
+
+### Issue 5: `processModels` (ProcessModels.wl)
+
+**Current:**
+```wolfram
+processModels::usage = "processModels[modelsCatalog] performs symbolic processing on models, adding coefficient systems and solutions.";
+```
+
+**Proposed:**
+```wolfram
+processModels::usage = "processModels[modelsCatalog] performs symbolic processing on models, adding coefficient systems and solutions.\nprocessModels[modelsCatalog, opts] accepts options from solveCoeffsSystem, updateCoeffs, FindRoot, and RecurrenceTable.\nAdds keys: exogenousEq, endogenousEq, coeffsSystem, coeffsSolution, toStateVars, and more.";
+```
+
+---
+
+### Issue 6: `print` (Common.wl)
+
+**Current:**
+```wolfram
+print::usage = "print[msg] writes msg to $Output using WriteString.";
+```
+
+**Proposed:**
+```wolfram
+print::usage = "print[msg] writes msg to $Output using WriteString.\nOptions:\n  \"Verbose\" -> True|False|\"CI\" (default \"CI\") - controls when printing occurs\n  \"Memory\" -> True|False (default False) - shows memory usage info\n  \"Prefix\" -> String|None (default None) - optional message prefix";
+```
+
+---
+
+### Issue 7: `buildModels` (ManageResources.wl)
+
+**Current:**
+```wolfram
+buildModels::usage = "buildModels[] processes enabled models, compiles functions, computes numerical solutions, and creates moments database.";
+```
+
+**Proposed:**
+```wolfram
+buildModels::usage = "buildModels[] processes enabled models, compiles functions, computes numerical solutions, and creates moments database.\nOptions:\n  \"FromScratch\" -> False - delete all outputs first\n  \"CompileJacobians\" -> True - compile Jacobian functions\n  \"CreateMoments\" -> True - compute moments database\n  \"NumKernels\" -> Automatic - parallel kernels (Automatic|n|None)\n  \"BuildMaxMaturity\" -> 60 - maximum bond maturity\n  \"Models\" -> All - list of shortnames or All\n  \"FileSuffix\" -> \"\" - suffix for checkpoint files\n  \"UpdateManifest\" -> True - update ModelManifest.wl";
+```
+
+---
+
+### Issue 8: `paramQuadSolve` (ParamQuadSolve.wl)
+
+**Proposed addition to existing usage:**
+
+Add to usage message:
+```
+Additional return keys: "Maps" (sub-keys: "Solution", "SignRootMap", "SignRadicandMap", "CoeffMap"), "DeferredVariables", "DeferredEquations".
+Key options: "DomainOption", "Assumptions", "Method", "MonomialOrder", "ValidationOption", "ReturnOption", "TimeoutOption", "SimplifyTimeout", "DiagnosticsOption", "OnlyQuadTerms", "SymbolicSignSymbol", "GroebnerMemoryFraction", "GroebnerMemoryFloor", "GroebnerMemoryCap".
+```
+
+---
+
+### Issue 9: Conditional Expectations `HoldFirst` (ComputeConditionalExpectations.wl)
+
+**Proposed addition to each usage:**
+
+For `ev`, `var`, `cov`, `corr`, append:
+```
+The first argument is held unevaluated (HoldFirst attribute).
+```
+
+---
+
 ## Conclusion
 
 Overall, the codebase has **excellent documentation coverage**. Out of 157+ public symbols across 28 files:
