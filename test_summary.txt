@@ -1,50 +1,0 @@
-TestReport: ToNumber.wlt (84.17%) [==================================      ] 217 Success,1 MessagesFailureEvaluating 218 of 259 testsElapsed time: 2m50s | Remaining time: …
-
-TestReport: ToNumber.wlt (84.17%) [==================================      ] 217 Success,1 MessagesFailureEvaluating 218 of 259 testsElapsed time: 2m50s | Remaining time: …
-
-TestReport: ToNumber.wlt (84.56%) [==================================      ] 218 Success,1 MessagesFailureEvaluating 219 of 259 testsElapsed time: 2m50s | Remaining time: …
-
-TestReport: ToNumber.wlt (84.56%) [==================================      ] 218 Success,1 MessagesFailureEvaluating 219 of 259 testsElapsed time: 2m51s | Remaining time: …
-
-TestReport: ToNumber.wlt (84.56%) [==================================      ] 218 Success,1 MessagesFailureEvaluating 219 of 259 testsElapsed time: 2m51s | Remaining time: …
-
-TestReport: ToNumber.wlt (84.94%) [==================================      ] 219 Success,1 MessagesFailureEvaluating 220 of 259 testsElapsed time: 2m52s | Remaining time: …
-
-TestReport: ToNumber.wlt (84.94%) [==================================      ] 219 Success,1 MessagesFailureEvaluating 220 of 259 testsElapsed time: 2m52s | Remaining time: …
-
-TestReport: ToNumber.wlt (84.94%) [==================================      ] 219 Success,1 MessagesFailureEvaluating 220 of 259 testsElapsed time: 2m52s | Remaining time: …
-
-TestReport: ToNumber.wlt (84.94%) [==================================      ] 219 Success,1 MessagesFailureEvaluating 220 of 259 testsElapsed time: 2m53s | Remaining time: …
-
-TestReport: ToNumber.wlt (88.03%) [===================================     ] 227 Success,1 MessagesFailureEvaluating 228 of 259 testsElapsed time: 2m53s | Remaining time: …
-
-TestReport: ToNumber.wlt (88.42%) [===================================     ] 228 Success,1 MessagesFailureEvaluating 229 of 259 testsElapsed time: 2m54s | Remaining time: …
-
-TestReport: ToNumber.wlt (88.42%) [===================================     ] 228 Success,1 MessagesFailureEvaluating 229 of 259 testsElapsed time: 2m54s | Remaining time: …
-
-TestReport: ToNumber.wlt (88.42%) [===================================     ] 228 Success,1 MessagesFailureEvaluating 229 of 259 testsElapsed time: 2m54s | Remaining time: …
-
-TestReport: ToNumber.wlt (88.8%) [====================================    ] 229 Success,1 MessagesFailureEvaluating 230 of 259 testsElapsed time: 2m55s | Remaining time: …
-
-TestReport: ToNumber.wlt (89.19%) [====================================    ] 230 Success,1 MessagesFailureEvaluating 231 of 259 testsElapsed time: 2m55s | Remaining time: …
-
-TestReport: ToNumber.wlt (89.58%) [====================================    ] 231 Success,1 MessagesFailureEvaluating 232 of 259 testsElapsed time: 2m56s | Remaining time: …
-
-TestReport: ToNumber.wlt (89.96%) [====================================    ] 232 Success,1 MessagesFailureEvaluating 233 of 259 testsElapsed time: 2m56s | Remaining time: …
-
-TestReport: ToNumber.wlt (89.96%) [====================================    ] 232 Success,1 MessagesFailureEvaluating 233 of 259 testsElapsed time: 2m56s | Remaining time: …
-
-TestReport: ToNumber.wlt (89.96%) [====================================    ] 232 Success,1 MessagesFailureEvaluating 233 of 259 testsElapsed time: 2m57s | Remaining time: …
-
-TestReport: ToNumber.wlt (91.12%) [====================================    ] 235 Success,1 MessagesFailureEvaluating 236 of 259 testsElapsed time: 2m57s | Remaining time: …
-
-TestReport: ToNumber.wlt (93.05%) [=====================================   ] 240 Success,1 MessagesFailureEvaluating 241 of 259 testsElapsed time: 2m58s | Remaining time: …
-
-=== Test Summary ===
-Total: 259
-Passed: 258
-Failed: 1
-Pass rate: 99.61389961389962%
-
-=== Failed Tests ===
-1. [toNum] Multiple A terms evaluate to numeric (MessagesFailure)

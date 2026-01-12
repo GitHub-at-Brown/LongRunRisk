@@ -4869,9 +4869,6 @@
 (*Quit[];*)
 
 
-(*after phase 0 and 1 completed*)
-
-
 (* ::Input:: *)
 (*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
 (*PacletDirectoryLoad[pacletBaseDir];*)
@@ -4887,31 +4884,3 @@
 
 (* ::Input:: *)
 (*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> True]*)
-
-
-Quit[];
-
-
-Needs["FernandoDuarte`LongRunRisk`"]
-
-
-pacletBaseDir=DirectoryName[NotebookDirectory[],2]
-PacletDirectoryLoad[pacletBaseDir];
-
-
-testToNum = TestReport["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk-clean-up/Tests/Tools/ToNumber.wlt"];
-
-
-testToNum
-
-
-testToNum["ReportSucceeded"]  (* should be True for no failures *)
-testToNum["TestsFailedWrongResults"]
-testToNum["TestsFailedWithMessages"]
-
-
-Next steps:
-- update docs with new tests all passing except for ones not supposed to pass .
-- update consolidate confirm etc plan to refactor ToNumber 
-- implement plan
-- run tests 

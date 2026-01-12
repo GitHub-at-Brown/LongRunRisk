@@ -428,9 +428,9 @@ UsingFrontEnd[
 
 
 (* Strip qualification from subcontexts for cleaner display in documentation *)
-Unprotect[MakeBoxes];
+(* Unprotect[MakeBoxes];
 
 MakeBoxes[sym_Symbol /; StringMatchQ[Context[sym], "FernandoDuarte`LongRunRisk`*`*"], StandardForm] :=
   RowBox[{SymbolName[sym]}]
 
-Protect[MakeBoxes];
+Protect[MakeBoxes]; *)
