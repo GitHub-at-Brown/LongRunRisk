@@ -964,21 +964,7 @@ TestCreate[
 (*Options Handling Integration Tests*)
 
 
-(* Test: maxMaturity option evaluates to numbers *)
-TestCreate[
-	Module[{tn, numMod, testExprs},
-		tn = toNum[$modNRC, maxMaturity -> 6];
-		numMod = getNumModel[$modNRC];
-		testExprs = {wc[t], pd[t, 1]};
-		AllTrue[Flatten[{
-			(tn[testExprs] //. numMod),
-			(tn[uncondE /@ testExprs] //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum] maxMaturity option evaluates to numbers"
-]
+(* NOTE: Test for maxMaturity option removed - feature was non-functional and removed in Phase 1.5 *)
 
 (* Test: FindRootOptions option evaluates to numbers *)
 TestCreate[
@@ -996,21 +982,7 @@ TestCreate[
 	TestID -> "[toNum] FindRootOptions option evaluates to numbers"
 ]
 
-(* Test: MaxIterations option evaluates to numbers *)
-TestCreate[
-	Module[{tn, numMod, testExprs},
-		tn = toNum[$modNRC, MaxIterations -> 100];
-		numMod = getNumModel[$modNRC];
-		testExprs = {wc[t], pd[t, 1]};
-		AllTrue[Flatten[{
-			(tn[testExprs] //. numMod),
-			(tn[uncondE /@ testExprs] //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum] MaxIterations option evaluates to numbers"
-]
+(* NOTE: Test for MaxIterations option removed - feature was non-functional and removed in Phase 1.5 *)
 
 (* Test: CheckResiduals with large tolerance evaluates to numbers *)
 TestCreate[
@@ -1057,21 +1029,7 @@ TestCreate[
 	TestID -> "[toNum] RecurrenceTableOptions evaluates to numbers"
 ]
 
-(* Test: DependentVariables option evaluates to numbers *)
-TestCreate[
-	Module[{tn, numMod, testExprs},
-		tn = toNum[$modNRC, DependentVariables -> Automatic];
-		numMod = getNumModel[$modNRC];
-		testExprs = {wc[t], pd[t, 1]};
-		AllTrue[Flatten[{
-			(tn[testExprs] //. numMod),
-			(tn[uncondE /@ testExprs] //. numMod)
-		}], NumericQ]
-	],
-	True,
-	{},
-	TestID -> "[toNum] DependentVariables option evaluates to numbers"
-]
+(* NOTE: Test for DependentVariables option removed - feature was non-functional and removed in Phase 1.5 *)
 
 
 (* ::Subsection:: *)
@@ -2562,7 +2520,7 @@ TestCreate[
 		validFlatRules[result] || FailureQ[result]
 	],
 	True,
-	{},
+	{toNum::nobsolutions},
 	TestID -> "[toNum/BugCoverage] User-constructed SignsA pattern works"
 ]
 
@@ -2578,7 +2536,7 @@ TestCreate[
 		validFlatRules[result] || FailureQ[result]
 	],
 	True,
-	{},
+	{toNum::nobsolutions},
 	TestID -> "[toNum/BugCoverage] User-constructed Real SignsA pattern works"
 ]
 
@@ -2653,14 +2611,14 @@ TestCreate[
 TestCreate[
 	FailureQ[toNum["Rules", $modBY, {invalidParameterName -> 1.}]],
 	True,
-	{},
+	{processNewParameters::subsetparam},
 	TestID -> "[toNum] Invalid parameter name returns Failure"
 ]
 
 TestCreate[
 	FailureQ[toNum["Rules", $modBY, {"gamma" -> 15.}]],
 	True,
-	{Rest::normal, Rest::normal, processNewParameters::subsetparam},
+	{processNewParameters::subsetparam},
 	TestID -> "[toNum] String keys for parameters fail"
 ]
 
@@ -3382,7 +3340,7 @@ TestCreate[
 TestCreate[
 	FailureQ[toNum[$pkgA[0], $modBY, {"gamma" -> 15.0}]],
 	True,
-	{Rest::normal, Rest::normal, processNewParameters::subsetparam},
+	{processNewParameters::subsetparam},
 	TestID -> "[toNum/Docs] Invalid string parameter gamma returns Failure"
 ]
 

@@ -1,933 +1,867 @@
-Running tests...
+Running all tests...
 
 TestReport: PacletizedResourceFunctions.wl | Collecting tests...Evaluating tests (0)Elapsed time 2s
 
 TestReport: PacletizedResourceFunctions.wl | Collecting tests...Evaluating tests (0)Elapsed time 3s
 
-TestReport: UnitTable` | Collecting tests...Evaluating tests (0)Elapsed time 3s
-
-TestReport: PacletizedResourceFunctions.wl | Collecting tests...Evaluating tests (0)Elapsed time 4s
-
-TestReport: SQLiteLink`Initialization` | Collecting tests...Evaluating tests (0)Elapsed time 4s
+TestReport: PacletizedResourceFunctions.wl | Collecting tests...Evaluating tests (0)Elapsed time 3s
 
 TestReport: EntityFramework` | Collecting tests...Evaluating tests (0)Elapsed time 4s
 
-TestReport: PacletizedResourceFunctions.wl | Collecting tests...Evaluating tests (0)Elapsed time 5s
+TestReport: WolframAlphaClient`WolframAlphaClient` | Collecting tests...Evaluating tests (0)Elapsed time 4s
+
+TestReport: PacletizedResourceFunctions.wl | Collecting tests...Evaluating tests (0)Elapsed time 4s
 
 TestReport: PacletizedResourceFunctions.wl | Collecting tests...Evaluating tests (0)Elapsed time 5s
 
-TestReport: PacletizedResourceFunctions.wl | Collecting tests...Evaluating tests (0)Elapsed time 6s
+TestReport: PacletizedResourceFunctions.wl | Collecting tests...Evaluating tests (0)Elapsed time 5s
 
 TestReport: PacletizedResourceFunctions.wl | Collecting tests...Evaluating tests (0)Elapsed time 6s
 
 TestReport: PacletizedResourceFunctions.wl | Collecting tests...Evaluating tests (0)Elapsed time 6s
 
-TestReport: Models.wl | Collecting tests...Evaluating tests (0)Elapsed time 7s
+TestReport: Models.wl | Collecting tests...Evaluating tests (0)Elapsed time 6s
 
-TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 80 testsElapsed time: 7s | Remaining time: …
+TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 77 testsElapsed time: 7s | Remaining time: …
 
-TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 80 testsElapsed time: 8s | Remaining time: …
+TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 77 testsElapsed time: 7s | Remaining time: …
 
-TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 80 testsElapsed time: 8s | Remaining time: …
+TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 77 testsElapsed time: 8s | Remaining time: …
 
-TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 80 testsElapsed time: 8s | Remaining time: …
+TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 77 testsElapsed time: 8s | Remaining time: …
 
-TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 80 testsElapsed time: 9s | Remaining time: …
+TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 77 testsElapsed time: 8s | Remaining time: …
 
-TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 80 testsElapsed time: 9s | Remaining time: …
+TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 77 testsElapsed time: 9s | Remaining time: …
 
-TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 80 testsElapsed time: 10s | Remaining time: …
+TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 77 testsElapsed time: 9s | Remaining time: …
 
-TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 80 testsElapsed time: 10s | Remaining time: …
+TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 77 testsElapsed time: 10s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 10s | Remaining time: …
+TestReport: ToNumber.wlt (0%) [                                        ] Collecting tests...Evaluating 0 of 77 testsElapsed time: 10s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 11s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 10s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 11s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 11s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 12s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 11s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 12s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 12s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 12s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 12s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 13s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 12s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 13s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 13s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 14s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 13s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 14s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 14s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 14s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 14s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 15s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 14s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 15s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 15s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 16s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 15s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 16s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 16s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.31%) [====                                    ] 23 Success,4 MessagesFailureEvaluating 27 of 262 testsElapsed time: 16s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 16s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 17s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 16s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 17s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 17s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 18s | Remaining time: …
+TestReport: ToNumber.wlt (10.42%) [====                                    ] 27 SuccessEvaluating 27 of 259 testsElapsed time: 17s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 18s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 18s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 18s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 18s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 19s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 18s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 19s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 19s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 20s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 19s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 20s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 20s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 20s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 20s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 21s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 20s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 21s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 21s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 22s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 21s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 22s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 22s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 22s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 22s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 23s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 22s | Remaining time: …
 
-TestReport: ToNumber.wlt (10.69%) [====                                    ] 24 Success,4 MessagesFailureEvaluating 28 of 262 testsElapsed time: 23s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 23s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.07%) [====                                    ] 25 Success,4 MessagesFailureEvaluating 29 of 262 testsElapsed time: 24s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 23s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.07%) [====                                    ] 25 Success,4 MessagesFailureEvaluating 29 of 262 testsElapsed time: 24s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 24s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.07%) [====                                    ] 25 Success,4 MessagesFailureEvaluating 29 of 262 testsElapsed time: 25s | Remaining time: …
+TestReport: ToNumber.wlt (10.81%) [====                                    ] 28 SuccessEvaluating 28 of 259 testsElapsed time: 24s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.07%) [====                                    ] 25 Success,4 MessagesFailureEvaluating 29 of 262 testsElapsed time: 25s | Remaining time: …
+TestReport: ToNumber.wlt (11.2%) [====                                    ] 29 SuccessEvaluating 29 of 259 testsElapsed time: 24s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.07%) [====                                    ] 25 Success,4 MessagesFailureEvaluating 29 of 262 testsElapsed time: 25s | Remaining time: …
+TestReport: ToNumber.wlt (11.2%) [====                                    ] 29 SuccessEvaluating 29 of 259 testsElapsed time: 25s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.07%) [====                                    ] 25 Success,4 MessagesFailureEvaluating 29 of 262 testsElapsed time: 26s | Remaining time: …
+TestReport: ToNumber.wlt (11.2%) [====                                    ] 29 SuccessEvaluating 29 of 259 testsElapsed time: 25s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 26s | Remaining time: …
+TestReport: ToNumber.wlt (11.2%) [====                                    ] 29 SuccessEvaluating 29 of 259 testsElapsed time: 26s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 27s | Remaining time: …
+TestReport: ToNumber.wlt (11.2%) [====                                    ] 29 SuccessEvaluating 29 of 259 testsElapsed time: 26s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 27s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 26s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 27s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 27s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 28s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 27s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 28s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 28s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 29s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 28s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 29s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 28s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 29s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 29s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 30s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 29s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 30s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 30s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 31s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 30s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 31s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 31s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 31s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 31s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 32s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 31s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 32s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 32s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.45%) [=====                                   ] 26 Success,4 MessagesFailureEvaluating 30 of 262 testsElapsed time: 33s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 32s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.83%) [=====                                   ] 27 Success,4 MessagesFailureEvaluating 31 of 262 testsElapsed time: 33s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 33s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.83%) [=====                                   ] 27 Success,4 MessagesFailureEvaluating 31 of 262 testsElapsed time: 33s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 33s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.83%) [=====                                   ] 27 Success,4 MessagesFailureEvaluating 31 of 262 testsElapsed time: 34s | Remaining time: …
+TestReport: ToNumber.wlt (11.58%) [=====                                   ] 30 SuccessEvaluating 30 of 259 testsElapsed time: 33s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.83%) [=====                                   ] 27 Success,4 MessagesFailureEvaluating 31 of 262 testsElapsed time: 34s | Remaining time: …
+TestReport: ToNumber.wlt (11.97%) [=====                                   ] 31 SuccessEvaluating 31 of 259 testsElapsed time: 34s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.83%) [=====                                   ] 27 Success,4 MessagesFailureEvaluating 31 of 262 testsElapsed time: 35s | Remaining time: …
+TestReport: ToNumber.wlt (11.97%) [=====                                   ] 31 SuccessEvaluating 31 of 259 testsElapsed time: 34s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.83%) [=====                                   ] 27 Success,4 MessagesFailureEvaluating 31 of 262 testsElapsed time: 35s | Remaining time: …
+TestReport: ToNumber.wlt (11.97%) [=====                                   ] 31 SuccessEvaluating 31 of 259 testsElapsed time: 35s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.83%) [=====                                   ] 27 Success,4 MessagesFailureEvaluating 31 of 262 testsElapsed time: 35s | Remaining time: …
+TestReport: ToNumber.wlt (11.97%) [=====                                   ] 31 SuccessEvaluating 31 of 259 testsElapsed time: 35s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.83%) [=====                                   ] 27 Success,4 MessagesFailureEvaluating 31 of 262 testsElapsed time: 36s | Remaining time: …
+TestReport: ToNumber.wlt (11.97%) [=====                                   ] 31 SuccessEvaluating 31 of 259 testsElapsed time: 35s | Remaining time: …
 
-TestReport: ToNumber.wlt (11.83%) [=====                                   ] 27 Success,4 MessagesFailureEvaluating 31 of 262 testsElapsed time: 36s | Remaining time: …
+TestReport: ToNumber.wlt (11.97%) [=====                                   ] 31 SuccessEvaluating 31 of 259 testsElapsed time: 36s | Remaining time: …
 
-TestReport: ToNumber.wlt (12.21%) [=====                                   ] 28 Success,4 MessagesFailureEvaluating 32 of 262 testsElapsed time: 37s | Remaining time: …
+TestReport: ToNumber.wlt (11.97%) [=====                                   ] 31 SuccessEvaluating 31 of 259 testsElapsed time: 36s | Remaining time: …
 
-TestReport: ToNumber.wlt (12.21%) [=====                                   ] 28 Success,4 MessagesFailureEvaluating 32 of 262 testsElapsed time: 37s | Remaining time: …
+TestReport: ToNumber.wlt (11.97%) [=====                                   ] 31 SuccessEvaluating 31 of 259 testsElapsed time: 37s | Remaining time: …
 
-TestReport: ToNumber.wlt (12.21%) [=====                                   ] 28 Success,4 MessagesFailureEvaluating 32 of 262 testsElapsed time: 37s | Remaining time: …
+TestReport: ToNumber.wlt (11.97%) [=====                                   ] 31 SuccessEvaluating 31 of 259 testsElapsed time: 37s | Remaining time: …
 
-TestReport: ToNumber.wlt (13.36%) [=====                                   ] 31 Success,4 MessagesFailureEvaluating 35 of 262 testsElapsed time: 38s | Remaining time: …
+TestReport: ToNumber.wlt (11.97%) [=====                                   ] 31 SuccessEvaluating 31 of 259 testsElapsed time: 37s | Remaining time: …
 
-TestReport: ToNumber.wlt (13.36%) [=====                                   ] 31 Success,4 MessagesFailureEvaluating 35 of 262 testsElapsed time: 38s | Remaining time: …
+TestReport: ToNumber.wlt (12.36%) [=====                                   ] 32 SuccessEvaluating 32 of 259 testsElapsed time: 38s | Remaining time: …
 
-TestReport: ToNumber.wlt (13.36%) [=====                                   ] 31 Success,4 MessagesFailureEvaluating 35 of 262 testsElapsed time: 39s | Remaining time: …
+TestReport: ToNumber.wlt (12.36%) [=====                                   ] 32 SuccessEvaluating 32 of 259 testsElapsed time: 38s | Remaining time: …
 
-TestReport: ToNumber.wlt (13.74%) [=====                                   ] 32 Success,4 MessagesFailureEvaluating 36 of 262 testsElapsed time: 39s | Remaining time: …
+TestReport: ToNumber.wlt (12.36%) [=====                                   ] 32 SuccessEvaluating 32 of 259 testsElapsed time: 39s | Remaining time: …
 
-TestReport: ToNumber.wlt (13.74%) [=====                                   ] 32 Success,4 MessagesFailureEvaluating 36 of 262 testsElapsed time: 39s | Remaining time: …
+TestReport: ToNumber.wlt (13.51%) [=====                                   ] 35 SuccessEvaluating 35 of 259 testsElapsed time: 39s | Remaining time: …
 
-TestReport: ToNumber.wlt (13.74%) [=====                                   ] 32 Success,4 MessagesFailureEvaluating 36 of 262 testsElapsed time: 40s | Remaining time: …
+TestReport: ToNumber.wlt (13.51%) [=====                                   ] 35 SuccessEvaluating 35 of 259 testsElapsed time: 39s | Remaining time: …
 
-TestReport: ToNumber.wlt (14.12%) [======                                  ] 33 Success,4 MessagesFailureEvaluating 37 of 262 testsElapsed time: 40s | Remaining time: …
+TestReport: ToNumber.wlt (13.51%) [=====                                   ] 35 SuccessEvaluating 35 of 259 testsElapsed time: 40s | Remaining time: …
 
-TestReport: ToNumber.wlt (14.5%) [======                                  ] 34 Success,4 MessagesFailureEvaluating 38 of 262 testsElapsed time: 41s | Remaining time: …
+TestReport: ToNumber.wlt (13.9%) [======                                  ] 36 SuccessEvaluating 36 of 259 testsElapsed time: 40s | Remaining time: …
 
-TestReport: ToNumber.wlt (14.89%) [======                                  ] 35 Success,4 MessagesFailureEvaluating 39 of 262 testsElapsed time: 41s | Remaining time: …
+TestReport: ToNumber.wlt (13.9%) [======                                  ] 36 SuccessEvaluating 36 of 259 testsElapsed time: 41s | Remaining time: …
 
-TestReport: ToNumber.wlt (15.27%) [======                                  ] 36 Success,4 MessagesFailureEvaluating 40 of 262 testsElapsed time: 41s | Remaining time: …
+TestReport: ToNumber.wlt (13.9%) [======                                  ] 36 SuccessEvaluating 36 of 259 testsElapsed time: 41s | Remaining time: …
 
-TestReport: ToNumber.wlt (15.27%) [======                                  ] 36 Success,4 MessagesFailureEvaluating 40 of 262 testsElapsed time: 42s | Remaining time: …
+TestReport: ToNumber.wlt (14.29%) [======                                  ] 37 SuccessEvaluating 37 of 259 testsElapsed time: 41s | Remaining time: …
 
-TestReport: ToNumber.wlt (15.65%) [======                                  ] 37 Success,4 MessagesFailureEvaluating 41 of 262 testsElapsed time: 42s | Remaining time: …
+TestReport: ToNumber.wlt (14.67%) [======                                  ] 38 SuccessEvaluating 38 of 259 testsElapsed time: 42s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.41%) [=======                                 ] 39 Success,4 MessagesFailureEvaluating 43 of 262 testsElapsed time: 43s | Remaining time: …
+TestReport: ToNumber.wlt (15.44%) [======                                  ] 40 SuccessEvaluating 40 of 259 testsElapsed time: 42s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.41%) [=======                                 ] 39 Success,4 MessagesFailureEvaluating 43 of 262 testsElapsed time: 43s | Remaining time: …
+TestReport: ToNumber.wlt (15.44%) [======                                  ] 40 SuccessEvaluating 40 of 259 testsElapsed time: 43s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.41%) [=======                                 ] 39 Success,4 MessagesFailureEvaluating 43 of 262 testsElapsed time: 43s | Remaining time: …
+TestReport: ToNumber.wlt (15.83%) [======                                  ] 41 SuccessEvaluating 41 of 259 testsElapsed time: 43s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.41%) [=======                                 ] 39 Success,4 MessagesFailureEvaluating 43 of 262 testsElapsed time: 44s | Remaining time: …
+TestReport: ToNumber.wlt (16.6%) [=======                                 ] 43 SuccessEvaluating 43 of 259 testsElapsed time: 43s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.41%) [=======                                 ] 39 Success,4 MessagesFailureEvaluating 43 of 262 testsElapsed time: 44s | Remaining time: …
+TestReport: ToNumber.wlt (16.6%) [=======                                 ] 43 SuccessEvaluating 43 of 259 testsElapsed time: 44s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.41%) [=======                                 ] 39 Success,4 MessagesFailureEvaluating 43 of 262 testsElapsed time: 45s | Remaining time: …
+TestReport: ToNumber.wlt (16.6%) [=======                                 ] 43 SuccessEvaluating 43 of 259 testsElapsed time: 44s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.41%) [=======                                 ] 39 Success,4 MessagesFailureEvaluating 43 of 262 testsElapsed time: 45s | Remaining time: …
+TestReport: ToNumber.wlt (16.6%) [=======                                 ] 43 SuccessEvaluating 43 of 259 testsElapsed time: 45s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.41%) [=======                                 ] 39 Success,4 MessagesFailureEvaluating 43 of 262 testsElapsed time: 45s | Remaining time: …
+TestReport: ToNumber.wlt (16.6%) [=======                                 ] 43 SuccessEvaluating 43 of 259 testsElapsed time: 45s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.41%) [=======                                 ] 39 Success,4 MessagesFailureEvaluating 43 of 262 testsElapsed time: 46s | Remaining time: …
+TestReport: ToNumber.wlt (16.6%) [=======                                 ] 43 SuccessEvaluating 43 of 259 testsElapsed time: 45s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.41%) [=======                                 ] 39 Success,4 MessagesFailureEvaluating 43 of 262 testsElapsed time: 46s | Remaining time: …
+TestReport: ToNumber.wlt (16.6%) [=======                                 ] 43 SuccessEvaluating 43 of 259 testsElapsed time: 46s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.79%) [=======                                 ] 40 Success,4 MessagesFailureEvaluating 44 of 262 testsElapsed time: 47s | Remaining time: …
+TestReport: ToNumber.wlt (16.6%) [=======                                 ] 43 SuccessEvaluating 43 of 259 testsElapsed time: 46s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.79%) [=======                                 ] 40 Success,4 MessagesFailureEvaluating 44 of 262 testsElapsed time: 47s | Remaining time: …
+TestReport: ToNumber.wlt (16.6%) [=======                                 ] 43 SuccessEvaluating 43 of 259 testsElapsed time: 47s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.79%) [=======                                 ] 40 Success,4 MessagesFailureEvaluating 44 of 262 testsElapsed time: 47s | Remaining time: …
+TestReport: ToNumber.wlt (16.99%) [=======                                 ] 44 SuccessEvaluating 44 of 259 testsElapsed time: 47s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.79%) [=======                                 ] 40 Success,4 MessagesFailureEvaluating 44 of 262 testsElapsed time: 48s | Remaining time: …
+TestReport: ToNumber.wlt (16.99%) [=======                                 ] 44 SuccessEvaluating 44 of 259 testsElapsed time: 47s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.79%) [=======                                 ] 40 Success,4 MessagesFailureEvaluating 44 of 262 testsElapsed time: 48s | Remaining time: …
+TestReport: ToNumber.wlt (16.99%) [=======                                 ] 44 SuccessEvaluating 44 of 259 testsElapsed time: 48s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.79%) [=======                                 ] 40 Success,4 MessagesFailureEvaluating 44 of 262 testsElapsed time: 49s | Remaining time: …
+TestReport: ToNumber.wlt (16.99%) [=======                                 ] 44 SuccessEvaluating 44 of 259 testsElapsed time: 48s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.79%) [=======                                 ] 40 Success,4 MessagesFailureEvaluating 44 of 262 testsElapsed time: 49s | Remaining time: …
+TestReport: ToNumber.wlt (16.99%) [=======                                 ] 44 SuccessEvaluating 44 of 259 testsElapsed time: 49s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.79%) [=======                                 ] 40 Success,4 MessagesFailureEvaluating 44 of 262 testsElapsed time: 49s | Remaining time: …
+TestReport: ToNumber.wlt (16.99%) [=======                                 ] 44 SuccessEvaluating 44 of 259 testsElapsed time: 49s | Remaining time: …
 
-TestReport: ToNumber.wlt (16.79%) [=======                                 ] 40 Success,4 MessagesFailureEvaluating 44 of 262 testsElapsed time: 50s | Remaining time: …
+TestReport: ToNumber.wlt (16.99%) [=======                                 ] 44 SuccessEvaluating 44 of 259 testsElapsed time: 49s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.18%) [=======                                 ] 41 Success,4 MessagesFailureEvaluating 45 of 262 testsElapsed time: 50s | Remaining time: …
+TestReport: ToNumber.wlt (16.99%) [=======                                 ] 44 SuccessEvaluating 44 of 259 testsElapsed time: 50s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.18%) [=======                                 ] 41 Success,4 MessagesFailureEvaluating 45 of 262 testsElapsed time: 51s | Remaining time: …
+TestReport: ToNumber.wlt (16.99%) [=======                                 ] 44 SuccessEvaluating 44 of 259 testsElapsed time: 50s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.18%) [=======                                 ] 41 Success,4 MessagesFailureEvaluating 45 of 262 testsElapsed time: 51s | Remaining time: …
+TestReport: ToNumber.wlt (17.37%) [=======                                 ] 45 SuccessEvaluating 45 of 259 testsElapsed time: 51s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.18%) [=======                                 ] 41 Success,4 MessagesFailureEvaluating 45 of 262 testsElapsed time: 51s | Remaining time: …
+TestReport: ToNumber.wlt (17.37%) [=======                                 ] 45 SuccessEvaluating 45 of 259 testsElapsed time: 51s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 52s | Remaining time: …
+TestReport: ToNumber.wlt (17.37%) [=======                                 ] 45 SuccessEvaluating 45 of 259 testsElapsed time: 51s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 52s | Remaining time: …
+TestReport: ToNumber.wlt (17.37%) [=======                                 ] 45 SuccessEvaluating 45 of 259 testsElapsed time: 52s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 53s | Remaining time: …
+TestReport: ToNumber.wlt (17.37%) [=======                                 ] 45 SuccessEvaluating 45 of 259 testsElapsed time: 52s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 53s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 53s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 53s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 53s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 54s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 54s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 54s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 54s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 55s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 55s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 55s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 55s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 55s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 55s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 56s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 56s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 56s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 56s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 57s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 57s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 57s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 57s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 57s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 57s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 58s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 58s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.56%) [=======                                 ] 42 Success,4 MessagesFailureEvaluating 46 of 262 testsElapsed time: 58s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 58s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 59s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 59s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 59s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 59s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 59s | Remaining time: …
+TestReport: ToNumber.wlt (17.76%) [=======                                 ] 46 SuccessEvaluating 46 of 259 testsElapsed time: 59s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 1m00s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m00s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 1m00s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m00s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 1m01s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m01s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 1m01s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m01s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 1m01s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m01s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 1m02s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m02s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 1m02s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m02s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 1m03s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m03s | Remaining time: …
 
-TestReport: ToNumber.wlt (17.94%) [=======                                 ] 43 Success,4 MessagesFailureEvaluating 47 of 262 testsElapsed time: 1m03s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m03s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.32%) [=======                                 ] 44 Success,4 MessagesFailureEvaluating 48 of 262 testsElapsed time: 1m03s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m03s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.32%) [=======                                 ] 44 Success,4 MessagesFailureEvaluating 48 of 262 testsElapsed time: 1m04s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m04s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.32%) [=======                                 ] 44 Success,4 MessagesFailureEvaluating 48 of 262 testsElapsed time: 1m04s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m04s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.32%) [=======                                 ] 44 Success,4 MessagesFailureEvaluating 48 of 262 testsElapsed time: 1m05s | Remaining time: …
+TestReport: ToNumber.wlt (18.15%) [=======                                 ] 47 SuccessEvaluating 47 of 259 testsElapsed time: 1m05s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.32%) [=======                                 ] 44 Success,4 MessagesFailureEvaluating 48 of 262 testsElapsed time: 1m05s | Remaining time: …
+TestReport: ToNumber.wlt (18.53%) [=======                                 ] 48 SuccessEvaluating 48 of 259 testsElapsed time: 1m05s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.32%) [=======                                 ] 44 Success,4 MessagesFailureEvaluating 48 of 262 testsElapsed time: 1m05s | Remaining time: …
+TestReport: ToNumber.wlt (18.53%) [=======                                 ] 48 SuccessEvaluating 48 of 259 testsElapsed time: 1m05s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.32%) [=======                                 ] 44 Success,4 MessagesFailureEvaluating 48 of 262 testsElapsed time: 1m06s | Remaining time: …
+TestReport: ToNumber.wlt (18.53%) [=======                                 ] 48 SuccessEvaluating 48 of 259 testsElapsed time: 1m06s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.32%) [=======                                 ] 44 Success,4 MessagesFailureEvaluating 48 of 262 testsElapsed time: 1m06s | Remaining time: …
+TestReport: ToNumber.wlt (18.53%) [=======                                 ] 48 SuccessEvaluating 48 of 259 testsElapsed time: 1m06s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.7%) [=======                                 ] 45 Success,4 MessagesFailureEvaluating 49 of 262 testsElapsed time: 1m07s | Remaining time: …
+TestReport: ToNumber.wlt (18.53%) [=======                                 ] 48 SuccessEvaluating 48 of 259 testsElapsed time: 1m07s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.7%) [=======                                 ] 45 Success,4 MessagesFailureEvaluating 49 of 262 testsElapsed time: 1m07s | Remaining time: …
+TestReport: ToNumber.wlt (18.53%) [=======                                 ] 48 SuccessEvaluating 48 of 259 testsElapsed time: 1m07s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.7%) [=======                                 ] 45 Success,4 MessagesFailureEvaluating 49 of 262 testsElapsed time: 1m07s | Remaining time: …
+TestReport: ToNumber.wlt (18.92%) [========                                ] 49 SuccessEvaluating 49 of 259 testsElapsed time: 1m07s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.7%) [=======                                 ] 45 Success,4 MessagesFailureEvaluating 49 of 262 testsElapsed time: 1m08s | Remaining time: …
+TestReport: ToNumber.wlt (18.92%) [========                                ] 49 SuccessEvaluating 49 of 259 testsElapsed time: 1m08s | Remaining time: …
 
-TestReport: ToNumber.wlt (18.7%) [=======                                 ] 45 Success,4 MessagesFailureEvaluating 49 of 262 testsElapsed time: 1m08s | Remaining time: …
+TestReport: ToNumber.wlt (18.92%) [========                                ] 49 SuccessEvaluating 49 of 259 testsElapsed time: 1m08s | Remaining time: …
 
-TestReport: ToNumber.wlt (19.08%) [========                                ] 46 Success,4 MessagesFailureEvaluating 50 of 262 testsElapsed time: 1m09s | Remaining time: …
+TestReport: ToNumber.wlt (18.92%) [========                                ] 49 SuccessEvaluating 49 of 259 testsElapsed time: 1m09s | Remaining time: …
 
-TestReport: ToNumber.wlt (19.08%) [========                                ] 46 Success,4 MessagesFailureEvaluating 50 of 262 testsElapsed time: 1m09s | Remaining time: …
+TestReport: ToNumber.wlt (19.31%) [========                                ] 50 SuccessEvaluating 50 of 259 testsElapsed time: 1m09s | Remaining time: …
 
-TestReport: ToNumber.wlt (19.08%) [========                                ] 46 Success,4 MessagesFailureEvaluating 50 of 262 testsElapsed time: 1m09s | Remaining time: …
+TestReport: ToNumber.wlt (19.31%) [========                                ] 50 SuccessEvaluating 50 of 259 testsElapsed time: 1m09s | Remaining time: …
 
-TestReport: ToNumber.wlt (19.08%) [========                                ] 46 Success,4 MessagesFailureEvaluating 50 of 262 testsElapsed time: 1m10s | Remaining time: …
+TestReport: ToNumber.wlt (19.31%) [========                                ] 50 SuccessEvaluating 50 of 259 testsElapsed time: 1m10s | Remaining time: …
 
-TestReport: ToNumber.wlt (19.08%) [========                                ] 46 Success,4 MessagesFailureEvaluating 50 of 262 testsElapsed time: 1m10s | Remaining time: …
+TestReport: ToNumber.wlt (19.31%) [========                                ] 50 SuccessEvaluating 50 of 259 testsElapsed time: 1m10s | Remaining time: …
 
-TestReport: ToNumber.wlt (19.08%) [========                                ] 46 Success,4 MessagesFailureEvaluating 50 of 262 testsElapsed time: 1m11s | Remaining time: …
+TestReport: ToNumber.wlt (19.31%) [========                                ] 50 SuccessEvaluating 50 of 259 testsElapsed time: 1m11s | Remaining time: …
 
-TestReport: ToNumber.wlt (19.08%) [========                                ] 46 Success,4 MessagesFailureEvaluating 50 of 262 testsElapsed time: 1m11s | Remaining time: …
+TestReport: ToNumber.wlt (19.31%) [========                                ] 50 SuccessEvaluating 50 of 259 testsElapsed time: 1m11s | Remaining time: …
 
-TestReport: ToNumber.wlt (19.85%) [========                                ] 48 Success,4 MessagesFailureEvaluating 52 of 262 testsElapsed time: 1m11s | Remaining time: …
+TestReport: ToNumber.wlt (19.31%) [========                                ] 50 SuccessEvaluating 50 of 259 testsElapsed time: 1m11s | Remaining time: …
 
-TestReport: ToNumber.wlt (20.23%) [========                                ] 49 Success,4 MessagesFailureEvaluating 53 of 262 testsElapsed time: 1m12s | Remaining time: …
+TestReport: ToNumber.wlt (20.46%) [========                                ] 53 SuccessEvaluating 53 of 259 testsElapsed time: 1m12s | Remaining time: …
 
-TestReport: ToNumber.wlt (20.23%) [========                                ] 49 Success,4 MessagesFailureEvaluating 53 of 262 testsElapsed time: 1m12s | Remaining time: …
+TestReport: ToNumber.wlt (20.46%) [========                                ] 53 SuccessEvaluating 53 of 259 testsElapsed time: 1m12s | Remaining time: …
 
-TestReport: ToNumber.wlt (20.23%) [========                                ] 49 Success,4 MessagesFailureEvaluating 53 of 262 testsElapsed time: 1m13s | Remaining time: …
+TestReport: ToNumber.wlt (20.46%) [========                                ] 53 SuccessEvaluating 53 of 259 testsElapsed time: 1m13s | Remaining time: …
 
-TestReport: ToNumber.wlt (20.61%) [========                                ] 50 Success,4 MessagesFailureEvaluating 54 of 262 testsElapsed time: 1m13s | Remaining time: …
+TestReport: ToNumber.wlt (20.85%) [========                                ] 54 SuccessEvaluating 54 of 259 testsElapsed time: 1m13s | Remaining time: …
 
-TestReport: ToNumber.wlt (20.61%) [========                                ] 50 Success,4 MessagesFailureEvaluating 54 of 262 testsElapsed time: 1m13s | Remaining time: …
+TestReport: ToNumber.wlt (20.85%) [========                                ] 54 SuccessEvaluating 54 of 259 testsElapsed time: 1m13s | Remaining time: …
 
-TestReport: ToNumber.wlt (20.61%) [========                                ] 50 Success,4 MessagesFailureEvaluating 54 of 262 testsElapsed time: 1m14s | Remaining time: …
+TestReport: ToNumber.wlt (20.85%) [========                                ] 54 SuccessEvaluating 54 of 259 testsElapsed time: 1m14s | Remaining time: …
 
-TestReport: ToNumber.wlt (20.61%) [========                                ] 50 Success,4 MessagesFailureEvaluating 54 of 262 testsElapsed time: 1m14s | Remaining time: …
+TestReport: ToNumber.wlt (21.24%) [========                                ] 55 SuccessEvaluating 55 of 259 testsElapsed time: 1m14s | Remaining time: …
 
-TestReport: ToNumber.wlt (21.76%) [=========                               ] 53 Success,4 MessagesFailureEvaluating 57 of 262 testsElapsed time: 1m15s | Remaining time: …
+TestReport: ToNumber.wlt (22.01%) [=========                               ] 57 SuccessEvaluating 57 of 259 testsElapsed time: 1m15s | Remaining time: …
 
-TestReport: ToNumber.wlt (21.76%) [=========                               ] 53 Success,4 MessagesFailureEvaluating 57 of 262 testsElapsed time: 1m15s | Remaining time: …
+TestReport: ToNumber.wlt (22.01%) [=========                               ] 57 SuccessEvaluating 57 of 259 testsElapsed time: 1m15s | Remaining time: …
 
-TestReport: ToNumber.wlt (21.76%) [=========                               ] 53 Success,4 MessagesFailureEvaluating 57 of 262 testsElapsed time: 1m15s | Remaining time: …
+TestReport: ToNumber.wlt (22.01%) [=========                               ] 57 SuccessEvaluating 57 of 259 testsElapsed time: 1m15s | Remaining time: …
 
-TestReport: ToNumber.wlt (21.76%) [=========                               ] 53 Success,4 MessagesFailureEvaluating 57 of 262 testsElapsed time: 1m16s | Remaining time: …
+TestReport: ToNumber.wlt (22.01%) [=========                               ] 57 SuccessEvaluating 57 of 259 testsElapsed time: 1m16s | Remaining time: …
 
-TestReport: ToNumber.wlt (21.76%) [=========                               ] 53 Success,4 MessagesFailureEvaluating 57 of 262 testsElapsed time: 1m16s | Remaining time: …
+TestReport: ToNumber.wlt (22.01%) [=========                               ] 57 SuccessEvaluating 57 of 259 testsElapsed time: 1m16s | Remaining time: …
 
-TestReport: ToNumber.wlt (21.76%) [=========                               ] 53 Success,4 MessagesFailureEvaluating 57 of 262 testsElapsed time: 1m17s | Remaining time: …
+TestReport: ToNumber.wlt (22.01%) [=========                               ] 57 SuccessEvaluating 57 of 259 testsElapsed time: 1m17s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.14%) [=========                               ] 53 Success,5 MessagesFailureEvaluating 58 of 262 testsElapsed time: 1m17s | Remaining time: …
+TestReport: ToNumber.wlt (22.39%) [=========                               ] 58 SuccessEvaluating 58 of 259 testsElapsed time: 1m17s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.14%) [=========                               ] 53 Success,5 MessagesFailureEvaluating 58 of 262 testsElapsed time: 1m17s | Remaining time: …
+TestReport: ToNumber.wlt (22.39%) [=========                               ] 58 SuccessEvaluating 58 of 259 testsElapsed time: 1m17s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.14%) [=========                               ] 53 Success,5 MessagesFailureEvaluating 58 of 262 testsElapsed time: 1m18s | Remaining time: …
+TestReport: ToNumber.wlt (22.39%) [=========                               ] 58 SuccessEvaluating 58 of 259 testsElapsed time: 1m18s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.14%) [=========                               ] 53 Success,5 MessagesFailureEvaluating 58 of 262 testsElapsed time: 1m18s | Remaining time: …
+TestReport: ToNumber.wlt (22.39%) [=========                               ] 58 SuccessEvaluating 58 of 259 testsElapsed time: 1m18s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.14%) [=========                               ] 53 Success,5 MessagesFailureEvaluating 58 of 262 testsElapsed time: 1m19s | Remaining time: …
+TestReport: ToNumber.wlt (22.39%) [=========                               ] 58 SuccessEvaluating 58 of 259 testsElapsed time: 1m19s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.14%) [=========                               ] 53 Success,5 MessagesFailureEvaluating 58 of 262 testsElapsed time: 1m19s | Remaining time: …
+TestReport: ToNumber.wlt (22.39%) [=========                               ] 58 SuccessEvaluating 58 of 259 testsElapsed time: 1m19s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.52%) [=========                               ] 54 Success,5 MessagesFailureEvaluating 59 of 262 testsElapsed time: 1m19s | Remaining time: …
+TestReport: ToNumber.wlt (22.78%) [=========                               ] 59 SuccessEvaluating 59 of 259 testsElapsed time: 1m19s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.52%) [=========                               ] 54 Success,5 MessagesFailureEvaluating 59 of 262 testsElapsed time: 1m20s | Remaining time: …
+TestReport: ToNumber.wlt (22.78%) [=========                               ] 59 SuccessEvaluating 59 of 259 testsElapsed time: 1m20s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.52%) [=========                               ] 54 Success,5 MessagesFailureEvaluating 59 of 262 testsElapsed time: 1m20s | Remaining time: …
+TestReport: ToNumber.wlt (22.78%) [=========                               ] 59 SuccessEvaluating 59 of 259 testsElapsed time: 1m20s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.52%) [=========                               ] 54 Success,5 MessagesFailureEvaluating 59 of 262 testsElapsed time: 1m21s | Remaining time: …
+TestReport: ToNumber.wlt (23.17%) [=========                               ] 60 SuccessEvaluating 60 of 259 testsElapsed time: 1m21s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.52%) [=========                               ] 54 Success,5 MessagesFailureEvaluating 59 of 262 testsElapsed time: 1m21s | Remaining time: …
+TestReport: ToNumber.wlt (23.17%) [=========                               ] 60 SuccessEvaluating 60 of 259 testsElapsed time: 1m21s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.52%) [=========                               ] 54 Success,5 MessagesFailureEvaluating 59 of 262 testsElapsed time: 1m21s | Remaining time: …
+TestReport: ToNumber.wlt (23.17%) [=========                               ] 60 SuccessEvaluating 60 of 259 testsElapsed time: 1m21s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.9%) [=========                               ] 54 Success,6 MessagesFailureEvaluating 60 of 262 testsElapsed time: 1m22s | Remaining time: …
+TestReport: ToNumber.wlt (23.17%) [=========                               ] 60 SuccessEvaluating 60 of 259 testsElapsed time: 1m22s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.9%) [=========                               ] 54 Success,6 MessagesFailureEvaluating 60 of 262 testsElapsed time: 1m22s | Remaining time: …
+TestReport: ToNumber.wlt (23.17%) [=========                               ] 60 SuccessEvaluating 60 of 259 testsElapsed time: 1m22s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.9%) [=========                               ] 54 Success,6 MessagesFailureEvaluating 60 of 262 testsElapsed time: 1m23s | Remaining time: …
+TestReport: ToNumber.wlt (23.17%) [=========                               ] 60 SuccessEvaluating 60 of 259 testsElapsed time: 1m23s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.9%) [=========                               ] 54 Success,6 MessagesFailureEvaluating 60 of 262 testsElapsed time: 1m23s | Remaining time: …
+TestReport: ToNumber.wlt (23.94%) [==========                              ] 62 SuccessEvaluating 62 of 259 testsElapsed time: 1m23s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.9%) [=========                               ] 54 Success,6 MessagesFailureEvaluating 60 of 262 testsElapsed time: 1m23s | Remaining time: …
+TestReport: ToNumber.wlt (24.32%) [==========                              ] 63 SuccessEvaluating 63 of 259 testsElapsed time: 1m23s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.9%) [=========                               ] 54 Success,6 MessagesFailureEvaluating 60 of 262 testsElapsed time: 1m24s | Remaining time: …
+TestReport: ToNumber.wlt (25.1%) [==========                              ] 65 SuccessEvaluating 65 of 259 testsElapsed time: 1m24s | Remaining time: …
 
-TestReport: ToNumber.wlt (22.9%) [=========                               ] 54 Success,6 MessagesFailureEvaluating 60 of 262 testsElapsed time: 1m24s | Remaining time: …
+TestReport: ToNumber.wlt (25.1%) [==========                              ] 65 SuccessEvaluating 65 of 259 testsElapsed time: 1m24s | Remaining time: …
 
-TestReport: ToNumber.wlt (23.28%) [=========                               ] 55 Success,6 MessagesFailureEvaluating 61 of 262 testsElapsed time: 1m25s | Remaining time: …
+TestReport: ToNumber.wlt (25.1%) [==========                              ] 65 SuccessEvaluating 65 of 259 testsElapsed time: 1m25s | Remaining time: …
 
-TestReport: ToNumber.wlt (23.28%) [=========                               ] 55 Success,6 MessagesFailureEvaluating 61 of 262 testsElapsed time: 1m25s | Remaining time: …
+TestReport: ToNumber.wlt (25.48%) [==========                              ] 66 SuccessEvaluating 66 of 259 testsElapsed time: 1m25s | Remaining time: …
 
-TestReport: ToNumber.wlt (23.66%) [=========                               ] 56 Success,6 MessagesFailureEvaluating 62 of 262 testsElapsed time: 1m25s | Remaining time: …
+TestReport: ToNumber.wlt (25.48%) [==========                              ] 66 SuccessEvaluating 66 of 259 testsElapsed time: 1m25s | Remaining time: …
 
-TestReport: ToNumber.wlt (23.66%) [=========                               ] 56 Success,6 MessagesFailureEvaluating 62 of 262 testsElapsed time: 1m26s | Remaining time: …
+TestReport: ToNumber.wlt (25.48%) [==========                              ] 66 SuccessEvaluating 66 of 259 testsElapsed time: 1m26s | Remaining time: …
 
-TestReport: ToNumber.wlt (23.66%) [=========                               ] 56 Success,6 MessagesFailureEvaluating 62 of 262 testsElapsed time: 1m26s | Remaining time: …
+TestReport: ToNumber.wlt (25.48%) [==========                              ] 66 SuccessEvaluating 66 of 259 testsElapsed time: 1m26s | Remaining time: …
 
-TestReport: ToNumber.wlt (23.66%) [=========                               ] 56 Success,6 MessagesFailureEvaluating 62 of 262 testsElapsed time: 1m27s | Remaining time: …
+TestReport: ToNumber.wlt (25.87%) [==========                              ] 67 SuccessEvaluating 67 of 259 testsElapsed time: 1m27s | Remaining time: …
 
-TestReport: ToNumber.wlt (23.66%) [=========                               ] 56 Success,6 MessagesFailureEvaluating 62 of 262 testsElapsed time: 1m27s | Remaining time: …
+TestReport: ToNumber.wlt (25.87%) [==========                              ] 67 SuccessEvaluating 67 of 259 testsElapsed time: 1m27s | Remaining time: …
 
-TestReport: ToNumber.wlt (23.66%) [=========                               ] 56 Success,6 MessagesFailureEvaluating 62 of 262 testsElapsed time: 1m27s | Remaining time: …
+TestReport: ToNumber.wlt (25.87%) [==========                              ] 67 SuccessEvaluating 67 of 259 testsElapsed time: 1m27s | Remaining time: …
 
-TestReport: ToNumber.wlt (24.05%) [==========                              ] 57 Success,6 MessagesFailureEvaluating 63 of 262 testsElapsed time: 1m28s | Remaining time: …
+TestReport: ToNumber.wlt (25.87%) [==========                              ] 67 SuccessEvaluating 67 of 259 testsElapsed time: 1m28s | Remaining time: …
 
-TestReport: ToNumber.wlt (24.05%) [==========                              ] 57 Success,6 MessagesFailureEvaluating 63 of 262 testsElapsed time: 1m28s | Remaining time: …
+TestReport: ToNumber.wlt (25.87%) [==========                              ] 67 SuccessEvaluating 67 of 259 testsElapsed time: 1m28s | Remaining time: …
 
-TestReport: ToNumber.wlt (24.05%) [==========                              ] 57 Success,6 MessagesFailureEvaluating 63 of 262 testsElapsed time: 1m29s | Remaining time: …
+TestReport: ToNumber.wlt (26.25%) [===========                             ] 68 SuccessEvaluating 68 of 259 testsElapsed time: 1m29s | Remaining time: …
 
-TestReport: ToNumber.wlt (24.05%) [==========                              ] 57 Success,6 MessagesFailureEvaluating 63 of 262 testsElapsed time: 1m29s | Remaining time: …
+TestReport: ToNumber.wlt (26.25%) [===========                             ] 68 SuccessEvaluating 68 of 259 testsElapsed time: 1m29s | Remaining time: …
 
-TestReport: ToNumber.wlt (24.05%) [==========                              ] 57 Success,6 MessagesFailureEvaluating 63 of 262 testsElapsed time: 1m29s | Remaining time: …
+TestReport: ToNumber.wlt (26.25%) [===========                             ] 68 SuccessEvaluating 68 of 259 testsElapsed time: 1m29s | Remaining time: …
 
-TestReport: ToNumber.wlt (24.43%) [==========                              ] 57 Success,7 MessagesFailureEvaluating 64 of 262 testsElapsed time: 1m30s | Remaining time: …
+TestReport: ToNumber.wlt (26.25%) [===========                             ] 68 SuccessEvaluating 68 of 259 testsElapsed time: 1m30s | Remaining time: …
 
-TestReport: ToNumber.wlt (25.19%) [==========                              ] 59 Success,7 MessagesFailureEvaluating 66 of 262 testsElapsed time: 1m30s | Remaining time: …
+TestReport: ToNumber.wlt (26.25%) [===========                             ] 68 SuccessEvaluating 68 of 259 testsElapsed time: 1m30s | Remaining time: …
 
-TestReport: ToNumber.wlt (25.95%) [==========                              ] 61 Success,7 MessagesFailureEvaluating 68 of 262 testsElapsed time: 1m31s | Remaining time: …
+TestReport: ToNumber.wlt (26.25%) [===========                             ] 68 SuccessEvaluating 68 of 259 testsElapsed time: 1m31s | Remaining time: …
 
-TestReport: ToNumber.wlt (25.95%) [==========                              ] 61 Success,7 MessagesFailureEvaluating 68 of 262 testsElapsed time: 1m31s | Remaining time: …
+TestReport: ToNumber.wlt (27.03%) [===========                             ] 70 SuccessEvaluating 70 of 259 testsElapsed time: 1m31s | Remaining time: …
 
-TestReport: ToNumber.wlt (25.95%) [==========                              ] 61 Success,7 MessagesFailureEvaluating 68 of 262 testsElapsed time: 1m31s | Remaining time: …
+TestReport: ToNumber.wlt (27.41%) [===========                             ] 71 SuccessEvaluating 71 of 259 testsElapsed time: 1m31s | Remaining time: …
 
-TestReport: ToNumber.wlt (25.95%) [==========                              ] 61 Success,7 MessagesFailureEvaluating 68 of 262 testsElapsed time: 1m32s | Remaining time: …
+TestReport: ToNumber.wlt (27.41%) [===========                             ] 71 SuccessEvaluating 71 of 259 testsElapsed time: 1m32s | Remaining time: …
 
-TestReport: ToNumber.wlt (26.34%) [===========                             ] 62 Success,7 MessagesFailureEvaluating 69 of 262 testsElapsed time: 1m32s | Remaining time: …
+TestReport: ToNumber.wlt (27.41%) [===========                             ] 71 SuccessEvaluating 71 of 259 testsElapsed time: 1m32s | Remaining time: …
 
-TestReport: ToNumber.wlt (26.34%) [===========                             ] 62 Success,7 MessagesFailureEvaluating 69 of 262 testsElapsed time: 1m33s | Remaining time: …
+TestReport: ToNumber.wlt (27.41%) [===========                             ] 71 SuccessEvaluating 71 of 259 testsElapsed time: 1m33s | Remaining time: …
 
-TestReport: ToNumber.wlt (26.34%) [===========                             ] 62 Success,7 MessagesFailureEvaluating 69 of 262 testsElapsed time: 1m33s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m33s | Remaining time: …
 
-TestReport: ToNumber.wlt (26.72%) [===========                             ] 63 Success,7 MessagesFailureEvaluating 70 of 262 testsElapsed time: 1m33s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m33s | Remaining time: …
 
-TestReport: ToNumber.wlt (26.72%) [===========                             ] 63 Success,7 MessagesFailureEvaluating 70 of 262 testsElapsed time: 1m34s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m34s | Remaining time: …
 
-TestReport: ToNumber.wlt (26.72%) [===========                             ] 63 Success,7 MessagesFailureEvaluating 70 of 262 testsElapsed time: 1m34s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m34s | Remaining time: …
 
-TestReport: ToNumber.wlt (26.72%) [===========                             ] 63 Success,7 MessagesFailureEvaluating 70 of 262 testsElapsed time: 1m35s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m35s | Remaining time: …
 
-TestReport: ToNumber.wlt (26.72%) [===========                             ] 63 Success,7 MessagesFailureEvaluating 70 of 262 testsElapsed time: 1m35s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m35s | Remaining time: …
 
-TestReport: ToNumber.wlt (27.1%) [===========                             ] 64 Success,7 MessagesFailureEvaluating 71 of 262 testsElapsed time: 1m35s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m35s | Remaining time: …
 
-TestReport: ToNumber.wlt (27.1%) [===========                             ] 64 Success,7 MessagesFailureEvaluating 71 of 262 testsElapsed time: 1m36s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m36s | Remaining time: …
 
-TestReport: ToNumber.wlt (27.1%) [===========                             ] 64 Success,7 MessagesFailureEvaluating 71 of 262 testsElapsed time: 1m36s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m36s | Remaining time: …
 
-TestReport: ToNumber.wlt (27.1%) [===========                             ] 64 Success,7 MessagesFailureEvaluating 71 of 262 testsElapsed time: 1m37s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m37s | Remaining time: …
 
-TestReport: ToNumber.wlt (27.1%) [===========                             ] 64 Success,7 MessagesFailureEvaluating 71 of 262 testsElapsed time: 1m37s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m37s | Remaining time: …
 
-TestReport: ToNumber.wlt (27.1%) [===========                             ] 64 Success,7 MessagesFailureEvaluating 71 of 262 testsElapsed time: 1m37s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m37s | Remaining time: …
 
-TestReport: ToNumber.wlt (27.86%) [===========                             ] 66 Success,7 MessagesFailureEvaluating 73 of 262 testsElapsed time: 1m38s | Remaining time: …
+TestReport: ToNumber.wlt (27.8%) [===========                             ] 72 SuccessEvaluating 72 of 259 testsElapsed time: 1m38s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.24%) [===========                             ] 67 Success,7 MessagesFailureEvaluating 74 of 262 testsElapsed time: 1m38s | Remaining time: …
+TestReport: ToNumber.wlt (28.19%) [===========                             ] 73 SuccessEvaluating 73 of 259 testsElapsed time: 1m38s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.24%) [===========                             ] 67 Success,7 MessagesFailureEvaluating 74 of 262 testsElapsed time: 1m39s | Remaining time: …
+TestReport: ToNumber.wlt (28.19%) [===========                             ] 73 SuccessEvaluating 73 of 259 testsElapsed time: 1m39s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.24%) [===========                             ] 67 Success,7 MessagesFailureEvaluating 74 of 262 testsElapsed time: 1m39s | Remaining time: …
+TestReport: ToNumber.wlt (28.19%) [===========                             ] 73 SuccessEvaluating 73 of 259 testsElapsed time: 1m39s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.24%) [===========                             ] 67 Success,7 MessagesFailureEvaluating 74 of 262 testsElapsed time: 1m39s | Remaining time: …
+TestReport: ToNumber.wlt (28.19%) [===========                             ] 73 SuccessEvaluating 73 of 259 testsElapsed time: 1m39s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m40s | Remaining time: …
+TestReport: ToNumber.wlt (28.57%) [===========                             ] 74 SuccessEvaluating 74 of 259 testsElapsed time: 1m40s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m40s | Remaining time: …
+TestReport: ToNumber.wlt (28.57%) [===========                             ] 74 SuccessEvaluating 74 of 259 testsElapsed time: 1m40s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m41s | Remaining time: …
+TestReport: ToNumber.wlt (28.57%) [===========                             ] 74 SuccessEvaluating 74 of 259 testsElapsed time: 1m41s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m41s | Remaining time: …
+TestReport: ToNumber.wlt (28.96%) [============                            ] 75 SuccessEvaluating 75 of 259 testsElapsed time: 1m41s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m41s | Remaining time: …
+TestReport: ToNumber.wlt (28.96%) [============                            ] 75 SuccessEvaluating 75 of 259 testsElapsed time: 1m41s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m42s | Remaining time: …
+TestReport: ToNumber.wlt (28.96%) [============                            ] 75 SuccessEvaluating 75 of 259 testsElapsed time: 1m42s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m42s | Remaining time: …
+TestReport: ToNumber.wlt (31.66%) [=============                           ] 82 SuccessEvaluating 82 of 259 testsElapsed time: 1m42s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m43s | Remaining time: …
+TestReport: ToNumber.wlt (32.82%) [=============                           ] 85 SuccessEvaluating 85 of 259 testsElapsed time: 1m43s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m43s | Remaining time: …
+TestReport: ToNumber.wlt (35.14%) [==============                          ] 91 SuccessEvaluating 91 of 259 testsElapsed time: 1m43s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m43s | Remaining time: …
+TestReport: ToNumber.wlt (37.45%) [===============                         ] 97 SuccessEvaluating 97 of 259 testsElapsed time: 1m43s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m44s | Remaining time: …
+TestReport: ToNumber.wlt (37.45%) [===============                         ] 97 SuccessEvaluating 97 of 259 testsElapsed time: 1m44s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m44s | Remaining time: …
+TestReport: ToNumber.wlt (37.45%) [===============                         ] 97 SuccessEvaluating 97 of 259 testsElapsed time: 1m44s | Remaining time: …
 
-TestReport: ToNumber.wlt (28.63%) [===========                             ] 68 Success,7 MessagesFailureEvaluating 75 of 262 testsElapsed time: 1m45s | Remaining time: …
+TestReport: ToNumber.wlt (37.84%) [===============                         ] 98 SuccessEvaluating 98 of 259 testsElapsed time: 1m45s | Remaining time: …
 
-TestReport: ToNumber.wlt (29.01%) [============                            ] 69 Success,7 MessagesFailureEvaluating 76 of 262 testsElapsed time: 1m45s | Remaining time: …
+TestReport: ToNumber.wlt (37.84%) [===============                         ] 98 SuccessEvaluating 98 of 259 testsElapsed time: 1m45s | Remaining time: …
 
-TestReport: ToNumber.wlt (29.01%) [============                            ] 69 Success,7 MessagesFailureEvaluating 76 of 262 testsElapsed time: 1m45s | Remaining time: …
+TestReport: ToNumber.wlt (37.84%) [===============                         ] 98 SuccessEvaluating 98 of 259 testsElapsed time: 1m45s | Remaining time: …
 
-TestReport: ToNumber.wlt (29.01%) [============                            ] 69 Success,7 MessagesFailureEvaluating 76 of 262 testsElapsed time: 1m46s | Remaining time: …
+TestReport: ToNumber.wlt (37.84%) [===============                         ] 98 SuccessEvaluating 98 of 259 testsElapsed time: 1m46s | Remaining time: …
 
-TestReport: ToNumber.wlt (29.01%) [============                            ] 69 Success,7 MessagesFailureEvaluating 76 of 262 testsElapsed time: 1m46s | Remaining time: …
+TestReport: ToNumber.wlt (37.84%) [===============                         ] 98 SuccessEvaluating 98 of 259 testsElapsed time: 1m46s | Remaining time: …
 
-TestReport: ToNumber.wlt (29.39%) [============                            ] 70 Success,7 MessagesFailureEvaluating 77 of 262 testsElapsed time: 1m47s | Remaining time: …
+TestReport: ToNumber.wlt (37.84%) [===============                         ] 98 SuccessEvaluating 98 of 259 testsElapsed time: 1m47s | Remaining time: …
 
-TestReport: ToNumber.wlt (29.39%) [============                            ] 70 Success,7 MessagesFailureEvaluating 77 of 262 testsElapsed time: 1m47s | Remaining time: …
+TestReport: ToNumber.wlt (38.22%) [===============                         ] 99 SuccessEvaluating 99 of 259 testsElapsed time: 1m47s | Remaining time: …
 
-TestReport: ToNumber.wlt (29.39%) [============                            ] 70 Success,7 MessagesFailureEvaluating 77 of 262 testsElapsed time: 1m48s | Remaining time: …
+TestReport: ToNumber.wlt (38.22%) [===============                         ] 99 SuccessEvaluating 99 of 259 testsElapsed time: 1m47s | Remaining time: …
 
-TestReport: ToNumber.wlt (29.77%) [============                            ] 71 Success,7 MessagesFailureEvaluating 78 of 262 testsElapsed time: 1m48s | Remaining time: …
+TestReport: ToNumber.wlt (38.22%) [===============                         ] 99 SuccessEvaluating 99 of 259 testsElapsed time: 1m48s | Remaining time: …
 
-TestReport: ToNumber.wlt (29.77%) [============                            ] 71 Success,7 MessagesFailureEvaluating 78 of 262 testsElapsed time: 1m48s | Remaining time: …
+TestReport: ToNumber.wlt (38.61%) [===============                         ] 100 SuccessEvaluating 100 of 259 testsElapsed time: 1m48s | Remaining time: …
 
-TestReport: ToNumber.wlt (29.77%) [============                            ] 71 Success,7 MessagesFailureEvaluating 78 of 262 testsElapsed time: 1m49s | Remaining time: …
+TestReport: ToNumber.wlt (38.61%) [===============                         ] 100 SuccessEvaluating 100 of 259 testsElapsed time: 1m49s | Remaining time: …
 
-TestReport: ToNumber.wlt (32.44%) [=============                           ] 78 Success,7 MessagesFailureEvaluating 85 of 262 testsElapsed time: 1m49s | Remaining time: …
+TestReport: ToNumber.wlt (38.61%) [===============                         ] 100 SuccessEvaluating 100 of 259 testsElapsed time: 1m49s | Remaining time: …
 
-TestReport: ToNumber.wlt (33.97%) [==============                          ] 82 Success,7 MessagesFailureEvaluating 89 of 262 testsElapsed time: 1m50s | Remaining time: …
+TestReport: ToNumber.wlt (39%) [================                        ] 101 SuccessEvaluating 101 of 259 testsElapsed time: 1m49s | Remaining time: …
 
-TestReport: ToNumber.wlt (36.26%) [===============                         ] 88 Success,7 MessagesFailureEvaluating 95 of 262 testsElapsed time: 1m50s | Remaining time: …
+TestReport: ToNumber.wlt (39%) [================                        ] 101 SuccessEvaluating 101 of 259 testsElapsed time: 1m50s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.17%) [===============                         ] 93 Success,7 MessagesFailureEvaluating 100 of 262 testsElapsed time: 1m50s | Remaining time: …
+TestReport: ToNumber.wlt (39%) [================                        ] 101 SuccessEvaluating 101 of 259 testsElapsed time: 1m50s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.17%) [===============                         ] 93 Success,7 MessagesFailureEvaluating 100 of 262 testsElapsed time: 1m51s | Remaining time: …
+TestReport: ToNumber.wlt (40.15%) [================                        ] 104 SuccessEvaluating 104 of 259 testsElapsed time: 1m51s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.17%) [===============                         ] 93 Success,7 MessagesFailureEvaluating 100 of 262 testsElapsed time: 1m51s | Remaining time: …
+TestReport: ToNumber.wlt (42.47%) [=================                       ] 110 SuccessEvaluating 110 of 259 testsElapsed time: 1m51s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.55%) [===============                         ] 94 Success,7 MessagesFailureEvaluating 101 of 262 testsElapsed time: 1m52s | Remaining time: …
+TestReport: ToNumber.wlt (44.79%) [==================                      ] 116 SuccessEvaluating 116 of 259 testsElapsed time: 1m51s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.55%) [===============                         ] 94 Success,7 MessagesFailureEvaluating 101 of 262 testsElapsed time: 1m52s | Remaining time: …
+TestReport: ToNumber.wlt (47.1%) [===================                     ] 122 SuccessEvaluating 122 of 259 testsElapsed time: 1m52s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.55%) [===============                         ] 94 Success,7 MessagesFailureEvaluating 101 of 262 testsElapsed time: 1m52s | Remaining time: …
+TestReport: ToNumber.wlt (49.42%) [====================                    ] 128 SuccessEvaluating 128 of 259 testsElapsed time: 1m52s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.55%) [===============                         ] 94 Success,7 MessagesFailureEvaluating 101 of 262 testsElapsed time: 1m53s | Remaining time: …
+TestReport: ToNumber.wlt (52.12%) [=====================                   ] 135 SuccessEvaluating 135 of 259 testsElapsed time: 1m53s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.55%) [===============                         ] 94 Success,7 MessagesFailureEvaluating 101 of 262 testsElapsed time: 1m53s | Remaining time: …
+TestReport: ToNumber.wlt (53.28%) [=====================                   ] 138 SuccessEvaluating 138 of 259 testsElapsed time: 1m53s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.55%) [===============                         ] 94 Success,7 MessagesFailureEvaluating 101 of 262 testsElapsed time: 1m54s | Remaining time: …
+TestReport: ToNumber.wlt (53.28%) [=====================                   ] 138 SuccessEvaluating 138 of 259 testsElapsed time: 1m53s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.93%) [================                        ] 95 Success,7 MessagesFailureEvaluating 102 of 262 testsElapsed time: 1m54s | Remaining time: …
+TestReport: ToNumber.wlt (53.28%) [=====================                   ] 138 SuccessEvaluating 138 of 259 testsElapsed time: 1m54s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.93%) [================                        ] 95 Success,7 MessagesFailureEvaluating 102 of 262 testsElapsed time: 1m54s | Remaining time: …
+TestReport: ToNumber.wlt (53.67%) [=====================                   ] 139 SuccessEvaluating 139 of 259 testsElapsed time: 1m54s | Remaining time: …
 
-TestReport: ToNumber.wlt (38.93%) [================                        ] 95 Success,7 MessagesFailureEvaluating 102 of 262 testsElapsed time: 1m55s | Remaining time: …
+TestReport: ToNumber.wlt (53.67%) [=====================                   ] 139 SuccessEvaluating 139 of 259 testsElapsed time: 1m55s | Remaining time: …
 
-TestReport: ToNumber.wlt (39.31%) [================                        ] 96 Success,7 MessagesFailureEvaluating 103 of 262 testsElapsed time: 1m55s | Remaining time: …
+TestReport: ToNumber.wlt (53.67%) [=====================                   ] 139 SuccessEvaluating 139 of 259 testsElapsed time: 1m55s | Remaining time: …
 
-TestReport: ToNumber.wlt (39.31%) [================                        ] 96 Success,7 MessagesFailureEvaluating 103 of 262 testsElapsed time: 1m56s | Remaining time: …
+TestReport: ToNumber.wlt (54.05%) [======================                  ] 140 SuccessEvaluating 140 of 259 testsElapsed time: 1m55s | Remaining time: …
 
-TestReport: ToNumber.wlt (39.31%) [================                        ] 96 Success,7 MessagesFailureEvaluating 103 of 262 testsElapsed time: 1m56s | Remaining time: …
+TestReport: ToNumber.wlt (54.05%) [======================                  ] 140 SuccessEvaluating 140 of 259 testsElapsed time: 1m56s | Remaining time: …
 
-TestReport: ToNumber.wlt (39.69%) [================                        ] 97 Success,7 MessagesFailureEvaluating 104 of 262 testsElapsed time: 1m56s | Remaining time: …
+TestReport: ToNumber.wlt (54.05%) [======================                  ] 140 SuccessEvaluating 140 of 259 testsElapsed time: 1m56s | Remaining time: …
 
-TestReport: ToNumber.wlt (39.69%) [================                        ] 97 Success,7 MessagesFailureEvaluating 104 of 262 testsElapsed time: 1m57s | Remaining time: …
+TestReport: ToNumber.wlt (54.44%) [======================                  ] 141 SuccessEvaluating 141 of 259 testsElapsed time: 1m57s | Remaining time: …
 
-TestReport: ToNumber.wlt (39.69%) [================                        ] 97 Success,7 MessagesFailureEvaluating 104 of 262 testsElapsed time: 1m57s | Remaining time: …
+TestReport: ToNumber.wlt (54.44%) [======================                  ] 141 SuccessEvaluating 141 of 259 testsElapsed time: 1m57s | Remaining time: …
 
-TestReport: ToNumber.wlt (41.22%) [================                        ] 101 Success,7 MessagesFailureEvaluating 108 of 262 testsElapsed time: 1m58s | Remaining time: …
+TestReport: ToNumber.wlt (54.44%) [======================                  ] 141 SuccessEvaluating 141 of 259 testsElapsed time: 1m57s | Remaining time: …
 
-TestReport: ToNumber.wlt (43.89%) [==================                      ] 108 Success,7 MessagesFailureEvaluating 115 of 262 testsElapsed time: 1m58s | Remaining time: …
+TestReport: ToNumber.wlt (54.83%) [======================                  ] 142 SuccessEvaluating 142 of 259 testsElapsed time: 1m58s | Remaining time: …
 
-TestReport: ToNumber.wlt (46.18%) [==================                      ] 114 Success,7 MessagesFailureEvaluating 121 of 262 testsElapsed time: 1m58s | Remaining time: …
+TestReport: ToNumber.wlt (54.83%) [======================                  ] 142 SuccessEvaluating 142 of 259 testsElapsed time: 1m58s | Remaining time: …
 
-TestReport: ToNumber.wlt (48.85%) [====================                    ] 121 Success,7 MessagesFailureEvaluating 128 of 262 testsElapsed time: 1m59s | Remaining time: …
+TestReport: ToNumber.wlt (54.83%) [======================                  ] 142 SuccessEvaluating 142 of 259 testsElapsed time: 1m59s | Remaining time: …
 
-TestReport: ToNumber.wlt (51.53%) [=====================                   ] 128 Success,7 MessagesFailureEvaluating 135 of 262 testsElapsed time: 1m59s | Remaining time: …
+TestReport: ToNumber.wlt (54.83%) [======================                  ] 142 SuccessEvaluating 142 of 259 testsElapsed time: 1m59s | Remaining time: …
 
-TestReport: ToNumber.wlt (53.82%) [======================                  ] 134 Success,7 MessagesFailureEvaluating 141 of 262 testsElapsed time: 2m00s | Remaining time: …
+TestReport: ToNumber.wlt (55.6%) [======================                  ] 144 SuccessEvaluating 144 of 259 testsElapsed time: 1m59s | Remaining time: …
 
-TestReport: ToNumber.wlt (53.82%) [======================                  ] 134 Success,7 MessagesFailureEvaluating 141 of 262 testsElapsed time: 2m00s | Remaining time: …
+TestReport: ToNumber.wlt (55.6%) [======================                  ] 144 SuccessEvaluating 144 of 259 testsElapsed time: 2m00s | Remaining time: …
 
-TestReport: ToNumber.wlt (53.82%) [======================                  ] 134 Success,7 MessagesFailureEvaluating 141 of 262 testsElapsed time: 2m00s | Remaining time: …
+TestReport: ToNumber.wlt (55.6%) [======================                  ] 144 SuccessEvaluating 144 of 259 testsElapsed time: 2m00s | Remaining time: …
 
-TestReport: ToNumber.wlt (54.2%) [======================                  ] 135 Success,7 MessagesFailureEvaluating 142 of 262 testsElapsed time: 2m01s | Remaining time: …
+TestReport: ToNumber.wlt (55.98%) [======================                  ] 145 SuccessEvaluating 145 of 259 testsElapsed time: 2m01s | Remaining time: …
 
-TestReport: ToNumber.wlt (54.2%) [======================                  ] 135 Success,7 MessagesFailureEvaluating 142 of 262 testsElapsed time: 2m01s | Remaining time: …
+TestReport: ToNumber.wlt (55.98%) [======================                  ] 145 SuccessEvaluating 145 of 259 testsElapsed time: 2m01s | Remaining time: …
 
-TestReport: ToNumber.wlt (54.2%) [======================                  ] 135 Success,7 MessagesFailureEvaluating 142 of 262 testsElapsed time: 2m02s | Remaining time: …
+TestReport: ToNumber.wlt (55.98%) [======================                  ] 145 SuccessEvaluating 145 of 259 testsElapsed time: 2m01s | Remaining time: …
 
-TestReport: ToNumber.wlt (54.58%) [======================                  ] 136 Success,7 MessagesFailureEvaluating 143 of 262 testsElapsed time: 2m02s | Remaining time: …
+TestReport: ToNumber.wlt (56.37%) [=======================                 ] 146 SuccessEvaluating 146 of 259 testsElapsed time: 2m02s | Remaining time: …
 
-TestReport: ToNumber.wlt (54.58%) [======================                  ] 136 Success,7 MessagesFailureEvaluating 143 of 262 testsElapsed time: 2m02s | Remaining time: …
+TestReport: ToNumber.wlt (56.37%) [=======================                 ] 146 SuccessEvaluating 146 of 259 testsElapsed time: 2m02s | Remaining time: …
 
-TestReport: ToNumber.wlt (54.58%) [======================                  ] 136 Success,7 MessagesFailureEvaluating 143 of 262 testsElapsed time: 2m03s | Remaining time: …
+TestReport: ToNumber.wlt (56.37%) [=======================                 ] 146 SuccessEvaluating 146 of 259 testsElapsed time: 2m03s | Remaining time: …
 
-TestReport: ToNumber.wlt (54.96%) [======================                  ] 137 Success,7 MessagesFailureEvaluating 144 of 262 testsElapsed time: 2m03s | Remaining time: …
+TestReport: ToNumber.wlt (56.37%) [=======================                 ] 146 SuccessEvaluating 146 of 259 testsElapsed time: 2m03s | Remaining time: …
 
-TestReport: ToNumber.wlt (54.96%) [======================                  ] 137 Success,7 MessagesFailureEvaluating 144 of 262 testsElapsed time: 2m04s | Remaining time: …
+TestReport: ToNumber.wlt (56.37%) [=======================                 ] 146 SuccessEvaluating 146 of 259 testsElapsed time: 2m03s | Remaining time: …
 
-TestReport: ToNumber.wlt (54.96%) [======================                  ] 137 Success,7 MessagesFailureEvaluating 144 of 262 testsElapsed time: 2m04s | Remaining time: …
+TestReport: ToNumber.wlt (56.37%) [=======================                 ] 146 SuccessEvaluating 146 of 259 testsElapsed time: 2m04s | Remaining time: …
 
-TestReport: ToNumber.wlt (55.34%) [======================                  ] 138 Success,7 MessagesFailureEvaluating 145 of 262 testsElapsed time: 2m04s | Remaining time: …
+TestReport: ToNumber.wlt (56.76%) [=======================                 ] 147 SuccessEvaluating 147 of 259 testsElapsed time: 2m04s | Remaining time: …
 
-TestReport: ToNumber.wlt (55.34%) [======================                  ] 138 Success,7 MessagesFailureEvaluating 145 of 262 testsElapsed time: 2m05s | Remaining time: …
+TestReport: ToNumber.wlt (56.76%) [=======================                 ] 147 SuccessEvaluating 147 of 259 testsElapsed time: 2m05s | Remaining time: …
 
-TestReport: ToNumber.wlt (55.34%) [======================                  ] 138 Success,7 MessagesFailureEvaluating 145 of 262 testsElapsed time: 2m05s | Remaining time: …
+TestReport: ToNumber.wlt (56.76%) [=======================                 ] 147 SuccessEvaluating 147 of 259 testsElapsed time: 2m05s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.11%) [======================                  ] 140 Success,7 MessagesFailureEvaluating 147 of 262 testsElapsed time: 2m06s | Remaining time: …
+TestReport: ToNumber.wlt (57.14%) [=======================                 ] 148 SuccessEvaluating 148 of 259 testsElapsed time: 2m05s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.11%) [======================                  ] 140 Success,7 MessagesFailureEvaluating 147 of 262 testsElapsed time: 2m06s | Remaining time: …
+TestReport: ToNumber.wlt (57.14%) [=======================                 ] 148 SuccessEvaluating 148 of 259 testsElapsed time: 2m06s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.11%) [======================                  ] 140 Success,7 MessagesFailureEvaluating 147 of 262 testsElapsed time: 2m06s | Remaining time: …
+TestReport: ToNumber.wlt (57.14%) [=======================                 ] 148 SuccessEvaluating 148 of 259 testsElapsed time: 2m06s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.49%) [=======================                 ] 141 Success,7 MessagesFailureEvaluating 148 of 262 testsElapsed time: 2m07s | Remaining time: …
+TestReport: ToNumber.wlt (57.14%) [=======================                 ] 148 SuccessEvaluating 148 of 259 testsElapsed time: 2m07s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.49%) [=======================                 ] 141 Success,7 MessagesFailureEvaluating 148 of 262 testsElapsed time: 2m07s | Remaining time: …
+TestReport: ToNumber.wlt (57.14%) [=======================                 ] 148 SuccessEvaluating 148 of 259 testsElapsed time: 2m07s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.49%) [=======================                 ] 141 Success,7 MessagesFailureEvaluating 148 of 262 testsElapsed time: 2m08s | Remaining time: …
+TestReport: ToNumber.wlt (57.14%) [=======================                 ] 148 SuccessEvaluating 148 of 259 testsElapsed time: 2m07s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.87%) [=======================                 ] 142 Success,7 MessagesFailureEvaluating 149 of 262 testsElapsed time: 2m08s | Remaining time: …
+TestReport: ToNumber.wlt (57.53%) [=======================                 ] 149 SuccessEvaluating 149 of 259 testsElapsed time: 2m08s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.87%) [=======================                 ] 142 Success,7 MessagesFailureEvaluating 149 of 262 testsElapsed time: 2m08s | Remaining time: …
+TestReport: ToNumber.wlt (57.92%) [=======================                 ] 150 SuccessEvaluating 150 of 259 testsElapsed time: 2m08s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.87%) [=======================                 ] 142 Success,7 MessagesFailureEvaluating 149 of 262 testsElapsed time: 2m09s | Remaining time: …
+TestReport: ToNumber.wlt (58.3%) [=======================                 ] 151 SuccessEvaluating 151 of 259 testsElapsed time: 2m09s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.87%) [=======================                 ] 142 Success,7 MessagesFailureEvaluating 149 of 262 testsElapsed time: 2m09s | Remaining time: …
+TestReport: ToNumber.wlt (58.3%) [=======================                 ] 151 SuccessEvaluating 151 of 259 testsElapsed time: 2m09s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.87%) [=======================                 ] 142 Success,7 MessagesFailureEvaluating 149 of 262 testsElapsed time: 2m10s | Remaining time: …
+TestReport: ToNumber.wlt (58.69%) [=======================                 ] 152 SuccessEvaluating 152 of 259 testsElapsed time: 2m09s | Remaining time: …
 
-TestReport: ToNumber.wlt (56.87%) [=======================                 ] 142 Success,7 MessagesFailureEvaluating 149 of 262 testsElapsed time: 2m10s | Remaining time: …
+TestReport: ToNumber.wlt (59.07%) [========================                ] 153 SuccessEvaluating 153 of 259 testsElapsed time: 2m10s | Remaining time: …
 
-TestReport: ToNumber.wlt (57.25%) [=======================                 ] 143 Success,7 MessagesFailureEvaluating 150 of 262 testsElapsed time: 2m10s | Remaining time: …
+TestReport: ToNumber.wlt (59.46%) [========================                ] 154 SuccessEvaluating 154 of 259 testsElapsed time: 2m10s | Remaining time: …
 
-TestReport: ToNumber.wlt (57.25%) [=======================                 ] 143 Success,7 MessagesFailureEvaluating 150 of 262 testsElapsed time: 2m11s | Remaining time: …
+TestReport: ToNumber.wlt (59.46%) [========================                ] 154 SuccessEvaluating 154 of 259 testsElapsed time: 2m11s | Remaining time: …
 
-TestReport: ToNumber.wlt (57.25%) [=======================                 ] 143 Success,7 MessagesFailureEvaluating 150 of 262 testsElapsed time: 2m11s | Remaining time: …
+TestReport: ToNumber.wlt (60.23%) [========================                ] 156 SuccessEvaluating 156 of 259 testsElapsed time: 2m11s | Remaining time: …
 
-TestReport: ToNumber.wlt (57.63%) [=======================                 ] 144 Success,7 MessagesFailureEvaluating 151 of 262 testsElapsed time: 2m12s | Remaining time: …
+TestReport: ToNumber.wlt (60.23%) [========================                ] 156 SuccessEvaluating 156 of 259 testsElapsed time: 2m11s | Remaining time: …
 
-TestReport: ToNumber.wlt (57.63%) [=======================                 ] 144 Success,7 MessagesFailureEvaluating 151 of 262 testsElapsed time: 2m12s | Remaining time: …
+TestReport: ToNumber.wlt (60.23%) [========================                ] 156 SuccessEvaluating 156 of 259 testsElapsed time: 2m12s | Remaining time: …
 
-TestReport: ToNumber.wlt (57.63%) [=======================                 ] 144 Success,7 MessagesFailureEvaluating 151 of 262 testsElapsed time: 2m12s | Remaining time: …
+TestReport: ToNumber.wlt (60.62%) [========================                ] 157 SuccessEvaluating 157 of 259 testsElapsed time: 2m12s | Remaining time: …
 
-TestReport: ToNumber.wlt (57.63%) [=======================                 ] 144 Success,7 MessagesFailureEvaluating 151 of 262 testsElapsed time: 2m13s | Remaining time: …
+TestReport: ToNumber.wlt (60.62%) [========================                ] 157 SuccessEvaluating 157 of 259 testsElapsed time: 2m13s | Remaining time: …
 
-TestReport: ToNumber.wlt (57.63%) [=======================                 ] 144 Success,7 MessagesFailureEvaluating 151 of 262 testsElapsed time: 2m13s | Remaining time: …
+TestReport: ToNumber.wlt (60.62%) [========================                ] 157 SuccessEvaluating 157 of 259 testsElapsed time: 2m13s | Remaining time: …
 
-TestReport: ToNumber.wlt (57.63%) [=======================                 ] 144 Success,7 MessagesFailureEvaluating 151 of 262 testsElapsed time: 2m14s | Remaining time: …
+TestReport: ToNumber.wlt (61%) [========================                ] 158 SuccessEvaluating 158 of 259 testsElapsed time: 2m13s | Remaining time: …
 
-TestReport: ToNumber.wlt (57.63%) [=======================                 ] 144 Success,7 MessagesFailureEvaluating 151 of 262 testsElapsed time: 2m14s | Remaining time: …
+TestReport: ToNumber.wlt (61%) [========================                ] 158 SuccessEvaluating 158 of 259 testsElapsed time: 2m14s | Remaining time: …
 
-TestReport: ToNumber.wlt (58.02%) [=======================                 ] 145 Success,7 MessagesFailureEvaluating 152 of 262 testsElapsed time: 2m14s | Remaining time: …
+TestReport: ToNumber.wlt (61%) [========================                ] 158 SuccessEvaluating 158 of 259 testsElapsed time: 2m14s | Remaining time: …
 
-TestReport: ToNumber.wlt (58.4%) [=======================                 ] 146 Success,7 MessagesFailureEvaluating 153 of 262 testsElapsed time: 2m15s | Remaining time: …
+TestReport: ToNumber.wlt (61.39%) [=========================               ] 159 SuccessEvaluating 159 of 259 testsElapsed time: 2m15s | Remaining time: …
 
-TestReport: ToNumber.wlt (58.78%) [========================                ] 147 Success,7 MessagesFailureEvaluating 154 of 262 testsElapsed time: 2m15s | Remaining time: …
+TestReport: ToNumber.wlt (61.39%) [=========================               ] 159 SuccessEvaluating 159 of 259 testsElapsed time: 2m15s | Remaining time: …
 
-TestReport: ToNumber.wlt (58.78%) [========================                ] 147 Success,7 MessagesFailureEvaluating 154 of 262 testsElapsed time: 2m16s | Remaining time: …
+TestReport: ToNumber.wlt (61.39%) [=========================               ] 159 SuccessEvaluating 159 of 259 testsElapsed time: 2m15s | Remaining time: …
 
-TestReport: ToNumber.wlt (59.16%) [========================                ] 148 Success,7 MessagesFailureEvaluating 155 of 262 testsElapsed time: 2m16s | Remaining time: …
+TestReport: ToNumber.wlt (61.78%) [=========================               ] 160 SuccessEvaluating 160 of 259 testsElapsed time: 2m16s | Remaining time: …
 
-TestReport: ToNumber.wlt (59.54%) [========================                ] 149 Success,7 MessagesFailureEvaluating 156 of 262 testsElapsed time: 2m16s | Remaining time: …
+TestReport: ToNumber.wlt (61.78%) [=========================               ] 160 SuccessEvaluating 160 of 259 testsElapsed time: 2m16s | Remaining time: …
 
-TestReport: ToNumber.wlt (59.92%) [========================                ] 150 Success,7 MessagesFailureEvaluating 157 of 262 testsElapsed time: 2m17s | Remaining time: …
+TestReport: ToNumber.wlt (61.78%) [=========================               ] 160 SuccessEvaluating 160 of 259 testsElapsed time: 2m17s | Remaining time: …
 
-TestReport: ToNumber.wlt (60.69%) [========================                ] 152 Success,7 MessagesFailureEvaluating 159 of 262 testsElapsed time: 2m17s | Remaining time: …
+TestReport: ToNumber.wlt (62.16%) [=========================               ] 161 SuccessEvaluating 161 of 259 testsElapsed time: 2m17s | Remaining time: …
 
-TestReport: ToNumber.wlt (60.69%) [========================                ] 152 Success,7 MessagesFailureEvaluating 159 of 262 testsElapsed time: 2m18s | Remaining time: …
+TestReport: ToNumber.wlt (62.16%) [=========================               ] 161 SuccessEvaluating 161 of 259 testsElapsed time: 2m17s | Remaining time: …
 
-TestReport: ToNumber.wlt (60.69%) [========================                ] 152 Success,7 MessagesFailureEvaluating 159 of 262 testsElapsed time: 2m18s | Remaining time: …
+TestReport: ToNumber.wlt (62.16%) [=========================               ] 161 SuccessEvaluating 161 of 259 testsElapsed time: 2m18s | Remaining time: …
 
-TestReport: ToNumber.wlt (61.07%) [========================                ] 153 Success,7 MessagesFailureEvaluating 160 of 262 testsElapsed time: 2m18s | Remaining time: …
+TestReport: ToNumber.wlt (62.93%) [=========================               ] 163 SuccessEvaluating 163 of 259 testsElapsed time: 2m18s | Remaining time: …
 
-TestReport: ToNumber.wlt (61.07%) [========================                ] 153 Success,7 MessagesFailureEvaluating 160 of 262 testsElapsed time: 2m19s | Remaining time: …
+TestReport: ToNumber.wlt (62.93%) [=========================               ] 163 SuccessEvaluating 163 of 259 testsElapsed time: 2m19s | Remaining time: …
 
-TestReport: ToNumber.wlt (61.07%) [========================                ] 153 Success,7 MessagesFailureEvaluating 160 of 262 testsElapsed time: 2m19s | Remaining time: …
+TestReport: ToNumber.wlt (62.93%) [=========================               ] 163 SuccessEvaluating 163 of 259 testsElapsed time: 2m19s | Remaining time: …
 
-TestReport: ToNumber.wlt (61.45%) [=========================               ] 154 Success,7 MessagesFailureEvaluating 161 of 262 testsElapsed time: 2m20s | Remaining time: …
+TestReport: ToNumber.wlt (62.93%) [=========================               ] 163 SuccessEvaluating 163 of 259 testsElapsed time: 2m19s | Remaining time: …
 
-TestReport: ToNumber.wlt (61.45%) [=========================               ] 154 Success,7 MessagesFailureEvaluating 161 of 262 testsElapsed time: 2m20s | Remaining time: …
+TestReport: ToNumber.wlt (62.93%) [=========================               ] 163 SuccessEvaluating 163 of 259 testsElapsed time: 2m20s | Remaining time: …
 
-TestReport: ToNumber.wlt (61.45%) [=========================               ] 154 Success,7 MessagesFailureEvaluating 161 of 262 testsElapsed time: 2m20s | Remaining time: …
+TestReport: ToNumber.wlt (62.93%) [=========================               ] 163 SuccessEvaluating 163 of 259 testsElapsed time: 2m20s | Remaining time: …
 
-TestReport: ToNumber.wlt (61.83%) [=========================               ] 155 Success,7 MessagesFailureEvaluating 162 of 262 testsElapsed time: 2m21s | Remaining time: …
+TestReport: ToNumber.wlt (63.32%) [=========================               ] 164 SuccessEvaluating 164 of 259 testsElapsed time: 2m21s | Remaining time: …
 
-TestReport: ToNumber.wlt (61.83%) [=========================               ] 155 Success,7 MessagesFailureEvaluating 162 of 262 testsElapsed time: 2m21s | Remaining time: …
+TestReport: ToNumber.wlt (63.32%) [=========================               ] 164 SuccessEvaluating 164 of 259 testsElapsed time: 2m21s | Remaining time: …
 
-TestReport: ToNumber.wlt (61.83%) [=========================               ] 155 Success,7 MessagesFailureEvaluating 162 of 262 testsElapsed time: 2m22s | Remaining time: …
+TestReport: ToNumber.wlt (63.32%) [=========================               ] 164 SuccessEvaluating 164 of 259 testsElapsed time: 2m21s | Remaining time: …
 
-TestReport: ToNumber.wlt (62.21%) [=========================               ] 156 Success,7 MessagesFailureEvaluating 163 of 262 testsElapsed time: 2m22s | Remaining time: …
+TestReport: ToNumber.wlt (63.32%) [=========================               ] 164 SuccessEvaluating 164 of 259 testsElapsed time: 2m22s | Remaining time: …
 
-TestReport: ToNumber.wlt (62.21%) [=========================               ] 156 Success,7 MessagesFailureEvaluating 163 of 262 testsElapsed time: 2m22s | Remaining time: …
+TestReport: ToNumber.wlt (63.32%) [=========================               ] 164 SuccessEvaluating 164 of 259 testsElapsed time: 2m22s | Remaining time: …
 
-TestReport: ToNumber.wlt (62.21%) [=========================               ] 156 Success,7 MessagesFailureEvaluating 163 of 262 testsElapsed time: 2m23s | Remaining time: …
+TestReport: ToNumber.wlt (63.32%) [=========================               ] 164 SuccessEvaluating 164 of 259 testsElapsed time: 2m23s | Remaining time: …
 
-TestReport: ToNumber.wlt (62.6%) [=========================               ] 157 Success,7 MessagesFailureEvaluating 164 of 262 testsElapsed time: 2m23s | Remaining time: …
+TestReport: ToNumber.wlt (63.71%) [=========================               ] 165 SuccessEvaluating 165 of 259 testsElapsed time: 2m23s | Remaining time: …
 
-TestReport: ToNumber.wlt (62.6%) [=========================               ] 157 Success,7 MessagesFailureEvaluating 164 of 262 testsElapsed time: 2m24s | Remaining time: …
+TestReport: ToNumber.wlt (63.71%) [=========================               ] 165 SuccessEvaluating 165 of 259 testsElapsed time: 2m23s | Remaining time: …
 
-TestReport: ToNumber.wlt (62.6%) [=========================               ] 157 Success,7 MessagesFailureEvaluating 164 of 262 testsElapsed time: 2m24s | Remaining time: …
+TestReport: ToNumber.wlt (63.71%) [=========================               ] 165 SuccessEvaluating 165 of 259 testsElapsed time: 2m24s | Remaining time: …
 
-TestReport: ToNumber.wlt (63.36%) [=========================               ] 159 Success,7 MessagesFailureEvaluating 166 of 262 testsElapsed time: 2m24s | Remaining time: …
+TestReport: ToNumber.wlt (64.09%) [==========================              ] 166 SuccessEvaluating 166 of 259 testsElapsed time: 2m24s | Remaining time: …
 
-TestReport: ToNumber.wlt (63.36%) [=========================               ] 159 Success,7 MessagesFailureEvaluating 166 of 262 testsElapsed time: 2m25s | Remaining time: …
+TestReport: ToNumber.wlt (64.09%) [==========================              ] 166 SuccessEvaluating 166 of 259 testsElapsed time: 2m25s | Remaining time: …
 
-TestReport: ToNumber.wlt (63.36%) [=========================               ] 159 Success,7 MessagesFailureEvaluating 166 of 262 testsElapsed time: 2m25s | Remaining time: …
+TestReport: ToNumber.wlt (64.09%) [==========================              ] 166 SuccessEvaluating 166 of 259 testsElapsed time: 2m25s | Remaining time: …
 
-TestReport: ToNumber.wlt (63.36%) [=========================               ] 159 Success,7 MessagesFailureEvaluating 166 of 262 testsElapsed time: 2m26s | Remaining time: …
+TestReport: ToNumber.wlt (64.86%) [==========================              ] 168 SuccessEvaluating 168 of 259 testsElapsed time: 2m25s | Remaining time: …
 
-TestReport: ToNumber.wlt (63.36%) [=========================               ] 159 Success,7 MessagesFailureEvaluating 166 of 262 testsElapsed time: 2m26s | Remaining time: …
+TestReport: ToNumber.wlt (64.86%) [==========================              ] 168 SuccessEvaluating 168 of 259 testsElapsed time: 2m26s | Remaining time: …
 
-TestReport: ToNumber.wlt (63.36%) [=========================               ] 159 Success,7 MessagesFailureEvaluating 166 of 262 testsElapsed time: 2m26s | Remaining time: …
+TestReport: ToNumber.wlt (64.86%) [==========================              ] 168 SuccessEvaluating 168 of 259 testsElapsed time: 2m26s | Remaining time: …
 
-TestReport: ToNumber.wlt (63.74%) [=========================               ] 160 Success,7 MessagesFailureEvaluating 167 of 262 testsElapsed time: 2m27s | Remaining time: …
+TestReport: ToNumber.wlt (65.25%) [==========================              ] 169 SuccessEvaluating 169 of 259 testsElapsed time: 2m27s | Remaining time: …
 
-TestReport: ToNumber.wlt (63.74%) [=========================               ] 160 Success,7 MessagesFailureEvaluating 167 of 262 testsElapsed time: 2m27s | Remaining time: …
+TestReport: ToNumber.wlt (65.25%) [==========================              ] 169 SuccessEvaluating 169 of 259 testsElapsed time: 2m27s | Remaining time: …
 
-TestReport: ToNumber.wlt (63.74%) [=========================               ] 160 Success,7 MessagesFailureEvaluating 167 of 262 testsElapsed time: 2m28s | Remaining time: …
+TestReport: ToNumber.wlt (65.25%) [==========================              ] 169 SuccessEvaluating 169 of 259 testsElapsed time: 2m28s | Remaining time: …
 
-TestReport: ToNumber.wlt (63.74%) [=========================               ] 160 Success,7 MessagesFailureEvaluating 167 of 262 testsElapsed time: 2m28s | Remaining time: …
+TestReport: ToNumber.wlt (65.64%) [==========================              ] 170 SuccessEvaluating 170 of 259 testsElapsed time: 2m28s | Remaining time: …
 
-TestReport: ToNumber.wlt (63.74%) [=========================               ] 160 Success,7 MessagesFailureEvaluating 167 of 262 testsElapsed time: 2m28s | Remaining time: …
+TestReport: ToNumber.wlt (65.64%) [==========================              ] 170 SuccessEvaluating 170 of 259 testsElapsed time: 2m28s | Remaining time: …
 
-TestReport: ToNumber.wlt (64.12%) [==========================              ] 161 Success,7 MessagesFailureEvaluating 168 of 262 testsElapsed time: 2m29s | Remaining time: …
+TestReport: ToNumber.wlt (65.64%) [==========================              ] 170 SuccessEvaluating 170 of 259 testsElapsed time: 2m29s | Remaining time: …
 
-TestReport: ToNumber.wlt (64.12%) [==========================              ] 161 Success,7 MessagesFailureEvaluating 168 of 262 testsElapsed time: 2m29s | Remaining time: …
+TestReport: ToNumber.wlt (66.41%) [===========================             ] 172 SuccessEvaluating 172 of 259 testsElapsed time: 2m29s | Remaining time: …
 
-TestReport: ToNumber.wlt (64.12%) [==========================              ] 161 Success,7 MessagesFailureEvaluating 168 of 262 testsElapsed time: 2m30s | Remaining time: …
+TestReport: ToNumber.wlt (66.41%) [===========================             ] 172 SuccessEvaluating 172 of 259 testsElapsed time: 2m30s | Remaining time: …
 
-TestReport: ToNumber.wlt (64.5%) [==========================              ] 162 Success,7 MessagesFailureEvaluating 169 of 262 testsElapsed time: 2m30s | Remaining time: …
+TestReport: ToNumber.wlt (66.41%) [===========================             ] 172 SuccessEvaluating 172 of 259 testsElapsed time: 2m30s | Remaining time: …
 
-TestReport: ToNumber.wlt (64.5%) [==========================              ] 162 Success,7 MessagesFailureEvaluating 169 of 262 testsElapsed time: 2m30s | Remaining time: …
+TestReport: ToNumber.wlt (66.8%) [===========================             ] 173 SuccessEvaluating 173 of 259 testsElapsed time: 2m30s | Remaining time: …
 
-TestReport: ToNumber.wlt (64.5%) [==========================              ] 162 Success,7 MessagesFailureEvaluating 169 of 262 testsElapsed time: 2m31s | Remaining time: …
+TestReport: ToNumber.wlt (68.73%) [===========================             ] 178 SuccessEvaluating 178 of 259 testsElapsed time: 2m31s | Remaining time: …
 
-TestReport: ToNumber.wlt (65.27%) [==========================              ] 164 Success,7 MessagesFailureEvaluating 171 of 262 testsElapsed time: 2m31s | Remaining time: …
+TestReport: ToNumber.wlt (69.88%) [============================            ] 181 SuccessEvaluating 181 of 259 testsElapsed time: 2m31s | Remaining time: …
 
-TestReport: ToNumber.wlt (65.27%) [==========================              ] 164 Success,7 MessagesFailureEvaluating 171 of 262 testsElapsed time: 2m32s | Remaining time: …
+TestReport: ToNumber.wlt (69.88%) [============================            ] 181 SuccessEvaluating 181 of 259 testsElapsed time: 2m32s | Remaining time: …
 
-TestReport: ToNumber.wlt (65.27%) [==========================              ] 164 Success,7 MessagesFailureEvaluating 171 of 262 testsElapsed time: 2m32s | Remaining time: …
+TestReport: ToNumber.wlt (69.88%) [============================            ] 181 SuccessEvaluating 181 of 259 testsElapsed time: 2m32s | Remaining time: …
 
-TestReport: ToNumber.wlt (65.27%) [==========================              ] 164 Success,7 MessagesFailureEvaluating 171 of 262 testsElapsed time: 2m32s | Remaining time: …
+TestReport: ToNumber.wlt (69.88%) [============================            ] 181 SuccessEvaluating 181 of 259 testsElapsed time: 2m32s | Remaining time: …
 
-TestReport: ToNumber.wlt (65.65%) [==========================              ] 164 Success,8 MessagesFailureEvaluating 172 of 262 testsElapsed time: 2m33s | Remaining time: …
+TestReport: ToNumber.wlt (69.88%) [============================            ] 181 SuccessEvaluating 181 of 259 testsElapsed time: 2m33s | Remaining time: …
 
-TestReport: ToNumber.wlt (65.65%) [==========================              ] 164 Success,8 MessagesFailureEvaluating 172 of 262 testsElapsed time: 2m33s | Remaining time: …
+TestReport: ToNumber.wlt (70.27%) [============================            ] 182 SuccessEvaluating 182 of 259 testsElapsed time: 2m33s | Remaining time: …
 
-TestReport: ToNumber.wlt (65.65%) [==========================              ] 164 Success,8 MessagesFailureEvaluating 172 of 262 testsElapsed time: 2m34s | Remaining time: …
+TestReport: ToNumber.wlt (70.27%) [============================            ] 182 SuccessEvaluating 182 of 259 testsElapsed time: 2m34s | Remaining time: …
 
-TestReport: ToNumber.wlt (66.03%) [==========================              ] 164 Success,9 MessagesFailureEvaluating 173 of 262 testsElapsed time: 2m34s | Remaining time: …
+TestReport: ToNumber.wlt (70.27%) [============================            ] 182 SuccessEvaluating 182 of 259 testsElapsed time: 2m34s | Remaining time: …
 
-TestReport: ToNumber.wlt (66.03%) [==========================              ] 164 Success,9 MessagesFailureEvaluating 173 of 262 testsElapsed time: 2m34s | Remaining time: …
+TestReport: ToNumber.wlt (70.27%) [============================            ] 182 SuccessEvaluating 182 of 259 testsElapsed time: 2m34s | Remaining time: …
 
-TestReport: ToNumber.wlt (66.03%) [==========================              ] 164 Success,9 MessagesFailureEvaluating 173 of 262 testsElapsed time: 2m35s | Remaining time: …
+TestReport: ToNumber.wlt (70.27%) [============================            ] 182 SuccessEvaluating 182 of 259 testsElapsed time: 2m35s | Remaining time: …
 
-TestReport: ToNumber.wlt (66.41%) [===========================             ] 165 Success,9 MessagesFailureEvaluating 174 of 262 testsElapsed time: 2m35s | Remaining time: …
+TestReport: ToNumber.wlt (70.27%) [============================            ] 182 SuccessEvaluating 182 of 259 testsElapsed time: 2m35s | Remaining time: …
 
-TestReport: ToNumber.wlt (66.79%) [===========================             ] 166 Success,9 MessagesFailureEvaluating 175 of 262 testsElapsed time: 2m36s | Remaining time: …
+TestReport: ToNumber.wlt (70.66%) [============================            ] 183 SuccessEvaluating 183 of 259 testsElapsed time: 2m36s | Remaining time: …
 
-TestReport: ToNumber.wlt (66.79%) [===========================             ] 166 Success,9 MessagesFailureEvaluating 175 of 262 testsElapsed time: 2m36s | Remaining time: …
+TestReport: ToNumber.wlt (70.66%) [============================            ] 183 SuccessEvaluating 183 of 259 testsElapsed time: 2m36s | Remaining time: …
 
-TestReport: ToNumber.wlt (67.18%) [===========================             ] 167 Success,9 MessagesFailureEvaluating 176 of 262 testsElapsed time: 2m36s | Remaining time: …
+TestReport: ToNumber.wlt (70.66%) [============================            ] 183 SuccessEvaluating 183 of 259 testsElapsed time: 2m36s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.23%) [============================            ] 173 Success,11 MessagesFailureEvaluating 184 of 262 testsElapsed time: 2m37s | Remaining time: …
+TestReport: ToNumber.wlt (70.66%) [============================            ] 183 SuccessEvaluating 183 of 259 testsElapsed time: 2m37s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.23%) [============================            ] 173 Success,11 MessagesFailureEvaluating 184 of 262 testsElapsed time: 2m37s | Remaining time: …
+TestReport: ToNumber.wlt (70.66%) [============================            ] 183 SuccessEvaluating 183 of 259 testsElapsed time: 2m37s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.23%) [============================            ] 173 Success,11 MessagesFailureEvaluating 184 of 262 testsElapsed time: 2m38s | Remaining time: …
+TestReport: ToNumber.wlt (70.66%) [============================            ] 183 SuccessEvaluating 183 of 259 testsElapsed time: 2m38s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.23%) [============================            ] 173 Success,11 MessagesFailureEvaluating 184 of 262 testsElapsed time: 2m38s | Remaining time: …
+TestReport: ToNumber.wlt (72.59%) [=============================           ] 188 SuccessEvaluating 188 of 259 testsElapsed time: 2m38s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.23%) [============================            ] 173 Success,11 MessagesFailureEvaluating 184 of 262 testsElapsed time: 2m38s | Remaining time: …
+TestReport: ToNumber.wlt (72.59%) [=============================           ] 188 SuccessEvaluating 188 of 259 testsElapsed time: 2m38s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.23%) [============================            ] 173 Success,11 MessagesFailureEvaluating 184 of 262 testsElapsed time: 2m39s | Remaining time: …
+TestReport: ToNumber.wlt (72.59%) [=============================           ] 188 SuccessEvaluating 188 of 259 testsElapsed time: 2m39s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.61%) [============================            ] 174 Success,11 MessagesFailureEvaluating 185 of 262 testsElapsed time: 2m39s | Remaining time: …
+TestReport: ToNumber.wlt (72.59%) [=============================           ] 188 SuccessEvaluating 188 of 259 testsElapsed time: 2m39s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.61%) [============================            ] 174 Success,11 MessagesFailureEvaluating 185 of 262 testsElapsed time: 2m40s | Remaining time: …
+TestReport: ToNumber.wlt (72.59%) [=============================           ] 188 SuccessEvaluating 188 of 259 testsElapsed time: 2m40s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.61%) [============================            ] 174 Success,11 MessagesFailureEvaluating 185 of 262 testsElapsed time: 2m40s | Remaining time: …
+TestReport: ToNumber.wlt (72.59%) [=============================           ] 188 SuccessEvaluating 188 of 259 testsElapsed time: 2m40s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.61%) [============================            ] 174 Success,11 MessagesFailureEvaluating 185 of 262 testsElapsed time: 2m40s | Remaining time: …
+TestReport: ToNumber.wlt (72.97%) [=============================           ] 189 SuccessEvaluating 189 of 259 testsElapsed time: 2m40s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.61%) [============================            ] 174 Success,11 MessagesFailureEvaluating 185 of 262 testsElapsed time: 2m41s | Remaining time: …
+TestReport: ToNumber.wlt (72.97%) [=============================           ] 189 SuccessEvaluating 189 of 259 testsElapsed time: 2m41s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.99%) [============================            ] 175 Success,11 MessagesFailureEvaluating 186 of 262 testsElapsed time: 2m41s | Remaining time: …
+TestReport: ToNumber.wlt (72.97%) [=============================           ] 189 SuccessEvaluating 189 of 259 testsElapsed time: 2m41s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.99%) [============================            ] 175 Success,11 MessagesFailureEvaluating 186 of 262 testsElapsed time: 2m42s | Remaining time: …
+TestReport: ToNumber.wlt (73.36%) [=============================           ] 190 SuccessEvaluating 190 of 259 testsElapsed time: 2m42s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.99%) [============================            ] 175 Success,11 MessagesFailureEvaluating 186 of 262 testsElapsed time: 2m42s | Remaining time: …
+TestReport: ToNumber.wlt (73.36%) [=============================           ] 190 SuccessEvaluating 190 of 259 testsElapsed time: 2m42s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.99%) [============================            ] 175 Success,11 MessagesFailureEvaluating 186 of 262 testsElapsed time: 2m42s | Remaining time: …
+TestReport: ToNumber.wlt (73.36%) [=============================           ] 190 SuccessEvaluating 190 of 259 testsElapsed time: 2m42s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.99%) [============================            ] 175 Success,11 MessagesFailureEvaluating 186 of 262 testsElapsed time: 2m43s | Remaining time: …
+TestReport: ToNumber.wlt (73.75%) [=============================           ] 191 SuccessEvaluating 191 of 259 testsElapsed time: 2m43s | Remaining time: …
 
-TestReport: ToNumber.wlt (70.99%) [============================            ] 175 Success,11 MessagesFailureEvaluating 186 of 262 testsElapsed time: 2m43s | Remaining time: …
+TestReport: ToNumber.wlt (73.75%) [=============================           ] 191 SuccessEvaluating 191 of 259 testsElapsed time: 2m43s | Remaining time: …
 
-TestReport: ToNumber.wlt (72.9%) [=============================           ] 180 Success,11 MessagesFailureEvaluating 191 of 262 testsElapsed time: 2m44s | Remaining time: …
+TestReport: ToNumber.wlt (73.75%) [=============================           ] 191 SuccessEvaluating 191 of 259 testsElapsed time: 2m44s | Remaining time: …
 
-TestReport: ToNumber.wlt (72.9%) [=============================           ] 180 Success,11 MessagesFailureEvaluating 191 of 262 testsElapsed time: 2m44s | Remaining time: …
+TestReport: ToNumber.wlt (74.13%) [==============================          ] 192 SuccessEvaluating 192 of 259 testsElapsed time: 2m44s | Remaining time: …
 
-TestReport: ToNumber.wlt (72.9%) [=============================           ] 180 Success,11 MessagesFailureEvaluating 191 of 262 testsElapsed time: 2m44s | Remaining time: …
+TestReport: ToNumber.wlt (74.13%) [==============================          ] 192 SuccessEvaluating 192 of 259 testsElapsed time: 2m44s | Remaining time: …
 
-TestReport: ToNumber.wlt (72.9%) [=============================           ] 180 Success,11 MessagesFailureEvaluating 191 of 262 testsElapsed time: 2m45s | Remaining time: …
+TestReport: ToNumber.wlt (74.13%) [==============================          ] 192 SuccessEvaluating 192 of 259 testsElapsed time: 2m45s | Remaining time: …
 
-TestReport: ToNumber.wlt (72.9%) [=============================           ] 180 Success,11 MessagesFailureEvaluating 191 of 262 testsElapsed time: 2m45s | Remaining time: …
+TestReport: ToNumber.wlt (75.68%) [==============================          ] 196 SuccessEvaluating 196 of 259 testsElapsed time: 2m45s | Remaining time: …
 
-TestReport: ToNumber.wlt (72.9%) [=============================           ] 180 Success,11 MessagesFailureEvaluating 191 of 262 testsElapsed time: 2m46s | Remaining time: …
+TestReport: ToNumber.wlt (77.22%) [===============================         ] 200 SuccessEvaluating 200 of 259 testsElapsed time: 2m46s | Remaining time: …
 
-TestReport: ToNumber.wlt (73.28%) [=============================           ] 181 Success,11 MessagesFailureEvaluating 192 of 262 testsElapsed time: 2m46s | Remaining time: …
+TestReport: ToNumber.wlt (79.15%) [================================        ] 205 SuccessEvaluating 205 of 259 testsElapsed time: 2m46s | Remaining time: …
 
-TestReport: ToNumber.wlt (73.28%) [=============================           ] 181 Success,11 MessagesFailureEvaluating 192 of 262 testsElapsed time: 2m47s | Remaining time: …
+TestReport: ToNumber.wlt (81.47%) [=================================       ] 211 SuccessEvaluating 211 of 259 testsElapsed time: 2m46s | Remaining time: …
 
-TestReport: ToNumber.wlt (73.66%) [=============================           ] 181 Success,12 MessagesFailureEvaluating 193 of 262 testsElapsed time: 2m47s | Remaining time: …
+TestReport: ToNumber.wlt (84.17%) [==================================      ] 218 SuccessEvaluating 218 of 259 testsElapsed time: 2m47s | Remaining time: …
 
-TestReport: ToNumber.wlt (73.66%) [=============================           ] 181 Success,12 MessagesFailureEvaluating 193 of 262 testsElapsed time: 2m48s | Remaining time: …
+TestReport: ToNumber.wlt (84.17%) [==================================      ] 218 SuccessEvaluating 218 of 259 testsElapsed time: 2m47s | Remaining time: …
 
-TestReport: ToNumber.wlt (73.66%) [=============================           ] 181 Success,12 MessagesFailureEvaluating 193 of 262 testsElapsed time: 2m48s | Remaining time: …
+TestReport: ToNumber.wlt (84.17%) [==================================      ] 218 SuccessEvaluating 218 of 259 testsElapsed time: 2m48s | Remaining time: …
 
-TestReport: ToNumber.wlt (74.05%) [==============================          ] 182 Success,12 MessagesFailureEvaluating 194 of 262 testsElapsed time: 2m48s | Remaining time: …
+TestReport: ToNumber.wlt (84.56%) [==================================      ] 219 SuccessEvaluating 219 of 259 testsElapsed time: 2m48s | Remaining time: …
 
-TestReport: ToNumber.wlt (74.05%) [==============================          ] 182 Success,12 MessagesFailureEvaluating 194 of 262 testsElapsed time: 2m49s | Remaining time: …
+TestReport: ToNumber.wlt (84.56%) [==================================      ] 219 SuccessEvaluating 219 of 259 testsElapsed time: 2m48s | Remaining time: …
 
-TestReport: ToNumber.wlt (74.05%) [==============================          ] 182 Success,12 MessagesFailureEvaluating 194 of 262 testsElapsed time: 2m49s | Remaining time: …
+TestReport: ToNumber.wlt (84.56%) [==================================      ] 219 SuccessEvaluating 219 of 259 testsElapsed time: 2m49s | Remaining time: …
 
-TestReport: ToNumber.wlt (74.43%) [==============================          ] 183 Success,12 MessagesFailureEvaluating 195 of 262 testsElapsed time: 2m50s | Remaining time: …
+TestReport: ToNumber.wlt (84.94%) [==================================      ] 220 SuccessEvaluating 220 of 259 testsElapsed time: 2m49s | Remaining time: …
 
-TestReport: ToNumber.wlt (74.43%) [==============================          ] 183 Success,12 MessagesFailureEvaluating 195 of 262 testsElapsed time: 2m50s | Remaining time: …
+TestReport: ToNumber.wlt (84.94%) [==================================      ] 220 SuccessEvaluating 220 of 259 testsElapsed time: 2m50s | Remaining time: …
 
-TestReport: ToNumber.wlt (74.43%) [==============================          ] 183 Success,12 MessagesFailureEvaluating 195 of 262 testsElapsed time: 2m50s | Remaining time: …
+TestReport: ToNumber.wlt (84.94%) [==================================      ] 220 SuccessEvaluating 220 of 259 testsElapsed time: 2m50s | Remaining time: …
 
-TestReport: ToNumber.wlt (74.81%) [==============================          ] 184 Success,12 MessagesFailureEvaluating 196 of 262 testsElapsed time: 2m51s | Remaining time: …
+TestReport: ToNumber.wlt (85.71%) [==================================      ] 222 SuccessEvaluating 222 of 259 testsElapsed time: 2m50s | Remaining time: …
 
-TestReport: ToNumber.wlt (76.72%) [===============================         ] 189 Success,12 MessagesFailureEvaluating 201 of 262 testsElapsed time: 2m51s | Remaining time: …
+TestReport: ToNumber.wlt (88.42%) [===================================     ] 229 SuccessEvaluating 229 of 259 testsElapsed time: 2m51s | Remaining time: …
 
-TestReport: ToNumber.wlt (78.24%) [===============================         ] 193 Success,12 MessagesFailureEvaluating 205 of 262 testsElapsed time: 2m52s | Remaining time: …
+TestReport: ToNumber.wlt (88.42%) [===================================     ] 229 SuccessEvaluating 229 of 259 testsElapsed time: 2m51s | Remaining time: …
 
-TestReport: ToNumber.wlt (80.53%) [================================        ] 199 Success,12 MessagesFailureEvaluating 211 of 262 testsElapsed time: 2m52s | Remaining time: …
+TestReport: ToNumber.wlt (88.42%) [===================================     ] 229 SuccessEvaluating 229 of 259 testsElapsed time: 2m52s | Remaining time: …
 
-TestReport: ToNumber.wlt (82.82%) [=================================       ] 205 Success,12 MessagesFailureEvaluating 217 of 262 testsElapsed time: 2m52s | Remaining time: …
+TestReport: ToNumber.wlt (88.8%) [====================================    ] 230 SuccessEvaluating 230 of 259 testsElapsed time: 2m52s | Remaining time: …
 
-TestReport: ToNumber.wlt (84.35%) [==================================      ] 209 Success,12 MessagesFailureEvaluating 221 of 262 testsElapsed time: 2m53s | Remaining time: …
+TestReport: ToNumber.wlt (89.19%) [====================================    ] 231 SuccessEvaluating 231 of 259 testsElapsed time: 2m52s | Remaining time: …
 
-TestReport: ToNumber.wlt (84.35%) [==================================      ] 209 Success,12 MessagesFailureEvaluating 221 of 262 testsElapsed time: 2m53s | Remaining time: …
+TestReport: ToNumber.wlt (89.19%) [====================================    ] 231 SuccessEvaluating 231 of 259 testsElapsed time: 2m53s | Remaining time: …
 
-TestReport: ToNumber.wlt (84.35%) [==================================      ] 209 Success,12 MessagesFailureEvaluating 221 of 262 testsElapsed time: 2m54s | Remaining time: …
+TestReport: ToNumber.wlt (89.96%) [====================================    ] 233 SuccessEvaluating 233 of 259 testsElapsed time: 2m53s | Remaining time: …
 
-TestReport: ToNumber.wlt (84.73%) [==================================      ] 210 Success,12 MessagesFailureEvaluating 222 of 262 testsElapsed time: 2m54s | Remaining time: …
+TestReport: ToNumber.wlt (89.96%) [====================================    ] 233 SuccessEvaluating 233 of 259 testsElapsed time: 2m54s | Remaining time: …
 
-TestReport: ToNumber.wlt (84.73%) [==================================      ] 210 Success,12 MessagesFailureEvaluating 222 of 262 testsElapsed time: 2m54s | Remaining time: …
+TestReport: ToNumber.wlt (89.96%) [====================================    ] 233 SuccessEvaluating 233 of 259 testsElapsed time: 2m54s | Remaining time: …
 
-TestReport: ToNumber.wlt (84.73%) [==================================      ] 210 Success,12 MessagesFailureEvaluating 222 of 262 testsElapsed time: 2m55s | Remaining time: …
+TestReport: ToNumber.wlt (91.51%) [=====================================   ] 237 SuccessEvaluating 237 of 259 testsElapsed time: 2m54s | Remaining time: …
 
-TestReport: ToNumber.wlt (84.73%) [==================================      ] 210 Success,12 MessagesFailureEvaluating 222 of 262 testsElapsed time: 2m55s | Remaining time: …
+TestReport: ToNumber.wlt (93.44%) [=====================================   ] 242 SuccessEvaluating 242 of 259 testsElapsed time: 2m55s | Remaining time: …
 
-TestReport: ToNumber.wlt (85.11%) [==================================      ] 211 Success,12 MessagesFailureEvaluating 223 of 262 testsElapsed time: 2m56s | Remaining time: …
-
-TestReport: ToNumber.wlt (85.11%) [==================================      ] 211 Success,12 MessagesFailureEvaluating 223 of 262 testsElapsed time: 2m56s | Remaining time: …
-
-TestReport: ToNumber.wlt (85.5%) [==================================      ] 212 Success,12 MessagesFailureEvaluating 224 of 262 testsElapsed time: 2m56s | Remaining time: …
-
-TestReport: ToNumber.wlt (88.55%) [===================================     ] 220 Success,12 MessagesFailureEvaluating 232 of 262 testsElapsed time: 2m57s | Remaining time: …
-
-TestReport: ToNumber.wlt (88.55%) [===================================     ] 220 Success,12 MessagesFailureEvaluating 232 of 262 testsElapsed time: 2m57s | Remaining time: …
-
-TestReport: ToNumber.wlt (88.55%) [===================================     ] 220 Success,12 MessagesFailureEvaluating 232 of 262 testsElapsed time: 2m58s | Remaining time: …
-
-TestReport: ToNumber.wlt (88.93%) [====================================    ] 221 Success,12 MessagesFailureEvaluating 233 of 262 testsElapsed time: 2m58s | Remaining time: …
-
-TestReport: ToNumber.wlt (89.31%) [====================================    ] 222 Success,12 MessagesFailureEvaluating 234 of 262 testsElapsed time: 2m58s | Remaining time: …
-
-TestReport: ToNumber.wlt (89.31%) [====================================    ] 222 Success,12 MessagesFailureEvaluating 234 of 262 testsElapsed time: 2m59s | Remaining time: …
-
-TestReport: ToNumber.wlt (90.08%) [====================================    ] 224 Success,12 MessagesFailureEvaluating 236 of 262 testsElapsed time: 2m59s | Remaining time: …
-
-TestReport: ToNumber.wlt (90.08%) [====================================    ] 224 Success,12 MessagesFailureEvaluating 236 of 262 testsElapsed time: 3m00s | Remaining time: …
-
-TestReport: ToNumber.wlt (90.08%) [====================================    ] 224 Success,12 MessagesFailureEvaluating 236 of 262 testsElapsed time: 3m00s | Remaining time: …
-
-TestReport: ToNumber.wlt (91.22%) [====================================    ] 227 Success,12 MessagesFailureEvaluating 239 of 262 testsElapsed time: 3m00s | Remaining time: …
-
-TestReport: ToNumber.wlt (93.13%) [=====================================   ] 232 Success,12 MessagesFailureEvaluating 244 of 262 testsElapsed time: 3m01s | Remaining time: …
-Total MessagesFailure: 13
-
-All MessagesFailure tests:
-1. [processNewParameters] Non-subset parameters return Failure
-   Expected: HoldForm[{}]
-   Actual: {HoldForm[Message[MessageName[processNewParameters, subsetparam], {{FernandoDuarte`LongRunRisk`Model`Parameters`, phip}}]]}
-2. [processNewParameters] psi=1 returns Failure
-   Expected: HoldForm[{}]
-   Actual: {HoldForm[Message[MessageName[processNewParameters, psi]]]}
-3. [processNewParameters] psi=1.0 numeric returns Failure
-   Expected: HoldForm[{}]
-   Actual: {HoldForm[Message[MessageName[processNewParameters, psi]]]}
-4. [processNewParameters] Theta alone without gamma or psi returns Failure
-   Expected: HoldForm[{}]
-   Actual: {HoldForm[Message[MessageName[processNewParameters, theta]]]}
-5. [toNum] maxMaturity option evaluates to numbers
-   Expected: HoldForm[{}]
-   Actual: {HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[maxMaturity], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[maxMaturity], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[maxMaturity], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[General, stop], HoldForm[MessageName[OptionValue, nodef]]]]}
-6. [toNum] MaxIterations option evaluates to numbers
-   Expected: HoldForm[{}]
-   Actual: {HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[MaxIterations], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[MaxIterations], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[MaxIterations], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[General, stop], HoldForm[MessageName[OptionValue, nodef]]]]}
-7. [toNum] DependentVariables option evaluates to numbers
-   Expected: HoldForm[{}]
-   Actual: {HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[DependentVariables], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[DependentVariables], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[OptionValue, nodef], HoldForm[DependentVariables], HoldForm[{FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`toNumRules, updateCoeffs}]]], HoldForm[Message[MessageName[General, stop], HoldForm[MessageName[OptionValue, nodef]]]]}
-8. [toNum/BugCoverage] User-constructed SignsA pattern works
-   Expected: HoldForm[{}]
-   Actual: {HoldForm[Message[MessageName[toNum, nobsolutions]]]}
-9. [toNum/BugCoverage] User-constructed Real SignsA pattern works
-   Expected: HoldForm[{}]
-   Actual: {HoldForm[Message[MessageName[toNum, nobsolutions]]]}
-10. [toNum] Invalid parameter name returns Failure
-   Expected: HoldForm[{}]
-   Actual: {HoldForm[Message[MessageName[processNewParameters, subsetparam], {{FernandoDuarte`LongRunRisk`Tests`Tools`ToNumber`, invalidParameterName}}]]}
-11. [toNum] String keys for parameters fail
-   Expected: HoldForm[{MessageName[Rest, normal], MessageName[Rest, normal], MessageName[processNewParameters, subsetparam]}]
-   Actual: {HoldForm[Message[MessageName[processNewParameters, subsetparam], {FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`splitParamKey[gamma]}]]}
-12. [toNum] Multiple A terms evaluate to numeric
-   Expected: HoldForm[{}]
-   Actual: {HoldForm[Message[MessageName[Reduce, inex]]], HoldForm[Message[MessageName[Reduce, naqs], HoldForm[Null]]], HoldForm[Message[MessageName[Reduce, naqs], HoldForm[Null]]], HoldForm[Message[MessageName[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`bindUnary, runtime]]]}
-13. [toNum/Docs] Invalid string parameter gamma returns Failure
-   Expected: HoldForm[{MessageName[Rest, normal], MessageName[Rest, normal], MessageName[processNewParameters, subsetparam]}]
-   Actual: {HoldForm[Message[MessageName[processNewParameters, subsetparam], {FernandoDuarte`LongRunRisk`Tools`ToNumber`Private`splitParamKey[gamma]}]]}
+=== Test Summary ===
+Total: 259
+Passed: 259
+Failed: 0
+Pass rate: 100.%
