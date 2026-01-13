@@ -152,12 +152,7 @@ getCanonicalHash[expr_] := Block[{$ContextPath = {"System`"}},
   Hash[ExportString[canonicalize[expr], "WL"], "SHA256", "HexString"]
 ];
 
-(* OS-level memory usage (sum of WolframKernel RSS, in GB) *)
-wolframKernelMemoryGB[] := Module[{raw, kb},
-  raw = Quiet@Import["!ps -axo rss,comm | grep -i '[W]olframKernel' | awk '{sum+=$1} END {print sum}'", "String"];
-  kb = Quiet@Check[ToExpression@StringTrim[raw], $Failed];
-  If[NumberQ[kb], N[kb/1024.^2], Missing["NotAvailable"]]
-];
+(* wolframKernelMemoryGB is defined in Common.wl - use that version *)
 
 loadManifestSafe[file_] := Module[{held, data},
   If[!FileExistsQ[file],
@@ -242,7 +237,7 @@ updateModelManifest[modelsAssoc_Association] := Module[
 
 checkCatalogChanges[] := Module[
   {root, manifestFile, savedManifest, catalogModels, currentCatalogHash,
-   savedCatalogHash, savedModelHashes, currentModelHashes,
+   savedCatalogHash, currentModelHashes, comparison,
    changedModels, newModels, removedModels, modelsToValidate, validationResult},
 
   (* Find root *)
@@ -274,21 +269,13 @@ checkCatalogChanges[] := Module[
     Return[Null]
   ];
 
-  (* Catalog has changed - identify which models *)
-  savedModelHashes = savedManifest["Models"];
+  (* Catalog has changed - use shared comparison logic *)
   currentModelHashes = Map[getCanonicalHash, catalogModels];
-
-  (* Find changed models (exist in both, hash differs) *)
-  changedModels = Select[
-    Keys[KeyTake[currentModelHashes, Keys[savedModelHashes]]],
-    currentModelHashes[#] =!= savedModelHashes[#] &
+  comparison = FernandoDuarte`LongRunRisk`Tools`Common`compareModelsAgainstManifest[
+    currentModelHashes,
+    savedManifest["Models"]
   ];
-
-  (* Find new models (in current but not saved) *)
-  newModels = Complement[Keys[currentModelHashes], Keys[savedModelHashes]];
-
-  (* Find removed models (in saved but not current) *)
-  removedModels = Complement[Keys[savedModelHashes], Keys[currentModelHashes]];
+  {changedModels, newModels, removedModels} = Lookup[comparison, {"Changed", "New", "Removed"}];
 
   If[changedModels =!= {},
     Message[checkCatalogChanges::changed, StringRiffle[changedModels, ", "]]
@@ -328,7 +315,7 @@ checkCatalogChanges[] := Module[
 (* Association argument version: compares provided models against manifest on disk, no reformatting *)
 checkCatalogChanges[modelsAssoc_Association] := Module[
   {root, manifestFile, savedManifest, currentCatalogHash,
-   savedCatalogHash, savedModelHashes, currentModelHashes,
+   savedCatalogHash, currentModelHashes, comparison,
    changedModels, newModels, removedModels, modelsToValidate, validationResult},
 
   (* Find root *)
@@ -356,21 +343,13 @@ checkCatalogChanges[modelsAssoc_Association] := Module[
     Return[Null]
   ];
 
-  (* Catalog has changed - identify which models *)
-  savedModelHashes = savedManifest["Models"];
+  (* Catalog has changed - use shared comparison logic *)
   currentModelHashes = Map[getCanonicalHash, modelsAssoc];
-
-  (* Find changed models (exist in both, hash differs) *)
-  changedModels = Select[
-    Keys[KeyTake[currentModelHashes, Keys[savedModelHashes]]],
-    currentModelHashes[#] =!= savedModelHashes[#] &
+  comparison = FernandoDuarte`LongRunRisk`Tools`Common`compareModelsAgainstManifest[
+    currentModelHashes,
+    savedManifest["Models"]
   ];
-
-  (* Find new models (in current but not saved) *)
-  newModels = Complement[Keys[currentModelHashes], Keys[savedModelHashes]];
-
-  (* Find removed models (in saved but not current) *)
-  removedModels = Complement[Keys[savedModelHashes], Keys[currentModelHashes]];
+  {changedModels, newModels, removedModels} = Lookup[comparison, {"Changed", "New", "Removed"}];
 
   If[changedModels =!= {},
     Message[checkCatalogChanges::changed, StringRiffle[changedModels, ", "]]
@@ -1278,7 +1257,7 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 (* Handles first-run case (no manifest) by returning all enabled models as "New" *)
 checkCatalogForUI[] := Module[
 	{root, manifestFile, catalogModels, savedManifest, currentCatalogHash,
-	 savedCatalogHash, savedModelHashes, currentModelHashes,
+	 savedCatalogHash, currentModelHashes, comparison,
 	 changedModels, newModels, removedModels, modelsToValidate, validationResult},
 
 	root = findPacletRoot[];
@@ -1316,21 +1295,13 @@ checkCatalogForUI[] := Module[
 			"Validation" -> <|"Valid" -> True|>, "FirstRun" -> False|>]
 	];
 
-	(* Catalog has changed - identify which models *)
-	savedModelHashes = savedManifest["Models"];
+	(* Catalog has changed - use shared comparison logic *)
 	currentModelHashes = Map[getCanonicalHash, catalogModels];
-
-	(* Find changed models (exist in both, hash differs) *)
-	changedModels = Select[
-		Keys[KeyTake[currentModelHashes, Keys[savedModelHashes]]],
-		currentModelHashes[#] =!= savedModelHashes[#] &
+	comparison = FernandoDuarte`LongRunRisk`Tools`Common`compareModelsAgainstManifest[
+		currentModelHashes,
+		savedManifest["Models"]
 	];
-
-	(* Find new models (in current but not saved) *)
-	newModels = Complement[Keys[currentModelHashes], Keys[savedModelHashes]];
-
-	(* Find removed models (in saved but not current) *)
-	removedModels = Complement[Keys[savedModelHashes], Keys[currentModelHashes]];
+	{changedModels, newModels, removedModels} = Lookup[comparison, {"Changed", "New", "Removed"}];
 
 	(* Validate changed and new models - but DON'T reformat *)
 	modelsToValidate = Join[changedModels, newModels];

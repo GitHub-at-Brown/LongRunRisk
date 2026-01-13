@@ -12,6 +12,14 @@ BeginPackage["FernandoDuarte`LongRunRisk`Tools`Common`"]
 
 
 print;
+LRRResource;
+inheritUsageMessages;
+requirePacletRoot;
+requireManifest;
+compareModelsAgainstManifest;
+validateArtifact;
+extractStageOptions;
+executePhase;
 
 
 (* ::Subsubsection:: *)
@@ -19,6 +27,21 @@ print;
 
 
 print::usage = "print[msg] writes msg to $Output using WriteString.";
+
+(* Shared resource messages - single source of truth for resource-related errors *)
+LRRResource::noroot = "Could not locate paclet root directory.";
+LRRResource::nocat = "Catalog file not found at `1`.";
+LRRResource::nomodel = "Model `1` not found in catalog.";
+LRRResource::nomanifest = "Manifest file not found or could not be loaded from `1`.";
+LRRResource::versionMismatch = "Version mismatch: catalog `1` vs manifest `2`.";
+
+inheritUsageMessages::usage = "inheritUsageMessages[symbols, replacements] creates usage messages for private symbols by transforming public symbol usage strings.";
+requirePacletRoot::usage = "requirePacletRoot[findPacletRoot] returns the paclet root or issues LRRResource::noroot and returns $Failed.";
+requireManifest::usage = "requireManifest[path, loadManifestSafe] loads a manifest file, issuing LRRResource::nomanifest on failure.";
+compareModelsAgainstManifest::usage = "compareModelsAgainstManifest[current, saved] returns <|\"Changed\"->..., \"New\"->..., \"Removed\"->...|>.";
+validateArtifact::usage = "validateArtifact[path, validator] returns <|\"Valid\"->bool, \"Reason\"->...|>.";
+extractStageOptions::usage = "extractStageOptions[opts, stages] returns an Association mapping each stage function to its filtered options.";
+executePhase::usage = "executePhase[name, models, executor] executes a build phase and returns structured results with timing.";
 
 
 (* ::Section:: *)
@@ -94,6 +117,91 @@ formatMemoryInfo[] := Module[{mem = MemoryInUse[], memGB, kernelGB},
 		" | Wolfram Memory: ", ToString @ NumberForm[memGB, {4, 2}], " GB",
 		" | Physical RAM: ", If[MissingQ[kernelGB], "N/A", ToString @ NumberForm[kernelGB, {4, 2}] <> " GB"]
 	]
+]
+
+
+(* ::Subsection:: *)
+(*DRY Utility Functions*)
+
+
+(* 2a. inheritUsageMessages - creates usage messages for private symbols *)
+(* Automatically adds SymbolName@sym -> SymbolName@symNew replacement *)
+(* extraReplacements are additional string replacements to apply *)
+inheritUsageMessages[symbols_List, extraReplacements_List] :=
+	Function[sym,
+		With[{symNew = Symbol @ StringDrop[SymbolName @ sym, -2]},
+			AppendTo[Messages[symNew],
+				HoldPattern[MessageName[symNew, "usage"]] :>
+					StringReplace[
+						Information[sym, "Usage"],
+						Join[{SymbolName @ sym -> SymbolName @ symNew}, extraReplacements]
+					]
+					/; StringQ[MessageName[sym, "usage"]]
+			]
+		],
+		HoldAll
+	] @@@ (Hold /@ Symbol /@ symbols)
+
+
+(* 2b. requirePacletRoot - wrapper for findPacletRoot with error handling *)
+(* Takes findPacletRoot as argument to avoid circular dependency *)
+requirePacletRoot[findPacletRootFn_] := Module[{root},
+	root = findPacletRootFn[];
+	If[root === $Failed, Message[LRRResource::noroot]];
+	root
+]
+
+
+(* 2c. requireManifest - wrapper for loadManifestSafe with error handling *)
+(* Takes loadManifestSafe as argument to avoid circular dependency *)
+requireManifest[path_String, loadManifestSafeFn_] := Module[{manifest},
+	manifest = loadManifestSafeFn[path];
+	If[manifest === $Failed, Message[LRRResource::nomanifest, path]];
+	manifest
+]
+
+
+(* 2d. compareModelsAgainstManifest - shared hash comparison logic *)
+compareModelsAgainstManifest[current_Association, saved_Association] := Module[
+	{currentKeys, savedKeys, changedModels, newModels, removedModels},
+	currentKeys = Keys[current];
+	savedKeys = Keys[saved];
+
+	newModels = Complement[currentKeys, savedKeys];
+	removedModels = Complement[savedKeys, currentKeys];
+	changedModels = Select[
+		Intersection[currentKeys, savedKeys],
+		current[#] =!= saved[#] &
+	];
+
+	<|"Changed" -> changedModels, "New" -> newModels, "Removed" -> removedModels|>
+]
+
+
+(* 2e. validateArtifact - generic file validation wrapper *)
+validateArtifact[path_String, validator_Function] := Module[{result},
+	If[!FileExistsQ[path], Return[<|"Valid" -> False, "Reason" -> "FileNotFound"|>]];
+	result = validator[path];
+	<|"Valid" -> result, "Reason" -> If[result, None, "ValidationFailed"]|>
+]
+
+
+(* 2f. extractStageOptions - multi-stage option extraction *)
+extractStageOptions[opts_List, stages_List] :=
+	AssociationMap[FilterRules[opts, Options[#]] &, stages]
+
+
+(* 2g. executePhase - standardized phase execution with timing *)
+executePhase[name_String, models_List, executor_] := Module[
+	{startTime, results},
+	startTime = AbsoluteTime[];
+	results = Map[executor, models];
+	<|
+		"Phase" -> name,
+		"Models" -> Length[models],
+		"Duration" -> AbsoluteTime[] - startTime,
+		"Results" -> results
+	|>
 ]
 
 

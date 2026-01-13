@@ -72,6 +72,7 @@ Begin["`Private`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
 $ContextPath=AppendTo[
 	$ContextPath,
 	"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"
@@ -87,26 +88,11 @@ $endogenousVarsPrivate = ((StringDrop[#,-2]&) /@ $endogenousVars);
 Symbol/@ $endogenousVarsPrivate;
 
 
-(*inherit usage message*)
-Function[sym,
-	With[
-		{
-			symNew=Symbol@StringDrop[SymbolName@sym,-2]
-		},
-		AppendTo[
-			Messages[symNew],
-			HoldPattern[MessageName[symNew,"usage"]]:>StringReplace[
-				Information[sym,"Usage"],
-				{
-					SymbolName@sym->SymbolName@symNew,
-					"gives"->"represents"
-				}
-			]/;StringQ[MessageName[sym,"usage"]]
-		];
-	];
-	,
-	HoldAll
-]@@@(Hold /@ Symbol /@ $endogenousVars);
+(*inherit usage message - uses shared utility from Common.wl*)
+FernandoDuarte`LongRunRisk`Tools`Common`inheritUsageMessages[
+	$endogenousVars,
+	{"gives" -> "represents"}
+];
 
 
 (*make index variables be maintained as exact integers, rather than being converted by N to approximate numbers*)

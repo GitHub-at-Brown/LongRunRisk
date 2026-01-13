@@ -50,6 +50,7 @@ Begin["`Private`"]
 
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"]
+Needs["FernandoDuarte`LongRunRisk`Tools`Common`"]
 
 
 (* ::Subsection:: *)
@@ -59,27 +60,11 @@ Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"]
 (*declare private symbols for exogenous variables that are the same as the public symbols but do not end in "eq"*)
 $exogenousVarsPrivate = ((StringDrop[#,-2]&) /@ $exogenousVars)
 Symbol/@ $exogenousVarsPrivate;
-(*inherit usage message*)
-Function[sym,
-	With[
-		{
-			symNew=Symbol@StringDrop[SymbolName@sym,-2]
-		},
-		AppendTo[
-			Messages[symNew],
-			HoldPattern[MessageName[symNew,"usage"]]:>StringReplace[
-				Information[sym,"Usage"],
-				{
-					SymbolName@sym->SymbolName@symNew,
-					"gives"->"represents",
-					"the exogenous dynamics of"->""
-				}
-			]/;StringQ[MessageName[sym,"usage"]]
-		];
-	];
-	,
-	HoldAll
-]@@@(Hold /@ Symbol /@ $exogenousVars);
+(*inherit usage message - uses shared utility from Common.wl*)
+FernandoDuarte`LongRunRisk`Tools`Common`inheritUsageMessages[
+	$exogenousVars,
+	{"gives" -> "represents", "the exogenous dynamics of" -> ""}
+];
 
 
 $exogenousVarsStocksPrivate = ((StringDrop[#,-2]&) /@ $exogenousVarsStocks)
