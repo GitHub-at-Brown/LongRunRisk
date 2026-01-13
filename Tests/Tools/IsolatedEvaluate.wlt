@@ -191,6 +191,22 @@ TestCreate[
     TestID -> "[isolatedEvaluate] Quiet False with LocalTimeout returns simplified result"
 ]
 
+(* Same-context symbols simplify: MyTestContext`a + MyTestContext`a -> 2*MyTestContext`a *)
+TestCreate[
+    isolatedEvaluate[Simplify[MyTestContext`a + MyTestContext`a]] === 2*MyTestContext`a,
+    True,
+    {},
+    TestID -> "[isolatedEvaluate] Same-context symbols simplify together"
+]
+
+(* Different-context symbols do NOT simplify: MyTestContext`a + Global`a stays as sum *)
+TestCreate[
+    isolatedEvaluate[Simplify[MyTestContext`a + Global`a]] === MyTestContext`a + Global`a,
+    True,
+    {},
+    TestID -> "[isolatedEvaluate] Different-context symbols do not simplify"
+]
+
 (* ::Subsection:: *)
 (*Context Behavior with Bindings*)
 
@@ -234,26 +250,12 @@ TestCreate[
     TestID -> "[isolatedEvaluate] Different contexts do not match"
 ]
 
-(* Returned symbols are in Global context (LocalEvaluate serialization behavior) *)
+(* Subprocess evaluates in Global` context *)
 TestCreate[
-    Context[isolatedEvaluate[Global`someSymbol]] === "Global`",
+    isolatedEvaluate[$Context] === "Global`",
     True,
     {},
-    TestID -> "[isolatedEvaluate] Returned symbols are in Global context"
-]
-
-(* Note: LocalEvaluate serializes symbols through Global context. Qualified symbols
-   like MyTestContext`sym get deserialized with their context preserved in the symbol
-   name but Context[] may return Global` due to how the subprocess handles contexts.
-   This is expected LocalEvaluate behavior, not an isolatedEvaluate issue. *)
-TestCreate[
-    MatchQ[
-        isolatedEvaluate[MyTestContext`qualifiedSymbol],
-        _Symbol
-    ],
-    True,
-    {},
-    TestID -> "[isolatedEvaluate] Returns qualified symbol as Symbol"
+    TestID -> "[isolatedEvaluate] Subprocess uses Global context"
 ]
 
 (* Unqualified expression with non-Global qualified binding does NOT match *)

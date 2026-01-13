@@ -24,19 +24,12 @@ Get @ FileNameJoin[{DirectoryName[$TestFileName, 2], "TestHelpers.wl"}];
 (* Helper to check if a symbol has a usage message *)
 hasUsage[sym_Symbol] := StringQ[Information[sym, "Usage"]]
 
-(* Note: Models is excluded as it's a variable, not a function with usage *)
-$publicSymbols = {
-	BuildModels,
-	CheckModels,
-	Ev, Var, Corr, Cov,
-	Growth,
-	Info,
-	PlotCoeffs,
-	ToEquation, ToExogenousVars, ToNum, ToStateVars,
-	UncondE, UncondCov, UncondVar, UncondCorr,
-	VisualizeCoeffs,
-	YieldCurve
-};
+(* Dynamically derive public symbols from context, excluding variables and lookup tables *)
+$excludedSymbols = {"Models", "covLongBKY", "covLongBY", "covLongDES", "covLongNRC", "covLongNRCStochVol"};
+$publicSymbols = Symbol /@ Select[
+	Names["FernandoDuarte`LongRunRisk`*"],
+	!MemberQ[$excludedSymbols, StringExtract[#, "`" -> -1]] &
+];
 
 (* Test: All public symbols have usage messages *)
 (* Note: On failure, ActualOutput shows symbols missing usage messages *)
@@ -113,8 +106,7 @@ TestCreate[
 	TestID -> "[Cov] Matches internal cov for all test models"
 ]
 
-(* Test: Corr matches internal corr for BKY model *)
-(* Note: Using dc and x which both have non-zero variance *)
+(* Test: Corr matches internal corr for BKY model, using dc and x which both have non-zero variance *)
 TestCreate[
 	Corr[dc[t + 1], x[t + 1], t, $modBKY] === corr[dc[t + 1], x[t + 1], t, $modBKY],
 	True,
@@ -122,8 +114,7 @@ TestCreate[
 	TestID -> "[Corr] Matches internal corr for BKY model"
 ]
 
-(* Test: Corr matches internal corr for NRC model *)
-(* Note: Using dc and pi which both have non-zero variance in NRC *)
+(* Test: Corr matches internal corr for NRC model, using dc and pi which both have non-zero variance *)
 TestCreate[
 	Corr[dc[t + 1], pi[t + 1], t, $modNRC] === corr[dc[t + 1], pi[t + 1], t, $modNRC],
 	True,
@@ -161,8 +152,7 @@ TestCreate[
 	TestID -> "[Cov] Evaluates without $Failed for DES"
 ]
 
-(* Test: Corr evaluates without $Failed for NRCStochVol *)
-(* Note: Using dc and pi which both have non-zero variance *)
+(* Test: Corr evaluates without $Failed for NRCStochVol, using dc and pi which both have non-zero variance *)
 TestCreate[
 	With[{result = Corr[dc[t + 1], pi[t + 1], t, $modNRCStochVol]},
 		result =!= $Failed && !MatchQ[result, _Corr]
@@ -198,8 +188,7 @@ TestCreate[
 	TestID -> "[UncondE] Evaluates without $Failed for BKY"
 ]
 
-(* Test: UncondCov evaluates without $Failed for BKY *)
-(* Note: Using BKY instead of NRC as it has complete covariance data *)
+(* Test: UncondCov evaluates without $Failed for BKY, which has complete covariance data *)
 TestCreate[
 	With[{result = UncondCov[dc[t], dc[t], $modBKY]},
 		result =!= $Failed && !MatchQ[result, _UncondCov]
@@ -219,8 +208,7 @@ TestCreate[
 	TestID -> "[UncondVar] Evaluates without $Failed for BKY"
 ]
 
-(* Test: UncondCorr evaluates without $Failed for BKY *)
-(* Note: Using dc and x which both have non-zero variance *)
+(* Test: UncondCorr evaluates without $Failed for BKY, using dc and x which both have non-zero variance *)
 TestCreate[
 	With[{result = UncondCorr[dc[t], x[t], $modBKY]},
 		result =!= $Failed && !MatchQ[result, _UncondCorr]
