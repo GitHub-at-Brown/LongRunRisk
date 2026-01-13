@@ -33,6 +33,7 @@ Begin["`Private`"]
 
 
 Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`IsolatedEvaluate`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
@@ -621,14 +622,14 @@ simplifyCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}
 								localSimplifyOpts = simplifyOpts
 							},
 							{
-								LocalEvaluate[Map[
-									(Assuming[localAssumeA, Quiet[FullSimplify[#, Sequence @@ localSimplifyOpts], {FullSimplify::time, FullSimplify::gtime}]] &),
-									localSysA
-								]],
-								LocalEvaluate[Map[
-									(Assuming[localAssumeB, Quiet[FullSimplify[#, Sequence @@ localSimplifyOpts], {FullSimplify::time, FullSimplify::gtime}]] &),
-									localSysB
-								]]
+								isolatedEvaluate[
+									Map[FullSimplify[#, Sequence @@ localSimplifyOpts] &, localSysA],
+									"Assumptions" -> localAssumeA
+								],
+								isolatedEvaluate[
+									Map[FullSimplify[#, Sequence @@ localSimplifyOpts] &, localSysB],
+									"Assumptions" -> localAssumeB
+								]
 							}
 							]
 						];
@@ -744,20 +745,18 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						(*Echo[solB["Conditions"][[1]],"solBConditions"];*)
 						(*simplify using assumptions*)
 						solA["Solution"]=With[
-							{localSol = solA["Solution"], localCond = solA["Conditions"], localOpts = simplifyOpts},
-							LocalEvaluate[
-								Block[{$HistoryLength = 0},
-									Assuming[localCond, Quiet[Simplify[localSol, Sequence @@ localOpts], {Simplify::time, Simplify::gtime}]]
-								]
+							{localSol = solA["Solution"], localOpts = simplifyOpts},
+							isolatedEvaluate[
+								Simplify[localSol, Sequence @@ localOpts],
+								"Assumptions" -> solA["Conditions"]
 							]
 						];
 						print["[" <> shortname <> "] simplify solA Solution done"];
 					    solB["Solution"]=With[
-							{localSol = solB["Solution"], localCond = solB["Conditions"], localOpts = simplifyOpts},
-							LocalEvaluate[
-								Block[{$HistoryLength = 0},
-									Assuming[localCond, Quiet[Simplify[localSol, Sequence @@ localOpts], {Simplify::time, Simplify::gtime}]]
-								]
+							{localSol = solB["Solution"], localOpts = simplifyOpts},
+							isolatedEvaluate[
+								Simplify[localSol, Sequence @@ localOpts],
+								"Assumptions" -> solB["Conditions"]
 							]
 						];
 						print["[" <> shortname <> "] simplify solB Solution done"];
@@ -787,21 +786,13 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								With[
 									{
 										eqA0Unsimplified = Prepend[newSysA,wcCoeffEq]/.solA["Solution"],
-										localAssumeA = assumeA,
 										localSimplifyOpts = simplifyOpts
 									},
-									solA["eqA0"] = LocalEvaluate[
-										Block[{$HistoryLength = 0},
-											Assuming[
-												localAssumeA,
-												Quiet[
-													FullSimplify[eqA0Unsimplified,Sequence @@ localSimplifyOpts],
-													{FullSimplify::time,FullSimplify::gtime}
-												]
-											]
-										]
+									solA["eqA0"] = isolatedEvaluate[
+										FullSimplify[eqA0Unsimplified, Sequence @@ localSimplifyOpts],
+										"Assumptions" -> assumeA
 									];
-									print["[" <> shortname <> "] LocalEvaluate eqA0 done"];
+									print["[" <> shortname <> "] isolatedEvaluate eqA0 done"];
 								];
 							];
 							With[
@@ -821,31 +812,17 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 									solB["varsB0"] = Prepend[newVarsB,modelCoeffsSysPd[[2,1]]];
 									(*pd without plugging in wc coeffs - only if needed*)
 									If[MatchQ[pdMode, "B" | "Both"],
-										solB["eqB0"] = LocalEvaluate[
-											Block[{$HistoryLength = 0},
-												Assuming[
-													localAssumeB,
-													Quiet[
-														FullSimplify[eqB0,Sequence @@ localSimplifyOpts],
-														{FullSimplify::time,FullSimplify::gtime}
-													]
-												]
-											]
+										solB["eqB0"] = isolatedEvaluate[
+											FullSimplify[eqB0, Sequence @@ localSimplifyOpts],
+											"Assumptions" -> localAssumeB
 										];
 										print["[" <> shortname <> "] LocalEvaluate eqB0 done"];
 									];
 									(*pd plugging in wc coeffs - only if needed*)
 									If[MatchQ[pdMode, "AB" | "Both"],
-										solB["eqAB0"] = LocalEvaluate[
-											Block[{$HistoryLength = 0},
-												Assuming[
-													localAssumeB,
-													Quiet[
-														FullSimplify[eqB0/.localSolASolution,Sequence @@ localSimplifyOpts],
-														{FullSimplify::time,FullSimplify::gtime}
-													]
-												]
-											]
+										solB["eqAB0"] = isolatedEvaluate[
+											FullSimplify[eqB0 /. localSolASolution, Sequence @@ localSimplifyOpts],
+											"Assumptions" -> localAssumeB
 										];
 										print["[" <> shortname <> "] LocalEvaluate eqAB0 done"];
 									];
@@ -926,16 +903,13 @@ tryTransforms[
 					];
 				CloseKernels[],
 				(* Sequential fallback with memory isolation *)
-				results = With[
-					{localExpr = expr, localAss = ass, localOpts = simplifyOpts, localTransforms = transformsList},
-					LocalEvaluate[
-						Block[{$HistoryLength = 0},
-							Table[
-								Assuming[localAss, Quiet[Simplify[localExpr /. transform, Sequence @@ localOpts], {Simplify::time, Simplify::gtime}]],
-								{transform, localTransforms}
-							]
-						]
-					]
+				results = isolatedEvaluate[
+					Table[
+						Simplify[localExpr /. transform, Sequence @@ localOpts],
+						{transform, localTransforms}
+					],
+					"Bindings" -> {localExpr -> expr, localOpts -> simplifyOpts, localTransforms -> transformsList},
+					"Assumptions" -> ass
 				]
 			]
 		];

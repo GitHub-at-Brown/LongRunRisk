@@ -56,6 +56,7 @@ Begin["`Private`"];
 
 
 Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`IsolatedEvaluate`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
@@ -202,27 +203,22 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         print["[paramQuadSolve] canonicalizeCoefficients done"];
         (* TimeConstraint returns best simplification found within budget *)
         coeffMap = With[
-          {localCoeffMap = coeffMap, localAss = ass, localBudget = simpBudget},
-          LocalEvaluate[
-            Block[{$HistoryLength = 0},
-              Map[Simplify[#, Assumptions -> localAss, TimeConstraint -> localBudget] &, localCoeffMap]
-            ]
+          {localCoeffMap = coeffMap, localBudget = simpBudget},
+          isolatedEvaluate[
+            Map[Simplify[#, TimeConstraint -> localBudget] &, localCoeffMap],
+            "Assumptions" -> ass
           ]
         ];
         print["[paramQuadSolve] Simplify coeffMap done"];
-        seqRes = TimeConstrained[
-          With[{localCanPolys = canPolys, localVarsToSolve = varsToSolve, localAss = ass,
-                localSignHead = signHead, localGbOrder = gbOrderUsed, localAllowGroebner = allowGroebner,
-                localGbMemLimit = gbMemLimit, localSimpBudget = simpBudget},
-            LocalEvaluate[
-              Block[{$HistoryLength = 0},
-                sequentialSolve[localCanPolys, localVarsToSolve, localAss, localSignHead,
-                                localGbOrder, localAllowGroebner, localGbMemLimit, localSimpBudget]
-              ]
-            ]
-          ],
-          N@timeout,
-          $Failed
+        seqRes = With[
+          {localCanPolys = canPolys, localVarsToSolve = varsToSolve, localAss = ass,
+           localSignHead = signHead, localGbOrder = gbOrderUsed, localAllowGroebner = allowGroebner,
+           localGbMemLimit = gbMemLimit, localSimpBudget = simpBudget},
+          isolatedEvaluate[
+            sequentialSolve[localCanPolys, localVarsToSolve, localAss, localSignHead,
+                            localGbOrder, localAllowGroebner, localGbMemLimit, localSimpBudget],
+            "HardTimeout" -> timeout
+          ]
         ];
         print["[paramQuadSolve] sequentialSolve done"];
         If[!MatchQ[seqRes, {__}], Message[paramQuadSolve::solvefail]; Return[$Failed]];
@@ -255,10 +251,8 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         (* Apply square root simplification *)
         {signRootMapDesym, signRadMapDesym} = With[
           {localSignRootMap = signRootMapDesym, localSignRadMap = signRadMapDesym, localFullAss = fullAss},
-          LocalEvaluate[
-            Block[{$HistoryLength = 0},
-              simplifySignMap[localSignRootMap, localSignRadMap, localFullAss]
-            ]
+          isolatedEvaluate[
+            simplifySignMap[localSignRootMap, localSignRadMap, localFullAss]
           ]
         ];
         print["[paramQuadSolve] LocalEvaluate simplifySignMap done"];
@@ -314,48 +308,44 @@ paramQuadSolve[eqns_List, vars_List, opts : OptionsPattern[{paramQuadSolve}]] :=
         print["[paramQuadSolve] Simplify radicandConditions done"];
         conditions = DeleteCases[Flatten@{denConds, radicandConditions}, True];
         verif = If[TrueQ[doValidate],
-          TimeConstrained[
-            With[{localEqnsUsed = eqnsUsed, localSolRulesDesym = solRulesDesym,
-                  localSignHead = signHead, localFullAss = fullAss, localSimpBudget = simpBudget},
-              LocalEvaluate[
-                Block[{$HistoryLength = 0},
-                  Module[{polys0, exprs, zeroQuick, checked},
-                    polys0 = Subtract @@@ localEqnsUsed;
-                    exprs = normalizeSigns[polys0 /. localSolRulesDesym, localSignHead];
-                    zeroQuick = PossibleZeroQ[#, Assumptions -> localFullAss] & /@ exprs;
-                    checked = MapIndexed[
-                      Function[{pair, idx},
-                        With[{zq = pair[[1]], expr = pair[[2]]},
-                          If[zq === True,
+          With[{localEqnsUsed = eqnsUsed, localSolRulesDesym = solRulesDesym,
+                localSignHead = signHead, localFullAss = fullAss, localSimpBudget = simpBudget},
+            isolatedEvaluate[
+              Module[{polys0, exprs, zeroQuick, checked},
+                polys0 = Subtract @@@ localEqnsUsed;
+                exprs = normalizeSigns[polys0 /. localSolRulesDesym, localSignHead];
+                zeroQuick = PossibleZeroQ[#, Assumptions -> localFullAss] & /@ exprs;
+                checked = MapIndexed[
+                  Function[{pair, idx},
+                    With[{zq = pair[[1]], expr = pair[[2]]},
+                      If[zq === True,
+                        True,
+                        Module[{noAss, withAss},
+                          noAss = TimeConstrained[
+                            Quiet[Simplify[expr == 0, TimeConstraint -> localSimpBudget], {Simplify::time, Simplify::gtime}],
+                            localSimpBudget + 0.5,
+                            expr == 0 (* unchanged on timeout *)
+                          ];
+                          If[TrueQ[noAss],
                             True,
-                            Module[{noAss, withAss},
-                              noAss = TimeConstrained[
-                                Quiet[Simplify[expr == 0, TimeConstraint -> localSimpBudget], {Simplify::time, Simplify::gtime}],
-                                localSimpBudget + 0.5,
-                                expr == 0 (* unchanged on timeout *)
-                              ];
-                              If[TrueQ[noAss],
-                                True,
-                                withAss = TimeConstrained[
-                                  Quiet[Simplify[expr == 0, Assumptions -> localFullAss, TimeConstraint -> localSimpBudget], {Simplify::time, Simplify::gtime}],
-                                  localSimpBudget + 0.5,
-                                  expr == 0
-                                ];
-                                withAss
-                              ]
-                            ]
+                            withAss = TimeConstrained[
+                              Quiet[Simplify[expr == 0, Assumptions -> localFullAss, TimeConstraint -> localSimpBudget], {Simplify::time, Simplify::gtime}],
+                              localSimpBudget + 0.5,
+                              expr == 0
+                            ];
+                            withAss
                           ]
                         ]
-                      ],
-                      Transpose[{zeroQuick, exprs}]
-                    ];
-                    checked
-                  ]
-                ]
-              ]
-            ],
-            N@timeout,
-            $Failed
+                      ]
+                    ]
+                  ],
+                  Transpose[{zeroQuick, exprs}]
+                ];
+                checked
+              ],
+              "HardTimeout" -> timeout,
+              "Quiet" -> False  (* Inner code handles Quiet explicitly *)
+            ]
           ],
           Missing["NotEvaluated"]
         ];
@@ -939,16 +929,14 @@ simplifyWithDummySubstitution[expr_, opts:OptionsPattern[{simplifyWithDummySubst
 
     transformed = expr /. allTransformRules;
 
-    (* Use LocalEvaluate for memory isolation and TimeConstrained for hard timeout *)
-    simplified = LocalEvaluate[
-      Block[{$HistoryLength = 0},
-        TimeConstrained[
-          Assuming[augmentedAss,
-            Quiet[simplifyFn[transformed, Sequence @@ simplifyOpts], {Simplify::time, Simplify::gtime, FullSimplify::time, FullSimplify::gtime}]
-          ],
-          tcVal,
-          transformed (* return transformed but unsimplified on timeout *)
-        ]
+    (* Use isolatedEvaluate for memory isolation and LocalTimeout for hard timeout *)
+    simplified = With[
+      {localTransformed = transformed, localFn = simplifyFn, localOpts = simplifyOpts},
+      isolatedEvaluate[
+        localFn[localTransformed, Sequence @@ localOpts],
+        "Assumptions" -> augmentedAss,
+        "LocalTimeout" -> tcVal,
+        "LocalTimeoutValue" -> localTransformed  (* return transformed but unsimplified on timeout *)
       ]
     ];
 
