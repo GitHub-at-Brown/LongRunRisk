@@ -27,7 +27,8 @@ Options:
   \"LocalTimeout\" -> None - TimeConstrained inside LocalEvaluate
   \"LocalTimeoutValue\" -> $Failed - Return value on local timeout
   \"HardTimeout\" -> None - TimeConstrained around LocalEvaluate
-  \"HardTimeoutValue\" -> $Failed - Return value on hard timeout"
+  \"HardTimeoutValue\" -> $Failed - Return value on hard timeout
+  \"SuppressLocalKernelOutput\" -> True - Suppress ALL subprocess messages with Quiet[..., All]"
 
 
 (* ::Section:: *)
@@ -52,7 +53,8 @@ Options[isolatedEvaluate] = {
 	"LocalTimeout" -> None,
 	"LocalTimeoutValue" -> $Failed,
 	"HardTimeout" -> None,
-	"HardTimeoutValue" -> $Failed
+	"HardTimeoutValue" -> $Failed,
+	"SuppressLocalKernelOutput" -> True
 }
 
 
@@ -66,6 +68,7 @@ isolatedEvaluate[expr_, opts : OptionsPattern[]] := Module[
 		localTVal = OptionValue["LocalTimeoutValue"],
 		hardT = OptionValue["HardTimeout"],
 		hardTVal = OptionValue["HardTimeoutValue"],
+		suppressOutput = OptionValue["SuppressLocalKernelOutput"],
 		body
 	},
 
@@ -82,9 +85,15 @@ isolatedEvaluate[expr_, opts : OptionsPattern[]] := Module[
 		body = With[{a = ass}, Replace[body, Hold[e_] :> Hold[Assuming[a, e]]]]
 	];
 
-	(* Wrap with Quiet if specified - suppresses Simplify/FullSimplify timeout messages *)
-	If[quiet,
-		body = Replace[body, Hold[e_] :> Hold[Quiet[e, {Simplify::time, Simplify::gtime, FullSimplify::time, FullSimplify::gtime}]]]
+	(* Wrap with Quiet to suppress messages inside subprocess *)
+	(* SuppressLocalKernelOutput -> True: suppress ALL messages with Quiet[..., All] *)
+	(* Quiet -> True (and SuppressLocalKernelOutput -> False): suppress only Simplify timeout messages *)
+	If[suppressOutput,
+		body = Replace[body, Hold[e_] :> Hold[Quiet[e, All]]]
+		,
+		If[quiet,
+			body = Replace[body, Hold[e_] :> Hold[Quiet[e, {Simplify::time, Simplify::gtime, FullSimplify::time, FullSimplify::gtime}]]]
+		]
 	];
 
 	(* Wrap with inner TimeConstrained if specified *)
