@@ -103,12 +103,12 @@ isHierarchicalResult[result_] :=
 (* Internal dispatcher: Routes to Rules extraction or expression evaluation *)
 iToNumDispatch["Rules", model_, rest___] := toNumRules[model, rest];
 
-iToNumDispatch[expr_, model_, newParams_:{}, opts:OptionsPattern[{toNumRules, updateCoeffs}]] :=
+iToNumDispatch[expr_, model_, Longest[newParams : ({(_Rule)...} | _Association) : {}, 1], opts:OptionsPattern[{toNumRules, updateCoeffs}]] :=
 	toNumEvaluate[expr, model, newParams, opts];
 
 
 (* Internal evaluator: Handles expression evaluation with rules *)
-toNumEvaluate[expr_, model_, newParams_:{}, opts:OptionsPattern[{toNumRules, updateCoeffs}]] :=
+toNumEvaluate[expr_, model_, Longest[newParams : ({(_Rule)...} | _Association) : {}, 1], opts:OptionsPattern[{toNumRules, updateCoeffs}]] :=
 Module[{rulesOrSol, allParams, transformed},
 	(* Get rules or hierarchical structure *)
 	rulesOrSol = toNumRules[model, newParams, opts];
@@ -154,7 +154,7 @@ toNum["Rules", model_Association, rest__] := iToNumDispatch["Rules", model, rest
 toNum[
 	expr_ /; Not@AssociationQ[expr] && expr =!= "Rules",
 	model_Association,
-	Longest[newParameters : {(_Rule) ...} : {}, 1],
+	Longest[newParameters : ({(_Rule) ...} | _Association) : {}, 1],
 	opts : OptionsPattern[{toNumRules, updateCoeffs}]
 ] := iToNumDispatch[expr, model, newParameters, opts];
 
@@ -206,7 +206,7 @@ Options[toNumRules] = {
 
 toNumRules[
 	model_Association,
-	Longest[newParameters : {(_Rule)...} : {}, 1],
+	Longest[newParameters : ({(_Rule)...} | _Association) : {}, 1],
 	(* Longest[guessCoeffsSolution_List : {}, 2], *)
 	opts : OptionsPattern[{toNumRules, updateCoeffs}]
 ] := With[

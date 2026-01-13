@@ -89,9 +89,9 @@ With[{currentConfig = Quiet @ MaTeX`ConfigureMaTeX[]},
 				]
 			];
 
-			(* Apply config if we have changes; Block suppresses MaTeX's own Print output *)
+			(* Apply config if we have changes; redirect $Output to suppress MaTeX's Print *)
 			If[configChanges =!= {},
-				Block[{Print}, MaTeX`ConfigureMaTeX @@ configChanges]
+				Block[{$Output = {}}, MaTeX`ConfigureMaTeX @@ configChanges]
 			]
 		]
 	]
