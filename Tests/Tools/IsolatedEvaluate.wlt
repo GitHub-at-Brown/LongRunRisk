@@ -73,25 +73,23 @@ TestCreate[
     TestID -> "[isolatedEvaluate] Quiet option allows normal evaluation"
 ]
 
-(* Quiet -> True returns correct value even if code emits messages *)
+(* Quiet -> True suppresses Simplify timeout messages and returns correct value *)
+(* Uses Simplify::time which is in the suppression list, so no message leaks to stdout *)
 TestCreate[
-    isolatedEvaluate[(Message[General::argx, foo, 1]; 42), "Quiet" -> True] === 42,
+    isolatedEvaluate[(Message[Simplify::time]; 42), "Quiet" -> True] === 42,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Quiet True returns value despite messages"
+    TestID -> "[isolatedEvaluate] Quiet True suppresses Simplify::time and returns value"
 ]
 
-(* Quiet -> False also returns correct value *)
+(* Quiet -> False does not suppress messages but still returns correct value *)
+(* Message appears in test output - this is expected since Quiet -> False means no suppression *)
 TestCreate[
-    isolatedEvaluate[(Message[General::argx, foo, 1]; 42), "Quiet" -> False] === 42,
+    isolatedEvaluate[(Message[Simplify::time]; 42), "Quiet" -> False] === 42,
     True,
-    {},
+    {Simplify::time},
     TestID -> "[isolatedEvaluate] Quiet False returns value despite messages"
 ]
-
-(* Note: Cannot test message suppression from LocalEvaluate subprocess using Check;
-   messages from subprocess propagate differently. The Quiet option wraps with
-   Quiet[e, {Simplify::time, Simplify::gtime, FullSimplify::time, FullSimplify::gtime}] *)
 
 (* ::Subsection:: *)
 (*Option: HistoryLength*)
