@@ -87,8 +87,7 @@ PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`T
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceTables`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];*)
-Needs["FernandoDuarte`LongRunRisk`Tools`ReExport`"];
-reExport = FernandoDuarte`LongRunRisk`Tools`ReExport`reExport;
+reExport = FernandoDuarte`LongRunRisk`Tools`Initialization`reExport;
 
 
 (* ::Subsection:: *)
