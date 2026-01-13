@@ -56,7 +56,6 @@ Begin["`Private`"];
 
 
 Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
-Needs["FernandoDuarte`LongRunRisk`Tools`IsolatedEvaluate`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
