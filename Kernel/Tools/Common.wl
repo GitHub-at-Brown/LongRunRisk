@@ -127,16 +127,15 @@ formatMemoryInfo[] := Module[{mem = MemoryInUse[], memGB, kernelGB},
 (* 2a. inheritUsageMessages - creates usage messages for private symbols *)
 (* Automatically adds SymbolName@sym -> SymbolName@symNew replacement *)
 (* extraReplacements are additional string replacements to apply *)
+(* Uses direct = assignment to avoid duplicate rules on package reload *)
 inheritUsageMessages[symbols_List, extraReplacements_List] :=
 	Function[sym,
 		With[{symNew = Symbol @ StringDrop[SymbolName @ sym, -2]},
-			AppendTo[Messages[symNew],
-				HoldPattern[MessageName[symNew, "usage"]] :>
-					StringReplace[
-						Information[sym, "Usage"],
-						Join[{SymbolName @ sym -> SymbolName @ symNew}, extraReplacements]
-					]
-					/; StringQ[MessageName[sym, "usage"]]
+			If[StringQ[MessageName[sym, "usage"]],
+				MessageName[symNew, "usage"] = StringReplace[
+					Information[sym, "Usage"],
+					Join[{SymbolName @ sym -> SymbolName @ symNew}, extraReplacements]
+				]
 			]
 		],
 		HoldAll
@@ -162,17 +161,17 @@ requireManifest[path_String, loadManifestSafeFn_] := Module[{manifest},
 
 
 (* 2d. compareModelsAgainstManifest - shared hash comparison logic *)
+(* Preserves catalog order for Changed/New, manifest order for Removed *)
 compareModelsAgainstManifest[current_Association, saved_Association] := Module[
 	{currentKeys, savedKeys, changedModels, newModels, removedModels},
 	currentKeys = Keys[current];
 	savedKeys = Keys[saved];
 
-	newModels = Complement[currentKeys, savedKeys];
-	removedModels = Complement[savedKeys, currentKeys];
-	changedModels = Select[
-		Intersection[currentKeys, savedKeys],
-		current[#] =!= saved[#] &
-	];
+	(* Preserve current/catalog order for Changed and New *)
+	changedModels = Select[currentKeys, KeyExistsQ[saved, #] && current[#] =!= saved[#] &];
+	newModels = Select[currentKeys, !KeyExistsQ[saved, #] &];
+	(* Preserve saved/manifest order for Removed *)
+	removedModels = Select[savedKeys, !KeyExistsQ[current, #] &];
 
 	<|"Changed" -> changedModels, "New" -> newModels, "Removed" -> removedModels|>
 ]
