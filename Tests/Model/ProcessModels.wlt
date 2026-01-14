@@ -411,5 +411,85 @@ TestCreate[
 ]
 
 
+(* ::Subsection:: *)
+(*processModels - Context Isolation Tests*)
+
+
+(* Test: Context isolation for exogenousEq/endogenousEq symbols *)
+TestCreate[
+	Module[{exoNames, paramNames},
+		exoNames = StringDrop[#, -2] & /@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars;
+		paramNames = FernandoDuarte`LongRunRisk`Model`Parameters`$parameters;
+		And[
+			checkModelsFieldContext[$modelsP, "exogenousEq", "functionHead", exoNames,
+				"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"],
+			checkModelsFieldContext[$modelsP, "endogenousEq", "functionHead", exoNames,
+				"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"],
+			checkModelsFieldContext[$modelsP, "exogenousEq", "curriedHead", {"eps"},
+				"FernandoDuarte`LongRunRisk`Model`Shocks`"],
+			checkModelsFieldContext[$modelsP, "endogenousEq", "curriedHead", {"eps"},
+				"FernandoDuarte`LongRunRisk`Model`Shocks`"],
+			checkModelsFieldContext[$modelsP, "exogenousEq", "bareSymbol", paramNames,
+				"FernandoDuarte`LongRunRisk`Model`Parameters`"],
+			checkModelsFieldContext[$modelsP, "endogenousEq", "bareSymbol", paramNames,
+				"FernandoDuarte`LongRunRisk`Model`Parameters`"]
+		]
+	],
+	True,
+	{},
+	TestID -> "[processModels] Context isolation for all equation symbols"
+]
+
+
+(* ::Subsection:: *)
+(*processModels - Equation Structural Integrity Tests*)
+
+
+(* Test: NRC pi[t] structural equation is preserved *)
+TestCreate[
+	Module[{modelPNRC, piExpanded, expected},
+		modelPNRC = $modelsP["NRC"];
+		piExpanded = FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[myT] /.
+			Normal[modelPNRC["exogenousEq"]];
+		expected = FernandoDuarte`LongRunRisk`Model`Parameters`mup +
+			FernandoDuarte`LongRunRisk`Model`Parameters`rhop *
+				(FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`pi[myT - 1] -
+				 FernandoDuarte`LongRunRisk`Model`Parameters`mup) +
+			FernandoDuarte`LongRunRisk`Model`Parameters`xip *
+				FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][myT - 1] +
+			FernandoDuarte`LongRunRisk`Model`Parameters`phip *
+				FernandoDuarte`LongRunRisk`Model`Shocks`eps["pi"][myT];
+		piExpanded === expected
+	],
+	True,
+	{},
+	TestID -> "[processModels] NRC pi[t] structural equation is preserved"
+]
+
+
+(* ::Subsection:: *)
+(*processModels - Model Renaming Tests*)
+
+
+(* Test: processModels respects model renaming - key name doesn't leak into computed values *)
+(* Verifies that computed mathematical values don't contain the model key name as a symbol *)
+(* Excludes descriptive fields (name, shortname, bibRef, desc) which legitimately contain model identifiers *)
+TestCreate[
+	Module[{modelData, keyNames, values, valuesStr},
+		(* Get the BY model from pre-processed models *)
+		modelData = $modelsP["BY"];
+		keyNames = {"BY", "BKY", "NRC"};
+		(* Get string representation of computed values only (excluding descriptive fields) *)
+		values = Values[KeyDrop[modelData, {"name", "shortname", "bibRef", "desc", "coeffsSolution", "coeffsSolutionN"}]];
+		valuesStr = ToString[values, InputForm];
+		(* Verify none of the test model key names appear in computed values *)
+		NoneTrue[keyNames, StringContainsQ[valuesStr, #] &]
+	],
+	True,
+	{},
+	TestID -> "[processModels] Respects model renaming"
+]
+
+
 End[]
 EndTestSection[]

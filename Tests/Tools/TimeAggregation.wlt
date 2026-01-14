@@ -522,5 +522,76 @@ TestCreate[
 ]
 
 
+(* ::Subsection:: *)
+(*growth - v0 Arity Invariance Tests*)
+
+
+(* Test: v0 function with varying arity produces same output *)
+TestCreate[
+	With[{expected = growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1,
+			"v0" -> Function[{t, j, h, k, v, im}, 0.0015]]},
+		And[
+			growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1,
+				"v0" -> Function[{t, j, h, k, v}, 0.0015]] === expected,
+			growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1,
+				"v0" -> Function[{t, j, h, k}, 0.0015]] === expected,
+			growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1,
+				"v0" -> Function[{t, j, h}, 0.0015]] === expected,
+			growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1,
+				"v0" -> Function[{t, j}, 0.0015]] === expected,
+			growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1,
+				"v0" -> Function[{t}, 0.0015]] === expected,
+			growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1,
+				"v0" -> Function[{}, 0.0015]] === expected
+		]
+	],
+	True,
+	{},
+	TestID -> "[growth] v0 arity invariance (0-6 arguments produce same result)"
+]
+
+
+(* ::Subsection:: *)
+(*growth - v0 Symbolic Expansion Tests*)
+
+
+(* Test: v0 depending on t produces correct E^t formula *)
+(* Uses mathematical equivalence since symbolic forms may differ structurally *)
+TestCreate[
+	Module[{actual, expected},
+		actual = growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1,
+			"v0" -> Function[{t, j, h, k, v, im}, t]];
+		expected = (1/(1 + E^t + E^(2 t))) * (
+			dc[t - 4] + (1 + E^t) dc[t - 3] + dc[t - 2] + E^t dc[t - 2] + E^(2 t) dc[t - 2] +
+			E^t dc[t - 1] + E^(2 t) dc[t - 1] + E^(2 t) dc[t]
+		);
+		PossibleZeroQ[Simplify[actual - expected]]
+	],
+	True,
+	{},
+	TestID -> "[growth] v0 depending on t produces correct E^t formula"
+]
+
+(* Test: v0 depending on j produces correct explicit formula *)
+TestCreate[
+	growth[dc, t, "TimeAggregation" -> 3, "numPeriods" -> 1,
+		"v0" -> Function[{t, j}, j]] ===
+	Subtract[
+		Plus[
+			Divide[
+				Subtract[Subtract[dc[t - 4] + dc[t - 3] + (E^4) * dc[t - 3], 7], 3 * E^4],
+				1 + (E^4) + E^7
+			],
+			Plus[dc[t - 2], Plus[dc[t - 1], Plus[dc[t],
+				Plus[Divide[((1 - E * dc[t]) - dc[t]) - dc[t - 1], 1 + 2 * E], Log[2 + 1 / E]]]]]
+		],
+		Log[1 + (1 / E^7) + 1 / E^3]
+	],
+	True,
+	{},
+	TestID -> "[growth] v0 depending on j produces correct explicit formula"
+]
+
+
 End[]
 EndTestSection[]

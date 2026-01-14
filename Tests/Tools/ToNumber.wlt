@@ -483,6 +483,23 @@ TestCreate[
 (* ::Subsection:: *)
 (*Options Handling Tests*)
 
+
+(* Test: toNum passes PrintResidualsNorm option without error *)
+TestCreate[
+	Module[{result},
+		result = Quiet@toNum[
+			uncondE[dc[t]],
+			$modBKY,
+			"PrintResidualsNorm" -> True
+		];
+		NumericQ[result //. numModel]
+	],
+	True,
+	{},
+	TestID -> "[toNum] PrintResidualsNorm option passes through without error"
+]
+
+
 (* Test: "UpdatePd" and "UpdateBonds" options *)
 TestCreate[
 	AllTrue[Flatten[{

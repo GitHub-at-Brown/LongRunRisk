@@ -15,7 +15,7 @@ Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
 
 
 (* Load top-level TestHelpers.wl only - not ToolsTestHelpers.wl to avoid circular dependency *)
-Get[FileNameJoin[{DirectoryName[$TestFileName, 2], "TestHelpers.wl"}]];
+Get @ FileNameJoin[{DirectoryName[$TestFileName, 2], "TestHelpers.wl"}];
 
 
 (* ::Subsection:: *)

@@ -464,6 +464,72 @@ TestCreate[
 
 
 (* ::Subsection:: *)
+(*updateCoeffs - InitialGuess Option Tests*)
+
+
+(* Test: updateCoeffs accepts different Ewc initialGuess lengths *)
+TestCreate[
+	Module[{res1, res2},
+		res1 = Quiet@updateCoeffs[
+			$modBKY,
+			"initialGuess" -> <|"Ewc" -> {1, 8}|>,
+			"FindRootOptions" -> {"MaxIterations" -> 100}
+		];
+		res2 = Quiet@updateCoeffs[
+			$modBKY,
+			"initialGuess" -> <|"Ewc" -> {4, 1, 8}|>,
+			"FindRootOptions" -> {"MaxIterations" -> 100}
+		];
+		MatchQ[res1, {__}] && MatchQ[res2, {__}]
+	],
+	True,
+	{},
+	TestID -> "[updateCoeffs] Accepts different Ewc initialGuess lengths"
+]
+
+
+(* ::Subsection:: *)
+(*updateCoeffs - Parameter Sensitivity Tests*)
+
+
+(* Test: Parameter changes produce different coefficients *)
+TestCreate[
+	Module[{res1, res2, newParams},
+		res1 = Quiet@updateCoeffs[$modBKY, "FindRootOptions" -> {"MaxIterations" -> 100}];
+		newParams = {FernandoDuarte`LongRunRisk`Model`Parameters`psi ->
+			(0.1 + (FernandoDuarte`LongRunRisk`Model`Parameters`psi /. $modBKY["params"]))};
+		res2 = Quiet@updateCoeffs[$modBKY, {}, newParams, {}, "FindRootOptions" -> {"MaxIterations" -> 100}];
+		res1 =!= res2
+	],
+	True,
+	{},
+	TestID -> "[updateCoeffs] Parameter changes produce different coefficients"
+]
+
+
+(* ::Subsection:: *)
+(*updateCoeffs - Regression Tests*)
+
+
+(* Test: updateCoeffs completes without cfne warnings *)
+TestCreate[
+	Module[{cfneOccurred = False, result},
+		result = Quiet[
+			Check[
+				updateCoeffs[$modBKY, "UpdatePd" -> True, "FindRootOptions" -> {"MaxIterations" -> 100}],
+				cfneOccurred = True,
+				CompiledFunction::cfne
+			]
+		];
+		!cfneOccurred && MatchQ[result, {__}]
+	],
+	True,
+	{},
+	TestID -> "[updateCoeffs] BKY completes without cfne warnings"
+]
+
+
+(* ::Subsection:: *)
 (*Options Inheritance Tests*)
 
 

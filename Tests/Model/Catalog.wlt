@@ -232,6 +232,52 @@ TestCreate[
 
 
 (* ::Subsection:: *)
+(*modelsExtraInfo - InitialGuess Shape Tests*)
+
+
+(* Test: modelsExtraInfo initialGuess has correct shapes *)
+TestCreate[
+	AllTrue[
+		Values[modelsExtraInfo],
+		Function[info,
+			If[KeyExistsQ[info, "initialGuess"],
+				And[
+					If[KeyExistsQ[info["initialGuess"], "Ewc"],
+						VectorQ[info["initialGuess"]["Ewc"]],
+						True
+					],
+					If[KeyExistsQ[info["initialGuess"], "Epd"],
+						ArrayQ[info["initialGuess"]["Epd"], 2],
+						True
+					]
+				],
+				True
+			]
+		]
+	],
+	True,
+	{},
+	TestID -> "[modelsExtraInfo] InitialGuess has correct shapes (Ewc vector, Epd 2D)"
+]
+
+
+(* ::Subsection:: *)
+(*models - StateVars Exact Match Tests*)
+
+
+(* Test: BY stateVars exactly match expected list *)
+TestCreate[
+	models["BY"]["stateVars"] === {
+		FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t],
+		FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx[FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]
+	},
+	True,
+	{},
+	TestID -> "[models] BY stateVars exactly match expected list"
+]
+
+
+(* ::Subsection:: *)
 (*Validation Tests*)
 
 

@@ -1,10 +1,10 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
-(*Model Pipeline Integration Tests*)
+(*Kernel/Model/PipelineIntegration.wl Tests*)
 
 
-BeginTestSection["Model Pipeline Integration Tests"]
+BeginTestSection["Kernel/Model/PipelineIntegration.wl Tests"]
 Begin["FernandoDuarte`LongRunRisk`Tests`Model`PipelineIntegration`"]
 
 Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
