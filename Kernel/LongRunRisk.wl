@@ -293,19 +293,6 @@ reExport[#]&/@{
 }
 
 
-(* ::Subsubsection:: *)
-(*OptionsValidationRules*)
-
-
-Quiet[
-	Check[
-		PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`OptionsValidationRules`"];
-		FernandoDuarte`LongRunRisk`Tools`OptionsValidationRules`InstallOptionsValidationRules[],
-		Null
-	]
-];
-
-
 (* ::Section:: *)
 (*End package*)
 
