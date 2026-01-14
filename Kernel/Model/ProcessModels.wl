@@ -18,7 +18,7 @@ processModels
 (*Usage*)
 
 
-processModels::usage = "processModels[modelsCatalog] performs symbolic processing on models, adding coefficient systems and solutions.";
+processModels::usage = "processModels[modelsCatalog] performs symbolic processing on models, adding coefficient systems and solutions.\nAdds keys: exogenousEq, endogenousEq, coeffsSystem, coeffsSolution, toStateVars, and more.";
 
 
 (* ::Section:: *)
@@ -32,6 +32,7 @@ Begin["`Private`"]
 (*Package dependencies*)
 
 
+Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
@@ -62,9 +63,7 @@ safeRest[_] := {};
    (meaning all vars are unverified and should be kept in the system).
    Takes the raw Verification value, expected length, and optional label, model name, and vars for warnings. *)
 safeVerification[verif_List, len_Integer, _String : "", _String : "", _List : {}] := TrueQ /@ verif;
-safeVerification[other_, len_Integer, label_String : "", modelName_String : "", vars_List : {}] := (
-	ConstantArray[False, len]
-);
+safeVerification[other_, len_Integer, label_String : "", modelName_String : "", vars_List : {}] := ConstantArray[False, len]
 
 
 (* ::Subsection:: *)
@@ -76,10 +75,8 @@ safeVerification[other_, len_Integer, label_String : "", modelName_String : "", 
 
 processModels[
 	modelsCatalog_Association,
-	opts:OptionsPattern[{solveCoeffsSystem, updateCoeffs, getStartingValues, FindRoot, RecurrenceTable}]
-]:=
-	Module[
-	{
+	opts:OptionsPattern[{solveCoeffsSystem, updateCoeffs, FindRoot, RecurrenceTable}]
+]:= Module[{
 		keys=Keys[modelsCatalog],
 		models = KeyMap[Replace[#, Thread[Keys[modelsCatalog]->Values@(#["shortname"]&/@modelsCatalog) ] ]&,modelsCatalog],(*rename Keys to shortname*)
 		contextPath=$ContextPath,
@@ -624,14 +621,14 @@ simplifyCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}
 								localSimplifyOpts = simplifyOpts
 							},
 							{
-								LocalEvaluate[Map[
-									(Assuming[localAssumeA, Quiet[FullSimplify[#, Sequence @@ localSimplifyOpts], {FullSimplify::time, FullSimplify::gtime}]] &),
-									localSysA
-								]],
-								LocalEvaluate[Map[
-									(Assuming[localAssumeB, Quiet[FullSimplify[#, Sequence @@ localSimplifyOpts], {FullSimplify::time, FullSimplify::gtime}]] &),
-									localSysB
-								]]
+								isolatedEvaluate[
+									Map[FullSimplify[#, Sequence @@ localSimplifyOpts] &, localSysA],
+									"Assumptions" -> localAssumeA
+								],
+								isolatedEvaluate[
+									Map[FullSimplify[#, Sequence @@ localSimplifyOpts] &, localSysB],
+									"Assumptions" -> localAssumeB
+								]
 							}
 							]
 						];
@@ -651,8 +648,7 @@ simplifyCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}
 solveCoeffsSystem // Options = {
 	"SimplifyOptions" -> {TimeConstraint -> {5, 300}},
 	"paramQuadSolveOptions" -> {},
-	"PdEquations" -> "B",  (* "B" | "AB" | "Both" - controls which pd equations to compute *)
-	"Verbose" -> False  (* whether to print memory usage during solving *)
+	"PdEquations" -> "B"  (* "B" | "AB" | "Both" - controls which pd equations to compute *)
 };
 
 
@@ -664,7 +660,6 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
         }],
         paramQuadSolveOpts=OptionValue["paramQuadSolveOptions"],
         modelCoeffsSys=model["coeffsSystem"],
-        verbose = OptionValue["Verbose"],
         shortname = model["shortname"]
 	},
 	With[
@@ -693,20 +688,10 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							solA,
 							solB,
 							conditionsA,
-							conditionsB,
-							logMemory
+							conditionsB
 						},
 
-						(* Memory logging helper *)
-						logMemory[label_String] := Module[{mem = MemoryInUse[], memGB, kernelGB},
-							memGB = N[mem / 1024^3];
-							kernelGB = FernandoDuarte`LongRunRisk`Tools`ManageResources`Private`wolframKernelMemoryGB[];
-							If[TrueQ[verbose],
-								Print["[", shortname, "] ", label, " | Wolfram Memory: ", NumberForm[memGB, {4, 2}], " GB | Physical RAM: ", If[MissingQ[kernelGB], "N/A", ToString[NumberForm[kernelGB, {4, 2}]] <> " GB"]]
-							]
-						];
-
-						logMemory["solveCoeffsSystem START"];
+						print["[" <> shortname <> "] solveCoeffsSystem START"];
 
 						(*solve system of linear-quadratic equations for wc and pd coefficients*)
 						(*Echo[sysA[[1]],"sysA1"];*)
@@ -719,7 +704,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							Assumptions->assumeA,
 							Sequence @@ Normal[paramQuadSolveOpts]
 						];
-						logMemory["paramQuadSolve wc done"];
+						print["[" <> shortname <> "] paramQuadSolve wc done"];
 						(*Echo[solA[[1]],"solA1"];*)
 						solB=paramQuadSolve[
 							sysB,
@@ -730,7 +715,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 							Assumptions->assumeB,
 							Sequence @@ Normal[paramQuadSolveOpts]
 						];
-						logMemory["paramQuadSolve pd done"];
+						print["[" <> shortname <> "] paramQuadSolve pd done"];
 						If[FailureQ[solA] || FailureQ[solB],
 							Return["coeffsParamQuadSolve" -> $Failed, Module]
 						];
@@ -743,7 +728,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								Sequence @@ simplifyOpts
 							]
 						];
-						logMemory["simplify conditionsA done"];
+						print["[" <> shortname <> "] simplify conditionsA done"];
 						conditionsB=Assuming[assumeB,
 							simplifyWithDummySubstitution[solB["Conditions"],
 								"Assumptions" -> True,
@@ -751,7 +736,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								Sequence @@ simplifyOpts
 							]
 						];
-						logMemory["simplify conditionsB done"];
+						print["[" <> shortname <> "] simplify conditionsB done"];
 						solA["Conditions"]=assumeA && (And@@conditionsA);
 						solB["Conditions"]=assumeB && (And@@conditionsB);
 
@@ -759,30 +744,28 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						(*Echo[solB["Conditions"][[1]],"solBConditions"];*)
 						(*simplify using assumptions*)
 						solA["Solution"]=With[
-							{localSol = solA["Solution"], localCond = solA["Conditions"], localOpts = simplifyOpts},
-							LocalEvaluate[
-								Block[{$HistoryLength = 0},
-									Assuming[localCond, Quiet[Simplify[localSol, Sequence @@ localOpts], {Simplify::time, Simplify::gtime}]]
-								]
+							{localSol = solA["Solution"], localOpts = simplifyOpts},
+							isolatedEvaluate[
+								Simplify[localSol, Sequence @@ localOpts],
+								"Assumptions" -> solA["Conditions"]
 							]
 						];
-						logMemory["simplify solA Solution done"];
+						print["[" <> shortname <> "] simplify solA Solution done"];
 					    solB["Solution"]=With[
-							{localSol = solB["Solution"], localCond = solB["Conditions"], localOpts = simplifyOpts},
-							LocalEvaluate[
-								Block[{$HistoryLength = 0},
-									Assuming[localCond, Quiet[Simplify[localSol, Sequence @@ localOpts], {Simplify::time, Simplify::gtime}]]
-								]
+							{localSol = solB["Solution"], localOpts = simplifyOpts},
+							isolatedEvaluate[
+								Simplify[localSol, Sequence @@ localOpts],
+								"Assumptions" -> solB["Conditions"]
 							]
 						];
-						logMemory["simplify solB Solution done"];
+						print["[" <> shortname <> "] simplify solB Solution done"];
 						(*Echo[solA["Solution"][[1]],"solASolution"];*)
 						(*Echo[solB["Solution"][[1]],"solBSolution"];*)
 						(*try eliminating one of gamma, theta, psi and keep shortest expressions*)
 						solA["Solution"]=tryTransforms[#,assumeA,Sequence @@ simplifyOpts]&/@solA["Solution"];
-						logMemory["tryTransforms solA done"];
+						print["[" <> shortname <> "] tryTransforms solA done"];
 						solB["Solution"]=tryTransforms[#,assumeB,Sequence @@ simplifyOpts]&/@solB["Solution"];
-						logMemory["tryTransforms solB done"];
+						print["[" <> shortname <> "] tryTransforms solB done"];
 
 						(*create non-linear equation for unconditional mean of wc and pd and unsolved coeffs*)
 						With[
@@ -802,21 +785,13 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 								With[
 									{
 										eqA0Unsimplified = Prepend[newSysA,wcCoeffEq]/.solA["Solution"],
-										localAssumeA = assumeA,
 										localSimplifyOpts = simplifyOpts
 									},
-									solA["eqA0"] = LocalEvaluate[
-										Block[{$HistoryLength = 0},
-											Assuming[
-												localAssumeA,
-												Quiet[
-													FullSimplify[eqA0Unsimplified,Sequence @@ localSimplifyOpts],
-													{FullSimplify::time,FullSimplify::gtime}
-												]
-											]
-										]
+									solA["eqA0"] = isolatedEvaluate[
+										FullSimplify[eqA0Unsimplified, Sequence @@ localSimplifyOpts],
+										"Assumptions" -> assumeA
 									];
-									logMemory["LocalEvaluate eqA0 done"];
+									print["[" <> shortname <> "] isolatedEvaluate eqA0 done"];
 								];
 							];
 							With[
@@ -836,33 +811,19 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 									solB["varsB0"] = Prepend[newVarsB,modelCoeffsSysPd[[2,1]]];
 									(*pd without plugging in wc coeffs - only if needed*)
 									If[MatchQ[pdMode, "B" | "Both"],
-										solB["eqB0"] = LocalEvaluate[
-											Block[{$HistoryLength = 0},
-												Assuming[
-													localAssumeB,
-													Quiet[
-														FullSimplify[eqB0,Sequence @@ localSimplifyOpts],
-														{FullSimplify::time,FullSimplify::gtime}
-													]
-												]
-											]
+										solB["eqB0"] = isolatedEvaluate[
+											FullSimplify[eqB0, Sequence @@ localSimplifyOpts],
+											"Assumptions" -> localAssumeB
 										];
-										logMemory["LocalEvaluate eqB0 done"];
+										print["[" <> shortname <> "] LocalEvaluate eqB0 done"];
 									];
 									(*pd plugging in wc coeffs - only if needed*)
 									If[MatchQ[pdMode, "AB" | "Both"],
-										solB["eqAB0"] = LocalEvaluate[
-											Block[{$HistoryLength = 0},
-												Assuming[
-													localAssumeB,
-													Quiet[
-														FullSimplify[eqB0/.localSolASolution,Sequence @@ localSimplifyOpts],
-														{FullSimplify::time,FullSimplify::gtime}
-													]
-												]
-											]
+										solB["eqAB0"] = isolatedEvaluate[
+											FullSimplify[eqB0 /. localSolASolution, Sequence @@ localSimplifyOpts],
+											"Assumptions" -> localAssumeB
 										];
-										logMemory["LocalEvaluate eqAB0 done"];
+										print["[" <> shortname <> "] LocalEvaluate eqAB0 done"];
 									];
 								]; (*With*)
 							]; (*With*)
@@ -871,7 +832,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 						(*Echo[solB["eqB0"],"eqB0"];*)
 						(*Echo[solB["eqAB0"],"eqAB0"];*)
 						(*Echo[model["shortname"],"finishedcoeffsParamQuadSolve"]; *)
-						logMemory["solveCoeffsSystem END"];
+						print["[" <> shortname <> "] solveCoeffsSystem END"];
 						"coeffsParamQuadSolve" -> <|
 							"wc" -> solA,
 							"pd" -> solB
@@ -941,16 +902,13 @@ tryTransforms[
 					];
 				CloseKernels[],
 				(* Sequential fallback with memory isolation *)
-				results = With[
-					{localExpr = expr, localAss = ass, localOpts = simplifyOpts, localTransforms = transformsList},
-					LocalEvaluate[
-						Block[{$HistoryLength = 0},
-							Table[
-								Assuming[localAss, Quiet[Simplify[localExpr /. transform, Sequence @@ localOpts], {Simplify::time, Simplify::gtime}]],
-								{transform, localTransforms}
-							]
-						]
-					]
+				results = isolatedEvaluate[
+					Table[
+						Simplify[localExpr /. transform, Sequence @@ localOpts],
+						{transform, localTransforms}
+					],
+					"Bindings" -> {localExpr -> expr, localOpts -> simplifyOpts, localTransforms -> transformsList},
+					"Assumptions" -> ass
 				]
 			]
 		];

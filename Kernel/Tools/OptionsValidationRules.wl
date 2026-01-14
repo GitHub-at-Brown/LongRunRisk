@@ -2,7 +2,7 @@
 
 BeginPackage["FernandoDuarte`LongRunRisk`Tools`OptionsValidationRules`"];
 
-InstallOptionsValidationRules::usage = "InstallOptionsValidationRules[] installs option validation rules via OptionsValidation.`";
+InstallOptionsValidationRules::usage = "InstallOptionsValidationRules[] installs validation rules via OptionsValidation.`";
 
 Begin["`Private`"];
 
@@ -13,11 +13,13 @@ InstallOptionsValidationRules[] := Module[
     Needs["PacletizedResourceFunctions`"];
 
     (* Ensure owners exist *)
+    PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`Common`"];
     PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
     PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
     PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
     PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`"];
     PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
+    PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 
     makeMsgs[owner_Symbol] := Module[{base = SymbolName[owner]},
         owner::optx = "`1` is not a valid option for " <> base <> ".";
@@ -25,6 +27,12 @@ InstallOptionsValidationRules[] := Module[
     ];
 
     checksByOwner = <|
+        FernandoDuarte`LongRunRisk`Tools`Common`print -> {
+            "Verbose" -> {"Member", {True, False, "CI"}},
+            "Memory" -> "Boolean",
+            "Prefix" -> ("String" | None)
+        },
+
         FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels -> {
             "FromScratch" -> "Boolean",
             "CompileJacobians" -> "Boolean",
@@ -33,8 +41,7 @@ InstallOptionsValidationRules[] := Module[
             "BuildMaxMaturity" -> {"Integer", "Min" -> 1},
             "Models" -> "Any",
             "FileSuffix" -> "String",
-            "UpdateManifest" -> "Boolean",
-            "Verbose" -> "Boolean"
+            "UpdateManifest" -> "Boolean"
         },
 
         FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel -> {
@@ -47,7 +54,7 @@ InstallOptionsValidationRules[] := Module[
         },
 
         FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`solveCoeffRoots -> {
-            "Signs" -> "Any" (* keep permissive; or enforce list of ±1 if desired *)
+            "Signs" -> "Any" (* keep permissive; or enforce list of +1 and -1 if desired *)
         },
 
         FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSolve -> {
@@ -64,13 +71,23 @@ InstallOptionsValidationRules[] := Module[
             "OnlyQuadTerms" -> "Boolean",
             "GroebnerMemoryFraction" -> {"Real", "Min" -> 0, "Max" -> 1},
             "GroebnerMemoryFloor" -> {"Integer", "Min" -> 0},
-            "GroebnerMemoryCap" -> {"Integer", "Min" -> 0},
-            "Verbose" -> "Boolean"
+            "GroebnerMemoryCap" -> {"Integer", "Min" -> 0}
         },
 
         FernandoDuarte`LongRunRisk`Model`ProcessModels`solveCoeffsSystem -> {
-            "PdEquations" -> {"Member", {"B", "AB", "Both"}},
-            "Verbose" -> "Boolean"
+            "PdEquations" -> {"Member", {"B", "AB", "Both"}}
+        },
+
+        FernandoDuarte`LongRunRisk`Tools`ToNumber`toNum -> {
+            "SolutionSelector" -> (
+                Automatic |                    (* default: use first A solution *)
+                All |                          (* return all solutions (requires ReturnAllSolutions->True) *)
+                _Integer |                     (* select n-th A solution by index *)
+                {_Integer, _Integer} |         (* {aIdx, bIdx} tuple: aIdx selects A solution, bIdx selects B solution for each stock *)
+                _Association                   (* filter by: "SignsA" -> {1,-1,...}, "SignsB" -> {1,...},
+                                                  "SolutionIndexA" -> n (n >= 1), "SolutionIndexB" -> m (m >= 1) *)
+            ),
+            "ReturnAllSolutions" -> "Boolean"
         }
     |>;
 

@@ -1,0 +1,332 @@
+(* ::Package:: *)
+
+(* ::Section:: *)
+(*Kernel/ComputationalEngine/CreateMomentsDatabase.wl Tests*)
+
+
+BeginTestSection["Kernel/ComputationalEngine/CreateMomentsDatabase.wl Tests"]
+Begin["FernandoDuarte`LongRunRisk`Tests`ComputationalEngine`CreateMomentsDatabase`"]
+
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
+Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
+Needs["FernandoDuarte`LongRunRisk`Model`Catalog`"];
+
+(* ::Subsection:: *)
+(*Load Test Helpers*)
+
+
+Get @ FileNameJoin[{DirectoryName[$TestFileName, 2], "TestHelpers.wl"}];
+Get @ FileNameJoin[{DirectoryName[$TestFileName, 1], "CETestHelpers.wl"}];
+
+
+(* ::Subsection:: *)
+(*Test Configuration*)
+
+
+(* Fast mode: Tests only BKY and NRC models *)
+(* Full mode (longTest = True): Tests all models including DES and NRCStochVol *)
+$longTest = False;
+
+
+(* ::Subsection:: *)
+(*Test Helpers*)
+
+
+(* Private symbols for testing *)
+exo = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`Private`exo;
+exoStocks = FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`Private`exoStocks;
+
+$covLongLookupTables = <|
+	"BKY" -> FileNameJoin[{"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongBKY.mx"}],
+	"DES" -> FileNameJoin[{"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongDES.mx"}],
+	"NRC" -> FileNameJoin[{"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongNRC.mx"}],
+	"NRCStochVol" -> FileNameJoin[{"FernandoDuarte/LongRunRisk/MomentsLookupTables", "covLongNRCStochVol.mx"}]
+|>;
+
+(* Load lookup tables - use Scan for side effects *)
+Scan[Get, Values[$covLongLookupTables]];
+
+(* Select models based on test mode - use local variable to avoid conflicts with Common`$testModels *)
+$localTestModels = If[$longTest,
+	{$modBKY, $modNRC, $modDES, $modNRCStochVol},
+	{$modBKY, $modNRC}
+];
+
+(* Helper to get covLong symbol for a model *)
+getCovLongSymbol[model_] := Symbol["FernandoDuarte`LongRunRisk`covLong" <> model["shortname"]];
+
+
+(* Compute moments without stocks for a model *)
+computeMomentsNoStocks[model_] := Module[{covLong, testMoments},
+	covLong = getCovLongSymbol[model];
+	testMoments = Apply[covLong, Outer[Append, Tuples[exo, {2}], Range[-8, 8], 1], {2}];
+	testMoments //. model["params"]
+];
+
+(* Compute moments with one stock for a model *)
+computeMomentsOneStock[model_] := Module[{covLong, testMoments},
+	covLong = getCovLongSymbol[model];
+	testMoments = Append[#, 1] & /@ Flatten[Apply[Inactive[covLong],
+		Outer[Append, Tuples[{exo, exoStocks}], Range[-8, 8], 1], {2}]];
+	Activate[testMoments] //. model["params"]
+];
+
+(* Compute moments with two stocks for a model *)
+computeMomentsTwoStocks[model_] := Module[{covLong, testMoments, stockIndices},
+	covLong = getCovLongSymbol[model];
+	testMoments = Map[
+		covLong @@ Join[#, {Global`i, Global`j}] &,
+		Outer[Append, Tuples[{exoStocks, exoStocks}], Range[-8, 8], 1],
+		{2}
+	];
+	stockIndices = Tuples[Range[model["numStocks"]], {2}];
+	testMoments /. Map[(Thread[Rule[{Global`i, Global`j}, #]]) &, stockIndices] //. model["params"]
+];
+
+(* Compute 3-variable moments without stocks *)
+computeMoments3Vars[model_] := Module[{covLong, testMoments},
+	covLong = getCovLongSymbol[model];
+	testMoments = MapApply[covLong[##, 0, 0] &, Groupings[Tuples[exo, {3}], 2]];
+	testMoments //. model["params"]
+];
+
+(* Compute 4-variable moments without stocks *)
+computeMoments4Vars[model_] := Module[{covLong, testMoments},
+	covLong = getCovLongSymbol[model];
+	testMoments = MapApply[covLong[##, 0, 0, 0] &, Partition[#, 2] & /@ Tuples[exo, {4}]];
+	testMoments //. model["params"]
+];
+
+(* Compute 3-variable moments with stocks *)
+computeMomentsStocks3Vars[model_] := Module[{covLong, testMoments, stockIndices},
+	covLong = getCovLongSymbol[model];
+	testMoments = Map[
+		covLong @@ Join[#, {0, 0, Global`i, Global`j, Global`k}] &,
+		Groupings[Tuples[exoStocks, {3}], 2],
+		{1}
+	];
+	stockIndices = Tuples[Range[Min[model["numStocks"], 2]], {3}];
+	testMoments /. Map[(Thread[Rule[{Global`i, Global`j, Global`k}, #]]) &, stockIndices] //. model["params"]
+];
+
+(* Compute 4-variable moments with stocks *)
+computeMomentsStocks4Vars[model_] := Module[{covLong, testMoments, stockIndices},
+	covLong = getCovLongSymbol[model];
+	testMoments = Map[
+		covLong @@ Join[#, {0, 0, 0, Global`i, Global`j, Global`k, Global`m}] &,
+		Partition[#, 2] & /@ Tuples[exoStocks, {4}],
+		{1}
+	];
+	stockIndices = Tuples[Range[Min[model["numStocks"], 2]], {4}];
+	testMoments /. Map[(Thread[Rule[{Global`i, Global`j, Global`k, Global`m}, #]]) &, stockIndices] //. model["params"]
+];
+
+
+(* ::Subsection:: *)
+(*covLong - Lookup Table Tests*)
+
+
+(* Test: Lookup tables exist for expected models *)
+TestCreate[
+	AllTrue[Values[$covLongLookupTables], FileExistsQ[FindFile[#]] &],
+	True,
+	{},
+	TestID -> "[covLong] Lookup table files exist"
+]
+
+(* Test: covLong symbols are defined after loading lookup tables *)
+TestCreate[
+	AllTrue[$localTestModels, Length[DownValues[Evaluate[getCovLongSymbol[#]]]] > 0 &],
+	True,
+	{},
+	TestID -> "[covLong] Lookup table symbols are defined"
+]
+
+
+(* ::Subsection:: *)
+(*covLong - Moments Without Stocks Tests*)
+
+
+(* Test: All moments without stocks evaluate to numbers for BKY model *)
+TestCreate[
+	allNumericQ[computeMomentsNoStocks[$modBKY]],
+	True,
+	{},
+	TestID -> "[covLong] BKY moments without stocks are numeric"
+]
+
+(* Test: All moments without stocks evaluate to numbers for NRC model *)
+TestCreate[
+	allNumericQ[computeMomentsNoStocks[$modNRC]],
+	True,
+	{},
+	TestID -> "[covLong] NRC moments without stocks are numeric"
+]
+
+
+(* ::Subsection:: *)
+(*covLong - Moments With One Stock Tests*)
+
+
+(* Test: All moments with one stock evaluate to numbers for BKY model *)
+TestCreate[
+	allNumericQ[computeMomentsOneStock[$modBKY]],
+	True,
+	{},
+	TestID -> "[covLong] BKY moments with one stock are numeric"
+]
+
+(* Test: All moments with one stock evaluate to numbers for NRC model *)
+TestCreate[
+	allNumericQ[computeMomentsOneStock[$modNRC]],
+	True,
+	{},
+	TestID -> "[covLong] NRC moments with one stock are numeric"
+]
+
+
+(* ::Subsection:: *)
+(*covLong - Moments With Two Stocks Tests*)
+
+
+(* Test: All moments with two stocks evaluate to numbers for BKY model *)
+TestCreate[
+	allNumericQ[computeMomentsTwoStocks[$modBKY]],
+	True,
+	{},
+	TestID -> "[covLong] BKY moments with two stocks are numeric"
+]
+
+(* Test: All moments with two stocks evaluate to numbers for NRC model *)
+TestCreate[
+	allNumericQ[computeMomentsTwoStocks[$modNRC]],
+	True,
+	{},
+	TestID -> "[covLong] NRC moments with two stocks are numeric"
+]
+
+
+(* ::Subsection:: *)
+(*covLong - Three Variable Moment Tests*)
+
+
+(* Test: All 3-variable moments without stocks evaluate to numbers for BKY model *)
+TestCreate[
+	allNumericQ[computeMoments3Vars[$modBKY]],
+	True,
+	{},
+	TestID -> "[covLong] BKY moments with three vars are numeric"
+]
+
+(* Test: All 3-variable moments without stocks evaluate to numbers for NRC model *)
+TestCreate[
+	allNumericQ[computeMoments3Vars[$modNRC]],
+	True,
+	{},
+	TestID -> "[covLong] NRC moments with three vars are numeric"
+]
+
+
+(* ::Subsection:: *)
+(*covLong - Four Variable Moment Tests*)
+
+
+(* Test: All 4-variable moments without stocks evaluate to numbers for BKY model *)
+TestCreate[
+	allNumericQ[computeMoments4Vars[$modBKY]],
+	True,
+	{},
+	TestID -> "[covLong] BKY moments with four vars are numeric"
+]
+
+(* Test: All 4-variable moments without stocks evaluate to numbers for NRC model *)
+TestCreate[
+	allNumericQ[computeMoments4Vars[$modNRC]],
+	True,
+	{},
+	TestID -> "[covLong] NRC moments with four vars are numeric"
+]
+
+
+(* ::Subsection:: *)
+(*covLong - Stock Variable Moment Tests*)
+
+
+(* Test: All 3-variable moments with stocks evaluate to numbers for BKY model *)
+TestCreate[
+	allNumericQ[computeMomentsStocks3Vars[$modBKY]],
+	True,
+	{},
+	TestID -> "[covLong] BKY moments with stocks and three vars are numeric"
+]
+
+(* Test: All 3-variable moments with stocks evaluate to numbers for NRC model *)
+TestCreate[
+	allNumericQ[computeMomentsStocks3Vars[$modNRC]],
+	True,
+	{},
+	TestID -> "[covLong] NRC moments with stocks and three vars are numeric"
+]
+
+(* Test: All 4-variable moments with stocks evaluate to numbers for BKY model *)
+TestCreate[
+	allNumericQ[computeMomentsStocks4Vars[$modBKY]],
+	True,
+	{},
+	TestID -> "[covLong] BKY moments with stocks and four vars are numeric"
+]
+
+(* Test: All 4-variable moments with stocks evaluate to numbers for NRC model *)
+TestCreate[
+	allNumericQ[computeMomentsStocks4Vars[$modNRC]],
+	True,
+	{},
+	TestID -> "[covLong] NRC moments with stocks and four vars are numeric"
+]
+
+
+(* ::Subsection:: *)
+(*Public Symbol Export Tests*)
+
+
+(* Test: uncondCovLongExo is exported *)
+TestCreate[
+	exportedSymbolQ[uncondCovLongExo],
+	True,
+	{},
+	TestID -> "[uncondCovLongExo] Symbol is exported as public"
+]
+
+(* Test: uncondVarLongExo is exported *)
+TestCreate[
+	exportedSymbolQ[uncondVarLongExo],
+	True,
+	{},
+	TestID -> "[uncondVarLongExo] Symbol is exported as public"
+]
+
+(* Test: createDatabase is exported *)
+TestCreate[
+	exportedSymbolQ[createDatabase],
+	True,
+	{},
+	TestID -> "[createDatabase] Symbol is exported as public"
+]
+
+
+(* ::Subsection:: *)
+(*createDatabase - Options Tests*)
+
+
+(* Test: createDatabase has expected options *)
+TestCreate[
+	Sort[Keys[Options[createDatabase]]],
+	Sort[{"maxMomentsLagsToCreate", "startSequenceAtLag", "simplifyDownValues"}],
+	{},
+	TestID -> "[createDatabase] Options have expected keys"
+]
+
+
+End[]
+EndTestSection[]

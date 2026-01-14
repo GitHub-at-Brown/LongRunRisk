@@ -2,24 +2,11 @@
 
 (* ::Section:: *)
 (*Initialization*)
-
-(* Simple CI debug output *)
-If[Environment["CI"] === "true", Print["[LRR] Loading LongRunRisk.wl..."]];
-
-Needs["FernandoDuarte`LongRunRisk`Tools`Initialization`"];
-FernandoDuarte`LongRunRisk`Tools`Initialization`initializeDependencies[];
-If[Environment["CI"] === "true", Print["[LRR] Dependencies initialized"]];
-
+Get["FernandoDuarte`LongRunRisk`Tools`Initialization`"];
 
 (* ::Section:: *)
 (*Load sub-contexts*)
 
-If[Environment["CI"] === "true", Print["[LRR] Loading sub-contexts..."]];
-Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
-Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
-Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
-Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-If[Environment["CI"] === "true", Print["[LRR] Sub-contexts loaded"]];
 
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
 $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
@@ -71,13 +58,11 @@ YieldCurve;
 (*Symbol/@ FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`$exogenousVarsPrivate
 Symbol/@ FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`$endogenousVarsPrivate*)
 
+(* PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"]
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"]; *)
+(* $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
+$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"]; *)
 
-(*
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"]
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
-$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"];
-$ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"];
-*)
 
 
 (* ::Section:: *)
@@ -87,7 +72,7 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 Begin["`Private`"]
 
 
-(*FernandoDuarte`LongRunRisk`t=FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t;*)
+(* FernandoDuarte`LongRunRisk`t=FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t; *)
 
 
 (* ::Subsection:: *)
@@ -97,13 +82,12 @@ Begin["`Private`"]
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`CreateMomentsDatabase`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeUnconditionalExpectations`"];
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];
+PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`ComputationalEngine`ComputeConditionalExpectations`"];*)
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
-PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];*)
+(*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NiceTables`"];*)
 (*PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];*)
-Needs["FernandoDuarte`LongRunRisk`Tools`ReExport`"];
-reExport = FernandoDuarte`LongRunRisk`Tools`ReExport`reExport;
+reExport = FernandoDuarte`LongRunRisk`Tools`Initialization`reExport;
 
 
 (* ::Subsection:: *)
@@ -112,7 +96,7 @@ reExport = FernandoDuarte`LongRunRisk`Tools`ReExport`reExport;
 
 (* load models via Get@Get pattern - requires PacletizedResourceFunctions loaded first *)
 Needs["PacletizedResourceFunctions`"];
-FernandoDuarte`LongRunRisk`Models = Get@Get@"FernandoDuarte/LongRunRisk/Models.wl";
+FernandoDuarte`LongRunRisk`Models = Get@Get@"FernandoDuarte/LongRunRisk/Models.wl"; (* is this safer?: FileNameJoin[{"FernandoDuarte/LongRunRisk", "Models.wl"}] *)
 
 PacletizedResourceFunctions`NeedsDefinitions["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 FernandoDuarte`LongRunRisk`Models::usage = Information["FernandoDuarte`LongRunRisk`Model`Catalog`models","Usage"];
@@ -436,3 +420,16 @@ UsingFrontEnd[
 	};
 ]
 *)
+
+
+(* ::Subsection:: *)
+(*Display formatting*)
+
+
+(* Strip qualification from subcontexts for cleaner display in documentation *)
+(* Unprotect[MakeBoxes];
+
+MakeBoxes[sym_Symbol /; StringMatchQ[Context[sym], "FernandoDuarte`LongRunRisk`*`*"], StandardForm] :=
+  RowBox[{SymbolName[sym]}]
+
+Protect[MakeBoxes]; *)

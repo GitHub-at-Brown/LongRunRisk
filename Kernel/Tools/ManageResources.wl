@@ -26,9 +26,8 @@ buildModels::usage = "buildModels[] processes enabled models, compiles functions
 buildModels::noroot = "Could not locate paclet root directory.";
 buildModels::nocat = "Catalog models not found or invalid.";
 
-buildModelsParallel::usage = "buildModelsParallel[models] runs Symbolic+Compile+Numerical phases in parallel across models, then optionally runs Moments sequentially.
-Models is a list of shortnames like {\"BY\", \"NRC\", \"DES\"}.
-Options include \"CreateMoments\" (default True) and \"NumKernels\" (default Automatic).";
+buildModelsParallel::usage = "buildModelsParallel[models] runs Symbolic+Compile+Numerical phases in parallel across models, then runs Moments sequentially.
+Models is a list of shortnames like {\"BY\", \"NRC\", \"DES\"}.";
 
 checkCatalogForUI::usage = "checkCatalogForUI[] checks catalog changes without auto-reformatting.
 Returns <|\"Changed\"->{keys}, \"New\"->{keys}, \"Removed\"->{keys}, \"Validation\"->..., \"FirstRun\"->bool|> or $Failed.
@@ -41,6 +40,7 @@ Returns <|shortname -> <|\"MainStage\"->..., \"NeedsJacobians\"->..., \"Reason\"
 Begin["`Private`"];
 
 Needs["PacletizedResourceFunctions`"];
+Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
@@ -152,12 +152,7 @@ getCanonicalHash[expr_] := Block[{$ContextPath = {"System`"}},
   Hash[ExportString[canonicalize[expr], "WL"], "SHA256", "HexString"]
 ];
 
-(* OS-level memory usage (sum of WolframKernel RSS, in GB) *)
-wolframKernelMemoryGB[] := Module[{raw, kb},
-  raw = Quiet@Import["!ps -axo rss,comm | grep -i '[W]olframKernel' | awk '{sum+=$1} END {print sum}'", "String"];
-  kb = Quiet@Check[ToExpression@StringTrim[raw], $Failed];
-  If[NumberQ[kb], N[kb/1024.^2], Missing["NotAvailable"]]
-];
+(* wolframKernelMemoryGB is defined in Common.wl - use that version *)
 
 loadManifestSafe[file_] := Module[{held, data},
   If[!FileExistsQ[file],
@@ -242,7 +237,7 @@ updateModelManifest[modelsAssoc_Association] := Module[
 
 checkCatalogChanges[] := Module[
   {root, manifestFile, savedManifest, catalogModels, currentCatalogHash,
-   savedCatalogHash, savedModelHashes, currentModelHashes,
+   savedCatalogHash, currentModelHashes, comparison,
    changedModels, newModels, removedModels, modelsToValidate, validationResult},
 
   (* Find root *)
@@ -274,21 +269,13 @@ checkCatalogChanges[] := Module[
     Return[Null]
   ];
 
-  (* Catalog has changed - identify which models *)
-  savedModelHashes = savedManifest["Models"];
+  (* Catalog has changed - use shared comparison logic *)
   currentModelHashes = Map[getCanonicalHash, catalogModels];
-
-  (* Find changed models (exist in both, hash differs) *)
-  changedModels = Select[
-    Keys[KeyTake[currentModelHashes, Keys[savedModelHashes]]],
-    currentModelHashes[#] =!= savedModelHashes[#] &
+  comparison = FernandoDuarte`LongRunRisk`Tools`Common`compareModelsAgainstManifest[
+    currentModelHashes,
+    savedManifest["Models"]
   ];
-
-  (* Find new models (in current but not saved) *)
-  newModels = Complement[Keys[currentModelHashes], Keys[savedModelHashes]];
-
-  (* Find removed models (in saved but not current) *)
-  removedModels = Complement[Keys[savedModelHashes], Keys[currentModelHashes]];
+  {changedModels, newModels, removedModels} = Lookup[comparison, {"Changed", "New", "Removed"}];
 
   If[changedModels =!= {},
     Message[checkCatalogChanges::changed, StringRiffle[changedModels, ", "]]
@@ -328,7 +315,7 @@ checkCatalogChanges[] := Module[
 (* Association argument version: compares provided models against manifest on disk, no reformatting *)
 checkCatalogChanges[modelsAssoc_Association] := Module[
   {root, manifestFile, savedManifest, currentCatalogHash,
-   savedCatalogHash, savedModelHashes, currentModelHashes,
+   savedCatalogHash, currentModelHashes, comparison,
    changedModels, newModels, removedModels, modelsToValidate, validationResult},
 
   (* Find root *)
@@ -356,21 +343,13 @@ checkCatalogChanges[modelsAssoc_Association] := Module[
     Return[Null]
   ];
 
-  (* Catalog has changed - identify which models *)
-  savedModelHashes = savedManifest["Models"];
+  (* Catalog has changed - use shared comparison logic *)
   currentModelHashes = Map[getCanonicalHash, modelsAssoc];
-
-  (* Find changed models (exist in both, hash differs) *)
-  changedModels = Select[
-    Keys[KeyTake[currentModelHashes, Keys[savedModelHashes]]],
-    currentModelHashes[#] =!= savedModelHashes[#] &
+  comparison = FernandoDuarte`LongRunRisk`Tools`Common`compareModelsAgainstManifest[
+    currentModelHashes,
+    savedManifest["Models"]
   ];
-
-  (* Find new models (in current but not saved) *)
-  newModels = Complement[Keys[currentModelHashes], Keys[savedModelHashes]];
-
-  (* Find removed models (in saved but not current) *)
-  removedModels = Complement[Keys[savedModelHashes], Keys[currentModelHashes]];
+  {changedModels, newModels, removedModels} = Lookup[comparison, {"Changed", "New", "Removed"}];
 
   If[changedModels =!= {},
     Message[checkCatalogChanges::changed, StringRiffle[changedModels, ", "]]
@@ -446,8 +425,8 @@ boxToString[OverscriptBox[base_, over_]] := StringJoin["Overscript[", boxToStrin
 boxToString[UnderscriptBox[base_, under_]] := StringJoin["Underscript[", boxToString[base], ", ", boxToString[under], "]"];
 
 (* Catch-all for unknown boxes - try to convert content recursively *)
-boxToString[box_[args___]] /; StringEndsQ[SymbolName[box], "Box"] :=
-  StringJoin["(*UnhandledBox:", SymbolName[box], "*)", StringRiffle[boxToString /@ {args}, " "]];
+boxToString[box_[args___]] /; StringEndsQ[SymbolName[box], "Box"] := StringJoin[
+	"(*UnhandledBox:", SymbolName[box], "*)", StringRiffle[boxToString /@ {args}, " "]]
 
 (* Final fallback *)
 boxToString[x_] := ToString[x, InputForm];
@@ -575,8 +554,7 @@ buildModels // Options = {
 	"BuildMaxMaturity" -> 60,
 	"Models" -> All,  (* All or list of shortnames *)
 	"FileSuffix" -> "",  (* suffix for checkpoint files; "_BY" writes to Models_BY.wl *)
-	"UpdateManifest" -> True,  (* whether to update ModelManifest.wl at end *)
-	"Verbose" -> False  (* whether to print memory usage during pipeline *)
+	"UpdateManifest" -> True  (* whether to update ModelManifest.wl at end *)
 };
 
 
@@ -639,8 +617,7 @@ loadModels[file_String] := If[
 
 
 (* helper: compute hash for moments cache *)
-getMomentsHash[catalogEntry_Association, model_Association] :=
-	getCanonicalHash[<|
+getMomentsHash[catalogEntry_Association, model_Association] := getCanonicalHash[<|
 		"catalog" -> catalogEntry,
 		"exogenousEq" -> model["exogenousEq"],
 		"endogenousEq" -> model["endogenousEq"]
@@ -829,7 +806,6 @@ buildModels[opts : OptionsPattern[{
 		modelFilter = OptionValue[buildModels, "Models"],
 		fileSuffix = OptionValue[buildModels, "FileSuffix"],
 		updateManifest = OptionValue[buildModels, "UpdateManifest"],
-		verbose = OptionValue[buildModels, "Verbose"],
 		compileMode = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, "CompileMode"],
 		compilerChoice = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, "Compiler"],
 		flattenOpt = OptionValue[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel, "FlattenExpressions"],
@@ -838,7 +814,6 @@ buildModels[opts : OptionsPattern[{
 		(* Note: solveCoeffsSystem is private so we can't access its options *)
 		symbolicStageOpts = FilterRules[Flatten@{opts}, Join[
 			Options[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`updateCoeffs],
-			Options[FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`getStartingValues],
 			Options[FindRoot],
 			Options[RecurrenceTable]
 		]],
@@ -957,30 +932,20 @@ buildModels[opts : OptionsPattern[{
 		(* Disable history to prevent memory accumulation from Out[] values *)
 		$HistoryLength = 0;
 
-		(* Memory profiling helper *)
-			$memoryProfileLog = {};
-			logMemory[label_String] := Module[{mem = MemoryInUse[], memGB, kernelGB},
-				memGB = N[mem / 1024^3];
-				kernelGB = wolframKernelMemoryGB[];
-				AppendTo[$memoryProfileLog, <|"Label" -> label, "MemoryGB" -> memGB, "KernelRSSGB" -> kernelGB, "Time" -> DateString["ISODateTime"]|>];
-				If[TrueQ[verbose],
-					Print[label, " | Wolfram Memory: ", NumberForm[memGB, {4, 2}], " GB | Physical RAM: ", If[MissingQ[kernelGB], "N/A", ToString[NumberForm[kernelGB, {4, 2}]] <> " GB"]]
-				];
-			];
-		logMemory["buildModels START"];
+		print["[buildModels] START"];
 
 		(* Phase 1: Symbolic processing *)
 		Do[
 			shortname = catalogModels[modelKey]["shortname"];
 			PrintTemporary["Processing model ", shortname, "..."];
-			logMemory["Phase1 START: " <> shortname];
+			print["[buildModels] Phase1 START: " <> shortname];
 
 			(* run symbolic processing *)
 			model = First @ Values @ FernandoDuarte`LongRunRisk`Model`ProcessModels`processModels[
 				KeyTake[catalogModels, {modelKey}],
 				Sequence @@ symbolicStageOpts
 			];
-			logMemory["Phase1 processModels done: " <> shortname];
+			print["[buildModels] Phase1 processModels done: " <> shortname];
 
 			(* store catalogHash with model *)
 			catalogHash = getCanonicalHash[catalogModels[modelKey]];
@@ -991,47 +956,47 @@ buildModels[opts : OptionsPattern[{
 
 			(* Clear system cache to free memory after each model *)
 			ClearSystemCache[];
-			logMemory["Phase1 END: " <> shortname];
+			print["[buildModels] Phase1 END: " <> shortname];
 
 			, {modelKey, symbolicModels}
 		];
 
 		(* Phase 2: Compile functions - cascade from Symbolic + models at Compile stage *)
-		logMemory["Phase2 START (Compile)"];
+		print["[buildModels] Phase2 START (Compile)"];
 		compileModels = DeleteDuplicates @ Join[symbolicModels, Lookup[modelsByStage, "Compile", {}]];
 		Do[
 			shortname = catalogModels[modelKey]["shortname"];
 			PrintTemporary["Compiling model ", shortname, "..."];
-			logMemory["Phase2 START: " <> shortname];
+			print["[buildModels] Phase2 START: " <> shortname];
 			compiledFile = FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 				processedModels[shortname],
 				compiledDir,
 				Sequence @@ compileStageOpts
 			];
-			logMemory["Phase2 END: " <> shortname];
+			print["[buildModels] Phase2 END: " <> shortname];
 			, {modelKey, compileModels}
 		];
 
 		(* Jacobian track - runs after function compilation, before numerical *)
 		If[compileJacobians && Length[modelsNeedingJacobians] > 0,
-			logMemory["Jacobian compilation START"];
+			print["[buildModels] Jacobian compilation START"];
 			Do[
 				shortname = catalogModels[modelKey]["shortname"];
-				logMemory["Jacobian START: " <> shortname];
+				print["[buildModels] Jacobian START: " <> shortname];
 				FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq[
 					processedModels[shortname],
 					compiledDir,
 					"CompileMode" -> "JacobianOnly",
 					"Compiler" -> compilerChoice
 				];
-				logMemory["Jacobian END: " <> shortname];
+				print["[buildModels] Jacobian END: " <> shortname];
 				, {modelKey, modelsNeedingJacobians}
 			];
-			logMemory["Jacobian compilation END"]
+			print["[buildModels] Jacobian compilation END"]
 		];
 
 			(* Phase 3: Numerical solutions - cascade from Compile + models at Numerical stage *)
-			logMemory["Phase3 START (Numerical)"];
+			print["[buildModels] Phase3 START (Numerical)"];
 			phase3ContextFile = FileNameJoin[{root, "temp", "Phase3Context.wl"}];
 			Quiet[CreateDirectory[DirectoryName[phase3ContextFile]], {CreateDirectory::eexist}];
 			Put[
@@ -1042,15 +1007,14 @@ buildModels[opts : OptionsPattern[{
 					"processedModels" -> processedModels,
 					"catalogModels" -> catalogModels,
 					"savedModels" -> savedModels,
-					"modelsFileCheckpoint" -> modelsFileCheckpoint,
-					"logMemoryPresent" -> ValueQ[logMemory]
+					"modelsFileCheckpoint" -> modelsFileCheckpoint
 				|>,
 				phase3ContextFile
 			];
 			numericalModels = DeleteDuplicates @ Join[compileModels, Lookup[modelsByStage, "Numerical", {}]];
 			Do[
 				shortname = catalogModels[modelKey]["shortname"];
-				logMemory["Phase3 START: " <> shortname];
+				print["[buildModels] Phase3 START: " <> shortname];
 				With[{solN = FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`addCoeffsSolutionN[
 					processedModels[shortname],
 					buildMaxMaturity,
@@ -1065,7 +1029,7 @@ buildModels[opts : OptionsPattern[{
 
 			(* Checkpoint after each model's numerical solutions *)
 			saveModels[Merge[{savedModels, processedModels}, Last], modelsFileCheckpoint];
-			logMemory["Phase3 END: " <> shortname];
+			print["[buildModels] Phase3 END: " <> shortname];
 
 				, {modelKey, numericalModels}
 			];
@@ -1135,7 +1099,7 @@ buildModels[opts : OptionsPattern[{
 
 		(* save - merge with existing models to checkpoint file *)
 		saveModels[Merge[{savedModels, processedModels}, Last], modelsFileCheckpoint];
-		logMemory["buildModels END - Final save complete"];
+		print["[buildModels] END - Final save complete"];
 
 		(* update manifest only when using canonical file (empty suffix) *)
 		If[TrueQ[updateManifest] && fileSuffix === "", updateModelManifest[]];
@@ -1293,7 +1257,7 @@ buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, bui
 (* Handles first-run case (no manifest) by returning all enabled models as "New" *)
 checkCatalogForUI[] := Module[
 	{root, manifestFile, catalogModels, savedManifest, currentCatalogHash,
-	 savedCatalogHash, savedModelHashes, currentModelHashes,
+	 savedCatalogHash, currentModelHashes, comparison,
 	 changedModels, newModels, removedModels, modelsToValidate, validationResult},
 
 	root = findPacletRoot[];
@@ -1331,21 +1295,13 @@ checkCatalogForUI[] := Module[
 			"Validation" -> <|"Valid" -> True|>, "FirstRun" -> False|>]
 	];
 
-	(* Catalog has changed - identify which models *)
-	savedModelHashes = savedManifest["Models"];
+	(* Catalog has changed - use shared comparison logic *)
 	currentModelHashes = Map[getCanonicalHash, catalogModels];
-
-	(* Find changed models (exist in both, hash differs) *)
-	changedModels = Select[
-		Keys[KeyTake[currentModelHashes, Keys[savedModelHashes]]],
-		currentModelHashes[#] =!= savedModelHashes[#] &
+	comparison = FernandoDuarte`LongRunRisk`Tools`Common`compareModelsAgainstManifest[
+		currentModelHashes,
+		savedManifest["Models"]
 	];
-
-	(* Find new models (in current but not saved) *)
-	newModels = Complement[Keys[currentModelHashes], Keys[savedModelHashes]];
-
-	(* Find removed models (in saved but not current) *)
-	removedModels = Complement[Keys[savedModelHashes], Keys[currentModelHashes]];
+	{changedModels, newModels, removedModels} = Lookup[comparison, {"Changed", "New", "Removed"}];
 
 	(* Validate changed and new models - but DON'T reformat *)
 	modelsToValidate = Join[changedModels, newModels];

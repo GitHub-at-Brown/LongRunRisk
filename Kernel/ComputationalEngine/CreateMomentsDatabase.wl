@@ -20,10 +20,8 @@ createDatabase
 (*Usage*)
 
 
-uncondVarLongExo::usage = "uncondVarLongExo[toExogenous, expression] computes the unconditional variance of expression using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
-					      "uncondVarLongExo[toExogenous, expression, covfun] uses the covariance function covfun.";
-uncondCovLongExo::usage = "uncondCovLongExo[toExogenous, expression1, expression2] computes the unconditional covariance of expression1 and expression2 using toExogenous to map endogenous variables to exogenous variables, and the default covariance function covLong to compute covariances of exogenous variables."<>"\n"<>
-					      "uncondCovLongExo[toExogenous, expression1, expression2, covfun] computes the unconditional covariance of expression1 and expression2 using the covariance function covfun.";
+uncondVarLongExo::usage = "uncondVarLongExo[model, expression, covfun] computes the unconditional variance of expression using the model Association to map endogenous variables to exogenous variables, and covfun to compute covariances of exogenous variables.";
+uncondCovLongExo::usage = "uncondCovLongExo[model, expression1, expression2, covfun] computes the unconditional covariance of expression1 and expression2 using the model Association to map endogenous variables to exogenous variables, and covfun to compute covariances of exogenous variables.";
 createDatabase::usage = "createDatabase[model_Association, covLongFilename_String] computes moments for model, memoizes the results, and stores them in covLongFilename.";
 
 
@@ -774,10 +772,8 @@ DownValues[categorize] = Activate @ DownValues @ categorize;
 
 (*split additive terms of expr based on categorize, use FindSequenceFunction for each category, combine terms*)
 (*splitAndFindSequenceFunction can be used like FindSequenceFunction*)
-splitAndFindSequenceFunction[expr_, q_] :=
-	Module[
-		{denTempPos, numTempPos, categorizedTempPos, tempPosSeqFun, pos}
-		,
+splitAndFindSequenceFunction[expr_, q_] := Module[
+	{denTempPos, numTempPos, categorizedTempPos, tempPosSeqFun, pos},
 		denTempPos = MapAt[Denominator, Together @ expr, {;;, 2}]; (*denominator*)
 		numTempPos = Numerator @ Together @ expr; (*numerator*)
 		categorizedTempPos = Table[
@@ -807,8 +803,8 @@ seqfun::seqfun="Sequence function not found for uncondCov[`1`[t], `2`[t+`3`]].";
 
 
 (*seqfun tries FindSequenceFunction, then splitAndFindSequenceFunction, then fails with a message*)
-seqfun[list_, q_, v1_:v1, v2_:v2] :=
-	With[{sf = FindSequenceFunction[list, q]},
+seqfun[list_, q_, v1_:v1, v2_:v2] := With[
+	{sf = FindSequenceFunction[list, q]},
 		If[
 			FreeQ[sf, FindSequenceFunction],
 			sf,

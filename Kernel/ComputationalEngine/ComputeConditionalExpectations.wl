@@ -21,10 +21,10 @@ corr
 (*Usage*)
 
 
-ev::usage = "ev[x, s, model] gives the expected value of x conditional on time s for model."; 
-var::usage = "var[x, s, model] gives the variance of x conditional on time s for model."; 
-cov::usage = "cov[x, y, s, model] gives the covariance of x and y conditional on time s for model."; 
-corr::usage = "corr[x, y, s, model] gives the correlation of x and y conditional on time s for model."; 
+ev::usage = "ev[x, s, model] gives the expected value of x conditional on time s for model. The first argument is held unevaluated (HoldFirst attribute)."; 
+var::usage = "var[x, s, model] gives the variance of x conditional on time s for model. The first argument is held unevaluated (HoldFirst attribute)."; 
+cov::usage = "cov[x, y, s, model] gives the covariance of x and y conditional on time s for model. The first two arguments are held unevaluated (HoldFirst attribute)."; 
+corr::usage = "corr[x, y, s, model] gives the correlation of x and y conditional on time s for model. The first two arguments are held unevaluated (HoldFirst attribute)."; 
 
 
 (* ::Section:: *)
@@ -113,8 +113,8 @@ Kernel/Model/Catalog.wl.";
 
 
  Attributes[lagStateVarst]={HoldFirst};
-  lagStateVarst[expr_, conditionalTime_, model_, OptionsPattern[]] :=
-    Module[{mapAllt, lagt, intermediate, iterations, maxIter, timeLimit, result,sn=model["shortname"]},
+  lagStateVarst[expr_, conditionalTime_, model_, OptionsPattern[]] := Module[
+    {mapAllt, lagt, intermediate, iterations, maxIter, timeLimit, result,sn=model["shortname"]},
       maxIter = OptionValue["MaxIterations"];
       timeLimit = OptionValue["TimeConstraint"];
 
@@ -156,14 +156,14 @@ Kernel/Model/Catalog.wl.";
 (*modelContextRules*)
 
 
-parametersContextPattern[parameter_String, context_String] := 
-	(y_Symbol ? (MatchQ[parameter, SymbolName[#]]&)) :> ToExpression[context <> parameter]
+parametersContextPattern[parameter_String, context_String] := (y_Symbol ? (MatchQ[parameter, SymbolName[#]]&)) :>
+	ToExpression[context <> parameter]
 
-shocksContextPattern[shock_String, context_String] := 
-	(y_Symbol ? (MatchQ[shock, SymbolName[#]]&)[z__String][t__]) :> ToExpression[context <> shock][z][t]
+shocksContextPattern[shock_String, context_String] := (y_Symbol ? (MatchQ[shock, SymbolName[#]]&)[z__String][t__]) :>
+	ToExpression[context <> shock][z][t]
 
-eqsContextPattern[var_String, context_String] :=
-	(y_Symbol ? (MatchQ[var, SymbolName[#]]&)[s__, i___]) :> ToExpression[context <> var][s, i]
+eqsContextPattern[var_String, context_String] := (y_Symbol ? (MatchQ[var, SymbolName[#]]&)[s__, i___]) :>
+	ToExpression[context <> var][s, i]
 
 parametersContextRules = parametersContextPattern[
 	#,

@@ -19,8 +19,8 @@ plotCoeffs
 (*Usage*)
 
 
-yieldCurve::usage = "yieldCurve[model, newParameters, coeffsWc, bondType, opts] plots the yield curve";
-plotCoeffs::usage = "plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List, opts: OptionsPattern[]] plots the steps that FindRoot takes to solve for A[0]";
+yieldCurve::usage = "yieldCurve[model, newParameters, coeffsWc, bondType] plots the yield curve";
+plotCoeffs::usage = "plotCoeffs[model_Association, sol_List, parameters_List, Ewc0_List] plots the steps that FindRoot takes to solve for A[0]";
 
 
 (* ::Section:: *)
@@ -114,9 +114,8 @@ Variance ratios over horizons*)
 
 
 
-plotCoeffs[model_Association, sol_List, params_List, Ewc0_List, opts: OptionsPattern[]] :=
-	With[
-		{
+plotCoeffs[model_Association, sol_List, params_List, Ewc0_List, opts: OptionsPattern[]] := With[
+	{
 			activateLast = {MapThread},
 			system = model["coeffsSystem"]["wc"],
 			parameters = Quiet[processNewParameters[params,model["params"]]]

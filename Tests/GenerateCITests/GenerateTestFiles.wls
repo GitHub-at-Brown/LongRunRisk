@@ -14,7 +14,7 @@
 (*Needs["PacletTools`"];*)
 (*(*built=Quiet[PacletBuild[pacletDir],{Global`Java::excptn}];*)*)
 (*built=PacletBuild[pacletDir]*)
-(*installed=PacletInstall[built["PacletArchive"]]*)
+(*installed=PacletInstall[built["PacletArchive"],ForceVersionInstall -> True]*)
 (**)
 (*testsDir = FileNameJoin[{pacletDir,"Tests"}];*)
 (*PacletDirectoryLoad[pacletDir];*)
@@ -212,7 +212,7 @@
 (*]*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Generate Tests*)
 
 
@@ -220,178 +220,7 @@
 (*LongRunRisk`*)
 
 
-(* ::Section:: *)
-(*Model`Catalog`*)
-
-
-(* ::Input:: *)
-(*name = First@NotebookRead[PreviousCell[CellStyle -> "Section"]];*)
-(*makeDefinitions[name];*)
-
-
-(* ::Input:: *)
-(*Begin[Evaluate@testContext];*)
-
-
-(* ::Input:: *)
-(*With[{context=context},*)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*Needs@context;*)
-(*True*)
-(*,"ConfirmResults"->confirm]*)
-(*]*)
-
-
-(* ::Input:: *)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*MemberQ[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Catalog`"]*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*True if Keys are strings*)*)
-(*And@@(StringQ/@Keys[models])*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*True if fields listed are strings*)*)
-(*And@@(StringQ/@Flatten@({models[#]["name"],models[#]["shortname"],models[#]["bibRef"],models[#]["desc"]}&/@Keys[models]))*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*True if fields listed are boolean*)*)
-(*And@@(BooleanQ/@Flatten@({models[#]["enabled"]}&/@Keys[models]))*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*True if parameters evaluate to numbers*)*)
-(*And@@(NumberQ/@Flatten[(models[#]["parameters"][[;;,2]]//.models[#]["parameters"])&/@Keys[models]])*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*True if equal to {x[t],sx[t]}*)*)
-(*models["BY"]["stateVars"]==={FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`x [FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t], FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`sx [FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t]}*)
-(*,"ConfirmResults"->confirm];*)
-
-
-(* ::Input:: *)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*True if it can find models listed*)*)
-(*And@@(MemberQ[Keys[models],#]&/@{"BY","BKY"})*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*True if models is an association and each model inside models is itself an association*)*)
-(*And@@(MatchQ[Association,#]&/@(Flatten@{Head[models],Head[models[#]]&/@Keys[models]}))*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*(*True if all exogenous variables are in context "FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`"*)*)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*"stateVars"*)*)
-(*And@@((And@@((#==="FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`")&/@(Context/@Cases[models[#]["stateVars"],var_Symbol?(MemberQ[StringDrop[#,-2]&/@FernandoDuarte`LongRunRisk`Model`ExogenousEq`$exogenousVars,SymbolName[#]]&)[__]:>var,Infinity])))&/@Keys[models])*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*(*True if all shocks are in context "FernandoDuarte`LongRunRisk`Model`Shocks`"*)*)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*"stateVars"*)*)
-(*And@@((And@@((#==="FernandoDuarte`LongRunRisk`Model`Shocks`")&/@(Context/@Cases[models[#]["stateVars"],var_Symbol?(MatchQ[SymbolName[#],"eps"]&)[__][__]:>var,Infinity])))&/@Keys[models])*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*(*True if  all parameters are in context "FernandoDuarte`LongRunRisk`Model`Parameters`"*)*)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*"parameters"*)*)
-(*And@@((And@@((#==="FernandoDuarte`LongRunRisk`Model`Parameters`")&/@(Context/@Cases[models[#]["parameters"],var_Symbol?(MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters,SymbolName[#]]&):>var,Infinity])))&/@Keys[models])*)
-(*,"ConfirmResults"->confirm]*)
-(**)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*"stateVars"*)*)
-(*And@@((And@@((#==="FernandoDuarte`LongRunRisk`Model`Parameters`")&/@(Context/@Cases[models[#]["stateVars"],var_Symbol?(MemberQ[FernandoDuarte`LongRunRisk`Model`Parameters`$parameters,SymbolName[#]]&):>var,Infinity])))&/@Keys[models])*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*(*True if state variables do not have any endogenous variables*)*)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*"stateVars"*)*)
-(*And@@(MatchQ[{},#]&/@(Cases[models[#]["stateVars"],var_Symbol?(MemberQ[StringDrop[#,-2]&/@FernandoDuarte`LongRunRisk`Model`EndogenousEq`$endogenousVars,SymbolName[#]]&)[__]:>var,Infinity]&/@Keys[models]))*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*(*True if modelsExtraInfo is an association and each model inside modelsExtraInfo is an association*)*)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*"stateVars"*)*)
-(*And@@{*)
-(*AllTrue[modelsExtraInfo,AssociationQ],*)
-(*AllTrue[modelsExtraInfo[#]&/@Keys[modelsExtraInfo],AssociationQ]*)
-(*}*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*(*True if models in modelsExtraInfo are a subset of those defined in models*)*)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*(*"stateVars"*)*)
-(*And@@{*)
-(*SubsetQ[Keys[models],Keys[modelsExtraInfo]]*)
-(*}*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*(*if provided, initial guess for Ewc is a vector and for Epd is 2-dimensional array*)*)
-(*ResourceFunction["WriteUnitTest"][testFilePath,*)
-(*And@@( *)
-(*Flatten@( *)
-(*If[KeyExistsQ[modelsExtraInfo[#],"initialGuess"]*)
-(*,*)
-(*{*)
-(*If[KeyExistsQ[modelsExtraInfo[#]["initialGuess"],"Ewc"],VectorQ["Ewc"/.modelsExtraInfo[#]["initialGuess"]] ,True]*)
-(*,*)
-(*If[KeyExistsQ[modelsExtraInfo[#]["initialGuess"],"Epd"],ArrayQ["Epd"/.modelsExtraInfo[#]["initialGuess"],2] ,True]*)
-(*}*)
-(*,*)
-(*True*)
-(*]&/@Keys[modelsExtraInfo]*)
-(*)*)
-(*)*)
-(*,"ConfirmResults"->confirm]*)
-
-
-(* ::Input:: *)
-(*End[];*)
-
-
-(* ::Input:: *)
-(*addBeginEnd[testFilePath,testContext];*)
-(*{*)
-(*tr[Evaluate@name]["TestReport"] ,*)
-(*tr[Evaluate@name]["ActualOutput"] ,*)
-(*tr[Evaluate@name]["ExpectedOutput"] ,*)
-(*tr[Evaluate@name]["OutputTrueQ"]*)
-(*}=runTests[testFilePath]*)
-(*(*tableActualVsExpeected[testName_String];*)*)
-(*cleanUp[];*)
-
-
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`EndogenousEq`*)
 
 
@@ -621,7 +450,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ExogenousEq`*)
 
 
@@ -725,7 +554,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`ProcessModels`*)
 
 
@@ -1157,7 +986,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Model`Shocks`*)
 
 
@@ -1451,7 +1280,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeConditionalExpectations`*)
 
 
@@ -1763,7 +1592,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`ComputeUnconditionalExpectations`*)
 
 
@@ -2136,7 +1965,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateEulerEq`*)
 
 
@@ -2326,7 +2155,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`CreateMomentsDatabase`*)
 
 
@@ -2477,7 +2306,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*ComputationalEngine`SolveEulerEq`*)
 
 
@@ -3037,7 +2866,7 @@
 (*(*test: big tolerance, computation does not abort*)*)
 (*c1=Not@TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"CheckResiduals"->True,"Tol"->1],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
 (*(*test: low tolerance, computation aborts*)*)
-(*c2=TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"CheckResiduals"->True,"Tol"->10.^-20],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
+(*c2=TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"CheckResiduals"->True,"Tol"->10.^-10],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
 (*outTests[thisModel["shortname"]][ind]=And@@{c1,c2};*)
 (*(*Echo[{ind,outTests[thisModel["shortname"]][ind]},"ind, outTests"];*)*)
 (*ind=ind+1;*)
@@ -3300,7 +3129,7 @@
 (*(*test: big tolerance, computation does not abort*)*)
 (*c1=Not@TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"UpdateBond"->True,"CheckResiduals"->True,"Tol"->1],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
 (*(*test: low tolerance, computation aborts*)*)
-(*c2=TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"UpdateBond"->True,"CheckResiduals"->True,"Tol"->10.^-20],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
+(*c2=TrueQ[CheckAbort[Check[updateCoeffs[thisModel,"UpdateBond"->True,"CheckResiduals"->True,"Tol"->10.^-10],Abort[],(FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid)],True]];*)
 (*outTests[thisModel["shortname"]][ind]=And@@{c1,c2};*)
 (*(*Echo[{ind,outTests[thisModel["shortname"]][ind]},"ind, outTests"];*)*)
 (*ind=ind+1;*)
@@ -3350,7 +3179,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`NiceOutput`*)
 
 
@@ -3524,7 +3353,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`TimeAggregation`*)
 
 
@@ -3968,7 +3797,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Tools`ToNumber`*)
 
 
@@ -4041,7 +3870,7 @@
 (*{maxMaturity->6,"initialGuess" -> <|"Ewc"->{4},"Epd"->{{4}}|>,MaxIterations->100},*)
 (*{"PrintResidualsNorm"->True},*)
 (*{"CheckResiduals"->True,"Tol"->1},*)
-(*{"CheckResiduals"->True,"Tol"->10.^-20},*)
+(*{"CheckResiduals"->True,"Tol"->10.^-10},*)
 (*{"PrintResidualsNorm"->True,maxMaturity->6,"initialGuess" -> <|"Ewc"->{4},"Epd"->{{4}}|>,MaxIterations->100},*)
 (*{"RecurrenceTableOptions"->{"DependentVariables"->Automatic}},*)
 (*{DependentVariables->Automatic}*)
@@ -4721,7 +4550,7 @@
 (*cleanUp[];*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*PacletizeResources*)
 
 
@@ -4788,201 +4617,15 @@
 
 
 (* ::Section:: *)
-(*Paclet Test*)
-
-
-(* ::Input:: *)
-(*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> False]*)
-
-
-(* ::Input:: *)
-(*Quit[]*)
-
-
-(* ::Input:: *)
-(*Quiet[PacletUninstall["Wolfram/PacletCICD"]];*)
-(*PacletInstall[ResourceObject["Wolfram/PacletCICD"]];*)
-(*PacletFind["Wolfram/PacletCICD"]*)
-
-
-(* ::Input:: *)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
-(*Needs["Wolfram`PacletCICD`"];*)
-(*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir];*)
-(*(*testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]];*)*)
-
-
-(* ::Input:: *)
-(*And@@Values@((#["ReportSucceeded"])&/@testResults["Result"]) (* should be True for no failures *)*)
-
-
-(* ::Code:: *)
-(*succeed=#["ReportSucceeded"]&/@testResults[[2]]["Result"];*)
-(*Keys@Pick[testResults[[2]]["Result"],Values@succeed,False]*)
-(*(*testResults[[2]]["Result"]["./Tests/CreateMomentsDatabase.wlt"]["Results"]*)
-(*testResults[[2]]["Result"]["./Tests/ValidateModels/validateModel.wlt"]*)*)
-
-
-(* ::Input:: *)
-(*(*simulate PacletCICD testing environment*)*)
-(*ClearAll[pacletCICDTestContext];*)
-(*SetAttributes[pacletCICDTestContext, HoldFirst];*)
-(*pacletCICDTestContext[expr_] := Module[{c = $Context, cp = $ContextPath},*)
-(*  WithCleanup[*)
-(*    ($Context = "PacletCICDTest`"; $ContextPath = {"PacletCICDTest`", "System`"}),*)
-(*    expr,*)
-(*    ($Context = c; $ContextPath = cp)*)
-(*  ]*)
-(*];*)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
-(*testDir = FileNameJoin[{pacletBaseDir,"Tests/"}];*)
-(*testFiles = FileNames["*.wlt", testDir, Infinity];*)
-(*report = pacletCICDTestContext[TestReport[testFiles]["ResultsByOutcome"]];*)
-(*report["MessagesFailure"] ==={} (* should be True for no message failures *)*)
-(*report["Failure"]==={}  (* should be True for no failures *)*)
-(*report["NotEvaluated"] ==={} (* should be True for all tests evaluated *)*)
-(**)
-(*report["Failure"]*)
-
-
-  (* Try multiple methods to find test directory, validate each *)
-  candidateDirs = {};
-
-  (* Method 1: Use $InputFileName if available (works with wolframscript -file) *)
-  If[StringQ[$InputFileName] && $InputFileName =!= "",
-    AppendTo[candidateDirs, DirectoryName[$InputFileName]]
-  ];
-
-  (* Method 2: Use Directory[] + expected test path (works with TestReport) *)
-  AppendTo[candidateDirs, FileNameJoin[{Directory[], "Tests", "FindRootOptim"}]];
-
-  (* Method 3: Use FindFile on loaded package (works when paclet installed) *)
-  pacletFile = FindFile["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
-  If[StringQ[pacletFile],
-    pacletRoot = DirectoryName[pacletFile, 3];
-    AppendTo[candidateDirs, FileNameJoin[{pacletRoot, "Tests", "FindRootOptim"}]]
-  ];
-
-  (* Method 4: Use FindFile on file TestDataSource.wl directly *)
-  pacletFile = FindFile["TestDataSource.wl"];
-  If[StringQ[pacletFile],
-    pacletRoot = DirectoryName[pacletFile, 3];
-    AppendTo[candidateDirs, FileNameJoin[{pacletRoot, "Tests", "FindRootOptim"}]]
-  ];
-
-  (* Method 5: Current directory as last resort *)
-  AppendTo[candidateDirs, Directory[]];
-
-  (* Find first candidate where TestDataSource.wl exists *)
-  testDir = SelectFirst[
-    candidateDirs,
-    FileExistsQ[FileNameJoin[{#, "TestDataSource.wl"}]] &,
-    First[candidateDirs] (* fallback to first candidate if none work *)
-  ];
-
-  sourceFile = FileNameJoin[{testDir, "TestDataSource.wl"}];
-
-  (* Load test data from source file *)
-  If[FileExistsQ[sourceFile],
-    Get[sourceFile],
-    (* File not found - set dummy variables so tests fail instead of error *)
-    solNA0 = {}; solNAB0 = {}; paramsA = <||>;
-  ];
-
-
-PacletUninstall["FernandoDuarte/LongRunRisk"]
-
-
-pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
-fileName = FileNameJoin[{pacletObj[[1]]["Location"],"Resources","TestFiles","TestDataSource.wl"}];
-Get@fileName
-
-
-PacletDirectoryUnload["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk"]
-
-
-PacletDirectoryLoad["/Users/fduarte/Library/CloudStorage/Dropbox-Personal/MyPackages/LongRunRisk"]
-
-
-PacletInstall["FernandoDuarte/LongRunRisk"]
-
-
-
-
-
-Get@fileName
-
-
-eqA0
-
-
-  pacletFile = FindFile["TestDataSource.wl"]
-
-
-(* ::Section:: *)
-(*Run All Tests Together*)
-
-
-(* ::Input:: *)
-(*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> False]*)
-
-
-(* ::Input:: *)
-(*Quit[]*)
-
-
-(* ::Input:: *)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];*)
-(*PacletDirectoryLoad[pacletBaseDir];*)
-(*testFileNames=FileNames["*.wlt",FileNameJoin[{pacletBaseDir,"Tests"}],Infinity];*)
-(*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];*)
-
-
-(* ::Input:: *)
-(*trAll=TestReport[testFileNames]*)
-(*trAll["ReportSucceeded"]  (* should be True for no failures *)*)
-(*trAll["TestsFailedWrongResults"]*)
-(*trAll["TestsFailedWithMessages"]*)
-
-
-(* ::Input:: *)
-(*(**)
-(*ex=(trAll["TestsFailedWrongResults"][[1]])["ExpectedOutput"];*)
-(*ac=(trAll["TestsFailedWrongResults"][[1]])["ActualOutput"];*)
-(**)
-(*Table[ex[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
-(*Table[ac[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
-(**)
-(*Table[ex[[1,i]]===ac[[1,i]],{i,1,Length[ex[[1]]]}]*)
-(**)
-(*ex=(tr["TestsFailedWithMessages"][[1]])["ExpectedMessages"]*)
-(*ac=(tr["TestsFailedWithMessages"][[1]])["ActualMessages"]*)
-(**)
-(*Table[ex[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
-(*Table[ac[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
-(**)
-(*Table[ex[[1,i]]===ac[[1,i]],{i,1,Length[ex[[1]]]}]*)
-(**)*)
-
-
-(* ::Input:: *)
-(*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> True]*)
-
-
-(* ::Section:: *)
-(*Run Individual Tests Separately*)
+(*Run Tests Separately*)
 
 
 (* ::Input:: *)
 (*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> False];*)
-(*Quit[];*)
 
 
 (* ::Input:: *)
-(*pacletBaseDir=DirectoryName[NotebookDirectory[],2];*)
-(*PacletDirectoryLoad[pacletBaseDir];*)
-(*testFileNames = FileNames[FileNameJoin[{pacletBaseDir,"Tests","*.wlt"}]];*)
-(*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];*)
+(*Quit[];*)
 
 
 (* ::Input:: *)
@@ -5095,6 +4738,148 @@ eqA0
 (*expected=Table[Flatten@{(ReleaseHold@(trInd["Results"][[jj,1]][["ExpectedOutput"]]))},{jj,1,Length[trInd["Results"]]}];*)
 (*And@@Flatten@actual*)
 (*And@@Flatten@expected*)
+
+
+(* ::Input:: *)
+(*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> True]*)
+
+
+(* ::Section:: *)
+(*Run Tests*)
+
+
+(* ::Input:: *)
+(*SetOptions[$FrontEnd, "ClearEvaluationQueueOnKernelQuit" -> False]*)
+
+
+(* ::Subsection:: *)
+(*Use PacletCICD`TestPaclet*)
+
+
+(* ::Input:: *)
+(*Once[*)
+(*Quiet[PacletUninstall["Wolfram/PacletCICD"]];*)
+(*PacletInstall[ResourceObject["Wolfram/PacletCICD"]];*)
+(*PacletFind["Wolfram/PacletCICD"]*)
+(*]*)
+
+
+(* ::Input:: *)
+(*Quit[]*)
+
+
+(* ::Input:: *)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
+(*PacletDirectoryLoad[pacletBaseDir];*)
+(*Needs["Wolfram`PacletCICD`"];*)
+(*testResults=Wolfram`PacletCICD`TestPaclet[pacletBaseDir,"AnnotateTestIDs"->False];*)
+(**)
+(*(* to suppress output, run: *)*)
+(*(*testResults=Quiet[Block[{Print},Wolfram`PacletCICD`TestPaclet[pacletBaseDir]]];*)*)
+(**)
+(*And@@Values@((#["ReportSucceeded"])&/@testResults["Result"]) (* should be True for no failures *)*)
+(**)
+(*(* to debug tests *)*)
+(*(*succeed=#["ReportSucceeded"]&/@testResults[[2]]["Result"];*)
+(*Keys@Pick[testResults[[2]]["Result"],Values@succeed,False]*)
+(*testResults[[2]]["Result"]["./Tests/CreateMomentsDatabase.wlt"]["Results"]*)
+(*testResults[[2]]["Result"]["./Tests/ValidateModels/validateModel.wlt"]*)*)
+
+
+(* ::Subsection:: *)
+(*Simulate PacletCICD environment*)
+
+
+(* ::Input:: *)
+(*Quit[]*)
+
+
+(* ::Input:: *)
+(*(*simulate PacletCICD testing environment*)*)
+(*ClearAll[pacletCICDTestContext];*)
+(*SetAttributes[pacletCICDTestContext, HoldFirst];*)
+(*pacletCICDTestContext[expr_] := Module[{c = $Context, cp = $ContextPath},*)
+(*  WithCleanup[*)
+(*    ($Context = "PacletCICDTest`"; $ContextPath = {"PacletCICDTest`", "System`"}),*)
+(*    expr,*)
+(*    ($Context = c; $ContextPath = cp)*)
+(*  ]*)
+(*];*)
+(**)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
+(*PacletDirectoryLoad[pacletBaseDir];*)
+(*testDir = FileNameJoin[{pacletBaseDir,"Tests/"}];*)
+(*testFiles = FileNames["*.wlt", testDir, Infinity];*)
+(*report = pacletCICDTestContext[TestReport[testFiles]["ResultsByOutcome"]];*)
+(*report["MessagesFailure"] ==={} (* should be True for no message failures *)*)
+(*report["Failure"]==={}  (* should be True for no failures *)*)
+(*report["NotEvaluated"] ==={} (* should be True for all tests evaluated *)*)
+(**)
+(*(* to debug tests *)*)
+(*(*report["Failure"]*)
+(*report["Failure"][[1,1]]*)
+(*report["Failure"][[4,1]]*)
+(*report["Failure"][[-1,1]]*)*)
+
+
+(* ::Subsection:: *)
+(*Local Testing*)
+
+
+(* ::Input:: *)
+(*Quit[]*)
+
+
+(* ::Input:: *)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
+(*PacletDirectoryLoad[pacletBaseDir];*)
+(*testFileNames=FileNames["*.wlt",FileNameJoin[{pacletBaseDir,"Tests"}],Infinity];*)
+(*(*$ContextPath=Cases[$ContextPath,Except["PacletizedResourceFunctions`"]];*)*)
+(**)
+(*trAll=TestReport[testFileNames]*)
+(*trAll["ReportSucceeded"]  (* should be True for no failures *)*)
+(*trAll["TestsFailedWrongResults"]*)
+(*trAll["TestsFailedWithMessages"]*)
+(**)
+(*(* to debug *)*)
+(*(* *)
+(*ex=(trAll["TestsFailedWrongResults"][[1]])["ExpectedOutput"];*)
+(*ac=(trAll["TestsFailedWrongResults"][[1]])["ActualOutput"];*)
+(**)
+(*Table[ex[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
+(*Table[ac[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
+(**)
+(*Table[ex[[1,i]]===ac[[1,i]],{i,1,Length[ex[[1]]]}]*)
+(**)
+(*ex=(tr["TestsFailedWithMessages"][[1]])["ExpectedMessages"]*)
+(*ac=(tr["TestsFailedWithMessages"][[1]])["ActualMessages"]*)
+(**)
+(*Table[ex[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
+(*Table[ac[[1,i]]//Dataset,{i,1,Length[ex[[1]]]}]//TableForm*)
+(**)
+(*Table[ex[[1,i]]===ac[[1,i]],{i,1,Length[ex[[1]]]}]*)
+(**)*)
+
+
+(* ::Subsection:: *)
+(*Local Testing Files Individually*)
+
+
+(* ::Input:: *)
+(*Quit[];*)
+
+
+(* ::Input:: *)
+(*pacletBaseDir=DirectoryName[NotebookDirectory[],2]*)
+(*PacletDirectoryLoad[pacletBaseDir];*)
+(*testFolder = FileNameJoin[{pacletBaseDir,"Tests/"}];*)
+(*testFileNames = FileNames["*.wlt", testFolder, Infinity];*)
+(**)
+(*trIndiv = TestReport[TestReport[#]&/@testFileNames]*)
+(**)
+(*trIndiv["ReportSucceeded"]  (* should be True for no failures *)*)
+(*trIndiv["TestsFailedWrongResults"]*)
+(*trIndiv["TestsFailedWithMessages"]*)
 
 
 (* ::Input:: *)
