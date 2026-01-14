@@ -73,7 +73,7 @@ jobs:
             genhtml --ignore-errors empty,corrupt,category --num-spaces 4 --title "LongRunRisk Coverage (Baseline)" build/coverage/combined.lcov -o build/coverage/html || true
           fi
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           files: build/coverage/combined.lcov
           token: ${{ secrets.CODECOV_TOKEN }}
