@@ -1,12 +1,7 @@
 .DS_Store
-.claude/**
-.cursor/**
-.vscode/**
-tools/**
 ToProcess/**
-temp/**
 docs/**
 Scripts/**
 Tests/GenerateCITests/**
 Tests/InteractiveTests/**
-Tests/temp-tests-inst/**
+README.md
