@@ -1,18 +1,46 @@
 (* ::Package:: *)
 
+(* ::Section:: *)
+(*Begin package*)
+
+
 BeginPackage["FernandoDuarte`LongRunRisk`Tools`PipelineMonitor`"];
 
-checkModels::usage = "checkModels[] checks for Catalog.wl changes and incomplete pipelines, and offers to build.
-Returns Null if no changes and pipeline is complete, $Failed on error, or the build result if user confirms.
-checkModels[\"AutoBuild\" -> True] automatically builds incomplete models without user confirmation.
-checkModels[\"AutoBuild\" -> False] disables auto-build even in CI.
-With \"AutoBuild\" -> Automatic (default), auto-build is enabled when:
-  1. Environment variable LONGRUNRISK_AUTOBUILD is \"true\", \"1\", or \"yes\", OR
-  2. Environment variable CI is \"true\" (set by GitHub Actions, Travis, etc.) and not in a notebook.";
+
+(* ::Subsection:: *)
+(*Public symbols*)
+
+
+checkModels
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
+checkModels::usage = "checkModels[] checks for Catalog.wl changes and incomplete pipelines, and offers to build." <> "\n" <>
+	"Returns Null if no changes and pipeline is complete, $Failed on error, or the build result if user confirms." <> "\n" <>
+	"checkModels[\"AutoBuild\" -> True] automatically builds incomplete models without user confirmation." <> "\n" <>
+	"checkModels[\"AutoBuild\" -> False] disables auto-build even in CI.";
+
+
+(* ::Section:: *)
+(*Code*)
+
 
 Begin["`Private`"];
 
+
+(* ::Subsection:: *)
+(*Package dependencies*)
+
+
 Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
+
+
+(* ::Subsection:: *)
+(*checkModels*)
+
 
 Options[checkModels] = {"AutoBuild" -> Automatic};
 
@@ -106,7 +134,14 @@ Module[
 	showPipelineReport[changes, status, modelsToBuild, autoBuild]
 ]];
 
-(* Config loading - robust with fallbacks for all platforms *)
+(* ::Subsection:: *)
+(*Helper functions*)
+
+
+(* ::Subsubsection:: *)
+(*Config loading*)
+
+
 configFilePath[] := Module[{userBase},
 	userBase = $UserBaseDirectory;
 	If[!StringQ[userBase], userBase = $HomeDirectory];
@@ -159,7 +194,10 @@ openOrCreateConfigFile[] := Module[{file, defaults, create},
 	Null
 ];
 
-(* Pipeline report and build prompt *)
+(* ::Subsubsection:: *)
+(*Pipeline report and build prompt*)
+
+
 (* status: Association of ALL models with their pipeline status *)
 (* modelsToBuild: List of shortnames that need building (incomplete ones) *)
 showPipelineReport[changes_, status_, modelsToBuild_, autoBuild_:False] := Module[
@@ -330,6 +368,12 @@ showValidationErrors[validation_Association] := Module[{},
 	]
 ];
 
-End[];
+
+(* ::Section:: *)
+(*End package*)
+
+
+End[]; (*"`Private`"*)
+
 
 EndPackage[];

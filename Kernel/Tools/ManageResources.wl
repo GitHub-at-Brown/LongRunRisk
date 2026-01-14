@@ -1,15 +1,55 @@
 (* ::Package:: *)
 
+(* ::Section:: *)
+(*Begin package*)
+
+
 BeginPackage["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
 
-updateModelManifest::usage = "updateModelManifest[] generates and saves the ModelManifest.wl file.
-updateModelManifest[modelsAssoc] computes manifest data from the given models association without writing to disk.";
+
+(* ::Subsection:: *)
+(*Public symbols*)
+
+
+updateModelManifest
+checkCatalogChanges
+reformatCatalog
+buildModels
+buildModelsParallel
+checkCatalogForUI
+getModelPipelineStatus
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
+updateModelManifest::usage = "updateModelManifest[] generates and saves the ModelManifest.wl file." <> "\n" <>
+	"updateModelManifest[modelsAssoc] computes manifest data from the given models association without writing to disk.";
+
+checkCatalogChanges::usage = "checkCatalogChanges[] compares the current Catalog to the saved manifest and reports which models have changed." <> "\n" <>
+	"checkCatalogChanges[modelsAssoc] compares the given models association against the saved manifest, validates changes, but does not reformat.";
+
+reformatCatalog::usage = "reformatCatalog[] reformats the models section of Catalog.wl using standard formatting, preserving modelsExtraInfo unchanged.";
+
+buildModels::usage = "buildModels[] processes enabled models, compiles functions, computes numerical solutions, and creates moments database.";
+
+buildModelsParallel::usage = "buildModelsParallel[models] runs Symbolic+Compile+Numerical phases in parallel across models, then runs Moments sequentially.";
+
+checkCatalogForUI::usage = "checkCatalogForUI[] checks catalog changes without auto-reformatting.";
+
+getModelPipelineStatus::usage = "getModelPipelineStatus[] returns pipeline status for all enabled models." <> "\n" <>
+	"getModelPipelineStatus[shortnames] returns status for specified models (shortnames or All).";
+
+
+(* ::Subsubsection:: *)
+(*Messages*)
+
+
 updateModelManifest::noroot = "Could not locate paclet root directory.";
 updateModelManifest::nocat = "Catalog models not found or invalid.";
 updateModelManifest::versionmismatch = "PacletInfo.wl version `1` differs from installed paclet version `2`; using PacletInfo.wl version.";
 
-checkCatalogChanges::usage = "checkCatalogChanges[] compares the current Catalog to the saved manifest and reports which models have changed.
-checkCatalogChanges[modelsAssoc] compares the given models association against the saved manifest, validates changes, but does not reformat.";
 checkCatalogChanges::noroot = "Could not locate paclet root directory.";
 checkCatalogChanges::nocat = "Catalog models not found or invalid.";
 checkCatalogChanges::nomanifest = "ModelManifest.wl not found. Run updateModelManifest[] first.";
@@ -17,33 +57,39 @@ checkCatalogChanges::changed = "The following models have changed and need updat
 checkCatalogChanges::newmodels = "New models added to catalog: `1`.";
 checkCatalogChanges::removed = "Models removed from catalog: `1`.";
 
-reformatCatalog::usage = "reformatCatalog[] reformats the models section of Catalog.wl using standard formatting, preserving modelsExtraInfo unchanged.";
 reformatCatalog::noroot = "Could not locate paclet root directory.";
 reformatCatalog::nocat = "Could not locate Catalog.wl or parse its structure.";
 reformatCatalog::convfail = "Catalog reformatting failed: `1`";
 
-buildModels::usage = "buildModels[] processes enabled models, compiles functions, computes numerical solutions, and creates moments database.";
 buildModels::noroot = "Could not locate paclet root directory.";
 buildModels::nocat = "Catalog models not found or invalid.";
 
-buildModelsParallel::usage = "buildModelsParallel[models] runs Symbolic+Compile+Numerical phases in parallel across models, then runs Moments sequentially.
-Models is a list of shortnames like {\"BY\", \"NRC\", \"DES\"}.";
 
-checkCatalogForUI::usage = "checkCatalogForUI[] checks catalog changes without auto-reformatting.
-Returns <|\"Changed\"->{keys}, \"New\"->{keys}, \"Removed\"->{keys}, \"Validation\"->..., \"FirstRun\"->bool|> or $Failed.
-Handles first-run case (no manifest) by returning all enabled models as \"New\" with FirstRun->True.";
+(* ::Section:: *)
+(*Code*)
 
-getModelPipelineStatus::usage = "getModelPipelineStatus[] returns pipeline status for all enabled models.
-getModelPipelineStatus[shortnames] returns status for specified models (shortnames or All).
-Returns <|shortname -> <|\"MainStage\"->..., \"NeedsJacobians\"->..., \"Reason\"->...|>, ...|> or $Failed.";
 
 Begin["`Private`"];
+
+
+(* ::Subsection:: *)
+(*Package dependencies*)
+
 
 Needs["PacletizedResourceFunctions`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`Common`"];
 Needs["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
 Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
+
+
+(* ::Subsection:: *)
+(*Helper functions*)
+
+
+(* ::Subsubsection:: *)
+(*Catalog loading*)
+
 
 (* Live catalog loading - tracks file modification time *)
 $catalogFile = None;
@@ -1372,5 +1418,11 @@ getModelPipelineStatus[shortnames_] := Module[
 ];
 
 
-End[];
+(* ::Section:: *)
+(*End package*)
+
+
+End[]; (*"`Private`"*)
+
+
 EndPackage[];

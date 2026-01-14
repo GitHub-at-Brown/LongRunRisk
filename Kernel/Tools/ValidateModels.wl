@@ -1,8 +1,33 @@
 (* ::Package:: *)
 
+(* ::Section:: *)
+(*Begin package*)
+
+
 BeginPackage["FernandoDuarte`LongRunRisk`Tools`ValidateModels`"];
 
+
+(* ::Subsection:: *)
+(*Public symbols*)
+
+
+validateModel
+validateCatalog
+
+
+(* ::Subsubsection:: *)
+(*Usage*)
+
+
 validateModel::usage = "validateModel[model] validates a single model Association against the schema. Returns a ValidationResult Association.";
+
+validateCatalog::usage = "validateCatalog[catalog] validates all models in a catalog Association. Returns a CatalogValidationResult.";
+
+
+(* ::Subsubsection:: *)
+(*Messages*)
+
+
 validateModel::missingkey = "Model \"`1`\": Missing required key \"`2`\".";
 validateModel::wrongtype = "Model \"`1`\": Key \"`2`\" expected `3`, got `4`.";
 validateModel::badstatevar = "Model \"`1`\": Invalid state variable `2`. Expected expression with [t] dependency.";
@@ -19,13 +44,26 @@ validateModel::indexgap = "Model \"`1`\": Stock indices are not sequential start
 validateModel::badassumption = "Model \"`1`\": Parameter `2` = `3` violates assumption `4`.";
 validateModel::badstatevarsymbol = "Model \"`1`\": State variable `2` contains invalid symbol(s): `3`.";
 
-validateCatalog::usage = "validateCatalog[catalog] validates all models in a catalog Association. Returns a CatalogValidationResult.";
+
+(* ::Section:: *)
+(*Code*)
+
 
 Begin["`Private`"];
+
+
+(* ::Subsection:: *)
+(*Package dependencies*)
+
 
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"];
 Needs["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
+
+
+(* ::Subsection:: *)
+(*Schema definition*)
+
 
 (* Schema Definition - Pattern-based *)
 
@@ -105,7 +143,8 @@ extractStateVarSymbols[expr_] := Module[{pureSymbols, headNames, allNames},
 ];
 
 
-(* Helper Functions *)
+(* ::Subsection:: *)
+(*Helper functions*)
 
 
 (* Check if an expression contains t-dependency like x[t], sx[-1+t], etc. *)
@@ -145,7 +184,8 @@ stripParamIndex[other_] := ToString[other];
 getExpectedParamNames[] := FernandoDuarte`LongRunRisk`Model`Parameters`$parameters;
 
 
-(* Validation Functions *)
+(* ::Subsection:: *)
+(*Validation functions*)
 
 
 (* Validate structure against schema - check required keys and types *)
@@ -465,7 +505,8 @@ validateParameters[params_, modelName_] := Flatten[Last[Reap[
 ], {}]];
 
 
-(* Message Issuing *)
+(* ::Subsection:: *)
+(*Message issuing*)
 
 
 issueMessage[error_Association] := Switch[error["Type"],
@@ -504,7 +545,8 @@ issueMessage[error_Association] := Switch[error["Type"],
 ];
 
 
-(* Public API *)
+(* ::Subsection:: *)
+(*validateModel*)
 
 
 validateModel[model_Association] := Module[
@@ -547,6 +589,11 @@ validateModel[_] := <|
   "ErrorCount" -> 1
 |>;
 
+
+(* ::Subsection:: *)
+(*validateCatalog*)
+
+
 validateCatalog[catalog_Association] := Module[
   {results, invalidModels, totalErrors},
 
@@ -575,5 +622,12 @@ validateCatalog[_] := <|
   "TotalErrors" -> 1
 |>;
 
-End[];
+
+(* ::Section:: *)
+(*End package*)
+
+
+End[]; (*"`Private`"*)
+
+
 EndPackage[];
