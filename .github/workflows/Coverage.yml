@@ -72,6 +72,12 @@ jobs:
             lcov --ignore-errors empty,corrupt -a build/coverage/baseline.lcov -a build/coverage/tests.lcov -o build/coverage/combined.lcov || true
             genhtml --ignore-errors empty,corrupt,category --num-spaces 4 --title "LongRunRisk Coverage (Baseline)" build/coverage/combined.lcov -o build/coverage/html || true
           fi
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: build/coverage/combined.lcov
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
       - name: Upload coverage report
         uses: actions/upload-artifact@v5
         if: always()
