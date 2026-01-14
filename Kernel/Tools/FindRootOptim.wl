@@ -28,7 +28,6 @@ buildEqMapFromModel
 buildKernel::usage = "buildKernel[expr, vars, params] compiles expr into a kernel optimized for root-finding.
 vars: the coefficient variables (e.g., {A[0]}) to solve for.
 params: the parameter symbols present in expr.
-Options: \"CoeffName\" (default \"A\"), \"CompileSignSymbol\" (default \"signA\"), \"PerformanceGoal\" (default \"Quality\"; \"Quality\" | \"Speed\").
 Returns an Association with keys: \"fC\", \"dfC\", \"Vars\", \"ParamOrder\", \"SignIndex\", \"CoeffName\", \"CompileSignSymbol\".";
 buildKernel::badvars = "Expression contains coefficient variables not listed in vars.";
 buildKernel::unusedvars = "Some vars were not found in the expression: `1`.";
@@ -47,19 +46,16 @@ paramValues: Association of parameter -> value.
 coeffName: String, the coefficient name (e.g., \"A\").
 signSym: String, the sign symbol name (e.g., \"signA\").
 signs: List of sign values (default {}), e.g., {1, -1}.";
-extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.
-Options: \"InteriorShrink\" (default 0.001), \"RootUpperBound\" (default 15).";
+extractIntervalsFromReduce::usage = "extractIntervalsFromReduce[reduceExpr, rootVar] converts a Reduce expression into a list of numeric intervals {{a1, b1}, {a2, b2}, ...}.";
 extractIntervalsFromReduce::nointervals = "Could not extract any valid intervals from reduced expression `1`.";
 findRootInterval::emptyinterval = "There are no real solutions for `1`. Try changing signs `2` or parameters.";
 findRootInterval::nocoeff = "Could not locate a root variable for coefficient head `1` in the conditions.";
 scanAndSolve::usage = "scanAndSolve[f, {min, max}] finds roots of f[x] in the range by grid subdivision.
-scanAndSolve[f, df, {min, max}] uses derivative df for Newton steps.
-Options: \"BracketGrid\" (default 32), \"Tolerance\" (default Automatic), \"FastRootOptions\", \"FindRootOptions\".";
-fastRoot::usage = "fastRoot[f, spec, opts] finds a root using a hybrid Newton/Brent/Secant strategy.
+scanAndSolve[f, df, {min, max}] uses derivative df for Newton steps.";
+fastRoot::usage = "fastRoot[f, spec] finds a root using a hybrid Newton/Brent/Secant strategy.
 Spec formats:
   1D: {x0, min, max} full | {min, max} bounds only | x0 start only
-  nD: {{x01,min1,max1},...} full | {{min1,max1},...} bounds only | {{x01,x02,...}} start only
-Options: Jacobian->df, Method->Automatic, \"SecantBlend\"->0.5, \"Return\"->\"Value\".";
+  nD: {{x01,min1,max1},...} full | {{min1,max1},...} bounds only | {{x01,x02,...}} start only";
 fastRoot::noconverge = "Failed to converge within `1` iterations starting from x0=`2` in bounds [`3`, `4`].";
 fastRoot::nonnumeric = "Function returned non-numeric value `1` at x=`2`.";
 fastRoot::nobounds = "No bounds specified and FindRoot failed from x0=`1`.";
@@ -628,28 +624,28 @@ parseSpec[x0_?NumericQ] := <|"dim" -> 1, "x0" -> N[x0], "lower" -> None, "upper"
 parseSpec[Automatic] := <|"dim" -> 1, "x0" -> Automatic, "lower" -> None, "upper" -> None|>
 
 (* 1D bounds only (2 elements): {lo, hi} *)
-parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi > lo :=
-  <|"dim" -> 1, "x0" -> Automatic, "lower" -> N[lo], "upper" -> N[hi]|>
+parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi > lo := <|
+	"dim" -> 1, "x0" -> Automatic, "lower" -> N[lo], "upper" -> N[hi]|>
 
 (* 1D bounds with bad order *)
-parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi <= lo :=
-  (Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, lo, hi]; $Failed)
+parseSpec[{lo_?NumericQ, hi_?NumericQ}] /; hi <= lo := (Message[
+	FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, lo, hi]; $Failed)
 
 (* 1D full spec (3 elements): {x0, lo, hi} or {Automatic, lo, hi} *)
-parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi > lo :=
-  <|"dim" -> 1, "x0" -> If[x0 === Automatic, Automatic, N[x0]], "lower" -> N[lo], "upper" -> N[hi]|>
+parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi > lo := <|
+	"dim" -> 1, "x0" -> If[x0 === Automatic, Automatic, N[x0]], "lower" -> N[lo], "upper" -> N[hi]|>
 
 (* 1D full spec with bad bounds *)
-parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi <= lo :=
-  (Message[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, lo, hi]; $Failed)
+parseSpec[{x0 : (_?NumericQ | Automatic), lo_?NumericQ, hi_?NumericQ}] /; hi <= lo := (Message[
+	FernandoDuarte`LongRunRisk`Tools`FindRootOptim`fastRoot::badbounds, lo, hi]; $Failed)
 
 (* nD start only - NESTED SINGLETON {{x0_vec}} *)
-parseSpec[{v_?(VectorQ[#, NumericQ] &)}] :=
-  <|"dim" -> Length[v], "x0" -> N[v], "lower" -> None, "upper" -> None|>
+parseSpec[{v_?(VectorQ[#, NumericQ] &)}] := <|
+	"dim" -> Length[v], "x0" -> N[v], "lower" -> None, "upper" -> None|>
 
 (* nD bounds only - nested, each inner has {lo, hi} *)
-parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; And @@ ((#[[2]] > #[[1]]) & /@ nested) :=
-  <|"dim" -> Length[nested], "x0" -> Automatic, "lower" -> N[nested[[All, 1]]], "upper" -> N[nested[[All, 2]]]|>
+parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; And @@ ((#[[2]] > #[[1]]) & /@ nested) := <|
+	"dim" -> Length[nested], "x0" -> Automatic, "lower" -> N[nested[[All, 1]]], "upper" -> N[nested[[All, 2]]]|>
 
 (* nD bounds with bad order *)
 parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; !And @@ ((#[[2]] > #[[1]]) & /@ nested) := Module[
@@ -658,8 +654,7 @@ parseSpec[nested : {{_?NumericQ, _?NumericQ} ..}] /; !And @@ ((#[[2]] > #[[1]]) 
 ]
 
 (* nD full spec - nested, each inner has {x0|Automatic, lo, hi} *)
-parseSpec[nested : {{(_?NumericQ | Automatic), _?NumericQ, _?NumericQ} ..}] /; And @@ ((#[[3]] > #[[2]]) & /@ nested) :=
-  <|
+parseSpec[nested : {{(_?NumericQ | Automatic), _?NumericQ, _?NumericQ} ..}] /; And @@ ((#[[3]] > #[[2]]) & /@ nested) := <|
     "dim" -> Length[nested],
     "x0" -> (nested[[All, 1]] /. x_?NumericQ :> N[x]),
     "lower" -> N[nested[[All, 2]]],
@@ -788,8 +783,7 @@ tryNewtonND[fnum_, dfnum_, vars_, x0_, lb_, ub_, findRootOpts_] := Module[
 ]
 
 (* 1D Brent (requires bracketed interval) *)
-tryBrent1D[fnum_, var_, lb_, ub_, findRootOpts_] :=
-  Quiet @ Check[
+tryBrent1D[fnum_, var_, lb_, ub_, findRootOpts_] := Quiet @ Check[
     FindRoot[fnum[var] == 0., {var, lb, ub}, Method -> "Brent",
       Evaluate[Sequence @@ findRootOpts]],
     $Failed
@@ -895,8 +889,7 @@ tryMethods[methodFuncs_List, f_, acc_] := Module[
 
 (* New fastRootCore: unified core implementation *)
 (* Takes parsed spec components, returns result in requested format *)
-fastRootCoreNew[f_, df_, x0_, lb_, ub_, dim_, opts : OptionsPattern[{fastRoot, FindRoot}]] :=
-With[{
+fastRootCoreNew[f_, df_, x0_, lb_, ub_, dim_, opts : OptionsPattern[{fastRoot, FindRoot}]] := With[{
   ret = OptionValue["Return"],
   blend = N[OptionValue["SecantBlend"]],
   method = OptionValue[Method],
@@ -1528,8 +1521,7 @@ extractIntervalsFromReduce[
 
 
 (* Extracts equation map from a processed model - used by createCompiledEq and for hash validation *)
-buildEqMapFromModel[model_Association] :=
-With[{
+buildEqMapFromModel[model_Association] := With[{
 	quadSol = model["coeffsParamQuadSolve"],
 	modelParamsKeys = Keys @ model["params"],
 	coeffsSystem = model["coeffsSystem"]
@@ -1605,8 +1597,7 @@ With[{
 
 (* createCompiledEq inherits "CompileMode" from buildKernel via OptionsPattern *)
 
-createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile, Compile}]] :=
-With[{
+createCompiledEq[model_Association, resourcesCompiledDir_String, opts : OptionsPattern[{buildKernel, FunctionCompile, Compile}]] := With[{
 	shortname = model["shortname"],
 	buildKernelOpts = FilterRules[Flatten @ {opts}, Join[Options @ buildKernel, Options @ FunctionCompile, Options @ Compile]],
 	compileMode = OptionValue[buildKernel, Flatten @ {opts}, "CompileMode"],

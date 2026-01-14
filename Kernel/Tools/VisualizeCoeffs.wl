@@ -20,10 +20,7 @@ visualizeCoeffs
 
 visualizeCoeffs::usage = "visualizeCoeffs[updateCoeffsResult] displays a coefficient-centric comparison view.\n" <>
     "Shows A[0] and B[j][0] values across all solution bundles for easy comparison.\n" <>
-    "Includes an interactive selector to compare any coefficient across bundles.\n" <>
-    "Options:\n" <>
-    "  \"ShowSelector\" -> True - show interactive coefficient selector\n" <>
-    "  \"ShowDetails\" -> True - show collapsible bundle details";
+    "Includes an interactive selector to compare any coefficient across bundles.";
 
 
 (* ::Section:: *)

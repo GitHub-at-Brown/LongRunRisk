@@ -20,7 +20,7 @@ modelsExtraInfo
 
 
 models::usage= "Association with the definition and properties of models.";
-modelsExtraInfo::usage= "Additional optional information about model solution, constraints, initial guesses for numerical solvers.";
+modelsExtraInfo::usage= "Additional information about model solution, constraints, initial guesses for numerical solvers.";
 
 
 (* ::Section:: *)
@@ -1811,11 +1811,7 @@ modelsExtraInfo = <|
 				{
 					P[n_][1] :> ((-1 + rhox^n)*(-((1 + E^A[0])*theta) + psi*(-1 + theta)*(1 - A[1] + E^A[0]*(1 + (-1 + rhox)*A[1]))))/((1 + E^A[0])*psi*(-1 + rhox))
 				}
-			]	
-		|>,
-		"initialGuess" -> <| 
-			"Ewc"-> {6.25},
-			"Epd"-> {{5.5}}
+			]
 		|>
 	|>,
 (**********************************************************)
@@ -1842,11 +1838,7 @@ modelsExtraInfo = <|
 				{
 					P[n_][1] :> ((-1 + rhox^n)*(-((1 + E^A[0])*theta) + psi*(-1 + theta)*(1 - A[1] + E^A[0]*(1 + (-1 + rhox)*A[1]))))/((1 + E^A[0])*psi*(-1 + rhox))
 				}
-			]	
-		|>,
-		"initialGuess" -> <| 
-			"Ewc"-> {1,15},
-			"Epd"-> {{4}}
+			]
 		|>
 	|>,
 (**********************************************************)
@@ -1889,10 +1881,6 @@ modelsExtraInfo = <|
 					},
 					n>0
 				]
-		|>,
-		"initialGuess" -> <| 
-			"Ewc" -> {4.6}, 
-			"Epd" -> {{4.7},{6.2},{5.5}}
 		|>
 	|>,
 (**********************************************************)
@@ -1934,12 +1922,8 @@ modelsExtraInfo = <|
 					},
 					n>0
 				]
-		|>,
-		"initialGuess" -> <| 
-			"Ewc" -> {4.6}, 
-			"Epd" -> {{6},{7},{4.6}}
 		|>
-	|>		
+	|>
 |>;(*end modelsExtraInfo*)
 
 

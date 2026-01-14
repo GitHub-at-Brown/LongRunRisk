@@ -23,7 +23,7 @@ dceq::usage = "dceq[t] gives the exogenous dynamics of real consumption growth."
 sgeq::usage = "sgeq[t] gives the exogenous dynamics of the nominal-real covariance (NRC).";
 sxeq::usage = "sxeq[t] gives the exogenous dynamics of stochastic volatility of long-run risk.";
 sceq::usage = "sceq[t] gives the exogenous dynamics of stochastic volatility of real consumption growth.";
-speq::usage = "speq[t] gives the exogenous dynamics of long-run risk stochastic volatility of inflation.";
+speq::usage = "speq[t] gives the exogenous dynamics of stochastic volatility of inflation.";
 ddeq::usage = "ddeq[t, i] gives the exogenous dynamics of real dividend growth for stock i.";
 
 
@@ -50,6 +50,7 @@ Begin["`Private`"]
 
 Needs["FernandoDuarte`LongRunRisk`Model`Parameters`"]
 Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"]
+Needs["FernandoDuarte`LongRunRisk`Tools`Common`"]
 
 
 (* ::Subsection:: *)
@@ -59,27 +60,11 @@ Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"]
 (*declare private symbols for exogenous variables that are the same as the public symbols but do not end in "eq"*)
 $exogenousVarsPrivate = ((StringDrop[#,-2]&) /@ $exogenousVars)
 Symbol/@ $exogenousVarsPrivate;
-(*inherit usage message*)
-Function[sym,
-	With[
-		{
-			symNew=Symbol@StringDrop[SymbolName@sym,-2]
-		},
-		AppendTo[
-			Messages[symNew],
-			HoldPattern[MessageName[symNew,"usage"]]:>StringReplace[
-				Information[sym,"Usage"],
-				{
-					SymbolName@sym->SymbolName@symNew,
-					"gives"->"represents",
-					"the exogenous dynamics of"->""
-				}
-			]/;StringQ[MessageName[sym,"usage"]]
-		];
-	];
-	,
-	HoldAll
-]@@@(Hold /@ Symbol /@ $exogenousVars);
+(*inherit usage message - uses shared utility from Common.wl*)
+FernandoDuarte`LongRunRisk`Tools`Common`inheritUsageMessages[
+	$exogenousVars,
+	{"gives" -> "represents", "the exogenous dynamics of" -> ""}
+];
 
 
 $exogenousVarsStocksPrivate = ((StringDrop[#,-2]&) /@ $exogenousVarsStocks)
@@ -109,26 +94,24 @@ t::usage = "t denotes time.";
 (*Long-run risk*)
 
 
-xeq[t_]:=
-	rhox x[t-1]+rhoxpbar * (pibar[t-1]-mupbar)+
+xeq[t_] := rhox x[t-1] + rhoxpbar * (pibar[t-1]-mupbar) +
 	phix Sqrt[sx[t-1]+Esx^2] eps["x"][t] +
-	phixc Sqrt[sc[t-1]+Esc^2] eps["dc"][t] 
+	phixc Sqrt[sc[t-1]+Esc^2] eps["dc"][t]
 
 
 (* ::Subsubsection:: *)
 (*Inflation*)
 
 
-pieq[t_]:=
-	mup+
-	rhoppbar * (pibar[t-1]-mupbar)+
-	rhop * (pi[t-1]-mup)+
-	phip eps["pi"][t]+
-	xip eps["pi"][t-1]+
-	phipc Sqrt[sc[t-1]+Esc^2] eps["dc"][t]+
+pieq[t_] := mup +
+	rhoppbar * (pibar[t-1]-mupbar) +
+	rhop * (pi[t-1]-mup) +
+	phip eps["pi"][t] +
+	xip eps["pi"][t-1] +
+	phipc Sqrt[sc[t-1]+Esc^2] eps["dc"][t] +
 	phipx Sqrt[sx[t-1]+Esx^2] eps["x"][t] +
 	phipcx Sqrt[sc[t-1]+Esc^2] eps["x"][t] +
-	phipp Sqrt[sp[t-1]+Esp^2] eps["pi"][t]+
+	phipp Sqrt[sp[t-1]+Esp^2] eps["pi"][t] +
 	phipxp Sqrt[sx[t-1]+Esx^2] eps["pi"][t]
 
 
@@ -136,16 +119,15 @@ pieq[t_]:=
 (*Expected inflation*)
 
 
-pibareq[t_]:= 
-	mupbar+
-	rhopbar * (pibar[t-1]-mupbar)+ 
-	rhopbarx x[t-1]+
-	phipbarp eps["pi"][t]+
-	phipbarc Sqrt[sc[t-1]+Esc^2] eps["dc"][t]+ 
-	phipbarx Sqrt[sx[t-1]+Esx^2] eps["x"][t]+
-	phipbarcx Sqrt[sc[t-1]+Esc^2] eps["x"][t]+
-	phipbarpb Sqrt[sp[t-1]+Esp^2] eps["pibar"][t]+
-	phipbarxb Sqrt[sx[t-1]+Esx^2] eps["pibar"][t]+
+pibareq[t_] := mupbar +
+	rhopbar * (pibar[t-1]-mupbar) +
+	rhopbarx x[t-1] +
+	phipbarp eps["pi"][t] +
+	phipbarc Sqrt[sc[t-1]+Esc^2] eps["dc"][t] +
+	phipbarx Sqrt[sx[t-1]+Esx^2] eps["x"][t] +
+	phipbarcx Sqrt[sc[t-1]+Esc^2] eps["x"][t] +
+	phipbarpb Sqrt[sp[t-1]+Esp^2] eps["pibar"][t] +
+	phipbarxb Sqrt[sx[t-1]+Esx^2] eps["pibar"][t] +
 	phipbarxp Sqrt[sx[t-1]+Esx^2] eps["pi"][t]
 
 
@@ -153,19 +135,18 @@ pibareq[t_]:=
 (*Real consumption growth*)
 
 
-dceq[t_]:= 
-	muc+
-	rhocx x[t-1]+
-	rhocp * (pi[t-1]-mup)+
-	rhocpbar * (pibar[t-1]-mupbar)+
-	phic eps["dc"][t]+
-	phicp eps["pi"][t]+
-	phicsp sg[t-1] eps["pi"][t]+
-	xic sg[t-2] eps["pi"][t-1] + 
-	phics Sqrt[sx[t-1]+Esx^2] eps["x"][t]+
-	phicx Sqrt[sx[t-1]+Esx^2] eps["dc"][t]+
-	phicc Sqrt[sc[t-1]+Esc^2] eps["dc"][t]+
-	phicpc Sqrt[sp[t-1]+Esp^2] eps["dc"][t]+
+dceq[t_] := muc +
+	rhocx x[t-1] +
+	rhocp * (pi[t-1]-mup) +
+	rhocpbar * (pibar[t-1]-mupbar) +
+	phic eps["dc"][t] +
+	phicp eps["pi"][t] +
+	phicsp sg[t-1] eps["pi"][t] +
+	xic sg[t-2] eps["pi"][t-1] +
+	phics Sqrt[sx[t-1]+Esx^2] eps["x"][t] +
+	phicx Sqrt[sx[t-1]+Esx^2] eps["dc"][t] +
+	phicc Sqrt[sc[t-1]+Esc^2] eps["dc"][t] +
+	phicpc Sqrt[sp[t-1]+Esp^2] eps["dc"][t] +
 	phicpp Sqrt[sp[t-1]+Esp^2] eps["pi"][t]
 
 
@@ -173,11 +154,10 @@ dceq[t_]:=
 (*Nominal - real covariance (NRC)*)
 
 
-sgeq[t_]:= 
-	Esg + 
-	rhog * (sg[t-1]-Esg)+
-	rhogp * (pi[t-1]-mup)+
-	rhogpbar * (pibar[t-1]-mupbar)+
+sgeq[t_] := Esg +
+	rhog * (sg[t-1]-Esg) +
+	rhogp * (pi[t-1]-mup) +
+	rhogpbar * (pibar[t-1]-mupbar) +
 	phig eps["sg"][t]
 
 
@@ -185,8 +165,7 @@ sgeq[t_]:=
 (*Stochastic volatility of long-run risk*)
 
 
-sxeq[t_]:= 
-	vx sx[t-1]+
+sxeq[t_] := vx sx[t-1] +
 	phisxs eps["sx"][t]
 
 
@@ -194,8 +173,7 @@ sxeq[t_]:=
 (*Stochastic volatility of consumption growth*)
 
 
-sceq[t_]:= 
-	vc sc[t-1]+
+sceq[t_] := vc sc[t-1] +
 	phiscv eps["sc"][t]
 
 
@@ -203,10 +181,9 @@ sceq[t_]:=
 (*Stochastic volatility of inflation*)
 
 
-speq[t_]:= 
-	vp sp[t-1]+
-	vpp * (pi[t-1]-mup)+
-	vppbar * (pibar[t-1]-mupbar)+
+speq[t_] := vp sp[t-1] +
+	vpp * (pi[t-1]-mup) +
+	vppbar * (pibar[t-1]-mupbar) +
 	phispw eps["sp"][t]  
 
 
@@ -214,20 +191,19 @@ speq[t_]:=
 (*Real dividend growth for stock i*)
 
 
-ddeq[t_,i_]:= 
-	mud[i]+
-	rhodx[i]x[t-1]+
-	rhodp[i] * (pi[t-1]-mup)+ 
-	phidc[i] eps["dc"][t]+ 
-	phidp[i] eps["pi"][t]+
-	phidsp[i] sg[t-1]eps["pi"][t]+
-	xid[i] sg[t-2] eps["pi"][t-1]+
-	phids[i] Sqrt[sx[t-1]+Esx^2] eps["x"][t]+
-	phidxc[i] Sqrt[sx[t-1]+Esx^2] eps["dc"][t]+
-	phidcc[i] Sqrt[sc[t-1]+Esc^2] eps["dc"][t]+ 
-	phidpc[i] Sqrt[sp[t-1]+Esp^2] eps["dc"][t]+
-	phidpp[i] Sqrt[sp[t-1]+Esp^2] eps["pi"][t]+
-	phidxd[i] Sqrt[sx[t-1]+Esx^2] eps["dd"][t,i]+ 
+ddeq[t_, i_] := mud[i] +
+	rhodx[i] x[t-1] +
+	rhodp[i] * (pi[t-1]-mup) +
+	phidc[i] eps["dc"][t] +
+	phidp[i] eps["pi"][t] +
+	phidsp[i] sg[t-1] eps["pi"][t] +
+	xid[i] sg[t-2] eps["pi"][t-1] +
+	phids[i] Sqrt[sx[t-1]+Esx^2] eps["x"][t] +
+	phidxc[i] Sqrt[sx[t-1]+Esx^2] eps["dc"][t] +
+	phidcc[i] Sqrt[sc[t-1]+Esc^2] eps["dc"][t] +
+	phidpc[i] Sqrt[sp[t-1]+Esp^2] eps["dc"][t] +
+	phidpp[i] Sqrt[sp[t-1]+Esp^2] eps["pi"][t] +
+	phidxd[i] Sqrt[sx[t-1]+Esx^2] eps["dd"][t,i] +
 	phidcd[i] Sqrt[sc[t-1]+Esc^2] eps["dd"][t,i] +
 	phidpd[i] Sqrt[sp[t-1]+Esp^2] eps["dd"][t,i]
 

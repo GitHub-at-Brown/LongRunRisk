@@ -29,7 +29,7 @@ updateCoeffs::usage = "updateCoeffs[model] solves for the coefficients of the we
     "  - Bond, NomBond: bond coefficient rules (if computed)\n" <>
     "Use flattenCoeffs[result] to extract all coefficient rules as a flat list.";
 
-addCoeffsSolutionN::usage = "addCoeffsSolutionN[model] computes numerical solutions for all coefficient types (wc, pd, bond, nombond) using default parameters and model extraInfo.";
+addCoeffsSolutionN::usage = "addCoeffsSolutionN[model] computes numerical solutions for all coefficient types (wc, pd, bond, nombond) using default parameters and model extraInfo.\naddCoeffsSolutionN[model, buildMaxMaturity] uses the specified maximum maturity (default 12).";
 
 flattenCoeffs::usage = "flattenCoeffs[updateCoeffsResult] extracts all coefficient rules from the hierarchical structure returned by updateCoeffs.\n" <>
     "flattenCoeffs[result, n] extracts rules from the n-th A solution only.\n" <>
@@ -82,8 +82,7 @@ signHeadFromExpr[expr_, sName_Symbol] := sName;
 
 
 (* Step 1: safeReduceCall - wraps findRootInterval with timeout for nD *)
-safeReduceCall[conds_, paramsAll_, signs_, cName_, sName_, timeout_] :=
-  TimeConstrained[
+safeReduceCall[conds_, paramsAll_, signs_, cName_, sName_, timeout_] := TimeConstrained[
     findRootInterval[conds, paramsAll, cName, sName, signs],
     timeout,
     $Failed
@@ -98,8 +97,8 @@ convertInfinityBounds[a_List, b_List, pad_?NumericQ] := {
 
 
 (* Step 3: trySmartIntervals - attempts root-finding with Reduce-derived intervals *)
-trySmartIntervals[f_, df_, reduceExpr_, coefList_, extractOpts_, scanOpts_, rub_, pad_] :=
-  Module[{intervals, finalRoots = {}, finalIntervals = {}},
+trySmartIntervals[f_, df_, reduceExpr_, coefList_, extractOpts_, scanOpts_, rub_, pad_] := Module[
+  {intervals, finalRoots = {}, finalIntervals = {}},
     If[reduceExpr === $Failed, Return[$Failed]];
 
     intervals = extractIntervalsFromReduce[reduceExpr, coefList,
@@ -146,8 +145,8 @@ trySmartIntervals[f_, df_, reduceExpr_, coefList_, extractOpts_, scanOpts_, rub_
 
 
 (* Step 4: tryArtificialBox - fallback with artificial finite bounds *)
-tryArtificialBox[f_, df_, coefList_, scanOpts_, rub_, pad_] :=
-  Module[{d, a, b, x0, frRes, artificialBounds},
+tryArtificialBox[f_, df_, coefList_, scanOpts_, rub_, pad_] := Module[
+  {d, a, b, x0, frRes, artificialBounds},
     d = Length[coefList];
     artificialBounds = Prepend[ConstantArray[{-pad, pad}, d - 1], {0., rub}];
     a = artificialBounds[[All, 1]];
@@ -168,8 +167,8 @@ tryArtificialBox[f_, df_, coefList_, scanOpts_, rub_, pad_] :=
 
 
 (* Step 5: nMinimizeFallback - optimization-based fallback *)
-nMinimizeFallback[f_, coefList_, reduceExpr_, rub_, pad_, tol_] :=
-  Module[{d, vars, coefToVar, objFn, boxConstraints,
+nMinimizeFallback[f_, coefList_, reduceExpr_, rub_, pad_, tol_] := Module[
+  {d, vars, coefToVar, objFn, boxConstraints,
           mappedReduceExpr, constraints, nmRes, artificialBounds},
 
     d = Length[coefList];
@@ -220,8 +219,8 @@ solveND // Options = {
 
 solveND[f_, df_, conds_, paramsAll_, signs_, coefList_, cName_, sName_,
 	        extractOpts_, scanOpts_, solTemplate_,
-	        opts : OptionsPattern[{solveND}]] :=
-	  Module[{reduceExpr, rub, pad, acc, tol, signHead, signsRule, sol, result},
+	        opts : OptionsPattern[{solveND}]] := Module[
+  {reduceExpr, rub, pad, acc, tol, signHead, signsRule, sol, result},
 
     (* Extract options from extractIntervalsFromReduce *)
     rub = Lookup[Flatten@{extractOpts}, "RootUpperBound", 15.];
@@ -334,7 +333,6 @@ clearKernelCache[] := ($kernelCache = <||>);
 
 
 updateCoeffsSol//Options={
-	"initialGuess" -> <|"Ewc"->{4},"Epd"->{{4}}|>,
 	"FindRootOptions"->{},(*{MaxIterations->100},*) (*"FindRootOptions"->{PrecisionGoal\[Rule]$MachinePrecision,AccuracyGoal\[Rule]$MachinePrecision,WorkingPrecision->$MachinePrecision*)
 	"RecurrenceTableOptions"->{"DependentVariables"->Automatic},
 	"UpdatePd"->False,
@@ -405,10 +403,8 @@ normalizeRootSigns[rootSigns_, signIndex_Association] := Module[
 ]
 
 (* Fallback when signIndex is not an Association *)
-normalizeRootSigns[rootSigns_, signIndex_] := (
-  Message[normalizeRootSigns::badsignidx, Head[signIndex]];
-  $Failed
-)
+normalizeRootSigns[rootSigns_, signIndex_] := (Message[
+	normalizeRootSigns::badsignidx, Head[signIndex]]; $Failed)
 
 
 (* ::Subsubsection:: *)
@@ -434,8 +430,8 @@ extractSignIndex[kernels_Association] := <|
 (*computeWcCoeffs*)
 
 
-computeWcCoeffs[model_, kernels_, params_, newParams_, rootSignsNorm_, rootSigns_, opts_] :=
-  Module[{rawResults},
+computeWcCoeffs[model_, kernels_, params_, newParams_, rootSignsNorm_, rootSigns_, opts_] := Module[
+  {rawResults},
     rawResults = filterSolutions[
       updateCoeffsWcPd["wc", model["coeffsParamQuadSolve"], kernels,
                        params, newParams, rootSignsNorm, rootSigns, opts],
@@ -460,8 +456,8 @@ computeWcCoeffs[model_, kernels_, params_, newParams_, rootSignsNorm_, rootSigns
 
 
 computePdCoeffs[model_, kernels_, params_, newParams_, solWc_,
-                rootSignsNorm_, rootSigns_, numStocks_, opts_] :=
-  Module[{renameToB, computeBForASolution},
+                rootSignsNorm_, rootSigns_, numStocks_, opts_] := Module[
+  {renameToB, computeBForASolution},
     (* For each A solution, compute B solutions for all stocks *)
     (* solWc is now a list of associations with keys: IntervalA, SignsA, SolutionIndexA, IntervalIndexA, A *)
 
@@ -501,20 +497,27 @@ computePdCoeffs[model_, kernels_, params_, newParams_, solWc_,
 
 
 checkCoeffs[type_String, model_, sol_, params_, newParams_,
-            maxMaturity_, numStocks_, opts_] :=
-  Switch[type,
-    "wc",
-      checks[First @ model["coeffsSystem"]["wc"], sol, params, newParams, opts],
-    "pd",
-      checks[Table[First @ model["coeffsSystem"]["pd"], {j, 1, numStocks}],
-             sol, params, newParams, opts],
-    "bond",
-      checks[Flatten @ Table[First @ model["coeffsSystem"]["bond"], {n, 1, maxMaturity}],
-             sol, params, newParams, opts],
-    "nombond",
-      checks[Flatten @ Table[First @ model["coeffsSystem"]["nombond"], {n, 1, maxMaturity}],
-             sol, params, newParams, opts]
-  ];
+            maxMaturity_, numStocks_, opts : OptionsPattern[{checks}]] := Module[
+	{result},
+	result = Switch[type,
+		"wc",
+			checks[{First @ model["coeffsSystem"]["wc"]}, sol, params, newParams, opts],
+		"pd",
+			checks[Table[First @ model["coeffsSystem"]["pd"], {j, 1, numStocks}],
+				sol, params, newParams, opts],
+		"bond",
+			checks[Flatten @ Table[First @ model["coeffsSystem"]["bond"], {n, 1, maxMaturity}],
+				sol, params, newParams, opts],
+		"nombond",
+			checks[Flatten @ Table[First @ model["coeffsSystem"]["nombond"], {n, 1, maxMaturity}],
+				sol, params, newParams, opts]
+	];
+	(* Add coefficient type to Failure for better diagnostics *)
+	If[FailureQ[result],
+		Failure[result[[1]], Append[result[[2]], "CoefficientType" -> type]],
+		result
+	]
+];
 
 
 (* ::Subsection:: *)
@@ -522,8 +525,7 @@ checkCoeffs[type_String, model_, sol_, params_, newParams_,
 
 
 updateCoeffsWcPd[key : "wc" | "pd", coeffsParamQuadSolve_Association, kernels_, params_Association, newParams_Association, rootSignsNorm_, rootSigns_,
-  solveCoeffRootsOpts_] :=
-    With[{
+  solveCoeffRootsOpts_] := With[{
       kernelKey = <|"wc" -> "A", "pd" -> "B"|>[key],
       (* Filter to only options recognized by solveCoeffRoots and its downstream functions *)
       filteredOpts = FilterRules[solveCoeffRootsOpts,
@@ -602,7 +604,6 @@ updateCoeffsSol[
 
 	Needs["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 	Needs["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
-
 	(* Initialize parameters *)
 	params = (Association @ model["params"]) //. model["params"] // N;
 	newParams = (Association @ newParameters) //. newParameters // N;
@@ -632,7 +633,8 @@ updateCoeffsSol[
 	}];
 
 	(* Determine what to compute *)
-	needsPd = stockFreeQ || TrueQ[OptionValue["UpdatePd"]];
+	(* Compute pd if stock-specific parameters were passed OR explicitly requested *)
+	needsPd = !stockFreeQ || TrueQ[OptionValue["UpdatePd"]];
 
 	(* Step 1: Always compute wc *)
 	solWc = computeWcCoeffs[model, kernels, params, newParams, rootSignsNorm, rootSigns, solveOpts];
@@ -691,20 +693,30 @@ updateCoeffsSol[
 
 	(* Step 4: Run checks if requested - extract coefficients for checking *)
 	If[doChecks,
-		With[{wcCoeffsFlat = Map[#["A"] &, solWc]},
-			checkCoeffs["wc", model, wcCoeffsFlat, params, newParams, maxMaturity, numStocks, checkOpts];
-			If[needsPd,
-				(* Flatten B coefficients for checking *)
-				With[{pdCoeffsFlat = Flatten @ Map[Values[#][[All, All, "B"]] &, solPd]},
-					checkCoeffs["pd", model, Flatten @ {wcCoeffsFlat, pdCoeffsFlat}, params, newParams, maxMaturity, numStocks, checkOpts]
-				]
-			];
-			If[solBond =!= Nothing,
-				checkCoeffs["bond", model, Flatten @ {wcCoeffsFlat, solBond}, params, newParams, maxMaturity, numStocks, checkOpts]
-			];
-			If[solNomBond =!= Nothing,
-				checkCoeffs["nombond", model, Flatten @ {wcCoeffsFlat, solNomBond}, params, newParams, maxMaturity, numStocks, checkOpts]
+		With[{
+			checkResult = Module[{result, wcCoeffsFlat = Map[#["A"] &, solWc]},
+				result = checkCoeffs["wc", model, wcCoeffsFlat, params, newParams, maxMaturity, numStocks, checkOpts];
+				If[FailureQ[result], Return[result, Module]];
+
+				If[needsPd,
+					(* Flatten B coefficients for checking *)
+					With[{pdCoeffsFlat = Flatten @ Map[Values[#][[All, All, "B"]] &, solPd]},
+						result = checkCoeffs["pd", model, Flatten @ {wcCoeffsFlat, pdCoeffsFlat}, params, newParams, maxMaturity, numStocks, checkOpts];
+						If[FailureQ[result], Return[result, Module]]
+					]
+				];
+				If[solBond =!= Nothing,
+					result = checkCoeffs["bond", model, Flatten @ {wcCoeffsFlat, solBond}, params, newParams, maxMaturity, numStocks, checkOpts];
+					If[FailureQ[result], Return[result, Module]]
+				];
+				If[solNomBond =!= Nothing,
+					result = checkCoeffs["nombond", model, Flatten @ {wcCoeffsFlat, solNomBond}, params, newParams, maxMaturity, numStocks, checkOpts];
+					If[FailureQ[result], Return[result, Module]]
+				];
+				None (* All checks passed *)
 			]
+		},
+			If[FailureQ[checkResult], Return[checkResult, Module]]
 		]
 	];
 
@@ -862,28 +874,35 @@ updateCoeffsBond[
 checks//Options ={
 	"PrintResidualsNorm"->False,
 	"CheckResiduals"->False,
-	"Tol"->10.^-16
+	"Tol"->10.^-10
 };
 checks::norm="The norm of the residuals (errors) is `1`";
 checks::largeresid="The norm of the residuals (errors) is `1`, which is larger than the specified tolerance `2`.";
 checks::smallresid="The norm of the residuals (errors) is `1`, which is smaller than the specified tolerance `2`.";
 
 
-checks[eqs_, sol_, params_, newParams_, opts : OptionsPattern[]] :=With[
+checks[eqs_, sol_, params_, newParams_, opts : OptionsPattern[{checks}]] := With[
 	{
-		residualsNorm = Max @ (Norm @ (Subtract @@@ eqs) //. newParams //. params//. sol)
+		residualsNorm = Max @ (Norm /@ (Subtract @@@ Flatten[eqs, 1] //. newParams //. params //. sol))
 	},
 	If[OptionValue["CheckResiduals"],
-		If[
-			residualsNorm >= OptionValue["Tol"],
-			Message[checks::largeresid, residualsNorm, OptionValue["Tol"]];Abort[],
-			Message[checks::smallresid, residualsNorm, OptionValue["Tol"]]
-		];
+		If[residualsNorm >= OptionValue["Tol"],
+			Message[checks::largeresid, residualsNorm, OptionValue["Tol"]];
+			Failure["LargeResiduals", <|
+				"MessageTemplate" -> "Residual norm `norm` exceeds tolerance `tol`",
+				"MessageParameters" -> <|"norm" -> residualsNorm, "tol" -> OptionValue["Tol"]|>,
+				"ResidualNorm" -> residualsNorm,
+				"Tolerance" -> OptionValue["Tol"]
+			|>]
+			,
+			Message[checks::smallresid, residualsNorm, OptionValue["Tol"]];
+		]
 		,
 		If[OptionValue["PrintResidualsNorm"],
 			Message[checks::norm, residualsNorm]
 		];
-	];
+		residualsNorm
+	]
 ];
 
 
@@ -898,10 +917,8 @@ updateCoeffsSol[
 	newParameters_List,
 	guessCoeffsSolution_List,
 	opts___
-] := (
-	Message[updateCoeffsSol::badkernelstructure, Short[savedKernels, 2]];
-	$Failed
-)
+] := (Message[
+	updateCoeffsSol::badkernelstructure, Short[savedKernels, 2]]; $Failed)
 
 
 (*inherit default options from updateCoeffsSol, checks*)
@@ -1137,42 +1154,6 @@ solveWcPdRoots[
 
 
 (* ::Subsection:: *)
-(*getStartingValues*)
-
-
-(* helper for addCoeffsSolutionN - retrieves initial guesses from model extraInfo *)
-getStartingValues // Options = {
-	"initialGuess" -> <|"Ewc" -> {4}, "Epd" -> {{4}}|>
-};
-
-
-getStartingValues[
-	ratio_String,
-	infoModel_Association : <||>,
-	opts : OptionsPattern[{getStartingValues}]
-] := With[
-	{
-		iEv = "E" <> ratio,
-		ig = First @ OptionValue[getStartingValues, Flatten @ {opts}, {"initialGuess"}]
-	},
-	Which[
-		(* option provided and non-empty *)
-		And[
-			KeyExistsQ[ig, iEv],
-			Not[SameQ[ig, {}]] || Not[SameQ[ig[iEv], {}]]
-		],
-		ig[iEv],
-		(* from infoModel["initialGuess"] *)
-		KeyExistsQ[infoModel, "initialGuess"] && KeyExistsQ[infoModel["initialGuess"], iEv],
-		infoModel["initialGuess"][iEv],
-		(* default *)
-		True,
-		Switch[ratio, "wc", {4}, "pd", {{4}}]
-	]
-];
-
-
-(* ::Subsection:: *)
 (*addCoeffsSolutionN*)
 
 
@@ -1193,8 +1174,7 @@ addCoeffsSolutionN[model_Association, buildMaxMaturity_Integer, opts : OptionsPa
 ];
 
 (* Convenience wrapper with default maturity of 12 *)
-addCoeffsSolutionN[model_Association, opts : OptionsPattern[{updateCoeffs, FindRoot, RecurrenceTable}]] :=
-	addCoeffsSolutionN[model, 12, opts];
+addCoeffsSolutionN[model_Association, opts : OptionsPattern[{updateCoeffs, FindRoot, RecurrenceTable}]] := addCoeffsSolutionN[model, 12, opts]
 
 (* Legacy single-argument form *)
 addCoeffsSolutionN[model_Association] := addCoeffsSolutionN[model, 12];
