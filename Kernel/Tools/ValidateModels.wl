@@ -65,12 +65,12 @@ Needs["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 (*Schema definition*)
 
 
-(* Schema Definition - Pattern-based *)
+(* Schema definition using patterns *)
 
 (* Required keys with their expected type patterns *)
 $requiredKeys = {"name", "shortname", "bibRef", "desc", "enabled", "stateVars", "parameters"};
 
-(* Type patterns for each key - used with MatchQ *)
+(* Type patterns for each key (used with MatchQ) *)
 $keyTypePatterns = <|
   "name" -> _String,
   "shortname" -> _String,
@@ -156,7 +156,7 @@ containsTimeDependency[expr_] := !FreeQ[expr, _[_?(Not@FreeQ[#, _Symbol?(SymbolN
 (* This allows symbolic expressions that reference other parameters *)
 numericValueQ[val_] := Module[{testVal, placeholders},
   If[NumericQ[val], Return[True]];
-  (* Common symbolic parameter placeholders - these cover most use cases *)
+  (* Common symbolic parameter placeholders for most use cases *)
   placeholders = {
     "psi" -> 1.5, "gamma" -> 10, "delta" -> 0.99, "theta" -> -27,
     "mupbar" -> 0.002, "mup" -> 0.002, "muc" -> 0.0015,
@@ -188,7 +188,7 @@ getExpectedParamNames[] := FernandoDuarte`LongRunRisk`Model`Parameters`$paramete
 (*Validation functions*)
 
 
-(* Validate structure against schema - check required keys and types *)
+(* Check required keys and types against schema *)
 validateStructure[model_, modelName_] := Flatten[Last[Reap[
   Module[{missingKeys, presentKeys},
 

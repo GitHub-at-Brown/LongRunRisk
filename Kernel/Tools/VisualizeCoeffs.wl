@@ -807,7 +807,7 @@ visualizeCoeffs[results_List, opts : OptionsPattern[]] := Module[
 ];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End package*)
 
 

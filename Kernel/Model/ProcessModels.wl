@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Model`ProcessModels`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Model`ProcessModels`"];
 
 
 (* ::Subsection:: *)
@@ -25,7 +25,7 @@ processModels::usage = "processModels[modelsCatalog] performs symbolic processin
 (*Code*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (* ::Subsection:: *)
@@ -286,7 +286,7 @@ models = EchoTiming[
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*createExogenous*)
 
 
@@ -331,7 +331,7 @@ createExogenous[m_]:=Module[
 ]	
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*createExogenousNonZero*)
 
 
@@ -405,7 +405,7 @@ createExogenousNonZero[m_]:=Module[
 ]	
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*createEndogenous*)
 
 
@@ -475,7 +475,7 @@ createEndogenous[mod_]:=Module[
 ]	
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*addToStateVars*)
 
 
@@ -845,7 +845,7 @@ solveCoeffsSystem[model_, opts : OptionsPattern[{solveCoeffsSystem, Simplify}]]:
 ] (*With*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*tryTransforms*)
 
 
@@ -1085,7 +1085,7 @@ addCoeffsSolution[
 ](*With*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End package*)
 
 

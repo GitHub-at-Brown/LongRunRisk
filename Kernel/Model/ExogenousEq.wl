@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Model`ExogenousEq`"];
 
 
 (* ::Subsection:: *)
@@ -41,7 +41,7 @@ $exogenousVarsNoStocks=SortBy[Complement[$exogenousVars,$exogenousVarsStocks],Po
 (*Code*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (* ::Subsection:: *)
@@ -212,7 +212,7 @@ ddeq[t_, i_] := mud[i] +
 (*End package*)
 
 
-End[](*"`Private`"*)
+End[]; (*"`Private`"*)
 
 
-EndPackage[]
+EndPackage[];

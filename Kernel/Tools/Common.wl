@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Tools`Common`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Tools`Common`"];
 
 
 (* ::Subsection:: *)
@@ -61,7 +61,7 @@ Options:
 (*Code*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (* ::Subsection:: *)
@@ -303,7 +303,7 @@ isolatedEvaluate[expr_, opts : OptionsPattern[]] := Module[
 (*End package*)
 
 
-End[] (*"`Private`"*)
+End[]; (*"`Private`"*)
 
 
-EndPackage[]
+EndPackage[];

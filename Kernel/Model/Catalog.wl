@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Model`Catalog`"];
 
 
 (* ::Subsection:: *)
@@ -27,7 +27,7 @@ modelsExtraInfo::usage= "Additional information about model solution, constraint
 (*Code*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (* ::Subsection:: *)
@@ -1931,7 +1931,7 @@ modelsExtraInfo = <|
 (*End package*)
 
 
-End[] (*"`Private`"*)
+End[]; (*"`Private`"*)
 
 
-EndPackage[]
+EndPackage[];

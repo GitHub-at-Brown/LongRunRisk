@@ -820,7 +820,7 @@ seqfun[list_, q_, v1_:v1, v2_:v2] := With[
 	]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End package*)
 
 

@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Model`Shocks`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Model`Shocks`"];
 
 
 (* ::Subsection:: *)
@@ -31,7 +31,7 @@ $shocks=Select[Names[$Context<>"*"],Not[StringStartsQ[#,"$"]]&];
 (*Code*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (* ::Subsection:: *)
@@ -83,11 +83,11 @@ rulesE[t_]:=With[
 SetAttributes[$shocks,NHoldAll]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End package*)
 
 
-End[](*"`Private`"*)
+End[]; (*"`Private`"*)
 
 
-EndPackage[]
+EndPackage[];

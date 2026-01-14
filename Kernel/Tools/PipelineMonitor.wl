@@ -45,7 +45,7 @@ Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
 Options[checkModels] = {"AutoBuild" -> Automatic};
 
 (* Determine if AutoBuild should be enabled *)
-(* Priority: 1. Explicit option, 2. LONGRUNRISK_AUTOBUILD env var, 3. CI detection *)
+(* Priority: Explicit option, LONGRUNRISK_AUTOBUILD env var, CI detection *)
 resolveAutoBuild[opt_] := Which[
 	(* Explicit True/False option takes priority *)
 	TrueQ[opt], True,
@@ -98,13 +98,13 @@ Module[
 
 	hasCatalogChanges = Not[changes["Changed"] === {} && changes["New"] === {} && changes["Removed"] === {}];
 
-	(* Always check pipeline status for ALL models to detect missing .mx files *)
+	(* Always check pipeline status for all models to detect missing .mx files *)
 	allStatus = FernandoDuarte`LongRunRisk`Tools`ManageResources`getModelPipelineStatus[All];
 
 	(* Find models with incomplete pipelines (not UpToDate) *)
 	incompleteModels = Keys@Select[allStatus, #["MainStage"] =!= "UpToDate" &];
 
-	(* If no catalog changes AND pipeline is complete, return Null *)
+	(* If no catalog changes and pipeline is complete, return Null *)
 	If[!hasCatalogChanges && incompleteModels === {},
 		Return[Null]
 	];
@@ -127,7 +127,7 @@ Module[
 		changes = <|changes, "IncompletePipeline" -> True|>
 	];
 
-	(* Show ALL models in the status display, but only build incomplete ones *)
+	(* Show all models in the status display, but only build incomplete ones *)
 	status = allStatus;
 
 	(* Show report and prompt for build *)
@@ -198,7 +198,7 @@ openOrCreateConfigFile[] := Module[{file, defaults, create},
 (*Pipeline report and build prompt*)
 
 
-(* status: Association of ALL models with their pipeline status *)
+(* status: Association of all models with their pipeline status *)
 (* modelsToBuild: List of shortnames that need building (incomplete ones) *)
 showPipelineReport[changes_, status_, modelsToBuild_, autoBuild_:False] := Module[
 	{dialogResult, buildResult, grid, title},
@@ -211,7 +211,7 @@ showPipelineReport[changes_, status_, modelsToBuild_, autoBuild_:False] := Modul
 		Return[buildResult]
 	];
 
-	(* Build status grid showing ALL models *)
+	(* Build status grid showing all models *)
 	grid = formatStatusGrid[status];
 
 	(* Choose title based on whether it's catalog changes or incomplete pipeline *)

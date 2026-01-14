@@ -28,7 +28,7 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`"]
+BeginPackage["FernandoDuarte`LongRunRisk`"];
 
 
 (* ::Subsection:: *)
@@ -69,7 +69,7 @@ $ContextPath=PrependTo[$ContextPath,"FernandoDuarte`LongRunRisk`Model`Endogenous
 (*Code*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (* FernandoDuarte`LongRunRisk`t=FernandoDuarte`LongRunRisk`Model`ExogenousEq`Private`t; *)

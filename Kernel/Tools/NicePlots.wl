@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Tools`NicePlots`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Tools`NicePlots`"];
 
 
 (* ::Subsection:: *)
@@ -27,7 +27,7 @@ plotCoeffs::usage = "plotCoeffs[model_Association, sol_List, parameters_List, Ew
 (*Code*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (* ::Subsection:: *)

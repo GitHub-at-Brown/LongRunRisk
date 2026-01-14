@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Model`EndogenousEq`"];
 
 
 (* ::Subsection:: *)
@@ -51,7 +51,7 @@ nomrfeq::usage = "nomrfeq[t] gives the one-period nominal risk-free rate at time
 				 "nomrfeq[t, h] gives the h - period nominal risk-free rate at time t for loans between t and t + h. nomrfeq[t, h] is the same as nombondyield[t, h].";
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Shared global symbols*)
 
 
@@ -234,11 +234,11 @@ endogEqAssumptions=
 	(*linearization constants*)kappa0[__]>0 && kappa0[_]<1 && kappa1[__]>0 && kappa1[__]<1;
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End package*)
 
 
-End[](*"`Private`"*)
+End[]; (*"`Private`"*)
 
 
-EndPackage[]
+EndPackage[];

@@ -450,7 +450,7 @@ toPolyAndDen[eq_] := Module[{lhs, rhs, expr, num, den},
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*collectDenominatorConditions*)
 
 
@@ -465,7 +465,7 @@ collectDenominatorConditions[dlist_List] := Module[{expr, conds},
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*canonicalizeCoefficients*)
 
 
@@ -491,7 +491,7 @@ canonicalizeCoefficients[polys_List, vars_List] := Module[
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*makeSignGenerator*)
 
 
@@ -507,21 +507,21 @@ makeSignGenerator[head_Symbol] := Module[{idx = 0},
 varsInPoly[poly_, vars_] := Select[vars, Exponent[poly, #] > 0 &];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*varDegree*)
 
 
 varDegree[poly_, v_] := Exponent[poly, v];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*univariateQ*)
 
 
 univariateQ[poly_, vars_] := Length[varsInPoly[poly, vars]] == 1;
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*linearInVarQ*)
 
 
@@ -534,7 +534,7 @@ linearInVarQ[poly_, v_, ass_] := Module[{deg = varDegree[poly, v], coeff},
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*quadAnalysis*)
 
 
@@ -556,7 +556,7 @@ quadAnalysis[polys_List, vars_List] := Module[
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*rankQuadraticVariables*)
 
 
@@ -582,7 +582,7 @@ rankQuadraticVariables[quadraticVars_List, eqsWithQuad_List, eqQuadVars_Associat
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*selectQuadraticSubset*)
 
 
@@ -666,7 +666,7 @@ selectQuadraticSubset[quadraticVars_List, eqVarSets_List, eqns_List, vars_List] 
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*solveLinearFor*)
 
 
@@ -680,7 +680,7 @@ solveLinearFor[poly_, v_, ass_, simplifyTC_: 5] := Module[{a, b, rhs},
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*quadraticSolveParam*)
 
 
@@ -698,7 +698,7 @@ quadraticSolveParam[poly_, v_, signGen_, ass_, simplifyTC_: 5] := Module[{a, b, 
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*quarticSolveParam*)
 
 
@@ -761,7 +761,7 @@ quarticSolveParam[poly_, v_, signGen_, ass_, simplifyTC_: 5] := Module[
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*simplifySquareRoot*)
 
 
@@ -957,7 +957,7 @@ simplifyWithDummySubstitution[rules:{__Rule}, opts:OptionsPattern[]] := Module[
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*normalizeSigns*)
 
 
@@ -1074,7 +1074,7 @@ sequentialSolve[polys_List, vars_List, ass_, signHead_, gbOrder_, allowGroebner_
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*buildAssumptions*)
 
 

@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Tools`Initialization`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Tools`Initialization`"];
 
 
 (* ::Subsection:: *)

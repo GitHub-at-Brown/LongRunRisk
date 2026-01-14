@@ -1285,7 +1285,7 @@ flattenCoeffsBundlesForA[aSol_Association] := Module[
 ];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End package*)
 
 

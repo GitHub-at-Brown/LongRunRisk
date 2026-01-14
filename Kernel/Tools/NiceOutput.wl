@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Tools`NiceOutput`"];
 
 
 (* ::Subsection:: *)
@@ -27,7 +27,7 @@ info::usage = "info[models] displays a table with information for each model in 
 (*Code*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (* ::Subsubsection:: *)

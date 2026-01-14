@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Tools`ToNumber`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Tools`ToNumber`"];
 
 
 (* ::Subsection:: *)
@@ -737,7 +737,7 @@ Module[{newNorm, baseNorm, validated, constrained},
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End package*)
 
 

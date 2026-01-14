@@ -91,7 +91,7 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 (*Catalog loading*)
 
 
-(* Live catalog loading - tracks file modification time *)
+(* Live catalog loading; tracks file modification time *)
 $catalogFile = None;
 $catalogMTime = None;
 $packageRoot = If[StringQ[$InputFileName], DirectoryName[$InputFileName, 3], None];
@@ -102,9 +102,9 @@ getCatalogModels[] := Module[{mtime, root},
   If[!StringQ[$catalogFile],
     $catalogFile = FindFile["FernandoDuarte`LongRunRisk`Model`Catalog`"];
     If[!StringQ[$catalogFile],
-      With[{root = findPacletRoot[]},
-        If[StringQ[root],
-          $catalogFile = FileNameJoin[{root, "Kernel", "Model", "Catalog.wl"}]
+      With[{pr = findPacletRoot[]},
+        If[StringQ[pr],
+          $catalogFile = FileNameJoin[{pr, "Kernel", "Model", "Catalog.wl"}]
         ]
       ]
     ]
@@ -125,7 +125,7 @@ getCatalogModels[] := Module[{mtime, root},
   FernandoDuarte`LongRunRisk`Model`Catalog`models
 ];
 
-(* Simple root finder - uses FindFile on THIS package *)
+(* Simple root finder via FindFile for this package *)
 findPacletRoot[] := Module[{file, root},
   file = Quiet@FindFile["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
 
@@ -198,7 +198,7 @@ getCanonicalHash[expr_] := Block[{$ContextPath = {"System`"}},
   Hash[ExportString[canonicalize[expr], "WL"], "SHA256", "HexString"]
 ];
 
-(* wolframKernelMemoryGB is defined in Common.wl - use that version *)
+(* wolframKernelMemoryGB is defined in Common.wl *)
 
 loadManifestSafe[file_] := Module[{held, data},
   If[!FileExistsQ[file],
@@ -419,7 +419,7 @@ checkCatalogChanges[modelsAssoc_Association] := Module[
     <|"Valid" -> True, "Results" -> <||>, "InvalidModels" -> {}, "TotalErrors" -> 0|>
   ];
 
-  (* No auto-reformat for association input - no file to reformat *)
+  (* No auto-reformat for association input (no file to reformat) *)
 
   <|
     "Changed" -> changedModels,
@@ -429,9 +429,10 @@ checkCatalogChanges[modelsAssoc_Association] := Module[
   |>
 ];
 
-(* === BoxData Conversion Functions === *)
+(* ::Subsubsection:: *)
+(*BoxData conversion*)
 
-(* Option A: Front end conversion using FrontEndToken SaveRename *)
+(* Front end conversion using FrontEndToken SaveRename *)
 convertWithFrontEnd[boxData_, outputPath_String] := Module[
   {nb, result = $Failed},
 
@@ -451,7 +452,7 @@ convertWithFrontEnd[boxData_, outputPath_String] := Module[
   result
 ];
 
-(* Option B: Manual recursive flattening (fallback for headless mode) *)
+(* Manual recursive flattening (fallback for headless mode) *)
 boxToString[RowBox[items_List]] := StringJoin[boxToString /@ items];
 boxToString[BoxData[content_]] := boxToString[content];
 boxToString[Cell[BoxData[content_], ___]] := boxToString[content];
@@ -470,7 +471,7 @@ boxToString[RadicalBox[content_, n_]] := StringJoin["Power[", boxToString[conten
 boxToString[OverscriptBox[base_, over_]] := StringJoin["Overscript[", boxToString[base], ", ", boxToString[over], "]"];
 boxToString[UnderscriptBox[base_, under_]] := StringJoin["Underscript[", boxToString[base], ", ", boxToString[under], "]"];
 
-(* Catch-all for unknown boxes - try to convert content recursively *)
+(* Catch-all for unknown boxes; try to convert content recursively *)
 boxToString[box_[args___]] /; StringEndsQ[SymbolName[box], "Box"] := StringJoin[
 	"(*UnhandledBox:", SymbolName[box], "*)", StringRiffle[boxToString /@ {args}, " "]]
 
@@ -486,7 +487,8 @@ boxDataToText[boxData_] := Module[{result},
   If[StringQ[result], result, ToString[result, InputForm]]
 ];
 
-(* === Catalog Section Parser === *)
+(* ::Subsubsection:: *)
+(*Catalog section parser*)
 
 (* Parse Catalog.wl and identify section boundaries *)
 parseCatalogSections[filePath_String] := Module[
@@ -507,7 +509,8 @@ parseCatalogSections[filePath_String] := Module[
   |>
 ];
 
-(* === Catalog Reformatter === *)
+(* ::Subsubsection:: *)
+(*Catalog reformatter*)
 
 reformatCatalog[] := Module[
   {root, catalogFile, catalogModels, sections,
@@ -590,7 +593,8 @@ reformatCatalog[] := Module[
 ];
 
 
-(* === buildModels orchestrator === *)
+(* ::Subsubsection:: *)
+(*buildModels orchestrator*)
 
 buildModels // Options = {
 	"FromScratch" -> False,
@@ -645,13 +649,13 @@ saveModels[models_Association, file_String] := Module[{dataModels, modelsData},
 	   Assign to local symbol first so DefinitionData can serialize properly. *)
 	modelsData = models;
 	dataModels = PacletizedResourceFunctions`DefinitionData[modelsData];
-	(* Ensure correct context before saving - prevents shadowing issues *)
+	(* Ensure correct context before saving to prevent shadowing *)
 	dataModels = PacletizedResourceFunctions`DefinitionData @@ List @@ dataModels;
 	Put[dataModels, file]
 ];
 
 
-(* helper: load models from Models.wl - Get@Get triggers DefinitionData UpValue *)
+(* Get@Get triggers DefinitionData UpValue *)
 loadModels[file_String] := If[
 	FileExistsQ[file]
 	,
@@ -836,7 +840,7 @@ warmupParallelKernels[] := Module[{pacletDir},
 ];
 
 
-(* Main build orchestrator - uses multi-owner OptionsPattern for clean option handling *)
+(* Uses multi-owner OptionsPattern for clean option handling *)
 buildModels[opts : OptionsPattern[{
 	buildModels,
 	FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel,
@@ -1341,7 +1345,7 @@ checkCatalogForUI[] := Module[
 			"Validation" -> <|"Valid" -> True|>, "FirstRun" -> False|>]
 	];
 
-	(* Catalog has changed - use shared comparison logic *)
+	(* Catalog has changed; use shared comparison logic *)
 	currentModelHashes = Map[getCanonicalHash, catalogModels];
 	comparison = FernandoDuarte`LongRunRisk`Tools`Common`compareModelsAgainstManifest[
 		currentModelHashes,

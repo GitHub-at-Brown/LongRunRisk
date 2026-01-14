@@ -4,7 +4,7 @@
 (*Begin package*)
 
 
-BeginPackage["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"]
+BeginPackage["FernandoDuarte`LongRunRisk`Tools`TimeAggregation`"];
 
 
 (* ::Subsection:: *)
@@ -27,7 +27,7 @@ growth::usage = "growth[variable, t] gives the growth rate at time t of variable
 (*Code*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (* ::Subsection:: *)
@@ -247,7 +247,7 @@ gt[
 (*End package*)
 
 
-End[] (*"`Private`"*)
+End[]; (*"`Private`"*)
 
 
-EndPackage[]
+EndPackage[];
