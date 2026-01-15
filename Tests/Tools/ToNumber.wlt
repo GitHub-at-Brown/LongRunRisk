@@ -690,8 +690,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Curried form with expectations evaluates to numbers"
+			TestID -> "[toNum/" <> name <> "] Curried form with expectations evaluates to numbers",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -714,8 +714,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Expression form with expectations evaluates to numbers"
+			TestID -> "[toNum/" <> name <> "] Expression form with expectations evaluates to numbers",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -739,8 +739,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Rules form with expectations evaluates to numbers"
+			TestID -> "[toNum/" <> name <> "] Rules form with expectations evaluates to numbers",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -766,8 +766,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[uncondCov/uncondCorr/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Evaluate to numbers"
+			TestID -> "[uncondCov/uncondCorr/" <> name <> "] Evaluate to numbers",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Keys[$covTestModels]}
@@ -786,8 +786,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[cov/corr/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Evaluate to numbers"
+			TestID -> "[cov/corr/" <> name <> "] Evaluate to numbers",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Keys[$covTestModels]}
@@ -905,8 +905,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] UpdatePd option evaluates to numbers"
+			TestID -> "[toNum/" <> name <> "] UpdatePd option evaluates to numbers",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -926,8 +926,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] UpdateBonds option evaluates to numbers"
+			TestID -> "[toNum/" <> name <> "] UpdateBonds option evaluates to numbers",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -957,8 +957,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] New parameters evaluate to numbers"
+			TestID -> "[toNum/" <> name <> "] New parameters evaluate to numbers",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -985,8 +985,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] All expression types evaluate to numbers"
+			TestID -> "[toNum/" <> name <> "] All expression types evaluate to numbers",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Keys[$covTestModels]}
@@ -2541,8 +2541,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Multiple A terms evaluate to numeric"
+			TestID -> "[toNum/" <> name <> "] Multiple A terms evaluate to numeric",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Keys[$testModels]}
@@ -2567,8 +2567,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Mixed A and B terms evaluate to numeric"
+			TestID -> "[toNum/" <> name <> "] Mixed A and B terms evaluate to numeric",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Select[Keys[$testModels], $testModels[#]["numStocks"] > 0 &]}
@@ -2875,8 +2875,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/Docs/",
-	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Has expected solution count and keys"
+			TestID -> "[toNum/Docs/" <> name <> "] Has expected solution count and keys",
+			MetaInformation -> <|"Category" -> "extended"|>
 		]
 	],
 	{modelName, Keys[$expectedSolutionCounts]}
