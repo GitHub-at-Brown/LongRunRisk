@@ -273,18 +273,18 @@ TestCreate[
 
 
 (* Test: equations evaluate dc, dd, wc, sdf, bondyield *)
-Block[{t, i},
+Block[{tVar, i},
 	TestCreate[
 		Module[{checkEvaluates},
 			checkEvaluates[model_Association, var_] := With[
 				{eqs = Normal[Join[model["exogenousEq"], model["endogenousEq"]]]},
 				(var /. eqs) =!= var
 			];
-			AllTrue[Values[$modelsP], checkEvaluates[#, dc[t]] &] &&
-			AllTrue[Values[$modelsP], checkEvaluates[#, dd[t, i]] &] &&
-			AllTrue[Values[$modelsP], checkEvaluates[#, wc[t]] &] &&
-			AllTrue[Values[$modelsP], checkEvaluates[#, sdf[t]] &] &&
-			AllTrue[Values[$modelsP], checkEvaluates[#, bondyield[t]] &]
+			AllTrue[Values[$modelsP], checkEvaluates[#, dc[tVar]] &] &&
+			AllTrue[Values[$modelsP], checkEvaluates[#, dd[tVar, i]] &] &&
+			AllTrue[Values[$modelsP], checkEvaluates[#, wc[tVar]] &] &&
+			AllTrue[Values[$modelsP], checkEvaluates[#, sdf[tVar]] &] &&
+			AllTrue[Values[$modelsP], checkEvaluates[#, bondyield[tVar]] &]
 		],
 		True,
 		{},
@@ -294,12 +294,12 @@ Block[{t, i},
 ]
 
 (* Test: equations do not evaluate non-variables *)
-Block[{t, notVar},
+Block[{tVar, notVar},
 	TestCreate[
 		AllTrue[Values[$modelsP],
 			Function[model,
 				With[{eqs = Normal[Join[model["exogenousEq"], model["endogenousEq"]]]},
-					(notVar[t] /. eqs) === notVar[t]
+					(notVar[tVar] /. eqs) === notVar[tVar]
 				]
 			]
 		],

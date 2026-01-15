@@ -787,13 +787,13 @@ runCICDTests[] := Module[
         (* Generate per-file rows like TestPaclet does *)
         KeyValueMap[
           Function[{file, rep},
-            Module[{icon, p, f, t},
+            Module[{icon, p, f, timeStr},
               p = rep["TestsSucceededCount"];
               f = rep["TestsFailedCount"];
-              t = ToString[NumberForm[rep["TimeElapsed"], {4, 2}]];
+              timeStr = ToString[NumberForm[rep["TimeElapsed"], {4, 2}]];
               icon = If[f > 0, ":x:", ":white_check_mark:"];
               appendSummary[StringJoin[
-                "| ", icon, " | `", file, "` | ", ToString[p], " | ", ToString[f], " | ", t, "s |\n"
+                "| ", icon, " | `", file, "` | ", ToString[p], " | ", ToString[f], " | ", timeStr, "s |\n"
               ]];
             ]
           ],

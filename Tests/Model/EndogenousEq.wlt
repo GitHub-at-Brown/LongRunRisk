@@ -51,18 +51,18 @@ TestCreate[
 
 
 (* Test: Bond yield functions preserve context isolation for t and m arguments *)
-Block[{t, m},
+Block[{tVar, m},
 	With[{
 		funcs = {bondyieldeq, nombondyieldeq},
 		argSpecs = {
-			<|"fooArgs" -> {foo`t, m}, "sym" -> t, "id" -> "TArgument"|>,
-			<|"fooArgs" -> {t, foo`m}, "sym" -> m, "id" -> "MArgument"|>
+			<|"fooArgs" -> {foo`tVar, m}, "sym" -> tVar, "id" -> "TArgument"|>,
+			<|"fooArgs" -> {tVar, foo`m}, "sym" -> m, "id" -> "MArgument"|>
 		}
 	},
 		Flatten @ Outer[
 			Function[{func, argSpec},
 				TestCreate[
-					contextIsolationQ[func, {t, m}, argSpec["fooArgs"], argSpec["sym"]],
+					contextIsolationQ[func, {tVar, m}, argSpec["fooArgs"], argSpec["sym"]],
 					True,
 					{},
 					TestID -> "[" <> SymbolName[func] <> "] Context isolation " <> argSpec["id"]
@@ -81,18 +81,18 @@ Block[{t, m},
 
 
 (* Test: Default values for optional arguments work correctly *)
-Block[{t, m},
+Block[{tVar, m},
 	TestCreate[
 		And[
-			bondfweq[t, m] === bondfweq[t, m, 1],
-			bondreteq[t, m] === bondreteq[t, m, 1],
-			bondfwspreadeq[t, m] === bondfwspreadeq[t, m, 1],
-			bondexcreteq[t, m] === bondexcreteq[t, m, 1],
+			bondfweq[tVar, m] === bondfweq[tVar, m, 1],
+			bondreteq[tVar, m] === bondreteq[tVar, m, 1],
+			bondfwspreadeq[tVar, m] === bondfwspreadeq[tVar, m, 1],
+			bondexcreteq[tVar, m] === bondexcreteq[tVar, m, 1],
 
-			nombondfweq[t, m] === nombondfweq[t, m, 1],
-			nombondreteq[t, m] === nombondreteq[t, m, 1],
-			nombondfwspreadeq[t, m] === nombondfwspreadeq[t, m, 1],
-			nombondexcreteq[t, m] === nombondexcreteq[t, m, 1]
+			nombondfweq[tVar, m] === nombondfweq[tVar, m, 1],
+			nombondreteq[tVar, m] === nombondreteq[tVar, m, 1],
+			nombondfwspreadeq[tVar, m] === nombondfwspreadeq[tVar, m, 1],
+			nombondexcreteq[tVar, m] === nombondexcreteq[tVar, m, 1]
 		],
 		True,
 		{},
@@ -106,11 +106,11 @@ Block[{t, m},
 
 
 (* Test: bondyieldeq uses private bond symbol correctly *)
-Block[{t, m},
+Block[{tVar, m},
 	TestCreate[
 		And[
-			bondyieldeq[t, m] === -(1/m) FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bond[t, m],
-			nombondyieldeq[t, m] === -(1/m) FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombond[t, m]
+			bondyieldeq[tVar, m] === -(1/m) FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bond[tVar, m],
+			nombondyieldeq[tVar, m] === -(1/m) FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombond[tVar, m]
 		],
 		True,
 		{},
@@ -119,13 +119,13 @@ Block[{t, m},
 ]
 
 (* Test: bondfweq definition uses bond price difference *)
-Block[{t, m, h},
+Block[{tVar, m, h},
 	TestCreate[
 		And[
-			bondfweq[t, m, h] === FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bond[t, m - h] -
-				FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bond[t, m],
-			nombondfweq[t, m, h] === FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombond[t, m - h] -
-				FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombond[t, m]
+			bondfweq[tVar, m, h] === FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bond[tVar, m - h] -
+				FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bond[tVar, m],
+			nombondfweq[tVar, m, h] === FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombond[tVar, m - h] -
+				FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombond[tVar, m]
 		],
 		True,
 		{},
@@ -134,17 +134,17 @@ Block[{t, m, h},
 ]
 
 (* Test: rfeq and nomrfeq use private yield symbols correctly *)
-Block[{t, h},
+Block[{tVar, h},
 	TestCreate[
 		Module[{bondyield, nombondyield},
 			bondyield = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`bondyield;
 			nombondyield = FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`nombondyield;
 			And[
-				rfeq[t] === bondyield[t, 1],
-				rfeq[t, h] === bondyield[t, h],
+				rfeq[tVar] === bondyield[tVar, 1],
+				rfeq[tVar, h] === bondyield[tVar, h],
 
-				nomrfeq[t] === nombondyield[t, 1],
-				nomrfeq[t, h] === nombondyield[t, h]
+				nomrfeq[tVar] === nombondyield[tVar, 1],
+				nomrfeq[tVar, h] === nombondyield[tVar, h]
 			]
 		],
 		True,

@@ -24,16 +24,16 @@ Get @ FileNameJoin[{DirectoryName[$TestFileName, 1], "ModelTestHelpers.wl"}];
 
 (* Shock names and indices used across tests - wrapped in Block to protect symbolic placeholders *)
 $scalarShockNames = {"x", "dc", "pi", "pibar", "sg", "sx", "sc", "sp"};
-Block[{i, j, t},
+Block[{i, j, tVar},
 	$stockIndices = {1, i, j};
 
-	(* Cache rulesE[t] to avoid repeated rule construction *)
-	$rulesEt = rulesE[t];
+	(* Cache rulesE[tVar] to avoid repeated rule construction *)
+	$rulesEt = rulesE[tVar];
 
 	(* All scalar and stock shocks *)
 	$allShocks = Join[
-		eps[#][t] & /@ $scalarShockNames,
-		eps["dd"][t, #] & /@ $stockIndices
+		eps[#][tVar] & /@ $scalarShockNames,
+		eps["dd"][tVar, #] & /@ $stockIndices
 	];
 ];
 
