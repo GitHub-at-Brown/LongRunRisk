@@ -84,7 +84,7 @@ jobs:
           CATEGORY="${{ inputs.test_category || 'core' }}"
           echo "Running tests with category: $CATEGORY"
 
-          if [ "${{ inputs.with_coverage }}" == "true" ]; then
+          if [ "${{ inputs.with_coverage }}" = "true" ]; then
             echo "Coverage instrumentation enabled..."
             wolframscript -f Tests/RunTests.wls --cicd --test-category "$CATEGORY" --coverage --coverage-mode "${{ inputs.coverage_mode || 'Auto' }}"
           else
