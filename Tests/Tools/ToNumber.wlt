@@ -59,7 +59,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Equal parameters produce numeric values"
+	TestID -> "[processNewParameters] Equal parameters produce numeric values",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: When old and new parameters are equal, keys match by name *)
@@ -71,7 +72,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Equal parameters preserve key names"
+	TestID -> "[processNewParameters] Equal parameters preserve key names",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: When old and new parameters are equal, keys match with context *)
@@ -83,7 +85,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Equal parameters preserve key contexts"
+	TestID -> "[processNewParameters] Equal parameters preserve key contexts",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: When old and new parameters are equal, processed keys are subset of old parameters *)
@@ -95,7 +98,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Processed keys subset of original parameters"
+	TestID -> "[processNewParameters] Processed keys subset of original parameters",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: When old and new parameters are equal, does not return Failure *)
@@ -105,7 +109,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Equal parameters do not return Failure"
+	TestID -> "[processNewParameters] Equal parameters do not return Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -119,7 +124,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Subset parameters produce numeric values"
+	TestID -> "[processNewParameters] Subset parameters produce numeric values",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: When new parameters are subset of old, keys match new parameters by name *)
@@ -131,7 +137,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Subset parameters match by name"
+	TestID -> "[processNewParameters] Subset parameters match by name",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: When new parameters are subset of old, procP keys are in correct context *)
@@ -143,7 +150,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Subset parameters use correct context"
+	TestID -> "[processNewParameters] Subset parameters use correct context",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -157,7 +165,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Empty input returns empty list"
+	TestID -> "[processNewParameters] Empty input returns empty list",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -170,7 +179,8 @@ TestCreate[
 	],
 	True,
 	{processNewParameters::subsetparam},
-	TestID -> "[processNewParameters] Non-subset parameters return Failure"
+	TestID -> "[processNewParameters] Non-subset parameters return Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: When new parameters are NOT a subset, issues subsetparam message *)
@@ -181,7 +191,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Non-subset parameters issue subsetparam message"
+	TestID -> "[processNewParameters] Non-subset parameters issue subsetparam message",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -195,7 +206,8 @@ TestCreate[
 	],
 	True,
 	{processNewParameters::psi},
-	TestID -> "[processNewParameters] psi=1 returns Failure"
+	TestID -> "[processNewParameters] psi=1 returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: psi=1 issues psi message *)
@@ -206,7 +218,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] psi=1 issues psi message"
+	TestID -> "[processNewParameters] psi=1 issues psi message",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: psi=1. (numeric) also returns Failure *)
@@ -216,7 +229,8 @@ TestCreate[
 	],
 	True,
 	{processNewParameters::psi},
-	TestID -> "[processNewParameters] psi=1.0 numeric returns Failure"
+	TestID -> "[processNewParameters] psi=1.0 numeric returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -230,7 +244,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Exact gamma-psi-theta triple does not return Failure"
+	TestID -> "[processNewParameters] Exact gamma-psi-theta triple does not return Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: When all three {gamma, psi, theta} provided and theta exactly correct, values are numbers *)
@@ -240,7 +255,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Exact gamma-psi-theta triple produces numbers"
+	TestID -> "[processNewParameters] Exact gamma-psi-theta triple produces numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: When theta is NOT exactly correct, issues param message *)
@@ -251,7 +267,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Inconsistent theta issues param message"
+	TestID -> "[processNewParameters] Inconsistent theta issues param message",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: When theta is NOT exactly correct, theta is recalculated to correct value *)
@@ -267,7 +284,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Inconsistent theta recalculated to -27"
+	TestID -> "[processNewParameters] Inconsistent theta recalculated to -27",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -281,7 +299,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Solving for gamma produces numbers"
+	TestID -> "[processNewParameters] Solving for gamma produces numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Solve for gamma from {psi, theta} - gamma has correct value 2.5 *)
@@ -294,7 +313,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Gamma computed as 2.5 from psi and theta"
+	TestID -> "[processNewParameters] Gamma computed as 2.5 from psi and theta",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Solve for theta from {gamma, psi} - theta has correct value -3 *)
@@ -307,7 +327,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Theta computed as -3 from gamma and psi"
+	TestID -> "[processNewParameters] Theta computed as -3 from gamma and psi",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Solve for psi from {gamma, theta} - psi has correct value 2 *)
@@ -320,7 +341,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Psi computed as 2 from gamma and theta"
+	TestID -> "[processNewParameters] Psi computed as 2 from gamma and theta",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -333,7 +355,8 @@ TestCreate[
 	],
 	True,
 	{processNewParameters::theta},
-	TestID -> "[processNewParameters] Theta alone without gamma or psi returns Failure"
+	TestID -> "[processNewParameters] Theta alone without gamma or psi returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: theta provided without gamma or psi issues theta message *)
@@ -344,7 +367,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Theta alone issues theta message"
+	TestID -> "[processNewParameters] Theta alone issues theta message",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -364,7 +388,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] New parameter contexts do not match old"
+	TestID -> "[processNewParameters] New parameter contexts do not match old",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: processNewParameters preserves contexts - procP contexts match old parameters *)
@@ -381,7 +406,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processNewParameters] Processed contexts match old parameters"
+	TestID -> "[processNewParameters] Processed contexts match old parameters",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -432,7 +458,8 @@ TestCreate[
 	Head[toNum[$modNRC]] === Function,
 	True,
 	{},
-	TestID -> "[toNum] Curried form returns Function"
+	TestID -> "[toNum] Curried form returns Function",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Numerical evaluation of expressions *)
@@ -448,7 +475,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum] Expressions with expectations evaluate to numbers"
+	TestID -> "[toNum] Expressions with expectations evaluate to numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: toNum[expression, thisModel] form *)
@@ -462,7 +490,8 @@ TestCreate[
 	}], NumericQ],
 	True,
 	{},
-	TestID -> "[toNum] Two-argument form evaluates to numbers"
+	TestID -> "[toNum] Two-argument form evaluates to numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: toNum["Rules", thisModel] form *)
@@ -476,7 +505,8 @@ TestCreate[
 	} //. toNum["Rules", $modNRC]], NumericQ],
 	True,
 	{},
-	TestID -> "[toNum] Rules form evaluates to numbers"
+	TestID -> "[toNum] Rules form evaluates to numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -496,7 +526,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum] PrintResidualsNorm option passes through without error"
+	TestID -> "[toNum] PrintResidualsNorm option passes through without error",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -513,7 +544,8 @@ TestCreate[
 	}], NumericQ],
 	True,
 	{},
-	TestID -> "[toNum] UpdatePd and UpdateBonds options evaluate to numbers"
+	TestID -> "[toNum] UpdatePd and UpdateBonds options evaluate to numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -530,7 +562,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum] New parameters evaluate to numbers"
+	TestID -> "[toNum] New parameters evaluate to numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* NOTE: Tests removed:
@@ -548,7 +581,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum] Association input produces numeric values"
+	TestID -> "[toNum] Association input produces numeric values",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -559,7 +593,8 @@ TestCreate[
 	FreeQ[toExogenousVars[wc[t], $modNRC], wc],
 	True,
 	{},
-	TestID -> "[toExogenousVars] Removes endogenous wc from expression"
+	TestID -> "[toExogenousVars] Removes endogenous wc from expression",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: toStateVars returns expression with only state vars *)
@@ -567,7 +602,8 @@ TestCreate[
 	FreeQ[toStateVars[wc[t], $modNRC], wc],
 	True,
 	{},
-	TestID -> "[toStateVars] Removes endogenous wc from expression"
+	TestID -> "[toStateVars] Removes endogenous wc from expression",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -578,7 +614,8 @@ TestCreate[
 	toNum[{}, $modNRC] === {},
 	True,
 	{},
-	TestID -> "[toNum] Empty list input returns empty list"
+	TestID -> "[toNum] Empty list input returns empty list",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Mixed types input *)
@@ -588,7 +625,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum] Mixed types preserves literals and converts wc"
+	TestID -> "[toNum] Mixed types preserves literals and converts wc",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -652,7 +690,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/" <> name <> "] Curried form with expectations evaluates to numbers"
+			TestID -> "[toNum/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Curried form with expectations evaluates to numbers"
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -675,7 +714,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/" <> name <> "] Expression form with expectations evaluates to numbers"
+			TestID -> "[toNum/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Expression form with expectations evaluates to numbers"
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -699,7 +739,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/" <> name <> "] Rules form with expectations evaluates to numbers"
+			TestID -> "[toNum/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Rules form with expectations evaluates to numbers"
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -725,7 +766,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[uncondCov/uncondCorr/" <> name <> "] Evaluate to numbers"
+			TestID -> "[uncondCov/uncondCorr/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Evaluate to numbers"
 		]
 	],
 	{modelName, Keys[$covTestModels]}
@@ -744,7 +786,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[cov/corr/" <> name <> "] Evaluate to numbers"
+			TestID -> "[cov/corr/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Evaluate to numbers"
 		]
 	],
 	{modelName, Keys[$covTestModels]}
@@ -768,7 +811,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum] MaxMaturity option evaluates to numbers"
+	TestID -> "[toNum] MaxMaturity option evaluates to numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: FindRootOptions option evaluates to numbers *)
@@ -784,7 +828,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum] FindRootOptions option evaluates to numbers"
+	TestID -> "[toNum] FindRootOptions option evaluates to numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* NOTE: MaxIterations must be passed via "FindRootOptions" sub-option, not as top-level option.
@@ -804,7 +849,8 @@ TestCreate[
 	True,
 	{FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::smallresid,
 	 FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::smallresid},
-	TestID -> "[toNum] CheckResiduals with large tolerance evaluates to numbers"
+	TestID -> "[toNum] CheckResiduals with large tolerance evaluates to numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: CheckResiduals with zero tolerance returns Failure *)
@@ -816,7 +862,8 @@ TestCreate[
 	],
 	True,
 	{FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`checks::largeresid},
-	TestID -> "[toNum] CheckResiduals with zero tolerance returns Failure"
+	TestID -> "[toNum] CheckResiduals with zero tolerance returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: RecurrenceTableOptions evaluates to numbers *)
@@ -832,7 +879,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum] RecurrenceTableOptions evaluates to numbers"
+	TestID -> "[toNum] RecurrenceTableOptions evaluates to numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* NOTE: DependentVariables must be passed via "RecurrenceTableOptions" sub-option, not as top-level option.
@@ -857,7 +905,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/" <> name <> "] UpdatePd option evaluates to numbers"
+			TestID -> "[toNum/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] UpdatePd option evaluates to numbers"
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -877,7 +926,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/" <> name <> "] UpdateBonds option evaluates to numbers"
+			TestID -> "[toNum/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] UpdateBonds option evaluates to numbers"
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -907,7 +957,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/" <> name <> "] New parameters evaluate to numbers"
+			TestID -> "[toNum/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] New parameters evaluate to numbers"
 		]
 	],
 	{modelName, Keys[$multiTestModels]}
@@ -934,7 +985,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/" <> name <> "] All expression types evaluate to numbers"
+			TestID -> "[toNum/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] All expression types evaluate to numbers"
 		]
 	],
 	{modelName, Keys[$covTestModels]}
@@ -952,7 +1004,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum] Growth expressions evaluate to numbers"
+	TestID -> "[toNum] Growth expressions evaluate to numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Composite expressions with arithmetic evaluate to numbers *)
@@ -967,7 +1020,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum] Composite arithmetic expressions evaluate to numbers"
+	TestID -> "[toNum] Composite arithmetic expressions evaluate to numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1044,7 +1098,8 @@ TestCreate[
 	$numBYSolutions == 1,
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] BY model has 1 A solution (precondition)"
+	TestID -> "[toNum/SolutionSelector] BY model has 1 A solution (precondition)",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Verify BY model has exactly 1 B solution for stock 1 *)
@@ -1052,7 +1107,8 @@ TestCreate[
 	Length[$byFirstA["Stocks"][1]] == 1,
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] BY model has 1 B solution (precondition)"
+	TestID -> "[toNum/SolutionSelector] BY model has 1 B solution (precondition)",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Verify NRC model produces multiple A solutions with RootSigns -> All *)
@@ -1060,7 +1116,8 @@ TestCreate[
 	$numNRCSolutions >= 2,
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] NRC model has multiple A solutions (precondition)"
+	TestID -> "[toNum/SolutionSelector] NRC model has multiple A solutions (precondition)",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Verify NRC model has non-empty SignsA *)
@@ -1068,7 +1125,8 @@ TestCreate[
 	Length[$nrcFirstA["SignsA"]] > 0,
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] NRC model has non-empty SignsA (precondition)"
+	TestID -> "[toNum/SolutionSelector] NRC model has non-empty SignsA (precondition)",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Verify DES model produces multiple A solutions with RootSigns -> All *)
@@ -1076,7 +1134,8 @@ TestCreate[
 	$numDESSolutions >= 2,
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] DES model has multiple A solutions (precondition)"
+	TestID -> "[toNum/SolutionSelector] DES model has multiple A solutions (precondition)",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1091,7 +1150,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] Default returns flat rule list"
+	TestID -> "[toNum/SolutionSelector] Default returns flat rule list",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Automatic selector equivalent to default *)
@@ -1104,7 +1164,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] Automatic equivalent to default"
+	TestID -> "[toNum/SolutionSelector] Automatic equivalent to default",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Automatic equivalent to index 1 *)
@@ -1117,7 +1178,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] Automatic equivalent to index 1"
+	TestID -> "[toNum/SolutionSelector] Automatic equivalent to index 1",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Default expression form returns valid (non-Failure) result *)
@@ -1127,7 +1189,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] Default expression form returns valid result"
+	TestID -> "[toNum/SolutionSelector] Default expression form returns valid result",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1142,7 +1205,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] Index 1 returns valid flat rules"
+	TestID -> "[toNum/SolutionSelector] Index 1 returns valid flat rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Tests requiring 2+ A solutions removed - BY model has only 1 A solution *)
@@ -1155,7 +1219,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] Last index returns valid rules"
+	TestID -> "[toNum/SolutionSelector] Last index returns valid rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Out-of-bounds index returns Failure *)
@@ -1165,7 +1230,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badidx},
-	TestID -> "[toNum/SolutionSelector] Out-of-bounds index returns Failure"
+	TestID -> "[toNum/SolutionSelector] Out-of-bounds index returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Zero index returns Failure *)
@@ -1175,7 +1241,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badidx},
-	TestID -> "[toNum/SolutionSelector] Zero index returns Failure"
+	TestID -> "[toNum/SolutionSelector] Zero index returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Negative index returns Failure *)
@@ -1185,7 +1252,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badidx},
-	TestID -> "[toNum/SolutionSelector] Negative index returns Failure"
+	TestID -> "[toNum/SolutionSelector] Negative index returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Non-integer index returns Failure *)
@@ -1195,7 +1263,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badselector},
-	TestID -> "[toNum/SolutionSelector] Non-integer index returns Failure"
+	TestID -> "[toNum/SolutionSelector] Non-integer index returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1210,7 +1279,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] Tuple {1,1} returns valid rules"
+	TestID -> "[toNum/SolutionSelector] Tuple {1,1} returns valid rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Tuple selection matches integer A selection when B=1 *)
@@ -1223,7 +1293,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] Tuple {1,1} matches integer 1"
+	TestID -> "[toNum/SolutionSelector] Tuple {1,1} matches integer 1",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test requiring 2+ B solutions removed - BY model has only 1 B solution *)
@@ -1236,7 +1307,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badbidx},
-	TestID -> "[toNum/SolutionSelector] Invalid B index returns Failure"
+	TestID -> "[toNum/SolutionSelector] Invalid B index returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Three-element tuple returns Failure *)
@@ -1246,7 +1318,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badselector},
-	TestID -> "[toNum/SolutionSelector] Three-element tuple returns Failure"
+	TestID -> "[toNum/SolutionSelector] Three-element tuple returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Empty tuple returns Failure *)
@@ -1256,7 +1329,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badselector},
-	TestID -> "[toNum/SolutionSelector] Empty tuple returns Failure"
+	TestID -> "[toNum/SolutionSelector] Empty tuple returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1276,7 +1350,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] SignsA pattern returns valid rules"
+	TestID -> "[toNum/SolutionSelector] SignsA pattern returns valid rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* SignsA selection matches index 1 for first solution's signs *)
@@ -1290,7 +1365,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] SignsA selection matches corresponding index"
+	TestID -> "[toNum/SolutionSelector] SignsA selection matches corresponding index",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Combined SignsA and SignsB selection works *)
@@ -1304,7 +1380,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] Combined SignsA and SignsB selection works"
+	TestID -> "[toNum/SolutionSelector] Combined SignsA and SignsB selection works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Non-matching signs return Failure *)
@@ -1315,7 +1392,8 @@ TestCreate[
 	],
 	True,
 	{toNum::nosolution},
-	TestID -> "[toNum/SolutionSelector] Non-matching SignsA returns Failure"
+	TestID -> "[toNum/SolutionSelector] Non-matching SignsA returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Empty SignsA returns Failure with helpful message *)
@@ -1326,7 +1404,8 @@ TestCreate[
 	],
 	True,
 	{toNum::emptysigns},
-	TestID -> "[toNum/SolutionSelector] Empty SignsA returns Failure"
+	TestID -> "[toNum/SolutionSelector] Empty SignsA returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Invalid key in selector returns Failure *)
@@ -1337,7 +1416,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badselector},
-	TestID -> "[toNum/SolutionSelector] Invalid association key returns Failure"
+	TestID -> "[toNum/SolutionSelector] Invalid association key returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1356,7 +1436,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] SolutionIndexA selector returns valid rules"
+	TestID -> "[toNum/SolutionSelector] SolutionIndexA selector returns valid rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* SolutionIndexA selection matches index 1 for first solution *)
@@ -1370,7 +1451,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] SolutionIndexA matches corresponding index"
+	TestID -> "[toNum/SolutionSelector] SolutionIndexA matches corresponding index",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Non-existent SolutionIndexA returns Failure *)
@@ -1381,7 +1463,8 @@ TestCreate[
 	],
 	True,
 	{toNum::nosolution},
-	TestID -> "[toNum/SolutionSelector] Non-existent SolutionIndexA returns Failure"
+	TestID -> "[toNum/SolutionSelector] Non-existent SolutionIndexA returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1398,7 +1481,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] All with ReturnAllSolutions returns all solutions"
+	TestID -> "[toNum/SolutionSelector] All with ReturnAllSolutions returns all solutions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* SolutionSelector -> All without ReturnAllSolutions -> True returns Failure *)
@@ -1410,7 +1494,8 @@ TestCreate[
 	],
 	True,
 	{toNum::selectorallrequiresreturnall},
-	TestID -> "[toNum/SolutionSelector] All without ReturnAllSolutions returns Failure"
+	TestID -> "[toNum/SolutionSelector] All without ReturnAllSolutions returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* SolutionSelector -> All is equivalent to omitting SolutionSelector with ReturnAllSolutions *)
@@ -1425,7 +1510,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector] All equivalent to default with ReturnAllSolutions"
+	TestID -> "[toNum/SolutionSelector] All equivalent to default with ReturnAllSolutions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1441,7 +1527,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Options] SolutionSelector accepted without notopt message"
+	TestID -> "[toNum/Options] SolutionSelector accepted without notopt message",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
@@ -1451,7 +1538,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Options] ReturnAllSolutions accepted without notopt message"
+	TestID -> "[toNum/Options] ReturnAllSolutions accepted without notopt message",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* toNum::nosolution message issued for non-matching selector *)
@@ -1463,7 +1551,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Messages] nosolution message issued for non-matching selector"
+	TestID -> "[toNum/Messages] nosolution message issued for non-matching selector",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* toNum::badidx message issued for out-of-bounds index *)
@@ -1474,7 +1563,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Messages] badidx message issued for out-of-bounds index"
+	TestID -> "[toNum/Messages] badidx message issued for out-of-bounds index",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* toNum::badselector message issued for invalid selector type *)
@@ -1485,7 +1575,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Messages] badselector message issued for invalid type"
+	TestID -> "[toNum/Messages] badselector message issued for invalid type",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1500,7 +1591,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/ReturnAllSolutions] True returns list of associations"
+	TestID -> "[toNum/ReturnAllSolutions] True returns list of associations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ReturnAllSolutions preserves SignsA metadata *)
@@ -1510,7 +1602,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/ReturnAllSolutions] Preserves SignsA metadata"
+	TestID -> "[toNum/ReturnAllSolutions] Preserves SignsA metadata",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ReturnAllSolutions preserves IntervalA metadata *)
@@ -1520,7 +1613,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/ReturnAllSolutions] Preserves IntervalA metadata"
+	TestID -> "[toNum/ReturnAllSolutions] Preserves IntervalA metadata",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ReturnAllSolutions preserves Stocks structure *)
@@ -1530,7 +1624,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/ReturnAllSolutions] Preserves Stocks structure"
+	TestID -> "[toNum/ReturnAllSolutions] Preserves Stocks structure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ReturnAllSolutions count matches updateCoeffs *)
@@ -1540,7 +1635,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/ReturnAllSolutions] Solution count matches updateCoeffs"
+	TestID -> "[toNum/ReturnAllSolutions] Solution count matches updateCoeffs",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ReturnAllSolutions->False returns flat rules (backward compat) *)
@@ -1550,7 +1646,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/ReturnAllSolutions] False returns flat rules"
+	TestID -> "[toNum/ReturnAllSolutions] False returns flat rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Single solution case returns single-element list *)
@@ -1560,7 +1657,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/ReturnAllSolutions] Single solution returns {_Association}"
+	TestID -> "[toNum/ReturnAllSolutions] Single solution returns {_Association}",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Each solution in list contains valid A coefficients and Stocks structure *)
@@ -1579,7 +1677,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/ReturnAllSolutions] Each solution has valid A coefficients and Stocks"
+	TestID -> "[toNum/ReturnAllSolutions] Each solution has valid A coefficients and Stocks",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1596,7 +1695,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Options] Index selector + ReturnAllSolutions returns filtered list"
+	TestID -> "[toNum/Options] Index selector + ReturnAllSolutions returns filtered list",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Both new options with newParameters works *)
@@ -1610,7 +1710,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Options] Both options with newParameters works"
+	TestID -> "[toNum/Options] Both options with newParameters works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* SolutionSelector works with expression form - returns non-Failure result *)
@@ -1620,7 +1721,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Options] SolutionSelector works with expression form"
+	TestID -> "[toNum/Options] SolutionSelector works with expression form",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Curried form with SolutionSelector works - returns function then non-Failure result *)
@@ -1630,7 +1732,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Options] Curried form with SolutionSelector works"
+	TestID -> "[toNum/Options] Curried form with SolutionSelector works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ReturnAllSolutions with expression - Rules form returns hierarchical structure *)
@@ -1641,7 +1744,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Options] ReturnAllSolutions returns hierarchical list"
+	TestID -> "[toNum/Options] ReturnAllSolutions returns hierarchical list",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Deterministic: same selector always produces same result *)
@@ -1654,7 +1758,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Options] Deterministic - same selector same result"
+	TestID -> "[toNum/Options] Deterministic - same selector same result",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1669,7 +1774,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badselector},
-	TestID -> "[toNum/Edge] String index returns Failure"
+	TestID -> "[toNum/Edge] String index returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* List with non-integers returns Failure *)
@@ -1679,7 +1785,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badselector},
-	TestID -> "[toNum/Edge] List with non-integers returns Failure"
+	TestID -> "[toNum/Edge] List with non-integers returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Nested list returns Failure *)
@@ -1689,7 +1796,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badselector},
-	TestID -> "[toNum/Edge] Nested list returns Failure"
+	TestID -> "[toNum/Edge] Nested list returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ReturnAllSolutions with invalid value returns Failure *)
@@ -1699,7 +1807,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badreturnall},
-	TestID -> "[toNum/Edge] ReturnAllSolutions invalid value returns Failure"
+	TestID -> "[toNum/Edge] ReturnAllSolutions invalid value returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Very large index returns Failure quickly *)
@@ -1713,7 +1822,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badidx},
-	TestID -> "[toNum/Edge] Large index handled without hang"
+	TestID -> "[toNum/Edge] Large index handled without hang",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1728,7 +1838,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badidx},
-	TestID -> "[toNum/Edge/Tuple] {0,1} zero A index returns Failure"
+	TestID -> "[toNum/Edge/Tuple] {0,1} zero A index returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Tuple {-1, 1} returns Failure - negative A index invalid *)
@@ -1738,7 +1849,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badidx},
-	TestID -> "[toNum/Edge/Tuple] {-1,1} negative A index returns Failure"
+	TestID -> "[toNum/Edge/Tuple] {-1,1} negative A index returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Tuple {1, 0} returns Failure - zero B index invalid *)
@@ -1748,7 +1860,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badbidx},
-	TestID -> "[toNum/Edge/Tuple] {1,0} zero B index returns Failure"
+	TestID -> "[toNum/Edge/Tuple] {1,0} zero B index returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Tuple {1, -1} returns Failure - negative B index invalid *)
@@ -1758,7 +1871,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badbidx},
-	TestID -> "[toNum/Edge/Tuple] {1,-1} negative B index returns Failure"
+	TestID -> "[toNum/Edge/Tuple] {1,-1} negative B index returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* toNum::badbidx message issued for invalid B index *)
@@ -1769,7 +1883,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Messages] badbidx message issued for invalid B index"
+	TestID -> "[toNum/Messages] badbidx message issued for invalid B index",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1786,7 +1901,8 @@ TestCreate[
 	],
 	True,
 	{toNum::nosolution},
-	TestID -> "[toNum/Edge/Assoc] SignsA with non-sign values returns Failure"
+	TestID -> "[toNum/Edge/Assoc] SignsA with non-sign values returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* SignsA with wrong length returns Failure or no match *)
@@ -1800,7 +1916,8 @@ TestCreate[
 	],
 	True,
 	{toNum::nosolution},
-	TestID -> "[toNum/Edge/Assoc] SignsA wrong length returns Failure"
+	TestID -> "[toNum/Edge/Assoc] SignsA wrong length returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* SolutionIndexA with non-integer returns Failure - validation error *)
@@ -1811,7 +1928,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badselector},
-	TestID -> "[toNum/Edge/Assoc] SolutionIndexA non-integer returns Failure"
+	TestID -> "[toNum/Edge/Assoc] SolutionIndexA non-integer returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Mixed keys SignsA + SolutionIndexA - both must match *)
@@ -1825,7 +1943,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Edge/Assoc] Mixed SignsA + SolutionIndexA works when consistent"
+	TestID -> "[toNum/Edge/Assoc] Mixed SignsA + SolutionIndexA works when consistent",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* SignsB without SignsA - should work (select first A matching B signs) *)
@@ -1836,7 +1955,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Edge/Assoc] SignsB alone selects matching B from first A"
+	TestID -> "[toNum/Edge/Assoc] SignsB alone selects matching B from first A",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1851,7 +1971,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/BKY] Index selection works"
+	TestID -> "[toNum/SolutionSelector/BKY] Index selection works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* NRC model: SolutionSelector works *)
@@ -1861,7 +1982,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/NRC] Index selection works"
+	TestID -> "[toNum/SolutionSelector/NRC] Index selection works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* NRC model: Index 2 returns valid rules (NRC has 3 solutions) *)
@@ -1871,7 +1993,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/NRC] Index 2 returns valid flat rules"
+	TestID -> "[toNum/SolutionSelector/NRC] Index 2 returns valid flat rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* NRC model: Different indices produce different coefficient values *)
@@ -1885,7 +2008,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/NRC] Different indices produce different A[0] values"
+	TestID -> "[toNum/SolutionSelector/NRC] Different indices produce different A[0] values",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* NRC model: ReturnAllSolutions returns all 3 solutions *)
@@ -1895,7 +2019,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/NRC] ReturnAllSolutions returns all solutions"
+	TestID -> "[toNum/SolutionSelector/NRC] ReturnAllSolutions returns all solutions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* NRC model: Last valid index returns valid rules *)
@@ -1911,7 +2036,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/NRC] Last valid index returns valid rules"
+	TestID -> "[toNum/SolutionSelector/NRC] Last valid index returns valid rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* DES model: SolutionSelector works *)
@@ -1921,7 +2047,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/DES] Index selection works"
+	TestID -> "[toNum/SolutionSelector/DES] Index selection works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* DES model: Index 2 returns valid rules (DES has 3 solutions) *)
@@ -1931,7 +2058,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/DES] Index 2 returns valid flat rules"
+	TestID -> "[toNum/SolutionSelector/DES] Index 2 returns valid flat rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* DES model: Different indices produce different coefficient values *)
@@ -1945,7 +2073,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/DES] Different indices produce different A[0] values"
+	TestID -> "[toNum/SolutionSelector/DES] Different indices produce different A[0] values",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* DES model: ReturnAllSolutions returns all 3 solutions *)
@@ -1955,7 +2084,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/DES] ReturnAllSolutions returns all solutions"
+	TestID -> "[toNum/SolutionSelector/DES] ReturnAllSolutions returns all solutions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* DES model: SignsA selector works *)
@@ -1966,7 +2096,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/DES] SignsA selector works"
+	TestID -> "[toNum/SolutionSelector/DES] SignsA selector works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* NRCStochVol model: SolutionSelector works *)
@@ -1976,7 +2107,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/SolutionSelector/NRCStochVol] Index selection works"
+	TestID -> "[toNum/SolutionSelector/NRCStochVol] Index selection works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1992,7 +2124,8 @@ TestCreate[
 	$nrcNumStocks === 3,
 	True,
 	{},
-	TestID -> "[toNum/MultiStock/NRC] Model has 3 stocks"
+	TestID -> "[toNum/MultiStock/NRC] Model has 3 stocks",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Tuple {1, 1} applies bIdx=1 uniformly to all 3 stocks *)
@@ -2004,7 +2137,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/MultiStock/NRC] Tuple {1,1} includes B coeffs for all 3 stocks"
+	TestID -> "[toNum/MultiStock/NRC] Tuple {1,1} includes B coeffs for all 3 stocks",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Integer selector includes first B for all stocks *)
@@ -2015,7 +2149,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/MultiStock/NRC] Integer selector includes B coeffs for all stocks"
+	TestID -> "[toNum/MultiStock/NRC] Integer selector includes B coeffs for all stocks",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ReturnAllSolutions preserves Stocks structure with all 3 stocks *)
@@ -2026,7 +2161,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/MultiStock/NRC] ReturnAllSolutions preserves all 3 stocks"
+	TestID -> "[toNum/MultiStock/NRC] ReturnAllSolutions preserves all 3 stocks",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* bIdx out of range for any stock returns Failure *)
@@ -2039,7 +2175,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badbidx},
-	TestID -> "[toNum/MultiStock/NRC] bIdx exceeding any stock's B count returns Failure"
+	TestID -> "[toNum/MultiStock/NRC] bIdx exceeding any stock's B count returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* badbidx message issued when bIdx invalid for multi-stock *)
@@ -2054,7 +2191,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/MultiStock/NRC] badbidx message for invalid bIdx"
+	TestID -> "[toNum/MultiStock/NRC] badbidx message for invalid bIdx",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* SignsB selection works with multi-stock *)
@@ -2067,7 +2205,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/MultiStock/NRC] SignsB selector works with multi-stock"
+	TestID -> "[toNum/MultiStock/NRC] SignsB selector works with multi-stock",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Uniform bIdx enforced across stocks with different B counts *)
@@ -2088,7 +2227,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/MultiStock/NRC] Uniform bIdx enforced across stocks with different B counts"
+	TestID -> "[toNum/MultiStock/NRC] Uniform bIdx enforced across stocks with different B counts",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -2115,7 +2255,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/BugCoverage] SignsA with Real values matches Integer solutions"
+	TestID -> "[toNum/BugCoverage] SignsA with Real values matches Integer solutions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Bug Coverage: SignsB Integer vs Real comparison *)
@@ -2131,7 +2272,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/BugCoverage] SignsB with Real values matches Integer solutions"
+	TestID -> "[toNum/BugCoverage] SignsB with Real values matches Integer solutions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Bug Coverage: Partial association selector with only SignsA *)
@@ -2144,7 +2286,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/BugCoverage] Partial selector with only SignsA works"
+	TestID -> "[toNum/BugCoverage] Partial selector with only SignsA works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Bug Coverage: Partial association selector with only SignsB *)
@@ -2156,7 +2299,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/BugCoverage] Partial selector with only SignsB works"
+	TestID -> "[toNum/BugCoverage] Partial selector with only SignsB works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Bug Coverage: Partial association selector with only SolutionIndexA *)
@@ -2168,7 +2312,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/BugCoverage] Partial selector with only SolutionIndexA works"
+	TestID -> "[toNum/BugCoverage] Partial selector with only SolutionIndexA works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Bug Coverage: User-constructed SignsA (not from solution) *)
@@ -2186,7 +2331,8 @@ TestCreate[
 	],
 	True,
 	{toNum::nobsolutions},
-	TestID -> "[toNum/BugCoverage] User-constructed SignsA pattern works"
+	TestID -> "[toNum/BugCoverage] User-constructed SignsA pattern works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Bug Coverage: User-constructed SignsA with Real values *)
@@ -2202,7 +2348,8 @@ TestCreate[
 	],
 	True,
 	{toNum::nobsolutions},
-	TestID -> "[toNum/BugCoverage] User-constructed Real SignsA pattern works"
+	TestID -> "[toNum/BugCoverage] User-constructed Real SignsA pattern works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Bug Coverage: SolutionIndexB is now rejected as invalid selector key *)
@@ -2216,7 +2363,8 @@ TestCreate[
 	],
 	True,
 	{toNum::badselector},
-	TestID -> "[toNum/BugCoverage] SolutionIndexB rejected as invalid selector key"
+	TestID -> "[toNum/BugCoverage] SolutionIndexB rejected as invalid selector key",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Bug Coverage: Empty Stocks case *)
@@ -2229,7 +2377,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/BugCoverage] Standard model evaluation works"
+	TestID -> "[toNum/BugCoverage] Standard model evaluation works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Bug Coverage: Verify SignsA matching is not too strict *)
@@ -2245,7 +2394,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/BugCoverage] SignsA matching works with copied list"
+	TestID -> "[toNum/BugCoverage] SignsA matching works with copied list",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -2256,112 +2406,128 @@ TestCreate[
 	Module[{baseRules, overrideRules}, baseRules = toNum["Rules", $modBY]; overrideRules = toNum["Rules", $modBY, {$pkgGamma -> 15.}]; overrideRules =!= baseRules],
 	True,
 	{},
-	TestID -> "[toNum] Single parameter override changes output rules"
+	TestID -> "[toNum] Single parameter override changes output rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	Module[{baseRules, multiOverride}, baseRules = toNum["Rules", $modBY]; multiOverride = toNum["Rules", $modBY, {$pkgGamma -> 12., $pkgPsi -> 2.5}]; multiOverride =!= baseRules],
 	True,
 	{},
-	TestID -> "[toNum] Multiple parameter override changes output rules"
+	TestID -> "[toNum] Multiple parameter override changes output rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	Module[{exprTest, baseExprValue, overrideExprValue}, exprTest = $pkgA[0] + $pkgA[1]; baseExprValue = toNum[exprTest, $modBY]; overrideExprValue = toNum[exprTest, $modBY, {$pkgGamma -> 20.}]; NumericQ[baseExprValue] && NumericQ[overrideExprValue] && baseExprValue != overrideExprValue],
 	True,
 	{},
-	TestID -> "[toNum] Parameter override affects expression evaluation"
+	TestID -> "[toNum] Parameter override affects expression evaluation",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	FailureQ[toNum["Rules", $modBY, {invalidParameterName -> 1.}]],
 	True,
 	{processNewParameters::subsetparam},
-	TestID -> "[toNum] Invalid parameter name returns Failure"
+	TestID -> "[toNum] Invalid parameter name returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	FailureQ[toNum["Rules", $modBY, {"gamma" -> 15.}]],
 	True,
 	{processNewParameters::subsetparam},
-	TestID -> "[toNum] String keys for parameters fail"
+	TestID -> "[toNum] String keys for parameters fail",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	Module[{largeExpr, largeResult}, largeExpr = Sum[$pkgA[i], {i, 0, 2}] + $pkgB[1][0] + $pkgB[1][1] + $pkgB[1][2]; largeResult = toNum[largeExpr, $modBY]; NumericQ[largeResult] &&  !FailureQ[largeResult]],
 	True,
 	{},
-	TestID -> "[toNum] Complex expression evaluates to numeric"
+	TestID -> "[toNum] Complex expression evaluates to numeric",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	FailureQ[toNum["Rules", $modBY, "ReturnAllSolutions" -> "true"]],
 	True,
 	{toNum::badreturnall},
-	TestID -> "[toNum] ReturnAllSolutions string value fails"
+	TestID -> "[toNum] ReturnAllSolutions string value fails",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	FailureQ[toNum["Rules", $modBY, "ReturnAllSolutions" -> 1]],
 	True,
 	{toNum::badreturnall},
-	TestID -> "[toNum] ReturnAllSolutions integer value fails"
+	TestID -> "[toNum] ReturnAllSolutions integer value fails",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	AllTrue[Values[$testModels], MatchQ[toNum["Rules", #1], {__Rule}] & ],
 	True,
 	{},
-	TestID -> "[toNum] All models produce valid flat rules"
+	TestID -> "[toNum] All models produce valid flat rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	AllTrue[Values[$testModels], MatchQ[toNum["Rules", #1, "ReturnAllSolutions" -> True], {__Association}] & ],
 	True,
 	{},
-	TestID -> "[toNum] All models produce valid hierarchical solutions"
+	TestID -> "[toNum] All models produce valid hierarchical solutions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	AllTrue[Values[$testModels], NumericQ[toNum[$pkgA[0], #1]] & ],
 	True,
 	{},
-	TestID -> "[toNum] A[0] is numeric for all models"
+	TestID -> "[toNum] A[0] is numeric for all models",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	$modBY["numStocks"],
 	1,
 	{},
-	TestID -> "[Model] BY has 1 stock"
+	TestID -> "[Model] BY has 1 stock",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	$modBKY["numStocks"],
 	1,
 	{},
-	TestID -> "[Model] BKY has 1 stock"
+	TestID -> "[Model] BKY has 1 stock",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	$modNRC["numStocks"],
 	3,
 	{},
-	TestID -> "[Model] NRC has 3 stocks"
+	TestID -> "[Model] NRC has 3 stocks",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	Length[$modDES["stateVars"][t]],
 	7,
 	{},
-	TestID -> "[Model] DES has 7 state variables"
+	TestID -> "[Model] DES has 7 state variables",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	AllTrue[Select[Values[$testModels], #1["numStocks"] > 0 & ], NumericQ[toNum[$pkgB[1][0], #1]] & ],
 	True,
 	{},
-	TestID -> "[toNum] B[1][0] is numeric for all models with stocks"
+	TestID -> "[toNum] B[1][0] is numeric for all models with stocks",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Multiple A terms evaluate to numeric across models *)
@@ -2375,7 +2541,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/" <> name <> "] Multiple A terms evaluate to numeric"
+			TestID -> "[toNum/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Multiple A terms evaluate to numeric"
 		]
 	],
 	{modelName, Keys[$testModels]}
@@ -2385,7 +2552,8 @@ TestCreate[
 	Module[{expr, result}, expr = $pkgB[1][0] + $pkgB[1][1] + $pkgB[1][2]; result = toNum[expr, $modNRC]; NumericQ[result]],
 	True,
 	{},
-	TestID -> "[toNum] Multiple B terms evaluate to numeric"
+	TestID -> "[toNum] Multiple B terms evaluate to numeric",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Mixed A and B terms evaluate to numeric across models with stocks *)
@@ -2399,7 +2567,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/" <> name <> "] Mixed A and B terms evaluate to numeric"
+			TestID -> "[toNum/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Mixed A and B terms evaluate to numeric"
 		]
 	],
 	{modelName, Select[Keys[$testModels], $testModels[#]["numStocks"] > 0 &]}
@@ -2409,7 +2578,8 @@ TestCreate[
 	Module[{expr, result}, expr = Sum[$pkgA[i], {i, 0, 2}] + Sum[$pkgB[1][j], {j, 0, 2}]; result = toNum[expr, $modNRC]; NumericQ[result]],
 	True,
 	{},
-	TestID -> "[toNum] Summation expressions evaluate to numeric"
+	TestID -> "[toNum] Summation expressions evaluate to numeric",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -2425,7 +2595,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Rules output has Rule head"
+	TestID -> "[toNum/Docs] Rules output has Rule head",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: First rule LHS is an A coefficient *)
@@ -2435,7 +2606,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] First rule LHS is A coefficient"
+	TestID -> "[toNum/Docs] First rule LHS is A coefficient",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: First rule RHS is numeric *)
@@ -2445,7 +2617,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] First rule RHS is numeric"
+	TestID -> "[toNum/Docs] First rule RHS is numeric",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: A[0] with different gamma produces different result *)
@@ -2453,7 +2626,8 @@ TestCreate[
 	toNum[$pkgA[0], $modBY] =!= toNum[$pkgA[0], $modBY, {$pkgGamma -> 15.}],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Different gamma produces different A[0] value"
+	TestID -> "[toNum/Docs] Different gamma produces different A[0] value",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: ToNum with multiple parameter overrides returns numeric *)
@@ -2461,7 +2635,8 @@ TestCreate[
 	NumberQ[toNum[$pkgA[0] + $pkgA[1], $modBY, {$pkgGamma -> 12., $pkgPsi -> 2.5}]],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Multiple parameter overrides produce numeric result"
+	TestID -> "[toNum/Docs] Multiple parameter overrides produce numeric result",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Curried form equals standard form *)
@@ -2469,7 +2644,8 @@ TestCreate[
 	toNum[$modBY][$pkgA[0] + $pkgA[1]] === toNum[$pkgA[0] + $pkgA[1], $modBY],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Curried form equals standard form"
+	TestID -> "[toNum/Docs] Curried form equals standard form",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Curried form with parameters equals standard form *)
@@ -2478,7 +2654,8 @@ TestCreate[
 		toNum[$pkgA[0] + $pkgA[1], $modBY, {$pkgGamma -> 12., $pkgPsi -> 2.5}],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Curried form with params equals standard form"
+	TestID -> "[toNum/Docs] Curried form with params equals standard form",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -2494,7 +2671,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] ReturnAllSolutions returns list"
+	TestID -> "[toNum/Docs] ReturnAllSolutions returns list",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: First solution is Association *)
@@ -2504,7 +2682,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] First solution is Association"
+	TestID -> "[toNum/Docs] First solution is Association",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Solutions list is non-empty *)
@@ -2514,7 +2693,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Solutions list is non-empty"
+	TestID -> "[toNum/Docs] Solutions list is non-empty",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Solution has expected keys *)
@@ -2524,7 +2704,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Solution has expected keys"
+	TestID -> "[toNum/Docs] Solution has expected keys",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Solution A key is Association *)
@@ -2534,7 +2715,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Solution A key is Association"
+	TestID -> "[toNum/Docs] Solution A key is Association",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: All A values are numeric *)
@@ -2544,7 +2726,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] All A coefficient values are numeric"
+	TestID -> "[toNum/Docs] All A coefficient values are numeric",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: A keys are A[0], A[1], A[2] *)
@@ -2554,7 +2737,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] A keys are A[0] A[1] A[2]"
+	TestID -> "[toNum/Docs] A keys are A[0] A[1] A[2]",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Stock solution is Association *)
@@ -2564,7 +2748,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Stock solution is Association"
+	TestID -> "[toNum/Docs] Stock solution is Association",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Stock solution has expected B keys *)
@@ -2574,7 +2759,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Stock solution has B structure keys"
+	TestID -> "[toNum/Docs] Stock solution has B structure keys",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: All B values are numeric *)
@@ -2584,7 +2770,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] All B coefficient values are numeric"
+	TestID -> "[toNum/Docs] All B coefficient values are numeric",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: B keys are B[1][0], B[1][1], B[1][2] *)
@@ -2594,7 +2781,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] B keys are B[1][0] B[1][1] B[1][2]"
+	TestID -> "[toNum/Docs] B keys are B[1][0] B[1][1] B[1][2]",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: BY SignsA is empty *)
@@ -2604,7 +2792,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] BY model has empty SignsA"
+	TestID -> "[toNum/Docs] BY model has empty SignsA",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: IntervalA is pair of numbers *)
@@ -2614,7 +2803,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] IntervalA is pair of numbers"
+	TestID -> "[toNum/Docs] IntervalA is pair of numbers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: SolutionIndexA equals 1 *)
@@ -2624,7 +2814,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] SolutionIndexA equals 1 for first solution"
+	TestID -> "[toNum/Docs] SolutionIndexA equals 1 for first solution",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -2640,7 +2831,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] NRC returns 3 solutions"
+	TestID -> "[toNum/Docs] NRC returns 3 solutions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Multi-stock expression evaluates to numeric *)
@@ -2648,7 +2840,8 @@ TestCreate[
 	NumberQ[toNum[$pkgA[0] + $pkgB[1][0] + $pkgB[2][0] + $pkgB[3][0], $modNRC]],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Multi-stock expression evaluates to numeric"
+	TestID -> "[toNum/Docs] Multi-stock expression evaluates to numeric",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: All NRC solutions have numeric Value *)
@@ -2658,7 +2851,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] All NRC solutions have numeric Value"
+	TestID -> "[toNum/Docs] All NRC solutions have numeric Value",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -2681,7 +2875,8 @@ Table[
 			],
 			True,
 			{},
-			TestID -> "[toNum/Docs/" <> name <> "] Has expected solution count and keys"
+			TestID -> "[toNum/Docs/",
+	MetaInformation -> <|"Category" -> "extended"|> <> name <> "] Has expected solution count and keys"
 		]
 	],
 	{modelName, Keys[$expectedSolutionCounts]}
@@ -2698,7 +2893,8 @@ TestCreate[
 	toNum["Rules", $modNRC, "SolutionSelector" -> 2] =!= toNum["Rules", $modBY],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Selector 2 produces different result than default"
+	TestID -> "[toNum/Docs] Selector 2 produces different result than default",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Tuple selector {1,1} produces numeric rules *)
@@ -2708,7 +2904,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Tuple selector produces numeric rules"
+	TestID -> "[toNum/Docs] Tuple selector produces numeric rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Selector All with ReturnAllSolutions works *)
@@ -2721,7 +2918,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Selector All with ReturnAllSolutions works"
+	TestID -> "[toNum/Docs] Selector All with ReturnAllSolutions works",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Association selector with SolutionIndexA works *)
@@ -2730,7 +2928,8 @@ TestCreate[
 		toNum["Rules", $modBY],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Association selector with SolutionIndexA equals default"
+	TestID -> "[toNum/Docs] Association selector with SolutionIndexA equals default",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Rules contain B coefficients *)
@@ -2738,7 +2937,8 @@ TestCreate[
 	AnyTrue[toNum["Rules", $modBY], MatchQ[#[[1]], $pkgB[_][_]] &],
 	True,
 	{},
-	TestID -> "[toNum/Docs] Rules contain B coefficients"
+	TestID -> "[toNum/Docs] Rules contain B coefficients",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: UpdatePd False still contains B coefficients *)
@@ -2746,7 +2946,8 @@ TestCreate[
 	AnyTrue[toNum["Rules", $modBY, "UpdatePd" -> False], MatchQ[#[[1]], $pkgB[_][_]] &],
 	True,
 	{},
-	TestID -> "[toNum/Docs] UpdatePd False still contains B coefficients"
+	TestID -> "[toNum/Docs] UpdatePd False still contains B coefficients",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -2765,7 +2966,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] UpdateBond produces numeric NomBond values"
+	TestID -> "[toNum/Docs] UpdateBond produces numeric NomBond values",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: MaxMaturity controls bond maturity range *)
@@ -2783,7 +2985,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[toNum/Docs] MaxMaturity controls bond coefficient range"
+	TestID -> "[toNum/Docs] MaxMaturity controls bond coefficient range",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Rules form equals expression evaluation *)
@@ -2792,7 +2995,8 @@ TestCreate[
 		($pkgA[0] + $pkgA[1] /. toNum["Rules", $modBY, {$pkgGamma -> 15}]),
 	True,
 	{},
-	TestID -> "[toNum/Docs] Rules form equals expression evaluation"
+	TestID -> "[toNum/Docs] Rules form equals expression evaluation",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -2806,7 +3010,8 @@ TestCreate[
 	Cases[toEquation[wc[t], $modBY], (x_Symbol)[t__] /; SymbolName[x] === "x", Infinity] =!= {},
 	True,
 	{},
-	TestID -> "[ToEquation/Docs] wc equation contains x state variable"
+	TestID -> "[ToEquation/Docs] wc equation contains x state variable",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -2820,7 +3025,8 @@ TestCreate[
 	Cases[$modNRC["stateVars"][t], (x_Symbol)[t__] /; SymbolName[x] === "sg", Infinity] =!= {},
 	True,
 	{},
-	TestID -> "[Model/Docs] NRC state vars contain sg"
+	TestID -> "[Model/Docs] NRC state vars contain sg",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: NRC state vars contain pi *)
@@ -2828,7 +3034,8 @@ TestCreate[
 	Cases[$modNRC["stateVars"][t], (x_Symbol)[t__] /; SymbolName[x] === "pi", Infinity] =!= {},
 	True,
 	{},
-	TestID -> "[Model/Docs] NRC state vars contain pi"
+	TestID -> "[Model/Docs] NRC state vars contain pi",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: NRC state vars contain eps *)
@@ -2836,7 +3043,8 @@ TestCreate[
 	Cases[$modNRC["stateVars"][t], (x_Symbol)[s__][t__] /; SymbolName[x] === "eps", Infinity] =!= {},
 	True,
 	{},
-	TestID -> "[Model/Docs] NRC state vars contain eps"
+	TestID -> "[Model/Docs] NRC state vars contain eps",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: DES state vars contain sx *)
@@ -2844,7 +3052,8 @@ TestCreate[
 	Cases[$modDES["stateVars"][t], (x_Symbol)[t__] /; SymbolName[x] === "sx", Infinity] =!= {},
 	True,
 	{},
-	TestID -> "[Model/Docs] DES state vars contain sx"
+	TestID -> "[Model/Docs] DES state vars contain sx",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: DES state vars contain pibar *)
@@ -2852,7 +3061,8 @@ TestCreate[
 	Cases[$modDES["stateVars"][t], (x_Symbol)[t__] /; SymbolName[x] === "pibar", Infinity] =!= {},
 	True,
 	{},
-	TestID -> "[Model/Docs] DES state vars contain pibar"
+	TestID -> "[Model/Docs] DES state vars contain pibar",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: DES state vars contain eps[pi] *)
@@ -2860,7 +3070,8 @@ TestCreate[
 	Cases[$modDES["stateVars"][t], (x_Symbol)["pi"][t__] /; SymbolName[x] === "eps", Infinity] =!= {},
 	True,
 	{},
-	TestID -> "[Model/Docs] DES state vars contain eps pi"
+	TestID -> "[Model/Docs] DES state vars contain eps pi",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: NRCStochVol state vars contain sg squared *)
@@ -2868,7 +3079,8 @@ TestCreate[
 	Cases[$modNRCStochVol["stateVars"][t], (x_Symbol)[t__]^2 /; SymbolName[x] === "sg", Infinity] =!= {},
 	True,
 	{},
-	TestID -> "[Model/Docs] NRCStochVol state vars contain sg squared"
+	TestID -> "[Model/Docs] NRCStochVol state vars contain sg squared",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: NRCStochVol state vars contain sp *)
@@ -2876,7 +3088,8 @@ TestCreate[
 	Cases[$modNRCStochVol["stateVars"][t], (x_Symbol)[t__] /; SymbolName[x] === "sp", Infinity] =!= {},
 	True,
 	{},
-	TestID -> "[Model/Docs] NRCStochVol state vars contain sp"
+	TestID -> "[Model/Docs] NRCStochVol state vars contain sp",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: NRCStochVol state vars contain eps[pi] *)
@@ -2884,7 +3097,8 @@ TestCreate[
 	Cases[$modNRCStochVol["stateVars"][t], (x_Symbol)["pi"][t__] /; SymbolName[x] === "eps", Infinity] =!= {},
 	True,
 	{},
-	TestID -> "[Model/Docs] NRCStochVol state vars contain eps pi"
+	TestID -> "[Model/Docs] NRCStochVol state vars contain eps pi",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -2898,7 +3112,8 @@ TestCreate[
 	FailureQ[toNum[$pkgA[0], $modBY, {"gamma" -> 15.0}]],
 	True,
 	{processNewParameters::subsetparam},
-	TestID -> "[toNum/Docs] Invalid string parameter gamma returns Failure"
+	TestID -> "[toNum/Docs] Invalid string parameter gamma returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: SolutionSelector All without ReturnAllSolutions fails *)
@@ -2906,7 +3121,8 @@ TestCreate[
 	FailureQ[toNum["Rules", $modBY, "SolutionSelector" -> All]],
 	True,
 	{toNum::selectorallrequiresreturnall},
-	TestID -> "[toNum/Docs] SolutionSelector All without ReturnAllSolutions fails"
+	TestID -> "[toNum/Docs] SolutionSelector All without ReturnAllSolutions fails",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: SolutionSelector with invalid index fails *)
@@ -2914,7 +3130,8 @@ TestCreate[
 	FailureQ[toNum["Rules", $modBY, "SolutionSelector" -> 999]],
 	True,
 	{toNum::badidx},
-	TestID -> "[toNum/Docs] SolutionSelector with invalid index fails"
+	TestID -> "[toNum/Docs] SolutionSelector with invalid index fails",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: SolutionSelector with non-integer value fails *)
@@ -2922,7 +3139,8 @@ TestCreate[
 	FailureQ[toNum["Rules", $modBY, "SolutionSelector" -> 1.5]],
 	True,
 	{toNum::badselector},
-	TestID -> "[toNum/Docs] SolutionSelector with non-integer value fails"
+	TestID -> "[toNum/Docs] SolutionSelector with non-integer value fails",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Invalid parameter name returns Failure *)
@@ -2930,7 +3148,8 @@ TestCreate[
 	FailureQ[toNum["Rules", $modBY, {invalidParameterName -> 1.0}]],
 	True,
 	{processNewParameters::subsetparam},
-	TestID -> "[toNum/Docs] Invalid parameter name returns Failure"
+	TestID -> "[toNum/Docs] Invalid parameter name returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: psi equal to 1 returns Failure *)
@@ -2938,7 +3157,8 @@ TestCreate[
 	FailureQ[toNum["Rules", $modBY, {$pkgPsi -> 1}]],
 	True,
 	{processNewParameters::psi},
-	TestID -> "[toNum/Docs] psi equal to 1 returns Failure"
+	TestID -> "[toNum/Docs] psi equal to 1 returns Failure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 

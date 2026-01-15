@@ -13,8 +13,14 @@
      --verbose, -v    Show detailed progress
      --help, -h       Show this help message
      --dir <path>     Test directory (relative to paclet root or absolute)
+     --test-category  Test category: core, extended, or all (default: all locally, core in CI)
      --coverage       Enable coverage instrumentation (generates LCOV files)
      --coverage-mode  Coverage mode: Auto, Baseline, or Execution (default: Auto)
+
+   Test categories:
+     core       Fast tests (untagged) - run on every PR
+     extended   Slow tests (tagged with MetaInformation) - run manually
+     all        Run all tests regardless of category
 
    Coverage modes:
      Auto       Try execution coverage; fall back to baseline if instrumentation fails
@@ -39,7 +45,9 @@
      wolframscript Tests/RunTests.wls --all
      wolframscript Tests/RunTests.wls                 # defaults to --cicd
      wolframscript Tests/RunTests.wls --cicd --coverage  # with coverage
-     wolframscript Tests/RunTests.wls --cicd --coverage --coverage-mode=Baseline
+     wolframscript Tests/RunTests.wls --cicd --coverage --coverage-mode Baseline
+     wolframscript Tests/RunTests.wls --cicd --test-category core    # fast tests only
+     wolframscript Tests/RunTests.wls --cicd --test-category extended  # slow tests only
 
    Logging (via shell redirection):
      wolframscript Tests/RunTests.wls --verbose > tests.log 2>&1      # save to file
@@ -90,6 +98,9 @@ $debug = TrueQ[Interpreter["Boolean"][Environment["DEBUG"]]];
 $runCoverage = hasFlag["--coverage"];
 $coverageMode = Replace[getFlagValue["--coverage-mode"], None -> "Auto"];
 
+(* Test category flag: core, extended, or all *)
+$testCategory = Replace[getFlagValue["--test-category"], None -> "all"];
+
 (* Internal flag: run in subprocess mode (skip spawning, run directly) *)
 $subprocessMode = hasFlag["--subprocess"];
 
@@ -97,6 +108,17 @@ $subprocessMode = hasFlag["--subprocess"];
 If[$runCoverage && !MemberQ[{"Auto", "Baseline", "Execution"}, $coverageMode],
   printToStdout["Error: Invalid coverage mode '", $coverageMode, "'. Use Auto, Baseline, or Execution."];
   Exit[1]
+];
+
+(* Validate test category *)
+If[!MemberQ[{"core", "extended", "all"}, $testCategory],
+  printToStdout["Error: Invalid test category '", $testCategory, "'. Use core, extended, or all."];
+  Exit[1]
+];
+
+(* Default to "core" in CI environment if no category specified *)
+If[getFlagValue["--test-category"] === None && Environment["GITHUB_ACTIONS"] === "true",
+  $testCategory = "core"
 ];
 
 (* Show help and exit *)
@@ -110,11 +132,17 @@ If[$showHelp,
   printToStdout["  --all, -a        Run all three modalities sequentially (each in fresh kernel)"];
   printToStdout[""];
   printToStdout["Options:"];
-  printToStdout["  --verbose, -v    Show detailed progress"];
-  printToStdout["  --help, -h       Show this help message"];
-  printToStdout["  --dir <path>     Test directory (relative to paclet root or absolute)"];
-  printToStdout["  --coverage       Enable coverage instrumentation (generates LCOV files)"];
-  printToStdout["  --coverage-mode  Coverage mode: Auto, Baseline, or Execution (default: Auto)"];
+  printToStdout["  --verbose, -v        Show detailed progress"];
+  printToStdout["  --help, -h           Show this help message"];
+  printToStdout["  --dir <path>         Test directory (relative to paclet root or absolute)"];
+  printToStdout["  --test-category      Test category: core, extended, or all (default: all locally, core in CI)"];
+  printToStdout["  --coverage           Enable coverage instrumentation (generates LCOV files)"];
+  printToStdout["  --coverage-mode      Coverage mode: Auto, Baseline, or Execution (default: Auto)"];
+  printToStdout[""];
+  printToStdout["Test categories:"];
+  printToStdout["  core       Fast tests (untagged) - run on every PR"];
+  printToStdout["  extended   Slow tests (tagged with MetaInformation) - run manually"];
+  printToStdout["  all        Run all tests regardless of category"];
   printToStdout[""];
   printToStdout["Coverage modes:"];
   printToStdout["  Auto       Try execution coverage; fall back to baseline if it fails"];
@@ -404,6 +432,29 @@ finalizeCoverage[] := Module[{},
 ];
 
 (* -------------------------------------------------------------------------- *)
+(* Test category filtering via TestEvaluationFunction                         *)
+(* -------------------------------------------------------------------------- *)
+
+(* TestEvaluationFunction that skips tests based on category.
+   Tests with MetaInformation -> <|"Category" -> "extended"|> are extended.
+   Untagged tests (MetaInformation is None or missing Category) are core. *)
+$categoryTestEvaluationFunction = Function[
+  Module[{meta, rawCat, cat},
+    meta = #["MetaInformation"];
+    rawCat = If[AssociationQ[meta], Lookup[meta, "Category", "core"], "core"];
+    (* Normalize to lowercase for comparison *)
+    cat = ToLowerCase[ToString[rawCat]];
+    If[
+      $testCategory === "all" ||
+      ($testCategory === "core" && cat === "core") ||
+      ($testCategory === "extended" && cat === "extended"),
+      TestEvaluate[#],
+      #  (* Skip - return unevaluated *)
+    ]
+  ]
+];
+
+(* -------------------------------------------------------------------------- *)
 (* Subprocess spawning for kernel isolation                                   *)
 (* -------------------------------------------------------------------------- *)
 
@@ -432,6 +483,9 @@ runModalityInSubprocess[modalityFlag_, modalityName_] := Module[
     args = Append[args, "--coverage"];
     args = Join[args, {"--coverage-mode", $coverageMode}]
   ];
+
+  (* Pass through --test-category if specified *)
+  args = Join[args, {"--test-category", $testCategory}];
 
   (* Run subprocess - inherits environment from parent *)
   result = RunProcess[Flatten[{"wolframscript", args}]];
@@ -475,18 +529,23 @@ runLocalTests[] := Module[
   startTime = AbsoluteTime[];
   report = TestReport[
     testFiles,
-    "ProgressReporting" -> $verbose
+    "ProgressReporting" -> $verbose,
+    TestEvaluationFunction -> $categoryTestEvaluationFunction
   ];
   duration = AbsoluteTime[] - startTime;
 
-  (* Report results *)
+  (* Report results - count by outcome, excluding NotEvaluated (skipped) *)
   passed = report["TestsSucceededCount"];
   failed = report["TestsFailedCount"];
+  skipped = Length[report["TestsNotEvaluatedIndices"]];
   total = passed + failed;
 
   printToStdout[""];
   printToStdout["Results: ", passed, "/", total, " passed (",
     ToString[NumberForm[100.0 * passed / Max[total, 1], {4, 1}]], "%)"];
+  If[skipped > 0,
+    printToStdout["Skipped: ", skipped, " tests (category: ", $testCategory, ")"]
+  ];
   printToStdout["Duration: ", ToString[NumberForm[duration, {5, 2}]], " seconds"];
 
   If[failed > 0,
@@ -503,7 +562,7 @@ runLocalTests[] := Module[
 (* -------------------------------------------------------------------------- *)
 
 runSimulateTests[] := Module[
-  {testFiles, report, passed, failed, total, startTime, duration,
+  {testFiles, report, passed, failed, skipped, total, startTime, duration,
    savedContext, savedContextPath, outcomeResults},
 
   printSection["MODALITY: PacletCICD Environment Simulation"];
@@ -537,7 +596,11 @@ runSimulateTests[] := Module[
     $ContextPath = {"PacletCICDSimulation`", "System`"},
 
     (* Run tests *)
-    TestReport[testFiles, "ProgressReporting" -> $verbose],
+    TestReport[
+      testFiles,
+      "ProgressReporting" -> $verbose,
+      TestEvaluationFunction -> $categoryTestEvaluationFunction
+    ],
 
     (* Restore context *)
     $Context = savedContext;
@@ -551,11 +614,15 @@ runSimulateTests[] := Module[
 
   passed = report["TestsSucceededCount"];
   failed = report["TestsFailedCount"];
+  skipped = Length[report["TestsNotEvaluatedIndices"]];
   total = passed + failed;
 
   printToStdout[""];
   printToStdout["Results: ", passed, "/", total, " passed (",
     ToString[NumberForm[100.0 * passed / Max[total, 1], {4, 1}]], "%)"];
+  If[skipped > 0,
+    printToStdout["Skipped: ", skipped, " tests (category: ", $testCategory, ")"]
+  ];
   printToStdout["Duration: ", ToString[NumberForm[duration, {5, 2}]], " seconds"];
 
   (* Check for specific failure types *)
@@ -583,7 +650,8 @@ runSimulateTests[] := Module[
 runCICDTests[] := Module[
   {pacletCICDVersion, existingPaclet, needsInstall, pacletURL,
    installed, pacletCICDPath, res, isGitHubActions, consoleType,
-   useMarkdownSummary, useWorkflowValue},
+   useMarkdownSummary, useWorkflowValue,
+   testFiles, report, passed, failed, skipped, total, startTime, duration},
 
   printSection["MODALITY: PacletCICD (Full CI Environment)"];
 
@@ -631,7 +699,59 @@ runCICDTests[] := Module[
   printToStdout["Testing paclet at: ", $pacletRoot];
   printToStdout["Test discovery directory: ", $testsDir];
 
-  (* Run tests using PacletCICD TestPaclet *)
+  (* When category filtering is enabled, use TestReport directly instead of TestPaclet
+     because TestPaclet doesn't support TestEvaluationFunction *)
+  If[$testCategory =!= "all",
+    printToStdout["Using TestReport with category filter: ", $testCategory];
+    printToStdout["Note: PacletCICD artifacts (workflow values, markdown summary) not generated in filtered mode"];
+
+    (* Load paclet *)
+    If[FailureQ[PacletDirectoryLoad[$pacletRoot]],
+      printToStdout["::error::Failed to load paclet"];
+      Return[$Failed]
+    ];
+
+    (* Find test files *)
+    testFiles = Sort[FileNames["*.wlt", $testsDir, Infinity]];
+    If[Length[testFiles] == 0,
+      printToStdout["::warning::No .wlt files found in ", $testsDir];
+      Return[True]
+    ];
+    printToStdout["Found ", Length[testFiles], " test files"];
+
+    (* Run tests with category filtering *)
+    startTime = AbsoluteTime[];
+    report = TestReport[
+      testFiles,
+      "ProgressReporting" -> $verbose,
+      TestEvaluationFunction -> $categoryTestEvaluationFunction
+    ];
+    duration = AbsoluteTime[] - startTime;
+
+    (* Report results *)
+    passed = report["TestsSucceededCount"];
+    failed = report["TestsFailedCount"];
+    skipped = Length[report["TestsNotEvaluatedIndices"]];
+    total = passed + failed;
+
+    printToStdout[""];
+    printToStdout["Results: ", passed, "/", total, " passed (",
+      ToString[NumberForm[100.0 * passed / Max[total, 1], {4, 1}]], "%)"];
+    If[skipped > 0,
+      printToStdout["Skipped: ", skipped, " tests (category: ", $testCategory, ")"]
+    ];
+    printToStdout["Duration: ", ToString[NumberForm[duration, {5, 2}]], " seconds"];
+
+    If[failed > 0,
+      printToStdout[""];
+      printToStdout["Failed tests:"];
+      Scan[printToStdout["  - ", #["TestID"]] &, Values[report["TestsFailed"]]];
+    ];
+
+    Return[failed == 0]
+  ];
+
+  (* Run all tests using PacletCICD TestPaclet *)
   res = Wolfram`PacletCICD`Private`noExit @ Block[
     {
       Print = printToStdout,
@@ -673,6 +793,7 @@ If[$subprocessMode || $modalityCount == 1,
   (* Direct execution mode *)
   printToStdout["Paclet root: ", $pacletRoot];
   printToStdout["Test directory: ", $testsDir];
+  printToStdout["Test category: ", $testCategory];
   If[$runCoverage, printToStdout["Coverage: enabled (mode: ", $coverageMode, ")"]];
 
   If[$runLocal,
@@ -690,6 +811,7 @@ If[$subprocessMode || $modalityCount == 1,
   (* Subprocess mode for kernel isolation *)
   printToStdout["Paclet root: ", $pacletRoot];
   printToStdout["Test directory: ", $testsDir];
+  printToStdout["Test category: ", $testCategory];
   If[$runCoverage, printToStdout["Coverage: enabled (mode: ", $coverageMode, ")"]];
   printToStdout[""];
   printToStdout["Running ", $modalityCount, " modalities in separate kernels for isolation..."];

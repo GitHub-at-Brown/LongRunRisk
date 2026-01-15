@@ -31,7 +31,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Verbose False returns Null"
+	TestID -> "[print] Verbose False returns Null",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: print returns Null with Verbose -> True and produces output *)
@@ -44,7 +45,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Verbose True returns Null"
+	TestID -> "[print] Verbose True returns Null",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: print returns Null with all options and produces correct output *)
@@ -58,7 +60,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] All options returns Null"
+	TestID -> "[print] All options returns Null",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -80,7 +83,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Verbose CI without env returns Null"
+	TestID -> "[print] Verbose CI without env returns Null",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Verbose with invalid value behaves as False (no output) *)
@@ -92,7 +96,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Verbose invalid value returns Null"
+	TestID -> "[print] Verbose invalid value returns Null",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -110,7 +115,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Memory False excludes memory info"
+	TestID -> "[print] Memory False excludes memory info",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Memory -> True includes memory info *)
@@ -124,7 +130,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Memory True includes memory info"
+	TestID -> "[print] Memory True includes memory info",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -141,7 +148,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Prefix None produces no prefix"
+	TestID -> "[print] Prefix None produces no prefix",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Prefix -> "INFO" adds prefix to output *)
@@ -154,7 +162,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Prefix INFO adds prefix"
+	TestID -> "[print] Prefix INFO adds prefix",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Prefix -> "[DEBUG]" adds bracketed prefix to output *)
@@ -167,7 +176,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Prefix DEBUG adds bracketed prefix"
+	TestID -> "[print] Prefix DEBUG adds bracketed prefix",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -186,7 +196,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Prefix and Memory combine correctly"
+	TestID -> "[print] Prefix and Memory combine correctly",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Verbose False overrides other options (no output despite prefix/memory) *)
@@ -198,7 +209,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Verbose False overrides other options"
+	TestID -> "[print] Verbose False overrides other options",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -215,7 +227,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Empty message outputs newline only"
+	TestID -> "[print] Empty message outputs newline only",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Message with special characters is preserved *)
@@ -227,7 +240,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Special characters are preserved"
+	TestID -> "[print] Special characters are preserved",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Message with unicode characters is preserved *)
@@ -239,7 +253,8 @@ TestCreate[
 	],
 	Null,
 	{},
-	TestID -> "[print] Unicode characters are preserved"
+	TestID -> "[print] Unicode characters are preserved",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -252,7 +267,8 @@ TestCreate[
 	OptionValue[print, "Verbose"],
 	"CI",
 	{},
-	TestID -> "[print] Default Verbose is CI"
+	TestID -> "[print] Default Verbose is CI",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Default Memory is False *)
@@ -260,7 +276,8 @@ TestCreate[
 	OptionValue[print, "Memory"],
 	False,
 	{},
-	TestID -> "[print] Default Memory is False"
+	TestID -> "[print] Default Memory is False",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Default Prefix is None *)
@@ -268,7 +285,8 @@ TestCreate[
 	OptionValue[print, "Prefix"],
 	None,
 	{},
-	TestID -> "[print] Default Prefix is None"
+	TestID -> "[print] Default Prefix is None",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Options list is complete *)
@@ -276,7 +294,8 @@ TestCreate[
 	Sort[Keys[Options[print]]],
 	Sort[{"Memory", "Prefix", "Verbose"}],
 	{},
-	TestID -> "[print] Options list is complete"
+	TestID -> "[print] Options list is complete",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -289,7 +308,8 @@ TestCreate[
 	StringQ[FernandoDuarte`LongRunRisk`Tools`Common`Private`formatMemoryInfo[]],       
 	True,
 	{},
-	TestID -> "[formatMemoryInfo] Returns a string"
+	TestID -> "[formatMemoryInfo] Returns a string",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: formatMemoryInfo contains expected markers *)
@@ -299,7 +319,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[formatMemoryInfo] Contains expected markers"
+	TestID -> "[formatMemoryInfo] Contains expected markers",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: wolframKernelMemoryGB returns a number or Missing *)
@@ -307,7 +328,8 @@ TestCreate[
 	MatchQ[FernandoDuarte`LongRunRisk`Tools`Common`Private`wolframKernelMemoryGB[], _?NumberQ | _Missing],
 	True,
 	{},
-	TestID -> "[wolframKernelMemoryGB] Returns number or Missing"
+	TestID -> "[wolframKernelMemoryGB] Returns number or Missing",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: formatMemoryInfo shows N/A when wolframKernelMemoryGB returns Missing (Windows behavior) *)
@@ -320,7 +342,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[formatMemoryInfo] Missing kernel memory shows NA"
+	TestID -> "[formatMemoryInfo] Missing kernel memory shows NA",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Section:: *)
@@ -334,7 +357,8 @@ TestCreate[
     isolatedEvaluate[1 + 1] === 2,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Basic evaluation returns correct result"
+    TestID -> "[isolatedEvaluate] Basic evaluation returns correct result",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -344,7 +368,8 @@ TestCreate[
     isolatedEvaluate[x + y, "Bindings" -> {x -> 10, y -> 20}] === 30,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Bindings substitute variables"
+    TestID -> "[isolatedEvaluate] Bindings substitute variables",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -354,7 +379,8 @@ TestCreate[
     isolatedEvaluate[Simplify[Sqrt[a^2]], "Assumptions" -> a > 0] === a,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Assumptions are applied"
+    TestID -> "[isolatedEvaluate] Assumptions are applied",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -368,7 +394,8 @@ TestCreate[
     ] === -a,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Simplify Assumptions option overrides isolatedEvaluate Assumptions"
+    TestID -> "[isolatedEvaluate] Simplify Assumptions option overrides isolatedEvaluate Assumptions",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* When Simplify has no explicit Assumptions, it uses $Assumptions from Assuming wrapper *)
@@ -379,7 +406,8 @@ TestCreate[
     ] === a,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Simplify uses Assuming wrapper when no explicit Assumptions"
+    TestID -> "[isolatedEvaluate] Simplify uses Assuming wrapper when no explicit Assumptions",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -389,7 +417,8 @@ TestCreate[
     isolatedEvaluate[1/1, "Quiet" -> True] === 1,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Quiet option allows normal evaluation"
+    TestID -> "[isolatedEvaluate] Quiet option allows normal evaluation",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Quiet -> True suppresses Simplify timeout messages and returns correct value *)
@@ -398,7 +427,8 @@ TestCreate[
     isolatedEvaluate[(Message[Simplify::time]; 42), "Quiet" -> True] === 42,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Quiet True suppresses Simplify::time and returns value"
+    TestID -> "[isolatedEvaluate] Quiet True suppresses Simplify::time and returns value",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Quiet -> False does not suppress messages but still returns correct value *)
@@ -407,7 +437,8 @@ TestCreate[
     isolatedEvaluate[(Message[Simplify::time]; 42), "Quiet" -> False] === 42,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Quiet False returns value despite messages"
+    TestID -> "[isolatedEvaluate] Quiet False returns value despite messages",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -417,7 +448,8 @@ TestCreate[
     isolatedEvaluate[$HistoryLength, "HistoryLength" -> 123] === 123,
     True,
     {},
-    TestID -> "[isolatedEvaluate] HistoryLength is set correctly inside block"
+    TestID -> "[isolatedEvaluate] HistoryLength is set correctly inside block",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -427,21 +459,24 @@ TestCreate[
     isolatedEvaluate[Pause[2.0]; 1, "LocalTimeout" -> 0.2, "LocalTimeoutValue" -> "TimedOut"] === "TimedOut",
     True,
     {},
-    TestID -> "[isolatedEvaluate] LocalTimeout triggers on slow evaluation"
+    TestID -> "[isolatedEvaluate] LocalTimeout triggers on slow evaluation",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
     isolatedEvaluate[1 + 1, "LocalTimeout" -> 5.0, "LocalTimeoutValue" -> "TimedOut"] === 2,
     True,
     {},
-    TestID -> "[isolatedEvaluate] LocalTimeout allows fast evaluation"
+    TestID -> "[isolatedEvaluate] LocalTimeout allows fast evaluation",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
     isolatedEvaluate[Pause[1.0]; 1, "LocalTimeout" -> 0.1] === $Failed,
     True,
     {},
-    TestID -> "[isolatedEvaluate] LocalTimeout returns $Failed by default"
+    TestID -> "[isolatedEvaluate] LocalTimeout returns $Failed by default",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -451,21 +486,24 @@ TestCreate[
     isolatedEvaluate[Pause[2.0]; 1, "HardTimeout" -> 0.2, "HardTimeoutValue" -> "HardTimedOut"] === "HardTimedOut",
     True,
     {},
-    TestID -> "[isolatedEvaluate] HardTimeout triggers on slow evaluation"
+    TestID -> "[isolatedEvaluate] HardTimeout triggers on slow evaluation",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
     isolatedEvaluate[1 + 1, "HardTimeout" -> 5.0, "HardTimeoutValue" -> "HardTimedOut"] === 2,
     True,
     {},
-    TestID -> "[isolatedEvaluate] HardTimeout allows fast evaluation"
+    TestID -> "[isolatedEvaluate] HardTimeout allows fast evaluation",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
     isolatedEvaluate[Pause[1.0]; 1, "HardTimeout" -> 0.1] === $Failed,
     True,
     {},
-    TestID -> "[isolatedEvaluate] HardTimeout returns $Failed by default"
+    TestID -> "[isolatedEvaluate] HardTimeout returns $Failed by default",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -481,7 +519,8 @@ TestCreate[
     ] === x + 5,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Combined options work together"
+    TestID -> "[isolatedEvaluate] Combined options work together",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Combined Quiet and LocalTimeout: completes successfully *)
@@ -497,7 +536,8 @@ TestCreate[
     ],
     True,
     {},
-    TestID -> "[isolatedEvaluate] Quiet with LocalTimeout returns simplified result"
+    TestID -> "[isolatedEvaluate] Quiet with LocalTimeout returns simplified result",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Quiet False with LocalTimeout also returns correct result *)
@@ -512,7 +552,8 @@ TestCreate[
     ],
     True,
     {},
-    TestID -> "[isolatedEvaluate] Quiet False with LocalTimeout returns simplified result"
+    TestID -> "[isolatedEvaluate] Quiet False with LocalTimeout returns simplified result",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Same-context symbols simplify: MyTestContext`a + MyTestContext`a -> 2*MyTestContext`a *)
@@ -520,7 +561,8 @@ TestCreate[
     isolatedEvaluate[Simplify[MyTestContext`a + MyTestContext`a]] === 2*MyTestContext`a,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Same-context symbols simplify together"
+    TestID -> "[isolatedEvaluate] Same-context symbols simplify together",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Different-context symbols do NOT simplify: MyTestContext`a + Global`a stays as sum *)
@@ -535,7 +577,8 @@ TestCreate[
     ],
     True,
     {},
-    TestID -> "[isolatedEvaluate] Different-context symbols do not simplify"
+    TestID -> "[isolatedEvaluate] Different-context symbols do not simplify",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -546,7 +589,8 @@ TestCreate[
     isolatedEvaluate[x + 1, "Bindings" -> {x -> 100}] === 101,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Unqualified symbol matches unqualified binding"
+    TestID -> "[isolatedEvaluate] Unqualified symbol matches unqualified binding",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Fully qualified expression matches fully qualified binding with same context *)
@@ -554,7 +598,8 @@ TestCreate[
     isolatedEvaluate[Global`y + 1, "Bindings" -> {Global`y -> 200}] === 201,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Qualified symbol matches same-context qualified binding"
+    TestID -> "[isolatedEvaluate] Qualified symbol matches same-context qualified binding",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* When multiple bindings with different contexts exist, only matching context applies *)
@@ -565,7 +610,8 @@ TestCreate[
     ] === 101,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Correct context binding applied when multiple exist"
+    TestID -> "[isolatedEvaluate] Correct context binding applied when multiple exist",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Multiple symbols with different contexts each get their respective bindings *)
@@ -576,7 +622,8 @@ TestCreate[
     ] === 300,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Multiple context bindings applied to respective symbols"
+    TestID -> "[isolatedEvaluate] Multiple context bindings applied to respective symbols",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Different contexts do NOT match - qualified expression with different-context binding *)
@@ -584,7 +631,8 @@ TestCreate[
     isolatedEvaluate[MyTestContext`v + 1, "Bindings" -> {Global`v -> 500}] === MyTestContext`v + 1,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Different contexts do not match"
+    TestID -> "[isolatedEvaluate] Different contexts do not match",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Subprocess evaluates in Global` context *)
@@ -592,7 +640,8 @@ TestCreate[
     isolatedEvaluate[$Context] === "Global`",
     True,
     {},
-    TestID -> "[isolatedEvaluate] Subprocess uses Global context"
+    TestID -> "[isolatedEvaluate] Subprocess uses Global context",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Unqualified expression with non-Global qualified binding does NOT match *)
@@ -600,7 +649,8 @@ TestCreate[
     isolatedEvaluate[v + 1, "Bindings" -> {MyTestContext`v -> 500}] === v + 1,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Unqualified expr does not match non-Global binding"
+    TestID -> "[isolatedEvaluate] Unqualified expr does not match non-Global binding",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Non-matching bindings are ignored, matching binding is applied *)
@@ -611,7 +661,8 @@ TestCreate[
     ] === 701,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Only matching context binding applied among multiple"
+    TestID -> "[isolatedEvaluate] Only matching context binding applied among multiple",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -631,7 +682,8 @@ TestCreate[
     ],
     True,
     {},
-    TestID -> "[isolatedEvaluate] Map pattern with Assumptions option wraps in Assuming"
+    TestID -> "[isolatedEvaluate] Map pattern with Assumptions option wraps in Assuming",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* ::Subsection:: *)
@@ -646,7 +698,8 @@ TestCreate[
     ],
     True,
     {},
-    TestID -> "[isolatedEvaluate] Assignments inside do not leak to caller"
+    TestID -> "[isolatedEvaluate] Assignments inside do not leak to caller",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Multiple assignments inside do not affect outer scope *)
@@ -658,7 +711,8 @@ TestCreate[
     ],
     True,
     {},
-    TestID -> "[isolatedEvaluate] Multiple assignments do not leak"
+    TestID -> "[isolatedEvaluate] Multiple assignments do not leak",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* $HistoryLength in outer kernel is unchanged after isolatedEvaluate *)
@@ -671,7 +725,8 @@ TestCreate[
     ],
     True,
     {},
-    TestID -> "[isolatedEvaluate] $HistoryLength unchanged in outer kernel"
+    TestID -> "[isolatedEvaluate] $HistoryLength unchanged in outer kernel",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* DownValues defined inside do not leak *)
@@ -683,7 +738,8 @@ TestCreate[
     ],
     True,
     {},
-    TestID -> "[isolatedEvaluate] DownValues defined inside do not leak"
+    TestID -> "[isolatedEvaluate] DownValues defined inside do not leak",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Return value is correctly passed back despite isolation *)
@@ -695,7 +751,8 @@ TestCreate[
     ] === 105,
     True,
     {},
-    TestID -> "[isolatedEvaluate] Return value passed back correctly"
+    TestID -> "[isolatedEvaluate] Return value passed back correctly",
+    MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 End[]

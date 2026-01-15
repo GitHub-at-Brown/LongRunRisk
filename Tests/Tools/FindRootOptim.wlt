@@ -58,7 +58,8 @@ TestCreate[
 	StringQ[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`createCompiledEq::usage],
 	True,
 	{},
-	TestID -> "[createCompiledEq] Has usage message"
+	TestID -> "[createCompiledEq] Has usage message",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildKernel has usage message *)
@@ -66,7 +67,8 @@ TestCreate[
 	StringQ[FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildKernel::usage],
 	True,
 	{},
-	TestID -> "[buildKernel] Has usage message"
+	TestID -> "[buildKernel] Has usage message",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -109,7 +111,8 @@ TestCreate[
         ],
         True,
         {},
-        TestID -> "[createCompiledEq] Creates MX file with valid model"
+        TestID -> "[createCompiledEq] Creates MX file with valid model",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -122,7 +125,8 @@ TestCreate[
 	Length[Options[buildKernel]] > 0,
 	True,
 	{},
-	TestID -> "[buildKernel] Has options"
+	TestID -> "[buildKernel] Has options",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildKernel has CoeffName option *)
@@ -130,7 +134,8 @@ TestCreate[
 	MemberQ[Keys[Options[buildKernel]], "CoeffName"],
 	True,
 	{},
-	TestID -> "[buildKernel] Has CoeffName option"
+	TestID -> "[buildKernel] Has CoeffName option",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildKernel has CompileSignSymbol option *)
@@ -138,7 +143,8 @@ TestCreate[
 	MemberQ[Keys[Options[buildKernel]], "CompileSignSymbol"],
 	True,
 	{},
-	TestID -> "[buildKernel] Has CompileSignSymbol option"
+	TestID -> "[buildKernel] Has CompileSignSymbol option",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildKernel has PerformanceGoal option *)
@@ -146,7 +152,8 @@ TestCreate[
 	MemberQ[Keys[Options[buildKernel]], "PerformanceGoal"],
 	True,
 	{},
-	TestID -> "[buildKernel] Has PerformanceGoal option"
+	TestID -> "[buildKernel] Has PerformanceGoal option",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildKernel has CompileMode option *)
@@ -154,7 +161,8 @@ TestCreate[
 	MemberQ[Keys[Options[buildKernel]], "CompileMode"],
 	True,
 	{},
-	TestID -> "[buildKernel] Has CompileMode option"
+	TestID -> "[buildKernel] Has CompileMode option",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildKernel respects explicit CompileMode option *)
@@ -162,7 +170,8 @@ TestCreate[
 	OptionValue[buildKernel, {"CompileMode" -> "FunctionOnly"}, "CompileMode"],
 	"FunctionOnly",
 	{},
-	TestID -> "[buildKernel] Explicit CompileMode is respected"
+	TestID -> "[buildKernel] Explicit CompileMode is respected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -183,7 +192,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[buildKernel] FunctionOnly produces Missing Jacobian"
+	TestID -> "[buildKernel] FunctionOnly produces Missing Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildKernel with Both produces function and Jacobian *)
@@ -199,7 +209,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[buildKernel] Both mode produces Jacobian"
+	TestID -> "[buildKernel] Both mode produces Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildKernel respects CoeffName and CompileSignSymbol options *)
@@ -218,7 +229,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[buildKernel] CoeffName and CompileSignSymbol are respected"
+	TestID -> "[buildKernel] CoeffName and CompileSignSymbol are respected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildKernel produces Association with expected structure *)
@@ -242,7 +254,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[buildKernel] Returns Association with expected keys"
+	TestID -> "[buildKernel] Returns Association with expected keys",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildKernel with Compile produces expected structure *)
@@ -264,7 +277,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[buildKernel] Compile mode produces expected structure"
+	TestID -> "[buildKernel] Compile mode produces expected structure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Both compiler modes produce equivalent results *)
@@ -280,7 +294,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[buildKernel] Both compiler modes produce equivalent results"
+	TestID -> "[buildKernel] Both compiler modes produce equivalent results",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -295,7 +310,8 @@ TestCreate[
 	] === $Failed,
 	True,
 	{buildKernel::unusedvars},
-	TestID -> "[buildKernel] Error on unused variable"
+	TestID -> "[buildKernel] Error on unused variable",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildKernel with JacobianOnly produces only Jacobian *)
@@ -308,7 +324,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[buildKernel] JacobianOnly mode produces only Jacobian"
+	TestID -> "[buildKernel] JacobianOnly mode produces only Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -331,7 +348,8 @@ TestCreate[
 	],
 	True,
 	{bindUnary::toofewsigns},
-	TestID -> "[bindUnary] Too few signs returns Failed with one sign"
+	TestID -> "[bindUnary] Too few signs returns Failed with one sign",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: bindUnary issues toofewsigns with empty signs when signs needed *)
@@ -349,7 +367,8 @@ TestCreate[
 	],
 	True,
 	{bindUnary::toofewsigns},
-	TestID -> "[bindUnary] Too few signs returns Failed with empty signs"
+	TestID -> "[bindUnary] Too few signs returns Failed with empty signs",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: bindUnary succeeds with valid sign count *)
@@ -374,7 +393,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[bindUnary] Valid sign count returns function pair"
+	TestID -> "[bindUnary] Valid sign count returns function pair",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: bindUnary issues toomanysigns when more signs than needed *)
@@ -392,7 +412,8 @@ TestCreate[
 	],
 	True,
 	{bindUnary::toomanysigns},
-	TestID -> "[bindUnary] Too many signs returns Failed"
+	TestID -> "[bindUnary] Too many signs returns Failed",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -406,7 +427,8 @@ TestCreate[
 	{{0.002, 14.998}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] True input returns default interval"
+	TestID -> "[extractIntervalsFromReduce] True input returns default interval",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: False input returns empty with message *)
@@ -414,7 +436,8 @@ TestCreate[
 	extractIntervalsFromReduce[False, {A[0], B[1][0]}],
 	{},
 	{extractIntervalsFromReduce::nointervals},
-	TestID -> "[extractIntervalsFromReduce] False returns empty with message"
+	TestID -> "[extractIntervalsFromReduce] False returns empty with message",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Inequality extracts with padding for n-dimensional case *)
@@ -423,7 +446,8 @@ TestCreate[
 	{{{1.001, -1.*^5}, {4.999, 1.*^5}}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] nD case pads second dimension"
+	TestID -> "[extractIntervalsFromReduce] nD case pads second dimension",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Mixed two-sided and upper fallback *)
@@ -432,7 +456,8 @@ TestCreate[
 	{{1., 2.}, {10., 15.}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Mixed two-sided and upper fallback"
+	TestID -> "[extractIntervalsFromReduce] Mixed two-sided and upper fallback",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Single point and upper fallback *)
@@ -441,7 +466,8 @@ TestCreate[
 	{{3., 3.}, {10., 15.}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Single point and upper fallback"
+	TestID -> "[extractIntervalsFromReduce] Single point and upper fallback",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Drops clause above upper bound *)
@@ -450,7 +476,8 @@ TestCreate[
 	{{1., 2.}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Drops clause above upper bound"
+	TestID -> "[extractIntervalsFromReduce] Drops clause above upper bound",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Drops clause below zero and returns empty *)
@@ -458,7 +485,8 @@ TestCreate[
 	extractIntervalsFromReduce[x < -1, x, "InteriorShrink" -> 0, "RootUpperBound" -> 10],
 	{},
 	{extractIntervalsFromReduce::nointervals},
-	TestID -> "[extractIntervalsFromReduce] Below zero clause returns empty"
+	TestID -> "[extractIntervalsFromReduce] Below zero clause returns empty",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Collapses narrow interval to midpoint *)
@@ -467,7 +495,8 @@ TestCreate[
 	{{0.00075, 0.00075}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Narrow interval collapses to midpoint"
+	TestID -> "[extractIntervalsFromReduce] Narrow interval collapses to midpoint",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: True branch with full range *)
@@ -476,7 +505,8 @@ TestCreate[
 	{{0.2, 4.8}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] True with shrink returns adjusted range"
+	TestID -> "[extractIntervalsFromReduce] True with shrink returns adjusted range",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: False branch returns empty *)
@@ -484,7 +514,8 @@ TestCreate[
 	extractIntervalsFromReduce[False, x],
 	{},
 	{extractIntervalsFromReduce::nointervals},
-	TestID -> "[extractIntervalsFromReduce] False returns empty"
+	TestID -> "[extractIntervalsFromReduce] False returns empty",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: One-sided lower clamped to upper *)
@@ -493,7 +524,8 @@ TestCreate[
 	{{1.1, 4.9}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] One-sided clamped to upper bound"
+	TestID -> "[extractIntervalsFromReduce] One-sided clamped to upper bound",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: One-sided near upper clamps and collapses *)
@@ -502,7 +534,8 @@ TestCreate[
 	{{4.95, 4.95}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Near upper bound collapses"
+	TestID -> "[extractIntervalsFromReduce] Near upper bound collapses",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Width equal to 2x shrink collapses to midpoint *)
@@ -511,7 +544,8 @@ TestCreate[
 	{{2.1, 2.1}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Equal shrink collapses to midpoint"
+	TestID -> "[extractIntervalsFromReduce] Equal shrink collapses to midpoint",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Wide interval applies shrink *)
@@ -520,7 +554,8 @@ TestCreate[
 	{{1.1, 2.9}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Wide interval applies shrink"
+	TestID -> "[extractIntervalsFromReduce] Wide interval applies shrink",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Open-closed mix and sorting *)
@@ -529,7 +564,8 @@ TestCreate[
 	{{1., 2.}, {4., 4.2}, {10., 15.}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Open-closed mix sorted correctly"
+	TestID -> "[extractIntervalsFromReduce] Open-closed mix sorted correctly",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: All clauses dropped returns empty *)
@@ -537,7 +573,8 @@ TestCreate[
 	extractIntervalsFromReduce[x > 20, x, "RootUpperBound" -> 15],
 	{},
 	{extractIntervalsFromReduce::nointervals},
-	TestID -> "[extractIntervalsFromReduce] All dropped returns empty"
+	TestID -> "[extractIntervalsFromReduce] All dropped returns empty",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Indexed variable head extracts bound *)
@@ -546,7 +583,8 @@ TestCreate[
 	{{0., 6.059}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Indexed variable extracts bounds"
+	TestID -> "[extractIntervalsFromReduce] Indexed variable extracts bounds",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Mismatched indexed variable returns default *)
@@ -555,7 +593,8 @@ TestCreate[
 	{{0., 15.}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Mismatched index returns default"
+	TestID -> "[extractIntervalsFromReduce] Mismatched index returns default",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -569,7 +608,8 @@ TestCreate[
 	{{1.5, 4.5}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Large shrink wide interval"
+	TestID -> "[extractIntervalsFromReduce] Large shrink wide interval",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Large shrink collapses narrow interval *)
@@ -578,7 +618,8 @@ TestCreate[
 	{{1.5, 1.5}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Large shrink collapses narrow"
+	TestID -> "[extractIntervalsFromReduce] Large shrink collapses narrow",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Shrink two with upper bound ten *)
@@ -587,7 +628,8 @@ TestCreate[
 	{{2., 8.}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Shrink 2 upper bound 10"
+	TestID -> "[extractIntervalsFromReduce] Shrink 2 upper bound 10",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Shrink nearly half of upper bound collapses *)
@@ -596,7 +638,8 @@ TestCreate[
 	{{4.9, 5.1}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Nearly half upper bound collapses"
+	TestID -> "[extractIntervalsFromReduce] Nearly half upper bound collapses",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Two intervals with different collapse behavior *)
@@ -605,7 +648,8 @@ TestCreate[
 	{{0.75, 1.25}, {3.25, 5.75}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Two intervals different collapse"
+	TestID -> "[extractIntervalsFromReduce] Two intervals different collapse",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Very small shrink with small upper bound *)
@@ -614,7 +658,8 @@ TestCreate[
 	{{0.0001, 1.9999}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Very small shrink small upper"
+	TestID -> "[extractIntervalsFromReduce] Very small shrink small upper",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Zero shrink with large upper bound *)
@@ -623,7 +668,8 @@ TestCreate[
 	{{0., 100.}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Zero shrink large upper"
+	TestID -> "[extractIntervalsFromReduce] Zero shrink large upper",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Mixed bounded and unbounded with custom options *)
@@ -632,7 +678,8 @@ TestCreate[
 	{{0.2, 0.8}, {5.2, 19.8}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Mixed bounded unbounded custom"
+	TestID -> "[extractIntervalsFromReduce] Mixed bounded unbounded custom",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Three intervals with mixed collapse *)
@@ -641,7 +688,8 @@ TestCreate[
 	{{1.4, 1.6}, {3.4, 3.6}, {5.4, 5.6}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Three intervals mixed collapse"
+	TestID -> "[extractIntervalsFromReduce] Three intervals mixed collapse",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Small interval small shrink no collapse *)
@@ -650,7 +698,8 @@ TestCreate[
 	{{0.15, 0.25}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Small interval no collapse"
+	TestID -> "[extractIntervalsFromReduce] Small interval no collapse",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Small interval small shrink collapses *)
@@ -659,7 +708,8 @@ TestCreate[
 	{{0.15, 0.15}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Small interval collapses"
+	TestID -> "[extractIntervalsFromReduce] Small interval collapses",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Near upper bound with shrink collapses *)
@@ -668,7 +718,8 @@ TestCreate[
 	{{19., 19.}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Near upper with shrink collapses"
+	TestID -> "[extractIntervalsFromReduce] Near upper with shrink collapses",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Point and unbounded with custom options *)
@@ -677,7 +728,8 @@ TestCreate[
 	{{5., 5.}, {10.5, 14.5}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Point and unbounded custom"
+	TestID -> "[extractIntervalsFromReduce] Point and unbounded custom",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Shrink equals half upper bound collapses *)
@@ -686,7 +738,8 @@ TestCreate[
 	{{1.5, 1.5}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Shrink equals half upper collapses"
+	TestID -> "[extractIntervalsFromReduce] Shrink equals half upper collapses",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Second interval clipped by upper bound *)
@@ -695,7 +748,8 @@ TestCreate[
 	{{0.8, 1.7}, {10.3, 11.7}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Second interval clipped"
+	TestID -> "[extractIntervalsFromReduce] Second interval clipped",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Small shrink large upper bound *)
@@ -704,7 +758,8 @@ TestCreate[
 	{{0.01, 49.99}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Small shrink large upper"
+	TestID -> "[extractIntervalsFromReduce] Small shrink large upper",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Mixed inequality types with custom shrink *)
@@ -713,7 +768,8 @@ TestCreate[
 	{{0.4, 0.6}, {2.4, 2.6}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Mixed inequality types"
+	TestID -> "[extractIntervalsFromReduce] Mixed inequality types",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Tiny intervals small shrink no collapse *)
@@ -722,7 +778,8 @@ TestCreate[
 	{{0.014, 0.016}, {0.034, 0.036}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Tiny intervals no collapse"
+	TestID -> "[extractIntervalsFromReduce] Tiny intervals no collapse",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Large shrink moderate upper bound *)
@@ -731,7 +788,8 @@ TestCreate[
 	{{3., 5.}},
 	{},
 	SameTest -> $intervalSameTest,
-	TestID -> "[extractIntervalsFromReduce] Large shrink moderate upper"
+	TestID -> "[extractIntervalsFromReduce] Large shrink moderate upper",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -746,7 +804,8 @@ TestCreate[
 	] === $Failed,
 	True,
 	{findRootInterval::emptyinterval},
-	TestID -> "[findRootInterval] Empty interval on contradiction"
+	TestID -> "[findRootInterval] Empty interval on contradiction",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Empty interval message on range contradiction *)
@@ -756,7 +815,8 @@ TestCreate[
 	] === $Failed,
 	True,
 	{findRootInterval::emptyinterval},
-	TestID -> "[findRootInterval] Empty interval on range contradiction"
+	TestID -> "[findRootInterval] Empty interval on range contradiction",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Empty interval message on parameter contradiction *)
@@ -766,7 +826,8 @@ TestCreate[
 	] === $Failed,
 	True,
 	{findRootInterval::emptyinterval},
-	TestID -> "[findRootInterval] Empty interval on parameter contradiction"
+	TestID -> "[findRootInterval] Empty interval on parameter contradiction",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: No coefficient message when no coefficient found *)
@@ -776,7 +837,8 @@ TestCreate[
 	] === $Failed,
 	True,
 	{findRootInterval::nocoeff},
-	TestID -> "[findRootInterval] No coefficient message"
+	TestID -> "[findRootInterval] No coefficient message",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: No coefficient message with only parameters *)
@@ -786,7 +848,8 @@ TestCreate[
 	] === $Failed,
 	True,
 	{findRootInterval::nocoeff},
-	TestID -> "[findRootInterval] No coefficient with only params"
+	TestID -> "[findRootInterval] No coefficient with only params",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: No coefficient message with wrong coefficient name *)
@@ -796,7 +859,8 @@ TestCreate[
 	] === $Failed,
 	True,
 	{findRootInterval::nocoeff},
-	TestID -> "[findRootInterval] Wrong coefficient name"
+	TestID -> "[findRootInterval] Wrong coefficient name",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: findRootInterval returns valid logical expression on success *)
@@ -807,7 +871,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[findRootInterval] Returns valid logical expression"
+	TestID -> "[findRootInterval] Returns valid logical expression",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -824,7 +889,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] 1D quadratic without Jacobian"
+	TestID -> "[fastRoot] 1D quadratic without Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: 1D cubic without Jacobian *)
@@ -836,7 +902,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] 1D cubic without Jacobian"
+	TestID -> "[fastRoot] 1D cubic without Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: 1D transcendental without Jacobian *)
@@ -848,7 +915,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] 1D transcendental without Jacobian"
+	TestID -> "[fastRoot] 1D transcendental without Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: 1D exponential without Jacobian *)
@@ -860,7 +928,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] 1D exponential without Jacobian"
+	TestID -> "[fastRoot] 1D exponential without Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Newton Automatic 1D without Jacobian *)
@@ -872,7 +941,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] Newton Automatic without Jacobian"
+	TestID -> "[fastRoot] Newton Automatic without Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Newton explicit 1D without Jacobian *)
@@ -884,7 +954,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] Newton explicit without Jacobian"
+	TestID -> "[fastRoot] Newton explicit without Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: 1D with explicit Jacobian still works *)
@@ -897,7 +968,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] 1D with explicit Jacobian"
+	TestID -> "[fastRoot] 1D with explicit Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Multiple roots finds one *)
@@ -909,7 +981,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] Multiple roots finds one"
+	TestID -> "[fastRoot] Multiple roots finds one",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Steep gradient without Jacobian *)
@@ -921,7 +994,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] Steep gradient without Jacobian"
+	TestID -> "[fastRoot] Steep gradient without Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Different starting points find different roots *)
@@ -936,7 +1010,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] Different starting points find roots"
+	TestID -> "[fastRoot] Different starting points find roots",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -952,7 +1027,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] Method Secant with Jacobian"
+	TestID -> "[fastRoot] Method Secant with Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Method Secant non-bracketed *)
@@ -963,7 +1039,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] Method Secant non-bracketed"
+	TestID -> "[fastRoot] Method Secant non-bracketed",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Method Brent bracketed *)
@@ -974,7 +1051,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] Method Brent bracketed"
+	TestID -> "[fastRoot] Method Brent bracketed",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Method Secant ignores Jacobian (verifies method selection) *)
@@ -990,7 +1068,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] Secant method ignores Jacobian"
+	TestID -> "[fastRoot] Secant method ignores Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Method Newton uses Jacobian *)
@@ -1006,7 +1085,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] Newton method uses Jacobian"
+	TestID -> "[fastRoot] Newton method uses Jacobian",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: fastRoot nD case finds symmetric root *)
@@ -1021,7 +1101,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[fastRoot] nD case finds symmetric root"
+	TestID -> "[fastRoot] nD case finds symmetric root",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1034,7 +1115,8 @@ TestCreate[
 	fastRoot[$f1, "invalid"] === $Failed,
 	True,
 	{fastRoot::badspec},
-	TestID -> "[fastRoot] Bad spec string error"
+	TestID -> "[fastRoot] Bad spec string error",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Bad bounds nD error *)
@@ -1042,7 +1124,8 @@ TestCreate[
 	fastRoot[$fND2, {{2., 1.}, {0.5, 2.}}, Jacobian -> $dfND2] === $Failed,
 	True,
 	{fastRoot::badbounds},
-	TestID -> "[fastRoot] Bad bounds nD error"
+	TestID -> "[fastRoot] Bad bounds nD error",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: fastRoot fails with Automatic start and no bounds *)
@@ -1050,7 +1133,8 @@ TestCreate[
 	fastRoot[#^2 &, Automatic] === $Failed,
 	True,
 	{fastRoot::noautox0},
-	TestID -> "[fastRoot] Error on Automatic start without bounds"
+	TestID -> "[fastRoot] Error on Automatic start without bounds",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: fastRoot fails on non-numeric function evaluation *)
@@ -1058,7 +1142,8 @@ TestCreate[
 	fastRoot[Function[z, Symbol["x"] * z[[1]]], {1.0, 2.0}] === $Failed,
 	True,
 	{fastRoot::nonnumeric},
-	TestID -> "[fastRoot] Error on non-numeric evaluation"
+	TestID -> "[fastRoot] Error on non-numeric evaluation",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1071,7 +1156,8 @@ TestCreate[
 	$normalizeExp[(E^a)[x]],
 	Exp[a[x]],
 	{},
-	TestID -> "[normalizeExp] Wraps E^a application as Exp"
+	TestID -> "[normalizeExp] Wraps E^a application as Exp",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Normalizes standard E power *)
@@ -1079,7 +1165,8 @@ TestCreate[
 	$normalizeExp[E^(a[x] + b[x])],
 	Exp[a[x] + b[x]],
 	{},
-	TestID -> "[normalizeExp] Normalizes standard E power"
+	TestID -> "[normalizeExp] Normalizes standard E power",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Leaves non-E expressions unchanged *)
@@ -1087,7 +1174,8 @@ TestCreate[
 	$normalizeExp[Sin[x]],
 	Sin[x],
 	{},
-	TestID -> "[normalizeExp] Leaves non-E expressions unchanged"
+	TestID -> "[normalizeExp] Leaves non-E expressions unchanged",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1100,7 +1188,8 @@ TestCreate[
 	$normalizeExp[E^a * E^b],
 	Exp[a] * Exp[b],
 	{},
-	TestID -> "[normalizeExp] Multiple E powers in product"
+	TestID -> "[normalizeExp] Multiple E powers in product",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Multiple E powers in sum *)
@@ -1108,7 +1197,8 @@ TestCreate[
 	$normalizeExp[E^a + E^b + E^c],
 	Exp[a] + Exp[b] + Exp[c],
 	{},
-	TestID -> "[normalizeExp] Multiple E powers in sum"
+	TestID -> "[normalizeExp] Multiple E powers in sum",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Doubly nested E power *)
@@ -1116,7 +1206,8 @@ TestCreate[
 	$normalizeExp[E^(E^a)],
 	Exp[Exp[a]],
 	{},
-	TestID -> "[normalizeExp] Doubly nested E power"
+	TestID -> "[normalizeExp] Doubly nested E power",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Triply nested E power *)
@@ -1124,7 +1215,8 @@ TestCreate[
 	$normalizeExp[E^(E^(E^a))],
 	Exp[Exp[Exp[a]]],
 	{},
-	TestID -> "[normalizeExp] Triply nested E power"
+	TestID -> "[normalizeExp] Triply nested E power",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: E powers inside trigonometric functions *)
@@ -1132,7 +1224,8 @@ TestCreate[
 	$normalizeExp[Sin[E^a] + Cos[E^b]],
 	Sin[Exp[a]] + Cos[Exp[b]],
 	{},
-	TestID -> "[normalizeExp] E powers inside trigonometric"
+	TestID -> "[normalizeExp] E powers inside trigonometric",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: E powers inside Log *)
@@ -1140,7 +1233,8 @@ TestCreate[
 	$normalizeExp[Log[E^a * E^b]],
 	Log[Exp[a] * Exp[b]],
 	{},
-	TestID -> "[normalizeExp] E powers inside Log"
+	TestID -> "[normalizeExp] E powers inside Log",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1158,7 +1252,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[scanAndSolve] Finds simple cubic root"
+	TestID -> "[scanAndSolve] Finds simple cubic root",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Finds single quadratic root *)
@@ -1171,7 +1266,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[scanAndSolve] Finds single quadratic root"
+	TestID -> "[scanAndSolve] Finds single quadratic root",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Finds exponential-shifted root *)
@@ -1184,7 +1280,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[scanAndSolve] Finds exponential-shifted root"
+	TestID -> "[scanAndSolve] Finds exponential-shifted root",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Derivative-free mode with sign change *)
@@ -1196,7 +1293,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[scanAndSolve] Derivative-free with sign change"
+	TestID -> "[scanAndSolve] Derivative-free with sign change",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Multiple roots found with high grid *)
@@ -1209,7 +1307,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[scanAndSolve] Multiple roots with high grid"
+	TestID -> "[scanAndSolve] Multiple roots with high grid",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1227,7 +1326,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[scanAndSolve] No sign change no hits"
+	TestID -> "[scanAndSolve] No sign change no hits",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: No sign change with grid hit *)
@@ -1240,7 +1340,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[scanAndSolve] No sign change with grid hit"
+	TestID -> "[scanAndSolve] No sign change with grid hit",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Derivative-free no hits no sign change *)
@@ -1252,7 +1353,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[scanAndSolve] Derivative-free no hits"
+	TestID -> "[scanAndSolve] Derivative-free no hits",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Accuracy goal affects automatic tolerance *)
@@ -1266,7 +1368,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[scanAndSolve] Higher accuracy goal does not increase hits"
+	TestID -> "[scanAndSolve] Higher accuracy goal does not increase hits",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Multiple roots with custom options *)
@@ -1279,7 +1382,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[scanAndSolve] Multiple roots custom options"
+	TestID -> "[scanAndSolve] Multiple roots custom options",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1292,7 +1396,8 @@ TestCreate[
 	$signIdxs[signA[3] + signA[1]^2 + other[2] + signB[5], "signA"],
 	{1, 3},
 	{},
-	TestID -> "[signIdxs] Extracts and sorts indices"
+	TestID -> "[signIdxs] Extracts and sorts indices",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Returns empty when no matching head *)
@@ -1300,7 +1405,8 @@ TestCreate[
 	$signIdxs[1 + other[2] + signB[5], "signA"],
 	{},
 	{},
-	TestID -> "[signIdxs] Returns empty no match"
+	TestID -> "[signIdxs] Returns empty no match",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1313,7 +1419,8 @@ TestCreate[
 	MissingQ[Missing["NotCompiled"]],
 	True,
 	{},
-	TestID -> "[MissingQ] Detects Missing NotCompiled"
+	TestID -> "[MissingQ] Detects Missing NotCompiled",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: FailureQ detects Failed *)
@@ -1321,7 +1428,8 @@ TestCreate[
 	FailureQ[$Failed],
 	True,
 	{},
-	TestID -> "[FailureQ] Detects Failed"
+	TestID -> "[FailureQ] Detects Failed",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: MissingQ does not match Failed *)
@@ -1329,7 +1437,8 @@ TestCreate[
 	MissingQ[$Failed],
 	False,
 	{},
-	TestID -> "[MissingQ] Does not match Failed"
+	TestID -> "[MissingQ] Does not match Failed",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: FailureQ does not match Missing *)
@@ -1337,7 +1446,8 @@ TestCreate[
 	FailureQ[Missing["NotCompiled"]],
 	False,
 	{},
-	TestID -> "[FailureQ] Does not match Missing"
+	TestID -> "[FailureQ] Does not match Missing",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1350,7 +1460,8 @@ TestCreate[
 	NameQ["FernandoDuarte`LongRunRisk`Tools`FindRootOptim`buildEqMapFromModel"],
 	True,
 	{},
-	TestID -> "[buildEqMapFromModel] Symbol exists"
+	TestID -> "[buildEqMapFromModel] Symbol exists",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildEqMapFromModel returns valid Association for test model *)
@@ -1362,7 +1473,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[buildEqMapFromModel] Returns valid Association for BKY model"
+	TestID -> "[buildEqMapFromModel] Returns valid Association for BKY model",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 

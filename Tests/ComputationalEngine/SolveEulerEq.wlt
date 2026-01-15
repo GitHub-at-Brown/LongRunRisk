@@ -146,7 +146,8 @@ TestCreate[
 	MatchQ[$bkyResult, {__}],
 	True,
 	{},
-	TestID -> "[updateCoeffs] BKY returns non-empty list"
+	TestID -> "[updateCoeffs] BKY returns non-empty list",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -155,7 +156,8 @@ TestCreate[
 	MatchQ[$desResult, {__}],
 	True,
 	{},
-	TestID -> "[updateCoeffs] DES returns non-empty list"
+	TestID -> "[updateCoeffs] DES returns non-empty list",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -167,7 +169,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] Result has expected keys"
+	TestID -> "[updateCoeffs] Result has expected keys",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -183,7 +186,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] BKY wc coefficients have valid structure"
+	TestID -> "[updateCoeffs] BKY wc coefficients have valid structure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -195,7 +199,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] DES wc coefficients have valid structure"
+	TestID -> "[updateCoeffs] DES wc coefficients have valid structure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -216,7 +221,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] UpdatePd False returns only wc coefficients"
+	TestID -> "[updateCoeffs] UpdatePd False returns only wc coefficients",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -237,7 +243,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] UpdatePd True returns both wc and pd coefficients"
+	TestID -> "[updateCoeffs] UpdatePd True returns both wc and pd coefficients",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -250,7 +257,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] UpdatePd True pd coefficients have valid structure"
+	TestID -> "[updateCoeffs] UpdatePd True pd coefficients have valid structure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -263,7 +271,8 @@ TestCreate[
 	MemberQ[Keys[Options[updateCoeffs]], "PrintResidualsNorm"],
 	True,
 	{},
-	TestID -> "[updateCoeffs] PrintResidualsNorm option is recognized"
+	TestID -> "[updateCoeffs] PrintResidualsNorm option is recognized",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: CheckResiduals option is recognized *)
@@ -271,7 +280,8 @@ TestCreate[
 	MemberQ[Keys[Options[updateCoeffs]], "CheckResiduals"],
 	True,
 	{},
-	TestID -> "[updateCoeffs] CheckResiduals option is recognized"
+	TestID -> "[updateCoeffs] CheckResiduals option is recognized",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -287,7 +297,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[loadModelKernels] BKY returns association"
+	TestID -> "[loadModelKernels] BKY returns association",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -299,7 +310,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[loadModelKernels] BKY has kernels key"
+	TestID -> "[loadModelKernels] BKY has kernels key",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -311,7 +323,8 @@ TestCreate[
 	],
 	True,
 	{FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`Private`loadModelKernels::nofile},
-	TestID -> "[loadModelKernels] Invalid model returns Failed"
+	TestID -> "[loadModelKernels] Invalid model returns Failed",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -329,7 +342,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] BKY bond coefficients have valid structure"
+	TestID -> "[updateCoeffs] BKY bond coefficients have valid structure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -343,7 +357,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] BKY nominal bond coefficients have valid structure"
+	TestID -> "[updateCoeffs] BKY nominal bond coefficients have valid structure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -358,7 +373,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] BKY bond max maturity is correct"
+	TestID -> "[updateCoeffs] BKY bond max maturity is correct",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -374,7 +390,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[flattenCoeffs] All rules returns rule list"
+	TestID -> "[flattenCoeffs] All rules returns rule list",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -386,7 +403,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[flattenCoeffs] Single solution returns rule list"
+	TestID -> "[flattenCoeffs] Single solution returns rule list",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -402,7 +420,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[flattenCoeffsBundles] All bundles returns list of rule lists"
+	TestID -> "[flattenCoeffsBundles] All bundles returns list of rule lists",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -414,7 +433,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[flattenCoeffsBundles] Single solution returns list of rule lists"
+	TestID -> "[flattenCoeffsBundles] Single solution returns list of rule lists",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -430,7 +450,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[addCoeffsSolutionN] BKY computes all coefficient types"
+	TestID -> "[addCoeffsSolutionN] BKY computes all coefficient types",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -445,7 +466,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[addCoeffsSolutionN] Default maturity is 12"
+	TestID -> "[addCoeffsSolutionN] Default maturity is 12",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -459,7 +481,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[addCoeffsSolutionN] Explicit maturity respects argument"
+	TestID -> "[addCoeffsSolutionN] Explicit maturity respects argument",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -484,7 +507,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] Accepts different Ewc initialGuess lengths"
+	TestID -> "[updateCoeffs] Accepts different Ewc initialGuess lengths",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -503,7 +527,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] Parameter changes produce different coefficients"
+	TestID -> "[updateCoeffs] Parameter changes produce different coefficients",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -525,7 +550,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] BKY completes without cfne warnings"
+	TestID -> "[updateCoeffs] BKY completes without cfne warnings",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -541,7 +567,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] Options inherit from updateCoeffsSol"
+	TestID -> "[updateCoeffs] Options inherit from updateCoeffsSol",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -553,7 +580,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateCoeffs] Options inherit from Checks"
+	TestID -> "[updateCoeffs] Options inherit from Checks",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 

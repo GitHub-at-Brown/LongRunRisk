@@ -37,14 +37,16 @@ TestCreate[
 	uncondE[$pi[t], $modNRC],
 	mup,
 	{},
-	TestID -> "[uncondE] First moment of pi returns mup"
+	TestID -> "[uncondE] First moment of pi returns mup",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	uncondE[$sg[t], $modNRC],
 	Esg,
 	{},
-	TestID -> "[uncondE] First moment of sg returns Esg"
+	TestID -> "[uncondE] First moment of sg returns Esg",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -59,7 +61,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondE] Second moment of pi matches analytical formula"
+	TestID -> "[uncondE] Second moment of pi matches analytical formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
@@ -69,14 +72,16 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondE] Second moment of sg matches analytical formula"
+	TestID -> "[uncondE] Second moment of sg matches analytical formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	simplifiesZeroQ[uncondE[$pi[t] $sg[t], $modNRC] - (Esg mup)],
 	True,
 	{},
-	TestID -> "[uncondE] Cross-moment pi*sg equals product of means"
+	TestID -> "[uncondE] Cross-moment pi*sg equals product of means",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -88,14 +93,16 @@ TestCreate[
 	Simplify[uncondE[$wc[t], $modNRC]],
 	$A[0],
 	{},
-	TestID -> "[uncondE] Wealth-consumption ratio in NRC returns A[0]"
+	TestID -> "[uncondE] Wealth-consumption ratio in NRC returns A[0]",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	Simplify[uncondE[$wc[t], $modBY]],
 	$A[0],
 	{},
-	TestID -> "[uncondE] Wealth-consumption ratio in BY returns A[0]"
+	TestID -> "[uncondE] Wealth-consumption ratio in BY returns A[0]",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -110,14 +117,16 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondVar] Variance of pi matches analytical formula"
+	TestID -> "[uncondVar] Variance of pi matches analytical formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	simplifiesZeroQ[uncondVar[$sg[t], $modNRC] - phig^2 / (1 - rhog^2)],
 	True,
 	{},
-	TestID -> "[uncondVar] Variance of sg matches analytical formula"
+	TestID -> "[uncondVar] Variance of sg matches analytical formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -129,7 +138,8 @@ TestCreate[
 	simplifiesZeroQ[uncondCov[$pi[t], $sg[t], $modNRC]],
 	True,
 	{},
-	TestID -> "[uncondCov] Covariance of pi and sg is zero"
+	TestID -> "[uncondCov] Covariance of pi and sg is zero",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -141,7 +151,8 @@ TestCreate[
 	Simplify[uncondCorr[$pi[t], $pi[t], $modNRC]],
 	1,
 	{},
-	TestID -> "[uncondCorr] Self-correlation of pi returns one"
+	TestID -> "[uncondCorr] Self-correlation of pi returns one",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -156,7 +167,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] pi*eps product is commutative"
+	TestID -> "[evNoEps] pi*eps product is commutative",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
@@ -166,7 +178,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] pi*sg lagged product is commutative"
+	TestID -> "[evNoEps] pi*sg lagged product is commutative",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -178,14 +191,16 @@ TestCreate[
 	$evNoEps[$pi[t], $modNRC, $stateVarsNoEps],
 	$pi[t],
 	{},
-	TestID -> "[evNoEps] Single pi passes through unchanged"
+	TestID -> "[evNoEps] Single pi passes through unchanged",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	$evNoEps[$pi[t] $sg[t], $modNRC, $stateVarsNoEps],
 	$pi[t] $sg[t],
 	{},
-	TestID -> "[evNoEps] Same-time pi*sg passes through unchanged"
+	TestID -> "[evNoEps] Same-time pi*sg passes through unchanged",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -197,7 +212,8 @@ TestCreate[
 	$evNoEps[$pi[t] eps["pi"][t + 1], $modNRC, $stateVarsNoEps],
 	$pi[t] eps["pi"][1 + t],
 	{},
-	TestID -> "[evNoEps] Future shock in product is preserved"
+	TestID -> "[evNoEps] Future shock in product is preserved",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -209,7 +225,8 @@ TestCreate[
 	$evNoEps[$pi[t] foo[t - 1], $modNRC, $stateVarsNoEps],
 	$pi[t] foo[t - 1],
 	{},
-	TestID -> "[evNoEps] Non-state variable foo is preserved in product"
+	TestID -> "[evNoEps] Non-state variable foo is preserved in product",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -224,14 +241,16 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] Irrelevant state variables do not affect result"
+	TestID -> "[evNoEps] Irrelevant state variables do not affect result",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	$evNoEps[$pi[t], $modNRC, Append[$stateVarsNoEps, irrelevantVar]],
 	$pi[t],
 	{},
-	TestID -> "[evNoEps] Single pi with irrelevant var passes through"
+	TestID -> "[evNoEps] Single pi with irrelevant var passes through",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -248,7 +267,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] Shock symbols maintain correct Shocks context"
+	TestID -> "[evNoEps] Shock symbols maintain correct Shocks context",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -262,7 +282,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] pi[t] with lagged sg substitutes pi to earlier time"
+	TestID -> "[evNoEps] pi[t] with lagged sg substitutes pi to earlier time",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
@@ -271,7 +292,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] Lagged sg[t-1] is preserved in result"
+	TestID -> "[evNoEps] Lagged sg[t-1] is preserved in result",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -283,7 +305,8 @@ TestCreate[
 	$evNoEps[$wc[t] eps["pi"][t - 1], $modNRC, $stateVarsNoEps],
 	$wc[t] eps["pi"][-1 + t],
 	{},
-	TestID -> "[evNoEps] wc*eps lagged product is preserved"
+	TestID -> "[evNoEps] wc*eps lagged product is preserved",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
@@ -292,7 +315,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] wc*eps coefficient of pi[t-1] is correct"
+	TestID -> "[evNoEps] wc*eps coefficient of pi[t-1] is correct",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -309,14 +333,16 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] A coefficient maintains correct Private context"
+	TestID -> "[evNoEps] A coefficient maintains correct Private context",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 TestCreate[
 	$evNoEps[$pd[t, i] eps["pi"][t - 1], $modNRC, $stateVarsNoEps],
 	$pd[t, i] eps["pi"][-1 + t],
 	{},
-	TestID -> "[evNoEps] pd*eps lagged product is preserved"
+	TestID -> "[evNoEps] pd*eps lagged product is preserved",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -334,7 +360,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] Lagged pi times sg substitutes correctly"
+	TestID -> "[evNoEps] Lagged pi times sg substitutes correctly",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: pi*eps at same time expands with shock terms *)
@@ -348,7 +375,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] pi times same-time eps expands with shock terms"
+	TestID -> "[evNoEps] pi times same-time eps expands with shock terms",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -361,7 +389,8 @@ TestCreate[
 	ExpandAll[$evNoEps[eps["pi"][t] $dd[t, i], $modNRC, $stateVarsNoEps]],
 	ExpandAll[$dd[t, i] eps["pi"][t]],
 	{},
-	TestID -> "[evNoEps] eps times dd passes through when dd not state var"
+	TestID -> "[evNoEps] eps times dd passes through when dd not state var",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: eps*dd with dd as state var expands fully *)
@@ -375,7 +404,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] eps times dd with dd as state var expands fully"
+	TestID -> "[evNoEps] eps times dd with dd as state var expands fully",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -393,7 +423,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] Shock context preserved in pi*dd*eps product"
+	TestID -> "[evNoEps] Shock context preserved in pi*dd*eps product",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: shock context in complex pi*dd*eps*eps product *)
@@ -406,7 +437,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] Shock context preserved in pi*dd*eps*eps product"
+	TestID -> "[evNoEps] Shock context preserved in pi*dd*eps*eps product",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: shock context in pi*sg*dd*eps product *)
@@ -419,7 +451,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] Shock context preserved in pi*sg*dd*eps product"
+	TestID -> "[evNoEps] Shock context preserved in pi*sg*dd*eps product",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -434,7 +467,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] Sum expression removes pi[t] terms"
+	TestID -> "[evNoEps] Sum expression removes pi[t] terms",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: sum expression removes sg[t] terms *)
@@ -444,7 +478,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] Sum expression removes sg[t] terms"
+	TestID -> "[evNoEps] Sum expression removes sg[t] terms",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: sum expression preserves pi[t-1] terms *)
@@ -454,7 +489,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] Sum expression preserves pi[t-1] terms"
+	TestID -> "[evNoEps] Sum expression preserves pi[t-1] terms",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: sum expression preserves sg[t-1] terms *)
@@ -464,7 +500,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] Sum expression preserves sg[t-1] terms"
+	TestID -> "[evNoEps] Sum expression preserves sg[t-1] terms",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -477,7 +514,8 @@ TestCreate[
 	ExpandAll[$evNoEps[eps["pi"][t + 1] eps["pi"][t] $pi[t], $modNRC, $stateVarsNoEps]],
 	ExpandAll[eps["pi"][t + 1] $evNoEps[eps["pi"][t] $pi[t], $modNRC, $stateVarsNoEps]],
 	{},
-	TestID -> "[evNoEps] Future shock factors out of product"
+	TestID -> "[evNoEps] Future shock factors out of product",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -490,7 +528,8 @@ TestCreate[
 	$evNoEps[anotherIrrelevantVar $pi[t] $sg[t], $modNRC, Append[$stateVarsNoEps, anotherIrrelevantVar]],
 	anotherIrrelevantVar $pi[t] $sg[t],
 	{},
-	TestID -> "[evNoEps] Irrelevant var preserves pi*sg structure"
+	TestID -> "[evNoEps] Irrelevant var preserves pi*sg structure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -506,7 +545,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] dd[t,i] substituted when dd in stateVars with lagged pi"
+	TestID -> "[evNoEps] dd[t,i] substituted when dd in stateVars with lagged pi",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: pi[t] substituted when with lagged dd *)
@@ -517,7 +557,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] pi[t] substituted when with lagged dd"
+	TestID -> "[evNoEps] pi[t] substituted when with lagged dd",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: dd[t-1,i] preserved when lagged *)
@@ -528,7 +569,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] dd[t-1,i] not present in result with dd as stateVar"
+	TestID -> "[evNoEps] dd[t-1,i] not present in result with dd as stateVar",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: eps["pi"][t-1] preserved in result *)
@@ -539,7 +581,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] eps[pi][t-1] preserved in complex product"
+	TestID -> "[evNoEps] eps[pi][t-1] preserved in complex product",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: pi[t,i] pattern not in result *)
@@ -550,7 +593,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] pi[t,i] pattern not in result"
+	TestID -> "[evNoEps] pi[t,i] pattern not in result",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: dd[t-1,i] preserved with eps["dd"] shock *)
@@ -561,7 +605,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] dd[t-1,i] pattern not in result with eps[dd] shock"
+	TestID -> "[evNoEps] dd[t-1,i] pattern not in result with eps[dd] shock",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: eps["dd"][t-1,i] preserved in result *)
@@ -572,7 +617,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] eps[dd][t-1,i] preserved in result"
+	TestID -> "[evNoEps] eps[dd][t-1,i] preserved in result",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: pi[t] substituted in pi*dd*eps["dd"] product *)
@@ -583,7 +629,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] pi[t] substituted in pi*dd*eps[dd] product"
+	TestID -> "[evNoEps] pi[t] substituted in pi*dd*eps[dd] product",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: pi symbol present somewhere in result *)
@@ -594,7 +641,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] pi symbol present in result at some time"
+	TestID -> "[evNoEps] pi symbol present in result at some time",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -611,7 +659,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondEStep] dc*sg product removes dc symbol"
+	TestID -> "[uncondEStep] dc*sg product removes dc symbol",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: uncondEStep dc*sg removes pi[t] *)
@@ -623,7 +672,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondEStep] dc*sg product removes pi[t]"
+	TestID -> "[uncondEStep] dc*sg product removes pi[t]",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -638,7 +688,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] pd*eps coefficient of pi[t-1] is correct"
+	TestID -> "[evNoEps] pd*eps coefficient of pi[t-1] is correct",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -656,7 +707,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] A coefficient maintains context in A*B*pd*eps product"
+	TestID -> "[evNoEps] A coefficient maintains context in A*B*pd*eps product",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: B coefficient in A*B*pd*eps product has correct context *)
@@ -669,7 +721,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] B coefficient maintains context in A*B*pd*eps product"
+	TestID -> "[evNoEps] B coefficient maintains context in A*B*pd*eps product",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: A coefficient in A*B*pd*eps with pd as stateVar has correct context *)
@@ -682,7 +735,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] A coefficient maintains context with pd as stateVar"
+	TestID -> "[evNoEps] A coefficient maintains context with pd as stateVar",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: B coefficient in A*B*pd*eps with pd as stateVar has correct context *)
@@ -695,7 +749,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[evNoEps] B coefficient maintains context with pd as stateVar"
+	TestID -> "[evNoEps] B coefficient maintains context with pd as stateVar",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -711,7 +766,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondE] Third moment of pi times sg factors as product"
+	TestID -> "[uncondE] Third moment of pi times sg factors as product",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Third moment of pi times sg analytical formula *)
@@ -722,7 +778,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondE] Third moment of pi times sg matches analytical formula"
+	TestID -> "[uncondE] Third moment of pi times sg matches analytical formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -735,7 +792,8 @@ TestCreate[
 	Simplify[uncondE[$dc[t], $modNRC]],
 	muc,
 	{},
-	TestID -> "[uncondE] First moment of dc returns muc"
+	TestID -> "[uncondE] First moment of dc returns muc",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Second moment of dc matches analytical formula *)
@@ -748,7 +806,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondE] Second moment of dc matches analytical formula"
+	TestID -> "[uncondE] Second moment of dc matches analytical formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Cross-moment pi*dc matches analytical formula *)
@@ -760,7 +819,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondE] Cross-moment pi*dc matches analytical formula"
+	TestID -> "[uncondE] Cross-moment pi*dc matches analytical formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Cross-moment sg*dc equals muc*Esg *)
@@ -768,7 +828,8 @@ TestCreate[
 	simplifiesZeroQ[uncondE[$sg[t] $dc[t], $modNRC] - muc Esg],
 	True,
 	{},
-	TestID -> "[uncondE] Cross-moment sg*dc equals muc times Esg"
+	TestID -> "[uncondE] Cross-moment sg*dc equals muc times Esg",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -784,7 +845,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondE] sg autocovariance at lag 1 forward matches formula"
+	TestID -> "[uncondE] sg autocovariance at lag 1 forward matches formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: sg autocovariance at lag 1 backward *)
@@ -795,7 +857,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondE] sg autocovariance at lag 1 backward matches formula"
+	TestID -> "[uncondE] sg autocovariance at lag 1 backward matches formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: pi autocovariance at lag 1 forward *)
@@ -806,7 +869,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondE] pi autocovariance at lag 1 forward matches formula"
+	TestID -> "[uncondE] pi autocovariance at lag 1 forward matches formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: pi autocovariance at lag 1 backward *)
@@ -817,7 +881,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondE] pi autocovariance at lag 1 backward matches formula"
+	TestID -> "[uncondE] pi autocovariance at lag 1 backward matches formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -830,7 +895,8 @@ TestCreate[
 	simplifiesZeroQ[uncondE[$pi[t] $sg[t + 1], $modNRC] - Esg mup],
 	True,
 	{},
-	TestID -> "[uncondE] Cross-moment pi[t]*sg[t+1] equals Esg*mup"
+	TestID -> "[uncondE] Cross-moment pi[t]*sg[t+1] equals Esg*mup",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: lagged cross-moment pi[t-1]*dc[t] matches formula *)
@@ -842,7 +908,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[uncondE] Lagged cross-moment pi[t-1]*dc[t] matches formula"
+	TestID -> "[uncondE] Lagged cross-moment pi[t-1]*dc[t] matches formula",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 

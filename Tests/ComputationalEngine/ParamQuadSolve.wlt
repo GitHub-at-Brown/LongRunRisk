@@ -134,7 +134,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Basic two-variable system returns Association"
+	TestID -> "[paramQuadSolve] Basic two-variable system returns Association",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -148,7 +149,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Basic two-variable system verifies all branches"
+	TestID -> "[paramQuadSolve] Basic two-variable system verifies all branches",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -163,7 +165,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Solution with positive sign satisfies equations"
+	TestID -> "[paramQuadSolve] Solution with positive sign satisfies equations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -178,7 +181,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Solution with negative sign satisfies equations"
+	TestID -> "[paramQuadSolve] Solution with negative sign satisfies equations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -194,7 +198,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Basic two-variable discriminant equals expected value"
+	TestID -> "[paramQuadSolve] Basic two-variable discriminant equals expected value",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -213,7 +218,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Basic two-variable solutions match Solve"
+	TestID -> "[paramQuadSolve] Basic two-variable solutions match Solve",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -239,7 +245,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Parametric quadratic system returns Association"
+	TestID -> "[paramQuadSolve] Parametric quadratic system returns Association",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -258,7 +265,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Parametric quadratic system has one sign variable"
+	TestID -> "[paramQuadSolve] Parametric quadratic system has one sign variable",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -279,7 +287,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Parametric quadratic system produces two branches"
+	TestID -> "[paramQuadSolve] Parametric quadratic system produces two branches",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -300,7 +309,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Parametric quadratic all branches satisfy equations"
+	TestID -> "[paramQuadSolve] Parametric quadratic all branches satisfy equations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -322,7 +332,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Parametric quadratic solution count matches Solve"
+	TestID -> "[paramQuadSolve] Parametric quadratic solution count matches Solve",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -345,7 +356,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Parametric quadratic solutions match Solve"
+	TestID -> "[paramQuadSolve] Parametric quadratic solutions match Solve",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -364,7 +376,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Coupled quartic system returns Association"
+	TestID -> "[paramQuadSolve] Coupled quartic system returns Association",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -380,7 +393,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Coupled quartic system has two sign variables"
+	TestID -> "[paramQuadSolve] Coupled quartic system has two sign variables",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -398,7 +412,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Coupled quartic system produces four branches"
+	TestID -> "[paramQuadSolve] Coupled quartic system produces four branches",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -416,7 +431,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Coupled quartic all branches satisfy equations"
+	TestID -> "[paramQuadSolve] Coupled quartic all branches satisfy equations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -435,7 +451,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Coupled quartic solution count matches Solve"
+	TestID -> "[paramQuadSolve] Coupled quartic solution count matches Solve",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -455,7 +472,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Coupled quartic solutions match Solve"
+	TestID -> "[paramQuadSolve] Coupled quartic solutions match Solve",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -472,7 +490,8 @@ TestCreate[
 	AssociationQ[$7x7res],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Seven-by-seven system returns Association"
+	TestID -> "[paramQuadSolve] Seven-by-seven system returns Association",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -481,7 +500,8 @@ TestCreate[
 	Length[$7x7signKeys] === 2,
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Seven-by-seven system has two sign variables"
+	TestID -> "[paramQuadSolve] Seven-by-seven system has two sign variables",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -490,7 +510,8 @@ TestCreate[
 	Length[$7x7pkgVals] === 4,
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Seven-by-seven system produces four branches"
+	TestID -> "[paramQuadSolve] Seven-by-seven system produces four branches",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -499,7 +520,8 @@ TestCreate[
 	Length[$7x7manualVals] === 4,
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Seven-by-seven manual solution produces four branches"
+	TestID -> "[paramQuadSolve] Seven-by-seven manual solution produces four branches",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -526,7 +548,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Bilinear system reduces to linear"
+	TestID -> "[paramQuadSolve] Bilinear system reduces to linear",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -549,7 +572,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Mixed quadratic-linear has parameter-dependent conditions"
+	TestID -> "[paramQuadSolve] Mixed quadratic-linear has parameter-dependent conditions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -567,7 +591,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Two radicals bilinear returns Association"
+	TestID -> "[paramQuadSolve] Two radicals bilinear returns Association",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -582,7 +607,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Two radicals bilinear has two sign variables"
+	TestID -> "[paramQuadSolve] Two radicals bilinear has two sign variables",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -599,7 +625,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Two radicals bilinear radicands are 8 and 13"
+	TestID -> "[paramQuadSolve] Two radicals bilinear radicands are 8 and 13",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -615,7 +642,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Two radicals bilinear verification passes"
+	TestID -> "[paramQuadSolve] Two radicals bilinear verification passes",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -631,7 +659,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Two radicals signs ++ satisfy equations"
+	TestID -> "[paramQuadSolve] Two radicals signs ++ satisfy equations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -647,7 +676,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Two radicals signs +- satisfy equations"
+	TestID -> "[paramQuadSolve] Two radicals signs +- satisfy equations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -663,7 +693,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Two radicals signs -+ satisfy equations"
+	TestID -> "[paramQuadSolve] Two radicals signs -+ satisfy equations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -679,7 +710,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Two radicals signs -- satisfy equations"
+	TestID -> "[paramQuadSolve] Two radicals signs -- satisfy equations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -698,7 +730,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Two radicals bilinear solutions match Solve"
+	TestID -> "[paramQuadSolve] Two radicals bilinear solutions match Solve",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -721,7 +754,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Diagnostics include quadratic step for x"
+	TestID -> "[paramQuadSolve] Diagnostics include quadratic step for x",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -736,7 +770,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Diagnostics include linear step for y"
+	TestID -> "[paramQuadSolve] Diagnostics include linear step for y",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -758,7 +793,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Inconsistent system returns Association"
+	TestID -> "[paramQuadSolve] Inconsistent system returns Association",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -774,7 +810,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Inconsistent system signals no solution"
+	TestID -> "[paramQuadSolve] Inconsistent system signals no solution",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -794,7 +831,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Degenerate discriminant produces rules"
+	TestID -> "[paramQuadSolve] Degenerate discriminant produces rules",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -812,7 +850,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Degenerate discriminant collapses branches"
+	TestID -> "[paramQuadSolve] Degenerate discriminant collapses branches",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -836,7 +875,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Coupled circle system uses GB fallback"
+	TestID -> "[paramQuadSolve] Coupled circle system uses GB fallback",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -850,7 +890,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] GB fallback creates sign variable"
+	TestID -> "[paramQuadSolve] GB fallback creates sign variable",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -873,7 +914,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Solution RHS is free of unknown variables"
+	TestID -> "[paramQuadSolve] Solution RHS is free of unknown variables",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -898,7 +940,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Adds psi denominator condition"
+	TestID -> "[paramQuadSolve] Adds psi denominator condition",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -915,7 +958,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Adds Exp denominator condition"
+	TestID -> "[paramQuadSolve] Adds Exp denominator condition",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -930,7 +974,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] CoeffMap present in result"
+	TestID -> "[paramQuadSolve] CoeffMap present in result",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -945,7 +990,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] No dummy variables in solution"
+	TestID -> "[paramQuadSolve] No dummy variables in solution",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -971,7 +1017,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] No nord warning for negative radicand"
+	TestID -> "[paramQuadSolve] No nord warning for negative radicand",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -990,7 +1037,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] False condition for negative radicand"
+	TestID -> "[paramQuadSolve] False condition for negative radicand",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1009,7 +1057,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] SignRadicandMap present in diagnostics"
+	TestID -> "[paramQuadSolve] SignRadicandMap present in diagnostics",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1031,7 +1080,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Assumptions key exists by default"
+	TestID -> "[paramQuadSolve] Assumptions key exists by default",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1048,7 +1098,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Default assumptions include delta gamma psi"
+	TestID -> "[paramQuadSolve] Default assumptions include delta gamma psi",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1065,7 +1116,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Omitted assumptions uses defaults"
+	TestID -> "[paramQuadSolve] Omitted assumptions uses defaults",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1080,7 +1132,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Adds sign constraints for quadratics"
+	TestID -> "[paramQuadSolve] Adds sign constraints for quadratics",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1101,7 +1154,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Custom assumptions combined with defaults"
+	TestID -> "[paramQuadSolve] Custom assumptions combined with defaults",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1116,7 +1170,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] No sign constraints when no quadratics"
+	TestID -> "[paramQuadSolve] No sign constraints when no quadratics",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1132,7 +1187,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Multiple sign constraints for multiple quadratics"
+	TestID -> "[paramQuadSolve] Multiple sign constraints for multiple quadratics",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1147,7 +1203,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Assumptions used in verification"
+	TestID -> "[paramQuadSolve] Assumptions used in verification",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1164,7 +1221,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Assumptions work with OnlyQuadTerms option"
+	TestID -> "[paramQuadSolve] Assumptions work with OnlyQuadTerms option",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1183,7 +1241,8 @@ TestCreate[
 	],
 	True,
 	{FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSolve::nocover},
-	TestID -> "[paramQuadSolve] OnlyQuadTerms rejects partial coverage"
+	TestID -> "[paramQuadSolve] OnlyQuadTerms rejects partial coverage",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1201,7 +1260,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] OnlyQuadTerms covers all variables"
+	TestID -> "[paramQuadSolve] OnlyQuadTerms covers all variables",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1220,7 +1280,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] OnlyQuadTerms defers non-quadratic equations"
+	TestID -> "[paramQuadSolve] OnlyQuadTerms defers non-quadratic equations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1231,7 +1292,8 @@ TestCreate[
 	],
 	True,
 	{FernandoDuarte`LongRunRisk`ComputationalEngine`ParamQuadSolve`paramQuadSolve::noquad},
-	TestID -> "[paramQuadSolve] OnlyQuadTerms rejects system with no quadratics"
+	TestID -> "[paramQuadSolve] OnlyQuadTerms rejects system with no quadratics",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1254,7 +1316,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Method Sequential is recorded in diagnostics"
+	TestID -> "[paramQuadSolve] Method Sequential is recorded in diagnostics",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1269,7 +1332,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] MonomialOrder is recorded in diagnostics"
+	TestID -> "[paramQuadSolve] MonomialOrder is recorded in diagnostics",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1284,7 +1348,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] SymbolicSignSymbol sets sign variable head"
+	TestID -> "[paramQuadSolve] SymbolicSignSymbol sets sign variable head",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1299,7 +1364,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Radicand sign constraint in conditions"
+	TestID -> "[paramQuadSolve] Radicand sign constraint in conditions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1335,7 +1401,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Simple case avoids orphaned variable"
+	TestID -> "[paramQuadSolve] Simple case avoids orphaned variable",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1362,7 +1429,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] Prefers equations with no orphans"
+	TestID -> "[paramQuadSolve] Prefers equations with no orphans",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1409,7 +1477,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] LongRunRisk equation 4 with A[4] is deferred"
+	TestID -> "[paramQuadSolve] LongRunRisk equation 4 with A[4] is deferred",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -1461,7 +1530,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[paramQuadSolve] No orphaned variables in deferred set"
+	TestID -> "[paramQuadSolve] No orphaned variables in deferred set",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 

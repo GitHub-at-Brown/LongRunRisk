@@ -2,6 +2,15 @@ name: Test
 on:
   workflow_dispatch:
     inputs:
+      test_category:
+        description: 'Test category to run'
+        required: false
+        default: 'core'
+        type: choice
+        options:
+          - core
+          - extended
+          - all
       with_coverage:
         description: 'Run with coverage instrumentation'
         required: false
@@ -19,7 +28,7 @@ on:
   pull_request:
     branches: [main, develop]
 concurrency:
-  group: test-${{ github.ref }}
+  group: test-${{ github.ref }}-${{ inputs.test_category || 'core' }}
   cancel-in-progress: true
 env:
   WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
@@ -36,7 +45,7 @@ jobs:
       WOLFRAM_SYSTEM_ID: Linux-x86-64
       CC: /usr/bin/gcc
       CXX: /usr/bin/g++
-    timeout-minutes: 360
+    timeout-minutes: ${{ fromJSON('{"core":60,"extended":360,"all":420}')[inputs.test_category || 'core'] }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -72,11 +81,14 @@ jobs:
           PACLET_CICD_VERSION: ${{ env.PACLET_CICD_VERSION }}
           DEBUG: "true"
         run: |
+          CATEGORY="${{ inputs.test_category || 'core' }}"
+          echo "Running tests with category: $CATEGORY"
+
           if [ "${{ inputs.with_coverage }}" == "true" ]; then
-            echo "Running tests with coverage instrumentation..."
-            wolframscript -f Tests/RunTests.wls --cicd --coverage --coverage-mode=${{ inputs.coverage_mode || 'Auto' }}
+            echo "Coverage instrumentation enabled..."
+            wolframscript -f Tests/RunTests.wls --cicd --test-category "$CATEGORY" --coverage --coverage-mode "${{ inputs.coverage_mode || 'Auto' }}"
           else
-            wolframscript -f Tests/RunTests.wls --cicd
+            wolframscript -f Tests/RunTests.wls --cicd --test-category "$CATEGORY"
           fi
 
       - name: Generate HTML coverage report

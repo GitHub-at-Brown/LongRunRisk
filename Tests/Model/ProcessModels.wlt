@@ -50,7 +50,8 @@ TestCreate[
 	AllTrue[Keys[$modelsP], StringQ],
 	True,
 	{},
-	TestID -> "[processModels] Model keys are strings"
+	TestID -> "[processModels] Model keys are strings",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: String fields have correct type including exogenousVars and endogenousVars *)
@@ -65,7 +66,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] String fields including variable lists are strings"
+	TestID -> "[processModels] String fields including variable lists are strings",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Parameters evaluate to numbers after substitution *)
@@ -80,7 +82,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] Parameters evaluate to numbers after substitution"
+	TestID -> "[processModels] Parameters evaluate to numbers after substitution",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Known models are present *)
@@ -89,7 +92,8 @@ TestCreate[
 	SubsetQ[Keys[$modelsP], {"BY", "BKY", "NRC"}],
 	True,
 	{},
-	TestID -> "[processModels] Known models BY, BKY, NRC are present"
+	TestID -> "[processModels] Known models BY, BKY, NRC are present",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Models are associations and each model is also an association *)
@@ -98,7 +102,8 @@ TestCreate[
 	AllTrue[Values[$modelsP], AssociationQ],
 	True,
 	{},
-	TestID -> "[processModels] Models and their values are Associations"
+	TestID -> "[processModels] Models and their values are Associations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -111,7 +116,8 @@ TestCreate[
 	AllTrue[Values[$modelsP], MatchQ[#["stateVars"], _Function] &],
 	True,
 	{},
-	TestID -> "[processModels] StateVars field is a Function"
+	TestID -> "[processModels] StateVars field is a Function",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: stateVars applied to t returns a List *)
@@ -119,7 +125,8 @@ TestCreate[
 	AllTrue[Values[$modelsP], ListQ[#["stateVars"][t]] &],
 	True,
 	{},
-	TestID -> "[processModels] StateVars applied to t returns List"
+	TestID -> "[processModels] StateVars applied to t returns List",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: stateVars function takes one argument *)
@@ -134,7 +141,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] StateVars function takes single argument"
+	TestID -> "[processModels] StateVars function takes single argument",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: stateVars function argument is named t *)
@@ -149,7 +157,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] StateVars function argument is named t"
+	TestID -> "[processModels] StateVars function argument is named t",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: stateVars evaluated at t matches raw catalog stateVars *)
@@ -162,7 +171,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] StateVars at t matches raw catalog stateVars"
+	TestID -> "[processModels] StateVars at t matches raw catalog stateVars",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -175,7 +185,8 @@ TestCreate[
 	AllTrue[Values[$modelsP], NumberQ[#["numStocks"]] &],
 	True,
 	{},
-	TestID -> "[processModels] NumStocks field is numeric"
+	TestID -> "[processModels] NumStocks field is numeric",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -195,7 +206,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] StateVars exclude endogenous variables"
+	TestID -> "[processModels] StateVars exclude endogenous variables",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: exogenousEq does not contain endogenous variables *)
@@ -210,7 +222,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] ExogenousEq excludes endogenous variables"
+	TestID -> "[processModels] ExogenousEq excludes endogenous variables",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -227,7 +240,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] Keys and shortnames preserved after processing"
+	TestID -> "[processModels] Keys and shortnames preserved after processing",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -240,7 +254,8 @@ TestCreate[
 	AllTrue[Keys[$modelsP["BKY"]["exogenousEq"]], MatchQ[#, _PatternTest] &],
 	True,
 	{},
-	TestID -> "[processModels] ExogenousEq keys are PatternTest expressions"
+	TestID -> "[processModels] ExogenousEq keys are PatternTest expressions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Keys in endogenousEq are PatternTest expressions *)
@@ -248,7 +263,8 @@ TestCreate[
 	AllTrue[Keys[$modelsP["BKY"]["endogenousEq"]], MatchQ[#, _PatternTest] &],
 	True,
 	{},
-	TestID -> "[processModels] EndogenousEq keys are PatternTest expressions"
+	TestID -> "[processModels] EndogenousEq keys are PatternTest expressions",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -272,7 +288,8 @@ Block[{t, i},
 		],
 		True,
 		{},
-		TestID -> "[processModels] Equations evaluate dc, dd, wc, sdf, bondyield"
+		TestID -> "[processModels] Equations evaluate dc, dd, wc, sdf, bondyield",
+	MetaInformation -> <|"Category" -> "extended"|>
 	]
 ]
 
@@ -288,7 +305,8 @@ Block[{t, notVar},
 		],
 		True,
 		{},
-		TestID -> "[processModels] Equations do not evaluate non-variables"
+		TestID -> "[processModels] Equations do not evaluate non-variables",
+	MetaInformation -> <|"Category" -> "extended"|>
 	]
 ]
 
@@ -312,7 +330,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] A and B coefficients are numeric"
+	TestID -> "[processModels] A and B coefficients are numeric",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Bond values are numeric or Missing sentinel *)
@@ -330,7 +349,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] Bond values are numeric or Missing sentinel"
+	TestID -> "[processModels] Bond values are numeric or Missing sentinel",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -381,7 +401,8 @@ TestCreate[
 	KeyExistsQ[$modelsP["BKY"], "coeffsParamQuadSolve"],
 	True,
 	{},
-	TestID -> "[processModels] Output structure is invariant to input key for BKY"
+	TestID -> "[processModels] Output structure is invariant to input key for BKY",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Pre-processed models match expected structure for BY *)
@@ -392,7 +413,8 @@ TestCreate[
 	KeyExistsQ[$modelsP["BY"], "coeffsParamQuadSolve"],
 	True,
 	{},
-	TestID -> "[processModels] Output structure is invariant to input key for BY"
+	TestID -> "[processModels] Output structure is invariant to input key for BY",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Batch processing preserves isolation - check BY has independent structure *)
@@ -407,7 +429,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] Batch processing preserves isolation between models"
+	TestID -> "[processModels] Batch processing preserves isolation between models",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -437,7 +460,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] Context isolation for all equation symbols"
+	TestID -> "[processModels] Context isolation for all equation symbols",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -463,7 +487,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] NRC pi[t] structural equation is preserved"
+	TestID -> "[processModels] NRC pi[t] structural equation is preserved",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -487,7 +512,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[processModels] Respects model renaming"
+	TestID -> "[processModels] Respects model renaming",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 

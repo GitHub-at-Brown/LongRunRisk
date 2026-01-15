@@ -49,7 +49,8 @@ TestCreate[
 	MemberQ[Keys[Options[buildModels]], "CreateMoments"],
 	True,
 	{},
-	TestID -> "[buildModels] Has CreateMoments option"
+	TestID -> "[buildModels] Has CreateMoments option",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildModels has NumKernels option *)
@@ -57,7 +58,8 @@ TestCreate[
 	MemberQ[Keys[Options[buildModels]], "NumKernels"],
 	True,
 	{},
-	TestID -> "[buildModels] Has NumKernels option"
+	TestID -> "[buildModels] Has NumKernels option",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildModels CreateMoments default is True *)
@@ -65,7 +67,8 @@ TestCreate[
 	OptionValue[buildModels, "CreateMoments"],
 	True,
 	{},
-	TestID -> "[buildModels] CreateMoments default is True"
+	TestID -> "[buildModels] CreateMoments default is True",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildModels NumKernels default is Automatic *)
@@ -73,7 +76,8 @@ TestCreate[
 	OptionValue[buildModels, "NumKernels"],
 	Automatic,
 	{},
-	TestID -> "[buildModels] NumKernels default is Automatic"
+	TestID -> "[buildModels] NumKernels default is Automatic",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -86,7 +90,8 @@ TestCreate[
 	StringQ[buildModels::noroot],
 	True,
 	{},
-	TestID -> "[buildModels] Has noroot message defined"
+	TestID -> "[buildModels] Has noroot message defined",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: buildModels has nocat message *)
@@ -94,7 +99,8 @@ TestCreate[
 	StringQ[buildModels::nocat],
 	True,
 	{},
-	TestID -> "[buildModels] Has nocat message defined"
+	TestID -> "[buildModels] Has nocat message defined",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -112,7 +118,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[getMomentsHash] Returns 64 character hex string"
+	TestID -> "[getMomentsHash] Returns 64 character hex string",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: getMomentsHash is deterministic *)
@@ -126,7 +133,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[getMomentsHash] Same inputs produce identical hash"
+	TestID -> "[getMomentsHash] Same inputs produce identical hash",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: getMomentsHash differs for different catalog *)
@@ -141,7 +149,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[getMomentsHash] Different catalog produces different hash"
+	TestID -> "[getMomentsHash] Different catalog produces different hash",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: getMomentsHash differs for different exogenousEq *)
@@ -156,7 +165,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[getMomentsHash] Different exogenousEq produces different hash"
+	TestID -> "[getMomentsHash] Different exogenousEq produces different hash",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -169,7 +179,8 @@ TestCreate[
 	$momentsUpToDate["/nonexistent/file.wl", "/nonexistent/meta.wl", "somehash"],
 	False,
 	{},
-	TestID -> "[momentsUpToDate] Returns False for nonexistent files"
+	TestID -> "[momentsUpToDate] Returns False for nonexistent files",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: momentsUpToDate returns False when meta file missing *)
@@ -185,7 +196,8 @@ TestCreate[
 	],
 	False,
 	{},
-	TestID -> "[momentsUpToDate] Returns False when meta file missing"
+	TestID -> "[momentsUpToDate] Returns False when meta file missing",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: momentsUpToDate returns True when hash matches *)
@@ -202,7 +214,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[momentsUpToDate] Returns True when hash matches"
+	TestID -> "[momentsUpToDate] Returns True when hash matches",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: momentsUpToDate returns False when hash differs *)
@@ -219,7 +232,8 @@ TestCreate[
 	],
 	False,
 	{},
-	TestID -> "[momentsUpToDate] Returns False when hash differs"
+	TestID -> "[momentsUpToDate] Returns False when hash differs",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -232,7 +246,8 @@ TestCreate[
 	$setupParallelKernels[None],
 	0,
 	{},
-	TestID -> "[setupParallelKernels] None returns zero"
+	TestID -> "[setupParallelKernels] None returns zero",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: setupParallelKernels with zero returns zero *)
@@ -240,7 +255,8 @@ TestCreate[
 	$setupParallelKernels[0],
 	0,
 	{},
-	TestID -> "[setupParallelKernels] Zero returns zero"
+	TestID -> "[setupParallelKernels] Zero returns zero",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: setupParallelKernels with negative returns zero *)
@@ -248,7 +264,8 @@ TestCreate[
 	$setupParallelKernels[-1],
 	0,
 	{},
-	TestID -> "[setupParallelKernels] Negative returns zero"
+	TestID -> "[setupParallelKernels] Negative returns zero",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -303,7 +320,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[checkCatalogChanges] Association input returns expected structure"
+	TestID -> "[checkCatalogChanges] Association input returns expected structure",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -358,7 +376,8 @@ TestCreate[
 	],
 	True,
 	{checkCatalogChanges::changed, checkCatalogChanges::newmodels, checkCatalogChanges::removed},
-	TestID -> "[checkCatalogChanges] Detects changed, new, and removed models"
+	TestID -> "[checkCatalogChanges] Detects changed, new, and removed models",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -375,7 +394,8 @@ TestCreate[
 	Head[reformatCatalog],
 	Symbol,
 	{},
-	TestID -> "[reformatCatalog] Symbol exists"
+	TestID -> "[reformatCatalog] Symbol exists",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: reformatCatalog has usage message *)
@@ -383,7 +403,8 @@ TestCreate[
 	StringQ[reformatCatalog::usage],
 	True,
 	{},
-	TestID -> "[reformatCatalog] Has usage message"
+	TestID -> "[reformatCatalog] Has usage message",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -401,7 +422,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[reformatCatalog] toCatalog works on full catalog"
+	TestID -> "[reformatCatalog] toCatalog works on full catalog",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -420,7 +442,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[reformatCatalog] formatModels produces BoxData"
+	TestID -> "[reformatCatalog] formatModels produces BoxData",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: All models appear in formatted output *)
@@ -436,7 +459,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[reformatCatalog] All models appear in formatted output"
+	TestID -> "[reformatCatalog] All models appear in formatted output",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Enabled field appears in formatted output *)
@@ -451,7 +475,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[reformatCatalog] Enabled field appears in formatted output"
+	TestID -> "[reformatCatalog] Enabled field appears in formatted output",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -469,7 +494,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[reformatCatalog] String formatting is idempotent"
+	TestID -> "[reformatCatalog] String formatting is idempotent",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -486,7 +512,8 @@ TestCreate[
 	$getCanonicalHash[<|"b" -> 1, "a" -> 2|>] === $getCanonicalHash[<|"a" -> 2, "b" -> 1|>],
 	True,
 	{},
-	TestID -> "[updateModelManifest] Hash is key order invariant"
+	TestID -> "[updateModelManifest] Hash is key order invariant",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Hash is nested key order invariant *)
@@ -494,7 +521,8 @@ TestCreate[
 	$getCanonicalHash[<|"x" -> <|"b" -> 1, "a" -> 2|>|>] === $getCanonicalHash[<|"x" -> <|"a" -> 2, "b" -> 1|>|>],
 	True,
 	{},
-	TestID -> "[updateModelManifest] Hash is nested key order invariant"
+	TestID -> "[updateModelManifest] Hash is nested key order invariant",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Hash handles list of associations *)
@@ -502,7 +530,8 @@ TestCreate[
 	$getCanonicalHash[<|"z" -> {<|"b" -> 1|>, <|"a" -> 2|>}|>] === $getCanonicalHash[<|"z" -> {<|"b" -> 1|>, <|"a" -> 2|>}|>],
 	True,
 	{},
-	TestID -> "[updateModelManifest] Hash handles list of associations"
+	TestID -> "[updateModelManifest] Hash handles list of associations",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Different values produce different hashes *)
@@ -510,7 +539,8 @@ TestCreate[
 	$getCanonicalHash[<|"a" -> 1|>] =!= $getCanonicalHash[<|"a" -> 2|>],
 	True,
 	{},
-	TestID -> "[updateModelManifest] Different values produce different hashes"
+	TestID -> "[updateModelManifest] Different values produce different hashes",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Complex permutation produces same hash *)
@@ -528,7 +558,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateModelManifest] Complex permutation produces same hash"
+	TestID -> "[updateModelManifest] Complex permutation produces same hash",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -541,7 +572,8 @@ TestCreate[
 	$canonicalize[<|"b" -> <|"d" -> 1, "c" -> 2|>, "a" -> 3|>],
 	<|"a" -> 3, "b" -> <|"c" -> 2, "d" -> 1|>|>,
 	{},
-	TestID -> "[updateModelManifest] canonicalize sorts nested keys"
+	TestID -> "[updateModelManifest] canonicalize sorts nested keys",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -558,7 +590,8 @@ TestCreate[
 	] === $Failed,
 	True,
 	{updateModelManifest::noroot},
-	TestID -> "[updateModelManifest] Fails when root not found"
+	TestID -> "[updateModelManifest] Fails when root not found",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: Rejects non-association catalog *)
@@ -581,7 +614,8 @@ TestCreate[
 	],
 	True,
 	{updateModelManifest::nocat},
-	TestID -> "[updateModelManifest] Rejects non-association catalog"
+	TestID -> "[updateModelManifest] Rejects non-association catalog",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -623,7 +657,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[updateModelManifest] Writes manifest with expected content"
+	TestID -> "[updateModelManifest] Writes manifest with expected content",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 

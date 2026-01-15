@@ -38,7 +38,8 @@ TestCreate[
 	$containsTimeDep[x[t]],
 	True,
 	{},
-	TestID -> "[containsTimeDependency] Simple x[t] returns True"
+	TestID -> "[containsTimeDependency] Simple x[t] returns True",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: containsTimeDependency returns True for lagged expression *)
@@ -46,7 +47,8 @@ TestCreate[
 	$containsTimeDep[sx[-1 + t]],
 	True,
 	{},
-	TestID -> "[containsTimeDependency] Lagged sx[-1+t] returns True"
+	TestID -> "[containsTimeDependency] Lagged sx[-1+t] returns True",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: containsTimeDependency returns True for expression with t *)
@@ -54,7 +56,8 @@ TestCreate[
 	$containsTimeDep[-mup + pi[t]],
 	True,
 	{},
-	TestID -> "[containsTimeDependency] Expression -mup+pi[t] returns True"
+	TestID -> "[containsTimeDependency] Expression -mup+pi[t] returns True",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: containsTimeDependency returns False for symbol without t *)
@@ -62,7 +65,8 @@ TestCreate[
 	$containsTimeDep[x],
 	False,
 	{},
-	TestID -> "[containsTimeDependency] Symbol without t returns False"
+	TestID -> "[containsTimeDependency] Symbol without t returns False",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: containsTimeDependency returns False for number *)
@@ -70,7 +74,8 @@ TestCreate[
 	$containsTimeDep[42],
 	False,
 	{},
-	TestID -> "[containsTimeDependency] Number returns False"
+	TestID -> "[containsTimeDependency] Number returns False",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -83,7 +88,8 @@ TestCreate[
 	$numericValueQ[0.998],
 	True,
 	{},
-	TestID -> "[numericValueQ] Decimal number returns True"
+	TestID -> "[numericValueQ] Decimal number returns True",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: numericValueQ returns True for integer *)
@@ -91,7 +97,8 @@ TestCreate[
 	$numericValueQ[10],
 	True,
 	{},
-	TestID -> "[numericValueQ] Integer returns True"
+	TestID -> "[numericValueQ] Integer returns True",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: numericValueQ returns True for symbolic expression with known params *)
@@ -99,7 +106,8 @@ TestCreate[
 	$numericValueQ[(1 - gamma)/(1 - psi^(-1))],
 	True,
 	{},
-	TestID -> "[numericValueQ] Symbolic expression with known params returns True"
+	TestID -> "[numericValueQ] Symbolic expression with known params returns True",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: numericValueQ returns False for string *)
@@ -107,7 +115,8 @@ TestCreate[
 	$numericValueQ["not a number"],
 	False,
 	{},
-	TestID -> "[numericValueQ] String returns False"
+	TestID -> "[numericValueQ] String returns False",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -120,7 +129,8 @@ TestCreate[
 	$validParamNameQ[delta],
 	True,
 	{},
-	TestID -> "[validParamNameQ] Symbol returns True"
+	TestID -> "[validParamNameQ] Symbol returns True",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validParamNameQ returns True for indexed symbol *)
@@ -128,7 +138,8 @@ TestCreate[
 	$validParamNameQ[mud[1]],
 	True,
 	{},
-	TestID -> "[validParamNameQ] Indexed symbol returns True"
+	TestID -> "[validParamNameQ] Indexed symbol returns True",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validParamNameQ returns False for string *)
@@ -136,7 +147,8 @@ TestCreate[
 	$validParamNameQ["delta"],
 	False,
 	{},
-	TestID -> "[validParamNameQ] String returns False"
+	TestID -> "[validParamNameQ] String returns False",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -149,7 +161,8 @@ TestCreate[
 	$stripParamIndex[delta],
 	"delta",
 	{},
-	TestID -> "[stripParamIndex] Plain symbol returns symbol name"
+	TestID -> "[stripParamIndex] Plain symbol returns symbol name",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: stripParamIndex returns symbol name for indexed symbol *)
@@ -157,7 +170,8 @@ TestCreate[
 	$stripParamIndex[mud[1]],
 	"mud",
 	{},
-	TestID -> "[stripParamIndex] Indexed symbol returns base name"
+	TestID -> "[stripParamIndex] Indexed symbol returns base name",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -170,7 +184,8 @@ TestCreate[
 	validateModel[models["BY"]]["Valid"],
 	True,
 	{},
-	TestID -> "[validateModel] BY model passes validation"
+	TestID -> "[validateModel] BY model passes validation",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel returns Valid True and zero errors for BKY model *)
@@ -181,7 +196,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] BKY model passes with zero errors"
+	TestID -> "[validateModel] BKY model passes with zero errors",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -194,7 +210,8 @@ TestCreate[
 	validateCatalog[models]["Valid"],
 	True,
 	{},
-	TestID -> "[validateCatalog] All catalog models pass validation"
+	TestID -> "[validateCatalog] All catalog models pass validation",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateCatalog returns Valid True for subset of real models *)
@@ -205,7 +222,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateCatalog] Subset of catalog models passes validation"
+	TestID -> "[validateCatalog] Subset of catalog models passes validation",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -228,7 +246,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Missing name key detected"
+	TestID -> "[validateModel] Missing name key detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel accumulates multiple missing keys *)
@@ -245,7 +264,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Multiple missing keys accumulated"
+	TestID -> "[validateModel] Multiple missing keys accumulated",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -269,7 +289,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Wrong type for name key detected"
+	TestID -> "[validateModel] Wrong type for name key detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects wrong type for stateVars (string instead of list) *)
@@ -288,7 +309,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Wrong type for stateVars key detected"
+	TestID -> "[validateModel] Wrong type for stateVars key detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -312,7 +334,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] State variables missing t dependency detected"
+	TestID -> "[validateModel] State variables missing t dependency detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects empty stateVars list *)
@@ -331,7 +354,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Empty stateVars list detected as wrong type"
+	TestID -> "[validateModel] Empty stateVars list detected as wrong type",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects invalid symbol in state variable *)
@@ -350,7 +374,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Invalid symbol in state variable detected"
+	TestID -> "[validateModel] Invalid symbol in state variable detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel passes valid state variables with exo vars, params, shocks *)
@@ -369,7 +394,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Valid state variables pass symbol check"
+	TestID -> "[validateModel] Valid state variables pass symbol check",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -393,7 +419,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Duplicate parameter detected"
+	TestID -> "[validateModel] Duplicate parameter detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects non-numeric parameter value *)
@@ -412,7 +439,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Non-numeric parameter value detected"
+	TestID -> "[validateModel] Non-numeric parameter value detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects non-Rule parameter entry *)
@@ -431,7 +459,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Non-Rule parameter entry detected"
+	TestID -> "[validateModel] Non-Rule parameter entry detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects extra parameter not in $parameters *)
@@ -451,7 +480,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Extra parameter detected"
+	TestID -> "[validateModel] Extra parameter detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects missing parameter from $parameters *)
@@ -472,7 +502,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Missing parameter detected"
+	TestID -> "[validateModel] Missing parameter detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -498,7 +529,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Incomplete stock parameters detected"
+	TestID -> "[validateModel] Incomplete stock parameters detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects invalid indexed parameter name *)
@@ -519,7 +551,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Invalid indexed parameter name detected"
+	TestID -> "[validateModel] Invalid indexed parameter name detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects non-positive index *)
@@ -540,7 +573,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Non-positive index detected"
+	TestID -> "[validateModel] Non-positive index detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects index gap *)
@@ -566,7 +600,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Index gap detected"
+	TestID -> "[validateModel] Index gap detected",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel passes valid multi-stock model *)
@@ -593,7 +628,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Valid multi-stock model passes"
+	TestID -> "[validateModel] Valid multi-stock model passes",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -619,7 +655,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Negative delta violates assumption"
+	TestID -> "[validateModel] Negative delta violates assumption",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects delta > 1 - violates delta < 1 *)
@@ -640,7 +677,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Delta greater than 1 violates assumption"
+	TestID -> "[validateModel] Delta greater than 1 violates assumption",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects psi <= 0 - violates psi > 0 *)
@@ -661,7 +699,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Negative psi violates assumption"
+	TestID -> "[validateModel] Negative psi violates assumption",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects theta = 0 - violates theta != 0 *)
@@ -682,7 +721,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Theta zero violates assumption"
+	TestID -> "[validateModel] Theta zero violates assumption",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 (* Test: validateModel detects rhox outside (-1, 1) *)
@@ -703,7 +743,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Rhox outside valid range violates assumption"
+	TestID -> "[validateModel] Rhox outside valid range violates assumption",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -730,7 +771,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateCatalog] Invalid model identified in catalog"
+	TestID -> "[validateCatalog] Invalid model identified in catalog",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
@@ -752,7 +794,8 @@ TestCreate[
 	],
 	True,
 	{},
-	TestID -> "[validateModel] Multiple error types accumulated"
+	TestID -> "[validateModel] Multiple error types accumulated",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
