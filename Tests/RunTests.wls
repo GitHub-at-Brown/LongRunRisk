@@ -743,7 +743,9 @@ runCICDTests[] := Module[
       (* Aggregate results from all file reports *)
       passed = Total[#["TestsSucceededCount"] & /@ Values[reportsAssoc]];
       failed = Total[#["TestsFailedCount"] & /@ Values[reportsAssoc]];
-      skipped = Total[Length[#["TestsNotEvaluatedIndices"]] & /@ Values[reportsAssoc]];
+      (* Use ResultsByOutcome to count skipped tests - TestsNotEvaluatedIndices doesn't
+         capture tests skipped via TestEvaluationFunction *)
+      skipped = Total[Lookup[Length /@ #["ResultsByOutcome"], "NotEvaluated", 0] & /@ Values[reportsAssoc]];
       total = passed + failed;
 
       printToStdout[""];
