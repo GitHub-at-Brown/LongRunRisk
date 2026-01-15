@@ -544,7 +544,7 @@ runLocalTests[] := Module[
   printToStdout["Results: ", passed, "/", total, " passed (",
     ToString[NumberForm[100.0 * passed / Max[total, 1], {4, 1}]], "%)"];
   If[skipped > 0,
-    printToStdout["Skipped: ", skipped, " tests (category: ", $testCategory, ")"]
+    printToStdout["Not requested: ", skipped, " tests (category: ", $testCategory, ")"]
   ];
   printToStdout["Duration: ", ToString[NumberForm[duration, {5, 2}]], " seconds"];
 
@@ -621,7 +621,7 @@ runSimulateTests[] := Module[
   printToStdout["Results: ", passed, "/", total, " passed (",
     ToString[NumberForm[100.0 * passed / Max[total, 1], {4, 1}]], "%)"];
   If[skipped > 0,
-    printToStdout["Skipped: ", skipped, " tests (category: ", $testCategory, ")"]
+    printToStdout["Not requested: ", skipped, " tests (category: ", $testCategory, ")"]
   ];
   printToStdout["Duration: ", ToString[NumberForm[duration, {5, 2}]], " seconds"];
 
@@ -752,7 +752,7 @@ runCICDTests[] := Module[
       printToStdout["Results: ", passed, "/", total, " passed (",
         ToString[NumberForm[100.0 * passed / Max[total, 1], {4, 1}]], "%)"];
       If[skipped > 0,
-        printToStdout["Skipped: ", skipped, " tests (category: ", $testCategory, ")"]
+        printToStdout["Not requested: ", skipped, " tests (category: ", $testCategory, ")"]
       ];
       printToStdout["Duration: ", ToString[NumberForm[duration, {5, 2}]], " seconds"];
 
@@ -804,7 +804,7 @@ runCICDTests[] := Module[
         appendSummary[StringJoin[
           "\n**Total:** ", ToString[passed], " passed, ",
           ToString[failed], " failed, ",
-          ToString[skipped], " skipped (", $testCategory, " category)\n"
+          ToString[skipped], " not requested (", $testCategory, " category)\n"
         ]];
 
         (* Add failed test details if any *)
