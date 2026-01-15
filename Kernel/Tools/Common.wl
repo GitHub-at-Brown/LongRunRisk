@@ -277,8 +277,8 @@ isolatedEvaluate[expr_, opts : OptionsPattern[]] := Module[
 
 	(* Wrap with inner TimeConstrained if specified *)
 	If[localT =!= None,
-		body = With[{t = N@localT, v = localTVal},
-			Replace[body, Hold[e_] :> Hold[TimeConstrained[e, t, v]]]
+		body = With[{timeout = N@localT, v = localTVal},
+			Replace[body, Hold[e_] :> Hold[TimeConstrained[e, timeout, v]]]
 		]
 	];
 
@@ -289,8 +289,8 @@ isolatedEvaluate[expr_, opts : OptionsPattern[]] := Module[
 
 	(* Wrap with outer TimeConstrained if specified - MUST be inside Hold *)
 	If[hardT =!= None,
-		body = With[{t = N@hardT, v = hardTVal},
-			Replace[body, Hold[le_] :> Hold[TimeConstrained[le, t, v]]]
+		body = With[{timeout = N@hardT, v = hardTVal},
+			Replace[body, Hold[le_] :> Hold[TimeConstrained[le, timeout, v]]]
 		]
 	];
 

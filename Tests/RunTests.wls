@@ -94,7 +94,7 @@ $runLocal = hasFlag["--local", "-l"];
 $runSimulate = hasFlag["--simulate", "-s"];
 $runCICD = hasFlag["--cicd", "-c"];
 $runAll = hasFlag["--all", "-a"];
-$debug = TrueQ[Interpreter["Boolean"][Environment["DEBUG"]]];
+$debugMode = TrueQ[Interpreter["Boolean"][Environment["DEBUG"]]];
 $runCoverage = hasFlag["--coverage"];
 $coverageMode = Replace[getFlagValue["--coverage-mode"], None -> "Auto"];
 
@@ -846,7 +846,7 @@ runCICDTests[] := Module[
     Wolfram`PacletCICD`TestPaclet[
       $testsDir,
       "AnnotateTestIDs" -> False,
-      "Debug" -> $debug,
+      "Debug" -> $debugMode,
       "ConsoleType" -> consoleType,
       "MarkdownSummary" -> useMarkdownSummary,
       "SetWorkflowValue" -> useWorkflowValue
