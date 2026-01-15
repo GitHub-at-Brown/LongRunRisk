@@ -700,10 +700,10 @@ runCICDTests[] := Module[
   printToStdout["Test discovery directory: ", $testsDir];
 
   (* When category filtering is enabled, use TestReport directly instead of TestPaclet
-     because TestPaclet doesn't support TestEvaluationFunction *)
+     because TestPaclet doesn't support TestEvaluationFunction.
+     We run per-file like TestPaclet does to get the same report structure for artifacts. *)
   If[$testCategory =!= "all",
-    Module[{buildDir, testResultsDir, workflowValuesFile, githubEnv, githubStepSummary,
-            markdownContent, workflowContent, junitXML},
+    Module[{reportsAssoc, appendSummary, setWFOutput},
 
       printToStdout["Using TestReport with category filter: ", $testCategory];
 
@@ -721,19 +721,29 @@ runCICDTests[] := Module[
       ];
       printToStdout["Found ", Length[testFiles], " test files"];
 
-      (* Run tests with category filtering *)
+      (* Run tests per-file like TestPaclet does - this builds the report structure
+         needed for CI artifacts while only running tests ONCE *)
       startTime = AbsoluteTime[];
-      report = TestReport[
-        testFiles,
-        "ProgressReporting" -> $verbose,
-        TestEvaluationFunction -> $categoryTestEvaluationFunction
+      reportsAssoc = Association[
+        Function[file,
+          Module[{rel, fileReport},
+            rel = FileNameDrop[file, FileNameDepth[$pacletRoot]];
+            If[$verbose, printToStdout["Testing: ", rel]];
+            fileReport = TestReport[
+              file,
+              "ProgressReporting" -> $verbose,
+              TestEvaluationFunction -> $categoryTestEvaluationFunction
+            ];
+            rel -> fileReport
+          ]
+        ] /@ testFiles
       ];
       duration = AbsoluteTime[] - startTime;
 
-      (* Report results *)
-      passed = report["TestsSucceededCount"];
-      failed = report["TestsFailedCount"];
-      skipped = Length[report["TestsNotEvaluatedIndices"]];
+      (* Aggregate results from all file reports *)
+      passed = Total[#["TestsSucceededCount"] & /@ Values[reportsAssoc]];
+      failed = Total[#["TestsFailedCount"] & /@ Values[reportsAssoc]];
+      skipped = Total[Length[#["TestsNotEvaluatedIndices"]] & /@ Values[reportsAssoc]];
       total = passed + failed;
 
       printToStdout[""];
@@ -747,76 +757,77 @@ runCICDTests[] := Module[
       If[failed > 0,
         printToStdout[""];
         printToStdout["Failed tests:"];
-        Scan[printToStdout["  - ", #["TestID"]] &, Values[report["TestsFailed"]]];
+        KeyValueMap[
+          Function[{file, rep},
+            If[rep["TestsFailedCount"] > 0,
+              Scan[printToStdout["  - ", #["TestID"]] &, Values[rep["TestsFailed"]]]
+            ]
+          ],
+          reportsAssoc
+        ]
       ];
 
-      (* Generate CI artifacts when running in GitHub Actions *)
+      (* Generate CI artifacts using PacletCICD's mechanisms for consistency *)
       If[isGitHubActions,
         printToStdout[""];
-        printToStdout["Generating CI artifacts..."];
+        printToStdout["Generating CI artifacts via PacletCICD..."];
 
-        (* Create build directories *)
-        buildDir = FileNameJoin[{$pacletRoot, "build"}];
-        testResultsDir = FileNameJoin[{buildDir, "test-results"}];
-        If[!DirectoryQ[buildDir], CreateDirectory[buildDir]];
-        If[!DirectoryQ[testResultsDir], CreateDirectory[testResultsDir]];
+        (* Use PacletCICD's appendStepSummary for markdown *)
+        appendSummary = Wolfram`PacletCICD`Private`appendStepSummary;
 
-        (* Export test report to JUnit XML format *)
-        junitXML = FileNameJoin[{testResultsDir, "junit-results.xml"}];
-        Export[junitXML, report, "JUnitXML"];
-        printToStdout["Exported test results to: ", junitXML];
+        (* Generate markdown summary header *)
+        appendSummary[StringJoin[
+          "## Test Results (", $testCategory, " category)\n\n",
+          "| Status | File | Passed | Failed | Time |\n",
+          "|:------:|------|-------:|-------:|-----:|\n"
+        ]];
 
-        (* Generate workflow values file *)
-        workflowValuesFile = FileNameJoin[{buildDir, "workflow-values.txt"}];
-        workflowContent = StringJoin[
-          "TESTS_PASSED=", ToString[passed], "\n",
-          "TESTS_FAILED=", ToString[failed], "\n",
-          "TESTS_SKIPPED=", ToString[skipped], "\n",
-          "TESTS_TOTAL=", ToString[total], "\n",
-          "TEST_CATEGORY=", $testCategory, "\n",
-          "TEST_DURATION=", ToString[Round[duration, 0.01]], "\n"
-        ];
-        Export[workflowValuesFile, workflowContent, "Text"];
-        printToStdout["Exported workflow values to: ", workflowValuesFile];
-
-        (* Set PACLET_WORKFLOW_VALUES environment variable via GITHUB_ENV *)
-        githubEnv = Environment["GITHUB_ENV"];
-        If[StringQ[githubEnv] && FileExistsQ[githubEnv],
-          PutAppend[
-            OutputForm["PACLET_WORKFLOW_VALUES=" <> workflowValuesFile],
-            githubEnv
-          ];
-          printToStdout["Set PACLET_WORKFLOW_VALUES in GITHUB_ENV"]
-        ];
-
-        (* Write markdown summary to GITHUB_STEP_SUMMARY *)
-        githubStepSummary = Environment["GITHUB_STEP_SUMMARY"];
-        If[StringQ[githubStepSummary],
-          markdownContent = StringJoin[
-            "## Test Results (", $testCategory, " category)\n\n",
-            "| Metric | Value |\n",
-            "|--------|-------|\n",
-            "| Passed | ", ToString[passed], " |\n",
-            "| Failed | ", ToString[failed], " |\n",
-            "| Skipped | ", ToString[skipped], " |\n",
-            "| Total Evaluated | ", ToString[total], " |\n",
-            "| Duration | ", ToString[Round[duration, 0.01]], "s |\n",
-            "\n",
-            If[failed > 0,
-              StringJoin[
-                "### Failed Tests\n\n",
-                StringRiffle[
-                  Map["- `" <> #["TestID"] <> "`" &, Values[report["TestsFailed"]]],
-                  "\n"
-                ],
-                "\n"
-              ],
-              ""
+        (* Generate per-file rows like TestPaclet does *)
+        KeyValueMap[
+          Function[{file, rep},
+            Module[{icon, p, f, t},
+              p = rep["TestsSucceededCount"];
+              f = rep["TestsFailedCount"];
+              t = ToString[NumberForm[rep["TimeElapsed"], {4, 2}]];
+              icon = If[f > 0, ":x:", ":white_check_mark:"];
+              appendSummary[StringJoin[
+                "| ", icon, " | `", file, "` | ", ToString[p], " | ", ToString[f], " | ", t, "s |\n"
+              ]];
             ]
-          ];
-          Export[githubStepSummary, markdownContent, "Text"];
-          printToStdout["Wrote markdown summary to GITHUB_STEP_SUMMARY"]
-        ]
+          ],
+          reportsAssoc
+        ];
+
+        (* Add summary footer *)
+        appendSummary[StringJoin[
+          "\n**Total:** ", ToString[passed], " passed, ",
+          ToString[failed], " failed, ",
+          ToString[skipped], " skipped (", $testCategory, " category)\n"
+        ]];
+
+        (* Add failed test details if any *)
+        If[failed > 0,
+          appendSummary["\n### Failed Tests\n\n"];
+          KeyValueMap[
+            Function[{file, rep},
+              If[rep["TestsFailedCount"] > 0,
+                appendSummary[StringJoin["**", file, "**\n"]];
+                Scan[
+                  appendSummary[StringJoin["- `", #["TestID"], "`\n"]] &,
+                  Values[rep["TestsFailed"]]
+                ];
+                appendSummary["\n"];
+              ]
+            ],
+            reportsAssoc
+          ]
+        ];
+
+        (* Store test results via PacletCICD's WorkflowValue mechanism *)
+        setWFOutput = Wolfram`PacletCICD`Private`ghSetWFOutput;
+        setWFOutput["TestPaclet", reportsAssoc];
+        printToStdout["Stored test results via WorkflowValue"];
+        printToStdout["Generated markdown summary via appendStepSummary"];
       ];
 
       Return[failed == 0]
