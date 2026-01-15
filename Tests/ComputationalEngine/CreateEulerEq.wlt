@@ -26,37 +26,37 @@ Get @ FileNameJoin[{DirectoryName[$TestFileName, 1], "CETestHelpers.wl"}];
 $mods = {$modBY, $modNRC, $modDES};
 
 (* Compute Euler equations for all models *)
-$eeAll = With[{t = $t},
+$eeAll = With[{tVar = $t},
 	Function[model, {
-		eulereq[$retc[t + 1], t, model],
-		eulereq[$ret[t + 1, j], t, model],
-		eulereq[$bondret[t + 1, m], t, model],
-		nomeulereq[$nombondret[t + 1, m], t, model]
+		eulereq[$retc[tVar + 1], tVar, model],
+		eulereq[$ret[tVar + 1, j], tVar, model],
+		eulereq[$bondret[tVar + 1, m], tVar, model],
+		nomeulereq[$nombondret[tVar + 1, m], tVar, model]
 	}] /@ $mods
 ];
 
 (* Coefficient extractors *)
-$coeffWcAll = With[{t = $t},
+$coeffWcAll = With[{tVar = $t},
 	Function[model,
-		Table[$coefwc[i], {i, Length[model["stateVars"][t]]}]
+		Table[$coefwc[i], {i, Length[model["stateVars"][tVar]]}]
 	] /@ $mods
 ];
 
-$coeffPdAll = With[{t = $t},
+$coeffPdAll = With[{tVar = $t},
 	Function[model,
-		Table[$coefpd[i], {i, Length[model["stateVars"][t]]}]
+		Table[$coefpd[i], {i, Length[model["stateVars"][tVar]]}]
 	] /@ $mods
 ];
 
-$coeffBondAll = With[{t = $t},
+$coeffBondAll = With[{tVar = $t},
 	Function[model,
-		Table[$coefb[i], {i, Length[model["stateVars"][t]]}]
+		Table[$coefb[i], {i, Length[model["stateVars"][tVar]]}]
 	] /@ $mods
 ];
 
-$coeffNomBondAll = With[{t = $t},
+$coeffNomBondAll = With[{tVar = $t},
 	Function[model,
-		Table[$coefnb[i], {i, Length[model["stateVars"][t]]}]
+		Table[$coefnb[i], {i, Length[model["stateVars"][tVar]]}]
 	] /@ $mods
 ];
 
@@ -88,12 +88,12 @@ getStateVarExpressions[model_, t_] := DeleteDuplicates @ Cases[
 ];
 
 TestCreate[
-	With[{t = $t},
+	With[{tVar = $t},
 		AllTrue[
 			Flatten @ {
-				Function[ee, Max @ Keys @ CoefficientRules[ee, getStateVarExpressions[$modBY, t]] == 1] /@ $eeAll[[1]],
-				Function[ee, Max @ Keys @ CoefficientRules[ee, getStateVarExpressions[$modNRC, t]] == 1] /@ $eeAll[[2]],
-				Function[ee, Max @ Keys @ CoefficientRules[ee, getStateVarExpressions[$modDES, t]] == 1] /@ $eeAll[[3]]
+				Function[ee, Max @ Keys @ CoefficientRules[ee, getStateVarExpressions[$modBY, tVar]] == 1] /@ $eeAll[[1]],
+				Function[ee, Max @ Keys @ CoefficientRules[ee, getStateVarExpressions[$modNRC, tVar]] == 1] /@ $eeAll[[2]],
+				Function[ee, Max @ Keys @ CoefficientRules[ee, getStateVarExpressions[$modDES, tVar]] == 1] /@ $eeAll[[3]]
 			},
 			TrueQ
 		]
@@ -171,12 +171,12 @@ TestCreate[
 
 (* Test: Number of equations equals number of state variables plus one for retc *)
 TestCreate[
-	With[{t = $t},
+	With[{tVar = $t},
 		AllTrue[$mods, Function[model,
 			Count[
-				Cases[First @ findEulerEqConstants[$retc[t], model], 0 == x__ :> True],
+				Cases[First @ findEulerEqConstants[$retc[tVar], model], 0 == x__ :> True],
 				True
-			] === Length[model["stateVars"][t]] + 1
+			] === Length[model["stateVars"][tVar]] + 1
 		]]
 	],
 	True,
@@ -186,12 +186,12 @@ TestCreate[
 
 (* Test: Number of equations equals number of state variables plus one for ret *)
 TestCreate[
-	With[{t = $t},
+	With[{tVar = $t},
 		AllTrue[$mods, Function[model,
 			Count[
-				Cases[First @ findEulerEqConstants[$ret[t, j], model], 0 == x__ :> True],
+				Cases[First @ findEulerEqConstants[$ret[tVar, j], model], 0 == x__ :> True],
 				True
-			] === Length[model["stateVars"][t]] + 1
+			] === Length[model["stateVars"][tVar]] + 1
 		]]
 	],
 	True,
@@ -201,12 +201,12 @@ TestCreate[
 
 (* Test: Number of equations equals number of state variables plus one for bondret *)
 TestCreate[
-	With[{t = $t},
+	With[{tVar = $t},
 		AllTrue[$mods, Function[model,
 			Count[
-				Cases[First @ findEulerEqConstants[$bondret[t, m], model], 0 == x__ :> True],
+				Cases[First @ findEulerEqConstants[$bondret[tVar, m], model], 0 == x__ :> True],
 				True
-			] === Length[model["stateVars"][t]] + 1
+			] === Length[model["stateVars"][tVar]] + 1
 		]]
 	],
 	True,
@@ -216,12 +216,12 @@ TestCreate[
 
 (* Test: Number of equations equals number of state variables plus one for nombondret *)
 TestCreate[
-	With[{t = $t},
+	With[{tVar = $t},
 		AllTrue[$mods, Function[model,
 			Count[
-				Cases[First @ findEulerEqConstants[$nombondret[t, m], model, True], 0 == x__ :> True],
+				Cases[First @ findEulerEqConstants[$nombondret[tVar, m], model, True], 0 == x__ :> True],
 				True
-			] === Length[model["stateVars"][t]] + 1
+			] === Length[model["stateVars"][tVar]] + 1
 		]]
 	],
 	True,
@@ -236,8 +236,8 @@ TestCreate[
 
 (* Test: Equations for coefficients do not contain time variable t for retc *)
 TestCreate[
-	With[{t = $t},
-		AllTrue[$mods, FreeQ[findEulerEqConstants[$retc[t], #], t] &]
+	With[{tVar = $t},
+		AllTrue[$mods, FreeQ[findEulerEqConstants[$retc[tVar], #], tVar] &]
 	],
 	True,
 	{},
@@ -246,8 +246,8 @@ TestCreate[
 
 (* Test: Equations for coefficients do not contain time variable t for ret *)
 TestCreate[
-	With[{t = $t},
-		AllTrue[$mods, FreeQ[findEulerEqConstants[$ret[t, j], #], t] &]
+	With[{tVar = $t},
+		AllTrue[$mods, FreeQ[findEulerEqConstants[$ret[tVar, j], #], tVar] &]
 	],
 	True,
 	{},
@@ -256,8 +256,8 @@ TestCreate[
 
 (* Test: Equations for coefficients do not contain time variable t for bondret *)
 TestCreate[
-	With[{t = $t},
-		AllTrue[$mods, FreeQ[findEulerEqConstants[$bondret[t, m], #], t] &]
+	With[{tVar = $t},
+		AllTrue[$mods, FreeQ[findEulerEqConstants[$bondret[tVar, m], #], tVar] &]
 	],
 	True,
 	{},
@@ -266,8 +266,8 @@ TestCreate[
 
 (* Test: Equations for coefficients do not contain time variable t for nombondret *)
 TestCreate[
-	With[{t = $t},
-		AllTrue[$mods, FreeQ[findEulerEqConstants[$nombondret[t, m], #, True], t] &]
+	With[{tVar = $t},
+		AllTrue[$mods, FreeQ[findEulerEqConstants[$nombondret[tVar, m], #, True], tVar] &]
 	],
 	True,
 	{},
@@ -281,9 +281,9 @@ TestCreate[
 
 (* Test: Equations are time-invariant for retc *)
 TestCreate[
-	With[{t = $t},
-		(findEulerEqConstants[$retc[t], #] & /@ $mods) ===
-		(findEulerEqConstants[$retc[t + 1], #] & /@ $mods)
+	With[{tVar = $t},
+		(findEulerEqConstants[$retc[tVar], #] & /@ $mods) ===
+		(findEulerEqConstants[$retc[tVar + 1], #] & /@ $mods)
 	],
 	True,
 	{},
@@ -292,9 +292,9 @@ TestCreate[
 
 (* Test: Equations are time-invariant for ret *)
 TestCreate[
-	With[{t = $t},
-		(findEulerEqConstants[$ret[t, j], #] & /@ $mods) ===
-		(findEulerEqConstants[$ret[t + 1, j], #] & /@ $mods)
+	With[{tVar = $t},
+		(findEulerEqConstants[$ret[tVar, j], #] & /@ $mods) ===
+		(findEulerEqConstants[$ret[tVar + 1, j], #] & /@ $mods)
 	],
 	True,
 	{},
@@ -303,9 +303,9 @@ TestCreate[
 
 (* Test: Equations are time-invariant for bondret *)
 TestCreate[
-	With[{t = $t},
-		(findEulerEqConstants[$bondret[t, m], #] & /@ $mods) ===
-		(findEulerEqConstants[$bondret[t + 1, m], #] & /@ $mods)
+	With[{tVar = $t},
+		(findEulerEqConstants[$bondret[tVar, m], #] & /@ $mods) ===
+		(findEulerEqConstants[$bondret[tVar + 1, m], #] & /@ $mods)
 	],
 	True,
 	{},
@@ -314,9 +314,9 @@ TestCreate[
 
 (* Test: Equations are time-invariant for nombondret *)
 TestCreate[
-	With[{t = $t},
-		(findEulerEqConstants[$nombondret[t, m], #, True] & /@ $mods) ===
-		(findEulerEqConstants[$nombondret[t + 1, m], #, True] & /@ $mods)
+	With[{tVar = $t},
+		(findEulerEqConstants[$nombondret[tVar, m], #, True] & /@ $mods) ===
+		(findEulerEqConstants[$nombondret[tVar + 1, m], #, True] & /@ $mods)
 	],
 	True,
 	{},
@@ -330,24 +330,24 @@ TestCreate[
 
 (* Test: Unknowns in Euler equation are in EndogenousEq Private context *)
 TestCreate[
-	With[{t = $t},
+	With[{tVar = $t},
 		Module[{allContexts},
 			allContexts = DeleteDuplicates @ Flatten @ {
 				Map[
 					Context[Evaluate[#]] &,
-					Flatten @ ((Flatten @ Rest @ findEulerEqConstants[$retc[t], #])[[;; , 0]] & /@ $mods)
+					Flatten @ ((Flatten @ Rest @ findEulerEqConstants[$retc[tVar], #])[[;; , 0]] & /@ $mods)
 				],
 				Map[
 					Context[Evaluate[#]] &,
-					Flatten @ ((Flatten @ Rest @ findEulerEqConstants[$ret[t, j], #])[[;; , 0, 0]] & /@ $mods)
+					Flatten @ ((Flatten @ Rest @ findEulerEqConstants[$ret[tVar, j], #])[[;; , 0, 0]] & /@ $mods)
 				],
 				Map[
 					Context[Evaluate[#]] &,
-					Flatten @ ((Flatten @ Rest @ findEulerEqConstants[$bondret[t, m], #])[[;; , 0, 0]] & /@ $mods)
+					Flatten @ ((Flatten @ Rest @ findEulerEqConstants[$bondret[tVar, m], #])[[;; , 0, 0]] & /@ $mods)
 				],
 				Map[
 					Context[Evaluate[#]] &,
-					Flatten @ ((Flatten @ Rest @ findEulerEqConstants[$nombondret[t, m], #, True])[[;; , 0, 0]] & /@ $mods)
+					Flatten @ ((Flatten @ Rest @ findEulerEqConstants[$nombondret[tVar, m], #, True])[[;; , 0, 0]] & /@ $mods)
 				]
 			};
 			allContexts === {"FernandoDuarte`LongRunRisk`Model`EndogenousEq`Private`"}
@@ -389,9 +389,9 @@ checkNumericBoolean[mod_, t_] := Module[{e0, e1, e2, e3, e0p, e1p, e2p, e3p},
 
 (* Test: Each equation evaluates to True or False when evaluated numerically *)
 TestCreate[
-	With[{t = $t},
+	With[{tVar = $t},
 		AllTrue[$mods, Function[model,
-			AllTrue[Flatten @ checkNumericBoolean[model, t], BooleanQ]
+			AllTrue[Flatten @ checkNumericBoolean[model, tVar], BooleanQ]
 		]]
 	],
 	True,
