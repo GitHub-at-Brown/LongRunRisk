@@ -1,0 +1,115 @@
+name: 'Setup Wolfram Environment'
+description: 'Sets up TinyTeX, LaTeX packages, loads the paclet, and configures C compiler'
+
+inputs:
+  wolframscript-entitlementid:
+    description: 'Wolfram entitlement ID for cloud licensing'
+    required: true
+  debug:
+    description: 'Enable verbose verification output'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install system dependencies
+      shell: bash
+      run: |
+        apt-get update -y
+        apt-get install -y perl ghostscript wget git build-essential libc6-dev
+
+    - name: Restore TinyTeX cache
+      id: cache-tinytex
+      uses: actions/cache@v5
+      with:
+        path: |
+          /github/home/bin
+          /github/home/.TinyTeX
+        key: tinytex-${{ runner.os }}-latex-standalone-lm-svn-prov-v1
+        restore-keys: |
+          tinytex-${{ runner.os }}-
+
+    - name: Install TinyTeX
+      if: steps.cache-tinytex.outputs.cache-hit != 'true'
+      shell: bash
+      run: wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+
+    - name: Add latex to path
+      shell: bash
+      run: echo "$HOME/bin" >> $GITHUB_PATH
+
+    - name: Install LaTeX packages for MaTeX
+      if: steps.cache-tinytex.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        TEXLIVE_DOWNLOADER: wget
+      run: |
+        # Work around occasional CTAN mirror failures on CI by pinning a
+        # known-good TeX Live repository for tlmgr.
+        for repo in \
+          https://mirrors.rit.edu/CTAN/systems/texlive/tlnet \
+          https://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet \
+          https://ftp.fau.de/ctan/systems/texlive/tlnet \
+          https://mirror.ctan.org/systems/texlive/tlnet
+        do
+          echo "Trying TeX Live repository: $repo"
+          if wget -q --spider --timeout=20 --tries=2 "$repo/tlpkg/texlive.tlpdb.sha512"; then
+            echo "Using TeX Live repository: $repo"
+            tlmgr option repository "$repo"
+            break
+          fi
+        done
+        tlmgr option repository
+        tlmgr update --self --all
+        tlmgr path add
+        fmtutil-sys --all
+        tlmgr install latex standalone lm svn-prov
+        tlmgr path add
+
+    - name: Verify environment
+      if: inputs.debug == 'true'
+      shell: bash
+      run: |
+        echo "=== LaTeX ==="
+        if [ -f "/github/home/bin/pdflatex" ]; then
+          /github/home/bin/pdflatex --version | head -1
+        else
+          echo "pdflatex not found"
+        fi
+        if [ -f "/usr/bin/gs" ]; then
+          echo "Ghostscript: $(/usr/bin/gs --version)"
+        fi
+        echo "=== C Compiler ==="
+        gcc --version | head -1
+        echo "=== TinyTeX packages ==="
+        tlmgr list --only-installed 2>/dev/null || true
+
+    - name: Configure Wolfram init.m for C compiler
+      shell: bash
+      run: |
+        mkdir -p /root/.WolframEngine/Kernel
+        cat > /root/.WolframEngine/Kernel/init.m << 'EOF'
+        (* CI/CD C Compiler Configuration *)
+        Quiet[
+          Needs["CCompilerDriver`"];
+          CCompilerDriver`$CCompilerInstallation = "/usr";
+          CCompilerDriver`CCompilers[True];
+        ];
+        EOF
+
+    - name: Load paclet
+      shell: bash
+      env:
+        LONGRUNRISK_SKIP_CHECK: "false"
+        MATEX_PDFLATEX: /github/home/bin/pdflatex
+        MATEX_GHOSTSCRIPT: /usr/bin/gs
+        WOLFRAMSCRIPT_ENTITLEMENTID: ${{ inputs.wolframscript-entitlementid }}
+      run: |
+        wolframscript -code '
+          Print["Loading paclet..."];
+          t0 = AbsoluteTime[];
+          PacletDirectoryLoad["."];
+          Needs["FernandoDuarte`LongRunRisk`"];
+          Print["Loaded in ", Round[AbsoluteTime[] - t0, 0.1], "s"];
+        '

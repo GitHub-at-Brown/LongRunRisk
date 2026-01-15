@@ -18,9 +18,7 @@ concurrency:
   cancel-in-progress: true
 env:
   WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
-  # Ensure WolframKernel always starts with the entitlement (prevents "No valid password found")
   WOLFRAMINIT: -pwfile !cloudlm.wolfram.com -entitlement ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
-  ENGINE_TAG: 14.3.0
 jobs:
   Coverage:
     name: Coverage
@@ -36,35 +34,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Install dependencies
-        run: |
-          apt-get update -y
-          apt-get install -y perl ghostscript wget lcov bc build-essential libc6-dev git
-      - name: Restore TinyTeX cache
-        id: cache-tinytex
-        uses: actions/cache@v5
+
+      - name: Install lcov
+        run: apt-get update -y && apt-get install -y lcov bc
+
+      - name: Setup Wolfram environment
+        uses: ./.github/actions/setup-wolfram-env
         with:
-          path: |
-            /github/home/bin
-            /github/home/.TinyTeX
-          key: tinytex-${{ runner.os }}-latex-standalone-lm-svn-prov-v1
-          restore-keys: |
-            tinytex-${{ runner.os }}-
-      - name: Install TinyTeX
-        if: steps.cache-tinytex.outputs.cache-hit != 'true'
-        run: wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
-      - name: Add latex to path
-        run: echo "$HOME/bin" >> $GITHUB_PATH
-      - name: Install LaTeX packages for MaTeX
-        if: steps.cache-tinytex.outputs.cache-hit != 'true'
-        run: |
-          tlmgr update --self --all
-          tlmgr path add
-          fmtutil-sys --all
-          tlmgr install latex standalone lm svn-prov
-          tlmgr path add
+          wolframscript-entitlementid: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
+
       - name: Run coverage
         run: wolframscript Tests/RunCoverage.wls --mode=${{ inputs.coverage_mode || 'Auto' }}
+
       - name: Generate HTML report
         run: |
           # Only generate HTML if real coverage data exists (DA: lines)
@@ -77,12 +58,14 @@ jobs:
             lcov --ignore-errors empty,corrupt -a build/coverage/baseline.lcov -a build/coverage/tests.lcov -o build/coverage/combined.lcov || true
             genhtml --ignore-errors empty,corrupt,category --num-spaces 4 --title "LongRunRisk Coverage (Baseline)" build/coverage/combined.lcov -o build/coverage/html || true
           fi
+
       - name: Upload to Codecov
         uses: codecov/codecov-action@v5
         with:
           files: build/coverage/combined.lcov
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: false
+
       - name: Upload coverage report
         uses: actions/upload-artifact@v5
         if: always()
