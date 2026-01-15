@@ -15,7 +15,6 @@ updateModelManifest
 checkCatalogChanges
 reformatCatalog
 buildModels
-buildModelsParallel
 checkCatalogForUI
 getModelPipelineStatus
 
@@ -33,8 +32,6 @@ checkCatalogChanges::usage = "checkCatalogChanges[] compares the current Catalog
 reformatCatalog::usage = "reformatCatalog[] reformats the models section of Catalog.wl using standard formatting, preserving modelsExtraInfo unchanged.";
 
 buildModels::usage = "buildModels[] processes enabled models, compiles functions, computes numerical solutions, and creates moments database.";
-
-buildModelsParallel::usage = "buildModelsParallel[models] runs Symbolic+Compile+Numerical phases in parallel across models, then runs Moments sequentially.";
 
 checkCatalogForUI::usage = "checkCatalogForUI[] checks catalog changes without auto-reformatting.";
 
@@ -95,7 +92,6 @@ Needs["FernandoDuarte`LongRunRisk`ComputationalEngine`SolveEulerEq`"];
 $catalogFile = None;
 $catalogMTime = None;
 $packageRoot = If[StringQ[$InputFileName], DirectoryName[$InputFileName, 3], None];
-$pacletLoaded = False;
 
 getCatalogModels[] := Module[{mtime, root},
   (* Find file path once *)
@@ -109,8 +105,6 @@ getCatalogModels[] := Module[{mtime, root},
       ]
     ]
   ];
-  root = If[StringQ[$catalogFile], DirectoryName[$catalogFile, 3], None];
-  If[StringQ[root], ensurePacletLoaded[root]];
 
   If[!StringQ[$catalogFile] || !FileExistsQ[$catalogFile], Return[$Failed]];
 
@@ -148,16 +142,6 @@ findPacletRoot[] := Module[{file, root},
     root,
     $Failed
   ]
-];
-
-ensurePacletLoaded[root_String] := Module[{},
-  If[TrueQ[$pacletLoaded], Return[root]];
-  (* Only call PacletDirectoryLoad for development directories, not installed paclets *)
-  If[!StringContainsQ[root, "Paclets" ~~ __ ~~ "Repository"],
-    Quiet@Check[PacletDirectoryLoad[root], Null]
-  ];
-  $pacletLoaded = True;
-  root
 ];
 
 (* Simple version getter *)
@@ -1159,148 +1143,6 @@ buildModels[opts : OptionsPattern[{
 
 		processedModels
 	]
-];
-
-
-(* === buildModelsParallel - parallel orchestrator === *)
-
-buildModelsParallel // Options = {
-	"CreateMoments" -> True,
-	"NumKernels" -> Automatic,
-	"FromScratch" -> False,
-	"PdEquations" -> "B"
-};
-
-buildModelsParallel[models_List, opts : OptionsPattern[{buildModelsParallel, buildModels}]] := Module[
-	{root, modelsFile, resourcesDir, numKernels, nLaunched,
-	 pacletDir, parallelResults, mergedModels, savedModels,
-	 createMoments, fromScratch, failedModels,
-	 filteredOpts, successResults, successModels, saveResult, startTime},
-
-	startTime = AbsoluteTime[];
-
-	(* Get options - two-argument form is sufficient when inside the function *)
-	createMoments = OptionValue[buildModelsParallel, "CreateMoments"];
-	fromScratch = OptionValue[buildModelsParallel, "FromScratch"];
-	numKernels = Replace[OptionValue[buildModelsParallel, "NumKernels"], {
-		Automatic -> Min[Length[models], $ProcessorCount],
-		None -> 1
-	}];
-
-	(* Find paclet root *)
-	root = findPacletRoot[];
-	If[root === $Failed, Message[buildModels::noroot]; Return[$Failed]];
-
-	pacletDir = root;
-	resourcesDir = FileNameJoin[{root, "Resources"}];
-	modelsFile = FileNameJoin[{resourcesDir, "Models.wl"}];
-
-	(* Handle fromScratch *)
-	If[fromScratch,
-		cleanAllOutputs[root];
-	];
-
-	(* Launch parallel kernels *)
-	CloseKernels[];
-	nLaunched = LaunchKernels[numKernels];
-
-	(* Initialize parallel kernels *)
-	ParallelEvaluate[
-		PacletDirectoryLoad[#];
-		Needs["PacletizedResourceFunctions`"];
-		Needs["FernandoDuarte`LongRunRisk`Tools`ManageResources`"];
-	] &@ pacletDir;
-
-	(* Run builds in parallel - each returns processed model or $Failed *)
-
-	(* Filter out options we force-set to prevent caller override *)
-	filteredOpts = FilterRules[{opts},
-		Except["FileSuffix" | "UpdateManifest" | "CreateMoments" | "FromScratch" | "Models"]];
-
-	parallelResults = ParallelTable[
-		Quiet @ Check[
-			With[{result = FernandoDuarte`LongRunRisk`Tools`ManageResources`buildModels[
-				"Models" -> {m},
-				"CreateMoments" -> False,
-				"FromScratch" -> False,
-				"FileSuffix" -> "_" <> m,
-				"UpdateManifest" -> False,
-				filteredOpts
-			]},
-				If[AssociationQ[result] && Length[result] > 0,
-					<|"Model" -> m, "Status" -> "Success", "Data" -> result|>,
-					<|"Model" -> m, "Status" -> "Empty", "Data" -> <||>|>
-				]
-			],
-			<|"Model" -> m, "Status" -> "Failed", "Data" -> <||>|>
-		],
-		{m, models},
-		DistributedContexts -> Automatic
-	];
-
-	(* Close parallel kernels before moments phase *)
-	CloseKernels[];
-
-	(* Get successful results directly from parallelResults (already in memory) *)
-	successResults = Select[parallelResults, #["Status"] === "Success" &];
-	successModels = #["Model"] & /@ successResults;
-
-	(* Report failures *)
-	failedModels = #["Model"] & /@ Select[parallelResults, #["Status"] =!= "Success" &];
-	If[Length[failedModels] > 0,
-		Null
-	];
-
-	(* Load canonical Models.wl and merge with in-memory results *)
-	savedModels = loadModels[modelsFile];
-	mergedModels = Merge[
-		Prepend[
-			(#["Data"] & /@ successResults),
-			savedModels
-		],
-		Last
-	];
-
-	(* Save merged results to canonical file *)
-	If[Length[mergedModels] > 0,
-		saveResult = Quiet @ Check[
-			saveModels[mergedModels, modelsFile];
-			updateModelManifest[];
-			True,
-			False
-		];
-
-		(* Only delete temp files if save succeeded *)
-		If[saveResult,
-			Do[
-				Quiet[DeleteFile[FileNameJoin[{resourcesDir, "Models_" <> m <> ".wl"}]]],
-				{m, successModels}
-			],
-			(* Save failed - keep all temp files for recovery *)
-			Null
-		];
-	];
-
-	(* Note about failed model files (kept for debugging) *)
-	If[Length[failedModels] > 0,
-		Null
-	];
-
-	(* Run moments sequentially if requested *)
-	If[createMoments && Length[successModels] > 0,
-		Do[
-			buildModels[
-				"Models" -> {m},
-				"CreateMoments" -> True,
-				"NumKernels" -> OptionValue[buildModelsParallel, "NumKernels"]
-			],
-			{m, successModels}
-		];,
-		(* else *)
-		Null
-	];
-
-	mergedModels
 ];
 
 
