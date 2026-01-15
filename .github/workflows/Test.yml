@@ -1,8 +1,21 @@
 name: Test
 on:
   workflow_dispatch:
-  push:
-    branches: [develop]
+    inputs:
+      with_coverage:
+        description: 'Run with coverage instrumentation'
+        required: false
+        default: false
+        type: boolean
+      coverage_mode:
+        description: 'Coverage mode (only if coverage enabled)'
+        required: false
+        default: 'Auto'
+        type: choice
+        options:
+          - Auto
+          - Baseline
+          - Execution
   pull_request:
     branches: [main, develop]
 concurrency:
@@ -27,6 +40,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
+      - name: Install lcov (for coverage)
+        if: inputs.with_coverage == true
+        run: apt-get update -y && apt-get install -y lcov bc
 
       - name: Setup Wolfram environment
         uses: ./.github/actions/setup-wolfram-env
@@ -54,7 +71,34 @@ jobs:
         env:
           PACLET_CICD_VERSION: ${{ env.PACLET_CICD_VERSION }}
           DEBUG: "true"
-        run: wolframscript -f Tests/RunTests.wls
+        run: |
+          if [ "${{ inputs.with_coverage }}" == "true" ]; then
+            echo "Running tests with coverage instrumentation..."
+            wolframscript -f Tests/RunTests.wls --cicd --coverage --coverage-mode=${{ inputs.coverage_mode || 'Auto' }}
+          else
+            wolframscript -f Tests/RunTests.wls --cicd
+          fi
+
+      - name: Generate HTML coverage report
+        if: inputs.with_coverage == true
+        run: |
+          if grep -q "^DA:" build/coverage/baseline.lcov 2>/dev/null; then
+            lcov --ignore-errors empty,corrupt -a build/coverage/baseline.lcov -a build/coverage/tests.lcov -o build/coverage/combined.lcov
+            genhtml --ignore-errors empty,corrupt,category --num-spaces 4 --title "LongRunRisk Coverage" build/coverage/combined.lcov -o build/coverage/html
+            lcov --ignore-errors empty,corrupt --summary build/coverage/combined.lcov
+          else
+            echo "Note: LCOV files do not contain DA: lines (baseline coverage only)."
+            lcov --ignore-errors empty,corrupt -a build/coverage/baseline.lcov -a build/coverage/tests.lcov -o build/coverage/combined.lcov || true
+            genhtml --ignore-errors empty,corrupt,category --num-spaces 4 --title "LongRunRisk Coverage (Baseline)" build/coverage/combined.lcov -o build/coverage/html || true
+          fi
+
+      - name: Upload to Codecov
+        if: inputs.with_coverage == true
+        uses: codecov/codecov-action@v5
+        with:
+          files: build/coverage/combined.lcov
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
 
       - name: Upload workflow values
         if: always() && env.PACLET_WORKFLOW_VALUES
@@ -70,4 +114,12 @@ jobs:
         with:
           name: test-results
           path: build/test-results/
+          if-no-files-found: ignore
+
+      - name: Upload coverage report
+        if: always() && inputs.with_coverage == true
+        uses: actions/upload-artifact@v5
+        with:
+          name: coverage-report
+          path: build/coverage/
           if-no-files-found: ignore

@@ -104,7 +104,7 @@ FernandoDuarte`LongRunRisk`Models::usage = Information["FernandoDuarte`LongRunRi
 
 (* load moments lookup tables *)
 Needs["PacletTools`"];
-pacletObj=First@PacletFind["FernandoDuarte/LongRunRisk"];
+pacletObj=PacletObject["FernandoDuarte/LongRunRisk"];
 filesMom = PacletTools`PacletExtensionFiles[pacletObj,"Path"][{"Path",<|"Root"->"Resources"|>}];
 Map[
 	Get@#&,

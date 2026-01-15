@@ -169,7 +169,6 @@ Quiet[
 (* ::Subsection:: *)
 (*MaTeX*)
 
-
 (* Install and load MaTeX *)
 If[
 	{} === PacletFind["MaTeX"],
@@ -180,12 +179,12 @@ If[
 			File[
 				FindFile["FernandoDuarte/LongRunRisk/MaTeXInstall-1.0.0.paclet"]
 			],
-			KeepExistingVersion -> True,
+			KeepExistingVersion -> False,
 			ForceVersionInstall -> True
 		]
 	];
 	Needs["MaTeXInstall`"];
-	MaTeXInstall`MaTeXInstall[],
+	Block[{$Output = {}}, MaTeXInstall`MaTeXInstall[]],
 	(* Already installed: just load it *)
 	Needs["MaTeX`"]
 ];

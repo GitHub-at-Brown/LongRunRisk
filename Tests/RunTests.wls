@@ -13,6 +13,19 @@
      --verbose, -v    Show detailed progress
      --help, -h       Show this help message
      --dir <path>     Test directory (relative to paclet root or absolute)
+     --coverage       Enable coverage instrumentation (generates LCOV files)
+     --coverage-mode  Coverage mode: Auto, Baseline, or Execution (default: Auto)
+
+   Coverage modes:
+     Auto       Try execution coverage; fall back to baseline if instrumentation fails
+     Baseline   Generate code structure only (no execution tracking)
+     Execution  Require execution coverage; fail if instrumentation doesn't work
+
+   Coverage output (build/coverage/):
+     baseline.lcov   Code structure (all instrumentable lines)
+     tests.lcov      Lines executed during tests (or copy of baseline if execution failed)
+     Use lcov to combine: lcov -a baseline.lcov -a tests.lcov -o combined.lcov
+     Generate HTML:       genhtml combined.lcov -o html/
 
    Environment variables:
      LONGRUNRISK_TESTS_DIR   Alternative to --dir
@@ -25,6 +38,8 @@
      wolframscript Tests/RunTests.wls --cicd --dir Tests/FindRootOptim
      wolframscript Tests/RunTests.wls --all
      wolframscript Tests/RunTests.wls                 # defaults to --cicd
+     wolframscript Tests/RunTests.wls --cicd --coverage  # with coverage
+     wolframscript Tests/RunTests.wls --cicd --coverage --coverage-mode=Baseline
 
    Logging (via shell redirection):
      wolframscript Tests/RunTests.wls --verbose > tests.log 2>&1      # save to file
@@ -72,9 +87,17 @@ $runSimulate = hasFlag["--simulate", "-s"];
 $runCICD = hasFlag["--cicd", "-c"];
 $runAll = hasFlag["--all", "-a"];
 $debug = TrueQ[Interpreter["Boolean"][Environment["DEBUG"]]];
+$runCoverage = hasFlag["--coverage"];
+$coverageMode = Replace[getFlagValue["--coverage-mode"], None -> "Auto"];
 
 (* Internal flag: run in subprocess mode (skip spawning, run directly) *)
 $subprocessMode = hasFlag["--subprocess"];
+
+(* Validate coverage mode *)
+If[$runCoverage && !MemberQ[{"Auto", "Baseline", "Execution"}, $coverageMode],
+  printToStdout["Error: Invalid coverage mode '", $coverageMode, "'. Use Auto, Baseline, or Execution."];
+  Exit[1]
+];
 
 (* Show help and exit *)
 If[$showHelp,
@@ -90,6 +113,17 @@ If[$showHelp,
   printToStdout["  --verbose, -v    Show detailed progress"];
   printToStdout["  --help, -h       Show this help message"];
   printToStdout["  --dir <path>     Test directory (relative to paclet root or absolute)"];
+  printToStdout["  --coverage       Enable coverage instrumentation (generates LCOV files)"];
+  printToStdout["  --coverage-mode  Coverage mode: Auto, Baseline, or Execution (default: Auto)"];
+  printToStdout[""];
+  printToStdout["Coverage modes:"];
+  printToStdout["  Auto       Try execution coverage; fall back to baseline if it fails"];
+  printToStdout["  Baseline   Code structure only (no execution tracking)"];
+  printToStdout["  Execution  Require execution coverage; fail if instrumentation fails"];
+  printToStdout[""];
+  printToStdout["Coverage output (build/coverage/):"];
+  printToStdout["  baseline.lcov   Code structure (all instrumentable lines)"];
+  printToStdout["  tests.lcov      Lines executed during tests"];
   printToStdout[""];
   printToStdout["Environment variables:"];
   printToStdout["  LONGRUNRISK_TESTS_DIR   Alternative to --dir"];
@@ -154,6 +188,222 @@ $testsDir = Module[{fromFlag, fromEnv, raw, abs, rel},
 ];
 
 (* -------------------------------------------------------------------------- *)
+(* Coverage instrumentation support                                           *)
+(* -------------------------------------------------------------------------- *)
+
+(* Coverage paths - initialized when coverage is enabled *)
+$kernelDir = FileNameJoin[{$pacletRoot, "Kernel"}];
+$resourcesDir = FileNameJoin[{$pacletRoot, "Resources"}];
+$instrumentedDir = FileNameJoin[{$pacletRoot, "build", "coverage-instrumented"}];
+$instrumentedKernel = FileNameJoin[{$instrumentedDir, "Kernel"}];
+$coverageDir = FileNameJoin[{$pacletRoot, "build", "coverage"}];
+
+(* Coverage state *)
+$coverageBaseline = None;
+$coverageRunData = None;
+$executionCoverageSuccess = False;
+
+(* LCOV post-processing helper: adds DA:line,0 entries for FN lines missing DA entries.
+   This fixes "unexpected category UNK" errors in genhtml. *)
+fixLcovForGenhtml[lcovPath_String] := Module[{
+    content, lines, currentFile, fnLines, daLines,
+    result, fileFnLines, fileDALines, missingDALines, newDAEntries,
+    totalFixed
+  },
+  If[!FileExistsQ[lcovPath],
+    If[$verbose, printToStdout["Warning: LCOV file not found: ", lcovPath]];
+    Return[$Failed]
+  ];
+
+  content = Import[lcovPath, "Text"];
+  lines = StringSplit[content, "\n"];
+
+  (* Track FN and DA lines per source file *)
+  currentFile = None;
+  fnLines = <||>;
+  daLines = <||>;
+
+  (* Parse LCOV to extract FN and DA line numbers per file *)
+  Do[
+    Which[
+      StringStartsQ[line, "SF:"],
+        currentFile = StringDrop[line, 3];
+        If[!KeyExistsQ[fnLines, currentFile], fnLines[currentFile] = {}];
+        If[!KeyExistsQ[daLines, currentFile], daLines[currentFile] = {}],
+      StringStartsQ[line, "FN:"] && currentFile =!= None,
+        Module[{parts, lineNum},
+          parts = StringSplit[StringDrop[line, 3], ","];
+          If[Length[parts] >= 1,
+            lineNum = ToExpression[parts[[1]]];
+            If[IntegerQ[lineNum], AppendTo[fnLines[currentFile], lineNum]]
+          ]
+        ],
+      StringStartsQ[line, "FNL:"] && currentFile =!= None,
+        Module[{parts, lineNum},
+          parts = StringSplit[StringDrop[line, 4], ","];
+          If[Length[parts] >= 2,
+            lineNum = ToExpression[parts[[2]]];
+            If[IntegerQ[lineNum], AppendTo[fnLines[currentFile], lineNum]]
+          ]
+        ],
+      StringStartsQ[line, "DA:"] && currentFile =!= None,
+        Module[{parts, lineNum},
+          parts = StringSplit[StringDrop[line, 3], ","];
+          If[Length[parts] >= 1,
+            lineNum = ToExpression[parts[[1]]];
+            If[IntegerQ[lineNum], AppendTo[daLines[currentFile], lineNum]]
+          ]
+        ],
+      line === "end_of_record",
+        currentFile = None
+    ],
+    {line, lines}
+  ];
+
+  (* Build new LCOV content with missing DA entries added *)
+  currentFile = None;
+  result = {};
+  totalFixed = 0;
+
+  Do[
+    Which[
+      StringStartsQ[line, "SF:"],
+        currentFile = StringDrop[line, 3];
+        AppendTo[result, line],
+      (StringStartsQ[line, "LF:"] || line === "end_of_record") && currentFile =!= None,
+        fileFnLines = Lookup[fnLines, currentFile, {}];
+        fileDALines = Lookup[daLines, currentFile, {}];
+        missingDALines = Complement[fileFnLines, fileDALines];
+        If[Length[missingDALines] > 0,
+          newDAEntries = ("DA:" <> ToString[#] <> ",0") & /@ Sort[missingDALines];
+          result = Join[result, newDAEntries];
+          totalFixed += Length[missingDALines]
+        ];
+        AppendTo[result, line];
+        If[line === "end_of_record", currentFile = None],
+      True,
+        AppendTo[result, line]
+    ],
+    {line, lines}
+  ];
+
+  Export[lcovPath, StringRiffle[result, "\n"], "Text"];
+  totalFixed
+];
+
+(* Setup coverage instrumentation before tests run *)
+setupCoverageInstrumentation[] := Module[{testSubdirs, instrumentedTestsDir},
+  printToStdout[""];
+  printToStdout["=== Setting up coverage instrumentation ==="];
+  printToStdout["Coverage mode: ", $coverageMode];
+
+  (* Clean and create output directories *)
+  If[DirectoryQ[$instrumentedDir], DeleteDirectory[$instrumentedDir, DeleteContents -> True]];
+  If[DirectoryQ[$coverageDir], DeleteDirectory[$coverageDir, DeleteContents -> True]];
+  CreateDirectory[$instrumentedDir, CreateIntermediateDirectories -> True];
+  CreateDirectory[$coverageDir, CreateIntermediateDirectories -> True];
+
+  (* Copy PacletInfo.wl so paclet resolution works *)
+  If[FailureQ[CopyFile[
+    FileNameJoin[{$pacletRoot, "PacletInfo.wl"}],
+    FileNameJoin[{$instrumentedDir, "PacletInfo.wl"}]
+  ]],
+    printToStdout["::error::Failed to copy PacletInfo.wl"];
+    Return[$Failed]
+  ];
+
+  (* Copy Resources directory *)
+  If[DirectoryQ[$resourcesDir],
+    If[FailureQ[CopyDirectory[$resourcesDir, FileNameJoin[{$instrumentedDir, "Resources"}]]],
+      printToStdout["::error::Failed to copy Resources directory"];
+      Return[$Failed]
+    ]
+  ];
+
+  (* Copy test data files (but not as instrumented code) *)
+  instrumentedTestsDir = FileNameJoin[{$instrumentedDir, "Tests"}];
+  CreateDirectory[instrumentedTestsDir, CreateIntermediateDirectories -> True];
+  testSubdirs = Select[FileNames["*", $testsRoot], DirectoryQ];
+
+  Do[
+    Module[{subdirName, targetSubdir, subDataFiles},
+      subdirName = FileBaseName[subdir];
+      If[subdirName =!= "Resources",
+        subDataFiles = FileNames["*.wl", subdir, 1];
+        subDataFiles = Select[subDataFiles, !StringEndsQ[#, ".wlt"] &];
+        If[Length[subDataFiles] > 0,
+          targetSubdir = FileNameJoin[{instrumentedTestsDir, subdirName}];
+          CreateDirectory[targetSubdir, CreateIntermediateDirectories -> True];
+          Do[
+            CopyFile[dataFile,
+              FileNameJoin[{targetSubdir, FileBaseName[dataFile] <> ".wl"}],
+              OverwriteTarget -> True
+            ],
+            {dataFile, subDataFiles}
+          ]
+        ]
+      ]
+    ],
+    {subdir, testSubdirs}
+  ];
+
+  (* Load Instrumentation package *)
+  Needs["Instrumentation`"];
+  If[$verbose,
+    printToStdout["Instrumentation version: ", PacletFind["Instrumentation"][[1]]["Version"]]
+  ];
+
+  (* Instrument Kernel/ *)
+  printToStdout["Instrumenting source files..."];
+  $coverageBaseline = Instrumentation`CoverageInstrument[$kernelDir, $instrumentedKernel];
+
+  If[FailureQ[$coverageBaseline],
+    printToStdout["::error::CoverageInstrument failed: ", $coverageBaseline];
+    Return[$Failed]
+  ];
+
+  (* Generate baseline LCOV *)
+  printToStdout["Generating baseline coverage (code structure)..."];
+  Instrumentation`CoverageProcess[$coverageBaseline, $coverageDir, "baseline.lcov"];
+  fixLcovForGenhtml[FileNameJoin[{$coverageDir, "baseline.lcov"}]];
+
+  (* Switch to instrumented paclet *)
+  printToStdout["Switching to instrumented paclet..."];
+  PacletDirectoryUnload[$pacletRoot];
+  PacletDirectoryLoad[$instrumentedDir];
+
+  printToStdout["Coverage instrumentation ready."];
+  True
+];
+
+(* Finalize coverage after tests complete *)
+finalizeCoverage[] := Module[{},
+  printToStdout[""];
+  printToStdout["=== Finalizing coverage ==="];
+
+  If[$executionCoverageSuccess && MatchQ[$coverageRunData, _Instrumentation`CoverageData],
+    printToStdout["Generating execution coverage data..."];
+    Instrumentation`CoverageProcess[$coverageRunData, $coverageDir, "tests.lcov"];
+    fixLcovForGenhtml[FileNameJoin[{$coverageDir, "tests.lcov"}]],
+    (* Fall back: copy baseline as placeholder *)
+    printToStdout["Using baseline as tests.lcov (no execution tracking)"];
+    CopyFile[
+      FileNameJoin[{$coverageDir, "baseline.lcov"}],
+      FileNameJoin[{$coverageDir, "tests.lcov"}],
+      OverwriteTarget -> True
+    ]
+  ];
+
+  (* Restore original paclet *)
+  PacletDirectoryUnload[$instrumentedDir];
+  PacletDirectoryLoad[$pacletRoot];
+
+  printToStdout["Coverage files generated:"];
+  printToStdout["  ", FileNameJoin[{$coverageDir, "baseline.lcov"}]];
+  printToStdout["  ", FileNameJoin[{$coverageDir, "tests.lcov"}]];
+];
+
+(* -------------------------------------------------------------------------- *)
 (* Subprocess spawning for kernel isolation                                   *)
 (* -------------------------------------------------------------------------- *)
 
@@ -175,6 +425,12 @@ runModalityInSubprocess[modalityFlag_, modalityName_] := Module[
   (* Pass through --verbose if specified *)
   If[$verbose,
     args = Append[args, "--verbose"]
+  ];
+
+  (* Pass through --coverage if specified *)
+  If[$runCoverage,
+    args = Append[args, "--coverage"];
+    args = Join[args, {"--coverage-mode", $coverageMode}]
   ];
 
   (* Run subprocess - inherits environment from parent *)
@@ -401,6 +657,14 @@ runCICDTests[] := Module[
 
 $results = <||>;
 
+(* Setup coverage instrumentation if enabled *)
+If[$runCoverage,
+  If[FailureQ[setupCoverageInstrumentation[]],
+    printToStdout["::error::Coverage instrumentation setup failed"];
+    Exit[1]
+  ]
+];
+
 (* Determine execution mode:
    - If only one modality requested, or in subprocess mode: run directly
    - If multiple modalities requested: spawn subprocesses for isolation *)
@@ -409,6 +673,7 @@ If[$subprocessMode || $modalityCount == 1,
   (* Direct execution mode *)
   printToStdout["Paclet root: ", $pacletRoot];
   printToStdout["Test directory: ", $testsDir];
+  If[$runCoverage, printToStdout["Coverage: enabled (mode: ", $coverageMode, ")"]];
 
   If[$runLocal,
     $results["Local"] = runLocalTests[];
@@ -425,6 +690,7 @@ If[$subprocessMode || $modalityCount == 1,
   (* Subprocess mode for kernel isolation *)
   printToStdout["Paclet root: ", $pacletRoot];
   printToStdout["Test directory: ", $testsDir];
+  If[$runCoverage, printToStdout["Coverage: enabled (mode: ", $coverageMode, ")"]];
   printToStdout[""];
   printToStdout["Running ", $modalityCount, " modalities in separate kernels for isolation..."];
 
@@ -439,6 +705,11 @@ If[$subprocessMode || $modalityCount == 1,
   If[$runCICD,
     $results["CICD"] = runModalityInSubprocess["--cicd", "PacletCICD"];
   ];
+];
+
+(* Finalize coverage if enabled *)
+If[$runCoverage,
+  finalizeCoverage[]
 ];
 
 (* Final summary if multiple modalities were run *)

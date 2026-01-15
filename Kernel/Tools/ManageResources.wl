@@ -152,7 +152,10 @@ findPacletRoot[] := Module[{file, root},
 
 ensurePacletLoaded[root_String] := Module[{},
   If[TrueQ[$pacletLoaded], Return[root]];
-  Quiet@Check[PacletDirectoryLoad[root], Null];
+  (* Only call PacletDirectoryLoad for development directories, not installed paclets *)
+  If[!StringContainsQ[root, "Paclets" ~~ __ ~~ "Repository"],
+    Quiet@Check[PacletDirectoryLoad[root], Null]
+  ];
   $pacletLoaded = True;
   root
 ];
@@ -171,7 +174,7 @@ getVersion[root_String] := Module[
     None
   ];
 
-  found = PacletFind["FernandoDuarte/LongRunRisk"];
+  found = {PacletObject["FernandoDuarte/LongRunRisk"]};
   match = SelectFirst[found,
     Quiet@Check[#["Location"] === root, False] &,
     Missing["NotFound"]
