@@ -700,21 +700,33 @@ runCICDTests[] := Module[
   printToStdout["Test discovery directory: ", $testsDir];
 
   (* Run tests using PacletCICD TestPaclet - this generates perfect GHA formatting.
-     TestEvaluationFunction is passed through to TestReport via filterOptions. *)
+     We wrap TestReport to inject our TestEvaluationFunction since TestPaclet
+     doesn't accept it directly. The wrapper only adds it when not already specified. *)
   res = Wolfram`PacletCICD`Private`noExit @ Block[
     {
       Print = printToStdout,
       DefinitionNotebookClient`BeginConsoleGroup,
-      DefinitionNotebookClient`EndConsoleGroup
+      DefinitionNotebookClient`EndConsoleGroup,
+      $originalTestReport = TestReport
     },
-    Wolfram`PacletCICD`TestPaclet[
-      $testsDir,
-      "AnnotateTestIDs" -> False,
-      "Debug" -> $debugMode,
-      "ConsoleType" -> consoleType,
-      "MarkdownSummary" -> useMarkdownSummary,
-      "SetWorkflowValue" -> useWorkflowValue,
-      TestEvaluationFunction -> $categoryTestEvaluationFunction
+    (* Temporarily wrap TestReport to inject TestEvaluationFunction *)
+    Internal`InheritedBlock[{TestReport},
+      Unprotect[TestReport];
+      TestReport[files_, opts___?OptionQ] := $originalTestReport[
+        files,
+        opts,
+        TestEvaluationFunction -> $categoryTestEvaluationFunction
+      ];
+      Protect[TestReport];
+
+      Wolfram`PacletCICD`TestPaclet[
+        $testsDir,
+        "AnnotateTestIDs" -> False,
+        "Debug" -> $debugMode,
+        "ConsoleType" -> consoleType,
+        "MarkdownSummary" -> useMarkdownSummary,
+        "SetWorkflowValue" -> useWorkflowValue
+      ]
     ]
   ];
 
