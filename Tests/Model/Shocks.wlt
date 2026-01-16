@@ -304,12 +304,20 @@ TestCreate[
 (*Placebo Failing Test - REMOVE AFTER VERIFICATION*)
 
 
-(* PLACEBO TEST: Intentionally failing test to verify summary display - DELETE ME *)
+(* PLACEBO TEST: Complex failing test to verify formatting display - DELETE ME *)
 TestCreate[
-	1 + 1,
-	3,  (* Wrong expected value - should fail *)
+	Module[{data, result},
+		data = <|
+			"Values" -> {1, 2, 3, 4, 5},
+			"Options" -> <|"Method" -> "Automatic", "Tolerance" -> 0.001|>,
+			"Metadata" -> <|"CreatedBy" -> "TestSystem", "Version" -> "1.0"|>
+		|>;
+		result = Total[data["Values"]] * Length[data["Values"]];
+		Association["Result" -> result, "Data" -> data]
+	],
+	<|"Result" -> 999, "Data" -> <||>|>,  (* Wrong expected value - should fail *)
 	{},
-	TestID -> "[PLACEBO-CORE] Intentional failure for summary verification - DELETE ME"
+	TestID -> "[PLACEBO-CORE] Complex test to verify formatting - DELETE ME"
 ]
 
 (* PLACEBO TEST: Intentionally failing EXTENDED test - DELETE ME *)

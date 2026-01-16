@@ -847,8 +847,8 @@ runCICDTests[] := Module[
             ];
             formatTime[_] := "N/A";
 
-            (* Helper to format code values - use ReadableForm for nice formatting *)
-            formatValue[HoldForm[expr_]] := ToString[ReadableForm[Unevaluated[expr], TimeConstraint -> 3]];
+            (* Helper to format code values - use PacletCICD's ReadableForm for nice formatting *)
+            formatValue[HoldForm[expr_]] := ToString[Wolfram`PacletCICD`ReadableForm[Unevaluated[expr], TimeConstraint -> 3]];
             formatValue[expr_] := formatValue[HoldForm[expr]];
 
             (* Reference to PacletCICD's appendStepSummary *)
