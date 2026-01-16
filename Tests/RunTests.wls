@@ -84,6 +84,46 @@ getFlagValue[flag_] := Module[{pos},
   ]
 ];
 
+(* Format a percentage (matching PacletCICD's percentForm) *)
+percentForm[0] := "0%";
+percentForm[1] := "100%";
+percentForm[p_] := ToString[NumberForm[100 * p, {4, 1}]] <> "%";
+
+(* Format duration in human-readable format (matching PacletCICD's timeText) *)
+formatDuration[sec_?NumberQ] := Module[{ms, s, m, h},
+  ms = sec * 1000;
+  Which[
+    ms < 1, "< 1 ms",
+    ms < 1000, ToString[Round[ms, 0.1]] <> " ms",
+    sec < 60, ToString[Round[sec, 0.1]] <> " seconds",
+    sec < 3600,
+      m = Floor[sec / 60];
+      s = Round[Mod[sec, 60]];
+      StringJoin[
+        ToString[m], If[m == 1, " minute", " minutes"],
+        If[s > 0, " " <> ToString[s] <> If[s == 1, " second", " seconds"], ""]
+      ],
+    True,
+      h = Floor[sec / 3600];
+      m = Floor[Mod[sec, 3600] / 60];
+      StringJoin[
+        ToString[h], If[h == 1, " hour", " hours"],
+        If[m > 0, " " <> ToString[m] <> If[m == 1, " minute", " minutes"], ""]
+      ]
+  ]
+];
+
+(* Format duration for per-file rows (shorter format) *)
+formatFileDuration[sec_?NumberQ] := Module[{ms},
+  ms = sec * 1000;
+  Which[
+    ms < 1, "< 1 ms",
+    ms < 1000, ToString[Round[ms, 0.1]] <> " ms",
+    sec < 60, ToString[Round[sec, 0.1]] <> " s",
+    True, ToString[Round[sec / 60, 0.1]] <> " min"
+  ]
+];
+
 (* -------------------------------------------------------------------------- *)
 (* Parse command-line arguments                                               *)
 (* -------------------------------------------------------------------------- *)
@@ -791,42 +831,59 @@ runCICDTests[] := Module[
         Module[{fileCount, testCount, passRate, failRate, totalTime, resultIcon, resultText},
           fileCount = Length[reportsAssoc];
           testCount = passed + failed;
-          passRate = If[testCount > 0, ToString[NumberForm[100.0 * passed / testCount, {4, 1}]] <> "%", "N/A"];
-          failRate = If[testCount > 0, ToString[NumberForm[100.0 * failed / testCount, {4, 1}]] <> "%", "N/A"];
-          totalTime = ToString[NumberForm[duration, {5, 1}]] <> "s";
+          passRate = If[testCount > 0, percentForm[passed / testCount], "N/A"];
+          failRate = If[testCount > 0, percentForm[failed / testCount], "N/A"];
+          totalTime = formatDuration[duration];
           resultIcon = If[failed > 0, ":x:", ":white_check_mark:"];
           resultText = If[failed > 0, "Failure", "Success"];
 
           appendSummary[StringJoin[
             "\n|                 |                          |\n",
-            "|-----------------|--------------------------||\n",
-            "| **Result**      | ", resultText, " ", resultIcon, "          |\n",
-            "| **Total files** | ", ToString[fileCount], "              |\n",
-            "| **Total tests** | ", ToString[testCount], "              |\n",
+            "|-----------------|--------------------------|",
+            "\n| **Result**      | ", resultText, " ", resultIcon, " |\n",
+            "| **Total files** | ", ToString[fileCount], " |\n",
+            "| **Total tests** | ", ToString[testCount], " |\n",
             "| **Passed**      | ", ToString[passed], " (", passRate, ") |\n",
             "| **Failed**      | ", ToString[failed], " (", failRate, ") |\n",
             "| **Not requested** | ", ToString[skipped], " (", $testCategory, " category) |\n",
-            "| **Duration**    | ", totalTime, "                   |\n",
+            "| **Duration**    | ", totalTime, " |\n",
             "\n### Test files\n\n",
             "| | File | Passed | Failed | Duration |\n",
             "|-|------|--------|--------|----------|\n"
           ]];
         ];
 
-        (* Generate per-file rows like TestPaclet does *)
-        KeyValueMap[
-          Function[{file, rep},
-            Module[{icon, p, f, timeStr},
-              p = rep["TestsSucceededCount"];
-              f = rep["TestsFailedCount"];
-              timeStr = ToString[NumberForm[rep["TimeElapsed"], {4, 2}]];
-              icon = If[f > 0, ":x:", ":white_check_mark:"];
-              appendSummary[StringJoin[
-                "| ", icon, " | `", file, "` | ", ToString[p], " | ", ToString[f], " | ", timeStr, "s |\n"
-              ]];
+        (* Generate per-file rows like TestPaclet does - with links and human-readable durations *)
+        Module[{ghServer, ghRepo, ghSha, makeFileLink},
+          ghServer = Environment["GITHUB_SERVER_URL"];
+          ghRepo = Environment["GITHUB_REPOSITORY"];
+          ghSha = Environment["GITHUB_SHA"];
+
+          (* Create file link if GitHub environment variables are available *)
+          makeFileLink[relPath_] := Module[{split, url},
+            If[StringQ[ghServer] && StringQ[ghRepo] && StringQ[ghSha],
+              split = DeleteCases[FileNameSplit[relPath], "."];
+              url = URLBuild[Flatten[{ghServer, ghRepo, "blob", ghSha, split}]];
+              "[" <> StringRiffle[split, "/"] <> "](" <> url <> ")",
+              relPath  (* Fallback to plain path *)
             ]
-          ],
-          reportsAssoc
+          ];
+
+          KeyValueMap[
+            Function[{file, rep},
+              Module[{icon, p, f, timeStr, fileLink},
+                p = rep["TestsSucceededCount"];
+                f = rep["TestsFailedCount"];
+                timeStr = formatFileDuration[rep["TimeElapsed"]];
+                icon = If[f > 0, ":x:", ":white_check_mark:"];
+                fileLink = makeFileLink[file];
+                appendSummary[StringJoin[
+                  "| ", icon, " | ", fileLink, " | ", ToString[p], " | ", ToString[f], " | ", timeStr, " |\n"
+                ]];
+              ]
+            ],
+            reportsAssoc
+          ]
         ];
 
         (* Add failed test details if any - using collapsible HTML like PacletCICD *)
@@ -841,25 +898,62 @@ runCICDTests[] := Module[
                   failedTests = Values[rep["TestsFailed"]];
                   Scan[
                     Function[result,
-                      Module[{testID, outcome, input, expected, actual},
-                        (* Handle Missing values gracefully - convert all to strings *)
+                      Module[{testID, outcome, icon, timeTaken, memUsed, input, expected, actual,
+                              expMsgs, actMsgs, outIcon, msgIcon, outcomeText},
+                        (* Handle Missing values gracefully *)
                         testID = Replace[result["TestID"], _Missing -> "(unknown)"];
                         outcome = Replace[result["Outcome"], _Missing -> "Unknown"];
-                        input = Replace[result["Input"], _Missing -> "(unavailable)"];
-                        expected = Replace[result["ExpectedOutput"], _Missing -> "(unavailable)"];
-                        actual = Replace[result["ActualOutput"], _Missing -> "(unavailable)"];
-                        (* Convert to string representation *)
-                        testID = ToString[testID];
-                        outcome = ToString[outcome];
+                        timeTaken = Replace[result["AbsoluteTimeUsed"], _Missing -> 0];
+                        memUsed = Replace[result["MemoryUsed"], _Missing -> 0];
+                        input = Replace[result["Input"], _Missing -> HoldForm["(unavailable)"]];
+                        expected = Replace[result["ExpectedOutput"], _Missing -> HoldForm["(unavailable)"]];
+                        actual = Replace[result["ActualOutput"], _Missing -> HoldForm["(unavailable)"]];
+                        expMsgs = Replace[result["ExpectedMessages"], _Missing -> {}];
+                        actMsgs = Replace[result["ActualMessages"], _Missing -> {}];
+
+                        (* Format outcome icon and text *)
+                        icon = Switch[ToString[outcome],
+                          "Success", ":white_check_mark:",
+                          "Failure", ":x:",
+                          "MessagesFailure", ":large_orange_diamond:",
+                          _, ":large_blue_circle:"
+                        ];
+                        outcomeText = Switch[ToString[outcome],
+                          "MessagesFailure", "Message failure",
+                          _, ToString[outcome]
+                        ];
+
+                        (* Format duration and memory *)
+                        timeTaken = If[NumberQ[timeTaken] && timeTaken < 0.001, "< 1 ms",
+                          ToString[Round[timeTaken * 1000, 0.1]] <> " ms"];
+                        memUsed = If[NumberQ[memUsed],
+                          ToString[NumberForm[memUsed / 1000, {5, 3}]] <> " kilobytes",
+                          "N/A"];
+
+                        (* Convert code to string *)
                         input = ToString[input, InputForm];
                         expected = ToString[expected, InputForm];
                         actual = ToString[actual, InputForm];
+                        expMsgs = ToString[expMsgs, InputForm];
+                        actMsgs = ToString[actMsgs, InputForm];
+
+                        (* Icons for mismatches *)
+                        outIcon = If[expected =!= actual, " :x:", ""];
+                        msgIcon = If[expMsgs =!= actMsgs, " :x:", ""];
+
+                        (* Generate table row + details matching PacletCICD format *)
                         appendSummary[StringJoin[
-                          "#### ", outcome, " `", testID, "`\n\n",
-                          "**Input:**\n```wolfram\n", input, "\n```\n\n",
-                          "**Expected:**\n```wolfram\n", expected, "\n```\n\n",
-                          "**Actual:**\n```wolfram\n", actual, "\n```\n\n",
-                          "---\n\n"
+                          "\n---\n\n",
+                          "| | Result | TestID | Duration | Memory | Link |\n",
+                          "|---|--------|--------|----------|--------|------|\n",
+                          "| ", icon, " | ", outcomeText, " | ", ToString[testID], " | ", timeTaken, " | ", memUsed, " | :link: |\n\n",
+                          "| | |\n",
+                          "|---|---|\n",
+                          "| **Input** | `", input, "` |\n",
+                          "| **ExpectedOutput** | `", expected, "` |\n",
+                          "| **ActualOutput**", outIcon, " | `", actual, "` |\n",
+                          "| **ExpectedMessages** | `", expMsgs, "` |\n",
+                          "| **ActualMessages**", msgIcon, " | `", actMsgs, "` |\n\n"
                         ]];
                       ]
                     ],
