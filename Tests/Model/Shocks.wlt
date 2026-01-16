@@ -309,7 +309,16 @@ TestCreate[
 	1 + 1,
 	3,  (* Wrong expected value - should fail *)
 	{},
-	TestID -> "[PLACEBO] Intentional failure for summary verification - DELETE ME"
+	TestID -> "[PLACEBO-CORE] Intentional failure for summary verification - DELETE ME"
+]
+
+(* PLACEBO TEST: Intentionally failing EXTENDED test - DELETE ME *)
+TestCreate[
+	2 + 2,
+	5,  (* Wrong expected value - should fail *)
+	{},
+	TestID -> "[PLACEBO-EXTENDED] Intentional failure for extended category - DELETE ME",
+	MetaInformation -> <|"Category" -> "extended"|>
 ]
 
 
