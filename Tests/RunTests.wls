@@ -877,16 +877,11 @@ runCICDTests[] := Module[
               "| ", icon, " | ", ToString[res], " | ", ToString[id], " | ",
               formatTime[time], " | ", ToString[mem], " |\n\n",
               "<table>\n",
-              "<tr><td><b>Input</b></td><td><pre lang=\"mathematica\">", input, "</pre></td></tr>\n",
-              "<tr><td><b>ExpectedOutput</b></td><td><pre lang=\"mathematica\">", expOut, "</pre></td></tr>\n",
-              "<tr><td><b>ActualOutput", outIcon, "</b></td><td><pre lang=\"mathematica\">", actOut, "</pre></td></tr>\n",
-              If[expMsg =!= "{}" && actMsg =!= "{}",
-                StringJoin[
-                  "<tr><td><b>ExpectedMessages</b></td><td><pre lang=\"mathematica\">", expMsg, "</pre></td></tr>\n",
-                  "<tr><td><b>ActualMessages", msgIcon, "</b></td><td><pre lang=\"mathematica\">", actMsg, "</pre></td></tr>\n"
-                ],
-                ""
-              ],
+              "<tr><td><b>Input</b></td><td style=\"min-width:200px\"><pre lang=\"mathematica\">", input, "</pre></td></tr>\n",
+              "<tr><td><b>ExpectedOutput</b></td><td style=\"min-width:200px\"><pre lang=\"mathematica\">", expOut, "</pre></td></tr>\n",
+              "<tr><td><b>ActualOutput", outIcon, "</b></td><td style=\"min-width:200px\"><pre lang=\"mathematica\">", actOut, "</pre></td></tr>\n",
+              "<tr><td><b>ExpectedMessages</b></td><td style=\"min-width:200px\"><pre lang=\"mathematica\">", expMsg, "</pre></td></tr>\n",
+              "<tr><td><b>ActualMessages", msgIcon, "</b></td><td style=\"min-width:200px\"><pre lang=\"mathematica\">", actMsg, "</pre></td></tr>\n",
               "</table>\n"
             ];
 
