@@ -700,8 +700,9 @@ runCICDTests[] := Module[
   printToStdout["Test discovery directory: ", $testsDir];
 
   (* Run tests using PacletCICD TestPaclet - this generates perfect GHA formatting.
-     We directly redefine PacletCICD's internal testReport function to inject
-     TestEvaluationFunction into the TestReport call for category filtering. *)
+     We directly redefine PacletCICD's internal functions to:
+     1. Inject TestEvaluationFunction into TestReport calls for category filtering
+     2. Modify success criterion to ignore NotEvaluated tests (skipped tests shouldn't fail) *)
   Block[
     {
       Print = printToStdout,
@@ -709,12 +710,13 @@ runCICDTests[] := Module[
       DefinitionNotebookClient`EndConsoleGroup
     },
 
-    Module[{savedTestReportDV, myTestEvalFn},
+    Module[{savedTestReportDV, savedMakeTestResultDV, myTestEvalFn},
       (* Capture the test evaluation function in a local variable to avoid scoping issues *)
       myTestEvalFn = $categoryTestEvaluationFunction;
 
-      (* Save the original PacletCICD testReport DownValues *)
+      (* Save the original PacletCICD DownValues *)
       savedTestReportDV = DownValues[Wolfram`PacletCICD`Private`testReport];
+      savedMakeTestResultDV = DownValues[Wolfram`PacletCICD`Private`makeTestResult];
 
       WithCleanup[
         (* Redefine testReport to add TestEvaluationFunction.
@@ -733,6 +735,17 @@ runCICDTests[] := Module[
             rel -> report
           ];
 
+        (* Redefine makeTestResult to use a success criterion that ignores NotEvaluated tests.
+           Original checks AllTestsSucceeded which returns False if any tests are NotEvaluated.
+           We check TestsFailedCount == 0 instead, so skipped tests don't cause failure. *)
+        Wolfram`PacletCICD`Private`makeTestResult[dir_, reports_Association] :=
+          Wolfram`PacletCICD`Private`makeTestResult[
+            dir,
+            reports,
+            (* Success if no tests failed - NotEvaluated tests are OK *)
+            AllTrue[reports, #["TestsFailedCount"] === 0 &]
+          ];
+
         res = Wolfram`PacletCICD`Private`noExit @ Wolfram`PacletCICD`TestPaclet[
           $testsDir,
           "AnnotateTestIDs" -> False,
@@ -742,8 +755,9 @@ runCICDTests[] := Module[
           "SetWorkflowValue" -> useWorkflowValue
         ],
 
-        (* Cleanup: restore original testReport *)
-        DownValues[Wolfram`PacletCICD`Private`testReport] = savedTestReportDV
+        (* Cleanup: restore original functions *)
+        DownValues[Wolfram`PacletCICD`Private`testReport] = savedTestReportDV;
+        DownValues[Wolfram`PacletCICD`Private`makeTestResult] = savedMakeTestResultDV
       ]
     ]
   ];
