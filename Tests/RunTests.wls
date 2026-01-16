@@ -740,24 +740,35 @@ runCICDTests[] := Module[
            We check TestsFailedCount == 0 instead, so skipped tests don't cause failure.
            Return Success/Failure directly to avoid any issues with the 3-argument forms. *)
         Wolfram`PacletCICD`Private`makeTestResult[dir_, reports_Association] :=
-          If[AllTrue[reports, #["TestsFailedCount"] === 0 &],
-            (* Success - no tests actually failed (NotEvaluated is OK) *)
-            Success["AllTestsSucceeded",
-              <|
-                "MessageTemplate"   -> "All tests successful",
-                "MessageParameters" -> {},
-                "Result"            :> reports
-              |>
-            ],
-            (* Failure - at least one test actually failed *)
-            Wolfram`PacletCICD`Private`exitFailure[
-              "TestPaclet::Failures",
-              <|
-                "MessageTemplate"   :> Wolfram`PacletCICD`TestPaclet::Failures,
-                "MessageParameters" :> {},
-                "Result"            :> reports
-              |>,
-              1
+          Module[{failCounts, allNoFails},
+            (* Debug: show we're using our override *)
+            printToStdout["DEBUG: Custom makeTestResult called"];
+            failCounts = #["TestsFailedCount"] & /@ Values[reports];
+            printToStdout["DEBUG: TestsFailedCount per file: ", failCounts];
+            allNoFails = AllTrue[failCounts, # === 0 &];
+            printToStdout["DEBUG: All no failures? ", allNoFails];
+
+            If[allNoFails,
+              (* Success - no tests actually failed (NotEvaluated is OK) *)
+              printToStdout["DEBUG: Returning Success"];
+              Success["AllTestsSucceeded",
+                <|
+                  "MessageTemplate"   -> "All tests successful",
+                  "MessageParameters" -> {},
+                  "Result"            :> reports
+                |>
+              ],
+              (* Failure - at least one test actually failed *)
+              printToStdout["DEBUG: Returning Failure"];
+              Wolfram`PacletCICD`Private`exitFailure[
+                "TestPaclet::Failures",
+                <|
+                  "MessageTemplate"   :> Wolfram`PacletCICD`TestPaclet::Failures,
+                  "MessageParameters" :> {},
+                  "Result"            :> reports
+                |>,
+                1
+              ]
             ]
           ];
 
