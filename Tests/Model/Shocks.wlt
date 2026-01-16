@@ -300,35 +300,5 @@ TestCreate[
 ]
 
 
-(* ::Subsection:: *)
-(*Placebo Failing Test - REMOVE AFTER VERIFICATION*)
-
-
-(* PLACEBO TEST: Complex failing test to verify formatting display - DELETE ME *)
-TestCreate[
-	Module[{data, result},
-		data = <|
-			"Values" -> {1, 2, 3, 4, 5},
-			"Options" -> <|"Method" -> "Automatic", "Tolerance" -> 0.001|>,
-			"Metadata" -> <|"CreatedBy" -> "TestSystem", "Version" -> "1.0"|>
-		|>;
-		result = Total[data["Values"]] * Length[data["Values"]];
-		Association["Result" -> result, "Data" -> data]
-	],
-	<|"Result" -> 999, "Data" -> <||>|>,  (* Wrong expected value - should fail *)
-	{},
-	TestID -> "[PLACEBO-CORE] Complex test to verify formatting - DELETE ME"
-]
-
-(* PLACEBO TEST: Intentionally failing EXTENDED test - DELETE ME *)
-TestCreate[
-	2 + 2,
-	5,  (* Wrong expected value - should fail *)
-	{},
-	TestID -> "[PLACEBO-EXTENDED] Intentional failure for extended category - DELETE ME",
-	MetaInformation -> <|"Category" -> "extended"|>
-]
-
-
 End[]
 EndTestSection[]
