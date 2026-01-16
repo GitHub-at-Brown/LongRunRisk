@@ -700,9 +700,8 @@ runCICDTests[] := Module[
   printToStdout["Test discovery directory: ", $testsDir];
 
   (* Run tests using PacletCICD TestPaclet - this generates perfect GHA formatting.
-     We replace System`TestReport with a wrapper that adds TestEvaluationFunction.
-     This is the most direct way to inject the option since it intercepts at the
-     TestReport call level, regardless of how PacletCICD invokes it. *)
+     We replace System`TestReport by prepending a rule that adds TestEvaluationFunction.
+     This intercepts at the TestReport call level regardless of how PacletCICD invokes it. *)
   Block[
     {
       Print = printToStdout,
@@ -710,28 +709,22 @@ runCICDTests[] := Module[
       DefinitionNotebookClient`EndConsoleGroup
     },
 
-    Module[{originalTestReport, savedDownValues},
+    Module[{savedDownValues, wrapperRule},
       (* Save the original TestReport DownValues *)
-      savedDownValues = DownValues[TestReport];
+      savedDownValues = DownValues[System`TestReport];
 
-      (* Create a reference to call original TestReport without triggering our wrapper *)
-      originalTestReport[args___] := Block[
-        {TestReport},
-        DownValues[TestReport] = savedDownValues;
-        TestReport[args]
-      ];
+      (* Create a wrapper rule - use explicit System`TestReport everywhere *)
+      wrapperRule = HoldPattern[System`TestReport[file_String, opts___]] :>
+        Block[{System`TestReport},
+          DownValues[System`TestReport] = savedDownValues;
+          System`TestReport[file, opts, TestEvaluationFunction -> $categoryTestEvaluationFunction]
+        ];
 
       WithCleanup[
-        (* Replace TestReport with our wrapper *)
-        Unprotect[TestReport];
-        DownValues[TestReport] = {
-          (* Wrapper for string file path (how PacletCICD calls it) *)
-          HoldPattern[TestReport[file_String, opts___]] :>
-            originalTestReport[file, opts, TestEvaluationFunction -> $categoryTestEvaluationFunction],
-          (* Pass through all other patterns *)
-          HoldPattern[TestReport[args___]] :> originalTestReport[args]
-        };
-        Protect[TestReport];
+        (* Prepend our wrapper rule to TestReport's DownValues *)
+        Unprotect[System`TestReport];
+        PrependTo[DownValues[System`TestReport], wrapperRule];
+        Protect[System`TestReport];
 
         res = Wolfram`PacletCICD`Private`noExit @ Wolfram`PacletCICD`TestPaclet[
           $testsDir,
@@ -743,9 +736,9 @@ runCICDTests[] := Module[
         ],
 
         (* Cleanup: restore original TestReport *)
-        Unprotect[TestReport];
-        DownValues[TestReport] = savedDownValues;
-        Protect[TestReport]
+        Unprotect[System`TestReport];
+        DownValues[System`TestReport] = savedDownValues;
+        Protect[System`TestReport]
       ]
     ]
   ];
