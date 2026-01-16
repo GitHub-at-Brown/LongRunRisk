@@ -807,22 +807,42 @@ runCICDTests[] := Module[
           ToString[skipped], " not requested (", $testCategory, " category)\n"
         ]];
 
-        (* Add failed test details if any *)
+        (* Add failed test details if any - using collapsible HTML like PacletCICD *)
         If[failed > 0,
-          appendSummary["\n### Failed Tests\n\n"];
+          appendSummary["\n\n<details><summary><h3>Details</h3></summary>\n\n"];
           KeyValueMap[
             Function[{file, rep},
               If[rep["TestsFailedCount"] > 0,
-                appendSummary[StringJoin["**", file, "**\n"]];
-                Scan[
-                  appendSummary[StringJoin["- `", #["TestID"], "`\n"]] &,
-                  Values[rep["TestsFailed"]]
-                ];
-                appendSummary["\n"];
+                Module[{header, failedTests},
+                  header = StringRiffle[DeleteCases[FileNameSplit[file], "."], "/"];
+                  appendSummary[StringJoin["<details><summary><h3>", header, "</h3></summary>\n\n"]];
+                  failedTests = Values[rep["TestsFailed"]];
+                  Scan[
+                    Function[result,
+                      Module[{testID, outcome, input, expected, actual},
+                        testID = result["TestID"];
+                        outcome = result["Outcome"];
+                        input = ToString[result["Input"], InputForm];
+                        expected = ToString[result["ExpectedOutput"], InputForm];
+                        actual = ToString[result["ActualOutput"], InputForm];
+                        appendSummary[StringJoin[
+                          "#### ", outcome, " `", testID, "`\n\n",
+                          "**Input:**\n```wolfram\n", input, "\n```\n\n",
+                          "**Expected:**\n```wolfram\n", expected, "\n```\n\n",
+                          "**Actual:**\n```wolfram\n", actual, "\n```\n\n",
+                          "---\n\n"
+                        ]];
+                      ]
+                    ],
+                    failedTests
+                  ];
+                  appendSummary["</details>\n\n"];
+                ]
               ]
             ],
             reportsAssoc
-          ]
+          ];
+          appendSummary["\n\n</details>\n\n"];
         ];
 
         (* Store test results via PacletCICD's WorkflowValue mechanism *)
