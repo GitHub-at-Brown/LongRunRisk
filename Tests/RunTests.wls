@@ -700,34 +700,43 @@ runCICDTests[] := Module[
   printToStdout["Test discovery directory: ", $testsDir];
 
   (* Run tests using PacletCICD TestPaclet - this generates perfect GHA formatting.
-     We intercept filterOptions by prepending a rule that adds TestEvaluationFunction
-     when filtering for TestReport, since PacletCICD's optionsAssociation converts
-     option keys to strings which breaks FilterRules matching. *)
+     We intercept testReport to inject TestEvaluationFunction directly into the
+     TestReport call, bypassing filterOptions' string key matching issue. *)
   Block[
     {
       Print = printToStdout,
       DefinitionNotebookClient`BeginConsoleGroup,
       DefinitionNotebookClient`EndConsoleGroup,
-      $savedFilterOptions
+      $savedTestReport
     },
 
-    (* Save original filterOptions DownValues *)
-    $savedFilterOptions = DownValues[Wolfram`PacletCICD`Private`filterOptions];
+    (* Save original testReport DownValues *)
+    $savedTestReport = DownValues[Wolfram`PacletCICD`Private`testReport];
 
     WithCleanup[
-      (* Prepend our rule that intercepts TestReport calls.
-         Use same pattern specificity as original to ensure priority. *)
+      (* Prepend a rule that adds TestEvaluationFunction to single-file testReport calls *)
       PrependTo[
-        DownValues[Wolfram`PacletCICD`Private`filterOptions],
+        DownValues[Wolfram`PacletCICD`Private`testReport],
         HoldPattern[
-          Wolfram`PacletCICD`Private`filterOptions[
-            TestReport,
-            opts : (Rule | RuleDelayed)[_, _] ...
-          ]
+          Wolfram`PacletCICD`Private`testReport[as_Association, file_?FileExistsQ]
         ] :>
-          Sequence @@ Join[
-            FilterRules[Flatten[{opts}], Options[TestReport]],
-            {TestEvaluationFunction -> $categoryTestEvaluationFunction}
+          With[
+            {
+              dir = as["PacletDirectory"],
+              rules = Sequence @@ Normal[as, Association],
+              filterOpts = Wolfram`PacletCICD`Private`filterOptions
+            },
+            Module[{opts, report, rel},
+              opts = filterOpts[TestReport, rules];
+              (* Add our TestEvaluationFunction to the options *)
+              report = Wolfram`PacletCICD`Private`testContext @ TestReport[
+                file,
+                opts,
+                TestEvaluationFunction -> $categoryTestEvaluationFunction
+              ];
+              rel = Wolfram`PacletCICD`Private`relativePath[dir, file];
+              rel -> report
+            ]
           ]
       ];
 
@@ -741,7 +750,7 @@ runCICDTests[] := Module[
       ],
 
       (* Cleanup: restore original DownValues *)
-      DownValues[Wolfram`PacletCICD`Private`filterOptions] = $savedFilterOptions
+      DownValues[Wolfram`PacletCICD`Private`testReport] = $savedTestReport
     ]
   ];
 
