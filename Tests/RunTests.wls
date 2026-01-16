@@ -762,7 +762,17 @@ runCICDTests[] := Module[
         KeyValueMap[
           Function[{file, rep},
             If[rep["TestsFailedCount"] > 0,
-              Scan[printToStdout["  - ", #["TestID"]] &, Values[rep["TestsFailed"]]]
+              Scan[
+                Function[result,
+                  Module[{tid},
+                    tid = result["TestID"];
+                    (* Handle Missing TestID gracefully *)
+                    If[MissingQ[tid], tid = "(unknown test in " <> file <> ")"];
+                    printToStdout["  - ", tid]
+                  ]
+                ],
+                Values[rep["TestsFailed"]]
+              ]
             ]
           ],
           reportsAssoc
@@ -832,11 +842,18 @@ runCICDTests[] := Module[
                   Scan[
                     Function[result,
                       Module[{testID, outcome, input, expected, actual},
-                        testID = result["TestID"];
-                        outcome = result["Outcome"];
-                        input = ToString[result["Input"], InputForm];
-                        expected = ToString[result["ExpectedOutput"], InputForm];
-                        actual = ToString[result["ActualOutput"], InputForm];
+                        (* Handle Missing values gracefully - convert all to strings *)
+                        testID = Replace[result["TestID"], _Missing -> "(unknown)"];
+                        outcome = Replace[result["Outcome"], _Missing -> "Unknown"];
+                        input = Replace[result["Input"], _Missing -> "(unavailable)"];
+                        expected = Replace[result["ExpectedOutput"], _Missing -> "(unavailable)"];
+                        actual = Replace[result["ActualOutput"], _Missing -> "(unavailable)"];
+                        (* Convert to string representation *)
+                        testID = ToString[testID];
+                        outcome = ToString[outcome];
+                        input = ToString[input, InputForm];
+                        expected = ToString[expected, InputForm];
+                        actual = ToString[actual, InputForm];
                         appendSummary[StringJoin[
                           "#### ", outcome, " `", testID, "`\n\n",
                           "**Input:**\n```wolfram\n", input, "\n```\n\n",
