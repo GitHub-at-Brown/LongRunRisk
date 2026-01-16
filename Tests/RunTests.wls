@@ -710,13 +710,14 @@ runCICDTests[] := Module[
       DefinitionNotebookClient`EndConsoleGroup
     },
 
-    Module[{savedTestReportDV, savedMakeTestResultDV, myTestEvalFn},
+    Module[{savedTestReportDV, savedMakeTestResultDV, savedTestSummaryHeaderDV, myTestEvalFn},
       (* Capture the test evaluation function in a local variable to avoid scoping issues *)
       myTestEvalFn = $categoryTestEvaluationFunction;
 
       (* Save the original PacletCICD DownValues *)
       savedTestReportDV = DownValues[Wolfram`PacletCICD`Private`testReport];
       savedMakeTestResultDV = DownValues[Wolfram`PacletCICD`Private`makeTestResult];
+      savedTestSummaryHeaderDV = DownValues[Wolfram`PacletCICD`Private`testSummaryHeader];
 
       WithCleanup[
         (* Redefine testReport to add TestEvaluationFunction.
@@ -761,6 +762,39 @@ runCICDTests[] := Module[
             ]
           ];
 
+        (* Redefine testSummaryHeader to only count tests that were actually evaluated.
+           Original counts all tests including NotEvaluated, making skipped tests appear as failures.
+           We count only TestsSucceededCount + TestsFailedCount as the total. *)
+        Wolfram`PacletCICD`Private`testSummaryHeader[reports_] :=
+          Module[{files, tests, time, pass, pRate, fail, fRate, res, icon},
+            files = Length[reports];
+            (* Count only evaluated tests: succeeded + failed (not including NotEvaluated) *)
+            pass  = Total[#["TestsSucceededCount"] & /@ Values[reports]];
+            fail  = Total[#["TestsFailedCount"] & /@ Values[reports]];
+            tests = pass + fail;
+            time  = Wolfram`PacletCICD`Private`SecondsToQuantity @
+                      Total[#["TimeElapsed"] & /@ Values[reports]];
+            pRate = Wolfram`PacletCICD`Private`percentForm[If[tests > 0, pass/tests, 1]];
+            fRate = Wolfram`PacletCICD`Private`percentForm[If[tests > 0, fail/tests, 0]];
+            res   = If[fail === 0, "Success", "Failure"];
+            icon  = Wolfram`PacletCICD`Private`testSummaryIcon[res];
+            TemplateApply[
+              Wolfram`PacletCICD`Private`$testSummaryHeader,
+              <|
+                "JobName"   -> Environment["GITHUB_JOB"],
+                "FileCount" -> files,
+                "TestCount" -> tests,
+                "PassCount" -> pass,
+                "PassRate"  -> pRate,
+                "FailCount" -> fail,
+                "FailRate"  -> fRate,
+                "Time"      -> Wolfram`PacletCICD`Private`timeText[time],
+                "Result"    -> res,
+                "Icon"      -> icon
+              |>
+            ]
+          ];
+
         res = Wolfram`PacletCICD`Private`noExit @ Wolfram`PacletCICD`TestPaclet[
           $testsDir,
           "AnnotateTestIDs" -> False,
@@ -772,7 +806,8 @@ runCICDTests[] := Module[
 
         (* Cleanup: restore original functions *)
         DownValues[Wolfram`PacletCICD`Private`testReport] = savedTestReportDV;
-        DownValues[Wolfram`PacletCICD`Private`makeTestResult] = savedMakeTestResultDV
+        DownValues[Wolfram`PacletCICD`Private`makeTestResult] = savedMakeTestResultDV;
+        DownValues[Wolfram`PacletCICD`Private`testSummaryHeader] = savedTestSummaryHeaderDV
       ]
     ]
   ];
