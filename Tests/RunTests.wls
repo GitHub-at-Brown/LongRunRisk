@@ -90,6 +90,8 @@ percentForm[1] := "100%";
 percentForm[p_] := ToString[NumberForm[100 * p, {4, 1}]] <> "%";
 
 (* Format duration in human-readable format (matching PacletCICD's timeText) *)
+(* Handle both plain numbers and Quantity objects *)
+formatDuration[q_Quantity] := formatDuration[QuantityMagnitude[UnitConvert[q, "Seconds"]]];
 formatDuration[sec_?NumberQ] := Module[{ms, s, m, h},
   ms = sec * 1000;
   Which[
@@ -114,6 +116,8 @@ formatDuration[sec_?NumberQ] := Module[{ms, s, m, h},
 ];
 
 (* Format duration for per-file rows (shorter format) *)
+(* Handle both plain numbers and Quantity objects *)
+formatFileDuration[q_Quantity] := formatFileDuration[QuantityMagnitude[UnitConvert[q, "Seconds"]]];
 formatFileDuration[sec_?NumberQ] := Module[{ms},
   ms = sec * 1000;
   Which[
@@ -123,6 +127,7 @@ formatFileDuration[sec_?NumberQ] := Module[{ms},
     True, ToString[Round[sec / 60, 0.1]] <> " min"
   ]
 ];
+formatFileDuration[_] := "N/A";
 
 (* -------------------------------------------------------------------------- *)
 (* Parse command-line arguments                                               *)
