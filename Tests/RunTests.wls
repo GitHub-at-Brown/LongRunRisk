@@ -777,12 +777,31 @@ runCICDTests[] := Module[
         (* Use PacletCICD's appendStepSummary for markdown *)
         appendSummary = Wolfram`PacletCICD`Private`appendStepSummary;
 
-        (* Generate markdown summary header *)
-        appendSummary[StringJoin[
-          "## Test Results (", $testCategory, " category)\n\n",
-          "| Status | File | Passed | Failed | Time |\n",
-          "|:------:|------|-------:|-------:|-----:|\n"
-        ]];
+        (* Generate summary table matching TestPaclet format *)
+        Module[{fileCount, testCount, passRate, failRate, totalTime, resultIcon, resultText},
+          fileCount = Length[reportsAssoc];
+          testCount = passed + failed;
+          passRate = If[testCount > 0, ToString[NumberForm[100.0 * passed / testCount, {4, 1}]] <> "%", "N/A"];
+          failRate = If[testCount > 0, ToString[NumberForm[100.0 * failed / testCount, {4, 1}]] <> "%", "N/A"];
+          totalTime = ToString[NumberForm[duration, {5, 1}]] <> "s";
+          resultIcon = If[failed > 0, ":x:", ":white_check_mark:"];
+          resultText = If[failed > 0, "Failure", "Success"];
+
+          appendSummary[StringJoin[
+            "\n|                 |                          |\n",
+            "|-----------------|--------------------------||\n",
+            "| **Result**      | ", resultText, " ", resultIcon, "          |\n",
+            "| **Total files** | ", ToString[fileCount], "              |\n",
+            "| **Total tests** | ", ToString[testCount], "              |\n",
+            "| **Passed**      | ", ToString[passed], " (", passRate, ") |\n",
+            "| **Failed**      | ", ToString[failed], " (", failRate, ") |\n",
+            "| **Not requested** | ", ToString[skipped], " (", $testCategory, " category) |\n",
+            "| **Duration**    | ", totalTime, "                   |\n",
+            "\n### Test files\n\n",
+            "| | File | Passed | Failed | Duration |\n",
+            "|-|------|--------|--------|----------|\n"
+          ]];
+        ];
 
         (* Generate per-file rows like TestPaclet does *)
         KeyValueMap[
@@ -799,13 +818,6 @@ runCICDTests[] := Module[
           ],
           reportsAssoc
         ];
-
-        (* Add summary footer *)
-        appendSummary[StringJoin[
-          "\n**Total:** ", ToString[passed], " passed, ",
-          ToString[failed], " failed, ",
-          ToString[skipped], " not requested (", $testCategory, " category)\n"
-        ]];
 
         (* Add failed test details if any - using collapsible HTML like PacletCICD *)
         If[failed > 0,
