@@ -700,21 +700,36 @@ runCICDTests[] := Module[
   printToStdout["Test discovery directory: ", $testsDir];
 
   (* Run tests using PacletCICD TestPaclet - this generates perfect GHA formatting.
-     We intercept filterOptions to inject TestEvaluationFunction since PacletCICD's
-     optionsAssociation converts keys to strings which breaks FilterRules matching. *)
+     We intercept filterOptions by prepending a rule that adds TestEvaluationFunction
+     when filtering for TestReport, since PacletCICD's optionsAssociation converts
+     option keys to strings which breaks FilterRules matching. *)
   Block[
     {
       Print = printToStdout,
       DefinitionNotebookClient`BeginConsoleGroup,
-      DefinitionNotebookClient`EndConsoleGroup
+      DefinitionNotebookClient`EndConsoleGroup,
+      $savedFilterOptions
     },
-    (* Intercept filterOptions to add TestEvaluationFunction when filtering for TestReport *)
-    Internal`InheritedBlock[{Wolfram`PacletCICD`Private`filterOptions},
-      Wolfram`PacletCICD`Private`filterOptions[TestReport, opts___] :=
-        Sequence @@ Join[
-          FilterRules[Flatten[{opts}], Options[TestReport]],
-          {TestEvaluationFunction -> $categoryTestEvaluationFunction}
-        ];
+
+    (* Save original filterOptions DownValues *)
+    $savedFilterOptions = DownValues[Wolfram`PacletCICD`Private`filterOptions];
+
+    WithCleanup[
+      (* Prepend our rule that intercepts TestReport calls.
+         Use same pattern specificity as original to ensure priority. *)
+      PrependTo[
+        DownValues[Wolfram`PacletCICD`Private`filterOptions],
+        HoldPattern[
+          Wolfram`PacletCICD`Private`filterOptions[
+            TestReport,
+            opts : (Rule | RuleDelayed)[_, _] ...
+          ]
+        ] :>
+          Sequence @@ Join[
+            FilterRules[Flatten[{opts}], Options[TestReport]],
+            {TestEvaluationFunction -> $categoryTestEvaluationFunction}
+          ]
+      ];
 
       res = Wolfram`PacletCICD`Private`noExit @ Wolfram`PacletCICD`TestPaclet[
         $testsDir,
@@ -723,7 +738,10 @@ runCICDTests[] := Module[
         "ConsoleType" -> consoleType,
         "MarkdownSummary" -> useMarkdownSummary,
         "SetWorkflowValue" -> useWorkflowValue
-      ]
+      ],
+
+      (* Cleanup: restore original DownValues *)
+      DownValues[Wolfram`PacletCICD`Private`filterOptions] = $savedFilterOptions
     ]
   ];
 
