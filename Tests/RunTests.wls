@@ -699,7 +699,8 @@ runCICDTests[] := Module[
   printToStdout["Testing paclet at: ", $pacletRoot];
   printToStdout["Test discovery directory: ", $testsDir];
 
-  (* Run tests using PacletCICD TestPaclet - this generates perfect GHA formatting *)
+  (* Run tests using PacletCICD TestPaclet - this generates perfect GHA formatting.
+     TestEvaluationFunction is passed through to TestReport via filterOptions. *)
   res = Wolfram`PacletCICD`Private`noExit @ Block[
     {
       Print = printToStdout,
@@ -712,7 +713,8 @@ runCICDTests[] := Module[
       "Debug" -> $debugMode,
       "ConsoleType" -> consoleType,
       "MarkdownSummary" -> useMarkdownSummary,
-      "SetWorkflowValue" -> useWorkflowValue
+      "SetWorkflowValue" -> useWorkflowValue,
+      TestEvaluationFunction -> $categoryTestEvaluationFunction
     ]
   ];
 
