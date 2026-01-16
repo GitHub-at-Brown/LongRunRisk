@@ -710,7 +710,7 @@ runCICDTests[] := Module[
       DefinitionNotebookClient`EndConsoleGroup
     },
 
-    Module[{savedTestReportDV, savedMakeTestResultDV, savedTestSummaryHeaderDV, myTestEvalFn},
+    Module[{savedTestReportDV, savedMakeTestResultDV, savedTestSummaryHeaderDV, savedGenTestDetailsDV, savedGenTestFailureDetailsDV, myTestEvalFn},
       (* Capture the test evaluation function in a local variable to avoid scoping issues *)
       myTestEvalFn = $categoryTestEvaluationFunction;
 
@@ -718,6 +718,8 @@ runCICDTests[] := Module[
       savedTestReportDV = DownValues[Wolfram`PacletCICD`Private`testReport];
       savedMakeTestResultDV = DownValues[Wolfram`PacletCICD`Private`makeTestResult];
       savedTestSummaryHeaderDV = DownValues[Wolfram`PacletCICD`Private`testSummaryHeader];
+      savedGenTestDetailsDV = DownValues[Wolfram`PacletCICD`Private`generateTestDetails];
+      savedGenTestFailureDetailsDV = DownValues[Wolfram`PacletCICD`Private`generateTestFailureDetails];
 
       WithCleanup[
         (* Redefine testReport to add TestEvaluationFunction.
@@ -766,18 +768,29 @@ runCICDTests[] := Module[
            Original counts all tests including NotEvaluated, making skipped tests appear as failures.
            We count only TestsSucceededCount + TestsFailedCount as the total. *)
         Wolfram`PacletCICD`Private`testSummaryHeader[reports_] :=
-          Module[{files, tests, time, pass, pRate, fail, fRate, res, icon},
+          Module[{files, tests, time, timeText, pass, pRate, fail, fRate, res, icon, percentFmt},
             files = Length[reports];
             (* Count only evaluated tests: succeeded + failed (not including NotEvaluated) *)
             pass  = Total[#["TestsSucceededCount"] & /@ Values[reports]];
             fail  = Total[#["TestsFailedCount"] & /@ Values[reports]];
             tests = pass + fail;
-            time  = Wolfram`PacletCICD`Private`SecondsToQuantity @
-                      Total[#["TimeElapsed"] & /@ Values[reports]];
-            pRate = Wolfram`PacletCICD`Private`percentForm[If[tests > 0, pass/tests, 1]];
-            fRate = Wolfram`PacletCICD`Private`percentForm[If[tests > 0, fail/tests, 0]];
+
+            (* Format time as readable string *)
+            time = Total[QuantityMagnitude[#["TimeElapsed"], "Seconds"] & /@ Values[reports]];
+            timeText = If[time < 60,
+              ToString[Round[time, 0.1]] <> " seconds",
+              ToString[Floor[time/60]] <> " minutes " <> ToString[Round[Mod[time, 60]]] <> " seconds"
+            ];
+
+            (* Format percentages *)
+            percentFmt[0] := "0%";
+            percentFmt[1] := "100%";
+            percentFmt[p_] := ToString[Round[100 p, 0.1]] <> "%";
+
+            pRate = percentFmt[If[tests > 0, pass/tests, 1]];
+            fRate = percentFmt[If[tests > 0, fail/tests, 0]];
             res   = If[fail === 0, "Success", "Failure"];
-            icon  = Wolfram`PacletCICD`Private`testSummaryIcon[res];
+            icon  = If[res === "Success", ":white_check_mark:", ":x:"];
             TemplateApply[
               Wolfram`PacletCICD`Private`$testSummaryHeader,
               <|
@@ -788,11 +801,94 @@ runCICDTests[] := Module[
                 "PassRate"  -> pRate,
                 "FailCount" -> fail,
                 "FailRate"  -> fRate,
-                "Time"      -> Wolfram`PacletCICD`Private`timeText[time],
+                "Time"      -> timeText,
                 "Result"    -> res,
                 "Icon"      -> icon
               |>
             ]
+          ];
+
+        (* Redefine generateTestDetails for individual files to exclude NotEvaluated tests.
+           Original includes all non-Success outcomes, which would include NotEvaluated (skipped) tests.
+           We only want to show details for actually failed tests. *)
+        Wolfram`PacletCICD`Private`generateTestDetails[file_, report_TestReportObject] :=
+          Module[{header, md, results, failed},
+            (* Skip files where all actual tests (excluding NotEvaluated) passed *)
+            If[report["TestsFailedCount"] === 0, Return[Null]];
+
+            header = StringRiffle[DeleteCases[FileNameSplit[file], "."], "/"];
+            md = "<details><summary><h3>" <> header <> "</h3></summary>\n\n";
+            Wolfram`PacletCICD`Private`appendStepSummary[md];
+
+            results = report["TestResults"];
+            (* Only include actual failures (Failure, MessagesFailure, etc.), exclude Success and NotEvaluated *)
+            failed = Select[results, MatchQ[#["Outcome"], "Failure" | "MessagesFailure" | "Time" | "Memory"] &];
+            (Wolfram`PacletCICD`Private`generateTestFailureDetails[file, #] &) /@ failed;
+
+            Wolfram`PacletCICD`Private`appendStepSummary["</details>"]
+          ];
+
+        (* Redefine generateTestFailureDetails to use code blocks instead of tables.
+           Original uses ToMarkdownString @ Grid which creates narrow columns that truncate content.
+           This version uses code blocks that expand to show full content. *)
+        Wolfram`PacletCICD`Private`generateTestFailureDetails[file_, result_TestResultObject] :=
+          Module[{id, res, icon, time, mem, input, expOut, actOut, expMsg, actMsg, outIcon, msgIcon, md,
+                  formatTime, formatValue, appendSummary},
+
+            (* Helper to format time *)
+            formatTime[sec_Quantity] := With[{s = QuantityMagnitude[sec, "Seconds"]},
+              If[s < 0.001, "< 1 ms",
+                If[s < 1, ToString[Round[1000 s]] <> " ms",
+                  If[s < 60, ToString[Round[s, 0.1]] <> " s",
+                    ToString[Floor[s/60]] <> " min " <> ToString[Round[Mod[s, 60]]] <> " s"
+                  ]
+                ]
+              ]
+            ];
+            formatTime[_] := "N/A";
+
+            (* Helper to format code values as proper code blocks *)
+            formatValue[HoldForm[expr_]] := ToString[Unevaluated[expr], InputForm];
+            formatValue[expr_] := ToString[expr, InputForm];
+
+            (* Reference to PacletCICD's appendStepSummary *)
+            appendSummary = Wolfram`PacletCICD`Private`appendStepSummary;
+
+            (* Extract test result data *)
+            id     = result["TestID"];
+            res    = result["Outcome"];
+            icon   = Switch[res, "Success", ":white_check_mark:", "Failure", ":x:", _, ":warning:"];
+            time   = result["AbsoluteTimeUsed"];
+            mem    = result["MemoryUsed"];
+            input  = formatValue[result["Input"]];
+            expOut = formatValue[result["ExpectedOutput"]];
+            actOut = formatValue[result["ActualOutput"]];
+            expMsg = formatValue[result["ExpectedMessages"]];
+            actMsg = formatValue[result["ActualMessages"]];
+
+            outIcon = If[expOut =!= actOut, " :x:", ""];
+            msgIcon = If[expMsg =!= actMsg, " :x:", ""];
+
+            (* Build markdown with code blocks instead of tables *)
+            md = StringJoin[
+              "\n---\n\n",
+              "| | Result | TestID | Duration | Memory |\n",
+              "|---|--------|--------|----------|--------|\n",
+              "| ", icon, " | ", ToString[res], " | ", ToString[id], " | ",
+              formatTime[time], " | ", ToString[mem], " |\n\n",
+              "**Input:**\n```mathematica\n", input, "\n```\n\n",
+              "**ExpectedOutput:**\n```mathematica\n", expOut, "\n```\n\n",
+              "**ActualOutput", outIcon, ":**\n```mathematica\n", actOut, "\n```\n\n",
+              If[expMsg =!= "{}" && actMsg =!= "{}",
+                StringJoin[
+                  "**ExpectedMessages:**\n```mathematica\n", expMsg, "\n```\n\n",
+                  "**ActualMessages", msgIcon, ":**\n```mathematica\n", actMsg, "\n```\n"
+                ],
+                ""
+              ]
+            ];
+
+            appendSummary[md]
           ];
 
         res = Wolfram`PacletCICD`Private`noExit @ Wolfram`PacletCICD`TestPaclet[
@@ -807,7 +903,9 @@ runCICDTests[] := Module[
         (* Cleanup: restore original functions *)
         DownValues[Wolfram`PacletCICD`Private`testReport] = savedTestReportDV;
         DownValues[Wolfram`PacletCICD`Private`makeTestResult] = savedMakeTestResultDV;
-        DownValues[Wolfram`PacletCICD`Private`testSummaryHeader] = savedTestSummaryHeaderDV
+        DownValues[Wolfram`PacletCICD`Private`testSummaryHeader] = savedTestSummaryHeaderDV;
+        DownValues[Wolfram`PacletCICD`Private`generateTestDetails] = savedGenTestDetailsDV;
+        DownValues[Wolfram`PacletCICD`Private`generateTestFailureDetails] = savedGenTestFailureDetailsDV
       ]
     ]
   ];
