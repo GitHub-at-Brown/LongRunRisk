@@ -700,57 +700,53 @@ runCICDTests[] := Module[
   printToStdout["Test discovery directory: ", $testsDir];
 
   (* Run tests using PacletCICD TestPaclet - this generates perfect GHA formatting.
-     We intercept testReport to inject TestEvaluationFunction directly into the
-     TestReport call, bypassing filterOptions' string key matching issue. *)
+     We replace System`TestReport with a wrapper that adds TestEvaluationFunction.
+     This is the most direct way to inject the option since it intercepts at the
+     TestReport call level, regardless of how PacletCICD invokes it. *)
   Block[
     {
       Print = printToStdout,
       DefinitionNotebookClient`BeginConsoleGroup,
-      DefinitionNotebookClient`EndConsoleGroup,
-      $savedTestReport
+      DefinitionNotebookClient`EndConsoleGroup
     },
 
-    (* Save original testReport DownValues *)
-    $savedTestReport = DownValues[Wolfram`PacletCICD`Private`testReport];
+    Module[{originalTestReport, savedDownValues},
+      (* Save the original TestReport DownValues *)
+      savedDownValues = DownValues[TestReport];
 
-    WithCleanup[
-      (* Prepend a rule that adds TestEvaluationFunction to single-file testReport calls *)
-      PrependTo[
-        DownValues[Wolfram`PacletCICD`Private`testReport],
-        HoldPattern[
-          Wolfram`PacletCICD`Private`testReport[as_Association, file_?FileExistsQ]
-        ] :>
-          With[
-            {
-              dir = as["PacletDirectory"],
-              rules = Sequence @@ Normal[as, Association],
-              filterOpts = Wolfram`PacletCICD`Private`filterOptions
-            },
-            Module[{opts, report, rel},
-              opts = filterOpts[TestReport, rules];
-              (* Add our TestEvaluationFunction to the options *)
-              report = Wolfram`PacletCICD`Private`testContext @ TestReport[
-                file,
-                opts,
-                TestEvaluationFunction -> $categoryTestEvaluationFunction
-              ];
-              rel = Wolfram`PacletCICD`Private`relativePath[dir, file];
-              rel -> report
-            ]
-          ]
+      (* Create a reference to call original TestReport without triggering our wrapper *)
+      originalTestReport[args___] := Block[
+        {TestReport},
+        DownValues[TestReport] = savedDownValues;
+        TestReport[args]
       ];
 
-      res = Wolfram`PacletCICD`Private`noExit @ Wolfram`PacletCICD`TestPaclet[
-        $testsDir,
-        "AnnotateTestIDs" -> False,
-        "Debug" -> $debugMode,
-        "ConsoleType" -> consoleType,
-        "MarkdownSummary" -> useMarkdownSummary,
-        "SetWorkflowValue" -> useWorkflowValue
-      ],
+      WithCleanup[
+        (* Replace TestReport with our wrapper *)
+        Unprotect[TestReport];
+        DownValues[TestReport] = {
+          (* Wrapper for string file path (how PacletCICD calls it) *)
+          HoldPattern[TestReport[file_String, opts___]] :>
+            originalTestReport[file, opts, TestEvaluationFunction -> $categoryTestEvaluationFunction],
+          (* Pass through all other patterns *)
+          HoldPattern[TestReport[args___]] :> originalTestReport[args]
+        };
+        Protect[TestReport];
 
-      (* Cleanup: restore original DownValues *)
-      DownValues[Wolfram`PacletCICD`Private`testReport] = $savedTestReport
+        res = Wolfram`PacletCICD`Private`noExit @ Wolfram`PacletCICD`TestPaclet[
+          $testsDir,
+          "AnnotateTestIDs" -> False,
+          "Debug" -> $debugMode,
+          "ConsoleType" -> consoleType,
+          "MarkdownSummary" -> useMarkdownSummary,
+          "SetWorkflowValue" -> useWorkflowValue
+        ],
+
+        (* Cleanup: restore original TestReport *)
+        Unprotect[TestReport];
+        DownValues[TestReport] = savedDownValues;
+        Protect[TestReport]
+      ]
     ]
   ];
 
