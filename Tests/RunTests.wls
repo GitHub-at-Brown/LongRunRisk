@@ -869,23 +869,25 @@ runCICDTests[] := Module[
             outIcon = If[expOut =!= actOut, " :x:", ""];
             msgIcon = If[expMsg =!= actMsg, " :x:", ""];
 
-            (* Build markdown with code blocks instead of tables *)
+            (* Build markdown with HTML table that allows second column to expand *)
             md = StringJoin[
               "\n---\n\n",
               "| | Result | TestID | Duration | Memory |\n",
               "|---|--------|--------|----------|--------|\n",
               "| ", icon, " | ", ToString[res], " | ", ToString[id], " | ",
               formatTime[time], " | ", ToString[mem], " |\n\n",
-              "**Input:**\n```mathematica\n", input, "\n```\n\n",
-              "**ExpectedOutput:**\n```mathematica\n", expOut, "\n```\n\n",
-              "**ActualOutput", outIcon, ":**\n```mathematica\n", actOut, "\n```\n\n",
+              "<table>\n",
+              "<tr><td><b>Input</b></td><td><pre lang=\"mathematica\">", input, "</pre></td></tr>\n",
+              "<tr><td><b>ExpectedOutput</b></td><td><pre lang=\"mathematica\">", expOut, "</pre></td></tr>\n",
+              "<tr><td><b>ActualOutput", outIcon, "</b></td><td><pre lang=\"mathematica\">", actOut, "</pre></td></tr>\n",
               If[expMsg =!= "{}" && actMsg =!= "{}",
                 StringJoin[
-                  "**ExpectedMessages:**\n```mathematica\n", expMsg, "\n```\n\n",
-                  "**ActualMessages", msgIcon, ":**\n```mathematica\n", actMsg, "\n```\n"
+                  "<tr><td><b>ExpectedMessages</b></td><td><pre lang=\"mathematica\">", expMsg, "</pre></td></tr>\n",
+                  "<tr><td><b>ActualMessages", msgIcon, "</b></td><td><pre lang=\"mathematica\">", actMsg, "</pre></td></tr>\n"
                 ],
                 ""
-              ]
+              ],
+              "</table>\n"
             ];
 
             appendSummary[md]
