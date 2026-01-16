@@ -737,13 +737,28 @@ runCICDTests[] := Module[
 
         (* Redefine makeTestResult to use a success criterion that ignores NotEvaluated tests.
            Original checks AllTestsSucceeded which returns False if any tests are NotEvaluated.
-           We check TestsFailedCount == 0 instead, so skipped tests don't cause failure. *)
+           We check TestsFailedCount == 0 instead, so skipped tests don't cause failure.
+           Return Success/Failure directly to avoid any issues with the 3-argument forms. *)
         Wolfram`PacletCICD`Private`makeTestResult[dir_, reports_Association] :=
-          Wolfram`PacletCICD`Private`makeTestResult[
-            dir,
-            reports,
-            (* Success if no tests failed - NotEvaluated tests are OK *)
-            AllTrue[reports, #["TestsFailedCount"] === 0 &]
+          If[AllTrue[reports, #["TestsFailedCount"] === 0 &],
+            (* Success - no tests actually failed (NotEvaluated is OK) *)
+            Success["AllTestsSucceeded",
+              <|
+                "MessageTemplate"   -> "All tests successful",
+                "MessageParameters" -> {},
+                "Result"            :> reports
+              |>
+            ],
+            (* Failure - at least one test actually failed *)
+            Wolfram`PacletCICD`Private`exitFailure[
+              "TestPaclet::Failures",
+              <|
+                "MessageTemplate"   :> Wolfram`PacletCICD`TestPaclet::Failures,
+                "MessageParameters" :> {},
+                "Result"            :> reports
+              |>,
+              1
+            ]
           ];
 
         res = Wolfram`PacletCICD`Private`noExit @ Wolfram`PacletCICD`TestPaclet[
