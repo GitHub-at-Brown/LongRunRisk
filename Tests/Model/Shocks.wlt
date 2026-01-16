@@ -300,5 +300,18 @@ TestCreate[
 ]
 
 
+(* ::Subsection:: *)
+(*Placebo Failing Test - REMOVE AFTER VERIFICATION*)
+
+
+(* PLACEBO TEST: Intentionally failing test to verify summary display - DELETE ME *)
+TestCreate[
+	1 + 1,
+	3,  (* Wrong expected value - should fail *)
+	{},
+	TestID -> "[PLACEBO] Intentional failure for summary verification - DELETE ME"
+]
+
+
 End[]
 EndTestSection[]
