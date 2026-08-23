@@ -5282,7 +5282,7 @@ Cell[BoxData[
   RowBox[{
    RowBox[{
    "URL", "[", \
-"\"\<https://github.com/GitHub-at-Brown/LongRunRisk/releases/download/pre-\
+"\"\<https://github.com/fernando-duarte/LongRunRisk/releases/download/pre-\
 release-1.0.0/FernandoDuarte__LongRunRisk-1.0.0.paclet\>\"", "]"}], ",", 
    RowBox[{"ForceVersionInstall", "->", "True"}]}], 
   "]"}]], "Input", "Excluded",
@@ -5699,7 +5699,7 @@ Repository/FernandoDuarte__LongRunRisk-1.0.0\"", "SummaryItem"]}]}, {
    "Name" -> "FernandoDuarte/LongRunRisk", "Description" -> 
     "Tools to solve and analyze long-run risk models", "Creator" -> 
     "Fernando Duarte", "SourceControlURL" -> 
-    "https://github.com/GitHub-at-Brown/LongRunRisk", "License" -> "MIT", 
+    "https://github.com/fernando-duarte/LongRunRisk", "License" -> "MIT", 
     "PublisherID" -> "FernandoDuarte", "Version" -> "1.0.0", "WolframVersion" -> 
     "13.0+", "Extensions" -> {{
       "Kernel", "Root" -> "Kernel", 
@@ -5885,7 +5885,7 @@ GitHub), you can provide the URL here.", "MoreInfoText"], Background ->
   "Source Control Repository", "SourceControlURL", "TemplateCellGroup"},
  CellID->553474780,ExpressionUUID->"e9b72757-f457-40af-87e3-2556dda55507"],
 
-Cell["https://github.com/GitHub-at-Brown/LongRunRisk", "Text",
+Cell["https://github.com/fernando-duarte/LongRunRisk", "Text",
  TaggingRules->{},
  CellChangeTimes->{3.8886427001816053`*^9},
  CellID->23631634,ExpressionUUID->"48132053-c2bc-4e03-83f1-5e94af34a68f"]
@@ -6515,8 +6515,8 @@ to the paclet.", "MoreInfoText"], Background -> GrayLevel[0.95], FrameMargins ->
 Cell[TextData[ButtonBox["GitHub",
  BaseStyle->"Hyperlink",
  ButtonData->{
-   URL["https://github.com/GitHub-at-Brown/LongRunRisk"], None},
- ButtonNote->"https://github.com/GitHub-at-Brown/LongRunRisk"]], "Item",
+   URL["https://github.com/fernando-duarte/LongRunRisk"], None},
+ ButtonNote->"https://github.com/fernando-duarte/LongRunRisk"]], "Item",
  TaggingRules->{},
  CellChangeTimes->{{3.8901982993857317`*^9, 3.890198336344372*^9}, 
    3.890198627931253*^9},

@@ -5,7 +5,7 @@ PacletObject[
     "Name" -> "FernandoDuarte/LongRunRisk",
     "Description" -> "Tools to solve and analyze long-run risk models",
     "Creator" -> "Fernando Duarte",
-    "SourceControlURL" -> "https://github.com/GitHub-at-Brown/LongRunRisk",
+    "SourceControlURL" -> "https://github.com/fernando-duarte/LongRunRisk",
     "License" -> "MIT",
     "PublisherID" -> "FernandoDuarte",
     (* :!CodeAnalysis::Disable::InvalidFirstVersion:: *)

@@ -894,7 +894,7 @@ Cell[BoxData[
   RowBox[{
    RowBox[{
    "URL", "[", 
-    "\"\<https://github.com/GitHub-at-Brown/LongRunRisk/releases/download/pre-\
+    "\"\<https://github.com/fernando-duarte/LongRunRisk/releases/download/pre-\
 release-1.0.0/FernandoDuarte__LongRunRisk-1.0.0.paclet\>\"", "]"}], ",", 
    RowBox[{"ForceVersionInstall", "->", "True"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.895786801015046*^9, 3.8957868363222523`*^9}},

@@ -461,7 +461,7 @@ FernandoDuarte__LongRunRisk-1.0.1\"", "SummaryItem"]}]}, {
     "Name" -> "FernandoDuarte/LongRunRisk", "Description" -> 
      "Tools to solve and analyze long-run risk models", "Creator" -> 
      "Fernando Duarte", "SourceControlURL" -> 
-     "https://github.com/GitHub-at-Brown/LongRunRisk", "License" -> "MIT", 
+     "https://github.com/fernando-duarte/LongRunRisk", "License" -> "MIT", 
      "PublisherID" -> "FernandoDuarte", "Version" -> "1.0.1", 
      "WolframVersion" -> "13.1+", "PrimaryContext" -> 
      "FernandoDuarte`LongRunRisk`", 
